@@ -1,0 +1,1318 @@
+{
+  "seed_communities": [
+    {
+      "name": "r/Entrepreneur",
+      "tier": "gold",
+      "categories": [
+        "职业与实践社区"
+      ],
+      "description_keywords": [
+        "早期增长、市场验证、AI创业挑战、应对失败 1"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.98
+    },
+    {
+      "name": "r/freelance",
+      "tier": "gold",
+      "categories": [
+        "职业与实践社区"
+      ],
+      "description_keywords": [
+        "客户沟通、范围蔓延、收款难、冒名顶替综合症 3"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.95
+    },
+    {
+      "name": "r/SaaS",
+      "tier": "gold",
+      "categories": [
+        "职业与实践社区"
+      ],
+      "description_keywords": [
+        "产品发布策略、持续的运营压力、用户留存、定价策略 5"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.92
+    },
+    {
+      "name": "r/startups",
+      "tier": "gold",
+      "categories": [
+        "职业与实践社区"
+      ],
+      "description_keywords": [
+        "创意验证、融资、市场进入策略、招聘 6"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.96
+    },
+    {
+      "name": "r/smallbusiness",
+      "tier": "gold",
+      "categories": [
+        "职业与实践社区"
+      ],
+      "description_keywords": [
+        "日常运营挑战（招聘、税务、客服）、本地营销 6"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.94
+    },
+    {
+      "name": "r/webdev",
+      "tier": "gold",
+      "categories": [
+        "职业与实践社区"
+      ],
+      "description_keywords": [
+        "技术选型、职业倦怠、寻找客户、跟上技术潮流 9"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.97
+    },
+    {
+      "name": "r/marketing",
+      "tier": "gold",
+      "categories": [
+        "职业与实践社区"
+      ],
+      "description_keywords": [
+        "衡量ROI、内容创作、SEO策略、渠道选择 8"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.93
+    },
+    {
+      "name": "r/sideproject",
+      "tier": "gold",
+      "categories": [
+        "职业与实践社区"
+      ],
+      "description_keywords": [
+        "获得诚实反馈、寻找初始用户、时间管理 2"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.88
+    },
+    {
+      "name": "r/EntrepreneurRideAlong",
+      "tier": "gold",
+      "categories": [
+        "职业与实践社区"
+      ],
+      "description_keywords": [
+        "业务增长的真实案例分享、过程中的挑战与转折 6"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.85
+    },
+    {
+      "name": "r/growmybusiness",
+      "tier": "gold",
+      "categories": [
+        "职业与实践社区"
+      ],
+      "description_keywords": [
+        "具体的增长策略（广告、邮件）、转化率优化 6"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.82
+    },
+    {
+      "name": "r/business",
+      "tier": "gold",
+      "categories": [
+        "职业与实践社区"
+      ],
+      "description_keywords": [
+        "宏观市场趋势、领导力、公司文化 6"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.95
+    },
+    {
+      "name": "r/sweatystartup",
+      "tier": "gold",
+      "categories": [
+        "职业与实践社区"
+      ],
+      "description_keywords": [
+        "传统服务行业（如清洁、维修）的创业与运营 7"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.84
+    },
+    {
+      "name": "r/product_design",
+      "tier": "gold",
+      "categories": [
+        "职业与实践社区"
+      ],
+      "description_keywords": [
+        "实体产品设计流程、材料选择、用户体验 11"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.8
+    },
+    {
+      "name": "r/agile",
+      "tier": "gold",
+      "categories": [
+        "职业与实践社区"
+      ],
+      "description_keywords": [
+        "软件开发流程管理、团队协作、项目管理工具 11"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.81
+    },
+    {
+      "name": "r/coding",
+      "tier": "gold",
+      "categories": [
+        "职业与实践社区"
+      ],
+      "description_keywords": [
+        "编程语言讨论、代码质量、开发工具 9"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.9
+    },
+    {
+      "name": "r/frontend",
+      "tier": "gold",
+      "categories": [
+        "职业与实践社区"
+      ],
+      "description_keywords": [
+        "前端框架选择、UI/UX实现、性能优化 9"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.87
+    },
+    {
+      "name": "r/javascript",
+      "tier": "gold",
+      "categories": [
+        "职业与实践社区"
+      ],
+      "description_keywords": [
+        "JS库/框架问题、代码调试、异步编程 9"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.91
+    },
+    {
+      "name": "r/python",
+      "tier": "gold",
+      "categories": [
+        "职业与实践社区"
+      ],
+      "description_keywords": [
+        "Python在后端、数据科学等领域的应用和问题 9"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.92
+    },
+    {
+      "name": "r/node",
+      "tier": "gold",
+      "categories": [
+        "职业与实践社区"
+      ],
+      "description_keywords": [
+        "Node.js后端开发、性能、包管理 9"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.86
+    },
+    {
+      "name": "r/wordpress",
+      "tier": "gold",
+      "categories": [
+        "职业与实践社区"
+      ],
+      "description_keywords": [
+        "WP主题/插件问题、网站性能、安全性 9"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.89
+    },
+    {
+      "name": "r/BigSEO",
+      "tier": "gold",
+      "categories": [
+        "职业与实践社区"
+      ],
+      "description_keywords": [
+        "高级SEO策略、算法更新、链接建设 6"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.83
+    },
+    {
+      "name": "r/PPC",
+      "tier": "gold",
+      "categories": [
+        "职业与实践社区"
+      ],
+      "description_keywords": [
+        "Google/Facebook广告优化、预算管理、A/B测试 8"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.81
+    },
+    {
+      "name": "r/SocialMediaMarketing",
+      "tier": "gold",
+      "categories": [
+        "职业与实践社区"
+      ],
+      "description_keywords": [
+        "各平台营销策略、内容日历、社群管理 8"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.85
+    },
+    {
+      "name": "r/Content_marketing",
+      "tier": "gold",
+      "categories": [
+        "职业与实践社区"
+      ],
+      "description_keywords": [
+        "内容策略、写作、分发、衡量效果 8"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.84
+    },
+    {
+      "name": "r/forhire",
+      "tier": "gold",
+      "categories": [
+        "职业与实践社区"
+      ],
+      "description_keywords": [
+        "寻找自由职业者、发布项目需求 13"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.9
+    },
+    {
+      "name": "r/BuyItForLife",
+      "tier": "gold",
+      "categories": [
+        "问题/解决方案中心"
+      ],
+      "description_keywords": [
+        "寻找耐用、高质量的产品、避免劣质商品 16"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.96
+    },
+    {
+      "name": "r/homeimprovement",
+      "tier": "gold",
+      "categories": [
+        "问题/解决方案中心"
+      ],
+      "description_keywords": [
+        "DIY家居装修问题、材料选择、寻找可靠承包商 17"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.95
+    },
+    {
+      "name": "r/LifeProTips",
+      "tier": "gold",
+      "categories": [
+        "问题/解决方案中心"
+      ],
+      "description_keywords": [
+        "生活中的各种小技巧、效率提升、应对常见烦恼 19"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.98
+    },
+    {
+      "name": "r/personalfinance",
+      "tier": "gold",
+      "categories": [
+        "问题/解决方案中心"
+      ],
+      "description_keywords": [
+        "预算、储蓄、投资、债务管理、退休规划"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.99
+    },
+    {
+      "name": "r/frugalmalefashion",
+      "tier": "gold",
+      "categories": [
+        "问题/解决方案中心"
+      ],
+      "description_keywords": [
+        "寻找高性价比的男装折扣和品牌 20"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.92
+    },
+    {
+      "name": "r/buildapc",
+      "tier": "gold",
+      "categories": [
+        "问题/解决方案中心"
+      ],
+      "description_keywords": [
+        "组装电脑的零件选择、兼容性问题、性能优化"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.97
+    },
+    {
+      "name": "r/skincareaddiction",
+      "tier": "gold",
+      "categories": [
+        "问题/解决方案中心"
+      ],
+      "description_keywords": [
+        "解决特定皮肤问题（痤疮、干燥）、产品推荐、成分分析"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.98
+    },
+    {
+      "name": "r/explainlikeimfive",
+      "tier": "gold",
+      "categories": [
+        "问题/解决方案中心"
+      ],
+      "description_keywords": [
+        "对复杂问题的简单易懂的解释需求"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.99
+    },
+    {
+      "name": "r/NoStupidQuestions",
+      "tier": "gold",
+      "categories": [
+        "问题/解决方案中心"
+      ],
+      "description_keywords": [
+        "害怕在别处提问的各种问题"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.98
+    },
+    {
+      "name": "r/findareddit",
+      "tier": "gold",
+      "categories": [
+        "问题/解决方案中心"
+      ],
+      "description_keywords": [
+        "寻找满足特定兴趣或需求的社区"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.94
+    },
+    {
+      "name": "r/GoodValue",
+      "tier": "gold",
+      "categories": [
+        "问题/解决方案中心"
+      ],
+      "description_keywords": [
+        "寻找在特定品类中性价比高的产品"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.8
+    },
+    {
+      "name": "r/Appliances",
+      "tier": "gold",
+      "categories": [
+        "问题/解决方案中心"
+      ],
+      "description_keywords": [
+        "家用电器购买决策、维修问题、品牌可靠性"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.85
+    },
+    {
+      "name": "r/howto",
+      "tier": "gold",
+      "categories": [
+        "问题/解决方案中心"
+      ],
+      "description_keywords": [
+        "学习如何完成各种具体任务"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.88
+    },
+    {
+      "name": "r/workonline",
+      "tier": "gold",
+      "categories": [
+        "问题/解决方案中心"
+      ],
+      "description_keywords": [
+        "寻找在线赚钱的方法和机会 21"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.91
+    },
+    {
+      "name": "r/beermoney",
+      "tier": "gold",
+      "categories": [
+        "问题/解决方案中心"
+      ],
+      "description_keywords": [
+        "寻找轻松赚取小额金钱的网站和应用"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.93
+    },
+    {
+      "name": "r/digitalnomad",
+      "tier": "gold",
+      "categories": [
+        "生活方式与身份认同中心"
+      ],
+      "description_keywords": [
+        "远程工作与生活的平衡、住宿可靠性、网络连接、孤独感 22"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.94
+    },
+    {
+      "name": "r/Parenting",
+      "tier": "gold",
+      "categories": [
+        "生活方式与身份认同中心"
+      ],
+      "description_keywords": [
+        "孩子挑食、睡眠问题、教育方式、处理棘手对话 24"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.97
+    },
+    {
+      "name": "r/malefashionadvice",
+      "tier": "gold",
+      "categories": [
+        "生活方式与身份认同中心"
+      ],
+      "description_keywords": [
+        "特殊身材的穿搭、发现小众品牌、提升个人形象 20"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.95
+    },
+    {
+      "name": "r/Fitness",
+      "tier": "gold",
+      "categories": [
+        "生活方式与身份认同中心"
+      ],
+      "description_keywords": [
+        "增肌/减脂计划、营养问题、避免受伤、保持动力 25"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.99
+    },
+    {
+      "name": "r/travel",
+      "tier": "gold",
+      "categories": [
+        "生活方式与身份认同中心"
+      ],
+      "description_keywords": [
+        "行程规划、预订技巧、目的地选择、安全问题 26"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.98
+    },
+    {
+      "name": "r/onebag",
+      "tier": "gold",
+      "categories": [
+        "生活方式与身份认同中心"
+      ],
+      "description_keywords": [
+        "极简主义打包技巧、旅行装备选择、行李空间优化 27"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.89
+    },
+    {
+      "name": "r/financialindependence",
+      "tier": "gold",
+      "categories": [
+        "生活方式与身份认同中心"
+      ],
+      "description_keywords": [
+        "提前退休的储蓄和投资策略、削减开支"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.96
+    },
+    {
+      "name": "r/simpleliving",
+      "tier": "gold",
+      "categories": [
+        "生活方式与身份认同中心"
+      ],
+      "description_keywords": [
+        "减少消费、简化生活方式、追求精神满足"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.91
+    },
+    {
+      "name": "r/minimalism",
+      "tier": "gold",
+      "categories": [
+        "生活方式与身份认同中心"
+      ],
+      "description_keywords": [
+        "物品整理、消费观念、极简主义哲学"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.93
+    },
+    {
+      "name": "r/vegan",
+      "tier": "gold",
+      "categories": [
+        "生活方式与身份认同中心"
+      ],
+      "description_keywords": [
+        "素食食谱、营养问题、寻找素食友好产品/餐厅"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.94
+    },
+    {
+      "name": "r/zerowaste",
+      "tier": "gold",
+      "categories": [
+        "生活方式与身份认同中心"
+      ],
+      "description_keywords": [
+        "减少生活垃圾、寻找可持续替代品、DIY解决方案"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.9
+    },
+    {
+      "name": "r/solotravel",
+      "tier": "gold",
+      "categories": [
+        "生活方式与身份认同中心"
+      ],
+      "description_keywords": [
+        "独自旅行的安全性、目的地推荐、克服孤独"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.92
+    },
+    {
+      "name": "r/remotework",
+      "tier": "gold",
+      "categories": [
+        "生活方式与身份认同中心"
+      ],
+      "description_keywords": [
+        "远程工作工具、效率、寻找远程职位 21"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.88
+    },
+    {
+      "name": "r/Workspaces",
+      "tier": "gold",
+      "categories": [
+        "生活方式与身份认同中心"
+      ],
+      "description_keywords": [
+        "家庭办公室/工作空间设置灵感、设备推荐 21"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.87
+    },
+    {
+      "name": "r/HomeOffice",
+      "tier": "gold",
+      "categories": [
+        "生活方式与身份认同中心"
+      ],
+      "description_keywords": [
+        "家庭办公室设备购买建议、人体工程学、空间布局 21"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.86
+    },
+    {
+      "name": "r/mechanicalkeyboards",
+      "tier": "gold",
+      "categories": [
+        "产品发现与爱好者中心"
+      ],
+      "description_keywords": [
+        "客制化键盘、键帽/轴体选择、焊接和组装问题 28"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.93
+    },
+    {
+      "name": "r/coffee",
+      "tier": "gold",
+      "categories": [
+        "产品发现与爱好者中心"
+      ],
+      "description_keywords": [
+        "咖啡豆、研磨机、冲煮设备推荐、冲煮技巧 30"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.94
+    },
+    {
+      "name": "r/gadgets",
+      "tier": "gold",
+      "categories": [
+        "产品发现与爱好者中心"
+      ],
+      "description_keywords": [
+        "新奇酷产品的新闻和信息 31"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.97
+    },
+    {
+      "name": "r/headphones",
+      "tier": "gold",
+      "categories": [
+        "产品发现与爱好者中心"
+      ],
+      "description_keywords": [
+        "耳机购买建议、音质比较、舒适度、降噪性能"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.95
+    },
+    {
+      "name": "r/functionalprint",
+      "tier": "gold",
+      "categories": [
+        "产品发现与爱好者中心"
+      ],
+      "description_keywords": [
+        "3D打印解决实际生活问题的案例和模型"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.89
+    },
+    {
+      "name": "r/3Dprinting",
+      "tier": "gold",
+      "categories": [
+        "产品发现与爱好者中心"
+      ],
+      "description_keywords": [
+        "3D打印机选择、打印问题调试、材料选择"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.96
+    },
+    {
+      "name": "r/homelab",
+      "tier": "gold",
+      "categories": [
+        "产品发现与爱好者中心"
+      ],
+      "description_keywords": [
+        "搭建家庭服务器、网络设备、软件配置"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.91
+    },
+    {
+      "name": "r/dataisbeautiful",
+      "tier": "gold",
+      "categories": [
+        "产品发现与爱好者中心"
+      ],
+      "description_keywords": [
+        "数据可视化灵感、对呈现方式的讨论 11"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.99
+    },
+    {
+      "name": "r/battlestations",
+      "tier": "gold",
+      "categories": [
+        "产品发现与爱好者中心"
+      ],
+      "description_keywords": [
+        "电脑桌面设置灵感、设备（显示器、椅子）选择"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.95
+    },
+    {
+      "name": "r/audiophile",
+      "tier": "gold",
+      "categories": [
+        "产品发现与爱好者中心"
+      ],
+      "description_keywords": [
+        "高保真音响设备推荐、声学环境布置、音源讨论"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.92
+    },
+    {
+      "name": "r/smartwatch",
+      "tier": "gold",
+      "categories": [
+        "产品发现与爱好者中心"
+      ],
+      "description_keywords": [
+        "各品牌智能手表功能对比、电池续航、应用生态"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.88
+    },
+    {
+      "name": "r/drones",
+      "tier": "gold",
+      "categories": [
+        "产品发现与爱好者中心"
+      ],
+      "description_keywords": [
+        "无人机购买、飞行技巧、法规、航拍"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.89
+    },
+    {
+      "name": "r/ultralight",
+      "tier": "gold",
+      "categories": [
+        "产品发现与爱好者中心"
+      ],
+      "description_keywords": [
+        "轻量化户外装备的选择与DIY"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.9
+    },
+    {
+      "name": "r/espresso",
+      "tier": "gold",
+      "categories": [
+        "产品发现与爱好者中心"
+      ],
+      "description_keywords": [
+        "意式咖啡机、磨豆机、制作技巧、拉花"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.91
+    },
+    {
+      "name": "r/hometheater",
+      "tier": "gold",
+      "categories": [
+        "产品发现与爱好者中心"
+      ],
+      "description_keywords": [
+        "家庭影院设备（投影仪、音响）选择与布局"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.92
+    },
+    {
+      "name": "r/shutupandtakemymoney",
+      "tier": "gold",
+      "categories": [
+        "“反面模式”中心"
+      ],
+      "description_keywords": [
+        "缺乏深度讨论",
+        "主要为新奇产品链接展示 32"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.9
+    },
+    {
+      "name": "r/INEEEEDIT",
+      "tier": "gold",
+      "categories": [
+        "“反面模式”中心"
+      ],
+      "description_keywords": [
+        "类似于r/shutupandtakemymoney",
+        "以产品链接为主"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.85
+    },
+    {
+      "name": "r/DidntKnowIWantedThat",
+      "tier": "gold",
+      "categories": [
+        "“反面模式”中心"
+      ],
+      "description_keywords": [
+        "展示有趣或不寻常的产品",
+        "讨论较少"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.87
+    },
+    {
+      "name": "r/pics",
+      "tier": "gold",
+      "categories": [
+        "“反面模式”中心"
+      ],
+      "description_keywords": [
+        "主要是图片分享",
+        "商业信号极低 33"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.99
+    },
+    {
+      "name": "r/funny",
+      "tier": "gold",
+      "categories": [
+        "“反面模式”中心"
+      ],
+      "description_keywords": [
+        "娱乐内容",
+        "几乎无商业讨论 33"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.99
+    },
+    {
+      "name": "r/Startup_Ideas",
+      "tier": "gold",
+      "categories": [
+        "职业与实践社区"
+      ],
+      "description_keywords": [
+        "讨论和评估新的商业想法 7"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.8
+    },
+    {
+      "name": "r/roastmystartup",
+      "tier": "silver",
+      "categories": [
+        "职业与实践社区"
+      ],
+      "description_keywords": [
+        "针对创业项目寻求尖锐、直接的批评和反馈 7"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.78
+    },
+    {
+      "name": "r/IMadeThis",
+      "tier": "gold",
+      "categories": [
+        "产品发现与爱好者中心"
+      ],
+      "description_keywords": [
+        "创作者分享他们完成的作品",
+        "从软件到手工艺品 7"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.82
+    },
+    {
+      "name": "r/dataisugly",
+      "tier": "gold",
+      "categories": [
+        "问题/解决方案中心"
+      ],
+      "description_keywords": [
+        "通过展示糟糕的数据可视化案例",
+        "反向学习如何正确呈现数据 11"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.81
+    },
+    {
+      "name": "r/Futurology",
+      "tier": "gold",
+      "categories": [
+        "生活方式与身份认同中心"
+      ],
+      "description_keywords": [
+        "讨论未来科技趋势",
+        "洞察未来市场需求 11"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.98
+    },
+    {
+      "name": "r/designthought",
+      "tier": "silver",
+      "categories": [
+        "职业与实践社区"
+      ],
+      "description_keywords": [
+        "深入探讨设计理论、流程和哲学 11"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.79
+    },
+    {
+      "name": "r/UXDesign",
+      "tier": "gold",
+      "categories": [
+        "职业与实践社区"
+      ],
+      "description_keywords": [
+        "用户体验设计原则、工具、案例研究"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.89
+    },
+    {
+      "name": "r/userexperience",
+      "tier": "gold",
+      "categories": [
+        "职业与实践社区"
+      ],
+      "description_keywords": [
+        "更广泛的用户体验讨论",
+        "包括服务设计和客户旅程"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.87
+    },
+    {
+      "name": "r/CustomerSuccess",
+      "tier": "gold",
+      "categories": [
+        "职业与实践社区"
+      ],
+      "description_keywords": [
+        "B2B领域的客户成功策略、指标和工具"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.8
+    },
+    {
+      "name": "r/sales",
+      "tier": "gold",
+      "categories": [
+        "职业与实践社区"
+      ],
+      "description_keywords": [
+        "销售技巧、客户关系管理、成交策略"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.9
+    },
+    {
+      "name": "r/Notion",
+      "tier": "gold",
+      "categories": [
+        "产品发现与爱好者中心"
+      ],
+      "description_keywords": [
+        "Notion软件的使用技巧、模板分享、解决特定需求"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.91
+    },
+    {
+      "name": "r/excel",
+      "tier": "gold",
+      "categories": [
+        "问题/解决方案中心"
+      ],
+      "description_keywords": [
+        "解决Excel中的具体问题",
+        "从公式到VBA"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.94
+    },
+    {
+      "name": "r/outdoorgear",
+      "tier": "gold",
+      "categories": [
+        "产品发现与爱好者中心"
+      ],
+      "description_keywords": [
+        "户外装备（帐篷、背包、睡袋）的评测和推荐"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.86
+    },
+    {
+      "name": "r/gardening",
+      "tier": "gold",
+      "categories": [
+        "生活方式与身份认同中心"
+      ],
+      "description_keywords": [
+        "园艺问题、植物病虫害、工具和产品推荐"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.96
+    },
+    {
+      "name": "r/DIY",
+      "tier": "gold",
+      "categories": [
+        "问题/解决方案中心"
+      ],
+      "description_keywords": [
+        "各种自己动手做的项目",
+        "涉及工具、材料和技术"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.98
+    },
+    {
+      "name": "r/woodworking",
+      "tier": "gold",
+      "categories": [
+        "产品发现与爱好者中心"
+      ],
+      "description_keywords": [
+        "木工项目分享、工具评测、技术交流"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.95
+    },
+    {
+      "name": "r/cooking",
+      "tier": "gold",
+      "categories": [
+        "生活方式与身份认同中心"
+      ],
+      "description_keywords": [
+        "烹饪技巧、食谱、厨具讨论"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.99
+    },
+    {
+      "name": "r/EatCheapAndHealthy",
+      "tier": "gold",
+      "categories": [
+        "问题/解决方案中心"
+      ],
+      "description_keywords": [
+        "在预算有限的情况下保持健康饮食的食谱和策略"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.97
+    },
+    {
+      "name": "r/femalefashionadvice",
+      "tier": "gold",
+      "categories": [
+        "生活方式与身份认同中心"
+      ],
+      "description_keywords": [
+        "类似于MFA",
+        "但针对女性时尚",
+        "讨论穿搭、品牌和身材适应性"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.96
+    },
+    {
+      "name": "r/pets",
+      "tier": "gold",
+      "categories": [
+        "生活方式与身份认同中心"
+      ],
+      "description_keywords": [
+        "宠物健康、行为问题、食品和玩具推荐"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.98
+    },
+    {
+      "name": "r/dogs",
+      "tier": "gold",
+      "categories": [
+        "生活方式与身份认同中心"
+      ],
+      "description_keywords": [
+        "狗的训练、健康、营养、品种讨论"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.98
+    },
+    {
+      "name": "r/cars",
+      "tier": "gold",
+      "categories": [
+        "产品发现与爱好者中心"
+      ],
+      "description_keywords": [
+        "汽车评测、购买建议、维修保养"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.98
+    },
+    {
+      "name": "r/bicycling",
+      "tier": "gold",
+      "categories": [
+        "生活方式与身份认同中心"
+      ],
+      "description_keywords": [
+        "自行车通勤、运动、装备选择、维修"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.95
+    },
+    {
+      "name": "r/running",
+      "tier": "gold",
+      "categories": [
+        "生活方式与身份认同中心"
+      ],
+      "description_keywords": [
+        "跑步训练、伤病预防、跑鞋和装备推荐"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.96
+    },
+    {
+      "name": "r/gaming",
+      "tier": "gold",
+      "categories": [
+        "产品发现与爱好者中心"
+      ],
+      "description_keywords": [
+        "游戏新闻、讨论",
+        "商业信号较少但可洞察趋势 33"
+      ],
+      "daily_posts": 0,
+      "avg_comment_length": 0,
+      "quality_score": 0.99
+    }
+  ]
+}

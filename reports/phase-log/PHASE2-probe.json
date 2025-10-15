@@ -1,0 +1,10 @@
+{
+  "p95_creation": 0.04542404203675687,
+  "p95_high_load": 0.0659120409982279,
+  "mean_high_load": 0.059253390787635,
+  "cache_hit_ratio": 0.95,
+  "counts": {
+    "creation_samples": 10,
+    "high_load_samples": 50
+  }
+}

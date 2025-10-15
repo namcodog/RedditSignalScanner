@@ -1,0 +1,17 @@
+name:
+  aliases: ["name", "社区", "社区名", "社区名称", "subreddit", "子版块名称", "子版块"]
+tier:
+  aliases: ["tier", "等级", "层级", "级别", "优先级"]
+categories:
+  aliases: ["categories", "分类", "类别", "类目", "主题分类"]
+description_keywords:
+  aliases: ["description_keywords", "关键词", "关键字", "描述关键词", "核心痛点", "观察到的核心痛点 (备注)", "观察到的核心痛点"]
+daily_posts:
+  aliases: ["daily_posts", "日发帖", "日发帖数", "每日帖子数", "发帖量"]
+avg_comment_length:
+  aliases: ["avg_comment_length", "平均评论长度", "评论长度", "评论质量"]
+quality_score:
+  aliases: ["quality_score", "质量评分", "质量分", "评分"]
+is_active:
+  aliases: ["is_active", "启用", "活跃", "是否启用", "最终入选"]
+

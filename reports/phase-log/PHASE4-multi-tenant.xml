@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="1" time="1.372" timestamp="2025-10-15T15:08:33.738729+08:00" hostname="hujiadeMacBook-Pro.local"><testcase classname="tests.e2e.test_multi_tenant_isolation" name="test_multi_tenant_access_isolated" time="0.700" /></testsuite></testsuites>

@@ -1,0 +1,48 @@
+{
+  "augment.advanced": {
+    "mcpServers": [
+      {
+        "name": "context7",
+        "command": "/Users/hujia/Desktop/RedditSignalScanner/scripts/mcp-wrapper-context7.sh",
+        "args": []
+      },
+      {
+        "name": "sequential-thinking",
+        "command": "/Users/hujia/Desktop/RedditSignalScanner/scripts/mcp-wrapper-sequential.sh",
+        "args": []
+      },
+      {
+        "name": "playwright",
+        "command": "/Users/hujia/Desktop/RedditSignalScanner/scripts/mcp-wrapper-playwright.sh",
+        "args": []
+      },
+      {
+        "name": "serena",
+        "command": "/Users/hujia/.local/bin/uvx",
+        "args": [
+          "--from",
+          "git+https://github.com/oraios/serena",
+          "serena",
+          "start-mcp-server",
+          "--context",
+          "ide-assistant",
+          "--project",
+          "/Users/hujia/Desktop/RedditSignalScanner",
+          "--transport",
+          "stdio"
+        ]
+      },
+      {
+        "name": "exa-code",
+        "command": "/Users/hujia/Desktop/RedditSignalScanner/scripts/mcp-wrapper-exa.sh",
+        "args": []
+      },
+      {
+        "name": "chrome-devtools",
+        "command": "/Users/hujia/Desktop/RedditSignalScanner/scripts/mcp-wrapper-chrome.sh",
+        "args": []
+      }
+    ]
+  }
+}
+
