@@ -1,0 +1,52 @@
+engine:
+  version: "1.0"
+
+  community_discovery:
+    max_communities: 30
+    default_communities: 20
+    min_communities: 10
+    cache_thresholds:
+      aggressive: 0.80
+      balanced: 0.60
+    weights:
+      description_match: 0.40
+      activity_level: 0.30
+      quality_score: 0.30
+    diversity:
+      max_per_category: 5
+      minimum_categories: 4
+
+  data_collection:
+    concurrency: 10
+    request_timeout_seconds: 30
+    retry_attempts: 3
+    cache_ttl_seconds: 3600
+    max_posts_per_community: 100
+
+  signal_extraction:
+    sentiment_negative_tokens:
+      - slow
+      - confusing
+      - expensive
+      - integration
+      - support
+    opportunity_positive_themes:
+      - automation
+      - insight
+      - workflow
+      - collaboration
+      - report
+    competitor_bank_seed: 42
+
+  ranking:
+    pain_points:
+      frequency_weight: 0.4
+      sentiment_weight: 0.3
+      quality_weight: 0.3
+    opportunities:
+      relevance_weight: 0.6
+      coverage_gap_weight: 0.4
+    output_limits:
+      max_pain_points: 10
+      max_competitors: 8
+      max_opportunities: 6
