@@ -33,9 +33,9 @@ E2E_MAX_FAILURE_RATE = float(os.getenv("E2E_MAX_FAILURE_RATE", "0.05"))
 PERFORMANCE_DASHBOARD_KEY = os.getenv("PERFORMANCE_DASHBOARD_KEY", "dashboard:performance")
 
 
-def _get_metrics_redis(settings: Settings) -> redis.Redis:
+def _get_metrics_redis(settings: Settings) -> redis.Redis:  # type: ignore[type-arg]
     target_url = METRICS_REDIS_URL or settings.reddit_cache_redis_url
-    return redis.Redis.from_url(target_url)
+    return redis.Redis.from_url(target_url)  # type: ignore[return-value]
 
 
 def _send_alert(level: str, message: str) -> None:
@@ -69,7 +69,7 @@ def monitor_api_calls() -> Dict[str, Any]:
     settings = get_settings()
     client = _get_metrics_redis(settings)
     value = client.get("api_calls_per_minute")
-    calls = int(value) if value is not None else 0
+    calls = int(value) if value is not None and isinstance(value, (int, str, bytes)) else 0
 
     if calls > API_CALL_THRESHOLD:
         _send_alert("warning", f"API 调用接近限制: {calls}/60")
