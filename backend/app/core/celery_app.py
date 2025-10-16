@@ -99,10 +99,10 @@ celery_app.conf.update(_build_conf())
 celery_app.autodiscover_tasks(["app.tasks"], force=True)
 
 celery_app.conf.beat_schedule = {
-    # 自动爬取：每 1 小时刷新一次缓存（保持数据新鲜）
-    "auto-crawl-seed-communities": {
-        "task": "tasks.crawler.crawl_seed_communities",
-        "schedule": crontab(minute="0", hour="*"),  # 每小时整点执行
+    # 增量抓取：每 2 小时执行一次（冷热双写 + 水位线）
+    "auto-crawl-incremental": {
+        "task": "tasks.crawler.crawl_seed_communities_incremental",
+        "schedule": crontab(minute="0", hour="*/2"),  # 每 2 小时整点执行
     },
     # Monitoring tasks (PRD-09 warmup period monitoring)
     "monitor-warmup-metrics": {

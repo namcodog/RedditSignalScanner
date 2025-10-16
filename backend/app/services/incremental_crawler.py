@@ -85,6 +85,23 @@ class IncrementalCrawler:
         
         if not posts:
             logger.warning(f"⚠️ {community_name}: 未抓取到任何帖子")
+            # 计入 empty_hit
+            now = datetime.now(timezone.utc)
+            await self.db.execute(
+                pg_insert(CommunityCache)
+                .values(
+                    community_name=community_name,
+                    last_crawled_at=now,
+                )
+                .on_conflict_do_update(
+                    index_elements=["community_name"],
+                    set_={
+                        "empty_hit": CommunityCache.empty_hit + 1,
+                        "last_crawled_at": now,
+                    },
+                )
+            )
+            await self.db.commit()
             return {
                 "community": community_name,
                 "new_posts": 0,
@@ -92,7 +109,7 @@ class IncrementalCrawler:
                 "duplicates": 0,
                 "watermark_updated": False,
             }
-        
+
         # 3. 过滤：只保留新于水位线的帖子
         if watermark:
             posts = [p for p in posts if _unix_to_datetime(p.created_utc) > watermark]
@@ -120,6 +137,7 @@ class IncrementalCrawler:
             latest_post.id,
             _unix_to_datetime(latest_post.created_utc),
             total_fetched=len(posts),
+            new_valid_posts=new_count,
             dedup_rate=(dup_count / len(posts) * 100) if posts else 0,
         )
         
@@ -276,6 +294,7 @@ class IncrementalCrawler:
         last_seen_post_id: str,
         last_seen_created_at: datetime,
         total_fetched: int,
+        new_valid_posts: int,
         dedup_rate: float,
     ) -> None:
         """更新水位线"""
@@ -288,6 +307,8 @@ class IncrementalCrawler:
                 total_posts_fetched=total_fetched,
                 dedup_rate=dedup_rate,
                 last_crawled_at=datetime.now(timezone.utc),
+                success_hit=1,
+                avg_valid_posts=new_valid_posts,
             )
             .on_conflict_do_update(
                 index_elements=["community_name"],
@@ -297,6 +318,8 @@ class IncrementalCrawler:
                     "total_posts_fetched": CommunityCache.total_posts_fetched + total_fetched,
                     "dedup_rate": dedup_rate,
                     "last_crawled_at": datetime.now(timezone.utc),
+                    "success_hit": CommunityCache.success_hit + 1,
+                    "avg_valid_posts": new_valid_posts,
                 },
             )
         )
