@@ -246,7 +246,7 @@ class CommunityImportService:
         return response
 
     async def get_import_history(self, limit: int = 50) -> Dict[str, Any]:
-        stmt: Select[CommunityImportHistory] = (
+        stmt = (
             select(CommunityImportHistory)
             .order_by(CommunityImportHistory.created_at.desc())
             .limit(limit)

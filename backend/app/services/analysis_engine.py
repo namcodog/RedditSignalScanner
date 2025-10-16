@@ -482,16 +482,21 @@ async def run_analysis(
             for comm in communities:
                 # 提前获取所有属性，避免 session 过期
                 name = comm.name
-                categories = comm.categories or []
-                keywords_list = comm.description_keywords or []
+                # categories 和 description_keywords 在数据库中是 JSON (dict)
+                # 需要转换为 list
+                categories_raw = comm.categories or {}
+                keywords_raw = comm.description_keywords or {}
+
+                categories: list[str] = list(categories_raw.keys()) if isinstance(categories_raw, dict) else []
+                keywords_list: list[str] = list(keywords_raw.keys()) if isinstance(keywords_raw, dict) else []
 
                 db_communities.append(
                     CommunityProfile(
                         name=name,
                         categories=tuple(categories) if categories else ("general",),
                         description_keywords=tuple(keywords_list) if keywords_list else tuple(keywords[:3]),
-                        daily_posts=comm.estimated_daily_posts or 100,
-                        avg_comment_length=70,
+                        daily_posts=comm.daily_posts or 100,
+                        avg_comment_length=comm.avg_comment_length or 70,
                         cache_hit_rate=0.8,
                     )
                 )
@@ -543,7 +548,7 @@ async def run_analysis(
         for name, count in counter.most_common(20):
             if name in db_community_names:
                 # 使用数据库中的社区信息
-                db_comm = next(c for c in db_communities if c.name == name)
+                db_comm: CommunityProfile = next(c for c in db_communities if c.name == name)
                 discovered_selected.append(db_comm)
             else:
                 # 新发现的社区
@@ -560,12 +565,14 @@ async def run_analysis(
 
     # 4) 如果搜索结果不足，从数据库社区池中补充
     if len(discovered_selected) < 10 and db_communities:
-        scored_communities = [(c, _score_community(keywords, c)) for c in db_communities]
+        scored_communities: list[tuple[CommunityProfile, float]] = [
+            (c, _score_community(keywords, c)) for c in db_communities
+        ]
         scored_communities.sort(key=lambda x: x[1], reverse=True)
 
-        for comm, score in scored_communities[:15]:
-            if comm not in discovered_selected:
-                discovered_selected.append(comm)
+        for community_profile, community_score in scored_communities[:15]:
+            if community_profile not in discovered_selected:
+                discovered_selected.append(community_profile)
             if len(discovered_selected) >= 12:
                 break
 
