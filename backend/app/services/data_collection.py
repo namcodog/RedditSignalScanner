@@ -67,9 +67,14 @@ class DataCollectionService:
         api_calls = 0
 
         if missing:
+            # Reddit API 期望的是不带 "r/" 前缀的社区名
+            def _api_name(name: str) -> str:
+                key = name.strip()
+                return key[2:] if key.lower().startswith("r/") else key
+
             fetch_coroutines = [
                 self.reddit.fetch_subreddit_posts(
-                    subreddit,
+                    _api_name(subreddit),
                     limit=limit_per_subreddit,
                 )
                 for subreddit in missing

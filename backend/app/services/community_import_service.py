@@ -7,8 +7,8 @@ from dataclasses import dataclass
 from io import BytesIO
 from typing import Any, Dict, List, Optional, Sequence, Tuple
 
-import xlrd
-import xlsxwriter
+import xlrd  # type: ignore[import-untyped]
+import xlsxwriter  # type: ignore[import-untyped]
 from sqlalchemy import Select, func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -221,7 +221,7 @@ class CommunityImportService:
         summary = self._build_summary(row_states, imported_records)
         response_status = self._resolve_status(summary, dry_run)
 
-        result: Dict[str, Any] = {
+        response: Dict[str, Any] = {
             "status": response_status,
             "summary": summary,
             "communities": [
@@ -234,16 +234,16 @@ class CommunityImportService:
             ],
         }
         if errors:
-            result["errors"] = errors
+            response["errors"] = errors
 
         await self._persist_history(
             filename=filename,
             actor_email=actor_email,
             actor_id=actor_id,
             dry_run=dry_run,
-            result=result,
+            result=response,
         )
-        return result
+        return response
 
     async def get_import_history(self, limit: int = 50) -> Dict[str, Any]:
         stmt: Select[CommunityImportHistory] = (

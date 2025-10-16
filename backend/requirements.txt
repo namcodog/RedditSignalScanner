@@ -1,7 +1,39 @@
-# Locked backend dependencies (Day 7 extensions include cache-first data collection).
-scikit-learn==1.3.2
-aiohttp==3.9.1
+# Core Framework
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+pydantic==2.5.0
+pydantic-settings==2.1.0
+email-validator==2.1.0
+
+# Database
+sqlalchemy==2.0.23
+psycopg[binary]==3.1.13
+asyncpg==0.29.0
+alembic==1.12.1
+
+# Task Queue
+celery==5.3.4
 redis==5.0.1
+
+# Data Processing
+scikit-learn==1.3.2
 pandas==2.1.4
 xlrd==1.2.0
 XlsxWriter==3.2.0
+
+# HTTP Client
+aiohttp==3.9.1
+httpx==0.25.2
+
+# Reddit API client (Phase 3: Warmup Crawler)
+praw>=7.7.0
+aiolimiter>=1.1.0
+
+# Authentication
+PyJWT==2.8.0
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+python-multipart==0.0.6
+
+# Utilities
+python-dotenv==1.0.0

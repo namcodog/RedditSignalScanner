@@ -94,54 +94,67 @@ class SignalExtractor:
     """
 
     _NEGATIVE_TERMS = {
-        "slow",
-        "confusing",
-        "expensive",
-        "complex",
-        "bug",
-        "broken",
-        "issue",
-        "problem",
-        "frustrating",
-        "annoying",
-        "difficult",
-        "hate",
-        "can't stand",
-        "can't believe",
-        "painful",
-        "unreliable",
-        "doesn't work",
+        # 英文痛点词汇
+        "slow", "confusing", "expensive", "complex", "bug", "broken", "issue", "problem",
+        "frustrating", "annoying", "difficult", "hate", "can't stand", "can't believe",
+        "painful", "unreliable", "doesn't work", "terrible", "awful", "horrible",
+        "useless", "waste", "sucks", "bad", "poor", "lacking", "missing", "limited",
+        "clunky", "outdated", "buggy", "crashes", "fails", "error", "wrong",
+        "hard", "complicated", "tedious", "time-consuming", "inefficient",
+        # 情感词汇
+        "disappointed", "frustrated", "angry", "upset", "annoyed", "irritated",
+        # 功能缺失
+        "no way to", "can't", "unable to", "impossible to", "doesn't support",
+        "lacks", "missing feature", "not working", "stopped working",
     }
+
     _PAIN_PATTERNS = [
-        re.compile(r"\b(i\s+(?:hate|can't stand)\s+.+)", re.IGNORECASE),
-        re.compile(r"\b(.+?\s+is\s+(?:too\s+)?(?:slow|broken|unreliable|expensive))", re.IGNORECASE),
+        re.compile(r"\b(i\s+(?:hate|can't stand|dislike)\s+.+)", re.IGNORECASE),
+        re.compile(r"\b(.+?\s+is\s+(?:too\s+)?(?:slow|broken|unreliable|expensive|bad|terrible))", re.IGNORECASE),
         re.compile(r"\b(struggle[s]? to\s+.+)", re.IGNORECASE),
         re.compile(r"\b(problem[s]? with\s+.+)", re.IGNORECASE),
         re.compile(r"\b(why is .+? so .+)", re.IGNORECASE),
         re.compile(r"\b(can't believe .+)", re.IGNORECASE),
         re.compile(r"\b(.+ doesn't work)", re.IGNORECASE),
+        re.compile(r"\b(frustrated with\s+.+)", re.IGNORECASE),
+        re.compile(r"\b(tired of\s+.+)", re.IGNORECASE),
+        re.compile(r"\b(sick of\s+.+)", re.IGNORECASE),
+        re.compile(r"\b(no way to\s+.+)", re.IGNORECASE),
+        re.compile(r"\b(can't figure out\s+.+)", re.IGNORECASE),
     ]
+
     _OPPORTUNITY_CUES = [
-        "looking for",
-        "need a",
-        "need an",
-        "would pay for",
-        "would love",
-        "missing",
-        "wish there was",
-        "searching for",
-        "want a",
-        "want an",
+        # 需求表达
+        "looking for", "need a", "need an", "need to", "searching for", "want a", "want an",
+        # 愿意付费
+        "would pay for", "willing to pay", "pay for", "subscription",
+        # 期望功能
+        "would love", "wish there was", "wish I could", "if only", "hope for",
+        # 缺失功能
+        "missing", "lacks", "doesn't have", "no support for",
+        # 替代方案
+        "alternative to", "better than", "replacement for",
+        # 推荐请求
+        "recommend", "suggestion", "any tools", "best tool", "what do you use",
     ]
-    _URGENCY_TERMS = {"urgent", "now", "immediately", "asap", "today"}
-    _COMPETITOR_CUES = (" vs ", " versus ", "alternative to", "instead of", "compared to")
-    _MAX_PAIN_POINTS = 10
-    _MAX_COMPETITORS = 8
-    _MAX_OPPORTUNITIES = 6
+
+    _URGENCY_TERMS = {
+        "urgent", "now", "immediately", "asap", "today", "right now", "desperately",
+        "critical", "must have", "essential", "required", "necessary",
+    }
+
+    _COMPETITOR_CUES = (
+        " vs ", " versus ", "alternative to", "instead of", "compared to", "better than",
+        "switching from", "migrating from", "replacing", "vs.", "or", " v ",
+    )
+
+    _MAX_PAIN_POINTS = 15  # 增加到 15 个
+    _MAX_COMPETITORS = 12  # 增加到 12 个
+    _MAX_OPPORTUNITIES = 10  # 增加到 10 个
 
     _PRODUCT_PATTERN = re.compile(r"\b([A-Z][A-Za-z0-9]+(?:\s+[A-Z][A-Za-z0-9]+)?)\b")
     _PRODUCT_WITH_SUFFIX_PATTERN = re.compile(
-        r"\b([A-Z][A-Za-z0-9]+(?:\s+(?:App|Tool|Platform|Suite)))\b"
+        r"\b([A-Z][A-Za-z0-9]+(?:\s+(?:App|Tool|Platform|Suite|AI|API)))\b"
     )
     _DOMAIN_PATTERN = re.compile(r"\b([A-Za-z0-9][A-Za-z0-9-]+\.[a-z]{2,})\b")
 
@@ -190,18 +203,37 @@ class SignalExtractor:
         for post in posts:
             sentences = self._split_sentences(post["text"])
             for sentence in sentences:
-                if not sentence:
+                if not sentence or len(sentence) < 10:  # 过滤太短的句子
                     continue
                 sentence_lower = sentence.lower()
+
+                # 检查是否包含负面词汇
                 matched_terms = [term for term in self._NEGATIVE_TERMS if term in sentence_lower]
-                if not matched_terms:
+
+                # 或者匹配痛点模式
+                pattern_matched = any(pattern.search(sentence) for pattern in self._PAIN_PATTERNS)
+
+                if not matched_terms and not pattern_matched:
                     continue
 
+                # 检查是否与关键词相关
                 matched_keywords = [kw for kw in keyword_set if kw in sentence_lower]
-                description = self._extract_pain_description(sentence, matched_terms)
-                key = description.lower()
 
-                sentiment = max(-1.0, -0.35 - 0.1 * len(matched_terms))
+                # 提取痛点描述
+                description = self._extract_pain_description(sentence, matched_terms)
+                if len(description) < 15:  # 过滤太短的描述
+                    continue
+
+                key = description.lower()[:100]  # 使用前100个字符作为key，避免重复
+
+                # 计算情感分数（更细粒度）
+                sentiment = -0.3  # 基础负面分数
+                if matched_terms:
+                    sentiment = max(-1.0, -0.3 - 0.15 * min(len(matched_terms), 5))
+                if "hate" in sentence_lower or "terrible" in sentence_lower:
+                    sentiment = min(sentiment - 0.2, -0.9)
+                if "can't" in sentence_lower or "unable" in sentence_lower:
+                    sentiment = min(sentiment - 0.1, -0.8)
 
                 entry = aggregates.setdefault(
                     key,
@@ -225,9 +257,16 @@ class SignalExtractor:
         for entry in aggregates.values():
             frequency = entry["frequency"]
             sentiment_avg = entry["sentiment_total"] / max(frequency, 1)
-            keyword_bonus = min(len(entry["keywords"]) / 4.0, 1.0)
-            engagement_score = min(entry["max_engagement"] / 100.0, 1.0)
-            relevance = (min(frequency / 5.0, 1.0) * 0.45) + (abs(sentiment_avg) * 0.35) + ((keyword_bonus + engagement_score) * 0.20)
+            keyword_bonus = min(len(entry["keywords"]) / 3.0, 1.0)
+            engagement_score = min(entry["max_engagement"] / 80.0, 1.0)
+
+            # 改进相关性计算：频率权重更高
+            relevance = (
+                min(frequency / 3.0, 1.0) * 0.50 +  # 频率权重提高到 50%
+                abs(sentiment_avg) * 0.30 +  # 情感强度 30%
+                keyword_bonus * 0.15 +  # 关键词匹配 15%
+                engagement_score * 0.05  # 互动度 5%
+            )
 
             signals.append(
                 PainPointSignal(
@@ -245,22 +284,42 @@ class SignalExtractor:
         aggregates: Dict[str, Dict[str, Any]] = {}
 
         for post in posts:
-            sentences = self._split_sentences(post["text"])
+            text = post["text"]
+            sentences = self._split_sentences(text)
+
             for sentence in sentences:
-                if not sentence:
+                if not sentence or len(sentence) < 15:
                     continue
                 sentence_lower = sentence.lower()
-                if not any(cue in sentence_lower for cue in self._COMPETITOR_CUES):
-                    continue
 
+                # 检查是否包含竞品线索
+                has_competitor_cue = any(cue in sentence_lower for cue in self._COMPETITOR_CUES)
+
+                # 提取产品名称
                 product_names = self._extract_product_names(sentence)
                 if not product_names:
                     continue
 
-                sentiment = -0.3 if any(term in sentence_lower for term in self._NEGATIVE_TERMS) else 0.2
-                snippet = sentence.strip()
+                # 如果没有明确的竞品线索，但提到了多个产品，也认为是竞品比较
+                if not has_competitor_cue and len(product_names) < 2:
+                    continue
+
+                # 计算情感分数
+                negative_count = sum(1 for term in self._NEGATIVE_TERMS if term in sentence_lower)
+                if negative_count > 0:
+                    sentiment = max(-0.8, -0.2 - 0.15 * negative_count)
+                elif any(word in sentence_lower for word in ["better", "prefer", "love", "great", "best"]):
+                    sentiment = 0.4
+                else:
+                    sentiment = 0.1
+
+                snippet = sentence.strip()[:200]
 
                 for name in product_names:
+                    # 过滤常见的非产品词
+                    if name.lower() in {"reddit", "google", "facebook", "twitter", "youtube"}:
+                        continue
+
                     entry = aggregates.setdefault(
                         name,
                         {
@@ -273,16 +332,25 @@ class SignalExtractor:
                     )
                     entry["mention_count"] += 1
                     entry["sentiment_total"] += sentiment
-                    if len(entry["contexts"]) < 3:
+                    if len(entry["contexts"]) < 5:  # 增加到 5 个上下文
                         entry["contexts"].append(snippet)
                     entry["source_posts"].add(post["id"])
 
         signals: List[CompetitorSignal] = []
         for entry in aggregates.values():
             mention_count = entry["mention_count"]
+            if mention_count < 1:  # 至少提到 1 次
+                continue
+
             sentiment_avg = entry["sentiment_total"] / max(mention_count, 1)
-            diversity_bonus = min(len(entry["contexts"]) / 3.0, 1.0)
-            relevance = (min(mention_count / 5.0, 1.0) * 0.5) + (abs(sentiment_avg) * 0.3) + (diversity_bonus * 0.2)
+            diversity_bonus = min(len(entry["contexts"]) / 4.0, 1.0)
+
+            # 改进相关性计算
+            relevance = (
+                min(mention_count / 3.0, 1.0) * 0.60 +  # 提及次数权重 60%
+                abs(sentiment_avg) * 0.25 +  # 情感强度 25%
+                diversity_bonus * 0.15  # 上下文多样性 15%
+            )
 
             signals.append(
                 CompetitorSignal(
@@ -308,43 +376,74 @@ class SignalExtractor:
                 "urgency": 0.0,
                 "score_total": 0.0,
                 "source_posts": set(),
+                "keywords": set(),
             }
         )
 
         for post in posts:
             sentences = self._split_sentences(post["text"])
             for sentence in sentences:
-                if not sentence:
+                if not sentence or len(sentence) < 15:
                     continue
                 sentence_lower = sentence.lower()
+
+                # 检查是否包含机会线索
                 cue = next((c for c in self._OPPORTUNITY_CUES if c in sentence_lower), None)
                 if cue is None:
                     continue
 
+                # 提取机会描述
                 description = self._extract_opportunity_description(sentence, cue)
-                key = description.lower()
+                if len(description) < 20:  # 过滤太短的描述
+                    continue
+
+                key = description.lower()[:100]  # 使用前100个字符作为key
 
                 entry = aggregates[key]
                 entry["description"] = description
                 entry["demand"] += 1
                 entry["score_total"] += post["score"]
                 entry["source_posts"].add(post["id"])
+
+                # 计算紧迫性
                 if any(term in sentence_lower for term in self._URGENCY_TERMS):
+                    entry["urgency"] += 1.5  # 紧急词汇权重更高
+                elif "need" in sentence_lower or "must" in sentence_lower:
                     entry["urgency"] += 1.0
-                elif "need" in sentence_lower or "would" in sentence_lower:
+                elif "would" in sentence_lower or "wish" in sentence_lower:
                     entry["urgency"] += 0.5
-                if keyword_set and any(keyword in sentence_lower for keyword in keyword_set):
-                    entry.setdefault("keywords", set()).update(keyword_set.intersection(sentence_lower.split()))
+
+                # 提取关键词
+                if keyword_set:
+                    words = set(sentence_lower.split())
+                    matched_keywords = keyword_set.intersection(words)
+                    entry["keywords"].update(matched_keywords)
+
+                # 检查是否提到付费意愿
+                if any(word in sentence_lower for word in ["pay", "subscription", "pricing", "cost"]):
+                    entry["urgency"] += 0.8
 
         signals: List[OpportunitySignal] = []
         for entry in aggregates.values():
             frequency = entry["demand"]
-            demand_score = min(frequency / 5.0, 1.0)
-            urgency = min(entry["urgency"] / max(frequency, 1), 1.0)
+            if frequency < 1:  # 至少出现 1 次
+                continue
+
+            demand_score = min(frequency / 3.0, 1.0)  # 降低阈值
+            urgency = min(entry["urgency"] / max(frequency, 1), 1.5)  # 允许超过 1.0
             avg_score = entry["score_total"] / max(frequency, 1)
-            market_projection = min(avg_score / 80.0, 1.0)
-            relevance = (demand_score * 0.4) + (urgency * 0.3) + (market_projection * 0.3)
-            potential_users = int(80 + frequency * 30 + avg_score * 1.5)
+            market_projection = min(avg_score / 60.0, 1.0)  # 降低阈值
+            keyword_bonus = min(len(entry["keywords"]) / 3.0, 1.0)
+
+            # 改进相关性计算
+            relevance = (
+                demand_score * 0.35 +  # 需求频率 35%
+                min(urgency, 1.0) * 0.30 +  # 紧迫性 30%
+                market_projection * 0.20 +  # 市场潜力 20%
+                keyword_bonus * 0.15  # 关键词匹配 15%
+            )
+
+            potential_users = int(100 + frequency * 50 + avg_score * 2.0 + len(entry["keywords"]) * 20)
 
             signals.append(
                 OpportunitySignal(
@@ -354,7 +453,7 @@ class SignalExtractor:
                     potential_users=potential_users,
                     source_posts=sorted(entry["source_posts"]),
                     relevance=relevance,
-                    keywords=sorted(entry.get("keywords", set())),
+                    keywords=sorted(entry["keywords"]),
                 )
             )
         return signals

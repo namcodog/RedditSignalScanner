@@ -7,6 +7,17 @@ from app.schemas.analysis import (
     SourcesPayload,
 )
 from app.schemas.community_cache import CommunityCacheRead
+from app.schemas.community_pool import (
+    CommunityDiscoveryRequest,
+    CommunityDiscoveryResponse,
+    CommunityPoolItem,
+    CommunityPoolListResponse,
+    CommunityPoolStats,
+    PendingCommunityCreate,
+    PendingCommunityResponse,
+    PendingCommunityUpdate,
+    WarmupMetrics,
+)
 from app.schemas.report import ReportRead, ReportResponse
 from app.schemas.task import (
     TaskCreate,
@@ -36,4 +47,13 @@ __all__ = [
     "ReportRead",
     "ReportResponse",
     "CommunityCacheRead",
+    "PendingCommunityCreate",
+    "PendingCommunityUpdate",
+    "PendingCommunityResponse",
+    "CommunityPoolStats",
+    "CommunityPoolItem",
+    "CommunityPoolListResponse",
+    "CommunityDiscoveryRequest",
+    "CommunityDiscoveryResponse",
+    "WarmupMetrics",
 ]

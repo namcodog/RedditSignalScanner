@@ -15,13 +15,13 @@ from pydantic import BaseModel, ValidationError, field_validator
 from app.core.config import get_settings, Settings
 
 
-class TokenPayload(BaseModel):
+class TokenPayload(BaseModel):  # type: ignore[misc]
     sub: str
     exp: Optional[int] = None
     tenant_id: Optional[str] = None
     email: Optional[str] = None
 
-    @field_validator("sub")
+    @field_validator("sub")  # type: ignore[misc]
     @classmethod
     def validate_sub(cls, value: str) -> str:
         if not value:
@@ -50,7 +50,7 @@ def decode_jwt_token(
             settings.jwt_secret,
             algorithms=[settings.jwt_algorithm],
         )
-        data = TokenPayload.model_validate(payload)
+        data: TokenPayload = TokenPayload.model_validate(payload)
     except (jwt.PyJWTError, ValidationError):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,

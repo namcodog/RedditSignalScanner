@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Any, Dict, Mapping
 
-from celery import Celery
+from celery import Celery  # type: ignore[import-untyped]
 from redis import Redis
 
 

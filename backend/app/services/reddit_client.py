@@ -210,6 +210,48 @@ class RedditAPIClient:
             data[subreddit] = result
         return data
 
+    async def search_posts(
+        self,
+        query: str,
+        *,
+        limit: int = 100,
+        time_filter: str = "week",
+        sort: str = "relevance",
+    ) -> List[RedditPost]:
+        """Search Reddit for posts matching a query.
+
+        Args:
+            query: Search query string
+            limit: Maximum posts to retrieve (Reddit caps at 100)
+            time_filter: One of `hour`, `day`, `week`, `month`, `year`, `all`
+            sort: Sort strategy (`relevance`, `hot`, `top`, `new`, `comments`)
+
+        Returns:
+            List of matching Reddit posts
+        """
+        if not query or not query.strip():
+            raise ValueError("query must be a non-empty string")
+        if limit <= 0 or limit > 100:
+            raise ValueError("limit must be between 1 and 100 (inclusive)")
+
+        await self.authenticate()
+
+        url = f"{API_BASE_URL}/search"
+        params = {
+            "q": query.strip(),
+            "limit": str(limit),
+            "t": time_filter,
+            "sort": sort,
+            "type": "link",  # Only search for posts, not comments
+        }
+        headers = {
+            "Authorization": f"Bearer {self.access_token}",
+            "User-Agent": self.user_agent,
+        }
+
+        payload = await self._request_json("GET", url, headers=headers, params=params)
+        return self._parse_posts("all", payload)
+
     async def _request_json(
         self,
         method: str,

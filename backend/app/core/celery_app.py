@@ -17,8 +17,8 @@ import multiprocessing
 import os
 from typing import Any, Dict
 
-from celery import Celery
-from kombu import Queue
+from celery import Celery  # type: ignore[import-untyped]
+from kombu import Queue  # type: ignore[import-untyped]
 
 DEFAULT_BROKER_URL = "redis://localhost:6379/1"
 DEFAULT_BACKEND_URL = "redis://localhost:6379/2"
@@ -93,15 +93,21 @@ celery_app = Celery(
     backend=os.getenv("CELERY_RESULT_BACKEND", DEFAULT_BACKEND_URL),
 )
 
-from celery.schedules import crontab
+from celery.schedules import crontab  # type: ignore[import-untyped]
 
 celery_app.conf.update(_build_conf())
 celery_app.autodiscover_tasks(["app.tasks"], force=True)
 
 celery_app.conf.beat_schedule = {
-    "crawl-seed-communities": {
+    # 自动爬取：每 1 小时刷新一次缓存（保持数据新鲜）
+    "auto-crawl-seed-communities": {
         "task": "tasks.crawler.crawl_seed_communities",
-        "schedule": crontab(minute="*/30"),
+        "schedule": crontab(minute="0", hour="*"),  # 每小时整点执行
+    },
+    # Monitoring tasks (PRD-09 warmup period monitoring)
+    "monitor-warmup-metrics": {
+        "task": "tasks.monitoring.monitor_warmup_metrics",
+        "schedule": crontab(minute="*/15"),  # Every 15 minutes
     },
     "monitor-api-calls": {
         "task": "tasks.monitoring.monitor_api_calls",
@@ -136,6 +142,7 @@ try:
         analysis_task as _analysis_task,  # noqa: F401
         crawler_task as _crawler_task,  # noqa: F401
         monitoring_task as _monitoring_task,  # noqa: F401
+        warmup_crawler as _warmup_crawler,  # noqa: F401
     )
 except Exception:  # pragma: no cover - defensive guard for diagnostics
     pass

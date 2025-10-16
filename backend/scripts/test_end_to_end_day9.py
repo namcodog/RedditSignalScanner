@@ -14,6 +14,11 @@ import time
 from typing import Any, Dict
 
 import httpx
+import pytest
+
+# Ensure pytest treats async tests in this script as asyncio tests
+pytestmark = pytest.mark.asyncio
+
 
 BASE_URL = "http://localhost:8006"
 
@@ -129,7 +134,7 @@ async def test_sse_with_bearer_token() -> None:
             f"{BASE_URL}/api/auth/register",
             json={
                 "email": f"day9-sse-{int(time.time())}@example.com",
-                "password": "Test123",
+                "password": "Test1234",
             },
         )
         register_resp.raise_for_status()
@@ -139,7 +144,7 @@ async def test_sse_with_bearer_token() -> None:
         analyze_resp = await client.post(
             f"{BASE_URL}/api/analyze",
             headers=headers,
-            json={"product_description": "test"},
+            json={"product_description": "AI-powered note-taking app for researchers"},
         )
         analyze_resp.raise_for_status()
         task_id = analyze_resp.json()["task_id"]

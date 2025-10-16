@@ -12,7 +12,7 @@ import asyncio
 import math
 from collections import defaultdict
 from dataclasses import dataclass
-from typing import Any, Dict, List, Sequence, Tuple, TYPE_CHECKING
+from typing import Any, Dict, List, Sequence, Tuple, TYPE_CHECKING, cast
 
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
@@ -217,7 +217,7 @@ def _calculate_target_communities(cache_hit_rate: float) -> int:
     return 10
 
 
-async def _load_community_pool() -> List[CommunityProfile]:
+async def _load_community_pool() -> List[Any]:
     await asyncio.sleep(0)
     # Only use DB-backed pool when explicitly enabled to avoid
     # introducing external dependencies in unit tests.
@@ -226,10 +226,12 @@ async def _load_community_pool() -> List[CommunityProfile]:
     use_db = os.getenv("COMMUNITY_POOL_FROM_DB", "0").strip().lower() in {"1", "true", "yes"}
     if use_db:
         try:
-            from app.services.community_pool_loader import CommunityPoolLoader  # type: ignore
+            from app.services.community_pool_loader import CommunityPoolLoader
+            from app.db.session import SessionFactory
 
-            loader = CommunityPoolLoader()
-            profiles = await loader.load_community_pool()
+            async with SessionFactory() as db:
+                loader = CommunityPoolLoader(db)
+                profiles = await loader.load_community_pool()
             if profiles:
                 return list(profiles)
         except Exception:

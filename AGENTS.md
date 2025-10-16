@@ -1,167 +1,55 @@
-# AGENTS — PRD 驱动的 0-1 重写角色手册
+# Repository Guidelines
 
-> 约定：所有实现必须直接追溯到 PRD 与已发布文档。若发现缺口，先补 PRD 再写代码。
+## 使用前提（User Rules）
 
----
+- 入门阅读顺序：`README.md` → `docs/2025-10-10-文档阅读指南.md` → 角色章节。
+- 对话规范：与产品经理沟通一律使用简洁、通俗、健谈的中文；把工程术语翻译成小白也能明白的表达，直接明了。
+- 测试优先：先写测试，再开发实现。
+- 进度基线：以 `docs/2025-10-10-实施检查清单.md` 为唯一进度表；阶段遵循 `PRD/PRD-INDEX.md` 与 `docs/2025-10-10-Reddit信号扫描器0-1重写蓝图.md`。
+- 产出记录：阶段成果与差异必须写入 `reports/phase-log/phase{N}.md`（未记录视为未完成）。
+- 历史参考：按 `README.md` 指向的 `../最小化Navigator` 查阅历史实现/反例。
+- MCP 工具优先（开发/测试/排障标准）：先用 serena MCP 熟悉代码与定位问题 → 用顺序化思考确认根因 → 用 exa-code MCP 查最佳实践 → 用 Chrome DevTools MCP 验证修复；任何 MCP 安装/配置后需立即自检，超过 12 秒必须停止排查并记录到 `reports/`。
+- 执行前必须写分步计划（plan）并按顺序推进。
+- 统一反馈四问：1）发现了什么问题/根因？2）是否已精确定位？3）精确修复方法？4）下一步做什么？
 
-## 0. 使用前提
+## Project Structure & Module Organization
 
-- 新成员或角色切换时，按 `README.md` → `docs/2025-10-10-文档阅读指南.md` → 对应角色章节完成首日阅读。
-- 不允许说非常复杂的开发语言，要照顾到对话用户是没有技术基础的产品经理，应该用更健谈的方式和用户对话，什么冒烟，什么专有名词，全部都使用简洁明了通俗的中文语言。
-- 开始开发前，先写测试，再执行任务开发。
-- 执行节奏以 `docs/2025-10-10-实施检查清单.md` 为唯一进度表，阶段划分遵循 `PRD/PRD-INDEX.md` 与 `docs/2025-10-10-Reddit信号扫描器0-1重写蓝图.md`。
-- 阶段成果、差异与复盘记录到 `reports/phase-log/phase{N}.md`; 未记录视为未完成。
-- 需要查阅历史实现或反例时，使用 README 中指向的 `../最小化Navigator` 同名文档与代码。
-- 每次安装或配置任一 MCP 工具后，必须立即执行自动化自检脚本验证成功；若验证等待超过 12 秒需立刻停止并排查根因，并记录于 `reports/`。
-- 执行任何任务前必须写出分步 plan，并按顺序推进；修复问题的时候，先用 serena MCP 熟悉代码库与定位问题，再结合顺序化思考（sequential-thinking）确认根因，然后借助 exa-code MCP 查找最佳实践，最后调用 Chrome DevTools MCP 验证修复，若验证等待超过 12 秒需立即停止并查明原因。
-- 必须用这样的方式来反馈用户，1，通过深度分析发现了什么问题？根因是什么？/2，是否已经精确的定位到问题？/3，精确修复问题的方法是什么？/4，下一步的事项要完成什么？ 这样的反馈方式
+- `backend/`: FastAPI service, Celery tasks, Alembic migrations (`alembic/`), tests in `backend/tests/`.
+- `frontend/`: Vite + React + TypeScript SPA (`src/`), tests in `frontend/tests/` and `vitest` specs.
+- `reports/phase-log/`: progress, acceptance, and analysis records.
+- `docs/`: PRD, quality gates, and architecture notes.
+- `.specify/`: spec-driven source of truth (specs, plans, tasks). Use `.specify/specs/*` as the latest progress baseline.
+- `Makefile`: unified dev, test, and utility commands.
 
----
+## Build, Test, and Development Commands
 
-## 1. 角色矩阵
+- Setup: `make env-setup` (installs backend and frontend deps).
+- Golden path (recommended): `make dev-golden-path` (Redis + Celery + Backend + Frontend + seed data).
+- Dev servers: `make dev-backend`, `make dev-frontend`.
+- Tests: `make test-backend`, `make test-frontend`, `make test-e2e` (requires services running).
+- DB migrations: `make db-migrate MESSAGE="desc"`, `make db-upgrade`, `make db-downgrade`.
+- Frontend build: `cd frontend && npm run build`.
 
-| 角色 | 核心使命 | 关键 PRD | 支撑文档 |
-|------|----------|----------|----------|
-| Lead（项目总控） | 规划 Phase0-5、锁定需求、驱动验收 | `PRD/PRD-INDEX.md`、`PRD/ARCHITECTURE.md` | `README.md`、`docs/2025-10-10-Reddit信号扫描器0-1重写蓝图.md` |
-| Backend Agent A（核心后端） | 数据模型 + API + 分析引擎 | `PRD/PRD-01-数据模型.md`、`PRD/PRD-02-API设计.md`、`PRD/PRD-03-分析引擎.md` | `docs/2025-10-10-实施检查清单.md`、`docs/2025-10-10-架构决策记录ADR.md` |
-| Backend Agent B（支撑后端） | 任务队列 + 认证 + Admin | `PRD/PRD-04-任务系统.md`、`PRD/PRD-06-用户认证.md`、`PRD/PRD-07-Admin后台.md` | `docs/2025-10-10-实施检查清单.md`、`docs/2025-10-10-3人并行开发方案.md` |
-| Frontend Agent | SPA + SSE 客户端 + 端到端用例 | `PRD/PRD-05-前端交互.md`、`PRD/PRD-02-API设计.md`、`PRD/PRD-06-用户认证.md` | `docs/2025-10-10-质量标准与门禁规范.md`、`docs/2025-10-10-3人并行开发方案.md` |
-| QA Agent | 定义并执行测试矩阵 | `PRD/PRD-08-端到端测试规范.md` | `docs/2025-10-10-质量标准与门禁规范.md`、`docs/2025-10-10-实施检查清单.md` |
-| 文档维护者 | 维护 PRD、README、指南与产出记录 | `PRD` 全量 | `README.md`、`docs/2025-10-10-质量标准与门禁规范.md` |
+## Coding Style & Naming Conventions
 
----
+- Python: PEP 8, 4-space indent, mandatory type hints; run `mypy --strict` (see `mypy.ini`). Use snake_case for modules/functions, PascalCase for classes, UPPER_SNAKE_CASE for constants.
+- TypeScript/React: 2-space indent; ESLint + Prettier enforced (`npm run lint`, `npm run format`). Components in PascalCase, files like `src/components/ReportCard.tsx`.
+- Follow quality gates in `docs/2025-10-10-质量标准与门禁规范.md` (Black + isort, no `Any`, no `# type: ignore`).
 
-## 2. 执行节奏与检查点
+## Testing Guidelines
 
-- 所有人每日依据 `docs/2025-10-10-实施检查清单.md` 领取与汇报任务，未在清单闭环的工作不得开始开发。
-- Phase 结束条件：对应 PRD 条目完成 + 产出物在 `reports/phase-log/phase{N}.md` 记录 + 质量门禁满足 `docs/2025-10-10-质量标准与门禁规范.md`。
-- `docs/2025-10-10-3人并行开发方案.md` 提供 12 天节奏与并行节点，多人协作时必须遵循其依赖关系。
-- 任何需求变更在 `PRD/PRD-INDEX.md` 与对应 PRD 同步成功后，才能进入实现或测试流程。
+- Backend: `pytest` in `backend/tests/` (name as `test_*.py`). Aim for 80%+ coverage on core modules. Safe runner available via Makefile.
+- Frontend: `vitest` (`npm test`, `npm run test:coverage`), UI tests in `frontend/tests/`.
+- E2E: `make test-e2e` after starting services; Playwright config at `frontend/playwright.config.ts`.
 
----
+## Commit & Pull Request Guidelines
 
-## 3. Lead（项目总控）
+- Commits: use Conventional Commits, e.g., `feat(backend): add SSE stream`, `fix(frontend): handle empty state)`.
+- PRs: include purpose, linked PRD section(s), testing evidence (commands run), and screenshots for UI changes. Ensure quality gates pass: `make phase-1-2-3-verify` or `make test-all` + `mypy --strict`.
+- Progress reference: link the relevant `.specify/specs/...` doc and, when applicable, attach `.specify/templates/*`-derived plan/tasks used.
 
-- **核心职责**
-  - 拆解 Phase0-5，保持 `docs/2025-10-10-实施检查清单.md` 与实际进度一致。
-  - 监督需求变更流程：PRD 更新 → README/指南同步 → 通知相关角色。
-  - 组织阶段验收，确保 `reports/phase-log/phase{N}.md`、`PRD/PRD-INDEX.md` 状态与交付吻合。
-- **必读文档**：`PRD/PRD-INDEX.md`、`PRD/ARCHITECTURE.md`、`docs/2025-10-10-Reddit信号扫描器0-1重写蓝图.md`、`README.md`。
-- **关键交付**
-  - Phase 计划基线（含资源分配与风险，高度参考蓝图 Phase 0-5）。
-  - 阶段验收纪要与风险清单（记录在 `reports/phase-log/`）。
-  - PRD 状态表与 README 导航更新。
-- **协作节点**
-  - Day 0：确认环境准备完成度。
-  - Day 1 14:00：主持 Schema Workshop（来自 `docs/2025-10-10-3人并行开发方案.md`）。
-  - 每日收工前：主持 Stand-down，核对执行清单。
-  - 作为lead的角色，主要做事项分配以及任务验收的部分，你有所有的权限，可以使用所有mcp工具进行任务的验收特别是端到端的验收，在验收前，先确认exa-code，以及Chrome DevTools 功能能否正常工作，另外你还需要配置serena 这个工具注意，你的工作主要是作为lead，严格审查分析验收，不做任何实施，最后制定计划分配任务。
+## Security & Configuration
 
----
-
-## 4. Backend Agents
-
-### Backend Agent A（核心后端）
-
-- **主要职责**
-  - 依据 `PRD/PRD-01-数据模型.md` 完成全部数据模型与 Alembic 迁移。
-  - 按 `PRD/PRD-02-API设计.md` 交付 4 个核心 API 与 SSE 通道。
-  - 依 `PRD/PRD-03-分析引擎.md` 开发信号提取、排序与缓存策略。
-- **必读文档**：`docs/2025-10-10-实施检查清单.md`（Day1-8）、`docs/2025-10-10-架构决策记录ADR.md`（ADR-001/002/003/005/006/009）、`docs/2025-10-10-质量标准与门禁规范.md`。
-- **关键交付节点**（引自 `docs/2025-10-10-3人并行开发方案.md`）
-  - Day 2：数据模型 100% 完成并跑通迁移。
-  - Day 5：4 个核心 API 可用并通过联调。
-  - Day 9：分析引擎完成，满足耗时与缓存目标。
-- **协作要求**
-  - Day 1 下午与 Backend B、Frontend 共同锁定 Pydantic Schema。
-  - 每日向 Lead 汇报类型检查、测试进度，确保 mypy/pytest 通过。
-  - 联调时与 Frontend 同步 SSE 事件契约与示例载荷。
-  - 阶段产出需写入 `reports/phase-log/phase{N}.md`，并严格按照以下四问完整回答：
-    1. 通过深度分析发现了什么问题？根因是什么？
-    2. 是否已经精确的定位到问题？
-    3. 精确修复问题的方法是什么？
-    4. 下一步的事项要完成什么？
-
-### Backend Agent B（支撑后端）
-
-- **主要职责**
-  - 实现 `PRD/PRD-04-任务系统.md` 描述的 Celery 队列、重试策略与监控接口。
-  - 依据 `PRD/PRD-06-用户认证.md` 完成多租户 JWT 认证服务端实现。
-  - 交付 `PRD/PRD-07-Admin后台.md` 所需 API。
-- **必读文档**：`docs/2025-10-10-实施检查清单.md`（Day1-10）、`docs/2025-10-10-架构决策记录ADR.md`（ADR-006/008）、`docs/2025-10-10-3人并行开发方案.md`。
-- **关键交付节点**
-  - Day 5：任务系统上线，Celery Worker 与 Redis Broker 运行稳定。
-  - Day 8：认证系统完成，租户令牌流程通过端到端验证。
-  - Day 10：Admin 后台 API 全量完成。
-- **协作要求**
-  - Day 1 Workshop 协助 Schema 设计，确保任务与认证模型与主数据模型一致。
-  - 与 Frontend/QA 建立认证与任务状态模拟脚本，支持联调与测试。
-  - 维护 Worker 监控与告警脚本，结果记录在 `reports/phase-log/`。
-
----
-
-## 5. Frontend Agent
-
-- **主要职责**
-  - 依 `PRD/PRD-05-前端交互.md` 实现输入页、等待页、报告页的状态管理与交互。
-  - 根据 `PRD/PRD-02-API设计.md` 与 `PRD/PRD-06-用户认证.md` 接入 API、认证与 SSE 事件。
-  - 按 `PRD/PRD-08-端到端测试规范.md` 建立前端侧测试覆盖与端到端用例。
-- **必读文档**：`docs/2025-10-10-3人并行开发方案.md`（Day5-12）、`docs/2025-10-10-质量标准与门禁规范.md`（前端门禁章节）、`docs/2025-10-10-实施检查清单.md`（Day9-12）。
-- **关键交付节点**
-  - Day 7：输入页面完成，类型检查与单测通过。
-  - Day 9：等待页面完成，SSE 客户端可展示实时进度。
-  - Day 11：报告页面上线，端到端用例跑通。
-- **协作要求**
-  - Day 1 Workshop 参与 Schema 讨论，明确前后端契约。
-  - 与 Backend A/B 每日同步 API/SSE 变更，确保类型定义即时更新。
-  - 与 QA 共同维护端到端测试脚本，保证 UI/API 一致性。
-
----
-
-## 6. QA Agent
-
-- **主要职责**
-  - 按 `PRD/PRD-08-端到端测试规范.md` 建立冒烟、集成、端到端、性能与故障注入流程。
-  - 依据 `docs/2025-10-10-质量标准与门禁规范.md` 设置质量门禁与验收准则。
-  - 在 `reports/phase-log/` 记录测试策略、执行结果与缺陷处理。
-- **必读文档**：`docs/2025-10-10-实施检查清单.md`（Day14-15）、`docs/2025-10-10-质量标准与门禁规范.md`、全部 PRD 验收章节。
-- **关键交付节点**
-  - Day 12 前：完成冒烟与集成测试基线。
-  - Day 14-15：端到端测试全部通过，性能与可靠性指标达标。
-  - 发布前：出具最终验收报告并确认零遗漏需求。
-- **协作要求**
-  - 在开发阶段提前提供测试矩阵与数据需求。
-  - 与 Backend/Frontend 协同完成回归脚本与告警演练。
-  - 将缺陷与回归风险回写对应 PRD 与 `docs/2025-10-10-实施检查清单.md`。
-
----
-
-## 7. 文档维护者
-
-- **主要职责**
-  - 维护 PRD、README、指南等，确保文档与实现同步。
-  - 更新 `docs/2025-10-10-质量标准与门禁规范.md` 与 `docs/2025-10-10-实施检查清单.md` 中的状态与经验。
-  - 记录阶段成果、决策与阻塞，沉淀至 `reports/phase-log/` 与 ADR。
-- **必读文档**：全量 PRD、`README.md`、`docs/2025-10-10-架构决策记录ADR.md`、`docs/2025-10-10-文档阅读指南.md`。
-- **协作要求**
-  - 开发、QA 发现差异后，第一时间协同补充文档。
-  - 阶段结束 24 小时内完成 PRD/README/指南的状态刷新。
-  - 为新人 Onboarding 提供最新阅读路径与常见问题更新。
-
----
-
-## 8. 协作流程
-
-1. **需求确认**：按角色阅读对应 PRD，必要时由文档维护者补齐缺口后再排期。
-2. **计划排布**：Lead 结合 `PRD/PRD-INDEX.md`、`docs/2025-10-10-实施检查清单.md` 与 `docs/2025-10-10-3人并行开发方案.md` 发布阶段计划。
-3. **按日执行**：Backend/Frontend/QA 依据当日清单推进开发、联调与测试，同步结果至 `reports/phase-log/`。
-4. **阶段验收**：Lead 组织评审，QA 交付测试结论，文档维护者同步 PRD 与 README 状态。
-5. **文档回写**：若执行中有新增经验或规约，优先更新 PRD 与指南，再落实代码与脚本。
-6. **工具验证**：所有 MCP 工具安装/配置操作必须输出验证记录；失败或超时（>12 秒）需立即暂停流程并通报 Lead。
-7. **反馈格式**：阶段或任务复盘写入 `reports/phase-log/` 时，必须逐条回答以下四问：  
-   1. 通过深度分析发现了什么问题？根因是什么？  
-   2. 是否已经精确的定位到问题？  
-   3. 精确修复问题的方法是什么？  
-   4. 下一步的事项要完成什么？
-
-> **准则**：代码永远落后于 PRD。任何实现必须追溯到明确的 PRD 条目，所有差异先改文档后动手。
+- Secrets: keep out of VCS; use `.env` files (`.env.local`, `backend/.env`, `frontend/.env.development`).
+- Ports: see `PORT_CONFIGURATION.md`; defaults backend `8006`, frontend `3006`, Redis `6379`.
+- Optional: `docker-compose.test.yml` for consistent test environments.

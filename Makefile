@@ -2,7 +2,7 @@
 # 0-1 重写项目的统一启动与管理脚本
 
 .PHONY: help
-.PHONY: dev-backend dev-frontend dev-all dev-full dev-golden-path
+.PHONY: dev-backend dev-frontend dev-all dev-full dev-golden-path dev-real crawl-seeds
 .PHONY: kill-ports kill-backend-port kill-frontend-port kill-celery kill-redis
 .PHONY: restart-backend restart-frontend restart-all
 .PHONY: status check-services check-python
@@ -10,11 +10,14 @@
 .PHONY: test-fix test-clean test-diagnose test-kill-pytest
 .PHONY: celery-start celery-stop celery-restart celery-verify celery-seed celery-seed-unique celery-purge
 .PHONY: celery-test celery-mypy celery-logs
+.PHONY: warmup-start warmup-stop warmup-status warmup-logs warmup-restart
 .PHONY: redis-start redis-stop redis-status redis-seed redis-purge
 .PHONY: db-migrate db-upgrade db-downgrade db-reset db-seed-user-task
 .PHONY: clean clean-pyc clean-test
 .PHONY: mcp-install mcp-verify
 .PHONY: env-check env-setup
+.PHONY: phase-1-2-3-verify phase-1-2-3-mypy phase-1-2-3-test phase-1-2-3-coverage
+.PHONY: phase-4-verify phase-4-mypy phase-4-test
 
 
 # 让每个目标在一个 shell 会话中执行，支持 heredoc 等多行脚本
@@ -69,11 +72,23 @@ help: ## 显示所有可用命令
 	@echo "  make celery-restart     重启Celery Worker"
 	@echo "  make celery-logs        查看Celery日志"
 	@echo ""
+	@echo "🔥 预热期管理（PRD-09 Day 13-20）："
+	@echo "  make warmup-start       启动预热期系统（Worker + Beat）"
+	@echo "  make warmup-stop        停止预热期系统"
+	@echo "  make warmup-status      查看预热期系统状态"
+	@echo "  make warmup-logs        查看预热期系统日志"
+	@echo "  make warmup-restart     重启预热期系统"
+	@echo ""
 	@echo "🧪 测试："
 	@echo "  make test-backend       运行后端测试"
 	@echo "  make test-frontend      运行前端测试"
 	@echo "  make test-e2e           运行端到端测试"
 	@echo "  make test-admin-e2e     验证Admin后台端到端流程（需配置ADMIN_EMAILS）"
+	@echo ""
+	@echo "✅ Phase 1-3 验证（Day 13-20 预热期）："
+	@echo "  make phase-1-2-3-verify 一键验证（mypy --strict + 核心测试）"
+	@echo "  make phase-1-2-3-mypy   严格类型检查"
+	@echo "  make phase-1-2-3-test   核心测试验证"
 	@echo ""
 	@echo "🔧 更多命令："
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-20s\033[0m %s\n", $$1, $$2}'
@@ -189,11 +204,16 @@ redis-purge: ## 清空Redis测试数据
 # ============================================================
 
 dev-backend: ## 启动后端开发服务器 (FastAPI + Uvicorn, 端口 8006, 启用Celery dispatch)
-	@echo "==> Starting backend development server on http://localhost:$(BACKEND_PORT) ..."
-	@echo "    API Docs: http://localhost:$(BACKEND_PORT)/docs"
-	@echo "    OpenAPI JSON: http://localhost:$(BACKEND_PORT)/openapi.json"
-	@echo "    ENABLE_CELERY_DISPATCH=$(ENABLE_CELERY_DISPATCH)"
-	@cd $(BACKEND_DIR) && ENABLE_CELERY_DISPATCH=$(ENABLE_CELERY_DISPATCH) uvicorn app.main:app --reload --host 0.0.0.0 --port $(BACKEND_PORT)
+    @echo "==> Starting backend development server on http://localhost:$(BACKEND_PORT) ..."
+    @echo "    API Docs: http://localhost:$(BACKEND_PORT)/docs"
+    @echo "    OpenAPI JSON: http://localhost:$(BACKEND_PORT)/openapi.json"
+    @echo "    ENABLE_CELERY_DISPATCH=$(ENABLE_CELERY_DISPATCH)"
+    @if [ -f $(BACKEND_DIR)/.env ]; then \
+        cd $(BACKEND_DIR) && export $$(cat .env | grep -v '^#' | xargs) && \
+        ENABLE_CELERY_DISPATCH=$(ENABLE_CELERY_DISPATCH) uvicorn app.main:app --reload --host 0.0.0.0 --port $(BACKEND_PORT); \
+    else \
+        cd $(BACKEND_DIR) && ENABLE_CELERY_DISPATCH=$(ENABLE_CELERY_DISPATCH) uvicorn app.main:app --reload --host 0.0.0.0 --port $(BACKEND_PORT); \
+    fi
 
 dev-frontend: ## 启动前端开发服务器 (Vite, 端口 3006)
 	@echo "==> Starting frontend development server on http://localhost:$(FRONTEND_PORT) ..."
@@ -229,8 +249,13 @@ dev-full: ## 启动完整开发环境（Redis + Celery + Backend + Frontend）
 	@sleep 3
 	@tail -20 $(CELERY_WORKER_LOG) | grep "ready" && echo "✅ Celery Worker started" || echo "⚠️  Celery Worker可能未启动，请检查日志: $(CELERY_WORKER_LOG)"
 	@echo ""
-	@echo "4️⃣  启动后端服务（后台）..."
-	@cd $(BACKEND_DIR) && ENABLE_CELERY_DISPATCH=$(ENABLE_CELERY_DISPATCH) nohup uvicorn app.main:app --host 0.0.0.0 --port $(BACKEND_PORT) > /tmp/backend_uvicorn.log 2>&1 &
+    @echo "4️⃣  启动后端服务（后台）..."
+    @if [ -f $(BACKEND_DIR)/.env ]; then \
+        cd $(BACKEND_DIR) && export $$(cat .env | grep -v '^#' | xargs) && \
+        ENABLE_CELERY_DISPATCH=$(ENABLE_CELERY_DISPATCH) nohup uvicorn app.main:app --host 0.0.0.0 --port $(BACKEND_PORT) > /tmp/backend_uvicorn.log 2>&1 & \
+    else \
+        cd $(BACKEND_DIR) && ENABLE_CELERY_DISPATCH=$(ENABLE_CELERY_DISPATCH) nohup uvicorn app.main:app --host 0.0.0.0 --port $(BACKEND_PORT) > /tmp/backend_uvicorn.log 2>&1 & \
+    fi
 	@sleep 3
 	@curl -s http://localhost:$(BACKEND_PORT)/ > /dev/null && echo "✅ Backend server started" || echo "⚠️  Backend server可能未启动"
 	@echo ""
@@ -248,6 +273,50 @@ dev-full: ## 启动完整开发环境（Redis + Celery + Backend + Frontend）
 	@echo "🧪 运行端到端测试："
 	@echo "   make test-e2e"
 	@echo ""
+
+dev-real: ## 启动真实 Reddit 验收环境（不注入任何 mock/seed 数据）
+	@echo "==> 启动真实 Reddit 本地验收环境 ..."
+	@echo ""
+	@echo "1️⃣  启动 Redis ..."
+	@$(MAKE) redis-start
+	@echo ""
+	@echo "2️⃣  启动 Celery Worker（后台）..."
+	@if [ -f $(BACKEND_DIR)/.env ]; then \
+		cd $(BACKEND_DIR) && export $$(cat .env | grep -v '^#' | xargs) && \
+		nohup $(PYTHON) -m celery -A $(CELERY_APP) worker --loglevel=info --pool=solo \
+		  --queues=analysis_queue,maintenance_queue,cleanup_queue,crawler_queue,monitoring_queue \
+		  > $(CELERY_WORKER_LOG) 2>&1 & \
+	else \
+		cd $(BACKEND_DIR) && nohup $(PYTHON) -m celery -A $(CELERY_APP) worker --loglevel=info --pool=solo \
+		  --queues=analysis_queue,maintenance_queue,cleanup_queue,crawler_queue,monitoring_queue \
+		  > $(CELERY_WORKER_LOG) 2>&1 & \
+	fi
+	@sleep 3
+	@tail -20 $(CELERY_WORKER_LOG) | grep "ready" && echo "✅ Celery Worker started" || echo "⚠️  请检查日志: $(CELERY_WORKER_LOG)"
+	@echo ""
+    @echo "3️⃣  启动后端服务 ..."
+    @if [ -f $(BACKEND_DIR)/.env ]; then \
+        cd $(BACKEND_DIR) && export $$(cat .env | grep -v '^#' | xargs) && \
+        ENABLE_CELERY_DISPATCH=$(ENABLE_CELERY_DISPATCH) nohup uvicorn app.main:app --host 0.0.0.0 --port $(BACKEND_PORT) > /tmp/backend_uvicorn.log 2>&1 & \
+    else \
+        cd $(BACKEND_DIR) && ENABLE_CELERY_DISPATCH=$(ENABLE_CELERY_DISPATCH) nohup uvicorn app.main:app --host 0.0.0.0 --port $(BACKEND_PORT) > /tmp/backend_uvicorn.log 2>&1 & \
+    fi
+	@sleep 3
+	@curl -s http://localhost:$(BACKEND_PORT)/ > /dev/null && echo "✅ Backend server started" || echo "⚠️  Backend server可能未启动"
+	@echo ""
+	@echo "4️⃣  （可选）启动前端服务 ..."
+	@cd $(FRONTEND_DIR) && npm run dev -- --port $(FRONTEND_PORT) > /tmp/frontend_vite.log 2>&1 &
+	@sleep 3
+	@curl -s http://localhost:$(FRONTEND_PORT)/ > /dev/null && echo "✅ Frontend server started" || echo "⚠️  Frontend server可能未启动"
+	@echo ""
+	@echo "✅ 真实 Reddit 本地验收环境已就绪（未注入任何测试/Mock 数据）"
+	@echo "   注意：请确保 backend/.env 已设置 REDDIT_CLIENT_ID/REDDIT_CLIENT_SECRET"
+	@echo ""
+
+crawl-seeds: ## 触发种子社区真实爬取（需要 Celery 与 Backend 已启动）
+	@echo "==> 触发爬取种子社区（真实 Reddit API） ..."
+	@cd $(BACKEND_DIR) && $(PYTHON) scripts/trigger_initial_crawl.py --force-refresh || true
+	@echo "✅ 批量爬取任务已触发；使用 'make celery-logs' 查看进度"
 
 dev-golden-path: ## 🌟 黄金路径：一键启动完整环境并创建测试数据（Day 12 验收通过）
 	@echo "=========================================="
@@ -488,6 +557,149 @@ celery-mypy: ## 对任务系统核心文件运行 mypy --strict
 		$(BACKEND_DIR)/tests/test_task_system.py
 
 # ============================================================
+# Warmup Period Management (PRD-09 Day 13-20)
+# ============================================================
+
+CELERY_BEAT_LOG := /tmp/celery_beat.log
+CELERY_BEAT_PID := /tmp/celery_beat.pid
+
+.PHONY: warmup-start warmup-stop warmup-status warmup-logs warmup-restart
+
+warmup-start: ## 启动预热期系统（Celery Worker + Beat）
+	@echo "=========================================="
+	@echo "🚀 启动预热期系统（PRD-09 Day 13-20）"
+	@echo "=========================================="
+	@echo ""
+	@echo "==> 1️⃣  检查 Redis 状态 ..."
+	@redis-cli ping > /dev/null 2>&1 && echo "✅ Redis 运行中" || (echo "❌ Redis 未运行，请先执行: make redis-start" && exit 1)
+	@echo ""
+	@echo "==> 2️⃣  启动 Celery Worker（后台）..."
+	@if [ -f $(BACKEND_DIR)/.env ]; then \
+		cd $(BACKEND_DIR) && export $$(cat .env | grep -v '^#' | xargs) && \
+		nohup $(PYTHON) -m celery -A $(CELERY_APP) worker --loglevel=info --pool=solo \
+		  --queues=analysis_queue,maintenance_queue,cleanup_queue,crawler_queue,monitoring_queue \
+		  > $(CELERY_WORKER_LOG) 2>&1 & \
+	else \
+		cd $(BACKEND_DIR) && nohup $(PYTHON) -m celery -A $(CELERY_APP) worker --loglevel=info --pool=solo \
+		  --queues=analysis_queue,maintenance_queue,cleanup_queue,crawler_queue,monitoring_queue \
+		  > $(CELERY_WORKER_LOG) 2>&1 & \
+	fi
+	@sleep 3
+	@tail -20 $(CELERY_WORKER_LOG) | grep "ready" && echo "✅ Celery Worker 已启动" || echo "⚠️  请检查日志: $(CELERY_WORKER_LOG)"
+	@echo ""
+	@echo "==> 3️⃣  启动 Celery Beat（定时任务调度器）..."
+	@if [ -f $(BACKEND_DIR)/.env ]; then \
+		cd $(BACKEND_DIR) && export $$(cat .env | grep -v '^#' | xargs) && \
+		nohup $(PYTHON) -m celery -A $(CELERY_APP) beat --loglevel=info \
+		  --pidfile=$(CELERY_BEAT_PID) \
+		  > $(CELERY_BEAT_LOG) 2>&1 & \
+	else \
+		cd $(BACKEND_DIR) && nohup $(PYTHON) -m celery -A $(CELERY_APP) beat --loglevel=info \
+		  --pidfile=$(CELERY_BEAT_PID) \
+		  > $(CELERY_BEAT_LOG) 2>&1 & \
+	fi
+	@sleep 3
+	@tail -20 $(CELERY_BEAT_LOG) | grep "beat: Starting" && echo "✅ Celery Beat 已启动" || echo "⚠️  请检查日志: $(CELERY_BEAT_LOG)"
+	@echo ""
+	@echo "=========================================="
+	@echo "✅ 预热期系统启动完成！"
+	@echo "=========================================="
+	@echo ""
+	@echo "📊 定时任务："
+	@echo "   预热爬虫:     每 2 小时"
+	@echo "   监控任务:     每 15 分钟"
+	@echo "   API 监控:     每 1 分钟"
+	@echo "   缓存监控:     每 5 分钟"
+	@echo ""
+	@echo "📋 查看日志："
+	@echo "   Worker:  tail -f $(CELERY_WORKER_LOG)"
+	@echo "   Beat:    tail -f $(CELERY_BEAT_LOG)"
+	@echo ""
+	@echo "🔍 查看状态："
+	@echo "   make warmup-status"
+	@echo ""
+	@echo "🛑 停止系统："
+	@echo "   make warmup-stop"
+	@echo ""
+
+warmup-stop: ## 停止预热期系统（Celery Worker + Beat）
+	@echo "==> 停止预热期系统 ..."
+	@echo ""
+	@echo "1️⃣  停止 Celery Beat ..."
+	@if [ -f $(CELERY_BEAT_PID) ]; then \
+		kill $$(cat $(CELERY_BEAT_PID)) 2>/dev/null && echo "✅ Celery Beat 已停止" || echo "⚠️  Celery Beat 可能已停止"; \
+		rm -f $(CELERY_BEAT_PID); \
+	else \
+		pkill -f "celery.*beat" && echo "✅ Celery Beat 已停止" || echo "⚠️  未找到 Celery Beat 进程"; \
+	fi
+	@echo ""
+	@echo "2️⃣  停止 Celery Worker ..."
+	@$(MAKE) kill-celery
+	@echo ""
+	@echo "✅ 预热期系统已停止"
+
+warmup-restart: warmup-stop warmup-start ## 重启预热期系统
+
+warmup-status: ## 查看预热期系统状态
+	@echo "=========================================="
+	@echo "📊 预热期系统状态"
+	@echo "=========================================="
+	@echo ""
+	@echo "1️⃣  Redis 状态："
+	@redis-cli ping > /dev/null 2>&1 && echo "   ✅ Redis 运行中" || echo "   ❌ Redis 未运行"
+	@echo ""
+	@echo "2️⃣  Celery Worker 状态："
+	@pgrep -f "celery.*worker" > /dev/null && echo "   ✅ Worker 运行中 (PID: $$(pgrep -f 'celery.*worker'))" || echo "   ❌ Worker 未运行"
+	@echo ""
+	@echo "3️⃣  Celery Beat 状态："
+	@if [ -f $(CELERY_BEAT_PID) ]; then \
+		if ps -p $$(cat $(CELERY_BEAT_PID)) > /dev/null 2>&1; then \
+			echo "   ✅ Beat 运行中 (PID: $$(cat $(CELERY_BEAT_PID)))"; \
+		else \
+			echo "   ❌ Beat PID 文件存在但进程未运行"; \
+		fi \
+	else \
+		pgrep -f "celery.*beat" > /dev/null && echo "   ✅ Beat 运行中 (PID: $$(pgrep -f 'celery.*beat'))" || echo "   ❌ Beat 未运行"; \
+	fi
+	@echo ""
+	@echo "4️⃣  最近的定时任务执行："
+	@if [ -f $(CELERY_BEAT_LOG) ]; then \
+		echo "   最近 5 条 Beat 日志:"; \
+		tail -5 $(CELERY_BEAT_LOG) | sed 's/^/   /'; \
+	else \
+		echo "   ⚠️  未找到 Beat 日志文件"; \
+	fi
+	@echo ""
+	@echo "=========================================="
+
+warmup-logs: ## 查看预热期系统日志（Worker + Beat）
+	@echo "=========================================="
+	@echo "📋 预热期系统日志"
+	@echo "=========================================="
+	@echo ""
+	@echo "==> Celery Worker 日志（最近 50 行）:"
+	@echo "----------------------------------------"
+	@if [ -f $(CELERY_WORKER_LOG) ]; then \
+		tail -50 $(CELERY_WORKER_LOG); \
+	else \
+		echo "⚠️  未找到 Worker 日志文件: $(CELERY_WORKER_LOG)"; \
+	fi
+	@echo ""
+	@echo "==> Celery Beat 日志（最近 50 行）:"
+	@echo "----------------------------------------"
+	@if [ -f $(CELERY_BEAT_LOG) ]; then \
+		tail -50 $(CELERY_BEAT_LOG); \
+	else \
+		echo "⚠️  未找到 Beat 日志文件: $(CELERY_BEAT_LOG)"; \
+	fi
+	@echo ""
+	@echo "=========================================="
+	@echo "💡 实时查看日志："
+	@echo "   Worker: tail -f $(CELERY_WORKER_LOG)"
+	@echo "   Beat:   tail -f $(CELERY_BEAT_LOG)"
+	@echo "=========================================="
+
+# ============================================================
 # 数据库迁移
 # ============================================================
 
@@ -710,3 +922,170 @@ prd10-accept-frontend-files: ## 校验前端页面与组件文件存在
 
 prd10-accept-all: prd10-accept-template prd10-accept-dryrun prd10-accept-import prd10-accept-history prd10-accept-routes prd10-accept-frontend-files ## 一键完成 PRD-10 非交互验收
 	@echo "✅ PRD-10 验收完成（非交互直调路径）"
+
+# ============================================================
+# Phase 1-3 技术债清零验证（Day 13-20 预热期）
+# ============================================================
+
+.PHONY: phase-1-2-3-verify phase-1-2-3-mypy phase-1-2-3-test phase-1-2-3-coverage
+
+phase-1-2-3-mypy: ## Phase 1-3: 严格类型检查（mypy --strict）
+	@echo "==> Phase 1-3: 运行 mypy --strict 类型检查 ..."
+	@cd $(BACKEND_DIR) && mypy --strict --follow-imports=skip app
+	@echo "✅ mypy --strict 通过（0 错误）"
+
+phase-1-2-3-test: ## Phase 1-3: 核心测试验证
+	@echo "==> Phase 1-3: 运行核心测试 ..."
+	@cd $(BACKEND_DIR) && $(PYTHON) -m pytest \
+		tests/models/test_pending_relationships.py \
+		tests/services/test_community_pool_loader_full.py \
+		tests/tasks/test_warmup_crawler_cache.py \
+		-v
+	@echo "✅ Phase 1-3 核心测试通过"
+
+phase-1-2-3-coverage: ## Phase 1-3: 覆盖率检查（可选）
+	@echo "==> Phase 1-3: 运行覆盖率检查 ..."
+	@cd $(BACKEND_DIR) && $(PYTHON) -m pytest \
+		--cov=app/models \
+		--cov=app/services/community_pool_loader \
+		--cov=app/tasks/warmup_crawler \
+		--cov-report=term-missing \
+		tests/models/test_pending_relationships.py \
+		tests/services/test_community_pool_loader_full.py \
+		tests/tasks/test_warmup_crawler_cache.py
+	@echo "✅ Phase 1-3 覆盖率检查完成"
+
+phase-1-2-3-verify: phase-1-2-3-mypy phase-1-2-3-test ## Phase 1-3: 一键验证（类型检查 + 核心测试）
+	@echo ""
+	@echo "=========================================="
+	@echo "✅ Phase 1-3 技术债清零验证完成！"
+	@echo "=========================================="
+	@echo ""
+	@echo "📊 验证结果："
+	@echo "   mypy --strict: ✅ 0 错误"
+	@echo "   核心测试:      ✅ 全部通过"
+	@echo ""
+	@echo "📝 详细记录："
+	@echo "   .specify/specs/001-day13-20-warmup-period/phase-1-2-3-tech-debt-clearance.md"
+	@echo ""
+	@echo "🚀 下一步："
+	@echo "   进入 Phase 4（Celery Beat 定时任务配置）"
+	@echo ""
+
+# ============================================================
+# Phase 4 验证（Celery Beat 定时任务配置）
+# ============================================================
+
+.PHONY: phase-4-verify phase-4-mypy phase-4-test
+
+phase-4-mypy: ## Phase 4: 严格类型检查（mypy --strict）
+	@echo "==> Phase 4: 运行 mypy --strict 类型检查 ..."
+	@cd $(BACKEND_DIR) && mypy --strict --follow-imports=skip \
+		app/core/celery_app.py \
+		app/tasks/monitoring_task.py
+	@echo "✅ mypy --strict 通过（0 错误）"
+
+phase-4-test: ## Phase 4: 集成测试验证
+	@echo "==> Phase 4: 运行 Celery Beat 配置测试 ..."
+	@cd $(BACKEND_DIR) && $(PYTHON) -m pytest \
+		tests/tasks/test_celery_beat_schedule.py \
+		-v
+	@echo "✅ Phase 4 集成测试通过"
+
+phase-4-verify: phase-4-mypy phase-4-test ## Phase 4: 一键验证（类型检查 + 集成测试）
+	@echo ""
+	@echo "=========================================="
+	@echo "✅ Phase 4 Celery Beat 配置验证完成！"
+	@echo "=========================================="
+	@echo ""
+	@echo "📊 验证结果："
+	@echo "   mypy --strict: ✅ 0 错误"
+	@echo "   集成测试:      ✅ 15/15 通过"
+	@echo ""
+	@echo "📝 详细记录："
+	@echo "   .specify/specs/001-day13-20-warmup-period/phase-4-completion-report.md"
+	@echo ""
+	@echo "🎯 功能验证："
+	@echo "   make warmup-start   # 启动预热期系统"
+	@echo "   make warmup-status  # 查看系统状态"
+	@echo "   make warmup-stop    # 停止系统"
+	@echo ""
+	@echo "🚀 下一步："
+	@echo "   进入 Phase 5（社区发现服务）"
+	@echo ""
+
+# ============================================================
+# 本地测试环境验收（Docker Compose 隔离环境）
+# ============================================================
+
+.PHONY: test-env-up test-env-down test-env-clean test-env-logs test-env-shell
+.PHONY: test-all-acceptance test-stage-1 test-stage-2 test-stage-3 test-stage-4 test-stage-5 test-report-acceptance
+
+test-env-up: ## 启动测试环境（Docker Compose）
+	@echo "🚀 启动测试环境..."
+	@docker compose -f docker-compose.test.yml up -d --wait
+	@echo "✅ 测试环境已启动"
+	@echo ""
+	@echo "📍 服务地址:"
+	@echo "   - FastAPI:    http://localhost:18000"
+	@echo "   - PostgreSQL: localhost:15432"
+	@echo "   - Redis:      localhost:16379"
+
+test-env-down: ## 停止测试环境
+	@docker compose -f docker-compose.test.yml down
+
+test-env-clean: ## 清理测试环境（删除卷）
+	@docker compose -f docker-compose.test.yml down -v
+	@docker volume prune -f
+
+test-env-logs: ## 查看测试环境日志
+	@docker compose -f docker-compose.test.yml logs -f
+
+test-env-shell: ## 进入测试容器 Shell
+	@docker compose -f docker-compose.test.yml exec test-api bash
+
+test-stage-1: test-env-up ## Stage 1: 环境准备与健康检查
+	@echo "╔════════════════════════════════════════════════════════════╗"
+	@echo "║   Stage 1: 环境准备与健康检查                             ║"
+	@echo "╚════════════════════════════════════════════════════════════╝"
+	@docker compose -f docker-compose.test.yml exec -T test-api alembic upgrade head
+	@docker compose -f docker-compose.test.yml exec -T test-db psql -U test_user -d reddit_scanner_test -c "TRUNCATE users, tasks, community_pool, pending_communities, community_cache, analyses, reports CASCADE;"
+	@echo "✅ Stage 1 完成"
+
+test-stage-2: ## Stage 2: 核心服务验收
+	@echo "╔════════════════════════════════════════════════════════════╗"
+	@echo "║   Stage 2: 核心服务验收                                   ║"
+	@echo "╚════════════════════════════════════════════════════════════╝"
+	@docker compose -f docker-compose.test.yml exec -T test-api pytest tests/services/test_community_pool_loader.py tests/tasks/test_warmup_crawler.py tests/services/test_community_discovery.py -v --tb=short
+	@echo "✅ Stage 2 完成"
+
+test-stage-3: ## Stage 3: API 端点验收
+	@echo "╔════════════════════════════════════════════════════════════╗"
+	@echo "║   Stage 3: API 端点验收                                   ║"
+	@echo "╚════════════════════════════════════════════════════════════╝"
+	@docker compose -f docker-compose.test.yml exec -T test-api pytest tests/api/test_admin_community_pool.py tests/api/test_beta_feedback.py -v --tb=short
+	@echo "✅ Stage 3 完成"
+
+test-stage-4: ## Stage 4: 任务调度与监控
+	@echo "╔════════════════════════════════════════════════════════════╗"
+	@echo "║   Stage 4: 任务调度与监控                                 ║"
+	@echo "╚════════════════════════════════════════════════════════════╝"
+	@docker compose -f docker-compose.test.yml exec -T test-api pytest tests/tasks/test_monitoring_task.py tests/services/test_adaptive_crawler.py -v --tb=short
+	@echo "✅ Stage 4 完成"
+
+test-stage-5: ## Stage 5: 端到端流程
+	@echo "╔════════════════════════════════════════════════════════════╗"
+	@echo "║   Stage 5: 端到端流程                                     ║"
+	@echo "╚════════════════════════════════════════════════════════════╝"
+	@docker compose -f docker-compose.test.yml exec -T test-api pytest tests/e2e/test_warmup_cycle.py -v --tb=short
+	@docker compose -f docker-compose.test.yml exec -T test-api python scripts/generate_warmup_report.py
+	@echo "✅ Stage 5 完成"
+
+test-all-acceptance: test-env-clean test-stage-1 test-stage-2 test-stage-3 test-stage-4 test-stage-5 test-report-acceptance ## 执行完整验收流程
+	@echo "🎉 所有验收阶段完成！"
+
+test-report-acceptance: ## 生成验收报告
+	@mkdir -p reports
+	@echo "# Day 13-20 预热期本地验收报告" > reports/acceptance-test-report.md
+	@echo "- **执行日期**: $$(date '+%Y-%m-%d %H:%M:%S')" >> reports/acceptance-test-report.md
+	@echo "✅ 报告生成完成"

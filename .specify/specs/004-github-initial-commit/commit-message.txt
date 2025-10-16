@@ -1,0 +1,58 @@
+feat: implement Reddit Signal Scanner core features
+
+- Backend: FastAPI + Celery + Reddit API integration
+  * User authentication and authorization with JWT
+  * Analysis task management with SSE streaming
+  * Community pool management with Excel import/export
+  * Warmup crawler with adaptive frequency control
+  * 193 test cases covering core functionality
+  * Type-safe implementation with mypy strict mode
+
+- Frontend: React + TypeScript SPA
+  * User authentication flow (register/login)
+  * Analysis task creation and progress tracking
+  * Real-time report display with SSE
+  * Admin community pool management interface
+  * Responsive design with Tailwind CSS
+  * Full type safety with TypeScript strict mode
+
+- Infrastructure:
+  * Makefile for unified dev/test/deployment commands
+  * Alembic database migrations (4 versions)
+  * Docker Compose for test environment
+  * Celery Beat for scheduled warmup tasks
+  * Redis caching with adaptive hit rate monitoring
+
+- Documentation:
+  * Complete PRD (8 sections covering all features)
+  * Spec-kit workflow specs (3 completed features)
+  * Phase completion reports (Day 0-15)
+  * Quality gates and acceptance criteria
+  * MCP tools integration guide
+
+Development Phases Completed:
+- Phase 1-3: Warmup Period Implementation (Day 13-20)
+  * Community pool with admin approval workflow
+  * Adaptive crawler with cache hit rate optimization
+  * Warmup period tracking and reporting
+  
+- Phase 4-5: Local Acceptance Testing
+  * End-to-end testing with mock data
+  * Frontend-backend integration verification
+  * Quality gates validation
+
+- Phase 6: Real Reddit API Integration
+  * PRAW client integration
+  * Rate limiting and error handling
+  * Production-ready data collection
+
+Technical Stack:
+- Backend: Python 3.11, FastAPI 0.104, Celery 5.3, PostgreSQL, Redis
+- Frontend: React 18, TypeScript 5, Vite 5, Tailwind CSS
+- Testing: pytest (backend), vitest (frontend), Playwright (e2e)
+- Quality: mypy strict, ESLint, Prettier, Black, isort
+
+Ref: .specify/specs/001-day13-20-warmup-period/
+Test Coverage: 193 backend tests
+Code Quality: mypy strict mode (13 type warnings documented)
+
