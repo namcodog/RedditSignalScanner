@@ -5,9 +5,19 @@ from functools import lru_cache
 from typing import List
 
 from pydantic import BaseModel, Field
+from pathlib import Path
+try:
+    # 尽早加载 backend/.env，确保所有进程（API/Celery/脚本）读取到 Reddit 凭证
+    from dotenv import load_dotenv  # type: ignore
+    # 1) 仓库根目录 .env
+    load_dotenv(dotenv_path=Path(__file__).resolve().parents[2] / ".env", override=False)
+    # 2) backend/.env（若存在则覆盖根目录设置）
+    load_dotenv(dotenv_path=Path(__file__).resolve().parents[1] / ".env", override=True)
+except Exception:
+    pass
 
 
-class Settings(BaseModel):
+class Settings(BaseModel):  # type: ignore[misc]
     """Application configuration derived from environment variables."""
 
     app_name: str = Field(default="Reddit Signal Scanner")
@@ -40,6 +50,21 @@ class Settings(BaseModel):
     @property
     def admin_emails(self) -> List[str]:
         return [email.strip().lower() for email in self.admin_emails_raw.split(",") if email.strip()]
+
+    @property
+    def REDDIT_CLIENT_ID(self) -> str:
+        """Reddit API client ID."""
+        return self.reddit_client_id
+
+    @property
+    def REDDIT_CLIENT_SECRET(self) -> str:
+        """Reddit API client secret."""
+        return self.reddit_client_secret
+
+    @property
+    def REDDIT_USER_AGENT(self) -> str:
+        """Reddit API user agent."""
+        return self.reddit_user_agent
 
 
 @lru_cache()
@@ -89,4 +114,6 @@ def get_settings() -> Settings:
     )
 
 
-__all__ = ["Settings", "get_settings"]
+settings = get_settings()
+
+__all__ = ["Settings", "get_settings", "settings"]

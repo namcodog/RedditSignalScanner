@@ -18,6 +18,8 @@ from app.schemas.auth import (
     LoginRequest,
     RegisterRequest,
 )
+from typing import cast
+
 
 
 router = APIRouter(prefix="/auth", tags=["auth"])
@@ -25,7 +27,7 @@ router = APIRouter(prefix="/auth", tags=["auth"])
 
 async def _get_user_by_email(db: AsyncSession, email: str) -> User | None:
     result = await db.execute(select(User).where(User.email == email))
-    return result.scalar_one_or_none()
+    return cast(User | None, result.scalar_one_or_none())
 
 
 def _normalise_email(email: str) -> str:
@@ -41,7 +43,7 @@ def _issue_token(user: User, settings: Settings) -> AuthTokenResponse:
     )
 
 
-@router.post(
+@router.post(  # type: ignore[misc]
     "/register",
     response_model=AuthTokenResponse,
     status_code=status.HTTP_201_CREATED,
@@ -78,7 +80,7 @@ async def register_user(
     return _issue_token(user, settings)
 
 
-@router.post(
+@router.post(  # type: ignore[misc]
     "/login",
     response_model=AuthTokenResponse,
     summary="Authenticate existing user and receive an access token",

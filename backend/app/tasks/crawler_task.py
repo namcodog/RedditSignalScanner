@@ -4,13 +4,13 @@ import asyncio
 import logging
 import os
 from datetime import datetime, timedelta, timezone
-from typing import Any, Iterable, List, Optional, Sequence, Tuple
+from typing import Any, Iterable, List, Optional, Sequence, Tuple, cast
 
-from celery.utils.log import get_task_logger
+from celery.utils.log import get_task_logger  # type: ignore[import-untyped]
 
 from app.core.celery_app import celery_app
 from app.core.config import Settings, get_settings
-from app.db.session import get_session
+from app.db.session import SessionFactory
 from app.models.community_cache import CommunityCache
 from app.services.cache_manager import CacheManager, DEFAULT_CACHE_TTL_SECONDS
 from app.services.community_pool_loader import CommunityPoolLoader, CommunityProfile
@@ -98,19 +98,21 @@ async def _crawl_single(
 
 async def _crawl_seeds_impl(force_refresh: bool = False) -> dict[str, Any]:
     settings = get_settings()
-    loader = CommunityPoolLoader()
     cache_manager = await _build_cache_manager(settings)
     reddit_client = await _build_reddit_client(settings)
 
     async with reddit_client:
-        if force_refresh:
-            await loader.import_to_database()
+        async with SessionFactory() as db:
+            loader = CommunityPoolLoader(db)
+            if force_refresh:
+                await loader.load_seed_communities()
 
-        seeds = await loader.load_community_pool(force_refresh=force_refresh)
-        # 爬取所有社区（不限于 seed tier）
-        seed_profiles = [profile for profile in seeds if profile.tier.lower() in ("seed", "gold", "silver")]
+            seeds = await loader.load_community_pool(force_refresh=force_refresh)
+        # 爬取所有活跃社区（high, medium, low 优先级）
+        seed_profiles = [profile for profile in seeds if profile.tier.lower() in ("high", "medium", "low")]
 
         if not seed_profiles:
+            logger.warning("⚠️ 没有找到符合条件的社区，检查 tier 字段")
             return {"status": "skipped", "reason": "no_communities_to_crawl"}
 
         results: List[dict[str, Any]] = []
@@ -142,7 +144,7 @@ async def _crawl_seeds_impl(force_refresh: bool = False) -> dict[str, Any]:
                         }
                     )
                 else:
-                    results.append(outcome)
+                    results.append(cast(dict[str, Any], outcome))
 
         success_count = sum(1 for item in results if item.get("status") == "success")
         failure_count = len(results) - success_count
@@ -169,8 +171,8 @@ async def _crawl_single_impl(community_name: str) -> dict[str, Any]:
         )
 
 
-@celery_app.task(name="tasks.crawler.crawl_community", bind=True, max_retries=3)
-def crawl_community(self, community_name: str) -> dict[str, Any]:
+@celery_app.task(name="tasks.crawler.crawl_community", bind=True, max_retries=3)  # type: ignore[misc]
+def crawl_community(self: Any, community_name: str) -> dict[str, Any]:
     if not community_name:
         raise ValueError("community_name is required")
     try:
@@ -183,7 +185,7 @@ def crawl_community(self, community_name: str) -> dict[str, Any]:
         raise self.retry(exc=exc, countdown=60)
 
 
-@celery_app.task(name="tasks.crawler.crawl_seed_communities")
+@celery_app.task(name="tasks.crawler.crawl_seed_communities")  # type: ignore[misc]
 def crawl_seed_communities(force_refresh: bool = False) -> dict[str, Any]:
     try:
         return asyncio.run(_crawl_seeds_impl(force_refresh=force_refresh))
@@ -194,7 +196,7 @@ def crawl_seed_communities(force_refresh: bool = False) -> dict[str, Any]:
 
 async def list_stale_caches(threshold_minutes: int = 90) -> List[Tuple[str, datetime]]:
     cutoff = datetime.now(timezone.utc) - timedelta(minutes=threshold_minutes)
-    async for session in get_session():
+    async with SessionFactory() as session:
         result = await session.execute(
             CommunityCache.__table__.select().where(CommunityCache.last_crawled_at < cutoff)
         )
@@ -204,6 +206,7 @@ async def list_stale_caches(threshold_minutes: int = 90) -> List[Tuple[str, date
             for row in rows
             if row["last_crawled_at"] is not None
         ]
+    # Fallback if session acquisition failed unexpectedly
     return []
 
 

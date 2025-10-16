@@ -9,12 +9,12 @@ from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional
 
 import redis
-from celery.utils.log import get_task_logger
+from celery.utils.log import get_task_logger  # type: ignore[import-untyped]
 from sqlalchemy import select
 
 from app.core.celery_app import celery_app
 from app.core.config import Settings, get_settings
-from app.db.session import get_session
+from app.db.session import SessionFactory
 from app.models.community_cache import CommunityCache
 from app.services.cache_manager import CacheManager
 from app.services.community_pool_loader import CommunityPoolLoader
@@ -64,7 +64,7 @@ def _update_dashboard(settings: Settings, values: Dict[str, Any]) -> None:
     client.hset(PERFORMANCE_DASHBOARD_KEY, "updated_at", datetime.now(timezone.utc).isoformat())
 
 
-@celery_app.task(name="tasks.monitoring.monitor_api_calls")
+@celery_app.task(name="tasks.monitoring.monitor_api_calls")  # type: ignore[misc]
 def monitor_api_calls() -> Dict[str, Any]:
     settings = get_settings()
     client = _get_metrics_redis(settings)
@@ -77,17 +77,19 @@ def monitor_api_calls() -> Dict[str, Any]:
     return {"api_calls_last_minute": calls, "threshold": API_CALL_THRESHOLD}
 
 
-@celery_app.task(name="tasks.monitoring.monitor_cache_health")
+@celery_app.task(name="tasks.monitoring.monitor_cache_health")  # type: ignore[misc]
 def monitor_cache_health() -> Dict[str, Any]:
     settings = get_settings()
-    loader = CommunityPoolLoader()
     cache_manager = CacheManager(
         redis_url=settings.reddit_cache_redis_url,
         cache_ttl_seconds=settings.reddit_cache_ttl_seconds,
     )
 
     async def _calculate() -> Dict[str, Any]:
-        communities = await loader.load_community_pool(force_refresh=False)
+        from app.db.session import SessionFactory
+        async with SessionFactory() as db:
+            loader = CommunityPoolLoader(db)
+            communities = await loader.load_community_pool(force_refresh=False)
         seed_names = [profile.name for profile in communities if profile.tier.lower() == "seed"]
         hit_rate = cache_manager.calculate_cache_hit_rate(seed_names)
 
@@ -100,13 +102,14 @@ def monitor_cache_health() -> Dict[str, Any]:
     return asyncio.run(_calculate())
 
 
-@celery_app.task(name="tasks.monitoring.monitor_crawler_health")
+@celery_app.task(name="tasks.monitoring.monitor_crawler_health")  # type: ignore[misc]
 def monitor_crawler_health() -> Dict[str, Any]:
     settings = get_settings()
 
     async def _load() -> Dict[str, Any]:
         cutoff = datetime.now(timezone.utc) - timedelta(minutes=CRAWL_STALE_MINUTES)
-        async for session in get_session():
+        from app.db.session import SessionFactory
+        async with SessionFactory() as session:
             result = await session.execute(
                 select(CommunityCache.community_name, CommunityCache.last_crawled_at).where(
                     CommunityCache.last_crawled_at < cutoff
@@ -131,7 +134,7 @@ def monitor_crawler_health() -> Dict[str, Any]:
     return asyncio.run(_load())
 
 
-@celery_app.task(name="tasks.monitoring.monitor_e2e_tests")
+@celery_app.task(name="tasks.monitoring.monitor_e2e_tests")  # type: ignore[misc]
 def monitor_e2e_tests() -> Dict[str, Any]:
     settings = get_settings()
     metrics = _load_e2e_metrics()
@@ -176,7 +179,7 @@ def monitor_e2e_tests() -> Dict[str, Any]:
     }
 
 
-@celery_app.task(name="tasks.monitoring.collect_test_logs")
+@celery_app.task(name="tasks.monitoring.collect_test_logs")  # type: ignore[misc]
 def collect_test_logs(max_lines: int = 200) -> Dict[str, Any]:
     settings = get_settings()
     if not TEST_LOG_PATH.exists():
@@ -199,7 +202,7 @@ def collect_test_logs(max_lines: int = 200) -> Dict[str, Any]:
     return {"status": "ok", "lines": len(tail)}
 
 
-@celery_app.task(name="tasks.monitoring.update_performance_dashboard")
+@celery_app.task(name="tasks.monitoring.update_performance_dashboard")  # type: ignore[misc]
 def update_performance_dashboard() -> Dict[str, Any]:
     settings = get_settings()
     metrics = _load_e2e_metrics() or {}
@@ -211,6 +214,70 @@ def update_performance_dashboard() -> Dict[str, Any]:
     return payload
 
 
+@celery_app.task(name="tasks.monitoring.monitor_warmup_metrics")  # type: ignore[misc]
+def monitor_warmup_metrics() -> Dict[str, Any]:
+    """Monitor warmup period metrics (PRD-09 Day 13-20).
+
+    Collects and monitors:
+    - API call rate
+    - Cache hit rate
+    - Community pool size
+    - System health
+
+    Returns:
+        dict: Warmup metrics summary
+    """
+    settings = get_settings()
+
+    # Collect API call metrics
+    api_metrics = monitor_api_calls()
+
+    # Collect cache health metrics
+    cache_metrics = monitor_cache_health()
+
+    # Collect crawler health metrics
+    crawler_metrics = monitor_crawler_health()
+
+    # Get community pool size
+    async def _get_pool_size() -> int:
+        from app.db.session import SessionFactory
+        async with SessionFactory() as db:
+            loader = CommunityPoolLoader(db)
+            communities = await loader.load_community_pool(force_refresh=False)
+            return len(communities)
+
+    pool_size = asyncio.run(_get_pool_size())
+
+    # Aggregate metrics
+    warmup_metrics = {
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "api_calls_per_minute": api_metrics.get("api_calls_last_minute", 0),
+        "cache_hit_rate": cache_metrics.get("cache_hit_rate", 0.0),
+        "community_pool_size": pool_size,
+        "stale_communities_count": len(crawler_metrics.get("stale_communities", [])),
+    }
+
+    # Update dashboard
+    _update_dashboard(settings, {"warmup_metrics": warmup_metrics})
+
+    # Check warmup period goals (PRD-09)
+    if pool_size < 100:
+        _send_alert("warning", f"社区池规模 {pool_size} 低于目标 100")
+
+    if cache_metrics.get("cache_hit_rate", 0.0) < 0.85:
+        hit_rate_pct = cache_metrics.get("cache_hit_rate", 0.0) * 100
+        _send_alert("warning", f"缓存命中率 {hit_rate_pct:.1f}% 低于目标 85%")
+
+    logger.info(
+        "Warmup metrics: pool_size=%d, cache_hit_rate=%.2f%%, api_calls=%d",
+        pool_size,
+        cache_metrics.get("cache_hit_rate", 0.0) * 100,
+        api_metrics.get("api_calls_last_minute", 0),
+    )
+
+    return warmup_metrics
+
+
 __all__ = [
     "monitor_api_calls",
     "monitor_cache_health",
@@ -218,4 +285,5 @@ __all__ = [
     "monitor_e2e_tests",
     "collect_test_logs",
     "update_performance_dashboard",
+    "monitor_warmup_metrics",
 ]

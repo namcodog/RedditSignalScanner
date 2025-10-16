@@ -79,7 +79,7 @@ async def _schedule_analysis(task_id: uuid.UUID, settings: Settings) -> None:
         ) from exc
 
 
-@router.post(
+@router.post(  # type: ignore[misc]
     "/analyze",
     status_code=status.HTTP_201_CREATED,
     response_model=TaskCreateResponse,

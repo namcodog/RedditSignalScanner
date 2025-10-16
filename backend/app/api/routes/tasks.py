@@ -14,6 +14,7 @@ from app.db.session import get_session
 from app.models.task import Task, TaskStatus
 from app.schemas.task import TaskStatsResponse, TaskStatusSnapshot
 from app.services.task_status_cache import TaskStatusCache
+from app.core.config import get_settings
 
 
 status_router = APIRouter(prefix="/status", tags=["status"])
@@ -45,7 +46,7 @@ def _parse_uuid(raw: str) -> uuid.UUID:
         ) from exc
 
 
-@status_router.get(
+@status_router.get(  # type: ignore[misc]
     "/{task_id}",
     response_model=TaskStatusSnapshot,
     summary="获取任务状态（缓存优先）",
@@ -104,7 +105,7 @@ async def get_task_status(
     )
 
 
-@tasks_router.get(
+@tasks_router.get(  # type: ignore[misc]
     "/stats",
     response_model=TaskStatsResponse,
     summary="获取任务队列统计信息",
@@ -146,3 +147,12 @@ async def get_task_stats(
 router = status_router
 
 __all__ = ["status_router", "tasks_router", "router"]
+
+# 运行时诊断：返回关键配置是否就绪（不泄露机密）
+@tasks_router.get("/diag", summary="运行时配置诊断")  # type: ignore[misc]
+async def tasks_diag() -> dict[str, str | bool]:
+    s = get_settings()
+    return {
+        "has_reddit_client": bool(s.reddit_client_id and s.reddit_client_secret),
+        "environment": s.environment,
+    }

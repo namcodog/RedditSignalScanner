@@ -14,6 +14,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
 from app.core.celery_app import celery_app
+from celery.exceptions import Retry as CeleryRetry  # type: ignore[import-untyped]
 from app.db.session import get_session
 from app.models.analysis import Analysis
 from app.models.report import Report
@@ -23,7 +24,7 @@ from app.services.analysis_engine import AnalysisResult, run_analysis
 from app.services.task_status_cache import TaskStatusCache, TaskStatusPayload
 
 if TYPE_CHECKING:
-    from celery.app.task import Task
+    from celery.app.task import Task  # type: ignore[import-untyped]
 
 logger = logging.getLogger(__name__)
 
@@ -369,7 +370,7 @@ async def _prepare_failure(
     return False
 
 
-@celery_app.task(
+@celery_app.task(  # type: ignore[misc]
     bind=True,
     name="tasks.analysis.run",
     max_retries=MAX_RETRIES,
@@ -386,11 +387,18 @@ def run_analysis_task(self: "Task[Any, Dict[str, Any]]", task_id: str) -> Dict[s
 
     try:
         if use_default_executor:
+            def _retry_or_exhaust(exc: Exception) -> None:
+                # If we have retries remaining, delegate to Celery's retry (raises CeleryRetry)
+                if getattr(self.request, "retries", 0) < MAX_RETRIES:
+                    raise self.retry(exc=exc, countdown=RETRY_DELAY_SECONDS)
+                # Otherwise signal exhaustion to caller/tests
+                raise RuntimeError(str(exc))
+
             pipeline_metrics = _run_async(
                 _run_pipeline_with_retry(
                     task_uuid,
                     self.request.retries,
-                    retry_handler=lambda exc, _retry_count: self.retry(exc=exc, countdown=RETRY_DELAY_SECONDS),
+                    retry_handler=lambda exc, _retry_count: _retry_or_exhaust(exc),
                 )
             )
         else:
@@ -411,10 +419,17 @@ def run_analysis_task(self: "Task[Any, Dict[str, Any]]", task_id: str) -> Dict[s
     except FinalRetryExhausted as exc:
         raise exc
     except Exception as exc:  # pragma: no cover - unexpected fallthrough or monkeypatched executor path
-        if not use_default_executor:
-            should_retry = _run_async(_prepare_failure(task_uuid, task_id, exc, self.request.retries))
-            if should_retry:
-                raise self.retry(exc=exc, countdown=RETRY_DELAY_SECONDS)
+        # Always allow Celery's Retry to bubble up
+        if isinstance(exc, CeleryRetry):
+            raise
+        if use_default_executor:
+            # In the default executor path, bubble up the original exception (either CeleryRetry
+            # or our exhaustion marker RuntimeError), letting Celery handle retries/backoff.
+            raise
+        # Non-default (monkeypatched) executor path: consult failure handler to decide retry.
+        should_retry = _run_async(_prepare_failure(task_uuid, task_id, exc, self.request.retries))
+        if should_retry:
+            raise self.retry(exc=exc, countdown=RETRY_DELAY_SECONDS)
         raise FinalRetryExhausted(f"Analysis task {task_id} reached retry limit.") from exc
 
 

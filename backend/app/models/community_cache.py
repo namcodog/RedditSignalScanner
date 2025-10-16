@@ -4,7 +4,7 @@ from datetime import datetime
 
 from decimal import Decimal
 
-from sqlalchemy import CheckConstraint, DateTime, Index, Integer, Numeric, String, func
+from sqlalchemy import Boolean, CheckConstraint, DateTime, Index, Integer, Numeric, String, func
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.db.base import Base, TimestampMixin
@@ -37,6 +37,8 @@ class CommunityCache(TimestampMixin, Base):
     hit_count: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
     crawl_priority: Mapped[int] = mapped_column(Integer, default=50, nullable=False)
     last_hit_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    crawl_frequency_hours: Mapped[int] = mapped_column(Integer, default=2, nullable=False)
+    is_active: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False)
 
     def __repr__(self) -> str:
         return f"CommunityCache(community_name={self.community_name!r}, hit_count={self.hit_count})"

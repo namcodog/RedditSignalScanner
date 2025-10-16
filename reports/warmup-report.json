@@ -1,0 +1,31 @@
+{
+  "generated_at": "2025-10-16T03:35:22.235916+00:00",
+  "warmup_period": "Day 13-19 (7 days)",
+  "adaptive_crawl_hours": null,
+  "community_pool": {
+    "seed_communities": 1,
+    "discovered_communities": 1,
+    "total": 2
+  },
+  "cache_metrics": {
+    "total_posts_cached": 6968,
+    "avg_cache_age_hours": 40.26874009265759,
+    "cache_hit_rate": 0.0
+  },
+  "api_usage": {
+    "total_calls": 0,
+    "avg_calls_per_minute": 0,
+    "peak_calls_per_minute": 0
+  },
+  "user_testing": {
+    "internal_users": 0,
+    "beta_users": 1,
+    "total_analyses": 1,
+    "avg_satisfaction": 4.0
+  },
+  "system_performance": {
+    "avg_analysis_time_seconds": 100.0,
+    "p95_analysis_time_seconds": 100.0,
+    "uptime_percentage": 100.0
+  }
+}

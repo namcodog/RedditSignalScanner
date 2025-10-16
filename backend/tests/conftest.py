@@ -44,18 +44,26 @@ def reset_database() -> None:
     """
     Ensure the core tables start clean for deterministic metrics.
 
-    Uses synchronous psycopg2 connection to avoid async event loop conflicts
+    Uses synchronous psycopg (psycopg3) connection to avoid async event loop conflicts
     during pytest session initialization. TRUNCATE CASCADE for fast cleanup.
     """
-    import psycopg2
+    import os
+    import psycopg
 
     # Use synchronous connection to avoid event loop conflicts
-    conn = psycopg2.connect(
-        host='localhost',
-        port=5432,
-        user='postgres',
-        password='postgres',
-        database='reddit_scanner'
+    # Get connection params from environment or use test defaults
+    db_host = os.getenv('TEST_DB_HOST', 'test-db')
+    db_port = int(os.getenv('TEST_DB_PORT', '5432'))
+    db_user = os.getenv('TEST_DB_USER', 'test_user')
+    db_password = os.getenv('TEST_DB_PASSWORD', 'test_pass')
+    db_name = os.getenv('TEST_DB_NAME', 'reddit_scanner_test')
+
+    conn = psycopg.connect(
+        host=db_host,
+        port=db_port,
+        user=db_user,
+        password=db_password,
+        dbname=db_name
     )
     conn.autocommit = True
     cursor = conn.cursor()
@@ -94,12 +102,97 @@ def reset_database() -> None:
             """
         )
         cursor.execute(
-            "TRUNCATE TABLE community_import_history, community_pool, pending_communities, reports, analyses, tasks, users RESTART IDENTITY CASCADE"
+            """
+            CREATE TABLE IF NOT EXISTS beta_feedback (
+                id UUID PRIMARY KEY,
+                task_id UUID NOT NULL REFERENCES tasks(id) ON DELETE CASCADE,
+                user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+                satisfaction INTEGER NOT NULL CHECK (satisfaction >= 1 AND satisfaction <= 5),
+                missing_communities TEXT[] NOT NULL DEFAULT '{}',
+                comments TEXT NOT NULL DEFAULT '',
+                created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
+            )
+            """
+        )
+        cursor.execute(
+            "CREATE INDEX IF NOT EXISTS idx_beta_feedback_task_id ON beta_feedback(task_id)"
+        )
+        cursor.execute(
+            "CREATE INDEX IF NOT EXISTS idx_beta_feedback_user_id ON beta_feedback(user_id)"
+        )
+        cursor.execute(
+            "CREATE INDEX IF NOT EXISTS idx_beta_feedback_created_at ON beta_feedback(created_at)"
+        )
+        cursor.execute(
+            "TRUNCATE TABLE community_import_history, beta_feedback, community_pool, pending_communities, reports, analyses, tasks, users RESTART IDENTITY CASCADE"
         )
     finally:
         cursor.close()
         conn.close()
 
+
+
+# Ensure clean tables for each test as well to avoid cross-test coupling
+@pytest.fixture(scope="function", autouse=True)
+def truncate_tables_between_tests() -> None:
+    import os
+    import psycopg
+
+    # Get connection params from environment or use test defaults
+    db_host = os.getenv('TEST_DB_HOST', 'test-db')
+    db_port = int(os.getenv('TEST_DB_PORT', '5432'))
+    db_user = os.getenv('TEST_DB_USER', 'test_user')
+    db_password = os.getenv('TEST_DB_PASSWORD', 'test_pass')
+    db_name = os.getenv('TEST_DB_NAME', 'reddit_scanner_test')
+
+    conn = psycopg.connect(
+        host=db_host,
+        port=db_port,
+        user=db_user,
+        password=db_password,
+        dbname=db_name
+    )
+    conn.autocommit = True
+    cursor = conn.cursor()
+    try:
+        cursor.execute(
+            "TRUNCATE TABLE beta_feedback, community_pool, pending_communities RESTART IDENTITY CASCADE"
+        )
+    finally:
+        cursor.close()
+        conn.close()
+
+
+# For the community import tests module, reset history once at module start so tests can assert cumulative history
+@pytest.fixture(scope="module", autouse=True)
+def reset_history_for_import_module(request: pytest.FixtureRequest) -> None:
+    module_file = getattr(request.module, "__file__", "")
+    if module_file.endswith("test_community_import.py"):
+        import os
+        import psycopg
+
+        # Get connection params from environment or use test defaults
+        db_host = os.getenv('TEST_DB_HOST', 'test-db')
+        db_port = int(os.getenv('TEST_DB_PORT', '5432'))
+        db_user = os.getenv('TEST_DB_USER', 'test_user')
+        db_password = os.getenv('TEST_DB_PASSWORD', 'test_pass')
+        db_name = os.getenv('TEST_DB_NAME', 'reddit_scanner_test')
+
+        conn = psycopg.connect(
+            host=db_host,
+            port=db_port,
+            user=db_user,
+            password=db_password,
+            dbname=db_name
+        )
+        conn.autocommit = True
+        cursor = conn.cursor()
+        try:
+            cursor.execute("TRUNCATE TABLE community_import_history RESTART IDENTITY CASCADE")
+        finally:
+            cursor.close()
+            conn.close()
 
 @pytest_asyncio.fixture(scope="function")
 async def db_session() -> AsyncIterator[AsyncSession]:

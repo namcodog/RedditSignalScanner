@@ -6,7 +6,7 @@ from typing import Optional
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.db.session import get_session
+from app.db.session import SessionFactory
 from app.models.community_cache import CommunityCache
 
 
@@ -30,10 +30,9 @@ async def upsert_community_cache(
         await session.flush()
         return
 
-    async for scoped_session in get_session():
+    async with SessionFactory() as scoped_session:
         await _upsert(scoped_session, community_name, posts_cached, ttl_seconds, quality_score)
         await scoped_session.commit()
-        break
 
 
 async def _upsert(

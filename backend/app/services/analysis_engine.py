@@ -29,6 +29,7 @@ from app.services.cache_manager import CacheManager
 from app.services.data_collection import CollectionResult, DataCollectionService
 from app.services.reddit_client import RedditAPIClient, RedditPost
 from app.services.analysis.signal_extraction import SignalExtractor
+from app.services.reddit_client import RedditAPIClient
 
 
 logger = logging.getLogger(__name__)
@@ -167,6 +168,56 @@ def _extract_keywords(description: str, max_keywords: int = 12) -> List[str]:
         return []
     counts = Counter(tokens)
     return [word for word, _ in counts.most_common(max_keywords)]
+
+
+def _augment_keywords(base: Sequence[str], description: str) -> List[str]:
+    """Augment keywords with common英中领域同义词，提升匹配度（尤其中文输入）。
+
+    设计目标：快速、可控；当过滤后样本过少时会自动回退。
+    """
+    kws: set[str] = set(w.lower() for w in base)
+    # 常见概念同义词（面向本项目域）
+    canon = {
+        "ai": ["ai", "artificial", "machine", "ml"],
+        "note": ["note", "notes", "notetaking", "notebook"],
+        "summary": ["summary", "summarize", "summarise", "summarizing"],
+        "startup": ["startup", "startups", "founder", "founders", "entrepreneur", "entrepreneurs"],
+        "market": ["market", "marketing", "growth", "insight", "insights"],
+        "product": ["product", "pm", "roadmap", "ux", "research"],
+    }
+    # 中文触发词 → 英文关键字
+    zh_triggers = {
+        "笔记": ["note", "notes"],
+        "总结": ["summary", "summarize"],
+        "创业": ["startup", "entrepreneur"],
+        "市场": ["market", "insight"],
+        "洞察": ["insight"],
+        "产品": ["product"],
+        "AI": ["ai"],
+    }
+    desc_lower = description.lower()
+    for root, variants in canon.items():
+        if root in desc_lower or any(v in kws for v in variants):
+            kws.update(variants)
+    for zh, variants in zh_triggers.items():
+        if zh in description:
+            kws.update(variants)
+    return list(kws)
+
+
+def _filter_posts_by_keywords(posts: Sequence[Dict[str, Any]], keywords: Sequence[str]) -> List[Dict[str, Any]]:
+    if not posts or not keywords:
+        return list(posts)
+    keys = [k.lower() for k in keywords if k]
+    filtered: List[Dict[str, Any]] = []
+    for p in posts:
+        title = str(p.get("title", "")).lower()
+        summary = str(p.get("summary", "")).lower()
+        text = f"{title} {summary}"
+        if any(k in text for k in keys):
+            filtered.append(p)
+    # 避免过度过滤：若过滤后小于原来20%，则回退使用原集合
+    return filtered if len(filtered) >= max(1, int(len(posts) * 0.2)) else list(posts)
 
 
 def _score_community(keywords: Sequence[str], profile: CommunityProfile) -> float:
@@ -408,9 +459,118 @@ async def run_analysis(
     data_collection: DataCollectionService | None = None,
 ) -> AnalysisResult:
     keywords = _extract_keywords(task.product_description)
-    selected = _select_top_communities(keywords)
+    keywords = _augment_keywords(keywords, task.product_description)
 
     settings = get_settings()
+
+    # 1) 从数据库加载真实的社区池
+    from app.db.session import SessionFactory
+    from app.models.community_pool import CommunityPool as CommunityPoolModel
+    from sqlalchemy import select
+
+    db_communities: List[CommunityProfile] = []
+    try:
+        async with SessionFactory() as db:
+            result = await db.execute(
+                select(CommunityPoolModel)
+                .where(CommunityPoolModel.is_active == True)
+                .order_by(CommunityPoolModel.priority.desc())
+                .limit(50)
+            )
+            communities = result.scalars().all()
+
+            for comm in communities:
+                # 提前获取所有属性，避免 session 过期
+                name = comm.name
+                categories = comm.categories or []
+                keywords_list = comm.description_keywords or []
+
+                db_communities.append(
+                    CommunityProfile(
+                        name=name,
+                        categories=tuple(categories) if categories else ("general",),
+                        description_keywords=tuple(keywords_list) if keywords_list else tuple(keywords[:3]),
+                        daily_posts=comm.estimated_daily_posts or 100,
+                        avg_comment_length=70,
+                        cache_hit_rate=0.8,
+                    )
+                )
+    except Exception as e:
+        logger.warning(f"Failed to load communities from database: {e}")
+        db_communities = []
+
+    # 2) 使用组合查询提高搜索精度
+    search_posts: List[RedditPost] = []
+    try:
+        if settings.reddit_client_id and settings.reddit_client_secret:
+            reddit = RedditAPIClient(
+                settings.reddit_client_id,
+                settings.reddit_client_secret,
+                settings.reddit_user_agent,
+                rate_limit=min(30, settings.reddit_rate_limit),
+                rate_limit_window=settings.reddit_rate_limit_window_seconds,
+                request_timeout=min(20.0, settings.reddit_request_timeout_seconds),
+                max_concurrency=2,
+            )
+            async with reddit:
+                # 使用组合查询而不是单个关键词
+                combined_queries = [
+                    " ".join(keywords[:3]),  # 前3个关键词组合
+                    " ".join(keywords[1:4]) if len(keywords) > 3 else " ".join(keywords[:2]),  # 不同组合
+                ]
+
+                for q in combined_queries:
+                    try:
+                        items = await reddit.search_posts(
+                            query=q,
+                            limit=50,
+                            time_filter="month",  # 扩大时间范围
+                            sort="relevance",
+                        )
+                        search_posts.extend(items)
+                    except Exception:
+                        continue
+    except Exception:
+        search_posts = []
+
+    # 3) 基于搜索结果和数据库社区池选择最相关的社区
+    discovered_selected: List[CommunityProfile] = []
+    if search_posts:
+        counter = Counter(p.subreddit for p in search_posts)
+        # 优先选择在数据库中存在的社区
+        db_community_names = {c.name for c in db_communities}
+
+        for name, count in counter.most_common(20):
+            if name in db_community_names:
+                # 使用数据库中的社区信息
+                db_comm = next(c for c in db_communities if c.name == name)
+                discovered_selected.append(db_comm)
+            else:
+                # 新发现的社区
+                discovered_selected.append(
+                    CommunityProfile(
+                        name=name,
+                        categories=("discovered",),
+                        description_keywords=tuple(keywords[:6]),
+                        daily_posts=80,
+                        avg_comment_length=70,
+                        cache_hit_rate=0.5,
+                    )
+                )
+
+    # 4) 如果搜索结果不足，从数据库社区池中补充
+    if len(discovered_selected) < 10 and db_communities:
+        scored_communities = [(c, _score_community(keywords, c)) for c in db_communities]
+        scored_communities.sort(key=lambda x: x[1], reverse=True)
+
+        for comm, score in scored_communities[:15]:
+            if comm not in discovered_selected:
+                discovered_selected.append(comm)
+            if len(discovered_selected) >= 12:
+                break
+
+    selected = discovered_selected if discovered_selected else _select_top_communities(keywords)
+
     collection_result: CollectionResult | None = None
     cache_only_result: CollectionResult | None = None
     service = data_collection
@@ -421,7 +581,23 @@ async def run_analysis(
 
     api_call_count: int | None = None
 
-    if service is not None:
+    if search_posts:
+        from collections import defaultdict
+        grouped: Dict[str, List[RedditPost]] = defaultdict(list)
+        for p in search_posts:
+            grouped[p.subreddit].append(p)
+        posts_by_subreddit = {k: v for k, v in grouped.items() if any(cp.name == k for cp in selected)}
+        total_posts = sum(len(v) for v in posts_by_subreddit.values())
+        cached: set[str] = set()
+        collection_result = CollectionResult(
+            total_posts=total_posts,
+            cache_hits=len(cached),
+            api_calls=min(5, len(keywords)),
+            cache_hit_rate=0.0,
+            posts_by_subreddit=posts_by_subreddit,
+            cached_subreddits=cached,
+        )
+    elif service is not None:
         try:
             collection_result = await service.collect_posts(
                 [profile.name for profile in selected],
@@ -468,6 +644,7 @@ async def run_analysis(
         cache_hit_rate = cache_hit_rate or CACHE_HIT_RATE_TARGET
 
     all_posts = [post for entry in collected for post in entry.posts]
+    all_posts = _filter_posts_by_keywords(all_posts, keywords)
     business_signals = SIGNAL_EXTRACTOR.extract(all_posts, keywords)
 
     post_lookup: Dict[str, Dict[str, Any]] = {}
