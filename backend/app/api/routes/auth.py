@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import uuid
 from datetime import datetime, timezone
+from typing import cast
 
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy import select
@@ -9,18 +10,12 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.config import Settings, get_settings
-from app.core.security import create_access_token, hash_password, verify_password
+from app.core.security import (create_access_token, hash_password,
+                               verify_password)
 from app.db.session import get_session
 from app.models.user import User
-from app.schemas.auth import (
-    AuthTokenResponse,
-    AuthUser,
-    LoginRequest,
-    RegisterRequest,
-)
-from typing import cast
-
-
+from app.schemas.auth import (AuthTokenResponse, AuthUser, LoginRequest,
+                              RegisterRequest)
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 
@@ -35,7 +30,9 @@ def _normalise_email(email: str) -> str:
 
 
 def _issue_token(user: User, settings: Settings) -> AuthTokenResponse:
-    token, expires_at = create_access_token(user.id, email=user.email, settings=settings)
+    token, expires_at = create_access_token(
+        user.id, email=user.email, settings=settings
+    )
     return AuthTokenResponse(
         access_token=token,
         expires_at=expires_at,

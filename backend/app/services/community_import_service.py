@@ -158,7 +158,9 @@ class CommunityImportService:
             )
             return result
 
-        missing_columns = [col for col in self.REQUIRED_COLUMNS if col not in present_columns]
+        missing_columns = [
+            col for col in self.REQUIRED_COLUMNS if col not in present_columns
+        ]
         if missing_columns:
             result = self._error_response(
                 status="error",
@@ -206,7 +208,9 @@ class CommunityImportService:
 
         parsed_rows, row_states, errors = self._validate_rows(rows)
 
-        importable_rows, duplicate_errors = await self._filter_existing_duplicates(parsed_rows, row_states)
+        importable_rows, duplicate_errors = await self._filter_existing_duplicates(
+            parsed_rows, row_states
+        )
         errors.extend(duplicate_errors)
 
         imported_records = 0
@@ -363,7 +367,9 @@ class CommunityImportService:
     def _validate_rows(
         self,
         rows: List[RowRecord],
-    ) -> Tuple[List[ParsedCommunityRow], Dict[int, Dict[str, str]], List[Dict[str, Any]]]:
+    ) -> Tuple[
+        List[ParsedCommunityRow], Dict[int, Dict[str, str]], List[Dict[str, Any]]
+    ]:
         parsed: List[ParsedCommunityRow] = []
         states: Dict[int, Dict[str, str]] = {}
         errors: List[Dict[str, Any]] = []
@@ -372,7 +378,11 @@ class CommunityImportService:
         for row_number, data in rows:
             raw_name = self._string_value(data.get("name"))
             raw_tier = self._string_value(data.get("tier"))
-            states[row_number] = {"name": raw_name, "tier": raw_tier, "status": "invalid"}
+            states[row_number] = {
+                "name": raw_name,
+                "tier": raw_tier,
+                "status": "invalid",
+            }
 
             row_errors: List[Dict[str, Any]] = []
             if not raw_name:
@@ -535,7 +545,9 @@ class CommunityImportService:
             return [], []
 
         lower_names = {row.name.lower() for row in rows}
-        stmt = select(CommunityPool.name).where(func.lower(CommunityPool.name).in_(lower_names))
+        stmt = select(CommunityPool.name).where(
+            func.lower(CommunityPool.name).in_(lower_names)
+        )
         existing = (await self._session.execute(stmt)).scalars().all()
         existing_normalized = {name.lower() for name in existing}
 
@@ -559,10 +571,14 @@ class CommunityImportService:
         return filtered, duplicate_errors
 
     @staticmethod
-    def _build_summary(states: Dict[int, Dict[str, str]], imported: int) -> Dict[str, int]:
+    def _build_summary(
+        states: Dict[int, Dict[str, str]], imported: int
+    ) -> Dict[str, int]:
         total = len(states)
         invalid = sum(1 for state in states.values() if state["status"] == "invalid")
-        duplicates = sum(1 for state in states.values() if state["status"] == "duplicate")
+        duplicates = sum(
+            1 for state in states.values() if state["status"] == "duplicate"
+        )
         valid = sum(
             1
             for state in states.values()

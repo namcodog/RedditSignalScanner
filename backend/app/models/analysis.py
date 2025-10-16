@@ -1,20 +1,12 @@
 from __future__ import annotations
 
+import uuid
 from datetime import datetime
 from decimal import Decimal
 from typing import TYPE_CHECKING, Any, Dict
-import uuid
 
-from sqlalchemy import (
-    CheckConstraint,
-    DateTime,
-    ForeignKey,
-    Index,
-    Numeric,
-    String,
-    UniqueConstraint,
-    func,
-)
+from sqlalchemy import (CheckConstraint, DateTime, ForeignKey, Index, Numeric,
+                        String, UniqueConstraint, func)
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -31,8 +23,12 @@ class Analysis(Base):
     __tablename__ = "analyses"
     __table_args__ = (
         UniqueConstraint("task_id", name="uq_analyses_task_id"),
-        CheckConstraint("validate_insights_schema(insights)", name="ck_analyses_insights_schema"),
-        CheckConstraint("validate_sources_schema(sources)", name="ck_analyses_sources_schema"),
+        CheckConstraint(
+            "validate_insights_schema(insights)", name="ck_analyses_insights_schema"
+        ),
+        CheckConstraint(
+            "validate_sources_schema(sources)", name="ck_analyses_sources_schema"
+        ),
         CheckConstraint(
             "(confidence_score IS NULL) OR (confidence_score BETWEEN 0.00 AND 1.00)",
             name="ck_analyses_confidence_score_range",
@@ -50,8 +46,12 @@ class Analysis(Base):
     )
     insights: Mapped[Dict[str, Any]] = mapped_column(JSONB, nullable=False)
     sources: Mapped[Dict[str, Any]] = mapped_column(JSONB, nullable=False)
-    confidence_score: Mapped[Decimal | None] = mapped_column(Numeric(3, 2), nullable=True)
-    analysis_version: Mapped[str] = mapped_column(String(10), default="1.0", nullable=False)
+    confidence_score: Mapped[Decimal | None] = mapped_column(
+        Numeric(3, 2), nullable=True
+    )
+    analysis_version: Mapped[str] = mapped_column(
+        String(10), default="1.0", nullable=False
+    )
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now(), nullable=False
     )

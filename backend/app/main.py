@@ -1,30 +1,25 @@
 from __future__ import annotations
 
-from fastapi import FastAPI
 from pathlib import Path
+
+from fastapi import FastAPI
+
 try:
     # 确保在本地开发/测试时能够自动加载 backend/.env
     from dotenv import load_dotenv  # type: ignore
+
     load_dotenv(dotenv_path=Path(__file__).resolve().parents[1] / ".env")
 except Exception:
     pass
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.routing import APIRouter
 
-from app.api.routes import (
-    admin_router,
-    admin_communities_router,
-    admin_community_pool_router,
-    analyze_router,
-    auth_router,
-    report_router,
-    status_router,
-    stream_router,
-    task_router,
-    tasks_router,
-    beta_feedback_router,
-    admin_beta_feedback_router,
-)
+from app.api.routes import (admin_beta_feedback_router,
+                            admin_communities_router,
+                            admin_community_pool_router, admin_router,
+                            analyze_router, auth_router, beta_feedback_router,
+                            report_router, status_router, stream_router,
+                            task_router, tasks_router)
 from app.core.config import Settings, get_settings
 
 
@@ -65,7 +60,9 @@ def create_application(settings: Settings) -> FastAPI:
     def runtime_diag() -> dict[str, str | bool]:
         cfg = get_settings()
         return {
-            "has_reddit_client": bool(cfg.reddit_client_id and cfg.reddit_client_secret),
+            "has_reddit_client": bool(
+                cfg.reddit_client_id and cfg.reddit_client_secret
+            ),
             "app_env": cfg.environment,
             "sse_base_path": cfg.sse_base_path,
         }

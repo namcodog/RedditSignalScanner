@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-from datetime import datetime
 import uuid
+from datetime import datetime
 
 from sqlalchemy import CheckConstraint, Index, String, text
 from sqlalchemy.orm import Mapped, mapped_column
@@ -19,7 +19,9 @@ class User(TimestampMixin, Base):
             name="ck_users_valid_email",
         ),
         Index("idx_users_email", "email"),
-        Index("idx_users_active", "is_active", postgresql_where=text("is_active = true")),
+        Index(
+            "idx_users_active", "is_active", postgresql_where=text("is_active = true")
+        ),
     )
 
     id: Mapped[uuid.UUID] = uuid_pk_column()

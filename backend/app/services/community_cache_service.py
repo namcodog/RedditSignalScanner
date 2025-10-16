@@ -31,7 +31,9 @@ async def upsert_community_cache(
         return
 
     async with SessionFactory() as scoped_session:
-        await _upsert(scoped_session, community_name, posts_cached, ttl_seconds, quality_score)
+        await _upsert(
+            scoped_session, community_name, posts_cached, ttl_seconds, quality_score
+        )
         await scoped_session.commit()
 
 
@@ -43,8 +45,12 @@ async def _upsert(
     quality_score: float | None,
 ) -> None:
     now = datetime.now(timezone.utc)
-    instance: Optional[CommunityCache] = await session.get(CommunityCache, community_name)
-    quality_value = Decimal(str(quality_score)) if quality_score is not None else Decimal("0.50")
+    instance: Optional[CommunityCache] = await session.get(
+        CommunityCache, community_name
+    )
+    quality_value = (
+        Decimal(str(quality_score)) if quality_score is not None else Decimal("0.50")
+    )
 
     if instance is None:
         instance = CommunityCache(

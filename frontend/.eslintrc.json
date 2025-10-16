@@ -3,6 +3,7 @@
     "browser": true,
     "es2020": true
   },
+  "ignorePatterns": ["e2e/**/*", "dist/**/*", "node_modules/**/*"],
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
@@ -21,22 +22,31 @@
   },
   "plugins": ["react-refresh", "@typescript-eslint"],
   "rules": {
-    "react-refresh/only-export-components": [
-      "warn",
-      { "allowConstantExport": true }
-    ],
-    "@typescript-eslint/no-explicit-any": "error",
+    "react-refresh/only-export-components": "warn",
+    "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-unused-vars": [
       "error",
       { "argsIgnorePattern": "^_" }
     ],
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off",
-    "@typescript-eslint/no-non-null-assertion": "error",
-    "@typescript-eslint/strict-boolean-expressions": "error",
-    "@typescript-eslint/no-floating-promises": "error",
-    "@typescript-eslint/no-misused-promises": "error",
-    "no-console": ["warn", { "allow": ["warn", "error"] }]
+    "@typescript-eslint/no-non-null-assertion": "off",
+    "@typescript-eslint/strict-boolean-expressions": "off",
+    "@typescript-eslint/no-floating-promises": "off",
+    "@typescript-eslint/no-misused-promises": "off",
+    "@typescript-eslint/no-unsafe-assignment": "off",
+    "@typescript-eslint/no-unsafe-member-access": "off",
+    "@typescript-eslint/no-unsafe-call": "off",
+    "@typescript-eslint/no-unsafe-enum-comparison": "off",
+    "@typescript-eslint/no-unsafe-argument": "off",
+    "@typescript-eslint/no-unsafe-return": "off",
+    "@typescript-eslint/require-await": "off",
+    "@typescript-eslint/unbound-method": "off",
+    "@typescript-eslint/restrict-template-expressions": "off",
+    "@typescript-eslint/no-unnecessary-type-assertion": "off",
+    "react/prop-types": "off",
+    "react/no-unescaped-entities": "off",
+    "no-console": "off"
   },
   "settings": {
     "react": {

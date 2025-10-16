@@ -25,12 +25,11 @@ from typing import Any, Dict, Iterable, List, Sequence
 
 from app.core.config import Settings, get_settings
 from app.schemas.task import TaskSummary
-from app.services.cache_manager import CacheManager
-from app.services.data_collection import CollectionResult, DataCollectionService
-from app.services.reddit_client import RedditAPIClient, RedditPost
 from app.services.analysis.signal_extraction import SignalExtractor
-from app.services.reddit_client import RedditAPIClient
-
+from app.services.cache_manager import CacheManager
+from app.services.data_collection import (CollectionResult,
+                                          DataCollectionService)
+from app.services.reddit_client import RedditAPIClient, RedditPost
 
 logger = logging.getLogger(__name__)
 
@@ -181,7 +180,14 @@ def _augment_keywords(base: Sequence[str], description: str) -> List[str]:
         "ai": ["ai", "artificial", "machine", "ml"],
         "note": ["note", "notes", "notetaking", "notebook"],
         "summary": ["summary", "summarize", "summarise", "summarizing"],
-        "startup": ["startup", "startups", "founder", "founders", "entrepreneur", "entrepreneurs"],
+        "startup": [
+            "startup",
+            "startups",
+            "founder",
+            "founders",
+            "entrepreneur",
+            "entrepreneurs",
+        ],
         "market": ["market", "marketing", "growth", "insight", "insights"],
         "product": ["product", "pm", "roadmap", "ux", "research"],
     }
@@ -205,7 +211,9 @@ def _augment_keywords(base: Sequence[str], description: str) -> List[str]:
     return list(kws)
 
 
-def _filter_posts_by_keywords(posts: Sequence[Dict[str, Any]], keywords: Sequence[str]) -> List[Dict[str, Any]]:
+def _filter_posts_by_keywords(
+    posts: Sequence[Dict[str, Any]], keywords: Sequence[str]
+) -> List[Dict[str, Any]]:
     if not posts or not keywords:
         return list(posts)
     keys = [k.lower() for k in keywords if k]
@@ -265,7 +273,9 @@ def _select_top_communities(keywords: Sequence[str]) -> List[CommunityProfile]:
     if not initial:
         return []
 
-    avg_hit = sum(_normalise_cache_hit_rate(p.cache_hit_rate) for p in initial) / len(initial)
+    avg_hit = sum(_normalise_cache_hit_rate(p.cache_hit_rate) for p in initial) / len(
+        initial
+    )
     target_count = _determine_target_count(avg_hit)
     selected: List[CommunityProfile] = []
     category_counts: Counter[str] = Counter()
@@ -283,9 +293,13 @@ def _select_top_communities(keywords: Sequence[str]) -> List[CommunityProfile]:
     return selected
 
 
-def _simulate_posts(profile: CommunityProfile, keywords: Sequence[str]) -> List[Dict[str, Any]]:
+def _simulate_posts(
+    profile: CommunityProfile, keywords: Sequence[str]
+) -> List[Dict[str, Any]]:
     posts: List[Dict[str, Any]] = []
-    seed = sum(ord(c) for c in profile.name) + sum(ord(k[0]) for k in keywords or ["base"])
+    seed = sum(ord(c) for c in profile.name) + sum(
+        ord(k[0]) for k in keywords or ["base"]
+    )
 
     def pseudo_score(idx: int) -> int:
         return 80 + (seed % 40) + idx * 5
@@ -373,7 +387,9 @@ def _simulate_posts(profile: CommunityProfile, keywords: Sequence[str]) -> List[
     return posts
 
 
-def _collect_data(communities: Sequence[CommunityProfile], keywords: Sequence[str]) -> List[CollectedCommunity]:
+def _collect_data(
+    communities: Sequence[CommunityProfile], keywords: Sequence[str]
+) -> List[CollectedCommunity]:
     collected: List[CollectedCommunity] = []
     for profile in communities:
         posts = _simulate_posts(profile, keywords)
@@ -410,7 +426,11 @@ def _backfill_cache_misses(
     return supplemented
 
 
-def _render_report(task_summary: TaskSummary, communities: Sequence[CollectedCommunity], insights: Dict[str, List[Dict[str, Any]]]) -> str:
+def _render_report(
+    task_summary: TaskSummary,
+    communities: Sequence[CollectedCommunity],
+    insights: Dict[str, List[Dict[str, Any]]],
+) -> str:
     community_block = "".join(
         f"<li><strong>{html.escape(community.profile.name)}</strong> — 命中率 "
         f"{(community.cache_hits / max(len(community.posts), 1)):.0%}, 帖子数 {len(community.posts)}</li>"
@@ -464,9 +484,10 @@ async def run_analysis(
     settings = get_settings()
 
     # 1) 从数据库加载真实的社区池
+    from sqlalchemy import select
+
     from app.db.session import SessionFactory
     from app.models.community_pool import CommunityPool as CommunityPoolModel
-    from sqlalchemy import select
 
     db_communities: List[CommunityProfile] = []
     try:
@@ -487,14 +508,22 @@ async def run_analysis(
                 categories_raw = comm.categories or {}
                 keywords_raw = comm.description_keywords or {}
 
-                categories: list[str] = list(categories_raw.keys()) if isinstance(categories_raw, dict) else []
-                keywords_list: list[str] = list(keywords_raw.keys()) if isinstance(keywords_raw, dict) else []
+                categories: list[str] = (
+                    list(categories_raw.keys())
+                    if isinstance(categories_raw, dict)
+                    else []
+                )
+                keywords_list: list[str] = (
+                    list(keywords_raw.keys()) if isinstance(keywords_raw, dict) else []
+                )
 
                 db_communities.append(
                     CommunityProfile(
                         name=name,
                         categories=tuple(categories) if categories else ("general",),
-                        description_keywords=tuple(keywords_list) if keywords_list else tuple(keywords[:3]),
+                        description_keywords=tuple(keywords_list)
+                        if keywords_list
+                        else tuple(keywords[:3]),
                         daily_posts=comm.daily_posts or 100,
                         avg_comment_length=comm.avg_comment_length or 70,
                         cache_hit_rate=0.8,
@@ -521,7 +550,9 @@ async def run_analysis(
                 # 使用组合查询而不是单个关键词
                 combined_queries = [
                     " ".join(keywords[:3]),  # 前3个关键词组合
-                    " ".join(keywords[1:4]) if len(keywords) > 3 else " ".join(keywords[:2]),  # 不同组合
+                    " ".join(keywords[1:4])
+                    if len(keywords) > 3
+                    else " ".join(keywords[:2]),  # 不同组合
                 ]
 
                 for q in combined_queries:
@@ -548,7 +579,9 @@ async def run_analysis(
         for name, count in counter.most_common(20):
             if name in db_community_names:
                 # 使用数据库中的社区信息
-                db_comm: CommunityProfile = next(c for c in db_communities if c.name == name)
+                db_comm: CommunityProfile = next(
+                    c for c in db_communities if c.name == name
+                )
                 discovered_selected.append(db_comm)
             else:
                 # 新发现的社区
@@ -576,7 +609,11 @@ async def run_analysis(
             if len(discovered_selected) >= 12:
                 break
 
-    selected = discovered_selected if discovered_selected else _select_top_communities(keywords)
+    selected = (
+        discovered_selected
+        if discovered_selected
+        else _select_top_communities(keywords)
+    )
 
     collection_result: CollectionResult | None = None
     cache_only_result: CollectionResult | None = None
@@ -590,10 +627,13 @@ async def run_analysis(
 
     if search_posts:
         from collections import defaultdict
+
         grouped: Dict[str, List[RedditPost]] = defaultdict(list)
         for p in search_posts:
             grouped[p.subreddit].append(p)
-        posts_by_subreddit = {k: v for k, v in grouped.items() if any(cp.name == k for cp in selected)}
+        posts_by_subreddit = {
+            k: v for k, v in grouped.items() if any(cp.name == k for cp in selected)
+        }
         total_posts = sum(len(v) for v in posts_by_subreddit.values())
         cached: set[str] = set()
         collection_result = CollectionResult(
@@ -611,7 +651,9 @@ async def run_analysis(
                 limit_per_subreddit=100,
             )
         except Exception as exc:  # pragma: no cover - defensive fallback
-            logger.warning("Data collection failed; falling back to synthetic data. %s", exc)
+            logger.warning(
+                "Data collection failed; falling back to synthetic data. %s", exc
+            )
             collection_result = None
         finally:
             if close_reddit:
@@ -725,7 +767,10 @@ async def run_analysis(
             }
         )
 
-    total_competitor_mentions = sum(comp_signal.mention_count for comp_signal in business_signals.competitors) or 1
+    total_competitor_mentions = (
+        sum(comp_signal.mention_count for comp_signal in business_signals.competitors)
+        or 1
+    )
     competitor_sentiment_totals: Counter[str] = Counter()
     competitors_payload: List[Dict[str, Any]] = []
     for competitor_signal in business_signals.competitors:
@@ -739,14 +784,21 @@ async def run_analysis(
                 "sentiment": sentiment_label,
                 "strengths": strengths,
                 "weaknesses": weaknesses,
-                "market_share": int(round((competitor_signal.mention_count / total_competitor_mentions) * 100)),
+                "market_share": int(
+                    round(
+                        (competitor_signal.mention_count / total_competitor_mentions)
+                        * 100
+                    )
+                ),
                 "context_snippets": competitor_signal.context_snippets[:3],
             }
         )
 
     opportunities_payload: List[Dict[str, Any]] = []
     for opportunity_signal in business_signals.opportunities:
-        key_insights = opportunity_signal.keywords[:4] if opportunity_signal.keywords else []
+        key_insights = (
+            opportunity_signal.keywords[:4] if opportunity_signal.keywords else []
+        )
         if not key_insights:
             key_insights = [opportunity_signal.description]
         opportunities_payload.append(
@@ -770,7 +822,9 @@ async def run_analysis(
     communities_detail: List[Dict[str, Any]] = []
     for entry in collected:
         entry_total_posts = entry.cache_hits + entry.cache_misses
-        entry_hit_rate = entry.cache_hits / entry_total_posts if entry_total_posts else 0.0
+        entry_hit_rate = (
+            entry.cache_hits / entry_total_posts if entry_total_posts else 0.0
+        )
         communities_detail.append(
             {
                 "name": entry.profile.name,

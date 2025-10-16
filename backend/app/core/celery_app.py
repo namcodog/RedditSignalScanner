@@ -138,12 +138,10 @@ celery_app.conf.beat_schedule = {
 # Import ensures registration even when autodiscovery is executed in tooling
 # contexts (e.g. verify_celery_config.py) where lazy loading might skip it.
 try:
-    from app.tasks import (
-        analysis_task as _analysis_task,  # noqa: F401
-        crawler_task as _crawler_task,  # noqa: F401
-        monitoring_task as _monitoring_task,  # noqa: F401
-        warmup_crawler as _warmup_crawler,  # noqa: F401
-    )
+    from app.tasks import analysis_task as _analysis_task  # noqa: F401
+    from app.tasks import crawler_task as _crawler_task  # noqa: F401
+    from app.tasks import monitoring_task as _monitoring_task  # noqa: F401
+    from app.tasks import warmup_crawler as _warmup_crawler  # noqa: F401
 except Exception:  # pragma: no cover - defensive guard for diagnostics
     pass
 

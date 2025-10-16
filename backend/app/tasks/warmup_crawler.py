@@ -12,14 +12,14 @@ from typing import Any
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.services.reddit_client import RedditAPIClient, RedditPost
 from app.core.celery_app import celery_app
+from app.core.config import settings
 from app.db.session import get_session
 from app.models.community_cache import CommunityCache
 from app.models.community_pool import CommunityPool
-from app.core.config import settings
 from app.services.cache_manager import CacheManager
 from app.services.community_cache_service import upsert_community_cache
+from app.services.reddit_client import RedditAPIClient, RedditPost
 
 logger = logging.getLogger(__name__)
 
@@ -95,7 +95,9 @@ async def _warmup_crawler_async(community_name: str | None = None) -> dict[str, 
             for community in communities:
                 community_name_str = community.name  # 提前获取名称，避免 session 过期
                 try:
-                    count = await _crawl_community(db, reddit_client, cache_manager, community)
+                    count = await _crawl_community(
+                        db, reddit_client, cache_manager, community
+                    )
                     stats["communities_crawled"] = int(stats["communities_crawled"]) + 1
                     stats["posts_fetched"] = int(stats["posts_fetched"]) + int(count)
                 except Exception as e:
@@ -318,7 +320,9 @@ async def _warmup_crawler_batch_async(batch_size: int = 10) -> dict[str, Any]:
             # Crawl each community
             for community in communities:
                 try:
-                    count = await _crawl_community(db, reddit_client, cache_manager, community)
+                    count = await _crawl_community(
+                        db, reddit_client, cache_manager, community
+                    )
                     stats["communities_crawled"] = int(stats["communities_crawled"]) + 1
                     stats["posts_fetched"] = int(stats["posts_fetched"]) + int(count)
                 except Exception as e:
@@ -375,4 +379,3 @@ async def _get_communities_for_batch(
     communities = pool_result.scalars().all()
 
     return list(communities)
-
