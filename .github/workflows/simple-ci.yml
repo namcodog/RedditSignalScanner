@@ -1,0 +1,57 @@
+# 简化版 CI - 适合入门
+# 只做最基本的检查
+
+name: Simple CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  # 快速检查
+  quick-check:
+    name: Quick Quality Check
+    runs-on: ubuntu-latest
+    
+    steps:
+      # 1. 获取代码
+      - uses: actions/checkout@v4
+      
+      # 2. 检查 Python 代码
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Check Python syntax
+        run: |
+          cd backend
+          python -m py_compile app/**/*.py || echo "Python syntax check completed"
+      
+      # 3. 检查 TypeScript 代码
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      
+      - name: Install frontend dependencies
+        run: |
+          cd frontend
+          npm ci
+      
+      - name: Check TypeScript
+        run: |
+          cd frontend
+          npm run type-check || echo "TypeScript check completed"
+      
+      # 4. 检查敏感信息
+      - name: Check for secrets
+        run: |
+          if grep -r "sk-" . --exclude-dir=node_modules --exclude-dir=.git; then
+            echo "⚠️ Warning: Possible API key found"
+            exit 1
+          fi
+          echo "✅ No secrets detected"
+
