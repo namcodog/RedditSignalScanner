@@ -7,16 +7,20 @@ from datetime import datetime, timedelta, timezone
 from typing import Any, Iterable, List, Optional, Sequence, Tuple, cast
 
 from celery.utils.log import get_task_logger  # type: ignore[import-untyped]
+from sqlalchemy.dialects.postgresql import insert as pg_insert
 
 from app.core.celery_app import celery_app
 from app.core.config import Settings, get_settings
 from app.db.session import SessionFactory
 from app.models.community_cache import CommunityCache
-from app.services.cache_manager import CacheManager, DEFAULT_CACHE_TTL_SECONDS
-from app.services.community_pool_loader import CommunityPoolLoader, CommunityProfile
+from app.models.crawl_metrics import CrawlMetrics
+from app.services.cache_manager import DEFAULT_CACHE_TTL_SECONDS, CacheManager
 from app.services.community_cache_service import upsert_community_cache
-from app.services.reddit_client import RedditAPIClient, RedditAPIError, RedditPost
+from app.services.community_pool_loader import (CommunityPoolLoader,
+                                                CommunityProfile)
 from app.services.incremental_crawler import IncrementalCrawler
+from app.services.reddit_client import (RedditAPIClient, RedditAPIError,
+                                        RedditPost)
 
 logger = get_task_logger(__name__)
 _MODULE_LOGGER = logging.getLogger(__name__)
@@ -28,7 +32,9 @@ DEFAULT_TIME_FILTER = os.getenv("CRAWLER_TIME_FILTER", "month")  # week/month
 DEFAULT_HOT_CACHE_TTL_HOURS = int(os.getenv("HOT_CACHE_TTL_HOURS", "24"))
 
 
-def _chunked(items: Sequence[CommunityProfile], size: int) -> Iterable[Sequence[CommunityProfile]]:
+def _chunked(
+    items: Sequence[CommunityProfile], size: int
+) -> Iterable[Sequence[CommunityProfile]]:
     if size <= 0:
         size = len(items) or 1
     for index in range(0, len(items), size):
@@ -113,7 +119,11 @@ async def _crawl_seeds_impl(force_refresh: bool = False) -> dict[str, Any]:
 
             seeds = await loader.load_community_pool(force_refresh=force_refresh)
         # 爬取所有活跃社区（high, medium, low 优先级）
-        seed_profiles = [profile for profile in seeds if profile.tier.lower() in ("high", "medium", "low")]
+        seed_profiles = [
+            profile
+            for profile in seeds
+            if profile.tier.lower() in ("high", "medium", "low")
+        ]
 
         if not seed_profiles:
             logger.warning("⚠️ 没有找到符合条件的社区，检查 tier 字段")
@@ -161,6 +171,23 @@ async def _crawl_seeds_impl(force_refresh: bool = False) -> dict[str, Any]:
         }
 
 
+async def _mark_failure_hit(community_name: str) -> None:
+    now = datetime.now(timezone.utc)
+    async with SessionFactory() as db:
+        await db.execute(
+            pg_insert(CommunityCache)
+            .values(community_name=community_name, last_crawled_at=now)
+            .on_conflict_do_update(
+                index_elements=["community_name"],
+                set_={
+                    "failure_hit": CommunityCache.failure_hit + 1,
+                    "last_crawled_at": now,
+                },
+            )
+        )
+        await db.commit()
+
+
 async def _crawl_seeds_incremental_impl(force_refresh: bool = False) -> dict[str, Any]:
     """新版增量抓取：冷热双写 + 水位线机制"""
     settings = get_settings()
@@ -173,7 +200,11 @@ async def _crawl_seeds_incremental_impl(force_refresh: bool = False) -> dict[str
                 await loader.load_seed_communities()
 
             seeds = await loader.load_community_pool(force_refresh=force_refresh)
-            seed_profiles = [profile for profile in seeds if profile.tier.lower() in ("high", "medium", "low")]
+            seed_profiles = [
+                profile
+                for profile in seeds
+                if profile.tier.lower() in ("high", "medium", "low")
+            ]
 
             if not seed_profiles:
                 logger.warning("⚠️ 没有找到符合条件的社区")
@@ -205,11 +236,18 @@ async def _crawl_seeds_incremental_impl(force_refresh: bool = False) -> dict[str
                 for profile, outcome in zip(batch, batch_results):
                     if isinstance(outcome, Exception):
                         logger.warning("❌ %s: 增量爬取失败 - %s", profile.name, outcome)
-                        results.append({
-                            "community": profile.name,
-                            "status": "failed",
-                            "error": str(outcome),
-                        })
+                        # 失败计数（failure_hit += 1）
+                        try:
+                            await _mark_failure_hit(profile.name)
+                        except Exception:
+                            logger.exception("计数 failure_hit 失败：%s", profile.name)
+                        results.append(
+                            {
+                                "community": profile.name,
+                                "status": "failed",
+                                "error": str(outcome),
+                            }
+                        )
                     else:
                         results.append(cast(dict[str, Any], outcome))
 
@@ -217,6 +255,21 @@ async def _crawl_seeds_incremental_impl(force_refresh: bool = False) -> dict[str
             total_updated = sum(r.get("updated_posts", 0) for r in results)
             total_dup = sum(r.get("duplicates", 0) for r in results)
             success_count = sum(1 for r in results if r.get("watermark_updated", False))
+
+            # 指标监控（T1.3）
+            try:
+                now = datetime.now(timezone.utc)
+                cache_hit_rate = (success_count / max(1, len(seed_profiles))) * 100.0
+                metrics = CrawlMetrics(
+                    metric_date=now.date(),
+                    metric_hour=now.hour,
+                    cache_hit_rate=cache_hit_rate,
+                    valid_posts_24h=total_new,  # 暂以本轮新增作为近似，后续在 T1.4/T1.7 优化口径
+                )
+                db.add(metrics)
+                await db.commit()
+            except Exception:
+                _MODULE_LOGGER.exception("写入 crawl_metrics 失败")
 
             return {
                 "status": "completed",
@@ -283,7 +336,9 @@ async def list_stale_caches(threshold_minutes: int = 90) -> List[Tuple[str, date
     cutoff = datetime.now(timezone.utc) - timedelta(minutes=threshold_minutes)
     async with SessionFactory() as session:
         result = await session.execute(
-            CommunityCache.__table__.select().where(CommunityCache.last_crawled_at < cutoff)
+            CommunityCache.__table__.select().where(
+                CommunityCache.last_crawled_at < cutoff
+            )
         )
         rows = result.fetchall()
         return [

@@ -3,7 +3,8 @@ from __future__ import annotations
 import json
 from dataclasses import asdict, is_dataclass
 from datetime import datetime, timedelta, timezone
-from typing import Any, Dict, Iterable, List, Optional, Protocol, Sequence, cast
+from typing import (Any, Dict, Iterable, List, Optional, Protocol, Sequence,
+                    cast)
 
 import redis
 
@@ -13,13 +14,17 @@ DEFAULT_CACHE_TTL_SECONDS = 24 * 60 * 60
 
 
 class RedisLike(Protocol):
-    def get(self, key: str) -> bytes | str | None: ...
+    def get(self, key: str) -> bytes | str | None:
+        ...
 
-    def setex(self, key: str, time: int, value: str) -> bool | None: ...
+    def setex(self, key: str, time: int, value: str) -> bool | None:
+        ...
 
-    def exists(self, key: str) -> int: ...
+    def exists(self, key: str) -> int:
+        ...
 
-    def delete(self, key: str) -> int: ...
+    def delete(self, key: str) -> int:
+        ...
 
 
 class CacheManager:
@@ -129,7 +134,9 @@ class CacheManager:
             return asdict(post)
         if isinstance(post, dict):
             return post
-        raise TypeError("CacheManager expects RedditPost dataclasses for serialisation.")
+        raise TypeError(
+            "CacheManager expects RedditPost dataclasses for serialisation."
+        )
 
     @staticmethod
     def _deserialize_post(data: Dict[str, Any]) -> RedditPost:

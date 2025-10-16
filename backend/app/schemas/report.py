@@ -5,9 +5,9 @@ from uuid import UUID
 
 from pydantic import Field
 
-from app.schemas.base import ORMModel
-from app.schemas.analysis import AnalysisRead
 from app.models.task import TaskStatus
+from app.schemas.analysis import AnalysisRead
+from app.schemas.base import ORMModel
 
 
 class ReportRead(ORMModel):

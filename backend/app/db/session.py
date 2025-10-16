@@ -13,15 +13,13 @@ import os
 from contextlib import asynccontextmanager
 from typing import AsyncIterator
 
-from sqlalchemy.ext.asyncio import (
-    AsyncEngine,
-    AsyncSession,
-    async_sessionmaker,
-    create_async_engine,
-)
+from sqlalchemy.ext.asyncio import (AsyncEngine, AsyncSession,
+                                    async_sessionmaker, create_async_engine)
 from sqlalchemy.pool import NullPool
 
-DEFAULT_DATABASE_URL = "postgresql+asyncpg://postgres:postgres@localhost:5432/reddit_scanner"
+DEFAULT_DATABASE_URL = (
+    "postgresql+asyncpg://postgres:postgres@localhost:5432/reddit_scanner"
+)
 DATABASE_URL = os.getenv("DATABASE_URL", DEFAULT_DATABASE_URL)
 
 

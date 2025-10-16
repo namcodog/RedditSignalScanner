@@ -160,7 +160,9 @@ class CommunityPoolLoader:
         # Get communities to initialize
         if communities is None:
             # Get all active communities from pool
-            stmt = select(CommunityPool).where(CommunityPool.is_active == True)  # noqa: E712
+            stmt = select(CommunityPool).where(
+                CommunityPool.is_active == True
+            )  # noqa: E712
             result = await self.db.execute(stmt)
             pool_communities = result.scalars().all()
             community_names = [c.name for c in pool_communities]
@@ -175,7 +177,9 @@ class CommunityPoolLoader:
 
         for name in community_names:
             # Check if cache entry already exists
-            cache_stmt = select(CommunityCache).where(CommunityCache.community_name == name)
+            cache_stmt = select(CommunityCache).where(
+                CommunityCache.community_name == name
+            )
             cache_result = await self.db.execute(cache_stmt)
             existing = cache_result.scalar_one_or_none()
 
@@ -253,7 +257,9 @@ class CommunityPoolLoader:
             list: List of community profiles
         """
         if force_refresh or self._should_refresh():
-            stmt = select(CommunityPool).where(CommunityPool.is_active == True)  # noqa: E712
+            stmt = select(CommunityPool).where(
+                CommunityPool.is_active == True
+            )  # noqa: E712
             result = await self.db.execute(stmt)
             rows = result.scalars().all()
             self._cache = [self._to_profile(row) for row in rows]

@@ -209,7 +209,9 @@ class CommunityDiscoveryService:
                 existing.last_discovered_at = now
                 # Merge keywords
                 if existing.discovered_from_keywords:
-                    existing_keywords = set(existing.discovered_from_keywords.get("keywords", []))
+                    existing_keywords = set(
+                        existing.discovered_from_keywords.get("keywords", [])
+                    )
                     existing_keywords.update(keywords)
                     existing.discovered_from_keywords = {
                         "keywords": list(existing_keywords),
@@ -235,4 +237,3 @@ class CommunityDiscoveryService:
 
 
 __all__ = ["CommunityDiscoveryService"]
-

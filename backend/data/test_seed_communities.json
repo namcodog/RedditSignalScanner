@@ -1,0 +1,5 @@
+{
+  "high_priority": ["r/artificial", "r/startups", "r/entrepreneur"],
+  "medium_priority": ["r/saas", "r/ProductManagement"],
+  "low_priority": ["r/technology", "r/programming", "r/webdev", "r/datascience", "r/machinelearning"]
+}

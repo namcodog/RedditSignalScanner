@@ -66,8 +66,10 @@ async def list_discovered(
     _payload: TokenPayload = Depends(require_admin),
     session: AsyncSession = Depends(get_session),
 ) -> dict[str, Any]:
-    stmt = select(PendingCommunity).where(PendingCommunity.status == "pending").order_by(
-        PendingCommunity.last_discovered_at.desc()
+    stmt = (
+        select(PendingCommunity)
+        .where(PendingCommunity.status == "pending")
+        .order_by(PendingCommunity.last_discovered_at.desc())
     )
     result = await session.execute(stmt)
     items = result.scalars().all()
@@ -96,12 +98,18 @@ async def approve_community(
     session: AsyncSession = Depends(get_session),
 ) -> dict[str, Any]:
     # Find pending record
-    pending = await session.scalar(select(PendingCommunity).where(PendingCommunity.name == body.name))
+    pending = await session.scalar(
+        select(PendingCommunity).where(PendingCommunity.name == body.name)
+    )
     if pending is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Pending community not found")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Pending community not found"
+        )
 
     # Upsert into CommunityPool
-    pool = await session.scalar(select(CommunityPool).where(CommunityPool.name == body.name))
+    pool = await session.scalar(
+        select(CommunityPool).where(CommunityPool.name == body.name)
+    )
     now = datetime.now(timezone.utc)
 
     if pool is None:
@@ -124,7 +132,9 @@ async def approve_community(
     else:
         pool.is_active = True
         try:
-            pool.discovered_count = int(pool.discovered_count) + int(pending.discovered_count)
+            pool.discovered_count = int(pool.discovered_count) + int(
+                pending.discovered_count
+            )
         except Exception:
             pool.discovered_count = int(pending.discovered_count)
 
@@ -132,7 +142,9 @@ async def approve_community(
     try:
         reviewer_id = uuid.UUID(payload.sub)
     except (ValueError, TypeError):
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token subject")
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token subject"
+        )
 
     pending.status = "approved"
     pending.admin_reviewed_at = now
@@ -141,7 +153,9 @@ async def approve_community(
 
     await session.commit()
 
-    return cast(dict[str, Any], _response({"approved": body.name, "pool_is_active": True}))
+    return cast(
+        dict[str, Any], _response({"approved": body.name, "pool_is_active": True})
+    )
 
 
 @router.post("/reject", summary="拒绝社区")  # type: ignore[misc]
@@ -150,15 +164,21 @@ async def reject_community(
     payload: TokenPayload = Depends(require_admin),
     session: AsyncSession = Depends(get_session),
 ) -> dict[str, Any]:
-    pending = await session.scalar(select(PendingCommunity).where(PendingCommunity.name == body.name))
+    pending = await session.scalar(
+        select(PendingCommunity).where(PendingCommunity.name == body.name)
+    )
     if pending is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Pending community not found")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Pending community not found"
+        )
 
     now = datetime.now(timezone.utc)
     try:
         reviewer_id = uuid.UUID(payload.sub)
     except (ValueError, TypeError):
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token subject")
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token subject"
+        )
 
     pending.status = "rejected"
     pending.admin_reviewed_at = now
@@ -177,7 +197,9 @@ async def disable_community(
 ) -> dict[str, Any]:
     pool = await session.scalar(select(CommunityPool).where(CommunityPool.name == name))
     if pool is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Community not found")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Community not found"
+        )
 
     pool.is_active = False
     await session.commit()
@@ -186,4 +208,3 @@ async def disable_community(
 
 
 __all__ = ["router"]
-

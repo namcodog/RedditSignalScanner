@@ -1,0 +1,914 @@
+{
+  "version": "1.0",
+  "created_at": "2025-10-15",
+  "description": "Seed communities for Reddit Signal Scanner warmup period",
+  "total_communities": 100,
+  "categories": {
+    "high_priority": 30,
+    "medium_priority": 40,
+    "low_priority": 30
+  },
+  "communities": [
+    {
+      "name": "artificial",
+      "tier": "high",
+      "priority": "high",
+      "categories": ["ai", "technology"],
+      "description_keywords": ["ai", "artificial intelligence", "machine learning", "deep learning"],
+      "estimated_daily_posts": 200,
+      "quality_score": 0.85
+    },
+    {
+      "name": "machinelearning",
+      "tier": "high",
+      "priority": "high",
+      "categories": ["ai", "technology", "research"],
+      "description_keywords": ["ml", "machine learning", "neural networks", "data science"],
+      "estimated_daily_posts": 180,
+      "quality_score": 0.90
+    },
+    {
+      "name": "startups",
+      "tier": "high",
+      "priority": "high",
+      "categories": ["business", "entrepreneurship"],
+      "description_keywords": ["startup", "founder", "entrepreneurship", "venture capital"],
+      "estimated_daily_posts": 150,
+      "quality_score": 0.80
+    },
+    {
+      "name": "entrepreneur",
+      "tier": "high",
+      "priority": "high",
+      "categories": ["business", "entrepreneurship"],
+      "description_keywords": ["business", "entrepreneur", "small business", "side hustle"],
+      "estimated_daily_posts": 120,
+      "quality_score": 0.75
+    },
+    {
+      "name": "saas",
+      "tier": "high",
+      "priority": "high",
+      "categories": ["business", "technology", "software"],
+      "description_keywords": ["saas", "software as a service", "b2b", "subscription"],
+      "estimated_daily_posts": 100,
+      "quality_score": 0.85
+    },
+    {
+      "name": "datascience",
+      "tier": "high",
+      "priority": "high",
+      "categories": ["technology", "research", "analytics"],
+      "description_keywords": ["data science", "analytics", "big data", "statistics"],
+      "estimated_daily_posts": 140,
+      "quality_score": 0.88
+    },
+    {
+      "name": "programming",
+      "tier": "high",
+      "priority": "high",
+      "categories": ["technology", "software"],
+      "description_keywords": ["programming", "coding", "software development", "developer"],
+      "estimated_daily_posts": 250,
+      "quality_score": 0.70
+    },
+    {
+      "name": "webdev",
+      "tier": "high",
+      "priority": "high",
+      "categories": ["technology", "software", "web"],
+      "description_keywords": ["web development", "frontend", "backend", "fullstack"],
+      "estimated_daily_posts": 180,
+      "quality_score": 0.75
+    },
+    {
+      "name": "productivity",
+      "tier": "high",
+      "priority": "high",
+      "categories": ["lifestyle", "tools"],
+      "description_keywords": ["productivity", "time management", "efficiency", "workflow"],
+      "estimated_daily_posts": 90,
+      "quality_score": 0.78
+    },
+    {
+      "name": "indiehackers",
+      "tier": "high",
+      "priority": "high",
+      "categories": ["business", "entrepreneurship", "software"],
+      "description_keywords": ["indie hacker", "bootstrapping", "solo founder", "side project"],
+      "estimated_daily_posts": 80,
+      "quality_score": 0.82
+    },
+    {
+      "name": "marketing",
+      "tier": "high",
+      "priority": "high",
+      "categories": ["business", "marketing"],
+      "description_keywords": ["marketing", "digital marketing", "growth", "advertising"],
+      "estimated_daily_posts": 110,
+      "quality_score": 0.72
+    },
+    {
+      "name": "design",
+      "tier": "high",
+      "priority": "high",
+      "categories": ["design", "creative"],
+      "description_keywords": ["design", "ui", "ux", "graphic design"],
+      "estimated_daily_posts": 130,
+      "quality_score": 0.80
+    },
+    {
+      "name": "technology",
+      "tier": "high",
+      "priority": "high",
+      "categories": ["technology"],
+      "description_keywords": ["technology", "tech news", "innovation", "gadgets"],
+      "estimated_daily_posts": 300,
+      "quality_score": 0.65
+    },
+    {
+      "name": "investing",
+      "tier": "high",
+      "priority": "high",
+      "categories": ["finance", "business"],
+      "description_keywords": ["investing", "stocks", "portfolio", "financial planning"],
+      "estimated_daily_posts": 160,
+      "quality_score": 0.70
+    },
+    {
+      "name": "personalfinance",
+      "tier": "high",
+      "priority": "high",
+      "categories": ["finance", "lifestyle"],
+      "description_keywords": ["personal finance", "budgeting", "saving", "money management"],
+      "estimated_daily_posts": 200,
+      "quality_score": 0.75
+    },
+    {
+      "name": "cryptocurrency",
+      "tier": "high",
+      "priority": "high",
+      "categories": ["finance", "technology"],
+      "description_keywords": ["crypto", "blockchain", "bitcoin", "ethereum"],
+      "estimated_daily_posts": 220,
+      "quality_score": 0.60
+    },
+    {
+      "name": "fitness",
+      "tier": "high",
+      "priority": "high",
+      "categories": ["health", "lifestyle"],
+      "description_keywords": ["fitness", "workout", "exercise", "gym"],
+      "estimated_daily_posts": 180,
+      "quality_score": 0.72
+    },
+    {
+      "name": "nutrition",
+      "tier": "high",
+      "priority": "high",
+      "categories": ["health", "lifestyle"],
+      "description_keywords": ["nutrition", "diet", "healthy eating", "meal prep"],
+      "estimated_daily_posts": 100,
+      "quality_score": 0.78
+    },
+    {
+      "name": "mentalhealth",
+      "tier": "high",
+      "priority": "high",
+      "categories": ["health", "lifestyle"],
+      "description_keywords": ["mental health", "therapy", "anxiety", "depression"],
+      "estimated_daily_posts": 150,
+      "quality_score": 0.85
+    },
+    {
+      "name": "education",
+      "tier": "high",
+      "priority": "high",
+      "categories": ["education", "learning"],
+      "description_keywords": ["education", "learning", "teaching", "online courses"],
+      "estimated_daily_posts": 90,
+      "quality_score": 0.80
+    },
+    {
+      "name": "learnprogramming",
+      "tier": "high",
+      "priority": "high",
+      "categories": ["education", "technology"],
+      "description_keywords": ["learn programming", "coding tutorial", "beginner", "self-taught"],
+      "estimated_daily_posts": 140,
+      "quality_score": 0.82
+    },
+    {
+      "name": "python",
+      "tier": "high",
+      "priority": "high",
+      "categories": ["technology", "programming"],
+      "description_keywords": ["python", "django", "flask", "data analysis"],
+      "estimated_daily_posts": 160,
+      "quality_score": 0.85
+    },
+    {
+      "name": "javascript",
+      "tier": "high",
+      "priority": "high",
+      "categories": ["technology", "programming"],
+      "description_keywords": ["javascript", "react", "node", "frontend"],
+      "estimated_daily_posts": 150,
+      "quality_score": 0.80
+    },
+    {
+      "name": "devops",
+      "tier": "high",
+      "priority": "high",
+      "categories": ["technology", "infrastructure"],
+      "description_keywords": ["devops", "ci/cd", "docker", "kubernetes"],
+      "estimated_daily_posts": 80,
+      "quality_score": 0.88
+    },
+    {
+      "name": "cloudcomputing",
+      "tier": "high",
+      "priority": "high",
+      "categories": ["technology", "infrastructure"],
+      "description_keywords": ["cloud", "aws", "azure", "gcp"],
+      "estimated_daily_posts": 70,
+      "quality_score": 0.85
+    },
+    {
+      "name": "cybersecurity",
+      "tier": "high",
+      "priority": "high",
+      "categories": ["technology", "security"],
+      "description_keywords": ["cybersecurity", "infosec", "hacking", "privacy"],
+      "estimated_daily_posts": 90,
+      "quality_score": 0.82
+    },
+    {
+      "name": "privacy",
+      "tier": "high",
+      "priority": "high",
+      "categories": ["technology", "security"],
+      "description_keywords": ["privacy", "data protection", "encryption", "vpn"],
+      "estimated_daily_posts": 60,
+      "quality_score": 0.80
+    },
+    {
+      "name": "gaming",
+      "tier": "high",
+      "priority": "high",
+      "categories": ["entertainment", "technology"],
+      "description_keywords": ["gaming", "video games", "esports", "game development"],
+      "estimated_daily_posts": 280,
+      "quality_score": 0.60
+    },
+    {
+      "name": "books",
+      "tier": "high",
+      "priority": "high",
+      "categories": ["entertainment", "education"],
+      "description_keywords": ["books", "reading", "literature", "book recommendations"],
+      "estimated_daily_posts": 120,
+      "quality_score": 0.75
+    },
+    {
+      "name": "writing",
+      "tier": "high",
+      "priority": "high",
+      "categories": ["creative", "education"],
+      "description_keywords": ["writing", "creative writing", "author", "storytelling"],
+      "estimated_daily_posts": 100,
+      "quality_score": 0.78
+    },
+    {
+      "name": "smallbusiness",
+      "tier": "medium",
+      "priority": "medium",
+      "categories": ["business"],
+      "description_keywords": ["small business", "local business", "business owner"],
+      "estimated_daily_posts": 80,
+      "quality_score": 0.70
+    },
+    {
+      "name": "ecommerce",
+      "tier": "medium",
+      "priority": "medium",
+      "categories": ["business", "technology"],
+      "description_keywords": ["ecommerce", "online store", "shopify", "dropshipping"],
+      "estimated_daily_posts": 90,
+      "quality_score": 0.68
+    },
+    {
+      "name": "socialmedia",
+      "tier": "medium",
+      "priority": "medium",
+      "categories": ["marketing", "technology"],
+      "description_keywords": ["social media", "instagram", "tiktok", "content creation"],
+      "estimated_daily_posts": 110,
+      "quality_score": 0.65
+    },
+    {
+      "name": "seo",
+      "tier": "medium",
+      "priority": "medium",
+      "categories": ["marketing", "technology"],
+      "description_keywords": ["seo", "search engine optimization", "google", "ranking"],
+      "estimated_daily_posts": 70,
+      "quality_score": 0.72
+    },
+    {
+      "name": "contentmarketing",
+      "tier": "medium",
+      "priority": "medium",
+      "categories": ["marketing"],
+      "description_keywords": ["content marketing", "blogging", "copywriting"],
+      "estimated_daily_posts": 50,
+      "quality_score": 0.70
+    },
+    {
+      "name": "freelance",
+      "tier": "medium",
+      "priority": "medium",
+      "categories": ["business", "career"],
+      "description_keywords": ["freelance", "freelancer", "gig economy", "remote work"],
+      "estimated_daily_posts": 85,
+      "quality_score": 0.68
+    },
+    {
+      "name": "remotework",
+      "tier": "medium",
+      "priority": "medium",
+      "categories": ["career", "lifestyle"],
+      "description_keywords": ["remote work", "work from home", "digital nomad"],
+      "estimated_daily_posts": 95,
+      "quality_score": 0.72
+    },
+    {
+      "name": "careerguidance",
+      "tier": "medium",
+      "priority": "medium",
+      "categories": ["career", "education"],
+      "description_keywords": ["career", "job search", "resume", "interview"],
+      "estimated_daily_posts": 100,
+      "quality_score": 0.75
+    },
+    {
+      "name": "cscareerquestions",
+      "tier": "medium",
+      "priority": "medium",
+      "categories": ["career", "technology"],
+      "description_keywords": ["cs career", "software engineer", "tech jobs"],
+      "estimated_daily_posts": 120,
+      "quality_score": 0.78
+    },
+    {
+      "name": "androiddev",
+      "tier": "medium",
+      "priority": "medium",
+      "categories": ["technology", "mobile"],
+      "description_keywords": ["android", "mobile development", "kotlin", "java"],
+      "estimated_daily_posts": 60,
+      "quality_score": 0.80
+    },
+    {
+      "name": "iosdev",
+      "tier": "medium",
+      "priority": "medium",
+      "categories": ["technology", "mobile"],
+      "description_keywords": ["ios", "swift", "xcode", "iphone"],
+      "estimated_daily_posts": 50,
+      "quality_score": 0.82
+    },
+    {
+      "name": "reactnative",
+      "tier": "medium",
+      "priority": "medium",
+      "categories": ["technology", "mobile"],
+      "description_keywords": ["react native", "cross-platform", "mobile app"],
+      "estimated_daily_posts": 45,
+      "quality_score": 0.75
+    },
+    {
+      "name": "gamedev",
+      "tier": "medium",
+      "priority": "medium",
+      "categories": ["technology", "gaming"],
+      "description_keywords": ["game development", "unity", "unreal", "indie game"],
+      "estimated_daily_posts": 80,
+      "quality_score": 0.78
+    },
+    {
+      "name": "photography",
+      "tier": "medium",
+      "priority": "medium",
+      "categories": ["creative", "art"],
+      "description_keywords": ["photography", "camera", "photo editing", "lightroom"],
+      "estimated_daily_posts": 140,
+      "quality_score": 0.70
+    },
+    {
+      "name": "videography",
+      "tier": "medium",
+      "priority": "medium",
+      "categories": ["creative", "art"],
+      "description_keywords": ["videography", "video editing", "filmmaking"],
+      "estimated_daily_posts": 60,
+      "quality_score": 0.72
+    },
+    {
+      "name": "music",
+      "tier": "medium",
+      "priority": "medium",
+      "categories": ["creative", "entertainment"],
+      "description_keywords": ["music", "musician", "production", "instruments"],
+      "estimated_daily_posts": 150,
+      "quality_score": 0.65
+    },
+    {
+      "name": "podcasting",
+      "tier": "medium",
+      "priority": "medium",
+      "categories": ["creative", "media"],
+      "description_keywords": ["podcast", "podcasting", "audio", "broadcasting"],
+      "estimated_daily_posts": 40,
+      "quality_score": 0.75
+    },
+    {
+      "name": "youtube",
+      "tier": "medium",
+      "priority": "medium",
+      "categories": ["creative", "media"],
+      "description_keywords": ["youtube", "youtuber", "video content", "monetization"],
+      "estimated_daily_posts": 90,
+      "quality_score": 0.68
+    },
+    {
+      "name": "streaming",
+      "tier": "medium",
+      "priority": "medium",
+      "categories": ["entertainment", "technology"],
+      "description_keywords": ["streaming", "twitch", "live stream", "content creator"],
+      "estimated_daily_posts": 70,
+      "quality_score": 0.65
+    },
+    {
+      "name": "travel",
+      "tier": "medium",
+      "priority": "medium",
+      "categories": ["lifestyle", "entertainment"],
+      "description_keywords": ["travel", "vacation", "backpacking", "tourism"],
+      "estimated_daily_posts": 130,
+      "quality_score": 0.70
+    },
+    {
+      "name": "cooking",
+      "tier": "medium",
+      "priority": "medium",
+      "categories": ["lifestyle", "food"],
+      "description_keywords": ["cooking", "recipes", "food", "culinary"],
+      "estimated_daily_posts": 120,
+      "quality_score": 0.72
+    },
+    {
+      "name": "homeimprovement",
+      "tier": "medium",
+      "priority": "medium",
+      "categories": ["lifestyle", "diy"],
+      "description_keywords": ["home improvement", "diy", "renovation", "repair"],
+      "estimated_daily_posts": 110,
+      "quality_score": 0.75
+    },
+    {
+      "name": "gardening",
+      "tier": "medium",
+      "priority": "medium",
+      "categories": ["lifestyle", "hobby"],
+      "description_keywords": ["gardening", "plants", "landscaping", "vegetables"],
+      "estimated_daily_posts": 90,
+      "quality_score": 0.78
+    },
+    {
+      "name": "sustainability",
+      "tier": "medium",
+      "priority": "medium",
+      "categories": ["lifestyle", "environment"],
+      "description_keywords": ["sustainability", "eco-friendly", "zero waste", "climate"],
+      "estimated_daily_posts": 60,
+      "quality_score": 0.80
+    },
+    {
+      "name": "minimalism",
+      "tier": "medium",
+      "priority": "medium",
+      "categories": ["lifestyle"],
+      "description_keywords": ["minimalism", "declutter", "simple living"],
+      "estimated_daily_posts": 50,
+      "quality_score": 0.75
+    },
+    {
+      "name": "meditation",
+      "tier": "medium",
+      "priority": "medium",
+      "categories": ["health", "lifestyle"],
+      "description_keywords": ["meditation", "mindfulness", "zen", "relaxation"],
+      "estimated_daily_posts": 55,
+      "quality_score": 0.82
+    },
+    {
+      "name": "yoga",
+      "tier": "medium",
+      "priority": "medium",
+      "categories": ["health", "lifestyle"],
+      "description_keywords": ["yoga", "flexibility", "wellness", "poses"],
+      "estimated_daily_posts": 70,
+      "quality_score": 0.78
+    },
+    {
+      "name": "running",
+      "tier": "medium",
+      "priority": "medium",
+      "categories": ["health", "fitness"],
+      "description_keywords": ["running", "marathon", "jogging", "cardio"],
+      "estimated_daily_posts": 80,
+      "quality_score": 0.75
+    },
+    {
+      "name": "cycling",
+      "tier": "medium",
+      "priority": "medium",
+      "categories": ["health", "fitness"],
+      "description_keywords": ["cycling", "bike", "bicycle", "road cycling"],
+      "estimated_daily_posts": 75,
+      "quality_score": 0.72
+    },
+    {
+      "name": "weightlifting",
+      "tier": "medium",
+      "priority": "medium",
+      "categories": ["health", "fitness"],
+      "description_keywords": ["weightlifting", "strength training", "powerlifting"],
+      "estimated_daily_posts": 65,
+      "quality_score": 0.78
+    },
+    {
+      "name": "science",
+      "tier": "medium",
+      "priority": "medium",
+      "categories": ["education", "research"],
+      "description_keywords": ["science", "research", "scientific", "discovery"],
+      "estimated_daily_posts": 100,
+      "quality_score": 0.85
+    },
+    {
+      "name": "space",
+      "tier": "medium",
+      "priority": "medium",
+      "categories": ["science", "technology"],
+      "description_keywords": ["space", "astronomy", "nasa", "spacex"],
+      "estimated_daily_posts": 90,
+      "quality_score": 0.80
+    },
+    {
+      "name": "physics",
+      "tier": "medium",
+      "priority": "medium",
+      "categories": ["science", "education"],
+      "description_keywords": ["physics", "quantum", "relativity", "mechanics"],
+      "estimated_daily_posts": 50,
+      "quality_score": 0.88
+    },
+    {
+      "name": "biology",
+      "tier": "medium",
+      "priority": "medium",
+      "categories": ["science", "education"],
+      "description_keywords": ["biology", "genetics", "evolution", "cells"],
+      "estimated_daily_posts": 45,
+      "quality_score": 0.85
+    },
+    {
+      "name": "chemistry",
+      "tier": "medium",
+      "priority": "medium",
+      "categories": ["science", "education"],
+      "description_keywords": ["chemistry", "molecules", "reactions", "lab"],
+      "estimated_daily_posts": 40,
+      "quality_score": 0.82
+    },
+    {
+      "name": "engineering",
+      "tier": "medium",
+      "priority": "medium",
+      "categories": ["technology", "education"],
+      "description_keywords": ["engineering", "mechanical", "electrical", "civil"],
+      "estimated_daily_posts": 70,
+      "quality_score": 0.80
+    },
+    {
+      "name": "robotics",
+      "tier": "medium",
+      "priority": "medium",
+      "categories": ["technology", "engineering"],
+      "description_keywords": ["robotics", "automation", "robots", "ai"],
+      "estimated_daily_posts": 35,
+      "quality_score": 0.85
+    },
+    {
+      "name": "3dprinting",
+      "tier": "medium",
+      "priority": "medium",
+      "categories": ["technology", "hobby"],
+      "description_keywords": ["3d printing", "maker", "additive manufacturing"],
+      "estimated_daily_posts": 60,
+      "quality_score": 0.75
+    },
+    {
+      "name": "electronics",
+      "tier": "medium",
+      "priority": "medium",
+      "categories": ["technology", "hobby"],
+      "description_keywords": ["electronics", "circuits", "arduino", "raspberry pi"],
+      "estimated_daily_posts": 55,
+      "quality_score": 0.78
+    },
+    {
+      "name": "diy",
+      "tier": "medium",
+      "priority": "medium",
+      "categories": ["hobby", "lifestyle"],
+      "description_keywords": ["diy", "do it yourself", "crafts", "projects"],
+      "estimated_daily_posts": 100,
+      "quality_score": 0.70
+    },
+    {
+      "name": "woodworking",
+      "tier": "low",
+      "priority": "low",
+      "categories": ["hobby", "crafts"],
+      "description_keywords": ["woodworking", "carpentry", "furniture", "tools"],
+      "estimated_daily_posts": 70,
+      "quality_score": 0.75
+    },
+    {
+      "name": "art",
+      "tier": "low",
+      "priority": "low",
+      "categories": ["creative", "hobby"],
+      "description_keywords": ["art", "painting", "drawing", "artist"],
+      "estimated_daily_posts": 120,
+      "quality_score": 0.68
+    },
+    {
+      "name": "crafts",
+      "tier": "low",
+      "priority": "low",
+      "categories": ["hobby", "creative"],
+      "description_keywords": ["crafts", "handmade", "diy crafts", "creative"],
+      "estimated_daily_posts": 60,
+      "quality_score": 0.65
+    },
+    {
+      "name": "knitting",
+      "tier": "low",
+      "priority": "low",
+      "categories": ["hobby", "crafts"],
+      "description_keywords": ["knitting", "yarn", "crochet", "fiber arts"],
+      "estimated_daily_posts": 40,
+      "quality_score": 0.70
+    },
+    {
+      "name": "sewing",
+      "tier": "low",
+      "priority": "low",
+      "categories": ["hobby", "crafts"],
+      "description_keywords": ["sewing", "fabric", "quilting", "tailoring"],
+      "estimated_daily_posts": 35,
+      "quality_score": 0.72
+    },
+    {
+      "name": "fashion",
+      "tier": "low",
+      "priority": "low",
+      "categories": ["lifestyle", "creative"],
+      "description_keywords": ["fashion", "style", "clothing", "trends"],
+      "estimated_daily_posts": 90,
+      "quality_score": 0.60
+    },
+    {
+      "name": "beauty",
+      "tier": "low",
+      "priority": "low",
+      "categories": ["lifestyle"],
+      "description_keywords": ["beauty", "makeup", "skincare", "cosmetics"],
+      "estimated_daily_posts": 100,
+      "quality_score": 0.58
+    },
+    {
+      "name": "skincare",
+      "tier": "low",
+      "priority": "low",
+      "categories": ["health", "lifestyle"],
+      "description_keywords": ["skincare", "skin health", "routine", "products"],
+      "estimated_daily_posts": 80,
+      "quality_score": 0.65
+    },
+    {
+      "name": "hair",
+      "tier": "low",
+      "priority": "low",
+      "categories": ["lifestyle"],
+      "description_keywords": ["hair", "hairstyle", "hair care", "salon"],
+      "estimated_daily_posts": 50,
+      "quality_score": 0.60
+    },
+    {
+      "name": "parenting",
+      "tier": "low",
+      "priority": "low",
+      "categories": ["lifestyle", "family"],
+      "description_keywords": ["parenting", "kids", "children", "family"],
+      "estimated_daily_posts": 110,
+      "quality_score": 0.70
+    },
+    {
+      "name": "relationships",
+      "tier": "low",
+      "priority": "low",
+      "categories": ["lifestyle"],
+      "description_keywords": ["relationships", "dating", "marriage", "love"],
+      "estimated_daily_posts": 130,
+      "quality_score": 0.62
+    },
+    {
+      "name": "dating",
+      "tier": "low",
+      "priority": "low",
+      "categories": ["lifestyle"],
+      "description_keywords": ["dating", "online dating", "tinder", "bumble"],
+      "estimated_daily_posts": 90,
+      "quality_score": 0.58
+    },
+    {
+      "name": "wedding",
+      "tier": "low",
+      "priority": "low",
+      "categories": ["lifestyle", "events"],
+      "description_keywords": ["wedding", "marriage", "bride", "planning"],
+      "estimated_daily_posts": 60,
+      "quality_score": 0.65
+    },
+    {
+      "name": "pets",
+      "tier": "low",
+      "priority": "low",
+      "categories": ["lifestyle", "animals"],
+      "description_keywords": ["pets", "animals", "pet care", "veterinary"],
+      "estimated_daily_posts": 140,
+      "quality_score": 0.68
+    },
+    {
+      "name": "dogs",
+      "tier": "low",
+      "priority": "low",
+      "categories": ["lifestyle", "animals"],
+      "description_keywords": ["dogs", "puppies", "dog training", "breeds"],
+      "estimated_daily_posts": 120,
+      "quality_score": 0.70
+    },
+    {
+      "name": "cats",
+      "tier": "low",
+      "priority": "low",
+      "categories": ["lifestyle", "animals"],
+      "description_keywords": ["cats", "kittens", "feline", "cat care"],
+      "estimated_daily_posts": 110,
+      "quality_score": 0.68
+    },
+    {
+      "name": "aquariums",
+      "tier": "low",
+      "priority": "low",
+      "categories": ["hobby", "animals"],
+      "description_keywords": ["aquarium", "fish", "fishkeeping", "aquatic"],
+      "estimated_daily_posts": 50,
+      "quality_score": 0.75
+    },
+    {
+      "name": "reptiles",
+      "tier": "low",
+      "priority": "low",
+      "categories": ["hobby", "animals"],
+      "description_keywords": ["reptiles", "lizards", "snakes", "exotic pets"],
+      "estimated_daily_posts": 35,
+      "quality_score": 0.72
+    },
+    {
+      "name": "birdwatching",
+      "tier": "low",
+      "priority": "low",
+      "categories": ["hobby", "nature"],
+      "description_keywords": ["birdwatching", "birds", "ornithology", "wildlife"],
+      "estimated_daily_posts": 30,
+      "quality_score": 0.78
+    },
+    {
+      "name": "hiking",
+      "tier": "low",
+      "priority": "low",
+      "categories": ["outdoor", "fitness"],
+      "description_keywords": ["hiking", "trails", "backpacking", "outdoors"],
+      "estimated_daily_posts": 80,
+      "quality_score": 0.75
+    },
+    {
+      "name": "camping",
+      "tier": "low",
+      "priority": "low",
+      "categories": ["outdoor", "lifestyle"],
+      "description_keywords": ["camping", "outdoor", "tent", "wilderness"],
+      "estimated_daily_posts": 70,
+      "quality_score": 0.72
+    },
+    {
+      "name": "fishing",
+      "tier": "low",
+      "priority": "low",
+      "categories": ["outdoor", "hobby"],
+      "description_keywords": ["fishing", "angling", "fly fishing", "bass"],
+      "estimated_daily_posts": 60,
+      "quality_score": 0.68
+    },
+    {
+      "name": "hunting",
+      "tier": "low",
+      "priority": "low",
+      "categories": ["outdoor", "hobby"],
+      "description_keywords": ["hunting", "deer", "wildlife", "firearms"],
+      "estimated_daily_posts": 50,
+      "quality_score": 0.65
+    },
+    {
+      "name": "cars",
+      "tier": "low",
+      "priority": "low",
+      "categories": ["automotive", "hobby"],
+      "description_keywords": ["cars", "automotive", "vehicles", "driving"],
+      "estimated_daily_posts": 130,
+      "quality_score": 0.65
+    },
+    {
+      "name": "motorcycles",
+      "tier": "low",
+      "priority": "low",
+      "categories": ["automotive", "hobby"],
+      "description_keywords": ["motorcycles", "bikes", "riding", "motorsports"],
+      "estimated_daily_posts": 70,
+      "quality_score": 0.68
+    },
+    {
+      "name": "electricvehicles",
+      "tier": "low",
+      "priority": "low",
+      "categories": ["automotive", "technology"],
+      "description_keywords": ["electric vehicles", "ev", "tesla", "charging"],
+      "estimated_daily_posts": 90,
+      "quality_score": 0.75
+    },
+    {
+      "name": "realestate",
+      "tier": "low",
+      "priority": "low",
+      "categories": ["finance", "business"],
+      "description_keywords": ["real estate", "property", "housing", "investment"],
+      "estimated_daily_posts": 100,
+      "quality_score": 0.70
+    },
+    {
+      "name": "homeowners",
+      "tier": "low",
+      "priority": "low",
+      "categories": ["lifestyle", "finance"],
+      "description_keywords": ["homeowner", "mortgage", "home maintenance"],
+      "estimated_daily_posts": 60,
+      "quality_score": 0.72
+    },
+    {
+      "name": "interiordesign",
+      "tier": "low",
+      "priority": "low",
+      "categories": ["design", "lifestyle"],
+      "description_keywords": ["interior design", "home decor", "furniture", "aesthetics"],
+      "estimated_daily_posts": 80,
+      "quality_score": 0.68
+    },
+    {
+      "name": "architecture",
+      "tier": "low",
+      "priority": "low",
+      "categories": ["design", "engineering"],
+      "description_keywords": ["architecture", "building design", "urban planning", "structures"],
+      "estimated_daily_posts": 70,
+      "quality_score": 0.75
+    }
+  ]
+}
+

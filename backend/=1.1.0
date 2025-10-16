@@ -1,0 +1,29 @@
+Collecting praw
+  Using cached praw-7.8.1-py3-none-any.whl.metadata (9.4 kB)
+Collecting aiolimiter
+  Downloading aiolimiter-1.2.1-py3-none-any.whl.metadata (4.5 kB)
+Collecting prawcore<3,>=2.4 (from praw)
+  Using cached prawcore-2.4.0-py3-none-any.whl.metadata (5.0 kB)
+Collecting update_checker>=0.18 (from praw)
+  Using cached update_checker-0.18.0-py3-none-any.whl.metadata (2.3 kB)
+Collecting websocket-client>=0.54.0 (from praw)
+  Downloading websocket_client-1.9.0-py3-none-any.whl.metadata (8.3 kB)
+Collecting requests<3.0,>=2.6.0 (from prawcore<3,>=2.4->praw)
+  Using cached requests-2.32.5-py3-none-any.whl.metadata (4.9 kB)
+Collecting charset_normalizer<4,>=2 (from requests<3.0,>=2.6.0->prawcore<3,>=2.4->praw)
+  Downloading charset_normalizer-3.4.4-cp311-cp311-macosx_10_9_universal2.whl.metadata (37 kB)
+Requirement already satisfied: idna<4,>=2.5 in /Users/hujia/Desktop/RedditSignalScanner/venv/lib/python3.11/site-packages (from requests<3.0,>=2.6.0->prawcore<3,>=2.4->praw) (3.10)
+Collecting urllib3<3,>=1.21.1 (from requests<3.0,>=2.6.0->prawcore<3,>=2.4->praw)
+  Using cached urllib3-2.5.0-py3-none-any.whl.metadata (6.5 kB)
+Requirement already satisfied: certifi>=2017.4.17 in /Users/hujia/Desktop/RedditSignalScanner/venv/lib/python3.11/site-packages (from requests<3.0,>=2.6.0->prawcore<3,>=2.4->praw) (2025.10.5)
+Using cached praw-7.8.1-py3-none-any.whl (189 kB)
+Using cached prawcore-2.4.0-py3-none-any.whl (17 kB)
+Using cached requests-2.32.5-py3-none-any.whl (64 kB)
+Downloading charset_normalizer-3.4.4-cp311-cp311-macosx_10_9_universal2.whl (206 kB)
+Using cached urllib3-2.5.0-py3-none-any.whl (129 kB)
+Downloading aiolimiter-1.2.1-py3-none-any.whl (6.7 kB)
+Using cached update_checker-0.18.0-py3-none-any.whl (7.0 kB)
+Downloading websocket_client-1.9.0-py3-none-any.whl (82 kB)
+Installing collected packages: websocket-client, urllib3, charset_normalizer, aiolimiter, requests, update_checker, prawcore, praw
+
+Successfully installed aiolimiter-1.2.1 charset_normalizer-3.4.4 praw-7.8.1 prawcore-2.4.0 requests-2.32.5 update_checker-0.18.0 urllib3-2.5.0 websocket-client-1.9.0

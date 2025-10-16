@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-from typing import Any, Dict
 import uuid
+from typing import Any, Dict
 
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -34,9 +34,13 @@ async def submit_beta_feedback(
     # Verify task exists and belongs to user
     task = await db.get(Task, payload.task_id)
     if task is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Task not found")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Task not found"
+        )
     if task.user_id != user_id:
-        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Task does not belong to user")
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN, detail="Task does not belong to user"
+        )
 
     # Create feedback
     feedback = BetaFeedback(
@@ -54,4 +58,3 @@ async def submit_beta_feedback(
 
 
 __all__ = ["router"]
-

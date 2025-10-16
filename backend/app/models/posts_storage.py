@@ -6,24 +6,15 @@
 from datetime import datetime, timezone
 from typing import Optional
 
-from sqlalchemy import (
-    Boolean,
-    Column,
-    Integer,
-    String,
-    Text,
-    TIMESTAMP,
-    Numeric,
-    Index,
-    PrimaryKeyConstraint,
-    CheckConstraint,
-)
+from sqlalchemy import (TIMESTAMP, Boolean, CheckConstraint, Column, Index,
+                        Integer, Numeric, PrimaryKeyConstraint, String, Text)
 from sqlalchemy.dialects.postgresql import JSONB, UUID
 from sqlalchemy.orm import DeclarativeBase
 
 
 class Base(DeclarativeBase):
     """Base class for all models in posts_storage"""
+
     pass
 
 
@@ -32,6 +23,7 @@ class PostRaw(Base):
     冷库：增量累积，保留90天滚动窗口
     用于算法训练、趋势分析、回测
     """
+
     __tablename__ = "posts_raw"
 
     # 主键（复合主键在 __table_args__ 中定义）
@@ -42,8 +34,16 @@ class PostRaw(Base):
 
     # 时间戳
     created_at = Column(TIMESTAMP(timezone=True), nullable=False)
-    fetched_at = Column(TIMESTAMP(timezone=True), nullable=False, default=lambda: datetime.now(timezone.utc))
-    valid_from = Column(TIMESTAMP(timezone=True), nullable=False, default=lambda: datetime.now(timezone.utc))
+    fetched_at = Column(
+        TIMESTAMP(timezone=True),
+        nullable=False,
+        default=lambda: datetime.now(timezone.utc),
+    )
+    valid_from = Column(
+        TIMESTAMP(timezone=True),
+        nullable=False,
+        default=lambda: datetime.now(timezone.utc),
+    )
     valid_to = Column(TIMESTAMP(timezone=True), default=datetime(9999, 12, 31))
     is_current = Column(Boolean, nullable=False, default=True)
 
@@ -71,18 +71,26 @@ class PostRaw(Base):
 
     # 约束
     __table_args__ = (
-        PrimaryKeyConstraint("source", "source_post_id", "version", name="pk_posts_raw"),
+        PrimaryKeyConstraint(
+            "source", "source_post_id", "version", name="pk_posts_raw"
+        ),
         CheckConstraint("version > 0", name="ck_posts_raw_version_positive"),
         CheckConstraint(
             "valid_from < valid_to OR valid_to = '9999-12-31'::TIMESTAMP",
-            name="ck_posts_raw_valid_period"
+            name="ck_posts_raw_valid_period",
         ),
         Index("idx_posts_raw_created_at", "created_at"),
         Index("idx_posts_raw_fetched_at", "fetched_at"),
         Index("idx_posts_raw_subreddit", "subreddit", "created_at"),
         Index("idx_posts_raw_text_hash", "text_norm_hash"),
         Index("idx_posts_raw_source_post_id", "source", "source_post_id"),
-        Index("idx_posts_raw_current", "source", "source_post_id", "is_current", postgresql_where=(is_current == True)),
+        Index(
+            "idx_posts_raw_current",
+            "source",
+            "source_post_id",
+            "is_current",
+            postgresql_where=(is_current == True),
+        ),
         Index("idx_posts_raw_extra_data_gin", "extra_data", postgresql_using="gin"),
     )
 
@@ -95,6 +103,7 @@ class PostHot(Base):
     热缓存：覆盖式刷新，保留24-72小时
     用于实时分析、快报、看板
     """
+
     __tablename__ = "posts_hot"
 
     # 主键
@@ -103,7 +112,11 @@ class PostHot(Base):
 
     # 时间戳
     created_at = Column(TIMESTAMP(timezone=True), nullable=False)
-    cached_at = Column(TIMESTAMP(timezone=True), nullable=False, default=lambda: datetime.now(timezone.utc))
+    cached_at = Column(
+        TIMESTAMP(timezone=True),
+        nullable=False,
+        default=lambda: datetime.now(timezone.utc),
+    )
     expires_at = Column(TIMESTAMP(timezone=True), nullable=False)
 
     # 内容（简化版）
@@ -133,6 +146,7 @@ class Watermark(Base):
     水位线：记录每个社区的最后抓取位置
     用于增量抓取
     """
+
     __tablename__ = "community_watermarks"
 
     # 主键
@@ -156,4 +170,3 @@ class Watermark(Base):
 
 # 导出
 __all__ = ["PostRaw", "PostHot", "Watermark"]
-

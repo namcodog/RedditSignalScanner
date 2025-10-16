@@ -3,7 +3,8 @@ from __future__ import annotations
 import uuid
 from io import BytesIO
 
-from fastapi import APIRouter, Depends, File, HTTPException, Query, UploadFile, status
+from fastapi import (APIRouter, Depends, File, HTTPException, Query,
+                     UploadFile, status)
 from fastapi.responses import StreamingResponse
 from sqlalchemy.ext.asyncio import AsyncSession
 

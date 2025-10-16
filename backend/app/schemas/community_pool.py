@@ -14,11 +14,15 @@ from app.schemas.base import ORMModel
 class PendingCommunityCreate(ORMModel):
     """Schema for creating a new pending community (discovered from analysis)."""
 
-    name: str = Field(min_length=3, max_length=100, description="Community name (e.g., 'artificial')")
+    name: str = Field(
+        min_length=3, max_length=100, description="Community name (e.g., 'artificial')"
+    )
     discovered_from_keywords: dict[str, Any] | None = Field(
         default=None, description="Keywords that led to discovery"
     )
-    discovered_from_task_id: UUID | None = Field(default=None, description="Task ID that discovered this community")
+    discovered_from_task_id: UUID | None = Field(
+        default=None, description="Task ID that discovered this community"
+    )
 
     @field_validator("name")  # type: ignore[misc]
     @classmethod
@@ -28,7 +32,9 @@ class PendingCommunityCreate(ORMModel):
         if v.startswith("r/"):
             v = v[2:]
         if not v.replace("_", "").replace("-", "").isalnum():
-            raise ValueError("Community name must be alphanumeric (with _ or - allowed)")
+            raise ValueError(
+                "Community name must be alphanumeric (with _ or - allowed)"
+            )
         return v
 
 
@@ -36,8 +42,12 @@ class PendingCommunityUpdate(ORMModel):
     """Schema for updating a pending community (admin review)."""
 
     status: str = Field(description="Status: pending/approved/rejected")
-    admin_notes: str | None = Field(default=None, max_length=1000, description="Admin review notes")
-    reviewed_by: UUID | None = Field(default=None, description="Admin user ID who reviewed")
+    admin_notes: str | None = Field(
+        default=None, max_length=1000, description="Admin review notes"
+    )
+    reviewed_by: UUID | None = Field(
+        default=None, description="Admin user ID who reviewed"
+    )
 
     @field_validator("status")  # type: ignore[misc]
     @classmethod
@@ -75,7 +85,9 @@ class CommunityPoolStats(ORMModel):
     approved_discoveries: int = Field(description="Approved discoveries")
     rejected_discoveries: int = Field(description="Rejected discoveries")
     avg_quality_score: float = Field(description="Average quality score")
-    cache_coverage: float = Field(ge=0.0, le=1.0, description="Cache coverage ratio (0-1)")
+    cache_coverage: float = Field(
+        ge=0.0, le=1.0, description="Cache coverage ratio (0-1)"
+    )
 
 
 class CommunityPoolItem(ORMModel):
@@ -110,9 +122,15 @@ class CommunityPoolListResponse(ORMModel):
 class CommunityCacheUpdate(ORMModel):
     """Schema for updating community cache metadata."""
 
-    crawl_frequency_hours: int | None = Field(default=None, ge=1, le=168, description="Crawl frequency in hours")
-    is_active: bool | None = Field(default=None, description="Whether community is active")
-    crawl_priority: int | None = Field(default=None, ge=1, le=100, description="Crawl priority (1-100)")
+    crawl_frequency_hours: int | None = Field(
+        default=None, ge=1, le=168, description="Crawl frequency in hours"
+    )
+    is_active: bool | None = Field(
+        default=None, description="Whether community is active"
+    )
+    crawl_priority: int | None = Field(
+        default=None, ge=1, le=100, description="Crawl priority (1-100)"
+    )
 
 
 class WarmupMetrics(ORMModel):
@@ -130,15 +148,21 @@ class WarmupMetrics(ORMModel):
     total_analyses: int
     avg_analysis_time_seconds: float
     p95_analysis_time_seconds: float
-    system_uptime_percentage: float = Field(ge=0.0, le=100.0, description="System uptime %")
+    system_uptime_percentage: float = Field(
+        ge=0.0, le=100.0, description="System uptime %"
+    )
 
 
 class CommunityDiscoveryRequest(ORMModel):
     """Schema for requesting community discovery from product description."""
 
-    product_description: str = Field(min_length=10, max_length=5000, description="Product description")
+    product_description: str = Field(
+        min_length=10, max_length=5000, description="Product description"
+    )
     task_id: UUID = Field(description="Task ID for tracking")
-    max_communities: int = Field(default=10, ge=1, le=50, description="Max communities to discover")
+    max_communities: int = Field(
+        default=10, ge=1, le=50, description="Max communities to discover"
+    )
 
 
 class CommunityDiscoveryResponse(ORMModel):
@@ -149,4 +173,3 @@ class CommunityDiscoveryResponse(ORMModel):
     total_discovered: int
     already_in_pool: list[str]
     newly_discovered: list[str]
-
