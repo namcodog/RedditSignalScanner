@@ -752,14 +752,6 @@
     "quality_score": 0.70
   },
   {
-    "name": "BuyItForLife",
-    "tier": "medium",
-    "categories": ["lifestyle", "consumer"],
-    "description_keywords": {"bifl": 1.0, "quality": 0.9, "durable": 0.8},
-    "daily_posts": 40,
-    "quality_score": 0.75
-  },
-  {
     "name": "travel",
     "tier": "high",
     "categories": ["lifestyle", "travel"],
@@ -790,6 +782,822 @@
     "description_keywords": {"remote": 1.0, "wfh": 0.9, "work from home": 0.9},
     "daily_posts": 50,
     "quality_score": 0.80
+  },
+  {
+    "name": "cscareerquestions",
+    "tier": "high",
+    "categories": ["career", "technology"],
+    "description_keywords": {"cs": 1.0, "career": 0.9, "software": 0.8},
+    "daily_posts": 100,
+    "quality_score": 0.75
+  },
+  {
+    "name": "ITCareerQuestions",
+    "tier": "medium",
+    "categories": ["career", "technology"],
+    "description_keywords": {"it": 1.0, "career": 0.9, "tech": 0.8},
+    "daily_posts": 60,
+    "quality_score": 0.75
+  },
+  {
+    "name": "jobs",
+    "tier": "medium",
+    "categories": ["career"],
+    "description_keywords": {"job": 1.0, "hiring": 0.9, "employment": 0.8},
+    "daily_posts": 70,
+    "quality_score": 0.70
+  },
+  {
+    "name": "resumes",
+    "tier": "medium",
+    "categories": ["career"],
+    "description_keywords": {"resume": 1.0, "cv": 0.9, "job": 0.7},
+    "daily_posts": 50,
+    "quality_score": 0.75
+  },
+  {
+    "name": "interviews",
+    "tier": "medium",
+    "categories": ["career"],
+    "description_keywords": {"interview": 1.0, "job": 0.8, "hiring": 0.7},
+    "daily_posts": 40,
+    "quality_score": 0.75
+  },
+  {
+    "name": "GetEmployed",
+    "tier": "low",
+    "categories": ["career"],
+    "description_keywords": {"employment": 1.0, "job search": 0.9},
+    "daily_posts": 20,
+    "quality_score": 0.70
+  },
+  {
+    "name": "careerguidance",
+    "tier": "medium",
+    "categories": ["career"],
+    "description_keywords": {"career": 1.0, "guidance": 0.9, "advice": 0.8},
+    "daily_posts": 50,
+    "quality_score": 0.75
+  },
+  {
+    "name": "careerchange",
+    "tier": "medium",
+    "categories": ["career"],
+    "description_keywords": {"career change": 1.0, "transition": 0.9},
+    "daily_posts": 30,
+    "quality_score": 0.75
+  },
+  {
+    "name": "AskHR",
+    "tier": "low",
+    "categories": ["career", "business"],
+    "description_keywords": {"hr": 1.0, "human resources": 0.9},
+    "daily_posts": 25,
+    "quality_score": 0.70
+  },
+  {
+    "name": "managers",
+    "tier": "medium",
+    "categories": ["career", "business"],
+    "description_keywords": {"manager": 1.0, "management": 0.9, "leadership": 0.8},
+    "daily_posts": 30,
+    "quality_score": 0.75
+  },
+  {
+    "name": "leadership",
+    "tier": "medium",
+    "categories": ["career", "business"],
+    "description_keywords": {"leadership": 1.0, "leader": 0.9, "management": 0.7},
+    "daily_posts": 25,
+    "quality_score": 0.75
+  },
+  {
+    "name": "AskEngineers",
+    "tier": "medium",
+    "categories": ["career", "technology"],
+    "description_keywords": {"engineering": 1.0, "engineer": 0.9},
+    "daily_posts": 40,
+    "quality_score": 0.75
+  },
+  {
+    "name": "EngineeringStudents",
+    "tier": "medium",
+    "categories": ["education", "technology"],
+    "description_keywords": {"engineering": 1.0, "student": 0.9, "university": 0.7},
+    "daily_posts": 50,
+    "quality_score": 0.70
+  },
+  {
+    "name": "learnprogramming",
+    "tier": "high",
+    "categories": ["education", "technology"],
+    "description_keywords": {"learn": 1.0, "programming": 0.9, "beginner": 0.7},
+    "daily_posts": 100,
+    "quality_score": 0.75
+  },
+  {
+    "name": "learnpython",
+    "tier": "medium",
+    "categories": ["education", "technology"],
+    "description_keywords": {"python": 1.0, "learn": 0.9, "beginner": 0.7},
+    "daily_posts": 60,
+    "quality_score": 0.75
+  },
+  {
+    "name": "learnjava",
+    "tier": "low",
+    "categories": ["education", "technology"],
+    "description_keywords": {"java": 1.0, "learn": 0.9},
+    "daily_posts": 20,
+    "quality_score": 0.70
+  },
+  {
+    "name": "learnjavascript",
+    "tier": "medium",
+    "categories": ["education", "technology"],
+    "description_keywords": {"javascript": 1.0, "learn": 0.9},
+    "daily_posts": 40,
+    "quality_score": 0.75
+  },
+  {
+    "name": "learnmachinelearning",
+    "tier": "medium",
+    "categories": ["education", "technology"],
+    "description_keywords": {"machine learning": 1.0, "learn": 0.9, "ml": 0.8},
+    "daily_posts": 50,
+    "quality_score": 0.80
+  },
+  {
+    "name": "AskProgramming",
+    "tier": "medium",
+    "categories": ["technology", "programming"],
+    "description_keywords": {"programming": 1.0, "code": 0.8, "help": 0.6},
+    "daily_posts": 40,
+    "quality_score": 0.70
+  },
+  {
+    "name": "coding",
+    "tier": "medium",
+    "categories": ["technology", "programming"],
+    "description_keywords": {"coding": 1.0, "programming": 0.9, "code": 0.8},
+    "daily_posts": 50,
+    "quality_score": 0.70
+  },
+  {
+    "name": "programming",
+    "tier": "high",
+    "categories": ["technology", "programming"],
+    "description_keywords": {"programming": 1.0, "code": 0.8, "software": 0.7},
+    "daily_posts": 80,
+    "quality_score": 0.75
+  },
+  {
+    "name": "softwaredevelopment",
+    "tier": "medium",
+    "categories": ["technology", "software"],
+    "description_keywords": {"software": 1.0, "development": 0.9, "engineering": 0.7},
+    "daily_posts": 40,
+    "quality_score": 0.75
+  },
+  {
+    "name": "SoftwareEngineering",
+    "tier": "high",
+    "categories": ["technology", "software"],
+    "description_keywords": {"software engineering": 1.0, "swe": 0.9},
+    "daily_posts": 50,
+    "quality_score": 0.80
+  },
+  {
+    "name": "ExperiencedDevs",
+    "tier": "medium",
+    "categories": ["technology", "career"],
+    "description_keywords": {"experienced": 1.0, "senior": 0.9, "developer": 0.8},
+    "daily_posts": 30,
+    "quality_score": 0.85
+  },
+  {
+    "name": "sysadmin",
+    "tier": "medium",
+    "categories": ["technology", "career"],
+    "description_keywords": {"sysadmin": 1.0, "system administrator": 0.9, "it": 0.7},
+    "daily_posts": 50,
+    "quality_score": 0.75
+  },
+  {
+    "name": "networking",
+    "tier": "medium",
+    "categories": ["technology"],
+    "description_keywords": {"networking": 1.0, "network": 0.9, "cisco": 0.6},
+    "daily_posts": 40,
+    "quality_score": 0.75
+  },
+  {
+    "name": "homelab",
+    "tier": "medium",
+    "categories": ["technology", "hobby"],
+    "description_keywords": {"homelab": 1.0, "server": 0.8, "self-hosted": 0.7},
+    "daily_posts": 60,
+    "quality_score": 0.75
+  },
+  {
+    "name": "selfhosted",
+    "tier": "medium",
+    "categories": ["technology", "hobby"],
+    "description_keywords": {"self-hosted": 1.0, "server": 0.8, "privacy": 0.7},
+    "daily_posts": 50,
+    "quality_score": 0.80
+  },
+  {
+    "name": "privacy",
+    "tier": "medium",
+    "categories": ["technology", "security"],
+    "description_keywords": {"privacy": 1.0, "security": 0.8, "data": 0.7},
+    "daily_posts": 60,
+    "quality_score": 0.75
+  },
+  {
+    "name": "netsec",
+    "tier": "medium",
+    "categories": ["technology", "security"],
+    "description_keywords": {"netsec": 1.0, "security": 0.9, "network": 0.7},
+    "daily_posts": 40,
+    "quality_score": 0.80
+  },
+  {
+    "name": "AskNetsec",
+    "tier": "low",
+    "categories": ["technology", "security"],
+    "description_keywords": {"security": 1.0, "netsec": 0.9},
+    "daily_posts": 20,
+    "quality_score": 0.75
+  },
+  {
+    "name": "hacking",
+    "tier": "medium",
+    "categories": ["technology", "security"],
+    "description_keywords": {"hacking": 1.0, "security": 0.8, "pentesting": 0.7},
+    "daily_posts": 50,
+    "quality_score": 0.70
+  },
+  {
+    "name": "AskTechnology",
+    "tier": "medium",
+    "categories": ["technology"],
+    "description_keywords": {"technology": 1.0, "tech": 0.9},
+    "daily_posts": 40,
+    "quality_score": 0.70
+  },
+  {
+    "name": "gadgets",
+    "tier": "medium",
+    "categories": ["technology", "consumer"],
+    "description_keywords": {"gadget": 1.0, "device": 0.8, "tech": 0.7},
+    "daily_posts": 60,
+    "quality_score": 0.70
+  },
+  {
+    "name": "hardware",
+    "tier": "medium",
+    "categories": ["technology"],
+    "description_keywords": {"hardware": 1.0, "computer": 0.8, "pc": 0.7},
+    "daily_posts": 40,
+    "quality_score": 0.70
+  },
+  {
+    "name": "buildapc",
+    "tier": "medium",
+    "categories": ["technology", "hobby"],
+    "description_keywords": {"pc": 1.0, "build": 0.9, "computer": 0.8},
+    "daily_posts": 80,
+    "quality_score": 0.75
+  },
+  {
+    "name": "pcmasterrace",
+    "tier": "low",
+    "categories": ["technology", "gaming"],
+    "description_keywords": {"pc": 1.0, "gaming": 0.8},
+    "daily_posts": 100,
+    "quality_score": 0.60
+  },
+  {
+    "name": "gaming",
+    "tier": "medium",
+    "categories": ["entertainment", "gaming"],
+    "description_keywords": {"gaming": 1.0, "game": 0.9, "video game": 0.8},
+    "daily_posts": 150,
+    "quality_score": 0.65
+  },
+  {
+    "name": "gamedev",
+    "tier": "medium",
+    "categories": ["technology", "gaming"],
+    "description_keywords": {"game dev": 1.0, "development": 0.9, "indie": 0.7},
+    "daily_posts": 50,
+    "quality_score": 0.80
+  },
+  {
+    "name": "IndieGaming",
+    "tier": "low",
+    "categories": ["entertainment", "gaming"],
+    "description_keywords": {"indie": 1.0, "game": 0.9},
+    "daily_posts": 40,
+    "quality_score": 0.70
+  },
+  {
+    "name": "Unity3D",
+    "tier": "medium",
+    "categories": ["technology", "gaming"],
+    "description_keywords": {"unity": 1.0, "game engine": 0.9, "3d": 0.7},
+    "daily_posts": 40,
+    "quality_score": 0.75
+  },
+  {
+    "name": "unrealengine",
+    "tier": "medium",
+    "categories": ["technology", "gaming"],
+    "description_keywords": {"unreal": 1.0, "ue4": 0.9, "game engine": 0.8},
+    "daily_posts": 35,
+    "quality_score": 0.75
+  },
+  {
+    "name": "gamedesign",
+    "tier": "medium",
+    "categories": ["technology", "gaming"],
+    "description_keywords": {"game design": 1.0, "mechanics": 0.8},
+    "daily_posts": 30,
+    "quality_score": 0.75
+  },
+  {
+    "name": "truegaming",
+    "tier": "low",
+    "categories": ["entertainment", "gaming"],
+    "description_keywords": {"gaming": 1.0, "discussion": 0.8},
+    "daily_posts": 20,
+    "quality_score": 0.75
+  },
+  {
+    "name": "writing",
+    "tier": "medium",
+    "categories": ["creative", "education"],
+    "description_keywords": {"writing": 1.0, "author": 0.8, "story": 0.7},
+    "daily_posts": 50,
+    "quality_score": 0.70
+  },
+  {
+    "name": "WritingPrompts",
+    "tier": "medium",
+    "categories": ["creative", "entertainment"],
+    "description_keywords": {"writing": 1.0, "prompt": 0.9, "story": 0.8},
+    "daily_posts": 80,
+    "quality_score": 0.65
+  },
+  {
+    "name": "selfpublish",
+    "tier": "low",
+    "categories": ["creative", "business"],
+    "description_keywords": {"self publish": 1.0, "author": 0.9, "book": 0.8},
+    "daily_posts": 20,
+    "quality_score": 0.75
+  },
+  {
+    "name": "photography",
+    "tier": "medium",
+    "categories": ["creative", "hobby"],
+    "description_keywords": {"photography": 1.0, "photo": 0.9, "camera": 0.8},
+    "daily_posts": 60,
+    "quality_score": 0.70
+  },
+  {
+    "name": "AskPhotography",
+    "tier": "low",
+    "categories": ["creative", "hobby"],
+    "description_keywords": {"photography": 1.0, "camera": 0.8},
+    "daily_posts": 30,
+    "quality_score": 0.70
+  },
+  {
+    "name": "videography",
+    "tier": "low",
+    "categories": ["creative", "hobby"],
+    "description_keywords": {"videography": 1.0, "video": 0.9, "filming": 0.7},
+    "daily_posts": 25,
+    "quality_score": 0.70
+  },
+  {
+    "name": "VideoEditing",
+    "tier": "medium",
+    "categories": ["creative", "technology"],
+    "description_keywords": {"video editing": 1.0, "premiere": 0.7, "davinci": 0.6},
+    "daily_posts": 40,
+    "quality_score": 0.70
+  },
+  {
+    "name": "youtubers",
+    "tier": "medium",
+    "categories": ["creative", "business"],
+    "description_keywords": {"youtube": 1.0, "creator": 0.9, "content": 0.8},
+    "daily_posts": 50,
+    "quality_score": 0.70
+  },
+  {
+    "name": "NewTubers",
+    "tier": "medium",
+    "categories": ["creative", "business"],
+    "description_keywords": {"youtube": 1.0, "new": 0.8, "creator": 0.9},
+    "daily_posts": 60,
+    "quality_score": 0.70
+  },
+  {
+    "name": "PartneredYoutube",
+    "tier": "low",
+    "categories": ["creative", "business"],
+    "description_keywords": {"youtube": 1.0, "partner": 0.9, "monetization": 0.8},
+    "daily_posts": 20,
+    "quality_score": 0.75
+  },
+  {
+    "name": "Twitch",
+    "tier": "medium",
+    "categories": ["creative", "gaming"],
+    "description_keywords": {"twitch": 1.0, "streaming": 0.9, "streamer": 0.9},
+    "daily_posts": 50,
+    "quality_score": 0.70
+  },
+  {
+    "name": "Streaming",
+    "tier": "medium",
+    "categories": ["creative", "technology"],
+    "description_keywords": {"streaming": 1.0, "stream": 0.9, "obs": 0.7},
+    "daily_posts": 40,
+    "quality_score": 0.70
+  },
+  {
+    "name": "ContentCreation",
+    "tier": "medium",
+    "categories": ["creative", "business"],
+    "description_keywords": {"content": 1.0, "creator": 0.9, "creation": 0.8},
+    "daily_posts": 30,
+    "quality_score": 0.75
+  },
+  {
+    "name": "socialmedia",
+    "tier": "medium",
+    "categories": ["business", "marketing"],
+    "description_keywords": {"social media": 1.0, "marketing": 0.8, "instagram": 0.6},
+    "daily_posts": 40,
+    "quality_score": 0.70
+  },
+  {
+    "name": "Instagram",
+    "tier": "medium",
+    "categories": ["business", "marketing"],
+    "description_keywords": {"instagram": 1.0, "ig": 0.9, "social": 0.7},
+    "daily_posts": 50,
+    "quality_score": 0.65
+  },
+  {
+    "name": "Tiktokhelp",
+    "tier": "low",
+    "categories": ["business", "marketing"],
+    "description_keywords": {"tiktok": 1.0, "social": 0.7},
+    "daily_posts": 30,
+    "quality_score": 0.65
+  },
+  {
+    "name": "SEO",
+    "tier": "medium",
+    "categories": ["business", "marketing"],
+    "description_keywords": {"seo": 1.0, "search": 0.9, "google": 0.7},
+    "daily_posts": 40,
+    "quality_score": 0.75
+  },
+  {
+    "name": "PPC",
+    "tier": "low",
+    "categories": ["business", "marketing"],
+    "description_keywords": {"ppc": 1.0, "ads": 0.9, "google ads": 0.8},
+    "daily_posts": 20,
+    "quality_score": 0.75
+  },
+  {
+    "name": "Affiliatemarketing",
+    "tier": "medium",
+    "categories": ["business", "marketing"],
+    "description_keywords": {"affiliate": 1.0, "marketing": 0.9, "commission": 0.7},
+    "daily_posts": 35,
+    "quality_score": 0.70
+  },
+  {
+    "name": "Emailmarketing",
+    "tier": "low",
+    "categories": ["business", "marketing"],
+    "description_keywords": {"email": 1.0, "marketing": 0.9, "newsletter": 0.7},
+    "daily_posts": 15,
+    "quality_score": 0.70
+  },
+  {
+    "name": "copywriting",
+    "tier": "medium",
+    "categories": ["business", "marketing"],
+    "description_keywords": {"copywriting": 1.0, "copy": 0.9, "writing": 0.7},
+    "daily_posts": 30,
+    "quality_score": 0.75
+  },
+  {
+    "name": "branding",
+    "tier": "medium",
+    "categories": ["business", "marketing"],
+    "description_keywords": {"branding": 1.0, "brand": 0.9, "identity": 0.7},
+    "daily_posts": 25,
+    "quality_score": 0.75
+  },
+  {
+    "name": "logodesign",
+    "tier": "low",
+    "categories": ["creative", "business"],
+    "description_keywords": {"logo": 1.0, "design": 0.9, "branding": 0.7},
+    "daily_posts": 30,
+    "quality_score": 0.65
+  },
+  {
+    "name": "graphic_design",
+    "tier": "medium",
+    "categories": ["creative", "business"],
+    "description_keywords": {"graphic design": 1.0, "design": 0.9},
+    "daily_posts": 50,
+    "quality_score": 0.70
+  },
+  {
+    "name": "AskMarketing",
+    "tier": "low",
+    "categories": ["business", "marketing"],
+    "description_keywords": {"marketing": 1.0, "advice": 0.7},
+    "daily_posts": 20,
+    "quality_score": 0.70
+  },
+  {
+    "name": "Accounting",
+    "tier": "medium",
+    "categories": ["business", "finance"],
+    "description_keywords": {"accounting": 1.0, "cpa": 0.8, "bookkeeping": 0.7},
+    "daily_posts": 40,
+    "quality_score": 0.75
+  },
+  {
+    "name": "taxpros",
+    "tier": "low",
+    "categories": ["business", "finance"],
+    "description_keywords": {"tax": 1.0, "accounting": 0.8},
+    "daily_posts": 15,
+    "quality_score": 0.75
+  },
+  {
+    "name": "tax",
+    "tier": "medium",
+    "categories": ["finance"],
+    "description_keywords": {"tax": 1.0, "irs": 0.7, "filing": 0.6},
+    "daily_posts": 50,
+    "quality_score": 0.70
+  },
+  {
+    "name": "Insurance",
+    "tier": "medium",
+    "categories": ["finance"],
+    "description_keywords": {"insurance": 1.0, "policy": 0.8, "coverage": 0.7},
+    "daily_posts": 40,
+    "quality_score": 0.70
+  },
+  {
+    "name": "HealthInsurance",
+    "tier": "low",
+    "categories": ["finance", "health"],
+    "description_keywords": {"health insurance": 1.0, "coverage": 0.8},
+    "daily_posts": 25,
+    "quality_score": 0.70
+  },
+  {
+    "name": "StudentLoans",
+    "tier": "medium",
+    "categories": ["finance", "education"],
+    "description_keywords": {"student loan": 1.0, "debt": 0.9, "repayment": 0.8},
+    "daily_posts": 40,
+    "quality_score": 0.75
+  },
+  {
+    "name": "CRedit",
+    "tier": "medium",
+    "categories": ["finance"],
+    "description_keywords": {"credit": 1.0, "score": 0.9, "card": 0.8},
+    "daily_posts": 60,
+    "quality_score": 0.70
+  },
+  {
+    "name": "CreditCards",
+    "tier": "medium",
+    "categories": ["finance"],
+    "description_keywords": {"credit card": 1.0, "rewards": 0.8, "points": 0.7},
+    "daily_posts": 80,
+    "quality_score": 0.70
+  },
+  {
+    "name": "churning",
+    "tier": "low",
+    "categories": ["finance"],
+    "description_keywords": {"churning": 1.0, "credit card": 0.9, "points": 0.8},
+    "daily_posts": 30,
+    "quality_score": 0.70
+  },
+  {
+    "name": "awardtravel",
+    "tier": "low",
+    "categories": ["finance", "travel"],
+    "description_keywords": {"award": 1.0, "points": 0.9, "miles": 0.8},
+    "daily_posts": 20,
+    "quality_score": 0.75
+  },
+  {
+    "name": "Mortgages",
+    "tier": "medium",
+    "categories": ["finance", "realestate"],
+    "description_keywords": {"mortgage": 1.0, "home loan": 0.9, "rate": 0.7},
+    "daily_posts": 40,
+    "quality_score": 0.75
+  },
+  {
+    "name": "FirstTimeHomeBuyer",
+    "tier": "medium",
+    "categories": ["finance", "realestate"],
+    "description_keywords": {"home buyer": 1.0, "first time": 0.9, "mortgage": 0.8},
+    "daily_posts": 50,
+    "quality_score": 0.75
+  },
+  {
+    "name": "RealEstate",
+    "tier": "high",
+    "categories": ["finance", "business"],
+    "description_keywords": {"real estate": 1.0, "property": 0.9, "market": 0.7},
+    "daily_posts": 70,
+    "quality_score": 0.75
+  },
+  {
+    "name": "Landlord",
+    "tier": "medium",
+    "categories": ["finance", "business"],
+    "description_keywords": {"landlord": 1.0, "rental": 0.9, "tenant": 0.8},
+    "daily_posts": 50,
+    "quality_score": 0.75
+  },
+  {
+    "name": "passive_income",
+    "tier": "medium",
+    "categories": ["finance", "business"],
+    "description_keywords": {"passive income": 1.0, "investment": 0.8},
+    "daily_posts": 40,
+    "quality_score": 0.70
+  },
+  {
+    "name": "sidehustle",
+    "tier": "medium",
+    "categories": ["business", "finance"],
+    "description_keywords": {"side hustle": 1.0, "extra income": 0.9},
+    "daily_posts": 60,
+    "quality_score": 0.70
+  },
+  {
+    "name": "beermoney",
+    "tier": "low",
+    "categories": ["finance"],
+    "description_keywords": {"beer money": 1.0, "extra cash": 0.8},
+    "daily_posts": 50,
+    "quality_score": 0.60
+  },
+  {
+    "name": "Flipping",
+    "tier": "medium",
+    "categories": ["business", "finance"],
+    "description_keywords": {"flipping": 1.0, "resale": 0.9, "profit": 0.8},
+    "daily_posts": 40,
+    "quality_score": 0.70
+  },
+  {
+    "name": "Resell",
+    "tier": "low",
+    "categories": ["business", "finance"],
+    "description_keywords": {"resell": 1.0, "resale": 0.9, "ebay": 0.7},
+    "daily_posts": 25,
+    "quality_score": 0.65
+  },
+  {
+    "name": "FulfillmentByAmazon",
+    "tier": "medium",
+    "categories": ["business", "ecommerce"],
+    "description_keywords": {"fba": 1.0, "amazon": 0.9, "selling": 0.8},
+    "daily_posts": 35,
+    "quality_score": 0.75
+  },
+  {
+    "name": "AmazonSeller",
+    "tier": "medium",
+    "categories": ["business", "ecommerce"],
+    "description_keywords": {"amazon": 1.0, "seller": 0.9, "fba": 0.7},
+    "daily_posts": 30,
+    "quality_score": 0.75
+  },
+  {
+    "name": "dropship",
+    "tier": "medium",
+    "categories": ["business", "ecommerce"],
+    "description_keywords": {"dropshipping": 1.0, "ecommerce": 0.9},
+    "daily_posts": 40,
+    "quality_score": 0.70
+  },
+  {
+    "name": "shopify",
+    "tier": "medium",
+    "categories": ["business", "ecommerce"],
+    "description_keywords": {"shopify": 1.0, "ecommerce": 0.9, "store": 0.8},
+    "daily_posts": 50,
+    "quality_score": 0.75
+  },
+  {
+    "name": "Etsy",
+    "tier": "medium",
+    "categories": ["business", "creative"],
+    "description_keywords": {"etsy": 1.0, "handmade": 0.8, "seller": 0.7},
+    "daily_posts": 45,
+    "quality_score": 0.70
+  },
+  {
+    "name": "EtsySellers",
+    "tier": "low",
+    "categories": ["business", "creative"],
+    "description_keywords": {"etsy": 1.0, "seller": 0.9, "shop": 0.7},
+    "daily_posts": 30,
+    "quality_score": 0.70
+  },
+  {
+    "name": "printOnDemand",
+    "tier": "medium",
+    "categories": ["business", "creative"],
+    "description_keywords": {"pod": 1.0, "print on demand": 0.9, "merch": 0.7},
+    "daily_posts": 35,
+    "quality_score": 0.70
+  },
+  {
+    "name": "merch",
+    "tier": "low",
+    "categories": ["business", "creative"],
+    "description_keywords": {"merch": 1.0, "merchandise": 0.9, "design": 0.7},
+    "daily_posts": 20,
+    "quality_score": 0.65
+  },
+  {
+    "name": "AmazonMerch",
+    "tier": "low",
+    "categories": ["business", "creative"],
+    "description_keywords": {"merch by amazon": 1.0, "pod": 0.8},
+    "daily_posts": 15,
+    "quality_score": 0.70
+  },
+  {
+    "name": "Blogging",
+    "tier": "medium",
+    "categories": ["business", "creative"],
+    "description_keywords": {"blogging": 1.0, "blog": 0.9, "content": 0.7},
+    "daily_posts": 30,
+    "quality_score": 0.70
+  },
+  {
+    "name": "juststart",
+    "tier": "medium",
+    "categories": ["business", "creative"],
+    "description_keywords": {"niche site": 1.0, "blogging": 0.9, "seo": 0.8},
+    "daily_posts": 25,
+    "quality_score": 0.75
+  },
+  {
+    "name": "WorkOnline",
+    "tier": "medium",
+    "categories": ["career", "business"],
+    "description_keywords": {"work online": 1.0, "remote": 0.9, "freelance": 0.7},
+    "daily_posts": 40,
+    "quality_score": 0.70
+  },
+  {
+    "name": "forhire",
+    "tier": "medium",
+    "categories": ["career", "business"],
+    "description_keywords": {"for hire": 1.0, "freelance": 0.9, "job": 0.7},
+    "daily_posts": 50,
+    "quality_score": 0.70
+  },
+  {
+    "name": "slavelabour",
+    "tier": "low",
+    "categories": ["career", "business"],
+    "description_keywords": {"task": 1.0, "gig": 0.8, "micro job": 0.7},
+    "daily_posts": 60,
+    "quality_score": 0.60
   }
 ]
 
