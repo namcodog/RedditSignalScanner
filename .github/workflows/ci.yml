@@ -16,6 +16,7 @@ jobs:
   backend-test:
     name: Backend Tests
     runs-on: ubuntu-latest  # 使用 Ubuntu 系统
+    timeout-minutes: 10  # 整个 job 最多运行 10 分钟
     
     # 需要的服务（数据库、Redis）
     services:
@@ -89,8 +90,10 @@ jobs:
         run: |
           cd backend
           # Run a focused subset to keep CI fast and stable; exclude long-running suites
+          # Add explicit timeout to prevent hanging tests
           pytest -v -k "not e2e and not integration and not services and not tasks" \
             --maxfail=1 --disable-warnings \
+            --timeout=60 --timeout-method=thread \
             --cov=app --cov-report=xml --cov-report=term
       
       # 6. 上传测试覆盖率报告
