@@ -171,34 +171,26 @@ def truncate_tables_between_tests(request: pytest.FixtureRequest) -> Iterator[No
     db_password = os.getenv('TEST_DB_PASSWORD', '')
     db_name = os.getenv('TEST_DB_NAME', 'reddit_scanner')
 
-    # For test_community_import.py, preserve history between tests
-    module_file = getattr(request.module, "__file__", "")
-    preserve_history = module_file.endswith("test_community_import.py")
-
-    # Use DSN string and set short lock/statement timeouts to avoid hangs
+    # Use DSN string and set longer lock/statement timeouts for retry strategy
     dsn = f"postgresql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}"
-    conn = psycopg.connect(dsn, options='-c lock_timeout=3000 -c statement_timeout=5000')
+    conn = psycopg.connect(dsn, options='-c lock_timeout=5000 -c statement_timeout=10000')
     conn.autocommit = True
     try:
         with conn.cursor() as cursor:
-            attempts = 5
-            delay = 0.2
+            # Increase retry attempts to 10 with longer delays to handle persistent locks
+            attempts = 10
+            delay = 0.5
             for i in range(attempts):
                 try:
-                    if preserve_history:
-                        cursor.execute(
-                            "TRUNCATE TABLE beta_feedback, community_pool, pending_communities RESTART IDENTITY CASCADE"
-                        )
-                    else:
-                        cursor.execute(
-                            "TRUNCATE TABLE beta_feedback, community_pool, pending_communities, community_import_history RESTART IDENTITY CASCADE"
-                        )
+                    cursor.execute(
+                        "TRUNCATE TABLE beta_feedback, community_pool, pending_communities, community_import_history RESTART IDENTITY CASCADE"
+                    )
                     break
                 except psycopg.errors.LockNotAvailable:
                     if i == attempts - 1:
                         raise
                     time.sleep(delay)
-                    delay *= 2
+                    delay *= 1.5  # Slower exponential backoff (0.5 → 0.75 → 1.125 → 1.69 → 2.53 → 3.8 → 5.7 → 8.5 → 12.8s)
     finally:
         conn.close()
 
