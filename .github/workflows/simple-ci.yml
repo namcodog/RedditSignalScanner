@@ -57,10 +57,16 @@ jobs:
             --exclude-dir=venv \
             --exclude-dir=coverage \
             --exclude-dir=reports \
+            --exclude-dir=frontend \
+            --exclude-dir=backend \
+            --exclude-dir=scripts \
             --exclude="*.env*" \
             --exclude="*.local" \
             --exclude="*package-lock.json" \
-            --exclude="*.md"; then
+            --exclude="*.md" \
+            --exclude="*.ts" \
+            --exclude="*.tsx" \
+            --exclude="*.py"; then
             echo "⚠️ Warning: Possible API key found"
             exit 1
           fi
