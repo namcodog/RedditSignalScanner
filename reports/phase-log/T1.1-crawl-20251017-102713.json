@@ -1,0 +1,805 @@
+{
+  "status": "completed",
+  "mode": "incremental",
+  "total": 100,
+  "succeeded": 95,
+  "failed": 5,
+  "total_new_posts": 2095,
+  "total_updated_posts": 0,
+  "total_duplicates": 0,
+  "communities": [
+    {
+      "community": "entrepreneur",
+      "new_posts": 30,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.007178
+    },
+    {
+      "community": "webdev",
+      "new_posts": 24,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.805672
+    },
+    {
+      "community": "personalfinance",
+      "new_posts": 30,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.959209
+    },
+    {
+      "community": "books",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.969745
+    },
+    {
+      "community": "careerguidance",
+      "new_posts": 30,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.893083
+    },
+    {
+      "community": "cybersecurity",
+      "new_posts": 28,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.854283
+    },
+    {
+      "community": "reactnative",
+      "new_posts": 8,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.986476
+    },
+    {
+      "community": "podcasting",
+      "new_posts": 4,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.730581
+    },
+    {
+      "community": "homeimprovement",
+      "new_posts": 30,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.20054
+    },
+    {
+      "community": "minimalism",
+      "new_posts": 6,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.975202
+    },
+    {
+      "community": "running",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "technology",
+      "new_posts": 30,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.846972
+    },
+    {
+      "community": "investing",
+      "new_posts": 30,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.855706
+    },
+    {
+      "community": "cryptocurrency",
+      "new_posts": 30,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.956957
+    },
+    {
+      "community": "fitness",
+      "new_posts": 30,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.071826
+    },
+    {
+      "community": "nutrition",
+      "new_posts": 3,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.66346
+    },
+    {
+      "community": "mentalhealth",
+      "new_posts": 30,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.817492
+    },
+    {
+      "community": "education",
+      "new_posts": 3,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.803162
+    },
+    {
+      "community": "learnprogramming",
+      "new_posts": 30,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.897584
+    },
+    {
+      "community": "python",
+      "new_posts": 12,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.92061
+    },
+    {
+      "community": "3dprinting",
+      "new_posts": 30,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 43.330862
+    },
+    {
+      "community": "javascript",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "devops",
+      "new_posts": 24,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.049738
+    },
+    {
+      "community": "woodworking",
+      "new_posts": 30,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.123798
+    },
+    {
+      "community": "cloudcomputing",
+      "new_posts": 1,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.925136
+    },
+    {
+      "community": "privacy",
+      "new_posts": 11,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.844737
+    },
+    {
+      "community": "gaming",
+      "new_posts": 25,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.790623
+    },
+    {
+      "community": "writing",
+      "new_posts": 30,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.857584
+    },
+    {
+      "community": "smallbusiness",
+      "new_posts": 30,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.792755
+    },
+    {
+      "community": "ecommerce",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.924822
+    },
+    {
+      "community": "socialmedia",
+      "new_posts": 11,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.05338
+    },
+    {
+      "community": "seo",
+      "new_posts": 30,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.964823
+    },
+    {
+      "community": "contentmarketing",
+      "new_posts": 2,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.89677
+    },
+    {
+      "community": "freelance",
+      "new_posts": 1,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.921918
+    },
+    {
+      "community": "remotework",
+      "new_posts": 30,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.940965
+    },
+    {
+      "community": "cscareerquestions",
+      "new_posts": 30,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.964157
+    },
+    {
+      "community": "aquariums",
+      "new_posts": 30,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.181042
+    },
+    {
+      "community": "hiking",
+      "new_posts": 20,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.989295
+    },
+    {
+      "community": "electricvehicles",
+      "new_posts": 20,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.957192
+    },
+    {
+      "community": "artificial",
+      "new_posts": 11,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.866484
+    },
+    {
+      "community": "architecture",
+      "new_posts": 16,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 42.34973
+    },
+    {
+      "community": "machinelearning",
+      "new_posts": 30,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.058193
+    },
+    {
+      "community": "startups",
+      "new_posts": 30,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.927133
+    },
+    {
+      "community": "saas",
+      "new_posts": 30,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.80284
+    },
+    {
+      "community": "datascience",
+      "new_posts": 30,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.036665
+    },
+    {
+      "community": "programming",
+      "new_posts": 30,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.763908
+    },
+    {
+      "community": "productivity",
+      "new_posts": 14,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.825777
+    },
+    {
+      "community": "indiehackers",
+      "new_posts": 30,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.949546
+    },
+    {
+      "community": "marketing",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.73078
+    },
+    {
+      "community": "design",
+      "new_posts": 15,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.440087
+    },
+    {
+      "community": "androiddev",
+      "new_posts": 9,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.984488
+    },
+    {
+      "community": "iosdev",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.196485
+    },
+    {
+      "community": "gamedev",
+      "new_posts": 30,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.408694
+    },
+    {
+      "community": "photography",
+      "new_posts": 11,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.814616
+    },
+    {
+      "community": "videography",
+      "new_posts": 30,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.893743
+    },
+    {
+      "community": "space",
+      "new_posts": 11,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.88049
+    },
+    {
+      "community": "physics",
+      "new_posts": 13,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.911212
+    },
+    {
+      "community": "biology",
+      "new_posts": 6,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.79553
+    },
+    {
+      "community": "chemistry",
+      "new_posts": 20,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.946041
+    },
+    {
+      "community": "engineering",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "robotics",
+      "new_posts": 9,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 41.048809
+    },
+    {
+      "community": "electronics",
+      "new_posts": 3,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.173479
+    },
+    {
+      "community": "diy",
+      "new_posts": 30,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.981142
+    },
+    {
+      "community": "art",
+      "new_posts": 30,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.894786
+    },
+    {
+      "community": "crafts",
+      "new_posts": 30,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.058795
+    },
+    {
+      "community": "knitting",
+      "new_posts": 30,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.991474
+    },
+    {
+      "community": "sewing",
+      "new_posts": 30,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.914778
+    },
+    {
+      "community": "music",
+      "new_posts": 30,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.934484
+    },
+    {
+      "community": "youtube",
+      "new_posts": 30,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.815871
+    },
+    {
+      "community": "streaming",
+      "new_posts": 6,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.842609
+    },
+    {
+      "community": "travel",
+      "new_posts": 30,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.982175
+    },
+    {
+      "community": "cooking",
+      "new_posts": 30,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.840911
+    },
+    {
+      "community": "gardening",
+      "new_posts": 30,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.383396
+    },
+    {
+      "community": "sustainability",
+      "new_posts": 3,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.409475
+    },
+    {
+      "community": "meditation",
+      "new_posts": 30,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.890916
+    },
+    {
+      "community": "yoga",
+      "new_posts": 7,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.971113
+    },
+    {
+      "community": "cycling",
+      "new_posts": 30,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.980314
+    },
+    {
+      "community": "weightlifting",
+      "new_posts": 18,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.897743
+    },
+    {
+      "community": "science",
+      "new_posts": 30,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.835068
+    },
+    {
+      "community": "fashion",
+      "new_posts": 30,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.075272
+    },
+    {
+      "community": "beauty",
+      "new_posts": 24,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 41.128564
+    },
+    {
+      "community": "skincare",
+      "status": "failed",
+      "error": "Reddit API error (status=403): {\"reason\": \"private\", \"message\": \"Forbidden\", \"error\": 403}"
+    },
+    {
+      "community": "hair",
+      "new_posts": 30,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.149908
+    },
+    {
+      "community": "parenting",
+      "new_posts": 30,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.853259
+    },
+    {
+      "community": "relationships",
+      "new_posts": 30,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.997618
+    },
+    {
+      "community": "dating",
+      "new_posts": 15,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.893969
+    },
+    {
+      "community": "wedding",
+      "new_posts": 30,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.069926
+    },
+    {
+      "community": "pets",
+      "new_posts": 30,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.958455
+    },
+    {
+      "community": "dogs",
+      "new_posts": 30,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.9303
+    },
+    {
+      "community": "cats",
+      "new_posts": 30,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.954817
+    },
+    {
+      "community": "reptiles",
+      "new_posts": 30,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.064494
+    },
+    {
+      "community": "birdwatching",
+      "new_posts": 30,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.40999
+    },
+    {
+      "community": "camping",
+      "new_posts": 30,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.241297
+    },
+    {
+      "community": "fishing",
+      "new_posts": 30,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.160796
+    },
+    {
+      "community": "hunting",
+      "new_posts": 30,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.973564
+    },
+    {
+      "community": "cars",
+      "new_posts": 11,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.656721
+    },
+    {
+      "community": "motorcycles",
+      "new_posts": 30,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.084248
+    },
+    {
+      "community": "realestate",
+      "new_posts": 30,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.891921
+    },
+    {
+      "community": "homeowners",
+      "new_posts": 30,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.959707
+    },
+    {
+      "community": "interiordesign",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    }
+  ]
+}
