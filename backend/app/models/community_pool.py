@@ -28,6 +28,11 @@ class CommunityPool(TimestampMixin, Base):
     discovered_count: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
     is_active: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False)
 
+    # 黑名单字段（T1.6）
+    is_blacklisted: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
+    blacklist_reason: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    downrank_factor: Mapped[float | None] = mapped_column(Numeric(3, 2), nullable=True)
+
 
 class PendingCommunity(Base):
     __tablename__ = "pending_communities"
