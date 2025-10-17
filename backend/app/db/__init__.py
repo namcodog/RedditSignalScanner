@@ -1,5 +1,5 @@
-from .session import (SessionFactory, engine, get_session,  # noqa: F401
-                      get_session_context, session_scope)
+from .session import get_session  # noqa: F401
+from .session import SessionFactory, engine, get_session_context, session_scope
 
 __all__ = [
     "engine",
