@@ -246,9 +246,6 @@ async def client() -> AsyncIterator[AsyncClient]:
     from app.db.session import SessionFactory, get_session, engine
     from app.main import app
 
-    # Dispose engine before each test to avoid event loop conflicts
-    # This ensures each test gets a fresh connection pool bound to the current event loop
-    await engine.dispose()
 
     async def override_get_session() -> AsyncIterator[AsyncSession]:
         async with SessionFactory() as session:
@@ -262,8 +259,6 @@ async def client() -> AsyncIterator[AsyncClient]:
 
     app.dependency_overrides.pop(get_session, None)
 
-    # Dispose engine after each test to clean up connections
-    await engine.dispose()
 
 
 pytestmark = pytest.mark.asyncio
