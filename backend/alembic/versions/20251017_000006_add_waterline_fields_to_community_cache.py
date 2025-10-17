@@ -2,7 +2,7 @@
 Add waterline fields to community_cache: last_seen_post_id, last_seen_created_at, total_posts_fetched, dedup_rate
 
 Revision ID: 20251017_000006
-Revises: 20251017_000009
+Revises: 20251017_000007
 Create Date: 2025-10-17
 """
 from __future__ import annotations
@@ -14,7 +14,7 @@ from alembic import op
 
 # revision identifiers, used by Alembic.
 revision: str = "20251017_000006"
-down_revision: Union[str, None] = "20251017_000009"
+down_revision: Union[str, None] = "20251017_000007"
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
 
