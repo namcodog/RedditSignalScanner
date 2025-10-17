@@ -4,12 +4,12 @@ import asyncio
 import sys
 import uuid
 from pathlib import Path
-from typing import AsyncIterator, Awaitable, Callable, Tuple
+from typing import AsyncIterator, Awaitable, Callable, Tuple, Iterator
 
 import pytest
 import pytest_asyncio
 from httpx import ASGITransport, AsyncClient
-from sqlalchemy import text
+
 from sqlalchemy.ext.asyncio import AsyncSession
 
 
@@ -150,22 +150,21 @@ def reset_database() -> None:
 
 
 
-# Ensure clean tables for each test as well to avoid cross-test coupling
+# Ensure clean tables for the NEXT test to avoid cross-test coupling
+# Move truncation to teardown phase to avoid lock contention with other fixtures
 @pytest.fixture(scope="function", autouse=True)
-def truncate_tables_between_tests(request: pytest.FixtureRequest) -> None:
+def truncate_tables_between_tests(request: pytest.FixtureRequest) -> Iterator[None]:
     import os
     import psycopg
 
-    # Skip truncation for integration tests (they need real data)
-    if request.node.get_closest_marker("integration"):
-        return
+    # Pre-setup: do nothing (cleanup happens after the test)
+    yield
 
-    # Skip truncation for e2e tests (they need real data)
-    if request.node.get_closest_marker("e2e"):
+    # Skip truncation for integration/e2e tests (they need real data)
+    if request.node.get_closest_marker("integration") or request.node.get_closest_marker("e2e"):
         return
 
     # Get connection params from environment or use test defaults
-    # Default to localhost for local development, test-db for CI/Docker
     db_host = os.getenv('TEST_DB_HOST', 'localhost')
     db_port = int(os.getenv('TEST_DB_PORT', '5432'))
     db_user = os.getenv('TEST_DB_USER', 'postgres')
@@ -176,27 +175,21 @@ def truncate_tables_between_tests(request: pytest.FixtureRequest) -> None:
     module_file = getattr(request.module, "__file__", "")
     preserve_history = module_file.endswith("test_community_import.py")
 
-    conn = psycopg.connect(
-        host=db_host,
-        port=db_port,
-        user=db_user,
-        password=db_password,
-        dbname=db_name
-    )
+    # Use DSN string and set short lock/statement timeouts to avoid hangs
+    dsn = f"postgresql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}"
+    conn = psycopg.connect(dsn, options='-c lock_timeout=3000 -c statement_timeout=5000')
     conn.autocommit = True
-    cursor = conn.cursor()
     try:
-        if preserve_history:
-            # Don't truncate community_import_history for test_community_import.py
-            cursor.execute(
-                "TRUNCATE TABLE beta_feedback, community_pool, pending_communities RESTART IDENTITY CASCADE"
-            )
-        else:
-            cursor.execute(
-                "TRUNCATE TABLE beta_feedback, community_pool, pending_communities, community_import_history RESTART IDENTITY CASCADE"
-            )
+        with conn.cursor() as cursor:
+            if preserve_history:
+                cursor.execute(
+                    "TRUNCATE TABLE beta_feedback, community_pool, pending_communities RESTART IDENTITY CASCADE"
+                )
+            else:
+                cursor.execute(
+                    "TRUNCATE TABLE beta_feedback, community_pool, pending_communities, community_import_history RESTART IDENTITY CASCADE"
+                )
     finally:
-        cursor.close()
         conn.close()
 
 
@@ -243,7 +236,7 @@ async def db_session() -> AsyncIterator[AsyncSession]:
 @pytest_asyncio.fixture(scope="function")
 async def client() -> AsyncIterator[AsyncClient]:
     """HTTP client fixture leveraging dependency override to inject fresh sessions."""
-    from app.db.session import SessionFactory, get_session, engine
+    from app.db.session import SessionFactory, get_session
     from app.main import app
 
 
