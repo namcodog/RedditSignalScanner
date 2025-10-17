@@ -33,6 +33,22 @@ def pytest_sessionstart(session: pytest.Session) -> None:
     print("PYTEST SESSION START (diagnostic)", flush=True)
 
 
+@pytest.fixture(scope="session")
+def event_loop():
+    """
+    Create an event loop for the test session.
+
+    Based on exa-code best practices for pytest-asyncio:
+    - Use session scope to avoid creating multiple event loops
+    - Properly close the loop after all tests complete
+    - Prevents "attached to a different loop" errors
+    """
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    yield loop
+    loop.close()
+
+
 @pytest.fixture(scope="function")
 def anyio_backend() -> str:
     """Force anyio to use asyncio backend so fixtures share the same loop."""
@@ -52,11 +68,12 @@ def reset_database() -> None:
 
     # Use synchronous connection to avoid event loop conflicts
     # Get connection params from environment or use test defaults
-    db_host = os.getenv('TEST_DB_HOST', 'test-db')
+    # Default to localhost for local development, test-db for CI/Docker
+    db_host = os.getenv('TEST_DB_HOST', 'localhost')
     db_port = int(os.getenv('TEST_DB_PORT', '5432'))
-    db_user = os.getenv('TEST_DB_USER', 'test_user')
-    db_password = os.getenv('TEST_DB_PASSWORD', 'test_pass')
-    db_name = os.getenv('TEST_DB_NAME', 'reddit_scanner_test')
+    db_user = os.getenv('TEST_DB_USER', 'postgres')
+    db_password = os.getenv('TEST_DB_PASSWORD', '')
+    db_name = os.getenv('TEST_DB_NAME', 'reddit_scanner')
 
     conn = psycopg.connect(
         host=db_host,
@@ -135,16 +152,21 @@ def reset_database() -> None:
 
 # Ensure clean tables for each test as well to avoid cross-test coupling
 @pytest.fixture(scope="function", autouse=True)
-def truncate_tables_between_tests() -> None:
+def truncate_tables_between_tests(request: pytest.FixtureRequest) -> None:
     import os
     import psycopg
 
     # Get connection params from environment or use test defaults
-    db_host = os.getenv('TEST_DB_HOST', 'test-db')
+    # Default to localhost for local development, test-db for CI/Docker
+    db_host = os.getenv('TEST_DB_HOST', 'localhost')
     db_port = int(os.getenv('TEST_DB_PORT', '5432'))
-    db_user = os.getenv('TEST_DB_USER', 'test_user')
-    db_password = os.getenv('TEST_DB_PASSWORD', 'test_pass')
-    db_name = os.getenv('TEST_DB_NAME', 'reddit_scanner_test')
+    db_user = os.getenv('TEST_DB_USER', 'postgres')
+    db_password = os.getenv('TEST_DB_PASSWORD', '')
+    db_name = os.getenv('TEST_DB_NAME', 'reddit_scanner')
+
+    # For test_community_import.py, preserve history between tests
+    module_file = getattr(request.module, "__file__", "")
+    preserve_history = module_file.endswith("test_community_import.py")
 
     conn = psycopg.connect(
         host=db_host,
@@ -156,9 +178,15 @@ def truncate_tables_between_tests() -> None:
     conn.autocommit = True
     cursor = conn.cursor()
     try:
-        cursor.execute(
-            "TRUNCATE TABLE beta_feedback, community_pool, pending_communities RESTART IDENTITY CASCADE"
-        )
+        if preserve_history:
+            # Don't truncate community_import_history for test_community_import.py
+            cursor.execute(
+                "TRUNCATE TABLE beta_feedback, community_pool, pending_communities RESTART IDENTITY CASCADE"
+            )
+        else:
+            cursor.execute(
+                "TRUNCATE TABLE beta_feedback, community_pool, pending_communities, community_import_history RESTART IDENTITY CASCADE"
+            )
     finally:
         cursor.close()
         conn.close()
@@ -173,11 +201,12 @@ def reset_history_for_import_module(request: pytest.FixtureRequest) -> None:
         import psycopg
 
         # Get connection params from environment or use test defaults
-        db_host = os.getenv('TEST_DB_HOST', 'test-db')
+        # Default to localhost for local development, test-db for CI/Docker
+        db_host = os.getenv('TEST_DB_HOST', 'localhost')
         db_port = int(os.getenv('TEST_DB_PORT', '5432'))
-        db_user = os.getenv('TEST_DB_USER', 'test_user')
-        db_password = os.getenv('TEST_DB_PASSWORD', 'test_pass')
-        db_name = os.getenv('TEST_DB_NAME', 'reddit_scanner_test')
+        db_user = os.getenv('TEST_DB_USER', 'postgres')
+        db_password = os.getenv('TEST_DB_PASSWORD', '')
+        db_name = os.getenv('TEST_DB_NAME', 'reddit_scanner')
 
         conn = psycopg.connect(
             host=db_host,
@@ -263,3 +292,265 @@ async def auth_token(token_factory: Callable[[str], Awaitable[Tuple[str, str]]])
     """Provide a ready-to-use access token for authenticated API calls."""
     token, _ = await token_factory()
     return token
+
+
+@pytest.fixture(scope="function")
+def seeded_cache(monkeypatch):
+    """
+    Provide a CacheManager with pre-populated test data for analysis_engine tests.
+
+    Based on exa-code best practices:
+    - Use fakeredis to avoid external Redis dependency
+    - Seed with realistic test data matching test assertions
+    - Ensure 90%+ cache hit rate as per PRD-03 §1.4
+    - Clear Reddit credentials to force cache-only mode
+    """
+    try:
+        import fakeredis
+    except ImportError:
+        pytest.skip("fakeredis not installed")
+
+    from app.services.cache_manager import CacheManager
+    from app.services.reddit_client import RedditPost
+    from app.core.config import Settings, get_settings
+    import app.services.analysis_engine as analysis_engine_module
+
+    # Monkeypatch get_settings to return Settings without Reddit credentials
+    # This forces _build_data_collection_service to return None, ensuring cache-only mode
+    original_get_settings = get_settings
+
+    def mock_get_settings() -> Settings:
+        settings = original_get_settings()
+        # Create a new Settings instance with empty Reddit credentials
+        return Settings(
+            database_url=settings.database_url,
+            cors_origins_raw=settings.cors_origins_raw,
+            jwt_secret=settings.jwt_secret,
+            jwt_algorithm=settings.jwt_algorithm,
+            environment=settings.environment,
+            reddit_client_id="",  # Empty to force cache-only mode
+            reddit_client_secret="",  # Empty to force cache-only mode
+            reddit_user_agent=settings.reddit_user_agent,
+            reddit_rate_limit=settings.reddit_rate_limit,
+            reddit_rate_limit_window_seconds=settings.reddit_rate_limit_window_seconds,
+            reddit_request_timeout_seconds=settings.reddit_request_timeout_seconds,
+            reddit_max_concurrency=settings.reddit_max_concurrency,
+            reddit_cache_redis_url=settings.reddit_cache_redis_url,
+            reddit_cache_ttl_seconds=settings.reddit_cache_ttl_seconds,
+            admin_emails_raw=settings.admin_emails_raw,
+        )
+
+    monkeypatch.setattr(analysis_engine_module, "get_settings", mock_get_settings)
+
+    # Create fake Redis client
+    fake_redis = fakeredis.FakeStrictRedis(decode_responses=False)
+    cache = CacheManager(redis_client=fake_redis, cache_ttl_seconds=3600)
+
+    # Seed data for all communities in COMMUNITY_CATALOGUE
+    # Based on exa-code best practices: seed all possible communities that might be selected
+    # Need enough posts to generate 5+ pain_points, 3+ competitors, 3+ opportunities
+
+    # Template posts with pain points, competitors, and opportunities
+    # Need 5+ distinct pain points, 3+ competitors, 3+ opportunities
+    template_posts = [
+        RedditPost(
+            id="{subreddit}-1",
+            title="Users can't stand the slow onboarding workflow",
+            selftext="I can't stand how painfully slow the onboarding workflow feels for research teams.",
+            score=180,
+            num_comments=20,
+            created_utc=1.0,
+            subreddit="{subreddit}",
+            author="tester",
+            url="https://reddit.com/{subreddit}/1",
+            permalink="/{subreddit}/comments/1",
+        ),
+        RedditPost(
+            id="{subreddit}-2",
+            title="Notion vs Evernote for automation reports",
+            selftext="Notion vs Evernote showdown as an alternative to automate reporting flows.",
+            score=140,
+            num_comments=12,
+            created_utc=1.0,
+            subreddit="{subreddit}",
+            author="tester",
+            url="https://reddit.com/{subreddit}/2",
+            permalink="/{subreddit}/comments/2",
+        ),
+        RedditPost(
+            id="{subreddit}-3",
+            title="Looking for an automation tool that would pay for itself",
+            selftext="Looking for an automation tool that would pay for itself with weekly insight digests.",
+            score=120,
+            num_comments=8,
+            created_utc=1.0,
+            subreddit="{subreddit}",
+            author="tester",
+            url="https://reddit.com/{subreddit}/3",
+            permalink="/{subreddit}/comments/3",
+        ),
+        RedditPost(
+            id="{subreddit}-4",
+            title="Why is export still so confusing for product teams?",
+            selftext="Why is export so confusing and unreliable even for product teams working on automation?",
+            score=160,
+            num_comments=18,
+            created_utc=1.0,
+            subreddit="{subreddit}",
+            author="tester",
+            url="https://reddit.com/{subreddit}/4",
+            permalink="/{subreddit}/comments/4",
+        ),
+        RedditPost(
+            id="{subreddit}-5",
+            title="Problem with automation quality in customer reports",
+            selftext="Problem with automation quality: the generated reports feel confusing and frustrating for stakeholders.",
+            score=150,
+            num_comments=14,
+            created_utc=1.0,
+            subreddit="{subreddit}",
+            author="tester",
+            url="https://reddit.com/{subreddit}/5",
+            permalink="/{subreddit}/comments/5",
+        ),
+        RedditPost(
+            id="{subreddit}-6",
+            title="Struggling with manual data collection every week",
+            selftext="Struggling with manual data collection every week - it's eating up hours that could be spent on analysis.",
+            score=135,
+            num_comments=16,
+            created_utc=1.0,
+            subreddit="{subreddit}",
+            author="tester",
+            url="https://reddit.com/{subreddit}/6",
+            permalink="/{subreddit}/comments/6",
+        ),
+        RedditPost(
+            id="{subreddit}-7",
+            title="Roam Research vs Obsidian for note organization",
+            selftext="Roam Research vs Obsidian comparison for organizing research notes and insights.",
+            score=125,
+            num_comments=11,
+            created_utc=1.0,
+            subreddit="{subreddit}",
+            author="tester",
+            url="https://reddit.com/{subreddit}/7",
+            permalink="/{subreddit}/comments/7",
+        ),
+        RedditPost(
+            id="{subreddit}-8",
+            title="Need better collaboration features for team research",
+            selftext="Need better collaboration features - current tools make it hard for teams to share insights in real-time.",
+            score=145,
+            num_comments=13,
+            created_utc=1.0,
+            subreddit="{subreddit}",
+            author="tester",
+            url="https://reddit.com/{subreddit}/8",
+            permalink="/{subreddit}/comments/8",
+        ),
+        RedditPost(
+            id="{subreddit}-9",
+            title="Would pay premium for AI-powered research summaries",
+            selftext="Would pay premium for AI-powered research summaries that save time on literature reviews.",
+            score=155,
+            num_comments=17,
+            created_utc=1.0,
+            subreddit="{subreddit}",
+            author="tester",
+            url="https://reddit.com/{subreddit}/9",
+            permalink="/{subreddit}/comments/9",
+        ),
+        RedditPost(
+            id="{subreddit}-10",
+            title="Seeking alternative to manual note-taking for research",
+            selftext="Seeking alternative to manual note-taking - need something that can automatically summarize findings.",
+            score=130,
+            num_comments=15,
+            created_utc=1.0,
+            subreddit="{subreddit}",
+            author="tester",
+            url="https://reddit.com/{subreddit}/10",
+            permalink="/{subreddit}/comments/10",
+        ),
+    ]
+
+    # All communities from COMMUNITY_CATALOGUE that might be selected
+    communities = [
+        "r/startups",
+        "r/Entrepreneur",
+        "r/ProductManagement",
+        "r/SaaS",
+        "r/marketing",
+        "r/technology",
+        "r/artificial",
+        "r/userexperience",
+        "r/smallbusiness",
+        "r/GrowthHacking",
+    ]
+
+    seed_posts = {}
+    for community in communities:
+        # Create posts for each community by replacing {subreddit} placeholder
+        community_posts = []
+        for template in template_posts:
+            post_dict = {
+                "id": template.id.replace("{subreddit}", community),
+                "title": template.title,
+                "selftext": template.selftext,
+                "score": template.score,
+                "num_comments": template.num_comments,
+                "created_utc": template.created_utc,
+                "subreddit": community,
+                "author": template.author,
+                "url": template.url.replace("{subreddit}", community),
+                "permalink": template.permalink.replace("{subreddit}", community),
+            }
+            community_posts.append(RedditPost(**post_dict))
+        seed_posts[community] = community_posts
+
+    # Legacy: keep original detailed posts for r/artificial for backward compatibility
+    seed_posts["r/artificial"] = [
+            RedditPost(
+                id="r/artificial-1",
+                title="Users can't stand the slow onboarding workflow",
+                selftext="I can't stand how painfully slow the onboarding workflow feels for research teams.",
+                score=180,
+                num_comments=20,
+                created_utc=1.0,
+                subreddit="r/artificial",
+                author="tester",
+                url="https://reddit.com/r/artificial/1",
+                permalink="/r/artificial/comments/1",
+            ),
+            RedditPost(
+                id="r/artificial-2",
+                title="Notion vs Evernote for automation reports",
+                selftext="Notion vs Evernote showdown as an alternative to automate reporting flows.",
+                score=140,
+                num_comments=12,
+                created_utc=1.0,
+                subreddit="r/artificial",
+                author="tester",
+                url="https://reddit.com/r/artificial/2",
+                permalink="/r/artificial/comments/2",
+            ),
+            RedditPost(
+                id="r/artificial-3",
+                title="Looking for an automation tool that would pay for itself",
+                selftext="Looking for an automation tool that would pay for itself with weekly insight digests.",
+                score=120,
+                num_comments=8,
+                created_utc=1.0,
+                subreddit="r/artificial",
+                author="tester",
+                url="https://reddit.com/r/artificial/3",
+                permalink="/r/artificial/comments/3",
+            ),
+        ]
+
+    # Populate cache
+    for subreddit, posts in seed_posts.items():
+        cache.set_cached_posts(subreddit, posts)
+
+    return cache
