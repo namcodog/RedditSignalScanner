@@ -1,0 +1,135 @@
+version: '3.8'
+
+services:
+  # PostgreSQL 测试数据库
+  test-db:
+    image: postgres:15-alpine
+    container_name: reddit_scanner_test_db
+    environment:
+      POSTGRES_DB: reddit_scanner_test
+      POSTGRES_USER: test_user
+      POSTGRES_PASSWORD: test_pass
+      POSTGRES_HOST_AUTH_METHOD: trust
+    ports:
+      - "15432:5432"  # 映射到宿主机 15432 端口（避免与开发环境 5432 冲突）
+    volumes:
+      - test_postgres_data:/var/lib/postgresql/data
+    networks:
+      - test_net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U test_user -d reddit_scanner_test"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # Redis 测试缓存
+  test-redis:
+    image: redis:7-alpine
+    container_name: reddit_scanner_test_redis
+    ports:
+      - "16379:6379"  # 映射到宿主机 16379 端口（避免与开发环境 6379 冲突）
+    volumes:
+      - test_redis_data:/data
+    networks:
+      - test_net
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  # FastAPI 测试服务器
+  test-api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.test
+    container_name: reddit_scanner_test_api
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://test_user:test_pass@test-db:5432/reddit_scanner_test
+      - REDDIT_CACHE_REDIS_URL=redis://test-redis:6379/1
+      - CELERY_BROKER_URL=redis://test-redis:6379/2
+      - CELERY_RESULT_BACKEND=redis://test-redis:6379/2
+      - TESTING=true
+      - LOG_LEVEL=DEBUG
+      - REDDIT_CLIENT_ID=${REDDIT_CLIENT_ID:-test_client_id}
+      - REDDIT_CLIENT_SECRET=${REDDIT_CLIENT_SECRET:-test_client_secret}
+      - REDDIT_USER_AGENT=RedditSignalScanner/Test:v1.0
+    ports:
+      - "18000:8000"  # 映射到宿主机 18000 端口（避免与开发环境 8000 冲突）
+    depends_on:
+      test-db:
+        condition: service_healthy
+      test-redis:
+        condition: service_healthy
+    volumes:
+      - ./backend/app:/code/app
+      - ./backend/tests:/code/tests
+      - ./backend/scripts:/code/scripts
+      - ./backend/data:/code/data
+      - ./reports:/code/reports
+    networks:
+      - test_net
+
+  # Celery Worker 测试实例
+  test-worker:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.test
+    container_name: reddit_scanner_test_worker
+    command: celery -A app.core.celery_app worker --loglevel=info --pool=solo
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://test_user:test_pass@test-db:5432/reddit_scanner_test
+      - REDDIT_CACHE_REDIS_URL=redis://test-redis:6379/1
+      - CELERY_BROKER_URL=redis://test-redis:6379/2
+      - CELERY_RESULT_BACKEND=redis://test-redis:6379/2
+      - TESTING=true
+      - LOG_LEVEL=DEBUG
+      - REDDIT_CLIENT_ID=${REDDIT_CLIENT_ID:-test_client_id}
+      - REDDIT_CLIENT_SECRET=${REDDIT_CLIENT_SECRET:-test_client_secret}
+      - REDDIT_USER_AGENT=RedditSignalScanner/Test:v1.0
+    depends_on:
+      test-db:
+        condition: service_healthy
+      test-redis:
+        condition: service_healthy
+    volumes:
+      - ./backend/app:/code/app
+      - ./backend/data:/code/data
+    networks:
+      - test_net
+
+  # Celery Beat 测试实例（可选，仅在需要时启动）
+  test-beat:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.test
+    container_name: reddit_scanner_test_beat
+    command: celery -A app.core.celery_app beat --loglevel=info
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://test_user:test_pass@test-db:5432/reddit_scanner_test
+      - REDDIT_CACHE_REDIS_URL=redis://test-redis:6379/1
+      - CELERY_BROKER_URL=redis://test-redis:6379/2
+      - CELERY_RESULT_BACKEND=redis://test-redis:6379/2
+      - TESTING=true
+      - LOG_LEVEL=DEBUG
+    depends_on:
+      test-db:
+        condition: service_healthy
+      test-redis:
+        condition: service_healthy
+    volumes:
+      - ./backend/app:/code/app
+    networks:
+      - test_net
+    profiles:
+      - full  # 仅在 docker compose --profile full up 时启动
+
+networks:
+  test_net:
+    driver: bridge
+
+volumes:
+  test_postgres_data:
+  test_redis_data:
+

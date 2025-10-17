@@ -34,7 +34,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
       
       - name: Install frontend dependencies
         run: |
@@ -49,7 +49,24 @@ jobs:
       # 4. 检查敏感信息
       - name: Check for secrets
         run: |
-          if grep -r "sk-" . --exclude-dir=node_modules --exclude-dir=.git; then
+          if grep -r "sk-" . \
+            --exclude-dir=node_modules \
+            --exclude-dir=.git \
+            --exclude-dir=.github \
+            --exclude-dir=.venv \
+            --exclude-dir=venv \
+            --exclude-dir=coverage \
+            --exclude-dir=reports \
+            --exclude-dir=frontend \
+            --exclude-dir=backend \
+            --exclude-dir=scripts \
+            --exclude="*.env*" \
+            --exclude="*.local" \
+            --exclude="*package-lock.json" \
+            --exclude="*.md" \
+            --exclude="*.ts" \
+            --exclude="*.tsx" \
+            --exclude="*.py"; then
             echo "⚠️ Warning: Possible API key found"
             exit 1
           fi

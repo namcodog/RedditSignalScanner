@@ -2,8 +2,9 @@ from __future__ import annotations
 
 from datetime import datetime
 from typing import Any
+import uuid
 
-from sqlalchemy import JSON, Boolean, DateTime, Integer, Numeric, String
+from sqlalchemy import JSON, Boolean, DateTime, Integer, Numeric, String, func
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -27,6 +28,11 @@ class CommunityPool(TimestampMixin, Base):
     user_feedback_count: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
     discovered_count: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
     is_active: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False)
+
+    # 黑名单字段（T1.6）
+    is_blacklisted: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
+    blacklist_reason: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    downrank_factor: Mapped[float | None] = mapped_column(Numeric(3, 2), nullable=True)
 
 
 class PendingCommunity(Base):
@@ -61,7 +67,7 @@ class CommunityImportHistory(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     filename: Mapped[str] = mapped_column(String(255), nullable=False)
     uploaded_by: Mapped[str] = mapped_column(String(255), nullable=False)
-    uploaded_by_user_id: Mapped[str] = mapped_column(UUID(as_uuid=True), nullable=False)
+    uploaded_by_user_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), nullable=False)
     dry_run: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
     status: Mapped[str] = mapped_column(String(20), nullable=False)
     total_rows: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
@@ -72,5 +78,5 @@ class CommunityImportHistory(Base):
     error_details: Mapped[dict[str, Any] | None] = mapped_column(JSON, nullable=True)
     summary_preview: Mapped[dict[str, Any] | None] = mapped_column(JSON, nullable=True)
     created_at: Mapped[datetime] = mapped_column(
-        DateTime(timezone=True), nullable=False
+        DateTime(timezone=True), nullable=False, server_default=func.now()
     )

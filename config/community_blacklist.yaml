@@ -1,0 +1,233 @@
+# Reddit 社区黑名单与降权配置
+# 用于过滤低质量社区和垃圾内容
+
+# 黑名单社区（完全屏蔽，不抓取）
+blacklisted_communities:
+  # 垃圾农场/低质量
+  - name: "FreeKarma4U"
+    reason: "karma farming, spam"
+  - name: "FreeKarma4You"
+    reason: "karma farming, spam"
+  - name: "Karma4Free"
+    reason: "karma farming, spam"
+  - name: "spam"
+    reason: "spam content"
+  
+  # 成人/NSFW（不符合业务场景）
+  - name: "gonewild"
+    reason: "nsfw content"
+  - name: "NSFW"
+    reason: "nsfw content"
+  - name: "nsfw_gifs"
+    reason: "nsfw content"
+  
+  # 纯娱乐/低价值
+  - name: "memes"
+    reason: "low signal, entertainment only"
+  - name: "funny"
+    reason: "low signal, entertainment only"
+  - name: "AdviceAnimals"
+    reason: "low signal, meme content"
+  - name: "dankmemes"
+    reason: "low signal, meme content"
+  
+  # 政治/争议性（避免敏感内容）
+  - name: "politics"
+    reason: "controversial, off-topic"
+  - name: "The_Donald"
+    reason: "controversial, banned"
+  - name: "Conservative"
+    reason: "political, off-topic"
+  - name: "Liberal"
+    reason: "political, off-topic"
+  
+  # 赌博/投机（高风险）
+  - name: "wallstreetbets"
+    reason: "high speculation, low quality signals"
+  - name: "Superstonk"
+    reason: "meme stock speculation"
+  - name: "amcstock"
+    reason: "meme stock speculation"
+  - name: "GME"
+    reason: "meme stock speculation"
+  
+  # 已封禁/私有
+  - name: "The_Donald"
+    reason: "banned by Reddit"
+  - name: "ChapoTrapHouse"
+    reason: "banned by Reddit"
+
+# 降权社区（抓取但降低优先级）
+downranked_communities:
+  # 低活跃度
+  - name: "deadsubreddits"
+    reason: "low activity"
+    downrank_factor: 0.5
+  
+  # 过度商业化
+  - name: "Entrepreneur"
+    reason: "too much self-promotion"
+    downrank_factor: 0.7
+  
+  # 噪音较多
+  - name: "AskReddit"
+    reason: "too broad, low signal"
+    downrank_factor: 0.6
+  
+  - name: "todayilearned"
+    reason: "general knowledge, low business relevance"
+    downrank_factor: 0.5
+
+# 降权关键词（帖子标题/内容包含这些词时降权）
+downrank_keywords:
+  # 抽奖/赠品
+  - keyword: "giveaway"
+    weight: -0.5
+    reason: "promotional content"
+  
+  - keyword: "free stuff"
+    weight: -0.5
+    reason: "promotional content"
+  
+  - keyword: "contest"
+    weight: -0.3
+    reason: "promotional content"
+  
+  - keyword: "raffle"
+    weight: -0.5
+    reason: "promotional content"
+  
+  # 纯娱乐
+  - keyword: "for fun"
+    weight: -0.4
+    reason: "entertainment, not business signal"
+  
+  - keyword: "just for laughs"
+    weight: -0.4
+    reason: "entertainment"
+  
+  - keyword: "meme"
+    weight: -0.3
+    reason: "low signal content"
+  
+  # 垃圾/spam
+  - keyword: "click here"
+    weight: -0.6
+    reason: "spam indicator"
+  
+  - keyword: "buy now"
+    weight: -0.5
+    reason: "spam indicator"
+  
+  - keyword: "limited time"
+    weight: -0.3
+    reason: "urgency spam"
+  
+  - keyword: "act now"
+    weight: -0.4
+    reason: "urgency spam"
+  
+  # 低质量讨论
+  - keyword: "upvote if"
+    weight: -0.6
+    reason: "karma farming"
+  
+  - keyword: "am i the only one"
+    weight: -0.3
+    reason: "low quality discussion"
+  
+  - keyword: "unpopular opinion"
+    weight: -0.2
+    reason: "attention seeking"
+  
+  # 求助/个人问题（非机会信号）
+  - keyword: "help me"
+    weight: -0.2
+    reason: "personal help request"
+  
+  - keyword: "what should i do"
+    weight: -0.2
+    reason: "personal question"
+  
+  - keyword: "eli5"
+    weight: -0.3
+    reason: "basic explanation request"
+
+# 过滤关键词（包含这些词的帖子直接过滤）
+filter_keywords:
+  # 明确的垃圾内容
+  - keyword: "viagra"
+    reason: "spam"
+  
+  - keyword: "cialis"
+    reason: "spam"
+  
+  - keyword: "porn"
+    reason: "nsfw"
+  
+  - keyword: "xxx"
+    reason: "nsfw"
+  
+  # 诈骗指示词
+  - keyword: "get rich quick"
+    reason: "scam indicator"
+  
+  - keyword: "make money fast"
+    reason: "scam indicator"
+  
+  - keyword: "work from home scam"
+    reason: "scam content"
+  
+  # 极端/仇恨言论
+  - keyword: "kill yourself"
+    reason: "hate speech"
+  
+  - keyword: "kys"
+    reason: "hate speech"
+
+# 白名单关键词（即使在降权社区，包含这些词也保持正常权重）
+whitelist_keywords:
+  - keyword: "looking for"
+    boost: 0.3
+    reason: "potential opportunity signal"
+  
+  - keyword: "hiring"
+    boost: 0.5
+    reason: "job opportunity"
+  
+  - keyword: "seeking"
+    boost: 0.3
+    reason: "potential need"
+  
+  - keyword: "need help with"
+    boost: 0.4
+    reason: "problem to solve"
+  
+  - keyword: "recommendation"
+    boost: 0.3
+    reason: "product/service need"
+  
+  - keyword: "alternative to"
+    boost: 0.4
+    reason: "competitor analysis opportunity"
+  
+  - keyword: "frustrated with"
+    boost: 0.5
+    reason: "pain point signal"
+  
+  - keyword: "better way to"
+    boost: 0.4
+    reason: "improvement opportunity"
+
+# 配置元数据
+metadata:
+  version: "1.0.0"
+  last_updated: "2025-10-17"
+  description: "Reddit 社区与内容黑名单/降权配置"
+  notes: |
+    - blacklisted_communities: 完全屏蔽，不抓取
+    - downranked_communities: 降低抓取频率和优先级
+    - downrank_keywords: 帖子包含这些词时降低评分
+    - filter_keywords: 帖子包含这些词时直接过滤
+    - whitelist_keywords: 即使在降权场景也保持/提升权重
+
