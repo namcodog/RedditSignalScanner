@@ -178,12 +178,13 @@ def truncate_tables_between_tests(request: pytest.FixtureRequest) -> Iterator[No
     try:
         with conn.cursor() as cursor:
             # Increase retry attempts to 10 with longer delays to handle persistent locks
+            # Note: community_import_history is excluded here and managed by module-specific fixture
             attempts = 10
             delay = 0.5
             for i in range(attempts):
                 try:
                     cursor.execute(
-                        "TRUNCATE TABLE beta_feedback, community_pool, pending_communities, community_import_history RESTART IDENTITY CASCADE"
+                        "TRUNCATE TABLE beta_feedback, community_pool, pending_communities RESTART IDENTITY CASCADE"
                     )
                     break
                 except psycopg.errors.LockNotAvailable:
