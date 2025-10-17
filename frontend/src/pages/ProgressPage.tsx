@@ -502,7 +502,6 @@ const ProgressPage: React.FC = () => {
               <button
                 onClick={() => taskId && navigate(ROUTES.REPORT(taskId))}
                 className="inline-flex items-center justify-center rounded-md bg-primary px-6 py-2 text-sm font-semibold text-primary-foreground shadow-sm transition hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                size-lg
               >
                 查看报告
               </button>
@@ -530,4 +529,3 @@ const ProgressPage: React.FC = () => {
 };
 
 export default ProgressPage;
-

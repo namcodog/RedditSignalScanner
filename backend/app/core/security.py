@@ -12,7 +12,7 @@ from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from pydantic import BaseModel, ValidationError, field_validator
 
-from app.core.config import get_settings, Settings
+from app.core.config import Settings, get_settings
 
 
 class TokenPayload(BaseModel):  # type: ignore[misc]

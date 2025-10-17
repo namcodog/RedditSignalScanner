@@ -20,7 +20,9 @@ class CommunityPool(TimestampMixin, Base):
     description_keywords: Mapped[dict[str, Any]] = mapped_column(JSON, nullable=False)
     daily_posts: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
     avg_comment_length: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
-    quality_score: Mapped[float] = mapped_column(Numeric(3, 2), default=0.50, nullable=False)
+    quality_score: Mapped[float] = mapped_column(
+        Numeric(3, 2), default=0.50, nullable=False
+    )
     priority: Mapped[str] = mapped_column(String(20), default="medium", nullable=False)
     user_feedback_count: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
     discovered_count: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
@@ -32,14 +34,24 @@ class PendingCommunity(Base):
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     name: Mapped[str] = mapped_column(String(100), unique=True, nullable=False)
-    discovered_from_keywords: Mapped[dict[str, Any] | None] = mapped_column(JSON, nullable=True)
+    discovered_from_keywords: Mapped[dict[str, Any] | None] = mapped_column(
+        JSON, nullable=True
+    )
     discovered_count: Mapped[int] = mapped_column(Integer, default=1, nullable=False)
-    first_discovered_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
-    last_discovered_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
+    first_discovered_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), nullable=False
+    )
+    last_discovered_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), nullable=False
+    )
     status: Mapped[str] = mapped_column(String(20), default="pending", nullable=False)
-    admin_reviewed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    admin_reviewed_at: Mapped[datetime | None] = mapped_column(
+        DateTime(timezone=True), nullable=True
+    )
     admin_notes: Mapped[str | None] = mapped_column(String, nullable=True)
-    discovered_from_task_id: Mapped[str | None] = mapped_column(UUID(as_uuid=True), nullable=True)
+    discovered_from_task_id: Mapped[str | None] = mapped_column(
+        UUID(as_uuid=True), nullable=True
+    )
     reviewed_by: Mapped[str | None] = mapped_column(UUID(as_uuid=True), nullable=True)
 
 
@@ -59,4 +71,6 @@ class CommunityImportHistory(Base):
     imported_rows: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
     error_details: Mapped[dict[str, Any] | None] = mapped_column(JSON, nullable=True)
     summary_preview: Mapped[dict[str, Any] | None] = mapped_column(JSON, nullable=True)
-    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), nullable=False
+    )

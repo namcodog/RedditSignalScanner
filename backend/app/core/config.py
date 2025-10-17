@@ -2,15 +2,19 @@ from __future__ import annotations
 
 import os
 from functools import lru_cache
+from pathlib import Path
 from typing import List
 
 from pydantic import BaseModel, Field
-from pathlib import Path
+
 try:
     # 尽早加载 backend/.env，确保所有进程（API/Celery/脚本）读取到 Reddit 凭证
     from dotenv import load_dotenv  # type: ignore
+
     # 1) 仓库根目录 .env
-    load_dotenv(dotenv_path=Path(__file__).resolve().parents[2] / ".env", override=False)
+    load_dotenv(
+        dotenv_path=Path(__file__).resolve().parents[2] / ".env", override=False
+    )
     # 2) backend/.env（若存在则覆盖根目录设置）
     load_dotenv(dotenv_path=Path(__file__).resolve().parents[1] / ".env", override=True)
 except Exception:
@@ -45,11 +49,19 @@ class Settings(BaseModel):  # type: ignore[misc]
 
     @property
     def cors_origins(self) -> List[str]:
-        return [origin.strip() for origin in self.cors_origins_raw.split(",") if origin.strip()]
+        return [
+            origin.strip()
+            for origin in self.cors_origins_raw.split(",")
+            if origin.strip()
+        ]
 
     @property
     def admin_emails(self) -> List[str]:
-        return [email.strip().lower() for email in self.admin_emails_raw.split(",") if email.strip()]
+        return [
+            email.strip().lower()
+            for email in self.admin_emails_raw.split(",")
+            if email.strip()
+        ]
 
     @property
     def REDDIT_CLIENT_ID(self) -> str:
@@ -70,15 +82,32 @@ class Settings(BaseModel):  # type: ignore[misc]
 @lru_cache()
 def get_settings() -> Settings:
     return Settings(
-        database_url=os.getenv("DATABASE_URL", Settings.model_fields["database_url"].default),
-        cors_origins_raw=os.getenv("CORS_ALLOW_ORIGINS", Settings.model_fields["cors_origins_raw"].default),
+        database_url=os.getenv(
+            "DATABASE_URL", Settings.model_fields["database_url"].default
+        ),
+        cors_origins_raw=os.getenv(
+            "CORS_ALLOW_ORIGINS", Settings.model_fields["cors_origins_raw"].default
+        ),
         jwt_secret=os.getenv("JWT_SECRET", Settings.model_fields["jwt_secret"].default),
-        jwt_algorithm=os.getenv("JWT_ALGORITHM", Settings.model_fields["jwt_algorithm"].default),
+        jwt_algorithm=os.getenv(
+            "JWT_ALGORITHM", Settings.model_fields["jwt_algorithm"].default
+        ),
         environment=os.getenv("APP_ENV", Settings.model_fields["environment"].default),
-        reddit_client_id=os.getenv("REDDIT_CLIENT_ID", Settings.model_fields["reddit_client_id"].default),
-        reddit_client_secret=os.getenv("REDDIT_CLIENT_SECRET", Settings.model_fields["reddit_client_secret"].default),
-        reddit_user_agent=os.getenv("REDDIT_USER_AGENT", Settings.model_fields["reddit_user_agent"].default),
-        reddit_rate_limit=int(os.getenv("REDDIT_RATE_LIMIT", Settings.model_fields["reddit_rate_limit"].default)),
+        reddit_client_id=os.getenv(
+            "REDDIT_CLIENT_ID", Settings.model_fields["reddit_client_id"].default
+        ),
+        reddit_client_secret=os.getenv(
+            "REDDIT_CLIENT_SECRET",
+            Settings.model_fields["reddit_client_secret"].default,
+        ),
+        reddit_user_agent=os.getenv(
+            "REDDIT_USER_AGENT", Settings.model_fields["reddit_user_agent"].default
+        ),
+        reddit_rate_limit=int(
+            os.getenv(
+                "REDDIT_RATE_LIMIT", Settings.model_fields["reddit_rate_limit"].default
+            )
+        ),
         reddit_rate_limit_window_seconds=float(
             os.getenv(
                 "REDDIT_RATE_LIMIT_WINDOW_SECONDS",

@@ -12,12 +12,13 @@ import asyncio
 import math
 from collections import defaultdict
 from dataclasses import dataclass
-from typing import Any, Dict, List, Sequence, Tuple, TYPE_CHECKING, cast
+from typing import TYPE_CHECKING, Any, Dict, List, Sequence, Tuple, cast
 
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
-from app.services.analysis.keyword_extraction import KeywordExtractionResult, extract_keywords
+from app.services.analysis.keyword_extraction import (KeywordExtractionResult,
+                                                      extract_keywords)
 
 if TYPE_CHECKING:
     from app.services.analysis_engine import CommunityProfile
@@ -155,7 +156,9 @@ def _select_diverse_top_k(
         if len(selected) >= k:
             break
 
-        if _is_category_limit_reached(profile.categories, category_counts, max_per_category):
+        if _is_category_limit_reached(
+            profile.categories, category_counts, max_per_category
+        ):
             overflow.append((profile, base_score))
             continue
 
@@ -170,7 +173,9 @@ def _select_diverse_top_k(
         for profile, base_score in overflow:
             if len(selected) >= k:
                 break
-            if _is_category_limit_reached(profile.categories, category_counts, max_per_category):
+            if _is_category_limit_reached(
+                profile.categories, category_counts, max_per_category
+            ):
                 continue
             selected.append(_build_community(profile, min(base_score, 1.0)))
             for category in profile.categories:
@@ -223,11 +228,15 @@ async def _load_community_pool() -> List[Any]:
     # introducing external dependencies in unit tests.
     import os
 
-    use_db = os.getenv("COMMUNITY_POOL_FROM_DB", "0").strip().lower() in {"1", "true", "yes"}
+    use_db = os.getenv("COMMUNITY_POOL_FROM_DB", "0").strip().lower() in {
+        "1",
+        "true",
+        "yes",
+    }
     if use_db:
         try:
-            from app.services.community_pool_loader import CommunityPoolLoader
             from app.db.session import SessionFactory
+            from app.services.community_pool_loader import CommunityPoolLoader
 
             async with SessionFactory() as db:
                 loader = CommunityPoolLoader(db)
@@ -239,6 +248,7 @@ async def _load_community_pool() -> List[Any]:
             pass
 
     from app.services.analysis_engine import COMMUNITY_CATALOGUE
+
     return list(COMMUNITY_CATALOGUE)
 
 

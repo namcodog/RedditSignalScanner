@@ -14,8 +14,6 @@ from app.db.session import get_session
 from app.models.task import Task, TaskStatus
 from app.schemas.task import TaskStatsResponse, TaskStatusSnapshot
 from app.services.task_status_cache import TaskStatusCache
-from app.core.config import get_settings
-
 
 status_router = APIRouter(prefix="/status", tags=["status"])
 tasks_router = APIRouter(prefix="/tasks", tags=["tasks"])
@@ -147,6 +145,7 @@ async def get_task_stats(
 router = status_router
 
 __all__ = ["status_router", "tasks_router", "router"]
+
 
 # 运行时诊断：返回关键配置是否就绪（不泄露机密）
 @tasks_router.get("/diag", summary="运行时配置诊断")  # type: ignore[misc]

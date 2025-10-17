@@ -1,8 +1,8 @@
 from __future__ import annotations
 
+import uuid
 from datetime import datetime
 from typing import List
-import uuid
 
 from pydantic import BaseModel, Field
 
@@ -10,9 +10,13 @@ from pydantic import BaseModel, Field
 class BetaFeedbackCreate(BaseModel):  # type: ignore[misc]
     """Schema for creating beta feedback."""
 
-    task_id: uuid.UUID = Field(..., description="Task ID for which feedback is provided")
+    task_id: uuid.UUID = Field(
+        ..., description="Task ID for which feedback is provided"
+    )
     satisfaction: int = Field(..., ge=1, le=5, description="Satisfaction rating (1-5)")
-    missing_communities: List[str] = Field(default_factory=list, description="List of missing community names")
+    missing_communities: List[str] = Field(
+        default_factory=list, description="List of missing community names"
+    )
     comments: str = Field(default="", description="Additional comments")
 
 
@@ -30,4 +34,3 @@ class BetaFeedbackResponse(BaseModel):  # type: ignore[misc]
 
     class Config:
         from_attributes = True
-

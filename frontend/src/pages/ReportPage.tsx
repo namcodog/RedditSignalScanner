@@ -433,7 +433,7 @@ const ReportPage: React.FC = () => {
                         <div>
                           <h4 className="text-base font-semibold text-foreground">{community.name}</h4>
                           <p className="mt-1 text-sm text-muted-foreground">
-                            {community.mentions?.toLocaleString() || 0} 成员
+                            {community.mentions?.toLocaleString() || 0} 次提及
                           </p>
                         </div>
                         {/* 右侧：相关度（紫色底色） */}
@@ -503,4 +503,3 @@ const ReportPage: React.FC = () => {
 };
 
 export default ReportPage;
-

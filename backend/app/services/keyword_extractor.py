@@ -128,7 +128,9 @@ class KeywordExtractor:
 
         # For single document, we need to split into sentences to create a corpus
         # This allows TF-IDF to work properly
-        sentences = [s.strip() for s in re.split(r"[.!?]+", processed_text) if s.strip()]
+        sentences = [
+            s.strip() for s in re.split(r"[.!?]+", processed_text) if s.strip()
+        ]
 
         if not sentences:
             return []
@@ -195,7 +197,9 @@ class KeywordExtractor:
         # Return top N
         return [word for word, _ in sorted_words[:top_n]]
 
-    def extract_with_scores(self, text: str, top_n: int | None = None) -> List[tuple[str, float]]:
+    def extract_with_scores(
+        self, text: str, top_n: int | None = None
+    ) -> List[tuple[str, float]]:
         """Extract keywords with their TF-IDF scores.
 
         Args:
@@ -213,7 +217,9 @@ class KeywordExtractor:
         if not processed_text:
             return []
 
-        sentences = [s.strip() for s in re.split(r"[.!?]+", processed_text) if s.strip()]
+        sentences = [
+            s.strip() for s in re.split(r"[.!?]+", processed_text) if s.strip()
+        ]
 
         if not sentences:
             return []
@@ -235,7 +241,10 @@ class KeywordExtractor:
             avg_scores = tfidf_matrix.mean(axis=0).A1
 
             # Create list of (keyword, score) tuples
-            keyword_scores = [(feature_names[i], float(avg_scores[i])) for i in range(len(feature_names))]
+            keyword_scores = [
+                (feature_names[i], float(avg_scores[i]))
+                for i in range(len(feature_names))
+            ]
 
             # Sort by score
             keyword_scores.sort(key=lambda x: x[1], reverse=True)
@@ -247,9 +256,10 @@ class KeywordExtractor:
 
         except ValueError:
             # Fallback: return words with frequency as score
-            words = self._fallback_extraction(processed_text, top_n or self.max_features)
+            words = self._fallback_extraction(
+                processed_text, top_n or self.max_features
+            )
             return [(word, 1.0) for word in words]
 
 
 __all__ = ["KeywordExtractor"]
-

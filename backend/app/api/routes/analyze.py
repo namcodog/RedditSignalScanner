@@ -34,9 +34,10 @@ async def _schedule_analysis(task_id: uuid.UUID, settings: Settings) -> None:
     Dispatch the analysis job to Celery; fallback to inline execution in dev/test.
     """
 
-    inline_preferred = settings.environment.lower() in {"development", "test"} and os.getenv(
-        "ENABLE_CELERY_DISPATCH", "0"
-    ).lower() not in {"1", "true", "yes"}
+    inline_preferred = settings.environment.lower() in {
+        "development",
+        "test",
+    } and os.getenv("ENABLE_CELERY_DISPATCH", "0").lower() not in {"1", "true", "yes"}
 
     if inline_preferred:
         logger.info(
@@ -47,15 +48,23 @@ async def _schedule_analysis(task_id: uuid.UUID, settings: Settings) -> None:
         loop = asyncio.get_running_loop()
 
         async def inline_runner() -> None:
-            from app.tasks.analysis_task import FinalRetryExhausted, TaskNotFoundError
+            from app.tasks.analysis_task import (FinalRetryExhausted,
+                                                 TaskNotFoundError)
+
             try:
                 await execute_analysis_pipeline(task_id)
             except FinalRetryExhausted as exc:
-                logger.error("Inline analysis task %s failed after retries: %s", task_id, exc)
+                logger.error(
+                    "Inline analysis task %s failed after retries: %s", task_id, exc
+                )
             except TaskNotFoundError:
-                logger.warning("Inline analysis task %s aborted: task not found.", task_id)
+                logger.warning(
+                    "Inline analysis task %s aborted: task not found.", task_id
+                )
             except Exception:
-                logger.exception("Inline analysis task %s encountered an unexpected error.", task_id)
+                logger.exception(
+                    "Inline analysis task %s encountered an unexpected error.", task_id
+                )
 
         loop.create_task(inline_runner())
         return
@@ -122,7 +131,9 @@ async def create_analysis_task(
     await db.refresh(new_task)
 
     created_at = _ensure_utc(new_task.created_at or datetime.now(timezone.utc))
-    estimated_completion = created_at + timedelta(minutes=settings.estimated_processing_minutes)
+    estimated_completion = created_at + timedelta(
+        minutes=settings.estimated_processing_minutes
+    )
     sse_endpoint = f"{settings.sse_base_path}/{new_task.id}"
 
     response.headers["Location"] = sse_endpoint

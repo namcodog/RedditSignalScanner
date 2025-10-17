@@ -7,18 +7,21 @@ import os
 import uuid
 from datetime import datetime, timezone
 from threading import Event, Lock, Thread
-from typing import Any, AsyncIterator, Coroutine, Dict, Optional, TYPE_CHECKING, TypeVar, cast, Callable
+from typing import (TYPE_CHECKING, Any, AsyncIterator, Callable, Coroutine,
+                    Dict, Optional, TypeVar, cast)
 
+from celery.exceptions import \
+    Retry as CeleryRetry  # type: ignore[import-untyped]
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
 from app.core.celery_app import celery_app
-from celery.exceptions import Retry as CeleryRetry  # type: ignore[import-untyped]
 from app.db.session import get_session
 from app.models.analysis import Analysis
 from app.models.report import Report
-from app.models.task import Task as TaskModel, TaskStatus
+from app.models.task import Task as TaskModel
+from app.models.task import TaskStatus
 from app.schemas.task import TaskSummary
 from app.services.analysis_engine import AnalysisResult, run_analysis
 from app.services.task_status_cache import TaskStatusCache, TaskStatusPayload
@@ -60,7 +63,11 @@ def _start_loop() -> None:
 
 def _ensure_loop() -> asyncio.AbstractEventLoop:
     with _LOOP_LOCK:
-        if _ASYNC_LOOP is None or _ASYNC_LOOP.is_closed() or not _ASYNC_LOOP.is_running():
+        if (
+            _ASYNC_LOOP is None
+            or _ASYNC_LOOP.is_closed()
+            or not _ASYNC_LOOP.is_running()
+        ):
             _start_loop()
         assert _ASYNC_LOOP is not None
         return _ASYNC_LOOP
@@ -98,6 +105,7 @@ atexit.register(_shutdown_loop)
 
 class TaskNotFoundError(RuntimeError):
     """Raised when a task identifier cannot be located in the database."""
+
 
 class FinalRetryExhausted(RuntimeError):
     """Raised when the analysis task has no retries remaining."""
@@ -289,13 +297,23 @@ def _truncate_error(error: str) -> str:
 
 async def _execute_success_flow(task_id: uuid.UUID, retries: int) -> Dict[str, Any]:
     summary = await _mark_processing(task_id, retries)
-    await _cache_status(str(task_id), TaskStatus.PROCESSING, progress=10, message="任务开始处理")
-    await _cache_status(str(task_id), TaskStatus.PROCESSING, progress=25, message="正在发现相关社区...")
-    await _cache_status(str(task_id), TaskStatus.PROCESSING, progress=50, message="正在并行采集数据...")
+    await _cache_status(
+        str(task_id), TaskStatus.PROCESSING, progress=10, message="任务开始处理"
+    )
+    await _cache_status(
+        str(task_id), TaskStatus.PROCESSING, progress=25, message="正在发现相关社区..."
+    )
+    await _cache_status(
+        str(task_id), TaskStatus.PROCESSING, progress=50, message="正在并行采集数据..."
+    )
     result = await run_analysis(summary)
-    await _cache_status(str(task_id), TaskStatus.PROCESSING, progress=75, message="分析完成，生成报告中...")
+    await _cache_status(
+        str(task_id), TaskStatus.PROCESSING, progress=75, message="分析完成，生成报告中..."
+    )
     await _store_analysis_results(task_id, result)
-    await _cache_status(str(task_id), TaskStatus.COMPLETED, progress=100, message="分析完成")
+    await _cache_status(
+        str(task_id), TaskStatus.COMPLETED, progress=100, message="分析完成"
+    )
     communities = result.sources.get("communities", [])
     return {
         "communities_found": len(communities),
@@ -319,7 +337,9 @@ async def _run_pipeline_with_retry(
         except Exception as exc:
             should_retry = await _prepare_failure(task_id, task_id_str, exc, retries)
             if not should_retry:
-                raise FinalRetryExhausted(f"Analysis task {task_id_str} reached retry limit.") from exc
+                raise FinalRetryExhausted(
+                    f"Analysis task {task_id_str} reached retry limit."
+                ) from exc
             if retry_handler is not None:
                 retry_handler(exc, retries)
                 # retry_handler should raise (e.g., Celery self.retry). If it returns, fall back to inline logic.
@@ -328,7 +348,9 @@ async def _run_pipeline_with_retry(
                 await asyncio.sleep(min(RETRY_DELAY_SECONDS, 1.0))
 
 
-async def execute_analysis_pipeline(task_id: uuid.UUID, retries: int = 0) -> Dict[str, Any]:
+async def execute_analysis_pipeline(
+    task_id: uuid.UUID, retries: int = 0
+) -> Dict[str, Any]:
     """
     Execute the full analysis pipeline outside of Celery (primarily for local/dev fallback).
     """
@@ -381,12 +403,17 @@ async def _prepare_failure(
     retry_backoff=True,
     retry_jitter=True,
 )
-def run_analysis_task(self: "Task[Any, Dict[str, Any]]", task_id: str) -> Dict[str, Any]:
+def run_analysis_task(
+    self: "Task[Any, Dict[str, Any]]", task_id: str
+) -> Dict[str, Any]:
     task_uuid = uuid.UUID(task_id)
-    use_default_executor = execute_analysis_pipeline is _DEFAULT_EXECUTE_ANALYSIS_PIPELINE
+    use_default_executor = (
+        execute_analysis_pipeline is _DEFAULT_EXECUTE_ANALYSIS_PIPELINE
+    )
 
     try:
         if use_default_executor:
+
             def _retry_or_exhaust(exc: Exception) -> None:
                 # If we have retries remaining, delegate to Celery's retry (raises CeleryRetry)
                 if getattr(self.request, "retries", 0) < MAX_RETRIES:
@@ -402,7 +429,9 @@ def run_analysis_task(self: "Task[Any, Dict[str, Any]]", task_id: str) -> Dict[s
                 )
             )
         else:
-            pipeline_metrics = _run_async(execute_analysis_pipeline(task_uuid, self.request.retries))
+            pipeline_metrics = _run_async(
+                execute_analysis_pipeline(task_uuid, self.request.retries)
+            )
         response = {
             "task_id": task_id,
             "status": TaskStatus.COMPLETED.value,
@@ -418,7 +447,9 @@ def run_analysis_task(self: "Task[Any, Dict[str, Any]]", task_id: str) -> Dict[s
         }
     except FinalRetryExhausted as exc:
         raise exc
-    except Exception as exc:  # pragma: no cover - unexpected fallthrough or monkeypatched executor path
+    except (
+        Exception
+    ) as exc:  # pragma: no cover - unexpected fallthrough or monkeypatched executor path
         # Always allow Celery's Retry to bubble up
         if isinstance(exc, CeleryRetry):
             raise
@@ -427,10 +458,14 @@ def run_analysis_task(self: "Task[Any, Dict[str, Any]]", task_id: str) -> Dict[s
             # or our exhaustion marker RuntimeError), letting Celery handle retries/backoff.
             raise
         # Non-default (monkeypatched) executor path: consult failure handler to decide retry.
-        should_retry = _run_async(_prepare_failure(task_uuid, task_id, exc, self.request.retries))
+        should_retry = _run_async(
+            _prepare_failure(task_uuid, task_id, exc, self.request.retries)
+        )
         if should_retry:
             raise self.retry(exc=exc, countdown=RETRY_DELAY_SECONDS)
-        raise FinalRetryExhausted(f"Analysis task {task_id} reached retry limit.") from exc
+        raise FinalRetryExhausted(
+            f"Analysis task {task_id} reached retry limit."
+        ) from exc
 
 
 __all__ = ["execute_analysis_pipeline", "run_analysis_task"]

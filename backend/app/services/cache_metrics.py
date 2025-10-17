@@ -9,11 +9,14 @@ DEFAULT_BUCKET_TTL_SECONDS = 24 * 60 * 60  # keep per-minute buckets for 24h
 
 
 class RedisLikeMetrics(Protocol):
-    def incrby(self, name: str, amount: int = 1) -> int: ...
+    def incrby(self, name: str, amount: int = 1) -> int:
+        ...
 
-    def expire(self, name: str, time: int) -> bool | int | None: ...
+    def expire(self, name: str, time: int) -> bool | int | None:
+        ...
 
-    def get(self, name: str) -> bytes | str | None: ...
+    def get(self, name: str) -> bytes | str | None:
+        ...
 
 
 class CacheMetrics:
@@ -47,14 +50,18 @@ class CacheMetrics:
     async def record_miss(self, *, now: datetime | None = None) -> None:
         self._incr_bucket("miss", 1, now)
 
-    async def calculate_hit_rate(self, *, window_minutes: int = 60, now: datetime | None = None) -> float:
+    async def calculate_hit_rate(
+        self, *, window_minutes: int = 60, now: datetime | None = None
+    ) -> float:
         hits, misses = self._get_counts(window_minutes=window_minutes, now=now)
         total = hits + misses
         if total <= 0:
             return 0.0
         return hits / total
 
-    async def get_counts(self, *, window_minutes: int = 60, now: datetime | None = None) -> tuple[int, int]:
+    async def get_counts(
+        self, *, window_minutes: int = 60, now: datetime | None = None
+    ) -> tuple[int, int]:
         return self._get_counts(window_minutes=window_minutes, now=now)
 
     # -------------------- Internal helpers --------------------
@@ -76,7 +83,9 @@ class CacheMetrics:
         # Best-effort TTL; redis returns bool/int, we ignore the return value
         self._redis.expire(key, self._bucket_ttl)
 
-    def _get_counts(self, *, window_minutes: int, now: datetime | None) -> tuple[int, int]:
+    def _get_counts(
+        self, *, window_minutes: int, now: datetime | None
+    ) -> tuple[int, int]:
         if window_minutes <= 0:
             return (0, 0)
         end = now or datetime.now(timezone.utc)
@@ -114,4 +123,3 @@ def _to_int(v: bytes | str | None) -> int:
 
 
 __all__ = ["CacheMetrics", "RedisLikeMetrics"]
-

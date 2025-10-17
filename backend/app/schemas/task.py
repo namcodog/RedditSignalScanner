@@ -17,7 +17,9 @@ class TaskCreate(ORMModel):
     def validate_description(cls, value: str) -> str:
         cleaned = value.strip()
         if len(cleaned) < 10:
-            raise ValueError("product_description must contain at least 10 non-whitespace characters")
+            raise ValueError(
+                "product_description must contain at least 10 non-whitespace characters"
+            )
         return cleaned
 
 
@@ -78,5 +80,9 @@ class TaskStatsResponse(ORMModel):
     active_workers: int = Field(ge=0, description="Number of active Celery workers")
     active_tasks: int = Field(ge=0, description="Count of tasks currently executing")
     reserved_tasks: int = Field(ge=0, description="Count of tasks reserved by workers")
-    scheduled_tasks: int = Field(ge=0, description="Count of tasks scheduled for later execution")
-    total_tasks: int = Field(ge=0, description="Aggregate of active, reserved, and scheduled tasks")
+    scheduled_tasks: int = Field(
+        ge=0, description="Count of tasks scheduled for later execution"
+    )
+    total_tasks: int = Field(
+        ge=0, description="Aggregate of active, reserved, and scheduled tasks"
+    )

@@ -14,7 +14,6 @@ from app.core.security import TokenPayload
 from app.db.session import get_session
 from app.models import Analysis, Task, TaskStatus, User
 
-
 router = APIRouter(prefix="/admin", tags=["admin"])
 
 
@@ -43,12 +42,16 @@ async def get_dashboard_stats(
     _payload: TokenPayload = Depends(require_admin),
     db: AsyncSession = Depends(get_session),
 ) -> dict[str, Any]:
-    today_start = datetime.now(timezone.utc).replace(hour=0, minute=0, second=0, microsecond=0)
+    today_start = datetime.now(timezone.utc).replace(
+        hour=0, minute=0, second=0, microsecond=0
+    )
 
     total_users = await db.scalar(select(func.count(User.id))) or 0
     total_tasks = await db.scalar(select(func.count(Task.id))) or 0
     tasks_today = (
-        await db.scalar(select(func.count(Task.id)).where(Task.created_at >= today_start))
+        await db.scalar(
+            select(func.count(Task.id)).where(Task.created_at >= today_start)
+        )
     ) or 0
     tasks_completed_today = (
         await db.scalar(
@@ -62,20 +65,14 @@ async def get_dashboard_stats(
 
     processing_avg_seconds = await db.scalar(
         select(
-            func.avg(
-                func.extract("epoch", Task.completed_at - Task.started_at)
-            )
+            func.avg(func.extract("epoch", Task.completed_at - Task.started_at))
         ).where(Task.completed_at.is_not(None), Task.started_at.is_not(None))
     )
 
     avg_processing_time = round(float(processing_avg_seconds or 0.0), 2)
 
     cache_hit_avg = await db.scalar(
-        select(
-            func.avg(
-                Analysis.sources["cache_hit_rate"].astext.cast(Float)
-            )
-        )
+        select(func.avg(Analysis.sources["cache_hit_rate"].astext.cast(Float)))
     )
     cache_hit_rate = round(float(cache_hit_avg or 0.0), 2)
 
@@ -113,7 +110,9 @@ async def get_recent_tasks(
             {
                 "task_id": task.id,
                 "user_email": email,
-                "status": task.status.value if isinstance(task.status, TaskStatus) else task.status,
+                "status": task.status.value
+                if isinstance(task.status, TaskStatus)
+                else task.status,
                 "created_at": task.created_at,
                 "completed_at": task.completed_at,
                 "processing_seconds": _calculate_processing_seconds(task),

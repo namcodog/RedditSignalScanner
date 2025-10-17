@@ -11,13 +11,11 @@ can consume. The implementation mirrors the Day 6 Backend A deliverables:
 
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass
 from typing import Dict, List
 
-import re
-
 from sklearn.feature_extraction.text import TfidfVectorizer
-
 
 _URL_PATTERN = re.compile(r"(https?://\S+|www\.\S+)", flags=re.IGNORECASE)
 _EMAIL_PATTERN = re.compile(r"\b[\w.+-]+@[\w.-]+\.[a-zA-Z]{2,}\b")
