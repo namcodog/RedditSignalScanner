@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from datetime import datetime
 from typing import Any
+import uuid
 
 from sqlalchemy import JSON, Boolean, DateTime, Integer, Numeric, String
 from sqlalchemy.dialects.postgresql import UUID
@@ -66,7 +67,7 @@ class CommunityImportHistory(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     filename: Mapped[str] = mapped_column(String(255), nullable=False)
     uploaded_by: Mapped[str] = mapped_column(String(255), nullable=False)
-    uploaded_by_user_id: Mapped[str] = mapped_column(UUID(as_uuid=True), nullable=False)
+    uploaded_by_user_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), nullable=False)
     dry_run: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
     status: Mapped[str] = mapped_column(String(20), nullable=False)
     total_rows: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
