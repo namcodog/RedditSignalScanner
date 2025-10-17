@@ -154,7 +154,7 @@ def reset_database() -> None:
 # Move truncation to teardown phase to avoid lock contention with other fixtures
 @pytest.fixture(scope="function", autouse=True)
 def truncate_tables_between_tests(request: pytest.FixtureRequest) -> Iterator[None]:
-    import os
+    import os, time
     import psycopg
 
     # Pre-setup: do nothing (cleanup happens after the test)
@@ -181,14 +181,24 @@ def truncate_tables_between_tests(request: pytest.FixtureRequest) -> Iterator[No
     conn.autocommit = True
     try:
         with conn.cursor() as cursor:
-            if preserve_history:
-                cursor.execute(
-                    "TRUNCATE TABLE beta_feedback, community_pool, pending_communities RESTART IDENTITY CASCADE"
-                )
-            else:
-                cursor.execute(
-                    "TRUNCATE TABLE beta_feedback, community_pool, pending_communities, community_import_history RESTART IDENTITY CASCADE"
-                )
+            attempts = 5
+            delay = 0.2
+            for i in range(attempts):
+                try:
+                    if preserve_history:
+                        cursor.execute(
+                            "TRUNCATE TABLE beta_feedback, community_pool, pending_communities RESTART IDENTITY CASCADE"
+                        )
+                    else:
+                        cursor.execute(
+                            "TRUNCATE TABLE beta_feedback, community_pool, pending_communities, community_import_history RESTART IDENTITY CASCADE"
+                        )
+                    break
+                except psycopg.errors.LockNotAvailable:
+                    if i == attempts - 1:
+                        raise
+                    time.sleep(delay)
+                    delay *= 2
     finally:
         conn.close()
 
