@@ -156,6 +156,14 @@ def truncate_tables_between_tests(request: pytest.FixtureRequest) -> None:
     import os
     import psycopg
 
+    # Skip truncation for integration tests (they need real data)
+    if request.node.get_closest_marker("integration"):
+        return
+
+    # Skip truncation for e2e tests (they need real data)
+    if request.node.get_closest_marker("e2e"):
+        return
+
     # Get connection params from environment or use test defaults
     # Default to localhost for local development, test-db for CI/Docker
     db_host = os.getenv('TEST_DB_HOST', 'localhost')
