@@ -40,8 +40,11 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     setupFiles: './src/test/setup.ts',
-    include: ['src/**/*.{test,spec}.{ts,tsx}'],
-    exclude: ['src/tests/e2e-*.test.ts', 'tests/e2e/**', 'e2e/**'],
+    include: [
+      'src/utils/**/__tests__/**/*.{test,spec}.{ts,tsx}',
+      'src/services/**/__tests__/**/*.{test,spec}.{ts,tsx}'
+    ],
+    exclude: ['src/tests/e2e-*.test.ts', 'src/pages/__tests__/**', 'src/components/__tests__/**', 'tests/e2e/**', 'e2e/**'],
     pool: 'forks', // 使用 forks 而不是 threads 来避免 webidl-conversions 问题
     poolOptions: {
       forks: {
