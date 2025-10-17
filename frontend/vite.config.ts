@@ -41,6 +41,12 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: './src/test/setup.ts',
     include: ['src/**/*.{test,spec}.{ts,tsx}'],
+    pool: 'forks', // 使用 forks 而不是 threads 来避免 webidl-conversions 问题
+    poolOptions: {
+      forks: {
+        singleFork: true, // 单进程运行测试，避免并发问题
+      },
+    },
   },
 });
 

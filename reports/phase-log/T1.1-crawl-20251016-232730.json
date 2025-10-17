@@ -1,0 +1,610 @@
+{
+  "status": "completed",
+  "mode": "incremental",
+  "total": 100,
+  "succeeded": 12,
+  "failed": 88,
+  "total_new_posts": 1200,
+  "total_updated_posts": 0,
+  "total_duplicates": 0,
+  "communities": [
+    {
+      "community": "entrepreneur",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "webdev",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "personalfinance",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "books",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "careerguidance",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "cybersecurity",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "reactnative",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "podcasting",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "homeimprovement",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "minimalism",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "running",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "technology",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "investing",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "cryptocurrency",
+      "new_posts": 100,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.420779
+    },
+    {
+      "community": "fitness",
+      "new_posts": 100,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.712476
+    },
+    {
+      "community": "nutrition",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "mentalhealth",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "education",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "learnprogramming",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "python",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "3dprinting",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "javascript",
+      "new_posts": 100,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.928929
+    },
+    {
+      "community": "devops",
+      "new_posts": 100,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.980085
+    },
+    {
+      "community": "woodworking",
+      "new_posts": 100,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 5.795913
+    },
+    {
+      "community": "cloudcomputing",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "privacy",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "gaming",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "writing",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "smallbusiness",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "ecommerce",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "socialmedia",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "seo",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "contentmarketing",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "freelance",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "remotework",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "cscareerquestions",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "aquariums",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "hiking",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "electricvehicles",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "artificial",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "architecture",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "machinelearning",
+      "new_posts": 100,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 37.155686
+    },
+    {
+      "community": "startups",
+      "new_posts": 100,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 35.492316
+    },
+    {
+      "community": "saas",
+      "status": "failed",
+      "error": "(sqlalchemy.dialects.postgresql.asyncpg.InterfaceError) <class 'asyncpg.exceptions._base.InterfaceError'>: cannot perform operation: another operation is in progress\n[SQL: INSERT INTO posts_raw (source, source_post_id, version, created_at, fetched_at, valid_from, valid_to, is_current, author_id, author_name, title, body, url, subreddit, score, num_comments, is_deleted, edit_count, extra_data) VALUES ($1::VARCHAR, $2::VARCHAR, $3::INTEGER, $4::TIMESTAMP WITH TIME ZONE, $5::TIMESTAMP WITH TIME ZONE, $6::TIMESTAMP WITH TIME ZONE, $7::TIMESTAMP WITH TIME ZONE, $8::BOOLEAN, $9::VARCHAR, $10::VARCHAR, $11::VARCHAR, $12::VARCHAR, $13::VARCHAR, $14::VARCHAR, $15::INTEGER, $16::INTEGER, $17::BOOLEAN, $18::INTEGER, $19::JSONB) ON CONFLICT (source, source_post_id, version) DO UPDATE SET fetched_at = excluded.fetched_at, score = excluded.score, num_comments = excluded.num_comments]\n[parameters: ('reddit', '1lbyjkt', 1, datetime.datetime(2025, 6, 15, 11, 53, 53, tzinfo=datetime.timezone.utc), datetime.datetime(2025, 10, 16, 15, 27, 10, 676144, tzinfo=datetime.timezone.utc), datetime.datetime(2025, 10, 16, 15, 27, 10, 677408, tzinfo=datetime.timezone.utc), datetime.datetime(9999, 12, 31, 0, 0), True, 'SaaS2Agent', 'SaaS2Agent', 'Talked to 40 SaaS founders who grew from $5k → $100k MRR. These 7 patterns kept showing up.', \"Over the past few months, I’ve been doing a bunch of calls with SaaS founders , mostly folks in the $5k–$100k MRR range.\\n\\nSome bootstrapped. Some l ... (1537 characters truncated) ... f you're earlier than that which of these do you agree or totally disagree with?\\n\\nWould love to hear what’s resonated (or flopped) in your journey.\", 'https://www.reddit.com/r/SaaS/comments/1lbyjkt/talked_to_40_saas_founders_who_grew_from_5k_100k/', 'saas', 412, 108, False, 0, '{\"permalink\": \"https://reddit.com/r/SaaS/comments/1lbyjkt/talked_to_40_saas_founders_who_grew_from_5k_100k/\", \"upvote_ratio\": null}')]\n(Background on this error at: https://sqlalche.me/e/20/rvf5)"
+    },
+    {
+      "community": "datascience",
+      "status": "failed",
+      "error": "This session is in 'prepared' state; no further SQL can be emitted within this transaction."
+    },
+    {
+      "community": "programming",
+      "status": "failed",
+      "error": "This session is in 'prepared' state; no further SQL can be emitted within this transaction."
+    },
+    {
+      "community": "productivity",
+      "status": "failed",
+      "error": "This session is in 'prepared' state; no further SQL can be emitted within this transaction."
+    },
+    {
+      "community": "indiehackers",
+      "status": "failed",
+      "error": "This session is in 'prepared' state; no further SQL can be emitted within this transaction."
+    },
+    {
+      "community": "marketing",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "design",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "androiddev",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "iosdev",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "gamedev",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "photography",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "videography",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "space",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "physics",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "biology",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "chemistry",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "engineering",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "robotics",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "electronics",
+      "new_posts": 100,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 3.656426
+    },
+    {
+      "community": "diy",
+      "new_posts": 100,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 5.766315
+    },
+    {
+      "community": "art",
+      "status": "failed",
+      "error": "(sqlalchemy.dialects.postgresql.asyncpg.InterfaceError) <class 'asyncpg.exceptions._base.InterfaceError'>: cannot perform operation: another operation is in progress\n[SQL: INSERT INTO posts_hot (source, source_post_id, created_at, cached_at, expires_at, title, body, subreddit, score, num_comments, extra_data) VALUES ($1::VARCHAR, $2::VARCHAR, $3::TIMESTAMP WITH TIME ZONE, $4::TIMESTAMP WITH TIME ZONE, $5::TIMESTAMP WITH TIME ZONE, $6::VARCHAR, $7::VARCHAR, $8::VARCHAR, $9::INTEGER, $10::INTEGER, $11::JSONB) ON CONFLICT (source, source_post_id) DO UPDATE SET cached_at = excluded.cached_at, expires_at = excluded.expires_at, title = excluded.title, body = excluded.body, score = excluded.score, num_comments = excluded.num_comments, extra_data = excluded.extra_data]\n[parameters: ('reddit', '1h83eta', datetime.datetime(2024, 12, 6, 15, 7, 45, tzinfo=datetime.timezone.utc), datetime.datetime(2025, 10, 16, 15, 27, 16, 798384, tzinfo=datetime.timezone.utc), datetime.datetime(2025, 10, 17, 15, 27, 16, 798376, tzinfo=datetime.timezone.utc), 'Deny, Defend, Depose, Genevieve Thunderbird, Digital  Art, 2024', '', 'art', 25252, 60, '{\"permalink\": \"https://reddit.com/r/Art/comments/1h83eta/deny_defend_depose_genevieve_thunderbird_digital/\"}')]\n(Background on this error at: https://sqlalche.me/e/20/rvf5)"
+    },
+    {
+      "community": "crafts",
+      "status": "failed",
+      "error": "This session is in 'prepared' state; no further SQL can be emitted within this transaction."
+    },
+    {
+      "community": "knitting",
+      "status": "failed",
+      "error": "This session is in 'prepared' state; no further SQL can be emitted within this transaction."
+    },
+    {
+      "community": "sewing",
+      "status": "failed",
+      "error": "This session is in 'prepared' state; no further SQL can be emitted within this transaction."
+    },
+    {
+      "community": "music",
+      "status": "failed",
+      "error": "This session is in 'prepared' state; no further SQL can be emitted within this transaction."
+    },
+    {
+      "community": "youtube",
+      "status": "failed",
+      "error": "This session is in 'prepared' state; no further SQL can be emitted within this transaction."
+    },
+    {
+      "community": "streaming",
+      "status": "failed",
+      "error": "This session is in 'prepared' state; no further SQL can be emitted within this transaction."
+    },
+    {
+      "community": "travel",
+      "status": "failed",
+      "error": "This session is in 'prepared' state; no further SQL can be emitted within this transaction."
+    },
+    {
+      "community": "cooking",
+      "status": "failed",
+      "error": "This session is in 'prepared' state; no further SQL can be emitted within this transaction."
+    },
+    {
+      "community": "gardening",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "sustainability",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "meditation",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "yoga",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "cycling",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "weightlifting",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "science",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "fashion",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "beauty",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "skincare",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "hair",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "parenting",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "relationships",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "dating",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "wedding",
+      "new_posts": 100,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 3.26323
+    },
+    {
+      "community": "pets",
+      "new_posts": 100,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.982853
+    },
+    {
+      "community": "dogs",
+      "new_posts": 100,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.529596
+    },
+    {
+      "community": "cats",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "reptiles",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "birdwatching",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "camping",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "fishing",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "hunting",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "cars",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "motorcycles",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "realestate",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "homeowners",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "interiordesign",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    }
+  ]
+}
