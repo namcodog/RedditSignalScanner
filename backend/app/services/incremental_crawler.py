@@ -49,6 +49,7 @@ class IncrementalCrawler:
         community_name: str,
         limit: int = 100,
         time_filter: str = "month",
+        sort: str = "top",
     ) -> dict:
         """
         增量抓取单个社区
@@ -56,7 +57,8 @@ class IncrementalCrawler:
         Args:
             community_name: 社区名（如 "r/Entrepreneur"）
             limit: 每次抓取的帖子数
-            time_filter: 时间范围（week/month）
+            time_filter: 时间范围（week/month/year/all）
+            sort: 排序策略（top/new/hot/rising）
 
         Returns:
             {
@@ -84,7 +86,7 @@ class IncrementalCrawler:
             raw_name,
             limit=limit,
             time_filter=time_filter,
-            sort="top",
+            sort=sort,
         )
 
         if not posts:
