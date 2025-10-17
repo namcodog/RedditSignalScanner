@@ -4,7 +4,8 @@ import asyncio
 from collections import deque
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
-from typing import Any, Deque, Dict, Iterable, List, Optional, Sequence, TYPE_CHECKING
+from typing import (TYPE_CHECKING, Any, Deque, Dict, Iterable, List, Optional,
+                    Sequence)
 
 # Delay aiohttp import to avoid event loop conflicts during pytest collection
 if TYPE_CHECKING:
@@ -60,7 +61,9 @@ class RedditAPIClient:
         session: Any | None = None,  # aiohttp.ClientSession
     ) -> None:
         if not client_id or not client_secret:
-            raise ValueError("client_id and client_secret are required for Reddit API access.")
+            raise ValueError(
+                "client_id and client_secret are required for Reddit API access."
+            )
 
         self.client_id = client_id
         self.client_secret = client_secret
@@ -85,7 +88,11 @@ class RedditAPIClient:
 
     async def close(self) -> None:
         """Dispose the underlying HTTP session when owned by the client."""
-        if self._session_owner and self._session is not None and not self._session.closed:
+        if (
+            self._session_owner
+            and self._session is not None
+            and not self._session.closed
+        ):
             await self._session.close()
 
     async def authenticate(self) -> None:
@@ -128,10 +135,14 @@ class RedditAPIClient:
             token = payload.get("access_token")
             expires_in = int(payload.get("expires_in", 3600))
             if not token:
-                raise RedditAuthenticationError("Reddit authentication response missing access_token.")
+                raise RedditAuthenticationError(
+                    "Reddit authentication response missing access_token."
+                )
 
             buffer_seconds = min(60, max(5, int(expires_in * 0.1)))
-            expires_at = datetime.now(timezone.utc) + timedelta(seconds=expires_in - buffer_seconds)
+            expires_at = datetime.now(timezone.utc) + timedelta(
+                seconds=expires_in - buffer_seconds
+            )
 
             self.access_token = str(token)
             self.token_expires_at = expires_at
@@ -183,7 +194,9 @@ class RedditAPIClient:
         if not subreddits:
             return {}
 
-        unique_subreddits = list(dict.fromkeys(name.strip() for name in subreddits if name.strip()))
+        unique_subreddits = list(
+            dict.fromkeys(name.strip() for name in subreddits if name.strip())
+        )
         if not unique_subreddits:
             return {}
 
@@ -204,7 +217,9 @@ class RedditAPIClient:
         data: Dict[str, List[RedditPost]] = {}
         for subreddit, result in zip(unique_subreddits, results):
             if isinstance(result, Exception):
-                raise RedditAPIError(f"Failed to fetch subreddit {subreddit}: {result}") from result
+                raise RedditAPIError(
+                    f"Failed to fetch subreddit {subreddit}: {result}"
+                ) from result
             # Type guard: result is List[RedditPost] after Exception check
             assert isinstance(result, list), "Expected list of RedditPost"
             data[subreddit] = result
@@ -284,10 +299,14 @@ class RedditAPIClient:
                     continue
                 if response.status >= 500:
                     text = await response.text()
-                    raise RedditAPIError(f"Reddit API unavailable (status={response.status}): {text}")
+                    raise RedditAPIError(
+                        f"Reddit API unavailable (status={response.status}): {text}"
+                    )
                 if response.status >= 400:
                     text = await response.text()
-                    raise RedditAPIError(f"Reddit API error (status={response.status}): {text}")
+                    raise RedditAPIError(
+                        f"Reddit API error (status={response.status}): {text}"
+                    )
                 try:
                     payload: Dict[str, Any] = await response.json()
                 except Exception as exc:  # pragma: no cover - defensive guard
@@ -371,7 +390,9 @@ class RedditAPIClient:
                     )
                 )
             except (TypeError, ValueError) as exc:
-                raise RedditAPIError(f"Invalid post payload encountered: {exc}") from exc
+                raise RedditAPIError(
+                    f"Invalid post payload encountered: {exc}"
+                ) from exc
 
         return posts
 

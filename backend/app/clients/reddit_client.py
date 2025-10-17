@@ -84,7 +84,9 @@ class RedditClient:
         if not subreddit_name:
             raise ValueError("Subreddit name cannot be empty")
 
-        logger.info(f"Fetching posts from r/{subreddit_name} (limit={limit}, time_filter={time_filter})")
+        logger.info(
+            f"Fetching posts from r/{subreddit_name} (limit={limit}, time_filter={time_filter})"
+        )
 
         try:
             # Rate limit
@@ -159,7 +161,9 @@ class RedditClient:
                     "url": f"https://reddit.com{subreddit.url}",
                 }
 
-            logger.info(f"Fetched info for r/{subreddit_name}: {info['subscribers']} subscribers")
+            logger.info(
+                f"Fetched info for r/{subreddit_name}: {info['subscribers']} subscribers"
+            )
             return info
 
         except PRAWException as e:
@@ -260,4 +264,3 @@ class RedditClient:
         """Close Reddit client."""
         logger.info("Closing Reddit client")
         # PRAW doesn't require explicit closing
-

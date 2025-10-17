@@ -1,9 +1,9 @@
 from __future__ import annotations
 
 import asyncio
+import json
 import logging
 import os
-import json
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional
@@ -27,15 +27,19 @@ CACHE_HIT_THRESHOLD = float(os.getenv("MONITOR_CACHE_HIT_THRESHOLD", "0.70"))
 CRAWL_STALE_MINUTES = int(os.getenv("MONITOR_CRAWL_STALE_MINUTES", "90"))
 METRICS_REDIS_URL = os.getenv("MONITOR_REDIS_URL")
 TEST_LOG_PATH = Path(os.getenv("TEST_LOG_PATH", "tmp/test_runs/e2e.log"))
-TEST_METRICS_PATH = Path(os.getenv("TEST_METRICS_PATH", "tmp/test_runs/e2e_metrics.json"))
+TEST_METRICS_PATH = Path(
+    os.getenv("TEST_METRICS_PATH", "tmp/test_runs/e2e_metrics.json")
+)
 E2E_MAX_DURATION = float(os.getenv("E2E_MAX_DURATION_SECONDS", "300"))
 E2E_MAX_FAILURE_RATE = float(os.getenv("E2E_MAX_FAILURE_RATE", "0.05"))
-PERFORMANCE_DASHBOARD_KEY = os.getenv("PERFORMANCE_DASHBOARD_KEY", "dashboard:performance")
+PERFORMANCE_DASHBOARD_KEY = os.getenv(
+    "PERFORMANCE_DASHBOARD_KEY", "dashboard:performance"
+)
 
 
-def _get_metrics_redis(settings: Settings) -> redis.Redis:
+def _get_metrics_redis(settings: Settings) -> redis.Redis:  # type: ignore[type-arg]
     target_url = METRICS_REDIS_URL or settings.reddit_cache_redis_url
-    return redis.Redis.from_url(target_url)
+    return redis.Redis.from_url(target_url)  # type: ignore[return-value]
 
 
 def _send_alert(level: str, message: str) -> None:
@@ -59,9 +63,14 @@ def _load_e2e_metrics() -> Optional[Dict[str, Any]]:
 
 def _update_dashboard(settings: Settings, values: Dict[str, Any]) -> None:
     client = _get_metrics_redis(settings)
-    enriched = {k: json.dumps(v, ensure_ascii=False) if isinstance(v, (dict, list)) else v for k, v in values.items()}
+    enriched = {
+        k: json.dumps(v, ensure_ascii=False) if isinstance(v, (dict, list)) else v
+        for k, v in values.items()
+    }
     client.hset(PERFORMANCE_DASHBOARD_KEY, mapping=enriched)
-    client.hset(PERFORMANCE_DASHBOARD_KEY, "updated_at", datetime.now(timezone.utc).isoformat())
+    client.hset(
+        PERFORMANCE_DASHBOARD_KEY, "updated_at", datetime.now(timezone.utc).isoformat()
+    )
 
 
 @celery_app.task(name="tasks.monitoring.monitor_api_calls")  # type: ignore[misc]
@@ -69,7 +78,9 @@ def monitor_api_calls() -> Dict[str, Any]:
     settings = get_settings()
     client = _get_metrics_redis(settings)
     value = client.get("api_calls_per_minute")
-    calls = int(value) if value is not None else 0
+    calls = (
+        int(value) if value is not None and isinstance(value, (int, str, bytes)) else 0
+    )
 
     if calls > API_CALL_THRESHOLD:
         _send_alert("warning", f"API 调用接近限制: {calls}/60")
@@ -87,10 +98,13 @@ def monitor_cache_health() -> Dict[str, Any]:
 
     async def _calculate() -> Dict[str, Any]:
         from app.db.session import SessionFactory
+
         async with SessionFactory() as db:
             loader = CommunityPoolLoader(db)
             communities = await loader.load_community_pool(force_refresh=False)
-        seed_names = [profile.name for profile in communities if profile.tier.lower() == "seed"]
+        seed_names = [
+            profile.name for profile in communities if profile.tier.lower() == "seed"
+        ]
         hit_rate = cache_manager.calculate_cache_hit_rate(seed_names)
 
         if seed_names and hit_rate < CACHE_HIT_THRESHOLD:
@@ -109,17 +123,20 @@ def monitor_crawler_health() -> Dict[str, Any]:
     async def _load() -> Dict[str, Any]:
         cutoff = datetime.now(timezone.utc) - timedelta(minutes=CRAWL_STALE_MINUTES)
         from app.db.session import SessionFactory
+
         async with SessionFactory() as session:
             result = await session.execute(
-                select(CommunityCache.community_name, CommunityCache.last_crawled_at).where(
-                    CommunityCache.last_crawled_at < cutoff
-                )
+                select(
+                    CommunityCache.community_name, CommunityCache.last_crawled_at
+                ).where(CommunityCache.last_crawled_at < cutoff)
             )
             rows = result.all()
             stale = [
                 {
                     "community": row.community_name,
-                    "last_crawled_at": row.last_crawled_at.isoformat() if row.last_crawled_at else None,
+                    "last_crawled_at": row.last_crawled_at.isoformat()
+                    if row.last_crawled_at
+                    else None,
                 }
                 for row in rows
             ]
@@ -128,7 +145,10 @@ def monitor_crawler_health() -> Dict[str, Any]:
                     "warning",
                     f"{len(stale)} 个社区超过 {CRAWL_STALE_MINUTES} 分钟未刷新",
                 )
-            return {"stale_communities": stale, "threshold_minutes": CRAWL_STALE_MINUTES}
+            return {
+                "stale_communities": stale,
+                "threshold_minutes": CRAWL_STALE_MINUTES,
+            }
         return {"stale_communities": [], "threshold_minutes": CRAWL_STALE_MINUTES}
 
     return asyncio.run(_load())
@@ -146,7 +166,9 @@ def monitor_e2e_tests() -> Dict[str, Any]:
     total_runs = len(runs)
     failed_runs = sum(1 for run in runs if run.get("status") != "success")
     failure_rate = failed_runs / total_runs if total_runs else 0.0
-    max_duration = max((float(run.get("duration_seconds", 0)) for run in runs), default=0.0)
+    max_duration = max(
+        (float(run.get("duration_seconds", 0)) for run in runs), default=0.0
+    )
 
     if failure_rate > E2E_MAX_FAILURE_RATE:
         _send_alert(
@@ -241,6 +263,7 @@ def monitor_warmup_metrics() -> Dict[str, Any]:
     # Get community pool size
     async def _get_pool_size() -> int:
         from app.db.session import SessionFactory
+
         async with SessionFactory() as db:
             loader = CommunityPoolLoader(db)
             communities = await loader.load_community_pool(force_refresh=False)

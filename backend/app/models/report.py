@@ -1,8 +1,8 @@
 from __future__ import annotations
 
+import uuid
 from datetime import datetime
 from typing import TYPE_CHECKING
-import uuid
 
 from sqlalchemy import DateTime, ForeignKey, Index, String, Text, func
 from sqlalchemy.orm import Mapped, mapped_column, relationship
@@ -27,7 +27,9 @@ class Report(Base):
         ForeignKey("analyses.id", ondelete="CASCADE"), nullable=False, unique=True
     )
     html_content: Mapped[str] = mapped_column(Text, nullable=False)
-    template_version: Mapped[str] = mapped_column(String(10), default="1.0", nullable=False)
+    template_version: Mapped[str] = mapped_column(
+        String(10), default="1.0", nullable=False
+    )
     generated_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now(), nullable=False
     )

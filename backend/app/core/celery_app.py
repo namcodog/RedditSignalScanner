@@ -99,10 +99,10 @@ celery_app.conf.update(_build_conf())
 celery_app.autodiscover_tasks(["app.tasks"], force=True)
 
 celery_app.conf.beat_schedule = {
-    # 自动爬取：每 1 小时刷新一次缓存（保持数据新鲜）
-    "auto-crawl-seed-communities": {
-        "task": "tasks.crawler.crawl_seed_communities",
-        "schedule": crontab(minute="0", hour="*"),  # 每小时整点执行
+    # 增量抓取：每 2 小时执行一次（冷热双写 + 水位线）
+    "auto-crawl-incremental": {
+        "task": "tasks.crawler.crawl_seed_communities_incremental",
+        "schedule": crontab(minute="0", hour="*/2"),  # 每 2 小时整点执行
     },
     # Monitoring tasks (PRD-09 warmup period monitoring)
     "monitor-warmup-metrics": {
@@ -138,12 +138,10 @@ celery_app.conf.beat_schedule = {
 # Import ensures registration even when autodiscovery is executed in tooling
 # contexts (e.g. verify_celery_config.py) where lazy loading might skip it.
 try:
-    from app.tasks import (
-        analysis_task as _analysis_task,  # noqa: F401
-        crawler_task as _crawler_task,  # noqa: F401
-        monitoring_task as _monitoring_task,  # noqa: F401
-        warmup_crawler as _warmup_crawler,  # noqa: F401
-    )
+    from app.tasks import analysis_task as _analysis_task  # noqa: F401
+    from app.tasks import crawler_task as _crawler_task  # noqa: F401
+    from app.tasks import monitoring_task as _monitoring_task  # noqa: F401
+    from app.tasks import warmup_crawler as _warmup_crawler  # noqa: F401
 except Exception:  # pragma: no cover - defensive guard for diagnostics
     pass
 

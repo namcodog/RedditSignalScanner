@@ -2,13 +2,14 @@ from __future__ import annotations
 
 import asyncio
 from dataclasses import dataclass
-from typing import Dict, List, Sequence, TYPE_CHECKING, cast
+from typing import TYPE_CHECKING, Dict, List, Sequence, cast
 
 from app.services.cache_manager import CacheManager
 from app.services.reddit_client import RedditAPIClient, RedditPost
 
 if TYPE_CHECKING:
     from app.services.analysis import Community
+
 
 @dataclass(slots=True)
 class CollectionResult:
@@ -25,7 +26,9 @@ class DataCollectionService:
     Cache-first data collection service (PRD-03 §3.2).
     """
 
-    def __init__(self, reddit_client: RedditAPIClient, cache_manager: CacheManager) -> None:
+    def __init__(
+        self, reddit_client: RedditAPIClient, cache_manager: CacheManager
+    ) -> None:
         self.reddit = reddit_client
         self.cache = cache_manager
 
@@ -62,7 +65,9 @@ class DataCollectionService:
                 cached_subreddits.add(subreddit)
 
         cache_hits = len(cached_subreddits)
-        cache_hit_rate = cache_hits / len(subreddits) if subreddits else preflight_cache_rate
+        cache_hit_rate = (
+            cache_hits / len(subreddits) if subreddits else preflight_cache_rate
+        )
         missing = [name for name in subreddits if name not in cached_subreddits]
         api_calls = 0
 
@@ -83,7 +88,9 @@ class DataCollectionService:
             results = await asyncio.gather(*fetch_coroutines, return_exceptions=True)
             for subreddit, result in zip(missing, results):
                 if isinstance(result, Exception):
-                    raise RuntimeError(f"Failed to fetch subreddit {subreddit}") from result
+                    raise RuntimeError(
+                        f"Failed to fetch subreddit {subreddit}"
+                    ) from result
 
                 posts = list(cast(List[RedditPost], result))
                 posts_by_subreddit[subreddit] = posts
@@ -102,7 +109,9 @@ class DataCollectionService:
         )
 
     @staticmethod
-    def _normalise_subreddits(communities: Sequence["Community"] | Sequence[str]) -> List[str]:
+    def _normalise_subreddits(
+        communities: Sequence["Community"] | Sequence[str],
+    ) -> List[str]:
         if not communities:
             return []
 

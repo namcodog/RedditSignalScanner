@@ -9,7 +9,7 @@ from redis import Redis
 class MonitoringService:
     """Collect operational metrics for Admin dashboard reporting."""
 
-    def __init__(self, redis_client: Redis[Any], celery_app: Celery):
+    def __init__(self, redis_client: Redis, celery_app: Celery):  # type: ignore[type-arg]
         self._redis = redis_client
         self._celery = celery_app
 
@@ -65,8 +65,8 @@ class MonitoringService:
     def get_redis_stats(self) -> Dict[str, float]:
         """Return Redis server statistics required by the admin dashboard."""
 
-        info_raw: Mapping[str, Any] = self._redis.info()
-        info: Dict[str, Any] = dict(info_raw)
+        info_raw = self._redis.info()  # type: ignore[misc]
+        info: Dict[str, Any] = dict(info_raw) if isinstance(info_raw, dict) else {}
         hits = int(info.get("keyspace_hits", 0))
         misses = int(info.get("keyspace_misses", 0))
         total_requests = hits + misses

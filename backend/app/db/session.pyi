@@ -1,6 +1,7 @@
 from typing import AsyncIterator
 
-from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession, async_sessionmaker
+from sqlalchemy.ext.asyncio import (AsyncEngine, AsyncSession,
+                                    async_sessionmaker)
 
 engine: AsyncEngine
 SessionFactory: async_sessionmaker[AsyncSession]

@@ -8,18 +8,20 @@ to serve quick responses without hitting the database for every poll.
 from __future__ import annotations
 
 import json
-import os
-from dataclasses import dataclass, asdict
-from datetime import datetime, timezone
-import uuid
 import logging
-from typing import Any, Dict, Optional, Protocol, TypeVar, cast, runtime_checkable, TYPE_CHECKING
+import os
+import uuid
+from dataclasses import asdict, dataclass
+from datetime import datetime, timezone
+from typing import (TYPE_CHECKING, Any, Dict, Optional, Protocol, TypeVar,
+                    cast, runtime_checkable)
 
 from redis.asyncio import Redis
 from sqlalchemy.ext.asyncio import AsyncSession
 
-
-DEFAULT_STATUS_CACHE_URL = os.getenv("TASK_STATUS_REDIS_URL", "redis://localhost:6379/3")
+DEFAULT_STATUS_CACHE_URL = os.getenv(
+    "TASK_STATUS_REDIS_URL", "redis://localhost:6379/3"
+)
 DEFAULT_STATUS_TTL_SECONDS = int(os.getenv("TASK_STATUS_TTL_SECONDS", "3600"))
 
 if TYPE_CHECKING:
@@ -60,11 +62,14 @@ T = TypeVar("T")
 
 @runtime_checkable
 class RedisClient(Protocol[T]):
-    async def set(self, key: str, value: T, ex: int | None = ...) -> Any: ...
+    async def set(self, key: str, value: T, ex: int | None = ...) -> Any:
+        ...
 
-    async def get(self, key: str) -> T | None: ...
+    async def get(self, key: str) -> T | None:
+        ...
 
-    async def delete(self, key: str) -> Any: ...
+    async def delete(self, key: str) -> Any:
+        ...
 
 
 class TaskStatusCache:
@@ -131,13 +136,16 @@ class TaskStatusCache:
     def _build_key(task_id: str) -> str:
         return f"task-status:{task_id}"
 
-    async def sync_to_db(self, payload: TaskStatusPayload, session: AsyncSession) -> None:
+    async def sync_to_db(
+        self, payload: TaskStatusPayload, session: AsyncSession
+    ) -> None:
         try:
             task_uuid = uuid.UUID(payload.task_id)
         except ValueError:
             return
 
-        from app.models.task import Task as TaskModel, TaskStatus  # Local import
+        from app.models.task import Task as TaskModel  # Local import
+        from app.models.task import TaskStatus
 
         task: TaskModel | None = await session.get(TaskModel, task_uuid)
         if task is None:
@@ -150,13 +158,17 @@ class TaskStatusCache:
         task.updated_at = datetime.now(timezone.utc)
         await session.commit()
 
-    async def _load_from_db(self, task_id: str, session: AsyncSession) -> Optional[TaskStatusPayload]:
+    async def _load_from_db(
+        self, task_id: str, session: AsyncSession
+    ) -> Optional[TaskStatusPayload]:
         try:
             task_uuid = uuid.UUID(task_id)
         except ValueError:
             return None
 
-        from app.models.task import Task as TaskModel, TaskStatus  # Local import to avoid cycles
+        from app.models.task import \
+            Task as TaskModel  # Local import to avoid cycles
+        from app.models.task import TaskStatus
 
         task: TaskModel | None = await session.get(TaskModel, task_uuid)
         if task is None:

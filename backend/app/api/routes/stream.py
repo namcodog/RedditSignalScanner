@@ -18,7 +18,6 @@ from app.db.session import get_session
 from app.models.task import Task, TaskStatus
 from app.services.task_status_cache import TaskStatusCache, TaskStatusPayload
 
-
 POLL_INTERVAL_SECONDS = float(os.getenv("TASK_STREAM_POLL_INTERVAL", "1.0"))
 HEARTBEAT_INTERVAL_SECONDS = float(os.getenv("TASK_STREAM_HEARTBEAT_INTERVAL", "30.0"))
 
@@ -116,7 +115,10 @@ async def _event_generator(
                 last_heartbeat = now
                 yield _format_event(
                     "heartbeat",
-                    {"task_id": task_id_str, "timestamp": datetime.now(timezone.utc).isoformat()},
+                    {
+                        "task_id": task_id_str,
+                        "timestamp": datetime.now(timezone.utc).isoformat(),
+                    },
                 )
 
             await asyncio.sleep(POLL_INTERVAL_SECONDS)
@@ -129,7 +131,9 @@ async def stream_task_progress(
     task_id: UUID,
     payload: TokenPayload = Depends(decode_jwt_token),
     db: AsyncSession = Depends(get_session),
-    settings: Settings = Depends(get_settings),  # noqa: ARG001 - reserved for SSE base path usage
+    settings: Settings = Depends(
+        get_settings
+    ),  # noqa: ARG001 - reserved for SSE base path usage
 ) -> StreamingResponse:
     task: Task | None = await db.get(Task, task_id)
     if task is None:

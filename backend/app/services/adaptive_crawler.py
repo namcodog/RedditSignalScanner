@@ -10,7 +10,8 @@ from app.services.cache_metrics import CacheMetrics
 
 
 class CacheMetricsLike(Protocol):
-    async def calculate_hit_rate(self, *, window_minutes: int = 60) -> float: ...
+    async def calculate_hit_rate(self, *, window_minutes: int = 60) -> float:
+        ...
 
 
 @dataclass
@@ -29,7 +30,12 @@ class AdaptiveCrawler:
     - hit_rate < 0.7  -> every 1 hour
     """
 
-    def __init__(self, metrics: CacheMetricsLike | None = None, *, config: AdaptiveCrawlerConfig | None = None) -> None:
+    def __init__(
+        self,
+        metrics: CacheMetricsLike | None = None,
+        *,
+        config: AdaptiveCrawlerConfig | None = None,
+    ) -> None:
         self._metrics: CacheMetricsLike = metrics or CacheMetrics()
         self._conf = config or AdaptiveCrawlerConfig()
 
@@ -38,7 +44,9 @@ class AdaptiveCrawler:
 
         Returns the new interval in hours.
         """
-        rate = await self._metrics.calculate_hit_rate(window_minutes=self._conf.window_minutes)
+        rate = await self._metrics.calculate_hit_rate(
+            window_minutes=self._conf.window_minutes
+        )
         if rate > 0.9:
             hours = 4
         elif rate < 0.7:
@@ -71,4 +79,3 @@ class AdaptiveCrawler:
 
 
 __all__ = ["AdaptiveCrawler", "AdaptiveCrawlerConfig"]
-

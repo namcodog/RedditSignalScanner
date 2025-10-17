@@ -1,10 +1,9 @@
 from __future__ import annotations
 
+from typing import Any, Dict
 from uuid import UUID
-from typing import Any, Dict
-from typing import Any, Dict
 
-from fastapi import APIRouter, Depends, HTTPException, status, Response
+from fastapi import APIRouter, Depends, HTTPException, Response, status
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import joinedload
 
@@ -12,7 +11,6 @@ from app.core.security import TokenPayload, decode_jwt_token
 from app.db.session import get_session
 from app.models.analysis import Analysis
 from app.models.task import Task, TaskStatus
-
 
 router = APIRouter(prefix="/report", tags=["analysis"])
 
@@ -35,19 +33,30 @@ async def get_analysis_report(
         options=[joinedload(Task.analysis).joinedload(Analysis.report)],
     )
     if task is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Task not found")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Task not found"
+        )
 
     if str(task.user_id) != payload.sub:
-        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not authorised to access this task")
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Not authorised to access this task",
+        )
 
     if task.status != TaskStatus.COMPLETED:
-        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Task has not completed yet")
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT, detail="Task has not completed yet"
+        )
 
     if task.analysis is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Analysis not found")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Analysis not found"
+        )
 
     if task.analysis.report is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Report not found")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Report not found"
+        )
 
     analysis = task.analysis
     insights = analysis.insights or {}
@@ -84,16 +93,32 @@ async def get_analysis_report(
     if sources.get("fallback_quality"):
         metadata["fallback_quality"] = sources.get("fallback_quality")
 
-    competitor_sentiment_counts: Dict[str, int] = {"positive": 0, "negative": 0, "mixed": 0}
+    competitor_sentiment_counts: Dict[str, int] = {
+        "positive": 0,
+        "negative": 0,
+        "mixed": 0,
+    }
     for competitor in competitors:
         label = competitor.get("sentiment")
         mentions = int(competitor.get("mentions") or 0)
         if label in competitor_sentiment_counts:
             competitor_sentiment_counts[label] += mentions
 
-    pain_positive = sum(item.get("frequency", 0) for item in pain_points if item.get("sentiment_score", 0.0) > 0.05)
-    pain_negative = sum(item.get("frequency", 0) for item in pain_points if item.get("sentiment_score", 0.0) < -0.05)
-    pain_neutral = sum(item.get("frequency", 0) for item in pain_points) - pain_positive - pain_negative
+    pain_positive = sum(
+        item.get("frequency", 0)
+        for item in pain_points
+        if item.get("sentiment_score", 0.0) > 0.05
+    )
+    pain_negative = sum(
+        item.get("frequency", 0)
+        for item in pain_points
+        if item.get("sentiment_score", 0.0) < -0.05
+    )
+    pain_neutral = (
+        sum(item.get("frequency", 0) for item in pain_points)
+        - pain_positive
+        - pain_negative
+    )
     total_mentions = posts_analyzed or (
         competitor_sentiment_counts["positive"]
         + competitor_sentiment_counts["negative"]
@@ -136,13 +161,19 @@ async def get_analysis_report(
                 "name": detail.get("name"),
                 "mentions": detail.get("mentions"),
                 "relevance": int(round(float(detail.get("cache_hit_rate", 0)) * 100)),
-                "members": COMMUNITY_MEMBERS.get(str(detail.get("name", "")).lower(), 100_000),
+                "members": COMMUNITY_MEMBERS.get(
+                    str(detail.get("name", "")).lower(), 100_000
+                ),
                 "category": (detail.get("categories") or [""])[0],
                 "daily_posts": detail.get("daily_posts"),
                 "avg_comment_length": detail.get("avg_comment_length"),
                 "from_cache": detail.get("from_cache", False),
             }
-            for detail in sorted(communities_detail, key=lambda item: item.get("mentions", 0), reverse=True)[:5]
+            for detail in sorted(
+                communities_detail,
+                key=lambda item: item.get("mentions", 0),
+                reverse=True,
+            )[:5]
         ],
     }
 
