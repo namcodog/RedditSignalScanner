@@ -28,7 +28,8 @@ _MODULE_LOGGER = logging.getLogger(__name__)
 DEFAULT_BATCH_SIZE = int(os.getenv("CRAWLER_BATCH_SIZE", "12"))
 DEFAULT_MAX_CONCURRENCY = int(os.getenv("CRAWLER_MAX_CONCURRENCY", "5"))
 DEFAULT_POST_LIMIT = int(os.getenv("CRAWLER_POST_LIMIT", "100"))
-DEFAULT_TIME_FILTER = os.getenv("CRAWLER_TIME_FILTER", "month")  # week/month
+DEFAULT_TIME_FILTER = os.getenv("CRAWLER_TIME_FILTER", "month")  # week/month/year/all
+DEFAULT_SORT = os.getenv("CRAWLER_SORT", "top")  # top/new/hot/rising
 DEFAULT_HOT_CACHE_TTL_HOURS = int(os.getenv("HOT_CACHE_TTL_HOURS", "24"))
 
 
@@ -226,6 +227,7 @@ async def _crawl_seeds_incremental_impl(force_refresh: bool = False) -> dict[str
                         profile.name,
                         limit=DEFAULT_POST_LIMIT,
                         time_filter=DEFAULT_TIME_FILTER,
+                        sort=DEFAULT_SORT,
                     )
 
             for batch in _chunked(seed_profiles, DEFAULT_BATCH_SIZE):
