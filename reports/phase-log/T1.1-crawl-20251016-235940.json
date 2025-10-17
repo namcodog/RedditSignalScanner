@@ -1,0 +1,689 @@
+{
+  "status": "completed",
+  "mode": "incremental",
+  "total": 100,
+  "succeeded": 5,
+  "failed": 95,
+  "total_new_posts": 500,
+  "total_updated_posts": 0,
+  "total_duplicates": 0,
+  "communities": [
+    {
+      "community": "entrepreneur",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "webdev",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "personalfinance",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "books",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "careerguidance",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "cybersecurity",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "reactnative",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "podcasting",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "homeimprovement",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "minimalism",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "running",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "technology",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "investing",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "cryptocurrency",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "fitness",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "nutrition",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "mentalhealth",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "education",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "learnprogramming",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "python",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "3dprinting",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "javascript",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "devops",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "woodworking",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "cloudcomputing",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "privacy",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "gaming",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "writing",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "smallbusiness",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "ecommerce",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "socialmedia",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "seo",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "contentmarketing",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "freelance",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "remotework",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "cscareerquestions",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "aquariums",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "hiking",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "electricvehicles",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "artificial",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "architecture",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "machinelearning",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "startups",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "saas",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "datascience",
+      "new_posts": 100,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.16968
+    },
+    {
+      "community": "programming",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "productivity",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "indiehackers",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "marketing",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "design",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "androiddev",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "iosdev",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "gamedev",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "photography",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "videography",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "space",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "physics",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "biology",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "chemistry",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "engineering",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "robotics",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "electronics",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "diy",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "art",
+      "new_posts": 100,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.849898
+    },
+    {
+      "community": "crafts",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "knitting",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "sewing",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "music",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "youtube",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "streaming",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "travel",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "cooking",
+      "new_posts": 100,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.060991
+    },
+    {
+      "community": "gardening",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "sustainability",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "meditation",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "yoga",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "cycling",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "weightlifting",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "science",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "fashion",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "beauty",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "skincare",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "hair",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "parenting",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "relationships",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "dating",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "wedding",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "pets",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "dogs",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "cats",
+      "new_posts": 100,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.768372
+    },
+    {
+      "community": "reptiles",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "birdwatching",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "camping",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "fishing",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "hunting",
+      "new_posts": 100,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.336389
+    },
+    {
+      "community": "cars",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "motorcycles",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "realestate",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "homeowners",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "interiordesign",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    }
+  ]
+}

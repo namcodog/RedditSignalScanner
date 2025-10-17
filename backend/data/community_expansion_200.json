@@ -1,0 +1,795 @@
+[
+  {
+    "name": "startups",
+    "tier": "high",
+    "categories": ["business", "entrepreneurship"],
+    "description_keywords": {"startup": 1.0, "founder": 0.9, "funding": 0.8},
+    "daily_posts": 50,
+    "quality_score": 0.85
+  },
+  {
+    "name": "smallbusiness",
+    "tier": "high",
+    "categories": ["business", "entrepreneurship"],
+    "description_keywords": {"small business": 1.0, "owner": 0.9},
+    "daily_posts": 40,
+    "quality_score": 0.80
+  },
+  {
+    "name": "SaaS",
+    "tier": "high",
+    "categories": ["business", "technology"],
+    "description_keywords": {"saas": 1.0, "software": 0.9, "subscription": 0.8},
+    "daily_posts": 30,
+    "quality_score": 0.85
+  },
+  {
+    "name": "marketing",
+    "tier": "high",
+    "categories": ["business", "marketing"],
+    "description_keywords": {"marketing": 1.0, "campaign": 0.8, "strategy": 0.7},
+    "daily_posts": 60,
+    "quality_score": 0.75
+  },
+  {
+    "name": "sales",
+    "tier": "medium",
+    "categories": ["business", "sales"],
+    "description_keywords": {"sales": 1.0, "customer": 0.8, "deal": 0.7},
+    "daily_posts": 35,
+    "quality_score": 0.70
+  },
+  {
+    "name": "ecommerce",
+    "tier": "high",
+    "categories": ["business", "technology"],
+    "description_keywords": {"ecommerce": 1.0, "online store": 0.9, "shopify": 0.7},
+    "daily_posts": 45,
+    "quality_score": 0.80
+  },
+  {
+    "name": "freelance",
+    "tier": "medium",
+    "categories": ["business", "career"],
+    "description_keywords": {"freelance": 1.0, "client": 0.8, "project": 0.7},
+    "daily_posts": 30,
+    "quality_score": 0.75
+  },
+  {
+    "name": "consulting",
+    "tier": "medium",
+    "categories": ["business", "career"],
+    "description_keywords": {"consulting": 1.0, "consultant": 0.9, "advisory": 0.7},
+    "daily_posts": 20,
+    "quality_score": 0.75
+  },
+  {
+    "name": "venturecapital",
+    "tier": "medium",
+    "categories": ["business", "finance"],
+    "description_keywords": {"vc": 1.0, "investment": 0.9, "funding": 0.8},
+    "daily_posts": 15,
+    "quality_score": 0.80
+  },
+  {
+    "name": "growthacking",
+    "tier": "medium",
+    "categories": ["business", "marketing"],
+    "description_keywords": {"growth": 1.0, "hack": 0.8, "acquisition": 0.7},
+    "daily_posts": 25,
+    "quality_score": 0.75
+  },
+  {
+    "name": "ProductManagement",
+    "tier": "high",
+    "categories": ["business", "technology"],
+    "description_keywords": {"product": 1.0, "pm": 0.9, "roadmap": 0.8},
+    "daily_posts": 40,
+    "quality_score": 0.85
+  },
+  {
+    "name": "UXDesign",
+    "tier": "high",
+    "categories": ["technology", "design"],
+    "description_keywords": {"ux": 1.0, "user experience": 0.9, "design": 0.8},
+    "daily_posts": 35,
+    "quality_score": 0.80
+  },
+  {
+    "name": "UI_Design",
+    "tier": "medium",
+    "categories": ["technology", "design"],
+    "description_keywords": {"ui": 1.0, "interface": 0.9, "design": 0.8},
+    "daily_posts": 30,
+    "quality_score": 0.75
+  },
+  {
+    "name": "webdesign",
+    "tier": "medium",
+    "categories": ["technology", "design"],
+    "description_keywords": {"web design": 1.0, "website": 0.8, "frontend": 0.7},
+    "daily_posts": 40,
+    "quality_score": 0.70
+  },
+  {
+    "name": "Frontend",
+    "tier": "high",
+    "categories": ["technology", "software"],
+    "description_keywords": {"frontend": 1.0, "javascript": 0.9, "react": 0.8},
+    "daily_posts": 50,
+    "quality_score": 0.85
+  },
+  {
+    "name": "Backend",
+    "tier": "high",
+    "categories": ["technology", "software"],
+    "description_keywords": {"backend": 1.0, "api": 0.9, "database": 0.8},
+    "daily_posts": 45,
+    "quality_score": 0.85
+  },
+  {
+    "name": "devops",
+    "tier": "high",
+    "categories": ["technology", "software"],
+    "description_keywords": {"devops": 1.0, "ci/cd": 0.9, "deployment": 0.8},
+    "daily_posts": 40,
+    "quality_score": 0.85
+  },
+  {
+    "name": "kubernetes",
+    "tier": "medium",
+    "categories": ["technology", "software"],
+    "description_keywords": {"kubernetes": 1.0, "k8s": 0.9, "container": 0.8},
+    "daily_posts": 30,
+    "quality_score": 0.80
+  },
+  {
+    "name": "docker",
+    "tier": "medium",
+    "categories": ["technology", "software"],
+    "description_keywords": {"docker": 1.0, "container": 0.9, "image": 0.7},
+    "daily_posts": 35,
+    "quality_score": 0.75
+  },
+  {
+    "name": "aws",
+    "tier": "high",
+    "categories": ["technology", "cloud"],
+    "description_keywords": {"aws": 1.0, "amazon": 0.8, "cloud": 0.9},
+    "daily_posts": 50,
+    "quality_score": 0.85
+  },
+  {
+    "name": "azure",
+    "tier": "medium",
+    "categories": ["technology", "cloud"],
+    "description_keywords": {"azure": 1.0, "microsoft": 0.8, "cloud": 0.9},
+    "daily_posts": 30,
+    "quality_score": 0.75
+  },
+  {
+    "name": "googlecloud",
+    "tier": "medium",
+    "categories": ["technology", "cloud"],
+    "description_keywords": {"gcp": 1.0, "google cloud": 0.9, "cloud": 0.8},
+    "daily_posts": 25,
+    "quality_score": 0.75
+  },
+  {
+    "name": "MachineLearning",
+    "tier": "high",
+    "categories": ["technology", "ai"],
+    "description_keywords": {"ml": 1.0, "machine learning": 0.9, "model": 0.8},
+    "daily_posts": 60,
+    "quality_score": 0.90
+  },
+  {
+    "name": "artificial",
+    "tier": "high",
+    "categories": ["technology", "ai"],
+    "description_keywords": {"ai": 1.0, "artificial intelligence": 0.9},
+    "daily_posts": 55,
+    "quality_score": 0.85
+  },
+  {
+    "name": "deeplearning",
+    "tier": "medium",
+    "categories": ["technology", "ai"],
+    "description_keywords": {"deep learning": 1.0, "neural network": 0.9},
+    "daily_posts": 40,
+    "quality_score": 0.85
+  },
+  {
+    "name": "datascience",
+    "tier": "high",
+    "categories": ["technology", "data"],
+    "description_keywords": {"data science": 1.0, "analytics": 0.9, "python": 0.7},
+    "daily_posts": 50,
+    "quality_score": 0.85
+  },
+  {
+    "name": "dataengineering",
+    "tier": "medium",
+    "categories": ["technology", "data"],
+    "description_keywords": {"data engineering": 1.0, "pipeline": 0.9, "etl": 0.8},
+    "daily_posts": 35,
+    "quality_score": 0.80
+  },
+  {
+    "name": "BigData",
+    "tier": "medium",
+    "categories": ["technology", "data"],
+    "description_keywords": {"big data": 1.0, "hadoop": 0.7, "spark": 0.8},
+    "daily_posts": 25,
+    "quality_score": 0.75
+  },
+  {
+    "name": "Python",
+    "tier": "high",
+    "categories": ["technology", "programming"],
+    "description_keywords": {"python": 1.0, "programming": 0.8},
+    "daily_posts": 80,
+    "quality_score": 0.80
+  },
+  {
+    "name": "javascript",
+    "tier": "high",
+    "categories": ["technology", "programming"],
+    "description_keywords": {"javascript": 1.0, "js": 0.9, "programming": 0.7},
+    "daily_posts": 70,
+    "quality_score": 0.80
+  },
+  {
+    "name": "golang",
+    "tier": "medium",
+    "categories": ["technology", "programming"],
+    "description_keywords": {"go": 1.0, "golang": 0.9, "programming": 0.7},
+    "daily_posts": 30,
+    "quality_score": 0.80
+  },
+  {
+    "name": "rust",
+    "tier": "medium",
+    "categories": ["technology", "programming"],
+    "description_keywords": {"rust": 1.0, "programming": 0.8, "systems": 0.7},
+    "daily_posts": 35,
+    "quality_score": 0.85
+  },
+  {
+    "name": "java",
+    "tier": "medium",
+    "categories": ["technology", "programming"],
+    "description_keywords": {"java": 1.0, "programming": 0.8, "jvm": 0.6},
+    "daily_posts": 40,
+    "quality_score": 0.75
+  },
+  {
+    "name": "csharp",
+    "tier": "medium",
+    "categories": ["technology", "programming"],
+    "description_keywords": {"c#": 1.0, "dotnet": 0.9, "programming": 0.7},
+    "daily_posts": 30,
+    "quality_score": 0.75
+  },
+  {
+    "name": "typescript",
+    "tier": "medium",
+    "categories": ["technology", "programming"],
+    "description_keywords": {"typescript": 1.0, "ts": 0.9, "javascript": 0.7},
+    "daily_posts": 35,
+    "quality_score": 0.80
+  },
+  {
+    "name": "reactjs",
+    "tier": "high",
+    "categories": ["technology", "frontend"],
+    "description_keywords": {"react": 1.0, "javascript": 0.8, "component": 0.7},
+    "daily_posts": 60,
+    "quality_score": 0.85
+  },
+  {
+    "name": "vuejs",
+    "tier": "medium",
+    "categories": ["technology", "frontend"],
+    "description_keywords": {"vue": 1.0, "javascript": 0.8, "framework": 0.7},
+    "daily_posts": 30,
+    "quality_score": 0.80
+  },
+  {
+    "name": "angular",
+    "tier": "medium",
+    "categories": ["technology", "frontend"],
+    "description_keywords": {"angular": 1.0, "typescript": 0.8, "framework": 0.7},
+    "daily_posts": 25,
+    "quality_score": 0.75
+  },
+  {
+    "name": "node",
+    "tier": "high",
+    "categories": ["technology", "backend"],
+    "description_keywords": {"node": 1.0, "nodejs": 0.9, "javascript": 0.8},
+    "daily_posts": 45,
+    "quality_score": 0.80
+  },
+  {
+    "name": "django",
+    "tier": "medium",
+    "categories": ["technology", "backend"],
+    "description_keywords": {"django": 1.0, "python": 0.9, "web": 0.7},
+    "daily_posts": 25,
+    "quality_score": 0.80
+  },
+  {
+    "name": "flask",
+    "tier": "medium",
+    "categories": ["technology", "backend"],
+    "description_keywords": {"flask": 1.0, "python": 0.9, "web": 0.7},
+    "daily_posts": 20,
+    "quality_score": 0.75
+  },
+  {
+    "name": "rails",
+    "tier": "low",
+    "categories": ["technology", "backend"],
+    "description_keywords": {"rails": 1.0, "ruby": 0.9, "web": 0.7},
+    "daily_posts": 15,
+    "quality_score": 0.70
+  },
+  {
+    "name": "laravel",
+    "tier": "medium",
+    "categories": ["technology", "backend"],
+    "description_keywords": {"laravel": 1.0, "php": 0.9, "web": 0.7},
+    "daily_posts": 20,
+    "quality_score": 0.75
+  },
+  {
+    "name": "dotnet",
+    "tier": "medium",
+    "categories": ["technology", "backend"],
+    "description_keywords": {"dotnet": 1.0, ".net": 0.9, "c#": 0.8},
+    "daily_posts": 30,
+    "quality_score": 0.75
+  },
+  {
+    "name": "Database",
+    "tier": "medium",
+    "categories": ["technology", "data"],
+    "description_keywords": {"database": 1.0, "sql": 0.8, "nosql": 0.7},
+    "daily_posts": 30,
+    "quality_score": 0.75
+  },
+  {
+    "name": "PostgreSQL",
+    "tier": "medium",
+    "categories": ["technology", "data"],
+    "description_keywords": {"postgres": 1.0, "postgresql": 0.9, "sql": 0.8},
+    "daily_posts": 25,
+    "quality_score": 0.80
+  },
+  {
+    "name": "mysql",
+    "tier": "medium",
+    "categories": ["technology", "data"],
+    "description_keywords": {"mysql": 1.0, "sql": 0.8, "database": 0.7},
+    "daily_posts": 20,
+    "quality_score": 0.70
+  },
+  {
+    "name": "mongodb",
+    "tier": "medium",
+    "categories": ["technology", "data"],
+    "description_keywords": {"mongodb": 1.0, "nosql": 0.9, "database": 0.8},
+    "daily_posts": 20,
+    "quality_score": 0.75
+  },
+  {
+    "name": "redis",
+    "tier": "low",
+    "categories": ["technology", "data"],
+    "description_keywords": {"redis": 1.0, "cache": 0.9, "nosql": 0.7},
+    "daily_posts": 15,
+    "quality_score": 0.75
+  },
+  {
+    "name": "investing",
+    "tier": "high",
+    "categories": ["finance", "investment"],
+    "description_keywords": {"investing": 1.0, "stock": 0.9, "portfolio": 0.8},
+    "daily_posts": 100,
+    "quality_score": 0.75
+  },
+  {
+    "name": "stocks",
+    "tier": "high",
+    "categories": ["finance", "investment"],
+    "description_keywords": {"stocks": 1.0, "trading": 0.9, "market": 0.8},
+    "daily_posts": 120,
+    "quality_score": 0.70
+  },
+  {
+    "name": "CryptoCurrency",
+    "tier": "high",
+    "categories": ["finance", "technology"],
+    "description_keywords": {"crypto": 1.0, "bitcoin": 0.9, "blockchain": 0.8},
+    "daily_posts": 150,
+    "quality_score": 0.70
+  },
+  {
+    "name": "Bitcoin",
+    "tier": "medium",
+    "categories": ["finance", "technology"],
+    "description_keywords": {"bitcoin": 1.0, "btc": 0.9, "crypto": 0.8},
+    "daily_posts": 80,
+    "quality_score": 0.70
+  },
+  {
+    "name": "ethereum",
+    "tier": "medium",
+    "categories": ["finance", "technology"],
+    "description_keywords": {"ethereum": 1.0, "eth": 0.9, "smart contract": 0.8},
+    "daily_posts": 60,
+    "quality_score": 0.75
+  },
+  {
+    "name": "defi",
+    "tier": "medium",
+    "categories": ["finance", "technology"],
+    "description_keywords": {"defi": 1.0, "decentralized finance": 0.9},
+    "daily_posts": 40,
+    "quality_score": 0.75
+  },
+  {
+    "name": "wallstreetbets",
+    "tier": "low",
+    "categories": ["finance", "investment"],
+    "description_keywords": {"wsb": 1.0, "yolo": 0.7, "options": 0.8},
+    "daily_posts": 200,
+    "quality_score": 0.50
+  },
+  {
+    "name": "options",
+    "tier": "medium",
+    "categories": ["finance", "investment"],
+    "description_keywords": {"options": 1.0, "call": 0.8, "put": 0.8},
+    "daily_posts": 50,
+    "quality_score": 0.70
+  },
+  {
+    "name": "realestate",
+    "tier": "high",
+    "categories": ["finance", "investment"],
+    "description_keywords": {"real estate": 1.0, "property": 0.9, "rental": 0.7},
+    "daily_posts": 60,
+    "quality_score": 0.80
+  },
+  {
+    "name": "RealEstateInvesting",
+    "tier": "medium",
+    "categories": ["finance", "investment"],
+    "description_keywords": {"rei": 1.0, "property": 0.9, "investment": 0.8},
+    "daily_posts": 40,
+    "quality_score": 0.80
+  },
+  {
+    "name": "FIRE",
+    "tier": "medium",
+    "categories": ["finance", "lifestyle"],
+    "description_keywords": {"fire": 1.0, "financial independence": 0.9, "retire early": 0.9},
+    "daily_posts": 50,
+    "quality_score": 0.80
+  },
+  {
+    "name": "financialindependence",
+    "tier": "medium",
+    "categories": ["finance", "lifestyle"],
+    "description_keywords": {"fi": 1.0, "financial independence": 0.9},
+    "daily_posts": 40,
+    "quality_score": 0.80
+  },
+  {
+    "name": "leanfire",
+    "tier": "low",
+    "categories": ["finance", "lifestyle"],
+    "description_keywords": {"lean fire": 1.0, "frugal": 0.8},
+    "daily_posts": 20,
+    "quality_score": 0.75
+  },
+  {
+    "name": "fatFIRE",
+    "tier": "low",
+    "categories": ["finance", "lifestyle"],
+    "description_keywords": {"fat fire": 1.0, "wealth": 0.8},
+    "daily_posts": 25,
+    "quality_score": 0.75
+  },
+  {
+    "name": "Frugal",
+    "tier": "medium",
+    "categories": ["finance", "lifestyle"],
+    "description_keywords": {"frugal": 1.0, "saving": 0.9, "budget": 0.8},
+    "daily_posts": 40,
+    "quality_score": 0.70
+  },
+  {
+    "name": "povertyfinance",
+    "tier": "medium",
+    "categories": ["finance", "lifestyle"],
+    "description_keywords": {"poverty": 1.0, "budget": 0.8, "saving": 0.7},
+    "daily_posts": 50,
+    "quality_score": 0.75
+  },
+  {
+    "name": "budgetfood",
+    "tier": "low",
+    "categories": ["lifestyle", "finance"],
+    "description_keywords": {"budget": 1.0, "cheap": 0.8, "food": 0.9},
+    "daily_posts": 30,
+    "quality_score": 0.65
+  },
+  {
+    "name": "EatCheapAndHealthy",
+    "tier": "medium",
+    "categories": ["lifestyle", "health"],
+    "description_keywords": {"cheap": 1.0, "healthy": 0.9, "recipe": 0.8},
+    "daily_posts": 50,
+    "quality_score": 0.75
+  },
+  {
+    "name": "MealPrepSunday",
+    "tier": "medium",
+    "categories": ["lifestyle", "health"],
+    "description_keywords": {"meal prep": 1.0, "cooking": 0.8},
+    "daily_posts": 40,
+    "quality_score": 0.70
+  },
+  {
+    "name": "Cooking",
+    "tier": "medium",
+    "categories": ["lifestyle", "food"],
+    "description_keywords": {"cooking": 1.0, "recipe": 0.9, "food": 0.8},
+    "daily_posts": 60,
+    "quality_score": 0.70
+  },
+  {
+    "name": "AskCulinary",
+    "tier": "low",
+    "categories": ["lifestyle", "food"],
+    "description_keywords": {"culinary": 1.0, "cooking": 0.8, "technique": 0.7},
+    "daily_posts": 30,
+    "quality_score": 0.75
+  },
+  {
+    "name": "fitness",
+    "tier": "high",
+    "categories": ["lifestyle", "health"],
+    "description_keywords": {"fitness": 1.0, "workout": 0.9, "exercise": 0.8},
+    "daily_posts": 80,
+    "quality_score": 0.75
+  },
+  {
+    "name": "bodyweightfitness",
+    "tier": "medium",
+    "categories": ["lifestyle", "health"],
+    "description_keywords": {"bodyweight": 1.0, "calisthenics": 0.9},
+    "daily_posts": 40,
+    "quality_score": 0.80
+  },
+  {
+    "name": "running",
+    "tier": "medium",
+    "categories": ["lifestyle", "health"],
+    "description_keywords": {"running": 1.0, "marathon": 0.8, "training": 0.7},
+    "daily_posts": 50,
+    "quality_score": 0.75
+  },
+  {
+    "name": "cycling",
+    "tier": "medium",
+    "categories": ["lifestyle", "health"],
+    "description_keywords": {"cycling": 1.0, "bike": 0.9, "ride": 0.7},
+    "daily_posts": 45,
+    "quality_score": 0.75
+  },
+  {
+    "name": "yoga",
+    "tier": "medium",
+    "categories": ["lifestyle", "health"],
+    "description_keywords": {"yoga": 1.0, "meditation": 0.7, "practice": 0.6},
+    "daily_posts": 35,
+    "quality_score": 0.70
+  },
+  {
+    "name": "loseit",
+    "tier": "medium",
+    "categories": ["lifestyle", "health"],
+    "description_keywords": {"weight loss": 1.0, "diet": 0.9, "calories": 0.8},
+    "daily_posts": 60,
+    "quality_score": 0.75
+  },
+  {
+    "name": "progresspics",
+    "tier": "low",
+    "categories": ["lifestyle", "health"],
+    "description_keywords": {"progress": 1.0, "transformation": 0.9},
+    "daily_posts": 40,
+    "quality_score": 0.65
+  },
+  {
+    "name": "keto",
+    "tier": "medium",
+    "categories": ["lifestyle", "health"],
+    "description_keywords": {"keto": 1.0, "ketogenic": 0.9, "low carb": 0.8},
+    "daily_posts": 50,
+    "quality_score": 0.70
+  },
+  {
+    "name": "intermittentfasting",
+    "tier": "medium",
+    "categories": ["lifestyle", "health"],
+    "description_keywords": {"if": 1.0, "fasting": 0.9, "omad": 0.7},
+    "daily_posts": 45,
+    "quality_score": 0.75
+  },
+  {
+    "name": "nutrition",
+    "tier": "medium",
+    "categories": ["lifestyle", "health"],
+    "description_keywords": {"nutrition": 1.0, "diet": 0.8, "healthy": 0.7},
+    "daily_posts": 35,
+    "quality_score": 0.75
+  },
+  {
+    "name": "mentalhealth",
+    "tier": "medium",
+    "categories": ["lifestyle", "health"],
+    "description_keywords": {"mental health": 1.0, "therapy": 0.8, "wellness": 0.7},
+    "daily_posts": 70,
+    "quality_score": 0.75
+  },
+  {
+    "name": "Anxiety",
+    "tier": "medium",
+    "categories": ["lifestyle", "health"],
+    "description_keywords": {"anxiety": 1.0, "stress": 0.8, "coping": 0.7},
+    "daily_posts": 60,
+    "quality_score": 0.70
+  },
+  {
+    "name": "depression",
+    "tier": "medium",
+    "categories": ["lifestyle", "health"],
+    "description_keywords": {"depression": 1.0, "mental health": 0.8},
+    "daily_posts": 50,
+    "quality_score": 0.70
+  },
+  {
+    "name": "selfimprovement",
+    "tier": "medium",
+    "categories": ["lifestyle", "personal development"],
+    "description_keywords": {"self improvement": 1.0, "growth": 0.8, "habits": 0.7},
+    "daily_posts": 50,
+    "quality_score": 0.75
+  },
+  {
+    "name": "getdisciplined",
+    "tier": "medium",
+    "categories": ["lifestyle", "personal development"],
+    "description_keywords": {"discipline": 1.0, "productivity": 0.9, "habits": 0.8},
+    "daily_posts": 40,
+    "quality_score": 0.80
+  },
+  {
+    "name": "productivity",
+    "tier": "medium",
+    "categories": ["lifestyle", "personal development"],
+    "description_keywords": {"productivity": 1.0, "efficiency": 0.8, "time management": 0.7},
+    "daily_posts": 45,
+    "quality_score": 0.75
+  },
+  {
+    "name": "DecidingToBeBetter",
+    "tier": "low",
+    "categories": ["lifestyle", "personal development"],
+    "description_keywords": {"better": 1.0, "improvement": 0.8},
+    "daily_posts": 30,
+    "quality_score": 0.70
+  },
+  {
+    "name": "GetMotivated",
+    "tier": "medium",
+    "categories": ["lifestyle", "personal development"],
+    "description_keywords": {"motivation": 1.0, "inspiration": 0.8},
+    "daily_posts": 80,
+    "quality_score": 0.65
+  },
+  {
+    "name": "ZenHabits",
+    "tier": "low",
+    "categories": ["lifestyle", "personal development"],
+    "description_keywords": {"zen": 1.0, "mindfulness": 0.8, "habits": 0.7},
+    "daily_posts": 15,
+    "quality_score": 0.75
+  },
+  {
+    "name": "simpleliving",
+    "tier": "low",
+    "categories": ["lifestyle"],
+    "description_keywords": {"simple": 1.0, "minimalism": 0.8},
+    "daily_posts": 25,
+    "quality_score": 0.70
+  },
+  {
+    "name": "declutter",
+    "tier": "low",
+    "categories": ["lifestyle"],
+    "description_keywords": {"declutter": 1.0, "organize": 0.8, "minimalism": 0.7},
+    "daily_posts": 20,
+    "quality_score": 0.70
+  },
+  {
+    "name": "organization",
+    "tier": "low",
+    "categories": ["lifestyle"],
+    "description_keywords": {"organization": 1.0, "organize": 0.9, "storage": 0.6},
+    "daily_posts": 25,
+    "quality_score": 0.65
+  },
+  {
+    "name": "BuyItForLife",
+    "tier": "medium",
+    "categories": ["lifestyle", "consumer"],
+    "description_keywords": {"bifl": 1.0, "quality": 0.9, "durable": 0.8},
+    "daily_posts": 40,
+    "quality_score": 0.75
+  },
+  {
+    "name": "GoodValue",
+    "tier": "low",
+    "categories": ["lifestyle", "consumer"],
+    "description_keywords": {"value": 1.0, "quality": 0.8, "price": 0.7},
+    "daily_posts": 15,
+    "quality_score": 0.70
+  },
+  {
+    "name": "BuyItForLife",
+    "tier": "medium",
+    "categories": ["lifestyle", "consumer"],
+    "description_keywords": {"bifl": 1.0, "quality": 0.9, "durable": 0.8},
+    "daily_posts": 40,
+    "quality_score": 0.75
+  },
+  {
+    "name": "travel",
+    "tier": "high",
+    "categories": ["lifestyle", "travel"],
+    "description_keywords": {"travel": 1.0, "trip": 0.8, "destination": 0.7},
+    "daily_posts": 100,
+    "quality_score": 0.70
+  },
+  {
+    "name": "solotravel",
+    "tier": "medium",
+    "categories": ["lifestyle", "travel"],
+    "description_keywords": {"solo": 1.0, "travel": 0.9, "backpacking": 0.7},
+    "daily_posts": 50,
+    "quality_score": 0.75
+  },
+  {
+    "name": "digitalnomad",
+    "tier": "medium",
+    "categories": ["lifestyle", "career"],
+    "description_keywords": {"digital nomad": 1.0, "remote": 0.9, "travel": 0.8},
+    "daily_posts": 40,
+    "quality_score": 0.80
+  },
+  {
+    "name": "remotework",
+    "tier": "high",
+    "categories": ["career", "lifestyle"],
+    "description_keywords": {"remote": 1.0, "wfh": 0.9, "work from home": 0.9},
+    "daily_posts": 50,
+    "quality_score": 0.80
+  }
+]
+
