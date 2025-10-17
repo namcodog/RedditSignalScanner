@@ -4,7 +4,7 @@ from datetime import datetime
 from typing import Any
 import uuid
 
-from sqlalchemy import JSON, Boolean, DateTime, Integer, Numeric, String
+from sqlalchemy import JSON, Boolean, DateTime, Integer, Numeric, String, func
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -61,7 +61,7 @@ class PendingCommunity(Base):
     reviewed_by: Mapped[str | None] = mapped_column(UUID(as_uuid=True), nullable=True)
 
 
-class CommunityImportHistory(TimestampMixin, Base):
+class CommunityImportHistory(Base):
     __tablename__ = "community_import_history"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
@@ -77,3 +77,6 @@ class CommunityImportHistory(TimestampMixin, Base):
     imported_rows: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
     error_details: Mapped[dict[str, Any] | None] = mapped_column(JSON, nullable=True)
     summary_preview: Mapped[dict[str, Any] | None] = mapped_column(JSON, nullable=True)
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), nullable=False, server_default=func.now()
+    )
