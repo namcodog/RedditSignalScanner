@@ -1,0 +1,19 @@
+positive_keywords:
+  - need
+  - looking for
+  - searching
+  - require
+  - would love
+  - willing to pay
+  - must have
+negative_keywords:
+  - giveaway
+  - hiring
+  - job opening
+  - for fun
+  - just sharing
+negation_patterns:
+  - "don't need"
+  - "not interested"
+  - "no longer need"
+  - "do not want"
