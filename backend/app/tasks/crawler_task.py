@@ -25,7 +25,9 @@ logger = get_task_logger(__name__)
 _MODULE_LOGGER = logging.getLogger(__name__)
 
 DEFAULT_BATCH_SIZE = int(os.getenv("CRAWLER_BATCH_SIZE", "12"))
-DEFAULT_MAX_CONCURRENCY = int(os.getenv("CRAWLER_MAX_CONCURRENCY", "5"))
+# 数据库操作：低并发（2）避免 "concurrent operations are not permitted" 错误
+# 参考：https://docs.sqlalchemy.org/en/20/_modules/examples/asyncio/gather_orm_statements.html
+DEFAULT_MAX_CONCURRENCY = int(os.getenv("CRAWLER_MAX_CONCURRENCY", "2"))
 DEFAULT_POST_LIMIT = int(os.getenv("CRAWLER_POST_LIMIT", "100"))
 DEFAULT_TIME_FILTER = os.getenv("CRAWLER_TIME_FILTER", "month")  # week/month/year/all
 DEFAULT_SORT = os.getenv("CRAWLER_SORT", "top")  # top/new/hot/rising
@@ -162,18 +164,82 @@ async def _crawl_seeds_impl(force_refresh: bool = False) -> dict[str, Any]:
 
         success_count = sum(1 for item in results if item.get("status") == "success")
         failure_count = len(results) - success_count
+
+        # ✅ 在返回之前，写入 crawl_metrics 和执行 tier 分配
+        async with SessionFactory() as metrics_db:
+            # 计算统计指标
+            total_new = sum(r.get("posts_count", 0) for r in results if r.get("status") == "success")
+            duration_values = [
+                float(r.get("duration_seconds", 0))
+                for r in results
+                if isinstance(r.get("duration_seconds"), (int, float))
+            ]
+            avg_latency = (
+                sum(duration_values) / len(duration_values) if duration_values else 0.0
+            )
+            empty_count = sum(
+                1
+                for r in results
+                if r.get("status") == "success" and r.get("posts_count", 0) == 0
+            )
+
+            # 先计算 tier_assignments
+            tier_assignments: dict[str, Any] | None = None
+            try:
+                scheduler = TieredScheduler(metrics_db)
+                tier_assignments = await scheduler.calculate_assignments()
+                await scheduler.apply_assignments(tier_assignments)
+            except Exception:
+                logger.exception("刷新 quality_tier 失败")
+
+            # 再写入 crawl_metrics（包含 tier_assignments）
+            try:
+                now = datetime.now(timezone.utc)
+                cache_hit_rate = (success_count / max(1, len(seed_profiles))) * 100.0
+                logger.info(
+                    f"准备写入 crawl_metrics: total={len(seed_profiles)}, success={success_count}, empty={empty_count}, failed={failure_count}"
+                )
+                metrics = CrawlMetrics(
+                    metric_date=now.date(),
+                    metric_hour=now.hour,
+                    cache_hit_rate=cache_hit_rate,
+                    valid_posts_24h=total_new,
+                    total_communities=len(seed_profiles),
+                    successful_crawls=success_count,
+                    empty_crawls=empty_count,
+                    failed_crawls=failure_count,
+                    avg_latency_seconds=avg_latency,
+                    total_new_posts=total_new,
+                    total_updated_posts=0,  # 旧版抓取不支持更新检测
+                    total_duplicates=0,  # 旧版抓取不支持去重检测
+                    tier_assignments=tier_assignments,
+                )
+                metrics_db.add(metrics)
+                await metrics_db.commit()
+                logger.info(f"✅ crawl_metrics 写入成功: ID={metrics.id}")
+            except Exception:
+                logger.exception("写入 crawl_metrics 失败")
+                try:
+                    await metrics_db.rollback()
+                except Exception:
+                    logger.exception("回滚 crawl_metrics 事务失败")
+
         return {
             "status": "completed",
             "total": len(seed_profiles),
             "succeeded": success_count,
             "failed": failure_count,
             "communities": results,
+            "tier_assignments": tier_assignments or {},
         }
 
 
 async def _mark_failure_hit(community_name: str) -> None:
+    """标记社区抓取失败次数，使用 AUTOCOMMIT 避免并发冲突"""
     now = datetime.now(timezone.utc)
     async with SessionFactory() as db:
+        # 使用 AUTOCOMMIT 隔离级别减少事务竞争
+        await db.connection(execution_options={"isolation_level": "AUTOCOMMIT"})
         await db.execute(
             pg_insert(CommunityCache)
             .values(community_name=community_name, last_crawled_at=now)
@@ -185,7 +251,8 @@ async def _mark_failure_hit(community_name: str) -> None:
                 },
             )
         )
-        await db.commit()
+        # AUTOCOMMIT 模式下不需要手动 commit
+        # await db.commit()
 
 
 async def _crawl_seeds_incremental_impl(force_refresh: bool = False) -> dict[str, Any]:
@@ -211,23 +278,28 @@ async def _crawl_seeds_incremental_impl(force_refresh: bool = False) -> dict[str
                 return {"status": "skipped", "reason": "no_communities_to_crawl"}
 
             # 创建增量抓取器
-            crawler = IncrementalCrawler(
-                db=db,
-                reddit_client=reddit_client,
-                hot_cache_ttl_hours=DEFAULT_HOT_CACHE_TTL_HOURS,
-            )
-
             results: List[dict[str, Any]] = []
             semaphore = asyncio.Semaphore(max(1, DEFAULT_MAX_CONCURRENCY))
 
             async def runner(profile: CommunityProfile) -> dict[str, Any]:
                 async with semaphore:
-                    return await crawler.crawl_community_incremental(
-                        profile.name,
-                        limit=DEFAULT_POST_LIMIT,
-                        time_filter=DEFAULT_TIME_FILTER,
-                        sort=DEFAULT_SORT,
-                    )
+                    async with SessionFactory() as crawl_session:
+                        # 使用 AUTOCOMMIT 隔离级别减少事务竞争
+                        # 参考：https://docs.sqlalchemy.org/en/20/_modules/examples/asyncio/gather_orm_statements.html
+                        await crawl_session.connection(
+                            execution_options={"isolation_level": "AUTOCOMMIT"}
+                        )
+                        crawler = IncrementalCrawler(
+                            db=crawl_session,
+                            reddit_client=reddit_client,
+                            hot_cache_ttl_hours=DEFAULT_HOT_CACHE_TTL_HOURS,
+                        )
+                        return await crawler.crawl_community_incremental(
+                            profile.name,
+                            limit=DEFAULT_POST_LIMIT,
+                            time_filter=DEFAULT_TIME_FILTER,
+                            sort=DEFAULT_SORT,
+                        )
 
             for batch in _chunked(seed_profiles, DEFAULT_BATCH_SIZE):
                 batch_results = await asyncio.gather(
@@ -273,9 +345,22 @@ async def _crawl_seeds_incremental_impl(force_refresh: bool = False) -> dict[str
 
             # 指标监控（T1.3）
             tier_assignments: dict[str, Any] | None = None
+
+            # 先计算 tier_assignments
+            try:
+                scheduler = TieredScheduler(db)
+                tier_assignments = await scheduler.calculate_assignments()
+                await scheduler.apply_assignments(tier_assignments)
+            except Exception:
+                _MODULE_LOGGER.exception("刷新 quality_tier 失败")
+
+            # 再写入 crawl_metrics（包含 tier_assignments）
             try:
                 now = datetime.now(timezone.utc)
                 cache_hit_rate = (success_count / max(1, len(seed_profiles))) * 100.0
+                _MODULE_LOGGER.info(
+                    f"准备写入 crawl_metrics: total={len(seed_profiles)}, success={success_count}, empty={empty_count}, failed={failed_count}"
+                )
                 metrics = CrawlMetrics(
                     metric_date=now.date(),
                     metric_hour=now.hour,
@@ -286,22 +371,20 @@ async def _crawl_seeds_incremental_impl(force_refresh: bool = False) -> dict[str
                     empty_crawls=empty_count,
                     failed_crawls=failed_count,
                     avg_latency_seconds=avg_latency,
+                    total_new_posts=total_new,
+                    total_updated_posts=total_updated,
+                    total_duplicates=total_dup,
+                    tier_assignments=tier_assignments,
                 )
                 db.add(metrics)
                 await db.commit()
+                _MODULE_LOGGER.info(f"✅ crawl_metrics 写入成功: ID={metrics.id}")
             except Exception:
                 _MODULE_LOGGER.exception("写入 crawl_metrics 失败")
                 try:
                     await db.rollback()
                 except Exception:
                     _MODULE_LOGGER.exception("回滚 crawl_metrics 事务失败")
-
-            try:
-                scheduler = TieredScheduler(db)
-                tier_assignments = await scheduler.calculate_assignments()
-                await scheduler.apply_assignments(tier_assignments)
-            except Exception:
-                _MODULE_LOGGER.exception("刷新 quality_tier 失败")
 
             return {
                 "status": "completed",
