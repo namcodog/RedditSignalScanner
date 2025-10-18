@@ -4,7 +4,7 @@ import asyncio
 import logging
 import os
 from datetime import datetime, timedelta, timezone
-from typing import Any, Iterable, List, Optional, Sequence, Tuple, cast
+from typing import Any, Iterable, List, Sequence, Tuple, cast
 
 from celery.utils.log import get_task_logger  # type: ignore[import-untyped]
 from sqlalchemy.dialects.postgresql import insert as pg_insert
@@ -16,11 +16,9 @@ from app.models.community_cache import CommunityCache
 from app.models.crawl_metrics import CrawlMetrics
 from app.services.cache_manager import DEFAULT_CACHE_TTL_SECONDS, CacheManager
 from app.services.community_cache_service import upsert_community_cache
-from app.services.community_pool_loader import (CommunityPoolLoader,
-                                                CommunityProfile)
+from app.services.community_pool_loader import CommunityPoolLoader, CommunityProfile
 from app.services.incremental_crawler import IncrementalCrawler
-from app.services.reddit_client import (RedditAPIClient, RedditAPIError,
-                                        RedditPost)
+from app.services.reddit_client import RedditAPIClient, RedditAPIError, RedditPost
 from app.services.tiered_scheduler import TieredScheduler
 
 logger = get_task_logger(__name__)
@@ -257,9 +255,7 @@ async def _crawl_seeds_incremental_impl(force_refresh: bool = False) -> dict[str
             total_new = sum(r.get("new_posts", 0) for r in results)
             total_updated = sum(r.get("updated_posts", 0) for r in results)
             total_dup = sum(r.get("duplicates", 0) for r in results)
-            success_count = sum(
-                1 for r in results if r.get("watermark_updated", False)
-            )
+            success_count = sum(1 for r in results if r.get("watermark_updated", False))
             failed_count = sum(1 for r in results if r.get("status") == "failed")
             empty_count = sum(
                 1
@@ -272,9 +268,7 @@ async def _crawl_seeds_incremental_impl(force_refresh: bool = False) -> dict[str
                 if isinstance(r.get("duration_seconds"), (int, float))
             ]
             avg_latency = (
-                sum(duration_values) / len(duration_values)
-                if duration_values
-                else 0.0
+                sum(duration_values) / len(duration_values) if duration_values else 0.0
             )
 
             # 指标监控（T1.3）

@@ -9,7 +9,7 @@ from pydantic import BaseModel, Field
 
 try:
     # 尽早加载 backend/.env，确保所有进程（API/Celery/脚本）读取到 Reddit 凭证
-    from dotenv import load_dotenv  # type: ignore
+    from dotenv import load_dotenv
 
     # 1) 仓库根目录 .env
     load_dotenv(
@@ -21,7 +21,7 @@ except Exception:
     pass
 
 
-class Settings(BaseModel):  # type: ignore[misc]
+class Settings(BaseModel):
     """Application configuration derived from environment variables."""
 
     app_name: str = Field(default="Reddit Signal Scanner")

@@ -5,7 +5,7 @@ from decimal import Decimal
 
 from pydantic import Field
 
-from app.schemas.base import ORMModel, TimestampedModel
+from app.schemas.base import TimestampedModel
 
 
 class CommunityCacheRead(TimestampedModel):

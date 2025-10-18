@@ -7,7 +7,7 @@ helpers to mark empty hits consistently with IncrementalCrawler semantics.
 from __future__ import annotations
 
 from datetime import datetime, timedelta, timezone
-from typing import Iterable, Sequence
+from typing import Sequence
 
 from sqlalchemy import and_, select, update
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -64,9 +64,7 @@ async def find_low_quality_candidates(
     return list(result.scalars().all())
 
 
-async def mark_empty_hit(
-    session: AsyncSession, community_names: Sequence[str]
-) -> None:
+async def mark_empty_hit(session: AsyncSession, community_names: Sequence[str]) -> None:
     """Increment empty_hit for communities where recrawl returned nothing."""
     if not community_names:
         return

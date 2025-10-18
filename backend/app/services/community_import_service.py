@@ -9,7 +9,7 @@ from typing import Any, Dict, List, Optional, Sequence, Tuple
 
 import xlrd  # type: ignore[import-untyped]
 import xlsxwriter  # type: ignore[import-untyped]
-from sqlalchemy import Select, func, select
+from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.community_pool import CommunityImportHistory, CommunityPool

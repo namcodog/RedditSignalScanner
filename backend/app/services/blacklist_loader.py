@@ -94,7 +94,8 @@ class BlacklistConfig:
         """获取社区降权系数（1.0 = 无降权）"""
         for name, config in self.downranked_communities.items():
             if name.lower() == community_name.lower():
-                return config["downrank_factor"]
+                factor: Any = config["downrank_factor"]
+                return float(factor)
         return 1.0
 
     def should_filter_post(self, title: str, content: str = "") -> bool:

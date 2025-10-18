@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import re
 from difflib import SequenceMatcher
-from typing import Dict, Iterable, List, Sequence, Set
+from typing import Any, Dict, Iterable, List, Sequence, Set
 
 from datasketch import MinHash, MinHashLSH
 
@@ -32,8 +32,12 @@ STOPWORDS = {
 
 def _tokenise(text: str) -> List[str]:
     text_lower = text.lower()
-    word_tokens = [token for token in re.findall(r"[a-z0-9]{2,}", text_lower) if len(token) >= 2]
-    bigrams = [f"{word_tokens[i]}_{word_tokens[i + 1]}" for i in range(len(word_tokens) - 1)]
+    word_tokens = [
+        token for token in re.findall(r"[a-z0-9]{2,}", text_lower) if len(token) >= 2
+    ]
+    bigrams = [
+        f"{word_tokens[i]}_{word_tokens[i + 1]}" for i in range(len(word_tokens) - 1)
+    ]
     normalised = re.sub(r"\s+", " ", text_lower)
     shingle_length = 5
     if len(normalised) < shingle_length:
@@ -47,7 +51,9 @@ def _tokenise(text: str) -> List[str]:
 
 
 def _normalise_for_sequence(text: str) -> str:
-    tokens = [token for token in re.findall(r"[a-z]+", text.lower()) if token not in STOPWORDS]
+    tokens = [
+        token for token in re.findall(r"[a-z]+", text.lower()) if token not in STOPWORDS
+    ]
     return " ".join(tokens)
 
 
@@ -165,8 +171,10 @@ def deduplicate_posts(
 
         def engagement(index: int) -> float:
             post = posts[index]
-            score = float(post.get("score", 0) or 0)
-            comments = float(post.get("num_comments", 0) or 0)
+            score_val: Any = post.get("score", 0) or 0
+            comments_val: Any = post.get("num_comments", 0) or 0
+            score = float(score_val)
+            comments = float(comments_val)
             return score + comments * 0.75
 
         primary_index = max(cluster, key=engagement)

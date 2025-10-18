@@ -3,8 +3,7 @@ from __future__ import annotations
 import json
 from dataclasses import asdict, is_dataclass
 from datetime import datetime, timedelta, timezone
-from typing import (Any, Dict, Iterable, List, Optional, Protocol, Sequence,
-                    cast)
+from typing import Any, Dict, Iterable, List, Optional, Protocol, Sequence, cast
 
 import redis
 

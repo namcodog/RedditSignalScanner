@@ -12,13 +12,15 @@ import asyncio
 import math
 from collections import defaultdict
 from dataclasses import dataclass
-from typing import TYPE_CHECKING, Any, Dict, List, Sequence, Tuple, cast
+from typing import TYPE_CHECKING, Any, Dict, List, Sequence, Tuple
 
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
-from app.services.analysis.keyword_extraction import (KeywordExtractionResult,
-                                                      extract_keywords)
+from app.services.analysis.keyword_extraction import (
+    KeywordExtractionResult,
+    extract_keywords,
+)
 
 if TYPE_CHECKING:
     from app.services.analysis_engine import CommunityProfile

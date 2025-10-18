@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import uuid
 from datetime import datetime, timezone
-from typing import Any, Dict, Optional, cast
+from typing import Any, Dict, Optional
 
 from fastapi import APIRouter, Depends, HTTPException, Path, status
 from pydantic import BaseModel, Field
@@ -18,19 +18,19 @@ from app.models.community_pool import CommunityPool, PendingCommunity
 router = APIRouter(prefix="/admin/communities", tags=["admin"])  # mounted under /api
 
 
-class ApproveRequest(BaseModel):  # type: ignore[misc]
+class ApproveRequest(BaseModel):
     name: str = Field(..., min_length=2, max_length=100)
     tier: str = Field("medium", min_length=3, max_length=20)
     categories: Dict[str, Any] | None = None
     admin_notes: Optional[str] = None
 
 
-class RejectRequest(BaseModel):  # type: ignore[misc]
+class RejectRequest(BaseModel):
     name: str = Field(..., min_length=2, max_length=100)
     admin_notes: Optional[str] = None
 
 
-@router.get("/pool", summary="查看社区池")  # type: ignore[misc]
+@router.get("/pool", summary="查看社区池")
 async def list_community_pool(
     _payload: TokenPayload = Depends(require_admin),
     session: AsyncSession = Depends(get_session),
@@ -58,10 +58,10 @@ async def list_community_pool(
         ],
         "total": len(items),
     }
-    return cast(dict[str, Any], _response(data))
+    return _response(data)
 
 
-@router.get("/discovered", summary="查看待审核社区")  # type: ignore[misc]
+@router.get("/discovered", summary="查看待审核社区")
 async def list_discovered(
     _payload: TokenPayload = Depends(require_admin),
     session: AsyncSession = Depends(get_session),
@@ -88,10 +88,10 @@ async def list_discovered(
         ],
         "total": len(items),
     }
-    return cast(dict[str, Any], _response(data))
+    return _response(data)
 
 
-@router.post("/approve", summary="批准社区")  # type: ignore[misc]
+@router.post("/approve", summary="批准社区")
 async def approve_community(
     body: ApproveRequest,
     payload: TokenPayload = Depends(require_admin),
@@ -153,12 +153,10 @@ async def approve_community(
 
     await session.commit()
 
-    return cast(
-        dict[str, Any], _response({"approved": body.name, "pool_is_active": True})
-    )
+    return _response({"approved": body.name, "pool_is_active": True})
 
 
-@router.post("/reject", summary="拒绝社区")  # type: ignore[misc]
+@router.post("/reject", summary="拒绝社区")
 async def reject_community(
     body: RejectRequest,
     payload: TokenPayload = Depends(require_admin),
@@ -186,10 +184,10 @@ async def reject_community(
     pending.admin_notes = body.admin_notes
 
     await session.commit()
-    return cast(dict[str, Any], _response({"rejected": body.name}))
+    return _response({"rejected": body.name})
 
 
-@router.delete("/{name:path}", summary="禁用社区")  # type: ignore[misc]
+@router.delete("/{name:path}", summary="禁用社区")
 async def disable_community(
     name: str = Path(..., min_length=2, max_length=200),
     _payload: TokenPayload = Depends(require_admin),
@@ -204,7 +202,7 @@ async def disable_community(
     pool.is_active = False
     await session.commit()
 
-    return cast(dict[str, Any], _response({"disabled": name}))
+    return _response({"disabled": name})
 
 
 __all__ = ["router"]

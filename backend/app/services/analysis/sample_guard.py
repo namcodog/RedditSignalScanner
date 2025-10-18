@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Awaitable, Callable, Dict, Iterable, List, Sequence
+from typing import Awaitable, Callable, Dict, List, Sequence
 
 
 SampleFetcher = Callable[..., Awaitable[List[Dict[str, object]]]]

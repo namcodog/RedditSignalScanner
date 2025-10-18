@@ -7,11 +7,19 @@ import os
 import uuid
 from datetime import datetime, timezone
 from threading import Event, Lock, Thread
-from typing import (TYPE_CHECKING, Any, AsyncIterator, Callable, Coroutine,
-                    Dict, Optional, TypeVar, cast)
+from typing import (
+    TYPE_CHECKING,
+    Any,
+    AsyncIterator,
+    Callable,
+    Coroutine,
+    Dict,
+    Optional,
+    TypeVar,
+    cast,
+)
 
-from celery.exceptions import \
-    Retry as CeleryRetry  # type: ignore[import-untyped]
+from celery.exceptions import Retry as CeleryRetry
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload

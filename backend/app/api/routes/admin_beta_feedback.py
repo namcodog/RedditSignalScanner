@@ -1,8 +1,8 @@
 from __future__ import annotations
 
-from typing import Any, Dict, cast
+from typing import Any, Dict
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -15,7 +15,7 @@ from app.models.beta_feedback import BetaFeedback
 router = APIRouter(prefix="/admin/beta", tags=["admin"])  # mounted under /api
 
 
-@router.get("/feedback", summary="List beta feedback")  # type: ignore[misc]
+@router.get("/feedback", summary="List beta feedback")
 async def list_beta_feedback(
     _payload: "TokenPayload" = Depends(require_admin),
     session: AsyncSession = Depends(get_session),
@@ -39,7 +39,7 @@ async def list_beta_feedback(
         ],
         "total": len(items),
     }
-    return cast(Dict[str, Any], _response(data))
+    return _response(data)
 
 
 __all__ = ["router"]

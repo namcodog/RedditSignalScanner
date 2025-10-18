@@ -15,13 +15,13 @@ from app.models.task import Task, TaskStatus
 router = APIRouter(prefix="/report", tags=["analysis"])
 
 
-@router.options("/{task_id}")  # type: ignore[misc]
+@router.options("/{task_id}")
 async def options_analysis_report(task_id: str) -> Response:
     # CORS 预检请求在路由层直接放行，避免触发认证依赖
     return Response(status_code=204)
 
 
-@router.get("/{task_id}", summary="Fetch completed analysis report")  # type: ignore[misc]
+@router.get("/{task_id}", summary="Fetch completed analysis report")
 async def get_analysis_report(
     task_id: UUID,
     payload: TokenPayload = Depends(decode_jwt_token),

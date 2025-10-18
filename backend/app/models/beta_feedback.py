@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import uuid
-from datetime import datetime
 from typing import List
 
 from sqlalchemy import CheckConstraint, ForeignKey, Index, String, Text
@@ -11,7 +10,7 @@ from sqlalchemy.orm import Mapped, mapped_column
 from app.db.base import Base, TimestampMixin, uuid_pk_column
 
 
-class BetaFeedback(TimestampMixin, Base):  # type: ignore[misc]
+class BetaFeedback(TimestampMixin, Base):
     """Beta tester feedback for warmup period (PRD-09 Day 17-18)."""
 
     __tablename__ = "beta_feedback"

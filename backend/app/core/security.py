@@ -15,13 +15,13 @@ from pydantic import BaseModel, ValidationError, field_validator
 from app.core.config import Settings, get_settings
 
 
-class TokenPayload(BaseModel):  # type: ignore[misc]
+class TokenPayload(BaseModel):
     sub: str
     exp: Optional[int] = None
     tenant_id: Optional[str] = None
     email: Optional[str] = None
 
-    @field_validator("sub")  # type: ignore[misc]
+    @field_validator("sub")
     @classmethod
     def validate_sub(cls, value: str) -> str:
         if not value:

@@ -19,16 +19,14 @@ import logging
 import math
 from collections import Counter
 from dataclasses import dataclass
-from datetime import datetime, timezone
 from textwrap import dedent
-from typing import Any, Dict, Iterable, List, Sequence
+from typing import Any, Dict, List, Sequence
 
 from app.core.config import Settings, get_settings
 from app.schemas.task import TaskSummary
 from app.services.analysis.signal_extraction import SignalExtractor
 from app.services.cache_manager import CacheManager
-from app.services.data_collection import (CollectionResult,
-                                          DataCollectionService)
+from app.services.data_collection import CollectionResult, DataCollectionService
 from app.services.reddit_client import RedditAPIClient, RedditPost
 
 logger = logging.getLogger(__name__)

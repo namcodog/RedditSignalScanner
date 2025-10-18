@@ -13,11 +13,13 @@ The module exports both `celery_app` and `app` for CLI compatibility:
 
 from __future__ import annotations
 
+import logging
 import multiprocessing
 import os
 from typing import Any, Dict
 
 from celery import Celery  # type: ignore[import-untyped]
+from celery.signals import worker_ready  # type: ignore[import-untyped]
 from kombu import Queue  # type: ignore[import-untyped]
 
 DEFAULT_BROKER_URL = "redis://localhost:6379/1"
@@ -93,7 +95,7 @@ celery_app = Celery(
     backend=os.getenv("CELERY_RESULT_BACKEND", DEFAULT_BACKEND_URL),
 )
 
-from celery.schedules import crontab  # type: ignore[import-untyped]
+from celery.schedules import crontab
 
 celery_app.conf.update(_build_conf())
 celery_app.autodiscover_tasks(["app.tasks"], force=True)
@@ -117,14 +119,6 @@ celery_app.conf.beat_schedule = {
         "schedule": crontab(minute="0,30"),  # 每 30 分钟执行一次
         "options": {"queue": "crawler_queue", "expires": 1800},
     },
-    # 启动后 5 分钟触发一次增量抓取，避免等待整点
-    # 注意：Celery Beat 不支持 one_off 参数，暂时注释掉
-    # TODO: 考虑在 Worker 启动时通过 worker_ready signal 手动触发
-    # "auto-crawl-incremental-bootstrap": {
-    #     "task": "tasks.crawler.crawl_seed_communities_incremental",
-    #     "schedule": 300.0,  # 5 minutes
-    #     "options": {"queue": "crawler_queue", "expires": 900},
-    # },
     # Monitoring tasks (PRD-09 warmup period monitoring)
     "monitor-warmup-metrics": {
         "task": "tasks.monitoring.monitor_warmup_metrics",

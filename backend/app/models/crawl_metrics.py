@@ -24,7 +24,9 @@ class CrawlMetrics(Base):
     metric_date: Mapped[date] = mapped_column(Date, nullable=False)
     metric_hour: Mapped[int] = mapped_column(Integer, nullable=False)  # 0-23
 
-    cache_hit_rate: Mapped[float] = mapped_column(Numeric(5, 2), default=0.00, nullable=False)
+    cache_hit_rate: Mapped[float] = mapped_column(
+        Numeric(5, 2), default=0.00, nullable=False
+    )
     valid_posts_24h: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
     total_communities: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
     successful_crawls: Mapped[int] = mapped_column(Integer, default=0, nullable=False)

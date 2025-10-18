@@ -1,8 +1,6 @@
 from __future__ import annotations
 
-import uuid
 from datetime import datetime, timezone
-from typing import cast
 
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy import select
@@ -10,19 +8,17 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.config import Settings, get_settings
-from app.core.security import (create_access_token, hash_password,
-                               verify_password)
+from app.core.security import create_access_token, hash_password, verify_password
 from app.db.session import get_session
 from app.models.user import User
-from app.schemas.auth import (AuthTokenResponse, AuthUser, LoginRequest,
-                              RegisterRequest)
+from app.schemas.auth import AuthTokenResponse, AuthUser, LoginRequest, RegisterRequest
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 
 
 async def _get_user_by_email(db: AsyncSession, email: str) -> User | None:
     result = await db.execute(select(User).where(User.email == email))
-    return cast(User | None, result.scalar_one_or_none())
+    return result.scalar_one_or_none()
 
 
 def _normalise_email(email: str) -> str:
@@ -40,7 +36,7 @@ def _issue_token(user: User, settings: Settings) -> AuthTokenResponse:
     )
 
 
-@router.post(  # type: ignore[misc]
+@router.post(
     "/register",
     response_model=AuthTokenResponse,
     status_code=status.HTTP_201_CREATED,
@@ -77,7 +73,7 @@ async def register_user(
     return _issue_token(user, settings)
 
 
-@router.post(  # type: ignore[misc]
+@router.post(
     "/login",
     response_model=AuthTokenResponse,
     summary="Authenticate existing user and receive an access token",

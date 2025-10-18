@@ -49,7 +49,9 @@ class CommunityPoolLoader:
         self._cache: list[CommunityProfile] = []
         self._last_refresh: datetime | None = None
         self._refresh_interval = timedelta(hours=1)
-        default_seed = Path(__file__).parents[2] / "data" / "community_expansion_200.json"
+        default_seed = (
+            Path(__file__).parents[2] / "data" / "community_expansion_200.json"
+        )
         if not default_seed.exists():
             default_seed = Path(__file__).parents[2] / "data" / "seed_communities.json"
         self.seed_file = seed_path or default_seed

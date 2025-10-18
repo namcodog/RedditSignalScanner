@@ -12,7 +12,7 @@ from app.schemas.base import ORMModel, TimestampedModel
 class TaskCreate(ORMModel):
     product_description: str = Field(min_length=10, max_length=2000)
 
-    @field_validator("product_description")  # type: ignore[misc]
+    @field_validator("product_description")
     @classmethod
     def validate_description(cls, value: str) -> str:
         cleaned = value.strip()
