@@ -25,14 +25,18 @@ yarn-error.log*
 dist/
 .cache/
 
-# Environment variables
+# Environment variables (强化规则)
+# 忽略所有 .env 文件（除了 .env.example）
+*.env
 .env
-.env.local
-.env.*.local
+.env.*
+!.env.example
 backend/.env
-frontend/.env.development
-frontend/.env.production
-frontend/.env.test
+backend/.env.*
+!backend/.env.example
+frontend/.env
+frontend/.env.*
+!frontend/.env.example
 
 # IDEs
 .vscode/
@@ -74,3 +78,47 @@ htmlcov/
 
 # Codex (development tools)
 .codex/
+
+# Reports and analysis (开发过程文档)
+reports/phase-log/*.json
+reports/phase-log/*-temp.md
+reports/phase-log/*-draft.md
+
+# Specify (项目规划工具)
+.specify/
+
+# Development tools
+.augment/
+.cursor/
+
+# Temporary analysis documents (临时分析文档)
+*-分析.md
+*-计划.md
+*-方案.md
+*-总结.md
+*-评估*.md
+GitHub*.md
+2025-*.md
+!README.md
+!docs/**/*.md
+!reports/**/*.md
+
+# Data files (数据文件)
+*.csv
+*.xlsx
+*.json.bak
+backend/data/*.json.bak
+
+# Backup files (备份文件)
+*.backup
+*.old
+*~
+node_modules
+node_modules
+node_modules
+node_modules
+node_modules
+node_modules
+node_modules
+node_modules
+node_modules
