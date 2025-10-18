@@ -53,3 +53,11 @@
 - 已执行：`pytest backend/tests/tasks/test_incremental_crawl_tiers.py`
 - 已执行：`pytest backend/tests/tasks/test_celery_beat_schedule.py`
 - 待运行（需要真实服务环境）：上述 4 条数据库与 Celery 验证命令
+
+### 追加修复（2025-10-18 验收反馈）
+- **Bootstrap 被注释**：Celery Beat 不支持 `one_off`，改为在 `worker_ready` 信号中调用 `trigger_auto_crawl_bootstrap`，只在首次 worker 启动时发送 `tasks.crawler.crawl_seed_communities_incremental`。
+  - 参考：`backend/app/core/celery_app.py:150`
+  - 自检：`pytest backend/tests/tasks/test_celery_beat_schedule.py::TestCeleryBeatSchedule::test_auto_crawl_bootstrap_uses_worker_signal`
+- **并发连接错误**：为每个社区抓取创建独立的 `AsyncSession`，并将默认并发降到 2，同时在 `_mark_failure_hit` 中使用 `AUTOCOMMIT` 减少锁竞争。
+  - 参考：`backend/app/tasks/crawler_task.py:25`,`backend/app/tasks/crawler_task.py:171`,`backend/app/tasks/crawler_task.py:222`
+  - 自检：`pytest backend/tests/tasks/test_incremental_crawl_tiers.py`
