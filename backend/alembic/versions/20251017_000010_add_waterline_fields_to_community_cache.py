@@ -23,7 +23,7 @@ def upgrade() -> None:
     # Waterline fields for incremental crawler/bookmarking
     op.add_column(
         "community_cache",
-        sa.Column("cast_seen_post_id", sa.String(length=100), nullable=True),
+        sa.Column("last_seen_post_id", sa.String(length=100), nullable=True),
     )
     op.add_column(
         "community_cache",
