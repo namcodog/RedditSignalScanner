@@ -44,7 +44,7 @@ def _parse_uuid(raw: str) -> uuid.UUID:
         ) from exc
 
 
-@status_router.get(  # type: ignore[misc]
+@status_router.get(
     "/{task_id}",
     response_model=TaskStatusSnapshot,
     summary="获取任务状态（缓存优先）",
@@ -103,7 +103,7 @@ async def get_task_status(
     )
 
 
-@tasks_router.get(  # type: ignore[misc]
+@tasks_router.get(
     "/stats",
     response_model=TaskStatsResponse,
     summary="获取任务队列统计信息",
@@ -148,7 +148,7 @@ __all__ = ["status_router", "tasks_router", "router"]
 
 
 # 运行时诊断：返回关键配置是否就绪（不泄露机密）
-@tasks_router.get("/diag", summary="运行时配置诊断")  # type: ignore[misc]
+@tasks_router.get("/diag", summary="运行时配置诊断")
 async def tasks_diag() -> dict[str, str | bool]:
     s = get_settings()
     return {

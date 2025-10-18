@@ -5,7 +5,7 @@ from __future__ import annotations
 
 import logging
 from datetime import datetime, timedelta, timezone
-from typing import List, Optional, Tuple
+from typing import Any, List, Optional, Tuple
 
 from sqlalchemy import select
 from sqlalchemy.dialects.postgresql import insert as pg_insert
@@ -50,7 +50,7 @@ class IncrementalCrawler:
         limit: int = 100,
         time_filter: str = "month",
         sort: str = "top",
-    ) -> dict:
+    ) -> dict[str, Any]:
         """
         增量抓取单个社区
 

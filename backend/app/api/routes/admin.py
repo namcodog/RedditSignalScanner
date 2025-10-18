@@ -37,7 +37,7 @@ def _collect_worker_count() -> int:
     return len(active)
 
 
-@router.get("/dashboard/stats", summary="Admin dashboard aggregate metrics")  # type: ignore[misc]
+@router.get("/dashboard/stats", summary="Admin dashboard aggregate metrics")
 async def get_dashboard_stats(
     _payload: TokenPayload = Depends(require_admin),
     db: AsyncSession = Depends(get_session),
@@ -89,7 +89,7 @@ async def get_dashboard_stats(
     return _response(stats)
 
 
-@router.get("/tasks/recent", summary="Recent tasks overview")  # type: ignore[misc]
+@router.get("/tasks/recent", summary="Recent tasks overview")
 async def get_recent_tasks(
     _payload: TokenPayload = Depends(require_admin),
     limit: int = Query(50, ge=1, le=200),
@@ -122,7 +122,7 @@ async def get_recent_tasks(
     return _response({"items": items, "total": len(items)})
 
 
-@router.get("/users/active", summary="Active users ranked by recent tasks")  # type: ignore[misc]
+@router.get("/users/active", summary="Active users ranked by recent tasks")
 async def get_active_users(
     _payload: TokenPayload = Depends(require_admin),
     limit: int = Query(50, ge=1, le=200),

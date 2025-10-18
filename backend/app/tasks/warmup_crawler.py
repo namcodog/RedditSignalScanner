@@ -14,12 +14,11 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.celery_app import celery_app
 from app.core.config import settings
-from app.db.session import get_session
 from app.models.community_cache import CommunityCache
 from app.models.community_pool import CommunityPool
 from app.services.cache_manager import CacheManager
 from app.services.community_cache_service import upsert_community_cache
-from app.services.reddit_client import RedditAPIClient, RedditPost
+from app.services.reddit_client import RedditAPIClient
 
 logger = logging.getLogger(__name__)
 
@@ -38,7 +37,7 @@ def warmup_crawler_task(self: Any, community_name: str | None = None) -> dict[st
     from app.tasks.crawler_task import crawl_seed_communities
 
     logger.info(f"Starting warmup crawler (community={community_name or 'all'})")
-    result = crawl_seed_communities(force_refresh=True)
+    result: dict[str, Any] = crawl_seed_communities(force_refresh=True)
     logger.info(f"Warmup crawler completed: {result}")
     return result
 

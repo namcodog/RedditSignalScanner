@@ -7,7 +7,7 @@ from typing import List
 from pydantic import BaseModel, Field
 
 
-class BetaFeedbackCreate(BaseModel):  # type: ignore[misc]
+class BetaFeedbackCreate(BaseModel):
     """Schema for creating beta feedback."""
 
     task_id: uuid.UUID = Field(
@@ -20,7 +20,7 @@ class BetaFeedbackCreate(BaseModel):  # type: ignore[misc]
     comments: str = Field(default="", description="Additional comments")
 
 
-class BetaFeedbackResponse(BaseModel):  # type: ignore[misc]
+class BetaFeedbackResponse(BaseModel):
     """Schema for beta feedback response."""
 
     id: uuid.UUID

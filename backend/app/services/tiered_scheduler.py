@@ -13,7 +13,7 @@ import logging
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from decimal import Decimal
-from typing import Any, Dict, List
+from typing import Any
 
 from sqlalchemy import Select, select, update
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -191,7 +191,7 @@ class TieredScheduler:
         )
         rows = (await self.session.execute(stmt)).scalars().all()
         logger.debug("Loaded %s communities for %s", len(rows), tier)
-        return rows
+        return list(rows)
 
     def get_config_for_tier(self, tier: str) -> TierDefinition:
         """Expose configuration for the given tier."""

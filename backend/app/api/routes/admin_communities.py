@@ -3,8 +3,7 @@ from __future__ import annotations
 import uuid
 from io import BytesIO
 
-from fastapi import (APIRouter, Depends, File, HTTPException, Query,
-                     UploadFile, status)
+from fastapi import APIRouter, Depends, File, HTTPException, Query, UploadFile, status
 from fastapi.responses import StreamingResponse
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -17,7 +16,7 @@ from app.services.community_import_service import CommunityImportService
 router = APIRouter(prefix="/admin/communities", tags=["admin"])
 
 
-@router.get("/template", summary="下载社区导入 Excel 模板")  # type: ignore[misc]
+@router.get("/template", summary="下载社区导入 Excel 模板")
 async def download_template(
     _payload: TokenPayload = Depends(require_admin),
 ) -> StreamingResponse:
@@ -32,7 +31,7 @@ async def download_template(
     )
 
 
-@router.post("/import", summary="上传并导入社区信息")  # type: ignore[misc]
+@router.post("/import", summary="上传并导入社区信息")
 async def import_communities(
     file: UploadFile = File(..., description="Excel 模板文件（.xlsx）"),
     dry_run: bool = Query(False, description="true=仅验证，false=验证并导入"),
@@ -72,7 +71,7 @@ async def import_communities(
     return _response(result)
 
 
-@router.get("/import-history", summary="查询社区导入历史")  # type: ignore[misc]
+@router.get("/import-history", summary="查询社区导入历史")
 async def get_import_history(
     _payload: TokenPayload = Depends(require_admin),
     session: AsyncSession = Depends(get_session),

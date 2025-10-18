@@ -12,7 +12,7 @@ from __future__ import annotations
 import asyncio
 from collections import Counter
 from datetime import datetime, timezone
-from typing import Dict, List, cast
+from typing import Dict, List
 from uuid import UUID
 
 from sqlalchemy import select
@@ -108,7 +108,7 @@ class CommunityDiscoveryService:
             text,
             self.max_keywords,
         )
-        return keywords  # type: ignore[no-any-return]
+        return keywords
 
     async def _search_reddit_posts(self, keywords: List[str]) -> List[RedditPost]:
         """Search Reddit for posts matching keywords using Reddit Search API.

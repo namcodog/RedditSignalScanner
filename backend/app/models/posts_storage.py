@@ -4,10 +4,19 @@
 - PostHot: 热缓存，覆盖式刷新，24-72小时TTL
 """
 from datetime import datetime, timezone
-from typing import Optional
 
-from sqlalchemy import (TIMESTAMP, Boolean, CheckConstraint, Column, Index,
-                        Integer, Numeric, PrimaryKeyConstraint, String, Text)
+from sqlalchemy import (
+    TIMESTAMP,
+    Boolean,
+    CheckConstraint,
+    Column,
+    Index,
+    Integer,
+    Numeric,
+    PrimaryKeyConstraint,
+    String,
+    Text,
+)
 from sqlalchemy.dialects.postgresql import JSONB, UUID
 from sqlalchemy.orm import DeclarativeBase
 
@@ -15,7 +24,6 @@ from sqlalchemy.orm import DeclarativeBase
 class Base(DeclarativeBase):
     """Base class for all models in posts_storage"""
 
-    pass
 
 
 class PostRaw(Base):

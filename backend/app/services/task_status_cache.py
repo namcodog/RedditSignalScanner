@@ -13,8 +13,16 @@ import os
 import uuid
 from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
-from typing import (TYPE_CHECKING, Any, Dict, Optional, Protocol, TypeVar,
-                    cast, runtime_checkable)
+from typing import (
+    TYPE_CHECKING,
+    Any,
+    Dict,
+    Optional,
+    Protocol,
+    TypeVar,
+    cast,
+    runtime_checkable,
+)
 
 from redis.asyncio import Redis
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -166,9 +174,7 @@ class TaskStatusCache:
         except ValueError:
             return None
 
-        from app.models.task import \
-            Task as TaskModel  # Local import to avoid cycles
-        from app.models.task import TaskStatus
+        from app.models.task import Task as TaskModel  # Local import to avoid cycles
 
         task: TaskModel | None = await session.get(TaskModel, task_uuid)
         if task is None:

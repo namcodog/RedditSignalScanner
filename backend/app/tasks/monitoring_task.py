@@ -6,7 +6,7 @@ import logging
 import os
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
-from typing import Any, Dict, Iterable, List, Optional
+from typing import Any, Dict, Mapping, Optional, cast
 
 import redis
 from celery.utils.log import get_task_logger  # type: ignore[import-untyped]
@@ -14,7 +14,6 @@ from sqlalchemy import select
 
 from app.core.celery_app import celery_app
 from app.core.config import Settings, get_settings
-from app.db.session import SessionFactory
 from app.models.community_cache import CommunityCache
 from app.services.cache_manager import CacheManager
 from app.services.community_pool_loader import CommunityPoolLoader
@@ -39,7 +38,7 @@ PERFORMANCE_DASHBOARD_KEY = os.getenv(
 
 def _get_metrics_redis(settings: Settings) -> redis.Redis:  # type: ignore[type-arg]
     target_url = METRICS_REDIS_URL or settings.reddit_cache_redis_url
-    return redis.Redis.from_url(target_url)  # type: ignore[return-value]
+    return redis.Redis.from_url(target_url)
 
 
 def _send_alert(level: str, message: str) -> None:
@@ -63,11 +62,14 @@ def _load_e2e_metrics() -> Optional[Dict[str, Any]]:
 
 def _update_dashboard(settings: Settings, values: Dict[str, Any]) -> None:
     client = _get_metrics_redis(settings)
-    enriched = {
-        k: json.dumps(v, ensure_ascii=False) if isinstance(v, (dict, list)) else v
+    enriched: dict[str, str] = {
+        k: json.dumps(v, ensure_ascii=False) if isinstance(v, (dict, list)) else str(v)
         for k, v in values.items()
     }
-    client.hset(PERFORMANCE_DASHBOARD_KEY, mapping=enriched)
+    client.hset(
+        PERFORMANCE_DASHBOARD_KEY,
+        mapping=cast(Mapping[str | bytes, bytes | float | int | str], enriched),
+    )
     client.hset(
         PERFORMANCE_DASHBOARD_KEY, "updated_at", datetime.now(timezone.utc).isoformat()
     )
@@ -118,7 +120,7 @@ def monitor_cache_health() -> Dict[str, Any]:
 
 @celery_app.task(name="tasks.monitoring.monitor_crawler_health")  # type: ignore[misc]
 def monitor_crawler_health() -> Dict[str, Any]:
-    settings = get_settings()
+    get_settings()
 
     async def _load() -> Dict[str, Any]:
         cutoff = datetime.now(timezone.utc) - timedelta(minutes=CRAWL_STALE_MINUTES)

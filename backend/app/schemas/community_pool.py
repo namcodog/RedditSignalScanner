@@ -24,7 +24,7 @@ class PendingCommunityCreate(ORMModel):
         default=None, description="Task ID that discovered this community"
     )
 
-    @field_validator("name")  # type: ignore[misc]
+    @field_validator("name")
     @classmethod
     def validate_community_name(cls, v: str) -> str:
         """Validate community name format."""
@@ -49,7 +49,7 @@ class PendingCommunityUpdate(ORMModel):
         default=None, description="Admin user ID who reviewed"
     )
 
-    @field_validator("status")  # type: ignore[misc]
+    @field_validator("status")
     @classmethod
     def validate_status(cls, v: str) -> str:
         """Validate status value."""

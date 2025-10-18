@@ -126,7 +126,7 @@ async def _event_generator(
             raise
 
 
-@router.get("/stream/{task_id}", summary="Task streaming progress (SSE)")  # type: ignore[misc]
+@router.get("/stream/{task_id}", summary="Task streaming progress (SSE)")
 async def stream_task_progress(
     task_id: UUID,
     payload: TokenPayload = Depends(decode_jwt_token),

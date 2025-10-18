@@ -48,8 +48,7 @@ async def _schedule_analysis(task_id: uuid.UUID, settings: Settings) -> None:
         loop = asyncio.get_running_loop()
 
         async def inline_runner() -> None:
-            from app.tasks.analysis_task import (FinalRetryExhausted,
-                                                 TaskNotFoundError)
+            from app.tasks.analysis_task import FinalRetryExhausted, TaskNotFoundError
 
             try:
                 await execute_analysis_pipeline(task_id)
@@ -88,7 +87,7 @@ async def _schedule_analysis(task_id: uuid.UUID, settings: Settings) -> None:
         ) from exc
 
 
-@router.post(  # type: ignore[misc]
+@router.post(
     "/analyze",
     status_code=status.HTTP_201_CREATED,
     response_model=TaskCreateResponse,

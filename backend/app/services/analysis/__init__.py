@@ -2,9 +2,13 @@
 
 from .community_discovery import Community, discover_communities
 from .keyword_extraction import KeywordExtractionResult, extract_keywords
-from .signal_extraction import (BusinessSignals, CompetitorSignal,
-                                OpportunitySignal, PainPointSignal,
-                                SignalExtractor)
+from .signal_extraction import (
+    BusinessSignals,
+    CompetitorSignal,
+    OpportunitySignal,
+    PainPointSignal,
+    SignalExtractor,
+)
 
 __all__ = [
     "BusinessSignals",

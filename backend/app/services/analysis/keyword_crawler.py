@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import re
 from itertools import islice
-from typing import Dict, Iterable, List, Sequence
+from typing import Dict, List, Sequence
 
 from app.services.reddit_client import RedditAPIClient, RedditPost
 
@@ -101,7 +101,8 @@ async def keyword_crawl(
         )
         for post in results:
             normalised = _normalise_post(post)
-            collected.setdefault(normalised["id"], normalised)
+            post_id: str = str(normalised["id"])
+            collected.setdefault(post_id, normalised)
     return list(collected.values())
 
 

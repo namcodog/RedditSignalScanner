@@ -4,12 +4,11 @@ import asyncio
 from collections import deque
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
-from typing import (TYPE_CHECKING, Any, Deque, Dict, Iterable, List, Optional,
-                    Sequence)
+from typing import TYPE_CHECKING, Any, Deque, Dict, Iterable, List, Optional, Sequence
 
 # Delay aiohttp import to avoid event loop conflicts during pytest collection
 if TYPE_CHECKING:
-    import aiohttp
+    pass
 
 TOKEN_ENDPOINT = "https://www.reddit.com/api/v1/access_token"
 API_BASE_URL = "https://oauth.reddit.com"

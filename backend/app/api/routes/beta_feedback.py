@@ -19,7 +19,9 @@ def _response(data: Any) -> Dict[str, Any]:
     return {"code": 0, "data": data, "trace_id": str(uuid.uuid4())}
 
 
-@router.post("/feedback", response_model=Dict[str, Any], status_code=status.HTTP_201_CREATED)  # type: ignore[misc]
+@router.post(
+    "/feedback", response_model=Dict[str, Any], status_code=status.HTTP_201_CREATED
+)
 async def submit_beta_feedback(
     payload: BetaFeedbackCreate,
     db: AsyncSession = Depends(get_session),
