@@ -12,7 +12,7 @@ from __future__ import annotations
 import pytest
 from celery.schedules import crontab  # type: ignore[import-untyped]
 
-from app.core.celery_app import celery_app
+from app.core.celery_app import celery_app, trigger_auto_crawl_bootstrap
 
 
 class TestCeleryBeatSchedule:
@@ -57,17 +57,25 @@ class TestCeleryBeatSchedule:
         assert options.get("queue") == "crawler_queue"
         assert options.get("expires") == 1800
 
-    def test_auto_crawl_bootstrap_triggers_once_after_start(self) -> None:
-        """Bootstrap 任务应当只执行一次，用于启动后快速补抓。"""
-        schedule = celery_app.conf.beat_schedule
+    def test_auto_crawl_bootstrap_uses_worker_signal(self, monkeypatch: pytest.MonkeyPatch) -> None:
+        """Bootstrap 任务通过 worker_ready signal 触发且只发送一次。"""
+        sent_tasks: list[str] = []
 
-        assert "auto-crawl-incremental-bootstrap" in schedule
+        def fake_send_task(task_name: str, *args, **kwargs) -> None:
+            sent_tasks.append(task_name)
 
-        bootstrap = schedule["auto-crawl-incremental-bootstrap"]
-        assert bootstrap["task"] == "tasks.crawler.crawl_seed_communities_incremental"
-        assert bootstrap["schedule"] == 300.0
-        assert bootstrap.get("one_off") is True
-        assert bootstrap.get("options", {}).get("queue") == "crawler_queue"
+        # reset bootstrap flag to ensure deterministic behaviour
+        if hasattr(celery_app, "_auto_crawl_bootstrap_sent"):
+            setattr(celery_app, "_auto_crawl_bootstrap_sent", False)
+        monkeypatch.setattr(celery_app, "send_task", fake_send_task)
+
+        first = trigger_auto_crawl_bootstrap(celery_app)
+        second = trigger_auto_crawl_bootstrap(celery_app)
+
+        assert first is True
+        assert second is False
+        assert sent_tasks == ["tasks.crawler.crawl_seed_communities_incremental"]
+        setattr(celery_app, "_auto_crawl_bootstrap_sent", False)
 
     def test_monitor_warmup_metrics_scheduled(self) -> None:
         """Test that warmup metrics monitoring is scheduled every 15 minutes."""
