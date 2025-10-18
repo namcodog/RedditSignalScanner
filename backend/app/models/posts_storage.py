@@ -7,6 +7,7 @@ from datetime import datetime, timezone
 
 from sqlalchemy import (
     TIMESTAMP,
+    BigInteger,
     Boolean,
     CheckConstraint,
     Column,
@@ -14,6 +15,7 @@ from sqlalchemy import (
     Integer,
     Numeric,
     PrimaryKeyConstraint,
+    Sequence,
     String,
     Text,
 )
@@ -35,7 +37,11 @@ class PostRaw(Base):
     __tablename__ = "posts_raw"
 
     # 主键（复合主键在 __table_args__ 中定义）
-    id = Column(Integer, autoincrement=True)  # 自增 ID，但不是主键
+    id = Column(
+        BigInteger,
+        Sequence("posts_raw_id_seq"),
+        nullable=True,
+    )  # 自增 ID，但不是主键，可为空
     source = Column(String(50), nullable=False, default="reddit")
     source_post_id = Column(String(100), nullable=False)
     version = Column(Integer, nullable=False, default=1)
@@ -74,8 +80,8 @@ class PostRaw(Base):
     edit_count = Column(Integer, default=0)
     lang = Column(String(10))
 
-    # JSONB 元数据（注意：metadata 是 SQLAlchemy 保留字，使用 extra_data）
-    extra_data = Column(JSONB)
+    # JSONB 元数据（注意：metadata 是 SQLAlchemy 保留字，使用 name="metadata"）
+    extra_data = Column("metadata", JSONB)
 
     # 约束
     __table_args__ = (
@@ -99,7 +105,7 @@ class PostRaw(Base):
             "is_current",
             postgresql_where=(is_current == True),
         ),
-        Index("idx_posts_raw_extra_data_gin", "extra_data", postgresql_using="gin"),
+        Index("idx_posts_raw_metadata_gin", "metadata", postgresql_using="gin"),
     )
 
     def __repr__(self) -> str:
@@ -135,7 +141,7 @@ class PostHot(Base):
     num_comments = Column(Integer, default=0)
 
     # 元数据
-    extra_data = Column(JSONB)
+    extra_data = Column("metadata", JSONB)
 
     # 约束
     __table_args__ = (
@@ -170,7 +176,7 @@ class Watermark(Base):
     last_crawled_at = Column(TIMESTAMP(timezone=True))
 
     # 元数据
-    extra_data = Column(JSONB)
+    extra_data = Column("metadata", JSONB)
 
     def __repr__(self) -> str:
         return f"<Watermark(community={self.community_name}, last_seen={self.last_seen_created_at})>"
