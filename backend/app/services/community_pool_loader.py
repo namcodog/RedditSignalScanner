@@ -49,9 +49,10 @@ class CommunityPoolLoader:
         self._cache: list[CommunityProfile] = []
         self._last_refresh: datetime | None = None
         self._refresh_interval = timedelta(hours=1)
-        self.seed_file = seed_path or (
-            Path(__file__).parents[2] / "data" / "seed_communities.json"
-        )
+        default_seed = Path(__file__).parents[2] / "data" / "community_expansion_200.json"
+        if not default_seed.exists():
+            default_seed = Path(__file__).parents[2] / "data" / "seed_communities.json"
+        self.seed_file = seed_path or default_seed
 
     def _should_refresh(self) -> bool:
         """Check if cache should be refreshed."""
@@ -78,12 +79,20 @@ class CommunityPoolLoader:
         try:
             with open(self.seed_file, "r", encoding="utf-8") as f:
                 data = json.load(f)
-        except json.JSONDecodeError as e:
+        except json.JSONDecodeError as e:  # pragma: no cover - defensive logging
             raise ValueError(f"Invalid JSON in seed file: {e}") from e
 
-        communities = data.get("communities", [])
-        if not communities:
+        if isinstance(data, list):
+            raw_communities = data
+        elif isinstance(data, dict):
+            raw_communities = data.get("communities", [])
+        else:
+            raw_communities = []
+
+        if not raw_communities:
             raise ValueError("No communities found in seed file")
+
+        communities = [self._normalize_seed_entry(entry) for entry in raw_communities]
 
         logger.info(f"Found {len(communities)} communities in seed file")
 
@@ -106,7 +115,9 @@ class CommunityPoolLoader:
                 existing.categories = community_data["categories"]
                 existing.description_keywords = community_data["description_keywords"]
                 existing.daily_posts = community_data["estimated_daily_posts"]
+                existing.avg_comment_length = community_data["avg_comment_length"]
                 existing.quality_score = community_data["quality_score"]
+                existing.is_active = community_data["is_active"]
                 updated_count += 1
                 logger.debug(f"Updated existing community: {name}")
             else:
@@ -118,9 +129,9 @@ class CommunityPoolLoader:
                     categories=community_data["categories"],
                     description_keywords=community_data["description_keywords"],
                     daily_posts=community_data["estimated_daily_posts"],
-                    avg_comment_length=100,  # Default value
+                    avg_comment_length=community_data["avg_comment_length"],
                     quality_score=community_data["quality_score"],
-                    is_active=True,
+                    is_active=community_data["is_active"],
                 )
                 self.db.add(community)
                 loaded_count += 1
@@ -378,3 +389,66 @@ class CommunityPoolLoader:
             quality_score=float(row.quality_score or 0.0),
             priority=str(row.priority or "medium"),
         )
+
+    @staticmethod
+    def _normalize_seed_entry(entry: dict[str, Any]) -> dict[str, Any]:
+        """Normalize raw seed entry to loader-friendly structure."""
+        name = str(entry.get("name", "")).strip()
+        if not name:
+            raise ValueError("Seed entry missing community name")
+
+        tier = str(entry.get("tier", "medium")).lower()
+        if tier not in {"high", "medium", "low"}:
+            tier = "medium"
+
+        priority = entry.get("priority")
+        if isinstance(priority, str):
+            priority = priority.lower()
+        if priority not in {"high", "medium", "low"}:
+            priority = tier
+
+        estimated = entry.get("estimated_daily_posts", entry.get("daily_posts", 0))
+        try:
+            estimated_posts = int(estimated)
+        except (TypeError, ValueError):
+            estimated_posts = 0
+
+        avg_comment = entry.get("avg_comment_length", 100)
+        try:
+            avg_comment_length = int(avg_comment)
+        except (TypeError, ValueError):
+            avg_comment_length = 100
+
+        categories_raw = entry.get("categories", [])
+        if isinstance(categories_raw, dict):
+            categories = list(categories_raw.keys())
+        elif isinstance(categories_raw, list):
+            categories = categories_raw
+        else:
+            categories = [str(categories_raw)]
+
+        keywords_raw = entry.get("description_keywords", {})
+        if isinstance(keywords_raw, dict):
+            description_keywords = keywords_raw
+        elif isinstance(keywords_raw, list):
+            description_keywords = {str(key): 1.0 for key in keywords_raw}
+        else:
+            description_keywords = {}
+
+        quality = entry.get("quality_score", 0.5)
+        try:
+            quality_score = float(quality)
+        except (TypeError, ValueError):
+            quality_score = 0.5
+
+        return {
+            "name": name,
+            "tier": tier,
+            "priority": priority,
+            "categories": categories,
+            "description_keywords": description_keywords,
+            "estimated_daily_posts": estimated_posts,
+            "avg_comment_length": avg_comment_length,
+            "quality_score": quality_score,
+            "is_active": bool(entry.get("is_active", True)),
+        }

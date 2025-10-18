@@ -21,6 +21,7 @@ from app.services.community_pool_loader import (CommunityPoolLoader,
 from app.services.incremental_crawler import IncrementalCrawler
 from app.services.reddit_client import (RedditAPIClient, RedditAPIError,
                                         RedditPost)
+from app.services.tiered_scheduler import TieredScheduler
 
 logger = get_task_logger(__name__)
 _MODULE_LOGGER = logging.getLogger(__name__)
@@ -256,9 +257,28 @@ async def _crawl_seeds_incremental_impl(force_refresh: bool = False) -> dict[str
             total_new = sum(r.get("new_posts", 0) for r in results)
             total_updated = sum(r.get("updated_posts", 0) for r in results)
             total_dup = sum(r.get("duplicates", 0) for r in results)
-            success_count = sum(1 for r in results if r.get("watermark_updated", False))
+            success_count = sum(
+                1 for r in results if r.get("watermark_updated", False)
+            )
+            failed_count = sum(1 for r in results if r.get("status") == "failed")
+            empty_count = sum(
+                1
+                for r in results
+                if r.get("status") != "failed" and r.get("new_posts", 0) == 0
+            )
+            duration_values = [
+                float(r.get("duration_seconds", 0))
+                for r in results
+                if isinstance(r.get("duration_seconds"), (int, float))
+            ]
+            avg_latency = (
+                sum(duration_values) / len(duration_values)
+                if duration_values
+                else 0.0
+            )
 
             # 指标监控（T1.3）
+            tier_assignments: dict[str, Any] | None = None
             try:
                 now = datetime.now(timezone.utc)
                 cache_hit_rate = (success_count / max(1, len(seed_profiles))) * 100.0
@@ -267,11 +287,27 @@ async def _crawl_seeds_incremental_impl(force_refresh: bool = False) -> dict[str
                     metric_hour=now.hour,
                     cache_hit_rate=cache_hit_rate,
                     valid_posts_24h=total_new,  # 暂以本轮新增作为近似，后续在 T1.4/T1.7 优化口径
+                    total_communities=len(seed_profiles),
+                    successful_crawls=success_count,
+                    empty_crawls=empty_count,
+                    failed_crawls=failed_count,
+                    avg_latency_seconds=avg_latency,
                 )
                 db.add(metrics)
                 await db.commit()
             except Exception:
                 _MODULE_LOGGER.exception("写入 crawl_metrics 失败")
+                try:
+                    await db.rollback()
+                except Exception:
+                    _MODULE_LOGGER.exception("回滚 crawl_metrics 事务失败")
+
+            try:
+                scheduler = TieredScheduler(db)
+                tier_assignments = await scheduler.calculate_assignments()
+                await scheduler.apply_assignments(tier_assignments)
+            except Exception:
+                _MODULE_LOGGER.exception("刷新 quality_tier 失败")
 
             return {
                 "status": "completed",
@@ -283,6 +319,7 @@ async def _crawl_seeds_incremental_impl(force_refresh: bool = False) -> dict[str
                 "total_updated_posts": total_updated,
                 "total_duplicates": total_dup,
                 "communities": results,
+                "tier_assignments": tier_assignments or {},
             }
 
 
