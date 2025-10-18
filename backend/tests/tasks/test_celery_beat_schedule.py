@@ -40,6 +40,35 @@ class TestCeleryBeatSchedule:
         assert task_schedule.minute == {0}  # At minute 0
         assert task_schedule.hour == {0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22}  # Every 2 hours
 
+    def test_auto_crawl_incremental_runs_twice_per_hour(self) -> None:
+        """Auto crawl incremental should run至少每30分钟一次，并且落在crawler_queue。"""
+        schedule = celery_app.conf.beat_schedule
+
+        assert "auto-crawl-incremental" in schedule
+
+        crawl_task = schedule["auto-crawl-incremental"]
+        assert crawl_task["task"] == "tasks.crawler.crawl_seed_communities_incremental"
+
+        task_schedule = crawl_task["schedule"]
+        assert isinstance(task_schedule, crontab)
+        assert task_schedule.minute == {0, 30}
+
+        options = crawl_task.get("options", {})
+        assert options.get("queue") == "crawler_queue"
+        assert options.get("expires") == 1800
+
+    def test_auto_crawl_bootstrap_triggers_once_after_start(self) -> None:
+        """Bootstrap 任务应当只执行一次，用于启动后快速补抓。"""
+        schedule = celery_app.conf.beat_schedule
+
+        assert "auto-crawl-incremental-bootstrap" in schedule
+
+        bootstrap = schedule["auto-crawl-incremental-bootstrap"]
+        assert bootstrap["task"] == "tasks.crawler.crawl_seed_communities_incremental"
+        assert bootstrap["schedule"] == 300.0
+        assert bootstrap.get("one_off") is True
+        assert bootstrap.get("options", {}).get("queue") == "crawler_queue"
+
     def test_monitor_warmup_metrics_scheduled(self) -> None:
         """Test that warmup metrics monitoring is scheduled every 15 minutes."""
         schedule = celery_app.conf.beat_schedule
@@ -138,6 +167,9 @@ class TestCeleryBeatSchedule:
         
         for task_name, task_config in schedule.items():
             task_schedule = task_config["schedule"]
+            if isinstance(task_schedule, (int, float)):
+                assert task_config.get("one_off") is True, f"Non-crontab schedule for '{task_name}' must be one-off"
+                continue
             assert isinstance(task_schedule, crontab), f"Task '{task_name}' schedule is not a crontab"
             
             # Verify crontab has valid minute/hour sets
@@ -210,4 +242,3 @@ class TestCeleryBeatConfiguration:
         assert celery_app.conf.task_serializer == "json"
         assert celery_app.conf.result_serializer == "json"
         assert "json" in celery_app.conf.accept_content
-

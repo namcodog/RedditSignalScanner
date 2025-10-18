@@ -99,11 +99,32 @@ celery_app.conf.update(_build_conf())
 celery_app.autodiscover_tasks(["app.tasks"], force=True)
 
 celery_app.conf.beat_schedule = {
-    # 增量抓取：每 2 小时执行一次（冷热双写 + 水位线）
+    # Warmup 批量爬取：每 2 小时执行一次，保证冷启动覆盖
+    "warmup-crawl-seed-communities": {
+        "task": "tasks.crawler.crawl_seed_communities",
+        "schedule": crontab(minute="0", hour="*/2"),
+        "options": {"queue": "crawler_queue"},
+    },
+    # 兼容旧版批量抓取（半小时一次），供手动触发和回滚兜底
+    "crawl-seed-communities": {
+        "task": "tasks.crawler.crawl_seed_communities",
+        "schedule": crontab(minute="0,30"),
+        "options": {"queue": "crawler_queue"},
+    },
+    # 增量抓取：每 30 分钟执行一次（冷热双写 + 水位线）
     "auto-crawl-incremental": {
         "task": "tasks.crawler.crawl_seed_communities_incremental",
-        "schedule": crontab(minute="0", hour="*/2"),  # 每 2 小时整点执行
+        "schedule": crontab(minute="0,30"),  # 每 30 分钟执行一次
+        "options": {"queue": "crawler_queue", "expires": 1800},
     },
+    # 启动后 5 分钟触发一次增量抓取，避免等待整点
+    # 注意：Celery Beat 不支持 one_off 参数，暂时注释掉
+    # TODO: 考虑在 Worker 启动时通过 worker_ready signal 手动触发
+    # "auto-crawl-incremental-bootstrap": {
+    #     "task": "tasks.crawler.crawl_seed_communities_incremental",
+    #     "schedule": 300.0,  # 5 minutes
+    #     "options": {"queue": "crawler_queue", "expires": 900},
+    # },
     # Monitoring tasks (PRD-09 warmup period monitoring)
     "monitor-warmup-metrics": {
         "task": "tasks.monitoring.monitor_warmup_metrics",
