@@ -1,8 +1,9 @@
 from __future__ import annotations
 
 from datetime import date, datetime, timezone
+from typing import Any
 
-from sqlalchemy import Date, DateTime, Index, Integer, Numeric
+from sqlalchemy import Date, DateTime, Index, Integer, JSON, Numeric
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.db.base import Base
@@ -34,6 +35,14 @@ class CrawlMetrics(Base):
     failed_crawls: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
     avg_latency_seconds: Mapped[float] = mapped_column(
         Numeric(7, 2), default=0.00, nullable=False
+    )
+
+    # Phase 3 新增字段：详细统计
+    total_new_posts: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
+    total_updated_posts: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
+    total_duplicates: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
+    tier_assignments: Mapped[dict[str, Any] | None] = mapped_column(
+        JSON, nullable=True, default=None
     )
 
     created_at: Mapped[datetime] = mapped_column(
