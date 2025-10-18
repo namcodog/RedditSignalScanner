@@ -148,6 +148,12 @@ celery_app.conf.beat_schedule = {
         "task": "tasks.monitoring.update_performance_dashboard",
         "schedule": crontab(minute="*/15"),
     },
+    # Maintenance tasks
+    "cleanup-expired-posts-hot": {
+        "task": "tasks.maintenance.cleanup_expired_posts_hot",
+        "schedule": crontab(hour="*/6"),  # Every 6 hours (0, 6, 12, 18)
+        "options": {"queue": "cleanup_queue", "expires": 3600},
+    },
 }
 
 # Import ensures registration even when autodiscovery is executed in tooling
@@ -155,12 +161,42 @@ celery_app.conf.beat_schedule = {
 try:
     from app.tasks import analysis_task as _analysis_task  # noqa: F401
     from app.tasks import crawler_task as _crawler_task  # noqa: F401
+    from app.tasks import maintenance_task as _maintenance_task  # noqa: F401
     from app.tasks import monitoring_task as _monitoring_task  # noqa: F401
     from app.tasks import warmup_crawler as _warmup_crawler  # noqa: F401
 except Exception:  # pragma: no cover - defensive guard for diagnostics
     pass
 
+_BOOTSTRAP_TASK_NAME = "tasks.crawler.crawl_seed_communities_incremental"
+_BOOTSTRAP_FLAG_ATTR = "_auto_crawl_bootstrap_sent"
+_BOOTSTRAP_DISABLE_ENV = "DISABLE_AUTO_CRAWL_BOOTSTRAP"
+
+
+def trigger_auto_crawl_bootstrap(app: Celery | None = None) -> bool:
+    """Trigger the first incremental crawl once workers are ready."""
+    celery_instance = app or celery_app
+    if os.getenv(_BOOTSTRAP_DISABLE_ENV) == "1":
+        celery_instance.conf.auto_crawl_bootstrap_state = "disabled"
+        return False
+    if getattr(celery_instance, _BOOTSTRAP_FLAG_ATTR, False):
+        return False
+    try:
+        celery_instance.send_task(_BOOTSTRAP_TASK_NAME)
+    except Exception:  # pragma: no cover
+        logging.getLogger(__name__).exception("Auto crawl bootstrap dispatch failed")
+        celery_instance.conf.auto_crawl_bootstrap_state = "error"
+        return False
+    setattr(celery_instance, _BOOTSTRAP_FLAG_ATTR, True)
+    celery_instance.conf.auto_crawl_bootstrap_state = "sent"
+    return True
+
+
+@worker_ready.connect  # type: ignore[misc]
+def _handle_worker_ready(sender=None, **_kwargs) -> None:
+    app_instance = getattr(sender, "app", None)
+    trigger_auto_crawl_bootstrap(app_instance)
+
 # Expose alias expected by `celery -A app.core.celery_app ...`.
 app = celery_app
 
-__all__ = ["celery_app", "app"]
+__all__ = ["celery_app", "app", "trigger_auto_crawl_bootstrap"]

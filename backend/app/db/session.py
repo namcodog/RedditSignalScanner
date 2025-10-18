@@ -22,7 +22,7 @@ from sqlalchemy.ext.asyncio import (
 from sqlalchemy.pool import NullPool
 
 DEFAULT_DATABASE_URL = (
-    "postgresql+asyncpg://postgres:postgres@localhost:5432/reddit_scanner"
+    "postgresql+asyncpg://postgres:postgres@localhost:5432/reddit_signal_scanner"
 )
 DATABASE_URL = os.getenv("DATABASE_URL", DEFAULT_DATABASE_URL)
 

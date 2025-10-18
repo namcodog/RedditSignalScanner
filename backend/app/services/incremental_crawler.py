@@ -219,6 +219,16 @@ class IncrementalCrawler:
         Returns:
             (is_new, is_updated)
         """
+        # 先检查是否已存在
+        existing = await self.db.execute(
+            select(PostRaw).where(
+                PostRaw.source == "reddit",
+                PostRaw.source_post_id == post.id,
+                PostRaw.version == 1,
+            )
+        )
+        existing_post = existing.scalar_one_or_none()
+
         # 构造 upsert 语句
         stmt = pg_insert(PostRaw).values(
             source="reddit",
@@ -240,22 +250,35 @@ class IncrementalCrawler:
             },
         )
 
-        # ON CONFLICT: 如果已存在，检查是否需要更新版本
-        stmt = stmt.on_conflict_do_update(
-            index_elements=["source", "source_post_id", "version"],
-            set_={
-                "score": stmt.excluded.score,
-                "num_comments": stmt.excluded.num_comments,
-                "fetched_at": stmt.excluded.fetched_at,
-            },
-        )
+        if existing_post:
+            # 已存在：检查是否需要更新
+            is_updated = (
+                existing_post.score != post.score
+                or existing_post.num_comments != post.num_comments
+            )
 
-        # 执行并返回是否新增/更新
-        # 注意：这里简化处理，实际应该检查 text_norm_hash 判断是否编辑
-        await self.db.execute(stmt)
-
-        # TODO: 实现 SCD2 版本追踪（检测编辑）
-        return True, False  # 暂时返回 (is_new=True, is_updated=False)
+            if is_updated:
+                # ON CONFLICT: 更新 score/num_comments
+                stmt = stmt.on_conflict_do_update(
+                    index_elements=["source", "source_post_id", "version"],
+                    set_={
+                        "score": stmt.excluded.score,
+                        "num_comments": stmt.excluded.num_comments,
+                        "fetched_at": stmt.excluded.fetched_at,
+                    },
+                )
+                await self.db.execute(stmt)
+                return False, True  # (is_new=False, is_updated=True)
+            else:
+                # 无变化，跳过
+                return False, False  # (is_new=False, is_updated=False)
+        else:
+            # 不存在：新增
+            stmt = stmt.on_conflict_do_nothing(
+                index_elements=["source", "source_post_id", "version"]
+            )
+            await self.db.execute(stmt)
+            return True, False  # (is_new=True, is_updated=False)
 
     async def _upsert_to_hot_cache(
         self,
