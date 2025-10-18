@@ -1,0 +1,20 @@
+positive:
+  - name: budget
+    pattern: "\\$\\s?\\d+(?:,\\d{3})*"
+    boost: 0.3
+  - name: timeline
+    pattern: "\\bin\\s+\\d+\\s+(?:day|days|week|weeks)\\b"
+    boost: 0.2
+  - name: quantity
+    pattern: "\\b\\d+\\s+(?:teams|users|customers|members)\\b"
+    boost: 0.15
+negative:
+  - name: giveaway
+    pattern: "\\bgiveaway\\b"
+    penalty: 1.0
+  - name: recruitment
+    pattern: "\\b(hiring|job\\s+opening|looking\\s+to\\s+hire)\\b"
+    penalty: 1.0
+  - name: promotion
+    pattern: "\\bjust\\s+sharing\\b"
+    penalty: 1.0

@@ -1,0 +1,330 @@
+[
+  {
+    "name": "dataisbeautiful",
+    "tier": "high",
+    "categories": ["data", "visualization"],
+    "description_keywords": {"data visualization": 1.0, "dashboards": 0.9, "analytics": 0.8},
+    "daily_posts": 60,
+    "quality_score": 0.82
+  },
+  {
+    "name": "uxresearch",
+    "tier": "high",
+    "categories": ["design", "research"],
+    "description_keywords": {"user research": 1.0, "interviews": 0.8, "usability": 0.8},
+    "daily_posts": 35,
+    "quality_score": 0.78
+  },
+  {
+    "name": "productdesign",
+    "tier": "high",
+    "categories": ["design", "product"],
+    "description_keywords": {"product design": 1.0, "ux": 0.9, "interfaces": 0.8},
+    "daily_posts": 45,
+    "quality_score": 0.80
+  },
+  {
+    "name": "ProductMarketing",
+    "tier": "medium",
+    "categories": ["marketing", "product"],
+    "description_keywords": {"positioning": 1.0, "go to market": 0.9, "launch": 0.8},
+    "daily_posts": 30,
+    "quality_score": 0.75
+  },
+  {
+    "name": "CustomerSuccess",
+    "tier": "medium",
+    "categories": ["business", "saas"],
+    "description_keywords": {"customer success": 1.0, "retention": 0.9, "health score": 0.7},
+    "daily_posts": 32,
+    "quality_score": 0.77
+  },
+  {
+    "name": "growthmarketing",
+    "tier": "medium",
+    "categories": ["marketing", "growth"],
+    "description_keywords": {"growth": 1.0, "experimentation": 0.9, "funnels": 0.8},
+    "daily_posts": 38,
+    "quality_score": 0.78
+  },
+  {
+    "name": "SaaSMarketing",
+    "tier": "medium",
+    "categories": ["marketing", "saas"],
+    "description_keywords": {"saas": 1.0, "demand gen": 0.9, "lifecycle": 0.7},
+    "daily_posts": 26,
+    "quality_score": 0.74
+  },
+  {
+    "name": "RevOps",
+    "tier": "medium",
+    "categories": ["operations", "saas"],
+    "description_keywords": {"revenue operations": 1.0, "process": 0.9, "automation": 0.8},
+    "daily_posts": 25,
+    "quality_score": 0.76
+  },
+  {
+    "name": "supplychain",
+    "tier": "medium",
+    "categories": ["operations", "logistics"],
+    "description_keywords": {"supply chain": 1.0, "inventory": 0.9, "forecast": 0.8},
+    "daily_posts": 28,
+    "quality_score": 0.73
+  },
+  {
+    "name": "logistics",
+    "tier": "medium",
+    "categories": ["operations", "logistics"],
+    "description_keywords": {"last mile": 1.0, "fulfillment": 0.9, "shipping": 0.8},
+    "daily_posts": 24,
+    "quality_score": 0.72
+  },
+  {
+    "name": "procurement",
+    "tier": "medium",
+    "categories": ["operations", "enterprise"],
+    "description_keywords": {"procurement": 1.0, "sourcing": 0.9, "vendors": 0.8},
+    "daily_posts": 20,
+    "quality_score": 0.70
+  },
+  {
+    "name": "operations",
+    "tier": "medium",
+    "categories": ["business", "operations"],
+    "description_keywords": {"ops": 1.0, "workflow": 0.9, "process": 0.8},
+    "daily_posts": 36,
+    "quality_score": 0.75
+  },
+  {
+    "name": "cloudnative",
+    "tier": "high",
+    "categories": ["devops", "cloud"],
+    "description_keywords": {"cloud native": 1.0, "cncf": 0.9, "containers": 0.8},
+    "daily_posts": 40,
+    "quality_score": 0.82
+  },
+  {
+    "name": "observability",
+    "tier": "medium",
+    "categories": ["devops", "monitoring"],
+    "description_keywords": {"observability": 1.0, "metrics": 0.9, "tracing": 0.8},
+    "daily_posts": 34,
+    "quality_score": 0.79
+  },
+  {
+    "name": "siteReliabilityEngineering",
+    "tier": "high",
+    "categories": ["devops", "operations"],
+    "description_keywords": {"sre": 1.0, "reliability": 0.9, "incident": 0.8},
+    "daily_posts": 42,
+    "quality_score": 0.81
+  },
+  {
+    "name": "microservices",
+    "tier": "medium",
+    "categories": ["architecture", "backend"],
+    "description_keywords": {"microservices": 1.0, "distributed": 0.9, "api": 0.8},
+    "daily_posts": 27,
+    "quality_score": 0.74
+  },
+  {
+    "name": "mlops",
+    "tier": "high",
+    "categories": ["ai", "ops"],
+    "description_keywords": {"mlops": 1.0, "deployment": 0.9, "monitoring": 0.8},
+    "daily_posts": 44,
+    "quality_score": 0.83
+  },
+  {
+    "name": "AIEngineering",
+    "tier": "high",
+    "categories": ["ai", "engineering"],
+    "description_keywords": {"ai engineering": 1.0, "production": 0.9, "models": 0.8},
+    "daily_posts": 39,
+    "quality_score": 0.82
+  },
+  {
+    "name": "promptengineering",
+    "tier": "medium",
+    "categories": ["ai", "product"],
+    "description_keywords": {"prompt": 1.0, "llm": 0.9, "chatgpt": 0.8},
+    "daily_posts": 48,
+    "quality_score": 0.78
+  },
+  {
+    "name": "LangChainDev",
+    "tier": "medium",
+    "categories": ["ai", "development"],
+    "description_keywords": {"langchain": 1.0, "agents": 0.9, "pipelines": 0.8},
+    "daily_posts": 22,
+    "quality_score": 0.76
+  },
+  {
+    "name": "LocalLLaMA",
+    "tier": "medium",
+    "categories": ["ai", "open-source"],
+    "description_keywords": {"llama": 1.0, "local models": 0.9, "quantization": 0.8},
+    "daily_posts": 33,
+    "quality_score": 0.79
+  },
+  {
+    "name": "devrel",
+    "tier": "medium",
+    "categories": ["developer", "marketing"],
+    "description_keywords": {"developer relations": 1.0, "advocacy": 0.9, "community": 0.8},
+    "daily_posts": 19,
+    "quality_score": 0.72
+  },
+  {
+    "name": "technicalwriting",
+    "tier": "medium",
+    "categories": ["content", "documentation"],
+    "description_keywords": {"technical writing": 1.0, "docs": 0.9, "knowledge": 0.8},
+    "daily_posts": 21,
+    "quality_score": 0.73
+  },
+  {
+    "name": "api",
+    "tier": "medium",
+    "categories": ["development", "backend"],
+    "description_keywords": {"api": 1.0, "integration": 0.9, "rest": 0.8},
+    "daily_posts": 37,
+    "quality_score": 0.77
+  },
+  {
+    "name": "RESTfulAPI",
+    "tier": "medium",
+    "categories": ["development", "backend"],
+    "description_keywords": {"rest": 1.0, "http": 0.9, "microservices": 0.8},
+    "daily_posts": 23,
+    "quality_score": 0.74
+  },
+  {
+    "name": "graphql",
+    "tier": "medium",
+    "categories": ["development", "backend"],
+    "description_keywords": {"graphql": 1.0, "schemas": 0.9, "api": 0.8},
+    "daily_posts": 31,
+    "quality_score": 0.78
+  },
+  {
+    "name": "dataengineeringjobs",
+    "tier": "low",
+    "categories": ["jobs", "data"],
+    "description_keywords": {"data engineer": 1.0, "hiring": 0.9, "open roles": 0.8},
+    "daily_posts": 18,
+    "quality_score": 0.70
+  },
+  {
+    "name": "datasciencejobs",
+    "tier": "low",
+    "categories": ["jobs", "data"],
+    "description_keywords": {"data science": 1.0, "careers": 0.9, "hiring": 0.8},
+    "daily_posts": 20,
+    "quality_score": 0.71
+  },
+  {
+    "name": "productanalytics",
+    "tier": "medium",
+    "categories": ["analytics", "product"],
+    "description_keywords": {"product analytics": 1.0, "events": 0.9, "insights": 0.8},
+    "daily_posts": 28,
+    "quality_score": 0.76
+  },
+  {
+    "name": "analyticsengineering",
+    "tier": "medium",
+    "categories": ["analytics", "data"],
+    "description_keywords": {"analytics engineering": 1.0, "dbt": 0.9, "transform": 0.8},
+    "daily_posts": 24,
+    "quality_score": 0.75
+  },
+  {
+    "name": "dataplatforms",
+    "tier": "medium",
+    "categories": ["data", "architecture"],
+    "description_keywords": {"data platforms": 1.0, "lakehouse": 0.9, "pipelines": 0.8},
+    "daily_posts": 27,
+    "quality_score": 0.76
+  },
+  {
+    "name": "marketingops",
+    "tier": "medium",
+    "categories": ["marketing", "operations"],
+    "description_keywords": {"marketing ops": 1.0, "automation": 0.9, "systems": 0.8},
+    "daily_posts": 29,
+    "quality_score": 0.75
+  },
+  {
+    "name": "marketingautomation",
+    "tier": "medium",
+    "categories": ["marketing", "technology"],
+    "description_keywords": {"automation": 1.0, "workflows": 0.9, "crm": 0.8},
+    "daily_posts": 26,
+    "quality_score": 0.74
+  },
+  {
+    "name": "digitalanalytics",
+    "tier": "medium",
+    "categories": ["analytics", "marketing"],
+    "description_keywords": {"digital analytics": 1.0, "attribution": 0.9, "events": 0.8},
+    "daily_posts": 33,
+    "quality_score": 0.77
+  },
+  {
+    "name": "conversionrate",
+    "tier": "medium",
+    "categories": ["marketing", "optimization"],
+    "description_keywords": {"cro": 1.0, "experiments": 0.9, "landing pages": 0.8},
+    "daily_posts": 22,
+    "quality_score": 0.73
+  },
+  {
+    "name": "CRO",
+    "tier": "medium",
+    "categories": ["marketing", "optimization"],
+    "description_keywords": {"conversion rate optimization": 1.0, "tests": 0.9, "insights": 0.8},
+    "daily_posts": 21,
+    "quality_score": 0.72
+  },
+  {
+    "name": "paidsearch",
+    "tier": "medium",
+    "categories": ["marketing", "ads"],
+    "description_keywords": {"ppc": 1.0, "adwords": 0.9, "bidding": 0.8},
+    "daily_posts": 30,
+    "quality_score": 0.74
+  },
+  {
+    "name": "ecommerceSEO",
+    "tier": "medium",
+    "categories": ["marketing", "ecommerce"],
+    "description_keywords": {"seo": 1.0, "organic": 0.9, "store": 0.8},
+    "daily_posts": 23,
+    "quality_score": 0.73
+  },
+  {
+    "name": "ProductLedGrowth",
+    "tier": "medium",
+    "categories": ["product", "growth"],
+    "description_keywords": {"plg": 1.0, "activation": 0.9, "retention": 0.8},
+    "daily_posts": 28,
+    "quality_score": 0.76
+  },
+  {
+    "name": "AnalyticsLeaders",
+    "tier": "low",
+    "categories": ["analytics", "leadership"],
+    "description_keywords": {"analytics leadership": 1.0, "strategy": 0.9, "roadmap": 0.8},
+    "daily_posts": 16,
+    "quality_score": 0.72
+  },
+  {
+    "name": "CustomerExperience",
+    "tier": "medium",
+    "categories": ["business", "customer"],
+    "description_keywords": {"cx": 1.0, "journey": 0.9, "voice of customer": 0.8},
+    "daily_posts": 27,
+    "quality_score": 0.75
+  }
+]
