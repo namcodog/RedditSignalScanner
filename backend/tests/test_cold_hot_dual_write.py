@@ -15,7 +15,9 @@ from app.models.posts_storage import PostHot, PostRaw
 async def test_cold_hot_dual_write():
     """测试冷热双写功能"""
     # 1. 创建数据库连接
-    DATABASE_URL = "postgresql+asyncpg://postgres:postgres@localhost:5432/reddit_signal_scanner"
+    DATABASE_URL = (
+        "postgresql+asyncpg://postgres:postgres@localhost:5432/reddit_signal_scanner"
+    )
     engine = create_async_engine(DATABASE_URL, echo=False)
     async_session = sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
 
@@ -237,4 +239,3 @@ async def test_cold_hot_dual_write():
 
 if __name__ == "__main__":
     asyncio.run(test_cold_hot_dual_write())
-

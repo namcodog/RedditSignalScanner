@@ -27,7 +27,6 @@ class Base(DeclarativeBase):
     """Base class for all models in posts_storage"""
 
 
-
 class PostRaw(Base):
     """
     冷库：增量累积，保留90天滚动窗口
