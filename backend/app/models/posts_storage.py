@@ -102,13 +102,18 @@ class PostRaw(Base):
             "source",
             "source_post_id",
             "is_current",
-            postgresql_where=(is_current == True),
+            postgresql_where=(is_current.is_(True)),
         ),
         Index("idx_posts_raw_metadata_gin", "metadata", postgresql_using="gin"),
     )
 
     def __repr__(self) -> str:
-        return f"<PostRaw(source={self.source}, post_id={self.source_post_id}, version={self.version}, subreddit={self.subreddit})>"
+        return (
+            f"<PostRaw(source={self.source}, "
+            f"post_id={self.source_post_id}, "
+            f"version={self.version}, "
+            f"subreddit={self.subreddit})>"
+        )
 
 
 class PostHot(Base):
@@ -151,7 +156,11 @@ class PostHot(Base):
     )
 
     def __repr__(self) -> str:
-        return f"<PostHot(source={self.source}, post_id={self.source_post_id}, subreddit={self.subreddit})>"
+        return (
+            f"<PostHot(source={self.source}, "
+            f"post_id={self.source_post_id}, "
+            f"subreddit={self.subreddit})>"
+        )
 
 
 class Watermark(Base):
@@ -178,7 +187,10 @@ class Watermark(Base):
     extra_data = Column("metadata", JSONB)
 
     def __repr__(self) -> str:
-        return f"<Watermark(community={self.community_name}, last_seen={self.last_seen_created_at})>"
+        return (
+            f"<Watermark(community={self.community_name}, "
+            f"last_seen={self.last_seen_created_at})>"
+        )
 
 
 # 导出

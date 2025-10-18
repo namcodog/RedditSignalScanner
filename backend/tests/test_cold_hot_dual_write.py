@@ -15,10 +15,10 @@ from app.models.posts_storage import PostHot, PostRaw
 async def test_cold_hot_dual_write():
     """测试冷热双写功能"""
     # 1. 创建数据库连接
-    DATABASE_URL = (
-        "postgresql+asyncpg://postgres:postgres@localhost:5432/reddit_signal_scanner"
+    db_url = (
+        "postgresql+asyncpg://postgres:postgres@localhost:5432/" "reddit_signal_scanner"
     )
-    engine = create_async_engine(DATABASE_URL, echo=False)
+    engine = create_async_engine(db_url, echo=False)
     async_session = sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
 
     async with async_session() as session:
@@ -31,10 +31,12 @@ async def test_cold_hot_dual_write():
         test_post_id = "test_post_001"
         test_subreddit = "r/test_community"
         test_title = "Test Post for Cold-Hot Dual Write"
-        test_body = "This is a test post to verify cold-hot dual write functionality."
+        test_body = (
+            "This is a test post to verify " "cold-hot dual write functionality."
+        )
         test_created_at = datetime.now(timezone.utc)
 
-        print(f"📝 测试数据:")
+        print("📝 测试数据:")
         print(f"   - Post ID: {test_post_id}")
         print(f"   - Subreddit: {test_subreddit}")
         print(f"   - Title: {test_title}")
@@ -75,7 +77,7 @@ async def test_cold_hot_dual_write():
         cold_row = result.scalar_one_or_none()
 
         if cold_row:
-            print(f"✅ 冷库验证成功:")
+            print("✅ 冷库验证成功:")
             print(f"   - ID: {cold_row.id}")
             print(f"   - Source: {cold_row.source}")
             print(f"   - Post ID: {cold_row.source_post_id}")
@@ -126,7 +128,7 @@ async def test_cold_hot_dual_write():
         hot_row = result.scalar_one_or_none()
 
         if hot_row:
-            print(f"✅ 热缓存验证成功:")
+            print("✅ 热缓存验证成功:")
             print(f"   - Source: {hot_row.source}")
             print(f"   - Post ID: {hot_row.source_post_id}")
             print(f"   - Title: {hot_row.title}")
@@ -188,7 +190,7 @@ async def test_cold_hot_dual_write():
         updated_cold = result.scalar_one_or_none()
 
         if updated_cold:
-            print(f"✅ 冷库更新验证:")
+            print("✅ 冷库更新验证:")
             print(f"   - Score: {updated_cold.score} (应该是 150)")
             print(f"   - Comments: {updated_cold.num_comments} (应该是 75)")
         print()
@@ -216,13 +218,15 @@ async def test_cold_hot_dual_write():
 
         await session.execute(
             text(
-                "DELETE FROM posts_raw WHERE source = 'reddit' AND source_post_id = :post_id"
+                "DELETE FROM posts_raw WHERE source = 'reddit' "
+                "AND source_post_id = :post_id"
             ),
             {"post_id": test_post_id},
         )
         await session.execute(
             text(
-                "DELETE FROM posts_hot WHERE source = 'reddit' AND source_post_id = :post_id"
+                "DELETE FROM posts_hot WHERE source = 'reddit' "
+                "AND source_post_id = :post_id"
             ),
             {"post_id": test_post_id},
         )
