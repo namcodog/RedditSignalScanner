@@ -35,7 +35,7 @@ def sample_reddit_posts() -> List[RedditPost]:
             score=100,
             num_comments=50,
             created_utc=1234567890.0,
-            subreddit="productivity",
+            subreddit="r/productivity",
             author="user1",
             url="https://reddit.com/r/productivity/post1",
             permalink="/r/productivity/comments/post1",
@@ -47,7 +47,7 @@ def sample_reddit_posts() -> List[RedditPost]:
             score=80,
             num_comments=30,
             created_utc=1234567891.0,
-            subreddit="productivity",
+            subreddit="r/productivity",
             author="user2",
             url="https://reddit.com/r/productivity/post2",
             permalink="/r/productivity/comments/post2",
@@ -100,7 +100,7 @@ class TestCommunityDiscoveryService:
         # Verify
         assert isinstance(communities, list)
         assert len(communities) > 0
-        assert "productivity" in communities  # Appears 2 times
+        assert "r/productivity" in communities  # Appears 2 times
 
         # Verify Reddit search was called
         assert mock_reddit_client.search_posts.called
@@ -139,7 +139,7 @@ class TestCommunityDiscoveryService:
 
         communities = service._extract_communities(sample_reddit_posts)
 
-        assert communities["productivity"] == 2
+        assert communities["r/productivity"] == 2
         assert communities["students"] == 1
 
     @pytest.mark.asyncio
@@ -150,7 +150,7 @@ class TestCommunityDiscoveryService:
     ) -> None:
         """Test that new communities are recorded to database."""
         keywords = ["ai", "note", "taking"]
-        communities = {"productivity": 5}
+        communities = {"r/productivity": 5}
 
         service = CommunityDiscoveryService(
             db=db_session,
@@ -160,7 +160,7 @@ class TestCommunityDiscoveryService:
         await service._record_discoveries(None, keywords, communities)
 
         # Verify community was created
-        stmt = select(PendingCommunity).where(PendingCommunity.name == "productivity")
+        stmt = select(PendingCommunity).where(PendingCommunity.name == "r/productivity")
         result = await db_session.execute(stmt)
         pending = result.scalar_one_or_none()
 
@@ -184,7 +184,7 @@ class TestCommunityDiscoveryService:
         # Create existing community
         now = datetime.now(timezone.utc)
         existing = PendingCommunity(
-            name="productivity",
+            name="r/productivity",
             discovered_from_keywords={"keywords": keywords1, "mention_count": 3},
             discovered_count=3,
             first_discovered_at=now,
@@ -201,7 +201,7 @@ class TestCommunityDiscoveryService:
             reddit_client=mock_reddit_client,
         )
 
-        await service._record_discoveries(None, keywords2, {"productivity": 5})
+        await service._record_discoveries(None, keywords2, {"r/productivity": 5})
 
         # Verify community was updated
         await db_session.refresh(existing)
@@ -240,7 +240,7 @@ class TestCommunityDiscoveryIntegration:
                 score=100,
                 num_comments=50,
                 created_utc=1234567890.0 + i,
-                subreddit="productivity" if i < 3 else "students",
+                subreddit="r/productivity" if i < 3 else "students",
                 author=f"user{i}",
                 url=f"https://reddit.com/post{i}",
                 permalink=f"/r/sub/post{i}",
@@ -262,7 +262,7 @@ class TestCommunityDiscoveryIntegration:
         )
 
         # Verify
-        assert "productivity" in communities
+        assert "r/productivity" in communities
         assert "students" in communities
 
         # Verify database records
@@ -271,6 +271,6 @@ class TestCommunityDiscoveryIntegration:
         pending = result.scalars().all()
 
         assert len(pending) >= 2
-        assert any(p.name == "productivity" for p in pending)
+        assert any(p.name == "r/productivity" for p in pending)
         assert any(p.name == "students" for p in pending)
 

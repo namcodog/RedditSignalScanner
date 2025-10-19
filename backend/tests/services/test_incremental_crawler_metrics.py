@@ -88,7 +88,7 @@ async def test_crawler_records_success_metrics() -> None:
 
         async with SessionFactory() as db:
             crawler = IncrementalCrawler(db=db, reddit_client=mock_client)
-            await crawler.crawl_communities(["r/TestSuccess"])
+            await crawler.crawl_community_incremental("r/TestSuccess")
 
     # Verify: success_hit incremented, avg_valid_posts updated
     async with SessionFactory() as db:
@@ -148,7 +148,7 @@ async def test_crawler_records_empty_metrics() -> None:
 
         async with SessionFactory() as db:
             crawler = IncrementalCrawler(db=db, reddit_client=mock_client)
-            await crawler.crawl_communities(["r/TestEmpty"])
+            await crawler.crawl_community_incremental("r/TestEmpty")
 
     # Verify: empty_hit incremented
     async with SessionFactory() as db:
@@ -208,7 +208,7 @@ async def test_crawler_records_failure_metrics() -> None:
 
         async with SessionFactory() as db:
             crawler = IncrementalCrawler(db=db, reddit_client=mock_client)
-            await crawler.crawl_communities(["r/TestFailure"])
+            await crawler.crawl_community_incremental("r/TestFailure")
 
     # Verify: failure_hit incremented
     async with SessionFactory() as db:

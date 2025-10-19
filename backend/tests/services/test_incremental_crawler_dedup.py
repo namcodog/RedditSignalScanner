@@ -81,7 +81,7 @@ class TestIncrementalCrawlerDedup:
         crawler.reddit_client.fetch_subreddit_posts = AsyncMock(return_value=mock_posts)
 
         # 执行抓取
-        result = await crawler.crawl_community_incremental("test_new_community", limit=10)
+        result = await crawler.crawl_community_incremental("r/test_new", limit=10)
 
         # 验收: 所有帖子都是新增
         assert result["new_posts"] == 10
@@ -107,7 +107,7 @@ class TestIncrementalCrawlerDedup:
         crawler.reddit_client.fetch_subreddit_posts = AsyncMock(return_value=mock_posts)
 
         # 第一次抓取: 全部新增
-        result1 = await crawler.crawl_community_incremental("test_dup_community", limit=10)
+        result1 = await crawler.crawl_community_incremental("r/test_dup", limit=10)
         assert result1["new_posts"] == 10
         assert result1["duplicates"] == 0
 
@@ -119,7 +119,7 @@ class TestIncrementalCrawlerDedup:
         ]
         crawler.reddit_client.fetch_subreddit_posts = AsyncMock(return_value=mock_posts_dup)
 
-        result2 = await crawler.crawl_community_incremental("test_dup_community", limit=10)
+        result2 = await crawler.crawl_community_incremental("r/test_dup", limit=10)
 
         # 验收: 所有帖子都是重复
         assert result2["new_posts"] == 0
@@ -141,7 +141,7 @@ class TestIncrementalCrawlerDedup:
         crawler.reddit_client.fetch_subreddit_posts = AsyncMock(return_value=mock_posts_v1)
 
         # 第一次抓取
-        result1 = await crawler.crawl_community_incremental("test_update_community", limit=10)
+        result1 = await crawler.crawl_community_incremental("r/test_update", limit=10)
         assert result1["new_posts"] == 10
 
         # 模拟帖子获得更多点赞（score 变化）
@@ -153,7 +153,7 @@ class TestIncrementalCrawlerDedup:
         crawler.reddit_client.fetch_subreddit_posts = AsyncMock(return_value=mock_posts_v2)
 
         # 第二次抓取
-        result2 = await crawler.crawl_community_incremental("test_update_community", limit=10)
+        result2 = await crawler.crawl_community_incremental("r/test_update", limit=10)
         
         # 验收: 检测到更新
         assert result2["updated_posts"] > 0
@@ -170,7 +170,7 @@ class TestIncrementalCrawlerDedup:
         ]
         
         crawler.reddit_client.fetch_subreddit_posts = AsyncMock(return_value=initial_posts)
-        await crawler.crawl_community_incremental("test_mixed_community", limit=5)
+        await crawler.crawl_community_incremental("r/test_mixed", limit=5)
         
         # 再抓取10个帖子（前5个重复，后5个新增）
         mixed_posts = [
@@ -179,7 +179,7 @@ class TestIncrementalCrawlerDedup:
         ]
         
         crawler.reddit_client.fetch_subreddit_posts = AsyncMock(return_value=mixed_posts)
-        result = await crawler.crawl_community_incremental("test_mixed_community", limit=10)
+        result = await crawler.crawl_community_incremental("r/test_mixed", limit=10)
         
         # 验收: 统计一致性
         total = result["new_posts"] + result["updated_posts"] + result["duplicates"]
@@ -208,12 +208,12 @@ class TestIncrementalCrawlerDedup:
 
         # 第一次抓取: 插入旧帖子
         crawler.reddit_client.fetch_subreddit_posts = AsyncMock(return_value=old_posts)
-        await crawler.crawl_community_incremental("test_watermark_community", limit=5)
+        await crawler.crawl_community_incremental("r/test_watermark", limit=5)
 
         # 第二次抓取: 混合旧帖子和新帖子
         mixed_posts = old_posts + new_posts
         crawler.reddit_client.fetch_subreddit_posts = AsyncMock(return_value=mixed_posts)
-        result = await crawler.crawl_community_incremental("test_watermark_community", limit=10)
+        result = await crawler.crawl_community_incremental("r/test_watermark", limit=10)
         
         # 验收: 只处理新帖子（水位线之后）
         assert result["new_posts"] == 5  # 只有5个新帖子

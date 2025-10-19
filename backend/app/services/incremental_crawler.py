@@ -12,6 +12,7 @@ from sqlalchemy.dialects.postgresql import insert as pg_insert
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.community_cache import CommunityCache
+from app.models.crawl_metrics import CrawlMetrics
 from app.models.posts_storage import PostHot, PostRaw
 from app.services.reddit_client import RedditAPIClient, RedditPost
 
@@ -82,12 +83,45 @@ class IncrementalCrawler:
             if community_name.lower().startswith("r/")
             else community_name
         )
-        posts = await self.reddit_client.fetch_subreddit_posts(
-            raw_name,
-            limit=limit,
-            time_filter=time_filter,
-            sort=sort,
-        )
+        try:
+            posts = await self.reddit_client.fetch_subreddit_posts(
+                raw_name,
+                limit=limit,
+                time_filter=time_filter,
+                sort=sort,
+            )
+        except Exception as e:
+            logger.error(f"❌ {community_name}: 抓取失败 - {e}")
+            # 记录失败指标
+            now = datetime.now(timezone.utc)
+            await self.db.execute(
+                pg_insert(CommunityCache)
+                .values(
+                    community_name=community_name,
+                    last_crawled_at=now,
+                    posts_cached=0,
+                    ttl_seconds=3600,
+                    quality_score=Decimal("0.50"),
+                    hit_count=0,
+                    crawl_priority=50,
+                    crawl_frequency_hours=2,
+                    is_active=True,
+                    empty_hit=0,
+                    success_hit=0,
+                    failure_hit=1,
+                    avg_valid_posts=0,
+                    quality_tier="medium",
+                )
+                .on_conflict_do_update(
+                    index_elements=["community_name"],
+                    set_={
+                        "last_crawled_at": now,
+                        "failure_hit": CommunityCache.failure_hit + 1,
+                    },
+                )
+            )
+            await self.db.commit()
+            raise
 
         if not posts:
             logger.warning(f"⚠️ {community_name}: 未抓取到任何帖子")
@@ -108,6 +142,14 @@ class IncrementalCrawler:
                 )
             )
             await self.db.commit()
+
+            # T1.4 埋点：记录空结果
+            duration = (datetime.now(timezone.utc) - start_time).total_seconds()
+            await self._record_crawl_metrics(
+                empty_crawls=1,
+                avg_latency_seconds=duration,
+            )
+
             return {
                 "community": community_name,
                 "new_posts": 0,
@@ -151,6 +193,15 @@ class IncrementalCrawler:
         logger.info(
             f"✅ {community_name}: 新增 {new_count}, 更新 {updated_count}, "
             f"去重 {dup_count}, 耗时 {duration:.2f}s"
+        )
+
+        # T1.4 埋点：记录成功抓取
+        await self._record_crawl_metrics(
+            successful_crawls=1,
+            total_new_posts=new_count,
+            total_updated_posts=updated_count,
+            total_duplicates=dup_count,
+            avg_latency_seconds=duration,
         )
 
         return {
@@ -370,6 +421,89 @@ class IncrementalCrawler:
             )
         )
         await self.db.commit()
+
+    async def _record_crawl_metrics(
+        self,
+        successful_crawls: int = 0,
+        empty_crawls: int = 0,
+        failed_crawls: int = 0,
+        total_new_posts: int = 0,
+        total_updated_posts: int = 0,
+        total_duplicates: int = 0,
+        avg_latency_seconds: float = 0.0,
+    ) -> None:
+        """
+        记录抓取指标到 crawl_metrics 表（T1.4 埋点）
+
+        每小时汇总一次，记录当前小时的抓取统计
+        """
+        now = datetime.now(timezone.utc)
+        metric_date = now.date()
+        metric_hour = now.hour
+
+        # 查询当前小时的 valid_posts_24h（从 posts_hot 表）
+        from sqlalchemy import func
+        result = await self.db.execute(
+            select(func.count(PostHot.source_post_id)).where(
+                PostHot.cached_at >= now - timedelta(hours=24)
+            )
+        )
+        valid_posts_24h = result.scalar() or 0
+
+        # 查询活跃社区总数
+        result = await self.db.execute(
+            select(func.count(CommunityCache.community_name)).where(
+                CommunityCache.is_active == True  # noqa: E712
+            )
+        )
+        total_communities = result.scalar() or 0
+
+        # 计算缓存命中率（去重率的倒数）
+        total_posts = total_new_posts + total_updated_posts + total_duplicates
+        cache_hit_rate = (
+            (total_duplicates / total_posts * 100) if total_posts > 0 else 0.0
+        )
+
+        # Upsert 到 crawl_metrics 表
+        await self.db.execute(
+            pg_insert(CrawlMetrics)
+            .values(
+                metric_date=metric_date,
+                metric_hour=metric_hour,
+                cache_hit_rate=cache_hit_rate,
+                valid_posts_24h=valid_posts_24h,
+                total_communities=total_communities,
+                successful_crawls=successful_crawls,
+                empty_crawls=empty_crawls,
+                failed_crawls=failed_crawls,
+                avg_latency_seconds=avg_latency_seconds,
+                total_new_posts=total_new_posts,
+                total_updated_posts=total_updated_posts,
+                total_duplicates=total_duplicates,
+            )
+            .on_conflict_do_update(
+                index_elements=["metric_date", "metric_hour"],
+                set_={
+                    "cache_hit_rate": cache_hit_rate,
+                    "valid_posts_24h": valid_posts_24h,
+                    "total_communities": total_communities,
+                    "successful_crawls": CrawlMetrics.successful_crawls + successful_crawls,
+                    "empty_crawls": CrawlMetrics.empty_crawls + empty_crawls,
+                    "failed_crawls": CrawlMetrics.failed_crawls + failed_crawls,
+                    "avg_latency_seconds": avg_latency_seconds,
+                    "total_new_posts": CrawlMetrics.total_new_posts + total_new_posts,
+                    "total_updated_posts": CrawlMetrics.total_updated_posts + total_updated_posts,
+                    "total_duplicates": CrawlMetrics.total_duplicates + total_duplicates,
+                },
+            )
+        )
+        await self.db.commit()
+
+        logger.info(
+            f"📊 埋点记录: {metric_date} {metric_hour}:00 - "
+            f"成功={successful_crawls}, 空结果={empty_crawls}, 失败={failed_crawls}, "
+            f"新增={total_new_posts}, 更新={total_updated_posts}, 去重={total_duplicates}"
+        )
 
 
 __all__ = ["IncrementalCrawler"]
