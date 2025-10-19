@@ -230,6 +230,8 @@ class IncrementalCrawler:
         existing_post = existing.scalar_one_or_none()
 
         # 构造 upsert 语句
+        # 注意：对于 metadata 列，使用 PostRaw.extra_data（Python 属性名）
+        # SQLAlchemy 会自动映射到数据库列 "metadata"
         stmt = pg_insert(PostRaw).values(
             source="reddit",
             source_post_id=post.id,
@@ -244,11 +246,14 @@ class IncrementalCrawler:
             subreddit=community_name,
             score=post.score,
             num_comments=post.num_comments,
-            extra_data={
+        )
+        # 单独设置 extra_data，避免与 metadata 保留字冲突
+        stmt = stmt.values({
+            PostRaw.extra_data: {
                 "permalink": post.permalink,
                 "upvote_ratio": getattr(post, "upvote_ratio", None),
-            },
-        )
+            }
+        })
 
         if existing_post:
             # 已存在：检查是否需要更新
@@ -290,6 +295,8 @@ class IncrementalCrawler:
             hours=self.hot_cache_ttl_hours
         )
 
+        # 注意：对于 metadata 列，使用 PostHot.extra_data（Python 属性名）
+        # SQLAlchemy 会自动映射到数据库列 "metadata"
         stmt = pg_insert(PostHot).values(
             source="reddit",
             source_post_id=post.id,
@@ -301,12 +308,16 @@ class IncrementalCrawler:
             subreddit=community_name,
             score=post.score,
             num_comments=post.num_comments,
-            extra_data={
-                "permalink": post.permalink,
-            },
         )
+        # 单独设置 extra_data，避免与 metadata 保留字冲突
+        stmt = stmt.values({
+            PostHot.extra_data: {
+                "permalink": post.permalink,
+            }
+        })
 
         # ON CONFLICT: 覆盖式更新
+        # 注意：对于 metadata 列，使用 PostHot.__table__.c.metadata
         stmt = stmt.on_conflict_do_update(
             index_elements=["source", "source_post_id"],
             set_={
@@ -316,7 +327,7 @@ class IncrementalCrawler:
                 "num_comments": stmt.excluded.num_comments,
                 "title": stmt.excluded.title,
                 "body": stmt.excluded.body,
-                "extra_data": stmt.excluded.extra_data,
+                "metadata": stmt.excluded.metadata,
             },
         )
 

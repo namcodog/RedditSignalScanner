@@ -64,6 +64,9 @@ def _build_conf() -> Dict[str, Any]:
         "tasks.crawler.crawl_seed_communities", {"queue": "crawler_queue"}
     )
     task_routes.setdefault(
+        "tasks.crawler.crawl_low_quality_communities", {"queue": "crawler_queue"}
+    )
+    task_routes.setdefault(
         "tasks.monitoring.monitor_api_calls", {"queue": "monitoring_queue"}
     )
     task_routes.setdefault(
@@ -118,6 +121,12 @@ celery_app.conf.beat_schedule = {
         "task": "tasks.crawler.crawl_seed_communities_incremental",
         "schedule": crontab(minute="0,30"),  # 每 30 分钟执行一次
         "options": {"queue": "crawler_queue", "expires": 1800},
+    },
+    # 精准补抓低质量社区：每 4 小时执行一次（T1.8）
+    "crawl-low-quality-communities": {
+        "task": "tasks.crawler.crawl_low_quality_communities",
+        "schedule": crontab(minute="0", hour="*/4"),  # 每 4 小时执行一次
+        "options": {"queue": "crawler_queue", "expires": 3600},
     },
     # Monitoring tasks (PRD-09 warmup period monitoring)
     "monitor-warmup-metrics": {

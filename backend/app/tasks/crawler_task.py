@@ -448,6 +448,144 @@ def crawl_seed_communities_incremental(force_refresh: bool = False) -> dict[str,
         raise
 
 
+async def _crawl_low_quality_communities_impl() -> dict[str, Any]:
+    """精准补抓低质量社区（T1.8）
+
+    查询条件：
+    - last_crawled_at > 8h（超过 8 小时未抓取）
+    - avg_valid_posts < 50（平均有效帖子数低于 50）
+    - is_active = True（仅抓取活跃社区）
+
+    失败处理：
+    - 失败时回写 empty_hit += 1
+    """
+    settings = get_settings()
+    reddit_client = await _build_reddit_client(settings)
+
+    async with reddit_client:
+        async with SessionFactory() as db:
+            # 查询低质量社区
+            cutoff_time = datetime.now(timezone.utc) - timedelta(hours=8)
+            from sqlalchemy import select, and_
+
+            result = await db.execute(
+                select(CommunityCache.community_name)
+                .where(
+                    and_(
+                        CommunityCache.last_crawled_at < cutoff_time,
+                        CommunityCache.avg_valid_posts < 50,
+                        CommunityCache.is_active == True,
+                    )
+                )
+                .order_by(CommunityCache.last_crawled_at.asc())
+                .limit(50)  # 每次最多补抓 50 个社区
+            )
+            low_quality_communities = result.scalars().all()
+
+            if not low_quality_communities:
+                logger.info("✅ 没有需要补抓的低质量社区")
+                return {
+                    "status": "skipped",
+                    "reason": "no_low_quality_communities",
+                    "total": 0,
+                }
+
+            logger.info(f"🎯 发现 {len(low_quality_communities)} 个低质量社区需要补抓")
+
+            # 创建增量抓取器
+            results: List[dict[str, Any]] = []
+            semaphore = asyncio.Semaphore(max(1, DEFAULT_MAX_CONCURRENCY))
+
+            async def runner(community_name: str) -> dict[str, Any]:
+                async with semaphore:
+                    async with SessionFactory() as crawl_session:
+                        await crawl_session.connection(
+                            execution_options={"isolation_level": "AUTOCOMMIT"}
+                        )
+                        crawler = IncrementalCrawler(
+                            db=crawl_session,
+                            reddit_client=reddit_client,
+                            hot_cache_ttl_hours=DEFAULT_HOT_CACHE_TTL_HOURS,
+                        )
+                        return await crawler.crawl_community_incremental(
+                            community_name,
+                            limit=DEFAULT_POST_LIMIT,
+                            time_filter=DEFAULT_TIME_FILTER,
+                            sort=DEFAULT_SORT,
+                        )
+
+            # 分批抓取
+            for batch in _chunked(list(low_quality_communities), DEFAULT_BATCH_SIZE):
+                batch_results = await asyncio.gather(
+                    *[runner(name) for name in batch],
+                    return_exceptions=True,
+                )
+                for community_name, outcome in zip(batch, batch_results):
+                    if isinstance(outcome, Exception):
+                        logger.warning("❌ %s: 补抓失败 - %s", community_name, outcome)
+                        # 失败时回写 empty_hit += 1
+                        try:
+                            await _mark_empty_hit(community_name)
+                        except Exception:
+                            logger.exception("回写 empty_hit 失败：%s", community_name)
+                        results.append(
+                            {
+                                "community": community_name,
+                                "status": "failed",
+                                "error": str(outcome),
+                            }
+                        )
+                    else:
+                        results.append(cast(dict[str, Any], outcome))
+
+            # 统计结果
+            total_new = sum(r.get("new_posts", 0) for r in results)
+            total_updated = sum(r.get("updated_posts", 0) for r in results)
+            success_count = sum(1 for r in results if r.get("watermark_updated", False))
+            failed_count = sum(1 for r in results if r.get("status") == "failed")
+            empty_count = sum(
+                1
+                for r in results
+                if r.get("status") != "failed" and r.get("new_posts", 0) == 0
+            )
+
+            logger.info(
+                f"✅ 低质量社区补抓完成: 总数={len(low_quality_communities)}, "
+                f"成功={success_count}, 失败={failed_count}, 空结果={empty_count}, "
+                f"新增帖子={total_new}"
+            )
+
+            return {
+                "status": "completed",
+                "mode": "low_quality_补抓",
+                "total": len(low_quality_communities),
+                "succeeded": success_count,
+                "failed": failed_count,
+                "empty": empty_count,
+                "total_new_posts": total_new,
+                "total_updated_posts": total_updated,
+                "communities": results,
+            }
+
+
+async def _mark_empty_hit(community_name: str) -> None:
+    """标记社区空结果次数（用于补抓失败），使用 AUTOCOMMIT 避免并发冲突"""
+    now = datetime.now(timezone.utc)
+    async with SessionFactory() as db:
+        await db.connection(execution_options={"isolation_level": "AUTOCOMMIT"})
+        await db.execute(
+            pg_insert(CommunityCache)
+            .values(community_name=community_name, last_crawled_at=now)
+            .on_conflict_do_update(
+                index_elements=["community_name"],
+                set_={
+                    "empty_hit": CommunityCache.empty_hit + 1,
+                    "last_crawled_at": now,
+                },
+            )
+        )
+
+
 async def list_stale_caches(threshold_minutes: int = 90) -> List[Tuple[str, datetime]]:
     cutoff = datetime.now(timezone.utc) - timedelta(minutes=threshold_minutes)
     async with SessionFactory() as session:
@@ -466,9 +604,20 @@ async def list_stale_caches(threshold_minutes: int = 90) -> List[Tuple[str, date
     return []
 
 
+@celery_app.task(name="tasks.crawler.crawl_low_quality_communities")  # type: ignore[misc]
+def crawl_low_quality_communities() -> dict[str, Any]:
+    """精准补抓低质量社区任务（T1.8）"""
+    try:
+        return asyncio.run(_crawl_low_quality_communities_impl())
+    except Exception:  # pragma: no cover - Celery records full traceback
+        logger.exception("❌ 低质量社区补抓失败")
+        raise
+
+
 __all__ = [
     "crawl_community",
     "crawl_seed_communities",
     "crawl_seed_communities_incremental",
+    "crawl_low_quality_communities",
     "list_stale_caches",
 ]
