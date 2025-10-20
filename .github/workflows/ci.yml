@@ -176,7 +176,10 @@ jobs:
   security-scan:
     name: Security Scan
     runs-on: ubuntu-latest
-    
+    permissions:
+      contents: read
+      security-events: write  # 允许上传 SARIF 结果到 GitHub Security
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
