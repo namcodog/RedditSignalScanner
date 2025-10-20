@@ -270,11 +270,11 @@ def reset_database() -> None:
                     ((status::text = 'completed') AND completed_at IS NOT NULL) OR
                     ((status::text <> 'completed') AND completed_at IS NULL)
                 );
-                -- Recreate partial index using status::text to be type-agnostic
+                -- Recreate partial index without type cast (status is VARCHAR, no cast needed)
                 IF EXISTS (SELECT 1 FROM pg_indexes WHERE indexname = 'ix_tasks_processing') THEN
                     DROP INDEX ix_tasks_processing;
                 END IF;
-                CREATE INDEX IF NOT EXISTS ix_tasks_processing ON tasks(status, created_at) WHERE (status::text = 'processing');
+                CREATE INDEX IF NOT EXISTS ix_tasks_processing ON tasks(status, created_at) WHERE (status = 'processing');
             END;
             $$;
             """
