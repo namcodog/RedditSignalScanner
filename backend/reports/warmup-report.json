@@ -1,5 +1,5 @@
 {
-  "generated_at": "2025-10-18T09:50:14.894713+00:00",
+  "generated_at": "2025-10-20T07:14:07.245385+00:00",
   "warmup_period": "Day 13-19 (7 days)",
   "adaptive_crawl_hours": null,
   "community_pool": {
@@ -9,7 +9,7 @@
   },
   "cache_metrics": {
     "total_posts_cached": 5,
-    "avg_cache_age_hours": 0.03879684145061728,
+    "avg_cache_age_hours": 0.04507440513374486,
     "cache_hit_rate": 0.9
   },
   "api_usage": {
@@ -18,14 +18,14 @@
     "peak_calls_per_minute": 12
   },
   "user_testing": {
-    "internal_users": 67,
+    "internal_users": 68,
     "beta_users": 1,
-    "total_analyses": 89,
+    "total_analyses": 90,
     "avg_satisfaction": 4.0
   },
   "system_performance": {
-    "avg_analysis_time_seconds": 14.499547112676058,
-    "p95_analysis_time_seconds": 4.039414,
+    "avg_analysis_time_seconds": 14.297485464788734,
+    "p95_analysis_time_seconds": 1.130863,
     "uptime_percentage": 100.0
   }
 }

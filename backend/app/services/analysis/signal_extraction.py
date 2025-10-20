@@ -5,6 +5,9 @@ from collections import defaultdict
 from dataclasses import dataclass
 from typing import Any, Dict, Iterable, List, Sequence
 
+from app.services.analysis.opportunity_scorer import OpportunityScorer
+from app.services.analysis.text_cleaner import clean_text, score_with_context
+
 
 @dataclass(slots=True)
 class PainPointSignal:
@@ -242,6 +245,7 @@ class SignalExtractor:
     _MAX_PAIN_POINTS = 15  # 增加到 15 个
     _MAX_COMPETITORS = 12  # 增加到 12 个
     _MAX_OPPORTUNITIES = 10  # 增加到 10 个
+    OPPORTUNITY_SCORER = OpportunityScorer()
 
     _PRODUCT_PATTERN = re.compile(r"\b([A-Z][A-Za-z0-9]+(?:\s+[A-Z][A-Za-z0-9]+)?)\b")
     _PRODUCT_WITH_SUFFIX_PATTERN = re.compile(
@@ -281,7 +285,9 @@ class SignalExtractor:
         self, posts: Sequence[Dict[str, Any]]
     ) -> Iterable[Dict[str, Any]]:
         for post in posts:
-            text = f"{post.get('title', '')} {post.get('summary', post.get('selftext', ''))}".strip()
+            title = clean_text(str(post.get("title", "")))
+            body = clean_text(str(post.get("summary", post.get("selftext", ""))))
+            text = f"{title} {body}".strip()
             if not text:
                 continue
             yield {
@@ -501,8 +507,8 @@ class SignalExtractor:
         )
 
         for post in posts:
-            sentences = self._split_sentences(post["text"])
-            for sentence in sentences:
+            sentences = [clean_text(s) for s in self._split_sentences(post["text"])]
+            for idx, sentence in enumerate(sentences):
                 if not sentence or len(sentence) < 15:
                     continue
                 sentence_lower = sentence.lower()
@@ -526,7 +532,7 @@ class SignalExtractor:
                 entry["demand"] += 1
                 entry["score_total"] += post["score"]
                 entry["source_posts"].add(post["id"])
-
+                
                 # 计算紧迫性
                 if any(term in sentence_lower for term in self._URGENCY_TERMS):
                     entry["urgency"] += 1.5  # 紧急词汇权重更高
@@ -534,6 +540,14 @@ class SignalExtractor:
                     entry["urgency"] += 1.0
                 elif "would" in sentence_lower or "wish" in sentence_lower:
                     entry["urgency"] += 0.5
+
+                entry.setdefault("context_score_total", 0.0)
+                entry.setdefault("context_samples", 0)
+                context_score = score_with_context(
+                    sentences, idx, scorer=self.OPPORTUNITY_SCORER
+                )
+                entry["context_score_total"] += context_score
+                entry["context_samples"] += 1
 
                 # 提取关键词
                 if keyword_set:
@@ -567,6 +581,26 @@ class SignalExtractor:
                 + market_projection * 0.20  # 紧迫性 30%
                 + keyword_bonus * 0.15  # 市场潜力 20%  # 关键词匹配 15%
             )
+
+            scorer_result = self.OPPORTUNITY_SCORER.score(entry["description"])
+            relevance = max(0.0, min(1.0, relevance + scorer_result.base_score))
+            if scorer_result.positive_hits:
+                entry["keywords"].update(scorer_result.positive_hits)
+            if scorer_result.negative_hits:
+                entry["keywords"].difference_update(scorer_result.negative_hits)
+            if scorer_result.template_positive:
+                entry["keywords"].update(
+                    kw.lower() for kw in scorer_result.template_positive
+                )
+            if scorer_result.template_negative:
+                entry["keywords"].difference_update(
+                    kw.lower() for kw in scorer_result.template_negative
+                )
+
+            context_samples = entry.get("context_samples", 0)
+            if context_samples:
+                context_avg = entry["context_score_total"] / context_samples
+                relevance = max(0.0, min(1.0, relevance + context_avg * 0.2))
 
             potential_users = int(
                 100 + frequency * 50 + avg_score * 2.0 + len(entry["keywords"]) * 20

@@ -17,6 +17,7 @@ from app.core.config import get_settings
 from app.db.session import SessionFactory
 from app.models.task import Task
 from app.models.user import User
+from app.core.security import hash_password
 
 settings = get_settings()
 
@@ -37,7 +38,7 @@ def _parse_iso(value: str) -> datetime:
 
 async def test_create_analysis_task(client: AsyncClient, db_session: AsyncSession) -> None:
     unique_email = f"tester+{uuid.uuid4().hex}@example.com"
-    user = User(email=unique_email, password_hash="hashed-password")
+    user = User(email=unique_email, password_hash=hash_password("testpass123"))
     db_session.add(user)
     await db_session.commit()
     await db_session.refresh(user)

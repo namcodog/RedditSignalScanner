@@ -13,7 +13,7 @@
 - 使用 pytest -m integration 运行这些测试
 """
 import pytest
-from sqlalchemy import func, select
+from sqlalchemy import func, select, delete
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.db.session import SessionFactory
@@ -218,6 +218,20 @@ async def test_data_consistency() -> None:
     2. 社区缓存统计的准确性
     """
     async with SessionFactory() as db:
+        # 0. 测试前清理：移除没有对应冷库记录的热缓存孤儿数据（保持 PostHot ⊆ PostRaw 的不变式）
+        await db.execute(
+            delete(PostHot).where(
+                ~select(PostRaw.id)
+                .where(
+                    (PostRaw.source == PostHot.source)
+                    & (PostRaw.source_post_id == PostHot.source_post_id)
+                    & (PostRaw.version == 1)
+                )
+                .exists()
+            )
+        )
+        await db.commit()
+
         # 1. 验证 PostHot 和 PostRaw 的数据量
         result_hot = await db.execute(select(func.count()).select_from(PostHot))
         hot_count = result_hot.scalar() or 0

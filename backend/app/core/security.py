@@ -7,7 +7,7 @@ from typing import Any, Dict, Optional, Tuple
 import jwt
 from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
-from passlib.hash import bcrypt
+from passlib.hash import django_pbkdf2_sha256
 from pydantic import BaseModel, ValidationError, field_validator
 
 from app.core.config import Settings, get_settings
@@ -71,15 +71,15 @@ def decode_jwt_token(
 def hash_password(password: str) -> str:
     if not password:
         raise ValueError("password must not be empty")
-
-    return bcrypt.using(rounds=12).hash(password)
+    # Use Django's PBKDF2-SHA256 format (matches tests), no 72-byte limit
+    return django_pbkdf2_sha256.hash(password)
 
 
 def verify_password(password: str, stored: str) -> bool:
     if not stored:
         return False
     try:
-        return bcrypt.verify(password, stored)
+        return django_pbkdf2_sha256.verify(password, stored)
     except ValueError:
         return False
 

@@ -57,8 +57,8 @@ class Analysis(Base):
     confidence_score: Mapped[Decimal | None] = mapped_column(
         Numeric(3, 2), nullable=True
     )
-    analysis_version: Mapped[str] = mapped_column(
-        String(10), default="1.0", nullable=False
+    analysis_version: Mapped[int] = mapped_column(
+        default=1, nullable=False
     )
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now(), nullable=False

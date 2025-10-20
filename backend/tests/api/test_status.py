@@ -17,6 +17,8 @@ from app.core.config import get_settings
 from app.models.task import Task, TaskStatus
 from app.models.user import User
 
+from app.core.security import hash_password
+
 settings = get_settings()
 
 def _issue_token(user_id: str) -> str:
@@ -28,7 +30,7 @@ def _issue_token(user_id: str) -> str:
 
 
 async def test_get_status_success(client: AsyncClient, db_session: AsyncSession) -> None:
-    user = User(email=f"status+{uuid.uuid4().hex}@example.com", password_hash="hashed")
+    user = User(email=f"status+{uuid.uuid4().hex}@example.com", password_hash=hash_password("testpass123"))
     db_session.add(user)
     await db_session.flush()
     task = Task(user_id=user.id, product_description="Track Reddit sentiment")
@@ -50,8 +52,8 @@ async def test_get_status_success(client: AsyncClient, db_session: AsyncSession)
 
 
 async def test_get_status_forbidden(client: AsyncClient, db_session: AsyncSession) -> None:
-    owner = User(email=f"owner+{uuid.uuid4().hex}@example.com", password_hash="hashed")
-    intruder = User(email=f"intruder+{uuid.uuid4().hex}@example.com", password_hash="hashed")
+    owner = User(email=f"owner+{uuid.uuid4().hex}@example.com", password_hash=hash_password("testpass123"))
+    intruder = User(email=f"intruder+{uuid.uuid4().hex}@example.com", password_hash=hash_password("testpass123"))
     db_session.add_all([owner, intruder])
     await db_session.flush()
     task = Task(user_id=owner.id, product_description="Unauthorized access test")

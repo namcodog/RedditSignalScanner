@@ -14,11 +14,13 @@ from app.models.community_pool import CommunityPool, PendingCommunity
 from app.models.task import Task, TaskStatus
 from app.models.user import User
 
+from app.core.security import hash_password
+
 
 @pytest.mark.asyncio
 async def test_build_and_save_report(db_session: AsyncSession, monkeypatch: pytest.MonkeyPatch) -> None:
     # Arrange: seed minimal data
-    user = User(email="reporter@example.com", password_hash="x")
+    user = User(email="reporter@example.com", password_hash=hash_password("testpass123"))
     db_session.add(user)
     await db_session.commit()
     await db_session.refresh(user)
@@ -27,7 +29,7 @@ async def test_build_and_save_report(db_session: AsyncSession, monkeypatch: pyte
 
     # Use unique names to avoid PK collisions with other tests
     import uuid as _uuid
-    unique_comm = f"r/example-{_uuid.uuid4().hex[:8]}"
+    unique_comm = f"r/example_{_uuid.uuid4().hex[:8]}"
 
     # Community data
     db_session.add(CommunityPool(
@@ -39,7 +41,7 @@ async def test_build_and_save_report(db_session: AsyncSession, monkeypatch: pyte
         avg_comment_length=12,
     ))
     db_session.add(PendingCommunity(
-        name=f"{unique_comm}-disc",
+        name=f"{unique_comm}_disc",
         discovered_from_keywords={"kw": ["beta"]},
         discovered_count=1,
         first_discovered_at=now - timedelta(hours=3),

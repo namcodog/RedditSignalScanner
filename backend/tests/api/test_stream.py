@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import asyncio
+
 import sys
 import uuid
 from datetime import datetime, timedelta, timezone
@@ -18,6 +20,8 @@ from app.core.config import get_settings
 from app.models.task import Task
 from app.models.user import User
 from app.services.task_status_cache import TaskStatusPayload
+from app.core.security import hash_password
+
 
 settings = get_settings()
 
@@ -49,7 +53,7 @@ class _StubStatusCache:
 
 
 async def _prepare_task(db_session: AsyncSession) -> tuple[User, Task]:
-    user = User(email=f"stream+{uuid.uuid4().hex}@example.com", password_hash="hashed")
+    user = User(email=f"stream+{uuid.uuid4().hex}@example.com", password_hash=hash_password("testpass123"))
     db_session.add(user)
     await db_session.flush()
     task = Task(user_id=user.id, product_description="Build SSE stream")
@@ -119,20 +123,52 @@ async def test_sse_heartbeat(
     monkeypatch: pytest.MonkeyPatch, client: AsyncClient, db_session: AsyncSession
 ) -> None:
     """
-    Test heartbeat functionality in SSE stream.
-
-    Note: This test is currently skipped due to a known issue with httpx.AsyncClient.stream()
-    hanging when testing SSE endpoints. See: https://github.com/encode/httpx/discussions/1787
-
-    The SSE endpoint works correctly in production, but testing it with httpx requires
-    special handling or alternative testing libraries like async-asgi-testclient.
+    Validate heartbeat emission by invoking the internal event generator directly
+    (avoids httpx.AsyncClient streaming hang on some platforms).
     """
-    pytest.skip("SSE streaming tests hang with httpx.AsyncClient - known issue #1787")
+    from app.api.routes import stream
+
+    user, task = await _prepare_task(db_session)
+
+    class _NullCache:
+        async def get_status(self, task_id: str, session: AsyncSession | None = None):  # type: ignore[override]
+            return None
+
+    # Speed up loop and force heartbeat path
+    monkeypatch.setattr(stream, "STATUS_CACHE", _NullCache())
+    monkeypatch.setattr(stream, "POLL_INTERVAL_SECONDS", 0.01)
+    monkeypatch.setattr(stream, "HEARTBEAT_INTERVAL_SECONDS", 0.02)
+
+    gen = stream._event_generator(task, db_session)  # type: ignore[attr-defined]
+
+    events: list[str] = []
+    deadline = datetime.now(timezone.utc) + timedelta(seconds=1)
+
+    async def _next_chunk() -> str | None:
+        try:
+            return await gen.__anext__()
+        except StopAsyncIteration:
+            return None
+
+    while datetime.now(timezone.utc) < deadline and "heartbeat" not in events:
+        chunk = await _next_chunk()
+        if chunk is None:
+            break
+        for line in chunk.splitlines():
+            line = line.strip()
+            if line.startswith("event:"):
+                events.append(line.split(": ", 1)[1])
+        # safety: do not loop too tight
+        await asyncio.sleep(0)
+
+    assert events and events[0] == "connected"
+    assert "progress" in events  # baseline event is emitted first for PENDING task
+    assert "heartbeat" in events
 
 
 async def test_sse_permission_denied(client: AsyncClient, db_session: AsyncSession) -> None:
-    owner = User(email=f"sse-owner+{uuid.uuid4().hex}@example.com", password_hash="hashed")
-    other = User(email=f"sse-other+{uuid.uuid4().hex}@example.com", password_hash="hashed")
+    owner = User(email=f"sse-owner+{uuid.uuid4().hex}@example.com", password_hash=hash_password("testpass123"))
+    other = User(email=f"sse-other+{uuid.uuid4().hex}@example.com", password_hash=hash_password("testpass123"))
     db_session.add_all([owner, other])
     await db_session.flush()
     task = Task(user_id=owner.id, product_description="Permission check")

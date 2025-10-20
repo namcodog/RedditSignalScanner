@@ -498,38 +498,38 @@ class IncrementalCrawler:
         )
 
         # Upsert 到 crawl_metrics 表
-        await self.db.execute(
-            pg_insert(CrawlMetrics)
-            .values(
-                metric_date=metric_date,
-                metric_hour=metric_hour,
-                cache_hit_rate=cache_hit_rate,
-                valid_posts_24h=valid_posts_24h,
-                total_communities=total_communities,
-                successful_crawls=successful_crawls,
-                empty_crawls=empty_crawls,
-                failed_crawls=failed_crawls,
-                avg_latency_seconds=avg_latency_seconds,
-                total_new_posts=total_new_posts,
-                total_updated_posts=total_updated_posts,
-                total_duplicates=total_duplicates,
-            )
-            .on_conflict_do_update(
-                index_elements=["metric_date", "metric_hour"],
-                set_={
-                    "cache_hit_rate": cache_hit_rate,
-                    "valid_posts_24h": valid_posts_24h,
-                    "total_communities": total_communities,
-                    "successful_crawls": CrawlMetrics.successful_crawls + successful_crawls,
-                    "empty_crawls": CrawlMetrics.empty_crawls + empty_crawls,
-                    "failed_crawls": CrawlMetrics.failed_crawls + failed_crawls,
-                    "avg_latency_seconds": avg_latency_seconds,
-                    "total_new_posts": CrawlMetrics.total_new_posts + total_new_posts,
-                    "total_updated_posts": CrawlMetrics.total_updated_posts + total_updated_posts,
-                    "total_duplicates": CrawlMetrics.total_duplicates + total_duplicates,
-                },
-            )
+        stmt = pg_insert(CrawlMetrics).values(
+            metric_date=metric_date,
+            metric_hour=metric_hour,
+            cache_hit_rate=cache_hit_rate,
+            valid_posts_24h=valid_posts_24h,
+            total_communities=total_communities,
+            successful_crawls=successful_crawls,
+            empty_crawls=empty_crawls,
+            failed_crawls=failed_crawls,
+            avg_latency_seconds=avg_latency_seconds,
+            total_new_posts=total_new_posts,
+            total_updated_posts=total_updated_posts,
+            total_duplicates=total_duplicates,
         )
+
+        stmt = stmt.on_conflict_do_update(
+            constraint="uq_crawl_metrics_date_hour",
+            set_={
+                "cache_hit_rate": cache_hit_rate,
+                "valid_posts_24h": valid_posts_24h,
+                "total_communities": total_communities,
+                "successful_crawls": CrawlMetrics.successful_crawls + successful_crawls,
+                "empty_crawls": CrawlMetrics.empty_crawls + empty_crawls,
+                "failed_crawls": CrawlMetrics.failed_crawls + failed_crawls,
+                "avg_latency_seconds": avg_latency_seconds,
+                "total_new_posts": CrawlMetrics.total_new_posts + total_new_posts,
+                "total_updated_posts": CrawlMetrics.total_updated_posts + total_updated_posts,
+                "total_duplicates": CrawlMetrics.total_duplicates + total_duplicates,
+            },
+        )
+
+        await self.db.execute(stmt)
         await self.db.commit()
 
         logger.info(

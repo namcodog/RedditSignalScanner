@@ -1,19 +1,41 @@
 positive_keywords:
-  - need
-  - looking for
-  - searching
-  - require
-  - would love
-  - willing to pay
-  - must have
+  - keyword: need
+    weight: 0.12
+  - keyword: looking for
+    weight: 0.1
+  - keyword: searching
+    weight: 0.08
+  - keyword: require
+    weight: 0.1
+  - keyword: would love
+    weight: 0.1
+  - keyword: willing to pay
+    weight: 0.15
+  - keyword: must have
+    weight: 0.12
+  - keyword: urgent
+    weight: 0.15
 negative_keywords:
-  - giveaway
-  - hiring
-  - job opening
-  - for fun
-  - just sharing
+  - keyword: giveaway
+    weight: -0.25
+  - keyword: hiring
+    weight: -0.2
+  - keyword: job opening
+    weight: -0.2
+  - keyword: for fun
+    weight: -0.2
+  - keyword: just sharing
+    weight: -0.2
+  - keyword: promotion
+    weight: -0.2
 negation_patterns:
-  - "don't need"
-  - "not interested"
-  - "no longer need"
-  - "do not want"
+  - pattern: "don't need"
+    impact: -0.5
+  - pattern: "not interested"
+    impact: -0.6
+  - pattern: "no longer need"
+    impact: -0.5
+  - pattern: "do not want"
+    impact: -0.6
+  - pattern: "already have"
+    impact: -0.4

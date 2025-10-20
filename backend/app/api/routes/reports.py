@@ -81,8 +81,15 @@ async def get_analysis_report(
         )
 
     posts_analyzed = int(sources.get("posts_analyzed") or 0)
+    # format analysis_version as string with one decimal place (e.g., 1 -> "1.0")
+    _ver = analysis.analysis_version
+    try:
+        _ver_str = f"{float(_ver):.1f}"
+    except Exception:
+        _ver_str = str(_ver)
+
     metadata = {
-        "analysis_version": analysis.analysis_version,
+        "analysis_version": _ver_str,
         "confidence_score": float(analysis.confidence_score or 0.0),
         "processing_time_seconds": float(analysis_duration or 0),
         "cache_hit_rate": float(sources.get("cache_hit_rate") or 0.0),

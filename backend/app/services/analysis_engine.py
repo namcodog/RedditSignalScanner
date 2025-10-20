@@ -33,6 +33,8 @@ from app.models.posts_storage import PostHot, PostRaw
 from app.schemas.task import TaskSummary
 from app.services.analysis import sample_guard
 from app.services.analysis.keyword_crawler import keyword_crawl
+from app.services.analysis.opportunity_scorer import OpportunityScorer
+from app.services.analysis.deduplicator import deduplicate_posts
 from app.services.analysis.signal_extraction import SignalExtractor
 from app.services.cache_manager import CacheManager
 from app.services.data_collection import CollectionResult, DataCollectionService
@@ -45,6 +47,7 @@ CACHE_HIT_RATE_TARGET: float = 0.9  # PRD/PRD-03 §1.4 缓存优先：90%数据�
 MIN_SAMPLE_SIZE: int = 1500
 SAMPLE_LOOKBACK_DAYS: int = 30
 _GUARD_SAMPLE_LIMIT: int = 2000
+OPPORTUNITY_SCORER = OpportunityScorer()
 
 
 @dataclass(frozen=True)
@@ -138,31 +141,142 @@ async def _fetch_cold_samples(
 
 async def _supplement_samples(
     *,
+    product_description: str,
     keywords: Sequence[str],
     shortfall: int,
     lookback_days: int,
 ) -> List[Dict[str, Any]]:
     """
-    Placeholder supplementer; actual keyword crawl implemented in T2.2.
-
-    Returns an empty list for now while ensuring signature compatibility.
+    Perform keyword-based crawl to supplement sample shortfall and persist to cold storage.
     """
-    logger.info(
-        "[SampleGuard] Trigger supplementer (keywords=%s, shortfall=%s, lookback=%s)",
-        keywords,
-        shortfall,
-        lookback_days,
-    )
-    return []
+    del lookback_days  # 暂未根据时间窗口过滤，后续阶段接入
+    settings = get_settings()
+    if not settings.enable_reddit_search:
+        logger.info("Keyword supplement disabled via ENABLE_REDDIT_SEARCH flag.")
+        return []
+
+    if not (settings.reddit_client_id and settings.reddit_client_secret):
+        logger.warning(
+            "Keyword supplement requested but Reddit credentials are missing."
+        )
+        return []
+
+    per_query_limit = min(50, max(shortfall, 25))
+    query_variants = 3 if shortfall >= 100 else 2
+
+    try:
+        reddit_client = RedditAPIClient(
+            settings.reddit_client_id,
+            settings.reddit_client_secret,
+            settings.reddit_user_agent,
+            rate_limit=min(30, settings.reddit_rate_limit),
+            rate_limit_window=settings.reddit_rate_limit_window_seconds,
+            request_timeout=min(20.0, settings.reddit_request_timeout_seconds),
+            max_concurrency=max(1, settings.reddit_max_concurrency // 2),
+        )
+    except Exception as exc:
+        logger.warning("Failed to initialise Reddit search client: %s", exc)
+        return []
+
+    try:
+        async with reddit_client as client:
+            search_results = await keyword_crawl(
+                client,
+                product_description=product_description,
+                base_keywords=keywords,
+                per_query_limit=per_query_limit,
+                query_variants=max(1, query_variants),
+                time_filter="month",
+                sort="relevance",
+            )
+    except Exception as exc:
+        logger.warning("Keyword crawl failed: %s", exc)
+        return []
+
+    if not search_results:
+        return []
+
+    supplement_posts = search_results[: max(0, shortfall)]
+    now = datetime.now(timezone.utc)
+
+    async with SessionFactory() as session:
+        rows: List[dict[str, Any]] = []
+        for post in supplement_posts:
+            post_id = str(post.get("id") or "").strip()
+            subreddit = str(post.get("subreddit") or "").strip()
+            if not post_id or not subreddit:
+                continue
+
+            created_utc = post.get("created_utc")
+            created_at: datetime
+            try:
+                created_at = datetime.fromtimestamp(
+                    float(created_utc), tz=timezone.utc
+                )
+            except (TypeError, ValueError):
+                created_at = now
+
+            author = str(post.get("author") or "unknown")
+            metadata = {
+                "source_type": "search",
+                "search_keywords": list(keywords),
+                "permalink": post.get("permalink"),
+                "supplemented_at": now.isoformat(),
+            }
+
+            row: dict[Any, Any] = {
+                "source": "reddit",
+                "source_post_id": post_id,
+                "version": 1,
+                "created_at": created_at,
+                "fetched_at": now,
+                "author_id": author,
+                "author_name": author,
+                "title": post.get("title", ""),
+                "body": post.get("summary", ""),
+                "url": post.get("url"),
+                "subreddit": subreddit,
+                "score": int(post.get("score", 0) or 0),
+                "num_comments": int(post.get("num_comments", 0) or 0),
+            }
+            row[PostRaw.extra_data] = metadata
+            rows.append(row)
+
+        if rows:
+            stmt = pg_insert(PostRaw).values(rows)
+            stmt = stmt.on_conflict_do_update(
+                index_elements=["source", "source_post_id", "version"],
+                set_={
+                    "title": stmt.excluded.title,
+                    "body": stmt.excluded.body,
+                    "score": stmt.excluded.score,
+                    "num_comments": stmt.excluded.num_comments,
+                    "metadata": stmt.excluded.metadata,
+                    "fetched_at": stmt.excluded.fetched_at,
+                },
+            )
+            await session.execute(stmt)
+            await session.commit()
+
+    for post in supplement_posts:
+        post.setdefault("source_type", "search")
+
+    return supplement_posts
 
 
-async def _run_sample_guard(keywords: Sequence[str]) -> Optional[sample_guard.SampleCheckResult]:
+async def _run_sample_guard(
+    keywords: Sequence[str], product_description: str
+) -> Optional[sample_guard.SampleCheckResult]:
     """Execute the sample floor check with defensive fallbacks."""
+    supplement = partial(
+        _supplement_samples,
+        product_description=product_description,
+    )
     try:
         return await sample_guard.check_sample_size(
             hot_fetcher=_fetch_hot_samples,
             cold_fetcher=_fetch_cold_samples,
-            supplementer=_supplement_samples,
+            supplementer=supplement,
             keywords=keywords,
             min_samples=MIN_SAMPLE_SIZE,
             lookback_days=SAMPLE_LOOKBACK_DAYS,
@@ -626,7 +740,7 @@ async def run_analysis(
     keywords = _extract_keywords(task.product_description)
     keywords = _augment_keywords(keywords, task.product_description)
 
-    sample_result = await _run_sample_guard(keywords)
+    sample_result = await _run_sample_guard(keywords, task.product_description)
     if sample_result and sample_result.remaining_shortfall > 0:
         return _build_insufficient_sample_result(task, sample_result)
 
@@ -843,13 +957,22 @@ async def run_analysis(
         cache_hit_rate = cache_hit_rate or CACHE_HIT_RATE_TARGET
 
     all_posts = [post for entry in collected for post in entry.posts]
-    all_posts = _filter_posts_by_keywords(all_posts, keywords)
-    business_signals = SIGNAL_EXTRACTOR.extract(all_posts, keywords)
+    filtered_posts = _filter_posts_by_keywords(all_posts, keywords)
+    deduped_posts = deduplicate_posts(filtered_posts)
+    duplicate_summary = [
+        {
+            "post_id": post.get("id"),
+            "duplicate_ids": post.get("duplicate_ids", []),
+            "evidence_count": post.get("evidence_count", 1),
+        }
+        for post in deduped_posts
+        if post.get("duplicate_ids")
+    ]
+    business_signals = SIGNAL_EXTRACTOR.extract(deduped_posts, keywords)
 
-    post_lookup: Dict[str, Dict[str, Any]] = {}
-    for entry in collected:
-        for post in entry.posts:
-            post_lookup[post["id"]] = post
+    post_lookup: Dict[str, Dict[str, Any]] = {
+        post["id"]: post for post in deduped_posts
+    }
 
     def build_example_posts(source_ids: Sequence[str]) -> List[Dict[str, Any]]:
         examples: List[Dict[str, Any]] = []
@@ -865,6 +988,8 @@ async def run_analysis(
                     "url": payload.get("url"),
                     "author": payload.get("author"),
                     "permalink": payload.get("permalink"),
+                    "evidence_count": int(payload.get("evidence_count", 1) or 1),
+                    "duplicate_ids": payload.get("duplicate_ids", []),
                 }
             )
             if len(examples) >= 3:
@@ -990,12 +1115,13 @@ async def run_analysis(
 
     sources = {
         "communities": [entry.profile.name for entry in collected],
-        "posts_analyzed": total_posts,
+        "posts_analyzed": len(deduped_posts),
         "cache_hit_rate": round(cache_hit_rate, 2),
         "analysis_duration_seconds": processing_seconds,
         "reddit_api_calls": api_call_count,
         "product_description": task.product_description,
         "communities_detail": communities_detail,
+        "duplicates_summary": duplicate_summary,
     }
 
     report_html = _render_report(task, collected, insights)

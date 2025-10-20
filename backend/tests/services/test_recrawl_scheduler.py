@@ -23,7 +23,7 @@ async def test_find_low_quality_candidates_filters_by_thresholds() -> None:
         db.add_all(
             [
                 CommunityPool(
-                    name="r/recrawl-fresh",
+                    name="r/recrawl_fresh",
                     tier="high",
                     categories={"topic": ["fresh"]},
                     description_keywords={"fresh": 1},
@@ -32,7 +32,7 @@ async def test_find_low_quality_candidates_filters_by_thresholds() -> None:
                     priority="high",
                 ),
                 CommunityPool(
-                    name="r/recrawl-stale",
+                    name="r/recrawl_stale",
                     tier="medium",
                     categories={"topic": ["stale"]},
                     description_keywords={"stale": 1},
@@ -41,7 +41,7 @@ async def test_find_low_quality_candidates_filters_by_thresholds() -> None:
                     priority="medium",
                 ),
                 CommunityPool(
-                    name="r/recrawl-blacklisted",
+                    name="r/recrawl_blacklisted",
                     tier="low",
                     categories={"topic": ["blacklisted"]},
                     description_keywords={"blacklisted": 1},
@@ -55,7 +55,7 @@ async def test_find_low_quality_candidates_filters_by_thresholds() -> None:
         db.add_all(
             [
                 CommunityCache(
-                    community_name="r/recrawl-fresh",
+                    community_name="r/recrawl_fresh",
                     last_crawled_at=now - timedelta(hours=2),
                     posts_cached=100,
                     ttl_seconds=3600,
@@ -67,7 +67,7 @@ async def test_find_low_quality_candidates_filters_by_thresholds() -> None:
                     avg_valid_posts=Decimal("80.00"),
                 ),
                 CommunityCache(
-                    community_name="r/recrawl-stale",
+                    community_name="r/recrawl_stale",
                     last_crawled_at=now - timedelta(hours=12),
                     posts_cached=10,
                     ttl_seconds=3600,
@@ -79,7 +79,7 @@ async def test_find_low_quality_candidates_filters_by_thresholds() -> None:
                     avg_valid_posts=Decimal("10.00"),
                 ),
                 CommunityCache(
-                    community_name="r/recrawl-blacklisted",
+                    community_name="r/recrawl_blacklisted",
                     last_crawled_at=now - timedelta(hours=20),
                     posts_cached=5,
                     ttl_seconds=3600,
@@ -101,4 +101,4 @@ async def test_find_low_quality_candidates_filters_by_thresholds() -> None:
             avg_posts_threshold=50,
         )
 
-    assert candidates == ["r/recrawl-stale"]
+    assert candidates == ["r/recrawl_stale"]

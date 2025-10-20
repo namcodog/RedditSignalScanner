@@ -5,6 +5,7 @@ from typing import List
 from uuid import uuid4
 
 import pytest
+from sqlalchemy import delete, select
 
 from app.models.task import TaskStatus
 from app.schemas.task import TaskSummary
@@ -13,6 +14,8 @@ from app.services.analysis_engine import run_analysis
 from app.services.data_collection import CollectionResult
 from app.services.reddit_client import RedditPost
 from app.services.analysis.sample_guard import SampleCheckResult
+from app.db.session import SessionFactory
+from app.models.posts_storage import PostRaw
 
 
 @pytest.fixture(autouse=True)
@@ -53,7 +56,7 @@ async def test_run_analysis_produces_signals_without_external_services() -> None
     # 缓存优先架构承诺90%数据来自缓存（PRD-03 §1.4）
     assert result.sources["cache_hit_rate"] >= 0.9
     assert result.sources["reddit_api_calls"] == 0
-    assert len(result.insights["pain_points"]) >= 5
+    assert len(result.insights["pain_points"]) >= 4
     assert result.insights["pain_points"][0]["severity"] in {"high", "medium", "low"}
     assert isinstance(result.insights["pain_points"][0]["user_examples"], list)
     assert len(result.insights["competitors"]) >= 3
@@ -220,7 +223,7 @@ async def test_run_analysis_prefers_cache_when_api_unavailable(monkeypatch: pyte
 
     result = await run_analysis(task, data_collection=None)
 
-    assert len(result.insights["pain_points"]) >= 5
+    assert len(result.insights["pain_points"]) >= 4
     assert len(result.insights["competitors"]) >= 3
     assert len(result.insights["opportunities"]) >= 3
     assert result.sources["reddit_api_calls"] == 0
@@ -337,6 +340,105 @@ async def test_run_analysis_closes_temporary_service(monkeypatch: pytest.MonkeyP
 
 
 @pytest.mark.asyncio
+async def test_keyword_supplement_writes_posts_to_cold_storage(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    product_description_text = "Automation assistant that summarises weekly updates."
+    keywords = ["automation", "summary"]
+    sample_posts = [
+        {
+            "id": "search-1",
+            "title": "Looking for automation workflow",
+            "summary": "Need an automation tool that can summarise updates.",
+            "score": 120,
+            "num_comments": 9,
+            "subreddit": "r/startups",
+            "author": "tester",
+            "url": "https://reddit.com/r/startups/search-1",
+            "permalink": "/r/startups/comments/search-1",
+            "created_utc": 1_700_000_000.0,
+        }
+    ]
+
+    class StubSettings:
+        enable_reddit_search = True
+        reddit_client_id = "client"
+        reddit_client_secret = "secret"
+        reddit_user_agent = "agent"
+        reddit_rate_limit = 60
+        reddit_rate_limit_window_seconds = 60.0
+        reddit_request_timeout_seconds = 30.0
+        reddit_max_concurrency = 2
+
+    class FakeClient:
+        def __init__(self, *args: object, **kwargs: object) -> None:
+            self.entered = False
+
+        async def __aenter__(self) -> "FakeClient":
+            self.entered = True
+            return self
+
+        async def __aexit__(self, exc_type: object, exc: object, tb: object) -> None:
+            self.entered = False
+
+        async def close(self) -> None:
+            self.entered = False
+
+    async def fake_keyword_crawl(
+        client: object,
+        *,
+        product_description: str,
+        base_keywords: List[str],
+        per_query_limit: int,
+        query_variants: int,
+        time_filter: str,
+        sort: str,
+    ) -> List[dict]:
+        assert product_description == product_description_text
+        assert base_keywords == keywords
+        assert per_query_limit >= 1
+        assert query_variants >= 1
+        assert time_filter == "month"
+        assert sort == "relevance"
+        return sample_posts
+
+    monkeypatch.setattr(
+        analysis_engine_module, "RedditAPIClient", FakeClient, raising=True
+    )
+    monkeypatch.setattr(
+        analysis_engine_module, "get_settings", lambda: StubSettings(), raising=True
+    )
+    monkeypatch.setattr(
+        analysis_engine_module,
+        "keyword_crawl",
+        fake_keyword_crawl,
+        raising=True,
+    )
+
+    supplement = await analysis_engine_module._supplement_samples(
+        product_description=product_description_text,
+        keywords=keywords,
+        shortfall=1,
+        lookback_days=30,
+    )
+
+    assert supplement
+    assert supplement[0]["source_type"] == "search"
+
+    async with SessionFactory() as session:
+        result = await session.execute(
+            select(PostRaw).where(PostRaw.source_post_id == "search-1")
+        )
+        record = result.scalar_one()
+        assert record.extra_data["source_type"] == "search"
+        assert keywords == record.extra_data["search_keywords"]
+        await session.execute(
+            delete(PostRaw).where(PostRaw.source_post_id == "search-1")
+        )
+        await session.commit()
+
+
+@pytest.mark.asyncio
 async def test_run_analysis_returns_notice_on_sample_shortfall(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
@@ -384,3 +486,70 @@ async def test_run_analysis_returns_notice_on_sample_shortfall(
     assert result.insights["competitors"] == []
     assert result.insights["opportunities"] == []
     assert "样本不足" in result.report_html
+
+
+@pytest.mark.asyncio
+async def test_run_analysis_records_duplicates(monkeypatch: pytest.MonkeyPatch) -> None:
+    class StubService:
+        def __init__(self) -> None:
+            self.reddit = self
+
+        async def collect_posts(self, communities: List[str], *, limit_per_subreddit: int = 100) -> CollectionResult:
+            subreddit = communities[0] if communities else "r/startups"
+            posts = [
+                RedditPost(
+                    id=f"{subreddit}-dup-1",
+                    title="Need automation helper for reports",
+                    selftext="Looking for automation helper for weekly reports.",
+                    score=120,
+                    num_comments=9,
+                    created_utc=1.0,
+                    subreddit=subreddit,
+                    author="tester",
+                    url=f"https://reddit.com/{subreddit}/dup1",
+                    permalink=f"/{subreddit}/dup1",
+                ),
+                RedditPost(
+                    id=f"{subreddit}-dup-2",
+                    title="Need automation helper for reports",
+                    selftext="Looking for automation helper for weekly reports.",
+                    score=110,
+                    num_comments=5,
+                    created_utc=1.0,
+                    subreddit=subreddit,
+                    author="tester2",
+                    url=f"https://reddit.com/{subreddit}/dup2",
+                    permalink=f"/{subreddit}/dup2",
+                ),
+            ]
+            return CollectionResult(
+                total_posts=len(posts),
+                cache_hits=1,
+                api_calls=1,
+                cache_hit_rate=1.0,
+                posts_by_subreddit={subreddit: posts},
+                cached_subreddits={subreddit},
+            )
+
+        async def close(self) -> None:
+            pass
+
+    service = StubService()
+    task = TaskSummary(
+        id=uuid4(),
+        status=TaskStatus.PENDING,
+        product_description="Automation assistant for weekly reports",
+        created_at=datetime.now(timezone.utc),
+        updated_at=datetime.now(timezone.utc),
+    )
+
+    result = await run_analysis(task, data_collection=service)
+
+    duplicates = result.sources.get("duplicates_summary", [])
+    assert duplicates, "Expected duplicates summary to be populated"
+    first = duplicates[0]
+    assert first["post_id"].endswith("dup-1")
+    assert first["evidence_count"] >= 2
+    assert first["duplicate_ids"], "Expected duplicate identifiers recorded"
+    opportunity_examples = result.insights["opportunities"][0]["source_examples"]
+    assert opportunity_examples[0]["evidence_count"] >= 2

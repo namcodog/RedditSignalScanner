@@ -18,6 +18,8 @@ from app.models.analysis import Analysis
 from app.models.report import Report
 from app.models.task import Task, TaskStatus
 from app.models.user import User
+from app.core.security import hash_password
+
 
 settings = get_settings()
 
@@ -30,7 +32,7 @@ def _issue_token(user_id: str) -> str:
 
 
 async def _create_completed_task(db_session: AsyncSession, with_report: bool = True) -> tuple[User, Task]:
-    user = User(email=f"report+{uuid.uuid4().hex}@example.com", password_hash="hashed")
+    user = User(email=f"report+{uuid.uuid4().hex}@example.com", password_hash=hash_password("testpass123"))
     db_session.add(user)
     await db_session.flush()
     task = Task(
@@ -113,7 +115,7 @@ async def test_get_report_success(client: AsyncClient, db_session: AsyncSession)
 
 async def test_get_report_permission_denied(client: AsyncClient, db_session: AsyncSession) -> None:
     owner, task = await _create_completed_task(db_session)
-    intruder = User(email=f"report-intruder+{uuid.uuid4().hex}@example.com", password_hash="hashed")
+    intruder = User(email=f"report-intruder+{uuid.uuid4().hex}@example.com", password_hash=hash_password("testpass123"))
     db_session.add(intruder)
     await db_session.commit()
     await db_session.refresh(intruder)
@@ -127,7 +129,7 @@ async def test_get_report_permission_denied(client: AsyncClient, db_session: Asy
 
 
 async def test_get_report_requires_completion(client: AsyncClient, db_session: AsyncSession) -> None:
-    user = User(email=f"pending+{uuid.uuid4().hex}@example.com", password_hash="hashed")
+    user = User(email=f"pending+{uuid.uuid4().hex}@example.com", password_hash=hash_password("testpass123"))
     db_session.add(user)
     await db_session.flush()
     task = Task(user_id=user.id, product_description="Pending report")

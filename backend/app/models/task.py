@@ -46,13 +46,13 @@ class Task(TimestampMixin, Base):
             name="ck_tasks_valid_completion_time",
         ),
         CheckConstraint(
-            "(status = 'failed'::task_status AND error_message IS NOT NULL) OR "
-            "(status != 'failed'::task_status AND (error_message IS NULL OR error_message = ''))",
+            "((status::text = 'failed') AND error_message IS NOT NULL) OR "
+            "((status::text <> 'failed') AND (error_message IS NULL OR error_message = ''))",
             name="ck_tasks_error_message_when_failed",
         ),
         CheckConstraint(
-            "(status = 'completed'::task_status AND completed_at IS NOT NULL) OR "
-            "(status != 'completed'::task_status AND completed_at IS NULL)",
+            "((status::text = 'completed') AND completed_at IS NOT NULL) OR "
+            "((status::text <> 'completed') AND completed_at IS NULL)",
             name="ck_tasks_completed_status_alignment",
         ),
         CheckConstraint("retry_count >= 0", name="ck_tasks_retry_count_non_negative"),
@@ -72,7 +72,7 @@ class Task(TimestampMixin, Base):
             "ix_tasks_processing",
             "status",
             "created_at",
-            postgresql_where=text("status = 'processing'::task_status"),
+            postgresql_where=text("status::text = 'processing'"),
         ),
     )
 
@@ -85,7 +85,7 @@ class Task(TimestampMixin, Base):
         Enum(
             TaskStatus,
             name="task_status",
-            native_enum=True,
+            native_enum=False,
             values_callable=lambda enum_cls: [member.value for member in enum_cls],
         ),
         default=TaskStatus.PENDING.value,

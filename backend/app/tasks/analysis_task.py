@@ -193,7 +193,7 @@ async def _store_analysis_results(task_id: uuid.UUID, result: AnalysisResult) ->
                     task=task,
                     insights=result.insights,
                     sources=result.sources,
-                    analysis_version="1.0",
+                    analysis_version=1,
                 )
                 session.add(analysis)
             else:
@@ -257,7 +257,7 @@ async def _mark_failed(
             task = await _load_task(session, task_id, for_update=True)
             now = datetime.now(UTC)
             task.status = TaskStatus.FAILED
-            task.error_message = error
+            task.error_message = _truncate_error(error)
             task.failure_category = failure_category
             task.retry_count = retries
             task.last_retry_at = now
