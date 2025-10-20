@@ -64,6 +64,7 @@ def install_fast_analysis(monkeypatch, *, cache_stats: Dict[str, int] | None = N
                 "analysis_duration_seconds": 1.3,
             },
             report_html="<h1>Reddit Signal Scanner Report</h1>",
+            action_items=SampleInsights.get("action_items", []),
         )
 
     monkeypatch.setattr(analysis_task, "run_analysis", fast_run_analysis)

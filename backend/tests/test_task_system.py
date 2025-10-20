@@ -139,7 +139,17 @@ async def test_task_progress_update(monkeypatch: pytest.MonkeyPatch) -> None:
         return None
 
     async def fake_run_analysis(_: TaskSummary) -> AnalysisResult:
-        return AnalysisResult(insights={}, sources={}, report_html="<html></html>")
+        return AnalysisResult(
+            insights={
+                "pain_points": [],
+                "competitors": [],
+                "opportunities": [],
+                "action_items": [],
+            },
+            sources={},
+            report_html="<html></html>",
+            action_items=[],
+        )
 
     monkeypatch.setattr(analysis_task, "_mark_processing", fake_mark_processing)
     monkeypatch.setattr(analysis_task, "_store_analysis_results", fake_store_results)

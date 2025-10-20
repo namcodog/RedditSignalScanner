@@ -1,5 +1,14 @@
 # Phase 3 自动抓取修复记录
 
+## Phase 3 T3.1-T3.6 行动记录（2025-10-20）
+- **T3.1 抽样标注**：新增标注工具链，涵盖采样、导出、验证与加载流程（`backend/app/services/labeling/sampler.py`，`backend/app/services/labeling/validator.py`）；配套单测确保 500 条样本覆盖率与合法性（`backend/tests/services/labeling/test_labeling_workflow.py`）。
+- **T3.2 阈值网格搜索**：实现评分、Precision@K、F1 与网格搜索逻辑（`backend/app/services/evaluation/threshold_optimizer.py`），结果写入 `reports/threshold_optimization.csv` 并更新 `config/thresholds.yaml`；加入严格单测覆盖（`backend/tests/services/evaluation/test_threshold_optimizer.py`）。
+- **T3.3 每日跑分与定时任务**：构建 `DailyMetrics` 数据类与 Celery 计划任务（`backend/app/services/metrics/daily_metrics.py`、`backend/app/tasks/metrics_task.py`），落地 CSV 日志路径 `reports/daily_metrics/YYYY-MM.csv`，新增任务编排测试（`backend/tests/tasks/test_metrics_task.py`）。
+- **T3.4 红线检查**：提供红线配置与自动降级策略（`backend/app/services/metrics/red_line_checker.py`），集成到每日任务并同步更新 `config/deduplication.yaml`、阈值配置；完备单测验证四条红线行为（`backend/tests/services/metrics/test_red_line_checker.py`）。
+- **T3.5 行动位生成**：引入机会报告构建器（`backend/app/services/reporting/opportunity_report.py`），`run_analysis` 输出 `action_items` 并经 API 下发（`backend/app/api/routes/reports.py`）。
+- **T3.6 前后端联调**：更新报告响应类型与导出工具（`frontend/src/types/report.types.ts`、`frontend/src/utils/export.ts`），新增 `ActionItemsList` 组件（`frontend/src/components/ActionItem.tsx`）并在报告页展示行动位（`frontend/src/pages/ReportPage.tsx`）。
+- **验证**：关键链路通过 `pytest` 与 `vitest` 定向回归，详见本次提交测试记录。
+
 ## 1. 发现了什么问题 / 根因？
 - `community_pool` 实际只有 100 条，追溯到 `CommunityPoolLoader` 依旧默认读取旧的 `seed_communities.json`（只有 100 条），并且种子规范没有兼容扩展文件的字段差异。
 - `community_cache.quality_tier` 始终停留在 `normal`，增量抓取流程未调用 `TieredScheduler`，导致平均有效帖子数更新后没有反映到 tier。
