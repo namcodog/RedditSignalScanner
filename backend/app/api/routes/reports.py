@@ -11,6 +11,7 @@ from app.core.security import TokenPayload, decode_jwt_token
 from app.db.session import get_session
 from app.models.analysis import Analysis
 from app.models.task import Task, TaskStatus
+from app.services.reporting.opportunity_report import build_opportunity_reports
 
 router = APIRouter(prefix="/report", tags=["analysis"])
 
@@ -66,6 +67,9 @@ async def get_analysis_report(
     opportunities = insights.get("opportunities") or []
     communities = sources.get("communities") or []
     communities_detail = sources.get("communities_detail") or []
+    action_items = sources.get("action_items") or insights.get("action_items")
+    if not action_items:
+        action_items = [item.to_dict() for item in build_opportunity_reports(insights)]
 
     total_insights = len(pain_points) + len(competitors) + len(opportunities)
     top_opportunity = ""
@@ -198,6 +202,7 @@ async def get_analysis_report(
             "pain_points": pain_points,
             "competitors": competitors,
             "opportunities": opportunities,
+            "action_items": action_items,
         },
         "metadata": metadata,
         "overview": overview,

@@ -58,6 +58,23 @@ class InsightsPayload(ORMModel):
     pain_points: list[PainPoint]
     competitors: list[CompetitorSignal]
     opportunities: list[OpportunitySignal]
+    action_items: list["OpportunityReportOut"] = Field(default_factory=list)
+
+
+class EvidenceItemOut(ORMModel):
+    title: str
+    url: Optional[str] = None
+    note: str
+
+
+class OpportunityReportOut(ORMModel):
+    problem_definition: str
+    evidence_chain: list[EvidenceItemOut] = Field(default_factory=list)
+    suggested_actions: list[str] = Field(default_factory=list)
+    confidence: float = Field(ge=0.0, le=1.0)
+    urgency: float = Field(ge=0.0, le=1.0)
+    product_fit: float = Field(ge=0.0, le=1.0)
+    priority: float = Field(ge=0.0, le=1.0)
 
 
 class SourcesPayload(ORMModel):

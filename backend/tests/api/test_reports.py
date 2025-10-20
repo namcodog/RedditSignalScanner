@@ -98,6 +98,7 @@ async def test_get_report_success(client: AsyncClient, db_session: AsyncSession)
     assert isinstance(data["report"]["pain_points"], list)
     assert isinstance(data["report"]["competitors"], list)
     assert isinstance(data["report"]["opportunities"], list)
+    assert isinstance(data["report"].get("action_items"), list)
 
     metadata = data["metadata"]
     assert metadata["analysis_version"] == "1.0"

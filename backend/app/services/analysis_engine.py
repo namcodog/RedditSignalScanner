@@ -39,6 +39,7 @@ from app.services.analysis.signal_extraction import SignalExtractor
 from app.services.cache_manager import CacheManager
 from app.services.data_collection import CollectionResult, DataCollectionService
 from app.services.reddit_client import RedditAPIClient, RedditPost
+from app.services.reporting.opportunity_report import build_opportunity_reports
 
 logger = logging.getLogger(__name__)
 
@@ -73,6 +74,7 @@ class AnalysisResult:
     insights: Dict[str, List[Dict[str, Any]]]
     sources: Dict[str, Any]
     report_html: str
+    action_items: List[Dict[str, Any]]
 
 
 async def _fetch_hot_samples(
@@ -318,8 +320,17 @@ def _build_insufficient_sample_result(
         "analysis_blocked": "insufficient_samples",
         "sample_status": status_payload,
     }
-    empty_insights = {"pain_points": [], "competitors": [], "opportunities": []}
-    return AnalysisResult(insights=empty_insights, sources=sources, report_html=report_html)
+    empty_insights = {
+        "pain_points": [],
+        "competitors": [],
+        "opportunities": [],
+    }
+    return AnalysisResult(
+        insights=empty_insights,
+        sources=sources,
+        report_html=report_html,
+        action_items=[],
+    )
 
 # Baseline community catalogue; in production这将由缓存/数据库提供
 COMMUNITY_CATALOGUE: List[CommunityProfile] = [
@@ -1092,6 +1103,8 @@ async def run_analysis(
         "opportunities": opportunities_payload,
     }
 
+    action_reports = [report.to_dict() for report in build_opportunity_reports(insights)]
+
     processing_seconds = int(30 + len(collected) * 6 + total_cache_misses * 2)
     processing_seconds = min(processing_seconds, 260)
 
@@ -1122,11 +1135,17 @@ async def run_analysis(
         "product_description": task.product_description,
         "communities_detail": communities_detail,
         "duplicates_summary": duplicate_summary,
+        "action_items": action_reports,
     }
 
     report_html = _render_report(task, collected, insights)
 
-    return AnalysisResult(insights=insights, sources=sources, report_html=report_html)
+    return AnalysisResult(
+        insights=insights,
+        sources=sources,
+        report_html=report_html,
+        action_items=action_reports,
+    )
 
 
 def _build_data_collection_service(settings: Settings) -> DataCollectionService | None:
