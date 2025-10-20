@@ -17,52 +17,43 @@ jobs:
     name: Backend Tests
     runs-on: ubuntu-latest  # 使用 Ubuntu 系统
     timeout-minutes: 10  # 整个 job 最多运行 10 分钟
-    
-    # 需要的服务（数据库、Redis）
-    services:
-      postgres:
-        image: postgres:15
-        env:
-          POSTGRES_USER: test_user
-          POSTGRES_PASSWORD: test_pass
-          POSTGRES_DB: reddit_scanner_test
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-        ports:
-          - 5432:5432
-      
-      redis:
-        image: redis:7
-        options: >-
-          --health-cmd "redis-cli ping"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-        ports:
-          - 6379:6379
-    
+
     steps:
       # 1. 检出代码
       - name: Checkout code
         uses: actions/checkout@v4
-      
-      # 2. 设置 Python 环境
+
+      # 2. 设置 PostgreSQL（不依赖 Docker Hub）
+      - name: Setup PostgreSQL
+        uses: ikalnytskyi/action-setup-postgres@v4
+        with:
+          username: test_user
+          password: test_pass
+          database: reddit_scanner_test
+          port: 5432
+        id: postgres
+
+      # 3. 设置 Redis
+      - name: Setup Redis
+        uses: shogo82148/actions-setup-redis@v1
+        with:
+          redis-version: '7.x'
+          auto-start: true
+
+      # 4. 设置 Python 环境
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
           cache: 'pip'  # 缓存依赖，加快速度
-      
-      # 3. 安装依赖
+
+      # 5. 安装依赖
       - name: Install dependencies
         run: |
           cd backend
           pip install -r requirements.txt
-      
-      # 4. 运行数据库迁移
+
+      # 6. 运行数据库迁移
       - name: Run migrations
         env:
           DATABASE_URL: postgresql+asyncpg://test_user:test_pass@localhost:5432/reddit_scanner_test
@@ -75,7 +66,7 @@ jobs:
           cd backend
           alembic upgrade head
 
-      # 5. 运行测试
+      # 7. 运行测试
       - name: Run tests
         env:
           DATABASE_URL: postgresql+asyncpg://test_user:test_pass@localhost:5432/reddit_scanner_test
@@ -95,8 +86,8 @@ jobs:
             --maxfail=1 --disable-warnings \
             --timeout=60 --timeout-method=thread \
             --cov=app --cov-report=xml --cov-report=term
-      
-      # 6. 上传测试覆盖率报告
+
+      # 8. 上传测试覆盖率报告
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4
         with:
