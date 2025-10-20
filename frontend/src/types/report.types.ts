@@ -114,6 +114,31 @@ export interface Overview {
 }
 
 /**
+ * 行动位证据项
+ */
+export interface EvidenceItem {
+  /** 证据标题或摘要 */
+  title: string;
+  /** 证据链接（可能为空） */
+  url?: string | null;
+  /** 补充说明 */
+  note: string;
+}
+
+/**
+ * 行动位报告接口
+ */
+export interface ActionItem {
+  problem_definition: string;
+  evidence_chain: EvidenceItem[];
+  suggested_actions: string[];
+  confidence: number;
+  urgency: number;
+  product_fit: number;
+  priority: number;
+}
+
+/**
  * 统计数据接口
  */
 export interface Stats {
@@ -154,6 +179,7 @@ export interface ReportResponse {
     pain_points: Insights['pain_points'];
     competitors: Insights['competitors'];
     opportunities: Insights['opportunities'];
+    action_items: ActionItem[];
   };
 
   /** 报告元数据 */

@@ -56,6 +56,8 @@ export {
   type FallbackQuality,
   type ReportMetadata,
   type ReportResponse,
+  type ActionItem,
+  type EvidenceItem,
 } from './report.types';
 
 // ============================================================================

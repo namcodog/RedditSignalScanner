@@ -40,6 +40,7 @@ import { exportToJSON, exportToCSV, exportToText } from '@/utils/export';
 import { ReportPageSkeleton } from '@/components/SkeletonLoader';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { FeedbackDialog } from '@/components/FeedbackDialog';
+import { ActionItemsList } from '@/components/ActionItem';
 
 const ReportPage: React.FC = () => {
   const { taskId } = useParams<{ taskId: string }>();
@@ -362,6 +363,9 @@ const ReportPage: React.FC = () => {
               <TabsTrigger value="opportunities">
                 商业机会
               </TabsTrigger>
+              <TabsTrigger value="actions">
+                行动建议
+              </TabsTrigger>
             </TabsList>
 
             {/* 概览 Tab */}
@@ -480,6 +484,17 @@ const ReportPage: React.FC = () => {
               ) : (
                 <div className="rounded-lg border border-border bg-card p-6 text-center">
                   <p className="text-muted-foreground">暂无商业机会数据</p>
+                </div>
+              )}
+            </TabsContent>
+
+            {/* 行动建议 Tab */}
+            <TabsContent value="actions" className="space-y-6">
+              {report.report.action_items && report.report.action_items.length > 0 ? (
+                <ActionItemsList items={report.report.action_items} />
+              ) : (
+                <div className="rounded-lg border border-border bg-card p-6 text-center">
+                  <p className="text-muted-foreground">暂无行动建议</p>
                 </div>
               )}
             </TabsContent>

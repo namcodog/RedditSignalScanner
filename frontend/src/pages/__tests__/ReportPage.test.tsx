@@ -60,6 +60,23 @@ const mockReport: ReportResponse = {
         key_insights: ['市场需求大', '技术可行'],
       },
     ],
+    action_items: [
+      {
+        problem_definition: '自动化 onboarding 流程',
+        evidence_chain: [
+          {
+            title: '用户抱怨流程复杂',
+            url: 'https://reddit.com/r/startups/1',
+            note: 'r/startups · 42 赞',
+          },
+        ],
+        suggested_actions: ['开展用户访谈梳理关键步骤'],
+        confidence: 0.8,
+        urgency: 0.7,
+        product_fit: 0.75,
+        priority: 0.42,
+      },
+    ],
   },
   metadata: {
     analysis_version: '1.0',
@@ -139,6 +156,13 @@ describe('ReportPage', () => {
     expect(screen.getAllByText('用户痛点').length).toBeGreaterThan(0);
     expect(screen.getAllByText('竞品分析').length).toBeGreaterThan(0);
     expect(screen.getAllByText('商业机会').length).toBeGreaterThan(0);
+
+    // 验证行动建议标签与内容
+    expect(screen.getAllByText('行动建议').length).toBeGreaterThan(0);
+    await userEvent.click(screen.getByRole('tab', { name: '行动建议' }));
+    await waitFor(() => {
+      expect(screen.getByText('自动化 onboarding 流程')).toBeInTheDocument();
+    });
   });
 
   it('应该显示错误状态', async () => {

@@ -80,6 +80,17 @@ export function exportToCSV(report: ExportReport, taskId: string): void {
       });
     }
 
+    if (report.action_items && report.action_items.length > 0) {
+      report.action_items.forEach((action, index: number) => {
+        const problem = escapeCSV(action.problem_definition);
+        const details = `Confidence: ${(action.confidence * 100).toFixed(0)}%; Urgency: ${(action.urgency * 100).toFixed(0)}%; ProductFit: ${(action.product_fit * 100).toFixed(0)}%`;
+        const evidence = action.evidence_chain && action.evidence_chain.length > 0
+          ? escapeCSV(action.evidence_chain.map(item => item.note || item.title).join('; '))
+          : '';
+        csv += `Action Item,${index + 1},"${problem}",${(action.priority * 100).toFixed(0)},"${details}","${evidence}"\n`;
+      });
+    }
+
     const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
     const url = URL.createObjectURL(blob);
 
@@ -189,6 +200,22 @@ export function exportToText(report: ExportReport, taskId: string): void {
       });
     }
 
+    if (report.action_items && report.action_items.length > 0) {
+      text += '## 行动建议\n\n';
+      report.action_items.forEach((action, index: number) => {
+        text += `${index + 1}. ${action.problem_definition}\n`;
+        text += `   - 优先级: ${(action.priority * 100).toFixed(0)}%\n`;
+        text += `   - 信心 / 紧迫 / 契合: ${(action.confidence * 100).toFixed(0)}% / ${(action.urgency * 100).toFixed(0)}% / ${(action.product_fit * 100).toFixed(0)}%\n`;
+        if (action.suggested_actions && action.suggested_actions.length > 0) {
+          text += `   - 建议行动: ${action.suggested_actions.join('; ')}\n`;
+        }
+        if (action.evidence_chain && action.evidence_chain.length > 0) {
+          text += `   - 证据链: ${action.evidence_chain.map(e => e.title).join('; ')}\n`;
+        }
+        text += '\n';
+      });
+    }
+
     const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
     const url = URL.createObjectURL(blob);
 
@@ -207,4 +234,3 @@ export function exportToText(report: ExportReport, taskId: string): void {
     throw new Error('文本导出失败');
   }
 }
-

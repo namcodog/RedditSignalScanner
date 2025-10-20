@@ -52,6 +52,23 @@ describe('Export Utils', () => {
           key_insights: ['市场需求大'],
         },
       ],
+      action_items: [
+        {
+          problem_definition: '自动化 onboarding 流程',
+          evidence_chain: [
+            {
+              title: '用户抱怨流程复杂',
+              url: 'https://reddit.com/r/startups/1',
+              note: 'r/startups · 42 赞',
+            },
+          ],
+          suggested_actions: ['进行用户访谈以梳理关键步骤'],
+          confidence: 0.8,
+          urgency: 0.7,
+          product_fit: 0.75,
+          priority: 0.42,
+        },
+      ],
     };
 
     // Mock DOM APIs
