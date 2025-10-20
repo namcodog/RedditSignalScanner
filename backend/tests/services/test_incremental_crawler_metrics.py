@@ -30,7 +30,9 @@ async def test_crawler_records_success_metrics() -> None:
     # Setup: 创建测试社区
     async with SessionFactory() as db:
         await db.execute(
-            text("TRUNCATE TABLE community_cache, community_pool RESTART IDENTITY CASCADE")
+            text(
+                "TRUNCATE TABLE community_cache, community_pool, posts_raw, posts_hot RESTART IDENTITY CASCADE"
+            )
         )
         await db.commit()
 
@@ -110,7 +112,9 @@ async def test_crawler_records_empty_metrics() -> None:
     # Setup: 创建测试社区
     async with SessionFactory() as db:
         await db.execute(
-            text("TRUNCATE TABLE community_cache, community_pool RESTART IDENTITY CASCADE")
+            text(
+                "TRUNCATE TABLE community_cache, community_pool, posts_raw, posts_hot RESTART IDENTITY CASCADE"
+            )
         )
         await db.commit()
 
@@ -170,7 +174,9 @@ async def test_crawler_records_failure_metrics() -> None:
     # Setup: 创建测试社区
     async with SessionFactory() as db:
         await db.execute(
-            text("TRUNCATE TABLE community_cache, community_pool RESTART IDENTITY CASCADE")
+            text(
+                "TRUNCATE TABLE community_cache, community_pool, posts_raw, posts_hot RESTART IDENTITY CASCADE"
+            )
         )
         await db.commit()
 
@@ -299,4 +305,3 @@ async def test_crawler_writes_crawl_metrics() -> None:
         assert metric.total_communities == 5, "total_communities should be 5"
         assert metric.successful_crawls > 0, "successful_crawls should be > 0"
         assert metric.metric_date == datetime.now(timezone.utc).date()
-

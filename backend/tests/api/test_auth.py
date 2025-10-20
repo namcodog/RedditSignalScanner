@@ -15,7 +15,7 @@ if str(BACKEND_PACKAGE_ROOT) not in sys.path:
     sys.path.insert(0, str(BACKEND_PACKAGE_ROOT))
 
 from app.core.config import get_settings
-from app.models.user import User
+from app.models.user import MembershipLevel, User
 
 
 settings = get_settings()
@@ -41,6 +41,7 @@ async def test_register_user_creates_account(client: AsyncClient, db_session: As
     assert "access_token" in data
     assert data["token_type"] == "bearer"
     assert data["user"]["email"] == email.lower()
+    assert data["user"]["membership_level"] == MembershipLevel.FREE.value
 
     expires_at = _parse_iso(data["expires_at"])
     assert expires_at > datetime.now(timezone.utc)
@@ -51,6 +52,7 @@ async def test_register_user_creates_account(client: AsyncClient, db_session: As
     assert stored.email == email.lower()
     assert stored.password_hash != password
     assert stored.created_at.tzinfo is not None
+    assert stored.membership_level == MembershipLevel.FREE
 
 
 async def test_register_user_conflict_returns_409(client: AsyncClient) -> None:
@@ -79,6 +81,7 @@ async def test_login_user_success_returns_token(client: AsyncClient) -> None:
     data = response.json()
     assert data["user"]["email"] == email.lower()
     assert data["token_type"] == "bearer"
+    assert data["user"]["membership_level"] == MembershipLevel.FREE.value
     jwt.decode(data["access_token"], settings.jwt_secret, algorithms=[settings.jwt_algorithm])
 
 
@@ -103,7 +106,9 @@ async def test_full_auth_flow_allows_protected_endpoint(client: AsyncClient) -> 
         "/api/auth/register",
         json={"email": email, "password": password},
     )
-    token = register_resp.json()["access_token"]
+    register_data = register_resp.json()
+    token = register_data["access_token"]
+    assert register_data["user"]["membership_level"] == MembershipLevel.FREE.value
 
     analyze_resp = await client.post(
         "/api/analyze",

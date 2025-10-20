@@ -10,7 +10,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.core.config import Settings, get_settings
 from app.core.security import create_access_token, hash_password, verify_password
 from app.db.session import get_session
-from app.models.user import User
+from app.models.user import MembershipLevel, User
 from app.schemas.auth import AuthTokenResponse, AuthUser, LoginRequest, RegisterRequest
 
 router = APIRouter(prefix="/auth", tags=["auth"])
@@ -32,7 +32,11 @@ def _issue_token(user: User, settings: Settings) -> AuthTokenResponse:
     return AuthTokenResponse(
         access_token=token,
         expires_at=expires_at,
-        user=AuthUser(id=user.id, email=user.email),
+        user=AuthUser(
+            id=user.id,
+            email=user.email,
+            membership_level=user.membership_level,
+        ),
     )
 
 
@@ -58,7 +62,12 @@ async def register_user(
 
     password_hash = hash_password(request.password)
 
-    user = User(email=email, password_hash=password_hash)
+    membership = MembershipLevel.ensure(request.membership_level)
+    user = User(
+        email=email,
+        password_hash=password_hash,
+        membership_level=membership,
+    )
     db.add(user)
     try:
         await db.commit()

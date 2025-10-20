@@ -12,6 +12,29 @@ from app.services import analysis_engine as analysis_engine_module
 from app.services.analysis_engine import run_analysis
 from app.services.data_collection import CollectionResult
 from app.services.reddit_client import RedditPost
+from app.services.analysis.sample_guard import SampleCheckResult
+
+
+@pytest.fixture(autouse=True)
+def _allow_sample_guard(monkeypatch: pytest.MonkeyPatch) -> None:
+    """Default sample guard behaviour for tests: always meets the floor."""
+
+    async def _pass_guard(**_: object) -> SampleCheckResult:
+        return SampleCheckResult(
+            hot_count=900,
+            cold_count=700,
+            combined_count=1600,
+            shortfall=0,
+            remaining_shortfall=0,
+            supplemented=False,
+            supplement_posts=[],
+        )
+
+    monkeypatch.setattr(
+        analysis_engine_module.sample_guard,
+        "check_sample_size",
+        _pass_guard,
+    )
 
 
 @pytest.mark.asyncio
@@ -311,3 +334,53 @@ async def test_run_analysis_closes_temporary_service(monkeypatch: pytest.MonkeyP
 
     assert stub_service.closed, "Expected temporary Reddit client to be closed"
     assert result.sources["reddit_api_calls"] == 1
+
+
+@pytest.mark.asyncio
+async def test_run_analysis_returns_notice_on_sample_shortfall(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    shortfall_result = SampleCheckResult(
+        hot_count=120,
+        cold_count=180,
+        combined_count=300,
+        shortfall=1200,
+        remaining_shortfall=400,
+        supplemented=True,
+        supplement_posts=[
+            {
+                "id": "search-1",
+                "title": "Need automation tooling",
+                "source_type": "search",
+            }
+        ],
+    )
+
+    async def _shortfall_guard(**_: object) -> SampleCheckResult:
+        return shortfall_result
+
+    monkeypatch.setattr(
+        analysis_engine_module.sample_guard,
+        "check_sample_size",
+        _shortfall_guard,
+    )
+
+    task = TaskSummary(
+        id=uuid4(),
+        status=TaskStatus.PENDING,
+        product_description="Lightweight automation assistant for founders.",
+        created_at=datetime.now(timezone.utc),
+        updated_at=datetime.now(timezone.utc),
+    )
+
+    result = await run_analysis(task, data_collection=None)
+
+    assert result.sources["analysis_blocked"] == "insufficient_samples"
+    status = result.sources["sample_status"]
+    assert status["combined_count"] == shortfall_result.combined_count
+    assert status["remaining_shortfall"] == shortfall_result.remaining_shortfall
+    assert status["supplemented"] is True
+    assert result.insights["pain_points"] == []
+    assert result.insights["competitors"] == []
+    assert result.insights["opportunities"] == []
+    assert "样本不足" in result.report_html

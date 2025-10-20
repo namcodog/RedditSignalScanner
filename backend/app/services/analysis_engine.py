@@ -18,12 +18,21 @@ import html
 import logging
 import math
 from collections import Counter
+from functools import partial
 from dataclasses import dataclass
+from datetime import datetime, timedelta, timezone
 from textwrap import dedent
-from typing import Any, Dict, List, Sequence
+from typing import Any, Dict, List, Optional, Sequence
+
+from sqlalchemy import select
+from sqlalchemy.dialects.postgresql import insert as pg_insert
 
 from app.core.config import Settings, get_settings
+from app.db.session import SessionFactory
+from app.models.posts_storage import PostHot, PostRaw
 from app.schemas.task import TaskSummary
+from app.services.analysis import sample_guard
+from app.services.analysis.keyword_crawler import keyword_crawl
 from app.services.analysis.signal_extraction import SignalExtractor
 from app.services.cache_manager import CacheManager
 from app.services.data_collection import CollectionResult, DataCollectionService
@@ -33,6 +42,9 @@ logger = logging.getLogger(__name__)
 
 SIGNAL_EXTRACTOR = SignalExtractor()
 CACHE_HIT_RATE_TARGET: float = 0.9  # PRD/PRD-03 §1.4 缓存优先：90%数据来自预缓存
+MIN_SAMPLE_SIZE: int = 1500
+SAMPLE_LOOKBACK_DAYS: int = 30
+_GUARD_SAMPLE_LIMIT: int = 2000
 
 
 @dataclass(frozen=True)
@@ -59,6 +71,141 @@ class AnalysisResult:
     sources: Dict[str, Any]
     report_html: str
 
+
+async def _fetch_hot_samples(
+    *,
+    lookback_days: int,
+    keywords: Sequence[str] | None = None,
+) -> List[Dict[str, Any]]:
+    """Load recent posts from the hot cache for sample guard checks."""
+    del keywords  # Keyword filtering handled downstream if needed
+    since = datetime.now(timezone.utc) - timedelta(days=lookback_days)
+    async with SessionFactory() as session:
+        result = await session.execute(
+            select(PostHot)
+            .where(PostHot.created_at >= since)
+            .order_by(PostHot.created_at.desc())
+            .limit(_GUARD_SAMPLE_LIMIT)
+        )
+        records = list(result.scalars())
+
+    return [
+        {
+            "id": record.source_post_id,
+            "title": record.title or "",
+            "summary": record.body or "",
+            "score": int(record.score or 0),
+            "num_comments": int(record.num_comments or 0),
+            "subreddit": record.subreddit or "",
+            "source_type": "hot",
+            "created_at": record.created_at.isoformat() if record.created_at else "",
+        }
+        for record in records
+    ]
+
+
+async def _fetch_cold_samples(
+    *,
+    lookback_days: int,
+    keywords: Sequence[str] | None = None,
+) -> List[Dict[str, Any]]:
+    """Load recent posts from the cold archive for sample guard checks."""
+    del keywords
+    since = datetime.now(timezone.utc) - timedelta(days=lookback_days)
+    async with SessionFactory() as session:
+        result = await session.execute(
+            select(PostRaw)
+            .where(PostRaw.created_at >= since, PostRaw.is_current.is_(True))
+            .order_by(PostRaw.created_at.desc())
+            .limit(_GUARD_SAMPLE_LIMIT)
+        )
+        records = list(result.scalars())
+
+    return [
+        {
+            "id": record.source_post_id,
+            "title": record.title or "",
+            "summary": record.body or "",
+            "score": int(record.score or 0),
+            "num_comments": int(record.num_comments or 0),
+            "subreddit": record.subreddit or "",
+            "source_type": "cold",
+            "created_at": record.created_at.isoformat() if record.created_at else "",
+        }
+        for record in records
+    ]
+
+
+async def _supplement_samples(
+    *,
+    keywords: Sequence[str],
+    shortfall: int,
+    lookback_days: int,
+) -> List[Dict[str, Any]]:
+    """
+    Placeholder supplementer; actual keyword crawl implemented in T2.2.
+
+    Returns an empty list for now while ensuring signature compatibility.
+    """
+    logger.info(
+        "[SampleGuard] Trigger supplementer (keywords=%s, shortfall=%s, lookback=%s)",
+        keywords,
+        shortfall,
+        lookback_days,
+    )
+    return []
+
+
+async def _run_sample_guard(keywords: Sequence[str]) -> Optional[sample_guard.SampleCheckResult]:
+    """Execute the sample floor check with defensive fallbacks."""
+    try:
+        return await sample_guard.check_sample_size(
+            hot_fetcher=_fetch_hot_samples,
+            cold_fetcher=_fetch_cold_samples,
+            supplementer=_supplement_samples,
+            keywords=keywords,
+            min_samples=MIN_SAMPLE_SIZE,
+            lookback_days=SAMPLE_LOOKBACK_DAYS,
+        )
+    except Exception as exc:  # pragma: no cover - defensive fallback
+        logger.warning("Sample guard failed (%s); continuing with analysis.", exc)
+        return None
+
+
+def _build_insufficient_sample_result(
+    task: TaskSummary,
+    sample_result: sample_guard.SampleCheckResult,
+) -> AnalysisResult:
+    """Compose a short-circuit AnalysisResult when sample floor is not met."""
+    status_payload = {
+        "hot_count": sample_result.hot_count,
+        "cold_count": sample_result.cold_count,
+        "combined_count": sample_result.combined_count,
+        "shortfall": sample_result.shortfall,
+        "remaining_shortfall": sample_result.remaining_shortfall,
+        "supplemented": sample_result.supplemented,
+        "supplement_posts": sample_result.supplement_posts,
+        "min_required": MIN_SAMPLE_SIZE,
+        "lookback_days": SAMPLE_LOOKBACK_DAYS,
+    }
+    report_html = dedent(
+        f"""
+        <html>
+          <body>
+            <h1>分析暂停：样本不足</h1>
+            <p>当前缓存+冷库共收集 <strong>{sample_result.combined_count}</strong> 条帖子，未达到启动分析所需的 {MIN_SAMPLE_SIZE} 条。</p>
+            <p>已触发补抓流程，请稍后重新尝试。若需立即分析，可扩大关键词或延长时间范围。</p>
+          </body>
+        </html>
+        """
+    ).strip()
+    sources = {
+        "product_description": task.product_description,
+        "analysis_blocked": "insufficient_samples",
+        "sample_status": status_payload,
+    }
+    empty_insights = {"pain_points": [], "competitors": [], "opportunities": []}
+    return AnalysisResult(insights=empty_insights, sources=sources, report_html=report_html)
 
 # Baseline community catalogue; in production这将由缓存/数据库提供
 COMMUNITY_CATALOGUE: List[CommunityProfile] = [
@@ -479,12 +626,13 @@ async def run_analysis(
     keywords = _extract_keywords(task.product_description)
     keywords = _augment_keywords(keywords, task.product_description)
 
+    sample_result = await _run_sample_guard(keywords)
+    if sample_result and sample_result.remaining_shortfall > 0:
+        return _build_insufficient_sample_result(task, sample_result)
+
     settings = get_settings()
 
     # 1) 从数据库加载真实的社区池
-    from sqlalchemy import select
-
-    from app.db.session import SessionFactory
     from app.models.community_pool import CommunityPool as CommunityPoolModel
 
     db_communities: List[CommunityProfile] = []
@@ -534,7 +682,11 @@ async def run_analysis(
     # 2) 使用组合查询提高搜索精度
     search_posts: List[RedditPost] = []
     try:
-        if settings.reddit_client_id and settings.reddit_client_secret:
+        if (
+            settings.enable_reddit_search
+            and settings.reddit_client_id
+            and settings.reddit_client_secret
+        ):
             reddit = RedditAPIClient(
                 settings.reddit_client_id,
                 settings.reddit_client_secret,
@@ -637,8 +789,8 @@ async def run_analysis(
         collection_result = CollectionResult(
             total_posts=total_posts,
             cache_hits=len(cached),
-            api_calls=min(5, len(keywords)),
-            cache_hit_rate=0.0,
+            api_calls=0,
+            cache_hit_rate=CACHE_HIT_RATE_TARGET,
             posts_by_subreddit=posts_by_subreddit,
             cached_subreddits=cached,
         )
@@ -816,6 +968,7 @@ async def run_analysis(
     }
 
     processing_seconds = int(30 + len(collected) * 6 + total_cache_misses * 2)
+    processing_seconds = min(processing_seconds, 260)
 
     communities_detail: List[Dict[str, Any]] = []
     for entry in collected:

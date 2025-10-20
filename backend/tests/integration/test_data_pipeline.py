@@ -47,10 +47,17 @@ async def _ensure_min_communities(min_count: int = 50) -> int:
 
         imported = 0
         for c in communities[:max(min_count, 50)]:
+            name = c["name"]
+            slug = name.strip()
+            if not slug.lower().startswith("r/"):
+                slug = slug.lstrip("/")
+                slug = f"r/{slug}"
+            slug = slug.replace(" ", "")
+            name = slug.lower()
             stmt = (
                 pg_insert(CommunityPool)
                 .values(
-                    name=c["name"],
+                    name=name,
                     tier=c["tier"],
                     categories=c["categories"],
                     description_keywords=c["description_keywords"],
@@ -283,4 +290,3 @@ async def test_watermark_mechanism() -> None:
                 f"❌ {cache.community_name}: 水位线时间是未来时间！"
                 f"last_seen_created_at={cache.last_seen_created_at}, now={now}"
             )
-

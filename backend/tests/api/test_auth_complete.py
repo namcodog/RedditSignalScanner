@@ -8,6 +8,7 @@ import pytest
 from httpx import AsyncClient
 
 from app.core.config import get_settings
+from app.models.user import MembershipLevel
 
 
 @pytest.mark.asyncio
@@ -22,6 +23,7 @@ async def test_register_success(client: AsyncClient) -> None:
     assert body["user"]["email"] == email.lower()
     assert "access_token" in body
     assert body["token_type"] == "bearer"
+    assert body["user"]["membership_level"] == MembershipLevel.FREE.value
 
 
 @pytest.mark.asyncio
@@ -48,6 +50,7 @@ async def test_login_success(client: AsyncClient) -> None:
     assert response.status_code == 200
     body = response.json()
     assert body["user"]["email"] == email.lower()
+    assert body["user"]["membership_level"] == MembershipLevel.FREE.value
     jwt.decode(
         body["access_token"],
         get_settings().jwt_secret,
@@ -123,7 +126,9 @@ async def test_register_then_create_task(client: AsyncClient) -> None:
     password = "SecurePass123!"
     register = await client.post("/api/auth/register", json={"email": email, "password": password})
     assert register.status_code == 201
-    token = register.json()["access_token"]
+    register_data = register.json()
+    assert register_data["user"]["membership_level"] == MembershipLevel.FREE.value
+    token = register_data["access_token"]
 
     response = await client.post(
         "/api/analyze",
@@ -143,6 +148,7 @@ async def test_create_task_falls_back_to_email_lookup(client: AsyncClient) -> No
     register = await client.post("/api/auth/register", json={"email": email, "password": password})
     assert register.status_code == 201
     original = register.json()
+    assert original["user"]["membership_level"] == MembershipLevel.FREE.value
 
     settings = get_settings()
     fake_subject = str(uuid.uuid4())

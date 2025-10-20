@@ -5,7 +5,8 @@ from __future__ import annotations
 
 import logging
 from datetime import datetime, timedelta, timezone
-from typing import Any, List, Optional, Tuple
+from decimal import Decimal
+from typing import Any, Iterable, List, Optional, Tuple
 
 from sqlalchemy import select
 from sqlalchemy.dialects.postgresql import insert as pg_insert
@@ -92,7 +93,7 @@ class IncrementalCrawler:
             )
         except Exception as e:
             logger.error(f"❌ {community_name}: 抓取失败 - {e}")
-            # 记录失败指标
+            # 记录失败指标并返回失败结果，避免向上抛异常中断调度
             now = datetime.now(timezone.utc)
             await self.db.execute(
                 pg_insert(CommunityCache)
@@ -121,7 +122,14 @@ class IncrementalCrawler:
                 )
             )
             await self.db.commit()
-            raise
+            return {
+                "community": community_name,
+                "new_posts": 0,
+                "updated_posts": 0,
+                "duplicates": 0,
+                "watermark_updated": False,
+                "error": str(e),
+            }
 
         if not posts:
             logger.warning(f"⚠️ {community_name}: 未抓取到任何帖子")
@@ -212,6 +220,31 @@ class IncrementalCrawler:
             "watermark_updated": True,
             "duration_seconds": duration,
         }
+
+    async def crawl_communities(
+        self,
+        communities: Iterable[str],
+        *,
+        limit: int = 100,
+        time_filter: str = "month",
+        sort: str = "top",
+    ) -> list[dict[str, Any]]:
+        """
+        批量抓取多个社区，顺序调用增量抓取逻辑。
+
+        Returns:
+            A list of crawl summaries preserving input order.
+        """
+        results: list[dict[str, Any]] = []
+        for community_name in communities:
+            summary = await self.crawl_community_incremental(
+                community_name,
+                limit=limit,
+                time_filter=time_filter,
+                sort=sort,
+            )
+            results.append(summary)
+        return results
 
     async def _get_watermark(self, community_name: str) -> Optional[datetime]:
         """获取社区的水位线（最后抓取的帖子创建时间）"""

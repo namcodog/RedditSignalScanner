@@ -23,6 +23,17 @@ from app.services.keyword_extractor import KeywordExtractor
 from app.services.reddit_client import RedditAPIClient, RedditPost
 
 
+def _normalise_community_name(raw_name: str) -> str:
+    """Ensure community names follow the canonical `r/<slug>` format."""
+    slug = raw_name.strip()
+    if not slug:
+        return "r/unknown"
+    if slug.lower().startswith("r/"):
+        slug = slug[2:]
+    slug = slug.lstrip("/")
+    return f"r/{slug.lower()}"
+
+
 class CommunityDiscoveryService:
     """Service for discovering new Reddit communities from product descriptions."""
 
@@ -166,7 +177,9 @@ class CommunityDiscoveryService:
             return {}
 
         # Count subreddit occurrences
-        subreddit_counter = Counter(post.subreddit for post in posts)
+        subreddit_counter = Counter(
+            _normalise_community_name(post.subreddit) for post in posts
+        )
 
         # Filter by minimum mentions
         communities = {
@@ -195,7 +208,8 @@ class CommunityDiscoveryService:
 
         now = datetime.now(timezone.utc)
 
-        for community_name, mention_count in communities.items():
+        for community_name_raw, mention_count in communities.items():
+            community_name = _normalise_community_name(community_name_raw)
             # Check if community already exists
             stmt = select(PendingCommunity).where(
                 PendingCommunity.name == community_name
@@ -204,19 +218,17 @@ class CommunityDiscoveryService:
             existing = result.scalar_one_or_none()
 
             if existing:
-                # Update existing record
+                # Update existing record by accumulating mention counts
                 existing.discovered_count += mention_count
                 existing.last_discovered_at = now
-                # Merge keywords
-                if existing.discovered_from_keywords:
-                    existing_keywords = set(
-                        existing.discovered_from_keywords.get("keywords", [])
-                    )
-                    existing_keywords.update(keywords)
-                    existing.discovered_from_keywords = {
-                        "keywords": list(existing_keywords),
-                        "mention_count": existing.discovered_count,
-                    }
+                existing_keywords = set(
+                    existing.discovered_from_keywords.get("keywords", [])
+                ) if existing.discovered_from_keywords else set()
+                existing_keywords.update(keywords)
+                existing.discovered_from_keywords = {
+                    "keywords": list(existing_keywords),
+                    "mention_count": existing.discovered_count,
+                }
             else:
                 # Create new record
                 new_community = PendingCommunity(

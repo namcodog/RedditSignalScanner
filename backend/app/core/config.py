@@ -46,6 +46,7 @@ class Settings(BaseModel):
     reddit_cache_redis_url: str = Field(default="redis://localhost:6379/5")
     reddit_cache_ttl_seconds: int = Field(default=24 * 60 * 60)
     admin_emails_raw: str = Field(default="")
+    enable_reddit_search: bool = Field(default=False)
 
     @property
     def cors_origins(self) -> List[str]:
@@ -140,6 +141,10 @@ def get_settings() -> Settings:
             "ADMIN_EMAILS",
             Settings.model_fields["admin_emails_raw"].default,
         ),
+        enable_reddit_search=os.getenv("ENABLE_REDDIT_SEARCH", "false")
+        .strip()
+        .lower()
+        in {"1", "true", "yes"},
     )
 
 

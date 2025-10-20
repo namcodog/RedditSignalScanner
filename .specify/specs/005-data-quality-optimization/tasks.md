@@ -177,26 +177,27 @@ ADD COLUMN quality_tier VARCHAR(20) DEFAULT 'normal';
 
 ---
 
-### T1.4: 改造 IncrementalCrawler 埋点
-**Status**: NOT_STARTED  
-**Assignee**: AI Agent  
-**Estimated**: 2h  
-**Dependencies**: T1.2, T1.3
-
-**Description**: 在抓取器中添加监控埋点
+### T1.4: 改造 IncrementalCrawler 埋点 ✅
+**Status**: COMPLETE
+**Completed**: 2025-10-19
 
 **Checklist**:
-- [ ] 记录成功抓取（有帖子）
-- [ ] 记录空结果（0 条帖子）
-- [ ] 记录失败（API 错误）
-- [ ] 更新 community_cache 统计字段
-- [ ] 写入 crawl_metrics 表（每小时）
-- [ ] 测试埋点逻辑
+- [x] 记录成功抓取（有帖子）
+- [x] 记录空结果（0 条帖子）
+- [x] 记录失败（API 错误）
+- [x] 更新 community_cache 统计字段
+- [x] 写入 crawl_metrics 表（每小时）
+- [x] 测试埋点逻辑
 
-**Acceptance Criteria**:
-- 每次抓取都有统计记录
-- community_cache 字段正确更新
-- crawl_metrics 每小时有记录
+**Output**:
+- `backend/app/services/incremental_crawler.py` - 新增 `_record_crawl_metrics()` 方法
+- `backend/alembic/versions/20251019_000013_add_unique_constraint_to_crawl_metrics.py` - 唯一约束迁移
+
+**实现细节**:
+- 成功抓取：记录 successful_crawls, total_new_posts, total_updated_posts, total_duplicates
+- 空结果：记录 empty_crawls, 更新 community_cache.empty_hit
+- 失败：记录 failed_crawls, 更新 community_cache.failure_hit
+- 每小时汇总：按 (metric_date, metric_hour) 聚合统计
 
 ---
 

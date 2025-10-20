@@ -8,7 +8,7 @@ from unittest.mock import AsyncMock, patch
 from uuid import uuid4
 
 import pytest
-from sqlalchemy import select
+from sqlalchemy import select, text
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.community_pool import PendingCommunity
@@ -140,7 +140,7 @@ class TestCommunityDiscoveryService:
         communities = service._extract_communities(sample_reddit_posts)
 
         assert communities["r/productivity"] == 2
-        assert communities["students"] == 1
+        assert communities["r/students"] == 1
 
     @pytest.mark.asyncio
     async def test_record_discoveries_creates_new_communities(
@@ -151,6 +151,11 @@ class TestCommunityDiscoveryService:
         """Test that new communities are recorded to database."""
         keywords = ["ai", "note", "taking"]
         communities = {"r/productivity": 5}
+
+        await db_session.execute(
+            text("TRUNCATE TABLE pending_communities RESTART IDENTITY CASCADE")
+        )
+        await db_session.commit()
 
         service = CommunityDiscoveryService(
             db=db_session,
@@ -180,6 +185,11 @@ class TestCommunityDiscoveryService:
         """Test that existing communities are updated."""
         keywords1 = ["ai", "note"]
         keywords2 = ["research", "tool"]
+
+        await db_session.execute(
+            text("TRUNCATE TABLE pending_communities RESTART IDENTITY CASCADE")
+        )
+        await db_session.commit()
 
         # Create existing community
         now = datetime.now(timezone.utc)
@@ -225,6 +235,11 @@ class TestCommunityDiscoveryIntegration:
         mock_reddit_client: AsyncMock,
     ) -> None:
         """Test complete discovery workflow from description to database."""
+        await db_session.execute(
+            text("TRUNCATE TABLE pending_communities RESTART IDENTITY CASCADE")
+        )
+        await db_session.commit()
+
         product_description = """
         Our AI-powered note-taking application helps researchers and students
         organize their knowledge. Features include automatic tagging,
@@ -263,7 +278,7 @@ class TestCommunityDiscoveryIntegration:
 
         # Verify
         assert "r/productivity" in communities
-        assert "students" in communities
+        assert "r/students" in communities
 
         # Verify database records
         stmt = select(PendingCommunity)
@@ -272,5 +287,4 @@ class TestCommunityDiscoveryIntegration:
 
         assert len(pending) >= 2
         assert any(p.name == "r/productivity" for p in pending)
-        assert any(p.name == "students" for p in pending)
-
+        assert any(p.name == "r/students" for p in pending)
