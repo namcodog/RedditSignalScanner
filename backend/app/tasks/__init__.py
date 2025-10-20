@@ -13,6 +13,7 @@ from .monitoring_task import (
     monitor_cache_health,
     monitor_crawler_health,
 )
+from .metrics_task import generate_daily_metrics_task
 
 __all__ = [
     "run_analysis_task",
@@ -21,4 +22,5 @@ __all__ = [
     "monitor_api_calls",
     "monitor_cache_health",
     "monitor_crawler_health",
+    "generate_daily_metrics_task",
 ]

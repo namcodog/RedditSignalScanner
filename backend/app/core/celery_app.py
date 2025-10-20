@@ -75,6 +75,9 @@ def _build_conf() -> Dict[str, Any]:
     task_routes.setdefault(
         "tasks.monitoring.monitor_crawler_health", {"queue": "monitoring_queue"}
     )
+    task_routes.setdefault(
+        "tasks.metrics.generate_daily", {"queue": "monitoring_queue"}
+    )
 
     return {
         "task_serializer": "json",
@@ -133,6 +136,11 @@ celery_app.conf.beat_schedule = {
         "task": "tasks.monitoring.monitor_warmup_metrics",
         "schedule": crontab(minute="*/15"),  # Every 15 minutes
     },
+    "generate-daily-metrics": {
+        "task": "tasks.metrics.generate_daily",
+        "schedule": crontab(hour="0", minute="0"),
+        "options": {"queue": "monitoring_queue"},
+    },
     "monitor-api-calls": {
         "task": "tasks.monitoring.monitor_api_calls",
         "schedule": crontab(minute="*"),
@@ -173,6 +181,7 @@ try:
     from app.tasks import maintenance_task as _maintenance_task  # noqa: F401
     from app.tasks import monitoring_task as _monitoring_task  # noqa: F401
     from app.tasks import warmup_crawler as _warmup_crawler  # noqa: F401
+    from app.tasks import metrics_task as _metrics_task  # noqa: F401
 except Exception:  # pragma: no cover - defensive guard for diagnostics
     pass
 
