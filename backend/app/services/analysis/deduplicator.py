@@ -2,8 +2,11 @@ from __future__ import annotations
 
 import re
 from difflib import SequenceMatcher
+from pathlib import Path
+from threading import Lock
 from typing import Any, Dict, Iterable, List, Sequence, Set
 
+import yaml
 from datasketch import MinHash, MinHashLSH
 
 STOPWORDS = {
@@ -28,6 +31,36 @@ STOPWORDS = {
     "summary",
     "ai",
 }
+
+_DEFAULT_MINHASH_THRESHOLD = 0.85
+_DEDUP_CONFIG_PATH = Path("config/deduplication.yaml")
+_CONFIG_CACHE: Dict[str, Any] = {"threshold": _DEFAULT_MINHASH_THRESHOLD, "mtime": None}
+_CONFIG_LOCK = Lock()
+
+
+def _load_minhash_threshold(config_path: Path = _DEDUP_CONFIG_PATH) -> float:
+    try:
+        mtime = config_path.stat().st_mtime
+    except FileNotFoundError:
+        return _DEFAULT_MINHASH_THRESHOLD
+
+    with _CONFIG_LOCK:
+        cached_mtime = _CONFIG_CACHE.get("mtime")
+        if cached_mtime == mtime:
+            return float(_CONFIG_CACHE["threshold"])
+
+        with config_path.open("r", encoding="utf-8") as handle:
+            payload = yaml.safe_load(handle) or {}
+
+        value = payload.get("minhash_threshold", _DEFAULT_MINHASH_THRESHOLD)
+        try:
+            threshold = float(value)
+        except (TypeError, ValueError):
+            threshold = _DEFAULT_MINHASH_THRESHOLD
+
+        _CONFIG_CACHE["threshold"] = threshold
+        _CONFIG_CACHE["mtime"] = mtime
+        return threshold
 
 
 def _tokenise(text: str) -> List[str]:
@@ -133,7 +166,7 @@ def _cluster_posts(
 def deduplicate_posts(
     posts: Sequence[Dict[str, object]],
     *,
-    threshold: float = 0.85,
+    threshold: float | None = None,
     num_perm: int = 128,
 ) -> List[Dict[str, object]]:
     """
@@ -157,10 +190,12 @@ def deduplicate_posts(
         token_sets.append(tokens)
         normalised_texts.append(_normalise_for_sequence(text))
 
+    effective_threshold = threshold if threshold is not None else _load_minhash_threshold()
+
     clusters = _cluster_posts(
         token_sets,
         normalised_texts,
-        threshold=threshold,
+        threshold=effective_threshold,
         num_perm=num_perm,
     )
     enriched: List[Dict[str, object]] = []
