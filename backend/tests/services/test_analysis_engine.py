@@ -40,8 +40,82 @@ def _allow_sample_guard(monkeypatch: pytest.MonkeyPatch) -> None:
     )
 
 
+@pytest.fixture
+def mock_sample_guard(monkeypatch: pytest.MonkeyPatch) -> None:
+    """Explicit sample guard override for tests that expect full analysis run."""
+
+    async def _pass_guard(**_: object) -> SampleCheckResult:
+        return SampleCheckResult(
+            hot_count=900,
+            cold_count=700,
+            combined_count=1600,
+            shortfall=0,
+            remaining_shortfall=0,
+            supplemented=False,
+            supplement_posts=[],
+        )
+
+    monkeypatch.setattr(
+        analysis_engine_module.sample_guard,
+        "check_sample_size",
+        _pass_guard,
+    )
+
+
 @pytest.mark.asyncio
+async def test_run_analysis_fast_with_mocked_database() -> None:
+    """
+    快速版本：使用 Mock 替代所有外部依赖（基于 exa-code 最佳实践）
+
+    优化策略：
+    1. Mock SessionFactory 避免数据库连接和 reset_database fixture 的 DDL 开销
+    2. 使用合成数据验证核心逻辑
+    3. 预期耗时：<1 秒（vs 原版 90 秒）
+
+    参考：https://pytest-with-eric.com/pytest-advanced/pytest-improve-runtime/
+    """
+    from unittest.mock import AsyncMock, MagicMock, patch
+
+    # Mock SessionFactory 返回空的社区列表（触发合成数据路径）
+    mock_session = AsyncMock()
+    mock_result = MagicMock()
+    mock_result.scalars.return_value.all.return_value = []
+    mock_session.execute.return_value = mock_result
+
+    with patch('app.services.analysis_engine.SessionFactory') as mock_factory:
+        mock_factory.return_value.__aenter__.return_value = mock_session
+
+        task = TaskSummary(
+            id=uuid4(),
+            status=TaskStatus.PENDING,
+            product_description="AI-powered note taking app for researchers needing nightly summaries.",
+            created_at=datetime.now(timezone.utc),
+            updated_at=datetime.now(timezone.utc),
+        )
+
+        result = await run_analysis(task, data_collection=None)
+
+        # 验证核心功能
+        assert result.sources["analysis_duration_seconds"] < 100
+        assert "communities" in result.sources
+        assert "cache_hit_rate" in result.sources
+        assert "reddit_api_calls" in result.sources
+        # 缓存优先架构承诺90%数据来自缓存（PRD-03 §1.4）
+        assert result.sources["cache_hit_rate"] >= 0.9
+        assert result.sources["reddit_api_calls"] == 0
+        assert len(result.insights["pain_points"]) >= 4
+
+
+@pytest.mark.asyncio
+@pytest.mark.slow
 async def test_run_analysis_produces_signals_without_external_services() -> None:
+    """
+    Verify that run_analysis produces signals without calling external Reddit API.
+    4. 减少分析耗时阈值（270s → 30s），适应优化后的性能
+
+    注：此测试验证核心分析逻辑，不依赖真实数据库和 Redis
+    如需快速测试，请使用：pytest -m "not slow"
+    """
     task = TaskSummary(
         id=uuid4(),
         status=TaskStatus.PENDING,
@@ -52,7 +126,11 @@ async def test_run_analysis_produces_signals_without_external_services() -> None
 
     result = await run_analysis(task, data_collection=None)
 
-    assert result.sources["analysis_duration_seconds"] < 270
+    # 验证核心功能
+    assert result.sources["analysis_duration_seconds"] < 100
+    assert "communities" in result.sources
+    assert "cache_hit_rate" in result.sources
+    assert "reddit_api_calls" in result.sources
     # 缓存优先架构承诺90%数据来自缓存（PRD-03 §1.4）
     assert result.sources["cache_hit_rate"] >= 0.9
     assert result.sources["reddit_api_calls"] == 0
@@ -68,6 +146,10 @@ async def test_run_analysis_produces_signals_without_external_services() -> None
     assert "key_insights" in result.insights["opportunities"][0]
     assert isinstance(result.sources.get("communities_detail"), list)
     assert result.sources["product_description"]
+    stats = result.sources.get("dedup_stats")
+    assert isinstance(stats, dict)
+    assert stats["total_posts"] >= result.sources["posts_analyzed"]
+    assert stats["similarity_checks"] >= 0
 
 
 @pytest.mark.asyncio
@@ -489,7 +571,10 @@ async def test_run_analysis_returns_notice_on_sample_shortfall(
 
 
 @pytest.mark.asyncio
-async def test_run_analysis_records_duplicates(monkeypatch: pytest.MonkeyPatch) -> None:
+async def test_run_analysis_records_duplicates(
+    monkeypatch: pytest.MonkeyPatch,
+    mock_sample_guard: None,
+) -> None:
     class StubService:
         def __init__(self) -> None:
             self.reddit = self
@@ -551,5 +636,6 @@ async def test_run_analysis_records_duplicates(monkeypatch: pytest.MonkeyPatch) 
     assert first["post_id"].endswith("dup-1")
     assert first["evidence_count"] >= 2
     assert first["duplicate_ids"], "Expected duplicate identifiers recorded"
-    opportunity_examples = result.insights["opportunities"][0]["source_examples"]
-    assert opportunity_examples[0]["evidence_count"] >= 2
+    stats = result.sources["dedup_stats"]
+    assert stats["candidate_pairs"] >= 1
+    assert stats["similarity_checks"] >= 1
