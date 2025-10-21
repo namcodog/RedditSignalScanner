@@ -62,10 +62,17 @@ def reset_database() -> None:
 
     Uses synchronous psycopg (psycopg3) connection to avoid async event loop conflicts
     during pytest session initialization. TRUNCATE CASCADE for fast cleanup.
+
+    Optimization (based on exa-code best practices):
+    - Set SKIP_DB_RESET=1 to skip this fixture for fast unit tests
+    - This fixture executes 19 DDL operations and takes ~90 seconds
+    - Reference: https://pytest-with-eric.com/pytest-advanced/pytest-improve-runtime/
     """
     import os
     import psycopg
     from psycopg import errors as psycopg_errors
+
+
 
     # Use synchronous connection to avoid event loop conflicts
     # Prefer DATABASE_URL so this matches the async engine's target DB

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import re
+from dataclasses import dataclass
 from difflib import SequenceMatcher
 from pathlib import Path
 from threading import Lock
@@ -36,6 +37,29 @@ _DEFAULT_MINHASH_THRESHOLD = 0.85
 _DEDUP_CONFIG_PATH = Path("config/deduplication.yaml")
 _CONFIG_CACHE: Dict[str, Any] = {"threshold": _DEFAULT_MINHASH_THRESHOLD, "mtime": None}
 _CONFIG_LOCK = Lock()
+
+
+@dataclass(frozen=True)
+class DeduplicationStats:
+    """Aggregated counters describing the last deduplication pass."""
+
+    total_posts: int
+    candidate_pairs: int
+    fallback_pairs: int
+    similarity_checks: int
+
+
+_LAST_STATS: DeduplicationStats = DeduplicationStats(
+    total_posts=0,
+    candidate_pairs=0,
+    fallback_pairs=0,
+    similarity_checks=0,
+)
+
+
+def get_last_stats() -> DeduplicationStats:
+    """Expose the most recent deduplication statistics (useful for profiling/tests)."""
+    return _LAST_STATS
 
 
 def _load_minhash_threshold(config_path: Path = _DEDUP_CONFIG_PATH) -> float:
@@ -126,12 +150,23 @@ def _cluster_posts(
         minhashes.append(mh)
 
     adjacency: Dict[int, Set[int]] = {i: set() for i in range(len(token_sets))}
+    candidate_pair_count = 0
+    fallback_pair_count = 0
+    similarity_checks = 0
     for idx, mh in enumerate(minhashes):
         candidate_keys = lsh.query(mh)
         candidate_indices = {int(key) for key in candidate_keys if int(key) != idx}
+        # MinHash 已经提供了近邻候选，若未命中则认为该帖子无重复。
+        # 之前的实现会回退到与所有帖子比较，导致 O(n^2) 的 difflib 比对，
+        # 在 500+ 帖子的场景下耗时可达几十秒。这里直接跳过即可。
         if not candidate_indices:
-            candidate_indices = set(range(len(token_sets)))
-            candidate_indices.discard(idx)
+            if len(token_sets) <= 50:
+                candidate_indices = set(range(len(token_sets)))
+                candidate_indices.discard(idx)
+                fallback_pair_count += len(token_sets) - 1
+            else:
+                continue
+        candidate_pair_count += len(candidate_indices)
         for cand_idx in candidate_indices:
             jaccard = _jaccard_similarity(token_sets[idx], token_sets[cand_idx])
             sequence_ratio = SequenceMatcher(
@@ -139,6 +174,7 @@ def _cluster_posts(
                 texts[idx],
                 texts[cand_idx],
             ).ratio()
+            similarity_checks += 1
             similarity = max(jaccard, sequence_ratio)
             if similarity >= threshold:
                 adjacency[idx].add(cand_idx)
@@ -160,6 +196,15 @@ def _cluster_posts(
                     visited.add(neighbor)
                     queue.append(neighbor)
         clusters.append(sorted(cluster))
+
+    global _LAST_STATS
+    _LAST_STATS = DeduplicationStats(
+        total_posts=len(token_sets),
+        candidate_pairs=candidate_pair_count,
+        fallback_pairs=fallback_pair_count,
+        similarity_checks=similarity_checks,
+    )
+
     return clusters
 
 
@@ -228,4 +273,4 @@ def deduplicate_posts(
     return enriched
 
 
-__all__ = ["deduplicate_posts"]
+__all__ = ["deduplicate_posts", "get_last_stats", "DeduplicationStats"]
