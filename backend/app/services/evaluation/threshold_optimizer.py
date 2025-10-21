@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Iterable, List, Tuple
+from typing import Any, Iterable, List, Tuple
 
 import pandas as pd
 import yaml
@@ -31,10 +31,10 @@ def score_posts(
     effective_scorer = scorer or OpportunityScorer()
     scored_df = labeled_df.copy()
 
-    def _score_row(row: pd.Series) -> float:
+    def _score_row(row: pd.Series[Any]) -> float:
         text = f"{row.get('title', '')} {row.get('body', '')}".strip()
-        result = effective_scorer.score(text)
-        base_score = getattr(result, "base_score", 0.0)
+        result = effective_scorer.score(text)  # type: ignore[attr-defined]
+        base_score = result.base_score
         return float(max(0.0, min(1.0, base_score)))
 
     scored_df["predicted_score"] = scored_df.apply(_score_row, axis=1)

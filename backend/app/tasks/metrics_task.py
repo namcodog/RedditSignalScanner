@@ -17,7 +17,7 @@ from app.services.metrics.red_line_checker import RedLineChecker
 logger = logging.getLogger(__name__)
 
 
-@celery_app.task(name="tasks.metrics.generate_daily")
+@celery_app.task(name="tasks.metrics.generate_daily")  # type: ignore[misc]
 def generate_daily_metrics_task(
     *,
     labeled_data_path: str | None = None,

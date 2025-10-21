@@ -10,7 +10,7 @@ import logging
 from datetime import datetime, timezone
 from typing import Any
 
-from celery.utils.log import get_task_logger
+from celery.utils.log import get_task_logger  # type: ignore[import-untyped]
 from sqlalchemy import delete, select
 
 from app.core.celery_app import celery_app
@@ -64,11 +64,11 @@ async def cleanup_expired_posts_hot_impl() -> dict[str, Any]:
         }
 
 
-@celery_app.task(name="tasks.maintenance.cleanup_expired_posts_hot")
+@celery_app.task(name="tasks.maintenance.cleanup_expired_posts_hot")  # type: ignore[misc]
 def cleanup_expired_posts_hot() -> dict[str, Any]:
     """
     Celery 任务: 清理过期的 posts_hot 数据
-    
+
     调度: 每6小时执行一次
     队列: cleanup_queue
     """

@@ -125,7 +125,8 @@ def build_opportunity_reports(
 
         confidence = float(opportunity.get("relevance_score", 0.6))
         confidence = max(0.4, min(confidence + 0.1, 0.95))
-        urgency = _severity_to_urgency(pain.get("severity") if pain else "medium")
+        severity: str = str(pain.get("severity")) if pain and pain.get("severity") else "medium"
+        urgency = _severity_to_urgency(severity)
         product_fit = _score_product_fit(
             opportunity.get("potential_users", "约0个潜在团队")
         )
@@ -142,9 +143,10 @@ def build_opportunity_reports(
                 else "继续监控相关社区话题走势。"
             )
 
+        problem_def_str: str = str(problem_definition) if problem_definition else "未知问题"
         reports.append(
             OpportunityReport(
-                problem_definition=problem_definition,
+                problem_definition=problem_def_str,
                 evidence_chain=evidence_items[:3],
                 suggested_actions=action_suggestions[:3],
                 confidence=round(confidence, 3),

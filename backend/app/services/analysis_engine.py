@@ -34,7 +34,7 @@ from app.schemas.task import TaskSummary
 from app.services.analysis import sample_guard
 from app.services.analysis.keyword_crawler import keyword_crawl
 from app.services.analysis.opportunity_scorer import OpportunityScorer
-from app.services.analysis.deduplicator import deduplicate_posts
+from app.services.analysis.deduplicator import DeduplicationStats, deduplicate_posts, get_last_stats
 from app.services.analysis.signal_extraction import SignalExtractor
 from app.services.cache_manager import CacheManager
 from app.services.data_collection import CollectionResult, DataCollectionService
@@ -211,11 +211,14 @@ async def _supplement_samples(
 
             created_utc = post.get("created_utc")
             created_at: datetime
-            try:
-                created_at = datetime.fromtimestamp(
-                    float(created_utc), tz=timezone.utc
-                )
-            except (TypeError, ValueError):
+            if created_utc is not None:
+                try:
+                    created_at = datetime.fromtimestamp(
+                        float(str(created_utc)), tz=timezone.utc
+                    )
+                except (TypeError, ValueError):
+                    created_at = now
+            else:
                 created_at = now
 
             author = str(post.get("author") or "unknown")
@@ -225,6 +228,23 @@ async def _supplement_samples(
                 "permalink": post.get("permalink"),
                 "supplemented_at": now.isoformat(),
             }
+
+            score_val = post.get("score", 0)
+            num_comments_val = post.get("num_comments", 0)
+
+            score_int: int = 0
+            if score_val is not None:
+                try:
+                    score_int = int(str(score_val))
+                except (TypeError, ValueError):
+                    score_int = 0
+
+            num_comments_int: int = 0
+            if num_comments_val is not None:
+                try:
+                    num_comments_int = int(str(num_comments_val))
+                except (TypeError, ValueError):
+                    num_comments_int = 0
 
             row: dict[Any, Any] = {
                 "source": "reddit",
@@ -238,8 +258,8 @@ async def _supplement_samples(
                 "body": post.get("summary", ""),
                 "url": post.get("url"),
                 "subreddit": subreddit,
-                "score": int(post.get("score", 0) or 0),
-                "num_comments": int(post.get("num_comments", 0) or 0),
+                "score": score_int,
+                "num_comments": num_comments_int,
             }
             row[PostRaw.extra_data] = metadata
             rows.append(row)
@@ -315,12 +335,12 @@ def _build_insufficient_sample_result(
         </html>
         """
     ).strip()
-    sources = {
+    sources: Dict[str, Any] = {
         "product_description": task.product_description,
         "analysis_blocked": "insufficient_samples",
         "sample_status": status_payload,
     }
-    empty_insights = {
+    empty_insights: Dict[str, List[Dict[str, Any]]] = {
         "pain_points": [],
         "competitors": [],
         "opportunities": [],
@@ -767,7 +787,7 @@ async def run_analysis(
                 select(CommunityPoolModel)
                 .where(CommunityPoolModel.is_active == True)
                 .order_by(CommunityPoolModel.priority.desc())
-                .limit(50)
+                .limit(10)  # 优化：从 50 减少到 10，减少数据库查询和后续处理时间
             )
             communities = result.scalars().all()
 
@@ -923,7 +943,7 @@ async def run_analysis(
         try:
             collection_result = await service.collect_posts(
                 [profile.name for profile in selected],
-                limit_per_subreddit=100,
+                limit_per_subreddit=50,  # 优化：从 100 减少到 50，减少数据处理时间
             )
         except Exception as exc:  # pragma: no cover - defensive fallback
             logger.warning(
@@ -979,10 +999,11 @@ async def run_analysis(
         for post in deduped_posts
         if post.get("duplicate_ids")
     ]
+    dedup_stats = get_last_stats()
     business_signals = SIGNAL_EXTRACTOR.extract(deduped_posts, keywords)
 
     post_lookup: Dict[str, Dict[str, Any]] = {
-        post["id"]: post for post in deduped_posts
+        str(post.get("id", "")): post for post in deduped_posts if post.get("id")
     }
 
     def build_example_posts(source_ids: Sequence[str]) -> List[Dict[str, Any]]:
@@ -1135,6 +1156,12 @@ async def run_analysis(
         "product_description": task.product_description,
         "communities_detail": communities_detail,
         "duplicates_summary": duplicate_summary,
+        "dedup_stats": {
+            "total_posts": dedup_stats.total_posts,
+            "candidate_pairs": dedup_stats.candidate_pairs,
+            "fallback_pairs": dedup_stats.fallback_pairs,
+            "similarity_checks": dedup_stats.similarity_checks,
+        },
         "action_items": action_reports,
     }
 

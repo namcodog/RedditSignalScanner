@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Optional
+from typing import Optional, Sequence
 
 from app.services.analysis.scoring_rules import (
     KeywordRule,
@@ -80,7 +80,7 @@ class OpportunityScorer:
         )
 
     @staticmethod
-    def _collect_hits(text: str, rules: list[KeywordRule]) -> list[str]:
+    def _collect_hits(text: str, rules: Sequence[KeywordRule]) -> list[str]:
         hits: list[str] = []
         for rule in rules:
             if rule.keyword and rule.keyword in text:
@@ -88,14 +88,14 @@ class OpportunityScorer:
         return hits
 
     @staticmethod
-    def _weight_for(keyword: str, rules: list[KeywordRule]) -> float:
+    def _weight_for(keyword: str, rules: Sequence[KeywordRule]) -> float:
         for rule in rules:
             if rule.keyword == keyword:
-                return rule.weight
+                return float(rule.weight)
         return 0.0
 
     @staticmethod
-    def _has_negation(text: str, rules: list[NegationRule]) -> bool:
+    def _has_negation(text: str, rules: Sequence[NegationRule]) -> bool:
         for rule in rules:
             if rule.pattern and rule.pattern in text:
                 return True

@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import re
 from dataclasses import dataclass
-from typing import List, Sequence
+from typing import List, Pattern, Sequence
 
 from app.services.analysis.scoring_templates import (
     NegativeTemplate,
@@ -26,6 +26,8 @@ class TemplateMatcher:
 
     def __init__(self, loader: TemplateConfigLoader | None = None) -> None:
         self._loader = loader or TemplateConfigLoader()
+        self._positive: List[tuple[PositiveTemplate, Pattern[str]]] = []
+        self._negative: List[tuple[NegativeTemplate, Pattern[str]]] = []
         self._compile_templates()
 
     def _compile_templates(self) -> None:
@@ -50,15 +52,15 @@ class TemplateMatcher:
         boost_total = 0.0
         penalty_total = 0.0
 
-        for template, pattern in self._positive:
+        for pos_template, pattern in self._positive:
             if pattern.search(lowered):
-                positive_hits.append(template.name)
-                boost_total += max(0.0, template.boost)
+                positive_hits.append(pos_template.name)
+                boost_total += max(0.0, pos_template.boost)
 
-        for template, pattern in self._negative:
+        for neg_template, pattern in self._negative:
             if pattern.search(lowered):
-                negative_hits.append(template.name)
-                penalty_total += max(0.0, template.penalty)
+                negative_hits.append(neg_template.name)
+                penalty_total += max(0.0, neg_template.penalty)
 
         return TemplateMatchResult(positive_hits, negative_hits, boost_total, penalty_total)
 

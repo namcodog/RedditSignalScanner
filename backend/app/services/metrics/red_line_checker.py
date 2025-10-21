@@ -54,8 +54,10 @@ def _write_yaml(path: Path, payload: dict[str, object]) -> None:
 def _load_current_threshold(config_path: Path) -> float:
     config = _load_yaml(config_path)
     value = config.get("opportunity_threshold")
+    if value is None:
+        return 0.6
     try:
-        return float(value)
+        return float(value)  # type: ignore[arg-type]
     except (TypeError, ValueError):
         return 0.6
 
@@ -63,8 +65,10 @@ def _load_current_threshold(config_path: Path) -> float:
 def _load_minhash_config(config_path: Path) -> float:
     config = _load_yaml(config_path)
     value = config.get("minhash_threshold")
+    if value is None:
+        return 0.85
     try:
-        return float(value)
+        return float(value)  # type: ignore[arg-type]
     except (TypeError, ValueError):
         return 0.85
 

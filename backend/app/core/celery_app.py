@@ -210,7 +210,7 @@ def trigger_auto_crawl_bootstrap(app: Celery | None = None) -> bool:
 
 
 @worker_ready.connect  # type: ignore[misc]
-def _handle_worker_ready(sender=None, **_kwargs) -> None:
+def _handle_worker_ready(sender: Any = None, **_kwargs: Any) -> None:
     app_instance = getattr(sender, "app", None)
     trigger_auto_crawl_bootstrap(app_instance)
 

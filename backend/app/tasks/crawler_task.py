@@ -4,7 +4,7 @@ import asyncio
 import logging
 import os
 from datetime import datetime, timedelta, timezone
-from typing import Any, Iterable, List, Sequence, Tuple, cast
+from typing import Any, Iterable, List, Sequence, Tuple, TypeVar, cast
 
 from celery.utils.log import get_task_logger  # type: ignore[import-untyped]
 from sqlalchemy.dialects.postgresql import insert as pg_insert
@@ -18,6 +18,8 @@ from app.services.cache_manager import DEFAULT_CACHE_TTL_SECONDS, CacheManager
 from app.services.community_cache_service import upsert_community_cache
 from app.services.community_pool_loader import CommunityPoolLoader, CommunityProfile
 from app.services.incremental_crawler import IncrementalCrawler
+
+T = TypeVar("T")
 from app.services.reddit_client import RedditAPIClient, RedditAPIError, RedditPost
 from app.services.tiered_scheduler import TieredScheduler
 
@@ -35,8 +37,8 @@ DEFAULT_HOT_CACHE_TTL_HOURS = int(os.getenv("HOT_CACHE_TTL_HOURS", "24"))
 
 
 def _chunked(
-    items: Sequence[CommunityProfile], size: int
-) -> Iterable[Sequence[CommunityProfile]]:
+    items: Sequence[T], size: int
+) -> Iterable[Sequence[T]]:
     if size <= 0:
         size = len(items) or 1
     for index in range(0, len(items), size):
@@ -515,7 +517,8 @@ async def _crawl_low_quality_communities_impl() -> dict[str, Any]:
                         )
 
             # 分批抓取
-            for batch in _chunked(list(low_quality_communities), DEFAULT_BATCH_SIZE):
+            community_list: list[str] = list(low_quality_communities)
+            for batch in _chunked(community_list, DEFAULT_BATCH_SIZE):
                 batch_results = await asyncio.gather(
                     *[runner(name) for name in batch],
                     return_exceptions=True,
