@@ -16,6 +16,7 @@ import sys
 import uuid
 from typing import Optional
 
+from app.core.security import hash_password
 from app.db.session import SessionFactory
 from app.models.task import Task, TaskStatus
 from app.models.user import User
@@ -33,7 +34,7 @@ async def _create_records() -> uuid.UUID:
             user = User(
                 id=TEST_USER_ID,
                 email=TEST_EMAIL,
-                password_hash="test-hash",
+                password_hash=hash_password("TestPassword123"),  # 使用真实的密码哈希
                 is_active=True,
             )
             session.add(user)

@@ -87,7 +87,7 @@ class CommunityPoolLoader:
         if isinstance(data, list):
             raw_communities = data
         elif isinstance(data, dict):
-            raw_communities = data.get("communities", [])
+            raw_communities = data.get("seed_communities", data.get("communities", []))
         else:
             raw_communities = []
 
@@ -398,6 +398,10 @@ class CommunityPoolLoader:
         name = str(entry.get("name", "")).strip()
         if not name:
             raise ValueError("Seed entry missing community name")
+
+        # Ensure name starts with r/ (database constraint requirement)
+        if not name.startswith("r/"):
+            name = f"r/{name}"
 
         tier = str(entry.get("tier", "medium")).lower()
         if tier not in {"high", "medium", "low"}:

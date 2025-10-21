@@ -82,7 +82,7 @@ def convert_excel_to_seed(excel_path: Path, out_path: Path, mapping_path: Path) 
         raise
 
     mapping = _load_mapping(mapping_path)
-    df = pd.read_excel(excel_path, engine="openpyxl")
+    df = pd.read_excel(excel_path, engine="openpyxl", header=1)
     if df.empty:
         raise RuntimeError("Excel 文件无数据")
 
@@ -97,7 +97,22 @@ def convert_excel_to_seed(excel_path: Path, out_path: Path, mapping_path: Path) 
         name_raw = str(row.get(colmap["name"], "")).strip()
         if not name_raw:
             continue
-        name = name_raw if name_raw.startswith("r/") else f"r/{name_raw}"
+
+        # 只导入 is_active == True 的行（即"最终入选"=="是"）
+        is_active = _to_bool(row.get(colmap.get("is_active", ""), True))
+        if not is_active:
+            continue
+
+        # 跳过不符合 Reddit 社区名称格式的行（如分类标题）
+        if not name_raw.startswith("r/"):
+            # 如果不是以 r/ 开头，尝试添加前缀
+            name = f"r/{name_raw}"
+            # 验证是否符合格式 ^r/[a-zA-Z0-9_]+$
+            import re
+            if not re.match(r'^r/[a-zA-Z0-9_]+$', name):
+                continue
+        else:
+            name = name_raw
 
         tier = str(row.get(colmap.get("tier", ""), "default") or "default").strip()
         categories = _to_list(row.get(colmap.get("categories", ""), []))
@@ -114,7 +129,6 @@ def convert_excel_to_seed(excel_path: Path, out_path: Path, mapping_path: Path) 
             quality_score = float(row.get(colmap.get("quality_score", ""), 0.5) or 0.5)
         except Exception:
             quality_score = 0.5
-        is_active = _to_bool(row.get(colmap.get("is_active", ""), True))
 
         item: Dict[str, Any] = {
             "name": name,

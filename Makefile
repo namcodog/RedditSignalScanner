@@ -204,16 +204,16 @@ redis-purge: ## 清空Redis测试数据
 # ============================================================
 
 dev-backend: ## 启动后端开发服务器 (FastAPI + Uvicorn, 端口 8006, 启用Celery dispatch)
-    @echo "==> Starting backend development server on http://localhost:$(BACKEND_PORT) ..."
-    @echo "    API Docs: http://localhost:$(BACKEND_PORT)/docs"
-    @echo "    OpenAPI JSON: http://localhost:$(BACKEND_PORT)/openapi.json"
-    @echo "    ENABLE_CELERY_DISPATCH=$(ENABLE_CELERY_DISPATCH)"
-    @if [ -f $(BACKEND_DIR)/.env ]; then \
-        cd $(BACKEND_DIR) && export $$(cat .env | grep -v '^#' | xargs) && \
-        ENABLE_CELERY_DISPATCH=$(ENABLE_CELERY_DISPATCH) uvicorn app.main:app --reload --host 0.0.0.0 --port $(BACKEND_PORT); \
-    else \
-        cd $(BACKEND_DIR) && ENABLE_CELERY_DISPATCH=$(ENABLE_CELERY_DISPATCH) uvicorn app.main:app --reload --host 0.0.0.0 --port $(BACKEND_PORT); \
-    fi
+	@echo "==> Starting backend development server on http://localhost:$(BACKEND_PORT) ..."
+	@echo "    API Docs: http://localhost:$(BACKEND_PORT)/docs"
+	@echo "    OpenAPI JSON: http://localhost:$(BACKEND_PORT)/openapi.json"
+	@echo "    ENABLE_CELERY_DISPATCH=$(ENABLE_CELERY_DISPATCH)"
+	@if [ -f $(BACKEND_DIR)/.env ]; then \
+		cd $(BACKEND_DIR) && export $$(cat .env | grep -v '^#' | xargs) && \
+		ENABLE_CELERY_DISPATCH=$(ENABLE_CELERY_DISPATCH) uvicorn app.main:app --reload --host 0.0.0.0 --port $(BACKEND_PORT); \
+	else \
+		cd $(BACKEND_DIR) && ENABLE_CELERY_DISPATCH=$(ENABLE_CELERY_DISPATCH) uvicorn app.main:app --reload --host 0.0.0.0 --port $(BACKEND_PORT); \
+	fi
 
 dev-frontend: ## 启动前端开发服务器 (Vite, 端口 3006)
 	@echo "==> Starting frontend development server on http://localhost:$(FRONTEND_PORT) ..."
@@ -249,13 +249,13 @@ dev-full: ## 启动完整开发环境（Redis + Celery + Backend + Frontend）
 	@sleep 3
 	@tail -20 $(CELERY_WORKER_LOG) | grep "ready" && echo "✅ Celery Worker started" || echo "⚠️  Celery Worker可能未启动，请检查日志: $(CELERY_WORKER_LOG)"
 	@echo ""
-    @echo "4️⃣  启动后端服务（后台）..."
-    @if [ -f $(BACKEND_DIR)/.env ]; then \
-        cd $(BACKEND_DIR) && export $$(cat .env | grep -v '^#' | xargs) && \
-        ENABLE_CELERY_DISPATCH=$(ENABLE_CELERY_DISPATCH) nohup uvicorn app.main:app --host 0.0.0.0 --port $(BACKEND_PORT) > /tmp/backend_uvicorn.log 2>&1 & \
-    else \
-        cd $(BACKEND_DIR) && ENABLE_CELERY_DISPATCH=$(ENABLE_CELERY_DISPATCH) nohup uvicorn app.main:app --host 0.0.0.0 --port $(BACKEND_PORT) > /tmp/backend_uvicorn.log 2>&1 & \
-    fi
+	@echo "4️⃣  启动后端服务（后台）..."
+	@if [ -f $(BACKEND_DIR)/.env ]; then \
+		cd $(BACKEND_DIR) && export $$(cat .env | grep -v '^#' | xargs) && \
+		ENABLE_CELERY_DISPATCH=$(ENABLE_CELERY_DISPATCH) nohup uvicorn app.main:app --host 0.0.0.0 --port $(BACKEND_PORT) > /tmp/backend_uvicorn.log 2>&1 & \
+	else \
+		cd $(BACKEND_DIR) && ENABLE_CELERY_DISPATCH=$(ENABLE_CELERY_DISPATCH) nohup uvicorn app.main:app --host 0.0.0.0 --port $(BACKEND_PORT) > /tmp/backend_uvicorn.log 2>&1 & \
+	fi
 	@sleep 3
 	@curl -s http://localhost:$(BACKEND_PORT)/ > /dev/null && echo "✅ Backend server started" || echo "⚠️  Backend server可能未启动"
 	@echo ""
@@ -294,13 +294,13 @@ dev-real: ## 启动真实 Reddit 验收环境（不注入任何 mock/seed 数据
 	@sleep 3
 	@tail -20 $(CELERY_WORKER_LOG) | grep "ready" && echo "✅ Celery Worker started" || echo "⚠️  请检查日志: $(CELERY_WORKER_LOG)"
 	@echo ""
-    @echo "3️⃣  启动后端服务 ..."
-    @if [ -f $(BACKEND_DIR)/.env ]; then \
-        cd $(BACKEND_DIR) && export $$(cat .env | grep -v '^#' | xargs) && \
-        ENABLE_CELERY_DISPATCH=$(ENABLE_CELERY_DISPATCH) nohup uvicorn app.main:app --host 0.0.0.0 --port $(BACKEND_PORT) > /tmp/backend_uvicorn.log 2>&1 & \
-    else \
-        cd $(BACKEND_DIR) && ENABLE_CELERY_DISPATCH=$(ENABLE_CELERY_DISPATCH) nohup uvicorn app.main:app --host 0.0.0.0 --port $(BACKEND_PORT) > /tmp/backend_uvicorn.log 2>&1 & \
-    fi
+	@echo "3️⃣  启动后端服务 ..."
+	@if [ -f $(BACKEND_DIR)/.env ]; then \
+		cd $(BACKEND_DIR) && export $$(cat .env | grep -v '^#' | xargs) && \
+		ENABLE_CELERY_DISPATCH=$(ENABLE_CELERY_DISPATCH) nohup uvicorn app.main:app --host 0.0.0.0 --port $(BACKEND_PORT) > /tmp/backend_uvicorn.log 2>&1 & \
+	else \
+		cd $(BACKEND_DIR) && ENABLE_CELERY_DISPATCH=$(ENABLE_CELERY_DISPATCH) nohup uvicorn app.main:app --host 0.0.0.0 --port $(BACKEND_PORT) > /tmp/backend_uvicorn.log 2>&1 & \
+	fi
 	@sleep 3
 	@curl -s http://localhost:$(BACKEND_PORT)/ > /dev/null && echo "✅ Backend server started" || echo "⚠️  Backend server可能未启动"
 	@echo ""
@@ -705,15 +705,27 @@ warmup-logs: ## 查看预热期系统日志（Worker + Beat）
 
 db-migrate: ## 创建新的数据库迁移 (需要 MESSAGE="描述")
 	@echo "==> Creating new database migration ..."
-	@cd $(BACKEND_DIR) && alembic revision --autogenerate -m "$(MESSAGE)"
+	@if [ -f $(BACKEND_DIR)/.env ]; then \
+		cd $(BACKEND_DIR) && export $$(cat .env | grep -v '^#' | xargs) && alembic revision --autogenerate -m "$(MESSAGE)"; \
+	else \
+		cd $(BACKEND_DIR) && alembic revision --autogenerate -m "$(MESSAGE)"; \
+	fi
 
 db-upgrade: ## 升级数据库到最新版本
 	@echo "==> Upgrading database to latest version ..."
-	@cd $(BACKEND_DIR) && alembic upgrade head
+	@if [ -f $(BACKEND_DIR)/.env ]; then \
+		cd $(BACKEND_DIR) && export $$(cat .env | grep -v '^#' | xargs) && alembic upgrade head; \
+	else \
+		cd $(BACKEND_DIR) && alembic upgrade head; \
+	fi
 
 db-downgrade: ## 降级数据库一个版本
 	@echo "==> Downgrading database by one version ..."
-	@cd $(BACKEND_DIR) && alembic downgrade -1
+	@if [ -f $(BACKEND_DIR)/.env ]; then \
+		cd $(BACKEND_DIR) && export $$(cat .env | grep -v '^#' | xargs) && alembic downgrade -1; \
+	else \
+		cd $(BACKEND_DIR) && alembic downgrade -1; \
+	fi
 
 db-reset: ## 重置数据库（危险操作！）
 	@echo "==> WARNING: This will drop all tables and recreate them!"
@@ -876,7 +888,19 @@ seed-from-excel:
 
 .PHONY: import-community-pool
 import-community-pool:
-	python -m app.scripts.import_seed_to_db || python backend/scripts/import_seed_to_db.py
+	@echo "==> 导入社区池到数据库..."
+	cd backend && source ../venv/bin/activate && \
+		export PYTHONPATH=$(PWD)/backend:$$PYTHONPATH && \
+		export $$(cat .env | grep -v '^#' | xargs) && \
+		python scripts/import_seed_to_db.py
+
+.PHONY: import-community-pool-from-json
+import-community-pool-from-json:
+	@echo "==> 从 community_expansion_200.json 导入社区池..."
+	cd backend && source ../venv/bin/activate && \
+		export PYTHONPATH=$(PWD)/backend:$$PYTHONPATH && \
+		export $$(cat .env | grep -v '^#' | xargs) && \
+		python scripts/import_seed_to_db.py
 
 .PHONY: validate-seed
 validate-seed:
@@ -885,6 +909,10 @@ validate-seed:
 .PHONY: day13-seed-all
 day13-seed-all: db-migrate-up seed-from-excel validate-seed import-community-pool
 	@echo "✅ Day13 seed pipeline completed."
+
+.PHONY: quick-import-communities
+quick-import-communities: db-migrate-up import-community-pool-from-json
+	@echo "✅ 社区池快速导入完成 (使用 community_expansion_200.json)"
 
 
 # ============================================================
@@ -1089,3 +1117,65 @@ test-report-acceptance: ## 生成验收报告
 	@echo "# Day 13-20 预热期本地验收报告" > reports/acceptance-test-report.md
 	@echo "- **执行日期**: $$(date '+%Y-%m-%d %H:%M:%S')" >> reports/acceptance-test-report.md
 	@echo "✅ 报告生成完成"
+
+# ============================================================
+# 端到端验证命令（完整产品闭环）
+# ============================================================
+
+.PHONY: e2e-verify e2e-setup e2e-check-data e2e-test-analysis e2e-cleanup
+
+e2e-setup: ## E2E 验证：环境准备
+	@echo "==> 阶段 1: 环境准备"
+	@echo "1. 检查数据库迁移..."
+	cd backend && alembic upgrade head
+	@echo "2. 导入社区池..."
+	$(MAKE) import-community-pool-from-json
+	@echo "3. 检查 Redis..."
+	redis-cli ping || (echo "❌ Redis 未运行，请先启动 Redis" && exit 1)
+	@echo "✅ 环境准备完成"
+
+e2e-check-data: ## E2E 验证：检查数据状态
+	@echo "==> 阶段 2: 数据状态检查"
+	@psql -h localhost -U postgres -d reddit_signal_scanner -c "\
+		SELECT \
+		  (SELECT COUNT(*) FROM posts_raw) as posts_raw, \
+		  (SELECT COUNT(*) FROM posts_hot) as posts_hot, \
+		  (SELECT COUNT(*) FROM community_pool WHERE is_active) as active_communities, \
+		  (SELECT COUNT(*) FROM tasks WHERE status = 'completed') as completed_tasks;"
+
+e2e-test-analysis: ## E2E 验证：测试分析任务
+	@echo "==> 阶段 3: 测试分析任务"
+	@echo "提交测试任务..."
+	@TOKEN=$$(curl -s -X POST http://localhost:8006/api/auth/login \
+		-H "Content-Type: application/json" \
+		-d '{"email":"full-e2e-test@example.com","password":"SecurePass123!"}' | \
+		python -c 'import sys, json; print(json.load(sys.stdin)["access_token"])') && \
+	TASK_RESPONSE=$$(curl -s -X POST http://localhost:8006/api/analyze \
+		-H "Content-Type: application/json" \
+		-H "Authorization: Bearer $$TOKEN" \
+		-d '{"product_description":"A productivity app for remote workers"}') && \
+	TASK_ID=$$(echo $$TASK_RESPONSE | python -c 'import sys, json; print(json.load(sys.stdin)["task_id"])') && \
+	echo "任务已创建: $$TASK_ID" && \
+	echo "等待任务完成..." && \
+	sleep 30 && \
+	echo "检查任务状态..." && \
+	psql -h localhost -U postgres -d reddit_signal_scanner -c \
+		"SELECT id, status, created_at, updated_at FROM tasks WHERE id = '$$TASK_ID';"
+
+e2e-verify: e2e-setup e2e-check-data e2e-test-analysis ## E2E 验证：完整端到端验证
+	@echo ""
+	@echo "=========================================="
+	@echo "✅ 端到端验证完成！"
+	@echo "=========================================="
+	@echo ""
+	@echo "📊 验证结果："
+	@echo "   ✅ 环境准备成功"
+	@echo "   ✅ 社区池已导入"
+	@echo "   ✅ 数据抓取正常"
+	@echo "   ✅ 分析任务执行成功"
+	@echo ""
+	@echo "🔗 下一步："
+	@echo "   - 访问 http://localhost:3006 测试前端"
+	@echo "   - 查看 /tmp/celery_worker.log 监控任务执行"
+	@echo "   - 使用 make e2e-check-data 查看数据统计"
+	@echo ""

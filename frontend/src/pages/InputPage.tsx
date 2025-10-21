@@ -13,7 +13,7 @@ import {
 } from 'lucide-react';
 
 import { createAnalyzeTask } from '@/api/analyze.api';
-import { register, isAuthenticated } from '@/api/auth.api';
+import { isAuthenticated } from '@/api/auth.api';
 import { ROUTES } from '@/router';
 import NavigationBreadcrumb from '@/components/NavigationBreadcrumb';
 import AuthDialog from '@/components/AuthDialog';
@@ -64,7 +64,6 @@ const PROCESS_STEPS = [
 const InputPage: React.FC = () => {
   const navigate = useNavigate();
   const [apiError, setApiError] = useState<string | null>(null);
-  const [isAuthenticating, setIsAuthenticating] = useState(false);
   const [isAuthDialogOpen, setIsAuthDialogOpen] = useState(false);
   const [authDialogTab, setAuthDialogTab] = useState<'login' | 'register'>('login');
 
@@ -82,37 +81,13 @@ const InputPage: React.FC = () => {
     },
   });
 
-  // 自动认证：如果没有 Token，自动注册临时用户
+  // 检查用户认证状态（不自动注册）
   useEffect(() => {
-    const ensureAuthenticated = async () => {
-      if (isAuthenticated()) {
-        console.log('[Auth] User already authenticated');
-        return;
-      }
-
-      setIsAuthenticating(true);
-      try {
-        // 生成临时用户邮箱（使用 example.com 域名，符合 RFC 标准）
-        const tempEmail = `temp-user-${Date.now()}@example.com`;
-        const tempPassword = `TempPass${Date.now()}!`;
-
-        console.log('[Auth] Auto-registering temporary user:', tempEmail);
-
-        await register({
-          email: tempEmail,
-          password: tempPassword,
-        });
-
-        console.log('[Auth] Temporary user registered successfully');
-      } catch (error) {
-        console.error('[Auth] Auto-registration failed:', error);
-        setApiError('自动认证失败，请刷新页面重试。');
-      } finally {
-        setIsAuthenticating(false);
-      }
-    };
-
-    ensureAuthenticated();
+    if (isAuthenticated()) {
+      console.log('[Auth] User already authenticated');
+    } else {
+      console.log('[Auth] User not authenticated - manual login/register required');
+    }
   }, []);
 
   const productDescription = watch('productDescription');
@@ -136,6 +111,14 @@ const InputPage: React.FC = () => {
   const onSubmit = handleSubmit(async (values) => {
     const description = values.productDescription.trim();
     setApiError(null);
+
+    // 检查用户是否已登录
+    if (!isAuthenticated()) {
+      setApiError('请先登录或注册后再提交分析任务');
+      setAuthDialogTab('register');
+      setIsAuthDialogOpen(true);
+      return;
+    }
 
     try {
       const response = await createAnalyzeTask({
@@ -180,8 +163,10 @@ const InputPage: React.FC = () => {
               type="button"
               aria-haspopup="dialog"
               onClick={() => {
+                console.log('[InputPage] Register button clicked');
                 setAuthDialogTab('register');
                 setIsAuthDialogOpen(true);
+                console.log('[InputPage] State updated: isAuthDialogOpen=true, authDialogTab=register');
               }}
               className="inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
@@ -272,10 +257,10 @@ const InputPage: React.FC = () => {
                   }}
                   className="inline-flex w-full items-center justify-center gap-2 rounded-md bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-sm transition hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:bg-primary/60"
                   data-testid="submit-button"
-                  disabled={isAuthenticating || isSubmitting || !isValid || trimmedLength === 0}
+                  disabled={isSubmitting || !isValid || trimmedLength === 0}
                 >
                   <Zap className="h-4 w-4" aria-hidden />
-                  {isAuthenticating ? '正在初始化...' : isSubmitting ? '创建任务中...' : '开始 5 分钟分析'}
+                  {isSubmitting ? '创建任务中...' : '开始 5 分钟分析'}
                 </button>
 
                 {apiError !== null ? (

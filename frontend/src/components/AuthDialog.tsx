@@ -1,16 +1,16 @@
 /**
  * 认证对话框组件
- * 
+ *
  * 基于 PRD-06 用户认证系统
  * 参考实现: https://v0-reddit-business-signals.vercel.app
- * 
+ *
  * 功能:
  * - Tab切换（登录/注册）
  * - 表单验证
  * - 集成auth.api
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { login, register } from '@/api/auth.api';
 import { X } from 'lucide-react';
@@ -40,6 +40,13 @@ export const AuthDialog: React.FC<AuthDialogProps> = ({
   const [activeTab, setActiveTab] = useState<'login' | 'register'>(defaultTab);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  // 同步 defaultTab 到 activeTab
+  useEffect(() => {
+    if (isOpen) {
+      setActiveTab(defaultTab);
+    }
+  }, [isOpen, defaultTab]);
 
   const {
     register: registerLoginForm,
@@ -97,7 +104,14 @@ export const AuthDialog: React.FC<AuthDialogProps> = ({
     onClose();
   };
 
-  if (!isOpen) return null;
+  console.log('[AuthDialog] Render - isOpen:', isOpen, 'activeTab:', activeTab);
+
+  if (!isOpen) {
+    console.log('[AuthDialog] Not rendering - isOpen is false');
+    return null;
+  }
+
+  console.log('[AuthDialog] Rendering dialog');
 
   return (
     <div

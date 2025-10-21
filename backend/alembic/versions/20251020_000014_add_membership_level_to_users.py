@@ -18,23 +18,37 @@ depends_on = None
 
 def upgrade() -> None:
     """Add membership_level column to users table."""
-    # Add membership_level column with default value 'free'
-    op.add_column(
-        'users',
-        sa.Column(
-            'membership_level',
-            sa.String(length=20),
-            nullable=False,
-            server_default='free'
+    from sqlalchemy import inspect
+
+    conn = op.get_bind()
+    inspector = inspect(conn)
+
+    # 检查列是否已存在
+    columns = [col["name"] for col in inspector.get_columns("users")]
+
+    if "membership_level" not in columns:
+        # Add membership_level column with default value 'free'
+        op.add_column(
+            'users',
+            sa.Column(
+                'membership_level',
+                sa.String(length=20),
+                nullable=False,
+                server_default='free'
+            )
         )
-    )
-    
-    # Add check constraint to ensure valid membership levels
-    op.create_check_constraint(
-        'ck_users_membership_level',
-        'users',
-        "membership_level IN ('free', 'pro', 'enterprise')"
-    )
+
+    # 检查约束是否已存在
+    constraints = inspector.get_check_constraints("users")
+    constraint_names = [c["name"] for c in constraints]
+
+    if "ck_users_membership_level" not in constraint_names:
+        # Add check constraint to ensure valid membership levels
+        op.create_check_constraint(
+            'ck_users_membership_level',
+            'users',
+            "membership_level IN ('free', 'pro', 'enterprise')"
+        )
 
 
 def downgrade() -> None:
