@@ -10,6 +10,8 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.routes.admin import _response
+from app.core.auth import require_admin
+from app.core.security import TokenPayload
 from app.db.session import get_session
 from app.models.community_pool import CommunityPool, PendingCommunity
 
@@ -31,6 +33,7 @@ class RejectRequest(BaseModel):
 @router.get("/pool", summary="查看社区池")
 async def list_community_pool(
     session: AsyncSession = Depends(get_session),
+    payload: TokenPayload = Depends(require_admin),
 ) -> dict[str, Any]:
     stmt = select(CommunityPool).order_by(CommunityPool.name.asc())
     result = await session.execute(stmt)
@@ -61,6 +64,7 @@ async def list_community_pool(
 @router.get("/discovered", summary="查看待审核社区")
 async def list_discovered(
     session: AsyncSession = Depends(get_session),
+    payload: TokenPayload = Depends(require_admin),
 ) -> dict[str, Any]:
     stmt = (
         select(PendingCommunity)
@@ -91,6 +95,7 @@ async def list_discovered(
 async def approve_community(
     body: ApproveRequest,
     session: AsyncSession = Depends(get_session),
+    payload: TokenPayload = Depends(require_admin),
 ) -> dict[str, Any]:
     # Find pending record
     pending = await session.scalar(
@@ -155,6 +160,7 @@ async def approve_community(
 async def reject_community(
     body: RejectRequest,
     session: AsyncSession = Depends(get_session),
+    payload: TokenPayload = Depends(require_admin),
 ) -> dict[str, Any]:
     pending = await session.scalar(
         select(PendingCommunity).where(PendingCommunity.name == body.name)
@@ -185,6 +191,7 @@ async def reject_community(
 async def disable_community(
     name: str = Path(..., min_length=2, max_length=200),
     session: AsyncSession = Depends(get_session),
+    payload: TokenPayload = Depends(require_admin),
 ) -> dict[str, Any]:
     pool = await session.scalar(select(CommunityPool).where(CommunityPool.name == name))
     if pool is None:
