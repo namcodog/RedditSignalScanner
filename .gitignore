@@ -69,6 +69,13 @@ tmp/
 coverage/
 htmlcov/
 
+# Playwright test results (E2E 测试结果)
+frontend/test-results/
+frontend/playwright-report/
+frontend/playwright-results.json
+**/test-results/
+**/playwright-report/
+
 # Build artifacts
 *.pyc
 *.pyo
