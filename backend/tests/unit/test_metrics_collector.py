@@ -47,6 +47,7 @@ async def test_collect_metrics_success(db_session, test_user):
         user_id=test_user.id,
         product_description="Test product 1",
         status=TaskStatus.COMPLETED,
+        created_at=day_start,  # 显式设置 created_at 以满足约束
         started_at=day_start,
         completed_at=day_start + timedelta(seconds=18),  # 18 秒
     )
@@ -54,6 +55,7 @@ async def test_collect_metrics_success(db_session, test_user):
         user_id=test_user.id,
         product_description="Test product 2",
         status=TaskStatus.COMPLETED,
+        created_at=day_start + timedelta(hours=1),  # 显式设置 created_at 以满足约束
         started_at=day_start + timedelta(hours=1),
         completed_at=day_start + timedelta(hours=1, seconds=45),  # 45 秒
     )
