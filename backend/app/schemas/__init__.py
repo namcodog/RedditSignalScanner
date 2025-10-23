@@ -18,6 +18,11 @@ from app.schemas.community_pool import (
     PendingCommunityUpdate,
     WarmupMetrics,
 )
+from app.schemas.insights import (
+    EvidenceResponse,
+    InsightCardListResponse,
+    InsightCardResponse,
+)
 from app.schemas.report import ReportRead, ReportResponse
 from app.schemas.task import (
     TaskCreate,
@@ -56,4 +61,7 @@ __all__ = [
     "CommunityDiscoveryRequest",
     "CommunityDiscoveryResponse",
     "WarmupMetrics",
+    "InsightCardResponse",
+    "EvidenceResponse",
+    "InsightCardListResponse",
 ]

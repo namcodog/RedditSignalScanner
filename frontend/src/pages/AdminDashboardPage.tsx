@@ -12,49 +12,17 @@
  * 最后更新: 2025-10-15 Day 10
  */
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { type CommunityData } from '@/services/admin.service';
+import {
+  adminService,
+  type BetaFeedbackItem,
+  type CommunityData,
+  type QualityMetrics,
+} from '@/services/admin.service';
 import { ROUTES } from '@/router';
 
-/**
- * Mock数据（Day 10使用，Day 11替换为真实API）
- */
-const MOCK_COMMUNITIES: CommunityData[] = [
-  {
-    community: 'r/startups',
-    hit_7d: 83,
-    last_crawled_at: '2025/9/15 19:20:00',
-    dup_ratio: 0.08,
-    spam_ratio: 0.06,
-    topic_score: 0.74,
-    c_score: 82,
-    status_color: 'green',
-    labels: ['状态:核心', '主题:创业'],
-  },
-  {
-    community: 'r/technology',
-    hit_7d: 45,
-    last_crawled_at: '2025/9/14 16:30:00',
-    dup_ratio: 0.18,
-    spam_ratio: 0.12,
-    topic_score: 0.52,
-    c_score: 48,
-    status_color: 'red',
-    labels: ['状态:黑名单', '风险:广告多'],
-  },
-  {
-    community: 'r/ArtificialIntelligence',
-    hit_7d: 67,
-    last_crawled_at: '2025/9/15 22:45:00',
-    dup_ratio: 0.12,
-    spam_ratio: 0.08,
-    topic_score: 0.68,
-    c_score: 65,
-    status_color: 'yellow',
-    labels: ['状态:实验', '主题:AI'],
-  },
-];
+
 
 /**
  * 状态标签组件
@@ -85,12 +53,33 @@ const StatusBadge: React.FC<{ status: 'green' | 'yellow' | 'red' }> = ({ status 
 };
 
 /**
- * 社区验收Tab
+ * 社区验收Tab（使用真实API）
  */
 const CommunityReviewTab: React.FC = () => {
-  const [communities] = useState<CommunityData[]>(MOCK_COMMUNITIES);
+  const [communities, setCommunities] = useState<CommunityData[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
+
+  // 从API加载社区数据
+  useEffect(() => {
+    const fetchCommunities = async () => {
+      try {
+        setLoading(true);
+        const data = await adminService.getCommunities({ page_size: 200 });
+        setCommunities(data.items);
+        setError(null);
+      } catch (err) {
+        setError('加载社区列表失败');
+        console.error('Failed to fetch communities:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCommunities();
+  }, []);
 
   // 过滤社区
   const filteredCommunities = communities.filter((community) => {
@@ -98,6 +87,24 @@ const CommunityReviewTab: React.FC = () => {
     const matchesStatus = statusFilter === 'all' || community.status_color === statusFilter;
     return matchesSearch && matchesStatus;
   });
+
+  // 加载状态
+  if (loading) {
+    return (
+      <div style={{ padding: '24px', textAlign: 'center' }}>
+        <p>加载中...</p>
+      </div>
+    );
+  }
+
+  // 错误状态
+  if (error) {
+    return (
+      <div style={{ padding: '24px', textAlign: 'center', color: '#ef4444' }}>
+        <p>{error}</p>
+      </div>
+    );
+  }
 
   return (
     <div style={{ padding: '24px' }}>
@@ -262,9 +269,141 @@ const CommunityReviewTab: React.FC = () => {
  * 算法验收Tab
  */
 const AlgorithmReviewTab: React.FC = () => {
+  const [tasks, setTasks] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchTasks = async () => {
+      try {
+        setLoading(true);
+        const data = await adminService.getAnalysisTasks({ limit: 50 });
+        setTasks(data.items);
+        setError(null);
+      } catch (err) {
+        setError('加载分析任务失败');
+        console.error('Failed to fetch analysis tasks:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTasks();
+  }, []);
+
+  if (loading) {
+    return (
+      <div style={{ padding: '24px', textAlign: 'center', color: '#6b7280' }}>
+        <p>加载中...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div style={{ padding: '24px', textAlign: 'center', color: '#ef4444' }}>
+        <p>{error}</p>
+      </div>
+    );
+  }
+
   return (
-    <div style={{ padding: '24px', textAlign: 'center', color: '#6b7280' }}>
-      <p>算法验收功能（Day 11实现）</p>
+    <div style={{ padding: '24px' }}>
+      <h2 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '16px' }}>
+        算法验收
+      </h2>
+
+      {tasks.length === 0 ? (
+        <div style={{ textAlign: 'center', color: '#6b7280', padding: '48px' }}>
+          <p>暂无分析任务数据</p>
+        </div>
+      ) : (
+        <div style={{ overflowX: 'auto' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
+            <thead>
+              <tr style={{ backgroundColor: '#f9fafb', borderBottom: '1px solid #e5e7eb' }}>
+                <th style={{ padding: '10px 8px', textAlign: 'left', fontSize: '13px', fontWeight: '600' }}>任务ID</th>
+                <th style={{ padding: '10px 8px', textAlign: 'left', fontSize: '13px', fontWeight: '600' }}>用户</th>
+                <th style={{ padding: '10px 8px', textAlign: 'center', fontSize: '13px', fontWeight: '600' }}>状态</th>
+                <th style={{ padding: '10px 8px', textAlign: 'right', fontSize: '13px', fontWeight: '600' }}>耗时(秒)</th>
+                <th style={{ padding: '10px 8px', textAlign: 'right', fontSize: '13px', fontWeight: '600' }}>置信度</th>
+                <th style={{ padding: '10px 8px', textAlign: 'right', fontSize: '13px', fontWeight: '600' }}>社区数</th>
+                <th style={{ padding: '10px 8px', textAlign: 'right', fontSize: '13px', fontWeight: '600' }}>帖子数</th>
+                <th style={{ padding: '10px 8px', textAlign: 'right', fontSize: '13px', fontWeight: '600' }}>痛点</th>
+                <th style={{ padding: '10px 8px', textAlign: 'right', fontSize: '13px', fontWeight: '600' }}>竞品</th>
+                <th style={{ padding: '10px 8px', textAlign: 'right', fontSize: '13px', fontWeight: '600' }}>机会</th>
+                <th style={{ padding: '10px 8px', textAlign: 'right', fontSize: '13px', fontWeight: '600' }}>缓存率</th>
+              </tr>
+            </thead>
+            <tbody>
+              {tasks.map((task, index) => (
+                <tr
+                  key={task.task_id}
+                  style={{
+                    borderBottom: '1px solid #e5e7eb',
+                    backgroundColor: index % 2 === 0 ? '#ffffff' : '#f9fafb',
+                  }}
+                >
+                  <td style={{ padding: '10px 8px', fontSize: '13px' }}>
+                    {String(task.task_id).substring(0, 8)}...
+                  </td>
+                  <td style={{ padding: '10px 8px', fontSize: '13px' }}>
+                    {task.user_email}
+                  </td>
+                  <td style={{ padding: '10px 8px', fontSize: '13px', textAlign: 'center' }}>
+                    <span style={{
+                      padding: '3px 6px',
+                      borderRadius: '4px',
+                      backgroundColor: task.status === 'completed' ? '#dcfce7' : task.status === 'failed' ? '#fee2e2' : '#fef3c7',
+                      color: task.status === 'completed' ? '#166534' : task.status === 'failed' ? '#991b1b' : '#92400e',
+                      fontSize: '11px'
+                    }}>
+                      {task.status}
+                    </span>
+                  </td>
+                  <td style={{ padding: '10px 8px', fontSize: '13px', textAlign: 'right' }}>
+                    {task.processing_seconds !== null ? task.processing_seconds.toFixed(1) : '-'}
+                  </td>
+                  <td style={{ padding: '10px 8px', fontSize: '13px', textAlign: 'right' }}>
+                    {task.confidence_score !== null ? (
+                      <span style={{
+                        color: task.confidence_score >= 0.7 ? '#166534' : task.confidence_score >= 0.5 ? '#92400e' : '#991b1b',
+                        fontWeight: '600'
+                      }}>
+                        {(task.confidence_score * 100).toFixed(0)}%
+                      </span>
+                    ) : '-'}
+                  </td>
+                  <td style={{ padding: '10px 8px', fontSize: '13px', textAlign: 'right' }}>
+                    {task.communities_count || '-'}
+                  </td>
+                  <td style={{ padding: '10px 8px', fontSize: '13px', textAlign: 'right' }}>
+                    {task.posts_analyzed || '-'}
+                  </td>
+                  <td style={{ padding: '10px 8px', fontSize: '13px', textAlign: 'right' }}>
+                    {task.pain_points_count || '-'}
+                  </td>
+                  <td style={{ padding: '10px 8px', fontSize: '13px', textAlign: 'right' }}>
+                    {task.competitors_count || '-'}
+                  </td>
+                  <td style={{ padding: '10px 8px', fontSize: '13px', textAlign: 'right' }}>
+                    {task.opportunities_count || '-'}
+                  </td>
+                  <td style={{ padding: '10px 8px', fontSize: '13px', textAlign: 'right' }}>
+                    {task.cache_hit_rate !== null && task.cache_hit_rate !== undefined ? (
+                      <span style={{
+                        color: task.cache_hit_rate >= 0.8 ? '#166534' : task.cache_hit_rate >= 0.5 ? '#92400e' : '#991b1b'
+                      }}>
+                        {(task.cache_hit_rate * 100).toFixed(0)}%
+                      </span>
+                    ) : '-'}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
     </div>
   );
 };
@@ -273,9 +412,307 @@ const AlgorithmReviewTab: React.FC = () => {
  * 用户反馈Tab
  */
 const UserFeedbackTab: React.FC = () => {
+  const [feedbackList, setFeedbackList] = useState<BetaFeedbackItem[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchFeedback = async () => {
+      try {
+        setLoading(true);
+        const response = await adminService.getBetaFeedbackList();
+        setFeedbackList(response.items);
+        setError(null);
+      } catch (err) {
+        setError('加载用户反馈失败');
+        console.error('Failed to fetch feedback:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchFeedback();
+  }, []);
+
+  if (loading) {
+    return (
+      <div style={{ padding: '24px', textAlign: 'center', color: '#6b7280' }}>
+        <p>加载中...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div style={{ padding: '24px', textAlign: 'center', color: '#ef4444' }}>
+        <p>{error}</p>
+      </div>
+    );
+  }
+
+  // 计算汇总数据
+  const satisfiedCount = feedbackList.filter(f => f.satisfaction === 'satisfied').length;
+  const satisfactionRate = feedbackList.length > 0 ? (satisfiedCount / feedbackList.length) * 100 : 0;
+
   return (
-    <div style={{ padding: '24px', textAlign: 'center', color: '#6b7280' }}>
-      <p>用户反馈功能（Day 11实现）</p>
+    <div style={{ padding: '24px' }}>
+      <h2 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '24px' }}>
+        用户反馈列表
+      </h2>
+
+      {/* 汇总卡片 */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px', marginBottom: '32px' }}>
+        <div style={{ backgroundColor: '#f9fafb', padding: '20px', borderRadius: '8px', border: '1px solid #e5e7eb' }}>
+          <div style={{ fontSize: '14px', color: '#6b7280', marginBottom: '8px' }}>总反馈数</div>
+          <div style={{ fontSize: '32px', fontWeight: '600', color: '#3b82f6' }}>
+            {feedbackList.length}
+          </div>
+        </div>
+
+        <div style={{ backgroundColor: '#f9fafb', padding: '20px', borderRadius: '8px', border: '1px solid #e5e7eb' }}>
+          <div style={{ fontSize: '14px', color: '#6b7280', marginBottom: '8px' }}>满意率</div>
+          <div style={{ fontSize: '32px', fontWeight: '600', color: '#10b981' }}>
+            {satisfactionRate.toFixed(1)}%
+          </div>
+        </div>
+      </div>
+
+      {/* 反馈列表 */}
+      {feedbackList.length === 0 ? (
+        <div style={{ textAlign: 'center', color: '#6b7280', padding: '48px' }}>
+          <p>暂无用户反馈数据</p>
+        </div>
+      ) : (
+        <div style={{ overflowX: 'auto' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+            <thead>
+              <tr style={{ backgroundColor: '#f9fafb', borderBottom: '1px solid #e5e7eb' }}>
+                <th style={{ padding: '12px', textAlign: 'left', fontSize: '14px', fontWeight: '600' }}>任务ID</th>
+                <th style={{ padding: '12px', textAlign: 'left', fontSize: '14px', fontWeight: '600' }}>满意度</th>
+                <th style={{ padding: '12px', textAlign: 'left', fontSize: '14px', fontWeight: '600' }}>缺失社区</th>
+                <th style={{ padding: '12px', textAlign: 'left', fontSize: '14px', fontWeight: '600' }}>评论</th>
+                <th style={{ padding: '12px', textAlign: 'left', fontSize: '14px', fontWeight: '600' }}>创建时间</th>
+              </tr>
+            </thead>
+            <tbody>
+              {feedbackList.map((feedback, index) => (
+                <tr
+                  key={feedback.id}
+                  style={{
+                    borderBottom: '1px solid #e5e7eb',
+                    backgroundColor: index % 2 === 0 ? '#ffffff' : '#f9fafb',
+                  }}
+                >
+                  <td style={{ padding: '12px', fontSize: '14px' }}>
+                    {feedback.task_id.substring(0, 8)}...
+                  </td>
+                  <td style={{ padding: '12px', fontSize: '14px' }}>
+                    <span style={{
+                      padding: '4px 8px',
+                      borderRadius: '4px',
+                      backgroundColor: feedback.satisfaction === 'satisfied' ? '#dcfce7' : '#fee2e2',
+                      color: feedback.satisfaction === 'satisfied' ? '#166534' : '#991b1b',
+                      fontSize: '12px'
+                    }}>
+                      {feedback.satisfaction === 'satisfied' ? '满意' : '不满意'}
+                    </span>
+                  </td>
+                  <td style={{ padding: '12px', fontSize: '14px' }}>
+                    {feedback.missing_communities && feedback.missing_communities.length > 0
+                      ? feedback.missing_communities.join(', ')
+                      : '-'}
+                  </td>
+                  <td style={{ padding: '12px', fontSize: '14px', maxWidth: '300px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                    {feedback.comments || '-'}
+                  </td>
+                  <td style={{ padding: '12px', fontSize: '14px' }}>
+                    {new Date(feedback.created_at).toLocaleString('zh-CN')}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </div>
+  );
+};
+
+/**
+ * 数据质量Tab
+ */
+const MetricsTab: React.FC = () => {
+  const [metrics, setMetrics] = useState<QualityMetrics[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchMetrics = async () => {
+      try {
+        setLoading(true);
+        const data = await adminService.getQualityMetrics();
+        setMetrics(data);
+        setError(null);
+      } catch (err) {
+        setError('加载数据失败');
+        console.error('Failed to fetch metrics:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchMetrics();
+  }, []);
+
+  // 计算最新指标（取最后一天的数据）
+  const latestMetrics = metrics.length > 0 ? metrics[metrics.length - 1] : null;
+
+  // 计算平均值
+  const avgCollectionRate =
+    metrics.length > 0
+      ? metrics.reduce((sum, m) => sum + m.collection_success_rate, 0) / metrics.length
+      : 0;
+  const avgDupRate =
+    metrics.length > 0
+      ? metrics.reduce((sum, m) => sum + m.deduplication_rate, 0) / metrics.length
+      : 0;
+  const avgP50 =
+    metrics.length > 0
+      ? metrics.reduce((sum, m) => sum + m.processing_time_p50, 0) / metrics.length
+      : 0;
+  const avgP95 =
+    metrics.length > 0
+      ? metrics.reduce((sum, m) => sum + m.processing_time_p95, 0) / metrics.length
+      : 0;
+
+  if (loading) {
+    return (
+      <div style={{ padding: '24px', textAlign: 'center', color: '#6b7280' }}>
+        <p>加载中...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div style={{ padding: '24px', textAlign: 'center', color: '#ef4444' }}>
+        <p>{error}</p>
+      </div>
+    );
+  }
+
+  return (
+    <div style={{ padding: '24px' }}>
+      <h2 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '16px' }}>
+        数据质量看板 v0
+      </h2>
+
+      {/* 核心指标卡片 */}
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(3, 1fr)',
+          gap: '16px',
+          marginBottom: '24px',
+        }}
+      >
+        {/* 采集成功率 */}
+        <div
+          style={{
+            padding: '20px',
+            backgroundColor: '#f9fafb',
+            borderRadius: '8px',
+            border: '1px solid #e5e7eb',
+          }}
+        >
+          <div style={{ fontSize: '14px', color: '#6b7280', marginBottom: '8px' }}>
+            采集成功率
+          </div>
+          <div style={{ fontSize: '32px', fontWeight: 'bold', color: '#1f2937' }}>
+            {latestMetrics
+              ? `${(latestMetrics.collection_success_rate * 100).toFixed(1)}%`
+              : 'N/A'}
+          </div>
+          <div style={{ fontSize: '12px', color: '#9ca3af', marginTop: '4px' }}>
+            7天平均: {(avgCollectionRate * 100).toFixed(1)}%
+          </div>
+        </div>
+
+        {/* 重复率 */}
+        <div
+          style={{
+            padding: '20px',
+            backgroundColor: '#f9fafb',
+            borderRadius: '8px',
+            border: '1px solid #e5e7eb',
+          }}
+        >
+          <div style={{ fontSize: '14px', color: '#6b7280', marginBottom: '8px' }}>
+            重复率
+          </div>
+          <div style={{ fontSize: '32px', fontWeight: 'bold', color: '#1f2937' }}>
+            {latestMetrics
+              ? `${(latestMetrics.deduplication_rate * 100).toFixed(1)}%`
+              : 'N/A'}
+          </div>
+          <div style={{ fontSize: '12px', color: '#9ca3af', marginTop: '4px' }}>
+            7天平均: {(avgDupRate * 100).toFixed(1)}%
+          </div>
+        </div>
+
+        {/* 处理耗时 */}
+        <div
+          style={{
+            padding: '20px',
+            backgroundColor: '#f9fafb',
+            borderRadius: '8px',
+            border: '1px solid #e5e7eb',
+          }}
+        >
+          <div style={{ fontSize: '14px', color: '#6b7280', marginBottom: '8px' }}>
+            处理耗时
+          </div>
+          <div style={{ fontSize: '32px', fontWeight: 'bold', color: '#1f2937' }}>
+            {latestMetrics ? `${latestMetrics.processing_time_p50.toFixed(1)}s` : 'N/A'}
+          </div>
+          <div style={{ fontSize: '12px', color: '#9ca3af', marginTop: '4px' }}>
+            P50: {avgP50.toFixed(1)}s | P95: {avgP95.toFixed(1)}s
+          </div>
+        </div>
+      </div>
+
+      {/* 数据表格 */}
+      <div style={{ marginTop: '24px' }}>
+        <h3 style={{ fontSize: '16px', fontWeight: '600', marginBottom: '12px' }}>
+          历史数据（最近 7 天）
+        </h3>
+        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+          <thead>
+            <tr>
+              <th style={tableHeaderStyle}>日期</th>
+              <th style={tableHeaderStyle}>采集成功率</th>
+              <th style={tableHeaderStyle}>重复率</th>
+              <th style={tableHeaderStyle}>处理耗时 P50</th>
+              <th style={tableHeaderStyle}>处理耗时 P95</th>
+            </tr>
+          </thead>
+          <tbody>
+            {metrics.map((metric) => (
+              <tr key={metric.date}>
+                <td style={tableCellStyle}>{metric.date}</td>
+                <td style={tableCellStyle}>
+                  {(metric.collection_success_rate * 100).toFixed(1)}%
+                </td>
+                <td style={tableCellStyle}>
+                  {(metric.deduplication_rate * 100).toFixed(1)}%
+                </td>
+                <td style={tableCellStyle}>{metric.processing_time_p50.toFixed(1)}s</td>
+                <td style={tableCellStyle}>{metric.processing_time_p95.toFixed(1)}s</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
@@ -284,7 +721,7 @@ const UserFeedbackTab: React.FC = () => {
  * Admin Dashboard主页面
  */
 const AdminDashboardPage: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<'community' | 'algorithm' | 'feedback'>('community');
+  const [activeTab, setActiveTab] = useState<'community' | 'algorithm' | 'feedback' | 'metrics'>('community');
   const [systemStatus] = useState('系统正常');
 
   return (
@@ -346,6 +783,21 @@ const AdminDashboardPage: React.FC = () => {
           >
             用户反馈
           </button>
+          <button
+            onClick={() => setActiveTab('metrics')}
+            style={{
+              padding: '12px 24px',
+              border: 'none',
+              borderBottom: activeTab === 'metrics' ? '2px solid #3b82f6' : '2px solid transparent',
+              backgroundColor: 'transparent',
+              color: activeTab === 'metrics' ? '#3b82f6' : '#6b7280',
+              fontSize: '14px',
+              fontWeight: activeTab === 'metrics' ? '600' : '400',
+              cursor: 'pointer',
+            }}
+          >
+            数据质量
+          </button>
         </div>
       </div>
 
@@ -353,6 +805,7 @@ const AdminDashboardPage: React.FC = () => {
       {activeTab === 'community' && <CommunityReviewTab />}
       {activeTab === 'algorithm' && <AlgorithmReviewTab />}
       {activeTab === 'feedback' && <UserFeedbackTab />}
+      {activeTab === 'metrics' && <MetricsTab />}
     </div>
   );
 };
@@ -375,4 +828,3 @@ const tableCellStyle: React.CSSProperties = {
 };
 
 export default AdminDashboardPage;
-

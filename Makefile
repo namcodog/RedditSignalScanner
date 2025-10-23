@@ -436,9 +436,9 @@ test-all: test-backend test-frontend ## 运行前后端所有测试
 
 test: test-backend ## 快捷方式：运行后端测试
 
-test-e2e: ## 运行端到端测试（需要先启动完整环境）
-	@echo "==> Running end-to-end tests (safe runner) ..."
-	@cd $(BACKEND_DIR) && APP_ENV=test ENABLE_CELERY_DISPATCH=0 bash scripts/pytest_safe.sh tests/e2e -v -s
+test-e2e: ## 运行端到端测试（需要先启动完整环境）- 只运行关键路径测试
+	@echo "==> Running critical path E2E tests (target: < 5 minutes) ..."
+	@cd $(BACKEND_DIR) && APP_ENV=test ENABLE_CELERY_DISPATCH=0 bash scripts/pytest_safe.sh tests/e2e/test_critical_path.py -v -s
 
 # 安全版测试（禁用插件自动加载 + 强制日志），避免会话静默无输出
 .PHONY: test-backend-safe test-e2e-safe
@@ -452,6 +452,11 @@ test-backend-safe: ## 使用安全启动器运行后端测试（建议在本地/
 test-e2e-safe: ## 使用安全启动器运行端到端测试（不依赖常驻服务）
 	@echo "==> Running end-to-end tests (safe runner) ..."
 	@cd $(BACKEND_DIR) && APP_ENV=test ENABLE_CELERY_DISPATCH=0 bash $(SAFE_PYTEST) tests/e2e -v -s
+
+clean-e2e-snapshots: ## 清理 E2E 失败快照
+	@echo "==> Cleaning E2E failure snapshots ..."
+	@rm -rf reports/failed_e2e/*
+	@echo "==> E2E snapshots cleaned."
 
 
 test-admin-e2e: ## 运行Admin端到端测试（需运行Redis/Celery/Backend并配置ADMIN_EMAILS）

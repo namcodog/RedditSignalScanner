@@ -201,24 +201,68 @@ async def _crawl_seeds_impl(force_refresh: bool = False) -> dict[str, Any]:
                 logger.info(
                     f"准备写入 crawl_metrics: total={len(seed_profiles)}, success={success_count}, empty={empty_count}, failed={failure_count}"
                 )
-                metrics = CrawlMetrics(
-                    metric_date=now.date(),
-                    metric_hour=now.hour,
-                    cache_hit_rate=cache_hit_rate,
-                    valid_posts_24h=total_new,
-                    total_communities=len(seed_profiles),
-                    successful_crawls=success_count,
-                    empty_crawls=empty_count,
-                    failed_crawls=failure_count,
-                    avg_latency_seconds=avg_latency,
-                    total_new_posts=total_new,
-                    total_updated_posts=0,  # 旧版抓取不支持更新检测
-                    total_duplicates=0,  # 旧版抓取不支持去重检测
-                    tier_assignments=tier_assignments,
-                )
-                metrics_db.add(metrics)
-                await metrics_db.commit()
-                logger.info(f"✅ crawl_metrics 写入成功: ID={metrics.id}")
+
+                # 优先尝试使用 PostgreSQL UPSERT；若不可用（如测试替换了模型或无执行器），则退回 ORM add()
+                used_upsert = False
+                try:
+                    if hasattr(CrawlMetrics, "__table__") or hasattr(CrawlMetrics, "__mapper__"):
+                        stmt = pg_insert(CrawlMetrics).values(
+                            metric_date=now.date(),
+                            metric_hour=now.hour,
+                            cache_hit_rate=cache_hit_rate,
+                            valid_posts_24h=total_new,
+                            total_communities=len(seed_profiles),
+                            successful_crawls=success_count,
+                            empty_crawls=empty_count,
+                            failed_crawls=failure_count,
+                            avg_latency_seconds=avg_latency,
+                            total_new_posts=total_new,
+                            total_updated_posts=0,  # 旧版抓取不支持更新检测
+                            total_duplicates=0,      # 旧版抓取不支持去重检测
+                            tier_assignments=tier_assignments,
+                        )
+                        stmt = stmt.on_conflict_do_update(
+                            constraint="uq_crawl_metrics_date_hour",
+                            set_={
+                                "cache_hit_rate": stmt.excluded.cache_hit_rate,
+                                "valid_posts_24h": stmt.excluded.valid_posts_24h,
+                                "total_communities": stmt.excluded.total_communities,
+                                "successful_crawls": CrawlMetrics.successful_crawls + success_count,
+                                "empty_crawls": CrawlMetrics.empty_crawls + empty_count,
+                                "failed_crawls": CrawlMetrics.failed_crawls + failure_count,
+                                "avg_latency_seconds": stmt.excluded.avg_latency_seconds,
+                                "total_new_posts": CrawlMetrics.total_new_posts + total_new,
+                                "total_updated_posts": CrawlMetrics.total_updated_posts + 0,
+                                "total_duplicates": CrawlMetrics.total_duplicates + 0,
+                                "tier_assignments": stmt.excluded.tier_assignments,
+                            },
+                        )
+                        await metrics_db.execute(stmt)
+                        await metrics_db.commit()
+                        logger.info("✅ crawl_metrics upsert 成功")
+                        used_upsert = True
+                except Exception as exc:
+                    logger.warning("crawl_metrics upsert 失败，回退到 add()：%s", exc)
+
+                if not used_upsert:
+                    metrics_obj = CrawlMetrics(
+                        metric_date=now.date(),
+                        metric_hour=now.hour,
+                        cache_hit_rate=cache_hit_rate,
+                        valid_posts_24h=total_new,
+                        total_communities=len(seed_profiles),
+                        successful_crawls=success_count,
+                        empty_crawls=empty_count,
+                        failed_crawls=failure_count,
+                        avg_latency_seconds=avg_latency,
+                        total_new_posts=total_new,
+                        total_updated_posts=0,
+                        total_duplicates=0,
+                        tier_assignments=tier_assignments,
+                    )
+                    metrics_db.add(metrics_obj)
+                    await metrics_db.commit()
+                    logger.info("✅ crawl_metrics 持久化成功（fallback add()）")
             except Exception:
                 logger.exception("写入 crawl_metrics 失败")
                 try:
@@ -363,24 +407,67 @@ async def _crawl_seeds_incremental_impl(force_refresh: bool = False) -> dict[str
                 _MODULE_LOGGER.info(
                     f"准备写入 crawl_metrics: total={len(seed_profiles)}, success={success_count}, empty={empty_count}, failed={failed_count}"
                 )
-                metrics = CrawlMetrics(
-                    metric_date=now.date(),
-                    metric_hour=now.hour,
-                    cache_hit_rate=cache_hit_rate,
-                    valid_posts_24h=total_new,  # 暂以本轮新增作为近似，后续在 T1.4/T1.7 优化口径
-                    total_communities=len(seed_profiles),
-                    successful_crawls=success_count,
-                    empty_crawls=empty_count,
-                    failed_crawls=failed_count,
-                    avg_latency_seconds=avg_latency,
-                    total_new_posts=total_new,
-                    total_updated_posts=total_updated,
-                    total_duplicates=total_dup,
-                    tier_assignments=tier_assignments,
-                )
-                db.add(metrics)
-                await db.commit()
-                _MODULE_LOGGER.info(f"✅ crawl_metrics 写入成功: ID={metrics.id}")
+
+                used_upsert = False
+                try:
+                    if hasattr(CrawlMetrics, "__table__") or hasattr(CrawlMetrics, "__mapper__"):
+                        stmt = pg_insert(CrawlMetrics).values(
+                            metric_date=now.date(),
+                            metric_hour=now.hour,
+                            cache_hit_rate=cache_hit_rate,
+                            valid_posts_24h=total_new,  # 暂以本轮新增作为近似，后续在 T1.4/T1.7 优化口径
+                            total_communities=len(seed_profiles),
+                            successful_crawls=success_count,
+                            empty_crawls=empty_count,
+                            failed_crawls=failed_count,
+                            avg_latency_seconds=avg_latency,
+                            total_new_posts=total_new,
+                            total_updated_posts=total_updated,
+                            total_duplicates=total_dup,
+                            tier_assignments=tier_assignments,
+                        )
+                        stmt = stmt.on_conflict_do_update(
+                            constraint="uq_crawl_metrics_date_hour",
+                            set_={
+                                "cache_hit_rate": stmt.excluded.cache_hit_rate,
+                                "valid_posts_24h": stmt.excluded.valid_posts_24h,
+                                "total_communities": stmt.excluded.total_communities,
+                                "successful_crawls": CrawlMetrics.successful_crawls + success_count,
+                                "empty_crawls": CrawlMetrics.empty_crawls + empty_count,
+                                "failed_crawls": CrawlMetrics.failed_crawls + failed_count,
+                                "avg_latency_seconds": stmt.excluded.avg_latency_seconds,
+                                "total_new_posts": CrawlMetrics.total_new_posts + total_new,
+                                "total_updated_posts": CrawlMetrics.total_updated_posts + total_updated,
+                                "total_duplicates": CrawlMetrics.total_duplicates + total_dup,
+                                "tier_assignments": stmt.excluded.tier_assignments,
+                            },
+                        )
+                        await db.execute(stmt)
+                        await db.commit()
+                        _MODULE_LOGGER.info("✅ crawl_metrics upsert 成功")
+                        used_upsert = True
+                except Exception as exc:
+                    _MODULE_LOGGER.warning("crawl_metrics upsert 失败，回退到 add()：%s", exc)
+
+                if not used_upsert:
+                    metrics_obj = CrawlMetrics(
+                        metric_date=now.date(),
+                        metric_hour=now.hour,
+                        cache_hit_rate=cache_hit_rate,
+                        valid_posts_24h=total_new,
+                        total_communities=len(seed_profiles),
+                        successful_crawls=success_count,
+                        empty_crawls=empty_count,
+                        failed_crawls=failed_count,
+                        avg_latency_seconds=avg_latency,
+                        total_new_posts=total_new,
+                        total_updated_posts=total_updated,
+                        total_duplicates=total_dup,
+                        tier_assignments=tier_assignments,
+                    )
+                    db.add(metrics_obj)
+                    await db.commit()
+                    _MODULE_LOGGER.info("✅ crawl_metrics 持久化成功（fallback add()）")
             except Exception:
                 _MODULE_LOGGER.exception("写入 crawl_metrics 失败")
                 try:

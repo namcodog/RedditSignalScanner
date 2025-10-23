@@ -18,32 +18,22 @@ async def _override_settings(admin_email: str) -> Settings:
     return base.model_copy(update={"admin_emails_raw": admin_email})
 
 
-async def test_admin_routes_require_admin(
+async def test_admin_routes_are_public(
     client: AsyncClient,
-    token_factory,
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
-    admin_email = f"admin-{uuid.uuid4().hex}@example.com"
-    overridden = await _override_settings(admin_email)
-    app.dependency_overrides[get_settings] = lambda: overridden
+    """Admin routes are now public - no authentication required."""
+    class DummyInspect:
+        def active(self) -> dict[str, list[int]]:
+            return {}
 
-    try:
-        class DummyInspect:
-            def active(self) -> dict[str, list[int]]:
-                return {}
+    target = "app.api.routes.admin.celery_app.control.inspect"
+    monkeypatch.setattr(target, lambda: DummyInspect())
 
-        target = "app.api.routes.admin.celery_app.control.inspect"
-        monkeypatch.setattr(target, lambda: DummyInspect())
-
-        token, _ = await token_factory()
-        response = await client.get(
-            "/api/admin/dashboard/stats",
-            headers={"Authorization": f"Bearer {token}"},
-        )
-
-        assert response.status_code == 403
-    finally:
-        app.dependency_overrides.pop(get_settings, None)
+    # No token required - admin routes are public
+    response = await client.get("/api/admin/dashboard/stats")
+    assert response.status_code == 200
+    assert response.json()["code"] == 0
 
 
 async def test_admin_endpoints_return_expected_payloads(

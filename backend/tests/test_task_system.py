@@ -149,6 +149,7 @@ async def test_task_progress_update(monkeypatch: pytest.MonkeyPatch) -> None:
             sources={},
             report_html="<html></html>",
             action_items=[],
+            confidence_score=0.0,  # 空结果的置信度为 0
         )
 
     monkeypatch.setattr(analysis_task, "_mark_processing", fake_mark_processing)

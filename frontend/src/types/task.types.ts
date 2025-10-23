@@ -63,14 +63,20 @@ export interface TaskProgress {
 }
 
 /**
- * 查询任务状态响应接口
+ * 查询任务状态响应接口（与后端 TaskStatusSnapshot 对齐）
  */
 export interface TaskStatusResponse {
   task_id: string;
   status: TaskStatus;
-  progress?: TaskProgress;
-  created_at: string;
-  estimated_completion: string;
-  error_message?: string;
-  report_available?: boolean;
+  progress: number;
+  percentage: number;
+  message: string;
+  current_step: string;
+  error: string | null;
+  sse_endpoint: string;
+  retry_count: number;
+  failure_category: string | null;
+  last_retry_at: string | null;
+  dead_letter_at: string | null;
+  updated_at: string;
 }

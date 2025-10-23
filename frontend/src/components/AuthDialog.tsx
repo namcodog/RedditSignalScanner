@@ -63,15 +63,19 @@ export const AuthDialog: React.FC<AuthDialogProps> = ({
   } = useForm<RegisterFormData>();
 
   const handleLogin = async (data: LoginFormData) => {
+    console.log('[AuthDialog] handleLogin called with data:', data);
     setIsSubmitting(true);
     setError(null);
     try {
+      console.log('[AuthDialog] Calling login API...');
       await login(data);
+      console.log('[AuthDialog] Login successful!');
       resetLoginForm();
       onClose();
       // 刷新页面以更新认证状态
       window.location.reload();
     } catch (err) {
+      console.error('[AuthDialog] Login failed:', err);
       setError(err instanceof Error ? err.message : '登录失败，请检查邮箱和密码');
     } finally {
       setIsSubmitting(false);

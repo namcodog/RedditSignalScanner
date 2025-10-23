@@ -22,6 +22,7 @@ from app.db.base import Base, TimestampMixin, uuid_pk_column
 
 if TYPE_CHECKING:  # pragma: no cover
     from app.models.analysis import Analysis
+    from app.models.insight import InsightCard
     from app.models.user import User
 
 
@@ -102,6 +103,9 @@ class Task(TimestampMixin, Base):
     user: Mapped["User"] = relationship("User", backref="tasks", lazy="joined")
     analysis: Mapped["Analysis"] = relationship(
         "Analysis", back_populates="task", uselist=False, cascade="all, delete-orphan"
+    )
+    insight_cards: Mapped[list["InsightCard"]] = relationship(
+        "InsightCard", back_populates="task", cascade="all, delete-orphan"
     )
 
     def __repr__(self) -> str:

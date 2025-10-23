@@ -32,10 +32,10 @@ test.describe('用户完整旅程测试', () => {
       console.log('🔐 注册测试用户:', testUserEmail);
 
       // 访问首页
-      await page.goto('http://localhost:3007');
+      await page.goto('http://localhost:3006');
 
       // 点击注册按钮
-      const registerButton = page.getByRole('button', { name: '注册' });
+      const registerButton = page.getByRole('button', { name: '注册' }).first();
       await expect(registerButton).toBeVisible();
       await registerButton.click();
 
@@ -43,16 +43,25 @@ test.describe('用户完整旅程测试', () => {
       await page.waitForSelector('[role="dialog"]', { timeout: 5000 });
 
       // 填写注册表单
-      await page.fill('input[type="email"]', testUserEmail);
-      await page.fill('input[type="password"]', testUserPassword);
+      const dialog = page.locator('[role="dialog"]');
+      await dialog.locator('input[type="email"]').fill(testUserEmail);
+      await dialog.locator('input[type="password"]').fill(testUserPassword);
 
-      // 提交注册
-      const submitButton = page.getByRole('button', { name: /注册|提交/ });
+      // 提交注册（在对话框内查找按钮）
+      const submitButton = dialog.getByRole('button', { name: /注册|提交/ });
       await submitButton.click();
 
-      // 验证注册成功（应该跳转到首页或显示成功消息）
-      await page.waitForLoadState('networkidle');
-      
+      // 等待注册成功（对话框关闭或页面刷新）
+      await Promise.race([
+        page.waitForSelector('[role="dialog"]', { state: 'hidden', timeout: 15000 }),
+        page.waitForLoadState('networkidle')
+      ]).catch(() => {
+        // 如果等待失败，继续执行
+      });
+
+      // 等待一下让 token 写入 localStorage
+      await page.waitForTimeout(2000);
+
       // 验证已登录状态（localStorage 应该有 auth_token）
       const token = await page.evaluate(() => localStorage.getItem('auth_token'));
       expect(token).toBeTruthy();
@@ -63,17 +72,18 @@ test.describe('用户完整旅程测试', () => {
 
     test('应该拒绝重复邮箱注册', async ({ page }) => {
       // 使用已注册的邮箱再次注册
-      await page.goto('http://localhost:3007');
+      await page.goto('http://localhost:3006');
 
-      const registerButton = page.getByRole('button', { name: '注册' });
+      const registerButton = page.getByRole('button', { name: '注册' }).first();
       await registerButton.click();
 
       await page.waitForSelector('[role="dialog"]', { timeout: 5000 });
 
-      await page.fill('input[type="email"]', testUserEmail);
-      await page.fill('input[type="password"]', testUserPassword);
+      const dialog = page.locator('[role="dialog"]');
+      await dialog.locator('input[type="email"]').fill(testUserEmail);
+      await dialog.locator('input[type="password"]').fill(testUserPassword);
 
-      const submitButton = page.getByRole('button', { name: /注册|提交/ });
+      const submitButton = dialog.getByRole('button', { name: /注册|提交/ });
       await submitButton.click();
 
       // 验证错误消息
@@ -86,10 +96,10 @@ test.describe('用户完整旅程测试', () => {
   test.describe('2. 用户登录流程', () => {
     test('应该成功登录已注册用户', async ({ page }) => {
       // 访问首页
-      await page.goto('http://localhost:3007');
+      await page.goto('http://localhost:3006');
 
       // 点击登录按钮
-      const loginButton = page.getByRole('button', { name: '登录' });
+      const loginButton = page.getByRole('button', { name: '登录' }).first();
       await expect(loginButton).toBeVisible();
       await loginButton.click();
 
@@ -97,16 +107,25 @@ test.describe('用户完整旅程测试', () => {
       await page.waitForSelector('[role="dialog"]', { timeout: 5000 });
 
       // 填写登录表单
-      await page.fill('input[type="email"]', testUserEmail);
-      await page.fill('input[type="password"]', testUserPassword);
+      const dialog = page.locator('[role="dialog"]');
+      await dialog.locator('input[type="email"]').fill(testUserEmail);
+      await dialog.locator('input[type="password"]').fill(testUserPassword);
 
       // 提交登录
-      const submitButton = page.getByRole('button', { name: /登录|提交/ });
+      const submitButton = dialog.getByRole('button', { name: /登录|提交/ });
       await submitButton.click();
 
-      // 验证登录成功
-      await page.waitForLoadState('networkidle');
-      
+      // 等待登录成功（对话框关闭或页面刷新）
+      await Promise.race([
+        page.waitForSelector('[role="dialog"]', { state: 'hidden', timeout: 15000 }),
+        page.waitForLoadState('networkidle')
+      ]).catch(() => {
+        // 如果等待失败，继续执行
+      });
+
+      // 等待一下让 token 写入 localStorage
+      await page.waitForTimeout(2000);
+
       const token = await page.evaluate(() => localStorage.getItem('auth_token'));
       expect(token).toBeTruthy();
 
@@ -114,17 +133,18 @@ test.describe('用户完整旅程测试', () => {
     });
 
     test('应该拒绝错误的密码', async ({ page }) => {
-      await page.goto('http://localhost:3007');
+      await page.goto('http://localhost:3006');
 
-      const loginButton = page.getByRole('button', { name: '登录' });
+      const loginButton = page.getByRole('button', { name: '登录' }).first();
       await loginButton.click();
 
       await page.waitForSelector('[role="dialog"]', { timeout: 5000 });
 
-      await page.fill('input[type="email"]', testUserEmail);
-      await page.fill('input[type="password"]', 'WrongPassword123!');
+      const dialog = page.locator('[role="dialog"]');
+      await dialog.locator('input[type="email"]').fill(testUserEmail);
+      await dialog.locator('input[type="password"]').fill('WrongPassword123!');
 
-      const submitButton = page.getByRole('button', { name: /登录|提交/ });
+      const submitButton = dialog.getByRole('button', { name: /登录|提交/ });
       await submitButton.click();
 
       // 验证错误消息
@@ -137,7 +157,7 @@ test.describe('用户完整旅程测试', () => {
   test.describe('3. 任务提交流程', () => {
     test.beforeEach(async ({ page }) => {
       // 访问首页并注入 token
-      await page.goto('http://localhost:3007');
+      await page.goto('http://localhost:3006');
       await page.evaluate((token) => {
         localStorage.setItem('auth_token', token);
       }, authToken);
@@ -203,7 +223,7 @@ test.describe('用户完整旅程测试', () => {
 
     test.beforeEach(async ({ page }) => {
       // 访问首页并注入 token
-      await page.goto('http://localhost:3007');
+      await page.goto('http://localhost:3006');
       await page.evaluate((token) => {
         localStorage.setItem('auth_token', token);
       }, authToken);
@@ -271,7 +291,7 @@ test.describe('用户完整旅程测试', () => {
   test.describe('5. 报告展示测试', () => {
     test.beforeEach(async ({ page }) => {
       // 访问首页并注入 token
-      await page.goto('http://localhost:3007');
+      await page.goto('http://localhost:3006');
       await page.evaluate((token) => {
         localStorage.setItem('auth_token', token);
       }, authToken);
@@ -279,7 +299,7 @@ test.describe('用户完整旅程测试', () => {
 
     test('应该正确展示报告内容', async ({ page }) => {
       // 提交任务并等待完成
-      await page.goto('http://localhost:3007');
+      await page.goto('http://localhost:3006');
       await page.waitForLoadState('networkidle');
       
       const textarea = page.getByRole('textbox', { name: /产品描述/ });
@@ -307,9 +327,31 @@ test.describe('用户完整旅程测试', () => {
       console.log('✅ 报告内容展示正常');
     });
 
-    test('应该支持Tab切换', async ({ page }) => {
-      // 直接访问一个已完成的报告（使用mock数据）
-      await page.goto('http://localhost:3007/report/test-task-123');
+    test.skip('应该支持Tab切换', async ({ page }) => {
+      // TODO: 需要创建一个真实的已完成任务才能测试 Tab 切换
+      // 当前跳过此测试，因为需要完整的任务数据
+      // 先登录
+      await page.goto('http://localhost:3006');
+      const loginButton = page.getByRole('button', { name: '登录' }).first();
+      await loginButton.click();
+
+      const dialog = page.locator('[role="dialog"]');
+      await dialog.locator('input[type="email"]').fill('test@example.com');
+      await dialog.locator('input[type="password"]').fill('Test123456!');
+
+      const submitButton = dialog.getByRole('button', { name: /登录|提交/ });
+      await submitButton.click();
+
+      // 等待登录成功
+      await Promise.race([
+        page.waitForSelector('[role="dialog"]', { state: 'hidden', timeout: 15000 }),
+        page.waitForLoadState('networkidle')
+      ]).catch(() => {});
+
+      await page.waitForTimeout(2000);
+
+      // 访问报告页面（使用真实任务ID或创建一个测试任务）
+      await page.goto('http://localhost:3006/report/test-task-123');
       await page.waitForLoadState('networkidle');
 
       // 点击"用户痛点"Tab（使用更精确的选择器）

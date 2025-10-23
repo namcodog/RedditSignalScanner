@@ -18,6 +18,7 @@ export default defineConfig({
   },
   server: {
     port: 3006,
+    strictPort: true, // 端口被占用时报错，而不是自动切换到下一个端口
     proxy: {
       '/api': {
         target: 'http://localhost:8006',

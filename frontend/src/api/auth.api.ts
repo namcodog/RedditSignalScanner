@@ -38,7 +38,7 @@ interface BackendAuthResponse {
 export const register = async (
   request: RegisterRequest
 ): Promise<AuthResponse> => {
-  const response = await apiClient.post<BackendAuthResponse>('/api/auth/register', request);
+  const response = await apiClient.post<BackendAuthResponse>('/auth/register', request);
 
   // 保存 token
   setAuthToken(response.data.access_token);
@@ -69,7 +69,7 @@ export const register = async (
 export const login = async (
   request: LoginRequest
 ): Promise<AuthResponse> => {
-  const response = await apiClient.post<BackendAuthResponse>('/api/auth/login', request);
+  const response = await apiClient.post<BackendAuthResponse>('/auth/login', request);
 
   // 保存 token
   setAuthToken(response.data.access_token);
@@ -100,13 +100,13 @@ export const logout = (): void => {
 
 /**
  * 获取当前用户信息
- * 
+ *
  * GET /api/auth/me
- * 
+ *
  * @returns 用户信息
  */
 export const getCurrentUser = async (): Promise<User> => {
-  const response = await apiClient.get<User>('/api/auth/me');
+  const response = await apiClient.get<User>('/auth/me');
   return response.data;
 };
 

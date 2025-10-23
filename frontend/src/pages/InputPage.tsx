@@ -128,6 +128,8 @@ const InputPage: React.FC = () => {
         state: {
           estimatedCompletion: response.estimated_completion,
           createdAt: response.created_at,
+          sseEndpoint: response.sse_endpoint,
+          productDescription: description,
         },
       });
     } catch (error) {
@@ -152,8 +154,10 @@ const InputPage: React.FC = () => {
               type="button"
               aria-haspopup="dialog"
               onClick={() => {
+                console.log('[InputPage] Login button clicked');
                 setAuthDialogTab('login');
                 setIsAuthDialogOpen(true);
+                console.log('[InputPage] State updated: isAuthDialogOpen=true, authDialogTab=login');
               }}
               className="inline-flex h-9 items-center justify-center rounded-md border border-border px-4 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >

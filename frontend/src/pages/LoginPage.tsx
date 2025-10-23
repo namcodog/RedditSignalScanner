@@ -1,20 +1,21 @@
 /**
  * 登录页面
- * 
- * 基于 PRD-06 用户认证系统
- * 最后更新: 2025-10-10 Day 2
- * 状态: 骨架代码，Day 5 后实现
+ *
+ * 重定向到首页，登录功能在首页的对话框中实现
  */
 
-import React from 'react';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const LoginPage: React.FC = () => {
-  return (
-    <div className="login-page">
-      <h1>登录</h1>
-      <p>登录页面骨架（Day 5 后实现）</p>
-    </div>
-  );
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // 重定向到首页
+    navigate('/', { replace: true });
+  }, [navigate]);
+
+  return null;
 };
 
 export default LoginPage;

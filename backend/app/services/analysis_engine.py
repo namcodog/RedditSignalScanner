@@ -75,6 +75,62 @@ class AnalysisResult:
     sources: Dict[str, Any]
     report_html: str
     action_items: List[Dict[str, Any]]
+    confidence_score: float  # 置信度分数 (0.0-1.0)
+
+
+def _calculate_confidence_score(
+    *,
+    cache_hit_rate: float,
+    posts_analyzed: int,
+    communities_found: int,
+    pain_points_count: int,
+    competitors_count: int,
+    opportunities_count: int,
+) -> float:
+    """
+    计算分析结果的置信度分数 (0.0-1.0)
+
+    置信度基于以下因素：
+    1. 缓存命中率（40%权重）：越高越好，目标 90%
+    2. 数据量（30%权重）：帖子数和社区数
+    3. 洞察质量（30%权重）：痛点、竞品、机会的数量
+
+    Args:
+        cache_hit_rate: 缓存命中率 (0.0-1.0)
+        posts_analyzed: 分析的帖子数量
+        communities_found: 发现的社区数量
+        pain_points_count: 提取的痛点数量
+        competitors_count: 识别的竞品数量
+        opportunities_count: 发现的机会数量
+
+    Returns:
+        置信度分数 (0.0-1.0)
+    """
+    # 1. 缓存命中率得分 (40%权重)
+    # 目标是 90% 命中率，超过 90% 得满分
+    cache_score = min(cache_hit_rate / 0.9, 1.0) * 0.4
+
+    # 2. 数据量得分 (30%权重)
+    # 帖子数：100+ 得满分
+    posts_score = min(posts_analyzed / 100.0, 1.0) * 0.15
+    # 社区数：10+ 得满分
+    communities_score = min(communities_found / 10.0, 1.0) * 0.15
+    data_score = posts_score + communities_score
+
+    # 3. 洞察质量得分 (30%权重)
+    # 痛点：10+ 得满分
+    pain_points_score = min(pain_points_count / 10.0, 1.0) * 0.1
+    # 竞品：5+ 得满分
+    competitors_score = min(competitors_count / 5.0, 1.0) * 0.1
+    # 机会：5+ 得满分
+    opportunities_score = min(opportunities_count / 5.0, 1.0) * 0.1
+    insights_score = pain_points_score + competitors_score + opportunities_score
+
+    # 总分
+    total_score = cache_score + data_score + insights_score
+
+    # 确保在 0.0-1.0 范围内
+    return max(0.0, min(1.0, total_score))
 
 
 async def _fetch_hot_samples(
@@ -350,10 +406,13 @@ def _build_insufficient_sample_result(
         sources=sources,
         report_html=report_html,
         action_items=[],
+        confidence_score=0.0,  # 样本不足时置信度为 0
     )
 
 # Baseline community catalogue; in production这将由缓存/数据库提供
+# 扩展社区池以支持更多领域（加密货币、股票投资、金融等）
 COMMUNITY_CATALOGUE: List[CommunityProfile] = [
+    # 创业和商业
     CommunityProfile(
         name="r/startups",
         categories=("startup", "business", "founder"),
@@ -433,6 +492,89 @@ COMMUNITY_CATALOGUE: List[CommunityProfile] = [
         daily_posts=82,
         avg_comment_length=61,
         cache_hit_rate=0.64,
+    ),
+    # 加密货币相关社区
+    CommunityProfile(
+        name="r/CryptoCurrency",
+        categories=("crypto", "blockchain", "trading"),
+        description_keywords=("crypto", "bitcoin", "ethereum", "blockchain", "trading", "defi"),
+        daily_posts=500,
+        avg_comment_length=65,
+        cache_hit_rate=0.75,
+    ),
+    CommunityProfile(
+        name="r/Bitcoin",
+        categories=("crypto", "bitcoin", "investment"),
+        description_keywords=("bitcoin", "btc", "mining", "wallet", "hodl"),
+        daily_posts=350,
+        avg_comment_length=58,
+        cache_hit_rate=0.78,
+    ),
+    CommunityProfile(
+        name="r/ethereum",
+        categories=("crypto", "ethereum", "defi"),
+        description_keywords=("ethereum", "eth", "smart contract", "defi", "nft"),
+        daily_posts=280,
+        avg_comment_length=72,
+        cache_hit_rate=0.76,
+    ),
+    CommunityProfile(
+        name="r/CryptoMarkets",
+        categories=("crypto", "trading", "market"),
+        description_keywords=("crypto", "trading", "market", "analysis", "price"),
+        daily_posts=220,
+        avg_comment_length=55,
+        cache_hit_rate=0.72,
+    ),
+    # 股票投资相关社区
+    CommunityProfile(
+        name="r/stocks",
+        categories=("stocks", "investing", "trading"),
+        description_keywords=("stocks", "shares", "trading", "market", "portfolio"),
+        daily_posts=400,
+        avg_comment_length=68,
+        cache_hit_rate=0.80,
+    ),
+    CommunityProfile(
+        name="r/investing",
+        categories=("investing", "finance", "portfolio"),
+        description_keywords=("investing", "portfolio", "dividend", "etf", "retirement"),
+        daily_posts=320,
+        avg_comment_length=75,
+        cache_hit_rate=0.82,
+    ),
+    CommunityProfile(
+        name="r/StockMarket",
+        categories=("stocks", "market", "trading"),
+        description_keywords=("stock", "market", "trading", "analysis", "earnings"),
+        daily_posts=250,
+        avg_comment_length=62,
+        cache_hit_rate=0.77,
+    ),
+    CommunityProfile(
+        name="r/wallstreetbets",
+        categories=("stocks", "trading", "options"),
+        description_keywords=("stocks", "options", "yolo", "trading", "calls", "puts"),
+        daily_posts=800,
+        avg_comment_length=45,
+        cache_hit_rate=0.68,
+    ),
+    # 金融和个人理财
+    CommunityProfile(
+        name="r/personalfinance",
+        categories=("finance", "budgeting", "savings"),
+        description_keywords=("finance", "budget", "savings", "debt", "credit"),
+        daily_posts=450,
+        avg_comment_length=85,
+        cache_hit_rate=0.84,
+    ),
+    CommunityProfile(
+        name="r/financialindependence",
+        categories=("finance", "fire", "investing"),
+        description_keywords=("fire", "retirement", "investing", "savings", "passive income"),
+        daily_posts=180,
+        avg_comment_length=95,
+        cache_hit_rate=0.81,
     ),
 ]
 
@@ -825,10 +967,13 @@ async def run_analysis(
         db_communities = []
 
     # 2) 使用组合查询提高搜索精度
+    # 注意：如果 data_collection 参数被显式提供（测试场景），跳过 Reddit 搜索
     search_posts: List[RedditPost] = []
+    reddit_search_success = False
     try:
         if (
-            settings.enable_reddit_search
+            data_collection is None  # 只有在没有显式提供 data_collection 时才执行 Reddit 搜索
+            and settings.enable_reddit_search
             and settings.reddit_client_id
             and settings.reddit_client_secret
         ):
@@ -852,6 +997,7 @@ async def run_analysis(
 
                 for q in combined_queries:
                     try:
+                        logger.info(f"Searching Reddit with query: {q}")
                         items = await reddit.search_posts(
                             query=q,
                             limit=50,
@@ -859,56 +1005,83 @@ async def run_analysis(
                             sort="relevance",
                         )
                         search_posts.extend(items)
-                    except Exception:
+                        logger.info(f"Found {len(items)} posts for query: {q}")
+                    except Exception as e:
+                        logger.warning(f"Reddit search failed for query '{q}': {e}")
                         continue
-    except Exception:
+
+                if search_posts:
+                    reddit_search_success = True
+                    logger.info(f"Total Reddit search results: {len(search_posts)} posts")
+    except Exception as e:
+        logger.warning(f"Reddit API initialization failed: {e}")
         search_posts = []
 
     # 3) 基于搜索结果和数据库社区池选择最相关的社区
     discovered_selected: List[CommunityProfile] = []
+
+    # 合并所有可用的社区池（数据库 + 静态 COMMUNITY_CATALOGUE）
+    all_communities: List[CommunityProfile] = db_communities + COMMUNITY_CATALOGUE
+
+    # 创建社区名称映射（支持 "r/name" 和 "name" 两种格式）
+    community_map: Dict[str, CommunityProfile] = {}
+    for community_profile in all_communities:
+        # 添加完整名称（如 "r/CryptoCurrency"）
+        community_map[community_profile.name] = community_profile
+        # 添加简短名称（如 "CryptoCurrency"）
+        if community_profile.name.startswith("r/"):
+            short_name = community_profile.name[2:]  # 去掉 "r/" 前缀
+            community_map[short_name] = community_profile
+
     if search_posts:
         counter = Counter(p.subreddit for p in search_posts)
-        # 优先选择在数据库中存在的社区
-        db_community_names = {c.name for c in db_communities}
+        logger.info(f"Discovered subreddits: {dict(counter.most_common(20))}")
 
         for name, count in counter.most_common(20):
-            if name in db_community_names:
-                # 使用数据库中的社区信息
-                db_comm: CommunityProfile = next(
-                    c for c in db_communities if c.name == name
-                )
-                discovered_selected.append(db_comm)
+            # 尝试匹配社区（支持 "r/name" 和 "name" 两种格式）
+            matched_comm = community_map.get(name) or community_map.get(f"r/{name}")
+
+            if matched_comm:
+                # 使用已知社区的信息
+                if matched_comm not in discovered_selected:
+                    discovered_selected.append(matched_comm)
+                    logger.info(f"Matched known community: {matched_comm.name} (count: {count})")
             else:
                 # 新发现的社区
-                discovered_selected.append(
-                    CommunityProfile(
-                        name=name,
-                        categories=("discovered",),
-                        description_keywords=tuple(keywords[:6]),
-                        daily_posts=80,
-                        avg_comment_length=70,
-                        cache_hit_rate=0.5,
-                    )
+                new_comm = CommunityProfile(
+                    name=f"r/{name}" if not name.startswith("r/") else name,
+                    categories=("discovered",),
+                    description_keywords=tuple(keywords[:6]),
+                    daily_posts=80,
+                    avg_comment_length=70,
+                    cache_hit_rate=0.5,
                 )
+                discovered_selected.append(new_comm)
+                logger.info(f"Discovered new community: {new_comm.name} (count: {count})")
 
-    # 4) 如果搜索结果不足，从数据库社区池中补充
-    if len(discovered_selected) < 10 and db_communities:
+    # 4) 如果搜索结果不足，从社区池中补充
+    if len(discovered_selected) < 10:
+        logger.info(f"Discovered communities insufficient ({len(discovered_selected)}), supplementing from community pool...")
         scored_communities: list[tuple[CommunityProfile, float]] = [
-            (c, _score_community(keywords, c)) for c in db_communities
+            (c, _score_community(keywords, c)) for c in all_communities
         ]
         scored_communities.sort(key=lambda x: x[1], reverse=True)
 
         for community_profile, community_score in scored_communities[:15]:
             if community_profile not in discovered_selected:
                 discovered_selected.append(community_profile)
+                logger.info(f"Added community from pool: {community_profile.name} (score: {community_score:.2f})")
             if len(discovered_selected) >= 12:
                 break
 
+    # 5) 如果仍然没有社区，使用静态社区池
     selected = (
         discovered_selected
         if discovered_selected
         else _select_top_communities(keywords)
     )
+
+    logger.info(f"Final selected communities: {[c.name for c in selected]}")
 
     collection_result: CollectionResult | None = None
     cache_only_result: CollectionResult | None = None
@@ -950,9 +1123,6 @@ async def run_analysis(
                 "Data collection failed; falling back to synthetic data. %s", exc
             )
             collection_result = None
-        finally:
-            if close_reddit:
-                await service.reddit.close()
     else:
         cache_only_result = _try_cache_only_collection(selected, settings)
 
@@ -1167,11 +1337,37 @@ async def run_analysis(
 
     report_html = _render_report(task, collected, insights)
 
+    # 计算置信度分数 (0.0-1.0)
+    # 从 sources 和 insights 中提取数据（使用类型断言）
+    cache_hit_rate_value = sources["cache_hit_rate"]
+    posts_analyzed_value = sources["posts_analyzed"]
+    communities_value = sources["communities"]
+    pain_points_value = insights["pain_points"]
+    competitors_value = insights["competitors"]
+    opportunities_value = insights["opportunities"]
+
+    confidence_score = _calculate_confidence_score(
+        cache_hit_rate=float(cache_hit_rate_value) if isinstance(cache_hit_rate_value, (int, float)) else 0.0,
+        posts_analyzed=int(posts_analyzed_value) if isinstance(posts_analyzed_value, int) else 0,
+        communities_found=len(communities_value) if isinstance(communities_value, list) else 0,
+        pain_points_count=len(pain_points_value) if isinstance(pain_points_value, list) else 0,
+        competitors_count=len(competitors_value) if isinstance(competitors_value, list) else 0,
+        opportunities_count=len(opportunities_value) if isinstance(opportunities_value, list) else 0,
+    )
+
+    # 关闭临时创建的服务（如果有）
+    if close_reddit and service is not None:
+        if hasattr(service, 'close'):
+            await service.close()
+        elif hasattr(service, 'reddit') and hasattr(service.reddit, 'close'):
+            await service.reddit.close()
+
     return AnalysisResult(
         insights=insights,
         sources=sources,
         report_html=report_html,
         action_items=action_reports,
+        confidence_score=confidence_score,
     )
 
 

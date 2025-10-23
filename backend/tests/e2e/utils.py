@@ -65,6 +65,7 @@ def install_fast_analysis(monkeypatch, *, cache_stats: Dict[str, int] | None = N
             },
             report_html="<h1>Reddit Signal Scanner Report</h1>",
             action_items=SampleInsights.get("action_items", []),
+            confidence_score=0.95,  # 高置信度（基于 95% 缓存命中率和充足的数据量）
         )
 
     monkeypatch.setattr(analysis_task, "run_analysis", fast_run_analysis)
@@ -92,6 +93,11 @@ async def wait_for_task_completion(
             last_payload = payload
             if payload["status"] == expected_status:
                 return payload
+            # 如果任务失败，立即抛出 TimeoutError 让调用端按失败路径断言（更稳定，避免跨测试的状态干扰）
+            if payload["status"] == "failed":
+                raise TimeoutError(
+                    f"Task {task_id} failed before reaching status '{expected_status}'; last payload: {payload}"
+                )
             if expected_status == "completed" and payload["status"] in {"pending", "processing"}:
                 report_response = await client.get(f"/api/report/{task_id}", headers=headers)
                 if report_response.status_code == 200:

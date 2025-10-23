@@ -67,6 +67,9 @@ class TaskStatusSnapshot(ORMModel):
     progress: int = Field(ge=0, le=100)
     message: str
     error: str | None = None
+    percentage: int = Field(ge=0, le=100)
+    current_step: str
+    sse_endpoint: str
     retry_count: int = 0
     failure_category: str | None = None
     last_retry_at: datetime | None = None

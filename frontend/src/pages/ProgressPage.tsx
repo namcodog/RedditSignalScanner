@@ -49,6 +49,13 @@ interface Step {
   duration: number; // 预计耗时（秒）
 }
 
+type ProgressLocationState = {
+  estimatedCompletion?: string;
+  createdAt?: string;
+  sseEndpoint?: string;
+  productDescription?: string;
+};
+
 const ANALYSIS_STEPS: Step[] = [
   {
     id: 'data-collection',
@@ -70,6 +77,7 @@ const ProgressPage: React.FC = () => {
   const { taskId } = useParams<{ taskId: string }>();
   const navigate = useNavigate();
   const location = useLocation();
+  const locationState = (location.state as ProgressLocationState | null) ?? null;
 
   const [state, setState] = useState<ProgressState>({
     status: 'pending',
@@ -85,9 +93,10 @@ const ProgressPage: React.FC = () => {
   const [usePolling, setUsePolling] = useState(false);
   const [timeElapsed, setTimeElapsed] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
+  const [sseEndpoint, setSseEndpoint] = useState<string | null>(locationState?.sseEndpoint ?? null);
 
   // 从 location.state 获取产品描述
-  const productDescription = (location.state as { productDescription?: string })?.productDescription || '';
+  const productDescription = locationState?.productDescription ?? '';
 
   // 更新步骤状态（基于进度百分比）
   const updateStepStatus = useCallback((percentage: number) => {
@@ -105,6 +114,47 @@ const ProgressPage: React.FC = () => {
       })
     );
   }, []);
+
+  // 初次加载时同步后端最新进度 & SSE 端点
+  useEffect(() => {
+    if (!taskId) {
+      return;
+    }
+
+    let cancelled = false;
+
+    const fetchInitialStatus = async () => {
+      try {
+        const snapshot = await getTaskStatus(taskId);
+        if (cancelled) {
+          return;
+        }
+
+        const percentage = snapshot.percentage ?? snapshot.progress ?? 0;
+        setSseEndpoint((prev) => (prev ?? snapshot.sse_endpoint));
+        updateStepStatus(percentage);
+        setState((prev) => ({
+          ...prev,
+          status: snapshot.status,
+          progress: percentage,
+          currentStep: snapshot.current_step || snapshot.message || prev.currentStep,
+          error: snapshot.error ?? null,
+        }));
+
+        if (snapshot.status === 'completed') {
+          setIsComplete(true);
+        }
+      } catch (error) {
+        console.error('[ProgressPage] Initial status fetch failed:', error);
+      }
+    };
+
+    fetchInitialStatus();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [taskId, updateStepStatus]);
 
   // 时间计时器
   useEffect(() => {
@@ -172,6 +222,7 @@ const ProgressPage: React.FC = () => {
             status: 'failed',
             error: errorMessage,
           }));
+          setUsePolling(true);
         }
         break;
     }
@@ -198,38 +249,33 @@ const ProgressPage: React.FC = () => {
       return;
     }
 
+    if (isComplete) {
+      return;
+    }
+
     if (usePolling) {
-      // 使用轮询模式
       console.log('[ProgressPage] Using polling mode');
 
       const pollInterval = setInterval(async () => {
         try {
           const task = await getTaskStatus(taskId);
+          const progressPercentage = task.percentage ?? task.progress ?? 0;
 
-          // 计算进度百分比
-          const progressPercentage = task.progress?.percentage ?? 0;
-
-          // 更新状态
+          setSseEndpoint((prev) => (prev ?? task.sse_endpoint));
           setState((prev) => ({
             ...prev,
-            status: task.status === 'completed' ? 'completed' :
-                    task.status === 'failed' ? 'failed' : 'processing',
+            status:
+              task.status === 'completed'
+                ? 'completed'
+                : task.status === 'failed'
+                ? 'failed'
+                : 'processing',
             progress: progressPercentage,
-            currentStep: task.progress?.current_step ?? '正在处理...',
-            error: task.error_message || null,
+            currentStep: task.current_step || task.message || '正在处理...',
+            error: task.error ?? null,
           }));
+          updateStepStatus(progressPercentage);
 
-          // 更新步骤
-          const currentStepIndex = Math.floor((progressPercentage / 100) * ANALYSIS_STEPS.length);
-          setSteps((prev) =>
-            prev.map((step, index) => ({
-              ...step,
-              status: index < currentStepIndex ? 'completed' :
-                      index === currentStepIndex ? 'in-progress' : 'pending',
-            }))
-          );
-
-          // 如果任务完成或失败，停止轮询
           if (task.status === 'completed' || task.status === 'failed') {
             clearInterval(pollInterval);
 
@@ -247,29 +293,41 @@ const ProgressPage: React.FC = () => {
             error: '获取任务状态失败',
           }));
         }
-      }, 2000); // 每 2 秒轮询一次
+      }, 2000);
 
-      // 清理函数
       return () => {
         clearInterval(pollInterval);
       };
     }
 
-    // 创建 SSE 客户端
+    if (!sseEndpoint) {
+      return;
+    }
+
     const client = createTaskProgressSSE(
       taskId,
       handleSSEEvent,
-      handleStatusChange
+      handleStatusChange,
+      sseEndpoint
     );
 
     client.connect();
     setSSEClient(client);
 
-    // 清理函数
     return () => {
       client.disconnect();
+      setSSEClient(null);
     };
-  }, [taskId, usePolling, navigate, handleSSEEvent, handleStatusChange]);
+  }, [
+    taskId,
+    usePolling,
+    navigate,
+    handleSSEEvent,
+    handleStatusChange,
+    sseEndpoint,
+    isComplete,
+    updateStepStatus,
+  ]);
 
   // 格式化时间
   const formatTime = (seconds: number): string => {

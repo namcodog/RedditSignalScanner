@@ -26,6 +26,8 @@ import { TaskStatus } from '@/types';
 export interface UseSSEConfig {
   /** 任务 ID */
   taskId: string;
+  /** 后端返回的 SSE 端点（可选） */
+  sseEndpoint?: string;
   
   /** 是否自动连接 */
   autoConnect?: boolean;
@@ -75,6 +77,7 @@ export interface UseSSEReturn {
 export const useSSE = (config: UseSSEConfig): UseSSEReturn => {
   const {
     taskId,
+    sseEndpoint,
     autoConnect = true,
     enableFallback = true,
     pollingInterval = 2000,
@@ -133,11 +136,12 @@ export const useSSE = (config: UseSSEConfig): UseSSEReturn => {
     sseClientRef.current = createTaskProgressSSE(
       taskId,
       handleEvent,
-      handleStatusChange
+      handleStatusChange,
+      sseEndpoint
     );
-    
+
     sseClientRef.current.connect();
-  }, [taskId, handleEvent, handleStatusChange]);
+  }, [taskId, sseEndpoint, handleEvent, handleStatusChange]);
   
   /**
    * 断开 SSE
@@ -182,18 +186,20 @@ export const useSSE = (config: UseSSEConfig): UseSSEReturn => {
       try {
         const taskStatus: TaskStatusResponse = await getTaskStatus(taskId);
 
+        const progressValue = taskStatus.percentage ?? taskStatus.progress ?? 0;
+
         // 模拟 SSE 进度事件
         const progressEvent: SSEEvent = {
           event: 'progress',
           task_id: taskId,
           status: taskStatus.status,
-          progress: taskStatus.progress?.percentage ?? 0,
-          message: taskStatus.progress?.current_step ?? '处理中...',
-          error: null,
-          updated_at: new Date().toISOString(),
-          current_step: taskStatus.progress?.current_step ?? '',
-          percentage: taskStatus.progress?.percentage ?? 0,
-          estimated_remaining: taskStatus.progress?.estimated_remaining ?? 0,
+          progress: progressValue,
+          message: taskStatus.message || '处理中...',
+          error: taskStatus.error ?? null,
+          updated_at: taskStatus.updated_at,
+          current_step: taskStatus.current_step,
+          percentage: progressValue,
+          estimated_remaining: 0,
         };
 
         handleEvent(progressEvent);
@@ -213,15 +219,15 @@ export const useSSE = (config: UseSSEConfig): UseSSEReturn => {
                   task_id: taskId,
                   status: TaskStatus.COMPLETED,
                   progress: 100,
-                  message: '分析完成',
+                  message: taskStatus.message || '分析完成',
                   error: null,
-                  updated_at: new Date().toISOString(),
+                  updated_at: taskStatus.updated_at,
                 }
               : {
                   event: 'error',
                   task_id: taskId,
                   error_code: 'TASK_FAILED',
-                  error_message: taskStatus.error_message ?? '任务失败',
+                  error_message: taskStatus.error ?? '任务失败',
                   retryable: false,
                 };
           

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import asyncio
+import json
 
 import sys
 import uuid
@@ -94,6 +95,7 @@ async def test_sse_connection_and_completion(
     monkeypatch.setattr(stream, "HEARTBEAT_INTERVAL_SECONDS", 10.0)
 
     events: list[str] = []
+    payloads: list[dict[str, object]] = []
     async with client.stream(
         "GET",
         f"/api/analyze/stream/{task.id}",
@@ -109,6 +111,8 @@ async def test_sse_connection_and_completion(
                 line = line.strip()
                 if line.startswith("event:"):
                     events.append(line.split(": ", 1)[1])
+                elif line.startswith("data:"):
+                    payloads.append(json.loads(line.split(": ", 1)[1]))
                 if events and events[-1] == "close":
                     break
             if events and events[-1] == "close":
@@ -117,6 +121,15 @@ async def test_sse_connection_and_completion(
     assert events[0] == "connected"
     assert "completed" in events
     assert events[-1] == "close"
+
+    # 第一个 payload 应该是进度事件，包含前端期望的字段
+    first_payload = next((p for p in payloads if p.get("status") == "processing"), None)
+    assert first_payload is not None
+    assert first_payload["percentage"] == 50
+    assert first_payload["progress"] == 50
+    assert first_payload["current_step"] == "processing"
+    assert first_payload["error"] is None
+    assert "error_message" in first_payload
 
 
 async def test_sse_heartbeat(

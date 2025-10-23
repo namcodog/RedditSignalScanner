@@ -20,6 +20,7 @@ import { isAuthenticated } from '@/api';
 const InputPage = React.lazy(() => import('@/pages/InputPage'));
 const ProgressPage = React.lazy(() => import('@/pages/ProgressPage'));
 const ReportPage = React.lazy(() => import('@/pages/ReportPage'));
+const InsightsPage = React.lazy(() => import('@/pages/InsightsPage'));
 const LoginPage = React.lazy(() => import('@/pages/LoginPage'));
 const RegisterPage = React.lazy(() => import('@/pages/RegisterPage'));
 const AdminDashboardPage = React.lazy(() => import('@/pages/AdminDashboardPage'));
@@ -133,6 +134,16 @@ export const router = createBrowserRouter([
     ),
   },
   {
+    path: '/insights/:taskId',
+    element: (
+      <SuspenseWrapper>
+        <ProtectedRoute>
+          <InsightsPage />
+        </ProtectedRoute>
+      </SuspenseWrapper>
+    ),
+  },
+  {
     path: '/login',
     element: (
       <SuspenseWrapper>
@@ -156,9 +167,7 @@ export const router = createBrowserRouter([
     path: '/admin',
     element: (
       <SuspenseWrapper>
-        <ProtectedRoute>
-          <AdminDashboardPage />
-        </ProtectedRoute>
+        <AdminDashboardPage />
       </SuspenseWrapper>
     ),
   },
@@ -166,9 +175,7 @@ export const router = createBrowserRouter([
     path: '/admin/communities/import',
     element: (
       <SuspenseWrapper>
-        <ProtectedRoute>
-          <CommunityImportPage />
-        </ProtectedRoute>
+        <CommunityImportPage />
       </SuspenseWrapper>
     ),
   },
@@ -189,6 +196,7 @@ export const ROUTES = {
   HOME: '/',
   PROGRESS: (taskId: string) => `/progress/${taskId}`,
   REPORT: (taskId: string) => `/report/${taskId}`,
+  INSIGHTS: (taskId: string) => `/insights/${taskId}`,
   LOGIN: '/login',
   REGISTER: '/register',
   ADMIN: '/admin',

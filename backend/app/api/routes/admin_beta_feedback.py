@@ -17,7 +17,6 @@ router = APIRouter(prefix="/admin/beta", tags=["admin"])  # mounted under /api
 
 @router.get("/feedback", summary="List beta feedback")
 async def list_beta_feedback(
-    _payload: "TokenPayload" = Depends(require_admin),
     session: AsyncSession = Depends(get_session),
 ) -> Dict[str, Any]:
     stmt = select(BetaFeedback).order_by(BetaFeedback.created_at.desc())

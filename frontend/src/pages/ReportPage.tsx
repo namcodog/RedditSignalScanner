@@ -29,7 +29,7 @@ import {
   TrendingUp,
   Share2,
 } from 'lucide-react';
-import { getAnalysisReport } from '@/api/analyze.api';
+import { getAnalysisReport, submitBetaFeedback } from '@/api/analyze.api';
 import type { ReportResponse } from '@/types';
 import { ROUTES } from '@/router';
 import NavigationBreadcrumb from '@/components/NavigationBreadcrumb';
@@ -223,6 +223,15 @@ const ReportPage: React.FC = () => {
               </p>
             </div>
             <div className="flex items-center space-x-2">
+              {/* 查看洞察卡片按钮 */}
+              <button
+                onClick={() => navigate(`/insights/${taskId}`)}
+                className="inline-flex items-center justify-center rounded-md bg-secondary px-4 py-2 text-sm font-medium text-secondary-foreground transition hover:bg-secondary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              >
+                <Lightbulb className="mr-2 h-4 w-4" />
+                查看洞察卡片
+              </button>
+
               {/* 分享按钮 */}
               <button
                 className="inline-flex items-center justify-center rounded-md border border-border bg-background px-4 py-2 text-sm font-medium text-foreground transition hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
@@ -506,11 +515,31 @@ const ReportPage: React.FC = () => {
       <FeedbackDialog
         isOpen={showFeedbackDialog}
         onClose={() => setShowFeedbackDialog(false)}
-        onSubmit={(rating) => {
-          console.log('User feedback:', rating);
-          // TODO: 发送反馈到后端
-          // 提交后跳转到首页
-          navigate(ROUTES.HOME);
+        onSubmit={async (rating) => {
+          if (!taskId) return;
+
+          try {
+            // 将前端评分映射到后端的 1-5 分
+            const satisfactionMap = {
+              'helpful': 5,      // 有价值 -> 5分
+              'neutral': 3,      // 一般 -> 3分
+              'not-helpful': 1,  // 无价值 -> 1分
+            };
+
+            await submitBetaFeedback({
+              task_id: taskId,
+              satisfaction: satisfactionMap[rating],
+              missing_communities: [],
+              comments: '',
+            });
+
+            console.log('✅ 用户反馈已提交:', rating);
+          } catch (error) {
+            console.error('❌ 提交反馈失败:', error);
+          } finally {
+            // 无论成功失败都跳转到首页
+            navigate(ROUTES.HOME);
+          }
         }}
       />
     </div>

@@ -45,14 +45,17 @@ vi.mock('@/api/analyze.api', () => ({
   getTaskStatus: vi.fn().mockResolvedValue({
     task_id: 'test-task-123',
     status: 'processing',
-    progress: {
-      percentage: 25,
-      current_step: '数据收集中...',
-      completed_steps: [],
-      total_steps: 4,
-    },
-    created_at: new Date().toISOString(),
-    estimated_completion: new Date(Date.now() + 5 * 60 * 1000).toISOString(),
+    progress: 25,
+    percentage: 25,
+    message: '数据收集中...',
+    current_step: '数据收集中...',
+    error: null,
+    sse_endpoint: '/api/analyze/stream/test-task-123',
+    retry_count: 0,
+    failure_category: null,
+    last_retry_at: null,
+    dead_letter_at: null,
+    updated_at: new Date().toISOString(),
   }),
 }));
 
@@ -64,7 +67,12 @@ describe('ProgressPage', () => {
     handlers.onEvent = () => {};
     handlers.onStatus = () => {};
     mockCreateTaskProgressSSE.mockImplementation(
-      (_taskId: string, onEvent: (event: any) => void, onStatus?: (status: string) => void) => {
+      (
+        _taskId: string,
+        onEvent: (event: any) => void,
+        onStatus?: (status: string) => void,
+        _sseEndpoint?: string
+      ) => {
         handlers.onEvent = onEvent;
         handlers.onStatus = onStatus ?? (() => {});
         return {
@@ -97,6 +105,7 @@ describe('ProgressPage', () => {
     expect(callArgs[0]).toBe('test-task-123');
     expect(typeof callArgs[1]).toBe('function');
     expect(typeof callArgs[2]).toBe('function');
+    expect(callArgs[3]).toBe('/api/analyze/stream/test-task-123');
 
     await waitFor(() => {
       expect(connectMock).toHaveBeenCalled();

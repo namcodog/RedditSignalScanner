@@ -16,47 +16,10 @@ import { test, expect, request } from '@playwright/test';
 // 全局变量存储认证 token
 let globalAuthToken: string;
 
-// 在所有测试前获取认证 token
-test.beforeAll(async ({ }, testInfo) => {
-  const apiContext = await request.newContext({
-    baseURL: 'http://localhost:8006',
-  });
-
-  try {
-    // 使用 worker index 和时间戳确保邮箱唯一性
-    const tempEmail = `test-e2e-w${testInfo.workerIndex}-${Date.now()}-${Math.random().toString(36).substring(7)}@example.com`;
-    const tempPassword = `TestPass${Date.now()}!`;
-
-    console.log('🔐 注册测试用户:', tempEmail);
-
-    const registerResponse = await apiContext.post('/api/auth/register', {
-      data: {
-        email: tempEmail,
-        password: tempPassword,
-      },
-    });
-
-    if (!registerResponse.ok()) {
-      const errorText = await registerResponse.text();
-      throw new Error(`注册失败 (${registerResponse.status()}): ${errorText}`);
-    }
-
-    const registerData = await registerResponse.json();
-    globalAuthToken = registerData.access_token;
-    console.log('✅ 获取到认证 token');
-
-  } catch (error) {
-    console.error('❌ 注册用户失败:', error);
-    throw error;
-  } finally {
-    await apiContext.dispose();
-  }
-});
-
 test.describe('ReportPage - 错误处理 (真实 API)', () => {
   test.beforeEach(async ({ page }) => {
     // 访问首页并注入 token
-    await page.goto('http://localhost:3008');
+    await page.goto('http://localhost:3006');
     await page.evaluate((token) => {
       localStorage.setItem('auth_token', token);
     }, globalAuthToken);
@@ -65,7 +28,7 @@ test.describe('ReportPage - 错误处理 (真实 API)', () => {
 
   test('不存在的任务应该显示错误状态', async ({ page }) => {
     // 访问一个不存在的任务
-    await page.goto('http://localhost:3008/report/non-existent-task-id-12345');
+    await page.goto('http://localhost:3006/report/non-existent-task-id-12345');
 
     // 等待页面加载完成
     await page.waitForLoadState('networkidle');
@@ -77,7 +40,7 @@ test.describe('ReportPage - 错误处理 (真实 API)', () => {
 
   test('点击错误页面的"返回首页"应该跳转到首页', async ({ page }) => {
     // 访问一个不存在的任务
-    await page.goto('http://localhost:3008/report/non-existent-task-id-67890');
+    await page.goto('http://localhost:3006/report/non-existent-task-id-67890');
 
     // 等待页面加载完成
     await page.waitForLoadState('networkidle');
@@ -91,7 +54,7 @@ test.describe('ReportPage - 错误处理 (真实 API)', () => {
     await backButton.click();
 
     // 验证跳转到首页
-    await expect(page).toHaveURL('http://localhost:3008/');
+    await expect(page).toHaveURL('http://localhost:3006/');
   });
 });
 

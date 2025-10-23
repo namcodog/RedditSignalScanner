@@ -8,7 +8,13 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.config import Settings, get_settings
-from app.core.security import create_access_token, hash_password, verify_password
+from app.core.security import (
+    create_access_token,
+    hash_password,
+    verify_password,
+    decode_jwt_token,
+    TokenPayload,
+)
 from app.db.session import get_session
 from app.models.user import MembershipLevel, User
 from app.schemas.auth import AuthTokenResponse, AuthUser, LoginRequest, RegisterRequest
@@ -113,6 +119,35 @@ async def login_user(
     await db.refresh(user)
 
     return _issue_token(user, settings)
+
+
+@router.get(
+    "/me",
+    response_model=AuthUser,
+    summary="Get current authenticated user",
+)
+async def get_current_user_me(
+    payload: TokenPayload = Depends(decode_jwt_token),
+    db: AsyncSession = Depends(get_session),
+) -> AuthUser:
+    # Prefer email from JWT to avoid extra UUID parsing; tokens issued by this app include email
+    if payload.email is None:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid authentication credentials",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+
+    result = await db.execute(select(User).where(User.email == payload.email))
+    user = result.scalar_one_or_none()
+    if user is None or not user.is_active:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Not authenticated",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+
+    return AuthUser(id=user.id, email=user.email, membership_level=user.membership_level)
 
 
 __all__ = ["router"]

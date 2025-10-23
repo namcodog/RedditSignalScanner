@@ -110,6 +110,16 @@ async def test_full_auth_flow_allows_protected_endpoint(client: AsyncClient) -> 
     token = register_data["access_token"]
     assert register_data["user"]["membership_level"] == MembershipLevel.FREE.value
 
+    # New: current user endpoint should succeed with the freshly issued token
+    me_resp = await client.get(
+        "/api/auth/me",
+        headers={"Authorization": f"Bearer {token}"},
+    )
+    assert me_resp.status_code == 200
+    me = me_resp.json()
+    assert me["email"] == email.lower()
+    assert me["id"]
+
     analyze_resp = await client.post(
         "/api/analyze",
         json={"product_description": "Reddit insight assistant for B2B SaaS teams."},

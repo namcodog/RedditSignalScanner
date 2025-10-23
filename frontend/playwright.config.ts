@@ -14,10 +14,14 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
   reporter: 'html',
+
+  // E2E 失败快照保存配置
+  outputDir: '../reports/failed_e2e',
+
   use: {
-    baseURL: 'http://localhost:3008',
-    trace: 'on-first-retry',
-    screenshot: 'only-on-failure',
+    baseURL: 'http://localhost:3006',
+    trace: 'retain-on-failure',  // 失败时保留 trace
+    screenshot: 'only-on-failure',  // 失败时截图
   },
 
   projects: [
@@ -29,7 +33,7 @@ export default defineConfig({
 
   webServer: {
     command: 'npm run dev',
-    url: 'http://localhost:3008',
+    url: 'http://localhost:3006',
     reuseExistingServer: !process.env.CI,
     timeout: 120 * 1000,
   },

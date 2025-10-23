@@ -15,12 +15,17 @@ const hoisted = vi.hoisted(() => ({
     .mockResolvedValue({
       task_id: 'task-1',
       status: 'processing',
-      progress: {
-        percentage: 10,
-        current_step: '准备中',
-      },
-      created_at: new Date().toISOString(),
-      estimated_completion: new Date(Date.now() + 60_000).toISOString(),
+      progress: 10,
+      percentage: 10,
+      message: '准备中',
+      current_step: '准备中',
+      error: null,
+      sse_endpoint: '/api/analyze/stream/task-1',
+      retry_count: 0,
+      failure_category: null,
+      last_retry_at: null,
+      dead_letter_at: null,
+      updated_at: new Date().toISOString(),
     }),
 }));
 
@@ -50,15 +55,20 @@ describe('useSSE', () => {
     getTaskStatusMock.mockResolvedValue({
       task_id: 'task-1',
       status: 'processing',
-      progress: {
-        percentage: 10,
-        current_step: '准备中',
-      },
-      created_at: new Date().toISOString(),
-      estimated_completion: new Date(Date.now() + 60_000).toISOString(),
+      progress: 10,
+      percentage: 10,
+      message: '准备中',
+      current_step: '准备中',
+      error: null,
+      sse_endpoint: '/api/analyze/stream/task-1',
+      retry_count: 0,
+      failure_category: null,
+      last_retry_at: null,
+      dead_letter_at: null,
+      updated_at: new Date().toISOString(),
     });
     mockCreateTaskProgressSSE.mockImplementation(
-      (_taskId: string, onEvent: (event: any) => void, onStatus?: (status: any) => void) => {
+      (_taskId: string, onEvent: (event: any) => void, onStatus?: (status: any) => void, _endpoint?: string) => {
         handlers.onEvent = onEvent;
         handlers.onStatus = onStatus ?? (() => {});
         return {

@@ -193,12 +193,14 @@ async def _store_analysis_results(task_id: uuid.UUID, result: AnalysisResult) ->
                     task=task,
                     insights=result.insights,
                     sources=result.sources,
+                    confidence_score=result.confidence_score,
                     analysis_version=1,
                 )
                 session.add(analysis)
             else:
                 analysis.insights = result.insights
                 analysis.sources = result.sources
+                analysis.confidence_score = result.confidence_score
 
             if analysis.report is None:
                 report = Report(

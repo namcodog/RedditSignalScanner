@@ -30,7 +30,7 @@ class Settings(BaseModel):
         default="postgresql+psycopg://postgres:postgres@localhost:5432/reddit_scanner"
     )
     cors_origins_raw: str = Field(
-        default="http://localhost:3006,http://127.0.0.1:3006,http://localhost:3000,http://127.0.0.1:3000"
+        default="http://localhost:3006,http://127.0.0.1:3006,http://localhost:3007,http://127.0.0.1:3007,http://localhost:3008,http://127.0.0.1:3008,http://localhost:3009,http://127.0.0.1:3009,http://localhost:3000,http://127.0.0.1:3000"
     )
     jwt_secret: str = Field(default="insecure-development-secret")
     jwt_algorithm: str = Field(default="HS256")

@@ -4,7 +4,7 @@
  * 验证 PRD-02 定义的 SSE 客户端连接流程与事件处理。
  */
 
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { createTaskProgressSSE } from '../sse.client';
 
 const { fetchEventSourceMock } = vi.hoisted(() => ({
@@ -19,10 +19,15 @@ describe('SSEClient', () => {
   beforeEach(() => {
     fetchEventSourceMock.mockReset();
     localStorage.clear();
+    vi.stubEnv('VITE_API_BASE_URL', 'http://localhost:8006/api');
   });
 
-  it('创建任务 SSE 客户端时拼接正确 URL', async () => {
-    const client = createTaskProgressSSE('task-123', vi.fn(), vi.fn());
+  afterEach(() => {
+    vi.unstubAllEnvs();
+  });
+
+  it('创建任务 SSE 客户端时优先使用后端返回的 sseEndpoint', async () => {
+    const client = createTaskProgressSSE('task-123', vi.fn(), vi.fn(), '/api/analyze/stream/task-123');
     expect(typeof (client as any).connect).toBe('function');
 
     expect(fetchEventSourceMock).toHaveBeenCalledTimes(0);
@@ -30,9 +35,19 @@ describe('SSEClient', () => {
     fetchEventSourceMock.mockResolvedValueOnce(undefined);
     await client.connect();
 
-    const expectedBaseUrl = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8000';
     expect(fetchEventSourceMock).toHaveBeenCalledWith(
-      `${expectedBaseUrl}/api/analyze/stream/task-123`,
+      'http://localhost:8006/api/analyze/stream/task-123',
+      expect.any(Object)
+    );
+  });
+
+  it('未提供 sseEndpoint 时使用默认路径', async () => {
+    const client = createTaskProgressSSE('task-abc', vi.fn(), vi.fn());
+    fetchEventSourceMock.mockResolvedValueOnce(undefined);
+    await client.connect();
+
+    expect(fetchEventSourceMock).toHaveBeenCalledWith(
+      'http://localhost:8006/api/analyze/stream/task-abc',
       expect.any(Object)
     );
   });

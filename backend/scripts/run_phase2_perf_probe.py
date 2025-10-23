@@ -95,6 +95,8 @@ async def run_probe() -> dict:
                     "analysis_duration_seconds": 1.3,
                 },
                 report_html="<h1>Reddit Signal Scanner Report</h1>",
+                action_items=SampleInsights.get("action_items", []),
+                confidence_score=0.95,
             )
 
         # Patch the heavy function with our fast stub

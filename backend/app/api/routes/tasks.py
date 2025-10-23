@@ -13,7 +13,7 @@ from app.core.security import TokenPayload, decode_jwt_token
 from app.db.session import get_session
 from app.models.task import Task, TaskStatus
 from app.schemas.task import TaskStatsResponse, TaskStatusSnapshot
-from app.services.task_status_cache import TaskStatusCache
+from app.services.task_status_cache import TaskStatusCache, TaskStatusPayload
 
 status_router = APIRouter(prefix="/status", tags=["status"])
 tasks_router = APIRouter(prefix="/tasks", tags=["tasks"])
@@ -72,16 +72,40 @@ async def get_task_status(
 
     cached = await STATUS_CACHE.get_status(str(task_id), session=db)
 
+    # 若缓存存在但与数据库中的终态不一致（completed/failed），以数据库为准并回填缓存，避免陈旧状态
     if cached is not None:
-        status_value = TaskStatus(cached.status)
-        updated_at = (
-            datetime.fromisoformat(cached.updated_at)
-            if cached.updated_at
-            else datetime.now(timezone.utc)
-        )
-        progress = cached.progress
-        message = cached.message or _MESSAGE_MAP.get(status_value, "")
-        error = cached.error or task.error_message
+        cached_status = TaskStatus(cached.status)
+        db_status = task.status
+        if db_status in {TaskStatus.COMPLETED, TaskStatus.FAILED} and cached_status != db_status:
+            status_value = db_status
+            progress = _PROGRESS_MAP.get(status_value, 0)
+            message = _MESSAGE_MAP.get(status_value, "")
+            error = task.error_message
+            updated_at = task.updated_at or datetime.now(timezone.utc)
+            # 异步地回填缓存（不阻塞请求）
+            try:
+                await STATUS_CACHE.set_status(
+                    TaskStatusPayload(
+                        task_id=str(task.id),
+                        status=status_value.value,
+                        progress=progress,
+                        message=message,
+                        error=error,
+                        updated_at=updated_at.isoformat(),
+                    )
+                )
+            except Exception:
+                pass
+        else:
+            status_value = cached_status
+            updated_at = (
+                datetime.fromisoformat(cached.updated_at)
+                if cached.updated_at
+                else datetime.now(timezone.utc)
+            )
+            progress = cached.progress
+            message = cached.message or _MESSAGE_MAP.get(status_value, "")
+            error = cached.error or task.error_message
     else:
         status_value = task.status
         progress = _PROGRESS_MAP.get(status_value, 0)
@@ -95,6 +119,9 @@ async def get_task_status(
         progress=progress,
         message=message,
         error=error,
+        percentage=progress,
+        current_step=message or "",
+        sse_endpoint=f"{settings.sse_base_path}/{task.id}",
         retry_count=task.retry_count,
         failure_category=task.failure_category,
         last_retry_at=task.last_retry_at,

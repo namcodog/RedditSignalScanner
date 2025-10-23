@@ -6,62 +6,30 @@
  */
 
 import { useState, useEffect } from 'react';
-import { apiClient } from '@/api/client';
+import {
+  adminService,
+  CommunityImportHistoryEntry,
+  CommunityImportResult,
+} from '@/services/admin.service';
 import FileUpload from '@/components/admin/FileUpload';
 import ImportResult from '@/components/admin/ImportResult';
 
-interface ImportSummary {
-  total: number;
-  valid: number;
-  invalid: number;
-  duplicates: number;
-  imported: number;
-}
-
-interface ImportError {
-  row: number;
-  field: string;
-  value: string;
-  error: string;
-}
-
-interface ImportResponse {
-  status: 'success' | 'error' | 'validated';
-  summary?: ImportSummary;
-  errors?: ImportError[];
-  communities?: Array<{
-    name: string;
-    tier: string;
-    status: string;
-  }>;
-}
-
-interface ImportHistory {
-  id: number;
-  filename: string;
-  uploaded_by: string;
-  uploaded_at: string;
-  total: number;
-  imported: number;
-  status: string;
-}
-
 export default function CommunityImport() {
-  const [importResult, setImportResult] = useState<ImportResponse | null>(null);
-  const [importHistory, setImportHistory] = useState<ImportHistory[]>([]);
+  const [importResult, setImportResult] = useState<CommunityImportResult | null>(null);
+  const [importHistory, setImportHistory] = useState<CommunityImportHistoryEntry[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [progress, setProgress] = useState<number>(0);
 
   // 下载模板
   const handleDownloadTemplate = async () => {
     try {
-      const response = await apiClient.get('/api/admin/communities/template', {
-        responseType: 'blob',
-      });
-
-      const blob = new Blob([response.data], {
-        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-      });
-      const url = window.URL.createObjectURL(blob);
+      const blob = await adminService.downloadCommunityTemplate();
+      const finalBlob = blob.type
+        ? blob
+        : new Blob([blob], {
+            type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+          });
+      const url = window.URL.createObjectURL(finalBlob);
       const a = document.createElement('a');
       a.href = url;
       a.download = 'community_template.xlsx';
@@ -79,23 +47,15 @@ export default function CommunityImport() {
   const handleUpload = async (file: File, dryRun: boolean) => {
     setIsLoading(true);
     setImportResult(null);
+    setProgress(0);
 
     try {
-      const formData = new FormData();
-      formData.append('file', file);
-
-      const response = await apiClient.post(
-        `/api/admin/communities/import?dry_run=${dryRun}`,
-        formData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        }
-      );
-
-      const result: ImportResponse = response.data;
+      const result = await adminService.uploadCommunityImport(file, {
+        dryRun,
+        onProgress: (pct) => setProgress(pct),
+      });
       setImportResult(result);
+      setProgress(100);
 
       // 如果导入成功，刷新历史记录
       if (result.status === 'success') {
@@ -103,14 +63,24 @@ export default function CommunityImport() {
       }
     } catch (error: any) {
       console.error('上传失败:', error);
+      setProgress(0);
       setImportResult({
         status: 'error',
-        errors: [{
-          row: 0,
-          field: 'file',
-          value: file.name,
-          error: error.message || '上传失败，请检查网络连接或文件格式',
-        }],
+        summary: {
+          total: 0,
+          valid: 0,
+          invalid: 0,
+          duplicates: 0,
+          imported: 0,
+        },
+        errors: [
+          {
+            row: 0,
+            field: 'file',
+            value: file.name,
+            error: error?.message || '上传失败，请检查网络连接或文件格式',
+          },
+        ],
       });
     } finally {
       setIsLoading(false);
@@ -120,8 +90,8 @@ export default function CommunityImport() {
   // 获取导入历史
   const fetchImportHistory = async () => {
     try {
-      const response = await apiClient.get('/api/admin/communities/import-history');
-      setImportHistory(response.data.imports || []);
+      const history = await adminService.getCommunityImportHistory();
+      setImportHistory(history);
     } catch (error) {
       console.error('获取历史记录失败:', error);
     }
@@ -167,6 +137,18 @@ export default function CommunityImport() {
           onUpload={handleUpload}
           isLoading={isLoading}
         />
+        {/* 上传进度条（P1：上传进度显示） */}
+        {isLoading && (
+          <div className="mt-4">
+            <div className="h-2 w-full rounded bg-muted">
+              <div
+                className="h-2 rounded bg-primary transition-all"
+                style={{ width: `${progress}%` }}
+              />
+            </div>
+            <p className="mt-1 text-right text-xs text-muted-foreground">{progress}%</p>
+          </div>
+        )}
       </div>
 
       {/* 导入结果 */}
@@ -198,7 +180,7 @@ export default function CommunityImport() {
                     {item.filename}
                   </span>
                   <span className="text-sm text-muted-foreground">
-                    {item.total} 个社区
+                    总计 {item.summary.total} 个，导入 {item.summary.imported} 个
                   </span>
                 </div>
                 <span
@@ -218,4 +200,3 @@ export default function CommunityImport() {
     </div>
   );
 }
-

@@ -77,7 +77,7 @@ test.describe('前端性能测试', () => {
     test('首页加载时间应该 <2s', async ({ page }) => {
       const startTime = Date.now();
       
-      await page.goto('http://localhost:3007');
+      await page.goto('http://localhost:3006');
       await page.waitForLoadState('load');
       
       const loadTime = Date.now() - startTime;
@@ -92,14 +92,14 @@ test.describe('前端性能测试', () => {
 
     test('进度页面加载时间应该 <2s', async ({ page }) => {
       // 先设置认证token
-      await page.goto('http://localhost:3007');
+      await page.goto('http://localhost:3006');
       await page.evaluate(() => {
         localStorage.setItem('auth_token', 'mock-test-token');
       });
       
       const startTime = Date.now();
       
-      await page.goto('http://localhost:3007/progress/test-task-123');
+      await page.goto('http://localhost:3006/progress/test-task-123');
       await page.waitForLoadState('load');
       
       const loadTime = Date.now() - startTime;
@@ -110,14 +110,14 @@ test.describe('前端性能测试', () => {
 
     test('报告页面加载时间应该 <2s', async ({ page }) => {
       // 先设置认证token
-      await page.goto('http://localhost:3007');
+      await page.goto('http://localhost:3006');
       await page.evaluate(() => {
         localStorage.setItem('auth_token', 'mock-test-token');
       });
       
       const startTime = Date.now();
       
-      await page.goto('http://localhost:3007/report/test-task-123');
+      await page.goto('http://localhost:3006/report/test-task-123');
       await page.waitForLoadState('load');
       
       const loadTime = Date.now() - startTime;
@@ -129,7 +129,7 @@ test.describe('前端性能测试', () => {
 
   test.describe('2. 首次内容绘制测试', () => {
     test('首页 FCP 应该 <1s', async ({ page }) => {
-      await page.goto('http://localhost:3007');
+      await page.goto('http://localhost:3006');
       await page.waitForLoadState('load');
       
       const metrics = await getPerformanceMetrics(page);
@@ -139,12 +139,12 @@ test.describe('前端性能测试', () => {
     });
 
     test('报告页面 FCP 应该 <1s', async ({ page }) => {
-      await page.goto('http://localhost:3007');
+      await page.goto('http://localhost:3006');
       await page.evaluate(() => {
         localStorage.setItem('auth_token', 'mock-test-token');
       });
       
-      await page.goto('http://localhost:3007/report/test-task-123');
+      await page.goto('http://localhost:3006/report/test-task-123');
       await page.waitForLoadState('load');
       
       const metrics = await getPerformanceMetrics(page);
@@ -156,7 +156,7 @@ test.describe('前端性能测试', () => {
 
   test.describe('3. 交互响应时间测试', () => {
     test('按钮点击响应时间应该 <100ms', async ({ page }) => {
-      await page.goto('http://localhost:3007');
+      await page.goto('http://localhost:3006');
       await page.waitForLoadState('networkidle');
       
       // 测试示例按钮点击
@@ -177,12 +177,12 @@ test.describe('前端性能测试', () => {
     });
 
     test('Tab切换响应时间应该 <100ms', async ({ page }) => {
-      await page.goto('http://localhost:3007');
+      await page.goto('http://localhost:3006');
       await page.evaluate(() => {
         localStorage.setItem('auth_token', 'mock-test-token');
       });
 
-      await page.goto('http://localhost:3007/report/test-task-123');
+      await page.goto('http://localhost:3006/report/test-task-123');
       await page.waitForLoadState('networkidle');
 
       // 等待页面完全加载
@@ -212,7 +212,7 @@ test.describe('前端性能测试', () => {
     });
 
     test('表单输入响应时间应该 <100ms', async ({ page }) => {
-      await page.goto('http://localhost:3007');
+      await page.goto('http://localhost:3006');
       await page.waitForLoadState('networkidle');
 
       const textarea = page.getByRole('textbox', { name: /产品描述/ });
@@ -233,7 +233,7 @@ test.describe('前端性能测试', () => {
 
   test.describe('4. 资源加载性能测试', () => {
     test('首页资源数量应该合理', async ({ page }) => {
-      await page.goto('http://localhost:3007');
+      await page.goto('http://localhost:3006');
       await page.waitForLoadState('networkidle');
       
       const resourceCount = await page.evaluate(() => {
@@ -256,12 +256,12 @@ test.describe('前端性能测试', () => {
     });
 
     test('报告页面资源数量应该合理', async ({ page }) => {
-      await page.goto('http://localhost:3007');
+      await page.goto('http://localhost:3006');
       await page.evaluate(() => {
         localStorage.setItem('auth_token', 'mock-test-token');
       });
       
-      await page.goto('http://localhost:3007/report/test-task-123');
+      await page.goto('http://localhost:3006/report/test-task-123');
       await page.waitForLoadState('networkidle');
       
       const resourceCount = await page.evaluate(() => {
@@ -281,7 +281,7 @@ test.describe('前端性能测试', () => {
 
   test.describe('5. 内存使用测试', () => {
     test('首页内存使用应该合理', async ({ page, context }) => {
-      await page.goto('http://localhost:3007');
+      await page.goto('http://localhost:3006');
       await page.waitForLoadState('networkidle');
       
       // 获取内存使用情况（如果浏览器支持）
@@ -318,12 +318,12 @@ test.describe('前端性能测试', () => {
       };
 
       // 测试首页
-      await page.goto('http://localhost:3007');
+      await page.goto('http://localhost:3006');
       await page.waitForLoadState('networkidle');
       const homeMetrics = await getPerformanceMetrics(page);
       performanceReport.pages.push({
         name: '首页',
-        url: 'http://localhost:3007',
+        url: 'http://localhost:3006',
         metrics: homeMetrics,
       });
 
@@ -331,12 +331,12 @@ test.describe('前端性能测试', () => {
       await page.evaluate(() => {
         localStorage.setItem('auth_token', 'mock-test-token');
       });
-      await page.goto('http://localhost:3007/report/test-task-123');
+      await page.goto('http://localhost:3006/report/test-task-123');
       await page.waitForLoadState('networkidle');
       const reportMetrics = await getPerformanceMetrics(page);
       performanceReport.pages.push({
         name: '报告页面',
-        url: 'http://localhost:3007/report/test-task-123',
+        url: 'http://localhost:3006/report/test-task-123',
         metrics: reportMetrics,
       });
 

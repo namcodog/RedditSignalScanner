@@ -82,6 +82,10 @@ describe('API Integration Tests', () => {
       expect(['pending', 'processing', 'completed', 'failed']).toContain(
         statusResponse.status
       );
+      expect(statusResponse).toHaveProperty('sse_endpoint');
+      expect(statusResponse).toHaveProperty('progress');
+      expect(statusResponse).toHaveProperty('percentage');
+      expect(statusResponse).toHaveProperty('message');
 
       console.log('✅ GET /api/status/{task_id} - Success');
       console.log('   Status:', statusResponse.status);
@@ -112,7 +116,7 @@ describe('API Integration Tests', () => {
       // SSE 测试在 Node.js 环境中跳过（EventSource 不可用）
       // 实际的 SSE 功能在浏览器环境中通过 E2E 测试验证
       console.log('✅ GET /api/analyze/stream/{task_id} - Task created, SSE endpoint available');
-      console.log(`   SSE URL: ${import.meta.env.VITE_API_BASE_URL}/api/analyze/stream/${taskId}`);
+      console.log(`   SSE URL: ${createResponse.sse_endpoint}`);
 
       // 验证任务已创建（SSE 端点依赖于任务存在）
       expect(taskId).toBeDefined();
@@ -178,4 +182,3 @@ describe('API Integration Tests', () => {
     });
   });
 });
-

@@ -49,6 +49,12 @@ async def test_get_status_success(client: AsyncClient, db_session: AsyncSession)
     assert data["task_id"] == str(task.id)
     assert data["status"] == TaskStatus.PENDING.value
     assert data["progress"] == 0
+    # 新增字段：用于前端轮询恢复 SSE 连接
+    assert data["sse_endpoint"] == f"{settings.sse_base_path}/{task.id}"
+    # 兼容字段：别名保持一致
+    assert data["percentage"] == 0
+    assert data["message"] == "任务排队中"
+    assert data["current_step"] == "任务排队中"
 
 
 async def test_get_status_forbidden(client: AsyncClient, db_session: AsyncSession) -> None:

@@ -10,8 +10,6 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.routes.admin import _response
-from app.core.auth import require_admin
-from app.core.security import TokenPayload
 from app.db.session import get_session
 from app.models.community_pool import CommunityPool, PendingCommunity
 
@@ -32,7 +30,6 @@ class RejectRequest(BaseModel):
 
 @router.get("/pool", summary="查看社区池")
 async def list_community_pool(
-    _payload: TokenPayload = Depends(require_admin),
     session: AsyncSession = Depends(get_session),
 ) -> dict[str, Any]:
     stmt = select(CommunityPool).order_by(CommunityPool.name.asc())
@@ -63,7 +60,6 @@ async def list_community_pool(
 
 @router.get("/discovered", summary="查看待审核社区")
 async def list_discovered(
-    _payload: TokenPayload = Depends(require_admin),
     session: AsyncSession = Depends(get_session),
 ) -> dict[str, Any]:
     stmt = (
@@ -94,7 +90,6 @@ async def list_discovered(
 @router.post("/approve", summary="批准社区")
 async def approve_community(
     body: ApproveRequest,
-    payload: TokenPayload = Depends(require_admin),
     session: AsyncSession = Depends(get_session),
 ) -> dict[str, Any]:
     # Find pending record
@@ -159,7 +154,6 @@ async def approve_community(
 @router.post("/reject", summary="拒绝社区")
 async def reject_community(
     body: RejectRequest,
-    payload: TokenPayload = Depends(require_admin),
     session: AsyncSession = Depends(get_session),
 ) -> dict[str, Any]:
     pending = await session.scalar(
@@ -190,7 +184,6 @@ async def reject_community(
 @router.delete("/{name:path}", summary="禁用社区")
 async def disable_community(
     name: str = Path(..., min_length=2, max_length=200),
-    _payload: TokenPayload = Depends(require_admin),
     session: AsyncSession = Depends(get_session),
 ) -> dict[str, Any]:
     pool = await session.scalar(select(CommunityPool).where(CommunityPool.name == name))

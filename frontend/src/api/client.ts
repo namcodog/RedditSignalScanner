@@ -29,7 +29,7 @@ export interface ApiClientConfig {
  * 默认配置
  */
 const DEFAULT_CONFIG: ApiClientConfig = {
-  baseURL: import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8006',
+  baseURL: import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8006/api',
   timeout: Number(import.meta.env.VITE_API_TIMEOUT) || 30000,
   withAuth: true,
   withCredentials: false,
@@ -138,7 +138,34 @@ const generateRequestId = (): string => {
 };
 
 /**
- * 统一错误处理
+ * P2: 获取用户友好的错误提示信息
+ */
+const getUserFriendlyErrorMessage = (status: number, data?: ErrorResponse): string => {
+  // 优先使用服务器返回的错误信息
+  if (data?.error?.message) {
+    return data.error.message;
+  }
+
+  // 根据状态码返回友好提示
+  const errorMessages: Record<number, string> = {
+    400: '请求参数有误，请检查后重试',
+    401: '登录已过期，请重新登录',
+    403: '您没有权限执行此操作',
+    404: '请求的资源不存在',
+    409: '操作冲突，请刷新页面后重试',
+    422: '提交的数据格式不正确',
+    429: '请求过于频繁，请稍后重试',
+    500: '服务器内部错误，请稍后重试',
+    502: '网关错误，请稍后重试',
+    503: '服务暂时不可用，请稍后重试',
+    504: '请求超时，请稍后重试',
+  };
+
+  return errorMessages[status] ?? '请求失败，请稍后重试';
+};
+
+/**
+ * 统一错误处理（P2 优化：统一错误提示格式）
  */
 const handleApiError = (error: AxiosError<ErrorResponse>): Promise<never> => {
   // 开发模式详细日志（仅在启用 VITE_LOG_API_REQUESTS 时输出）
@@ -198,11 +225,11 @@ const handleApiError = (error: AxiosError<ErrorResponse>): Promise<never> => {
       console.error('[Server Error] Internal server error');
     }
 
-    // 返回格式化的错误信息
+    // P2: 返回统一格式的错误信息（用户友好提示）
     return Promise.reject({
       status,
       error: data.error,
-      message: data.error?.message ?? '请求失败',
+      message: getUserFriendlyErrorMessage(status, data),
       code: data.error?.code ?? 'UNKNOWN_ERROR',
     });
   } else if (error.request !== undefined) {
@@ -254,7 +281,7 @@ export const wrapApiResponse = <T>(data: T): ApiResponse<T> => {
  */
 export const checkApiHealth = async (): Promise<boolean> => {
   try {
-    const response = await apiClient.get('/health');
+    const response = await apiClient.get('/healthz');
     return response.status === 200;
   } catch {
     return false;

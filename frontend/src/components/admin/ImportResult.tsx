@@ -1,3 +1,5 @@
+import type { CommunityImportResult } from '@/services/admin.service';
+
 /**
  * 导入结果展示组件
  * 
@@ -10,34 +12,8 @@
  * 最后更新: 2025-10-14
  */
 
-interface ImportSummary {
-  total: number;
-  valid: number;
-  invalid: number;
-  duplicates: number;
-  imported: number;
-}
-
-interface ImportError {
-  row: number;
-  field: string;
-  value: string;
-  error: string;
-}
-
-interface ImportResponse {
-  status: 'success' | 'error' | 'validated';
-  summary?: ImportSummary;
-  errors?: ImportError[];
-  communities?: Array<{
-    name: string;
-    tier: string;
-    status: string;
-  }>;
-}
-
 interface ImportResultProps {
-  result: ImportResponse;
+  result: CommunityImportResult;
 }
 
 export default function ImportResult({ result }: ImportResultProps) {
@@ -182,7 +158,7 @@ export default function ImportResult({ result }: ImportResultProps) {
                         {error.field}
                       </td>
                       <td className="px-4 py-2 font-mono text-muted-foreground">
-                        {error.value}
+                        {error.value ?? '—'}
                       </td>
                       <td className="px-4 py-2 text-red-600">
                         {error.error}
@@ -238,4 +214,3 @@ export default function ImportResult({ result }: ImportResultProps) {
     </div>
   );
 }
-

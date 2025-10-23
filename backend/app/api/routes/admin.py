@@ -8,9 +8,7 @@ from fastapi import APIRouter, Depends, Query
 from sqlalchemy import Float, desc, func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.core.auth import require_admin
 from app.core.celery_app import celery_app
-from app.core.security import TokenPayload
 from app.db.session import get_session
 from app.models import Analysis, Task, TaskStatus, User
 
@@ -39,7 +37,6 @@ def _collect_worker_count() -> int:
 
 @router.get("/dashboard/stats", summary="Admin dashboard aggregate metrics")
 async def get_dashboard_stats(
-    _payload: TokenPayload = Depends(require_admin),
     db: AsyncSession = Depends(get_session),
 ) -> dict[str, Any]:
     today_start = datetime.now(timezone.utc).replace(
@@ -91,13 +88,13 @@ async def get_dashboard_stats(
 
 @router.get("/tasks/recent", summary="Recent tasks overview")
 async def get_recent_tasks(
-    _payload: TokenPayload = Depends(require_admin),
     limit: int = Query(50, ge=1, le=200),
     db: AsyncSession = Depends(get_session),
 ) -> dict[str, Any]:
     stmt = (
-        select(Task, User.email)
+        select(Task, User.email, Analysis)
         .join(User, User.id == Task.user_id)
+        .outerjoin(Analysis, Analysis.task_id == Task.id)
         .order_by(desc(Task.created_at))
         .limit(limit)
     )
@@ -105,26 +102,53 @@ async def get_recent_tasks(
     rows = result.all()
 
     items = []
-    for task, email in rows:
-        items.append(
-            {
-                "task_id": task.id,
-                "user_email": email,
-                "status": task.status.value
-                if isinstance(task.status, TaskStatus)
-                else task.status,
-                "created_at": task.created_at,
-                "completed_at": task.completed_at,
-                "processing_seconds": _calculate_processing_seconds(task),
-            }
-        )
+    for task, email, analysis in rows:
+        item = {
+            "task_id": task.id,
+            "user_email": email,
+            "status": task.status.value
+            if isinstance(task.status, TaskStatus)
+            else task.status,
+            "created_at": task.created_at,
+            "completed_at": task.completed_at,
+            "processing_seconds": _calculate_processing_seconds(task),
+        }
+
+        # 添加算法评分数据
+        if analysis is not None:
+            item["confidence_score"] = float(analysis.confidence_score) if analysis.confidence_score else None
+            item["analysis_version"] = analysis.analysis_version
+
+            # 从 sources 中提取关键指标
+            sources = analysis.sources or {}
+            item["posts_analyzed"] = sources.get("posts_analyzed", 0)
+            item["cache_hit_rate"] = sources.get("cache_hit_rate", 0.0)
+            item["communities_count"] = len(sources.get("communities", []))
+            item["reddit_api_calls"] = sources.get("reddit_api_calls", 0)
+
+            # 从 insights 中提取关键指标
+            insights = analysis.insights or {}
+            item["pain_points_count"] = len(insights.get("pain_points", []))
+            item["competitors_count"] = len(insights.get("competitors", []))
+            item["opportunities_count"] = len(insights.get("opportunities", []))
+        else:
+            item["confidence_score"] = None
+            item["analysis_version"] = None
+            item["posts_analyzed"] = 0
+            item["cache_hit_rate"] = 0.0
+            item["communities_count"] = 0
+            item["reddit_api_calls"] = 0
+            item["pain_points_count"] = 0
+            item["competitors_count"] = 0
+            item["opportunities_count"] = 0
+
+        items.append(item)
 
     return _response({"items": items, "total": len(items)})
 
 
 @router.get("/users/active", summary="Active users ranked by recent tasks")
 async def get_active_users(
-    _payload: TokenPayload = Depends(require_admin),
     limit: int = Query(50, ge=1, le=200),
     db: AsyncSession = Depends(get_session),
 ) -> dict[str, Any]:

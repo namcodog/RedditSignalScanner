@@ -48,8 +48,11 @@ def _payload_to_dict(payload: TaskStatusPayload) -> dict[str, object]:
         "task_id": payload.task_id,
         "status": payload.status,
         "progress": payload.progress,
+        "percentage": payload.progress,
         "message": payload.message,
+        "current_step": payload.message,
         "error": payload.error,
+        "error_message": payload.error,
         "updated_at": payload.updated_at,
     }
 

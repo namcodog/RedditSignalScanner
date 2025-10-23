@@ -22,6 +22,9 @@ from app.api.routes import (
     analyze_router,
     auth_router,
     beta_feedback_router,
+    diagnostics_router,
+    insights_router,
+    metrics_router,
     report_router,
     status_router,
     stream_router,
@@ -59,6 +62,9 @@ def create_application(settings: Settings) -> FastAPI:
     api_router.include_router(admin_router)
     api_router.include_router(admin_communities_router)
     api_router.include_router(admin_community_pool_router)
+    api_router.include_router(diagnostics_router)
+    api_router.include_router(insights_router)
+    api_router.include_router(metrics_router)
 
     @api_router.get("/healthz", tags=["health"])
     def health_check() -> dict[str, str]:

@@ -45,13 +45,20 @@ async def _schedule_analysis(task_id: uuid.UUID, settings: Settings) -> None:
             settings.environment,
             task_id,
         )
+        # 将耗时的分析流程放到独立线程+专用事件循环中执行，避免与 FastAPI 事件循环竞争导致状态滞后
+        # 这样可以确保在高并发测试场景下，失败/完成状态能在几秒内稳定落库
         loop = asyncio.get_running_loop()
 
-        async def inline_runner() -> None:
-            from app.tasks.analysis_task import FinalRetryExhausted, TaskNotFoundError
+        def _runner_sync() -> None:
+            from app.tasks.analysis_task import (
+                FinalRetryExhausted,
+                TaskNotFoundError,
+                execute_analysis_pipeline as _exec,
+                _run_async as _run,
+            )
 
             try:
-                await execute_analysis_pipeline(task_id)
+                _run(_exec(task_id))
             except FinalRetryExhausted as exc:
                 logger.error(
                     "Inline analysis task %s failed after retries: %s", task_id, exc
@@ -65,7 +72,7 @@ async def _schedule_analysis(task_id: uuid.UUID, settings: Settings) -> None:
                     "Inline analysis task %s encountered an unexpected error.", task_id
                 )
 
-        loop.create_task(inline_runner())
+        loop.run_in_executor(None, _runner_sync)
         return
 
     try:
@@ -125,11 +132,16 @@ async def create_analysis_task(
         product_description=request.product_description,
     )
 
+    # 减少创建延迟：避免多余的 refresh()，并使用 AUTOCOMMIT 降低高并发下的事务竞争
     db.add(new_task)
+    try:
+        await db.connection(execution_options={"isolation_level": "AUTOCOMMIT"})
+    except Exception:
+        # 在某些驱动/会话实现下不支持该选项，忽略即可
+        pass
     await db.commit()
-    await db.refresh(new_task)
 
-    created_at = _ensure_utc(new_task.created_at or datetime.now(timezone.utc))
+    created_at = _ensure_utc(getattr(new_task, "created_at", None) or datetime.now(timezone.utc))
     estimated_completion = created_at + timedelta(
         minutes=settings.estimated_processing_minutes
     )

@@ -26,7 +26,9 @@ export {
   getTaskStatus,
   getAnalysisReport,
   pollTaskUntilComplete,
+  submitBetaFeedback,
 } from './analyze.api';
+export type { BetaFeedbackRequest, BetaFeedbackResponse } from './analyze.api';
 
 // 认证 API
 export {

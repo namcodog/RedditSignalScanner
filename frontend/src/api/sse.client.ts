@@ -19,6 +19,57 @@ import type {
   SSEEventHandler,
 } from '@/types';
 
+const DEFAULT_API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8006/api';
+const DEFAULT_SSE_PATH = '/analyze/stream';
+
+const trimSlashes = (value: string): string => value.replace(/^\/+/, '').replace(/\/+$/, '');
+
+const parseBaseUrl = (
+  rawBaseUrl: string,
+): { origin: string; pathSegments: string[] } => {
+  try {
+    const parsed = new URL(rawBaseUrl);
+    const path = trimSlashes(parsed.pathname);
+    return {
+      origin: parsed.origin,
+      pathSegments: path ? path.split('/') : [],
+    };
+  } catch {
+    const fallbackOrigin =
+      typeof window !== 'undefined' && window.location?.origin
+        ? window.location.origin
+        : 'http://localhost:8006';
+    const path = trimSlashes(rawBaseUrl);
+    return {
+      origin: fallbackOrigin,
+      pathSegments: path ? path.split('/') : [],
+    };
+  }
+};
+
+const resolveSseUrl = (taskId: string, sseEndpoint?: string): string => {
+  const base = parseBaseUrl(DEFAULT_API_BASE_URL);
+
+  if (sseEndpoint && sseEndpoint.trim().length > 0) {
+    if (/^https?:\/\//i.test(sseEndpoint)) {
+      return sseEndpoint;
+    }
+    const normalised = sseEndpoint.startsWith('/')
+      ? sseEndpoint
+      : `/${sseEndpoint}`;
+    return `${base.origin}${normalised}`;
+  }
+
+  const segments = [
+    ...base.pathSegments,
+    trimSlashes(DEFAULT_SSE_PATH),
+    trimSlashes(taskId),
+  ].filter((segment) => segment.length > 0);
+
+  const path = segments.join('/');
+  return `${base.origin}/${path}`;
+};
+
 /**
  * SSE 客户端类
  */
@@ -257,11 +308,11 @@ export const createSSEClient = (config: SSEClientConfig): SSEClient => {
 export const createTaskProgressSSE = (
   taskId: string,
   onEvent: SSEEventHandler,
-  onStatusChange?: (status: SSEConnectionStatus) => void
+  onStatusChange?: (status: SSEConnectionStatus) => void,
+  sseEndpoint?: string
 ): SSEClient => {
-  const baseURL = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8000';
   const config: SSEClientConfig = {
-    url: `${baseURL}/api/analyze/stream/${taskId}`,
+    url: resolveSseUrl(taskId, sseEndpoint),
     reconnectInterval: 3000,
     maxReconnectAttempts: 5,
     heartbeatTimeout: 30000,
