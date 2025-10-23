@@ -28,11 +28,11 @@ async def test_unit_list_endpoints_cover_lines(db_session: AsyncSession) -> None
     payload = TokenPayload(sub=str(uuid.uuid4()))
 
     # Should execute query and return empty items
-    body1 = await list_community_pool(_payload=payload, session=db_session)
+    body1 = await list_community_pool(payload=payload, session=db_session)
     assert body1["code"] == 0
     assert isinstance(body1["data"]["items"], list)
 
-    body2 = await list_discovered(_payload=payload, session=db_session)
+    body2 = await list_discovered(payload=payload, session=db_session)
     assert body2["code"] == 0
     assert isinstance(body2["data"]["items"], list)
 
@@ -79,7 +79,7 @@ async def test_unit_error_branches_approve_and_reject(db_session: AsyncSession) 
 async def test_unit_disable_community_404(db_session: AsyncSession) -> None:
     payload = TokenPayload(sub=str(uuid.uuid4()))
     with pytest.raises(Exception):
-        await disable_community(name="r/not_exist", _payload=payload, session=db_session)
+        await disable_community(name="r/not_exist", payload=payload, session=db_session)
 
 
 
@@ -166,7 +166,7 @@ async def test_unit_disable_success_flow(db_session: AsyncSession) -> None:
     db_session.add(pool)
     await db_session.commit()
 
-    body = await disable_community(name="r/unit_disable", _payload=good_payload, session=db_session)
+    body = await disable_community(name="r/unit_disable", payload=good_payload, session=db_session)
     assert body["code"] == 0
     db_session.expire_all()
     stored = (
