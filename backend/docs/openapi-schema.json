@@ -1,0 +1,2051 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Reddit Signal Scanner",
+    "description": "Reddit Signal Scanner API (Phase 1/2 implementation)",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/api/auth/register": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Create a new account and receive an access token",
+        "operationId": "register_user_api_auth_register_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthTokenResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/login": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Authenticate existing user and receive an access token",
+        "operationId": "login_user_api_auth_login_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthTokenResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/me": {
+      "get": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Get current authenticated user",
+        "operationId": "get_current_user_me_api_auth_me_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthUser"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/analyze": {
+      "post": {
+        "tags": [
+          "analysis"
+        ],
+        "summary": "Create analysis task",
+        "operationId": "create_analysis_task_api_analyze_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskCreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskCreateResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/status/{task_id}": {
+      "get": {
+        "tags": [
+          "status"
+        ],
+        "summary": "获取任务状态（缓存优先）",
+        "operationId": "get_task_status_api_status__task_id__get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "task_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Task Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskStatusSnapshot"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/analyze/stream/{task_id}": {
+      "get": {
+        "tags": [
+          "analysis"
+        ],
+        "summary": "Task streaming progress (SSE)",
+        "operationId": "stream_task_progress_api_analyze_stream__task_id__get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "task_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Task Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/report/{task_id}": {
+      "options": {
+        "tags": [
+          "analysis"
+        ],
+        "summary": "Options Analysis Report",
+        "operationId": "options_analysis_report_api_report__task_id__options",
+        "parameters": [
+          {
+            "name": "task_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Task Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "analysis"
+        ],
+        "summary": "Fetch completed analysis report",
+        "operationId": "get_analysis_report_api_report__task_id__get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "task_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Task Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Response Get Analysis Report Api Report  Task Id  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/tasks/stats": {
+      "get": {
+        "tags": [
+          "tasks"
+        ],
+        "summary": "获取任务队列统计信息",
+        "description": "Return aggregate Celery worker statistics to support operational dashboards.",
+        "operationId": "get_task_stats_api_tasks_stats_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskStatsResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/tasks/diag": {
+      "get": {
+        "tags": [
+          "tasks"
+        ],
+        "summary": "运行时配置诊断",
+        "operationId": "tasks_diag_api_tasks_diag_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "boolean"
+                      }
+                    ]
+                  },
+                  "type": "object",
+                  "title": "Response Tasks Diag Api Tasks Diag Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/beta/feedback": {
+      "post": {
+        "tags": [
+          "beta"
+        ],
+        "summary": "Submit Beta Feedback",
+        "description": "Submit beta tester feedback (PRD-09 Day 17-18).\n\nRequires authentication. Validates that the task exists and belongs to the user.",
+        "operationId": "submit_beta_feedback_api_beta_feedback_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BetaFeedbackCreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Response Submit Beta Feedback Api Beta Feedback Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/admin/beta/feedback": {
+      "get": {
+        "tags": [
+          "admin"
+        ],
+        "summary": "List beta feedback",
+        "operationId": "list_beta_feedback_api_admin_beta_feedback_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Response List Beta Feedback Api Admin Beta Feedback Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/dashboard/stats": {
+      "get": {
+        "tags": [
+          "admin"
+        ],
+        "summary": "Admin dashboard aggregate metrics",
+        "operationId": "get_dashboard_stats_api_admin_dashboard_stats_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Response Get Dashboard Stats Api Admin Dashboard Stats Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/tasks/recent": {
+      "get": {
+        "tags": [
+          "admin"
+        ],
+        "summary": "Recent tasks overview",
+        "operationId": "get_recent_tasks_api_admin_tasks_recent_get",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 200,
+              "minimum": 1,
+              "default": 50,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Response Get Recent Tasks Api Admin Tasks Recent Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/users/active": {
+      "get": {
+        "tags": [
+          "admin"
+        ],
+        "summary": "Active users ranked by recent tasks",
+        "operationId": "get_active_users_api_admin_users_active_get",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 200,
+              "minimum": 1,
+              "default": 50,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Response Get Active Users Api Admin Users Active Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/communities/summary": {
+      "get": {
+        "tags": [
+          "admin"
+        ],
+        "summary": "获取社区验收列表",
+        "description": "获取社区验收列表（真实数据）\n\n从 community_cache 表读取社区数据，计算 C-Score 和状态灯号",
+        "operationId": "get_communities_summary_api_admin_communities_summary_get",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "搜索关键词",
+              "title": "Q"
+            },
+            "description": "搜索关键词"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "状态筛选: green|yellow|red",
+              "title": "Status"
+            },
+            "description": "状态筛选: green|yellow|red"
+          },
+          {
+            "name": "tag",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "标签筛选",
+              "title": "Tag"
+            },
+            "description": "标签筛选"
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "排序: cscore_desc|hit_desc",
+              "default": "cscore_desc",
+              "title": "Sort"
+            },
+            "description": "排序: cscore_desc|hit_desc"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "description": "页码",
+              "default": 1,
+              "title": "Page"
+            },
+            "description": "页码"
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 200,
+              "minimum": 1,
+              "description": "每页数量",
+              "default": 50,
+              "title": "Page Size"
+            },
+            "description": "每页数量"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Response Get Communities Summary Api Admin Communities Summary Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/communities/template": {
+      "get": {
+        "tags": [
+          "admin"
+        ],
+        "summary": "下载社区导入 Excel 模板",
+        "operationId": "download_template_api_admin_communities_template_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/communities/import": {
+      "post": {
+        "tags": [
+          "admin"
+        ],
+        "summary": "上传并导入社区信息",
+        "operationId": "import_communities_api_admin_communities_import_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "dry_run",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "description": "true=仅验证，false=验证并导入",
+              "default": false,
+              "title": "Dry Run"
+            },
+            "description": "true=仅验证，false=验证并导入"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_import_communities_api_admin_communities_import_post"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Response Import Communities Api Admin Communities Import Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/communities/import-history": {
+      "get": {
+        "tags": [
+          "admin"
+        ],
+        "summary": "查询社区导入历史",
+        "operationId": "get_import_history_api_admin_communities_import_history_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Response Get Import History Api Admin Communities Import History Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/communities/pool": {
+      "get": {
+        "tags": [
+          "admin"
+        ],
+        "summary": "查看社区池",
+        "operationId": "list_community_pool_api_admin_communities_pool_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Response List Community Pool Api Admin Communities Pool Get"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/admin/communities/discovered": {
+      "get": {
+        "tags": [
+          "admin"
+        ],
+        "summary": "查看待审核社区",
+        "operationId": "list_discovered_api_admin_communities_discovered_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Response List Discovered Api Admin Communities Discovered Get"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/admin/communities/approve": {
+      "post": {
+        "tags": [
+          "admin"
+        ],
+        "summary": "批准社区",
+        "operationId": "approve_community_api_admin_communities_approve_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApproveRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Response Approve Community Api Admin Communities Approve Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/admin/communities/reject": {
+      "post": {
+        "tags": [
+          "admin"
+        ],
+        "summary": "拒绝社区",
+        "operationId": "reject_community_api_admin_communities_reject_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RejectRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Response Reject Community Api Admin Communities Reject Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/admin/communities/{name}": {
+      "delete": {
+        "tags": [
+          "admin"
+        ],
+        "summary": "禁用社区",
+        "operationId": "disable_community_api_admin_communities__name__delete",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 2,
+              "maxLength": 200,
+              "title": "Name"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Response Disable Community Api Admin Communities  Name  Delete"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/diag/runtime": {
+      "get": {
+        "tags": [
+          "health"
+        ],
+        "summary": "Runtime Diag",
+        "operationId": "runtime_diag_api_diag_runtime_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "boolean"
+                      }
+                    ]
+                  },
+                  "type": "object",
+                  "title": "Response Runtime Diag Api Diag Runtime Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/insights": {
+      "get": {
+        "tags": [
+          "insights"
+        ],
+        "summary": "获取洞察卡片列表",
+        "description": "根据任务 ID 或实体过滤器获取洞察卡片列表",
+        "operationId": "get_insights_api_insights_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "task_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "任务 ID",
+              "title": "Task Id"
+            },
+            "description": "任务 ID"
+          },
+          {
+            "name": "entity_filter",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "实体过滤器（暂未实现）",
+              "title": "Entity Filter"
+            },
+            "description": "实体过滤器（暂未实现）"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "description": "每页数量",
+              "default": 10,
+              "title": "Limit"
+            },
+            "description": "每页数量"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "偏移量",
+              "default": 0,
+              "title": "Offset"
+            },
+            "description": "偏移量"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InsightCardListResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/insights/{insight_id}": {
+      "get": {
+        "tags": [
+          "insights"
+        ],
+        "summary": "获取单个洞察卡片",
+        "description": "根据洞察卡片 ID 获取详细信息",
+        "operationId": "get_insight_api_insights__insight_id__get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "insight_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Insight Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InsightCardResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/metrics": {
+      "get": {
+        "tags": [
+          "metrics"
+        ],
+        "summary": "Get Quality Metrics",
+        "description": "获取质量指标\n\nArgs:\n    start_date: 开始日期（默认为 7 天前）\n    end_date: 结束日期（默认为今天）\n    db: 数据库会话\n\nReturns:\n    List[QualityMetricsResponse]: 质量指标列表\n\nExample:\n    GET /api/metrics\n    GET /api/metrics?start_date=2025-10-15&end_date=2025-10-21",
+        "operationId": "get_quality_metrics_api_metrics_get",
+        "parameters": [
+          {
+            "name": "start_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "开始日期（默认为 7 天前）",
+              "title": "Start Date"
+            },
+            "description": "开始日期（默认为 7 天前）"
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "结束日期（默认为今天）",
+              "title": "End Date"
+            },
+            "description": "结束日期（默认为今天）"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/QualityMetricsResponse"
+                  },
+                  "title": "Response Get Quality Metrics Api Metrics Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/healthz": {
+      "get": {
+        "tags": [
+          "health"
+        ],
+        "summary": "Health Check",
+        "operationId": "health_check_api_healthz_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "type": "object",
+                  "title": "Response Health Check Api Healthz Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/": {
+      "get": {
+        "tags": [
+          "root"
+        ],
+        "summary": "Root",
+        "description": "API 根路径 - 返回服务信息和可用端点",
+        "operationId": "root__get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "items": {
+                          "type": "string"
+                        },
+                        "type": "array"
+                      }
+                    ]
+                  },
+                  "type": "object",
+                  "title": "Response Root  Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ApproveRequest": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 2,
+            "title": "Name"
+          },
+          "tier": {
+            "type": "string",
+            "maxLength": 20,
+            "minLength": 3,
+            "title": "Tier",
+            "default": "medium"
+          },
+          "categories": {
+            "anyOf": [
+              {
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Categories"
+          },
+          "admin_notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Admin Notes"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "title": "ApproveRequest"
+      },
+      "AuthTokenResponse": {
+        "properties": {
+          "access_token": {
+            "type": "string",
+            "title": "Access Token"
+          },
+          "token_type": {
+            "type": "string",
+            "title": "Token Type",
+            "default": "bearer"
+          },
+          "expires_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Expires At"
+          },
+          "user": {
+            "$ref": "#/components/schemas/AuthUser"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "access_token",
+          "expires_at",
+          "user"
+        ],
+        "title": "AuthTokenResponse"
+      },
+      "AuthUser": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "title": "Email"
+          },
+          "membership_level": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/MembershipLevel"
+              }
+            ],
+            "default": "free"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "email"
+        ],
+        "title": "AuthUser"
+      },
+      "BetaFeedbackCreate": {
+        "properties": {
+          "task_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Task Id",
+            "description": "Task ID for which feedback is provided"
+          },
+          "satisfaction": {
+            "type": "integer",
+            "maximum": 5.0,
+            "minimum": 1.0,
+            "title": "Satisfaction",
+            "description": "Satisfaction rating (1-5)"
+          },
+          "missing_communities": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Missing Communities",
+            "description": "List of missing community names"
+          },
+          "comments": {
+            "type": "string",
+            "title": "Comments",
+            "description": "Additional comments",
+            "default": ""
+          }
+        },
+        "type": "object",
+        "required": [
+          "task_id",
+          "satisfaction"
+        ],
+        "title": "BetaFeedbackCreate",
+        "description": "Schema for creating beta feedback."
+      },
+      "Body_import_communities_api_admin_communities_import_post": {
+        "properties": {
+          "file": {
+            "type": "string",
+            "format": "binary",
+            "title": "File",
+            "description": "Excel 模板文件（.xlsx）"
+          }
+        },
+        "type": "object",
+        "required": [
+          "file"
+        ],
+        "title": "Body_import_communities_api_admin_communities_import_post"
+      },
+      "EvidenceResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id",
+            "description": "证据 ID"
+          },
+          "post_url": {
+            "type": "string",
+            "maxLength": 500,
+            "title": "Post Url",
+            "description": "原帖 URL"
+          },
+          "excerpt": {
+            "type": "string",
+            "title": "Excerpt",
+            "description": "摘录内容"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Timestamp",
+            "description": "帖子时间戳"
+          },
+          "subreddit": {
+            "type": "string",
+            "maxLength": 100,
+            "title": "Subreddit",
+            "description": "子版块名称"
+          },
+          "score": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Score",
+            "description": "证据分数 (0.0-1.0)"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "post_url",
+          "excerpt",
+          "timestamp",
+          "subreddit",
+          "score"
+        ],
+        "title": "EvidenceResponse",
+        "description": "证据响应 Schema"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "InsightCardListResponse": {
+        "properties": {
+          "total": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Total",
+            "description": "总数"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/InsightCardResponse"
+            },
+            "type": "array",
+            "title": "Items",
+            "description": "洞察卡片列表"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "total"
+        ],
+        "title": "InsightCardListResponse",
+        "description": "洞察卡片列表响应 Schema"
+      },
+      "InsightCardResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id",
+            "description": "洞察卡片 ID"
+          },
+          "task_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Task Id",
+            "description": "关联的分析任务 ID"
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 500,
+            "title": "Title",
+            "description": "洞察卡片标题"
+          },
+          "summary": {
+            "type": "string",
+            "title": "Summary",
+            "description": "洞察摘要"
+          },
+          "confidence": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Confidence",
+            "description": "置信度分数 (0.0-1.0)"
+          },
+          "time_window_days": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Time Window Days",
+            "description": "时间窗口（天数）"
+          },
+          "subreddits": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Subreddits",
+            "description": "相关子版块列表"
+          },
+          "evidences": {
+            "items": {
+              "$ref": "#/components/schemas/EvidenceResponse"
+            },
+            "type": "array",
+            "title": "Evidences",
+            "description": "证据列表"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At",
+            "description": "创建时间"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At",
+            "description": "更新时间"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "task_id",
+          "title",
+          "summary",
+          "confidence",
+          "time_window_days",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "InsightCardResponse",
+        "description": "洞察卡片响应 Schema"
+      },
+      "LoginRequest": {
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email",
+            "title": "Email"
+          },
+          "password": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Password"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "email",
+          "password"
+        ],
+        "title": "LoginRequest"
+      },
+      "MembershipLevel": {
+        "type": "string",
+        "enum": [
+          "free",
+          "pro",
+          "enterprise"
+        ],
+        "title": "MembershipLevel",
+        "description": "Enumerated membership tiers available to end users."
+      },
+      "QualityMetricsResponse": {
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date",
+            "title": "Date"
+          },
+          "collection_success_rate": {
+            "type": "number",
+            "title": "Collection Success Rate"
+          },
+          "deduplication_rate": {
+            "type": "number",
+            "title": "Deduplication Rate"
+          },
+          "processing_time_p50": {
+            "type": "number",
+            "title": "Processing Time P50"
+          },
+          "processing_time_p95": {
+            "type": "number",
+            "title": "Processing Time P95"
+          }
+        },
+        "type": "object",
+        "required": [
+          "date",
+          "collection_success_rate",
+          "deduplication_rate",
+          "processing_time_p50",
+          "processing_time_p95"
+        ],
+        "title": "QualityMetricsResponse",
+        "description": "质量指标响应模型"
+      },
+      "RegisterRequest": {
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email",
+            "title": "Email"
+          },
+          "password": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 8,
+            "title": "Password"
+          },
+          "membership_level": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/MembershipLevel"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "email",
+          "password"
+        ],
+        "title": "RegisterRequest"
+      },
+      "RejectRequest": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 2,
+            "title": "Name"
+          },
+          "admin_notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Admin Notes"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "title": "RejectRequest"
+      },
+      "TaskCreate": {
+        "properties": {
+          "product_description": {
+            "type": "string",
+            "maxLength": 2000,
+            "minLength": 10,
+            "title": "Product Description"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "product_description"
+        ],
+        "title": "TaskCreate"
+      },
+      "TaskCreateResponse": {
+        "properties": {
+          "task_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Task Id"
+          },
+          "status": {
+            "$ref": "#/components/schemas/TaskStatus"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "estimated_completion": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Estimated Completion"
+          },
+          "sse_endpoint": {
+            "type": "string",
+            "title": "Sse Endpoint"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "task_id",
+          "status",
+          "created_at",
+          "estimated_completion",
+          "sse_endpoint"
+        ],
+        "title": "TaskCreateResponse"
+      },
+      "TaskStatsResponse": {
+        "properties": {
+          "active_workers": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Active Workers",
+            "description": "Number of active Celery workers"
+          },
+          "active_tasks": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Active Tasks",
+            "description": "Count of tasks currently executing"
+          },
+          "reserved_tasks": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Reserved Tasks",
+            "description": "Count of tasks reserved by workers"
+          },
+          "scheduled_tasks": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Scheduled Tasks",
+            "description": "Count of tasks scheduled for later execution"
+          },
+          "total_tasks": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Total Tasks",
+            "description": "Aggregate of active, reserved, and scheduled tasks"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "active_workers",
+          "active_tasks",
+          "reserved_tasks",
+          "scheduled_tasks",
+          "total_tasks"
+        ],
+        "title": "TaskStatsResponse",
+        "description": "Celery task queue statistics."
+      },
+      "TaskStatus": {
+        "type": "string",
+        "enum": [
+          "pending",
+          "processing",
+          "completed",
+          "failed"
+        ],
+        "title": "TaskStatus"
+      },
+      "TaskStatusSnapshot": {
+        "properties": {
+          "task_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Task Id"
+          },
+          "status": {
+            "$ref": "#/components/schemas/TaskStatus"
+          },
+          "progress": {
+            "type": "integer",
+            "maximum": 100.0,
+            "minimum": 0.0,
+            "title": "Progress"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Error"
+          },
+          "percentage": {
+            "type": "integer",
+            "maximum": 100.0,
+            "minimum": 0.0,
+            "title": "Percentage"
+          },
+          "current_step": {
+            "type": "string",
+            "title": "Current Step"
+          },
+          "sse_endpoint": {
+            "type": "string",
+            "title": "Sse Endpoint"
+          },
+          "retry_count": {
+            "type": "integer",
+            "title": "Retry Count",
+            "default": 0
+          },
+          "failure_category": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Failure Category"
+          },
+          "last_retry_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Retry At"
+          },
+          "dead_letter_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Dead Letter At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "task_id",
+          "status",
+          "progress",
+          "message",
+          "percentage",
+          "current_step",
+          "sse_endpoint",
+          "updated_at"
+        ],
+        "title": "TaskStatusSnapshot"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      }
+    },
+    "securitySchemes": {
+      "HTTPBearer": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}

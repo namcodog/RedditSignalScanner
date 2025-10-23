@@ -15,7 +15,8 @@
     "format:check": "prettier --check \"src/**/*.{ts,tsx,json,css,md}\"",
     "test": "vitest",
     "test:ui": "vitest --ui",
-    "test:coverage": "vitest --coverage"
+    "test:coverage": "vitest --coverage",
+    "generate:api": "node scripts/generate-api-client.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
@@ -49,6 +50,7 @@
     "eslint-plugin-react-refresh": "^0.4.5",
     "jsdom": "^27.0.0",
     "msw": "^2.11.5",
+    "openapi-typescript-codegen": "^0.25.0",
     "postcss": "^8.4.35",
     "prettier": "^3.1.1",
     "tailwindcss": "^3.4.3",

@@ -199,7 +199,55 @@ jobs:
           cd frontend
           npm run build
   
-  # 任务 4: 安全扫描（可选）
+  # 任务 4: API 契约测试
+  contract-tests:
+    name: API Contract Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      # 1. 检出代码
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2. 设置 Python 环境
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      # 3. 缓存 Python 依赖
+      - name: Cache Python dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/pip
+            backend/.venv
+          key: ${{ runner.os }}-pip-contract-${{ hashFiles('backend/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-contract-
+            ${{ runner.os }}-pip-
+
+      # 4. 安装依赖
+      - name: Install dependencies
+        working-directory: backend
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      # 5. 检测 Breaking Changes
+      - name: Check for Breaking Changes
+        working-directory: backend
+        run: |
+          python scripts/check_breaking_changes.py
+
+      # 6. 运行 Property-based 测试（可选，耗时较长）
+      # - name: Run Schemathesis Tests
+      #   working-directory: backend
+      #   run: |
+      #     python scripts/test_contract.py
+
+  # 任务 5: 安全扫描（可选）
   security-scan:
     name: Security Scan
     runs-on: ubuntu-latest
@@ -210,7 +258,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      
+
       # 扫描依赖漏洞
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
@@ -219,7 +267,7 @@ jobs:
           scan-ref: '.'
           format: 'sarif'
           output: 'trivy-results.sarif'
-      
+
       # 上传扫描结果到 GitHub Security
       - name: Upload Trivy results to GitHub Security
         uses: github/codeql-action/upload-sarif@v3

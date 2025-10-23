@@ -6,8 +6,9 @@
 .PHONY: kill-ports kill-backend-port kill-frontend-port kill-celery kill-redis
 .PHONY: restart-backend restart-frontend restart-all
 .PHONY: status check-services check-python
-.PHONY: test test-backend test-frontend test-all test-e2e test-admin-e2e
+.PHONY: test test-backend test-frontend test-all test-e2e test-admin-e2e test-contract
 .PHONY: test-fix test-clean test-diagnose test-kill-pytest
+.PHONY: update-api-schema generate-api-client
 .PHONY: celery-start celery-stop celery-restart celery-verify celery-seed celery-seed-unique celery-purge
 .PHONY: celery-test celery-mypy celery-logs
 .PHONY: warmup-start warmup-stop warmup-status warmup-logs warmup-restart
@@ -83,6 +84,7 @@ help: ## 显示所有可用命令
 	@echo "  make test-backend       运行后端测试"
 	@echo "  make test-frontend      运行前端测试"
 	@echo "  make test-e2e           运行端到端测试"
+	@echo "  make test-contract      运行 API 契约测试"
 	@echo "  make test-admin-e2e     验证Admin后台端到端流程（需配置ADMIN_EMAILS）"
 	@echo ""
 	@echo "✅ Phase 1-3 验证（Day 13-20 预热期）："
@@ -457,6 +459,29 @@ clean-e2e-snapshots: ## 清理 E2E 失败快照
 	@echo "==> Cleaning E2E failure snapshots ..."
 	@rm -rf reports/failed_e2e/*
 	@echo "==> E2E snapshots cleaned."
+
+# ============================================================
+# API 契约测试
+# ============================================================
+
+test-contract: ## 运行 API 契约测试（schema 验证 + breaking changes 检测）
+	@echo "==> Running API contract tests ..."
+	@echo ""
+	@echo "📝 Step 1: 检测 Breaking Changes"
+	@cd $(BACKEND_DIR) && python scripts/check_breaking_changes.py
+	@echo ""
+	@echo "✅ API 契约测试完成"
+	@echo ""
+	@echo "💡 提示: Property-based 测试（schemathesis）需要较长时间，已跳过"
+	@echo "   如需运行完整测试，请执行: cd backend && python scripts/test_contract.py"
+
+update-api-schema: ## 更新 OpenAPI schema 基线（当 API 有意变更时使用）
+	@echo "==> Updating OpenAPI schema baseline ..."
+	@cd $(BACKEND_DIR) && $(PYTHON) scripts/update_baseline_schema.py
+
+generate-api-client: ## 生成前端 TypeScript API 客户端
+	@echo "==> Generating TypeScript API client ..."
+	@cd $(FRONTEND_DIR) && npm run generate:api
 
 
 test-admin-e2e: ## 运行Admin端到端测试（需运行Redis/Celery/Backend并配置ADMIN_EMAILS）
