@@ -134,6 +134,7 @@ async def import_communities(
     file: UploadFile = File(..., description="Excel 模板文件（.xlsx）"),
     dry_run: bool = Query(False, description="true=仅验证，false=验证并导入"),
     session: AsyncSession = Depends(get_session),
+    payload: TokenPayload = Depends(require_admin),
 ) -> dict[str, object]:
     if not file.filename:
         raise HTTPException(
