@@ -11,6 +11,8 @@ from sqlalchemy import desc, func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.routes.admin import _response
+from app.core.auth import require_admin
+from app.core.security import TokenPayload
 from app.db.session import get_session
 from app.models.community_cache import CommunityCache
 from app.services.community_import_service import CommunityImportService
