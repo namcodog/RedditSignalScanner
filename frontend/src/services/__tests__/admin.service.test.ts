@@ -95,8 +95,7 @@ describe('admin.service', () => {
 
     it('应该支持查询参数', async () => {
       const params = {
-        page: 1,
-        page_size: 10,
+        limit: 10,
       };
 
       vi.mocked(client.apiClient.get).mockResolvedValue({ data: { data: { items: [], total: 0 } } });
@@ -213,10 +212,10 @@ describe('admin.service', () => {
           onUploadProgress: expect.any(Function),
         })
       );
-      const callConfig = vi.mocked(client.apiClient.post).mock.calls[0][2] as {
-        onUploadProgress?: (event: ProgressEvent) => void;
-      };
-      callConfig?.onUploadProgress?.({ loaded: 50, total: 100 } as ProgressEvent);
+      const callConfig = vi.mocked(client.apiClient.post).mock.calls[0]?.[2];
+      if (callConfig && 'onUploadProgress' in callConfig && callConfig.onUploadProgress) {
+        callConfig.onUploadProgress({ loaded: 50, total: 100, lengthComputable: true } as any);
+      }
       expect(progressSpy).toHaveBeenCalledWith(50);
       expect(result).toEqual(mockResponse);
     });
