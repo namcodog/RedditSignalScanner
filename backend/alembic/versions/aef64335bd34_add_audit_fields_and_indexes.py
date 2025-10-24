@@ -72,23 +72,19 @@ def upgrade() -> None:
         ondelete="SET NULL",
     )
 
-    op.create_index(
-        "idx_community_pool_categories_gin",
-        "community_pool",
-        ["categories"],
-        postgresql_using="gin",
-    )
-    op.create_index(
-        "idx_community_pool_keywords_gin",
-        "community_pool",
-        ["description_keywords"],
-        postgresql_using="gin",
-    )
-    op.create_index(
-        "idx_community_pool_deleted_at",
-        "community_pool",
-        ["deleted_at"],
-    )
+    # Create GIN indexes with IF NOT EXISTS
+    op.execute("""
+        CREATE INDEX IF NOT EXISTS idx_community_pool_categories_gin
+        ON community_pool USING gin (categories)
+    """)
+    op.execute("""
+        CREATE INDEX IF NOT EXISTS idx_community_pool_keywords_gin
+        ON community_pool USING gin (description_keywords)
+    """)
+    op.execute("""
+        CREATE INDEX IF NOT EXISTS idx_community_pool_deleted_at
+        ON community_pool (deleted_at)
+    """)
 
     # --- pending_communities ---
     op.add_column(
@@ -167,26 +163,23 @@ def upgrade() -> None:
         ondelete="SET NULL",
     )
 
-    op.create_index(
-        "idx_pending_communities_task_id",
-        "pending_communities",
-        ["discovered_from_task_id"],
-    )
-    op.create_index(
-        "idx_pending_communities_reviewed_by",
-        "pending_communities",
-        ["reviewed_by"],
-    )
-    op.create_index(
-        "idx_pending_communities_status",
-        "pending_communities",
-        ["status"],
-    )
-    op.create_index(
-        "idx_pending_communities_deleted_at",
-        "pending_communities",
-        ["deleted_at"],
-    )
+    # Create indexes with IF NOT EXISTS to avoid conflicts with existing indexes
+    op.execute("""
+        CREATE INDEX IF NOT EXISTS idx_pending_communities_task_id
+        ON pending_communities (discovered_from_task_id)
+    """)
+    op.execute("""
+        CREATE INDEX IF NOT EXISTS idx_pending_communities_reviewed_by
+        ON pending_communities (reviewed_by)
+    """)
+    op.execute("""
+        CREATE INDEX IF NOT EXISTS idx_pending_communities_status
+        ON pending_communities (status)
+    """)
+    op.execute("""
+        CREATE INDEX IF NOT EXISTS idx_pending_communities_deleted_at
+        ON pending_communities (deleted_at)
+    """)
 
     # --- community_import_history ---
     op.alter_column(
@@ -220,16 +213,15 @@ def upgrade() -> None:
         ["id"],
         ondelete="SET NULL",
     )
-    op.create_index(
-        "idx_community_import_history_uploaded_by",
-        "community_import_history",
-        ["uploaded_by_user_id"],
-    )
-    op.create_index(
-        "idx_community_import_history_created_at",
-        "community_import_history",
-        ["created_at"],
-    )
+    # Create indexes with IF NOT EXISTS
+    op.execute("""
+        CREATE INDEX IF NOT EXISTS idx_community_import_history_uploaded_by
+        ON community_import_history (uploaded_by_user_id)
+    """)
+    op.execute("""
+        CREATE INDEX IF NOT EXISTS idx_community_import_history_created_at
+        ON community_import_history (created_at)
+    """)
 
     # --- posts_raw primary key adjustment ---
     op.execute("UPDATE posts_raw SET id = nextval('posts_raw_id_seq') WHERE id IS NULL")
@@ -262,12 +254,11 @@ def upgrade() -> None:
         "posts_hot",
         ["source", "source_post_id"],
     )
-    op.create_index(
-        "idx_posts_hot_metadata_gin",
-        "posts_hot",
-        ["metadata"],
-        postgresql_using="gin",
-    )
+    # Create GIN index with IF NOT EXISTS
+    op.execute("""
+        CREATE INDEX IF NOT EXISTS idx_posts_hot_metadata_gin
+        ON posts_hot USING gin (metadata)
+    """)
 
     # clean default now that existing rows populated
     op.alter_column(
