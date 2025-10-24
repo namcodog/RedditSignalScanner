@@ -368,33 +368,45 @@ def reset_database() -> None:
         cursor.execute(
             "UPDATE crawl_metrics SET created_at = CURRENT_TIMESTAMP WHERE created_at IS NULL"
         )
-        cursor.execute(
-            "ALTER TABLE posts_hot DROP CONSTRAINT IF EXISTS posts_hot_pkey"
-        )
-        cursor.execute(
-            "CREATE SEQUENCE IF NOT EXISTS posts_hot_id_seq"
-        )
-        cursor.execute(
-            "ALTER TABLE posts_hot ADD COLUMN IF NOT EXISTS id BIGINT"
-        )
-        cursor.execute(
-            "ALTER TABLE posts_hot ALTER COLUMN id SET DEFAULT nextval('posts_hot_id_seq')"
-        )
-        cursor.execute(
-            "ALTER TABLE posts_hot ALTER COLUMN id SET NOT NULL"
-        )
-        cursor.execute(
-            "UPDATE posts_hot SET id = nextval('posts_hot_id_seq') WHERE id IS NULL"
-        )
-        cursor.execute(
-            "ALTER TABLE posts_hot ADD CONSTRAINT posts_hot_pkey PRIMARY KEY (id)"
-        )
-        cursor.execute(
-            "CREATE UNIQUE INDEX IF NOT EXISTS uq_posts_hot_source_post ON posts_hot(source, source_post_id)"
-        )
-        cursor.execute(
-            "CREATE INDEX IF NOT EXISTS idx_posts_hot_metadata_gin ON posts_hot USING gin(metadata)"
-        )
+
+        # Check if posts_hot table exists before modifying it
+        cursor.execute("""
+            SELECT EXISTS (
+                SELECT FROM information_schema.tables
+                WHERE table_schema = 'public'
+                AND table_name = 'posts_hot'
+            )
+        """)
+        posts_hot_exists = cursor.fetchone()[0]
+
+        if posts_hot_exists:
+            cursor.execute(
+                "ALTER TABLE posts_hot DROP CONSTRAINT IF EXISTS posts_hot_pkey"
+            )
+            cursor.execute(
+                "CREATE SEQUENCE IF NOT EXISTS posts_hot_id_seq"
+            )
+            cursor.execute(
+                "ALTER TABLE posts_hot ADD COLUMN IF NOT EXISTS id BIGINT"
+            )
+            cursor.execute(
+                "ALTER TABLE posts_hot ALTER COLUMN id SET DEFAULT nextval('posts_hot_id_seq')"
+            )
+            cursor.execute(
+                "ALTER TABLE posts_hot ALTER COLUMN id SET NOT NULL"
+            )
+            cursor.execute(
+                "UPDATE posts_hot SET id = nextval('posts_hot_id_seq') WHERE id IS NULL"
+            )
+            cursor.execute(
+                "ALTER TABLE posts_hot ADD CONSTRAINT posts_hot_pkey PRIMARY KEY (id)"
+            )
+            cursor.execute(
+                "CREATE UNIQUE INDEX IF NOT EXISTS uq_posts_hot_source_post ON posts_hot(source, source_post_id)"
+            )
+            cursor.execute(
+                "CREATE INDEX IF NOT EXISTS idx_posts_hot_metadata_gin ON posts_hot USING gin(metadata)"
+            )
         cursor.execute(
             """
             ALTER TABLE reports
