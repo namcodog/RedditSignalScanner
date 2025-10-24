@@ -224,41 +224,64 @@ def upgrade() -> None:
     """)
 
     # --- posts_raw primary key adjustment ---
-    op.execute("UPDATE posts_raw SET id = nextval('posts_raw_id_seq') WHERE id IS NULL")
-    op.alter_column("posts_raw", "id", nullable=False)
-    op.drop_constraint("pk_posts_raw", "posts_raw", type_="primary")
-    op.create_primary_key("pk_posts_raw", "posts_raw", ["id"])
-    op.create_unique_constraint(
-        "uq_posts_raw_source_version",
-        "posts_raw",
-        ["source", "source_post_id", "version"],
-    )
+    # Check if posts_raw table exists before modifying it
+    conn = op.get_bind()
+    result = conn.execute(sa.text("""
+        SELECT EXISTS (
+            SELECT FROM information_schema.tables
+            WHERE table_schema = 'public'
+            AND table_name = 'posts_raw'
+        )
+    """))
+    posts_raw_exists = result.scalar()
+
+    if posts_raw_exists:
+        op.execute("UPDATE posts_raw SET id = nextval('posts_raw_id_seq') WHERE id IS NULL")
+        op.alter_column("posts_raw", "id", nullable=False)
+        op.drop_constraint("pk_posts_raw", "posts_raw", type_="primary")
+        op.create_primary_key("pk_posts_raw", "posts_raw", ["id"])
+        op.create_unique_constraint(
+            "uq_posts_raw_source_version",
+            "posts_raw",
+            ["source", "source_post_id", "version"],
+        )
 
     # --- posts_hot primary key adjustment ---
-    op.execute(
-        "CREATE SEQUENCE IF NOT EXISTS posts_hot_id_seq OWNED BY posts_hot.id"
-    )
-    op.add_column(
-        "posts_hot",
-        sa.Column(
-            "id",
-            sa.BigInteger(),
-            server_default=sa.text("nextval('posts_hot_id_seq')"),
-            nullable=False,
-        ),
-    )
-    op.drop_constraint("pk_posts_hot", "posts_hot", type_="primary")
-    op.create_primary_key("pk_posts_hot", "posts_hot", ["id"])
-    op.create_unique_constraint(
-        "uq_posts_hot_source_post",
-        "posts_hot",
-        ["source", "source_post_id"],
-    )
-    # Create GIN index with IF NOT EXISTS
-    op.execute("""
-        CREATE INDEX IF NOT EXISTS idx_posts_hot_metadata_gin
-        ON posts_hot USING gin (metadata)
-    """)
+    # Check if posts_hot table exists before modifying it
+    result = conn.execute(sa.text("""
+        SELECT EXISTS (
+            SELECT FROM information_schema.tables
+            WHERE table_schema = 'public'
+            AND table_name = 'posts_hot'
+        )
+    """))
+    posts_hot_exists = result.scalar()
+
+    if posts_hot_exists:
+        op.execute(
+            "CREATE SEQUENCE IF NOT EXISTS posts_hot_id_seq OWNED BY posts_hot.id"
+        )
+        op.add_column(
+            "posts_hot",
+            sa.Column(
+                "id",
+                sa.BigInteger(),
+                server_default=sa.text("nextval('posts_hot_id_seq')"),
+                nullable=False,
+            ),
+        )
+        op.drop_constraint("pk_posts_hot", "posts_hot", type_="primary")
+        op.create_primary_key("pk_posts_hot", "posts_hot", ["id"])
+        op.create_unique_constraint(
+            "uq_posts_hot_source_post",
+            "posts_hot",
+            ["source", "source_post_id"],
+        )
+        # Create GIN index with IF NOT EXISTS
+        op.execute("""
+            CREATE INDEX IF NOT EXISTS idx_posts_hot_metadata_gin
+            ON posts_hot USING gin (metadata)
+        """)
 
     # clean default now that existing rows populated
     op.alter_column(
