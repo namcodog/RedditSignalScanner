@@ -43,7 +43,7 @@ test_step "语法检查" "cd backend && python -m py_compile app/services/commun
 
 echo ""
 echo "步骤 2：数据库表验证"
-test_step "数据库表存在" "psql -U postgres -h localhost -d reddit_scanner -c '\d community_import_history' > /dev/null 2>&1"
+test_step "数据库表存在" "psql -U postgres -h localhost -d reddit_signal_scanner -c '\d community_import_history' > /dev/null 2>&1"
 
 echo ""
 echo "步骤 3：单元测试"
@@ -149,4 +149,3 @@ else
     echo -e "${RED}❌ 验收失败，请修复问题后重新验收${NC}"
     exit 1
 fi
-

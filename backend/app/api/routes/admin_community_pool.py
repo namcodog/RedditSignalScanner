@@ -35,7 +35,11 @@ async def list_community_pool(
     session: AsyncSession = Depends(get_session),
     payload: TokenPayload = Depends(require_admin),
 ) -> dict[str, Any]:
-    stmt = select(CommunityPool).order_by(CommunityPool.name.asc())
+    stmt = (
+        select(CommunityPool)
+        .where(CommunityPool.deleted_at.is_(None))
+        .order_by(CommunityPool.name.asc())
+    )
     result = await session.execute(stmt)
     items = result.scalars().all()
 
@@ -68,7 +72,10 @@ async def list_discovered(
 ) -> dict[str, Any]:
     stmt = (
         select(PendingCommunity)
-        .where(PendingCommunity.status == "pending")
+        .where(
+            PendingCommunity.status == "pending",
+            PendingCommunity.deleted_at.is_(None),
+        )
         .order_by(PendingCommunity.last_discovered_at.desc())
     )
     result = await session.execute(stmt)
@@ -112,6 +119,13 @@ async def approve_community(
     )
     now = datetime.now(timezone.utc)
 
+    try:
+        reviewer_id = uuid.UUID(payload.sub)
+    except (ValueError, TypeError):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token subject"
+        )
+
     if pool is None:
         description_keywords = pending.discovered_from_keywords or {"keywords": []}
         categories = body.categories or {"source": "discovered"}
@@ -127,10 +141,15 @@ async def approve_community(
             user_feedback_count=0,
             discovered_count=pending.discovered_count,
             is_active=True,
+            created_by=reviewer_id,
+            updated_by=reviewer_id,
         )
         session.add(pool)
     else:
         pool.is_active = True
+        pool.deleted_at = None
+        pool.deleted_by = None
+        pool.updated_by = reviewer_id
         try:
             pool.discovered_count = int(pool.discovered_count) + int(
                 pending.discovered_count
@@ -139,17 +158,11 @@ async def approve_community(
             pool.discovered_count = int(pending.discovered_count)
 
     # Update pending state
-    try:
-        reviewer_id = uuid.UUID(payload.sub)
-    except (ValueError, TypeError):
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token subject"
-        )
-
     pending.status = "approved"
     pending.admin_reviewed_at = now
-    pending.reviewed_by = str(reviewer_id)
+    pending.reviewed_by = reviewer_id
     pending.admin_notes = body.admin_notes
+    pending.updated_by = reviewer_id
 
     await session.commit()
 
@@ -170,7 +183,6 @@ async def reject_community(
             status_code=status.HTTP_404_NOT_FOUND, detail="Pending community not found"
         )
 
-    now = datetime.now(timezone.utc)
     try:
         reviewer_id = uuid.UUID(payload.sub)
     except (ValueError, TypeError):
@@ -178,10 +190,12 @@ async def reject_community(
             status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token subject"
         )
 
+    now = datetime.now(timezone.utc)
     pending.status = "rejected"
     pending.admin_reviewed_at = now
-    pending.reviewed_by = str(reviewer_id)
+    pending.reviewed_by = reviewer_id
     pending.admin_notes = body.admin_notes
+    pending.updated_by = reviewer_id
 
     await session.commit()
     return _response({"rejected": body.name})
@@ -193,13 +207,25 @@ async def disable_community(
     session: AsyncSession = Depends(get_session),
     payload: TokenPayload = Depends(require_admin),
 ) -> dict[str, Any]:
-    pool = await session.scalar(select(CommunityPool).where(CommunityPool.name == name))
+    pool = await session.scalar(
+        select(CommunityPool).where(CommunityPool.name == name)
+    )
     if pool is None:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND, detail="Community not found"
         )
 
+    try:
+        actor_id = uuid.UUID(payload.sub)
+    except (ValueError, TypeError):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token subject"
+        )
+
     pool.is_active = False
+    pool.deleted_at = datetime.now(timezone.utc)
+    pool.deleted_by = actor_id
+    pool.updated_by = actor_id
     await session.commit()
 
     return _response({"disabled": name})

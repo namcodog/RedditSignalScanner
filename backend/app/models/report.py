@@ -7,13 +7,13 @@ from typing import TYPE_CHECKING
 from sqlalchemy import DateTime, ForeignKey, Index, String, Text, func
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from app.db.base import Base, uuid_pk_column
+from app.db.base import Base, TimestampMixin, uuid_pk_column
 
 if TYPE_CHECKING:  # pragma: no cover
     from app.models.analysis import Analysis
 
 
-class Report(Base):
+class Report(TimestampMixin, Base):
     """Pre-rendered HTML report associated with a single analysis."""
 
     __tablename__ = "reports"

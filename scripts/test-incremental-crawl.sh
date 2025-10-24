@@ -9,7 +9,7 @@ echo ""
 
 # 1. 检查数据库表是否存在
 echo "1️⃣ 检查数据库表..."
-psql -d reddit_scanner -c "\dt posts_*" || {
+psql -d reddit_signal_scanner -c "\dt posts_*" || {
     echo "❌ 数据库表不存在，请先运行迁移脚本"
     exit 1
 }
@@ -18,7 +18,7 @@ echo ""
 
 # 2. 查看当前存储统计
 echo "2️⃣ 当前存储统计："
-psql -d reddit_scanner -c "SELECT * FROM get_storage_stats();"
+    psql -d reddit_signal_scanner -c "SELECT * FROM get_storage_stats();"
 echo ""
 
 # 3. 手动触发一次增量抓取
@@ -65,12 +65,12 @@ EOF
 
 echo ""
 echo "4️⃣ 抓取后存储统计："
-psql -d reddit_scanner -c "SELECT * FROM get_storage_stats();"
+psql -d reddit_signal_scanner -c "SELECT * FROM get_storage_stats();"
 echo ""
 
 # 5. 查看冷库样本
 echo "5️⃣ 冷库样本（posts_raw）："
-psql -d reddit_scanner -c "
+psql -d reddit_signal_scanner -c "
 SELECT 
     subreddit,
     COUNT(*) as post_count,
@@ -84,7 +84,7 @@ echo ""
 
 # 6. 查看热缓存样本
 echo "6️⃣ 热缓存样本（posts_hot）："
-psql -d reddit_scanner -c "
+psql -d reddit_signal_scanner -c "
 SELECT 
     subreddit,
     COUNT(*) as post_count,
@@ -98,7 +98,7 @@ echo ""
 
 # 7. 查看水位线
 echo "7️⃣ 水位线状态："
-psql -d reddit_scanner -c "
+psql -d reddit_signal_scanner -c "
 SELECT 
     community_name,
     last_seen_created_at,
@@ -120,4 +120,3 @@ echo "  - posts_hot: 热缓存（24小时TTL）"
 echo "  - 水位线: 记录最后抓取位置"
 echo ""
 echo "🔄 下次抓取将只拉取新于水位线的帖子（增量模式）"
-

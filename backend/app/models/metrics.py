@@ -6,16 +6,16 @@ Quality Metrics Model
 """
 from __future__ import annotations
 
-from datetime import date, datetime, timezone
+from datetime import date
 from decimal import Decimal
 
-from sqlalchemy import CheckConstraint, Date, DateTime, Index, Numeric
+from sqlalchemy import CheckConstraint, Date, Index, Numeric
 from sqlalchemy.orm import Mapped, mapped_column
 
-from app.db.base import Base
+from app.db.base import Base, TimestampMixin, int_pk_column
 
 
-class QualityMetrics(Base):
+class QualityMetrics(TimestampMixin, Base):
     """每日质量指标模型
     
     用于存储系统运行的核心质量指标：
@@ -53,7 +53,7 @@ class QualityMetrics(Base):
         Index("idx_quality_metrics_date", "date", unique=True),
     )
 
-    id: Mapped[int] = mapped_column(primary_key=True)
+    id: Mapped[int] = int_pk_column()
     date: Mapped[date] = mapped_column(Date, nullable=False, unique=True)
 
     # 采集成功率 (0.0 - 1.0)
@@ -76,11 +76,6 @@ class QualityMetrics(Base):
         Numeric(7, 2), nullable=False
     )
 
-    # 记录创建时间
-    created_at: Mapped[datetime] = mapped_column(
-        DateTime(timezone=True), default=lambda: datetime.now(timezone.utc), nullable=False
-    )
-
     def __repr__(self) -> str:
         return (
             f"QualityMetrics(date={self.date!s}, "
@@ -90,4 +85,3 @@ class QualityMetrics(Base):
 
 
 __all__ = ["QualityMetrics"]
-

@@ -53,7 +53,7 @@ echo "3️⃣ 单元测试"
 echo "----------------------------------------"
 
 export APP_ENV=test
-export DATABASE_URL="postgresql+psycopg://postgres:postgres@localhost:5432/reddit_scanner"
+export DATABASE_URL="postgresql+psycopg://postgres:postgres@localhost:5432/reddit_signal_scanner"
 
 pytest tests/test_community_import.py -v --tb=short
 
@@ -298,4 +298,3 @@ echo "  ✅ 实际导入正常"
 echo "  ✅ 重复检测正常"
 echo ""
 echo "🎉 Excel 导入功能验收通过！"
-

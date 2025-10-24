@@ -27,7 +27,7 @@ class Settings(BaseModel):
     app_name: str = Field(default="Reddit Signal Scanner")
     environment: str = Field(default="development")
     database_url: str = Field(
-        default="postgresql+psycopg://postgres:postgres@localhost:5432/reddit_scanner"
+        default="postgresql+psycopg://postgres:postgres@localhost:5432/reddit_signal_scanner"
     )
     cors_origins_raw: str = Field(
         default="http://localhost:3006,http://127.0.0.1:3006,http://localhost:3007,http://127.0.0.1:3007,http://localhost:3008,http://127.0.0.1:3008,http://localhost:3009,http://127.0.0.1:3009,http://localhost:3000,http://127.0.0.1:3000"

@@ -4,9 +4,9 @@ services:
   # PostgreSQL 测试数据库
   test-db:
     image: postgres:15-alpine
-    container_name: reddit_scanner_test_db
+    container_name: reddit_signal_scanner_test_db
     environment:
-      POSTGRES_DB: reddit_scanner_test
+      POSTGRES_DB: reddit_signal_scanner_test
       POSTGRES_USER: test_user
       POSTGRES_PASSWORD: test_pass
       POSTGRES_HOST_AUTH_METHOD: trust
@@ -17,7 +17,7 @@ services:
     networks:
       - test_net
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U test_user -d reddit_scanner_test"]
+      test: ["CMD-SHELL", "pg_isready -U test_user -d reddit_signal_scanner_test"]
       interval: 5s
       timeout: 5s
       retries: 5
@@ -25,7 +25,7 @@ services:
   # Redis 测试缓存
   test-redis:
     image: redis:7-alpine
-    container_name: reddit_scanner_test_redis
+    container_name: reddit_signal_scanner_test_redis
     ports:
       - "16379:6379"  # 映射到宿主机 16379 端口（避免与开发环境 6379 冲突）
     volumes:
@@ -43,10 +43,10 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile.test
-    container_name: reddit_scanner_test_api
+    container_name: reddit_signal_scanner_test_api
     command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
     environment:
-      - DATABASE_URL=postgresql+asyncpg://test_user:test_pass@test-db:5432/reddit_scanner_test
+      - DATABASE_URL=postgresql+asyncpg://test_user:test_pass@test-db:5432/reddit_signal_scanner_test
       - REDDIT_CACHE_REDIS_URL=redis://test-redis:6379/1
       - CELERY_BROKER_URL=redis://test-redis:6379/2
       - CELERY_RESULT_BACKEND=redis://test-redis:6379/2
@@ -76,10 +76,10 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile.test
-    container_name: reddit_scanner_test_worker
+    container_name: reddit_signal_scanner_test_worker
     command: celery -A app.core.celery_app worker --loglevel=info --pool=solo
     environment:
-      - DATABASE_URL=postgresql+asyncpg://test_user:test_pass@test-db:5432/reddit_scanner_test
+      - DATABASE_URL=postgresql+asyncpg://test_user:test_pass@test-db:5432/reddit_signal_scanner_test
       - REDDIT_CACHE_REDIS_URL=redis://test-redis:6379/1
       - CELERY_BROKER_URL=redis://test-redis:6379/2
       - CELERY_RESULT_BACKEND=redis://test-redis:6379/2
@@ -104,10 +104,10 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile.test
-    container_name: reddit_scanner_test_beat
+    container_name: reddit_signal_scanner_test_beat
     command: celery -A app.core.celery_app beat --loglevel=info
     environment:
-      - DATABASE_URL=postgresql+asyncpg://test_user:test_pass@test-db:5432/reddit_scanner_test
+      - DATABASE_URL=postgresql+asyncpg://test_user:test_pass@test-db:5432/reddit_signal_scanner_test
       - REDDIT_CACHE_REDIS_URL=redis://test-redis:6379/1
       - CELERY_BROKER_URL=redis://test-redis:6379/2
       - CELERY_RESULT_BACKEND=redis://test-redis:6379/2
@@ -132,4 +132,3 @@ networks:
 volumes:
   test_postgres_data:
   test_redis_data:
-

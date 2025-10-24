@@ -4,21 +4,43 @@ from datetime import datetime
 from typing import Any
 import uuid
 
-from sqlalchemy import JSON, Boolean, DateTime, Integer, Numeric, String, func
-from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy import (
+    JSON,
+    Boolean,
+    DateTime,
+    ForeignKey,
+    Index,
+    Integer,
+    Numeric,
+    String,
+)
+from sqlalchemy.dialects.postgresql import UUID, JSONB
 from sqlalchemy.orm import Mapped, mapped_column
 
-from app.db.base import Base, TimestampMixin
+from app.db.base import AuditMixin, Base, SoftDeleteMixin, TimestampMixin, int_pk_column
 
 
-class CommunityPool(TimestampMixin, Base):
+class CommunityPool(TimestampMixin, AuditMixin, SoftDeleteMixin, Base):
     __tablename__ = "community_pool"
+    __table_args__ = (
+        Index(
+            "idx_community_pool_categories_gin",
+            "categories",
+            postgresql_using="gin",
+        ),
+        Index(
+            "idx_community_pool_keywords_gin",
+            "description_keywords",
+            postgresql_using="gin",
+        ),
+        Index("idx_community_pool_deleted_at", "deleted_at"),
+    )
 
-    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    id: Mapped[int] = int_pk_column()
     name: Mapped[str] = mapped_column(String(100), unique=True, nullable=False)
     tier: Mapped[str] = mapped_column(String(20), nullable=False)
-    categories: Mapped[dict[str, Any]] = mapped_column(JSON, nullable=False)
-    description_keywords: Mapped[dict[str, Any]] = mapped_column(JSON, nullable=False)
+    categories: Mapped[dict[str, Any]] = mapped_column(JSONB, nullable=False)
+    description_keywords: Mapped[dict[str, Any]] = mapped_column(JSONB, nullable=False)
     daily_posts: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
     avg_comment_length: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
     quality_score: Mapped[float] = mapped_column(
@@ -28,47 +50,49 @@ class CommunityPool(TimestampMixin, Base):
     user_feedback_count: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
     discovered_count: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
     is_active: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False)
-
-    # 黑名单字段（T1.6）
     is_blacklisted: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
     blacklist_reason: Mapped[str | None] = mapped_column(String(255), nullable=True)
     downrank_factor: Mapped[float | None] = mapped_column(Numeric(3, 2), nullable=True)
 
 
-class PendingCommunity(Base):
+class PendingCommunity(TimestampMixin, AuditMixin, SoftDeleteMixin, Base):
     __tablename__ = "pending_communities"
+    __table_args__ = (
+        Index("idx_pending_communities_task_id", "discovered_from_task_id"),
+        Index("idx_pending_communities_reviewed_by", "reviewed_by"),
+        Index("idx_pending_communities_status", "status"),
+        Index("idx_pending_communities_deleted_at", "deleted_at"),
+    )
 
-    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    id: Mapped[int] = int_pk_column()
     name: Mapped[str] = mapped_column(String(100), unique=True, nullable=False)
-    discovered_from_keywords: Mapped[dict[str, Any] | None] = mapped_column(
-        JSON, nullable=True
-    )
+    discovered_from_keywords: Mapped[dict[str, Any] | None] = mapped_column(JSON, nullable=True)
     discovered_count: Mapped[int] = mapped_column(Integer, default=1, nullable=False)
-    first_discovered_at: Mapped[datetime] = mapped_column(
-        DateTime(timezone=True), nullable=False
-    )
-    last_discovered_at: Mapped[datetime] = mapped_column(
-        DateTime(timezone=True), nullable=False
-    )
+    first_discovered_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
+    last_discovered_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
     status: Mapped[str] = mapped_column(String(20), default="pending", nullable=False)
-    admin_reviewed_at: Mapped[datetime | None] = mapped_column(
-        DateTime(timezone=True), nullable=True
-    )
+    admin_reviewed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
     admin_notes: Mapped[str | None] = mapped_column(String, nullable=True)
-    discovered_from_task_id: Mapped[str | None] = mapped_column(
-        UUID(as_uuid=True), nullable=True
+    discovered_from_task_id: Mapped[uuid.UUID | None] = mapped_column(
+        ForeignKey("tasks.id", ondelete="SET NULL"), nullable=True
     )
-    reviewed_by: Mapped[str | None] = mapped_column(UUID(as_uuid=True), nullable=True)
+    reviewed_by: Mapped[uuid.UUID | None] = mapped_column(
+        ForeignKey("users.id", ondelete="SET NULL"), nullable=True
+    )
 
 
-class CommunityImportHistory(Base):
+class CommunityImportHistory(TimestampMixin, AuditMixin, Base):
     __tablename__ = "community_import_history"
+    __table_args__ = (
+        Index("idx_community_import_history_uploaded_by", "uploaded_by_user_id"),
+        Index("idx_community_import_history_created_at", "created_at"),
+    )
 
-    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    id: Mapped[int] = int_pk_column()
     filename: Mapped[str] = mapped_column(String(255), nullable=False)
     uploaded_by: Mapped[str] = mapped_column(String(255), nullable=False)
-    uploaded_by_user_id: Mapped[uuid.UUID] = mapped_column(
-        UUID(as_uuid=True), nullable=False
+    uploaded_by_user_id: Mapped[uuid.UUID | None] = mapped_column(
+        ForeignKey("users.id", ondelete="SET NULL"), nullable=True
     )
     dry_run: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
     status: Mapped[str] = mapped_column(String(20), nullable=False)
@@ -79,6 +103,3 @@ class CommunityImportHistory(Base):
     imported_rows: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
     error_details: Mapped[dict[str, Any] | None] = mapped_column(JSON, nullable=True)
     summary_preview: Mapped[dict[str, Any] | None] = mapped_column(JSON, nullable=True)
-    created_at: Mapped[datetime] = mapped_column(
-        DateTime(timezone=True), nullable=False, server_default=func.now()
-    )

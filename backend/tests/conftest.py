@@ -106,11 +106,58 @@ def reset_database() -> None:
         )
         cursor.execute(
             """
+            ALTER TABLE community_pool
+            ADD COLUMN IF NOT EXISTS created_by UUID NULL,
+            ADD COLUMN IF NOT EXISTS updated_by UUID NULL,
+            ADD COLUMN IF NOT EXISTS deleted_at TIMESTAMPTZ NULL,
+            ADD COLUMN IF NOT EXISTS deleted_by UUID NULL,
+            ADD COLUMN IF NOT EXISTS created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            ADD COLUMN IF NOT EXISTS updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
+            """
+        )
+        cursor.execute(
+            """
+            CREATE INDEX IF NOT EXISTS idx_community_pool_deleted_at
+            ON community_pool(deleted_at)
+            """
+        )
+        try:
+            cursor.execute(
+                """
+                ALTER TABLE community_pool
+                ADD CONSTRAINT fk_community_pool_created_by
+                FOREIGN KEY (created_by) REFERENCES users(id) ON DELETE SET NULL
+                """
+            )
+        except psycopg_errors.DuplicateObject:
+            conn.rollback()
+        try:
+            cursor.execute(
+                """
+                ALTER TABLE community_pool
+                ADD CONSTRAINT fk_community_pool_updated_by
+                FOREIGN KEY (updated_by) REFERENCES users(id) ON DELETE SET NULL
+                """
+            )
+        except psycopg_errors.DuplicateObject:
+            conn.rollback()
+        try:
+            cursor.execute(
+                """
+                ALTER TABLE community_pool
+                ADD CONSTRAINT fk_community_pool_deleted_by
+                FOREIGN KEY (deleted_by) REFERENCES users(id) ON DELETE SET NULL
+                """
+            )
+        except psycopg_errors.DuplicateObject:
+            conn.rollback()
+        cursor.execute(
+            """
             CREATE TABLE IF NOT EXISTS community_import_history (
                 id SERIAL PRIMARY KEY,
                 filename VARCHAR(255) NOT NULL,
                 uploaded_by VARCHAR(255) NOT NULL,
-                uploaded_by_user_id UUID NOT NULL,
+                uploaded_by_user_id UUID NULL,
                 dry_run BOOLEAN NOT NULL DEFAULT FALSE,
                 status VARCHAR(20) NOT NULL,
                 total_rows INTEGER NOT NULL DEFAULT 0,
@@ -126,10 +173,152 @@ def reset_database() -> None:
         )
         cursor.execute(
             """
+            ALTER TABLE community_import_history
+            ALTER COLUMN uploaded_by_user_id DROP NOT NULL
+            """
+        )
+        cursor.execute(
+            """
+            ALTER TABLE community_import_history
+            ADD COLUMN IF NOT EXISTS updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            ADD COLUMN IF NOT EXISTS created_by UUID NULL,
+            ADD COLUMN IF NOT EXISTS updated_by UUID NULL
+            """
+        )
+        try:
+            cursor.execute(
+                """
+                ALTER TABLE community_import_history
+                ADD CONSTRAINT fk_community_import_history_created_by
+                FOREIGN KEY (created_by) REFERENCES users(id) ON DELETE SET NULL
+                """
+            )
+        except psycopg_errors.DuplicateObject:
+            conn.rollback()
+        try:
+            cursor.execute(
+                """
+                ALTER TABLE community_import_history
+                ADD CONSTRAINT fk_community_import_history_updated_by
+                FOREIGN KEY (updated_by) REFERENCES users(id) ON DELETE SET NULL
+                """
+            )
+        except psycopg_errors.DuplicateObject:
+            conn.rollback()
+        cursor.execute(
+            """
+            ALTER TABLE community_import_history
+            DROP CONSTRAINT IF EXISTS fk_community_import_history_uploaded_by_user_id
+            """
+        )
+        try:
+            cursor.execute(
+                """
+                ALTER TABLE community_import_history
+                ADD CONSTRAINT fk_community_import_history_uploaded_by_user_id
+                FOREIGN KEY (uploaded_by_user_id) REFERENCES users(id) ON DELETE SET NULL
+                """
+            )
+        except psycopg_errors.DuplicateObject:
+            conn.rollback()
+        cursor.execute(
+            """
             CREATE INDEX IF NOT EXISTS idx_community_import_history_created
             ON community_import_history(created_at)
             """
         )
+        cursor.execute(
+            """
+            CREATE INDEX IF NOT EXISTS idx_community_import_history_uploaded_by
+            ON community_import_history(uploaded_by_user_id)
+            """
+        )
+        cursor.execute(
+            """
+            ALTER TABLE pending_communities
+            DROP CONSTRAINT IF EXISTS fk_pending_communities_discovered_from_task_id
+            """
+        )
+        cursor.execute(
+            """
+            ALTER TABLE pending_communities
+            DROP CONSTRAINT IF EXISTS fk_pending_communities_discovered_from_task_id_tasks
+            """
+        )
+        try:
+            cursor.execute(
+                """
+                ALTER TABLE pending_communities
+                ADD CONSTRAINT fk_pending_communities_discovered_from_task_id_tasks
+                FOREIGN KEY (discovered_from_task_id) REFERENCES tasks(id) ON DELETE CASCADE
+                """
+            )
+        except psycopg_errors.DuplicateObject:
+            conn.rollback()
+
+        cursor.execute(
+            """
+            ALTER TABLE pending_communities
+            DROP CONSTRAINT IF EXISTS fk_pending_communities_reviewed_by
+            """
+        )
+        try:
+            cursor.execute(
+                """
+                ALTER TABLE pending_communities
+                ADD CONSTRAINT fk_pending_communities_reviewed_by
+                FOREIGN KEY (reviewed_by) REFERENCES users(id) ON DELETE SET NULL
+                """
+            )
+        except psycopg_errors.DuplicateObject:
+            conn.rollback()
+        cursor.execute(
+            """
+            ALTER TABLE pending_communities
+            ADD COLUMN IF NOT EXISTS created_by UUID NULL,
+            ADD COLUMN IF NOT EXISTS updated_by UUID NULL,
+            ADD COLUMN IF NOT EXISTS deleted_at TIMESTAMPTZ NULL,
+            ADD COLUMN IF NOT EXISTS deleted_by UUID NULL,
+            ADD COLUMN IF NOT EXISTS created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            ADD COLUMN IF NOT EXISTS updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
+            """
+        )
+        cursor.execute(
+            """
+            CREATE INDEX IF NOT EXISTS idx_pending_communities_deleted_at
+            ON pending_communities(deleted_at)
+            """
+        )
+        try:
+            cursor.execute(
+                """
+                ALTER TABLE pending_communities
+                ADD CONSTRAINT fk_pending_communities_created_by
+                FOREIGN KEY (created_by) REFERENCES users(id) ON DELETE SET NULL
+                """
+            )
+        except psycopg_errors.DuplicateObject:
+            conn.rollback()
+        try:
+            cursor.execute(
+                """
+                ALTER TABLE pending_communities
+                ADD CONSTRAINT fk_pending_communities_updated_by
+                FOREIGN KEY (updated_by) REFERENCES users(id) ON DELETE SET NULL
+                """
+            )
+        except psycopg_errors.DuplicateObject:
+            conn.rollback()
+        try:
+            cursor.execute(
+                """
+                ALTER TABLE pending_communities
+                ADD CONSTRAINT fk_pending_communities_deleted_by
+                FOREIGN KEY (deleted_by) REFERENCES users(id) ON DELETE SET NULL
+                """
+            )
+        except psycopg_errors.DuplicateObject:
+            conn.rollback()
         cursor.execute(
             """
             CREATE TABLE IF NOT EXISTS beta_feedback (
@@ -152,6 +341,66 @@ def reset_database() -> None:
         )
         cursor.execute(
             "CREATE INDEX IF NOT EXISTS idx_beta_feedback_created_at ON beta_feedback(created_at)"
+        )
+        cursor.execute(
+            """
+            ALTER TABLE quality_metrics
+            ADD COLUMN IF NOT EXISTS created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            ADD COLUMN IF NOT EXISTS updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
+            """
+        )
+        cursor.execute(
+            "ALTER TABLE quality_metrics ALTER COLUMN created_at SET DEFAULT CURRENT_TIMESTAMP"
+        )
+        cursor.execute(
+            "UPDATE quality_metrics SET created_at = CURRENT_TIMESTAMP WHERE created_at IS NULL"
+        )
+        cursor.execute(
+            """
+            ALTER TABLE crawl_metrics
+            ADD COLUMN IF NOT EXISTS created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            ADD COLUMN IF NOT EXISTS updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
+            """
+        )
+        cursor.execute(
+            "ALTER TABLE crawl_metrics ALTER COLUMN created_at SET DEFAULT CURRENT_TIMESTAMP"
+        )
+        cursor.execute(
+            "UPDATE crawl_metrics SET created_at = CURRENT_TIMESTAMP WHERE created_at IS NULL"
+        )
+        cursor.execute(
+            "ALTER TABLE posts_hot DROP CONSTRAINT IF EXISTS posts_hot_pkey"
+        )
+        cursor.execute(
+            "CREATE SEQUENCE IF NOT EXISTS posts_hot_id_seq"
+        )
+        cursor.execute(
+            "ALTER TABLE posts_hot ADD COLUMN IF NOT EXISTS id BIGINT"
+        )
+        cursor.execute(
+            "ALTER TABLE posts_hot ALTER COLUMN id SET DEFAULT nextval('posts_hot_id_seq')"
+        )
+        cursor.execute(
+            "ALTER TABLE posts_hot ALTER COLUMN id SET NOT NULL"
+        )
+        cursor.execute(
+            "UPDATE posts_hot SET id = nextval('posts_hot_id_seq') WHERE id IS NULL"
+        )
+        cursor.execute(
+            "ALTER TABLE posts_hot ADD CONSTRAINT posts_hot_pkey PRIMARY KEY (id)"
+        )
+        cursor.execute(
+            "CREATE UNIQUE INDEX IF NOT EXISTS uq_posts_hot_source_post ON posts_hot(source, source_post_id)"
+        )
+        cursor.execute(
+            "CREATE INDEX IF NOT EXISTS idx_posts_hot_metadata_gin ON posts_hot USING gin(metadata)"
+        )
+        cursor.execute(
+            """
+            ALTER TABLE reports
+            ADD COLUMN IF NOT EXISTS created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            ADD COLUMN IF NOT EXISTS updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
+            """
         )
         # Relax legacy password constraint to accept pbkdf2_sha256 (and keep bcrypt for backward compatibility)
         # Bring critical schema in line with SQLAlchemy models to avoid legacy drift in local dev DBs

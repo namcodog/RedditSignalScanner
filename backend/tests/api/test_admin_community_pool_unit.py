@@ -149,6 +149,9 @@ async def test_unit_reject_success_flow(db_session: AsyncSession) -> None:
 @pytest.mark.asyncio
 async def test_unit_disable_success_flow(db_session: AsyncSession) -> None:
     good_payload = TokenPayload(sub=str(uuid.uuid4()))
+    reviewer = User(id=uuid.UUID(good_payload.sub), email="admin-disable@example.com", password_hash=hash_password("testpass123"))
+    db_session.add(reviewer)
+    await db_session.commit()
     # prepare pool
     pool = CommunityPool(
         name="r/unit_disable",
@@ -173,5 +176,4 @@ async def test_unit_disable_success_flow(db_session: AsyncSession) -> None:
         await db_session.execute(select(CommunityPool).where(CommunityPool.name == "r/unit_disable"))
     ).scalar_one()
     assert stored.is_active is False
-
 

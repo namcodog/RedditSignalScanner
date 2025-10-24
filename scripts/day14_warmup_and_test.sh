@@ -21,7 +21,7 @@ cd "$BACKEND_DIR"
 
 # 设置环境变量
 export APP_ENV=test
-export DATABASE_URL=postgresql+psycopg://postgres:postgres@localhost:5432/reddit_scanner
+export DATABASE_URL=postgresql+psycopg://postgres:postgres@localhost:5432/reddit_signal_scanner
 export PYTHONPATH="$BACKEND_DIR:$PYTHONPATH"
 
 echo "=========================================="
@@ -67,4 +67,3 @@ echo ""
 echo "=========================================="
 echo "✅ Day 14 验收完成！"
 echo "=========================================="
-

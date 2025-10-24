@@ -33,7 +33,7 @@ else
 fi
 
 # PostgreSQL
-if psql -d reddit_scanner -c "SELECT 1;" > /dev/null 2>&1; then
+if psql -d reddit_signal_scanner -c "SELECT 1;" > /dev/null 2>&1; then
     echo "  ✅ PostgreSQL: 运行中"
 else
     echo "  ❌ PostgreSQL: 未运行"
@@ -48,7 +48,7 @@ CACHE_COUNT=$(redis-cli -n 5 KEYS "reddit:posts:*" | wc -l | xargs)
 echo "  Redis 缓存社区数: $CACHE_COUNT"
 
 # PostgreSQL 统计
-psql -d reddit_scanner -c "
+psql -d reddit_signal_scanner -c "
 SELECT 
     '  总社区数: ' || COUNT(*) as metric
 FROM community_cache
@@ -68,7 +68,7 @@ FROM community_cache;
 
 echo ""
 echo "🕐 最近爬取记录 (Top 5):"
-psql -d reddit_scanner -c "
+psql -d reddit_signal_scanner -c "
 SELECT 
     community_name,
     posts_cached as posts,
@@ -91,4 +91,3 @@ tail -100 /tmp/celery_beat.log | grep "Scheduler: Sending" | tail -10
 echo ""
 echo "🔄 实时监控模式 (按 Ctrl+C 退出):"
 echo "   tail -f /tmp/celery_worker.log | grep -E '(crawl|reddit|success|error)'"
-

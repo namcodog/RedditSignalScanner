@@ -22,7 +22,7 @@ cd "$BACKEND_DIR"
 
 # 设置测试环境
 export APP_ENV=test
-export DATABASE_URL=postgresql+psycopg://postgres:postgres@localhost:5432/reddit_scanner
+export DATABASE_URL=postgresql+psycopg://postgres:postgres@localhost:5432/reddit_signal_scanner
 export PYTHONPATH="$BACKEND_DIR:$PYTHONPATH"
 
 echo "1️⃣ 环境检查"
@@ -201,7 +201,7 @@ cat > "$REPORT_FILE" << 'EOF'
 3. **设置测试环境变量**
    ```bash
    export APP_ENV=test
-   export DATABASE_URL=postgresql+psycopg://postgres:postgres@localhost:5432/reddit_scanner
+   export DATABASE_URL=postgresql+psycopg://postgres:postgres@localhost:5432/reddit_signal_scanner
    ```
 
 4. **运行测试（带超时保护）**
@@ -417,4 +417,3 @@ EOF
 echo "📝 验收报告已生成: $REPORT_FILE"
 echo ""
 echo "🎉 Day 14 验收完成！"
-

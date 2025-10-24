@@ -1,15 +1,15 @@
 from __future__ import annotations
 
-from datetime import date, datetime, timezone
+from datetime import date
 from typing import Any
 
-from sqlalchemy import Date, DateTime, Index, Integer, JSON, Numeric
+from sqlalchemy import Date, Index, Integer, JSON, Numeric
 from sqlalchemy.orm import Mapped, mapped_column
 
-from app.db.base import Base
+from app.db.base import Base, TimestampMixin, int_pk_column
 
 
-class CrawlMetrics(Base):
+class CrawlMetrics(TimestampMixin, Base):
     """Hourly/daily crawl metrics for monitoring pipeline health (T1.3).
 
     Minimal initial fields to support Phase 1 acceptance.
@@ -21,7 +21,7 @@ class CrawlMetrics(Base):
         Index("idx_metrics_metric_hour", "metric_hour"),
     )
 
-    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    id: Mapped[int] = int_pk_column()
     metric_date: Mapped[date] = mapped_column(Date, nullable=False)
     metric_hour: Mapped[int] = mapped_column(Integer, nullable=False)  # 0-23
 
@@ -44,10 +44,5 @@ class CrawlMetrics(Base):
     tier_assignments: Mapped[dict[str, Any] | None] = mapped_column(
         JSON, nullable=True, default=None
     )
-
-    created_at: Mapped[datetime] = mapped_column(
-        DateTime(timezone=True), default=lambda: datetime.now(timezone.utc)
-    )
-
 
 __all__ = ["CrawlMetrics"]

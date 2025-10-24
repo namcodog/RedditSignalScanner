@@ -1107,7 +1107,7 @@ test-stage-1: test-env-up ## Stage 1: 环境准备与健康检查
 	@echo "║   Stage 1: 环境准备与健康检查                             ║"
 	@echo "╚════════════════════════════════════════════════════════════╝"
 	@docker compose -f docker-compose.test.yml exec -T test-api alembic upgrade head
-	@docker compose -f docker-compose.test.yml exec -T test-db psql -U test_user -d reddit_scanner_test -c "TRUNCATE users, tasks, community_pool, pending_communities, community_cache, analyses, reports CASCADE;"
+	@docker compose -f docker-compose.test.yml exec -T test-db psql -U test_user -d reddit_signal_scanner_test -c "TRUNCATE users, tasks, community_pool, pending_communities, community_cache, analyses, reports CASCADE;"
 	@echo "✅ Stage 1 完成"
 
 test-stage-2: ## Stage 2: 核心服务验收

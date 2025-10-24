@@ -13,6 +13,7 @@ from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.community_pool import CommunityImportHistory, CommunityPool
+from app.models.user import User
 
 logger = logging.getLogger(__name__)
 
@@ -133,6 +134,8 @@ class CommunityImportService:
         actor_id: uuid.UUID,
     ) -> Dict[str, Any]:
         """Validate the uploaded workbook and optionally persist new communities."""
+        actor_ref = await self._resolve_actor(actor_id)
+
         try:
             rows, present_columns = self._extract_rows(content)
         except ValueError as exc:
@@ -152,7 +155,7 @@ class CommunityImportService:
             await self._persist_history(
                 filename=filename,
                 actor_email=actor_email,
-                actor_id=actor_id,
+                actor_ref=actor_ref,
                 dry_run=dry_run,
                 result=result,
             )
@@ -178,7 +181,7 @@ class CommunityImportService:
             await self._persist_history(
                 filename=filename,
                 actor_email=actor_email,
-                actor_id=actor_id,
+                actor_ref=actor_ref,
                 dry_run=dry_run,
                 result=result,
             )
@@ -200,7 +203,7 @@ class CommunityImportService:
             await self._persist_history(
                 filename=filename,
                 actor_email=actor_email,
-                actor_id=actor_id,
+                actor_ref=actor_ref,
                 dry_run=dry_run,
                 result=result,
             )
@@ -215,7 +218,7 @@ class CommunityImportService:
 
         imported_records = 0
         if importable_rows and not dry_run:
-            imported_records = await self._insert_communities(importable_rows)
+            imported_records = await self._insert_communities(importable_rows, actor_ref)
             for entry in importable_rows:
                 row_states[entry.row_number]["status"] = "imported"
         elif importable_rows and dry_run:
@@ -243,7 +246,7 @@ class CommunityImportService:
         await self._persist_history(
             filename=filename,
             actor_email=actor_email,
-            actor_id=actor_id,
+            actor_ref=actor_ref,
             dry_run=dry_run,
             result=response,
         )
@@ -276,7 +279,9 @@ class CommunityImportService:
         ]
         return {"imports": imports}
 
-    async def _insert_communities(self, rows: Sequence[ParsedCommunityRow]) -> int:
+    async def _insert_communities(
+        self, rows: Sequence[ParsedCommunityRow], actor_ref: uuid.UUID | None
+    ) -> int:
         for entry in rows:
             community = CommunityPool(
                 name=entry.name,
@@ -287,6 +292,8 @@ class CommunityImportService:
                 avg_comment_length=int(entry.avg_comment_length or 0),
                 quality_score=float(entry.quality_score or 0.5),
                 priority=entry.priority or "medium",
+                created_by=actor_ref,
+                updated_by=actor_ref,
             )
             self._session.add(community)
         await self._session.flush()
@@ -297,7 +304,7 @@ class CommunityImportService:
         *,
         filename: str,
         actor_email: str,
-        actor_id: uuid.UUID,
+        actor_ref: uuid.UUID | None,
         dry_run: bool,
         result: Dict[str, Any],
     ) -> None:
@@ -305,7 +312,7 @@ class CommunityImportService:
         record = CommunityImportHistory(
             filename=filename,
             uploaded_by=actor_email,
-            uploaded_by_user_id=actor_id,
+            uploaded_by_user_id=actor_ref,
             dry_run=dry_run,
             status=result["status"],
             total_rows=summary["total"],
@@ -315,9 +322,20 @@ class CommunityImportService:
             imported_rows=summary["imported"],
             error_details=result.get("errors"),
             summary_preview={"communities": result.get("communities", [])[:20]},
+            created_by=actor_ref,
+            updated_by=actor_ref,
         )
         self._session.add(record)
         await self._session.commit()
+
+    async def _resolve_actor(self, actor_id: uuid.UUID | None) -> uuid.UUID | None:
+        if actor_id is None:
+            return None
+        existing = await self._session.get(User, actor_id)
+        if existing is None:
+            logger.debug("Actor id %s not found; history entry will omit uploaded_by_user_id", actor_id)
+            return None
+        return actor_id
 
     def _extract_rows(self, content: bytes) -> Tuple[List[RowRecord], Sequence[str]]:
         if not content:

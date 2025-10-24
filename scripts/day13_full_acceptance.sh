@@ -1,7 +1,7 @@
 #!/bin/bash
 # Day 13 完整验收脚本 - Lead Agent
 
-export DATABASE_URL='postgresql+psycopg://postgres:postgres@localhost:5432/reddit_scanner'
+export DATABASE_URL='postgresql+psycopg://postgres:postgres@localhost:5432/reddit_signal_scanner'
 export PYTHONPATH=/Users/hujia/Desktop/RedditSignalScanner/backend
 
 echo "=========================================="
@@ -208,4 +208,3 @@ echo "  3. 手动触发首次爬取: 见 Day 13 任务分配表"
 echo "  4. 验证爬虫和监控运行状态"
 echo "  5. 准备 Day 14 任务分配"
 echo ""
-

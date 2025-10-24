@@ -3,7 +3,7 @@ from __future__ import annotations
 import uuid
 from datetime import datetime
 
-from sqlalchemy import DateTime, MetaData, func
+from sqlalchemy import DateTime, ForeignKey, Integer, MetaData, func
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
@@ -38,6 +38,34 @@ class TimestampMixin:
     )
 
 
+class AuditMixin:
+    """Common created_by/updated_by audit columns."""
+
+    created_by: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True),
+        ForeignKey("users.id", ondelete="SET NULL"),
+        nullable=True,
+    )
+    updated_by: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True),
+        ForeignKey("users.id", ondelete="SET NULL"),
+        nullable=True,
+    )
+
+
+class SoftDeleteMixin:
+    """Soft delete columns for reversible deletions."""
+
+    deleted_at: Mapped[datetime | None] = mapped_column(
+        DateTime(timezone=True), nullable=True
+    )
+    deleted_by: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True),
+        ForeignKey("users.id", ondelete="SET NULL"),
+        nullable=True,
+    )
+
+
 def generate_uuid() -> uuid.UUID:
     """Return uuid4 value as callable default to avoid evaluation at import time."""
     return uuid.uuid4()
@@ -51,3 +79,8 @@ def uuid_pk_column() -> Mapped[uuid.UUID]:
         default=generate_uuid,
         nullable=False,
     )
+
+
+def int_pk_column() -> Mapped[int]:
+    """Factory for auto-incrementing integer primary keys."""
+    return mapped_column(Integer, primary_key=True, autoincrement=True)

@@ -251,3 +251,9 @@ describe('P2 新增端点', () => {
 - `CommunityImport.tsx` 接入 `adminService` 新增的社区导入相关方法，实现模板下载、Excel 上传（含进度回调）与导入历史解包，前端数据结构与后端 `_response` 格式同步。
 - `AdminDashboardPage.tsx` 的用户反馈 Tab 改为调用 `adminService.getBetaFeedbackList`，按后端字段渲染满意率、缺失社区等信息。
 - 新增 Vitest 用例覆盖模板下载、导入上传、历史查询与反馈拉取，确保 4 个 P2 端点具备稳定的前端调用路径。验证命令：`npm test -- --run admin.service`（20/20 通过）。
+
+## 2025-10-23 更新：数据库审计与软删除落地
+
+- Alembic 迁移 `aef64335bd34_add_audit_fields_and_indexes.py`：为 `community_pool`、`pending_communities`、`community_import_history` 添加 `created_by/updated_by` 与软删除字段，并补全 JSONB/Gin 及外键索引；`posts_raw`/`posts_hot` 增加单列主键便于关联。
+- Admin API (`backend/app/api/routes/admin_community_pool.py`) 与导入服务 (`backend/app/services/community_import_service.py`) 写入审计信息，禁用社区时改为软删除流程。
+- 运行 `pytest tests/models/test_database_indexes.py tests/models/test_database_constraints.py tests/test_community_import.py tests/api/test_admin_community_pool.py` 全部通过，验证索引、外键、审计逻辑行为。

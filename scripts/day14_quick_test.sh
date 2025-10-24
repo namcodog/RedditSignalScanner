@@ -17,7 +17,7 @@ cd "$BACKEND_DIR"
 
 # 设置测试环境
 export APP_ENV=test
-export DATABASE_URL=postgresql+psycopg://postgres:postgres@localhost:5432/reddit_scanner
+export DATABASE_URL=postgresql+psycopg://postgres:postgres@localhost:5432/reddit_signal_scanner
 export PYTHONPATH="$BACKEND_DIR:$PYTHONPATH"
 
 echo "1️⃣ 运行最小化测试（诊断）"
@@ -80,4 +80,3 @@ echo ""
 echo "=========================================="
 echo "✅ Day 14 所有测试通过！"
 echo "=========================================="
-

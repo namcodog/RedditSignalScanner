@@ -14,17 +14,14 @@ from sqlalchemy import (
     Index,
     Integer,
     Numeric,
-    PrimaryKeyConstraint,
     Sequence,
     String,
     Text,
+    UniqueConstraint,
 )
 from sqlalchemy.dialects.postgresql import JSONB, UUID
-from sqlalchemy.orm import DeclarativeBase
 
-
-class Base(DeclarativeBase):
-    """Base class for all models in posts_storage"""
+from app.db.base import Base
 
 
 class PostRaw(Base):
@@ -39,8 +36,9 @@ class PostRaw(Base):
     id = Column(
         BigInteger,
         Sequence("posts_raw_id_seq"),
-        nullable=True,
-    )  # 自增 ID，但不是主键，可为空
+        nullable=False,
+        primary_key=True,
+    )
     source = Column(String(50), nullable=False, default="reddit")
     source_post_id = Column(String(100), nullable=False)
     version = Column(Integer, nullable=False, default=1)
@@ -57,7 +55,10 @@ class PostRaw(Base):
         nullable=False,
         default=lambda: datetime.now(timezone.utc),
     )
-    valid_to = Column(TIMESTAMP(timezone=True), default=datetime(9999, 12, 31))
+    valid_to = Column(
+        TIMESTAMP(timezone=True),
+        default=lambda: datetime(9999, 12, 31, tzinfo=timezone.utc),
+    )
     is_current = Column(Boolean, nullable=False, default=True)
 
     # 作者信息
@@ -84,8 +85,8 @@ class PostRaw(Base):
 
     # 约束
     __table_args__ = (
-        PrimaryKeyConstraint(
-            "source", "source_post_id", "version", name="pk_posts_raw"
+        UniqueConstraint(
+            "source", "source_post_id", "version", name="uq_posts_raw_source_version"
         ),
         CheckConstraint("version > 0", name="ck_posts_raw_version_positive"),
         CheckConstraint(
@@ -125,6 +126,7 @@ class PostHot(Base):
     __tablename__ = "posts_hot"
 
     # 主键
+    id = Column(BigInteger, Sequence("posts_hot_id_seq"), primary_key=True)
     source = Column(String(50), nullable=False, default="reddit")
     source_post_id = Column(String(100), nullable=False)
 
@@ -149,10 +151,15 @@ class PostHot(Base):
 
     # 约束
     __table_args__ = (
-        PrimaryKeyConstraint("source", "source_post_id", name="pk_posts_hot"),
+        UniqueConstraint("source", "source_post_id", name="uq_posts_hot_source_post"),
         Index("idx_posts_hot_expires_at", "expires_at"),
         Index("idx_posts_hot_subreddit", "subreddit", "created_at"),
         Index("idx_posts_hot_created_at", "created_at"),
+        Index(
+            "idx_posts_hot_metadata_gin",
+            "metadata",
+            postgresql_using="gin",
+        ),
     )
 
     def __repr__(self) -> str:
