@@ -13,23 +13,49 @@ depends_on = None
 
 
 def upgrade() -> None:
-    # Add GIN indexes for JSONB columns (if not exists)
-    op.execute("""
-        CREATE INDEX IF NOT EXISTS idx_community_pool_categories_gin
-        ON community_pool USING gin (categories)
-    """)
-    op.execute("""
-        CREATE INDEX IF NOT EXISTS idx_community_pool_keywords_gin
-        ON community_pool USING gin (description_keywords)
-    """)
+    # Check if tables exist before creating indexes
+    conn = op.get_bind()
 
-    # Add GIN index for posts_hot metadata (if not exists)
-    op.execute("""
-        CREATE INDEX IF NOT EXISTS idx_posts_hot_metadata_gin
-        ON posts_hot USING gin (metadata)
-    """)
+    # Check community_pool table
+    result = conn.execute(sa.text("""
+        SELECT EXISTS (
+            SELECT FROM information_schema.tables
+            WHERE table_schema = 'public'
+            AND table_name = 'community_pool'
+        )
+    """))
+    community_pool_exists = result.scalar()
+
+    # Check posts_hot table
+    result = conn.execute(sa.text("""
+        SELECT EXISTS (
+            SELECT FROM information_schema.tables
+            WHERE table_schema = 'public'
+            AND table_name = 'posts_hot'
+        )
+    """))
+    posts_hot_exists = result.scalar()
+
+    # Add GIN indexes for JSONB columns (if table and index not exist)
+    if community_pool_exists:
+        op.execute("""
+            CREATE INDEX IF NOT EXISTS idx_community_pool_categories_gin
+            ON community_pool USING gin (categories)
+        """)
+        op.execute("""
+            CREATE INDEX IF NOT EXISTS idx_community_pool_keywords_gin
+            ON community_pool USING gin (description_keywords)
+        """)
+
+    # Add GIN index for posts_hot metadata (if table and index not exist)
+    if posts_hot_exists:
+        op.execute("""
+            CREATE INDEX IF NOT EXISTS idx_posts_hot_metadata_gin
+            ON posts_hot USING gin (metadata)
+        """)
 
     # Add missing indexes for pending_communities (if not exists)
+    # pending_communities should always exist at this point
     op.execute("""
         CREATE INDEX IF NOT EXISTS idx_pending_communities_task_id
         ON pending_communities (discovered_from_task_id)
@@ -44,6 +70,7 @@ def upgrade() -> None:
     """)
 
     # Add missing indexes for community_import_history (if not exists)
+    # community_import_history should always exist at this point
     op.execute("""
         CREATE INDEX IF NOT EXISTS idx_community_import_history_uploaded_by
         ON community_import_history (uploaded_by_user_id)
