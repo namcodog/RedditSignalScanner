@@ -283,12 +283,12 @@ def upgrade() -> None:
             ON posts_hot USING gin (metadata)
         """)
 
-    # clean default now that existing rows populated
-    op.alter_column(
-        "posts_hot",
-        "id",
-        server_default=None,
-    )
+        # clean default now that existing rows populated
+        op.alter_column(
+            "posts_hot",
+            "id",
+            server_default=None,
+        )
 
     op.alter_column(
         "pending_communities",
