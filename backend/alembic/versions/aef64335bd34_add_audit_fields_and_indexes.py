@@ -290,16 +290,8 @@ def upgrade() -> None:
             server_default=None,
         )
 
-    op.alter_column(
-        "pending_communities",
-        "created_at",
-        server_default=None,
-    )
-    op.alter_column(
-        "pending_communities",
-        "updated_at",
-        server_default=None,
-    )
+    # Note: Do NOT remove server_default from pending_communities.created_at/updated_at
+    # These columns need CURRENT_TIMESTAMP default for new inserts to work correctly
 
 
 def downgrade() -> None:
