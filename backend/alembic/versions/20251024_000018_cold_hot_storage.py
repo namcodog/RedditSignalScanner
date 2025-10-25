@@ -130,9 +130,10 @@ def _ensure_posts_raw_table(conn) -> None:
 def _ensure_posts_hot_table(conn) -> None:
     inspector = sa.inspect(conn)
     if not inspector.has_table("posts_hot"):
+        # 创建表时不定义主键,让 conftest.py 或后续迁移处理
         op.create_table(
             "posts_hot",
-            sa.Column("id", sa.BigInteger(), primary_key=True, autoincrement=True),
+            sa.Column("id", sa.BigInteger(), nullable=False, autoincrement=True),
             sa.Column("source", sa.String(length=50), nullable=False, server_default="reddit"),
             sa.Column("source_post_id", sa.String(length=100), nullable=False),
             sa.Column("created_at", sa.TIMESTAMP(timezone=True), nullable=False),
@@ -162,6 +163,28 @@ def _ensure_posts_hot_table(conn) -> None:
                 name="uq_posts_hot_source_post",
             ),
         )
+
+        # 创建序列
+        op.execute("CREATE SEQUENCE IF NOT EXISTS posts_hot_id_seq")
+        op.execute("ALTER TABLE posts_hot ALTER COLUMN id SET DEFAULT nextval('posts_hot_id_seq')")
+
+        # 检查主键是否已存在,如果不存在则创建
+        pk_exists = conn.execute(
+            text(
+                """
+                SELECT EXISTS (
+                    SELECT 1 FROM pg_constraint
+                    WHERE conname = 'posts_hot_pkey'
+                    AND conrelid = 'posts_hot'::regclass
+                )
+                """
+            )
+        ).scalar()
+
+        if not pk_exists:
+            op.execute("ALTER TABLE posts_hot ADD CONSTRAINT posts_hot_pkey PRIMARY KEY (id)")
+
+        # 创建索引
         op.execute(
             "CREATE INDEX IF NOT EXISTS idx_posts_hot_expires_at ON posts_hot (expires_at)"
         )
@@ -175,6 +198,30 @@ def _ensure_posts_hot_table(conn) -> None:
             "CREATE INDEX IF NOT EXISTS idx_posts_hot_metadata_gin ON posts_hot USING gin (metadata)"
         )
     else:
+        # 表已存在,确保主键存在
+        pk_exists = conn.execute(
+            text(
+                """
+                SELECT EXISTS (
+                    SELECT 1 FROM pg_constraint
+                    WHERE conname = 'posts_hot_pkey'
+                    AND conrelid = 'posts_hot'::regclass
+                )
+                """
+            )
+        ).scalar()
+
+        if not pk_exists:
+            # 确保 id 列存在
+            columns = {col["name"] for col in inspector.get_columns("posts_hot")}
+            if "id" not in columns:
+                op.execute("CREATE SEQUENCE IF NOT EXISTS posts_hot_id_seq")
+                op.execute("ALTER TABLE posts_hot ADD COLUMN id BIGINT DEFAULT nextval('posts_hot_id_seq') NOT NULL")
+
+            # 添加主键
+            op.execute("ALTER TABLE posts_hot ADD CONSTRAINT posts_hot_pkey PRIMARY KEY (id)")
+
+        # 确保 author 字段存在
         columns = {col["name"] for col in inspector.get_columns("posts_hot")}
         if "author_id" not in columns:
             op.add_column(
