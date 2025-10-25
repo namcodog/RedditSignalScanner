@@ -13,13 +13,12 @@ from sqlalchemy import (
     Column,
     Index,
     Integer,
-    Numeric,
     Sequence,
     String,
     Text,
     UniqueConstraint,
 )
-from sqlalchemy.dialects.postgresql import JSONB, UUID
+from sqlalchemy.dialects.postgresql import JSONB
 
 from app.db.base import Base
 
@@ -69,7 +68,7 @@ class PostRaw(Base):
     title = Column(Text, nullable=False)
     body = Column(Text)
     body_norm = Column(Text)  # 由触发器自动填充
-    text_norm_hash = Column(UUID(as_uuid=True))  # 由触发器自动填充
+    text_norm_hash = Column(String(64))  # 由触发器自动填充 (SHA-256 hex)
 
     # 元数据
     url = Column(Text)
@@ -139,6 +138,10 @@ class PostHot(Base):
     )
     expires_at = Column(TIMESTAMP(timezone=True), nullable=False)
 
+    # 作者信息
+    author_id = Column(String(100))
+    author_name = Column(String(100))
+
     # 内容（简化版）
     title = Column(Text, nullable=False)
     body = Column(Text)
@@ -170,35 +173,5 @@ class PostHot(Base):
         )
 
 
-class Watermark(Base):
-    """
-    水位线：记录每个社区的最后抓取位置
-    用于增量抓取
-    """
-
-    __tablename__ = "community_watermarks"
-
-    # 主键
-    community_name = Column(String(100), primary_key=True)
-
-    # 水位线
-    last_seen_post_id = Column(String(100))
-    last_seen_created_at = Column(TIMESTAMP(timezone=True))
-
-    # 统计
-    total_posts_fetched = Column(Integer, default=0)
-    dedup_rate = Column(Numeric(5, 2))  # 去重率（%）
-    last_crawled_at = Column(TIMESTAMP(timezone=True))
-
-    # 元数据
-    extra_data = Column("metadata", JSONB)
-
-    def __repr__(self) -> str:
-        return (
-            f"<Watermark(community={self.community_name}, "
-            f"last_seen={self.last_seen_created_at})>"
-        )
-
-
 # 导出
-__all__ = ["PostRaw", "PostHot", "Watermark"]
+__all__ = ["PostRaw", "PostHot"]

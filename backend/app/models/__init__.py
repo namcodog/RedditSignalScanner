@@ -1,7 +1,6 @@
 from app.models.analysis import Analysis
 from app.models.community_cache import CommunityCache
 from app.models.community_pool import (
-    CommunityImportHistory,
     CommunityPool,
     PendingCommunity,
 )
@@ -20,7 +19,6 @@ __all__ = [
     "CommunityCache",
     "CommunityPool",
     "PendingCommunity",
-    "CommunityImportHistory",
     "QualityMetrics",
     "InsightCard",
     "Evidence",

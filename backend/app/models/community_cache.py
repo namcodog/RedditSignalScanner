@@ -34,6 +34,12 @@ class CommunityCache(TimestampMixin, Base):
         Index("idx_cache_last_crawled", "last_crawled_at"),
         Index("idx_cache_hit_count", "hit_count"),
         Index("idx_cache_quality", "quality_score"),
+        Index(
+            "idx_community_cache_name_trgm",
+            "community_name",
+            postgresql_using="gin",
+            postgresql_ops={"community_name": "gin_trgm_ops"},
+        ),
     )
 
     community_name: Mapped[str] = mapped_column(String(100), primary_key=True)
