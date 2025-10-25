@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import Any, Dict
 
 from celery import Celery  # type: ignore[import-untyped]
-from redis import Redis
+from redis.asyncio import Redis
 
 
 class MonitoringService:
@@ -62,10 +62,10 @@ class MonitoringService:
             "failed_tasks": failed_tasks,
         }
 
-    def get_redis_stats(self) -> Dict[str, float]:
+    async def get_redis_stats(self) -> Dict[str, float]:
         """Return Redis server statistics required by the admin dashboard."""
 
-        info_raw = self._redis.info()
+        info_raw = await self._redis.info()
         info: Dict[str, Any] = dict(info_raw) if isinstance(info_raw, dict) else {}
         hits = int(info.get("keyspace_hits", 0))
         misses = int(info.get("keyspace_misses", 0))

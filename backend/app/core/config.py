@@ -6,6 +6,7 @@ from pathlib import Path
 from typing import List
 
 from pydantic import BaseModel, Field
+from urllib.parse import quote_plus
 
 try:
     # 尽早加载 backend/.env，确保所有进程（API/Celery/脚本）读取到 Reddit 凭证
@@ -21,14 +22,28 @@ except Exception:
     pass
 
 
+def _default_database_url(driver: str = "postgresql+asyncpg") -> str:
+    user = os.getenv("POSTGRES_USER", "postgres")
+    password = quote_plus(os.getenv("POSTGRES_PASSWORD", "postgres"))
+    host = os.getenv("POSTGRES_HOST", "localhost")
+    port = os.getenv("POSTGRES_PORT", "5432")
+    name = os.getenv("POSTGRES_DB", "reddit_signal_scanner")
+    return f"{driver}://{user}:{password}@{host}:{port}/{name}"
+
+
+def _default_redis_cache_url(db_index: str | None = None) -> str:
+    host = os.getenv("REDIS_HOST", "localhost")
+    port = os.getenv("REDIS_PORT", "6379")
+    db = db_index or os.getenv("REDIS_CACHE_DB", "5")
+    return f"redis://{host}:{port}/{db}"
+
+
 class Settings(BaseModel):
     """Application configuration derived from environment variables."""
 
     app_name: str = Field(default="Reddit Signal Scanner")
     environment: str = Field(default="development")
-    database_url: str = Field(
-        default="postgresql+psycopg://postgres:postgres@localhost:5432/reddit_signal_scanner"
-    )
+    database_url: str = Field(default_factory=lambda: _default_database_url("postgresql+psycopg"))
     cors_origins_raw: str = Field(
         default="http://localhost:3006,http://127.0.0.1:3006,http://localhost:3007,http://127.0.0.1:3007,http://localhost:3008,http://127.0.0.1:3008,http://localhost:3009,http://127.0.0.1:3009,http://localhost:3000,http://127.0.0.1:3000"
     )
@@ -43,7 +58,7 @@ class Settings(BaseModel):
     reddit_rate_limit_window_seconds: float = Field(default=60.0)
     reddit_request_timeout_seconds: float = Field(default=30.0)
     reddit_max_concurrency: int = Field(default=5)
-    reddit_cache_redis_url: str = Field(default="redis://localhost:6379/5")
+    reddit_cache_redis_url: str = Field(default_factory=_default_redis_cache_url)
     reddit_cache_ttl_seconds: int = Field(default=24 * 60 * 60)
     admin_emails_raw: str = Field(default="")
     enable_reddit_search: bool = Field(default=False)
@@ -84,7 +99,7 @@ class Settings(BaseModel):
 def get_settings() -> Settings:
     return Settings(
         database_url=os.getenv(
-            "DATABASE_URL", Settings.model_fields["database_url"].default
+            "DATABASE_URL", _default_database_url("postgresql+psycopg")
         ),
         cors_origins_raw=os.getenv(
             "CORS_ALLOW_ORIGINS", Settings.model_fields["cors_origins_raw"].default
@@ -129,7 +144,7 @@ def get_settings() -> Settings:
         ),
         reddit_cache_redis_url=os.getenv(
             "REDDIT_CACHE_REDIS_URL",
-            Settings.model_fields["reddit_cache_redis_url"].default,
+            _default_redis_cache_url(),
         ),
         reddit_cache_ttl_seconds=int(
             os.getenv(

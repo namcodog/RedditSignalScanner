@@ -8,7 +8,7 @@ from datetime import datetime, timedelta, timezone
 from decimal import Decimal
 from typing import Any, Iterable, List, Optional, Tuple
 
-from sqlalchemy import select
+from sqlalchemy import select, update
 from sqlalchemy.dialects.postgresql import insert as pg_insert
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -41,10 +41,13 @@ class IncrementalCrawler:
         db: AsyncSession,
         reddit_client: RedditAPIClient,
         hot_cache_ttl_hours: int = 24,
+        *,
+        refresh_posts_latest_after_write: bool = True,
     ):
         self.db = db
         self.reddit_client = reddit_client
         self.hot_cache_ttl_hours = hot_cache_ttl_hours
+        self.refresh_posts_latest_after_write = refresh_posts_latest_after_write
 
     async def crawl_community_incremental(
         self,
@@ -290,6 +293,9 @@ class IncrementalCrawler:
         # 提交事务
         await self.db.commit()
 
+        if self.refresh_posts_latest_after_write and (new_count or updated_count):
+            self._schedule_posts_latest_refresh()
+
         return new_count, updated_count, dup_count
 
     async def _upsert_to_cold_storage(
@@ -303,71 +309,90 @@ class IncrementalCrawler:
         Returns:
             (is_new, is_updated)
         """
-        # 先检查是否已存在
+        now = datetime.now(timezone.utc)
+        created_at = _unix_to_datetime(post.created_utc)
+
+        # 查询当前版本
         existing = await self.db.execute(
             select(PostRaw).where(
                 PostRaw.source == "reddit",
                 PostRaw.source_post_id == post.id,
-                PostRaw.version == 1,
+                PostRaw.is_current.is_(True),
             )
         )
         existing_post = existing.scalar_one_or_none()
 
-        # 构造 upsert 语句
-        # 注意：对于 metadata 列，使用 PostRaw.extra_data（Python 属性名）
-        # SQLAlchemy 会自动映射到数据库列 "metadata"
-        stmt = pg_insert(PostRaw).values(
-            source="reddit",
-            source_post_id=post.id,
-            version=1,
-            created_at=_unix_to_datetime(post.created_utc),
-            fetched_at=datetime.now(timezone.utc),
-            author_id=post.author,
-            author_name=post.author,
-            title=post.title,
-            body=post.selftext or "",
-            url=post.url,
-            subreddit=community_name,
-            score=post.score,
-            num_comments=post.num_comments,
-        )
-        # 单独设置 extra_data，避免与 metadata 保留字冲突
-        stmt = stmt.values({
-            PostRaw.extra_data: {
-                "permalink": post.permalink,
-                "upvote_ratio": getattr(post, "upvote_ratio", None),
-            }
-        })
+        # 基础字段
+        base_values: dict[str, Any] = {
+            "source": "reddit",
+            "source_post_id": post.id,
+            "created_at": created_at,
+            "fetched_at": now,
+            "author_id": post.author,
+            "author_name": post.author,
+            "title": post.title,
+            "body": post.selftext or "",
+            "url": post.url,
+            "subreddit": community_name,
+            "score": post.score,
+            "num_comments": post.num_comments,
+            "is_current": True,
+            "valid_from": now,
+        }
 
-        if existing_post:
-            # 已存在：检查是否需要更新
-            is_updated = (
-                existing_post.score != post.score
-                or existing_post.num_comments != post.num_comments
+        metadata_payload = {
+            "permalink": post.permalink,
+            "upvote_ratio": getattr(post, "upvote_ratio", None),
+        }
+
+        if existing_post is None:
+            # 新帖子：写入版本1
+            insert_stmt = pg_insert(PostRaw).values(
+                **base_values,
+                version=1,
+                edit_count=0,
             )
-
-            if is_updated:
-                # ON CONFLICT: 更新 score/num_comments
-                stmt = stmt.on_conflict_do_update(
-                    index_elements=["source", "source_post_id", "version"],
-                    set_={
-                        "score": stmt.excluded.score,
-                        "num_comments": stmt.excluded.num_comments,
-                        "fetched_at": stmt.excluded.fetched_at,
-                    },
-                )
-                await self.db.execute(stmt)
-                return False, True  # (is_new=False, is_updated=True)
-            else:
-                # 无变化，跳过
-                return False, False  # (is_new=False, is_updated=False)
-        else:
-            # 不存在：新增
-            stmt = stmt.on_conflict_do_nothing(
+            insert_stmt = insert_stmt.values({PostRaw.extra_data: metadata_payload})
+            insert_stmt = insert_stmt.on_conflict_do_nothing(
                 index_elements=["source", "source_post_id", "version"]
             )
-            await self.db.execute(stmt)
-            return True, False  # (is_new=True, is_updated=False)
+            await self.db.execute(insert_stmt)
+            return True, False
+
+        # 已存在：检查是否需要新版本
+        body_text = post.selftext or ""
+        has_changes = any(
+            [
+                existing_post.score != post.score,
+                existing_post.num_comments != post.num_comments,
+                existing_post.title != post.title,
+                (existing_post.body or "") != body_text,
+            ]
+        )
+
+        if not has_changes:
+            return False, False
+
+        # 关闭旧版本
+        await self.db.execute(
+            update(PostRaw)
+            .where(PostRaw.id == existing_post.id)
+            .values(
+                is_current=False,
+                valid_to=now,
+            )
+        )
+
+        # 插入新版本
+        next_version = existing_post.version + 1
+        insert_stmt = pg_insert(PostRaw).values(
+            **base_values,
+            version=next_version,
+            edit_count=(existing_post.edit_count or 0) + 1,
+        )
+        insert_stmt = insert_stmt.values({PostRaw.extra_data: metadata_payload})
+        await self.db.execute(insert_stmt)
+        return False, True  # (is_new=False, is_updated=True)
 
     async def _upsert_to_hot_cache(
         self,
@@ -387,6 +412,8 @@ class IncrementalCrawler:
             created_at=_unix_to_datetime(post.created_utc),
             cached_at=datetime.now(timezone.utc),
             expires_at=expires_at,
+            author_id=post.author,
+            author_name=post.author,
             title=post.title,
             body=post.selftext or "",
             subreddit=community_name,
@@ -407,6 +434,8 @@ class IncrementalCrawler:
             set_={
                 "cached_at": stmt.excluded.cached_at,
                 "expires_at": stmt.excluded.expires_at,
+                "author_id": stmt.excluded.author_id,
+                "author_name": stmt.excluded.author_name,
                 "score": stmt.excluded.score,
                 "num_comments": stmt.excluded.num_comments,
                 "title": stmt.excluded.title,
@@ -416,6 +445,15 @@ class IncrementalCrawler:
         )
 
         await self.db.execute(stmt)
+
+    def _schedule_posts_latest_refresh(self) -> None:
+        """调度 posts_latest 刷新任务，避免阻塞抓取事务。"""
+        try:
+            from app.core.celery_app import celery_app
+
+            celery_app.send_task("tasks.maintenance.refresh_posts_latest")
+        except Exception:  # pragma: no cover - 调度失败时仅记录日志
+            logger.exception("Failed to schedule posts_latest refresh task")
 
     async def _update_watermark(
         self,

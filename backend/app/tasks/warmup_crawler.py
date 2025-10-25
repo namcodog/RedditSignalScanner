@@ -191,7 +191,7 @@ async def _crawl_community(
         logger.info(f"Fetched {len(posts)} posts from r/{community.name}")
 
         # Store posts in Redis cache
-        cache_manager.set_cached_posts(community.name, posts)
+        await cache_manager.set_cached_posts(community.name, posts)
 
         # Upsert community cache metadata in DB
         await upsert_community_cache(

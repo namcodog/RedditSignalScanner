@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import uuid
 from datetime import datetime, timezone
+import logging
 from typing import Any, Dict, Optional
 
 from fastapi import APIRouter, Depends, HTTPException, Path, status
@@ -16,6 +17,12 @@ from app.db.session import get_session
 from app.models.community_pool import CommunityPool, PendingCommunity
 
 router = APIRouter(prefix="/admin/communities", tags=["admin"])  # mounted under /api
+logger = logging.getLogger(__name__)
+
+
+def safe_int(value: Any) -> int:
+    """Convert values to int while preserving logging hook for tests."""
+    return int(value)
 
 
 class ApproveRequest(BaseModel):
@@ -121,7 +128,8 @@ async def approve_community(
 
     try:
         reviewer_id = uuid.UUID(payload.sub)
-    except (ValueError, TypeError):
+    except (ValueError, TypeError) as exc:
+        logger.warning("管理员令牌 subject 无法解析: %s", exc)
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token subject"
         )
@@ -151,11 +159,14 @@ async def approve_community(
         pool.deleted_by = None
         pool.updated_by = reviewer_id
         try:
-            pool.discovered_count = int(pool.discovered_count) + int(
+            pool.discovered_count = safe_int(pool.discovered_count) + safe_int(
                 pending.discovered_count
             )
-        except Exception:
-            pool.discovered_count = int(pending.discovered_count)
+        except Exception as exc:
+            logger.warning(
+                "无法累加 discovered_count，使用待审核值覆盖: %s", exc,
+            )
+            pool.discovered_count = safe_int(pending.discovered_count)
 
     # Update pending state
     pending.status = "approved"
@@ -185,7 +196,8 @@ async def reject_community(
 
     try:
         reviewer_id = uuid.UUID(payload.sub)
-    except (ValueError, TypeError):
+    except (ValueError, TypeError) as exc:
+        logger.warning("管理员令牌 subject 无法解析: %s", exc)
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token subject"
         )
@@ -217,7 +229,8 @@ async def disable_community(
 
     try:
         actor_id = uuid.UUID(payload.sub)
-    except (ValueError, TypeError):
+    except (ValueError, TypeError) as exc:
+        logger.warning("管理员令牌 subject 无法解析: %s", exc)
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token subject"
         )

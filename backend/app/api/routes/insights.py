@@ -3,7 +3,7 @@ from __future__ import annotations
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
-from sqlalchemy import select
+from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import joinedload
 
@@ -29,6 +29,16 @@ router = APIRouter(prefix="/insights", tags=["insights"])
 async def get_insights(
     task_id: UUID | None = Query(None, description="任务 ID"),
     entity_filter: str | None = Query(None, description="实体过滤器（暂未实现）"),
+    min_confidence: float | None = Query(
+        None,
+        ge=0.0,
+        le=1.0,
+        description="最小置信度（0-1），用于过滤洞察卡片",
+    ),
+    subreddit: str | None = Query(
+        None,
+        description="按子版块过滤，支持精确匹配（区分大小写）",
+    ),
     limit: int = Query(10, ge=1, le=100, description="每页数量"),
     offset: int = Query(0, ge=0, description="偏移量"),
     payload: TokenPayload = Depends(decode_jwt_token),
@@ -55,6 +65,8 @@ async def get_insights(
     )
     
     # 如果指定了 task_id，验证任务所有权并过滤
+    count_query = select(func.count(InsightCard.id))
+
     if task_id is not None:
         # 验证任务所有权
         task = await db.get(Task, task_id)
@@ -63,7 +75,6 @@ async def get_insights(
                 status_code=status.HTTP_404_NOT_FOUND,
                 detail="Task not found",
             )
-        
         if str(task.user_id) != payload.sub:
             raise HTTPException(
                 status_code=status.HTTP_403_FORBIDDEN,
@@ -71,20 +82,25 @@ async def get_insights(
             )
         
         query = query.where(InsightCard.task_id == task_id)
+        count_query = count_query.where(InsightCard.task_id == task_id)
     else:
         # 如果没有指定 task_id，只返回当前用户的洞察卡片
         # 通过 JOIN task 表来过滤
         query = query.join(Task).where(Task.user_id == UUID(payload.sub))
-    
-    # 获取总数
-    count_query = select(InsightCard.id)
-    if task_id is not None:
-        count_query = count_query.where(InsightCard.task_id == task_id)
-    else:
         count_query = count_query.join(Task).where(Task.user_id == UUID(payload.sub))
-    
+
+    if min_confidence is not None:
+        query = query.where(InsightCard.confidence >= min_confidence)
+        count_query = count_query.where(InsightCard.confidence >= min_confidence)
+
+    if subreddit is not None and subreddit.strip():
+        normalized = subreddit.strip()
+        query = query.where(InsightCard.subreddits.contains([normalized]))
+        count_query = count_query.where(InsightCard.subreddits.contains([normalized]))
+
+    # 获取总数
     result = await db.execute(count_query)
-    total = len(result.all())
+    total = int(result.scalar_one() or 0)
     
     # 分页查询
     query = query.order_by(InsightCard.created_at.desc()).limit(limit).offset(offset)
@@ -194,4 +210,3 @@ async def get_insight(
 
 
 __all__ = ["router"]
-

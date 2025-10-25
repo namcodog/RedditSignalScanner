@@ -4,7 +4,7 @@ import uuid
 from datetime import datetime
 from typing import List
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 
 
 class BetaFeedbackCreate(BaseModel):
@@ -23,6 +23,8 @@ class BetaFeedbackCreate(BaseModel):
 class BetaFeedbackResponse(BaseModel):
     """Schema for beta feedback response."""
 
+    model_config = ConfigDict(from_attributes=True)
+
     id: uuid.UUID
     task_id: uuid.UUID
     user_id: uuid.UUID
@@ -31,6 +33,3 @@ class BetaFeedbackResponse(BaseModel):
     comments: str
     created_at: datetime
     updated_at: datetime
-
-    class Config:
-        from_attributes = True

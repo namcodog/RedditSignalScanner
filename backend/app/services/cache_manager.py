@@ -5,7 +5,7 @@ from dataclasses import asdict, is_dataclass
 from datetime import datetime, timedelta, timezone
 from typing import Any, Dict, Iterable, List, Optional, Protocol, Sequence, cast
 
-import redis
+import redis.asyncio as redis
 
 from app.services.reddit_client import RedditPost
 
@@ -13,16 +13,16 @@ DEFAULT_CACHE_TTL_SECONDS = 24 * 60 * 60
 
 
 class RedisLike(Protocol):
-    def get(self, key: str) -> bytes | str | None:
+    async def get(self, key: str) -> bytes | str | None:
         ...
 
-    def setex(self, key: str, time: int, value: str) -> bool | None:
+    async def setex(self, key: str, time: int, value: str) -> bool | None:
         ...
 
-    def exists(self, key: str) -> int:
+    async def exists(self, key: str) -> int:
         ...
 
-    def delete(self, key: str) -> int:
+    async def delete(self, key: str) -> int:
         ...
 
 
@@ -44,11 +44,14 @@ class CacheManager:
         else:
             target_url = redis_url or "redis://localhost:6379/5"
             # Cast to RedisLike to satisfy mypy in absence of redis stubs
-            self.redis = cast(RedisLike, redis.Redis.from_url(target_url))
+            self.redis = cast(
+                RedisLike,
+                redis.Redis.from_url(target_url, decode_responses=False),
+            )
         self.cache_ttl = max(60, cache_ttl_seconds)
         self.namespace = namespace.strip(":")
 
-    def get_cached_posts(
+    async def get_cached_posts(
         self,
         subreddit: str,
         *,
@@ -58,7 +61,7 @@ class CacheManager:
         Load subreddit posts from cache if the payload is still considered fresh.
         """
         key = self._build_key(subreddit)
-        raw = self.redis.get(key)
+        raw = await self.redis.get(key)
         if raw is None:
             return None
 
@@ -87,7 +90,7 @@ class CacheManager:
 
         return [self._deserialize_post(item) for item in posts_data]
 
-    def set_cached_posts(
+    async def set_cached_posts(
         self,
         subreddit: str,
         posts: Sequence[RedditPost],
@@ -98,9 +101,9 @@ class CacheManager:
             "cached_at": datetime.now(timezone.utc).isoformat(),
             "posts": [self._serialise_post(post) for post in posts],
         }
-        self.redis.setex(key, self.cache_ttl, json.dumps(data, ensure_ascii=False))
+        await self.redis.setex(key, self.cache_ttl, json.dumps(data, ensure_ascii=False))
 
-    def calculate_cache_hit_rate(
+    async def calculate_cache_hit_rate(
         self,
         subreddits: Iterable[str],
         *,
@@ -115,14 +118,14 @@ class CacheManager:
 
         hits = 0
         for name in names:
-            posts = self.get_cached_posts(name, max_age_hours=max_age_hours)
+            posts = await self.get_cached_posts(name, max_age_hours=max_age_hours)
             if posts:
                 hits += 1
         return hits / len(names)
 
-    def invalidate(self, subreddit: str) -> None:
+    async def invalidate(self, subreddit: str) -> None:
         """Remove a cached entry manually."""
-        self.redis.delete(self._build_key(subreddit))
+        await self.redis.delete(self._build_key(subreddit))
 
     def _build_key(self, subreddit: str) -> str:
         return f"{self.namespace}:{subreddit.lower()}"

@@ -52,6 +52,18 @@ _ASYNC_LOOP: asyncio.AbstractEventLoop | None = None
 _LOOP_THREAD: Thread | None = None
 
 
+VALID_STATUS_TRANSITIONS: dict[TaskStatus, set[TaskStatus]] = {
+    TaskStatus.PENDING: {TaskStatus.PROCESSING, TaskStatus.FAILED},
+    TaskStatus.PROCESSING: {
+        TaskStatus.COMPLETED,
+        TaskStatus.FAILED,
+        TaskStatus.PENDING,
+    },
+    TaskStatus.FAILED: {TaskStatus.PENDING, TaskStatus.PROCESSING},
+    TaskStatus.COMPLETED: set(),
+}
+
+
 def _start_loop() -> None:
     global _ASYNC_LOOP, _LOOP_THREAD
     loop_ready = Event()
@@ -104,11 +116,21 @@ def _shutdown_loop() -> None:
     with _LOOP_LOCK:
         if _ASYNC_LOOP is not None and not _ASYNC_LOOP.is_closed():
             _ASYNC_LOOP.close()
-        _ASYNC_LOOP = None
-        _LOOP_THREAD = None
+    _ASYNC_LOOP = None
+    _LOOP_THREAD = None
 
 
 atexit.register(_shutdown_loop)
+
+
+def _set_task_status(task: TaskModel, new_status: TaskStatus) -> None:
+    current = task.status
+    if current == new_status:
+        return
+    allowed = VALID_STATUS_TRANSITIONS.get(current, set())
+    if new_status not in allowed:
+        raise ValueError(f"Invalid status transition: {current} -> {new_status}")
+    task.status = new_status
 
 
 class TaskNotFoundError(RuntimeError):
@@ -151,7 +173,7 @@ async def _mark_processing(task_id: uuid.UUID, retries: int) -> TaskSummary:
             now = datetime.now(UTC)
             if task.started_at is None:
                 task.started_at = now
-            task.status = TaskStatus.PROCESSING
+            _set_task_status(task, TaskStatus.PROCESSING)
             task.error_message = None
             task.failure_category = None
             task.retry_count = retries
@@ -214,7 +236,7 @@ async def _store_analysis_results(task_id: uuid.UUID, result: AnalysisResult) ->
                 analysis.report.html_content = result.report_html
                 analysis.report.generated_at = now
 
-            task.status = TaskStatus.COMPLETED
+            _set_task_status(task, TaskStatus.COMPLETED)
             task.completed_at = now
             task.error_message = None
             task.failure_category = None
@@ -233,7 +255,7 @@ async def _mark_pending_retry(task_id: uuid.UUID, retries: int) -> None:
         try:
             task = await _load_task(session, task_id, for_update=True)
             now = datetime.now(UTC)
-            task.status = TaskStatus.PENDING
+            _set_task_status(task, TaskStatus.PENDING)
             task.error_message = None
             task.failure_category = None
             task.retry_count = retries
@@ -258,7 +280,7 @@ async def _mark_failed(
         try:
             task = await _load_task(session, task_id, for_update=True)
             now = datetime.now(UTC)
-            task.status = TaskStatus.FAILED
+            _set_task_status(task, TaskStatus.FAILED)
             task.error_message = _truncate_error(error)
             task.failure_category = failure_category
             task.retry_count = retries

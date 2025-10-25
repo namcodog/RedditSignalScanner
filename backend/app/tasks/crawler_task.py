@@ -90,7 +90,7 @@ async def _crawl_single(
     )
 
     # 内部缓存与数据库仍然使用带前缀的社区名，保证与社区池/键命名一致
-    cache_manager.set_cached_posts(community_name, posts)
+    await cache_manager.set_cached_posts(community_name, posts)
     await upsert_community_cache(
         community_name,
         posts_cached=len(posts),

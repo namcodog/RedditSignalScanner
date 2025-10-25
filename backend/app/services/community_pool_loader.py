@@ -120,6 +120,10 @@ class CommunityPoolLoader:
                 existing.avg_comment_length = community_data["avg_comment_length"]
                 existing.quality_score = community_data["quality_score"]
                 existing.is_active = community_data["is_active"]
+                # Clear soft delete markers so the community becomes visible again
+                existing.deleted_at = None
+                existing.deleted_by = None
+                existing.updated_at = datetime.now(timezone.utc)
                 updated_count += 1
                 logger.debug(f"Updated existing community: {name}")
             else:

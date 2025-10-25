@@ -1124,7 +1124,7 @@ async def run_analysis(
             )
             collection_result = None
     else:
-        cache_only_result = _try_cache_only_collection(selected, settings)
+        cache_only_result = await _try_cache_only_collection(selected, settings)
 
     collected: List[CollectedCommunity] = []
     cache_hit_rate: float | None = None
@@ -1419,7 +1419,7 @@ def _collection_from_result(
     return collected, total_cache_hits, total_cache_misses, total_posts
 
 
-def _try_cache_only_collection(
+async def _try_cache_only_collection(
     profiles: Sequence[CommunityProfile],
     settings: Settings,
     cache_manager: CacheManager | None = None,
@@ -1435,7 +1435,7 @@ def _try_cache_only_collection(
     cached_subreddits: set[str] = set()
 
     for profile in profiles:
-        posts = cache.get_cached_posts(profile.name)
+        posts = await cache.get_cached_posts(profile.name)
         if posts:
             logger.info(f"[缓存优先] ✅ 缓存命中: {profile.name} ({len(posts)}个帖子)")
             posts_by_subreddit[profile.name] = posts

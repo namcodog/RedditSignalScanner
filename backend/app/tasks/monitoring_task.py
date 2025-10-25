@@ -100,6 +100,10 @@ def monitor_cache_health() -> Dict[str, Any]:
 
     async def _calculate() -> Dict[str, Any]:
         from app.db.session import SessionFactory
+        from app.tasks.maintenance_task import (
+            cleanup_expired_posts_hot_impl,
+            collect_storage_metrics_impl,
+        )
 
         async with SessionFactory() as db:
             loader = CommunityPoolLoader(db)
@@ -107,13 +111,31 @@ def monitor_cache_health() -> Dict[str, Any]:
         seed_names = [
             profile.name for profile in communities if profile.tier.lower() == "seed"
         ]
-        hit_rate = cache_manager.calculate_cache_hit_rate(seed_names)
+        hit_rate = await cache_manager.calculate_cache_hit_rate(seed_names)
 
         if seed_names and hit_rate < CACHE_HIT_THRESHOLD:
             percentage = round(hit_rate * 100, 2)
             _send_alert("warning", f"缓存命中率偏低: {percentage}%")
 
-        return {"seed_count": len(seed_names), "cache_hit_rate": hit_rate}
+        cleanup: Dict[str, Any] | None = None
+        metrics_snapshot: Dict[str, Any] | None = None
+        try:
+            cleanup, metrics_snapshot = await asyncio.gather(
+                cleanup_expired_posts_hot_impl(),
+                collect_storage_metrics_impl(),
+            )
+        except Exception as exc:  # pragma: no cover - defensive logging
+            _LOGGER.warning("维护任务执行失败: %s", exc, exc_info=True)
+
+        payload: Dict[str, Any] = {
+            "seed_count": len(seed_names),
+            "cache_hit_rate": hit_rate,
+        }
+        if cleanup is not None:
+            payload["cleanup_deleted"] = cleanup.get("deleted_count", 0)
+        if metrics_snapshot is not None:
+            payload["storage_metrics_id"] = metrics_snapshot.get("id")
+        return payload
 
     return asyncio.run(_calculate())
 

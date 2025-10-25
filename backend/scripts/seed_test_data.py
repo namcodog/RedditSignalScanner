@@ -15,6 +15,7 @@
 from __future__ import annotations
 
 import argparse
+import asyncio
 import sys
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -185,22 +186,22 @@ SEED_POSTS: Dict[str, List[RedditPost]] = {
 }
 
 
-def _seed(cache: CacheManager) -> None:
+async def _seed(cache: CacheManager) -> None:
     for subreddit, posts in SEED_POSTS.items():
-        cache.set_cached_posts(subreddit, posts)
+        await cache.set_cached_posts(subreddit, posts)
         print(f"✅ Seeded {len(posts)} post(s) for {subreddit}")
 
-    keys = cache.redis.keys(f"{cache.namespace}:*")
+    keys = await cache.redis.keys(f"{cache.namespace}:*")
     print(f"\n📦 Redis keys under namespace '{cache.namespace}': {len(keys)}")
     for key in keys:
         print(f"   - {key.decode('utf-8') if isinstance(key, bytes) else key}")
 
 
-def _purge(cache: CacheManager) -> None:
-    keys: Iterable[bytes] = cache.redis.keys(f"{cache.namespace}:*")
+async def _purge(cache: CacheManager) -> None:
+    keys: Iterable[bytes] = await cache.redis.keys(f"{cache.namespace}:*")
     deleted = 0
     for key in keys:
-        cache.redis.delete(key)
+        await cache.redis.delete(key)
         deleted += 1
     print(f"🧹 Purged {deleted} cached subreddit payload(s) from namespace '{cache.namespace}'.")
 
@@ -224,9 +225,9 @@ def main() -> int:
     cache = CacheManager(redis_url=redis_url)
 
     if args.purge:
-        _purge(cache)
+        asyncio.run(_purge(cache))
     else:
-        _seed(cache)
+        asyncio.run(_seed(cache))
 
     return 0
 

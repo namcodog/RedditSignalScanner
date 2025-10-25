@@ -15,7 +15,7 @@ from app.core.auth import require_admin
 from app.core.security import TokenPayload
 from app.db.session import get_session
 from app.models.community_cache import CommunityCache
-from app.services.community_import_service import CommunityImportService
+# from app.services.community_import_service import CommunityImportService  # 已删除: 功能孤岛清理
 
 router = APIRouter(prefix="/admin/communities", tags=["admin"])
 
@@ -118,60 +118,10 @@ async def get_communities_summary(
 
 
 
-@router.get("/template", summary="下载社区导入 Excel 模板")
-async def download_template() -> StreamingResponse:
-    content = CommunityImportService.generate_template()
-    headers = {
-        "Content-Disposition": 'attachment; filename="community_template.xlsx"',
-    }
-    return StreamingResponse(
-        BytesIO(content),
-        media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-        headers=headers,
-    )
-
-
-@router.post("/import", summary="上传并导入社区信息")
-async def import_communities(
-    file: UploadFile = File(..., description="Excel 模板文件（.xlsx）"),
-    dry_run: bool = Query(False, description="true=仅验证，false=验证并导入"),
-    session: AsyncSession = Depends(get_session),
-    payload: TokenPayload = Depends(require_admin),
-) -> dict[str, object]:
-    if not file.filename:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="文件名不能为空",
-        )
-
-    content = await file.read()
-    if not content:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="上传文件不能为空",
-        )
-
-    # 使用 JWT token 中的真实管理员信息
-    actor_id = uuid.UUID(payload.sub)
-    actor_email = payload.email or "unknown@system"
-    service = CommunityImportService(session)
-    result = await service.import_from_excel(
-        content=content,
-        filename=file.filename,
-        dry_run=dry_run,
-        actor_email=actor_email,
-        actor_id=actor_id,
-    )
-    return _response(result)
-
-
-@router.get("/import-history", summary="查询社区导入历史")
-async def get_import_history(
-    session: AsyncSession = Depends(get_session),
-) -> dict[str, object]:
-    service = CommunityImportService(session)
-    result = await service.get_import_history()
-    return _response(result)
+# 以下端点已删除: CommunityImportHistory 表已移除（功能孤岛清理）
+# @router.get("/template", summary="下载社区导入 Excel 模板")
+# @router.post("/import", summary="上传并导入社区信息")
+# @router.get("/import-history", summary="查询社区导入历史")
 
 
 __all__ = ["router"]

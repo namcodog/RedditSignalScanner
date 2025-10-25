@@ -88,16 +88,23 @@ async def get_dashboard_stats(
 
 @router.get("/tasks/recent", summary="Recent tasks overview")
 async def get_recent_tasks(
-    limit: int = Query(50, ge=1, le=200),
+    limit: int = Query(50, ge=1, le=200, description="每页数量"),
+    offset: int = Query(0, ge=0, description="偏移量"),
     db: AsyncSession = Depends(get_session),
 ) -> dict[str, Any]:
-    stmt = (
+    base_query = (
         select(Task, User.email, Analysis)
         .join(User, User.id == Task.user_id)
         .outerjoin(Analysis, Analysis.task_id == Task.id)
         .order_by(desc(Task.created_at))
-        .limit(limit)
     )
+
+    total_result = await db.execute(
+        select(func.count()).select_from(base_query.subquery())
+    )
+    total = int(total_result.scalar() or 0)
+
+    stmt = base_query.limit(limit).offset(offset)
     result = await db.execute(stmt)
     rows = result.all()
 
@@ -144,12 +151,13 @@ async def get_recent_tasks(
 
         items.append(item)
 
-    return _response({"items": items, "total": len(items)})
+    return _response({"items": items, "total": total})
 
 
 @router.get("/users/active", summary="Active users ranked by recent tasks")
 async def get_active_users(
-    limit: int = Query(50, ge=1, le=200),
+    limit: int = Query(50, ge=1, le=200, description="每页数量"),
+    offset: int = Query(0, ge=0, description="偏移量"),
     db: AsyncSession = Depends(get_session),
 ) -> dict[str, Any]:
     threshold = datetime.now(timezone.utc) - timedelta(days=7)
@@ -165,10 +173,14 @@ async def get_active_users(
         .where(Task.created_at >= threshold)
         .group_by(User.id, User.email)
         .order_by(desc("task_count"), desc("last_task_at"))
-        .limit(limit)
     )
 
-    result = await db.execute(stmt)
+    total_result = await db.execute(
+        select(func.count()).select_from(stmt.subquery())
+    )
+    total = int(total_result.scalar() or 0)
+
+    result = await db.execute(stmt.limit(limit).offset(offset))
     rows = result.all()
     items = [
         {
@@ -179,8 +191,7 @@ async def get_active_users(
         }
         for row in rows
     ]
-
-    return _response({"items": items, "total": len(items)})
+    return _response({"items": items, "total": total})
 
 
 __all__ = ["router"]

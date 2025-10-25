@@ -78,6 +78,15 @@ def _build_conf() -> Dict[str, Any]:
     task_routes.setdefault(
         "tasks.metrics.generate_daily", {"queue": "monitoring_queue"}
     )
+    task_routes.setdefault(
+        "tasks.maintenance.collect_storage_metrics", {"queue": "maintenance_queue"}
+    )
+    task_routes.setdefault(
+        "tasks.maintenance.archive_old_posts", {"queue": "maintenance_queue"}
+    )
+    task_routes.setdefault(
+        "tasks.maintenance.check_storage_capacity", {"queue": "maintenance_queue"}
+    )
 
     return {
         "task_serializer": "json",
@@ -166,10 +175,35 @@ celery_app.conf.beat_schedule = {
         "schedule": crontab(minute="*/15"),
     },
     # Maintenance tasks
+    "refresh-posts-latest": {
+        "task": "tasks.maintenance.refresh_posts_latest",
+        "schedule": crontab(minute="5"),  # 每小时第 5 分钟刷新物化视图
+        "options": {"queue": "maintenance_queue", "expires": 1800},
+    },
     "cleanup-expired-posts-hot": {
         "task": "tasks.maintenance.cleanup_expired_posts_hot",
-        "schedule": crontab(hour="*/6"),  # Every 6 hours (0, 6, 12, 18)
+        "schedule": crontab(minute="15"),  # 每小时第 15 分钟清理热缓存
         "options": {"queue": "cleanup_queue", "expires": 3600},
+    },
+    "cleanup-old-posts": {
+        "task": "tasks.maintenance.cleanup_old_posts",
+        "schedule": crontab(minute="30", hour="3"),  # 每日 03:30 清理冷库
+        "options": {"queue": "cleanup_queue", "expires": 7200},
+    },
+    "collect-storage-metrics": {
+        "task": "tasks.maintenance.collect_storage_metrics",
+        "schedule": crontab(minute="10"),  # 每小时第 10 分钟采集存储指标
+        "options": {"queue": "maintenance_queue", "expires": 1800},
+    },
+    "archive-old-posts": {
+        "task": "tasks.maintenance.archive_old_posts",
+        "schedule": crontab(minute="45", hour="2"),  # 每日 02:45 归档历史版本
+        "options": {"queue": "maintenance_queue", "expires": 7200},
+    },
+    "check-storage-capacity": {
+        "task": "tasks.maintenance.check_storage_capacity",
+        "schedule": crontab(minute="40", hour="*/6"),  # 每 6 小时检查一次容量
+        "options": {"queue": "maintenance_queue", "expires": 3600},
     },
 }
 
