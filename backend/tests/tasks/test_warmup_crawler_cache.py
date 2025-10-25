@@ -23,7 +23,7 @@ class FakeCacheManager:
     def __init__(self) -> None:
         self.calls: list[tuple[str, int]] = []
 
-    def set_cached_posts(self, subreddit: str, posts: List[RedditPost]) -> None:
+    async def set_cached_posts(self, subreddit: str, posts: List[RedditPost]) -> None:
         self.calls.append((subreddit, len(posts)))
 
 
@@ -90,4 +90,3 @@ async def test_crawl_community_stores_posts_and_commits(monkeypatch: Any) -> Non
     assert len(upsert_calls) == 1
     assert upsert_calls[0][0] == "artificial"
     assert upsert_calls[0][1] == 2
-

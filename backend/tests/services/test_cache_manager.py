@@ -3,7 +3,8 @@ from __future__ import annotations
 import json
 from datetime import datetime, timedelta, timezone
 
-import fakeredis
+import fakeredis.aioredis as fakeredis
+from fakeredis import FakeServer
 import pytest
 
 from app.services.cache_manager import CacheManager
@@ -25,41 +26,45 @@ def _build_post(subreddit: str = "python") -> RedditPost:
     )
 
 
-def test_set_and_get_cached_posts() -> None:
-    client = fakeredis.FakeRedis()
+@pytest.mark.asyncio
+async def test_set_and_get_cached_posts() -> None:
+    client = fakeredis.FakeRedis(server=FakeServer())
     manager = CacheManager(client)
     post = _build_post()
 
-    manager.set_cached_posts("python", [post])
-    cached = manager.get_cached_posts("python")
+    await manager.set_cached_posts("python", [post])
+    cached = await manager.get_cached_posts("python")
 
     assert cached is not None
     assert len(cached) == 1
     assert cached[0].id == "abc123"
 
 
-def test_get_cached_posts_returns_none_when_stale() -> None:
-    client = fakeredis.FakeRedis()
+@pytest.mark.asyncio
+async def test_get_cached_posts_returns_none_when_stale() -> None:
+    client = fakeredis.FakeRedis(server=FakeServer())
     manager = CacheManager(client)
     post = _build_post()
 
-    manager.set_cached_posts("python", [post])
-    raw = client.get("reddit:posts:python")
+    await manager.set_cached_posts("python", [post])
+    raw = await client.get("reddit:posts:python")
     assert raw is not None
 
-    payload = json.loads(raw.decode("utf-8"))
+    decoded = raw.decode("utf-8") if isinstance(raw, bytes) else raw
+    payload = json.loads(decoded)
     old_timestamp = (datetime.now(timezone.utc) - timedelta(hours=48)).isoformat()
     payload["cached_at"] = old_timestamp
-    client.set("reddit:posts:python", json.dumps(payload))
+    await client.set("reddit:posts:python", json.dumps(payload))
 
-    assert manager.get_cached_posts("python") is None
+    assert await manager.get_cached_posts("python") is None
 
 
-def test_calculate_cache_hit_rate() -> None:
-    client = fakeredis.FakeRedis()
+@pytest.mark.asyncio
+async def test_calculate_cache_hit_rate() -> None:
+    client = fakeredis.FakeRedis(server=FakeServer())
     manager = CacheManager(client)
     post = _build_post()
 
-    manager.set_cached_posts("python", [post])
-    hit_rate = manager.calculate_cache_hit_rate(["python", "golang"])
+    await manager.set_cached_posts("python", [post])
+    hit_rate = await manager.calculate_cache_hit_rate(["python", "golang"])
     assert hit_rate == pytest.approx(0.5)

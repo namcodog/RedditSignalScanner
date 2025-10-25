@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import logging
 import uuid
 from datetime import datetime, timezone
 
@@ -289,3 +290,87 @@ async def test_validation_errors_on_approve_and_reject(
     finally:
         app.dependency_overrides.pop(get_settings, None)
 
+
+@pytest.mark.asyncio
+async def test_approve_logs_when_discovered_count_conversion_fails(
+    client: AsyncClient,
+    token_factory,
+    db_session: AsyncSession,
+    monkeypatch: pytest.MonkeyPatch,
+    caplog: pytest.LogCaptureFixture,
+) -> None:
+    import app.api.routes.admin_community_pool as admin_module
+
+    admin_email = f"admin-{uuid.uuid4().hex}@example.com"
+    overridden = _override_admin_settings(admin_email)
+    app.dependency_overrides[get_settings] = lambda: overridden
+
+    try:
+        admin_token, admin_user_id = await token_factory(email=admin_email)
+        headers = {"Authorization": f"Bearer {admin_token}"}
+
+        # 启用目标 logger，确保警告会被 caplog 捕获
+        original_disabled = admin_module.logger.disabled
+        admin_module.logger.disabled = False
+        caplog.set_level(logging.WARNING, logger=admin_module.__name__)
+        logging.getLogger(admin_module.__name__).propagate = True
+
+        now = datetime.now(timezone.utc)
+        db_session.add(
+            CommunityPool(
+                name="r/logging_case",
+                tier="medium",
+                categories={"topic": ["automation"]},
+                description_keywords={"keywords": ["ops"]},
+                daily_posts=10,
+                avg_comment_length=40,
+                quality_score=0.6,
+                priority="medium",
+                user_feedback_count=0,
+                discovered_count=5,
+                is_active=True,
+                created_by=uuid.UUID(admin_user_id),
+                updated_by=uuid.UUID(admin_user_id),
+            )
+        )
+        db_session.add(
+            PendingCommunity(
+                name="r/logging_case",
+                discovered_from_keywords={"keywords": ["automation"]},
+                discovered_count=2,
+                first_discovered_at=now,
+                last_discovered_at=now,
+                status="pending",
+            )
+        )
+        await db_session.commit()
+
+        builtin_safe_int = getattr(admin_module, "safe_int", None)
+        assert builtin_safe_int is not None, "safe_int helper must exist in admin_community_pool module"
+
+        flaky_int_calls = {"count": 0}
+
+        def flaky_int(value: object) -> int:
+            flaky_int_calls["count"] += 1
+            if flaky_int_calls["count"] == 1:
+                raise ValueError("boom")
+            return builtin_safe_int(value)
+
+        monkeypatch.setattr(admin_module, "safe_int", flaky_int)
+
+        caplog.clear()
+        resp = await client.post(
+            "/api/admin/communities/approve",
+            headers=headers,
+            json={"name": "r/logging_case", "tier": "high"},
+        )
+        assert resp.status_code == 200
+
+        assert flaky_int_calls["count"] >= 2
+
+        messages = [record.getMessage() for record in caplog.records]
+        assert any("无法累加" in message for message in messages)
+    finally:
+        app.dependency_overrides.pop(get_settings, None)
+        monkeypatch.setattr(admin_module, "safe_int", builtin_safe_int, raising=False)
+        admin_module.logger.disabled = original_disabled

@@ -52,8 +52,13 @@ class _FakeRedis:
     def __init__(self, payload: Mapping[str, Any]) -> None:
         self._payload = dict(payload)
 
-    def info(self) -> Dict[str, Any]:
+    async def info(self) -> Dict[str, Any]:
         return dict(self._payload)
+
+
+class _AsyncFakeRedis(_FakeRedis):
+    async def info(self) -> Dict[str, Any]:
+        return await super().info()
 
 
 def test_celery_stats_with_running_workers() -> None:
@@ -99,7 +104,8 @@ def test_celery_stats_when_inspect_unavailable() -> None:
     }
 
 
-def test_redis_stats_compute_hit_rate() -> None:
+@pytest.mark.asyncio
+async def test_redis_stats_compute_hit_rate() -> None:
     redis_payload = {
         "connected_clients": 5,
         "used_memory": 8 * 1024 * 1024,  # 8MB
@@ -113,9 +119,29 @@ def test_redis_stats_compute_hit_rate() -> None:
 
     service = MonitoringService(redis_client, celery)  # type: ignore[arg-type]
 
-    stats = service.get_redis_stats()
+    stats = await service.get_redis_stats()
     assert stats["connected_clients"] == 5
     assert stats["used_memory_mb"] == 8.0
     assert stats["hit_rate"] == pytest.approx(0.8, rel=1e-4)
     assert stats["uptime_seconds"] == 3600
     assert stats["ops_per_sec"] == 140
+
+
+@pytest.mark.asyncio
+async def test_async_redis_client_supported() -> None:
+    redis_payload = {
+        "connected_clients": 2,
+        "used_memory": 4 * 1024 * 1024,
+        "keyspace_hits": 20,
+        "keyspace_misses": 5,
+        "uptime_in_seconds": 120,
+        "instantaneous_ops_per_sec": 42,
+    }
+    redis_client = _AsyncFakeRedis(redis_payload)
+    celery = _FakeCelery(None)
+
+    service = MonitoringService(redis_client, celery)  # type: ignore[arg-type]
+
+    stats = await service.get_redis_stats()
+    assert stats["connected_clients"] == 2
+    assert stats["hit_rate"] == pytest.approx(0.8, rel=1e-4)

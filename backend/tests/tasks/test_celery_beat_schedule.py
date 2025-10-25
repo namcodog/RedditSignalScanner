@@ -119,6 +119,51 @@ class TestCeleryBeatSchedule:
         assert isinstance(task_schedule, crontab)
         assert task_schedule.minute == {0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55}
 
+    def test_storage_maintenance_tasks_scheduled(self) -> None:
+        """存储层维护任务应全部注册并调度正确。"""
+        schedule = celery_app.conf.beat_schedule
+
+        assert "refresh-posts-latest" in schedule
+        refresh_task = schedule["refresh-posts-latest"]
+        assert refresh_task["task"] == "tasks.maintenance.refresh_posts_latest"
+        assert isinstance(refresh_task["schedule"], crontab)
+        assert refresh_task["schedule"].minute == {5}
+        assert refresh_task["schedule"].hour == set(range(24))
+
+        assert "cleanup-expired-posts-hot" in schedule
+        hot_cleanup_task = schedule["cleanup-expired-posts-hot"]
+        assert isinstance(hot_cleanup_task["schedule"], crontab)
+        assert hot_cleanup_task["schedule"].minute == {15}
+        assert hot_cleanup_task["schedule"].hour == set(range(24))
+
+        assert "cleanup-old-posts" in schedule
+        cold_cleanup_task = schedule["cleanup-old-posts"]
+        assert cold_cleanup_task["task"] == "tasks.maintenance.cleanup_old_posts"
+        assert isinstance(cold_cleanup_task["schedule"], crontab)
+        assert cold_cleanup_task["schedule"].minute == {30}
+        assert cold_cleanup_task["schedule"].hour == {3}
+
+        assert "collect-storage-metrics" in schedule
+        metrics_task = schedule["collect-storage-metrics"]
+        assert metrics_task["task"] == "tasks.maintenance.collect_storage_metrics"
+        assert isinstance(metrics_task["schedule"], crontab)
+        assert metrics_task["schedule"].minute == {10}
+        assert metrics_task["schedule"].hour == set(range(24))
+
+        assert "archive-old-posts" in schedule
+        archive_task = schedule["archive-old-posts"]
+        assert archive_task["task"] == "tasks.maintenance.archive_old_posts"
+        assert isinstance(archive_task["schedule"], crontab)
+        assert archive_task["schedule"].minute == {45}
+        assert archive_task["schedule"].hour == {2}
+
+        assert "check-storage-capacity" in schedule
+        capacity_task = schedule["check-storage-capacity"]
+        assert capacity_task["task"] == "tasks.maintenance.check_storage_capacity"
+        assert isinstance(capacity_task["schedule"], crontab)
+        assert capacity_task["schedule"].minute == {40}
+        assert capacity_task["schedule"].hour == {0, 6, 12, 18}
+
     def test_all_scheduled_tasks_registered(self) -> None:
         """Test that all scheduled tasks are registered in Celery."""
         schedule = celery_app.conf.beat_schedule

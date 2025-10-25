@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import asyncio
+import os
 import sys
 import uuid
 from pathlib import Path
@@ -9,6 +10,8 @@ from typing import AsyncIterator, Awaitable, Callable, Tuple, Iterator
 import pytest
 import pytest_asyncio
 from httpx import ASGITransport, AsyncClient
+from alembic import command
+from alembic.config import Config
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -21,6 +24,9 @@ if str(ROOT) not in sys.path:
 BACKEND_ROOT = Path(__file__).resolve().parents[1]
 if str(BACKEND_ROOT) not in sys.path:
     sys.path.insert(0, str(BACKEND_ROOT))
+
+# Tests rely on NullPool to avoid cross-event-loop conflicts; production overrides this.
+os.environ.setdefault("SQLALCHEMY_DISABLE_POOL", "1")
 
 
 def pytest_configure(config: pytest.Config) -> None:
@@ -79,6 +85,7 @@ def reset_database() -> None:
     dsn_env = os.getenv('DATABASE_URL')
     if dsn_env:
         dsn = dsn_env.replace('+asyncpg', '').replace('+psycopg', '')
+        alembic_url = dsn_env
         conn = psycopg.connect(dsn)
     else:
         # Fallback to TEST_DB_* vars or local defaults
@@ -87,15 +94,27 @@ def reset_database() -> None:
         db_user = os.getenv('TEST_DB_USER', 'postgres')
         db_password = os.getenv('TEST_DB_PASSWORD', '')
         db_name = os.getenv('TEST_DB_NAME', 'reddit_signal_scanner')
-        conn = psycopg.connect(
-            host=db_host,
-            port=db_port,
-            user=db_user,
-            password=db_password,
-            dbname=db_name
-        )
+        dsn = f"postgresql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}"
+        alembic_url = f"postgresql+asyncpg://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}"
+        conn = psycopg.connect(dsn)
     conn.autocommit = True
     cursor = conn.cursor()
+
+    # 运行 Alembic 迁移以确保 schema 最新
+    os.environ.setdefault("DATABASE_URL", alembic_url)
+
+    alembic_cfg = Config(str(ROOT / "backend" / "alembic.ini"))
+    alembic_cfg.set_main_option("script_location", str(ROOT / "backend" / "alembic"))
+    alembic_cfg.set_main_option("sqlalchemy.url", alembic_url)
+    alembic_cfg.attributes["configure_logger"] = False
+    command.upgrade(alembic_cfg, "head")
+
+    cursor.execute(
+        """
+        ALTER TABLE pending_communities
+        DROP CONSTRAINT IF EXISTS fk_pending_communities_discovered_from_task_id_tasks
+        """
+    )
 
     try:
         cursor.execute(
@@ -250,7 +269,7 @@ def reset_database() -> None:
                 """
                 ALTER TABLE pending_communities
                 ADD CONSTRAINT fk_pending_communities_discovered_from_task_id_tasks
-                FOREIGN KEY (discovered_from_task_id) REFERENCES tasks(id) ON DELETE CASCADE
+                FOREIGN KEY (discovered_from_task_id) REFERENCES tasks(id) ON DELETE SET NULL
                 """
             )
         except psycopg_errors.DuplicateObject:
@@ -569,7 +588,7 @@ def reset_database() -> None:
         )
 
         cursor.execute(
-            "TRUNCATE TABLE community_import_history, beta_feedback, community_pool, pending_communities, crawl_metrics, quality_metrics, reports, analyses, tasks, users RESTART IDENTITY CASCADE"
+            "TRUNCATE TABLE community_import_history, storage_metrics, posts_archive, beta_feedback, community_pool, pending_communities, crawl_metrics, quality_metrics, reports, analyses, tasks, users RESTART IDENTITY CASCADE"
         )
     finally:
         cursor.close()
@@ -673,7 +692,7 @@ def truncate_tables_between_tests(request: pytest.FixtureRequest) -> Iterator[No
             for i in range(attempts):
                 try:
                     cursor.execute(
-                        "TRUNCATE TABLE beta_feedback, community_pool, pending_communities, crawl_metrics, quality_metrics, reports, analyses, tasks RESTART IDENTITY CASCADE"
+                        "TRUNCATE TABLE beta_feedback, community_pool, pending_communities, crawl_metrics, quality_metrics, reports, analyses, tasks, storage_metrics, posts_archive RESTART IDENTITY CASCADE"
                     )
                     break
                 except psycopg.errors.LockNotAvailable:
@@ -795,8 +814,8 @@ async def test_user(db_session: AsyncSession):
     return user
 
 
-@pytest.fixture(scope="function")
-def seeded_cache(monkeypatch):
+@pytest_asyncio.fixture(scope="function")
+async def seeded_cache(monkeypatch):
     """
     Provide a CacheManager with pre-populated test data for analysis_engine tests.
 
@@ -807,9 +826,10 @@ def seeded_cache(monkeypatch):
     - Clear Reddit credentials to force cache-only mode
     """
     try:
-        import fakeredis
+        import fakeredis.aioredis as fakeredis
+        from fakeredis import FakeServer
     except ImportError:
-        pytest.skip("fakeredis not installed")
+        pytest.skip("fakeredis (async) not installed")
 
     from app.services.cache_manager import CacheManager
     from app.services.reddit_client import RedditPost
@@ -844,7 +864,7 @@ def seeded_cache(monkeypatch):
     monkeypatch.setattr(analysis_engine_module, "get_settings", mock_get_settings)
 
     # Create fake Redis client
-    fake_redis = fakeredis.FakeStrictRedis(decode_responses=False)
+    fake_redis = fakeredis.FakeRedis(server=FakeServer(), decode_responses=False)
     cache = CacheManager(redis_client=fake_redis, cache_ttl_seconds=3600)
 
     # Seed data for all communities in COMMUNITY_CATALOGUE
@@ -1052,6 +1072,6 @@ def seeded_cache(monkeypatch):
 
     # Populate cache
     for subreddit, posts in seed_posts.items():
-        cache.set_cached_posts(subreddit, posts)
+        await cache.set_cached_posts(subreddit, posts)
 
     return cache

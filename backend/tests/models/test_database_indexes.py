@@ -4,7 +4,6 @@ from sqlalchemy.dialects import postgresql
 
 from app.core.config import Settings
 from app.models.community_pool import (
-    CommunityImportHistory,
     CommunityPool,
     PendingCommunity,
 )
@@ -32,10 +31,9 @@ def test_pending_community_indexes_present() -> None:
     assert "idx_pending_communities_deleted_at" in indexes
 
 
-def test_community_import_history_indexes_present() -> None:
-    indexes = _index_names(CommunityImportHistory.__table__)
-    assert "idx_community_import_history_uploaded_by" in indexes
-    assert "idx_community_import_history_created_at" in indexes
+# 测试已删除: CommunityImportHistory 表已移除（功能孤岛清理）
+# def test_community_import_history_indexes_present() -> None:
+#     ...
 
 
 def test_community_pool_gin_indexes() -> None:

@@ -7,7 +7,7 @@ import pytest
 from sqlalchemy.exc import IntegrityError
 
 from app.core.security import hash_password
-from app.models.community_pool import CommunityImportHistory, PendingCommunity
+from app.models.community_pool import PendingCommunity
 from app.models.posts_storage import Base as PostsBase, PostRaw
 from app.models.task import Task
 from app.models.user import User
@@ -59,33 +59,10 @@ async def test_pending_community_task_reference_set_null(db_session):
     assert pending.discovered_from_task_id is None
 
 
-@pytest.mark.asyncio
-async def test_import_history_user_reference_set_null_on_delete(db_session):
-    user = User(email="uploader@example.com", password_hash=hash_password("SecurePass123!"))
-    db_session.add(user)
-    await db_session.flush()
-
-    history = CommunityImportHistory(
-        filename="communities.csv",
-        uploaded_by="Uploader",
-        dry_run=False,
-        status="completed",
-        total_rows=1,
-        valid_rows=1,
-        invalid_rows=0,
-        duplicate_rows=0,
-        imported_rows=1,
-        uploaded_by_user_id=user.id,
-    )
-
-    db_session.add(history)
-    await db_session.commit()
-
-    await db_session.delete(user)
-    await db_session.commit()
-
-    await db_session.refresh(history)
-    assert history.uploaded_by_user_id is None
+# 测试已删除: CommunityImportHistory 表已移除（功能孤岛清理）
+# @pytest.mark.asyncio
+# async def test_import_history_user_reference_set_null_on_delete(db_session):
+#     ...
 
 
 @pytest.mark.asyncio

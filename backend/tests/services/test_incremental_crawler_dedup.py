@@ -9,15 +9,18 @@
 """
 from __future__ import annotations
 
+from datetime import datetime, timezone
+from unittest.mock import AsyncMock, MagicMock
+
 import pytest
 import pytest_asyncio
 import uuid
-from datetime import datetime, timezone
-from unittest.mock import AsyncMock, MagicMock
+from sqlalchemy import select
 
 from app.services.incremental_crawler import IncrementalCrawler
 from app.services.reddit_client import RedditPost
 from app.db.session import SessionFactory
+from app.models.posts_storage import PostHot, PostRaw
 
 
 class TestIncrementalCrawlerDedup:
@@ -186,6 +189,93 @@ class TestIncrementalCrawlerDedup:
         assert total == 10  # 应该等于抓取的总数
 
     @pytest.mark.asyncio
+    async def test_hot_cache_persists_author_metadata(
+        self,
+        crawler: IncrementalCrawler,
+        db_session,
+    ) -> None:
+        """验收: 热缓存记录保存作者信息"""
+        subreddit = "r/test_hot_author"
+        post = self._create_mock_post(post_id="hot-author-1", title="Hot Author Post")
+
+        crawler.reddit_client.fetch_subreddit_posts = AsyncMock(return_value=[post])
+        await crawler.crawl_community_incremental(subreddit, limit=1)
+
+        result = await db_session.execute(
+            select(PostHot).where(PostHot.source_post_id == post.id)
+        )
+        record = result.scalar_one()
+
+        assert record.author_id == post.author
+        assert record.author_name == post.author
+
+    @pytest.mark.asyncio
+    async def test_dual_write_triggers_refresh_on_changes(
+        self,
+        crawler: IncrementalCrawler,
+        monkeypatch: pytest.MonkeyPatch,
+    ) -> None:
+        """验收: 新增数据后会异步触发物化视图刷新"""
+        scheduled: list[str] = []
+
+        def fake_send_task(task_name: str, *args, **kwargs) -> None:
+            scheduled.append(task_name)
+
+        monkeypatch.setattr(
+            "app.core.celery_app.celery_app.send_task", fake_send_task
+        )
+
+        post = self._create_mock_post(post_id="refresh-trigger", title="Trigger Refresh")
+        crawler.reddit_client.fetch_subreddit_posts = AsyncMock(return_value=[post])
+
+        await crawler.crawl_community_incremental("r/test_refresh", limit=1)
+
+        assert "tasks.maintenance.refresh_posts_latest" in scheduled
+
+    @pytest.mark.asyncio
+    async def test_scd2_creates_new_version_and_expires_previous(
+        self,
+        crawler: IncrementalCrawler,
+        db_session,
+    ) -> None:
+        """验收: 更新时生成新版本并正确关闭旧版本"""
+        subreddit = "r/test_scd2"
+        post_id = str(uuid.uuid4())[:8]
+
+        # 第一次抓取: 新增版本1
+        initial_post = self._create_mock_post(post_id=post_id, title="SCD2 Post", score=3)
+        crawler.reddit_client.fetch_subreddit_posts = AsyncMock(return_value=[initial_post])
+        await crawler.crawl_community_incremental(subreddit, limit=1)
+
+        # 第二次抓取: 分数变化 -> 应触发新版本
+        updated_post = self._create_mock_post(post_id=post_id, title="SCD2 Post", score=10)
+        crawler.reddit_client.fetch_subreddit_posts = AsyncMock(return_value=[updated_post])
+        await crawler.crawl_community_incremental(subreddit, limit=1)
+
+        # 查询所有版本
+        result = await db_session.execute(
+            select(PostRaw)
+            .where(PostRaw.source == "reddit", PostRaw.source_post_id == post_id)
+            .order_by(PostRaw.version.asc())
+        )
+        versions = list(result.scalars())
+
+        assert len(versions) == 2, "应存在两个版本记录"
+        v1, v2 = versions
+
+        # 版本1应已失效
+        assert v1.version == 1
+        assert v1.is_current is False
+        assert v1.valid_to is not None
+        assert v1.valid_to.year != 9999
+
+        # 版本2应为当前版本且分数更新
+        assert v2.version == 2
+        assert v2.is_current is True
+        assert v2.score == 10
+        assert v2.valid_from >= v1.valid_to
+
+    @pytest.mark.asyncio
     async def test_watermark_filtering(self, crawler: IncrementalCrawler) -> None:
         """验收: 水位线过滤旧帖子"""
         # 准备测试数据: 5个旧帖子 + 5个新帖子
@@ -218,4 +308,3 @@ class TestIncrementalCrawlerDedup:
         # 验收: 只处理新帖子（水位线之后）
         assert result["new_posts"] == 5  # 只有5个新帖子
         # 旧帖子应该被水位线过滤掉，不计入 duplicates
-

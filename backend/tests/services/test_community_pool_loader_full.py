@@ -1,7 +1,11 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+from datetime import datetime, timedelta, timezone
+from pathlib import Path
 from typing import Any, Iterable, List
+
+import json
 
 import pytest
 
@@ -14,12 +18,15 @@ class Row:
     name: str
     tier: str = "mid"
     priority: str = "medium"
-    categories: list[str] | None = None
+    categories: dict[str, Any] | list[str] | None = None
     description_keywords: dict[str, Any] | None = None
     daily_posts: int = 0
     avg_comment_length: int = 0
     quality_score: float = 0.5
     is_active: bool = True
+    deleted_at: datetime | None = None
+    deleted_by: str | None = None
+    updated_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
 
 
 class _ScalarResult:
@@ -115,3 +122,93 @@ async def test_initialize_community_cache_creates_entries() -> None:
     assert db.committed is True
     assert len(db.added) == 2
 
+
+@pytest.mark.asyncio
+async def test_load_seed_communities_clears_soft_delete(tmp_path: Path) -> None:
+    deleted_time = datetime.now(timezone.utc)
+    existing = Row(
+        name="r/test",
+        tier="medium",
+        priority="low",
+        categories={"general": True},
+        description_keywords={"automation": 1.0},
+        daily_posts=10,
+        avg_comment_length=80,
+        quality_score=0.3,
+        is_active=False,
+        deleted_at=deleted_time,
+        deleted_by="dead-beef",
+    )
+
+    script = [[existing]]
+    session = FakeSession(script=script)
+
+    seed_payload = {
+        "communities": [
+            {
+                "name": "r/test",
+                "tier": "high",
+                "priority": "high",
+                "categories": {"general": 1},
+                "description_keywords": {"automation": 1.0},
+                "estimated_daily_posts": 25,
+                "avg_comment_length": 120,
+                "quality_score": 0.9,
+                "is_active": True,
+            }
+        ]
+    }
+    seed_file = tmp_path / "seed.json"
+    seed_file.write_text(json.dumps(seed_payload), encoding="utf-8")
+
+    loader = CommunityPoolLoader(session, seed_path=seed_file)  # type: ignore[arg-type]
+    stats = await loader.load_seed_communities()
+
+    assert stats["loaded"] == 0
+    assert stats["updated"] == 1
+    assert existing.deleted_at is None
+    assert existing.deleted_by is None
+    assert existing.is_active is True
+
+
+@pytest.mark.asyncio
+async def test_load_seed_communities_updates_timestamp(tmp_path: Path) -> None:
+    initial_updated = datetime.now(timezone.utc) - timedelta(days=1)
+    existing = Row(
+        name="r/productivity",
+        tier="medium",
+        priority="medium",
+        categories={"general": True},
+        description_keywords={"automation": 1.0},
+        daily_posts=12,
+        avg_comment_length=60,
+        quality_score=0.6,
+        is_active=True,
+        updated_at=initial_updated,
+    )
+
+    script = [[existing]]
+    session = FakeSession(script=script)
+
+    seed_payload = {
+        "communities": [
+            {
+                "name": "r/productivity",
+                "tier": "high",
+                "priority": "high",
+                "categories": {"general": 1},
+                "description_keywords": {"automation": 1.0},
+                "estimated_daily_posts": 30,
+                "avg_comment_length": 90,
+                "quality_score": 0.9,
+                "is_active": True,
+            }
+        ]
+    }
+    seed_file = tmp_path / "seed.json"
+    seed_file.write_text(json.dumps(seed_payload), encoding="utf-8")
+
+    loader = CommunityPoolLoader(session, seed_path=seed_file)  # type: ignore[arg-type]
+    await loader.load_seed_communities()
+
+    assert existing.updated_at > initial_updated

@@ -11,7 +11,7 @@ from __future__ import annotations
 
 import pytest
 from datetime import datetime, timedelta, timezone
-from sqlalchemy import select
+from sqlalchemy import delete, select
 
 from app.core.celery_app import celery_app
 from app.models.posts_storage import PostHot
@@ -29,11 +29,12 @@ class TestCleanupPostsHotTask:
         task = schedule["cleanup-expired-posts-hot"]
         assert task["task"] == "tasks.maintenance.cleanup_expired_posts_hot"
         
-        # 验证调度频率（每6小时）
+        # 验证调度频率（每小时执行一次，落在第15分钟）
         from celery.schedules import crontab
         assert isinstance(task["schedule"], crontab)
-        # crontab(hour="*/6") 表示 0, 6, 12, 18
-        assert task["schedule"].hour == {0, 6, 12, 18}
+        assert task["schedule"].minute == {15}
+        # 全量小时集合意味着每小时都会触发
+        assert task["schedule"].hour == set(range(24))
         
         # 验证任务队列
         assert task.get("options", {}).get("queue") == "cleanup_queue"
@@ -42,6 +43,15 @@ class TestCleanupPostsHotTask:
     async def test_cleanup_removes_expired_posts(self) -> None:
         """验收: 清理逻辑正确删除过期数据"""
         async with SessionFactory() as db:
+            from sqlalchemy import delete
+
+            await db.execute(
+                delete(PostHot).where(
+                    PostHot.source_post_id.in_(["test_expired_1", "test_valid_1"])
+                )
+            )
+            await db.commit()
+
             # 准备测试数据: 插入过期和未过期的帖子
             now = datetime.now(timezone.utc)
             expired_time = now - timedelta(hours=25)  # 25小时前过期
@@ -98,6 +108,14 @@ class TestCleanupPostsHotTask:
             assert result["deleted_count"] >= 1
             assert result["status"] == "completed"
 
+            # 清理插入的数据，避免影响后续用例
+            await db.execute(
+                delete(PostHot).where(
+                    PostHot.source_post_id.in_(["test_expired_1", "test_valid_1"])
+                )
+            )
+            await db.commit()
+
     @pytest.mark.asyncio
     async def test_cleanup_preserves_valid_posts(self) -> None:
         """验收: 保留未过期数据"""
@@ -137,4 +155,3 @@ class TestCleanupPostsHotTask:
         # 验证: 返回值包含 duration
         assert "duration_seconds" in result
         assert result["duration_seconds"] < 10.0
-

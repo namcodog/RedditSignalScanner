@@ -289,7 +289,7 @@ async def test_run_analysis_prefers_cache_when_api_unavailable(monkeypatch: pyte
         def __init__(self, *args, **kwargs) -> None:
             self._data = seed_posts
 
-        def get_cached_posts(self, subreddit: str, *, max_age_hours: int = 24) -> List[RedditPost] | None:
+        async def get_cached_posts(self, subreddit: str, *, max_age_hours: int = 24) -> List[RedditPost] | None:
             posts = self._data.get(subreddit)
             if not posts:
                 return None

@@ -156,3 +156,124 @@ async def test_admin_endpoints_return_expected_payloads(
         assert active_map[admin_email]["tasks_last_7_days"] >= 1
     finally:
         app.dependency_overrides.pop(get_settings, None)
+
+
+@pytest.mark.asyncio
+async def test_admin_recent_tasks_paginates_results(
+    client: AsyncClient,
+    token_factory,
+    db_session: AsyncSession,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """大批量任务时，recent 接口按照 limit/offset 正确分页。"""
+
+    admin_email = f"admin-{uuid.uuid4().hex}@example.com"
+    overridden = await _override_settings(admin_email)
+    app.dependency_overrides[get_settings] = lambda: overridden
+
+    try:
+        admin_token, admin_user_id = await token_factory(email=admin_email)
+
+        class DummyInspect:
+            def active(self) -> dict[str, list[int]]:
+                return {}
+
+        target = "app.api.routes.admin.celery_app.control.inspect"
+        monkeypatch.setattr(target, lambda: DummyInspect())
+
+        now = datetime.now(timezone.utc)
+        for index in range(60):
+            task = Task(
+                user_id=uuid.UUID(admin_user_id),
+                product_description=f"Admin telemetry task #{index:02d}",
+                status=TaskStatus.COMPLETED,
+                created_at=now - timedelta(minutes=index),
+                completed_at=now - timedelta(minutes=index - 1),
+            )
+            db_session.add(task)
+        await db_session.commit()
+
+        first_page = await client.get(
+            "/api/admin/tasks/recent",
+            params={"limit": 20, "offset": 0},
+            headers={"Authorization": f"Bearer {admin_token}"},
+        )
+        assert first_page.status_code == 200
+        payload = first_page.json()["data"]
+        assert payload["total"] >= 60
+        assert len(payload["items"]) == 20
+
+        second_page = await client.get(
+            "/api/admin/tasks/recent",
+            params={"limit": 20, "offset": 20},
+            headers={"Authorization": f"Bearer {admin_token}"},
+        )
+        assert second_page.status_code == 200
+        second_items = second_page.json()["data"]["items"]
+        assert len(second_items) == 20
+        assert set(item["task_id"] for item in second_items).isdisjoint(
+            {item["task_id"] for item in payload["items"]}
+        )
+    finally:
+        app.dependency_overrides.pop(get_settings, None)
+
+
+@pytest.mark.asyncio
+async def test_admin_active_users_paginates_results(
+    client: AsyncClient,
+    token_factory,
+    db_session: AsyncSession,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    admin_email = f"admin-{uuid.uuid4().hex}@example.com"
+    overridden = await _override_settings(admin_email)
+    app.dependency_overrides[get_settings] = lambda: overridden
+
+    try:
+        admin_token, _ = await token_factory(email=admin_email)
+
+        class DummyInspect:
+            def active(self) -> dict[str, list[int]]:
+                return {}
+
+        target = "app.api.routes.admin.celery_app.control.inspect"
+        monkeypatch.setattr(target, lambda: DummyInspect())
+
+        now = datetime.now(timezone.utc)
+        # Seed 40 distinct users with recent tasks
+        for index in range(40):
+            user_email = f"user-{index}-{uuid.uuid4().hex[:6]}@example.com"
+            new_token, user_id = await token_factory(email=user_email)
+            _ = new_token  # 明确忽略返回的 token
+            task = Task(
+                user_id=uuid.UUID(user_id),
+                product_description=f"Task pipeline for {user_email}",
+                status=TaskStatus.COMPLETED,
+                created_at=now - timedelta(minutes=index),
+                completed_at=now - timedelta(minutes=index - 1),
+            )
+            db_session.add(task)
+        await db_session.commit()
+
+        first_page = await client.get(
+            "/api/admin/users/active",
+            params={"limit": 15, "offset": 0},
+            headers={"Authorization": f"Bearer {admin_token}"},
+        )
+        assert first_page.status_code == 200
+        first_items = first_page.json()["data"]["items"]
+        assert len(first_items) == 15
+
+        second_page = await client.get(
+            "/api/admin/users/active",
+            params={"limit": 15, "offset": 15},
+            headers={"Authorization": f"Bearer {admin_token}"},
+        )
+        assert second_page.status_code == 200
+        second_items = second_page.json()["data"]["items"]
+        assert len(second_items) == 15
+        assert set(item["user_id"] for item in second_items).isdisjoint(
+            {item["user_id"] for item in first_items}
+        )
+    finally:
+        app.dependency_overrides.pop(get_settings, None)

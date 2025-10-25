@@ -14,6 +14,7 @@ if str(BACKEND_DIR) not in sys.path:
 from sqlalchemy.ext.asyncio import AsyncSession
 
 import fakeredis.aioredis
+from fakeredis import FakeServer
 import pytest
 
 from app.models.task import TaskStatus
@@ -46,7 +47,9 @@ class _DummyTask:
 @pytest.mark.asyncio
 async def test_task_status_cache_round_trip(monkeypatch: pytest.MonkeyPatch) -> None:
     cache = TaskStatusCache()
-    fake_redis = fakeredis.aioredis.FakeRedis(decode_responses=True)
+    fake_redis = fakeredis.aioredis.FakeRedis(
+        server=FakeServer(), decode_responses=True
+    )
     monkeypatch.setattr(cache, "_redis", fake_redis, raising=False)
 
     payload = TaskStatusPayload(
@@ -69,7 +72,9 @@ async def test_task_status_cache_round_trip(monkeypatch: pytest.MonkeyPatch) -> 
 @pytest.mark.asyncio
 async def test_task_status_cache_db_fallback(monkeypatch: pytest.MonkeyPatch) -> None:
     cache = TaskStatusCache()
-    fake_redis = fakeredis.aioredis.FakeRedis(decode_responses=True)
+    fake_redis = fakeredis.aioredis.FakeRedis(
+        server=FakeServer(), decode_responses=True
+    )
     monkeypatch.setattr(cache, "_redis", fake_redis, raising=False)
 
     task_id = str(uuid.uuid4())
