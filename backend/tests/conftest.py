@@ -399,27 +399,38 @@ def reset_database() -> None:
         posts_hot_exists = cursor.fetchone()[0]
 
         if posts_hot_exists:
+            # 检查主键是否已存在
             cursor.execute(
-                "ALTER TABLE posts_hot DROP CONSTRAINT IF EXISTS posts_hot_pkey"
+                """
+                SELECT EXISTS (
+                    SELECT 1 FROM pg_constraint
+                    WHERE conname = 'posts_hot_pkey'
+                    AND conrelid = 'posts_hot'::regclass
+                )
+                """
             )
-            cursor.execute(
-                "CREATE SEQUENCE IF NOT EXISTS posts_hot_id_seq"
-            )
-            cursor.execute(
-                "ALTER TABLE posts_hot ADD COLUMN IF NOT EXISTS id BIGINT"
-            )
-            cursor.execute(
-                "ALTER TABLE posts_hot ALTER COLUMN id SET DEFAULT nextval('posts_hot_id_seq')"
-            )
-            cursor.execute(
-                "ALTER TABLE posts_hot ALTER COLUMN id SET NOT NULL"
-            )
-            cursor.execute(
-                "UPDATE posts_hot SET id = nextval('posts_hot_id_seq') WHERE id IS NULL"
-            )
-            cursor.execute(
-                "ALTER TABLE posts_hot ADD CONSTRAINT posts_hot_pkey PRIMARY KEY (id)"
-            )
+            pkey_exists = cursor.fetchone()[0]
+
+            if not pkey_exists:
+                cursor.execute(
+                    "CREATE SEQUENCE IF NOT EXISTS posts_hot_id_seq"
+                )
+                cursor.execute(
+                    "ALTER TABLE posts_hot ADD COLUMN IF NOT EXISTS id BIGINT"
+                )
+                cursor.execute(
+                    "ALTER TABLE posts_hot ALTER COLUMN id SET DEFAULT nextval('posts_hot_id_seq')"
+                )
+                cursor.execute(
+                    "ALTER TABLE posts_hot ALTER COLUMN id SET NOT NULL"
+                )
+                cursor.execute(
+                    "UPDATE posts_hot SET id = nextval('posts_hot_id_seq') WHERE id IS NULL"
+                )
+                cursor.execute(
+                    "ALTER TABLE posts_hot ADD CONSTRAINT posts_hot_pkey PRIMARY KEY (id)"
+                )
+
             cursor.execute(
                 "CREATE UNIQUE INDEX IF NOT EXISTS uq_posts_hot_source_post ON posts_hot(source, source_post_id)"
             )
