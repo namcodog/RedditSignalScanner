@@ -508,9 +508,24 @@
               "type": "integer",
               "maximum": 200,
               "minimum": 1,
+              "description": "每页数量",
               "default": 50,
               "title": "Limit"
-            }
+            },
+            "description": "每页数量"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "偏移量",
+              "default": 0,
+              "title": "Offset"
+            },
+            "description": "偏移量"
           }
         ],
         "responses": {
@@ -554,9 +569,24 @@
               "type": "integer",
               "maximum": 200,
               "minimum": 1,
+              "description": "每页数量",
               "default": 50,
               "title": "Limit"
-            }
+            },
+            "description": "每页数量"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "偏移量",
+              "default": 0,
+              "title": "Offset"
+            },
+            "description": "偏移量"
           }
         ],
         "responses": {
@@ -712,108 +742,6 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/admin/communities/template": {
-      "get": {
-        "tags": [
-          "admin"
-        ],
-        "summary": "下载社区导入 Excel 模板",
-        "operationId": "download_template_api_admin_communities_template_get",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/admin/communities/import": {
-      "post": {
-        "tags": [
-          "admin"
-        ],
-        "summary": "上传并导入社区信息",
-        "operationId": "import_communities_api_admin_communities_import_post",
-        "security": [
-          {
-            "HTTPBearer": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "dry_run",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "boolean",
-              "description": "true=仅验证，false=验证并导入",
-              "default": false,
-              "title": "Dry Run"
-            },
-            "description": "true=仅验证，false=验证并导入"
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "$ref": "#/components/schemas/Body_import_communities_api_admin_communities_import_post"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "title": "Response Import Communities Api Admin Communities Import Post"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/admin/communities/import-history": {
-      "get": {
-        "tags": [
-          "admin"
-        ],
-        "summary": "查询社区导入历史",
-        "operationId": "get_import_history_api_admin_communities_import_history_get",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "title": "Response Get Import History Api Admin Communities Import History Get"
                 }
               }
             }
@@ -1101,6 +1029,44 @@
               "title": "Entity Filter"
             },
             "description": "实体过滤器（暂未实现）"
+          },
+          {
+            "name": "min_confidence",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "number",
+                  "maximum": 1.0,
+                  "minimum": 0.0
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "最小置信度（0-1），用于过滤洞察卡片",
+              "title": "Min Confidence"
+            },
+            "description": "最小置信度（0-1），用于过滤洞察卡片"
+          },
+          {
+            "name": "subreddit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "按子版块过滤，支持精确匹配（区分大小写）",
+              "title": "Subreddit"
+            },
+            "description": "按子版块过滤，支持精确匹配（区分大小写）"
           },
           {
             "name": "limit",
@@ -1482,21 +1448,6 @@
         ],
         "title": "BetaFeedbackCreate",
         "description": "Schema for creating beta feedback."
-      },
-      "Body_import_communities_api_admin_communities_import_post": {
-        "properties": {
-          "file": {
-            "type": "string",
-            "format": "binary",
-            "title": "File",
-            "description": "Excel 模板文件（.xlsx）"
-          }
-        },
-        "type": "object",
-        "required": [
-          "file"
-        ],
-        "title": "Body_import_communities_api_admin_communities_import_post"
       },
       "EvidenceResponse": {
         "properties": {
