@@ -18,13 +18,41 @@ def upgrade() -> None:
     - community_watermarks: 0行数据,代码中无引用
     - community_import_history: 0行数据,代码中无引用
     """
-    # 删除 community_import_history 表及其索引
-    op.drop_index("idx_community_import_history_created_at", table_name="community_import_history")
-    op.drop_index("idx_community_import_history_uploaded_by", table_name="community_import_history")
-    op.drop_table("community_import_history")
+    conn = op.get_bind()
 
-    # 删除 community_watermarks 表
-    op.drop_table("community_watermarks")
+    # 检查 community_import_history 表是否存在
+    result = conn.execute(
+        sa.text(
+            """
+            SELECT EXISTS (
+                SELECT FROM information_schema.tables
+                WHERE table_schema = 'public'
+                AND table_name = 'community_import_history'
+            )
+            """
+        )
+    )
+    if result.scalar():
+        # 删除 community_import_history 表及其索引
+        op.execute("DROP INDEX IF EXISTS idx_community_import_history_created_at")
+        op.execute("DROP INDEX IF EXISTS idx_community_import_history_uploaded_by")
+        op.execute("DROP TABLE IF EXISTS community_import_history")
+
+    # 检查 community_watermarks 表是否存在
+    result = conn.execute(
+        sa.text(
+            """
+            SELECT EXISTS (
+                SELECT FROM information_schema.tables
+                WHERE table_schema = 'public'
+                AND table_name = 'community_watermarks'
+            )
+            """
+        )
+    )
+    if result.scalar():
+        # 删除 community_watermarks 表
+        op.execute("DROP TABLE IF EXISTS community_watermarks")
 
 
 def downgrade() -> None:
