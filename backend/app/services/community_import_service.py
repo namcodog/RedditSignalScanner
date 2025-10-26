@@ -12,7 +12,8 @@ import xlsxwriter  # type: ignore[import-untyped]
 from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.models.community_pool import CommunityImportHistory, CommunityPool
+from app.models.community_import import CommunityImportHistory
+from app.models.community_pool import CommunityPool
 from app.models.user import User
 
 logger = logging.getLogger(__name__)
@@ -282,6 +283,12 @@ class CommunityImportService:
     async def _insert_communities(
         self, rows: Sequence[ParsedCommunityRow], actor_ref: uuid.UUID | None
     ) -> int:
+        # 单用户模式：固定的 admin UUID 不作为外键,避免外键约束错误
+        fixed_admin_id = uuid.UUID("00000000-0000-0000-0000-000000000001")
+        is_single_user_mode = actor_ref == fixed_admin_id
+        created_by_ref = None if is_single_user_mode else actor_ref
+        updated_by_ref = None if is_single_user_mode else actor_ref
+
         for entry in rows:
             community = CommunityPool(
                 name=entry.name,
@@ -292,8 +299,8 @@ class CommunityImportService:
                 avg_comment_length=int(entry.avg_comment_length or 0),
                 quality_score=float(entry.quality_score or 0.5),
                 priority=entry.priority or "medium",
-                created_by=actor_ref,
-                updated_by=actor_ref,
+                created_by=created_by_ref,
+                updated_by=updated_by_ref,
             )
             self._session.add(community)
         await self._session.flush()
@@ -309,10 +316,16 @@ class CommunityImportService:
         result: Dict[str, Any],
     ) -> None:
         summary = result["summary"]
+
+        # 单用户模式：固定的 admin UUID 不作为外键,避免外键约束错误
+        # 所有外键字段都设置为 None,仅保留 uploaded_by 邮箱字符串用于审计
+        fixed_admin_id = uuid.UUID("00000000-0000-0000-0000-000000000001")
+        is_single_user_mode = actor_ref == fixed_admin_id
+
         record = CommunityImportHistory(
             filename=filename,
             uploaded_by=actor_email,
-            uploaded_by_user_id=actor_ref,
+            uploaded_by_user_id=None if is_single_user_mode else actor_ref,
             dry_run=dry_run,
             status=result["status"],
             total_rows=summary["total"],
@@ -322,8 +335,8 @@ class CommunityImportService:
             imported_rows=summary["imported"],
             error_details=result.get("errors"),
             summary_preview={"communities": result.get("communities", [])[:20]},
-            created_by=actor_ref,
-            updated_by=actor_ref,
+            created_by=None if is_single_user_mode else actor_ref,
+            updated_by=None if is_single_user_mode else actor_ref,
         )
         self._session.add(record)
         await self._session.commit()
@@ -331,6 +344,13 @@ class CommunityImportService:
     async def _resolve_actor(self, actor_id: uuid.UUID | None) -> uuid.UUID | None:
         if actor_id is None:
             return None
+
+        # 单用户模式：固定的 admin UUID 直接返回,不检查 User 表
+        fixed_admin_id = uuid.UUID("00000000-0000-0000-0000-000000000001")
+        if actor_id == fixed_admin_id:
+            return actor_id
+
+        # 其他 UUID 需要检查 User 表
         existing = await self._session.get(User, actor_id)
         if existing is None:
             logger.debug("Actor id %s not found; history entry will omit uploaded_by_user_id", actor_id)
