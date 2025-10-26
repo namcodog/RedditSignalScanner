@@ -31,6 +31,7 @@ os.environ.setdefault("SQLALCHEMY_DISABLE_POOL", "1")
 
 def pytest_configure(config: pytest.Config) -> None:
     """Ensure pytest-asyncio runs in auto mode for consistent loop handling."""
+    # Default to auto mode; integration modules selectively request a session-scoped loop.
     config.option.asyncio_mode = "auto"
 
 
@@ -39,15 +40,17 @@ def pytest_sessionstart(session: pytest.Session) -> None:
     print("PYTEST SESSION START (diagnostic)", flush=True)
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="function")
 def event_loop():
     """
-    Create an event loop for the test session.
+    Create a new event loop for each test function.
 
-    Based on exa-code best practices for pytest-asyncio:
-    - Use session scope to avoid creating multiple event loops
-    - Properly close the loop after all tests complete
-    - Prevents "attached to a different loop" errors
+    Fixed based on pytest-asyncio best practices:
+    - Use function scope to ensure each test gets a fresh event loop
+    - Prevents "Task got Future attached to a different loop" errors
+    - Properly isolates async resources between tests
+
+    Reference: https://pytest-asyncio.readthedocs.io/en/latest/concepts.html#event-loop-scope
     """
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
@@ -103,11 +106,46 @@ def reset_database() -> None:
     # 运行 Alembic 迁移以确保 schema 最新
     os.environ.setdefault("DATABASE_URL", alembic_url)
 
+    # Ensure community_import_history schema exists (for environments created before 20251024_000022)
+    cursor.execute("SELECT to_regclass('community_import_history')")
+    history_exists = cursor.fetchone()[0] is not None
+    if not history_exists:
+        cursor.execute(
+            """
+            CREATE TABLE community_import_history (
+                id SERIAL PRIMARY KEY,
+                filename VARCHAR(255) NOT NULL,
+                uploaded_by VARCHAR(255) NOT NULL,
+                uploaded_by_user_id UUID NULL,
+                dry_run BOOLEAN NOT NULL DEFAULT FALSE,
+                status VARCHAR(32) NOT NULL,
+                total_rows INTEGER NOT NULL DEFAULT 0,
+                valid_rows INTEGER NOT NULL DEFAULT 0,
+                invalid_rows INTEGER NOT NULL DEFAULT 0,
+                duplicate_rows INTEGER NOT NULL DEFAULT 0,
+                imported_rows INTEGER NOT NULL DEFAULT 0,
+                error_details JSONB NULL,
+                summary_preview JSONB NULL,
+                created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                created_by UUID NULL,
+                updated_by UUID NULL
+            )
+            """
+        )
+        cursor.execute(
+            "CREATE INDEX IF NOT EXISTS idx_community_import_history_created ON community_import_history(created_at)"
+        )
+        cursor.execute(
+            "CREATE INDEX IF NOT EXISTS idx_community_import_history_uploaded_by ON community_import_history(uploaded_by_user_id)"
+        )
+
     alembic_cfg = Config(str(ROOT / "backend" / "alembic.ini"))
     alembic_cfg.set_main_option("script_location", str(ROOT / "backend" / "alembic"))
     alembic_cfg.set_main_option("sqlalchemy.url", alembic_url)
     alembic_cfg.attributes["configure_logger"] = False
-    command.upgrade(alembic_cfg, "head")
+    # 使用 "heads" 以支持多分支迁移历史
+    command.upgrade(alembic_cfg, "heads")
 
     cursor.execute(
         """
@@ -172,32 +210,6 @@ def reset_database() -> None:
             conn.rollback()
         cursor.execute(
             """
-            CREATE TABLE IF NOT EXISTS community_import_history (
-                id SERIAL PRIMARY KEY,
-                filename VARCHAR(255) NOT NULL,
-                uploaded_by VARCHAR(255) NOT NULL,
-                uploaded_by_user_id UUID NULL,
-                dry_run BOOLEAN NOT NULL DEFAULT FALSE,
-                status VARCHAR(20) NOT NULL,
-                total_rows INTEGER NOT NULL DEFAULT 0,
-                valid_rows INTEGER NOT NULL DEFAULT 0,
-                invalid_rows INTEGER NOT NULL DEFAULT 0,
-                duplicate_rows INTEGER NOT NULL DEFAULT 0,
-                imported_rows INTEGER NOT NULL DEFAULT 0,
-                error_details JSONB NULL,
-                summary_preview JSONB NULL,
-                created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
-            )
-            """
-        )
-        cursor.execute(
-            """
-            ALTER TABLE community_import_history
-            ALTER COLUMN uploaded_by_user_id DROP NOT NULL
-            """
-        )
-        cursor.execute(
-            """
             ALTER TABLE community_import_history
             ADD COLUMN IF NOT EXISTS updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
             ADD COLUMN IF NOT EXISTS created_by UUID NULL,
@@ -224,12 +236,6 @@ def reset_database() -> None:
             )
         except psycopg_errors.DuplicateObject:
             conn.rollback()
-        cursor.execute(
-            """
-            ALTER TABLE community_import_history
-            DROP CONSTRAINT IF EXISTS fk_community_import_history_uploaded_by_user_id
-            """
-        )
         try:
             cursor.execute(
                 """
@@ -240,18 +246,6 @@ def reset_database() -> None:
             )
         except psycopg_errors.DuplicateObject:
             conn.rollback()
-        cursor.execute(
-            """
-            CREATE INDEX IF NOT EXISTS idx_community_import_history_created
-            ON community_import_history(created_at)
-            """
-        )
-        cursor.execute(
-            """
-            CREATE INDEX IF NOT EXISTS idx_community_import_history_uploaded_by
-            ON community_import_history(uploaded_by_user_id)
-            """
-        )
         cursor.execute(
             """
             ALTER TABLE pending_communities
@@ -599,7 +593,7 @@ def reset_database() -> None:
         )
 
         cursor.execute(
-            "TRUNCATE TABLE community_import_history, storage_metrics, posts_archive, beta_feedback, community_pool, pending_communities, crawl_metrics, quality_metrics, reports, analyses, tasks, users RESTART IDENTITY CASCADE"
+            "TRUNCATE TABLE community_import_history, storage_metrics, posts_archive, beta_feedback, community_cache, community_pool, pending_communities, crawl_metrics, quality_metrics, reports, analyses, tasks, users RESTART IDENTITY CASCADE"
         )
     finally:
         cursor.close()
@@ -703,7 +697,7 @@ def truncate_tables_between_tests(request: pytest.FixtureRequest) -> Iterator[No
             for i in range(attempts):
                 try:
                     cursor.execute(
-                        "TRUNCATE TABLE beta_feedback, community_pool, pending_communities, crawl_metrics, quality_metrics, reports, analyses, tasks, storage_metrics, posts_archive RESTART IDENTITY CASCADE"
+                        "TRUNCATE TABLE beta_feedback, community_cache, community_pool, pending_communities, crawl_metrics, quality_metrics, reports, analyses, tasks, storage_metrics, posts_archive RESTART IDENTITY CASCADE"
                     )
                     break
                 except psycopg.errors.LockNotAvailable:
@@ -734,7 +728,7 @@ def reset_history_for_import_module(request: pytest.FixtureRequest) -> None:
         cursor = conn.cursor()
         try:
             cursor.execute(
-                "TRUNCATE TABLE community_import_history, community_pool, pending_communities RESTART IDENTITY CASCADE"
+                "TRUNCATE TABLE community_import_history, community_cache, community_pool, pending_communities RESTART IDENTITY CASCADE"
             )
         finally:
             cursor.close()
@@ -742,11 +736,24 @@ def reset_history_for_import_module(request: pytest.FixtureRequest) -> None:
 
 @pytest_asyncio.fixture(scope="function")
 async def db_session() -> AsyncIterator[AsyncSession]:
-    """Provide an isolated AsyncSession per test."""
-    from app.db.session import SessionFactory
+    """
+    Provide an isolated AsyncSession per test.
+
+    Fixed based on pytest-asyncio best practices:
+    - Properly dispose engine after each test to avoid connection leaks
+    - Ensures clean state between tests
+    - Prevents "attached to a different loop" errors
+    """
+    from app.db.session import SessionFactory, engine
 
     async with SessionFactory() as session:
-        yield session
+        try:
+            yield session
+        finally:
+            await session.close()
+            # Explicitly dispose engine to clean up all connections
+            # This prevents connection pool issues across tests
+            await engine.dispose()
 
 
 @pytest_asyncio.fixture(scope="function")
