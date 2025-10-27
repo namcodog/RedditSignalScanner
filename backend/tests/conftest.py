@@ -149,8 +149,8 @@ def reset_database() -> None:
 
     cursor.execute(
         """
-        ALTER TABLE pending_communities
-        DROP CONSTRAINT IF EXISTS fk_pending_communities_discovered_from_task_id_tasks
+        ALTER TABLE discovered_communities
+        DROP CONSTRAINT IF EXISTS fk_discovered_communities_discovered_from_task_id_tasks
         """
     )
 
@@ -248,21 +248,21 @@ def reset_database() -> None:
             conn.rollback()
         cursor.execute(
             """
-            ALTER TABLE pending_communities
-            DROP CONSTRAINT IF EXISTS fk_pending_communities_discovered_from_task_id
+            ALTER TABLE discovered_communities
+            DROP CONSTRAINT IF EXISTS fk_discovered_communities_discovered_from_task_id
             """
         )
         cursor.execute(
             """
-            ALTER TABLE pending_communities
-            DROP CONSTRAINT IF EXISTS fk_pending_communities_discovered_from_task_id_tasks
+            ALTER TABLE discovered_communities
+            DROP CONSTRAINT IF EXISTS fk_discovered_communities_discovered_from_task_id_tasks
             """
         )
         try:
             cursor.execute(
                 """
-                ALTER TABLE pending_communities
-                ADD CONSTRAINT fk_pending_communities_discovered_from_task_id_tasks
+                ALTER TABLE discovered_communities
+                ADD CONSTRAINT fk_discovered_communities_discovered_from_task_id_tasks
                 FOREIGN KEY (discovered_from_task_id) REFERENCES tasks(id) ON DELETE SET NULL
                 """
             )
@@ -271,15 +271,15 @@ def reset_database() -> None:
 
         cursor.execute(
             """
-            ALTER TABLE pending_communities
-            DROP CONSTRAINT IF EXISTS fk_pending_communities_reviewed_by
+            ALTER TABLE discovered_communities
+            DROP CONSTRAINT IF EXISTS fk_discovered_communities_reviewed_by
             """
         )
         try:
             cursor.execute(
                 """
-                ALTER TABLE pending_communities
-                ADD CONSTRAINT fk_pending_communities_reviewed_by
+                ALTER TABLE discovered_communities
+                ADD CONSTRAINT fk_discovered_communities_reviewed_by
                 FOREIGN KEY (reviewed_by) REFERENCES users(id) ON DELETE SET NULL
                 """
             )
@@ -287,7 +287,7 @@ def reset_database() -> None:
             conn.rollback()
         cursor.execute(
             """
-            ALTER TABLE pending_communities
+            ALTER TABLE discovered_communities
             ADD COLUMN IF NOT EXISTS created_by UUID NULL,
             ADD COLUMN IF NOT EXISTS updated_by UUID NULL,
             ADD COLUMN IF NOT EXISTS deleted_at TIMESTAMPTZ NULL,
@@ -298,15 +298,15 @@ def reset_database() -> None:
         )
         cursor.execute(
             """
-            CREATE INDEX IF NOT EXISTS idx_pending_communities_deleted_at
-            ON pending_communities(deleted_at)
+            CREATE INDEX IF NOT EXISTS idx_discovered_communities_deleted_at
+            ON discovered_communities(deleted_at)
             """
         )
         try:
             cursor.execute(
                 """
-                ALTER TABLE pending_communities
-                ADD CONSTRAINT fk_pending_communities_created_by
+                ALTER TABLE discovered_communities
+                ADD CONSTRAINT fk_discovered_communities_created_by
                 FOREIGN KEY (created_by) REFERENCES users(id) ON DELETE SET NULL
                 """
             )
@@ -315,8 +315,8 @@ def reset_database() -> None:
         try:
             cursor.execute(
                 """
-                ALTER TABLE pending_communities
-                ADD CONSTRAINT fk_pending_communities_updated_by
+                ALTER TABLE discovered_communities
+                ADD CONSTRAINT fk_discovered_communities_updated_by
                 FOREIGN KEY (updated_by) REFERENCES users(id) ON DELETE SET NULL
                 """
             )
@@ -325,8 +325,8 @@ def reset_database() -> None:
         try:
             cursor.execute(
                 """
-                ALTER TABLE pending_communities
-                ADD CONSTRAINT fk_pending_communities_deleted_by
+                ALTER TABLE discovered_communities
+                ADD CONSTRAINT fk_discovered_communities_deleted_by
                 FOREIGN KEY (deleted_by) REFERENCES users(id) ON DELETE SET NULL
                 """
             )
@@ -593,7 +593,7 @@ def reset_database() -> None:
         )
 
         cursor.execute(
-            "TRUNCATE TABLE community_import_history, storage_metrics, posts_archive, beta_feedback, community_cache, community_pool, pending_communities, crawl_metrics, quality_metrics, reports, analyses, tasks, users RESTART IDENTITY CASCADE"
+            "TRUNCATE TABLE community_import_history, storage_metrics, posts_archive, beta_feedback, community_cache, community_pool, discovered_communities, crawl_metrics, quality_metrics, reports, analyses, tasks, users RESTART IDENTITY CASCADE"
         )
     finally:
         cursor.close()
@@ -697,7 +697,7 @@ def truncate_tables_between_tests(request: pytest.FixtureRequest) -> Iterator[No
             for i in range(attempts):
                 try:
                     cursor.execute(
-                        "TRUNCATE TABLE beta_feedback, community_cache, community_pool, pending_communities, crawl_metrics, quality_metrics, reports, analyses, tasks, storage_metrics, posts_archive RESTART IDENTITY CASCADE"
+                        "TRUNCATE TABLE beta_feedback, community_cache, community_pool, discovered_communities, crawl_metrics, quality_metrics, reports, analyses, tasks, storage_metrics, posts_archive RESTART IDENTITY CASCADE"
                     )
                     break
                 except psycopg.errors.LockNotAvailable:
@@ -728,7 +728,7 @@ def reset_history_for_import_module(request: pytest.FixtureRequest) -> None:
         cursor = conn.cursor()
         try:
             cursor.execute(
-                "TRUNCATE TABLE community_import_history, community_cache, community_pool, pending_communities RESTART IDENTITY CASCADE"
+                "TRUNCATE TABLE community_import_history, community_cache, community_pool, discovered_communities RESTART IDENTITY CASCADE"
             )
         finally:
             cursor.close()

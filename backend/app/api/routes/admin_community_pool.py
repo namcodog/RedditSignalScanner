@@ -14,7 +14,8 @@ from app.api.routes.admin import _response
 from app.core.auth import require_admin
 from app.core.security import TokenPayload
 from app.db.session import get_session
-from app.models.community_pool import CommunityPool, PendingCommunity
+from app.models.community_pool import CommunityPool
+from app.models.discovered_community import DiscoveredCommunity
 
 router = APIRouter(prefix="/admin/communities", tags=["admin"])  # mounted under /api
 logger = logging.getLogger(__name__)
@@ -78,12 +79,12 @@ async def list_discovered(
     payload: TokenPayload = Depends(require_admin),
 ) -> dict[str, Any]:
     stmt = (
-        select(PendingCommunity)
+        select(DiscoveredCommunity)
         .where(
-            PendingCommunity.status == "pending",
-            PendingCommunity.deleted_at.is_(None),
+            DiscoveredCommunity.status == "pending",
+            DiscoveredCommunity.deleted_at.is_(None),
         )
-        .order_by(PendingCommunity.last_discovered_at.desc())
+        .order_by(DiscoveredCommunity.last_discovered_at.desc())
     )
     result = await session.execute(stmt)
     items = result.scalars().all()
@@ -113,11 +114,11 @@ async def approve_community(
 ) -> dict[str, Any]:
     # Find pending record
     pending = await session.scalar(
-        select(PendingCommunity).where(PendingCommunity.name == body.name)
+        select(DiscoveredCommunity).where(DiscoveredCommunity.name == body.name)
     )
     if pending is None:
         raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND, detail="Pending community not found"
+            status_code=status.HTTP_404_NOT_FOUND, detail="Discovered community not found"
         )
 
     # Upsert into CommunityPool
@@ -187,11 +188,11 @@ async def reject_community(
     payload: TokenPayload = Depends(require_admin),
 ) -> dict[str, Any]:
     pending = await session.scalar(
-        select(PendingCommunity).where(PendingCommunity.name == body.name)
+        select(DiscoveredCommunity).where(DiscoveredCommunity.name == body.name)
     )
     if pending is None:
         raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND, detail="Pending community not found"
+            status_code=status.HTTP_404_NOT_FOUND, detail="Discovered community not found"
         )
 
     try:

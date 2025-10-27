@@ -15,7 +15,8 @@ from app.api.routes.admin_community_pool import (
 )
 from app.core.security import TokenPayload
 from sqlalchemy import select
-from app.models.community_pool import PendingCommunity, CommunityPool
+from app.models.community_pool import CommunityPool
+from app.models.discovered_community import DiscoveredCommunity
 from app.models.user import User
 
 
@@ -93,7 +94,7 @@ async def test_unit_approve_success_flow(db_session: AsyncSession) -> None:
 
     # prepare pending
     from datetime import datetime, timezone
-    pending = PendingCommunity(
+    pending = DiscoveredCommunity(
         name="r/unit_pending",
         status="pending",
         discovered_from_keywords={"keywords": ["k1", "k2"]},
@@ -127,7 +128,7 @@ async def test_unit_reject_success_flow(db_session: AsyncSession) -> None:
 
     # prepare pending
     from datetime import datetime, timezone
-    pending = PendingCommunity(
+    pending = DiscoveredCommunity(
         name="r/unit_reject",
         status="pending",
         discovered_from_keywords=None,
@@ -176,4 +177,3 @@ async def test_unit_disable_success_flow(db_session: AsyncSession) -> None:
         await db_session.execute(select(CommunityPool).where(CommunityPool.name == "r/unit_disable"))
     ).scalar_one()
     assert stored.is_active is False
-

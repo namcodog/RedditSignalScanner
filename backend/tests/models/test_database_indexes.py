@@ -3,10 +3,8 @@ from __future__ import annotations
 from sqlalchemy.dialects import postgresql
 
 from app.core.config import Settings
-from app.models.community_pool import (
-    CommunityPool,
-    PendingCommunity,
-)
+from app.models.community_pool import CommunityPool
+from app.models.discovered_community import DiscoveredCommunity
 from app.models.posts_storage import PostHot
 
 
@@ -14,8 +12,8 @@ def _index_names(table):
     return {index.name: index for index in table.indexes}
 
 
-def test_pending_community_uuid_columns() -> None:
-    table = PendingCommunity.__table__
+def test_discovered_community_uuid_columns() -> None:
+    table = DiscoveredCommunity.__table__
     discovered_type = table.c.discovered_from_task_id.type
     reviewed_type = table.c.reviewed_by.type
 
@@ -23,12 +21,12 @@ def test_pending_community_uuid_columns() -> None:
     assert isinstance(reviewed_type, postgresql.UUID)
 
 
-def test_pending_community_indexes_present() -> None:
-    indexes = _index_names(PendingCommunity.__table__)
-    assert "idx_pending_communities_task_id" in indexes
-    assert "idx_pending_communities_reviewed_by" in indexes
-    assert "idx_pending_communities_status" in indexes
-    assert "idx_pending_communities_deleted_at" in indexes
+def test_discovered_community_indexes_present() -> None:
+    indexes = _index_names(DiscoveredCommunity.__table__)
+    assert "idx_discovered_communities_task_id" in indexes
+    assert "idx_discovered_communities_reviewed_by" in indexes
+    assert "idx_discovered_communities_status" in indexes
+    assert "idx_discovered_communities_deleted_at" in indexes
 
 
 # 测试已删除: CommunityImportHistory 表已移除（功能孤岛清理）

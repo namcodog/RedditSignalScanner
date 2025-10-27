@@ -296,6 +296,19 @@ class RedditAPIClient:
                     await self._invalidate_token()
                     await self.authenticate()
                     continue
+                if response.status == 429:
+                    # 速率限制错误 - 特别监控
+                    logger.error(
+                        "[RATE_LIMIT] Reddit API rate limit exceeded (429). "
+                        "url=%s, rate_limit=%d req/%ds, current_requests=%d",
+                        url,
+                        self.rate_limit,
+                        self.rate_limit_window,
+                        len(self._request_times),
+                    )
+                    raise RedditAPIError(
+                        "Reddit API rate limit exceeded. Please try again later."
+                    )
                 if response.status >= 500:
                     # P3-5 修复: 不暴露 Reddit API 原始错误文本
                     logger.error(

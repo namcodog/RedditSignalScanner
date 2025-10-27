@@ -9,6 +9,7 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import './styles/index.css';
 import { TranslationProvider } from '@/i18n/TranslationProvider';
+import { ToastProvider } from '@/components/ui/toast';
 
 console.log('[main.tsx] Starting application');
 
@@ -23,9 +24,11 @@ console.log('[main.tsx] Root element found, rendering App');
 
 ReactDOM.createRoot(rootElement).render(
   <React.StrictMode>
-    <TranslationProvider>
-      <App />
-    </TranslationProvider>
+    <ToastProvider>
+      <TranslationProvider>
+        <App />
+      </TranslationProvider>
+    </ToastProvider>
   </React.StrictMode>
 );
 

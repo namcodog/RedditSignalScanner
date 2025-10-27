@@ -7,15 +7,15 @@ import pytest
 from sqlalchemy.exc import IntegrityError
 
 from app.core.security import hash_password
-from app.models.community_pool import PendingCommunity
+from app.models.discovered_community import DiscoveredCommunity
 from app.models.posts_storage import Base as PostsBase, PostRaw
 from app.models.task import Task
 from app.models.user import User
 
 
 @pytest.mark.asyncio
-async def test_pending_community_requires_existing_task(db_session):
-    pending = PendingCommunity(
+async def test_discovered_community_requires_existing_task(db_session):
+    pending = DiscoveredCommunity(
         name="r/example",
         discovered_count=1,
         first_discovered_at=datetime.now(timezone.utc),
@@ -33,14 +33,14 @@ async def test_pending_community_requires_existing_task(db_session):
 
 
 @pytest.mark.asyncio
-async def test_pending_community_task_reference_set_null(db_session):
+async def test_discovered_community_task_reference_set_null(db_session):
     user = User(email="cascade@example.com", password_hash=hash_password("SecurePass123!"))
     task = Task(user=user, product_description="Test product description long enough")
 
     db_session.add_all([user, task])
     await db_session.flush()
 
-    pending = PendingCommunity(
+    pending = DiscoveredCommunity(
         name="r/cascade",
         discovered_count=1,
         first_discovered_at=datetime.now(timezone.utc),

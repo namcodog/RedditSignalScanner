@@ -10,7 +10,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.beta_feedback import BetaFeedback
 from app.models.community_cache import CommunityCache
-from app.models.community_pool import CommunityPool, PendingCommunity
+from app.models.community_pool import CommunityPool
+from app.models.discovered_community import DiscoveredCommunity
 from app.models.task import Task, TaskStatus
 from app.models.user import User
 
@@ -40,7 +41,7 @@ async def test_build_and_save_report(db_session: AsyncSession, monkeypatch: pyte
         daily_posts=3,
         avg_comment_length=12,
     ))
-    db_session.add(PendingCommunity(
+    db_session.add(DiscoveredCommunity(
         name=f"{unique_comm}_disc",
         discovered_from_keywords={"kw": ["beta"]},
         discovered_count=1,
@@ -136,4 +137,3 @@ async def test_build_and_save_report(db_session: AsyncSession, monkeypatch: pyte
     assert out_path.exists()
     data = json.loads(out_path.read_text(encoding="utf-8"))
     assert data["community_pool"]["total"] == cp["total"]
-

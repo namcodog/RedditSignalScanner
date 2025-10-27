@@ -48,7 +48,8 @@ def _get_worker_count() -> int:
     except NotImplementedError:
         cpu_count = 1
 
-    return max(1, min(cpu_count, 4))
+    # 限制最大 Worker 数为 2，避免 Reddit API 速率限制冲突
+    return max(1, min(cpu_count, 2))
 
 
 def _build_conf() -> Dict[str, Any]:

@@ -18,7 +18,7 @@ from uuid import UUID
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.models.community_pool import PendingCommunity
+from app.models.discovered_community import DiscoveredCommunity
 from app.services.keyword_extractor import KeywordExtractor
 from app.services.reddit_client import RedditAPIClient, RedditPost
 
@@ -211,8 +211,8 @@ class CommunityDiscoveryService:
         for community_name_raw, mention_count in communities.items():
             community_name = _normalise_community_name(community_name_raw)
             # Check if community already exists
-            stmt = select(PendingCommunity).where(
-                PendingCommunity.name == community_name
+            stmt = select(DiscoveredCommunity).where(
+                DiscoveredCommunity.name == community_name
             )
             result = await self.db.execute(stmt)
             existing = result.scalar_one_or_none()
@@ -232,7 +232,7 @@ class CommunityDiscoveryService:
                 existing.updated_at = now
             else:
                 # Create new record
-                new_community = PendingCommunity(
+                new_community = DiscoveredCommunity(
                     name=community_name,
                     discovered_from_keywords={
                         "keywords": keywords,

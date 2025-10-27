@@ -11,7 +11,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.config import Settings, get_settings
 from app.main import app
-from app.models.community_pool import CommunityPool, PendingCommunity
+from app.models.community_pool import CommunityPool
+from app.models.discovered_community import DiscoveredCommunity
 
 
 def _override_admin_settings(admin_email: str) -> Settings:
@@ -80,7 +81,7 @@ async def test_list_pool_and_discovered_success(
 
         # Seed pending/discovered
         now = datetime.now(timezone.utc)
-        pending = PendingCommunity(
+        pending = DiscoveredCommunity(
             name="r/discovered_ok",
             discovered_from_keywords={"keywords": ["ai", "product"]},
             discovered_count=3,
@@ -129,7 +130,7 @@ async def test_approve_creates_or_updates_pool_and_marks_pending_approved(
 
         now = datetime.now(timezone.utc)
         db_session.add(
-            PendingCommunity(
+            DiscoveredCommunity(
                 name="r/approve_me",
                 discovered_from_keywords={"keywords": ["ml", "notes"]},
                 discovered_count=2,
@@ -161,7 +162,7 @@ async def test_approve_creates_or_updates_pool_and_marks_pending_approved(
         assert stored_pool.is_active is True
 
         stored_pending = (
-            await db_session.execute(select(PendingCommunity).where(PendingCommunity.name == "r/approve_me"))
+            await db_session.execute(select(DiscoveredCommunity).where(DiscoveredCommunity.name == "r/approve_me"))
         ).scalar_one()
         assert stored_pending.status == "approved"
         assert stored_pending.reviewed_by is not None
@@ -185,7 +186,7 @@ async def test_reject_marks_pending_rejected(
 
         now = datetime.now(timezone.utc)
         db_session.add(
-            PendingCommunity(
+            DiscoveredCommunity(
                 name="r/reject_me",
                 discovered_from_keywords={"keywords": ["ml", "badfit"]},
                 discovered_count=1,
@@ -211,7 +212,7 @@ async def test_reject_marks_pending_rejected(
         assert body["data"]["rejected"] == "r/reject_me"
 
         stored = (
-            await db_session.execute(select(PendingCommunity).where(PendingCommunity.name == "r/reject_me"))
+            await db_session.execute(select(DiscoveredCommunity).where(DiscoveredCommunity.name == "r/reject_me"))
         ).scalar_one()
         assert stored.status == "rejected"
         assert stored.admin_notes == "not relevant"
@@ -334,7 +335,7 @@ async def test_approve_logs_when_discovered_count_conversion_fails(
             )
         )
         db_session.add(
-            PendingCommunity(
+            DiscoveredCommunity(
                 name="r/logging_case",
                 discovered_from_keywords={"keywords": ["automation"]},
                 discovered_count=2,

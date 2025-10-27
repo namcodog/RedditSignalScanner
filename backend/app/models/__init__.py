@@ -1,10 +1,8 @@
 from app.models.analysis import Analysis
 from app.models.community_cache import CommunityCache
 from app.models.community_import import CommunityImportHistory
-from app.models.community_pool import (
-    CommunityPool,
-    PendingCommunity,
-)
+from app.models.community_pool import CommunityPool
+from app.models.discovered_community import DiscoveredCommunity
 from app.models.insight import Evidence, InsightCard
 from app.models.metrics import QualityMetrics
 from app.models.report import Report
@@ -19,7 +17,7 @@ __all__ = [
     "Report",
     "CommunityCache",
     "CommunityPool",
-    "PendingCommunity",
+    "DiscoveredCommunity",
     "CommunityImportHistory",
     "QualityMetrics",
     "InsightCard",

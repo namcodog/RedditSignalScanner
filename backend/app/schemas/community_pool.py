@@ -11,8 +11,8 @@ from pydantic import Field, field_validator
 from app.schemas.base import ORMModel
 
 
-class PendingCommunityCreate(ORMModel):
-    """Schema for creating a new pending community (discovered from analysis)."""
+class DiscoveredCommunityCreate(ORMModel):
+    """Schema for creating a newly discovered community."""
 
     name: str = Field(
         min_length=3, max_length=100, description="Community name (e.g., 'artificial')"
@@ -38,8 +38,8 @@ class PendingCommunityCreate(ORMModel):
         return v
 
 
-class PendingCommunityUpdate(ORMModel):
-    """Schema for updating a pending community (admin review)."""
+class DiscoveredCommunityUpdate(ORMModel):
+    """Schema for updating a discovered community during admin review."""
 
     status: str = Field(description="Status: pending/approved/rejected")
     admin_notes: str | None = Field(
@@ -59,8 +59,8 @@ class PendingCommunityUpdate(ORMModel):
         return v
 
 
-class PendingCommunityResponse(ORMModel):
-    """Schema for pending community response."""
+class DiscoveredCommunityResponse(ORMModel):
+    """Schema for discovered community response."""
 
     id: int
     name: str

@@ -186,3 +186,40 @@ async def test_get_metrics_ordered_by_date(client: AsyncClient, db_session):
     assert data[1]["date"] == "2025-10-19"
     assert data[2]["date"] == "2025-10-20"
     assert data[3]["date"] == "2025-10-21"
+
+
+@pytest.mark.asyncio
+async def test_get_metrics_with_field_filter(client: AsyncClient, db_session):
+    """测试 metrics 参数仅返回指定指标映射"""
+    metric = QualityMetrics(
+        date=date(2025, 10, 21),
+        collection_success_rate=Decimal("0.9800"),
+        deduplication_rate=Decimal("0.1200"),
+        processing_time_p50=Decimal("15.00"),
+        processing_time_p95=Decimal("30.00"),
+    )
+    db_session.add(metric)
+    await db_session.commit()
+
+    response = await client.get(
+        "/api/metrics",
+        params=[("metrics", "collection_success_rate"), ("metrics", "processing_time_p95")],
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert len(body) == 1
+    metrics_map = body[0]["metrics"]
+    assert set(metrics_map.keys()) == {"collection_success_rate", "processing_time_p95"}
+    assert metrics_map["collection_success_rate"] == 0.98
+    assert metrics_map["processing_time_p95"] == 30.0
+
+
+@pytest.mark.asyncio
+async def test_get_metrics_rejects_unknown_metric(client: AsyncClient, db_session):
+    response = await client.get(
+        "/api/metrics",
+        params={"metrics": "unknown_metric"},
+    )
+
+    assert response.status_code == 422

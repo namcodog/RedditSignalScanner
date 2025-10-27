@@ -11,7 +11,7 @@ import pytest
 from sqlalchemy import select, text
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.models.community_pool import PendingCommunity
+from app.models.discovered_community import DiscoveredCommunity
 from app.services.community_discovery import CommunityDiscoveryService
 from app.services.reddit_client import RedditPost
 
@@ -153,7 +153,7 @@ class TestCommunityDiscoveryService:
         communities = {"r/productivity": 5}
 
         await db_session.execute(
-            text("TRUNCATE TABLE pending_communities RESTART IDENTITY CASCADE")
+            text("TRUNCATE TABLE discovered_communities RESTART IDENTITY CASCADE")
         )
         await db_session.commit()
 
@@ -165,7 +165,7 @@ class TestCommunityDiscoveryService:
         await service._record_discoveries(None, keywords, communities)
 
         # Verify community was created
-        stmt = select(PendingCommunity).where(PendingCommunity.name == "r/productivity")
+        stmt = select(DiscoveredCommunity).where(DiscoveredCommunity.name == "r/productivity")
         result = await db_session.execute(stmt)
         pending = result.scalar_one_or_none()
 
@@ -187,13 +187,13 @@ class TestCommunityDiscoveryService:
         keywords2 = ["research", "tool"]
 
         await db_session.execute(
-            text("TRUNCATE TABLE pending_communities RESTART IDENTITY CASCADE")
+            text("TRUNCATE TABLE discovered_communities RESTART IDENTITY CASCADE")
         )
         await db_session.commit()
 
         # Create existing community
         now = datetime.now(timezone.utc)
-        existing = PendingCommunity(
+        existing = DiscoveredCommunity(
             name="r/productivity",
             discovered_from_keywords={"keywords": keywords1, "mention_count": 3},
             discovered_count=3,
@@ -236,7 +236,7 @@ class TestCommunityDiscoveryIntegration:
     ) -> None:
         """Test complete discovery workflow from description to database."""
         await db_session.execute(
-            text("TRUNCATE TABLE pending_communities RESTART IDENTITY CASCADE")
+            text("TRUNCATE TABLE discovered_communities RESTART IDENTITY CASCADE")
         )
         await db_session.commit()
 
@@ -281,7 +281,7 @@ class TestCommunityDiscoveryIntegration:
         assert "r/students" in communities
 
         # Verify database records
-        stmt = select(PendingCommunity)
+        stmt = select(DiscoveredCommunity)
         result = await db_session.execute(stmt)
         pending = result.scalars().all()
 

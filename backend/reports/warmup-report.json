@@ -1,5 +1,5 @@
 {
-  "generated_at": "2025-10-26T08:12:23.567108+00:00",
+  "generated_at": "2025-10-27T08:04:36.108067+00:00",
   "warmup_period": "Day 13-19 (7 days)",
   "adaptive_crawl_hours": null,
   "community_pool": {
@@ -9,7 +9,7 @@
   },
   "cache_metrics": {
     "total_posts_cached": 5,
-    "avg_cache_age_hours": 2.000003359722222,
+    "avg_cache_age_hours": 2.0000055933333334,
     "cache_hit_rate": 0.9
   },
   "api_usage": {
@@ -18,7 +18,7 @@
     "peak_calls_per_minute": 12
   },
   "user_testing": {
-    "internal_users": 107,
+    "internal_users": 15,
     "beta_users": 1,
     "total_analyses": 1,
     "avg_satisfaction": 4.0

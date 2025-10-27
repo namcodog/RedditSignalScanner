@@ -26,7 +26,8 @@ from app.core.celery_app import celery_app
 from app.db.session import SessionFactory
 from app.models.beta_feedback import BetaFeedback
 from app.models.community_cache import CommunityCache
-from app.models.community_pool import CommunityPool, PendingCommunity
+from app.models.community_pool import CommunityPool
+from app.models.discovered_community import DiscoveredCommunity
 from app.models.task import Task
 from app.models.user import User
 from app.tasks.monitoring_task import monitor_warmup_metrics
@@ -38,7 +39,7 @@ async def _gather_from_db() -> Dict[str, Any]:
     async with SessionFactory() as session:
         # Community pool
         seed_count = (await session.execute(select(func.count(CommunityPool.id)))).scalar_one()
-        discovered_count = (await session.execute(select(func.count(PendingCommunity.id)))).scalar_one()
+        discovered_count = (await session.execute(select(func.count(DiscoveredCommunity.id)))).scalar_one()
         # Cache metrics
         total_posts_cached = (await session.execute(select(func.coalesce(func.sum(CommunityCache.posts_cached), 0)))).scalar_one()
         rows = (await session.execute(select(CommunityCache.last_crawled_at))).scalars().all()
@@ -150,4 +151,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

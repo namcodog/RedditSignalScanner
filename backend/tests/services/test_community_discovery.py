@@ -6,7 +6,7 @@ from typing import Dict
 import pytest
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.models.community_pool import PendingCommunity
+from app.models.discovered_community import DiscoveredCommunity
 from app.services import community_discovery
 from app.services.community_discovery import CommunityDiscoveryService
 
@@ -35,7 +35,7 @@ async def test_record_discoveries_updates_timestamp_for_existing_pending_communi
     service = CommunityDiscoveryService(db_session, reddit_client)
 
     past = datetime.now(timezone.utc) - timedelta(days=2)
-    pending = PendingCommunity(
+    pending = DiscoveredCommunity(
         name="r/testpending",
         discovered_from_keywords={"keywords": ["ai"], "mention_count": 1},
         discovered_count=1,
