@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from datetime import datetime
 from decimal import Decimal
-from typing import Literal, Optional
+from typing import Any, Literal, Optional
 from uuid import UUID
 
 from pydantic import Field
@@ -85,6 +85,8 @@ class SourcesPayload(ORMModel):
     reddit_api_calls: int | None = Field(default=None, ge=0)
     product_description: Optional[str] = None
     communities_detail: Optional[list[CommunitySourceDetail]] = None
+    recovery_strategy: Optional[str] = None
+    fallback_quality: Optional[dict[str, Any]] = None
 
 
 class AnalysisRead(ORMModel):

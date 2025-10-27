@@ -1,5 +1,7 @@
 import { ExternalLink, Lightbulb, Star } from 'lucide-react';
 import type { ActionItem } from '@/types';
+import { EmptyState } from './EmptyState';
+import { useTranslation } from '@/i18n/TranslationProvider';
 
 type ActionItemProps = {
   item: ActionItem;
@@ -97,11 +99,16 @@ export interface ActionItemsListProps {
 }
 
 export function ActionItemsList({ items }: ActionItemsListProps) {
+  const { t } = useTranslation();
+
   if (!items || items.length === 0) {
     return (
-      <div className="rounded-lg border border-dashed border-border bg-muted/20 p-6 text-center text-sm text-muted-foreground">
-        暂无行动建议，建议先完善标注数据或调整分析阈值。
-      </div>
+      <EmptyState
+        type="general"
+        title={t('report.actions.empty')}
+        description={t('report.actions.startNew')}
+        className="py-10"
+      />
     );
   }
 

@@ -8,6 +8,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import './styles/index.css';
+import { TranslationProvider } from '@/i18n/TranslationProvider';
 
 console.log('[main.tsx] Starting application');
 
@@ -22,7 +23,9 @@ console.log('[main.tsx] Root element found, rendering App');
 
 ReactDOM.createRoot(rootElement).render(
   <React.StrictMode>
-    <App />
+    <TranslationProvider>
+      <App />
+    </TranslationProvider>
   </React.StrictMode>
 );
 

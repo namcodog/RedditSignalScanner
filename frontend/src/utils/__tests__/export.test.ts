@@ -159,7 +159,7 @@ describe('Export Utils', () => {
       const [parts] = blobConstructorArgs[0] as [unknown[], BlobPropertyBag];
       const csvContent = String((parts as unknown[])[0]);
 
-      expect(csvContent).toContain('Type,Rank,Text/Name,Score,Details,Keywords/Features');
+      expect(csvContent).toContain('Rank,Description,Frequency,SentimentScore(%),Communities');
     });
 
     it('应该包含痛点数据', () => {
@@ -169,7 +169,6 @@ describe('Export Utils', () => {
       const [parts] = blobConstructorArgs[0] as [unknown[], BlobPropertyBag];
       const csvContent = String((parts as unknown[])[0]);
 
-      expect(csvContent).toContain('Pain Point');
       expect(csvContent).toContain('价格太高');
     });
   });

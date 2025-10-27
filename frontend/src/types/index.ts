@@ -58,7 +58,13 @@ export {
   type ReportResponse,
   type ActionItem,
   type EvidenceItem,
-} from './report.types';
+  type Stats,
+  type Overview,
+  type SentimentAnalysis,
+  type TopCommunity,
+  type PainPointViewModel,
+} from './report';
+export { reportResponseSchema, type ReportResponseParsed } from './report';
 
 // ============================================================================
 // 洞察卡片相关类型

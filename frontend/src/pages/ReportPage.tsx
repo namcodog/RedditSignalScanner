@@ -1,18 +1,5 @@
-/**
- * 报告页面（Report Page）
- *
- * 基于 PRD-05 前端交互设计 & 最终界面设计效果
- * 最后更新: 2025-10-13 Day 8
- * 状态: 完整实现（Day 8）
- *
- * 功能：
- * - 展示分析报告概览（Day 7）
- * - 痛点、竞品、机会列表（Day 8）✅
- * - 导出功能（Day 8）✅
- * - 返回首页
- */
-
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
+import type { ReactNode } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import {
   Search,
@@ -29,6 +16,7 @@ import {
   TrendingUp,
   Share2,
 } from 'lucide-react';
+
 import { getAnalysisReport, submitBetaFeedback } from '@/api/analyze.api';
 import type { ReportResponse } from '@/types';
 import { ROUTES } from '@/router';
@@ -37,102 +25,340 @@ import PainPointsList from '@/components/PainPointsList';
 import CompetitorsList from '@/components/CompetitorsList';
 import OpportunitiesList from '@/components/OpportunitiesList';
 import { exportToJSON, exportToCSV, exportToText } from '@/utils/export';
+import { normalizePainPoints } from '@/lib/report/pain-points';
+import { classifyReportError, type ReportErrorState } from '@/utils/report-error';
 import { ReportPageSkeleton } from '@/components/SkeletonLoader';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { FeedbackDialog } from '@/components/FeedbackDialog';
 import { ActionItemsList } from '@/components/ActionItem';
+import { useTranslation } from '@/i18n/TranslationProvider';
+import {
+  REPORT_LOADING_STAGES,
+  REPORT_EXPORT_STAGES,
+  type ProgressStage,
+  type ExportStageId,
+} from '@/config/report';
+import {
+  addExportHistoryEntry,
+  getExportHistory,
+  type ExportHistoryEntry,
+} from '@/utils/exportHistory';
 
-const ReportPage: React.FC = () => {
+type TranslateFn = (key: string, params?: Record<string, string | number>) => string;
+
+export interface ReportSectionDefinition {
+  id: string;
+  labelKey?: string;
+  label?: string;
+  shouldRender?: (report: ReportResponse) => boolean;
+  render: (context: { report: ReportResponse }) => ReactNode;
+}
+
+interface ReportPageProps {
+  sections?: ReportSectionDefinition[];
+}
+
+const waitForNextFrame = async () => {
+  await new Promise(resolve => {
+    setTimeout(resolve, 0);
+  });
+};
+
+const ReportPage: React.FC<ReportPageProps> = ({ sections }) => {
   const { taskId } = useParams<{ taskId: string }>();
   const navigate = useNavigate();
+  const { t, locale, setLocale } = useTranslation();
 
   const [report, setReport] = useState<ReportResponse | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [errorState, setErrorState] = useState<ReportErrorState | null>(null);
   const [showExportMenu, setShowExportMenu] = useState(false);
   const [showFeedbackDialog, setShowFeedbackDialog] = useState(false);
   const [exporting, setExporting] = useState(false);
   const [exportFormat, setExportFormat] = useState<'json' | 'csv' | 'text' | null>(null);
+  const [showExportHistory, setShowExportHistory] = useState(false);
+  const [exportHistory, setExportHistory] = useState<ExportHistoryEntry[]>(() => getExportHistory());
+  const [shareMessage, setShareMessage] = useState<string | null>(null);
+  const [shareMessageType, setShareMessageType] = useState<'success' | 'error' | null>(null);
+  const [loadingStage, setLoadingStage] = useState<ProgressStage>(REPORT_LOADING_STAGES[0]);
+  const [exportStage, setExportStage] = useState<ProgressStage>(REPORT_EXPORT_STAGES[0]);
+  const [isExportProgressVisible, setIsExportProgressVisible] = useState(false);
 
-  // 获取报告数据
+  const handleLocaleChange = useCallback(
+    (next: 'zh' | 'en') => {
+      if (next === locale) return;
+      setLocale(next);
+    },
+    [locale, setLocale]
+  );
+
+  const resolveLoadingStage = useCallback(
+    (id: string): ProgressStage =>
+      REPORT_LOADING_STAGES.find(stage => stage.id === id) ?? REPORT_LOADING_STAGES[0],
+    []
+  );
+
+  const resolveExportStage = useCallback(
+    (id: ExportStageId): ProgressStage =>
+      REPORT_EXPORT_STAGES.find(stage => stage.id === id) ?? REPORT_EXPORT_STAGES[0],
+    []
+  );
+
+  const setLoadingStageById = useCallback(
+    (id: string) => {
+      setLoadingStage(resolveLoadingStage(id));
+    },
+    [resolveLoadingStage]
+  );
+
+  const setExportStageById = useCallback(
+    (id: ExportStageId) => {
+      setExportStage(resolveExportStage(id));
+    },
+    [resolveExportStage]
+  );
+
+  const loadReport = useCallback(async () => {
+    if (!taskId) {
+      return;
+    }
+
+    try {
+      setLoading(true);
+      setErrorState(null);
+      setLoadingStageById('cache');
+      await waitForNextFrame();
+      setLoadingStageById('fetch');
+      const data = await getAnalysisReport(taskId);
+      setLoadingStageById('hydrate');
+      setReport(data);
+      setLoadingStageById('render');
+    } catch (err) {
+      console.error('[ReportPage] Failed to fetch report:', err);
+      setErrorState(classifyReportError(err));
+    } finally {
+      await waitForNextFrame();
+      setLoading(false);
+    }
+  }, [taskId, setLoadingStageById]);
+
+  const handleRetry = useCallback(() => {
+    void loadReport();
+  }, [loadReport]);
+
+
+  const handleShare = useCallback(async () => {
+    if (!taskId) return;
+
+    const win = typeof window === 'undefined' ? undefined : window;
+    const nav = typeof navigator === 'undefined' ? undefined : navigator;
+    const doc = typeof document === 'undefined' ? undefined : document;
+    const shareUrl = `${win?.location.origin ?? ''}/report/${taskId}`;
+
+    const markSuccess = () => {
+      setShareMessage(t('report.share.success'));
+      setShareMessageType('success');
+    };
+
+    const markFailure = () => {
+      setShareMessage(t('report.share.error'));
+      setShareMessageType('error');
+    };
+
+    try {
+      if (nav?.share) {
+        await nav.share({
+          title: t('report.title'),
+          text: t('report.share.description'),
+          url: shareUrl,
+        });
+        markSuccess();
+        return;
+      }
+
+      if (nav?.clipboard?.writeText) {
+        await nav.clipboard.writeText(shareUrl);
+        markSuccess();
+        return;
+      }
+
+      if (!doc) {
+        markFailure();
+        return;
+      }
+
+      const input = doc.createElement('input');
+      input.value = shareUrl;
+      doc.body.appendChild(input);
+      input.select();
+      const copied = typeof doc.execCommand === 'function' && doc.execCommand('copy');
+      doc.body.removeChild(input);
+      if (copied) {
+        markSuccess();
+      } else {
+        markFailure();
+      }
+    } catch (err) {
+      console.error('[ReportPage] Share failed:', err);
+      markFailure();
+    }
+  }, [taskId, t]);
+
+  useEffect(() => {
+    if (!shareMessage) return;
+    const timer = setTimeout(() => {
+      setShareMessage(null);
+      setShareMessageType(null);
+    }, 4000);
+    return () => clearTimeout(timer);
+  }, [shareMessage]);
+
   useEffect(() => {
     if (!taskId) {
       navigate(ROUTES.HOME);
       return;
     }
 
-    const fetchReport = async () => {
+    void loadReport();
+  }, [taskId, navigate, loadReport]);
+
+  const handleExport = useCallback(
+    async (format: 'json' | 'csv' | 'text') => {
+      if (!report || !taskId) return;
+
+      setExporting(true);
+      setExportFormat(format);
+      setIsExportProgressVisible(true);
+      setExportStageById('prepare');
+      setShowExportMenu(false);
+
       try {
-        setLoading(true);
-        setError(null);
-        const data = await getAnalysisReport(taskId);
-        setReport(data);
+        await waitForNextFrame();
+        setExportStageById('format');
+        switch (format) {
+          case 'json':
+            exportToJSON(report.report, taskId);
+            break;
+          case 'csv':
+            exportToCSV(report.report, taskId);
+            break;
+          case 'text':
+            exportToText(report.report, taskId);
+            break;
+        }
+
+        setExportStageById('history');
+        const updatedHistory = addExportHistoryEntry({
+          taskId,
+          format,
+          timestamp: new Date().toISOString(),
+        });
+        setExportHistory(updatedHistory);
+        await waitForNextFrame();
+        setExportStageById('complete');
       } catch (err) {
-        console.error('[ReportPage] Failed to fetch report:', err);
-        setError('获取报告失败，请稍后重试');
+        console.error('[ReportPage] Export failed:', err);
+        alert(t('report.export.error'));
       } finally {
-        setLoading(false);
+        await waitForNextFrame();
+        setIsExportProgressVisible(false);
+        setExporting(false);
+        setExportFormat(null);
+        setExportStageById('prepare');
       }
-    };
+    },
+    [report, taskId, t, setExportStageById]
+  );
 
-    void fetchReport();
-  }, [taskId, navigate]);
-
-  // 导出处理函数（带进度指示）
-  const handleExport = async (format: 'json' | 'csv' | 'text') => {
-    if (!report || !taskId) return;
-
-    setExporting(true);
-    setExportFormat(format);
-    setShowExportMenu(false);
-
-    try {
-      // 模拟导出延迟，让用户看到进度指示
-      await new Promise(resolve => setTimeout(resolve, 300));
-
-      switch (format) {
-        case 'json':
-          exportToJSON(report.report, taskId);
-          break;
-        case 'csv':
-          exportToCSV(report.report, taskId);
-          break;
-        case 'text':
-          exportToText(report.report, taskId);
-          break;
-      }
-
-      // 显示成功提示
-      console.log(`[ReportPage] ${format.toUpperCase()} 导出成功`);
-    } catch (err) {
-      console.error('[ReportPage] Export failed:', err);
-      alert('导出失败，请稍后重试');
-    } finally {
-      setExporting(false);
-      setExportFormat(null);
-    }
-  };
-
-  // 点击外部关闭导出菜单
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const target = event.target as HTMLElement;
       if (showExportMenu && !target.closest('.export-menu-container')) {
         setShowExportMenu(false);
       }
+      if (showExportHistory && !target.closest('.export-history-container')) {
+        setShowExportHistory(false);
+      }
     };
 
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [showExportMenu]);
+  }, [showExportMenu, showExportHistory]);
 
-  // 加载状态 - 使用骨架屏
+  const totalOpportunities = report?.report?.opportunities?.length ?? 0;
+  const totalCommunities = report?.report?.executive_summary?.total_communities ?? 0;
+
+  const formatHistoryTimestamp = useCallback(
+    (iso: string) => {
+      try {
+        const date = new Date(iso);
+        return date.toLocaleString(locale === 'en' ? 'en-US' : 'zh-CN');
+      } catch {
+        return iso;
+      }
+    },
+    [locale]
+  );
+
+  const formatExportLabel = useCallback(
+    (format: 'json' | 'csv' | 'text') => {
+      switch (format) {
+        case 'json':
+          return t('report.export.format.json');
+        case 'csv':
+          return t('report.export.format.csv');
+        case 'text':
+          return t('report.export.format.text');
+        default:
+          return format.toUpperCase();
+      }
+    },
+    [t]
+  );
+
+  const defaultSections = useMemo(() => buildDefaultSections(t), [t]);
+
+  const combinedSections = useMemo(() => {
+    if (!report) {
+      return sections ?? [];
+    }
+    const extras = sections ?? [];
+    const merged = [...defaultSections, ...extras];
+    return merged.filter(section =>
+      section.shouldRender ? section.shouldRender(report) : true
+    );
+  }, [defaultSections, sections, report]);
+
   if (loading) {
-    return <ReportPageSkeleton />;
+    return (
+      <div className="relative">
+        <ReportPageSkeleton />
+        <div className="pointer-events-none absolute inset-x-0 bottom-6 flex justify-center">
+          <div
+            data-testid="report-loading-progress"
+            role="status"
+            aria-live="polite"
+            aria-busy="true"
+            className="flex items-center gap-3 rounded-full border border-border bg-card px-4 py-2 shadow-lg"
+          >
+            <Loader2 className="h-4 w-4 animate-spin text-primary" />
+            <div className="flex flex-col gap-1 text-sm text-foreground">
+              <span>{t(loadingStage.labelKey)}</span>
+              <div className="h-1 w-40 overflow-hidden rounded-full bg-muted">
+                <div
+                  className="h-full bg-primary transition-all duration-300"
+                  style={{ width: `${loadingStage.progress}%` }}
+                  aria-hidden="true"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
   }
 
-  // 错误状态
-  if (error || !report) {
+  if (errorState || !report) {
     return (
       <div className="app-shell">
         <header className="border-b border-border bg-card">
@@ -142,10 +368,8 @@ const ReportPage: React.FC = () => {
                 <Search className="h-5 w-5" aria-hidden />
               </div>
               <div>
-                <h1 className="text-lg font-semibold text-foreground">
-                  Reddit 商业信号扫描器
-                </h1>
-                <p className="text-xs text-muted-foreground">报告加载失败</p>
+                <h1 className="text-lg font-semibold text-foreground">{t('report.brandName')}</h1>
+                <p className="text-xs text-muted-foreground">{t('report.error.subtitle')}</p>
               </div>
             </div>
           </div>
@@ -156,146 +380,253 @@ const ReportPage: React.FC = () => {
             <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-destructive/10">
               <AlertCircle className="h-8 w-8 text-destructive" />
             </div>
-            <h2 className="mb-2 text-2xl font-bold text-destructive">
-              获取报告失败
-            </h2>
+            <h2 className="mb-2 text-2xl font-bold text-destructive">{t('report.error.title')}</h2>
             <p className="mb-6 text-muted-foreground">
-              {error || '无法加载分析报告，请检查任务ID是否正确或稍后重试'}
+              {errorState?.message ?? t('report.error.detail')}
+              {errorState?.action ? (
+                <span className="mt-2 block text-sm">{errorState.action}</span>
+              ) : null}
             </p>
-            <button
-              onClick={() => navigate(ROUTES.HOME)}
-              className="inline-flex items-center justify-center rounded-md bg-primary px-6 py-2 text-sm font-semibold text-primary-foreground shadow-sm transition hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-            >
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              返回首页
-            </button>
+            <div className="flex flex-wrap items-center justify-center gap-3">
+              {errorState?.retryable ? (
+                <button
+                  onClick={handleRetry}
+                  className="inline-flex items-center justify-center rounded-md bg-secondary px-6 py-2 text-sm font-semibold text-secondary-foreground shadow-sm transition hover:bg-secondary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                >
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  重试加载
+                </button>
+              ) : null}
+              <button
+                onClick={() => navigate(ROUTES.HOME)}
+                className="inline-flex items-center justify-center rounded-md bg-primary px-6 py-2 text-sm font-semibold text-primary-foreground shadow-sm transition hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              >
+                <ArrowLeft className="mr-2 h-4 w-4" />
+                {t('report.error.backHome')}
+              </button>
+            </div>
           </div>
         </main>
       </div>
     );
   }
 
-  // 计算统计数据
-  const totalOpportunities = report.report.opportunities?.length || 0;
-  const totalCommunities = report.report.executive_summary?.total_communities || 0;
+  const initialTab = combinedSections[0]?.id ?? 'overview';
 
   return (
     <div className="app-shell">
-      {/* Header */}
       <header className="border-b border-border bg-card">
-        <div className="container flex items-center justify-between py-4">
+        <div className="container flex flex-wrap items-center justify-between gap-4 py-4">
           <div className="flex items-center space-x-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-primary-foreground shadow-card">
               <Search className="h-5 w-5" aria-hidden />
             </div>
             <div>
-              <h1 className="text-lg font-semibold text-foreground">
-                Reddit 商业信号扫描器
-              </h1>
-              <p className="text-xs text-muted-foreground">市场洞察报告</p>
+              <h1 className="text-lg font-semibold text-foreground">{t('report.brandName')}</h1>
+              <p className="text-xs text-muted-foreground">{t('report.brandTagline')}</p>
             </div>
           </div>
 
-          {/* 登录/注册按钮 */}
-          <div className="flex items-center space-x-2">
+          <div className="flex flex-wrap items-center gap-2">
+            <div className="flex items-center overflow-hidden rounded-md border border-border bg-background text-sm">
+              <button
+                type="button"
+                onClick={() => handleLocaleChange('zh')}
+                className={`px-3 py-1 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
+                  locale === 'zh'
+                    ? 'bg-primary text-primary-foreground'
+                    : 'text-muted-foreground hover:bg-muted'
+                }`}
+              >
+                {t('report.locale.zh')}
+              </button>
+              <button
+                type="button"
+                onClick={() => handleLocaleChange('en')}
+                className={`px-3 py-1 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
+                  locale === 'en'
+                    ? 'bg-primary text-primary-foreground'
+                    : 'text-muted-foreground hover:bg-muted'
+                }`}
+              >
+                {t('report.locale.en')}
+              </button>
+            </div>
             <button className="inline-flex items-center justify-center rounded-md border border-border bg-background px-4 py-2 text-sm font-medium text-foreground transition hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
-              登录
+              {t('report.nav.login')}
             </button>
             <button className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-sm transition hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
-              注册
+              {t('report.nav.register')}
             </button>
           </div>
         </div>
       </header>
 
-      {/* Main Content */}
       <main className="container flex-1 px-4 py-10">
         <div className="mx-auto max-w-6xl space-y-8">
-          {/* Navigation Breadcrumb */}
-          <NavigationBreadcrumb currentStep="report" canNavigateBack={true} />
+          <NavigationBreadcrumb currentStep="report" canNavigateBack />
 
-          {/* Report Header */}
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
             <div className="space-y-2">
-              <h2 className="text-3xl font-bold text-foreground">市场洞察报告</h2>
+              <h2 className="text-3xl font-bold text-foreground">{t('report.title')}</h2>
               <p className="text-muted-foreground">
-                分析已完成 • 已分析 {report.stats?.total_mentions?.toLocaleString() || 0} 条提及
+                {t('report.subtitle', {
+                  count: report.stats?.total_mentions?.toLocaleString() ?? 0,
+                })}
               </p>
             </div>
-            <div className="flex items-center space-x-2">
-              {/* 查看洞察卡片按钮 */}
+
+            <div className="flex flex-wrap items-center gap-2">
               <button
                 onClick={() => navigate(`/insights/${taskId}`)}
                 className="inline-flex items-center justify-center rounded-md bg-secondary px-4 py-2 text-sm font-medium text-secondary-foreground transition hover:bg-secondary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
                 <Lightbulb className="mr-2 h-4 w-4" />
-                查看洞察卡片
+                {t('report.viewInsights')}
               </button>
 
-              {/* 分享按钮 */}
-              <button
-                className="inline-flex items-center justify-center rounded-md border border-border bg-background px-4 py-2 text-sm font-medium text-foreground transition hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-              >
-                <Share2 className="mr-2 h-4 w-4" />
-                分享
-              </button>
+              <div className="relative">
+                <button
+                  onClick={handleShare}
+                  className="inline-flex items-center justify-center rounded-md border border-border bg-background px-4 py-2 text-sm font-medium text-foreground transition hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                >
+                  <Share2 className="mr-2 h-4 w-4" />
+                  {t('report.share.button')}
+                </button>
+                {shareMessage && (
+                  <div
+                    role="status"
+                    className={`absolute left-0 top-full mt-1 rounded-md px-2 py-1 text-xs shadow-sm ${
+                      shareMessageType === 'success'
+                        ? 'bg-green-100 text-green-700'
+                        : 'bg-destructive/10 text-destructive'
+                    }`}
+                  >
+                    {shareMessage}
+                  </div>
+                )}
+              </div>
 
-              {/* 导出PDF下拉菜单 */}
               <div className="relative export-menu-container">
                 <button
-                  onClick={() => setShowExportMenu(!showExportMenu)}
+                  onClick={() => setShowExportMenu(prev => !prev)}
                   disabled={exporting}
                   className="inline-flex items-center justify-center rounded-md border border-border bg-background px-4 py-2 text-sm font-medium text-foreground transition hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   {exporting ? (
                     <>
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      导出中...
+                      {t('report.export.loading')}
                     </>
                   ) : (
                     <>
                       <Download className="mr-2 h-4 w-4" />
-                      导出PDF
+                      {t('report.export.download')}
                       <ChevronDown className="ml-2 h-4 w-4" />
                     </>
                   )}
                 </button>
 
                 {showExportMenu && !exporting && (
-                  <div className="absolute right-0 z-10 mt-2 w-48 rounded-md border border-border bg-card shadow-lg">
+                  <div className="absolute right-0 z-10 mt-2 w-52 rounded-md border border-border bg-card shadow-lg">
                     <div className="py-1">
                       <button
                         onClick={() => handleExport('json')}
+                        role="menuitem"
                         className="flex w-full items-center px-4 py-2 text-sm text-foreground transition hover:bg-muted"
                       >
                         <FileJson className="mr-2 h-4 w-4" />
-                        导出为 JSON
+                        {t('report.export.options.json')}
                       </button>
                       <button
                         onClick={() => handleExport('csv')}
+                        role="menuitem"
                         className="flex w-full items-center px-4 py-2 text-sm text-foreground transition hover:bg-muted"
                       >
                         <FileText className="mr-2 h-4 w-4" />
-                        导出为 CSV
+                        {t('report.export.options.csv')}
                       </button>
                       <button
                         onClick={() => handleExport('text')}
+                        role="menuitem"
                         className="flex w-full items-center px-4 py-2 text-sm text-foreground transition hover:bg-muted"
                       >
                         <FileText className="mr-2 h-4 w-4" />
-                        导出为 TXT
+                        {t('report.export.options.text')}
+                      </button>
+                      <button
+                        disabled
+                        role="menuitem"
+                        className="flex w-full items-center px-4 py-2 text-sm text-muted-foreground opacity-60"
+                      >
+                        <FileText className="mr-2 h-4 w-4" />
+                        {t('report.export.options.pdf')}
                       </button>
                     </div>
                   </div>
                 )}
 
-                {/* 导出成功提示 */}
-                {exporting && exportFormat && (
-                  <div className="absolute right-0 top-full z-10 mt-2 rounded-md border border-green-200 bg-green-50 px-4 py-2 text-sm text-green-800 shadow-sm dark:border-green-900 dark:bg-green-950 dark:text-green-200">
-                    <div className="flex items-center gap-2">
-                      <Loader2 className="h-4 w-4 animate-spin" />
-                      正在导出 {exportFormat.toUpperCase()}...
+                {isExportProgressVisible && exportFormat && (
+                  <div className="absolute right-0 top-full z-10 mt-2 rounded-md border border-border bg-card px-4 py-3 text-sm text-foreground shadow-lg dark:border-muted">
+                    <div
+                      data-testid="report-export-progress"
+                      role="progressbar"
+                      aria-valuenow={exportStage.progress}
+                      aria-valuemin={0}
+                      aria-valuemax={100}
+                      aria-label={t('report.export.download')}
+                      className="flex flex-col gap-2"
+                    >
+                      <div className="flex items-center gap-2">
+                        <Loader2 className="h-4 w-4 animate-spin text-primary" />
+                        <span>
+                          {t(exportStage.labelKey, {
+                            format: exportFormat.toUpperCase(),
+                          })}
+                        </span>
+                      </div>
+                      <div className="h-1.5 w-48 overflow-hidden rounded-full bg-muted">
+                        <div
+                          className="h-full bg-primary transition-all duration-300"
+                          style={{ width: `${exportStage.progress}%` }}
+                          aria-hidden="true"
+                        />
+                      </div>
                     </div>
+                  </div>
+                )}
+              </div>
+
+              <div className="relative export-history-container">
+                <button
+                  onClick={() => setShowExportHistory(prev => !prev)}
+                  className="inline-flex items-center justify-center rounded-md border border-border bg-background px-4 py-2 text-sm font-medium text-foreground transition hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                >
+                  {t('report.export.history')}
+                </button>
+                {showExportHistory && (
+                  <div className="absolute right-0 z-20 mt-2 w-72 max-w-full rounded-md border border-border bg-card shadow-lg">
+                    {exportHistory.length === 0 ? (
+                      <p className="px-4 py-3 text-sm text-muted-foreground">
+                        {t('report.export.history.empty')}
+                      </p>
+                    ) : (
+                      <ul className="max-h-64 overflow-y-auto py-2">
+                        {exportHistory.map(entry => (
+                          <li key={`${entry.timestamp}-${entry.format}`} className="px-4 py-2 text-sm">
+                            <div className="flex items-center justify-between text-foreground">
+                              <span className="font-medium">{formatExportLabel(entry.format)}</span>
+                              <span className="text-xs text-muted-foreground">
+                                {formatHistoryTimestamp(entry.timestamp)}
+                              </span>
+                            </div>
+                            <div className="text-xs text-muted-foreground">
+                              {t('report.export.history.task', { taskId: entry.taskId })}
+                            </div>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
                   </div>
                 )}
               </div>
@@ -305,29 +636,29 @@ const ReportPage: React.FC = () => {
                 className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-sm transition hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
                 <ArrowLeft className="mr-2 h-4 w-4" />
-                开始新分析
+                {t('report.actions.startNew')}
               </button>
             </div>
           </div>
 
-          {/* 已分析产品卡片 */}
           {report.product_description && (
             <div className="rounded-lg border border-border bg-muted/50 p-4">
-              <p className="mb-2 text-sm font-medium text-muted-foreground">已分析产品</p>
+              <p className="mb-1 text-sm font-medium text-muted-foreground">{t('report.productAnalyzed')}</p>
               <p className="text-sm text-foreground">{report.product_description}</p>
             </div>
           )}
 
-          {/* Key Metrics Overview */}
+          <ReportSummaryCard report={report} t={t} />
+
           <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
             <div className="rounded-lg border border-border bg-card p-4 text-center">
               <div className="mx-auto mb-2 flex h-8 w-8 items-center justify-center rounded-lg bg-secondary/10">
                 <MessageSquare className="h-4 w-4 text-secondary" />
               </div>
               <div className="text-2xl font-bold text-foreground">
-                {report.stats?.total_mentions?.toLocaleString() || 0}
+                {report.stats?.total_mentions?.toLocaleString() ?? 0}
               </div>
-              <p className="text-sm text-muted-foreground">总提及数</p>
+              <p className="text-sm text-muted-foreground">{t('report.metrics.totalMentions')}</p>
             </div>
 
             <div className="rounded-lg border border-border bg-card p-4 text-center">
@@ -335,9 +666,9 @@ const ReportPage: React.FC = () => {
                 <TrendingUp className="h-4 w-4 text-green-600" />
               </div>
               <div className="text-2xl font-bold text-foreground">
-                {report.overview?.sentiment?.positive || 0}%
+                {report.overview?.sentiment?.positive ?? 0}%
               </div>
-              <p className="text-sm text-muted-foreground">正面情感</p>
+              <p className="text-sm text-muted-foreground">{t('report.metrics.positive')}</p>
             </div>
 
             <div className="rounded-lg border border-border bg-card p-4 text-center">
@@ -345,7 +676,7 @@ const ReportPage: React.FC = () => {
                 <Users className="h-4 w-4 text-secondary" />
               </div>
               <div className="text-2xl font-bold text-foreground">{totalCommunities}</div>
-              <p className="text-sm text-muted-foreground">社区数量</p>
+              <p className="text-sm text-muted-foreground">{t('report.metrics.communities')}</p>
             </div>
 
             <div className="rounded-lg border border-border bg-card p-4 text-center">
@@ -353,178 +684,44 @@ const ReportPage: React.FC = () => {
                 <Lightbulb className="h-4 w-4 text-amber-600" />
               </div>
               <div className="text-2xl font-bold text-foreground">{totalOpportunities}</div>
-              <p className="text-sm text-muted-foreground">商业机会</p>
+              <p className="text-sm text-muted-foreground">{t('report.metrics.opportunities')}</p>
             </div>
           </div>
 
-          {/* Tab Navigation */}
-          <Tabs defaultValue="overview" className="w-full">
-            <TabsList>
-              <TabsTrigger value="overview">
-                概览
-              </TabsTrigger>
-              <TabsTrigger value="pain-points">
-                用户痛点
-              </TabsTrigger>
-              <TabsTrigger value="competitors">
-                竞品分析
-              </TabsTrigger>
-              <TabsTrigger value="opportunities">
-                商业机会
-              </TabsTrigger>
-              <TabsTrigger value="actions">
-                行动建议
-              </TabsTrigger>
-            </TabsList>
+          {combinedSections.length > 0 && (
+            <Tabs key={initialTab} defaultValue={initialTab} className="w-full">
+              <TabsList>
+                {combinedSections.map(section => (
+                  <TabsTrigger key={section.id} value={section.id}>
+                    {section.label ?? (section.labelKey ? t(section.labelKey) : section.id)}
+                  </TabsTrigger>
+                ))}
+              </TabsList>
 
-            {/* 概览 Tab */}
-            <TabsContent value="overview" className="space-y-6">
-              {/* 市场情感分析 - 使用进度条显示（与 demo 一致） */}
-              {report.overview?.sentiment && (
-                <div className="rounded-lg border border-border bg-card p-6">
-                  <h3 className="mb-6 text-lg font-semibold text-foreground">市场情感</h3>
-                  <div className="space-y-4">
-                    {/* 正面 */}
-                    <div className="space-y-2">
-                      <div className="flex justify-between text-sm">
-                        <span className="font-medium text-foreground">正面</span>
-                        <span className="font-medium text-muted-foreground">
-                          {report.overview.sentiment.positive}%
-                        </span>
-                      </div>
-                      <div className="bg-primary/20 relative w-full overflow-hidden rounded-full h-2">
-                        <div
-                          className="bg-primary h-full transition-all"
-                          style={{ width: `${report.overview.sentiment.positive}%` }}
-                        />
-                      </div>
-                    </div>
+              {combinedSections.map(section => (
+                <TabsContent key={section.id} value={section.id} className="space-y-6">
+                  {section.render({ report })}
+                </TabsContent>
+              ))}
+            </Tabs>
+          )}
 
-                    {/* 负面 */}
-                    <div className="space-y-2">
-                      <div className="flex justify-between text-sm">
-                        <span className="font-medium text-foreground">负面</span>
-                        <span className="font-medium text-muted-foreground">
-                          {report.overview.sentiment.negative}%
-                        </span>
-                      </div>
-                      <div className="bg-primary/20 relative w-full overflow-hidden rounded-full h-2">
-                        <div
-                          className="bg-red-600 h-full transition-all"
-                          style={{ width: `${report.overview.sentiment.negative}%` }}
-                        />
-                      </div>
-                    </div>
-
-                    {/* 中性 */}
-                    <div className="space-y-2">
-                      <div className="flex justify-between text-sm">
-                        <span className="font-medium text-foreground">中性</span>
-                        <span className="font-medium text-muted-foreground">
-                          {report.overview.sentiment.neutral}%
-                        </span>
-                      </div>
-                      <div className="bg-primary/20 relative w-full overflow-hidden rounded-full h-2">
-                        <div
-                          className="bg-gray-400 h-full transition-all"
-                          style={{ width: `${report.overview.sentiment.neutral}%` }}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {/* 热门社区 - 成员数在下方，相关度有紫色底色 */}
-              <div className="rounded-lg border border-border bg-card p-6">
-                <h3 className="mb-6 text-lg font-semibold text-foreground">热门社区</h3>
-                {report.overview?.top_communities && report.overview.top_communities.length > 0 ? (
-                  <div className="space-y-6">
-                    {report.overview.top_communities.map((community, index) => (
-                      <div key={index} className="flex items-start justify-between">
-                        {/* 左侧：社区名称 + 成员数 */}
-                        <div>
-                          <h4 className="text-base font-semibold text-foreground">{community.name}</h4>
-                          <p className="mt-1 text-sm text-muted-foreground">
-                            {community.mentions?.toLocaleString() || 0} 次提及
-                          </p>
-                        </div>
-                        {/* 右侧：相关度（紫色底色） */}
-                        <span className="inline-flex items-center rounded-md bg-secondary px-2.5 py-0.5 text-sm font-semibold text-white">
-                          {community.relevance}% 相关
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <div className="py-8 text-center">
-                    <p className="text-sm text-muted-foreground">暂无社区数据</p>
-                  </div>
-                )}
-              </div>
-            </TabsContent>
-
-            {/* 用户痛点 Tab */}
-            <TabsContent value="pain-points" className="space-y-6">
-              {report.report.pain_points && report.report.pain_points.length > 0 ? (
-                <PainPointsList painPoints={report.report.pain_points} />
-              ) : (
-                <div className="rounded-lg border border-border bg-card p-6 text-center">
-                  <p className="text-muted-foreground">暂无用户痛点数据</p>
-                </div>
-              )}
-            </TabsContent>
-
-            {/* 竞品分析 Tab */}
-            <TabsContent value="competitors" className="space-y-6">
-              {report.report.competitors && report.report.competitors.length > 0 ? (
-                <CompetitorsList competitors={report.report.competitors} />
-              ) : (
-                <div className="rounded-lg border border-border bg-card p-6 text-center">
-                  <p className="text-muted-foreground">暂无竞品分析数据</p>
-                </div>
-              )}
-            </TabsContent>
-
-            {/* 商业机会 Tab */}
-            <TabsContent value="opportunities" className="space-y-6">
-              {report.report.opportunities && report.report.opportunities.length > 0 ? (
-                <OpportunitiesList opportunities={report.report.opportunities} />
-              ) : (
-                <div className="rounded-lg border border-border bg-card p-6 text-center">
-                  <p className="text-muted-foreground">暂无商业机会数据</p>
-                </div>
-              )}
-            </TabsContent>
-
-            {/* 行动建议 Tab */}
-            <TabsContent value="actions" className="space-y-6">
-              {report.report.action_items && report.report.action_items.length > 0 ? (
-                <ActionItemsList items={report.report.action_items} />
-              ) : (
-                <div className="rounded-lg border border-border bg-card p-6 text-center">
-                  <p className="text-muted-foreground">暂无行动建议</p>
-                </div>
-              )}
-            </TabsContent>
-          </Tabs>
+          <ReportMetadataCard report={report} t={t} />
         </div>
       </main>
 
-      {/* 用户反馈弹框 */}
       <FeedbackDialog
         isOpen={showFeedbackDialog}
         onClose={() => setShowFeedbackDialog(false)}
-        onSubmit={async (rating) => {
+        onSubmit={async rating => {
           if (!taskId) return;
 
           try {
-            // 将前端评分映射到后端的 1-5 分
             const satisfactionMap = {
-              'helpful': 5,      // 有价值 -> 5分
-              'neutral': 3,      // 一般 -> 3分
-              'not-helpful': 1,  // 无价值 -> 1分
-            };
+              helpful: 5,
+              neutral: 3,
+              'not-helpful': 1,
+            } as const;
 
             await submitBetaFeedback({
               task_id: taskId,
@@ -532,12 +729,9 @@ const ReportPage: React.FC = () => {
               missing_communities: [],
               comments: '',
             });
-
-            console.log('✅ 用户反馈已提交:', rating);
-          } catch (error) {
-            console.error('❌ 提交反馈失败:', error);
+          } catch (err) {
+            console.error('[ReportPage] submit feedback failed:', err);
           } finally {
-            // 无论成功失败都跳转到首页
             navigate(ROUTES.HOME);
           }
         }}
@@ -545,5 +739,229 @@ const ReportPage: React.FC = () => {
     </div>
   );
 };
+
+const buildDefaultSections = (t: TranslateFn): ReportSectionDefinition[] => [
+  {
+    id: 'overview',
+    labelKey: 'report.tabs.overview',
+    render: ({ report }) => <OverviewSection report={report} t={t} />,
+  },
+  {
+    id: 'pain-points',
+    labelKey: 'report.tabs.painPoints',
+    render: ({ report }) => <PainPointsSection report={report} t={t} />,
+  },
+  {
+    id: 'competitors',
+    labelKey: 'report.tabs.competitors',
+    render: ({ report }) => <CompetitorsSection report={report} t={t} />,
+  },
+  {
+    id: 'opportunities',
+    labelKey: 'report.tabs.opportunities',
+    render: ({ report }) => <OpportunitiesSection report={report} t={t} />,
+  },
+  {
+    id: 'actions',
+    labelKey: 'report.tabs.actions',
+    render: ({ report }) => <ActionItemsSection report={report} t={t} />,
+  },
+];
+
+interface SectionProps {
+  report: ReportResponse;
+  t: TranslateFn;
+}
+
+const OverviewSection = ({ report, t }: SectionProps) => (
+  <div className="space-y-6">
+    {report.overview?.sentiment && (
+      <div className="rounded-lg border border-border bg-card p-6">
+        <h3 className="mb-6 text-lg font-semibold text-foreground">{t('report.overview.marketSentiment')}</h3>
+        <div className="space-y-4">
+          <SentimentBar
+            label={t('report.overview.sentiment.positive')}
+            value={report.overview.sentiment.positive}
+            colorClass="bg-primary"
+          />
+          <SentimentBar
+            label={t('report.overview.sentiment.negative')}
+            value={report.overview.sentiment.negative}
+            colorClass="bg-red-500"
+          />
+          <SentimentBar
+            label={t('report.overview.sentiment.neutral')}
+            value={report.overview.sentiment.neutral}
+            colorClass="bg-gray-400"
+          />
+        </div>
+      </div>
+    )}
+
+    <div className="rounded-lg border border-border bg-card p-6">
+      <h3 className="mb-6 text-lg font-semibold text-foreground">{t('report.overview.topCommunities')}</h3>
+      {report.overview?.top_communities && report.overview.top_communities.length > 0 ? (
+        <div className="space-y-6">
+          {report.overview.top_communities.map((community, index) => (
+            <div key={`${community.name}-${index}`} className="flex items-start justify-between gap-4">
+              <div>
+                <h4 className="text-base font-semibold text-foreground">{community.name}</h4>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  {t('report.overview.mentions', {
+                    count: community.mentions?.toLocaleString() ?? 0,
+                  })}
+                </p>
+              </div>
+              <span className="inline-flex items-center rounded-md bg-secondary px-2.5 py-0.5 text-sm font-semibold text-white">
+                {t('report.overview.relevance', { score: community.relevance ?? 0 })}
+              </span>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div className="py-8 text-center">
+          <p className="text-sm text-muted-foreground">{t('report.overview.noCommunities')}</p>
+        </div>
+      )}
+    </div>
+  </div>
+);
+
+const PainPointsSection = ({ report, t }: SectionProps) => {
+  const painPoints = report.report.pain_points ?? [];
+  return (
+    <div className="rounded-lg border border-border bg-card p-6">
+      {painPoints.length > 0 ? (
+        <PainPointsList painPoints={normalizePainPoints(painPoints)} />
+      ) : (
+        <p className="text-center text-muted-foreground">{t('report.painPoints.empty')}</p>
+      )}
+    </div>
+  );
+};
+
+const CompetitorsSection = ({ report, t }: SectionProps) => (
+  <div className="rounded-lg border border-border bg-card p-6">
+    {report.report.competitors && report.report.competitors.length > 0 ? (
+      <CompetitorsList competitors={report.report.competitors} />
+    ) : (
+      <p className="text-center text-muted-foreground">{t('report.competitors.empty')}</p>
+    )}
+  </div>
+);
+
+const OpportunitiesSection = ({ report, t }: SectionProps) => (
+  <div className="rounded-lg border border-border bg-card p-6">
+    {report.report.opportunities && report.report.opportunities.length > 0 ? (
+      <OpportunitiesList opportunities={report.report.opportunities} />
+    ) : (
+      <p className="text-center text-muted-foreground">{t('report.opportunities.empty')}</p>
+    )}
+  </div>
+);
+
+const ActionItemsSection = ({ report, t }: SectionProps) => (
+  <div className="rounded-lg border border-border bg-card p-6">
+    {report.report.action_items && report.report.action_items.length > 0 ? (
+      <ActionItemsList items={report.report.action_items} />
+    ) : (
+      <p className="text-center text-muted-foreground">{t('report.actions.empty')}</p>
+    )}
+  </div>
+);
+
+const SentimentBar = ({
+  label,
+  value,
+  colorClass,
+}: {
+  label: string;
+  value: number;
+  colorClass: string;
+}) => (
+  <div className="space-y-2">
+    <div className="flex justify-between text-sm">
+      <span className="font-medium text-foreground">{label}</span>
+      <span className="font-medium text-muted-foreground">{value}%</span>
+    </div>
+    <div className="relative h-2 w-full overflow-hidden rounded-full bg-muted">
+      <div className={`${colorClass} h-full transition-all`} style={{ width: `${value}%` }} />
+    </div>
+  </div>
+);
+
+const ReportSummaryCard = ({ report, t }: SectionProps) => {
+  const summary = report.report.executive_summary;
+  if (!summary) {
+    return null;
+  }
+
+  return (
+    <div className="rounded-lg border border-border bg-card p-6">
+      <h3 className="mb-4 text-lg font-semibold text-foreground">{t('report.summary.title')}</h3>
+      <div className="grid gap-4 sm:grid-cols-3">
+        <SummaryItem
+          label={t('report.summary.totalCommunities')}
+          value={summary.total_communities?.toLocaleString() ?? '0'}
+        />
+        <SummaryItem
+          label={t('report.summary.keyInsights')}
+          value={summary.key_insights?.toLocaleString() ?? '0'}
+        />
+        <SummaryItem
+          label={t('report.summary.topOpportunity')}
+          value={summary.top_opportunity || t('report.summary.noOpportunity')}
+          isText
+        />
+      </div>
+    </div>
+  );
+};
+
+const SummaryItem = ({
+  label,
+  value,
+  isText = false,
+}: {
+  label: string;
+  value: string;
+  isText?: boolean;
+}) => (
+  <div className="rounded-md border border-border bg-muted/40 p-4">
+    <p className="text-sm text-muted-foreground">{label}</p>
+    <p className={`mt-2 text-lg font-semibold text-foreground ${isText ? 'break-words' : ''}`}>{value}</p>
+  </div>
+);
+
+const ReportMetadataCard = ({ report, t }: SectionProps) => (
+  <div className="rounded-lg border border-border bg-card p-6">
+    <h3 className="mb-4 text-lg font-semibold text-foreground">{t('report.metadata.title')}</h3>
+    <div className="grid gap-4 sm:grid-cols-4">
+      <MetadataItem
+        label={t('report.metadata.analysisVersion')}
+        value={report.metadata?.analysis_version ?? '--'}
+      />
+      <MetadataItem
+        label={t('report.metadata.confidence')}
+        value={`${Math.round((report.metadata?.confidence_score ?? 0) * 100)}%`}
+      />
+      <MetadataItem
+        label={t('report.metadata.processingTime')}
+        value={`${(report.metadata?.processing_time_seconds ?? 0).toFixed(1)}s`}
+      />
+      <MetadataItem
+        label={t('report.metadata.cacheHitRate')}
+        value={`${Math.round((report.metadata?.cache_hit_rate ?? 0) * 100)}%`}
+      />
+    </div>
+  </div>
+);
+
+const MetadataItem = ({ label, value }: { label: string; value: string }) => (
+  <div className="rounded-md border border-border bg-muted/40 p-4">
+    <p className="text-sm text-muted-foreground">{label}</p>
+    <p className="mt-2 text-lg font-semibold text-foreground">{value}</p>
+  </div>
+);
 
 export default ReportPage;

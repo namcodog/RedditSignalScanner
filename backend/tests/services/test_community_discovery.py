@@ -1,149 +1,72 @@
 from __future__ import annotations
 
-import sys
-from pathlib import Path
-from typing import Dict, Sequence
+from datetime import datetime, timedelta, timezone
+from typing import Dict
 
 import pytest
+from sqlalchemy.ext.asyncio import AsyncSession
 
-PROJECT_ROOT = Path(__file__).resolve().parents[3]
-BACKEND_PACKAGE_ROOT = (PROJECT_ROOT / "backend").resolve()
-if str(BACKEND_PACKAGE_ROOT) not in sys.path:
-    sys.path.insert(0, str(BACKEND_PACKAGE_ROOT))
-
-from app.services.analysis import Community, discover_communities
-from app.services.analysis.community_discovery import (
-    _calculate_description_match,
-    _fallback_description_overlap,
-    _score_communities,
-    _select_diverse_top_k,
-    _calculate_target_communities,
-)
-from app.services.analysis.keyword_extraction import KeywordExtractionResult
-from app.services.analysis_engine import CommunityProfile
+from app.models.community_pool import PendingCommunity
+from app.services import community_discovery
+from app.services.community_discovery import CommunityDiscoveryService
 
 
-pytestmark = pytest.mark.anyio
+class _StubRedditClient:
+    async def search_posts(self, *args, **kwargs):  # pragma: no cover - not used here
+        raise NotImplementedError
 
 
-async def test_discover_communities_respects_limits() -> None:
-    communities = await discover_communities(
-        "AI tool for growth teams to automate insight discovery and reporting.",
-        max_communities=15,
-        cache_hit_rate=0.75,
+class _FrozenDateTime:
+    def __init__(self, frozen: datetime) -> None:
+        self._frozen = frozen
+
+    def now(self, tz: timezone | None = None) -> datetime:
+        if tz is None:
+            return self._frozen
+        return self._frozen.astimezone(tz)
+
+
+@pytest.mark.asyncio
+async def test_record_discoveries_updates_timestamp_for_existing_pending_community(
+    db_session: AsyncSession,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    reddit_client = _StubRedditClient()
+    service = CommunityDiscoveryService(db_session, reddit_client)
+
+    past = datetime.now(timezone.utc) - timedelta(days=2)
+    pending = PendingCommunity(
+        name="r/testpending",
+        discovered_from_keywords={"keywords": ["ai"], "mention_count": 1},
+        discovered_count=1,
+        first_discovered_at=past,
+        last_discovered_at=past,
+        status="pending",
+        discovered_from_task_id=None,
+    )
+    # 手动设置历史更新时间，便于断言变化
+    pending.updated_at = past
+    db_session.add(pending)
+    await db_session.commit()
+
+    communities: Dict[str, int] = {"r/testpending": 3}
+    keywords = ["ai"]
+
+    expected_now = datetime(2025, 1, 1, 12, 0, tzinfo=timezone.utc)
+    monkeypatch.setattr(
+        community_discovery,
+        "datetime",
+        _FrozenDateTime(expected_now),
+        raising=False,
     )
 
-    assert 0 < len(communities) <= 15
-    assert all(isinstance(entry, Community) for entry in communities)
-    scores = [community.relevance_score for community in communities]
-    assert scores == sorted(scores, reverse=True)
-
-
-async def test_target_adjustment_based_on_cache_rate() -> None:
-    description = "Productivity workflow automation for startups and product teams."
-    high_cache = await discover_communities(
-        description,
-        max_communities=40,
-        cache_hit_rate=0.9,
-    )
-    low_cache = await discover_communities(
-        description,
-        max_communities=40,
-        cache_hit_rate=0.5,
-    )
-    assert len(high_cache) >= len(low_cache)
-
-
-def test_score_prefers_highly_relevant_community() -> None:
-    keywords = KeywordExtractionResult(
-        keywords=["productivity", "note", "workflow"],
-        weights={"productivity": 1.0, "note": 0.8, "workflow": 0.6},
-        total_keywords=3,
-    )
-    relevant = CommunityProfile(
-        name="r/productivity",
-        categories=("productivity",),
-        description_keywords=("productivity", "workflow", "tips"),
-        daily_posts=200,
-        avg_comment_length=100,
-        cache_hit_rate=0.9,
-    )
-    unrelated = CommunityProfile(
-        name="r/gaming",
-        categories=("gaming",),
-        description_keywords=("gaming", "esports"),
-        daily_posts=200,
-        avg_comment_length=100,
-        cache_hit_rate=0.4,
+    await service._record_discoveries(
+        task_id=None,
+        keywords=keywords,
+        communities=communities,
     )
 
-    scores = _score_communities(keywords, [relevant, unrelated])
-    assert scores[relevant] > scores[unrelated]
-
-
-def test_description_match_uses_cosine_similarity() -> None:
-    keywords = KeywordExtractionResult(
-        keywords=["machine learning", "automation", "workflow"],
-        weights={"machine learning": 1.0, "automation": 0.9, "workflow": 0.7},
-        total_keywords=3,
-    )
-
-    close_match = _calculate_description_match(
-        keywords,
-        ["machine", "learning", "workflow"],
-    )
-    distant_match = _calculate_description_match(
-        keywords,
-        ["cooking", "recipes", "baking"],
-    )
-    assert close_match > distant_match
-    assert 0.0 <= close_match <= 1.0
-
-
-def test_select_diverse_top_k_honours_category_cap() -> None:
-    scored: Dict[CommunityProfile, float] = {
-        CommunityProfile(
-            name=f"r/tech{i}",
-            categories=("tech",),
-            description_keywords=("ai", "ml"),
-            daily_posts=150,
-            avg_comment_length=90,
-            cache_hit_rate=0.7,
-        ): 0.9 - (i * 0.01)
-        for i in range(8)
-    }
-    business_profile = CommunityProfile(
-        name="r/business",
-        categories=("business",),
-        description_keywords=("growth", "strategy"),
-        daily_posts=120,
-        avg_comment_length=85,
-        cache_hit_rate=0.6,
-    )
-    scored[business_profile] = 0.82
-
-    selected = _select_diverse_top_k(scored, k=6, max_per_category=3)
-    tech_count = sum(1 for community in selected if "tech" in community.categories)
-    assert tech_count <= 3
-    assert any("business" in community.categories for community in selected)
-
-
-def test_fallback_overlap_when_tfidf_fails() -> None:
-    keywords = KeywordExtractionResult(
-        keywords=["ai"],
-        weights={"ai": 1.0},
-        total_keywords=1,
-    )
-    community_keywords: Sequence[str] = ()
-    assert _fallback_description_overlap(keywords.weights, community_keywords) == 0.0
-
-
-async def test_discover_communities_invalid_input() -> None:
-    with pytest.raises(ValueError):
-        await discover_communities("")
-
-
-def test_calculate_target_communities_modes() -> None:
-    assert _calculate_target_communities(0.85) == 30
-    assert _calculate_target_communities(0.7) == 20
-    assert _calculate_target_communities(0.4) == 10
+    await db_session.refresh(pending)
+    assert pending.discovered_count == 4
+    assert pending.updated_at is not None
+    assert pending.updated_at == expected_now

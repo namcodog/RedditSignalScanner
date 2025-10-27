@@ -67,6 +67,9 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
 
   return (
     <div
+      data-testid="shared-empty-state"
+      role="status"
+      aria-live="polite"
       className={`rounded-xl border border-dashed ${config.borderColor} ${config.bgColor} p-12 text-center ${className}`}
     >
       <div className="mx-auto mb-4 flex items-center justify-center">
@@ -99,4 +102,3 @@ export const CompactEmptyState: React.FC<{
 };
 
 export default EmptyState;
-

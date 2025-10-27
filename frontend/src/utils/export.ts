@@ -46,64 +46,100 @@ export function exportToJSON(report: ExportReport, taskId: string): void {
  */
 export function exportToCSV(report: ExportReport, taskId: string): void {
   try {
-    // CSV Header
-    let csv = 'Type,Rank,Text/Name,Score,Details,Keywords/Features\n';
+    const timestamp = getTimestamp();
+    const baseName = `reddit-signal-scanner-${taskId}-${timestamp}`;
 
-    // Pain Points
+    const downloads: Array<{ filename: string; content: string }> = [];
+
     if (report.pain_points && report.pain_points.length > 0) {
-      report.pain_points.forEach((pain, index: number) => {
-        const text = escapeCSV(pain.description);
-        const communities = pain.example_posts ? pain.example_posts.map(p => p.community).join('; ') : '';
-        const details = `Frequency: ${pain.frequency}; Sentiment: ${(pain.sentiment_score * 100).toFixed(0)}%`;
-        csv += `Pain Point,${index + 1},"${text}",${pain.frequency},"${details}","${communities}"\n`;
+      const rows = report.pain_points.map((pain, index) => {
+        const communities = pain.example_posts?.map(p => p.community).join('; ') ?? '';
+        return [
+          String(index + 1),
+          pain.description,
+          String(pain.frequency),
+          (pain.sentiment_score * 100).toFixed(0),
+          communities,
+        ];
+      });
+
+      const csv = buildCSV(
+        ['Rank', 'Description', 'Frequency', 'SentimentScore(%)', 'Communities'],
+        rows
+      );
+      downloads.push({
+        filename: `${baseName}-pain-points.csv`,
+        content: csv,
       });
     }
 
-    // Competitors
     if (report.competitors && report.competitors.length > 0) {
-      report.competitors.forEach((comp, index: number) => {
-        const name = escapeCSV(comp.name);
-        const strengths = comp.strengths ? comp.strengths.join('; ') : '';
-        const weaknesses = comp.weaknesses ? comp.weaknesses.join('; ') : '';
-        const details = `Mentions: ${comp.mentions}; Sentiment: ${comp.sentiment}; Strengths: ${strengths}; Weaknesses: ${weaknesses}`;
-        csv += `Competitor,${index + 1},"${name}",${comp.mentions},"${details}","${strengths}"\n`;
+      const rows = report.competitors.map((comp, index) => [
+        String(index + 1),
+        comp.name,
+        String(comp.mentions),
+        String(comp.sentiment),
+        comp.strengths?.join('; ') ?? '',
+        comp.weaknesses?.join('; ') ?? '',
+      ]);
+
+      const csv = buildCSV(
+        ['Rank', 'Name', 'Mentions', 'Sentiment', 'Strengths', 'Weaknesses'],
+        rows
+      );
+      downloads.push({
+        filename: `${baseName}-competitors.csv`,
+        content: csv,
       });
     }
 
-    // Opportunities
     if (report.opportunities && report.opportunities.length > 0) {
-      report.opportunities.forEach((opp, index: number) => {
-        const description = escapeCSV(opp.description);
-        const potentialUsers = escapeCSV(opp.potential_users);
-        const details = `Relevance: ${(opp.relevance_score * 100).toFixed(0)}%; Potential Users: ${potentialUsers}`;
-        csv += `Opportunity,${index + 1},"${description}",${(opp.relevance_score * 100).toFixed(0)},"${details}","${potentialUsers}"\n`;
+      const rows = report.opportunities.map((opp, index) => [
+        String(index + 1),
+        opp.description,
+        (opp.relevance_score * 100).toFixed(0),
+        opp.potential_users,
+        opp.key_insights?.join('; ') ?? '',
+      ]);
+
+      const csv = buildCSV(
+        ['Rank', 'Description', 'Relevance(%)', 'PotentialUsers', 'KeyInsights'],
+        rows
+      );
+      downloads.push({
+        filename: `${baseName}-opportunities.csv`,
+        content: csv,
       });
     }
 
     if (report.action_items && report.action_items.length > 0) {
-      report.action_items.forEach((action, index: number) => {
-        const problem = escapeCSV(action.problem_definition);
-        const details = `Confidence: ${(action.confidence * 100).toFixed(0)}%; Urgency: ${(action.urgency * 100).toFixed(0)}%; ProductFit: ${(action.product_fit * 100).toFixed(0)}%`;
-        const evidence = action.evidence_chain && action.evidence_chain.length > 0
-          ? escapeCSV(action.evidence_chain.map(item => item.note || item.title).join('; '))
-          : '';
-        csv += `Action Item,${index + 1},"${problem}",${(action.priority * 100).toFixed(0)},"${details}","${evidence}"\n`;
+      const rows = report.action_items.map((action, index) => [
+        String(index + 1),
+        action.problem_definition,
+        (action.priority * 100).toFixed(0),
+        (action.confidence * 100).toFixed(0),
+        (action.urgency * 100).toFixed(0),
+        (action.product_fit * 100).toFixed(0),
+        action.evidence_chain?.map(item => item.note || item.title).join('; ') ?? '',
+      ]);
+
+      const csv = buildCSV(
+        ['Rank', 'ProblemDefinition', 'Priority(%)', 'Confidence(%)', 'Urgency(%)', 'ProductFit(%)', 'Evidence'],
+        rows
+      );
+      downloads.push({
+        filename: `${baseName}-action-items.csv`,
+        content: csv,
       });
     }
 
-    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
-    const url = URL.createObjectURL(blob);
+    if (downloads.length === 0) {
+      throw new Error('没有可导出的数据');
+    }
 
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = `reddit-signal-scanner-${taskId}-${getTimestamp()}.csv`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    downloads.forEach(({ filename, content }) => triggerDownload(filename, content, 'text/csv;charset=utf-8'));
 
-    URL.revokeObjectURL(url);
-
-    console.log('[Export] CSV export successful:', taskId);
+    console.log('[Export] CSV export successful:', downloads.map(({ filename }) => filename));
   } catch (error) {
     console.error('[Export] CSV export failed:', error);
     throw new Error('CSV 导出失败');
@@ -120,6 +156,30 @@ function escapeCSV(text: string): string {
   if (!text) return '';
   // 替换双引号为两个双引号
   return text.replace(/"/g, '""');
+}
+
+function buildCSV(headers: string[], rows: string[][]): string {
+  const headerLine = headers.join(',');
+  const rowLines = rows.map(fields =>
+    fields
+      .map(field => `"${escapeCSV(field)}"`)
+      .join(',')
+  );
+  return [headerLine, ...rowLines].join('\n');
+}
+
+function triggerDownload(filename: string, content: string, mime: string): void {
+  const blob = new Blob([content], { type: mime });
+  const url = URL.createObjectURL(blob);
+
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = filename;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+
+  URL.revokeObjectURL(url);
 }
 
 /**

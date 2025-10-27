@@ -1,6 +1,7 @@
 """System diagnostics endpoints."""
 from __future__ import annotations
 
+import logging
 import os
 import platform
 import sys
@@ -17,6 +18,7 @@ from app.core.security import TokenPayload
 from app.db.session import get_session
 
 router = APIRouter(prefix="/diag", tags=["diagnostics"])
+logger = logging.getLogger(__name__)
 
 
 @router.get("/runtime", summary="运行时诊断信息")
@@ -70,9 +72,10 @@ async def get_runtime_diagnostics(
         result = await db.execute(text("SELECT 1"))
         if result.scalar() == 1:
             db_status["connected"] = True
-    except Exception as e:
-        db_status["error"] = str(e)
-    
+    except Exception as exc:  # pragma: no cover - logging path
+        db_status["error"] = "unavailable"
+        logger.warning("Database diagnostic query failed", exc_info=exc)
+
     return {
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "python": python_info,
@@ -80,4 +83,3 @@ async def get_runtime_diagnostics(
         "process": process_info,
         "database": db_status,
     }
-

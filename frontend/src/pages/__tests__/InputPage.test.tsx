@@ -128,12 +128,17 @@ describe('InputPage', () => {
     });
 
     await waitFor(() => {
-      expect(mockNavigate).toHaveBeenCalledWith('/progress/123e4567-e89b-12d3-a456-426614174000', {
-        state: {
-          createdAt: '2025-10-11T10:00:00Z',
-          estimatedCompletion: '2025-10-11T10:05:00Z',
-        },
-      });
+      expect(mockNavigate).toHaveBeenCalled();
+    }, { timeout: 3000 });
+
+    // 验证导航参数
+    expect(mockNavigate).toHaveBeenCalledWith('/progress/123e4567-e89b-12d3-a456-426614174000', {
+      state: {
+        createdAt: '2025-10-11T10:00:00Z',
+        estimatedCompletion: '2025-10-11T10:05:00Z',
+        sseEndpoint: '/api/analyze/stream/123',
+        productDescription: '一个帮助设计团队快速聚合用户反馈并生成会议纪要的助手。',
+      },
     });
   });
 

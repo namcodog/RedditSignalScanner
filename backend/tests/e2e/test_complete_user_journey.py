@@ -6,6 +6,10 @@ import uuid
 import pytest
 from httpx import AsyncClient
 
+from sqlalchemy import select
+
+from app.db.session import SessionFactory
+from app.models.user import MembershipLevel, User
 from .utils import install_fast_analysis, wait_for_task_completion
 
 
@@ -34,6 +38,13 @@ async def test_complete_user_journey_success(client: AsyncClient, monkeypatch: p
     token = login_resp.json()["access_token"]
 
     headers = {"Authorization": f"Bearer {token}"}
+
+    # 升级用户会员等级，解锁报告访问权限
+    async with SessionFactory() as db:
+        result = await db.execute(select(User).where(User.email == email))
+        user = result.scalar_one()
+        user.membership_level = MembershipLevel.PRO
+        await db.commit()
 
     # 3) submit analysis task
     analyze_start = time.perf_counter()

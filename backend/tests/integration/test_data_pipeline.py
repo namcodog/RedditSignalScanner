@@ -12,7 +12,23 @@
 - 如果数据库为空，测试会被跳过（skip）而不是失败（fail）
 - 使用 pytest -m integration 运行这些测试
 """
+import asyncio
+from typing import Iterator
+
 import pytest
+
+pytestmark = pytest.mark.asyncio(loop_scope="module")
+
+
+@pytest.fixture(scope="module", autouse=True)
+def _module_event_loop() -> Iterator[None]:
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    try:
+        yield
+    finally:
+        asyncio.set_event_loop(None)
+        loop.close()
 from sqlalchemy import func, select, delete
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -174,11 +190,12 @@ async def test_incremental_crawl_with_real_db() -> None:
         # Fallback：为了避免 Reddit 侧临时限流/冷门社区导致全失败，
         # 直接验证一个高活跃度社区，确保端到端能力真实可用。
         from app.tasks.crawler_task import _crawl_single_impl
-        single = await _crawl_single_impl("AskReddit")
+        fallback_name = "r/AskReddit"
+        single = await _crawl_single_impl(fallback_name)
         assert single.get("status") == "success" and single.get("posts_count", 0) > 0, (
-            f"❌ 备用验证也失败：AskReddit 未抓到帖子。请检查凭证/网络。详情: {single}"
+            f"❌ 备用验证也失败：{fallback_name} 未抓到帖子。请检查凭证/网络。详情: {single}"
         )
-        print("✅ 备用验证通过：AskReddit 成功抓取")
+        print(f"✅ 备用验证通过：{fallback_name} 成功抓取")
     else:
         assert success_rate > 0, (
             f"❌ 所有社区抓取都失败了！"

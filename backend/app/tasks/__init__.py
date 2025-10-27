@@ -14,6 +14,7 @@ from .monitoring_task import (
     monitor_crawler_health,
 )
 from .metrics_task import generate_daily_metrics_task
+from .community_member_sync_task import sync_community_member_counts
 
 __all__ = [
     "run_analysis_task",
@@ -23,4 +24,5 @@ __all__ = [
     "monitor_cache_health",
     "monitor_crawler_health",
     "generate_daily_metrics_task",
+    "sync_community_member_counts",
 ]

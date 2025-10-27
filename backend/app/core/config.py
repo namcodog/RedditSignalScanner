@@ -1,9 +1,10 @@
 from __future__ import annotations
 
+import json
 import os
 from functools import lru_cache
 from pathlib import Path
-from typing import List
+from typing import Dict, List
 
 from pydantic import BaseModel, Field
 from urllib.parse import quote_plus
@@ -38,6 +39,20 @@ def _default_redis_cache_url(db_index: str | None = None) -> str:
     return f"redis://{host}:{port}/{db}"
 
 
+DEFAULT_COMMUNITY_MEMBERS: Dict[str, int] = {
+    "r/startups": 1_200_000,
+    "r/entrepreneur": 980_000,
+    "r/saas": 450_000,
+    "r/productmanagement": 320_000,
+    "r/technology": 1_000_000,
+    "r/artificial": 500_000,
+    "r/userexperience": 260_000,
+    "r/growthhacking": 180_000,
+    "r/smallbusiness": 210_000,
+    "r/marketing": 750_000,
+}
+
+
 class Settings(BaseModel):
     """Application configuration derived from environment variables."""
 
@@ -62,6 +77,11 @@ class Settings(BaseModel):
     reddit_cache_ttl_seconds: int = Field(default=24 * 60 * 60)
     admin_emails_raw: str = Field(default="")
     enable_reddit_search: bool = Field(default=False)
+    report_cache_ttl_seconds: int = Field(default=60 * 60)
+    report_community_members_raw: str = Field(default="")
+    report_target_analysis_version: str = Field(default="1.0")
+    report_rate_limit_per_minute: int = Field(default=30)
+    report_rate_limit_window_seconds: int = Field(default=60)
 
     @property
     def cors_origins(self) -> List[str]:
@@ -78,6 +98,23 @@ class Settings(BaseModel):
             for email in self.admin_emails_raw.split(",")
             if email.strip()
         ]
+
+    @property
+    def report_community_members(self) -> Dict[str, int]:
+        if not self.report_community_members_raw:
+            return DEFAULT_COMMUNITY_MEMBERS.copy()
+        try:
+            payload = json.loads(self.report_community_members_raw)
+        except json.JSONDecodeError:
+            return DEFAULT_COMMUNITY_MEMBERS.copy()
+
+        result: Dict[str, int] = DEFAULT_COMMUNITY_MEMBERS.copy()
+        for name, value in payload.items():
+            try:
+                result[str(name).lower()] = int(value)
+            except (TypeError, ValueError):
+                continue
+        return result
 
     @property
     def REDDIT_CLIENT_ID(self) -> str:
@@ -160,6 +197,32 @@ def get_settings() -> Settings:
         .strip()
         .lower()
         in {"1", "true", "yes"},
+        report_cache_ttl_seconds=int(
+            os.getenv(
+                "REPORT_CACHE_TTL_SECONDS",
+                Settings.model_fields["report_cache_ttl_seconds"].default,
+            )
+        ),
+        report_rate_limit_per_minute=int(
+            os.getenv(
+                "REPORT_RATE_LIMIT_PER_MINUTE",
+                Settings.model_fields["report_rate_limit_per_minute"].default,
+            )
+        ),
+        report_rate_limit_window_seconds=int(
+            os.getenv(
+                "REPORT_RATE_LIMIT_WINDOW_SECONDS",
+                Settings.model_fields["report_rate_limit_window_seconds"].default,
+            )
+        ),
+        report_community_members_raw=os.getenv(
+            "REPORT_COMMUNITY_MEMBERS",
+            Settings.model_fields["report_community_members_raw"].default,
+        ),
+        report_target_analysis_version=os.getenv(
+            "REPORT_TARGET_ANALYSIS_VERSION",
+            Settings.model_fields["report_target_analysis_version"].default,
+        ),
     )
 
 

@@ -469,4 +469,29 @@ def upgrade() -> None:
 
 
 def downgrade() -> None:
-    raise NotImplementedError("Downgrade not supported for cold/hot storage migration")
+    """
+    此迁移不可逆，因为涉及复杂的数据迁移和结构变更。
+
+    不可逆的原因:
+    1. posts_raw 和 posts_hot 表包含已迁移的历史数据
+    2. text_norm_hash 字段已从 MD5 升级到 SHA256（需要重新计算所有哈希值）
+    3. 触发器、函数和视图依赖新的表结构
+    4. 数据已在冷热存储之间重新分配
+
+    如需回滚到此迁移之前的状态，请:
+    1. 恢复数据库备份（推荐）
+    2. 或联系数据库管理员执行手动数据迁移
+
+    参考文档: docs/database/cold_hot_storage_migration.md
+    """
+    raise NotImplementedError(
+        "❌ Downgrade not supported for cold/hot storage migration.\n\n"
+        "This migration involves irreversible data transformations:\n"
+        "  - MD5 → SHA256 hash migration for text_norm_hash field\n"
+        "  - Data redistribution between cold and hot storage\n"
+        "  - Complex trigger and view dependencies\n\n"
+        "To rollback:\n"
+        "  1. Restore from database backup (recommended)\n"
+        "  2. Contact database administrator for manual migration\n\n"
+        "See: docs/database/cold_hot_storage_migration.md"
+    )

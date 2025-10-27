@@ -5,6 +5,8 @@ from typing import List
 from uuid import uuid4
 
 import pytest
+
+pytestmark = pytest.mark.asyncio(loop_scope="session")
 from sqlalchemy import delete, select
 
 from app.models.task import TaskStatus
@@ -646,3 +648,94 @@ async def test_run_analysis_records_duplicates(
     stats = result.sources["dedup_stats"]
     assert stats["candidate_pairs"] >= 1
     assert stats["similarity_checks"] >= 1
+
+
+# ============================================================================
+# P2-2 Fix: Unit tests for _classify_pain_severity
+# ============================================================================
+
+
+def test_classify_pain_severity_high_by_frequency():
+    """Test high severity classification when frequency >= 5."""
+    from app.services.analysis_engine import _classify_pain_severity
+
+    # Boundary: frequency = 5 should be high
+    assert _classify_pain_severity(5, -0.3) == "high"
+    # Above boundary
+    assert _classify_pain_severity(6, -0.2) == "high"
+    assert _classify_pain_severity(10, 0.0) == "high"
+
+
+def test_classify_pain_severity_high_by_sentiment():
+    """Test high severity classification when sentiment <= -0.6."""
+    from app.services.analysis_engine import _classify_pain_severity
+
+    # Boundary: sentiment = -0.6 should be high
+    assert _classify_pain_severity(2, -0.6) == "high"
+    # Below boundary (more negative)
+    assert _classify_pain_severity(1, -0.7) == "high"
+    assert _classify_pain_severity(3, -0.8) == "high"
+
+
+def test_classify_pain_severity_high_combined():
+    """Test high severity when both frequency and sentiment are high."""
+    from app.services.analysis_engine import _classify_pain_severity
+
+    assert _classify_pain_severity(5, -0.6) == "high"
+    assert _classify_pain_severity(10, -0.9) == "high"
+
+
+def test_classify_pain_severity_medium_by_frequency():
+    """Test medium severity classification when 3 <= frequency < 5."""
+    from app.services.analysis_engine import _classify_pain_severity
+
+    # Boundary: frequency = 3 should be medium
+    assert _classify_pain_severity(3, -0.2) == "medium"
+    assert _classify_pain_severity(4, -0.1) == "medium"
+
+
+def test_classify_pain_severity_medium_by_sentiment():
+    """Test medium severity classification when -0.6 < sentiment <= -0.3."""
+    from app.services.analysis_engine import _classify_pain_severity
+
+    # Boundary: sentiment = -0.3 should be medium
+    assert _classify_pain_severity(2, -0.3) == "medium"
+    # Between boundaries
+    assert _classify_pain_severity(1, -0.4) == "medium"
+    assert _classify_pain_severity(2, -0.5) == "medium"
+
+
+def test_classify_pain_severity_medium_combined():
+    """Test medium severity with combined moderate values."""
+    from app.services.analysis_engine import _classify_pain_severity
+
+    assert _classify_pain_severity(3, -0.3) == "medium"
+    assert _classify_pain_severity(4, -0.4) == "medium"
+
+
+def test_classify_pain_severity_low():
+    """Test low severity classification for low frequency and mild sentiment."""
+    from app.services.analysis_engine import _classify_pain_severity
+
+    # Low frequency, mild sentiment
+    assert _classify_pain_severity(1, -0.1) == "low"
+    assert _classify_pain_severity(2, -0.2) == "low"
+    # Boundary: frequency = 2, sentiment = -0.29 should be low
+    assert _classify_pain_severity(2, -0.29) == "low"
+    # Positive sentiment
+    assert _classify_pain_severity(1, 0.0) == "low"
+    assert _classify_pain_severity(2, 0.5) == "low"
+
+
+def test_classify_pain_severity_edge_cases():
+    """Test edge cases and boundary conditions."""
+    from app.services.analysis_engine import _classify_pain_severity
+
+    # Zero frequency
+    assert _classify_pain_severity(0, -0.5) == "medium"
+    assert _classify_pain_severity(0, -0.7) == "high"
+    assert _classify_pain_severity(0, 0.0) == "low"
+
+    # Extreme values
+    assert _classify_pain_severity(100, -1.0) == "high"
+    assert _classify_pain_severity(1, 1.0) == "low"

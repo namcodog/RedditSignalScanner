@@ -15,21 +15,112 @@ from app.tasks import analysis_task
 
 SampleInsights = {
     "pain_points": [
-        {"description": "Reddit users struggle to track feature requests", "frequency": 42, "sentiment_score": -0.62},
-        {"description": "Manual synthesis of feedback is slow", "frequency": 35, "sentiment_score": -0.55},
-        {"description": "Teams lack a single source of truth for user pain", "frequency": 33, "sentiment_score": -0.48},
-        {"description": "Hard to quantify community demand", "frequency": 28, "sentiment_score": -0.41},
-        {"description": "Competitive landscape evolves faster than research cadence", "frequency": 21, "sentiment_score": -0.37},
+        {
+            "description": "Reddit users struggle to track feature requests",
+            "frequency": 12,
+            "sentiment_score": -0.42,
+            "severity": "high",
+            "example_posts": [],
+            "user_examples": [],
+        },
+        {
+            "description": "Manual synthesis of feedback is slow",
+            "frequency": 10,
+            "sentiment_score": -0.35,
+            "severity": "medium",
+            "example_posts": [],
+            "user_examples": [],
+        },
+        {
+            "description": "Teams lack a single source of truth for user pain",
+            "frequency": 9,
+            "sentiment_score": 0.15,
+            "severity": "medium",
+            "example_posts": [],
+            "user_examples": [],
+        },
+        {
+            "description": "Hard to quantify community demand",
+            "frequency": 8,
+            "sentiment_score": 0.05,
+            "severity": "low",
+            "example_posts": [],
+            "user_examples": [],
+        },
+        {
+            "description": "Competitive landscape evolves faster than research cadence",
+            "frequency": 7,
+            "sentiment_score": 0.02,
+            "severity": "low",
+            "example_posts": [],
+            "user_examples": [],
+        },
     ],
     "competitors": [
-        {"name": "Notion AI", "mentions": 18, "sentiment": "mixed"},
-        {"name": "Coda", "mentions": 14, "sentiment": "neutral"},
-        {"name": "Productboard", "mentions": 12, "sentiment": "negative"},
+        {
+            "name": "Notion AI",
+            "mentions": 5,
+            "sentiment": "positive",
+            "strengths": ["Seamless docs integration"],
+            "weaknesses": ["Limited Reddit ingestion"],
+            "market_share": 12.5,
+        },
+        {
+            "name": "Coda",
+            "mentions": 4,
+            "sentiment": "neutral",
+            "strengths": ["Flexible workflows"],
+            "weaknesses": ["Manual insights tagging"],
+            "market_share": 8.3,
+        },
+        {
+            "name": "Productboard",
+            "mentions": 3,
+            "sentiment": "negative",
+            "strengths": ["Roadmap alignment"],
+            "weaknesses": ["Slow Reddit coverage"],
+            "market_share": 9.1,
+        },
     ],
     "opportunities": [
-        {"description": "Automate signal detection for emerging Reddit threads", "confidence": 0.82},
-        {"description": "Surface community benchmarks to prioritise roadmap", "confidence": 0.78},
-        {"description": "Provide proactive alerts for fast-growing subreddits", "confidence": 0.74},
+        {
+            "description": "Automate signal detection for emerging Reddit threads",
+            "relevance_score": 0.9,
+            "potential_users": "Growth and research teams tracking early demand signals",
+            "key_insights": ["High volume of new product talk in r/startups"],
+        },
+        {
+            "description": "Surface community benchmarks to prioritise roadmap",
+            "relevance_score": 0.82,
+            "potential_users": "Product managers planning quarterly priorities",
+            "key_insights": ["Clear gaps across go-to-market communities"],
+        },
+        {
+            "description": "Provide proactive alerts for fast-growing subreddits",
+            "relevance_score": 0.78,
+            "potential_users": "Marketing teams monitoring sudden surges",
+            "key_insights": ["Emerging mentions across r/technology and r/AI"],
+        },
+    ],
+    "action_items": [
+        {
+            "problem_definition": "Founders cannot keep up with Reddit feedback velocity",
+            "evidence_chain": [
+                {
+                    "title": "Weekly founder pain",
+                    "url": "https://reddit.com/r/startups",
+                    "note": "High-frequency posts requesting synthesis tools",
+                }
+            ],
+            "suggested_actions": [
+                "Ship automated Reddit digests for founder cohorts",
+                "Highlight biggest opportunity gaps in pitch decks",
+            ],
+            "confidence": 0.9,
+            "urgency": 0.8,
+            "product_fit": 0.85,
+            "priority": 0.88,
+        }
     ],
 }
 
@@ -61,7 +152,7 @@ def install_fast_analysis(monkeypatch, *, cache_stats: Dict[str, int] | None = N
                 "communities_detail": SampleCommunities,
                 "posts_analyzed": 64,
                 "cache_hit_rate": 0.95,
-                "analysis_duration_seconds": 1.3,
+                "analysis_duration_seconds": 1,
             },
             report_html="<h1>Reddit Signal Scanner Report</h1>",
             action_items=SampleInsights.get("action_items", []),

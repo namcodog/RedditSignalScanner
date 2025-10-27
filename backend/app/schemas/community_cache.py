@@ -17,3 +17,4 @@ class CommunityCacheRead(TimestampedModel):
     hit_count: int = Field(ge=0)
     crawl_priority: int = Field(ge=1, le=100)
     last_hit_at: datetime | None = None
+    member_count: int | None = Field(default=None, ge=0, description="Community member count from Reddit API")

@@ -73,6 +73,9 @@ class CommunityCache(TimestampMixin, Base):
     last_seen_created_at: Mapped[datetime | None] = mapped_column(
         DateTime(timezone=True)
     )
+
+    # 社区成员数（从 Reddit API 获取，用于报告生成）
+    member_count: Mapped[int | None] = mapped_column(Integer, nullable=True)
     total_posts_fetched: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
     dedup_rate: Mapped[Decimal | None] = mapped_column(Numeric(5, 2))
 

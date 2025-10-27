@@ -5,9 +5,24 @@ Integration tests for insights API
 """
 from datetime import datetime, timezone
 from decimal import Decimal
+from typing import Iterator
 from uuid import uuid4
 
+import asyncio
 import pytest
+
+pytestmark = pytest.mark.asyncio(loop_scope="module")
+
+
+@pytest.fixture(scope="module", autouse=True)
+def _module_event_loop() -> Iterator[None]:
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    try:
+        yield
+    finally:
+        asyncio.set_event_loop(None)
+        loop.close()
 from httpx import AsyncClient
 
 from app.core.security import create_access_token, hash_password
@@ -321,4 +336,3 @@ async def test_get_insight_by_id(client: AsyncClient, db_session):
     assert data["id"] == str(insight_card.id)
     assert data["title"] == "Test Insight"
     assert data["confidence"] == 0.85
-

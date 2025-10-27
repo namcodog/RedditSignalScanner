@@ -12,10 +12,87 @@ import type {
   TaskStatusResponse,
   ReportResponse,
 } from '@/types';
+import { reportResponseSchema } from '@/types';
+import {
+  REPORT_CACHE_TTL_MS_DEFAULT,
+  REPORT_POLL_INTERVAL_MS,
+  REPORT_MAX_POLL_ATTEMPTS,
+} from '@/config/report';
 
-// 简单的报告缓存（P1：添加缓存机制）
-const REPORT_CACHE_TTL_MS = Number((import.meta as any)?.env?.VITE_REPORT_CACHE_TTL_MS) || 60_000;
-const reportCache = new Map<string, { data: ReportResponse; expires: number }>();
+interface ReportCacheEntry {
+  data: ReportResponse;
+  expires: number;
+}
+
+const REPORT_CACHE_TTL_MS = (() => {
+  const raw = Number((import.meta as any)?.env?.VITE_REPORT_CACHE_TTL_MS);
+  return Number.isFinite(raw) && raw > 0 ? raw : REPORT_CACHE_TTL_MS_DEFAULT;
+})();
+const REPORT_CACHE_STORAGE_PREFIX = 'report_cache_';
+
+const reportCache = new Map<string, ReportCacheEntry>();
+const pendingRequests = new Map<string, Promise<ReportResponse>>();
+
+const safeGetStorage = (): Storage | null => {
+  try {
+    if (typeof window === 'undefined' || typeof window.localStorage === 'undefined') {
+      return null;
+    }
+    return window.localStorage;
+  } catch {
+    return null;
+  }
+};
+
+const getCacheKey = (taskId: string): string =>
+  `${REPORT_CACHE_STORAGE_PREFIX}${taskId}`;
+
+const readCacheFromStorage = (taskId: string): ReportCacheEntry | null => {
+  const storage = safeGetStorage();
+  if (!storage) return null;
+
+  const key = getCacheKey(taskId);
+  const raw = storage.getItem(key);
+  if (!raw) return null;
+
+  try {
+    const parsed = JSON.parse(raw) as ReportCacheEntry | null;
+    if (!parsed || typeof parsed.expires !== 'number' || !parsed.data) {
+      storage.removeItem(key);
+      return null;
+    }
+    if (parsed.expires <= Date.now()) {
+      storage.removeItem(key);
+      return null;
+    }
+    return parsed;
+  } catch {
+    storage.removeItem(key);
+    return null;
+  }
+};
+
+const writeCacheToStorage = (taskId: string, entry: ReportCacheEntry): void => {
+  const storage = safeGetStorage();
+  if (!storage) return;
+
+  try {
+    storage.setItem(getCacheKey(taskId), JSON.stringify(entry));
+  } catch {
+    // 忽略 localStorage 写入异常（如存储空间不足）
+  }
+};
+
+const removeCacheFromStorage = (taskId: string): void => {
+  const storage = safeGetStorage();
+  if (!storage) return;
+
+  try {
+    storage.removeItem(getCacheKey(taskId));
+  } catch {
+    // 忽略删除异常
+  }
+};
 
 /**
  * 用户反馈请求
@@ -92,18 +169,58 @@ export const getTaskStatus = async (
  * @param taskId 任务 ID
  * @returns 分析报告
  */
-export const getAnalysisReport = async (
-  taskId: string
-): Promise<ReportResponse> => {
+export const getAnalysisReport = (taskId: string): Promise<ReportResponse> => {
   const now = Date.now();
   const cached = reportCache.get(taskId);
-  if (cached && cached.expires > now) {
-    return cached.data;
+
+  if (cached) {
+    if (cached.expires > now) {
+      return Promise.resolve(cached.data);
+    }
+    reportCache.delete(taskId);
+    removeCacheFromStorage(taskId);
   }
-  const response = await apiClient.get<ReportResponse>(`/report/${taskId}`);
-  const data = response.data;
-  reportCache.set(taskId, { data, expires: now + REPORT_CACHE_TTL_MS });
-  return data;
+
+  const stored = readCacheFromStorage(taskId);
+  if (stored) {
+    // Check if the stored cache has expired
+    if (stored.expires > now) {
+      reportCache.set(taskId, stored);
+      return Promise.resolve(stored.data);
+    }
+    // Cache has expired, remove it from storage
+    removeCacheFromStorage(taskId);
+  }
+
+  const ongoing = pendingRequests.get(taskId);
+  if (ongoing) {
+    return ongoing;
+  }
+
+  const request = (async () => {
+  const response = await apiClient.get(`/report/${taskId}`);
+  let data: ReportResponse;
+  try {
+    data = reportResponseSchema.parse(response.data);
+  } catch (error) {
+    console.error('[Report] Schema validation failed:', error);
+    throw new Error('报告数据格式异常，请稍后重试');
+  }
+    const entry: ReportCacheEntry = {
+      data,
+      expires: Date.now() + REPORT_CACHE_TTL_MS,
+    };
+    reportCache.set(taskId, entry);
+    writeCacheToStorage(taskId, entry);
+    return data;
+  })();
+
+  pendingRequests.set(taskId, request);
+  void request.finally(() => {
+    pendingRequests.delete(taskId);
+  });
+
+  return request;
 };
 
 /**
@@ -117,8 +234,8 @@ export const getAnalysisReport = async (
  */
 export const pollTaskUntilComplete = async (
   taskId: string,
-  interval = 2000,
-  maxAttempts = 150,
+  interval = REPORT_POLL_INTERVAL_MS,
+  maxAttempts = REPORT_MAX_POLL_ATTEMPTS,
   onProgress?: (status: TaskStatusResponse) => void
 ): Promise<TaskStatusResponse> => {
   let attempts = 0;

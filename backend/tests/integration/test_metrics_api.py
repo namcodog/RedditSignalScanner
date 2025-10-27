@@ -6,7 +6,23 @@ Integration tests for metrics API
 from datetime import date, timedelta
 from decimal import Decimal
 
+import asyncio
+from typing import Iterator
+
 import pytest
+
+pytestmark = pytest.mark.asyncio(loop_scope="module")
+
+
+@pytest.fixture(scope="module", autouse=True)
+def _module_event_loop() -> Iterator[None]:
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    try:
+        yield
+    finally:
+        asyncio.set_event_loop(None)
+        loop.close()
 from httpx import AsyncClient
 
 from app.models.metrics import QualityMetrics
@@ -170,4 +186,3 @@ async def test_get_metrics_ordered_by_date(client: AsyncClient, db_session):
     assert data[1]["date"] == "2025-10-19"
     assert data[2]["date"] == "2025-10-20"
     assert data[3]["date"] == "2025-10-21"
-

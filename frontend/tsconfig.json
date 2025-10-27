@@ -46,11 +46,12 @@
       "@/pages/*": ["src/pages/*"],
       "@/api/*": ["src/api/*"],
       "@/hooks/*": ["src/hooks/*"],
-      "@/utils/*": ["src/utils/*"]
+      "@/utils/*": ["src/utils/*"],
+      "@/lib/*": ["src/lib/*"],
+      "@/i18n/*": ["src/i18n/*"]
     }
   },
   "include": ["src"],
   "exclude": ["node_modules", "dist"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
-

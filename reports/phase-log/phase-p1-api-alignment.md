@@ -7,6 +7,27 @@
 
 ---
 
+## 2025-10-25 报告分析页面 P1 修复总结（Codex）
+
+| 类别 | 修复内容 | 说明 |
+|------|----------|------|
+| 契约一致性 | `backend/app/services/report_service.py` 使用 Pydantic `ReportPayload` 统一响应；前端 `reportResponseSchema` 运行时校验；新增 `frontend/src/tests/contract/report-api.contract.test.ts` | 解决诊断报告 P1-1，避免前后端类型漂移 |
+| 类型安全 | 报告页痛点列表改用 `PainPointViewModel` 链路，去除 `any`；Zod 校验落地 | 解决 P1-4 类型强制转换风险 |
+| 缓存与性能 | 引入 `InMemoryReportCache`（可按 `REPORT_CACHE_TTL_SECONDS` 调整）；仓级统计缓存命中；支持配置社区成员数 `REPORT_COMMUNITY_MEMBERS` | 对应 P1-4 报告级缓存、P1-5 硬编码社区成员 |
+| 数据迁移 | 服务层 `_apply_version_migrations` + 测试，自动将旧版 `0.9` 数据填充缺失字段 | 对应 P1-6 数据迁移策略 |
+| 导出体验 | 报告页导出按钮改为“导出报告”，新增禁用的 PDF 选项提示 | 对应 P1-1（导出功能不一致） |
+| 测试补充 | 新增后端服务层测试 `backend/tests/services/test_report_service.py`，前端合同 & 报表页交互测试更新 | 提升 P1-8 测试覆盖度 |
+
+**执行测试**  
+- `pytest backend/tests/api/test_reports.py backend/tests/services/test_report_service.py` ✅ 8 passed  
+- `cd frontend && npx vitest run src/pages/__tests__/ReportPage.test.tsx` ✅ 9 passed  
+- `cd frontend && npx vitest run src/tests/contract/report-api.contract.test.ts` ✅ 1 passed
+
+**配置更新**  
+- `backend/.env.example` 新增 `REPORT_CACHE_TTL_SECONDS`、`REPORT_COMMUNITY_MEMBERS`、`REPORT_TARGET_ANALYSIS_VERSION`。
+
+---
+
 ## 一、执行范围
 
 ### 1.1 新增中优先级接口（3个）

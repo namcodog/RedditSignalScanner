@@ -170,6 +170,7 @@ function handleTask(task: Task): void {
 - ✅ `FallbackQuality` 接口
 - ✅ `ReportMetadata` 接口
 - ✅ `ReportResponse` 接口
+- ✅ `report/schema.ts` 使用 Zod 对情感百分比（0-100）、置信度（0-1）等字段进行了边界约束，并由 `src/tests/contract/report-schema.contract.test.ts` 持续校验
 
 ### sse.types.ts
 - ✅ `SSEEventType` 字符串联合类型
@@ -234,6 +235,7 @@ function handleTask(task: Task): void {
 | 日期 | 版本 | 变更说明 | 负责人 |
 |------|------|----------|--------|
 | 2025-10-10 | 1.0 | 初始版本，基于 Schema 契约创建 | Frontend Agent |
+| 2025-10-26 | 1.1 | 引入报告契约自动化校验与数值范围约束，新增 `src/tests/contract/report-schema.contract.test.ts` | Frontend Agent |
 
 ---
 

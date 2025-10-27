@@ -229,6 +229,7 @@ class CommunityDiscoveryService:
                     "keywords": list(existing_keywords),
                     "mention_count": existing.discovered_count,
                 }
+                existing.updated_at = now
             else:
                 # Create new record
                 new_community = PendingCommunity(

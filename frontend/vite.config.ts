@@ -14,6 +14,8 @@ export default defineConfig({
       '@/api': path.resolve(__dirname, './src/api'),
       '@/hooks': path.resolve(__dirname, './src/hooks'),
       '@/utils': path.resolve(__dirname, './src/utils'),
+      '@/lib': path.resolve(__dirname, './src/lib'),
+      '@/i18n': path.resolve(__dirname, './src/i18n'),
     },
   },
   server: {
@@ -43,9 +45,12 @@ export default defineConfig({
     setupFiles: './src/test/setup.ts',
     include: [
       'src/utils/**/__tests__/**/*.{test,spec}.{ts,tsx}',
-      'src/services/**/__tests__/**/*.{test,spec}.{ts,tsx}'
+      'src/services/**/__tests__/**/*.{test,spec}.{ts,tsx}',
+      'src/components/__tests__/**/*.{test,spec}.{ts,tsx}',
+      'src/pages/__tests__/**/*.{test,spec}.{ts,tsx}',
+      'src/tests/contract/**/*.{test,spec}.{ts,tsx}'
     ],
-    exclude: ['src/tests/e2e-*.test.ts', 'src/pages/__tests__/**', 'src/components/__tests__/**', 'tests/e2e/**', 'e2e/**'],
+    exclude: ['src/tests/e2e-*.test.ts', 'tests/e2e/**', 'e2e/**'],
     pool: 'forks', // 使用 forks 而不是 threads 来避免 webidl-conversions 问题
     poolOptions: {
       forks: {
@@ -54,4 +59,3 @@ export default defineConfig({
     },
   },
 });
-

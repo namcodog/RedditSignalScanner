@@ -24,8 +24,13 @@ def test_run_analysis_task_retries_until_success(monkeypatch: pytest.MonkeyPatch
         return True
 
     def fake_run_async(coro):
-        result = asyncio.run(coro)
-        return result
+        loop = asyncio.new_event_loop()
+        try:
+            asyncio.set_event_loop(loop)
+            return loop.run_until_complete(coro)
+        finally:
+            asyncio.set_event_loop(None)
+            loop.close()
 
     class DummyCache:
         async def set_status(self, payload) -> None:  # pragma: no cover - noop
@@ -77,7 +82,13 @@ def test_run_analysis_task_respects_max_retries(monkeypatch: pytest.MonkeyPatch)
         return retries < 2
 
     def fake_run_async(coro):
-        return asyncio.run(coro)
+        loop = asyncio.new_event_loop()
+        try:
+            asyncio.set_event_loop(loop)
+            return loop.run_until_complete(coro)
+        finally:
+            asyncio.set_event_loop(None)
+            loop.close()
 
     class DummyCache:
         async def set_status(self, payload) -> None:

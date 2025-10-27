@@ -174,6 +174,12 @@ celery_app.conf.beat_schedule = {
         "task": "tasks.monitoring.update_performance_dashboard",
         "schedule": crontab(minute="*/15"),
     },
+    # Community member count sync (P1-5 fix)
+    "sync-community-member-counts": {
+        "task": "tasks.community.sync_member_counts",
+        "schedule": crontab(hour="*/12", minute="0"),  # Every 12 hours at :00
+        "options": {"queue": "crawler_queue", "expires": 7200},
+    },
     # Maintenance tasks
     "refresh-posts-latest": {
         "task": "tasks.maintenance.refresh_posts_latest",
