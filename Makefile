@@ -6,7 +6,7 @@
 .PHONY: kill-ports kill-backend-port kill-frontend-port kill-celery kill-redis
 .PHONY: restart-backend restart-frontend restart-all
 .PHONY: status check-services check-python
-.PHONY: test test-backend test-frontend test-all test-e2e test-admin-e2e test-contract
+.PHONY: test test-backend test-frontend test-all test-e2e test-admin-e2e test-contract test-tasks-smoke
 .PHONY: test-fix test-clean test-diagnose test-kill-pytest
 .PHONY: update-api-schema generate-api-client
 .PHONY: celery-start celery-stop celery-restart celery-verify celery-seed celery-seed-unique celery-purge
@@ -86,6 +86,7 @@ help: ## 显示所有可用命令
 	@echo "  make test-e2e           运行端到端测试"
 	@echo "  make test-contract      运行 API 契约测试"
 	@echo "  make test-admin-e2e     验证Admin后台端到端流程（需配置ADMIN_EMAILS）"
+	@echo "  make test-tasks-smoke   快速验证后台维护/监控任务封装"
 	@echo ""
 	@echo "✅ Phase 1-3 验证（Day 13-20 预热期）："
 	@echo "  make phase-1-2-3-verify 一键验证（mypy --strict + 核心测试）"
@@ -442,6 +443,10 @@ test-e2e: ## 运行端到端测试（需要先启动完整环境）- 只运行�
 	@echo "==> Running critical path E2E tests (target: < 5 minutes) ..."
 	@cd $(BACKEND_DIR) && APP_ENV=test ENABLE_CELERY_DISPATCH=0 bash scripts/pytest_safe.sh tests/e2e/test_critical_path.py -v -s
 
+test-tasks-smoke: ## 运行后台维护/监控任务的快速巡检测试
+	@echo "==> Running maintenance & monitoring smoke tests ..."
+	@cd $(BACKEND_DIR) && $(PYTHON) -m pytest tests/tasks/test_tasks_smoke.py -q
+
 # 安全版测试（禁用插件自动加载 + 强制日志），避免会话静默无输出
 .PHONY: test-backend-safe test-e2e-safe
 
@@ -743,6 +748,10 @@ db-migrate: ## 创建新的数据库迁移 (需要 MESSAGE="描述")
 
 db-upgrade: ## 升级数据库到最新版本
 	@echo "==> Upgrading database to latest version ..."
+	@if [ ! -f $(BACKEND_DIR)/.env ] && [ -z "$$DATABASE_URL" ]; then \
+		echo "❌ DATABASE_URL 未设置。请在环境变量或 backend/.env 中配置后再执行。"; \
+		exit 1; \
+	fi
 	@if [ -f $(BACKEND_DIR)/.env ]; then \
 		cd $(BACKEND_DIR) && export $$(cat .env | grep -v '^#' | xargs) && alembic upgrade head; \
 	else \

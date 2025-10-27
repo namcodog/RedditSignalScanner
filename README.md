@@ -317,6 +317,12 @@ git commit -m "..."  # pre-commit自动运行
 vim 2025-10-10-实施检查清单.md
 ```
 
+### API 契约维护
+
+- **更新 OpenAPI 基线**：`make update-api-schema`（当后端接口有意变更时执行，并提交 `backend/docs/openapi-schema.json`）。
+- **生成前端 API SDK**：`make generate-api-client`（基于最新 OpenAPI Schema 输出 TypeScript 客户端）。
+- **后台任务巡检**：`make test-tasks-smoke`（快速检查维护/监控 Celery 任务封装是否正常）。
+
 ### Git工作流
 
 ```bash
