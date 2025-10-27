@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import sys
 import uuid
 from datetime import datetime, timedelta, timezone
@@ -233,6 +234,52 @@ async def test_get_report_enforces_rate_limit(client: AsyncClient, db_session: A
             max_requests=settings.report_rate_limit_per_minute,
             window_seconds=settings.report_rate_limit_window_seconds,
         )
+
+
+async def test_download_report_json_success(
+    client: AsyncClient, db_session: AsyncSession
+) -> None:
+    user, task = await _create_completed_task(db_session)
+    token = _issue_token(str(user.id))
+
+    response = await client.get(
+        f"/api/report/{task.id}/download",
+        params={"format": "json"},
+        headers={"Authorization": f"Bearer {token}"},
+    )
+
+    assert response.status_code == 200
+    assert response.headers["content-type"].startswith("application/json")
+    assert response.headers["content-disposition"].endswith('.json"')
+
+    payload = json.loads(response.content.decode("utf-8"))
+    assert payload["task_id"] == str(task.id)
+    assert payload["status"] == TaskStatus.COMPLETED.value
+
+
+async def test_download_report_requires_authentication(
+    client: AsyncClient, db_session: AsyncSession
+) -> None:
+    _, task = await _create_completed_task(db_session)
+
+    response = await client.get(f"/api/report/{task.id}/download")
+
+    assert response.status_code == 401
+
+
+async def test_download_report_not_found_when_missing_artifact(
+    client: AsyncClient, db_session: AsyncSession
+) -> None:
+    user, task = await _create_completed_task(db_session, with_report=False)
+    token = _issue_token(str(user.id))
+
+    response = await client.get(
+        f"/api/report/{task.id}/download",
+        params={"format": "json"},
+        headers={"Authorization": f"Bearer {token}"},
+    )
+
+    assert response.status_code == 404
 
 
 @pytest.mark.skip(reason="Database constraints now prevent invalid insights from being inserted. This test is no longer valid as the validation happens at the database level.")

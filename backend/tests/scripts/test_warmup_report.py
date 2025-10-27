@@ -19,7 +19,11 @@ from app.core.security import hash_password
 
 
 @pytest.mark.asyncio
-async def test_build_and_save_report(db_session: AsyncSession, monkeypatch: pytest.MonkeyPatch) -> None:
+async def test_build_and_save_report(
+    db_session: AsyncSession,
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+) -> None:
     # Arrange: seed minimal data
     user = User(email="reporter@example.com", password_hash=hash_password("testpass123"))
     db_session.add(user)
@@ -127,13 +131,13 @@ async def test_build_and_save_report(db_session: AsyncSession, monkeypatch: pyte
     assert sp["p95_analysis_time_seconds"] >= 0.0
 
     # Save and verify file
-    out_path = Path(__file__).resolve().parents[2] / "reports" / "warmup-report.json"
-    if out_path.exists():
-        out_path.unlink()
-    # Save file directly to avoid nested event loop in pytest-asyncio
-    out_path.parent.mkdir(parents=True, exist_ok=True)
+    out_reports_dir = tmp_path / "reports"
+    out_reports_dir.mkdir(parents=True, exist_ok=True)
+
+    # Redirect script output directory to temporary location
+    monkeypatch.setattr(rpt, "BACKEND_DIR", tmp_path / "backend", raising=False)
+
+    out_path = out_reports_dir / "warmup-report.json"
     out_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
-    assert out_path.exists()
-    assert out_path.exists()
     data = json.loads(out_path.read_text(encoding="utf-8"))
     assert data["community_pool"]["total"] == cp["total"]
