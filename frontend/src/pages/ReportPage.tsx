@@ -32,6 +32,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { FeedbackDialog } from '@/components/FeedbackDialog';
 import { ActionItemsList } from '@/components/ActionItem';
 import { useTranslation } from '@/i18n/TranslationProvider';
+import { useToast } from '@/components/ui/toast';
 import {
   REPORT_LOADING_STAGES,
   REPORT_EXPORT_STAGES,
@@ -68,6 +69,7 @@ const ReportPage: React.FC<ReportPageProps> = ({ sections }) => {
   const { taskId } = useParams<{ taskId: string }>();
   const navigate = useNavigate();
   const { t, locale, setLocale } = useTranslation();
+  const toast = useToast();
 
   const [report, setReport] = useState<ReportResponse | null>(null);
   const [loading, setLoading] = useState(true);
@@ -75,11 +77,9 @@ const ReportPage: React.FC<ReportPageProps> = ({ sections }) => {
   const [showExportMenu, setShowExportMenu] = useState(false);
   const [showFeedbackDialog, setShowFeedbackDialog] = useState(false);
   const [exporting, setExporting] = useState(false);
-  const [exportFormat, setExportFormat] = useState<'json' | 'csv' | 'text' | null>(null);
+  const [exportFormat, setExportFormat] = useState<'json' | 'csv' | 'text' | 'pdf' | null>(null);
   const [showExportHistory, setShowExportHistory] = useState(false);
   const [exportHistory, setExportHistory] = useState<ExportHistoryEntry[]>(() => getExportHistory());
-  const [shareMessage, setShareMessage] = useState<string | null>(null);
-  const [shareMessageType, setShareMessageType] = useState<'success' | 'error' | null>(null);
   const [loadingStage, setLoadingStage] = useState<ProgressStage>(REPORT_LOADING_STAGES[0]!);
   const [exportStage, setExportStage] = useState<ProgressStage>(REPORT_EXPORT_STAGES[0]!);
   const [isExportProgressVisible, setIsExportProgressVisible] = useState(false);
@@ -155,16 +155,6 @@ const ReportPage: React.FC<ReportPageProps> = ({ sections }) => {
     const doc = typeof document === 'undefined' ? undefined : document;
     const shareUrl = `${win?.location.origin ?? ''}/report/${taskId}`;
 
-    const markSuccess = () => {
-      setShareMessage(t('report.share.success'));
-      setShareMessageType('success');
-    };
-
-    const markFailure = () => {
-      setShareMessage(t('report.share.error'));
-      setShareMessageType('error');
-    };
-
     try {
       if (nav?.share) {
         await nav.share({
@@ -172,18 +162,18 @@ const ReportPage: React.FC<ReportPageProps> = ({ sections }) => {
           text: t('report.share.description'),
           url: shareUrl,
         });
-        markSuccess();
+        toast.success(t('report.share.success'));
         return;
       }
 
       if (nav?.clipboard?.writeText) {
         await nav.clipboard.writeText(shareUrl);
-        markSuccess();
+        toast.success(t('report.share.success'));
         return;
       }
 
       if (!doc) {
-        markFailure();
+        toast.error(t('report.share.error'));
         return;
       }
 
@@ -194,24 +184,17 @@ const ReportPage: React.FC<ReportPageProps> = ({ sections }) => {
       const copied = typeof doc.execCommand === 'function' && doc.execCommand('copy');
       doc.body.removeChild(input);
       if (copied) {
-        markSuccess();
+        toast.success(t('report.share.success'));
       } else {
-        markFailure();
+        toast.error(t('report.share.error'));
       }
     } catch (err) {
       console.error('[ReportPage] Share failed:', err);
-      markFailure();
+      toast.error(t('report.share.error'));
     }
-  }, [taskId, t]);
+  }, [taskId, t, toast]);
 
-  useEffect(() => {
-    if (!shareMessage) return;
-    const timer = setTimeout(() => {
-      setShareMessage(null);
-      setShareMessageType(null);
-    }, 4000);
-    return () => clearTimeout(timer);
-  }, [shareMessage]);
+
 
   useEffect(() => {
     if (!taskId) {
@@ -332,7 +315,7 @@ const ReportPage: React.FC<ReportPageProps> = ({ sections }) => {
   );
 
   const formatExportLabel = useCallback(
-    (format: 'json' | 'csv' | 'text') => {
+    (format: 'json' | 'csv' | 'text' | 'pdf') => {
       switch (format) {
         case 'json':
           return t('report.export.format.json');
@@ -340,6 +323,8 @@ const ReportPage: React.FC<ReportPageProps> = ({ sections }) => {
           return t('report.export.format.csv');
         case 'text':
           return t('report.export.format.text');
+        case 'pdf':
+          return t('report.export.options.pdf');
       }
     },
     [t]
@@ -514,27 +499,13 @@ const ReportPage: React.FC<ReportPageProps> = ({ sections }) => {
                 {t('report.viewInsights')}
               </button>
 
-              <div className="relative">
-                <button
-                  onClick={handleShare}
-                  className="inline-flex items-center justify-center rounded-md border border-border bg-background px-4 py-2 text-sm font-medium text-foreground transition hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                >
-                  <Share2 className="mr-2 h-4 w-4" />
-                  {t('report.share.button')}
-                </button>
-                {shareMessage && (
-                  <div
-                    role="status"
-                    className={`absolute left-0 top-full mt-1 rounded-md px-2 py-1 text-xs shadow-sm ${
-                      shareMessageType === 'success'
-                        ? 'bg-green-100 text-green-700'
-                        : 'bg-destructive/10 text-destructive'
-                    }`}
-                  >
-                    {shareMessage}
-                  </div>
-                )}
-              </div>
+              <button
+                onClick={handleShare}
+                className="inline-flex items-center justify-center rounded-md border border-border bg-background px-4 py-2 text-sm font-medium text-foreground transition hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              >
+                <Share2 className="mr-2 h-4 w-4" />
+                {t('report.share.button')}
+              </button>
 
               <div className="relative export-menu-container">
                 <button

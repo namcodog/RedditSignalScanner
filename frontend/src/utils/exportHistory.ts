@@ -1,4 +1,4 @@
-export type ExportFormat = 'json' | 'csv' | 'text';
+export type ExportFormat = 'json' | 'csv' | 'text' | 'pdf';
 
 export interface ExportHistoryEntry {
   taskId: string;
