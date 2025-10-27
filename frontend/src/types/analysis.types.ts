@@ -23,21 +23,24 @@ export enum Sentiment {
 export interface ExamplePost {
   /** 社区名称（如 "r/productivity"） */
   community: string;
-  
+
   /** 帖子内容摘要 */
-  content: string;
-  
+  content?: string | undefined;
+
   /** 点赞数 */
-  upvotes: number;
-  
+  upvotes?: number | undefined;
+
   /** Reddit 帖子链接（可选） */
-  url?: string;
-  
+  url?: string | undefined;
+
   /** 作者用户名（可选） */
-  author?: string;
-  
+  author?: string | undefined;
+
   /** 帖子创建时间 (ISO 8601)（可选） */
-  created_at?: string;
+  created_at?: string | undefined;
+
+  /** 帖子永久链接（可选） */
+  permalink?: string | undefined;
 }
 
 /**
@@ -74,7 +77,7 @@ export interface Competitor {
   mentions: number;
 
   /** 情感倾向 */
-  sentiment: Sentiment;
+  sentiment: string;
 
   /** 优势列表（建议最多 10 项） */
   strengths: string[];
@@ -83,7 +86,7 @@ export interface Competitor {
   weaknesses: string[];
 
   /** 市场份额百分比（0-100） */
-  market_share?: number;
+  market_share?: number | undefined;
 }
 
 /**

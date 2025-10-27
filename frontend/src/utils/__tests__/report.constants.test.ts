@@ -22,7 +22,7 @@ describe('report config 常量', () => {
       'hydrate',
       'render',
     ]);
-    expect(REPORT_LOADING_STAGES[0].progress).toBeLessThan(REPORT_LOADING_STAGES[3].progress);
+    expect(REPORT_LOADING_STAGES[0]?.progress).toBeLessThan(REPORT_LOADING_STAGES[3]?.progress ?? 100);
     expect(REPORT_LOADING_STAGES.every(stage => stage.progress >= 0 && stage.progress <= 100)).toBe(true);
   });
 

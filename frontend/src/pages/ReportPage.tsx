@@ -55,7 +55,7 @@ export interface ReportSectionDefinition {
 }
 
 interface ReportPageProps {
-  sections?: ReportSectionDefinition[];
+  sections?: ReportSectionDefinition[] | undefined;
 }
 
 const waitForNextFrame = async () => {
@@ -80,8 +80,8 @@ const ReportPage: React.FC<ReportPageProps> = ({ sections }) => {
   const [exportHistory, setExportHistory] = useState<ExportHistoryEntry[]>(() => getExportHistory());
   const [shareMessage, setShareMessage] = useState<string | null>(null);
   const [shareMessageType, setShareMessageType] = useState<'success' | 'error' | null>(null);
-  const [loadingStage, setLoadingStage] = useState<ProgressStage>(REPORT_LOADING_STAGES[0]);
-  const [exportStage, setExportStage] = useState<ProgressStage>(REPORT_EXPORT_STAGES[0]);
+  const [loadingStage, setLoadingStage] = useState<ProgressStage>(REPORT_LOADING_STAGES[0]!);
+  const [exportStage, setExportStage] = useState<ProgressStage>(REPORT_EXPORT_STAGES[0]!);
   const [isExportProgressVisible, setIsExportProgressVisible] = useState(false);
 
   const handleLocaleChange = useCallback(
@@ -94,13 +94,13 @@ const ReportPage: React.FC<ReportPageProps> = ({ sections }) => {
 
   const resolveLoadingStage = useCallback(
     (id: string): ProgressStage =>
-      REPORT_LOADING_STAGES.find(stage => stage.id === id) ?? REPORT_LOADING_STAGES[0],
+      REPORT_LOADING_STAGES.find(stage => stage.id === id) ?? REPORT_LOADING_STAGES[0]!,
     []
   );
 
   const resolveExportStage = useCallback(
     (id: ExportStageId): ProgressStage =>
-      REPORT_EXPORT_STAGES.find(stage => stage.id === id) ?? REPORT_EXPORT_STAGES[0],
+      REPORT_EXPORT_STAGES.find(stage => stage.id === id) ?? REPORT_EXPORT_STAGES[0]!,
     []
   );
 
@@ -309,8 +309,6 @@ const ReportPage: React.FC<ReportPageProps> = ({ sections }) => {
           return t('report.export.format.csv');
         case 'text':
           return t('report.export.format.text');
-        default:
-          return format.toUpperCase();
       }
     },
     [t]

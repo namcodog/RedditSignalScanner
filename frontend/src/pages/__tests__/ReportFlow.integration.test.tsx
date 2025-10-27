@@ -1,6 +1,6 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { describe, it, vi } from 'vitest';
+import { describe, it, vi, expect } from 'vitest';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 
 import ReportPage from '@/pages/ReportPage';

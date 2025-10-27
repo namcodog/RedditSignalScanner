@@ -111,10 +111,10 @@ describe('Report API contract', () => {
   });
 
   it('should validate report response shape', async () => {
-    mockedClient.get.mockResolvedValue({ data: sampleResponse });
+    (mockedClient.get as ReturnType<typeof vi.fn>).mockResolvedValue({ data: sampleResponse });
 
     const data = await getAnalysisReport('11111111-1111-1111-1111-111111111111');
-    expect(data.report.pain_points[0].severity).toBe('high');
+    expect(data.report.pain_points[0]?.severity).toBe('high');
     expect(data.stats.total_mentions).toBe(150);
     expect(mockedClient.get).toHaveBeenCalled();
   });

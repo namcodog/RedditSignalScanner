@@ -22,7 +22,7 @@ const createState = (
 ): ReportErrorState => ({
   type,
   message,
-  action: options?.action,
+  action: options?.action ?? '',
   retryable: options?.retryable ?? false,
 });
 

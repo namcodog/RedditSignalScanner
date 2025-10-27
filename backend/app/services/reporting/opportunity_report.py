@@ -104,8 +104,9 @@ def build_opportunity_reports(
             pain_points[0] if pain_points else None
         )
 
+        # P3-3 修复: 使用英文，前端负责国际化
         problem_definition = opportunity.get("description") or (
-            pain.get("description") if pain else "待分析问题"
+            pain.get("description") if pain else "Problem to be analyzed"
         )
 
         evidence_items = _select_evidence(opportunity.get("source_examples", []))
@@ -114,13 +115,13 @@ def build_opportunity_reports(
         if not evidence_items and pain:
             for quote in pain.get("user_examples", [])[:2]:
                 evidence_items.append(
-                    EvidenceItem(title=quote[:120], url=None, note="用户原话")
+                    EvidenceItem(title=quote[:120], url=None, note="User quote")
                 )
 
         if not evidence_items:
             for insight in opportunity.get("key_insights", [])[:2]:
                 evidence_items.append(
-                    EvidenceItem(title=insight[:120], url=None, note="模型洞察")
+                    EvidenceItem(title=insight[:120], url=None, note="Model insight")
                 )
 
         confidence = float(opportunity.get("relevance_score", 0.6))

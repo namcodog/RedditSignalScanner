@@ -297,19 +297,30 @@ class RedditAPIClient:
                     await self.authenticate()
                     continue
                 if response.status >= 500:
-                    text = await response.text()
+                    # P3-5 修复: 不暴露 Reddit API 原始错误文本
+                    logger.error(
+                        "Reddit API server error: status=%s, url=%s",
+                        response.status,
+                        url,
+                    )
                     raise RedditAPIError(
-                        f"Reddit API unavailable (status={response.status}): {text}"
+                        f"Reddit API temporarily unavailable (status={response.status})"
                     )
                 if response.status >= 400:
-                    text = await response.text()
+                    # P3-5 修复: 不暴露 Reddit API 原始错误文本
+                    logger.warning(
+                        "Reddit API client error: status=%s, url=%s",
+                        response.status,
+                        url,
+                    )
                     raise RedditAPIError(
-                        f"Reddit API error (status={response.status}): {text}"
+                        f"Reddit API request failed (status={response.status})"
                     )
                 try:
                     payload: Dict[str, Any] = await response.json()
                 except Exception as exc:  # pragma: no cover - defensive guard
-                    last_error = RedditAPIError(f"Invalid JSON response: {exc}")
+                    logger.error("Invalid JSON response from Reddit API: %s", exc)
+                    last_error = RedditAPIError("Invalid response format from Reddit API")
                 else:
                     return payload
 

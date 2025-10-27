@@ -23,7 +23,7 @@ export interface ReportMetadata {
   /** 总提及数 */
   total_mentions: number;
   /** 应用的恢复策略（可选，字符串标识） */
-  recovery_applied?: string;
+  recovery_applied?: string | undefined;
   /** 降级质量信息（仅在使用恢复策略时存在） */
-  fallback_quality?: FallbackQuality;
+  fallback_quality?: FallbackQuality | undefined;
 }

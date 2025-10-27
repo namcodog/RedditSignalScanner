@@ -123,7 +123,9 @@ describe('reportResponseSchema 契约', () => {
 
   it('应该拒绝小数格式的相关性指标', () => {
     const invalid = buildValidPayload();
-    invalid.overview.top_communities[0].relevance = 0.91 as unknown as number;
+    if (invalid.overview.top_communities[0]) {
+      invalid.overview.top_communities[0].relevance = 0.91 as unknown as number;
+    }
 
     const result = reportResponseSchema.safeParse(invalid);
     expect(result.success).toBe(false);

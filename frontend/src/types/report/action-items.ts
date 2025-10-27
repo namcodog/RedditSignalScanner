@@ -6,7 +6,7 @@ export interface EvidenceItem {
   /** 证据标题或摘要 */
   title: string;
   /** 证据链接（可能为空） */
-  url?: string | null;
+  url?: string | null | undefined;
   /** 补充说明 */
   note: string;
 }

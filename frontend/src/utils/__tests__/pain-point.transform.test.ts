@@ -19,8 +19,8 @@ describe('normalizePainPoints', () => {
     const normalized = normalizePainPoints(rawPainPoints);
 
     expect(normalized).toHaveLength(1);
-    expect(normalized[0].severity).toBe('high');
-    expect(normalized[0].userExamples).toEqual([
+    expect(normalized[0]?.severity).toBe('high');
+    expect(normalized[0]?.userExamples).toEqual([
       '支付流程太复杂',
       '用户需要多次点击才能完成订单',
     ]);

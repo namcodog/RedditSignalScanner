@@ -70,7 +70,7 @@ describe('AdminDashboardPage', () => {
     vi.clearAllMocks();
     // Setup default mock implementation
     vi.mocked(adminService.adminService.getCommunities).mockResolvedValue(mockCommunities);
-    vi.mocked(adminService.adminService.getAnalysisTasks).mockResolvedValue({ items: [], total: 0, page: 1, page_size: 50 });
+    vi.mocked(adminService.adminService.getAnalysisTasks).mockResolvedValue({ items: [], total: 0 });
   });
 
   it('应该显示页面标题', () => {

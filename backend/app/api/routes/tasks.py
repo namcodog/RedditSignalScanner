@@ -26,11 +26,12 @@ _PROGRESS_MAP: dict[TaskStatus, int] = {
     TaskStatus.FAILED: 0,
 }
 
+# P3-3 修复: 使用英文消息，前端负责国际化
 _MESSAGE_MAP: dict[TaskStatus, str] = {
-    TaskStatus.PENDING: "任务排队中",
-    TaskStatus.PROCESSING: "任务正在处理",
-    TaskStatus.COMPLETED: "分析完成",
-    TaskStatus.FAILED: "任务失败",
+    TaskStatus.PENDING: "Task queued",
+    TaskStatus.PROCESSING: "Task processing",
+    TaskStatus.COMPLETED: "Analysis completed",
+    TaskStatus.FAILED: "Task failed",
 }
 
 

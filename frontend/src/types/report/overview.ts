@@ -19,15 +19,15 @@ export interface TopCommunity {
   /** 相关性百分比 */
   relevance: number;
   /** 社区分类 */
-  category?: string;
+  category?: string | undefined;
   /** 每日帖子数 */
-  daily_posts?: number;
+  daily_posts?: number | undefined;
   /** 平均评论长度 */
-  avg_comment_length?: number;
+  avg_comment_length?: number | undefined;
   /** 是否来自缓存 */
-  from_cache?: boolean;
+  from_cache?: boolean | undefined;
   /** 社区成员数 */
-  members?: number;
+  members?: number | undefined;
 }
 
 export interface Overview {

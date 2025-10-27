@@ -138,7 +138,7 @@ const renderReportPage = (
   }>
 ) => {
   const locale = options?.locale ?? 'zh';
-  const sections = options?.sections;
+  const sections = options?.sections ?? undefined;
 
   return render(
     <TranslationProvider initialLocale={locale}>
