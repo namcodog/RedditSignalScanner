@@ -8,6 +8,7 @@ from uuid import uuid4
 
 import pytest
 
+from app.core.security import hash_password
 from app.models.insight import Evidence, InsightCard
 from app.models.task import Task, TaskStatus
 from app.models.user import MembershipLevel, User
@@ -19,8 +20,8 @@ async def test_export_to_csv_success(tmp_path, db_session):
     from app.services.export.csv_exporter import CSVExportService
 
     user = User(
-        email="csv@example.com",
-        password_hash="hashed",
+        email=f"csv-{uuid4().hex}@example.com",
+        password_hash=hash_password("StrongPassw0rd!"),
         membership_level=MembershipLevel.PRO,
     )
     db_session.add(user)
@@ -76,5 +77,7 @@ async def test_export_to_csv_invalid_task(tmp_path, db_session):
 
     exporter = CSVExportService(db_session, output_dir=Path(tmp_path))
 
-    with pytest.raises(LookupError):
+    from app.services.export.csv_exporter import CSVExportNotFoundError
+
+    with pytest.raises(CSVExportNotFoundError):
         await exporter.export_to_csv(task_id=uuid4(), user_id=uuid4())
