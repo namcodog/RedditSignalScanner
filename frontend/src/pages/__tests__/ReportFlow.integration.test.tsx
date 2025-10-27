@@ -13,6 +13,15 @@ vi.mock('@/components/NavigationBreadcrumb', () => ({
   default: () => <div data-testid="navigation-breadcrumb">Breadcrumb</div>,
 }));
 
+// Mock useToast
+vi.mock('@/components/ui/toast', () => ({
+  useToast: () => ({
+    success: vi.fn(),
+    error: vi.fn(),
+    info: vi.fn(),
+  }),
+}));
+
 const buildReport = (): ReportResponse => ({
   task_id: 'task-123',
   status: 'completed',

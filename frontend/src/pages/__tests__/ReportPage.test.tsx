@@ -23,6 +23,19 @@ vi.mock('@/utils/export', () => ({
   exportToText: vi.fn(),
 }));
 
+// Mock useToast - create mock functions that can be tracked
+const mockToastSuccess = vi.fn();
+const mockToastError = vi.fn();
+const mockToastInfo = vi.fn();
+
+vi.mock('@/components/ui/toast', () => ({
+  useToast: () => ({
+    success: mockToastSuccess,
+    error: mockToastError,
+    info: mockToastInfo,
+  }),
+}));
+
 // Mock NavigationBreadcrumb，保证页面可渲染
 vi.mock('@/components/NavigationBreadcrumb', () => ({
   default: () => <div data-testid="navigation-breadcrumb">Breadcrumb</div>,
@@ -353,7 +366,11 @@ describe('ReportPage', () => {
     await act(async () => {
       await user.click(screen.getByRole('button', { name: '分享' }));
     });
-    expect(await screen.findByText('分享链接已复制')).toBeInTheDocument();
+
+    // Verify toast.success was called with the correct message
+    await waitFor(() => {
+      expect(mockToastSuccess).toHaveBeenCalledWith('分享链接已复制');
+    });
   });
 
   it('允许通过 props 注入新的分区配置', async () => {
