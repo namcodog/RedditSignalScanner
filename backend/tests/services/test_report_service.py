@@ -168,3 +168,243 @@ async def test_report_service_migrates_old_versions() -> None:
     assert payload.metadata.analysis_version == "1.0"
     migrated_pain_point = payload.report.pain_points[0]
     assert migrated_pain_point.severity == "high"
+
+
+@pytest.mark.asyncio
+async def test_version_migration_adds_missing_fields() -> None:
+    """测试版本迁移添加缺失字段"""
+    task_id = uuid4()
+    analysis_id = uuid4()
+
+    # 创建 0.9 版本的数据（缺少 severity, example_posts, user_examples）
+    insights = {
+        "pain_points": [
+            {
+                "description": "性能问题",
+                "frequency": 10,
+                "sentiment_score": -0.8,
+                # 缺少 severity, example_posts, user_examples
+            }
+        ],
+        "competitors": [],
+        "opportunities": [],
+    }
+    sources = {
+        "communities": ["r/programming"],
+        "posts_analyzed": 50,
+        "cache_hit_rate": 0.7,
+        "analysis_duration": 15.5,  # 旧字段名
+        # 缺少 analysis_duration_seconds
+    }
+
+    analysis = FakeAnalysis(
+        id=analysis_id,
+        task_id=task_id,
+        insights=insights,
+        sources=sources,
+        confidence_score=Decimal("0.85"),
+        analysis_version="0.9",
+        created_at=datetime.now(timezone.utc),
+        report=FakeReport(
+            generated_at=datetime.now(timezone.utc),
+            html_content="<html>test</html>",
+        ),
+    )
+
+    task = FakeTask(
+        id=task_id,
+        user_id=uuid4(),
+        status=TaskStatus.COMPLETED,
+        analysis=analysis,
+        product_description="测试产品",
+        user=FakeUser(id=uuid4(), membership_level=MembershipLevel.PRO),
+    )
+
+    repo = FakeRepository(task)
+    config = ReportServiceConfig(
+        community_members={},
+        cache_ttl_seconds=3600,
+        target_analysis_version="1.0",
+    )
+
+    service = ReportService(
+        db=None,  # type: ignore[arg-type]
+        repository=repo,
+        cache=None,
+        config=config,
+    )
+
+    payload = await service.get_report(task.id, task.user_id)
+
+    # 验证版本已升级
+    assert payload.metadata.analysis_version == "1.0"
+
+    # 验证新增字段
+    pain_point = payload.report.pain_points[0]
+    assert pain_point.severity == "high"  # 基于 sentiment_score -0.8
+    assert pain_point.example_posts == []
+    assert pain_point.user_examples == []
+
+
+@pytest.mark.asyncio
+async def test_version_migration_preserves_existing_data() -> None:
+    """测试版本迁移保留现有数据"""
+    task_id = uuid4()
+    analysis_id = uuid4()
+
+    insights = {
+        "pain_points": [
+            {
+                "description": "原有描述",
+                "frequency": 20,
+                "sentiment_score": -0.5,
+            }
+        ],
+        "competitors": [{"name": "竞品A", "mentions": 5}],
+        "opportunities": [{"description": "机会点", "impact": "high"}],
+    }
+    sources = {
+        "communities": ["r/test1", "r/test2"],
+        "posts_analyzed": 100,
+        "cache_hit_rate": 0.9,
+        "analysis_duration": 30.0,
+    }
+
+    analysis = FakeAnalysis(
+        id=analysis_id,
+        task_id=task_id,
+        insights=insights,
+        sources=sources,
+        confidence_score=Decimal("0.9"),
+        analysis_version="0.9",
+        created_at=datetime.now(timezone.utc),
+        report=FakeReport(
+            generated_at=datetime.now(timezone.utc),
+            html_content="<html>preserved</html>",
+        ),
+    )
+
+    task = FakeTask(
+        id=task_id,
+        user_id=uuid4(),
+        status=TaskStatus.COMPLETED,
+        analysis=analysis,
+        product_description="测试产品",
+        user=FakeUser(id=uuid4(), membership_level=MembershipLevel.PRO),
+    )
+
+    repo = FakeRepository(task)
+    config = ReportServiceConfig(
+        community_members={},
+        cache_ttl_seconds=3600,
+        target_analysis_version="1.0",
+    )
+
+    service = ReportService(
+        db=None,  # type: ignore[arg-type]
+        repository=repo,
+        cache=None,
+        config=config,
+    )
+
+    payload = await service.get_report(task.id, task.user_id)
+
+    # 验证原有数据未被破坏
+    assert payload.report.pain_points[0].description == "原有描述"
+    assert payload.report.pain_points[0].frequency == 20
+    assert len(payload.report.competitors) == 1
+    assert len(payload.report.opportunities) == 1
+
+
+@pytest.mark.asyncio
+async def test_version_migration_skips_if_already_target() -> None:
+    """测试如果已经是目标版本则跳过迁移"""
+    task = _build_fake_task(version="1.0")  # 已经是目标版本
+    repo = FakeRepository(task)
+    config = ReportServiceConfig(
+        community_members={},
+        cache_ttl_seconds=3600,
+        target_analysis_version="1.0",
+    )
+
+    service = ReportService(
+        db=None,  # type: ignore[arg-type]
+        repository=repo,
+        cache=None,
+        config=config,
+    )
+
+    payload = await service.get_report(task.id, task.user_id)
+
+    # 版本应保持不变
+    assert payload.metadata.analysis_version == "1.0"
+
+
+@pytest.mark.asyncio
+async def test_severity_classification() -> None:
+    """测试 severity 分类逻辑"""
+    test_cases = [
+        (-0.8, "high"),      # 强负面
+        (-0.5, "medium"),    # 中等负面
+        (-0.2, "low"),       # 轻微负面
+        (0.0, "low"),        # 中性
+        (0.5, "low"),        # 正面（不应该出现在 pain_points，但测试边界）
+    ]
+
+    for sentiment_score, expected_severity in test_cases:
+        task_id = uuid4()
+        insights = {
+            "pain_points": [
+                {
+                    "description": f"测试 {sentiment_score}",
+                    "frequency": 1,
+                    "sentiment_score": sentiment_score,
+                }
+            ],
+            "competitors": [],
+            "opportunities": [],
+        }
+        sources = {
+            "communities": ["r/test"],
+            "posts_analyzed": 10,
+            "cache_hit_rate": 0.5,
+        }
+
+        analysis = FakeAnalysis(
+            id=uuid4(),
+            task_id=task_id,
+            insights=insights,
+            sources=sources,
+            confidence_score=Decimal("0.8"),
+            analysis_version="0.9",
+            created_at=datetime.now(timezone.utc),
+            report=FakeReport(
+                generated_at=datetime.now(timezone.utc),
+                html_content="<html>test</html>",
+            ),
+        )
+
+        task = FakeTask(
+            id=task_id,
+            user_id=uuid4(),
+            status=TaskStatus.COMPLETED,
+            analysis=analysis,
+            user=FakeUser(id=uuid4(), membership_level=MembershipLevel.PRO),
+        )
+
+        repo = FakeRepository(task)
+        config = ReportServiceConfig(
+            community_members={},
+            cache_ttl_seconds=3600,
+            target_analysis_version="1.0",
+        )
+
+        service = ReportService(
+            db=None,  # type: ignore[arg-type]
+            repository=repo,
+            cache=None,
+            config=config,
+        )
+
+        payload = await service.get_report(task.id, task.user_id)
+        assert payload.report.pain_points[0].severity == expected_severity

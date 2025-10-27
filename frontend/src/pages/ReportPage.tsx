@@ -223,7 +223,7 @@ const ReportPage: React.FC<ReportPageProps> = ({ sections }) => {
   }, [taskId, navigate, loadReport]);
 
   const handleExport = useCallback(
-    async (format: 'json' | 'csv' | 'text') => {
+    async (format: 'json' | 'csv' | 'text' | 'pdf') => {
       if (!report || !taskId) return;
 
       setExporting(true);
@@ -235,16 +235,47 @@ const ReportPage: React.FC<ReportPageProps> = ({ sections }) => {
       try {
         await waitForNextFrame();
         setExportStageById('format');
-        switch (format) {
-          case 'json':
-            exportToJSON(report.report, taskId);
-            break;
-          case 'csv':
-            exportToCSV(report.report, taskId);
-            break;
-          case 'text':
-            exportToText(report.report, taskId);
-            break;
+
+        // PDF 格式通过后端 API 下载
+        if (format === 'pdf') {
+          const token = localStorage.getItem('token');
+          if (!token) {
+            throw new Error('未登录');
+          }
+
+          const url = `/api/report/${taskId}/download?format=pdf`;
+          const response = await fetch(url, {
+            headers: {
+              'Authorization': `Bearer ${token}`,
+            },
+          });
+
+          if (!response.ok) {
+            throw new Error(`下载失败: ${response.statusText}`);
+          }
+
+          const blob = await response.blob();
+          const downloadUrl = URL.createObjectURL(blob);
+          const link = document.createElement('a');
+          link.href = downloadUrl;
+          link.download = `reddit-signal-scanner-${taskId}.pdf`;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          URL.revokeObjectURL(downloadUrl);
+        } else {
+          // 其他格式使用客户端导出
+          switch (format) {
+            case 'json':
+              exportToJSON(report.report, taskId);
+              break;
+            case 'csv':
+              exportToCSV(report.report, taskId);
+              break;
+            case 'text':
+              exportToText(report.report, taskId);
+              break;
+          }
         }
 
         setExportStageById('history');
@@ -553,9 +584,9 @@ const ReportPage: React.FC<ReportPageProps> = ({ sections }) => {
                         {t('report.export.options.text')}
                       </button>
                       <button
-                        disabled
+                        onClick={() => handleExport('pdf')}
                         role="menuitem"
-                        className="flex w-full items-center px-4 py-2 text-sm text-muted-foreground opacity-60"
+                        className="flex w-full items-center px-4 py-2 text-sm text-foreground transition hover:bg-muted"
                       >
                         <FileText className="mr-2 h-4 w-4" />
                         {t('report.export.options.pdf')}

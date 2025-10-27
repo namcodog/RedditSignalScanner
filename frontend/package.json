@@ -13,9 +13,12 @@
     "type-check": "tsc --noEmit",
     "format": "prettier --write \"src/**/*.{ts,tsx,json,css,md}\"",
     "format:check": "prettier --check \"src/**/*.{ts,tsx,json,css,md}\"",
-    "test": "vitest",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "test:ui": "vitest --ui",
-    "test:coverage": "vitest --coverage",
+    "test:coverage": "vitest run --coverage",
+    "test:e2e": "vitest run src/tests/e2e-performance.test.ts",
+    "test:all": "vitest run --no-exclude",
     "generate:api": "node scripts/generate-api-client.js"
   },
   "dependencies": {

@@ -72,7 +72,7 @@ class Settings(BaseModel):
     reddit_rate_limit: int = Field(default=60)
     reddit_rate_limit_window_seconds: float = Field(default=60.0)
     reddit_request_timeout_seconds: float = Field(default=30.0)
-    reddit_max_concurrency: int = Field(default=5)
+    reddit_max_concurrency: int = Field(default=3)  # 降低并发以避免多 Worker 场景下超限
     reddit_cache_redis_url: str = Field(default_factory=_default_redis_cache_url)
     reddit_cache_ttl_seconds: int = Field(default=24 * 60 * 60)
     admin_emails_raw: str = Field(default="")
@@ -82,6 +82,7 @@ class Settings(BaseModel):
     report_target_analysis_version: str = Field(default="1.0")
     report_rate_limit_per_minute: int = Field(default=30)
     report_rate_limit_window_seconds: int = Field(default=60)
+    report_export_dir: str = Field(default="reports/exports")
 
     @property
     def cors_origins(self) -> List[str]:
@@ -214,6 +215,10 @@ def get_settings() -> Settings:
                 "REPORT_RATE_LIMIT_WINDOW_SECONDS",
                 Settings.model_fields["report_rate_limit_window_seconds"].default,
             )
+        ),
+        report_export_dir=os.getenv(
+            "REPORT_EXPORT_DIR",
+            Settings.model_fields["report_export_dir"].default,
         ),
         report_community_members_raw=os.getenv(
             "REPORT_COMMUNITY_MEMBERS",

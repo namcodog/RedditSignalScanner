@@ -5,7 +5,8 @@ import time
 from collections import deque
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, HTTPException, Response, status
+from fastapi import APIRouter, Depends, HTTPException, Query, Response, status
+from fastapi.responses import StreamingResponse
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.config import settings
@@ -21,6 +22,7 @@ from app.services.report_service import (
     ReportService,
     ReportServiceError,
 )
+from app.services.report_export_service import ExportFormat, ReportExportService
 
 class SlidingWindowRateLimiter:
     def __init__(self, *, max_requests: int, window_seconds: int) -> None:
@@ -85,6 +87,72 @@ async def get_analysis_report(
         return await service.get_report(task_id, user_id)
     except ReportServiceError as exc:
         raise HTTPException(status_code=exc.status_code, detail=exc.detail) from exc
+
+
+@router.get("/{task_id}/download", summary="Download report in specified format")
+async def download_report(
+    task_id: UUID,
+    format: ExportFormat = Query("pdf", description="Export format: pdf or json"),
+    payload: TokenPayload = Depends(decode_jwt_token),
+    db: AsyncSession = Depends(get_session),
+) -> StreamingResponse:
+    """
+    下载指定格式的报告文件
+
+    - **task_id**: 任务ID
+    - **format**: 导出格式，支持 pdf 或 json
+
+    需要 JWT 认证，并受速率限制保护。
+    """
+    service = ReportService(db, cache=REPORT_CACHE)
+    try:
+        user_id = UUID(payload.sub)
+    except ValueError as exc:  # pragma: no cover - defensive guard
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid access token"
+        ) from exc
+
+    # 速率限制
+    allowed = await REPORT_RATE_LIMITER.allow(payload.sub)
+    if not allowed:
+        raise HTTPException(
+            status_code=status.HTTP_429_TOO_MANY_REQUESTS,
+            detail="Too many report downloads, please wait and try again.",
+        )
+
+    # 获取报告数据
+    try:
+        report = await service.get_report(task_id, user_id)
+    except ReportServiceError as exc:
+        raise HTTPException(status_code=exc.status_code, detail=exc.detail) from exc
+
+    # 生成导出文件
+    try:
+        if format == "pdf":
+            content = ReportExportService.generate_pdf(report)
+            media_type = "application/pdf"
+            filename = f"reddit-signal-scanner-{task_id}.pdf"
+        else:  # json
+            content = ReportExportService.generate_json(report)
+            media_type = "application/json"
+            filename = f"reddit-signal-scanner-{task_id}.json"
+    except RuntimeError as exc:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=str(exc)
+        ) from exc
+
+    # 返回文件流
+    from io import BytesIO
+    return StreamingResponse(
+        BytesIO(content),
+        media_type=media_type,
+        headers={
+            "Content-Disposition": f'attachment; filename="{filename}"',
+            "Content-Length": str(len(content)),
+        },
+    )
 
 
 __all__ = ["router", "REPORT_RATE_LIMITER"]

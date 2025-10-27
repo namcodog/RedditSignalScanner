@@ -314,8 +314,8 @@ describe('ReportPage', () => {
     await act(async () => {
       await user.click(screen.getByRole('button', { name: '导出报告' }));
     });
-    const pdfButton = await screen.findByRole('menuitem', { name: '导出为 PDF（开发中）' });
-    expect(pdfButton).toBeDisabled();
+    const pdfButton = await screen.findByRole('menuitem', { name: '导出为 PDF' });
+    expect(pdfButton).toBeEnabled();
     await act(async () => {
     await user.click(screen.getByRole('menuitem', { name: '导出为 JSON' }));
     });
@@ -390,7 +390,7 @@ describe('ReportPage', () => {
     expect(exportButton).toBeInTheDocument();
     const user = userEvent.setup();
     await user.click(exportButton);
-    const pdfDisabled = await screen.findByRole('menuitem', { name: 'Export as PDF (coming soon)' });
-    expect(pdfDisabled).toBeDisabled();
+    const pdfButton = await screen.findByRole('menuitem', { name: 'Export as PDF' });
+    expect(pdfButton).toBeEnabled();
   });
 });

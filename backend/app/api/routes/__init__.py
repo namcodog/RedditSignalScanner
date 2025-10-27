@@ -12,6 +12,7 @@ from .beta_feedback import router as beta_feedback_router
 from .diagnostics import router as diagnostics_router
 from .insights import router as insights_router
 from .metrics import router as metrics_router
+from .export import router as export_router
 from .reports import router as report_router
 from .stream import router as stream_router
 from .tasks import router as task_router
@@ -28,6 +29,7 @@ __all__ = [
     "diagnostics_router",
     "insights_router",
     "metrics_router",
+    "export_router",
     "report_router",
     "stream_router",
     "task_router",

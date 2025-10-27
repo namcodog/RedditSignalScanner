@@ -1120,10 +1120,18 @@ async def run_analysis(
             )
         except Exception as exc:  # pragma: no cover - defensive fallback
             logger.warning(
-                "Data collection failed; falling back to synthetic data. %s", exc
+                "[降级策略] Data collection from Reddit API failed (error: %s). "
+                "Falling back to synthetic data.",
+                exc,
+                exc_info=True,
             )
             collection_result = None
     else:
+        logger.info(
+            "[降级策略] No Reddit API service available. "
+            "Attempting cache-only collection for %d communities.",
+            len(selected),
+        )
         cache_only_result = await _try_cache_only_collection(selected, settings)
 
     collected: List[CollectedCommunity] = []
@@ -1373,6 +1381,12 @@ async def run_analysis(
 
 def _build_data_collection_service(settings: Settings) -> DataCollectionService | None:
     if not settings.reddit_client_id or not settings.reddit_client_secret:
+        logger.warning(
+            "Reddit credentials missing (client_id=%s, client_secret=%s). "
+            "Will attempt cache-only collection or fallback to synthetic data.",
+            "present" if settings.reddit_client_id else "missing",
+            "present" if settings.reddit_client_secret else "missing",
+        )
         return None
 
     reddit_client = RedditAPIClient(
@@ -1446,7 +1460,11 @@ async def _try_cache_only_collection(
     logger.info(f"[缓存优先] 缓存读取结果: {len(posts_by_subreddit)}/{len(profiles)} 个社区")
 
     if not posts_by_subreddit:
-        logger.warning("[缓存优先] 所有社区缓存未命中，返回None，将使用模拟数据")
+        logger.warning(
+            "[降级策略] 所有社区缓存未命中 (checked %d communities). "
+            "Reddit credentials unavailable. Falling back to synthetic data.",
+            len(profiles),
+        )
         return None
 
     total_posts = sum(len(posts) for posts in posts_by_subreddit.values())
