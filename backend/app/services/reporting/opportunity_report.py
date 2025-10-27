@@ -128,23 +128,24 @@ def build_opportunity_reports(
         confidence = max(0.4, min(confidence + 0.1, 0.95))
         severity: str = str(pain.get("severity")) if pain and pain.get("severity") else "medium"
         urgency = _severity_to_urgency(severity)
+        # P3-3 修复: 使用英文
         product_fit = _score_product_fit(
-            opportunity.get("potential_users", "约0个潜在团队")
+            opportunity.get("potential_users", "~0 potential teams")
         )
         priority = round(confidence * urgency * product_fit, 4)
 
         action_suggestions = [
-            f"聚焦 `{problem_definition}`，采访核心用户验证需求优先级。",
-            f"参考机会点 `{opportunity.get('description', '机会')}` 制定下一步产品实验。",
+            f"Focus on `{problem_definition}`, interview core users to validate priority.",
+            f"Reference opportunity `{opportunity.get('description', 'opportunity')}` to design next product experiment.",
         ]
         if pain:
             action_suggestions.append(
-                f"追踪社区 `{pain['example_posts'][0]['community']}` 的后续讨论，评估迭代反馈。"
+                f"Track community `{pain['example_posts'][0]['community']}` for follow-up discussions and iteration feedback."
                 if pain.get("example_posts")
-                else "继续监控相关社区话题走势。"
+                else "Continue monitoring relevant community topics."
             )
 
-        problem_def_str: str = str(problem_definition) if problem_definition else "未知问题"
+        problem_def_str: str = str(problem_definition) if problem_definition else "Unknown problem"
         reports.append(
             OpportunityReport(
                 problem_definition=problem_def_str,
