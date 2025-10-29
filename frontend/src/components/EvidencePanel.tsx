@@ -103,11 +103,18 @@ export default function EvidencePanel({ evidences, pageSize = 10 }: EvidencePane
                   <div className="h-2 w-16 rounded-full bg-muted">
                     <div
                       className="h-full rounded-full bg-secondary transition-all"
-                      style={{ width: `${evidence.score * 100}%` }}
+                      style={{
+                        width: `${Math.min(
+                          100,
+                          Math.max(0, (evidence.score ?? 0) * 100)
+                        )}%`,
+                      }}
                     />
                   </div>
                   <span className="text-xs font-medium text-foreground">
-                    {(evidence.score * 100).toFixed(0)}%
+                    {evidence.score != null
+                      ? `${(evidence.score * 100).toFixed(0)}%`
+                      : '待定'}
                   </span>
                 </div>
               </div>
@@ -186,4 +193,3 @@ export default function EvidencePanel({ evidences, pageSize = 10 }: EvidencePane
     </div>
   );
 }
-

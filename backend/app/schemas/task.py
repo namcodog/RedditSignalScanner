@@ -89,3 +89,11 @@ class TaskStatsResponse(ORMModel):
     total_tasks: int = Field(
         ge=0, description="Aggregate of active, reserved, and scheduled tasks"
     )
+
+
+
+class TaskDiagResponse(ORMModel):
+    """运行时配置诊断响应"""
+
+    has_reddit_client: bool = Field(description="Reddit API 客户端是否配置")
+    environment: str = Field(description="运行环境（development/production）")

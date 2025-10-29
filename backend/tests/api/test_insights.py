@@ -4,6 +4,7 @@ import sys
 import uuid
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
+from typing import TYPE_CHECKING
 
 import jwt
 import pytest
@@ -17,9 +18,9 @@ if str(BACKEND_PACKAGE_ROOT) not in sys.path:
 
 from app.core.config import get_settings
 from app.core.security import hash_password
-from app.models.insight import InsightCard
-from app.models.task import Task, TaskStatus
-from app.models.user import User
+
+# NOTE: ORM models are imported inside test functions to avoid RecursionError
+# during pytest setup. See: https://github.com/pydantic/pydantic/issues/5108
 
 settings = get_settings()
 
@@ -36,6 +37,11 @@ def _issue_token(user_id: str) -> str:
 async def test_get_insights_filters_by_min_confidence(
     client: AsyncClient, db_session: AsyncSession
 ) -> None:
+    # Lazy import to avoid RecursionError
+    from app.models.insight import InsightCard
+    from app.models.task import Task, TaskStatus
+    from app.models.user import User
+
     # Arrange: create user and task
     user = User(
         email=f"test-insights-{uuid.uuid4().hex}@example.com",
@@ -89,7 +95,7 @@ async def test_get_insights_filters_by_min_confidence(
 
     # Act: fetch with a confidence filter that should return only the highest card
     response = await client.get(
-        "/api/insights",
+        f"/api/insights/{task.id}",
         params={"min_confidence": 0.6},
         headers={"Authorization": f"Bearer {token}"},
     )
@@ -101,10 +107,11 @@ async def test_get_insights_filters_by_min_confidence(
     assert len(payload["items"]) == 1
     assert payload["items"][0]["confidence"] >= 0.6
     assert payload["items"][0]["title"] == "High confidence insight"
+    assert payload["items"][0]["time_window"] == "过去 30 天"
 
     # Act again without filter – should return all cards
     response_all = await client.get(
-        "/api/insights",
+        f"/api/insights/{task.id}",
         headers={"Authorization": f"Bearer {token}"},
     )
     assert response_all.status_code == 200
@@ -118,6 +125,10 @@ async def test_get_insights_filters_by_subreddit(
     client: AsyncClient, db_session: AsyncSession
 ) -> None:
     """当请求附带 subreddit 参数时，仅返回对应子版块的洞察。"""
+    # Lazy import to avoid RecursionError
+    from app.models.insight import InsightCard
+    from app.models.task import Task, TaskStatus
+    from app.models.user import User
 
     user = User(
         email=f"test-subreddit-{uuid.uuid4().hex}@example.com",
@@ -159,8 +170,8 @@ async def test_get_insights_filters_by_subreddit(
     token = _issue_token(str(user.id))
 
     response = await client.get(
-        "/api/insights",
-        params={"task_id": str(task.id), "subreddit": "r/startups"},
+        f"/api/insights/{task.id}",
+        params={"subreddit": "r/startups"},
         headers={"Authorization": f"Bearer {token}"},
     )
 
@@ -173,8 +184,7 @@ async def test_get_insights_filters_by_subreddit(
 
     # 不传参数应返回全部记录
     response_all = await client.get(
-        "/api/insights",
-        params={"task_id": str(task.id)},
+        f"/api/insights/{task.id}",
         headers={"Authorization": f"Bearer {token}"},
     )
     assert response_all.status_code == 200

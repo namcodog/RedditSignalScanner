@@ -44,11 +44,11 @@ const overviewSchema = z.object({
       name: z.string(),
       mentions: nonNegativeInt,
       relevance: percentageInt,
-      category: z.string().optional(),
-      daily_posts: nonNegativeInt.optional(),
-      avg_comment_length: nonNegativeInt.optional(),
-      from_cache: z.boolean().optional(),
-      members: nonNegativeInt.optional(),
+      category: z.string().nullish(),
+      daily_posts: nonNegativeInt.nullish(),
+      avg_comment_length: nonNegativeInt.nullish(),
+      from_cache: z.boolean().nullish(),
+      members: nonNegativeInt.nullish(),
     }),
   ),
 });
@@ -59,14 +59,14 @@ const reportMetadataSchema = z.object({
   processing_time_seconds: z.number().min(0),
   cache_hit_rate: boundedProbability,
   total_mentions: nonNegativeInt,
-  recovery_applied: z.string().optional(),
+  recovery_applied: z.string().nullish(),
   fallback_quality: z
     .object({
       cache_coverage: boundedProbability,
       data_freshness_hours: z.number().min(0),
       estimated_accuracy: boundedProbability,
     })
-    .optional(),
+    .nullish(),
 });
 
 const painPointSchema = z.object({
@@ -77,11 +77,11 @@ const painPointSchema = z.object({
   example_posts: z.array(
     z.object({
       community: z.string(),
-      content: z.string().optional(),
-      upvotes: nonNegativeInt.optional(),
-      url: z.string().optional(),
-      author: z.string().optional(),
-      permalink: z.string().optional(),
+      content: z.string().nullish(),
+      upvotes: nonNegativeInt.nullish(),
+      url: z.string().nullish(),
+      author: z.string().nullish(),
+      permalink: z.string().nullish(),
     }),
   ),
   user_examples: z.array(z.string()),
@@ -93,7 +93,7 @@ const competitorSchema = z.object({
   sentiment: z.string(),
   strengths: z.array(z.string()),
   weaknesses: z.array(z.string()),
-  market_share: z.number().min(0).max(100).optional(),
+  market_share: z.number().min(0).max(100).nullish(),
 });
 
 const opportunitySchema = z.object({
@@ -103,20 +103,32 @@ const opportunitySchema = z.object({
   key_insights: z.array(z.string()),
 });
 
+const entityMatchSchema = z.object({
+  name: z.string(),
+  mentions: nonNegativeInt,
+});
+
+const entitySummarySchema = z.object({
+  brands: z.array(entityMatchSchema),
+  features: z.array(entityMatchSchema),
+  pain_points: z.array(entityMatchSchema),
+});
+
 const reportContentSchema = z.object({
   executive_summary: executiveSummarySchema,
   pain_points: z.array(painPointSchema),
   competitors: z.array(competitorSchema),
   opportunities: z.array(opportunitySchema),
   action_items: z.array(actionItemSchema),
+  entity_summary: entitySummarySchema,
 });
 
 export const reportResponseSchema = z.object({
   task_id: z.string(),
   status: z.string(),
   generated_at: z.string(),
-  product_description: z.string().optional(),
-  report_html: z.string().optional(),
+  product_description: z.string().nullish(),
+  report_html: z.string().nullish(),
   report: reportContentSchema,
   metadata: reportMetadataSchema,
   overview: overviewSchema,

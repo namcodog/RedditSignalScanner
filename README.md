@@ -2,7 +2,7 @@
 
 > **项目状态**: ✅ **Phase 0-3 已完成，E2E 测试通过**
 > **创建日期**: 2025-10-10
-> **最后更新**: 2025-10-21
+> **最后更新**: 2025-10-28
 > **当前版本**: v0.9.0 (MVP 核心功能完成)
 > **质量承诺**: 100% PRD符合度 + Linus设计哲学 + 类型安全零容忍
 
@@ -16,6 +16,11 @@ Reddit Signal Scanner 是一个智能商业洞察工具，帮助产品创始人�
 - 💡 商业机会（Opportunities）
 
 **核心承诺**: 30秒输入，5分钟分析，找到目标客户的真实声音。
+
+### 🆕 最新更新（2025-10-28）
+
+- 新增 `make local-acceptance` 一键验收脚本：自动校验 Redis/Celery/后端/前端健康状态，并跑通注册→分析→报告→导出全链路。
+- 报告页面支持“关键实体”标签页，基于实体词典汇总品牌、功能与痛点命中度，辅助产品经理快速确认线索。
 
 ### 📊 当前项目状态
 
@@ -98,6 +103,7 @@ python scripts/start_celery_worker.py
 | `make test-e2e` | 运行端到端测试（需Redis + Celery + Backend） |
 | `make test-admin-e2e` | 验证Admin端到端流程（需配置`ADMIN_EMAILS`） |
 | `make celery-start` | 启动 Celery Worker |
+| `make local-acceptance` | 一键执行本地验收脚本并生成 Markdown 报告 |
 | `make db-upgrade` | 升级数据库到最新版本 |
 | `make clean` | 清理所有生成文件 |
 | `make deploy-checklist` | （待实现）部署前Checklist占位 |

@@ -13,6 +13,25 @@ import { ToastProvider } from '@/components/ui/toast';
 
 console.log('[main.tsx] Starting application');
 
+/**
+ * 迁移旧的 localStorage token key
+ * 从 'token' 迁移到 'auth_token'
+ */
+const migrateTokenKey = (): void => {
+  const oldToken = localStorage.getItem('token');
+  const newToken = localStorage.getItem('auth_token');
+
+  // 如果存在旧 token 但没有新 token，则迁移
+  if (oldToken && !newToken) {
+    console.log('[main.tsx] Migrating token from "token" to "auth_token"');
+    localStorage.setItem('auth_token', oldToken);
+    localStorage.removeItem('token');
+  }
+};
+
+// 执行迁移
+migrateTokenKey();
+
 const rootElement = document.getElementById('root');
 
 if (rootElement === null) {

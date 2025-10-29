@@ -39,3 +39,15 @@ export {
   isAuthenticated,
 } from './auth.api';
 
+// 质量指标 API
+export {
+  getDailyMetrics,
+  getRecentMetrics,
+} from './metrics';
+
+// 洞察卡片 API
+export {
+  getInsights,
+  getInsightById,
+} from './insights';
+export type { GetInsightsParams } from './insights';

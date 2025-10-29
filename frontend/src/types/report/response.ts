@@ -8,6 +8,7 @@ import type { ActionItem } from './action-items';
 import type { ReportMetadata } from './metadata';
 import type { Overview } from './overview';
 import type { Stats } from './stats';
+import type { EntitySummary } from './entity';
 
 export interface ReportResponse {
   /** 任务 ID (UUID) */
@@ -29,6 +30,7 @@ export interface ReportResponse {
     competitors: Insights['competitors'];
     opportunities: Insights['opportunities'];
     action_items: ActionItem[];
+    entity_summary: EntitySummary;
   };
   /** 报告元数据 */
   metadata: ReportMetadata;

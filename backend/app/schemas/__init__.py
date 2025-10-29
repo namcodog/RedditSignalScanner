@@ -1,6 +1,7 @@
 from app.schemas.analysis import (
     AnalysisRead,
     CompetitorSignal,
+    EntitySummary,
     InsightsPayload,
     OpportunitySignal,
     PainPoint,
@@ -18,8 +19,8 @@ from app.schemas.community_pool import (
     DiscoveredCommunityUpdate,
     WarmupMetrics,
 )
-from app.schemas.insights import (
-    EvidenceResponse,
+from app.schemas.insight import (
+    EvidenceItem,
     InsightCardListResponse,
     InsightCardResponse,
 )
@@ -49,6 +50,7 @@ __all__ = [
     "OpportunitySignal",
     "InsightsPayload",
     "SourcesPayload",
+    "EntitySummary",
     "ReportRead",
     "ReportResponse",
     "CommunityCacheRead",
@@ -62,6 +64,6 @@ __all__ = [
     "CommunityDiscoveryResponse",
     "WarmupMetrics",
     "InsightCardResponse",
-    "EvidenceResponse",
+    "EvidenceItem",
     "InsightCardListResponse",
 ]

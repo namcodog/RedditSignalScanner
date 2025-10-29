@@ -17,6 +17,8 @@ class ExamplePost(ORMModel):
     url: Optional[str] = None
     author: Optional[str] = None
     permalink: Optional[str] = None
+    duplicate_ids: Optional[list[str]] = Field(default_factory=list)
+    evidence_count: Optional[int] = Field(default=None, ge=0)
 
 
 class PainPoint(ORMModel):
@@ -35,6 +37,7 @@ class CompetitorSignal(ORMModel):
     strengths: list[str] = Field(default_factory=list)
     weaknesses: list[str] = Field(default_factory=list)
     market_share: Optional[float] = Field(default=None, ge=0.0, le=100.0)
+    context_snippets: Optional[list[str]] = Field(default_factory=list)
 
 
 class OpportunitySignal(ORMModel):
@@ -42,6 +45,26 @@ class OpportunitySignal(ORMModel):
     relevance_score: float = Field(ge=0.0, le=1.0)
     potential_users: str
     key_insights: list[str] = Field(default_factory=list)
+    source_examples: Optional[list[dict[str, Any]]] = Field(default_factory=list)
+
+
+class EntityMatch(ORMModel):
+    name: str
+    mentions: int = Field(ge=1)
+
+
+class EntitySummary(ORMModel):
+    brands: list[EntityMatch] = Field(default_factory=list)
+    features: list[EntityMatch] = Field(default_factory=list)
+    pain_points: list[EntityMatch] = Field(default_factory=list)
+
+
+class InsightsPayload(ORMModel):
+    pain_points: list[PainPoint]
+    competitors: list[CompetitorSignal]
+    opportunities: list[OpportunitySignal]
+    action_items: list["OpportunityReportOut"] = Field(default_factory=list)
+    entity_summary: EntitySummary = Field(default_factory=EntitySummary)
 
 
 class CommunitySourceDetail(ORMModel):
@@ -52,13 +75,6 @@ class CommunitySourceDetail(ORMModel):
     avg_comment_length: int = Field(ge=0)
     cache_hit_rate: float = Field(ge=0.0, le=1.0)
     from_cache: bool = False
-
-
-class InsightsPayload(ORMModel):
-    pain_points: list[PainPoint]
-    competitors: list[CompetitorSignal]
-    opportunities: list[OpportunitySignal]
-    action_items: list["OpportunityReportOut"] = Field(default_factory=list)
 
 
 class EvidenceItemOut(ORMModel):
@@ -87,6 +103,8 @@ class SourcesPayload(ORMModel):
     communities_detail: Optional[list[CommunitySourceDetail]] = None
     recovery_strategy: Optional[str] = None
     fallback_quality: Optional[dict[str, Any]] = None
+    dedup_stats: Optional[dict[str, Any]] = None
+    duplicates_summary: Optional[list[dict[str, Any]]] = Field(default_factory=list)
 
 
 class AnalysisRead(ORMModel):

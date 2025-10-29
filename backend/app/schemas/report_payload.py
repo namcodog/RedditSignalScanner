@@ -10,6 +10,7 @@ from app.models.task import TaskStatus
 from app.schemas.analysis import (
     CommunitySourceDetail,
     CompetitorSignal,
+    EntitySummary,
     OpportunityReportOut,
     OpportunitySignal,
     PainPoint,
@@ -74,6 +75,7 @@ class ReportContent(ORMModel):
     competitors: list[CompetitorSignal] = Field(default_factory=list)
     opportunities: list[OpportunitySignal] = Field(default_factory=list)
     action_items: list[OpportunityReportOut] = Field(default_factory=list)
+    entity_summary: EntitySummary = Field(default_factory=EntitySummary)
 
 
 class ReportPayload(ORMModel):

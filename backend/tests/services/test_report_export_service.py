@@ -9,17 +9,17 @@ from uuid import uuid4
 
 import pytest
 
+from app.models.task import TaskStatus
 from app.schemas.report_payload import (
-    ReportPayload,
     ReportContent,
+    ReportExecutiveSummary,
     ReportMetadata,
     ReportOverview,
+    ReportPayload,
     ReportStats,
-    ReportExecutiveSummary,
     SentimentBreakdown,
     TopCommunity,
 )
-from app.models.task import TaskStatus
 from app.services.report_export_service import ReportExportService
 
 
@@ -28,7 +28,7 @@ def sample_report() -> ReportPayload:
     """创建示例报告数据"""
     task_id = uuid4()
     now = datetime.now(timezone.utc)
-    
+
     return ReportPayload(
         task_id=task_id,
         status=TaskStatus.COMPLETED,
@@ -45,6 +45,11 @@ def sample_report() -> ReportPayload:
             competitors=[],
             opportunities=[],
             action_items=[],
+            entity_summary={
+                "brands": [{"name": "Notion", "mentions": 3}],
+                "features": [{"name": "automation", "mentions": 2}],
+                "pain_points": [],
+            },
         ),
         metadata=ReportMetadata(
             analysis_version="1.0",
@@ -75,10 +80,10 @@ def sample_report() -> ReportPayload:
 def test_generate_json(sample_report: ReportPayload) -> None:
     """测试 JSON 导出"""
     result = ReportExportService.generate_json(sample_report)
-    
+
     assert isinstance(result, bytes)
     assert len(result) > 0
-    
+
     # 验证可以解析为 JSON
     data = json.loads(result.decode("utf-8"))
     assert "task_id" in data
@@ -86,12 +91,15 @@ def test_generate_json(sample_report: ReportPayload) -> None:
     assert "report" in data
 
 
-def test_generate_pdf_without_weasyprint(sample_report: ReportPayload, monkeypatch) -> None:
+def test_generate_pdf_without_weasyprint(
+    sample_report: ReportPayload, monkeypatch
+) -> None:
     """测试没有 WeasyPrint 时的错误处理"""
     # 模拟 WeasyPrint 不可用
     import app.services.report_export_service as module
+
     monkeypatch.setattr(module, "WEASYPRINT_AVAILABLE", False)
-    
+
     with pytest.raises(RuntimeError, match="WeasyPrint is not installed"):
         ReportExportService.generate_pdf(sample_report)
 
@@ -100,11 +108,10 @@ def test_generate_html_fallback(sample_report: ReportPayload) -> None:
     """测试 HTML 生成（备用方案）"""
     # 移除 report_html 以触发备用方案
     sample_report.report_html = None
-    
+
     html = ReportExportService._generate_html(sample_report)
-    
+
     assert isinstance(html, str)
     assert "<!DOCTYPE html>" in html
     assert "测试产品" in html
     assert str(sample_report.task_id) in html
-

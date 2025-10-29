@@ -12,7 +12,6 @@ from app.core.config import get_settings
 from app.services.analysis_engine import AnalysisResult
 from app.tasks import analysis_task
 
-
 SampleInsights = {
     "pain_points": [
         {
@@ -122,22 +121,63 @@ SampleInsights = {
             "priority": 0.88,
         }
     ],
+    "entity_summary": {
+        "brands": [
+            {"name": "Notion AI", "mentions": 3},
+            {"name": "Coda", "mentions": 2},
+        ],
+        "features": [
+            {"name": "automation", "mentions": 4},
+            {"name": "workflow", "mentions": 3},
+        ],
+        "pain_points": [
+            {"name": "slow", "mentions": 2},
+        ],
+    },
 }
 
 SampleCommunities = [
-    {"name": "r/startups", "mentions": 32, "cache_hit_rate": 0.95, "categories": ["startup"], "daily_posts": 185, "avg_comment_length": 72, "from_cache": True},
-    {"name": "r/ProductManagement", "mentions": 24, "cache_hit_rate": 0.92, "categories": ["product"], "daily_posts": 96, "avg_comment_length": 85, "from_cache": True},
-    {"name": "r/technology", "mentions": 20, "cache_hit_rate": 0.88, "categories": ["tech"], "daily_posts": 320, "avg_comment_length": 42, "from_cache": False},
+    {
+        "name": "r/startups",
+        "mentions": 32,
+        "cache_hit_rate": 0.95,
+        "categories": ["startup"],
+        "daily_posts": 185,
+        "avg_comment_length": 72,
+        "from_cache": True,
+    },
+    {
+        "name": "r/ProductManagement",
+        "mentions": 24,
+        "cache_hit_rate": 0.92,
+        "categories": ["product"],
+        "daily_posts": 96,
+        "avg_comment_length": 85,
+        "from_cache": True,
+    },
+    {
+        "name": "r/technology",
+        "mentions": 20,
+        "cache_hit_rate": 0.88,
+        "categories": ["tech"],
+        "daily_posts": 320,
+        "avg_comment_length": 42,
+        "from_cache": False,
+    },
 ]
 
 
-def install_fast_analysis(monkeypatch, *, cache_stats: Dict[str, int] | None = None) -> None:
+def install_fast_analysis(
+    monkeypatch, *, cache_stats: Dict[str, int] | None = None
+) -> None:
     """
     Replace the heavy analysis pipeline with a deterministic stub so end-to-end tests
     can execute quickly while still validating the PRD contract.
     """
 
-    async def fast_run_analysis(summary) -> AnalysisResult:  # pragma: no cover - exercised via e2e tests
+    async def fast_run_analysis(
+        summary,
+    ) -> AnalysisResult:  # pragma: no cover - exercised via e2e tests
         if cache_stats is not None:
             cache_stats.setdefault("total", 0)
             cache_stats.setdefault("hits", 0)
@@ -189,8 +229,13 @@ async def wait_for_task_completion(
                 raise TimeoutError(
                     f"Task {task_id} failed before reaching status '{expected_status}'; last payload: {payload}"
                 )
-            if expected_status == "completed" and payload["status"] in {"pending", "processing"}:
-                report_response = await client.get(f"/api/report/{task_id}", headers=headers)
+            if expected_status == "completed" and payload["status"] in {
+                "pending",
+                "processing",
+            }:
+                report_response = await client.get(
+                    f"/api/report/{task_id}", headers=headers
+                )
                 if report_response.status_code == 200:
                     payload["status"] = "completed"
                     return payload

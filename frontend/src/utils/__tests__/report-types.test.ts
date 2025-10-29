@@ -10,6 +10,7 @@ import type { Stats } from '@/types/report/stats';
 import type { ExecutiveSummary } from '@/types/report/executive';
 import type { ActionItem } from '@/types/report/action-items';
 import type { ReportResponse } from '@/types/report';
+import type { EntitySummary } from '@/types/report/entity';
 
 describe('report 类型模块', () => {
   it('暴露核心类型以便页面复用', () => {
@@ -19,6 +20,7 @@ describe('report 类型模块', () => {
       report: {
         executive_summary: ExecutiveSummary;
         action_items: ActionItem[];
+        entity_summary: EntitySummary;
       };
     }>();
   });

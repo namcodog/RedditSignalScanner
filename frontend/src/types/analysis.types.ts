@@ -5,6 +5,8 @@
  * 最后更新: 2025-10-11 Day 5
  */
 
+import type { EntitySummary } from './report';
+
 /**
  * 情感倾向枚举
  */
@@ -118,6 +120,9 @@ export interface Insights {
   
   /** 机会列表 */
   opportunities: Opportunity[];
+
+  /** 实体匹配摘要 */
+  entity_summary?: EntitySummary;
 }
 
 /**

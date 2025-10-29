@@ -188,6 +188,40 @@ export const handlers = [
             ],
           },
         ],
+        action_items: [
+          {
+            problem_definition: '价格敏感用户流失严重',
+            evidence_chain: [
+              {
+                title: '多社区反馈价格问题',
+                url: 'https://reddit.com/r/productivity/example1',
+                note: '产品讨论区 · 156 赞',
+              },
+            ],
+            suggested_actions: [
+              '推出基础功能的入门套餐',
+              '提供年度订阅折扣以提升留存',
+            ],
+            confidence: 0.82,
+            urgency: 0.74,
+            product_fit: 0.8,
+            priority: 0.4864,
+          },
+        ],
+        entity_summary: {
+          brands: [
+            { name: 'Notion', mentions: 6 },
+            { name: 'Trello', mentions: 4 },
+          ],
+          features: [
+            { name: 'automation', mentions: 5 },
+            { name: 'templates', mentions: 3 },
+          ],
+          pain_points: [
+            { name: 'expensive', mentions: 7 },
+            { name: 'slow', mentions: 3 },
+          ],
+        },
       },
       metadata: {
         analysis_version: '1.0',
@@ -279,4 +313,3 @@ export function setupMockServer() {
   afterEach(() => server.resetHandlers());
   afterAll(() => server.close());
 }
-

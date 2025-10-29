@@ -69,6 +69,11 @@ describe('Export Utils', () => {
           priority: 0.42,
         },
       ],
+      entity_summary: {
+        brands: [{ name: 'Notion', mentions: 3 }],
+        features: [{ name: 'automation', mentions: 2 }],
+        pain_points: [{ name: 'expensive', mentions: 1 }],
+      },
     };
 
     // Mock DOM APIs

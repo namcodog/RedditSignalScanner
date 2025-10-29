@@ -70,6 +70,11 @@ const sampleResponse = reportResponseSchema.parse({
         priority: 0.42,
       },
     ],
+    entity_summary: {
+      brands: [{ name: 'CompetitorX', mentions: 3 }],
+      features: [{ name: 'cache', mentions: 2 }],
+      pain_points: [{ name: 'slow', mentions: 2 }],
+    },
   },
   metadata: {
     analysis_version: '1.0',

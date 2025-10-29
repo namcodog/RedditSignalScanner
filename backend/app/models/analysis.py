@@ -54,6 +54,9 @@ class Analysis(Base):
     )
     insights: Mapped[Dict[str, Any]] = mapped_column(JSONB, nullable=False)
     sources: Mapped[Dict[str, Any]] = mapped_column(JSONB, nullable=False)
+    action_items: Mapped[Dict[str, Any] | None] = mapped_column(
+        JSONB, nullable=True, default=None
+    )
     confidence_score: Mapped[Decimal | None] = mapped_column(
         Numeric(3, 2), nullable=True
     )

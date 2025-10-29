@@ -83,6 +83,7 @@ class Settings(BaseModel):
     report_rate_limit_per_minute: int = Field(default=30)
     report_rate_limit_window_seconds: int = Field(default=60)
     report_export_dir: str = Field(default="reports/exports")
+    default_membership_level: str = Field(default="free")
 
     @property
     def cors_origins(self) -> List[str]:
@@ -227,6 +228,10 @@ def get_settings() -> Settings:
         report_target_analysis_version=os.getenv(
             "REPORT_TARGET_ANALYSIS_VERSION",
             Settings.model_fields["report_target_analysis_version"].default,
+        ),
+        default_membership_level=os.getenv(
+            "DEFAULT_MEMBERSHIP_LEVEL",
+            Settings.model_fields["default_membership_level"].default,
         ),
     )
 

@@ -68,7 +68,12 @@ async def register_user(
 
     password_hash = hash_password(request.password)
 
-    membership = MembershipLevel.ensure(request.membership_level)
+    # Use request membership level if provided, otherwise use config default
+    if request.membership_level is not None:
+        membership = MembershipLevel.ensure(request.membership_level)
+    else:
+        membership = MembershipLevel.ensure(settings.default_membership_level)
+
     user = User(
         email=email,
         password_hash=password_hash,

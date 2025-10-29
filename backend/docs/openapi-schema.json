@@ -322,9 +322,71 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "title": "Response Get Analysis Report Api Report  Task Id  Get"
+                  "$ref": "#/components/schemas/ReportPayload"
                 }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/report/{task_id}/download": {
+      "get": {
+        "tags": [
+          "analysis"
+        ],
+        "summary": "Download report in specified format",
+        "description": "下载指定格式的报告文件\n\n- **task_id**: 任务ID\n- **format**: 导出格式，支持 pdf 或 json\n\n需要 JWT 认证，并受速率限制保护。",
+        "operationId": "download_report_api_report__task_id__download_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "task_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Task Id"
+            }
+          },
+          {
+            "name": "format",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "enum": [
+                "pdf",
+                "json"
+              ],
+              "type": "string",
+              "description": "Export format: pdf or json",
+              "default": "pdf",
+              "title": "Format"
+            },
+            "description": "Export format: pdf or json"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
               }
             }
           },
@@ -381,18 +443,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "additionalProperties": {
-                    "anyOf": [
-                      {
-                        "type": "string"
-                      },
-                      {
-                        "type": "boolean"
-                      }
-                    ]
-                  },
-                  "type": "object",
-                  "title": "Response Tasks Diag Api Tasks Diag Get"
+                  "$ref": "#/components/schemas/TaskDiagResponse"
                 }
               }
             }
@@ -749,6 +800,132 @@
         }
       }
     },
+    "/api/admin/communities/template": {
+      "get": {
+        "tags": [
+          "admin"
+        ],
+        "summary": "下载社区导入 Excel 模板",
+        "description": "向管理员下发最新的 Excel 模板，包含样例与字段提示。\n\n注意：此端点无需登录鉴权，适用于单用户本地部署场景。",
+        "operationId": "download_template_api_admin_communities_template_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/communities/import": {
+      "post": {
+        "tags": [
+          "admin"
+        ],
+        "summary": "上传并导入社区信息",
+        "description": "接收管理员上传的 Excel 并将社区写入社区池，支持 dry-run 验证模式。\n\n注意：此端点无需登录鉴权，适用于单用户本地部署场景。",
+        "operationId": "import_communities_api_admin_communities_import_post",
+        "parameters": [
+          {
+            "name": "dry_run",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "description": "仅验证（不写入数据库）。true=仅验证，false=写入。",
+              "default": false,
+              "title": "Dry Run"
+            },
+            "description": "仅验证（不写入数据库）。true=仅验证，false=写入。"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_import_communities_api_admin_communities_import_post"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Response Import Communities Api Admin Communities Import Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/communities/import-history": {
+      "get": {
+        "tags": [
+          "admin"
+        ],
+        "summary": "查询社区导入历史",
+        "description": "返回最近的导入历史记录，便于审计与回溯。\n\n注意：此端点无需登录鉴权，适用于单用户本地部署场景。",
+        "operationId": "get_import_history_api_admin_communities_import_history_get",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 200,
+              "minimum": 1,
+              "description": "返回的历史记录数量",
+              "default": 50,
+              "title": "Limit"
+            },
+            "description": "返回的历史记录数量"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Response Get Import History Api Admin Communities Import History Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/admin/communities/pool": {
       "get": {
         "tags": [
@@ -979,14 +1156,14 @@
         }
       }
     },
-    "/api/insights": {
+    "/api/insights/{task_id}": {
       "get": {
         "tags": [
           "insights"
         ],
-        "summary": "获取洞察卡片列表",
-        "description": "根据任务 ID 或实体过滤器获取洞察卡片列表",
-        "operationId": "get_insights_api_insights_get",
+        "summary": "获取指定任务的洞察卡片列表",
+        "description": "根据任务 ID 返回结构化洞察卡片，支持置信度和子版块过滤。",
+        "operationId": "list_insights_by_task_api_insights__task_id__get",
         "security": [
           {
             "HTTPBearer": []
@@ -995,40 +1172,13 @@
         "parameters": [
           {
             "name": "task_id",
-            "in": "query",
-            "required": false,
+            "in": "path",
+            "required": true,
             "schema": {
-              "anyOf": [
-                {
-                  "type": "string",
-                  "format": "uuid"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "任务 ID",
+              "type": "string",
+              "format": "uuid",
               "title": "Task Id"
-            },
-            "description": "任务 ID"
-          },
-          {
-            "name": "entity_filter",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "实体过滤器（暂未实现）",
-              "title": "Entity Filter"
-            },
-            "description": "实体过滤器（暂未实现）"
+            }
           },
           {
             "name": "min_confidence",
@@ -1120,14 +1270,14 @@
         }
       }
     },
-    "/api/insights/{insight_id}": {
+    "/api/insights/card/{insight_id}": {
       "get": {
         "tags": [
           "insights"
         ],
         "summary": "获取单个洞察卡片",
         "description": "根据洞察卡片 ID 获取详细信息",
-        "operationId": "get_insight_api_insights__insight_id__get",
+        "operationId": "get_insight_api_insights_card__insight_id__get",
         "security": [
           {
             "HTTPBearer": []
@@ -1215,6 +1365,27 @@
               "title": "End Date"
             },
             "description": "结束日期（默认为今天）"
+          },
+          {
+            "name": "metrics",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "按名称过滤返回的指标，支持重复指定",
+              "title": "Metrics"
+            },
+            "description": "按名称过滤返回的指标，支持重复指定"
           }
         ],
         "responses": {
@@ -1243,6 +1414,123 @@
             }
           }
         }
+      }
+    },
+    "/api/metrics/daily": {
+      "get": {
+        "tags": [
+          "metrics"
+        ],
+        "summary": "Get Daily Quality Metrics",
+        "description": "获取每日质量指标\n\n基于 Spec 007 User Story 2 (US2) - Task T025\n从 CSV 文件读取每日指标数据，用于质量看板展示\n\nArgs:\n    start_date: 开始日期（默认为 7 天前）\n    end_date: 结束日期（默认为今天）\n\nReturns:\n    DailyMetricsListResponse: 每日指标列表\n\nExample:\n    GET /api/metrics/daily\n    GET /api/metrics/daily?start_date=2025-10-15&end_date=2025-10-21",
+        "operationId": "get_daily_quality_metrics_api_metrics_daily_get",
+        "parameters": [
+          {
+            "name": "start_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "开始日期（默认为 7 天前）",
+              "title": "Start Date"
+            },
+            "description": "开始日期（默认为 7 天前）"
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "结束日期（默认为今天）",
+              "title": "End Date"
+            },
+            "description": "结束日期（默认为今天）"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DailyMetricsListResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/export/csv": {
+      "post": {
+        "tags": [
+          "export"
+        ],
+        "summary": "导出分析报告 CSV",
+        "description": "Export analysis insights as a CSV file for the authenticated user.",
+        "operationId": "export_csv_api_export_csv_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExportCsvRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
       }
     },
     "/api/healthz": {
@@ -1449,13 +1737,188 @@
         "title": "BetaFeedbackCreate",
         "description": "Schema for creating beta feedback."
       },
-      "EvidenceResponse": {
+      "Body_import_communities_api_admin_communities_import_post": {
+        "properties": {
+          "file": {
+            "type": "string",
+            "format": "binary",
+            "title": "File",
+            "description": "Excel 文件 (.xlsx/.xls)"
+          }
+        },
+        "type": "object",
+        "required": [
+          "file"
+        ],
+        "title": "Body_import_communities_api_admin_communities_import_post"
+      },
+      "CompetitorSignal": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "mentions": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Mentions"
+          },
+          "sentiment": {
+            "type": "string",
+            "title": "Sentiment"
+          },
+          "strengths": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Strengths"
+          },
+          "weaknesses": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Weaknesses"
+          },
+          "market_share": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 100.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Market Share"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "name",
+          "mentions",
+          "sentiment"
+        ],
+        "title": "CompetitorSignal"
+      },
+      "DailyMetricsListResponse": {
+        "properties": {
+          "metrics": {
+            "items": {
+              "$ref": "#/components/schemas/DailyMetricsResponse"
+            },
+            "type": "array",
+            "title": "Metrics",
+            "description": "指标列表"
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Total",
+            "description": "总记录数"
+          }
+        },
+        "type": "object",
+        "required": [
+          "total"
+        ],
+        "title": "DailyMetricsListResponse",
+        "description": "每日质量指标列表响应"
+      },
+      "DailyMetricsResponse": {
+        "properties": {
+          "date": {
+            "type": "string",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+            "title": "Date",
+            "description": "指标日期 (YYYY-MM-DD)"
+          },
+          "cache_hit_rate": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Cache Hit Rate",
+            "description": "缓存命中率 (0.0-1.0)"
+          },
+          "valid_posts_24h": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Valid Posts 24H",
+            "description": "24小时内有效帖子数"
+          },
+          "total_communities": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Total Communities",
+            "description": "总社区数"
+          },
+          "duplicate_rate": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Duplicate Rate",
+            "description": "重复率 (0.0-1.0)"
+          },
+          "precision_at_50": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Precision At 50",
+            "description": "Precision@50 指标 (0.0-1.0)"
+          },
+          "avg_score": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Avg Score",
+            "description": "平均评分 (0.0-1.0)"
+          }
+        },
+        "type": "object",
+        "required": [
+          "date",
+          "cache_hit_rate",
+          "valid_posts_24h",
+          "total_communities",
+          "duplicate_rate",
+          "precision_at_50",
+          "avg_score"
+        ],
+        "title": "DailyMetricsResponse",
+        "description": "每日质量指标响应模型\n\n对应 backend/app/services/metrics/daily_metrics.py 中的 DailyMetrics dataclass\n\n注意：date 字段使用 str 而非 datetime.date，因为 Pydantic v1 + datetime.date 有 RecursionError bug\n格式：YYYY-MM-DD (ISO 8601)",
+        "example": {
+          "avg_score": 0.58,
+          "cache_hit_rate": 0.72,
+          "date": "2025-10-27",
+          "duplicate_rate": 0.12,
+          "precision_at_50": 0.75,
+          "total_communities": 42,
+          "valid_posts_24h": 1850
+        }
+      },
+      "EvidenceItem": {
         "properties": {
           "id": {
             "type": "string",
             "format": "uuid",
             "title": "Id",
             "description": "证据 ID"
+          },
+          "post_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 32
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Post Id",
+            "description": "原帖 ID（可选，可用于回查 Reddit 帖子）"
           },
           "post_url": {
             "type": "string",
@@ -1466,7 +1929,7 @@
           "excerpt": {
             "type": "string",
             "title": "Excerpt",
-            "description": "摘录内容"
+            "description": "证据摘录内容"
           },
           "timestamp": {
             "type": "string",
@@ -1481,25 +1944,168 @@
             "description": "子版块名称"
           },
           "score": {
-            "type": "number",
-            "maximum": 1.0,
-            "minimum": 0.0,
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
             "title": "Score",
             "description": "证据分数 (0.0-1.0)"
           }
         },
-        "additionalProperties": false,
         "type": "object",
         "required": [
           "id",
           "post_url",
           "excerpt",
           "timestamp",
-          "subreddit",
-          "score"
+          "subreddit"
         ],
-        "title": "EvidenceResponse",
-        "description": "证据响应 Schema"
+        "title": "EvidenceItem",
+        "description": "洞察证据条目\n\n注意：不使用 from_attributes=True，因为我们在 Service 层手动构造"
+      },
+      "EvidenceItemOut": {
+        "properties": {
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Url"
+          },
+          "note": {
+            "type": "string",
+            "title": "Note"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "title",
+          "note"
+        ],
+        "title": "EvidenceItemOut"
+      },
+      "ExamplePost": {
+        "properties": {
+          "community": {
+            "type": "string",
+            "title": "Community"
+          },
+          "content": {
+            "type": "string",
+            "title": "Content"
+          },
+          "upvotes": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Upvotes"
+          },
+          "url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Url"
+          },
+          "author": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Author"
+          },
+          "permalink": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Permalink"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "community",
+          "content"
+        ],
+        "title": "ExamplePost"
+      },
+      "ExportCsvRequest": {
+        "properties": {
+          "task_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Task Id",
+            "description": "Analysis task identifier"
+          }
+        },
+        "type": "object",
+        "required": [
+          "task_id"
+        ],
+        "title": "ExportCsvRequest"
+      },
+      "FallbackQuality": {
+        "properties": {
+          "cache_coverage": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Cache Coverage"
+          },
+          "data_freshness_hours": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Data Freshness Hours"
+          },
+          "estimated_accuracy": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Estimated Accuracy"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "cache_coverage",
+          "data_freshness_hours",
+          "estimated_accuracy"
+        ],
+        "title": "FallbackQuality"
       },
       "HTTPValidationError": {
         "properties": {
@@ -1531,7 +2137,6 @@
             "description": "洞察卡片列表"
           }
         },
-        "additionalProperties": false,
         "type": "object",
         "required": [
           "total"
@@ -1571,6 +2176,11 @@
             "title": "Confidence",
             "description": "置信度分数 (0.0-1.0)"
           },
+          "time_window": {
+            "type": "string",
+            "title": "Time Window",
+            "description": "时间窗口说明，例如“过去 30 天”"
+          },
           "time_window_days": {
             "type": "integer",
             "exclusiveMinimum": 0.0,
@@ -1585,12 +2195,12 @@
             "title": "Subreddits",
             "description": "相关子版块列表"
           },
-          "evidences": {
+          "evidence": {
             "items": {
-              "$ref": "#/components/schemas/EvidenceResponse"
+              "$ref": "#/components/schemas/EvidenceItem"
             },
             "type": "array",
-            "title": "Evidences",
+            "title": "Evidence",
             "description": "证据列表"
           },
           "created_at": {
@@ -1606,7 +2216,6 @@
             "description": "更新时间"
           }
         },
-        "additionalProperties": false,
         "type": "object",
         "required": [
           "id",
@@ -1614,12 +2223,13 @@
           "title",
           "summary",
           "confidence",
+          "time_window",
           "time_window_days",
           "created_at",
           "updated_at"
         ],
         "title": "InsightCardResponse",
-        "description": "洞察卡片响应 Schema"
+        "description": "洞察卡片响应 Schema\n\n注意：不使用 from_attributes=True，因为我们在 Service 层手动构造\n避免 Pydantic 递归访问 ORM 关系导致 RecursionError"
       },
       "LoginRequest": {
         "properties": {
@@ -1653,6 +2263,146 @@
         "title": "MembershipLevel",
         "description": "Enumerated membership tiers available to end users."
       },
+      "OpportunityReportOut": {
+        "properties": {
+          "problem_definition": {
+            "type": "string",
+            "title": "Problem Definition"
+          },
+          "evidence_chain": {
+            "items": {
+              "$ref": "#/components/schemas/EvidenceItemOut"
+            },
+            "type": "array",
+            "title": "Evidence Chain"
+          },
+          "suggested_actions": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Suggested Actions"
+          },
+          "confidence": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Confidence"
+          },
+          "urgency": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Urgency"
+          },
+          "product_fit": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Product Fit"
+          },
+          "priority": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Priority"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "problem_definition",
+          "confidence",
+          "urgency",
+          "product_fit",
+          "priority"
+        ],
+        "title": "OpportunityReportOut"
+      },
+      "OpportunitySignal": {
+        "properties": {
+          "description": {
+            "type": "string",
+            "title": "Description"
+          },
+          "relevance_score": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Relevance Score"
+          },
+          "potential_users": {
+            "type": "string",
+            "title": "Potential Users"
+          },
+          "key_insights": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Key Insights"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "description",
+          "relevance_score",
+          "potential_users"
+        ],
+        "title": "OpportunitySignal"
+      },
+      "PainPoint": {
+        "properties": {
+          "description": {
+            "type": "string",
+            "title": "Description"
+          },
+          "frequency": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Frequency"
+          },
+          "sentiment_score": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": -1.0,
+            "title": "Sentiment Score"
+          },
+          "severity": {
+            "type": "string",
+            "enum": [
+              "low",
+              "medium",
+              "high"
+            ],
+            "title": "Severity"
+          },
+          "example_posts": {
+            "items": {
+              "$ref": "#/components/schemas/ExamplePost"
+            },
+            "type": "array",
+            "title": "Example Posts"
+          },
+          "user_examples": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "User Examples"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "description",
+          "frequency",
+          "sentiment_score",
+          "severity"
+        ],
+        "title": "PainPoint"
+      },
       "QualityMetricsResponse": {
         "properties": {
           "date": {
@@ -1675,6 +2425,14 @@
           "processing_time_p95": {
             "type": "number",
             "title": "Processing Time P95"
+          },
+          "metrics": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "type": "object",
+            "title": "Metrics",
+            "description": "按照查询参数过滤后的指标映射"
           }
         },
         "type": "object",
@@ -1746,6 +2504,280 @@
         ],
         "title": "RejectRequest"
       },
+      "ReportContent": {
+        "properties": {
+          "executive_summary": {
+            "$ref": "#/components/schemas/ReportExecutiveSummary"
+          },
+          "pain_points": {
+            "items": {
+              "$ref": "#/components/schemas/PainPoint"
+            },
+            "type": "array",
+            "title": "Pain Points"
+          },
+          "competitors": {
+            "items": {
+              "$ref": "#/components/schemas/CompetitorSignal"
+            },
+            "type": "array",
+            "title": "Competitors"
+          },
+          "opportunities": {
+            "items": {
+              "$ref": "#/components/schemas/OpportunitySignal"
+            },
+            "type": "array",
+            "title": "Opportunities"
+          },
+          "action_items": {
+            "items": {
+              "$ref": "#/components/schemas/OpportunityReportOut"
+            },
+            "type": "array",
+            "title": "Action Items"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "executive_summary"
+        ],
+        "title": "ReportContent"
+      },
+      "ReportExecutiveSummary": {
+        "properties": {
+          "total_communities": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Total Communities"
+          },
+          "key_insights": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Key Insights"
+          },
+          "top_opportunity": {
+            "type": "string",
+            "title": "Top Opportunity"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "total_communities",
+          "key_insights",
+          "top_opportunity"
+        ],
+        "title": "ReportExecutiveSummary"
+      },
+      "ReportMetadata": {
+        "properties": {
+          "analysis_version": {
+            "type": "string",
+            "title": "Analysis Version"
+          },
+          "confidence_score": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Confidence Score"
+          },
+          "processing_time_seconds": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Processing Time Seconds"
+          },
+          "cache_hit_rate": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Cache Hit Rate"
+          },
+          "total_mentions": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Total Mentions"
+          },
+          "recovery_applied": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Recovery Applied"
+          },
+          "fallback_quality": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/FallbackQuality"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "analysis_version",
+          "confidence_score",
+          "processing_time_seconds",
+          "cache_hit_rate",
+          "total_mentions"
+        ],
+        "title": "ReportMetadata"
+      },
+      "ReportOverview": {
+        "properties": {
+          "sentiment": {
+            "$ref": "#/components/schemas/SentimentBreakdown"
+          },
+          "top_communities": {
+            "items": {
+              "$ref": "#/components/schemas/TopCommunity"
+            },
+            "type": "array",
+            "title": "Top Communities"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "sentiment"
+        ],
+        "title": "ReportOverview"
+      },
+      "ReportPayload": {
+        "properties": {
+          "task_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Task Id"
+          },
+          "status": {
+            "$ref": "#/components/schemas/TaskStatus"
+          },
+          "generated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Generated At"
+          },
+          "product_description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Product Description"
+          },
+          "report_html": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Report Html"
+          },
+          "report": {
+            "$ref": "#/components/schemas/ReportContent"
+          },
+          "metadata": {
+            "$ref": "#/components/schemas/ReportMetadata"
+          },
+          "overview": {
+            "$ref": "#/components/schemas/ReportOverview"
+          },
+          "stats": {
+            "$ref": "#/components/schemas/ReportStats"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "task_id",
+          "status",
+          "generated_at",
+          "report",
+          "metadata",
+          "overview",
+          "stats"
+        ],
+        "title": "ReportPayload"
+      },
+      "ReportStats": {
+        "properties": {
+          "total_mentions": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Total Mentions"
+          },
+          "positive_mentions": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Positive Mentions"
+          },
+          "negative_mentions": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Negative Mentions"
+          },
+          "neutral_mentions": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Neutral Mentions"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "total_mentions",
+          "positive_mentions",
+          "negative_mentions",
+          "neutral_mentions"
+        ],
+        "title": "ReportStats"
+      },
+      "SentimentBreakdown": {
+        "properties": {
+          "positive": {
+            "type": "integer",
+            "maximum": 100.0,
+            "minimum": 0.0,
+            "title": "Positive"
+          },
+          "negative": {
+            "type": "integer",
+            "maximum": 100.0,
+            "minimum": 0.0,
+            "title": "Negative"
+          },
+          "neutral": {
+            "type": "integer",
+            "maximum": 100.0,
+            "minimum": 0.0,
+            "title": "Neutral"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "positive",
+          "negative",
+          "neutral"
+        ],
+        "title": "SentimentBreakdown"
+      },
       "TaskCreate": {
         "properties": {
           "product_description": {
@@ -1797,6 +2829,28 @@
           "sse_endpoint"
         ],
         "title": "TaskCreateResponse"
+      },
+      "TaskDiagResponse": {
+        "properties": {
+          "has_reddit_client": {
+            "type": "boolean",
+            "title": "Has Reddit Client",
+            "description": "Reddit API 客户端是否配置"
+          },
+          "environment": {
+            "type": "string",
+            "title": "Environment",
+            "description": "运行环境（development/production）"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "has_reddit_client",
+          "environment"
+        ],
+        "title": "TaskDiagResponse",
+        "description": "运行时配置诊断响应"
       },
       "TaskStatsResponse": {
         "properties": {
@@ -1957,6 +3011,85 @@
           "updated_at"
         ],
         "title": "TaskStatusSnapshot"
+      },
+      "TopCommunity": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "mentions": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Mentions"
+          },
+          "relevance": {
+            "type": "integer",
+            "maximum": 100.0,
+            "minimum": 0.0,
+            "title": "Relevance"
+          },
+          "category": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Category"
+          },
+          "daily_posts": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Daily Posts"
+          },
+          "avg_comment_length": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Avg Comment Length"
+          },
+          "from_cache": {
+            "type": "boolean",
+            "title": "From Cache",
+            "default": false
+          },
+          "members": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Members"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "name",
+          "mentions",
+          "relevance"
+        ],
+        "title": "TopCommunity"
       },
       "ValidationError": {
         "properties": {

@@ -6,7 +6,7 @@
 .PHONY: kill-ports kill-backend-port kill-frontend-port kill-celery kill-redis
 .PHONY: restart-backend restart-frontend restart-all
 .PHONY: status check-services check-python
-.PHONY: test test-backend test-frontend test-all test-e2e test-admin-e2e test-contract test-tasks-smoke
+.PHONY: test test-backend test-frontend test-all test-e2e test-admin-e2e test-contract test-tasks-smoke local-acceptance week2-acceptance week2-acceptance-prepare final-acceptance
 .PHONY: test-fix test-clean test-diagnose test-kill-pytest
 .PHONY: update-api-schema generate-api-client
 .PHONY: celery-start celery-stop celery-restart celery-verify celery-seed celery-seed-unique celery-purge
@@ -41,6 +41,12 @@ REDIS_PORT := 6379
 CELERY_WORKER_LOG := /tmp/celery_worker.log
 CELERY_APP := app.core.celery_app.celery_app
 CELERY_CONCURRENCY := 4
+
+# 本地验收脚本配置（可通过环境变量覆盖）
+LOCAL_ACCEPT_ENV ?= local
+LOCAL_ACCEPT_BACKEND ?= http://localhost:$(BACKEND_PORT)
+LOCAL_ACCEPT_FRONTEND ?= http://localhost:$(FRONTEND_PORT)
+LOCAL_ACCEPT_REDIS ?= redis://localhost:$(REDIS_PORT)/0
 
 # 环境变量
 export ENABLE_CELERY_DISPATCH := 1
@@ -87,6 +93,9 @@ help: ## 显示所有可用命令
 	@echo "  make test-contract      运行 API 契约测试"
 	@echo "  make test-admin-e2e     验证Admin后台端到端流程（需配置ADMIN_EMAILS）"
 	@echo "  make test-tasks-smoke   快速验证后台维护/监控任务封装"
+	@echo "  make local-acceptance   执行本地验收脚本，生成 Phase6 报告"
+	@echo "  make week2-acceptance   Week 2 (P1) 完整验收（Precision@50 + 实体 + 行动位）"
+	@echo "  make final-acceptance   最终验收（产品经理独立使用完整流程）"
 	@echo ""
 	@echo "✅ Phase 1-3 验证（Day 13-20 预热期）："
 	@echo "  make phase-1-2-3-verify 一键验证（mypy --strict + 核心测试）"
@@ -326,6 +335,11 @@ dev-golden-path: ## 🌟 黄金路径：一键启动完整环境并创建测试�
 	@echo "🌟 Reddit Signal Scanner - 黄金启动路径"
 	@echo "=========================================="
 	@echo ""
+	@echo "🧹 清理旧进程（确保环境变量生效）..."
+	@$(MAKE) kill-ports 2>/dev/null || true
+	@$(MAKE) kill-celery 2>/dev/null || true
+	@echo "✅ 清理完成"
+	@echo ""
 	@echo "📋 启动顺序（基于 Day 12 端到端验收）："
 	@echo "   1. Redis 服务"
 	@echo "   2. Redis 测试数据"
@@ -336,11 +350,17 @@ dev-golden-path: ## 🌟 黄金路径：一键启动完整环境并创建测试�
 	@echo ""
 	@echo "==> 1️⃣  启动 Redis ..."
 	@$(MAKE) redis-start
+	@redis-cli -p $(REDIS_PORT) ping > /dev/null && echo "   ✅ Redis healthy" || echo "   ⚠️  Redis ping 失败"
 	@echo ""
 	@echo "==> 2️⃣  填充 Redis 测试数据 ..."
 	@$(MAKE) redis-seed
 	@echo ""
 	@echo "==> 3️⃣  启动 Celery Worker ..."
+	@if [ ! -f $(BACKEND_DIR)/.env ]; then \
+		echo "⚠️  警告: backend/.env 不存在，请从 backend/.env.example 复制并配置"; \
+		echo "   建议: cp backend/.env.example backend/.env"; \
+		echo "   关键配置: SQLALCHEMY_DISABLE_POOL=1 (避免事件循环冲突)"; \
+	fi
 	@if [ -f $(BACKEND_DIR)/.env ]; then \
 		cd $(BACKEND_DIR) && export $$(cat .env | grep -v '^#' | xargs) && \
 		$(PYTHON) -m celery -A $(CELERY_APP) worker --loglevel=info --pool=solo \
@@ -353,19 +373,38 @@ dev-golden-path: ## 🌟 黄金路径：一键启动完整环境并创建测试�
 	fi
 	@sleep 3
 	@tail -20 $(CELERY_WORKER_LOG) | grep "ready" && echo "✅ Celery Worker started" || echo "⚠️  请检查日志: $(CELERY_WORKER_LOG)"
+	@$(PYTHON) backend/scripts/check_celery_health.py || echo "⚠️  Celery 健康检查未通过"
 	@echo ""
 	@echo "==> 4️⃣  启动后端服务 ..."
 	@cd $(BACKEND_DIR) && $(PYTHON) -m uvicorn app.main:app --host 0.0.0.0 --port $(BACKEND_PORT) --reload > /tmp/backend_uvicorn.log 2>&1 &
-	@sleep 3
-	@curl -s http://localhost:$(BACKEND_PORT)/ > /dev/null && echo "✅ Backend server started" || echo "⚠️  Backend server可能未启动"
+	@echo "   ⏳ 等待后端健康检查 ..."
+	@for i in 1 2 3 4 5; do \
+		if curl -sf http://localhost:$(BACKEND_PORT)/api/healthz > /dev/null; then \
+			echo "   ✅ Backend healthz ok"; \
+			break; \
+		fi; \
+		sleep 2; \
+		if [ $$i -eq 5 ]; then \
+			echo "   ❌ Backend 健康检查失败，请查看 /tmp/backend_uvicorn.log"; \
+		fi; \
+	done
 	@echo ""
 	@echo "==> 5️⃣  创建测试用户和任务 ..."
 	@$(MAKE) db-seed-user-task
 	@echo ""
 	@echo "==> 6️⃣  启动前端服务 ..."
 	@cd $(FRONTEND_DIR) && npm run dev -- --port $(FRONTEND_PORT) > /tmp/frontend_vite.log 2>&1 &
-	@sleep 3
-	@curl -s http://localhost:$(FRONTEND_PORT)/ > /dev/null && echo "✅ Frontend server started" || echo "⚠️  Frontend server可能未启动"
+	@echo "   ⏳ 检查前端可访问性 ..."
+	@for i in 1 2 3 4 5; do \
+		if curl -sf http://localhost:$(FRONTEND_PORT)/ > /dev/null; then \
+			echo "   ✅ Frontend ready"; \
+			break; \
+		fi; \
+		sleep 2; \
+		if [ $$i -eq 5 ]; then \
+			echo "   ❌ Frontend 启动检测失败，请查看 /tmp/frontend_vite.log"; \
+		fi; \
+	done
 	@echo ""
 	@echo "=========================================="
 	@echo "✅ 黄金路径启动完成！"
@@ -394,6 +433,96 @@ dev-golden-path: ## 🌟 黄金路径：一键启动完整环境并创建测试�
 	@echo "🛑 停止所有服务："
 	@echo "   make kill-ports && make kill-celery && make kill-redis"
 	@echo ""
+
+local-acceptance: ## 执行Phase6本地验收脚本并输出报告（需要先启动服务）
+	@echo "==> 运行本地验收脚本 ..."
+	@$(PYTHON) backend/scripts/local_acceptance.py \
+		--environment $(LOCAL_ACCEPT_ENV) \
+		--backend-url $(LOCAL_ACCEPT_BACKEND) \
+		--frontend-url $(LOCAL_ACCEPT_FRONTEND) \
+		--redis-url $(LOCAL_ACCEPT_REDIS)
+
+acceptance-full: ## 🎯 完整验收流程：清理 → 启动服务 → 运行验收测试
+	@echo "=========================================="
+	@echo "🎯 Spec 007 完整验收流程"
+	@echo "=========================================="
+	@echo ""
+	@echo "步骤 1/3: 清理旧进程并启动服务..."
+	@$(MAKE) dev-golden-path
+	@echo ""
+	@echo "步骤 2/3: 等待服务完全启动（30秒）..."
+	@sleep 30
+	@echo ""
+	@echo "步骤 3/3: 运行验收测试..."
+	@$(MAKE) local-acceptance
+	@echo ""
+	@echo "=========================================="
+	@echo "✅ 完整验收流程完成！"
+	@echo "=========================================="
+	@echo ""
+	@echo "📊 查看验收报告："
+	@echo "   ls -lht reports/local-acceptance/ | head -5"
+
+week2-acceptance-prepare: ## 🧹 Week 2 验收准备：清理数据 + 升级测试用户
+	@bash scripts/week2_prepare.sh
+
+week2-acceptance: ## 🎯 Week 2 (P1) 完整验收：Precision@50 + 实体识别 + 行动位
+	@echo "=========================================="
+	@echo "🎯 Week 2 (P1) 完整验收"
+	@echo "=========================================="
+	@echo ""
+	@echo "验收条款："
+	@echo "  1. Precision@50 ≥ 0.6"
+	@echo "  2. 报告中能识别 50 个核心实体"
+	@echo "  3. 报告包含行动位（问题定义/建议动作/置信度/优先级）"
+	@echo ""
+	@echo "步骤 1/3: 准备环境（清理数据 + 升级用户）..."
+	@$(MAKE) week2-acceptance-prepare
+	@echo ""
+	@echo "步骤 2/3: 确认服务运行..."
+	@curl -s http://localhost:8006/api/healthz > /dev/null || (echo "❌ 后端未运行，请先执行 make dev-golden-path" && exit 1)
+	@echo "✅ 后端服务正常"
+	@echo ""
+	@echo "步骤 3/3: 运行验收测试..."
+	@$(PYTHON) week2_acceptance.py
+	@echo ""
+	@echo "=========================================="
+	@echo "✅ Week 2 (P1) 验收完成！"
+	@echo "=========================================="
+	@echo ""
+	@echo "📊 查看报告："
+	@echo "   任务 URL: http://localhost:3006/report/{task_id}"
+	@echo "   配置文件: backend/config/scoring_rules.yaml"
+	@echo "   实体词典: backend/config/entity_dictionary.yaml"
+
+final-acceptance: ## 🎯 最终验收：产品经理独立使用完整流程（10 个步骤）
+	@echo "=========================================="
+	@echo "🎯 最终验收（Final）"
+	@echo "=========================================="
+	@echo ""
+	@echo "测试场景：产品经理独立使用产品"
+	@echo "  1. 注册新账号"
+	@echo "  2. 登录系统"
+	@echo "  3. 创建分析任务"
+	@echo "  4. 等待分析完成（SSE 实时进度）"
+	@echo "  5. 查看洞察卡片列表"
+	@echo "  6. 点击卡片查看证据"
+	@echo "  7. 点击原帖链接验证真实性"
+	@echo "  8. 查看报告行动位"
+	@echo "  9. 导出报告（PDF/CSV）"
+	@echo "  10. 访问质量看板查看指标"
+	@echo ""
+	@echo "步骤 1/2: 确认服务运行..."
+	@curl -s http://localhost:8006/api/healthz > /dev/null || (echo "❌ 后端未运行，请先执行 make dev-golden-path" && exit 1)
+	@curl -s http://localhost:3006 > /dev/null || (echo "❌ 前端未运行，请先执行 make dev-golden-path" && exit 1)
+	@echo "✅ 所有服务正常"
+	@echo ""
+	@echo "步骤 2/2: 运行最终验收测试..."
+	@$(PYTHON) final_acceptance.py
+	@echo ""
+	@echo "=========================================="
+	@echo "✅ 最终验收完成！"
+	@echo "=========================================="
 
 # ============================================================
 # 服务重启（清理端口 + 重新启动）

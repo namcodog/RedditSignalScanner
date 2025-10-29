@@ -27,7 +27,10 @@ class ReportRepository:
         task = await self._db.get(
             Task,
             task_id,
-            options=[selectinload(Task.analysis).selectinload(Analysis.report)],
+            options=[
+                selectinload(Task.analysis).selectinload(Analysis.report),
+                selectinload(Task.user),
+            ],
         )
         elapsed = time.perf_counter() - start
         logger.debug("Fetched report task %s in %.4fs", task_id, elapsed)

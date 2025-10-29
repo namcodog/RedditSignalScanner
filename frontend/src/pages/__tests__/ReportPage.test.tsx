@@ -113,6 +113,14 @@ const mockReport: ReportResponse = {
         priority: 0.42,
       },
     ],
+    entity_summary: {
+      brands: [
+        { name: 'Notion', mentions: 4 },
+        { name: 'Slack', mentions: 3 },
+      ],
+      features: [{ name: 'automation', mentions: 2 }],
+      pain_points: [{ name: 'slow', mentions: 1 }],
+    },
   },
   metadata: {
     analysis_version: '1.0',
@@ -312,6 +320,9 @@ describe('ReportPage', () => {
 
     await user.click(screen.getByRole('tab', { name: '商业机会' }));
     expect(await screen.findAllByText('AI推荐系统')).not.toHaveLength(0);
+
+    await user.click(screen.getByRole('tab', { name: '关键实体' }));
+    expect(await screen.findAllByText(/Notion/)).not.toHaveLength(0);
   });
 
   it('应该显示导出菜单并记录导出历史', async () => {

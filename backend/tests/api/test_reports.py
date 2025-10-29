@@ -5,6 +5,7 @@ import sys
 import uuid
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
+
 import jwt
 import pytest
 from httpx import AsyncClient
@@ -15,16 +16,16 @@ BACKEND_PACKAGE_ROOT = (PROJECT_ROOT / "backend").resolve()
 if str(BACKEND_PACKAGE_ROOT) not in sys.path:
     sys.path.insert(0, str(BACKEND_PACKAGE_ROOT))
 
-from app.core.config import get_settings
 from app.api.routes.reports import REPORT_RATE_LIMITER
+from app.core.config import get_settings
+from app.core.security import hash_password
 from app.models.analysis import Analysis
 from app.models.report import Report
 from app.models.task import Task, TaskStatus
 from app.models.user import MembershipLevel, User
-from app.core.security import hash_password
-
 
 settings = get_settings()
+
 
 def _issue_token(user_id: str) -> str:
     payload = {
@@ -92,7 +93,9 @@ async def _create_completed_task(
     return user, task
 
 
-async def test_get_report_success(client: AsyncClient, db_session: AsyncSession) -> None:
+async def test_get_report_success(
+    client: AsyncClient, db_session: AsyncSession
+) -> None:
     user, task = await _create_completed_task(db_session)
     token = _issue_token(str(user.id))
 
@@ -116,6 +119,11 @@ async def test_get_report_success(client: AsyncClient, db_session: AsyncSession)
     assert isinstance(data["report"]["competitors"], list)
     assert isinstance(data["report"]["opportunities"], list)
     assert isinstance(data["report"].get("action_items"), list)
+    entity_summary = data["report"].get("entity_summary")
+    assert isinstance(entity_summary, dict)
+    for category in ("brands", "features", "pain_points"):
+        assert category in entity_summary
+        assert isinstance(entity_summary[category], list)
     assert data["report_html"].startswith("<html>")
 
     metadata = data["metadata"]
@@ -132,9 +140,14 @@ async def test_get_report_success(client: AsyncClient, db_session: AsyncSession)
         assert isinstance(pain_points[0].get("example_posts"), list)
 
 
-async def test_get_report_permission_denied(client: AsyncClient, db_session: AsyncSession) -> None:
+async def test_get_report_permission_denied(
+    client: AsyncClient, db_session: AsyncSession
+) -> None:
     owner, task = await _create_completed_task(db_session)
-    intruder = User(email=f"report-intruder+{uuid.uuid4().hex}@example.com", password_hash=hash_password("testpass123"))
+    intruder = User(
+        email=f"report-intruder+{uuid.uuid4().hex}@example.com",
+        password_hash=hash_password("testpass123"),
+    )
     db_session.add(intruder)
     await db_session.commit()
     await db_session.refresh(intruder)
@@ -147,8 +160,12 @@ async def test_get_report_permission_denied(client: AsyncClient, db_session: Asy
     assert response.status_code == 403
 
 
-async def test_get_report_requires_paid_plan(client: AsyncClient, db_session: AsyncSession) -> None:
-    user, task = await _create_completed_task(db_session, membership_level=MembershipLevel.FREE)
+async def test_get_report_requires_paid_plan(
+    client: AsyncClient, db_session: AsyncSession
+) -> None:
+    user, task = await _create_completed_task(
+        db_session, membership_level=MembershipLevel.FREE
+    )
     token = _issue_token(str(user.id))
 
     response = await client.get(
@@ -158,8 +175,13 @@ async def test_get_report_requires_paid_plan(client: AsyncClient, db_session: As
     assert response.status_code == 403
 
 
-async def test_get_report_requires_completion(client: AsyncClient, db_session: AsyncSession) -> None:
-    user = User(email=f"pending+{uuid.uuid4().hex}@example.com", password_hash=hash_password("testpass123"))
+async def test_get_report_requires_completion(
+    client: AsyncClient, db_session: AsyncSession
+) -> None:
+    user = User(
+        email=f"pending+{uuid.uuid4().hex}@example.com",
+        password_hash=hash_password("testpass123"),
+    )
     db_session.add(user)
     await db_session.flush()
     task = Task(user_id=user.id, product_description="Pending report")
@@ -197,7 +219,9 @@ async def test_get_report_returns_structured_stats(
 
 
 @pytest.mark.asyncio
-async def test_get_report_enforces_rate_limit(client: AsyncClient, db_session: AsyncSession) -> None:
+async def test_get_report_enforces_rate_limit(
+    client: AsyncClient, db_session: AsyncSession
+) -> None:
     user, task = await _create_completed_task(db_session)
     token = _issue_token(str(user.id))
 
@@ -282,7 +306,9 @@ async def test_download_report_not_found_when_missing_artifact(
     assert response.status_code == 404
 
 
-@pytest.mark.skip(reason="Database constraints now prevent invalid insights from being inserted. This test is no longer valid as the validation happens at the database level.")
+@pytest.mark.skip(
+    reason="Database constraints now prevent invalid insights from being inserted. This test is no longer valid as the validation happens at the database level."
+)
 async def test_get_report_invalid_insights_returns_server_error(
     client: AsyncClient, db_session: AsyncSession
 ) -> None:

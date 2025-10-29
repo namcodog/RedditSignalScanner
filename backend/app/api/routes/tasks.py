@@ -12,7 +12,7 @@ from app.core.config import Settings, get_settings
 from app.core.security import TokenPayload, decode_jwt_token
 from app.db.session import get_session
 from app.models.task import Task, TaskStatus
-from app.schemas.task import TaskStatsResponse, TaskStatusSnapshot
+from app.schemas.task import TaskDiagResponse, TaskStatsResponse, TaskStatusSnapshot
 from app.services.task_status_cache import TaskStatusCache, TaskStatusPayload
 
 status_router = APIRouter(prefix="/status", tags=["status"])
@@ -176,10 +176,10 @@ __all__ = ["status_router", "tasks_router", "router"]
 
 
 # 运行时诊断：返回关键配置是否就绪（不泄露机密）
-@tasks_router.get("/diag", summary="运行时配置诊断")
-async def tasks_diag() -> dict[str, str | bool]:
+@tasks_router.get("/diag", response_model=TaskDiagResponse, summary="运行时配置诊断")
+async def tasks_diag() -> TaskDiagResponse:
     s = get_settings()
-    return {
-        "has_reddit_client": bool(s.reddit_client_id and s.reddit_client_secret),
-        "environment": s.environment,
-    }
+    return TaskDiagResponse(
+        has_reddit_client=bool(s.reddit_client_id and s.reddit_client_secret),
+        environment=s.environment,
+    )

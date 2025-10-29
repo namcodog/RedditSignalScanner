@@ -47,6 +47,11 @@ const buildReport = (): ReportResponse => ({
     competitors: [],
     opportunities: [],
     action_items: [],
+    entity_summary: {
+      brands: [],
+      features: [],
+      pain_points: [],
+    },
   },
   metadata: {
     analysis_version: '1.2.0',

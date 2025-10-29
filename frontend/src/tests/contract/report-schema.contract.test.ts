@@ -68,6 +68,14 @@ const buildValidPayload = () => ({
         priority: 0.68,
       },
     ],
+    entity_summary: {
+      brands: [
+        { name: 'CompetitorX', mentions: 3 },
+        { name: 'CompetitorY', mentions: 2 },
+      ],
+      features: [{ name: 'automation', mentions: 4 }],
+      pain_points: [{ name: 'confusing', mentions: 2 }],
+    },
   },
   metadata: {
     analysis_version: '2.0.1',

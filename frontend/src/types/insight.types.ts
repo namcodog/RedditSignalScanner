@@ -1,7 +1,7 @@
 /**
  * 洞察卡片相关类型定义
  * 
- * 基于 backend/app/schemas/insights.py
+ * 基于 backend/app/schemas/insight.py
  */
 
 /**
@@ -10,6 +10,9 @@
 export interface Evidence {
   /** 证据 ID (UUID) */
   id: string;
+ 
+  /** 原帖 ID，可选 */
+  post_id?: string | null;
   
   /** 原帖 URL */
   post_url: string;
@@ -23,8 +26,8 @@ export interface Evidence {
   /** 子版块名称 */
   subreddit: string;
   
-  /** 证据分数 (0.0-1.0) */
-  score: number;
+  /** 证据分数 (0.0-1.0)，可能缺省 */
+  score?: number | null;
 }
 
 /**
@@ -45,6 +48,9 @@ export interface InsightCard {
   
   /** 置信度 (0.0-1.0) */
   confidence: number;
+ 
+  /** 时间窗口（可读描述，如“过去 30 天”） */
+  time_window: string;
   
   /** 时间窗口（天数） */
   time_window_days: number;
@@ -53,7 +59,7 @@ export interface InsightCard {
   subreddits: string[];
   
   /** 证据列表 */
-  evidences: Evidence[];
+  evidence: Evidence[];
   
   /** 创建时间 (ISO 8601) */
   created_at: string;
@@ -72,4 +78,3 @@ export interface InsightCardListResponse {
   /** 洞察卡片列表 */
   items: InsightCard[];
 }
-

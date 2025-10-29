@@ -93,8 +93,7 @@ async def test_get_insights_by_task_id(client: AsyncClient, db_session):
 
     # 调用 API
     response = await client.get(
-        "/api/insights",
-        params={"task_id": str(task.id)},
+        f"/api/insights/{task.id}",
         headers={"Authorization": f"Bearer {token}"},
     )
 
@@ -110,8 +109,9 @@ async def test_get_insights_by_task_id(client: AsyncClient, db_session):
     assert item["summary"] == "This is a test insight summary"
     assert item["confidence"] == 0.85
     assert item["time_window_days"] == 30
+    assert item["time_window"] == "过去 30 天"
     assert item["subreddits"] == ["r/test1", "r/test2"]
-    assert len(item["evidences"]) == 2
+    assert len(item["evidence"]) == 2
 
 
 @pytest.mark.asyncio
@@ -137,8 +137,7 @@ async def test_get_insights_unauthorized(client: AsyncClient, db_session):
 
     # 调用 API（不带 token）
     response = await client.get(
-        "/api/insights",
-        params={"task_id": str(task.id)},
+        f"/api/insights/{task.id}",
     )
 
     # 验证响应
@@ -179,8 +178,7 @@ async def test_get_insights_forbidden(client: AsyncClient, db_session):
     token, _ = create_access_token(user2.id, email=user2.email, settings=settings)
 
     response = await client.get(
-        "/api/insights",
-        params={"task_id": str(task.id)},
+        f"/api/insights/{task.id}",
         headers={"Authorization": f"Bearer {token}"},
     )
 
@@ -209,8 +207,7 @@ async def test_get_insights_task_not_found(client: AsyncClient, db_session):
     # 调用 API（使用不存在的 task_id）
     fake_task_id = uuid4()
     response = await client.get(
-        "/api/insights",
-        params={"task_id": str(fake_task_id)},
+        f"/api/insights/{fake_task_id}",
         headers={"Authorization": f"Bearer {token}"},
     )
 
@@ -261,8 +258,8 @@ async def test_get_insights_pagination(client: AsyncClient, db_session):
 
     # 测试第一页（limit=10）
     response = await client.get(
-        "/api/insights",
-        params={"task_id": str(task.id), "limit": 10, "offset": 0},
+        f"/api/insights/{task.id}",
+        params={"limit": 10, "offset": 0},
         headers={"Authorization": f"Bearer {token}"},
     )
 
@@ -273,8 +270,8 @@ async def test_get_insights_pagination(client: AsyncClient, db_session):
 
     # 测试第二页（limit=10, offset=10）
     response = await client.get(
-        "/api/insights",
-        params={"task_id": str(task.id), "limit": 10, "offset": 10},
+        f"/api/insights/{task.id}",
+        params={"limit": 10, "offset": 10},
         headers={"Authorization": f"Bearer {token}"},
     )
 
@@ -326,7 +323,7 @@ async def test_get_insight_by_id(client: AsyncClient, db_session):
 
     # 调用 API
     response = await client.get(
-        f"/api/insights/{insight_card.id}",
+        f"/api/insights/card/{insight_card.id}",
         headers={"Authorization": f"Bearer {token}"},
     )
 

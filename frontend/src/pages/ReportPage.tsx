@@ -24,6 +24,7 @@ import NavigationBreadcrumb from '@/components/NavigationBreadcrumb';
 import PainPointsList from '@/components/PainPointsList';
 import CompetitorsList from '@/components/CompetitorsList';
 import OpportunitiesList from '@/components/OpportunitiesList';
+import { EntityHighlights } from '@/components/EntityHighlights';
 import { exportToJSON, exportToCSV, exportToText } from '@/utils/export';
 import { normalizePainPoints } from '@/lib/report/pain-points';
 import { classifyReportError, type ReportErrorState } from '@/utils/report-error';
@@ -762,6 +763,11 @@ const buildDefaultSections = (t: TranslateFn): ReportSectionDefinition[] => [
     render: ({ report }) => <OpportunitiesSection report={report} t={t} />,
   },
   {
+    id: 'entities',
+    labelKey: 'report.tabs.entities',
+    render: ({ report }) => <EntitySummarySection report={report} t={t} />,
+  },
+  {
     id: 'actions',
     labelKey: 'report.tabs.actions',
     render: ({ report }) => <ActionItemsSection report={report} t={t} />,
@@ -859,6 +865,23 @@ const OpportunitiesSection = ({ report, t }: SectionProps) => (
     )}
   </div>
 );
+
+const EntitySummarySection = ({ report, t }: SectionProps) => {
+  const summary = report.report.entity_summary ?? {
+    brands: [],
+    features: [],
+    pain_points: [],
+  };
+
+  return (
+    <div className="rounded-lg border border-border bg-card p-6">
+      <h4 className="mb-4 text-sm font-semibold text-foreground">
+        {t('report.tabs.entities')}
+      </h4>
+      <EntityHighlights summary={summary} />
+    </div>
+  );
+};
 
 const ActionItemsSection = ({ report, t }: SectionProps) => (
   <div className="rounded-lg border border-border bg-card p-6">

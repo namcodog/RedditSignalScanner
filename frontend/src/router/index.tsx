@@ -25,6 +25,7 @@ const LoginPage = React.lazy(() => import('@/pages/LoginPage'));
 const RegisterPage = React.lazy(() => import('@/pages/RegisterPage'));
 const AdminDashboardPage = React.lazy(() => import('@/pages/AdminDashboardPage'));
 const CommunityImportPage = React.lazy(() => import('@/pages/admin/CommunityImport'));
+const DashboardPage = React.lazy(() => import('@/pages/DashboardPage'));
 const NotFoundPage = React.lazy(() => import('@/pages/NotFoundPage'));
 
 /**
@@ -180,6 +181,14 @@ export const router = createBrowserRouter([
     ),
   },
   {
+    path: '/dashboard',
+    element: (
+      <SuspenseWrapper>
+        <DashboardPage />
+      </SuspenseWrapper>
+    ),
+  },
+  {
     path: '*',
     element: (
       <SuspenseWrapper>
@@ -201,4 +210,5 @@ export const ROUTES = {
   REGISTER: '/register',
   ADMIN: '/admin',
   ADMIN_COMMUNITY_IMPORT: '/admin/communities/import',
+  DASHBOARD: '/dashboard',
 } as const;

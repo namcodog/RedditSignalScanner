@@ -7,17 +7,53 @@
 
 import { ChevronRight, FileText, BarChart3, Lightbulb } from 'lucide-react';
 
+export type NavigationStep = 'input' | 'analysis' | 'report';
+
+export interface NavigationBreadcrumbItem {
+  label: string;
+  path?: string;
+}
+
 interface NavigationBreadcrumbProps {
-  currentStep: 'input' | 'analysis' | 'report';
-  onNavigate?: (step: 'input' | 'analysis' | 'report') => void;
+  currentStep?: NavigationStep;
+  onNavigate?: (step: NavigationStep) => void;
   canNavigateBack?: boolean;
+  items?: NavigationBreadcrumbItem[];
 }
 
 export default function NavigationBreadcrumb({
-  currentStep,
+  currentStep = 'input',
   onNavigate,
-  canNavigateBack = false, // 默认不允许返回（分析中不能返回）
+  canNavigateBack = false,
+  items,
 }: NavigationBreadcrumbProps) {
+  if (items && items.length > 0) {
+    return (
+      <nav className="mb-6 flex items-center space-x-2 text-sm text-muted-foreground">
+        {items.map((item, index) => {
+          const isLast = index === items.length - 1;
+          return (
+            <div key={`${item.label}-${index}`} className="flex items-center space-x-2">
+              {index > 0 && <ChevronRight className="h-4 w-4 text-muted-foreground/70" />}
+              {isLast ? (
+                <span className="font-medium text-foreground">{item.label}</span>
+              ) : item.path ? (
+                <a
+                  href={item.path}
+                  className="transition-colors hover:text-foreground"
+                >
+                  {item.label}
+                </a>
+              ) : (
+                <span>{item.label}</span>
+              )}
+            </div>
+          );
+        })}
+      </nav>
+    );
+  }
+
   const steps = [
     {
       id: 'input' as const,
@@ -75,4 +111,3 @@ export default function NavigationBreadcrumb({
     </nav>
   );
 }
-

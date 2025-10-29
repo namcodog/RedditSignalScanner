@@ -1,0 +1,11 @@
+threshold: 0.0
+metrics:
+  precision_at_50: 0.64
+  recall_at_50: 0.34408602150537637
+  f1_at_50: 0.4475524475524476
+calibration_info:
+  annotation_file: ../data/annotations/real_annotated.csv
+  total_samples: 200
+  opportunity_count: 93
+  k: 50
+  step: 0.05

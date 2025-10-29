@@ -18,9 +18,9 @@ import html
 import logging
 import math
 from collections import Counter
-from functools import partial
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
+from functools import partial
 from textwrap import dedent
 from typing import Any, Dict, List, Optional, Sequence
 
@@ -32,9 +32,14 @@ from app.db.session import SessionFactory
 from app.models.posts_storage import PostHot, PostRaw
 from app.schemas.task import TaskSummary
 from app.services.analysis import sample_guard
+from app.services.analysis.deduplicator import (
+    DeduplicationStats,
+    deduplicate_posts,
+    get_last_stats,
+)
+from app.services.analysis.entity_matcher import EntityMatcher
 from app.services.analysis.keyword_crawler import keyword_crawl
 from app.services.analysis.opportunity_scorer import OpportunityScorer
-from app.services.analysis.deduplicator import DeduplicationStats, deduplicate_posts, get_last_stats
 from app.services.analysis.signal_extraction import SignalExtractor
 from app.services.cache_manager import CacheManager
 from app.services.data_collection import CollectionResult, DataCollectionService
@@ -49,6 +54,7 @@ MIN_SAMPLE_SIZE: int = 1500
 SAMPLE_LOOKBACK_DAYS: int = 30
 _GUARD_SAMPLE_LIMIT: int = 2000
 OPPORTUNITY_SCORER = OpportunityScorer()
+ENTITY_MATCHER = EntityMatcher()
 
 
 @dataclass(frozen=True)
@@ -409,6 +415,7 @@ def _build_insufficient_sample_result(
         confidence_score=0.0,  # 样本不足时置信度为 0
     )
 
+
 # Baseline community catalogue; in production这将由缓存/数据库提供
 # 扩展社区池以支持更多领域（加密货币、股票投资、金融等）
 COMMUNITY_CATALOGUE: List[CommunityProfile] = [
@@ -497,7 +504,14 @@ COMMUNITY_CATALOGUE: List[CommunityProfile] = [
     CommunityProfile(
         name="r/CryptoCurrency",
         categories=("crypto", "blockchain", "trading"),
-        description_keywords=("crypto", "bitcoin", "ethereum", "blockchain", "trading", "defi"),
+        description_keywords=(
+            "crypto",
+            "bitcoin",
+            "ethereum",
+            "blockchain",
+            "trading",
+            "defi",
+        ),
         daily_posts=500,
         avg_comment_length=65,
         cache_hit_rate=0.75,
@@ -538,7 +552,13 @@ COMMUNITY_CATALOGUE: List[CommunityProfile] = [
     CommunityProfile(
         name="r/investing",
         categories=("investing", "finance", "portfolio"),
-        description_keywords=("investing", "portfolio", "dividend", "etf", "retirement"),
+        description_keywords=(
+            "investing",
+            "portfolio",
+            "dividend",
+            "etf",
+            "retirement",
+        ),
         daily_posts=320,
         avg_comment_length=75,
         cache_hit_rate=0.82,
@@ -571,7 +591,13 @@ COMMUNITY_CATALOGUE: List[CommunityProfile] = [
     CommunityProfile(
         name="r/financialindependence",
         categories=("finance", "fire", "investing"),
-        description_keywords=("fire", "retirement", "investing", "savings", "passive income"),
+        description_keywords=(
+            "fire",
+            "retirement",
+            "investing",
+            "savings",
+            "passive income",
+        ),
         daily_posts=180,
         avg_comment_length=95,
         cache_hit_rate=0.81,
@@ -1012,7 +1038,9 @@ async def run_analysis(
 
                 if search_posts:
                     reddit_search_success = True
-                    logger.info(f"Total Reddit search results: {len(search_posts)} posts")
+                    logger.info(
+                        f"Total Reddit search results: {len(search_posts)} posts"
+                    )
     except Exception as e:
         logger.warning(f"Reddit API initialization failed: {e}")
         search_posts = []
@@ -1045,7 +1073,9 @@ async def run_analysis(
                 # 使用已知社区的信息
                 if matched_comm not in discovered_selected:
                     discovered_selected.append(matched_comm)
-                    logger.info(f"Matched known community: {matched_comm.name} (count: {count})")
+                    logger.info(
+                        f"Matched known community: {matched_comm.name} (count: {count})"
+                    )
             else:
                 # 新发现的社区
                 new_comm = CommunityProfile(
@@ -1057,11 +1087,15 @@ async def run_analysis(
                     cache_hit_rate=0.5,
                 )
                 discovered_selected.append(new_comm)
-                logger.info(f"Discovered new community: {new_comm.name} (count: {count})")
+                logger.info(
+                    f"Discovered new community: {new_comm.name} (count: {count})"
+                )
 
     # 4) 如果搜索结果不足，从社区池中补充
     if len(discovered_selected) < 10:
-        logger.info(f"Discovered communities insufficient ({len(discovered_selected)}), supplementing from community pool...")
+        logger.info(
+            f"Discovered communities insufficient ({len(discovered_selected)}), supplementing from community pool..."
+        )
         scored_communities: list[tuple[CommunityProfile, float]] = [
             (c, _score_community(keywords, c)) for c in all_communities
         ]
@@ -1070,7 +1104,9 @@ async def run_analysis(
         for community_profile, community_score in scored_communities[:15]:
             if community_profile not in discovered_selected:
                 discovered_selected.append(community_profile)
-                logger.info(f"Added community from pool: {community_profile.name} (score: {community_score:.2f})")
+                logger.info(
+                    f"Added community from pool: {community_profile.name} (score: {community_score:.2f})"
+                )
             if len(discovered_selected) >= 12:
                 break
 
@@ -1302,7 +1338,11 @@ async def run_analysis(
         "opportunities": opportunities_payload,
     }
 
-    action_reports = [report.to_dict() for report in build_opportunity_reports(insights)]
+    action_reports = [
+        report.to_dict() for report in build_opportunity_reports(insights)
+    ]
+    insights["action_items"] = action_reports
+    insights["entity_summary"] = ENTITY_MATCHER.summarize(insights)
 
     processing_seconds = int(30 + len(collected) * 6 + total_cache_misses * 2)
     processing_seconds = min(processing_seconds, 260)
@@ -1340,7 +1380,6 @@ async def run_analysis(
             "fallback_pairs": dedup_stats.fallback_pairs,
             "similarity_checks": dedup_stats.similarity_checks,
         },
-        "action_items": action_reports,
     }
 
     report_html = _render_report(task, collected, insights)
@@ -1355,19 +1394,31 @@ async def run_analysis(
     opportunities_value = insights["opportunities"]
 
     confidence_score = _calculate_confidence_score(
-        cache_hit_rate=float(cache_hit_rate_value) if isinstance(cache_hit_rate_value, (int, float)) else 0.0,
-        posts_analyzed=int(posts_analyzed_value) if isinstance(posts_analyzed_value, int) else 0,
-        communities_found=len(communities_value) if isinstance(communities_value, list) else 0,
-        pain_points_count=len(pain_points_value) if isinstance(pain_points_value, list) else 0,
-        competitors_count=len(competitors_value) if isinstance(competitors_value, list) else 0,
-        opportunities_count=len(opportunities_value) if isinstance(opportunities_value, list) else 0,
+        cache_hit_rate=float(cache_hit_rate_value)
+        if isinstance(cache_hit_rate_value, (int, float))
+        else 0.0,
+        posts_analyzed=int(posts_analyzed_value)
+        if isinstance(posts_analyzed_value, int)
+        else 0,
+        communities_found=len(communities_value)
+        if isinstance(communities_value, list)
+        else 0,
+        pain_points_count=len(pain_points_value)
+        if isinstance(pain_points_value, list)
+        else 0,
+        competitors_count=len(competitors_value)
+        if isinstance(competitors_value, list)
+        else 0,
+        opportunities_count=len(opportunities_value)
+        if isinstance(opportunities_value, list)
+        else 0,
     )
 
     # 关闭临时创建的服务（如果有）
     if close_reddit and service is not None:
-        if hasattr(service, 'close'):
+        if hasattr(service, "close"):
             await service.close()
-        elif hasattr(service, 'reddit') and hasattr(service.reddit, 'close'):
+        elif hasattr(service, "reddit") and hasattr(service.reddit, "close"):
             await service.reddit.close()
 
     return AnalysisResult(

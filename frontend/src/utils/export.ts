@@ -133,6 +133,26 @@ export function exportToCSV(report: ExportReport, taskId: string): void {
       });
     }
 
+    if (report.entity_summary) {
+      const categories: Array<{ category: string; entries: typeof report.entity_summary.brands }> = [
+        { category: 'brands', entries: report.entity_summary.brands ?? [] },
+        { category: 'features', entries: report.entity_summary.features ?? [] },
+        { category: 'pain_points', entries: report.entity_summary.pain_points ?? [] },
+      ];
+
+      const rows = categories.flatMap(({ category, entries }) =>
+        entries.map(item => [category, item.name, String(item.mentions)])
+      );
+
+      if (rows.length > 0) {
+        const csv = buildCSV(['Category', 'Entity', 'Mentions'], rows);
+        downloads.push({
+          filename: `${baseName}-entities.csv`,
+          content: csv,
+        });
+      }
+    }
+
     if (downloads.length === 0) {
       throw new Error('没有可导出的数据');
     }
@@ -274,6 +294,28 @@ export function exportToText(report: ExportReport, taskId: string): void {
         }
         text += '\n';
       });
+    }
+
+    if (report.entity_summary) {
+      text += '## 关键实体\n\n';
+      const sections: Array<[string, typeof report.entity_summary.brands]> = [
+        ['品牌', report.entity_summary.brands ?? []],
+        ['功能', report.entity_summary.features ?? []],
+        ['痛点词', report.entity_summary.pain_points ?? []],
+      ];
+
+      sections.forEach(([label, items]) => {
+        if (!items.length) {
+          return;
+        }
+        text += `- ${label}: `;
+        text += items
+          .map(item => `${item.name} (${item.mentions})`)
+          .join(', ');
+        text += '\n';
+      });
+
+      text += '\n';
     }
 
     const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });

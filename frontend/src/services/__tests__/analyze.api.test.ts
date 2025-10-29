@@ -68,6 +68,11 @@ const createMockReport = (taskId: string): ReportResponse => ({
         priority: 0.68,
       },
     ],
+    entity_summary: {
+      brands: [{ name: 'CompetitorX', mentions: 2 }],
+      features: [{ name: 'automation', mentions: 3 }],
+      pain_points: [{ name: 'confusing', mentions: 1 }],
+    },
   },
   metadata: {
     analysis_version: '1.3.0',

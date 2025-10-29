@@ -35,7 +35,6 @@ from app.schemas.report_payload import (
 )
 from app.services.reporting.opportunity_report import build_opportunity_reports
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -102,7 +101,10 @@ class InMemoryReportCache(ReportCacheProtocol):
 
     async def set(self, key: str, value: ReportPayload) -> None:
         async with self._lock:
-            self._store[key] = (time.monotonic() + self._ttl_seconds, value.model_copy(deep=True))
+            self._store[key] = (
+                time.monotonic() + self._ttl_seconds,
+                value.model_copy(deep=True),
+            )
 
     async def invalidate(self, key: str) -> None:
         async with self._lock:
@@ -147,14 +149,21 @@ class ReportService:
         if analysis.report is None:
             raise ReportNotFoundError("Report not found")
 
-        user_membership = task.user.membership_level if task.user else MembershipLevel.FREE
+        user_membership = (
+            task.user.membership_level if task.user else MembershipLevel.FREE
+        )
         if user_membership not in {MembershipLevel.PRO, MembershipLevel.ENTERPRISE}:
-            raise ReportAccessDeniedError("Your subscription tier does not include report access")
+            raise ReportAccessDeniedError(
+                "Your subscription tier does not include report access"
+            )
 
         cache_key = f"report:{task_id}:{user_id}"
         if self._cache:
             cached = await self._cache.get(cache_key)
-            if cached is not None and cached.generated_at == analysis.report.generated_at:
+            if (
+                cached is not None
+                and cached.generated_at == analysis.report.generated_at
+            ):
                 logger.debug("Cache hit for report task %s", task_id)
                 return cached
 
@@ -188,8 +197,7 @@ class ReportService:
             task_id=task.id,
             status=task.status,
             generated_at=analysis.report.generated_at,
-            product_description=
-            analysis_payload.sources.product_description
+            product_description=analysis_payload.sources.product_description
             or task.product_description,
             report=ReportContent(
                 executive_summary=summary,
@@ -197,6 +205,7 @@ class ReportService:
                 competitors=analysis_payload.insights.competitors,
                 opportunities=analysis_payload.insights.opportunities,
                 action_items=action_items,
+                entity_summary=analysis_payload.insights.entity_summary,
             ),
             metadata=metadata,
             overview=overview,
@@ -216,7 +225,11 @@ class ReportService:
     def _validate_analysis_payload(self, analysis: Any) -> AnalysisRead:
         raw_insights = copy.deepcopy(analysis.insights or {})
         raw_sources = copy.deepcopy(analysis.sources or {})
-        migrated_insights, migrated_sources, resolved_version = self._apply_version_migrations(
+        (
+            migrated_insights,
+            migrated_sources,
+            resolved_version,
+        ) = self._apply_version_migrations(
             str(analysis.analysis_version), raw_insights, raw_sources
         )
         processed_insights = self._normalise_insights(migrated_insights)
@@ -235,7 +248,9 @@ class ReportService:
         try:
             return AnalysisRead.model_validate(payload)
         except ValidationError as exc:
-            logger.exception("Analysis payload validation failed for analysis=%s", analysis.id)
+            logger.exception(
+                "Analysis payload validation failed for analysis=%s", analysis.id
+            )
             raise ReportDataValidationError(
                 "Failed to validate analysis payload"
             ) from exc
@@ -244,6 +259,8 @@ class ReportService:
         pain_points = insights.get("pain_points") or []
         for item in pain_points:
             sentiment = float(item.get("sentiment_score", 0.0))
+            # Clamp sentiment_score to [-1.0, 1.0] range
+            item["sentiment_score"] = max(-1.0, min(1.0, sentiment))
             if not item.get("severity"):
                 item["severity"] = self._classify_severity(sentiment)
             item.setdefault("example_posts", [])
@@ -253,6 +270,15 @@ class ReportService:
         insights.setdefault("competitors", insights.get("competitors") or [])
         insights.setdefault("opportunities", insights.get("opportunities") or [])
         insights.setdefault("action_items", insights.get("action_items") or [])
+        current_summary = insights.get("entity_summary") or {}
+        insights.setdefault(
+            "entity_summary",
+            {
+                "brands": current_summary.get("brands", []),
+                "features": current_summary.get("features", []),
+                "pain_points": current_summary.get("pain_points", []),
+            },
+        )
         return insights
 
     @staticmethod
@@ -310,9 +336,10 @@ class ReportService:
             item.setdefault("user_examples", [])
 
         migrated_sources = copy.deepcopy(sources)
-        if "analysis_duration" in migrated_sources and migrated_sources.get(
-            "analysis_duration_seconds"
-        ) is None:
+        if (
+            "analysis_duration" in migrated_sources
+            and migrated_sources.get("analysis_duration_seconds") is None
+        ):
             migrated_sources["analysis_duration_seconds"] = migrated_sources[
                 "analysis_duration"
             ]
@@ -326,25 +353,25 @@ class ReportService:
         positive_mentions = sum(
             item.frequency for item in pain_points if item.sentiment_score > 0.05
         ) + sum(
-            comp.mentions for comp in competitors if str(comp.sentiment).lower() == "positive"
+            comp.mentions
+            for comp in competitors
+            if str(comp.sentiment).lower() == "positive"
         )
         negative_mentions = sum(
             item.frequency for item in pain_points if item.sentiment_score < -0.05
         ) + sum(
-            comp.mentions for comp in competitors if str(comp.sentiment).lower() == "negative"
+            comp.mentions
+            for comp in competitors
+            if str(comp.sentiment).lower() == "negative"
         )
         neutral_mentions = max(
             0,
-            analysis.sources.posts_analyzed
-            - positive_mentions
-            - negative_mentions,
+            analysis.sources.posts_analyzed - positive_mentions - negative_mentions,
         )
 
         total_mentions = (
             analysis.sources.posts_analyzed
-            or positive_mentions
-            + negative_mentions
-            + neutral_mentions
+            or positive_mentions + negative_mentions + neutral_mentions
         )
 
         return ReportStats(
@@ -364,26 +391,34 @@ class ReportService:
             Member count (from DB, config, or default 100,000)
         """
         from sqlalchemy import select
+
         from app.models.community_cache import CommunityCache
 
         # Try to get from database first
         try:
             result = await self._repository._db.execute(
-                select(CommunityCache.member_count)
-                .where(CommunityCache.community_name == community_name)
+                select(CommunityCache.member_count).where(
+                    CommunityCache.community_name == community_name
+                )
             )
             member_count = result.scalar_one_or_none()
 
             if member_count is not None and member_count > 0:
-                logger.debug(f"Using DB member count for {community_name}: {member_count:,}")
+                logger.debug(
+                    f"Using DB member count for {community_name}: {member_count:,}"
+                )
                 return member_count
         except Exception as e:
-            logger.warning(f"Failed to fetch member count from DB for {community_name}: {e}")
+            logger.warning(
+                f"Failed to fetch member count from DB for {community_name}: {e}"
+            )
 
         # Fallback to config
         config_count = self._config.community_members.get(community_name.lower())
         if config_count:
-            logger.debug(f"Using config member count for {community_name}: {config_count:,}")
+            logger.debug(
+                f"Using config member count for {community_name}: {config_count:,}"
+            )
             return config_count
 
         # Final fallback to default
@@ -396,10 +431,31 @@ class ReportService:
         stats: ReportStats,
     ) -> ReportOverview:
         total = max(stats.total_mentions, 1)
+        # Calculate percentages and ensure they sum to 100
+        positive_pct = stats.positive_mentions / total * 100
+        negative_pct = stats.negative_mentions / total * 100
+        neutral_pct = stats.neutral_mentions / total * 100
+
+        # Round and clamp to ensure valid range [0, 100]
+        positive = max(0, min(100, int(round(positive_pct))))
+        negative = max(0, min(100, int(round(negative_pct))))
+        neutral = max(0, min(100, int(round(neutral_pct))))
+
+        # Adjust to ensure sum doesn't exceed 100
+        total_pct = positive + negative + neutral
+        if total_pct > 100:
+            # Reduce the largest component
+            if positive >= negative and positive >= neutral:
+                positive -= (total_pct - 100)
+            elif negative >= neutral:
+                negative -= (total_pct - 100)
+            else:
+                neutral -= (total_pct - 100)
+
         sentiment = SentimentBreakdown(
-            positive=int(round(stats.positive_mentions / total * 100)),
-            negative=int(round(stats.negative_mentions / total * 100)),
-            neutral=int(round(stats.neutral_mentions / total * 100)),
+            positive=max(0, positive),
+            negative=max(0, negative),
+            neutral=max(0, neutral),
         )
 
         # Build top communities with member counts from DB
@@ -465,9 +521,7 @@ class ReportService:
             )
 
         return ReportMetadata(
-            analysis_version=self._format_analysis_version(
-                analysis.analysis_version
-            ),
+            analysis_version=self._format_analysis_version(analysis.analysis_version),
             confidence_score=float(analysis.confidence_score or 0.0),
             processing_time_seconds=float(processing_seconds or 0.0),
             cache_hit_rate=float(analysis.sources.cache_hit_rate or 0.0),

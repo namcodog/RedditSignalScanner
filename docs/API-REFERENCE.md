@@ -60,6 +60,8 @@ Authorization: Bearer <access_token>
 }
 ```
 
+- `entity_summary`：按实体词典统计品牌 (`brands`)、功能 (`features`) 与痛点关键词 (`pain_points`) 的命中次数，协助产品经理快速确认哪些线索在报告中最常出现。
+
 #### 错误响应
 ```json
 {
@@ -1000,7 +1002,19 @@ Content-Disposition: attachment; filename="community_template.xlsx"
         "description": "API文档维护困难",
         "frequency": 45,
         "sentiment_score": -0.6,
-        "evidence": ["帖子链接1", "帖子链接2"]
+        "severity": "high",
+        "example_posts": [
+          {
+            "community": "r/programming",
+            "content": "文档更新太慢，很难跟进新版本",
+            "upvotes": 52,
+            "url": "https://reddit.com/..."
+          }
+        ],
+        "user_examples": [
+          "写文档比写代码还难",
+          "发布后再补文档效率太低"
+        ]
       }
     ],
     "competitors": [
@@ -1009,15 +1023,19 @@ Content-Disposition: attachment; filename="community_template.xlsx"
         "mentions": 120,
         "sentiment": "positive",
         "strengths": ["易用性好", "功能丰富"],
-        "weaknesses": ["价格较高"]
+        "weaknesses": ["价格较高"],
+        "market_share": 32
       }
     ],
     "opportunities": [
       {
         "description": "自动化API测试需求强烈",
-        "confidence": 0.85,
-        "market_size": "large",
-        "evidence_count": 30
+        "relevance_score": 0.85,
+        "potential_users": "DevOps 团队",
+        "key_insights": [
+          "大量帖子提到 CI 集成困难",
+          "愿意为更快的回归测试付费"
+        ]
       }
     ],
     "action_items": [
@@ -1036,7 +1054,18 @@ Content-Disposition: attachment; filename="community_template.xlsx"
         "product_fit": 0.95,
         "priority": 0.73
       }
-    ]
+    ],
+    "entity_summary": {
+      "brands": [
+        {"name": "Postman", "mentions": 42}
+      ],
+      "features": [
+        {"name": "automation", "mentions": 18}
+      ],
+      "pain_points": [
+        {"name": "slow", "mentions": 25}
+      ]
+    }
   },
   "metadata": {
     "analysis_version": "1.0",
@@ -1092,5 +1121,3 @@ Content-Disposition: attachment; filename="community_template.xlsx"
 #### 响应 (204 No Content)
 
 ---
-
-

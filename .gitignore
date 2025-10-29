@@ -94,8 +94,9 @@ reports/phase-log/*-temp.md
 reports/phase-log/*-draft.md
 reports/failed_e2e/
 
-# Specify (项目规划工具)
-.specify/
+# Specify (项目规划工具) - 保留 specs 和 templates，忽略临时文件
+.specify/memory/
+.specify/scripts/
 
 # Development tools
 .augment/
@@ -112,6 +113,25 @@ GitHub*.md
 !README.md
 !docs/**/*.md
 !reports/**/*.md
+
+# Temporary scripts (临时脚本)
+check_entities.py
+diagnose_*.py
+test_report_access.py
+test_week2_*.py
+test_week2_*.sh
+week2_*.py
+week2_*.sh
+final_acceptance.py
+
+# Local reports and temporary data (本地报告和临时数据)
+backend/reports/
+reports/blockers/
+reports/local-acceptance/
+reports/threshold-calibration/
+
+# Duplicate directories (重复目录)
+backend/backend/
 
 # Data files (数据文件)
 *.csv

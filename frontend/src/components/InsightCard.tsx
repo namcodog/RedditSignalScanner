@@ -81,7 +81,7 @@ export default function InsightCard({
             置信度: {getConfidenceLabel(insight.confidence)}
           </span>
           <span className="text-sm text-muted-foreground">
-            {insight.evidences.length} 条证据
+            {insight.evidence.length} 条证据
           </span>
         </div>
       </div>
@@ -94,7 +94,7 @@ export default function InsightCard({
         {/* 时间窗口 */}
         <div className="flex items-center gap-1.5">
           <Calendar className="h-4 w-4" />
-          <span>过去 {insight.time_window_days} 天</span>
+          <span>{insight.time_window}</span>
         </div>
 
         {/* 相关子版块 */}
@@ -110,7 +110,7 @@ export default function InsightCard({
       </div>
 
       {/* 展开/收起证据按钮 */}
-      {insight.evidences.length > 0 && (
+      {insight.evidence.length > 0 && (
         <button
           onClick={handleToggle}
           className="flex w-full items-center justify-center gap-2 rounded-md border border-border bg-muted/30 px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-muted/50"
@@ -123,16 +123,16 @@ export default function InsightCard({
           ) : (
             <>
               <ChevronDown className="h-4 w-4" />
-              <span>查看证据 ({insight.evidences.length})</span>
+              <span>查看证据 ({insight.evidence.length})</span>
             </>
           )}
         </button>
       )}
 
       {/* 证据列表（展开时显示） */}
-      {isExpanded && insight.evidences.length > 0 && (
+      {isExpanded && insight.evidence.length > 0 && (
         <div className="mt-4 space-y-3">
-          {insight.evidences.map((evidence) => (
+          {insight.evidence.map((evidence) => (
             <div
               key={evidence.id}
               className="border-l-4 border-secondary bg-muted/30 pl-4 py-3"
@@ -164,9 +164,27 @@ export default function InsightCard({
                 >
                   查看原帖 →
                 </a>
-                <span className="text-xs text-muted-foreground">
-                  相关性: {(evidence.score * 100).toFixed(0)}%
-                </span>
+                <div className="flex items-center gap-2">
+                  <span className="text-xs text-muted-foreground">相关性:</span>
+                  <div className="flex items-center gap-1">
+                    <div className="h-2 w-16 rounded-full bg-muted">
+                      <div
+                        className="h-full rounded-full bg-secondary transition-all"
+                        style={{
+                          width: `${Math.min(
+                            100,
+                            Math.max(0, (evidence.score ?? 0) * 100)
+                          )}%`,
+                        }}
+                      />
+                    </div>
+                    <span className="text-xs font-medium text-foreground">
+                      {evidence.score != null
+                        ? `${(evidence.score * 100).toFixed(0)}%`
+                        : '待定'}
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
           ))}
@@ -175,4 +193,3 @@ export default function InsightCard({
     </div>
   );
 }
-

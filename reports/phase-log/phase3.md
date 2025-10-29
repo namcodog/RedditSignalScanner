@@ -1,5 +1,20 @@
 # Phase 3 自动抓取修复记录
 
+## Phase 3 US1 洞察卡片接口对齐（2025-10-28）
+- **1. 发现了什么问题 / 根因？**
+  - 现有后端仍暴露 `GET /api/insights` + query 的旧契约，未对齐 Spec007 要求的 `GET /api/insights/{task_id}` 路径；同时缺少 `InsightService` 聚合层，前端/类型与 response 字段（`time_window`、`evidence`）不一致。
+- **2. 是否已精确定位？**
+  - ✅ 确认路由与 OpenAPI 基线仍指向旧路径，返回字段命名与最新 spec 不符。
+  - ✅ 前端 `insightsService` 直接使用 axios，缺少 API 层封装，类型 `InsightCard` 仍使用 `evidences`、`time_window_days`。
+- **3. 精确修复方法？**
+  - 后端：新增 `InsightService`（`backend/app/services/insight_service.py`），重写路由为 `/api/insights/{task_id}` 与 `/api/insights/card/{insight_id}`，并输出新的 schema `InsightCardResponse`/`EvidenceItem`（`backend/app/schemas/insight.py`）。
+  - 测试：更新 API & 集成用例以覆盖路径、字段改动（`backend/tests/api/test_insights.py`、`backend/tests/integration/test_insights_api.py`）。
+  - 前端：补充 `frontend/src/api/insights.ts`、调整 `insightsService`、`InsightsPage`、`InsightCard`、`EvidenceList` 等组件与类型定义（`frontend/src/types/insight.types.ts`）。
+  - 文档：新增 US1 验收记录模板 `reports/local-acceptance/us1-insights.md`，便于记录手动验收。
+- **4. 下一步做什么？**
+  - 运行 `pytest` / `npm run type-check` 验证链路（当前阻塞于 Pydantic 对 `date` 类型的 schema 生成问题，待与团队确认修复路径）。
+  - 更新 OpenAPI 基线 & SDK 生成流程，确保后续契约化步骤（Phase5）顺利对接。
+
 ## Phase 3 T3.1-T3.6 行动记录（2025-10-20）
 - **T3.1 抽样标注**：新增标注工具链，涵盖采样、导出、验证与加载流程（`backend/app/services/labeling/sampler.py`，`backend/app/services/labeling/validator.py`）；配套单测确保 500 条样本覆盖率与合法性（`backend/tests/services/labeling/test_labeling_workflow.py`）。
 - **T3.2 阈值网格搜索**：实现评分、Precision@K、F1 与网格搜索逻辑（`backend/app/services/evaluation/threshold_optimizer.py`），结果写入 `reports/threshold_optimization.csv` 并更新 `config/thresholds.yaml`；加入严格单测覆盖（`backend/tests/services/evaluation/test_threshold_optimizer.py`）。

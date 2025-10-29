@@ -22,11 +22,12 @@ import {
   X,
 } from 'lucide-react';
 import { insightsService } from '@/services/insights.service';
+import type { GetInsightsParams } from '@/api';
 import type { InsightCard as InsightCardType, Evidence } from '@/types';
 import { ROUTES } from '@/router';
 import NavigationBreadcrumb from '@/components/NavigationBreadcrumb';
 import InsightCard from '@/components/InsightCard';
-import EvidencePanel from '@/components/EvidencePanel';
+import EvidenceList from '@/components/EvidenceList';
 
 const InsightsPage: React.FC = () => {
   const { taskId } = useParams<{ taskId: string }>();
@@ -70,19 +71,17 @@ const InsightsPage: React.FC = () => {
         setLoading(true);
         setError(null);
         
-        const params: any = {
-          task_id: taskId,
-        };
-        
+        const params: GetInsightsParams = {};
+
         if (minConfidence > 0) {
           params.min_confidence = minConfidence;
         }
-        
+
         if (selectedSubreddit) {
           params.subreddit = selectedSubreddit;
         }
-        
-        const data = await insightsService.getInsights(params);
+
+        const data = await insightsService.getInsights(taskId, params);
         setInsights(data.items);
       } catch (err) {
         console.error('[InsightsPage] Failed to fetch insights:', err);
@@ -126,7 +125,7 @@ const InsightsPage: React.FC = () => {
 
   // 获取选中洞察卡片的所有证据
   const selectedInsight = insights.find((i) => i.id === selectedInsightId);
-  const allEvidences: Evidence[] = selectedInsight?.evidences || [];
+  const allEvidences: Evidence[] = selectedInsight?.evidence || [];
 
   // 加载状态
   if (loading) {
@@ -297,7 +296,7 @@ const InsightsPage: React.FC = () => {
             <h2 className="mb-4 text-2xl font-bold text-foreground">
               证据详情：{selectedInsight.title}
             </h2>
-            <EvidencePanel evidences={allEvidences} pageSize={10} />
+            <EvidenceList evidences={allEvidences} pageSize={10} />
           </div>
         )}
       </div>
@@ -306,4 +305,3 @@ const InsightsPage: React.FC = () => {
 };
 
 export default InsightsPage;
-

@@ -1,0 +1,88 @@
+# Entity Dictionary v0 - 核心实体词典
+# 用于识别报告中的关键实体（品牌、功能、痛点）
+# 格式：category -> entities (list)
+
+brands:
+  # 协作工具
+  - Notion
+  - Slack
+  - Asana
+  - Trello
+  - Monday.com
+  - ClickUp
+  - Airtable
+  - Coda
+  
+  # 项目管理
+  - Jira
+  - Linear
+  - GitHub Projects
+  - GitLab
+  
+  # 文档工具
+  - Confluence
+  - Google Docs
+  - Dropbox Paper
+  - Obsidian
+  - Roam Research
+
+features:
+  # 协作功能
+  - collaboration
+  - real-time editing
+  - commenting
+  - sharing
+  - permissions
+  - workspace
+  
+  # 自动化功能
+  - automation
+  - workflow
+  - integration
+  - API
+  - webhooks
+  - templates
+  
+  # 数据管理
+  - database
+  - filtering
+  - sorting
+  - search
+  - tagging
+  - categorization
+
+pain_points:
+  # 效率问题
+  - slow
+  - inefficient
+  - time-consuming
+  - manual work
+  - repetitive tasks
+  
+  # 成本问题
+  - expensive
+  - costly
+  - pricing
+  - subscription
+  - budget
+  
+  # 技术问题
+  - buggy
+  - crashes
+  - performance issues
+  - sync problems
+  - data loss
+  
+  # 用户体验
+  - confusing
+  - complicated
+  - steep learning curve
+  - poor UX
+  - cluttered interface
+
+# 配置说明：
+# - 每个类别下的实体词会在分析时进行匹配
+# - 匹配时不区分大小写
+# - 支持部分匹配（例如 "Notion" 会匹配 "Notion.so"）
+# - 命中度统计：每个槽位（品牌/功能/痛点）的命中次数
+

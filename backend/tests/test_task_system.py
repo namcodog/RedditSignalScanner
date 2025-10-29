@@ -1,21 +1,19 @@
 from __future__ import annotations
 
+import sys
 import uuid
 from datetime import datetime, timezone
-from typing import Any, cast
-
-import sys
 from pathlib import Path
+from typing import Any, cast
 
 BACKEND_DIR = Path(__file__).resolve().parents[1]
 if str(BACKEND_DIR) not in sys.path:
     sys.path.insert(0, str(BACKEND_DIR))
 
-from sqlalchemy.ext.asyncio import AsyncSession
-
 import fakeredis.aioredis
-from fakeredis import FakeServer
 import pytest
+from fakeredis import FakeServer
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.task import TaskStatus
 from app.schemas.task import TaskSummary
@@ -120,7 +118,9 @@ async def test_task_progress_update(monkeypatch: pytest.MonkeyPatch) -> None:
     recorded: list[TaskStatusPayload] = []
 
     class _StubCache:
-        async def set_status(self, payload: TaskStatusPayload, ttl_seconds: int = 3600) -> None:
+        async def set_status(
+            self, payload: TaskStatusPayload, ttl_seconds: int = 3600
+        ) -> None:
             recorded.append(payload)
 
     stub_cache = _StubCache()
@@ -150,6 +150,7 @@ async def test_task_progress_update(monkeypatch: pytest.MonkeyPatch) -> None:
                 "competitors": [],
                 "opportunities": [],
                 "action_items": [],
+                "entity_summary": {"brands": [], "features": [], "pain_points": []},
             },
             sources={},
             report_html="<html></html>",

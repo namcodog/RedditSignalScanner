@@ -28,6 +28,11 @@ if str(BACKEND_ROOT) not in sys.path:
 # Tests rely on NullPool to avoid cross-event-loop conflicts; production overrides this.
 os.environ.setdefault("SQLALCHEMY_DISABLE_POOL", "1")
 
+# Workaround for RecursionError with SQLAlchemy + Pydantic + pytest
+# See: https://github.com/pydantic/pydantic/issues/5108
+# Increase recursion limit temporarily for test environment
+sys.setrecursionlimit(5000)
+
 
 def pytest_configure(config: pytest.Config) -> None:
     """Ensure pytest-asyncio runs in auto mode for consistent loop handling."""

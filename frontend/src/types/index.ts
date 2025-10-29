@@ -63,6 +63,8 @@ export {
   type SentimentAnalysis,
   type TopCommunity,
   type PainPointViewModel,
+  type EntitySummary,
+  type EntityMatch,
 } from './report';
 export { reportResponseSchema, type ReportResponseParsed } from './report';
 
@@ -113,3 +115,17 @@ export {
   type PaginatedResponse,
   type ErrorCode,
 } from './api.types';
+
+// ============================================================================
+// 质量指标相关类型
+// ============================================================================
+export {
+  type DailyMetrics,
+  type DailyMetricsListResponse,
+  type MetricsQueryParams,
+  type ChartDataPoint,
+  type MetricsThresholds,
+  DEFAULT_METRICS_THRESHOLDS,
+  toChartDataPoint,
+  isMetricAbnormal,
+} from './metrics';
