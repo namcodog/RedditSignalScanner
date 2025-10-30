@@ -17,10 +17,10 @@ export interface ReportResponse {
   status: string;
   /** 报告生成时间 (ISO 8601) */
   generated_at: string;
-  /** 产品描述 */
-  product_description?: string | undefined;
-  /** 报告 HTML 快照（用于导出） */
-  report_html?: string | undefined;
+  /** 产品描述 (允许 null) */
+  product_description?: string | null | undefined;
+  /** 报告 HTML 快照（用于导出，允许 null） */
+  report_html?: string | null | undefined;
   /** 报告内容 */
   report: {
     /** 执行摘要 */

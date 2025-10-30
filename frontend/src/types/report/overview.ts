@@ -35,4 +35,10 @@ export interface Overview {
   sentiment: SentimentAnalysis;
   /** 热门社区列表（最多5个） */
   top_communities: TopCommunity[];
+  /** 总社区数 */
+  total_communities?: number | undefined;
+  /** Top N 数量 */
+  top_n?: number | undefined;
+  /** 种子来源 */
+  seed_source?: string | null | undefined;
 }

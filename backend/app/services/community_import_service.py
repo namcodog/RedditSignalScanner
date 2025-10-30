@@ -40,6 +40,7 @@ class CommunityImportService:
 
     REQUIRED_COLUMNS: Sequence[str] = (
         "name",
+        "tier",
         "categories",
         "description_keywords",
     )
