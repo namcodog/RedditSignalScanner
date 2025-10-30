@@ -105,6 +105,8 @@ class SourcesPayload(ORMModel):
     fallback_quality: Optional[dict[str, Any]] = None
     dedup_stats: Optional[dict[str, Any]] = None
     duplicates_summary: Optional[list[dict[str, Any]]] = Field(default_factory=list)
+    # 数据来源注记：例如 "pool" / "pool+discovery" / "cache-only"
+    seed_source: Optional[str] = None
 
 
 class AnalysisRead(ORMModel):

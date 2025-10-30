@@ -21,6 +21,7 @@ vi.mock('@/utils/export', () => ({
   exportToJSON: vi.fn(),
   exportToCSV: vi.fn(),
   exportToText: vi.fn(),
+  exportCommunitiesList: vi.fn(),
 }));
 
 // Mock useToast - create mock functions that can be tracked
@@ -143,6 +144,9 @@ const mockReport: ReportResponse = {
         category: '创业',
       },
     ],
+    total_communities: 1,
+    top_n: 1,
+    seed_source: 'pool',
   },
   stats: {
     total_mentions: 1500,
@@ -221,6 +225,7 @@ describe('ReportPage', () => {
   await waitFor(() => {
     expect(screen.getByText('自动化 onboarding 流程')).toBeInTheDocument();
   });
+
 });
 
   it('在加载报告时应展示渐进式进度提示', async () => {
@@ -301,6 +306,28 @@ describe('ReportPage', () => {
     expect(screen.getByText('85%')).toBeInTheDocument();
     expect(screen.getByText('45.6s')).toBeInTheDocument();
     expect(screen.getByText('75%')).toBeInTheDocument();
+  });
+
+  it('应展示 Top N of Total 与来源注记，并提供下载社区按钮', async () => {
+    vi.mocked(analyzeApi.getAnalysisReport).mockResolvedValue(mockReport);
+    const mod: any = await import('@/utils/export');
+    const spy = vi.spyOn(mod, 'exportCommunitiesList');
+
+    renderReportPage();
+
+    await waitFor(() => {
+      expect(screen.getByRole('heading', { name: '市场洞察报告', level: 2 })).toBeInTheDocument();
+    });
+
+    // 顶部注记
+    expect(screen.getByText(/Top 1 \/ Total 1（社区池）/)).toBeInTheDocument();
+
+    const user = userEvent.setup();
+    await user.click(screen.getByRole('button', { name: '下载社区（结构化）' }));
+    expect(spy).toHaveBeenCalledWith(expect.any(Array), 'test-task-id', 'json', 1, 1);
+
+    await user.click(screen.getByRole('button', { name: '下载社区（表格）' }));
+    expect(spy).toHaveBeenCalledWith(expect.any(Array), 'test-task-id', 'csv', 1, 1);
   });
 
   it('应该展示痛点、竞品与机会列表', async () => {

@@ -19,7 +19,8 @@ import time
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Callable, Iterable, Optional
+from typing import Any, Callable, Iterable, Optional
+from uuid import UUID
 
 import httpx
 
@@ -157,6 +158,7 @@ class LocalAcceptanceRunner:
         environment: str = "local",
         email: Optional[str] = None,
         password: Optional[str] = None,
+        reference_task_id: Optional[str] = None,
         product_description: Optional[str] = None,
         timeout: float = 10.0,
         poll_interval: float = 2.0,
@@ -168,6 +170,7 @@ class LocalAcceptanceRunner:
         self.environment = environment
         self.email = email or self._generate_email()
         self.password = password or "LocalAcceptance!123"
+        self.reference_task_id = reference_task_id
         self.product_description = (
             product_description
             or "Local acceptance smoke test for Reddit Signal Scanner"
@@ -185,6 +188,9 @@ class LocalAcceptanceRunner:
 
         self.access_token: Optional[str] = None
         self.task_id: Optional[str] = None
+        self._insights: list[dict[str, Any]] = []
+        self._primary_insight_id: Optional[str] = None
+        self._insight_task_id: Optional[str] = None
         self._steps: list[StepResult] = []
 
     # ------------------------------------------------------------------
@@ -242,9 +248,18 @@ class LocalAcceptanceRunner:
         self._steps.append(self._run_step("wait-for-task", self._wait_for_completion))
 
         self._steps.append(self._run_step("fetch-report", self._fetch_report_payload))
-        self._steps.append(
-            self._run_step("download-report", self._download_report_json)
-        )
+        insights_step = self._run_step("fetch-insights", self._fetch_insights)
+        self._steps.append(insights_step)
+        if insights_step.success:
+            self._steps.append(
+                self._run_step("insight-evidence", self._fetch_primary_insight_card)
+            )
+        else:
+            self._steps.append(
+                self._skip_step("insight-evidence", "洞察卡片未获取，跳过证据验证")
+            )
+        self._steps.append(self._run_step("dashboard-metrics", self._fetch_dashboard_metrics))
+        self._steps.append(self._run_step("download-report", self._download_report_json))
 
     # ------------------------------------------------------------------
     # Step implementations
@@ -359,6 +374,92 @@ class LocalAcceptanceRunner:
         action_items = len(payload.get("report", {}).get("action_items", []))
         return f"report fetched (action_items={action_items})"
 
+    def _fetch_insights(self) -> str:
+        candidates: list[tuple[str, bool]] = []
+        if self.task_id is not None:
+            candidates.append((self.task_id, False))
+        if (
+            self.reference_task_id
+            and self.reference_task_id not in {candidate for candidate, _ in candidates}
+        ):
+            candidates.append((self.reference_task_id, True))
+
+        if not candidates:
+            raise RuntimeError("no task_id available for insights lookup")
+
+        attempts = max(3, int(self.poll_attempts / 6))
+        last_error = "未能获取洞察卡片"
+
+        for task_id, is_reference in candidates:
+            insights: list[dict[str, Any]] = []
+            for attempt in range(1, attempts + 1):
+                response = self._api_client.get(
+                    f"/insights/{task_id}",
+                    headers=self._auth_header(),
+                )
+                response.raise_for_status()
+                payload = response.json()
+                insights = payload.get("insights") or payload.get("items", [])
+                if insights:
+                    break
+                time.sleep(self.poll_interval)
+            if insights:
+                self._insights = insights
+                self._insight_task_id = task_id
+                first = insights[0]
+                self._primary_insight_id = str(first.get("id"))
+                title = first.get("title", "n/a")
+                source = "reference task" if is_reference else "analysis task"
+                return (
+                    f"insights fetched from {source} "
+                    f"(count={len(insights)}, first_title='{title[:40]}')"
+                )
+            last_error = (
+                f"insights for task {task_id} remained empty after waiting {attempts * self.poll_interval:.0f}s"
+            )
+
+        raise RuntimeError(last_error)
+
+    def _fetch_primary_insight_card(self) -> str:
+        if not self._primary_insight_id:
+            raise StepSkipped("缺少洞察 ID，无法校验证据")
+        response = self._api_client.get(
+            f"/insights/card/{self._primary_insight_id}",
+            headers=self._auth_header(),
+        )
+        response.raise_for_status()
+        payload = response.json()
+        evidence = payload.get("evidence", [])
+        if not evidence:
+            raise RuntimeError("洞察卡片未返回任何证据")
+        snippet = evidence[0].get("snippet", "n/a")
+        reddit_url = evidence[0].get("reddit_url", "n/a")
+        return f"insight evidence ok (items={len(evidence)}, sample_url={reddit_url}, snippet='{snippet[:40]}')"
+
+    def _fetch_dashboard_metrics(self) -> str:
+        metrics: list[dict[str, Any]] = []
+        attempts = max(3, int(self.poll_attempts / 6))
+        for attempt in range(1, attempts + 1):
+            response = self._api_client.get(
+                "/metrics/daily",
+                headers=self._auth_header(),
+            )
+            response.raise_for_status()
+            payload = response.json()
+            metrics = payload.get("metrics", [])
+            if metrics:
+                break
+            time.sleep(self.poll_interval)
+        if not metrics:
+            raise RuntimeError("quality dashboard metrics returned empty list after waiting")
+        latest = metrics[0]
+        precision = latest.get("precision_at_50")
+        hit_rate = latest.get("cache_hit_rate")
+        return (
+            "dashboard metrics ok "
+            f"(days={len(metrics)}, precision_at_50={precision}, cache_hit_rate={hit_rate})"
+        )
+
     def _download_report_json(self) -> str:
         assert self.task_id is not None
         response = self._api_client.get(
@@ -425,6 +526,7 @@ def build_runner_from_env() -> LocalAcceptanceRunner:
         environment=os.getenv("LOCAL_ACCEPTANCE_ENV", "local"),
         email=os.getenv("LOCAL_ACCEPTANCE_EMAIL"),
         password=os.getenv("LOCAL_ACCEPTANCE_PASSWORD"),
+        reference_task_id=os.getenv("LOCAL_ACCEPTANCE_REFERENCE_TASK_ID"),
         product_description=os.getenv(
             "LOCAL_ACCEPTANCE_PRODUCT",
             "Local acceptance smoke test for Reddit Signal Scanner",
@@ -484,6 +586,12 @@ def parse_args(argv: Optional[list[str]] = None) -> argparse.Namespace:
         default=os.getenv("LOCAL_ACCEPTANCE_PRODUCT"),
     )
     parser.add_argument(
+        "--reference-task-id",
+        dest="reference_task_id",
+        help="Optional task ID used作为洞察验证的备选样本",
+        default=os.getenv("LOCAL_ACCEPTANCE_REFERENCE_TASK_ID"),
+    )
+    parser.add_argument(
         "--timeout",
         dest="timeout",
         type=float,
@@ -518,6 +626,7 @@ def main(argv: Optional[list[str]] = None) -> int:
         email=args.email,
         password=args.password,
         product_description=args.product,
+        reference_task_id=args.reference_task_id,
         timeout=args.timeout,
         poll_interval=args.poll_interval,
         poll_attempts=args.poll_attempts,

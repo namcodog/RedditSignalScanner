@@ -51,6 +51,10 @@ const overviewSchema = z.object({
       members: nonNegativeInt.nullish(),
     }),
   ),
+  // P1: 补充“Top N of Total + 来源”
+  total_communities: nonNegativeInt.optional(),
+  top_n: nonNegativeInt.optional(),
+  seed_source: z.string().nullish().optional(),
 });
 
 const reportMetadataSchema = z.object({

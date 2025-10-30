@@ -198,6 +198,55 @@ $ npx vitest run src/pages/__tests__/ReportPage.test.tsx
 - ✅ 前端类型同步扩展 `entity_summary` 字段
 - ✅ 翻译资源已更新
 
+---
+
+## 2025-10-29 P0 实施补强（后端）
+
+本次对 Spec 008 的 P0 项进行了补强与落地，确保“能跑得稳、报告可读、来源可追”。
+
+- 统计一致性与降级标注：
+  - 在 `backend/app/services/report_service.py` 统一校验 `pos+neg+neu==total`，不一致时写入 `metadata.recovery_applied`，前端可据此隐藏比例图并提示。
+- 报告术语规范化：
+  - 加载 `backend/config/phrase_mapping.yml`，对报告可读文本做轻量替换（不影响原始统计）。
+- 洞察可见性兜底：
+  - `InsightService` 若数据库为空，基于报告内容动态生成卡片响应，接口始终可见（已落地，复核通过）。
+- 报告头部补充字段：
+  - 新增 `overview.total_communities`、`overview.top_n`、`overview.seed_source`；
+  - 分析引擎输出 `sources.seed_source`（`pool` / `pool+discovery`），用于前端标注“Top N of Total”。
+- 避免“⚠️ 没有找到符合条件的社区”：
+  - `crawler_task` 在筛选为空时回退到全量活跃社区抓取（此前已落地，本次复核确认）。
+
+验证方式：
+- 运行 `pytest backend/tests/services/test_report_overview_header.py -q` 通过；
+- 执行 `make p0-acceptance` 跑通完整链路；`final-acceptance` 内含内容质量门禁（JSON 输出）。
+
+---
+
+## 2025-10-29 P1/P2 实施补强（前端）
+
+- 报告头部：在概览卡片展示 “Top N / Total M（来源）”，来源包括“社区池/社区池+发现”。
+- 下载社区列表：在概览卡片提供“下载社区（结构化/表格）”，当前导出 Top-N 列表；若需完整列表，后续将结合后端 `sources.communities_detail` 扩展。
+- 类型对齐：前端 Zod 模型新增可选字段 `overview.total_communities/top_n/seed_source`；兼容旧数据。
+- 测试：ReportPage 单测覆盖 Top N 注记与社区列表下载逻辑（vitest 通过）。
+
+---
+
+## 2025-10-30 完整列表下载（后端 CSV 接口 + 前端回退）
+
+- 新增后端接口：
+  - GET `/api/report/{task_id}/communities?scope=all|top` 返回结构化 JSON（含治理/抓取字段）。
+  - GET `/api/report/{task_id}/communities/download?scope=all|top` 直接下载 CSV（服务端生成）。
+  - 代码：`backend/app/api/routes/reports.py`、模型：`backend/app/schemas/community_export.py`。
+- 前端策略：
+  - 下载按钮优先请求 `scope=all`，失败自动回退导出 Top 列表（本地生成）。
+  - 代码：`frontend/src/pages/ReportPage.tsx`、`frontend/src/api/analyze.api.ts`。
+- 兼容性：
+  - Zod 模型已将 `overview.total_communities/top_n/seed_source` 定义为可选，兼容旧数据与后端渐进式升级。
+- 备注：
+  - 完整列表包含：name、mentions、relevance、category/categories、daily_posts、avg_comment_length、from_cache、cache_hit_rate、members、priority、tier、is_blacklisted、blacklist_reason、is_active、crawl_frequency_hours、crawl_priority、last_crawled_at、posts_cached、hit_count、empty_hit、failure_hit、success_hit。
+
+
+
 #### ✅ 导出功能扩展
 **状态**: 通过  
 **测试结果**:
@@ -336,4 +385,3 @@ $ npx vitest run src/pages/__tests__/ReportPage.test.tsx src/utils/__tests__/exp
 
 **产品经理确认**: _______________  
 **日期**: _______________
-

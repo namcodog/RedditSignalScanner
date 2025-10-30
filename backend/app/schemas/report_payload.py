@@ -45,6 +45,10 @@ class TopCommunity(ORMModel):
 class ReportOverview(ORMModel):
     sentiment: SentimentBreakdown
     top_communities: list[TopCommunity] = Field(default_factory=list)
+    # 头部补充字段：用于前端显示 "Top N of Total" 与来源注记
+    total_communities: int = Field(default=0, ge=0)
+    top_n: int = Field(default=0, ge=0)
+    seed_source: Optional[str] = None
 
 
 class ReportExecutiveSummary(ORMModel):

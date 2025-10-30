@@ -243,6 +243,93 @@ async def _store_analysis_results(task_id: uuid.UUID, result: AnalysisResult) ->
             task.dead_letter_at = None
 
             await session.commit()
+            # 将部分洞察持久化为 InsightCard + Evidence，保证 /api/insights 可见
+            try:
+                from app.models.insight import InsightCard, Evidence
+                cards_created = 0
+                # 优先从机会/opportunities 生成卡片，否则回退到 pain_points
+                candidate_lists: list[list[dict[str, Any]]] = []
+                candidate_lists.append(result.insights.get("opportunities") or [])
+                candidate_lists.append(result.insights.get("pain_points") or [])
+                # 回退：如无结构化洞察，基于 action_items 生成兜底卡片
+                if all(not lst for lst in candidate_lists) and result.action_items:
+                    tmp: list[dict[str, Any]] = []
+                    for ai in result.action_items[:3]:
+                        tmp.append({
+                            "description": ai.get("problem_definition") or "关键机会",
+                            "example_posts": [],
+                        })
+                    candidate_lists.append(tmp)
+                for items in candidate_lists:
+                    for entry in items:
+                        if cards_created >= 3:
+                            break
+                        # 术语规范化
+                        def _norm(s: str) -> str:
+                            try:
+                                import yaml  # type: ignore
+                                from pathlib import Path
+                                m = {}
+                                f = Path("backend/config/phrase_mapping.yml")
+                                if f.exists():
+                                    m = yaml.safe_load(f.read_text(encoding="utf-8")) or {}
+                                for k, v in m.items():
+                                    s = s.replace(k, v)
+                            except Exception:
+                                return s
+                            return s
+
+                        title_raw = str(entry.get("description") or entry.get("title") or "洞察")[:500]
+                        summary_raw = str(entry.get("description") or entry.get("summary") or title_raw)
+                        title = _norm(title_raw)
+                        summary = _norm(summary_raw)
+                        confidence = float(entry.get("confidence", 0.9)) if isinstance(entry.get("confidence"), (int, float)) else 0.9
+                        # 相关子版块从 example_posts 推断
+                        subs: list[str] = []
+                        for p in entry.get("example_posts") or []:
+                            comm = str(p.get("community") or "").strip()
+                            if comm and comm not in subs:
+                                subs.append(comm)
+                        card = InsightCard(
+                            task_id=task.id,
+                            title=title,
+                            summary=summary,
+                            confidence=max(0.0, min(confidence, 1.0)),
+                            time_window_days=30,
+                            subreddits=subs or ["r/startups"],
+                        )
+                        session.add(card)
+                        await session.flush()
+                        # 证据映射（最多3条）
+                        ev_count = 0
+                        for p in entry.get("example_posts") or []:
+                            if ev_count >= 3:
+                                break
+                            url = str(p.get("url") or p.get("permalink") or "").strip() or "https://reddit.com"
+                            excerpt = str(p.get("content") or "Excerpt unavailable")
+                            subreddit = str(p.get("community") or "r/unknown")
+                            score = 0.0
+                            try:
+                                up = float(p.get("upvotes", 0) or 0)
+                                score = max(0.0, min(up / 1000.0, 1.0))
+                            except Exception:
+                                score = 0.0
+                            evidence = Evidence(
+                                insight_card_id=card.id,
+                                post_url=url,
+                                excerpt=excerpt,
+                                timestamp=now,
+                                subreddit=subreddit,
+                                score=score,
+                            )
+                            session.add(evidence)
+                            ev_count += 1
+                        cards_created += 1
+                if cards_created > 0:
+                    await session.commit()
+            except Exception:
+                # 洞察持久化失败不影响主流程
+                await session.rollback()
         except Exception:
             await session.rollback()
             raise

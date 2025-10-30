@@ -91,6 +91,65 @@ class InsightService:
         total_result = await self._session.execute(count_query)
         total = int(total_result.scalar_one() or 0)
 
+        if total == 0:
+            # 兜底策略：基于 Analysis.insights 动态生成卡片响应，保证前端可见性
+            try:
+                from app.services.report_service import ReportService
+                service = ReportService(self._session)
+                payload = await service.get_report(task_id, user_id)
+                synthetic: list[InsightCardResponse] = []
+                # 优先从 opportunities 构建卡片，其次 pain_points；最后从 action_items 兜底
+                # 术语规范化工具
+                def _norm_text(s: str) -> str:
+                    try:
+                        import yaml  # type: ignore
+                        from pathlib import Path
+                        m = {}
+                        f = Path("backend/config/phrase_mapping.yml")
+                        if f.exists():
+                            m = yaml.safe_load(f.read_text(encoding='utf-8')) or {}
+                        for k, v in m.items():
+                            s = s.replace(k, v)
+                    except Exception:
+                        return s
+                    return s
+
+                def _build_from_entries(entries):
+                    nonlocal synthetic
+                    for entry in entries[: filters.limit - len(synthetic)]:
+                        title_raw = str(getattr(entry, 'description', None) or getattr(entry, 'title', None) or getattr(entry, 'problem_definition', None) or "洞察")
+                        summary_raw = str(getattr(entry, 'summary', None) or title_raw)
+                        title = _norm_text(title_raw)
+                        summary = _norm_text(summary_raw)
+                        conf = float(getattr(entry, 'confidence', 0.9) or 0.9)
+                        subs = []
+                        ev_list = []
+                        # 尝试从 entry.example_posts
+                        ep = getattr(entry, 'example_posts', None) or []
+                        for p in ep[:3]:
+                            sub = str(getattr(p, 'community', None) or p.get('community') if isinstance(p, dict) else '')
+                            if sub and sub not in subs:
+                                subs.append(sub)
+                            url = str(getattr(p, 'url', None) or getattr(p, 'permalink', None) or (p.get('url') if isinstance(p, dict) else '') or '')
+                            excerpt = str(getattr(p, 'content', None) or (p.get('content') if isinstance(p, dict) else '') or '')
+                            ev_list.append(EvidenceItem(id=UUID(int=0), post_id=None, post_url=url, excerpt=excerpt, timestamp=None, subreddit=sub or '', score=None))
+                        synthetic.append(InsightCardResponse(
+                            id=UUID(int=0), task_id=task_id, title=title, summary=summary,
+                            confidence=conf, time_window=self._format_time_window(30), time_window_days=30,
+                            subreddits=subs, evidence=ev_list, created_at=payload.generated_at, updated_at=payload.generated_at
+                        ))
+
+                _build_from_entries(list(payload.report.opportunities or []))
+                if len(synthetic) < filters.limit:
+                    _build_from_entries(list(payload.report.pain_points or []))
+                if len(synthetic) < filters.limit:
+                    _build_from_entries(list(payload.report.action_items or []))
+
+                if synthetic:
+                    return InsightCardListResponse(total=len(synthetic), items=synthetic)
+            except Exception:
+                pass
+
         result = await self._session.execute(
             base_query.order_by(InsightCard.created_at.desc())
             .limit(filters.limit)

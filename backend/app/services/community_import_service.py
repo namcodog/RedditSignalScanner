@@ -40,7 +40,6 @@ class CommunityImportService:
 
     REQUIRED_COLUMNS: Sequence[str] = (
         "name",
-        "tier",
         "categories",
         "description_keywords",
     )
@@ -62,6 +61,28 @@ class CommunityImportService:
         "avg_comment_length": "可选：平均评论长度，0-1000 的整数",
         "quality_score": "可选：质量评分，0.0-1.0 的小数",
         "priority": "可选：爬取优先级 high/medium/low，默认 medium",
+    }
+
+    # 支持常见中文/别名表头，便于直接导入“社区筛选.xlsx”
+    # 仅用于列名匹配，不改变字段语义
+    HEADER_ALIASES: Dict[str, list[str]] = {
+        "name": ["name", "社区", "社区名", "社区名称", "subreddit", "子版块名称"],
+        "tier": ["tier", "等级", "层级", "级别"],
+        "categories": ["categories", "分类", "类别", "类目", "主要分类"],
+        "description_keywords": [
+            "description_keywords",
+            "关键词",
+            "关键字",
+            "描述关键词",
+            "观察到的核心痛点 (备注)",
+        ],
+        "daily_posts": ["daily_posts", "日发帖", "日发帖数", "每日帖子数"],
+        "avg_comment_length": ["avg_comment_length", "平均评论长度", "评论长度"],
+        # 量化健康分 (1-100) 会在解析时自动归一化为 0-1
+        "quality_score": ["quality_score", "质量评分", "质量分", "量化健康分 (1-100)"],
+        # 可选：是否入选（用于过滤未入选行）
+        "is_active": ["is_active", "启用", "活跃", "是否启用", "最终入选"],
+        "priority": ["priority", "优先级"],
     }
 
     SAMPLE_ROWS: Sequence[Dict[str, Any]] = (
@@ -372,28 +393,69 @@ class CommunityImportService:
         sheet = workbook.sheet_by_index(0)
         column_order = self._column_order()
 
-        column_map: Dict[int, str] = {}
-        for col_idx in range(sheet.ncols):
-            header = self._string_value(sheet.cell_value(0, col_idx))
-            if header in column_order:
-                column_map[col_idx] = header
+        # 建立表头映射（支持别名）
+        def _normalize(text: str | None) -> str:
+            return (text or "").strip().lower()
 
-        present_columns = list(dict.fromkeys(column_map.values()))
+        alias_map: Dict[str, str] = {}
+        for target, aliases in self.HEADER_ALIASES.items():
+            for al in aliases:
+                alias_map[_normalize(al)] = target
+
+        # 在前 5 行内搜索最优表头行（匹配到的目标列最多者）
+        header_row_idx = 0
+        best_match_count = -1
+        best_column_map: Dict[int, str] = {}
+        for try_row in range(min(5, sheet.nrows)):
+            trial_map: Dict[int, str] = {}
+            for col_idx in range(sheet.ncols):
+                header_raw = self._string_value(sheet.cell_value(try_row, col_idx))
+                key = alias_map.get(_normalize(header_raw))
+                if key in set(column_order) | {"is_active"}:
+                    trial_map[col_idx] = key
+            match_count = sum(1 for v in trial_map.values() if v in self.REQUIRED_COLUMNS)
+            if match_count > best_match_count:
+                best_match_count = match_count
+                best_column_map = trial_map
+                header_row_idx = try_row
+
+        column_map: Dict[int, str] = best_column_map
+        present_columns = [v for v in dict.fromkeys(column_map.values()) if v != "is_active"]
 
         records: List[RowRecord] = []
-        for row_idx in range(1, sheet.nrows):
+        for row_idx in range(header_row_idx + 1, sheet.nrows):
             row_data: Dict[str, Any] = {}
             non_empty = False
+            include_row = True
             for col_idx, column_name in column_map.items():
                 value = sheet.cell_value(row_idx, col_idx)
                 if isinstance(value, str):
                     normalized = value.strip() or None
                 else:
                     normalized = value
+
+                # 质量分别名为“量化健康分 (1-100)”时，容忍 >1 的输入并归一化到 0-1
+                if column_name == "quality_score" and isinstance(normalized, (int, float)):
+                    try:
+                        fv = float(normalized)
+                        if fv > 1.0:
+                            normalized = round(fv / 100.0, 4)
+                    except Exception:
+                        pass
+
+                # is_active 列：用于过滤未入选行（如“最终入选”=否）
+                if column_name == "is_active":
+                    text = str(normalized).strip().lower() if normalized is not None else ""
+                    include_row = text in {"1", "true", "yes", "y", "是", "真", "启用", "active"} or text == ""
+                    # 不写入 row_data，纯粹用于过滤
+                    continue
+
                 row_data[column_name] = normalized
                 if self._is_non_empty(normalized):
                     non_empty = True
             if not non_empty:
+                continue
+            if not include_row:
                 continue
             for column_name in column_order:
                 row_data.setdefault(column_name, None)
@@ -451,16 +513,23 @@ class CommunityImportService:
                     }
                 )
 
-            tier_value = raw_tier.lower()
+            # 推断/验证 tier：若缺失则基于 quality_score 推断；否则校验
+            tier_value = (raw_tier or "").lower()
             if not tier_value:
-                row_errors.append(
-                    {
-                        "row": row_number,
-                        "field": "tier",
-                        "value": raw_tier,
-                        "error": "tier 为必填字段",
-                    }
-                )
+                # 尝试根据质量分推断（0-1）
+                try:
+                    qs = float(data.get("quality_score")) if data.get("quality_score") is not None else None
+                except Exception:
+                    qs = None
+                if isinstance(qs, float):
+                    if qs >= 0.8:
+                        tier_value = "gold"
+                    elif qs >= 0.6:
+                        tier_value = "silver"
+                    else:
+                        tier_value = "seed"
+                else:
+                    tier_value = "seed"
             elif tier_value not in self.VALID_TIERS:
                 row_errors.append(
                     {

@@ -25,7 +25,8 @@ import PainPointsList from '@/components/PainPointsList';
 import CompetitorsList from '@/components/CompetitorsList';
 import OpportunitiesList from '@/components/OpportunitiesList';
 import { EntityHighlights } from '@/components/EntityHighlights';
-import { exportToJSON, exportToCSV, exportToText } from '@/utils/export';
+import { exportToJSON, exportToCSV, exportToText, exportCommunitiesList } from '@/utils/export';
+import { getReportCommunities } from '@/api/analyze.api';
 import { normalizePainPoints } from '@/lib/report/pain-points';
 import { classifyReportError, type ReportErrorState } from '@/utils/report-error';
 import { ReportPageSkeleton } from '@/components/SkeletonLoader';
@@ -805,7 +806,62 @@ const OverviewSection = ({ report, t }: SectionProps) => (
     )}
 
     <div className="rounded-lg border border-border bg-card p-6">
-      <h3 className="mb-6 text-lg font-semibold text-foreground">{t('report.overview.topCommunities')}</h3>
+      <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+        <h3 className="text-lg font-semibold text-foreground">{t('report.overview.topCommunities')}</h3>
+        {/* Top N of Total + Source 注记 */}
+        {(() => {
+          const top = report.overview?.top_n ?? report.overview?.top_communities?.length ?? 0;
+          const total = report.overview?.total_communities ?? 0;
+          const srcKey = (report.overview?.seed_source || '').toLowerCase() === 'pool+discovery' ? 'report.overview.source.pool_discovery' : 'report.overview.source.pool';
+          const source = report.overview?.seed_source ? t(srcKey) : '';
+          return (
+            <span className="text-sm text-muted-foreground">
+              {t('report.overview.topOfTotal', { top, total, source })}
+            </span>
+          );
+        })()}
+      </div>
+      {/* 下载社区列表（优先完整列表接口，失败则回退 Top 列表） */}
+      <div className="mb-4 flex flex-wrap items-center gap-2">
+        <button
+          onClick={async () => {
+            try {
+              const res = await getReportCommunities(report.task_id, 'all');
+              exportCommunitiesList(res.items as any, report.task_id, 'json', res.top_n ?? res.items.length, res.total_communities);
+            } catch (e) {
+              exportCommunitiesList(
+                (report.overview?.top_communities ?? []) as any,
+                report.task_id,
+                'json',
+                report.overview?.top_n ?? report.overview?.top_communities?.length,
+                report.overview?.total_communities,
+              );
+            }
+          }}
+          className="inline-flex items-center justify-center rounded-md border border-border bg-background px-3 py-1.5 text-xs font-medium text-foreground transition hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        >
+          {t('report.overview.download.json')}
+        </button>
+        <button
+          onClick={async () => {
+            try {
+              const res = await getReportCommunities(report.task_id, 'all');
+              exportCommunitiesList(res.items as any, report.task_id, 'csv', res.top_n ?? res.items.length, res.total_communities);
+            } catch (e) {
+              exportCommunitiesList(
+                (report.overview?.top_communities ?? []) as any,
+                report.task_id,
+                'csv',
+                report.overview?.top_n ?? report.overview?.top_communities?.length,
+                report.overview?.total_communities,
+              );
+            }
+          }}
+          className="inline-flex items-center justify-center rounded-md border border-border bg-background px-3 py-1.5 text-xs font-medium text-foreground transition hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        >
+          {t('report.overview.download.csv')}
+        </button>
+      </div>
       {report.overview?.top_communities && report.overview.top_communities.length > 0 ? (
         <div className="space-y-6">
           {report.overview.top_communities.map((community, index) => (

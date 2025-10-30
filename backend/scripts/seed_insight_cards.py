@@ -7,6 +7,7 @@
 import asyncio
 import uuid
 from datetime import datetime, timezone, timedelta
+from pathlib import Path
 
 from app.db.session import SessionFactory
 from app.models.user import User, MembershipLevel
@@ -157,13 +158,17 @@ async def seed_insight_cards():
             print(f"✅ 创建洞察卡片: {insight_card.title}")
         
         await db.commit()
+
+        output_dir = Path("reports") / "local-acceptance"
+        output_dir.mkdir(parents=True, exist_ok=True)
+        (output_dir / "seed_insight_task_id.txt").write_text(str(task.id), encoding="utf-8")
         
         print(f"\n🎉 洞察卡片测试数据生成完成！")
         print(f"📋 任务 ID: {task.id}")
         print(f"🔗 访问洞察卡片页面: http://localhost:3006/insights/{task.id}")
         print(f"👤 测试账号: test@example.com / test123456")
+        print(f"📝 已写入参考任务 ID: {output_dir / 'seed_insight_task_id.txt'}")
 
 
 if __name__ == "__main__":
     asyncio.run(seed_insight_cards())
-

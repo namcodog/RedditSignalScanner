@@ -223,6 +223,57 @@ export const getAnalysisReport = (taskId: string): Promise<ReportResponse> => {
   return request;
 };
 
+// 完整/Top 社区导出（结构化 JSON）
+export interface CommunityExportItem {
+  name: string;
+  mentions: number;
+  relevance?: number | null;
+  category?: string | null;
+  categories?: string[];
+  daily_posts?: number | null;
+  avg_comment_length?: number | null;
+  from_cache?: boolean | null;
+  cache_hit_rate?: number | null;
+  members?: number | null;
+  priority?: string | null;
+  tier?: string | null;
+  is_blacklisted?: boolean | null;
+  blacklist_reason?: string | null;
+  is_active?: boolean | null;
+  crawl_frequency_hours?: number | null;
+  crawl_priority?: number | null;
+  last_crawled_at?: string | null;
+  posts_cached?: number | null;
+  hit_count?: number | null;
+  empty_hit?: number | null;
+  failure_hit?: number | null;
+  success_hit?: number | null;
+}
+
+export interface CommunityExportResponse {
+  task_id: string;
+  scope: 'top' | 'all';
+  seed_source?: string;
+  top_n?: number;
+  total_communities?: number;
+  items: CommunityExportItem[];
+}
+
+export const getReportCommunities = async (
+  taskId: string,
+  scope: 'top' | 'all' = 'all'
+): Promise<CommunityExportResponse> => {
+  const response = await apiClient.get(`/report/${taskId}/communities`, {
+    params: { scope },
+  });
+  // 不做严格 zod 校验，后端已约束；仅保证 items 是数组
+  const data = response.data as CommunityExportResponse;
+  if (!data || !Array.isArray(data.items)) {
+    throw new Error('社区导出数据格式异常');
+  }
+  return data;
+};
+
 /**
  * 轮询任务状态直到完成
  * 

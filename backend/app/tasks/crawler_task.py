@@ -123,15 +123,14 @@ async def _crawl_seeds_impl(force_refresh: bool = False) -> dict[str, Any]:
 
             seeds = await loader.load_community_pool(force_refresh=force_refresh)
         # 爬取所有活跃社区（high, medium, low 优先级）
-        seed_profiles = [
-            profile
-            for profile in seeds
-            if profile.tier.lower() in ("high", "medium", "low")
-        ]
+        # 兼容多种 tier 命名（gold/silver/seed → high/medium/low）
+        allowed_tiers = {"high", "medium", "low", "gold", "silver", "seed"}
+        seed_profiles = [profile for profile in seeds if profile.tier.lower() in allowed_tiers]
 
         if not seed_profiles:
-            logger.warning("⚠️ 没有找到符合条件的社区，检查 tier 字段")
-            return {"status": "skipped", "reason": "no_communities_to_crawl"}
+            # 回退策略：不过滤 priority/tier，确保不会空集，同时记录告警，便于治理
+            logger.warning("⚠️ 没有找到符合条件的社区，已回退为不过滤 priority/tier 的抓取集")
+            seed_profiles = list(seeds)
 
         results: List[dict[str, Any]] = []
         semaphore = asyncio.Semaphore(max(1, DEFAULT_MAX_CONCURRENCY))
@@ -313,15 +312,15 @@ async def _crawl_seeds_incremental_impl(force_refresh: bool = False) -> dict[str
                 await loader.load_seed_communities()
 
             seeds = await loader.load_community_pool(force_refresh=force_refresh)
-            seed_profiles = [
-                profile
-                for profile in seeds
-                if profile.tier.lower() in ("high", "medium", "low")
-            ]
+        seed_profiles = [
+            profile
+            for profile in seeds
+            if profile.tier.lower() in ("high", "medium", "low", "gold", "silver", "seed")
+        ]
 
-            if not seed_profiles:
-                logger.warning("⚠️ 没有找到符合条件的社区")
-                return {"status": "skipped", "reason": "no_communities_to_crawl"}
+        if not seed_profiles:
+            logger.warning("⚠️ 没有找到符合条件的社区，已回退为不过滤 priority/tier 的抓取集")
+            seed_profiles = list(seeds)
 
             # 创建增量抓取器
             results: List[dict[str, Any]] = []

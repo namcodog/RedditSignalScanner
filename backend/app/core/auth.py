@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import uuid
+import os
 from typing import Iterable
 
 from fastapi import Depends, HTTPException, status
@@ -24,7 +25,12 @@ async def require_admin(
     so we enforce an allowlist sourced from `ADMIN_EMAILS`.
     """
 
+    # Compose admin allowlist from cached settings and live environment to avoid
+    # stale values caused by settings cache in long-running processes.
     admin_emails = _resolve_admin_set(settings.admin_emails)
+    env_raw = os.getenv("ADMIN_EMAILS", "")
+    if env_raw:
+        admin_emails |= _resolve_admin_set(env_raw.split(","))
     if not admin_emails:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,

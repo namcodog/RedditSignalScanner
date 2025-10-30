@@ -336,3 +336,58 @@ export function exportToText(report: ExportReport, taskId: string): void {
     throw new Error('文本导出失败');
   }
 }
+
+// P1: 导出社区列表（用于“Top N of Total”完整列表下载增强）
+export type CommunityRow = {
+  name: string;
+  mentions: number;
+  relevance?: number;
+  category?: string | null;
+  daily_posts?: number | null;
+  avg_comment_length?: number | null;
+  from_cache?: boolean | null;
+  members?: number | null;
+};
+
+export function exportCommunitiesList(
+  list: CommunityRow[],
+  taskId: string,
+  format: 'json' | 'csv',
+  topN?: number,
+  total?: number,
+): void {
+  if (format === 'json') {
+    const payload = {
+      task_id: taskId,
+      top_n: topN ?? list.length,
+      total_communities: total ?? list.length,
+      items: list,
+    };
+    const dataStr = JSON.stringify(payload, null, 2);
+    triggerDownload(`communities-${taskId}.json`, dataStr, 'application/json');
+    return;
+  }
+
+  const headers = [
+    'Name',
+    'Mentions',
+    'Relevance',
+    'Category',
+    'DailyPosts',
+    'AvgCommentLength',
+    'FromCache',
+    'Members',
+  ];
+  const rows = list.map(item => [
+    item.name,
+    String(item.mentions ?? 0),
+    String(item.relevance ?? ''),
+    String(item.category ?? ''),
+    String(item.daily_posts ?? ''),
+    String(item.avg_comment_length ?? ''),
+    String(item.from_cache ?? ''),
+    String(item.members ?? ''),
+  ]);
+  const csv = buildCSV(headers, rows);
+  triggerDownload(`communities-${taskId}.csv`, csv, 'text/csv;charset=utf-8');
+}

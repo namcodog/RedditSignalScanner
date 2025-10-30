@@ -75,6 +75,9 @@ make test-admin-e2e
 make celery-start
 ```
 
+> ℹ️ **Makefile 公共脚本**：常见的环境加载、服务启动和健康检查逻辑已统一收敛到 `scripts/makefile-common.sh`。
+> 扩展新命令时，优先在该脚本中添加函数再在 Makefile 中调用，以保持命令行为一致。
+
 ### 方式 2: 手动启动
 
 ```bash
@@ -109,6 +112,13 @@ python scripts/start_celery_worker.py
 | `make deploy-checklist` | （待实现）部署前Checklist占位 |
 
 > **部署 / 运维**：生产部署步骤详见 `docs/DEPLOYMENT.md`；日常监控、故障排查和备份请参考 `docs/OPERATIONS.md`。
+
+#### Makefile 模块结构
+
+- `Makefile` 仅保留变量、帮助信息以及 `makefiles/*.mk` 的 `include`；
+- 公共 shell 函数集中在 `scripts/makefile-common.sh`；
+- 目录拆分：`dev.mk`（开发/黄金路径）、`test.mk`（测试）、`celery.mk`、`infra.mk`（Redis/端口）、`db.mk`、`acceptance.mk`、`tools.mk`、`clean.mk`、`ops.mk` 等。
+- 拓展新命令时，优先在公共脚本中补函数，然后在对应模块的新目标里引用，避免重复脚本逻辑。
 
 #### Admin Dashboard 端到端验证指南
 1. **配置管理员邮箱**：确保后端启动前已设置 `ADMIN_EMAILS`，例如  

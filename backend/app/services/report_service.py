@@ -179,6 +179,33 @@ class ReportService:
                 for item in generated
             ]
 
+        # P1: 证据密度约束（每条行动项至少2条可点击证据URL），不足则降级标注
+        insufficient_evidence_detected = False
+        normalized_items: list[OpportunityReportOut] = []
+        for item in action_items:
+            try:
+                url_count = sum(1 for ev in (item.evidence_chain or []) if getattr(ev, "url", None))
+                if url_count < 2:
+                    insufficient_evidence_detected = True
+                    # 降级标注（不改变结构，只追加一条提示到建议动作）
+                    tips = list(item.suggested_actions or [])
+                    marker = f"证据不足(n<2)"
+                    if marker not in tips:
+                        tips.append(marker)
+                    item = OpportunityReportOut(
+                        problem_definition=item.problem_definition,
+                        evidence_chain=item.evidence_chain,
+                        suggested_actions=tips,
+                        confidence=item.confidence,
+                        urgency=item.urgency,
+                        product_fit=item.product_fit,
+                        priority=item.priority,
+                    )
+            except Exception:
+                pass
+            normalized_items.append(item)
+        action_items = normalized_items
+
         stats = self._build_stats(analysis_payload)
         overview = await self._build_overview(
             analysis_payload.sources.communities_detail or [], stats
@@ -192,6 +219,63 @@ class ReportService:
             analysis.report.generated_at,
             stats,
         )
+
+        # 统计一致性与降级标注：如 overview 百分比与 stats 总量不自洽，则记录 recovery 标记
+        try:
+            pct_sum = overview.sentiment.positive + overview.sentiment.negative + overview.sentiment.neutral
+            # 允许四舍五入误差（±2）
+            recovery_reasons: list[str] = []
+            if pct_sum < 98 or pct_sum > 102:
+                recovery_reasons.append("stats_inconsistency")
+            if insufficient_evidence_detected:
+                recovery_reasons.append("insufficient_evidence")
+            if recovery_reasons:
+                # 合并到 sources.recovery_strategy，便于前端或日志定位
+                existing = (analysis_payload.sources.recovery_strategy or "").strip()
+                merged = ",".join(filter(None, [existing] + recovery_reasons)).strip(",")
+                analysis_payload.sources.recovery_strategy = merged or None
+                metadata.recovery_applied = merged or None
+        except Exception:
+            # 保守处理，不影响主流程
+            pass
+
+        # 术语与措辞规范化（基于可选映射表），仅作用于可读文案，不改动原始数据统计
+        def _normalize_text(s: Any) -> Any:
+            if not isinstance(s, str):
+                return s
+            try:
+                import yaml  # type: ignore
+                from pathlib import Path
+                mapping_file = Path("backend/config/phrase_mapping.yml")
+                mapping: dict[str, str] = {}
+                if mapping_file.exists():
+                    mapping = yaml.safe_load(mapping_file.read_text(encoding="utf-8")) or {}
+                for k, v in mapping.items():
+                    s = s.replace(k, v)
+            except Exception:
+                # 忽略映射加载错误
+                return s
+            return s
+
+        # 对 action_items 与 pain_points/opportunities 的可读字段做轻量规范化
+        for item in action_items:
+            try:
+                if hasattr(item, "problem_definition") and item.problem_definition:
+                    item.problem_definition = _normalize_text(item.problem_definition)
+                if hasattr(item, "suggested_actions") and item.suggested_actions:
+                    item.suggested_actions = [
+                        _normalize_text(a) for a in item.suggested_actions
+                    ]
+            except Exception:
+                continue
+
+        for col in (analysis_payload.insights.pain_points, analysis_payload.insights.opportunities):
+            for obj in col:
+                try:
+                    if hasattr(obj, "description") and obj.description:
+                        obj.description = _normalize_text(obj.description)
+                except Exception:
+                    continue
 
         payload = ReportPayload(
             task_id=task.id,
@@ -364,21 +448,22 @@ class ReportService:
             for comp in competitors
             if str(comp.sentiment).lower() == "negative"
         )
-        neutral_mentions = max(
-            0,
-            analysis.sources.posts_analyzed - positive_mentions - negative_mentions,
-        )
+        # 初始以 posts_analyzed 为参考，若不可信则回退到自洽口径
+        neutral_candidates = analysis.sources.posts_analyzed - positive_mentions - negative_mentions
+        neutral_mentions = max(0, neutral_candidates)
 
-        total_mentions = (
-            analysis.sources.posts_analyzed
-            or positive_mentions + negative_mentions + neutral_mentions
-        )
+        # 强制总和自洽：total = pos + neg + neu
+        pos = max(int(positive_mentions), 0)
+        neg = max(int(negative_mentions), 0)
+        neu = max(int(neutral_mentions), 0)
+        total = pos + neg + neu
 
+        # 如 posts_analyzed 明显小于 pos+neg，则记入恢复策略由上层标注
         return ReportStats(
-            total_mentions=max(total_mentions, 0),
-            positive_mentions=max(positive_mentions, 0),
-            negative_mentions=max(negative_mentions, 0),
-            neutral_mentions=max(neutral_mentions, 0),
+            total_mentions=total,
+            positive_mentions=pos,
+            negative_mentions=neg,
+            neutral_mentions=neu,
         )
 
     async def _get_community_member_count(self, community_name: str) -> int:
@@ -460,8 +545,16 @@ class ReportService:
 
         # Build top communities with member counts from DB
         top_communities = []
+        # 社区治理：过滤黑名单社区，避免噪音出现在 Top 列
+        filtered_details = communities_detail
+        try:
+            from app.services.blacklist_loader import get_blacklist_config
+            bl = get_blacklist_config()
+            filtered_details = [d for d in communities_detail if not bl.is_community_blacklisted(d.name)] or communities_detail
+        except Exception:
+            filtered_details = communities_detail
         for detail in sorted(
-            communities_detail,
+            filtered_details,
             key=lambda item: item.mentions,
             reverse=True,
         )[:5]:
@@ -479,7 +572,26 @@ class ReportService:
                 )
             )
 
-        return ReportOverview(sentiment=sentiment, top_communities=top_communities)
+        # Header helpers
+        total_communities = len(communities_detail)
+        top_n = len(top_communities)
+        # 推断来源：若任一条 detail.categories 包含 "discovered"，认为来源包含 discovery
+        seed_source = None
+        try:
+            if any("discovered" in (d.categories or []) for d in communities_detail):
+                seed_source = "pool+discovery"
+            elif communities_detail:
+                seed_source = "pool"
+        except Exception:
+            seed_source = None
+
+        return ReportOverview(
+            sentiment=sentiment,
+            top_communities=top_communities,
+            total_communities=total_communities,
+            top_n=top_n,
+            seed_source=seed_source,
+        )
 
     def _build_summary(
         self,

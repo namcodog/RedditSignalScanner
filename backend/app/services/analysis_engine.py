@@ -1365,6 +1365,11 @@ async def run_analysis(
             }
         )
 
+    # 推断数据来源注记：若存在 "discovered" 类别，视为 pool+discovery；否则默认 pool
+    seed_source = "pool+discovery" if any(
+        ("discovered" in (entry.profile.categories or ())) for entry in collected
+    ) else "pool"
+
     sources = {
         "communities": [entry.profile.name for entry in collected],
         "posts_analyzed": len(deduped_posts),
@@ -1380,6 +1385,7 @@ async def run_analysis(
             "fallback_pairs": dedup_stats.fallback_pairs,
             "similarity_checks": dedup_stats.similarity_checks,
         },
+        "seed_source": seed_source,
     }
 
     report_html = _render_report(task, collected, insights)
