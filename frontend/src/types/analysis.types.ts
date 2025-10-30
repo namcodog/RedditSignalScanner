@@ -26,23 +26,23 @@ export interface ExamplePost {
   /** 社区名称（如 "r/productivity"） */
   community: string;
 
-  /** 帖子内容摘要 */
-  content?: string | undefined;
+  /** 帖子内容摘要（允许 null） */
+  content?: string | null | undefined;
 
-  /** 点赞数 */
-  upvotes?: number | undefined;
+  /** 点赞数（允许 null） */
+  upvotes?: number | null | undefined;
 
-  /** Reddit 帖子链接（可选） */
-  url?: string | undefined;
+  /** Reddit 帖子链接（可选，允许 null） */
+  url?: string | null | undefined;
 
-  /** 作者用户名（可选） */
-  author?: string | undefined;
+  /** 作者用户名（可选，允许 null） */
+  author?: string | null | undefined;
 
-  /** 帖子创建时间 (ISO 8601)（可选） */
-  created_at?: string | undefined;
+  /** 帖子创建时间 (ISO 8601)（可选，允许 null） */
+  created_at?: string | null | undefined;
 
-  /** 帖子永久链接（可选） */
-  permalink?: string | undefined;
+  /** 帖子永久链接（可选，允许 null） */
+  permalink?: string | null | undefined;
 }
 
 /**
