@@ -88,7 +88,7 @@ export interface Competitor {
   weaknesses: string[];
 
   /** 市场份额百分比（0-100） */
-  market_share?: number | undefined;
+  market_share?: number | null | undefined;
 }
 
 /**
