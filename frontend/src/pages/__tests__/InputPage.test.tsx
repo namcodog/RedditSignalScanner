@@ -88,9 +88,9 @@ describe('InputPage', () => {
 
     const textarea = screen.getByRole('textbox', { name: /产品描述/i }) as HTMLTextAreaElement;
 
-    // 等待状态更新
+    // 等待状态更新 - 更新为新的示例提示词
     await waitFor(() => {
-      expect(textarea.value).toMatch(/忙碌专业人士进行餐食准备/);
+      expect(textarea.value).toMatch(/面向欧美妈妈人群的婴童辅食机/);
     });
   });
 

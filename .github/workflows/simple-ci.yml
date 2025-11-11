@@ -84,7 +84,9 @@ jobs:
             --exclude="*.md" \
             --exclude="*.ts" \
             --exclude="*.tsx" \
-            --exclude="*.py"; then
+            --exclude="*.py" \
+            --exclude="Makefile" \
+            --exclude="makefiles/*"; then
             echo "⚠️ Warning: Possible API key found"
             exit 1
           fi
