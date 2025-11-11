@@ -41,6 +41,7 @@ def test_gate_fails_and_lists_reasons() -> None:
         "entity_coverage": {
             "overall": 0.50,
             "brands": 0.40,
+            "features": 0.40,
             "pain_points": 0.40,
             "top10_unique_share": 0.95,
         },
@@ -66,6 +67,7 @@ def test_gate_fails_and_lists_reasons() -> None:
     expected = {
         "overall_coverage<0.7",
         "brands<0.6",
+        "features<0.5",
         "pain_points<0.5",
         "top10_unique_share∉[0.6,0.9]",
         "L1<0.85",
