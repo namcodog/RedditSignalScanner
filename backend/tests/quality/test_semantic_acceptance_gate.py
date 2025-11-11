@@ -25,6 +25,7 @@ def test_gate_passes_with_defaults(tmp_path: Path) -> None:
     th = Thresholds(
         overall_coverage_min=0.70,
         brands_coverage_min=0.60,
+        features_coverage_min=0.50,
         pain_points_coverage_min=0.50,
         layer_coverage_min={"L1": 0.85, "L2": 0.80, "L3": 0.75, "L4": 0.70},
         top10_unique_share_min=0.60,
@@ -53,6 +54,7 @@ def test_gate_fails_and_lists_reasons() -> None:
     th = Thresholds(
         overall_coverage_min=0.70,
         brands_coverage_min=0.60,
+        features_coverage_min=0.50,
         pain_points_coverage_min=0.50,
         layer_coverage_min={"L1": 0.85, "L2": 0.80, "L3": 0.75, "L4": 0.70},
         top10_unique_share_min=0.60,
