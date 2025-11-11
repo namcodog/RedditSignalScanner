@@ -1,0 +1,28 @@
+sample:
+  posts_per_subreddit: 20
+  time_filter: month   # hour, day, week, month, year, all
+  sort: new            # new, top, hot
+
+weights:
+  what_to_sell: { A: 0.25, B: 0.55, C: 0.20 }
+  how_to_sell:  { A: 0.30, B: 0.50, C: 0.20 }
+  where_to_sell: { A: 0.35, B: 0.45, C: 0.20 }
+  how_to_source: { A: 0.30, B: 0.50, C: 0.20 }
+
+gates:
+  min_posts_analyzed: 20
+  min_relevance: 0.30
+  max_spam_ratio: 0.20
+
+spam_keywords:
+  - www.
+  - click here
+  - visit
+  - buy now
+  - $$$
+  - make money
+  - earn
+  - don't miss
+  - limited time
+  - affiliate link
+  - promo code

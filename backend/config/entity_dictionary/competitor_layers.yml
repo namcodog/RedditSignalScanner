@@ -1,0 +1,31 @@
+version: 0
+default_layer: summary
+layers:
+  workspace:
+    label: "Workspace"
+    aliases:
+      - notion
+      - clickup
+      - airtable
+      - asana
+      - monday
+      - confluence
+      - linear
+  analytics:
+    label: "Analytics"
+    aliases:
+      - amplitude
+      - mixpanel
+      - tableau
+      - looker
+      - datadog
+      - powerbi
+      - power bi
+  summary:
+    label: "Summary"
+    aliases:
+      - google sheets
+      - excel
+      - powerpoint
+      - notion ai
+      - docs

@@ -27,6 +27,19 @@ class ScoringRules:
     positive_keywords: Sequence[KeywordRule]
     negative_keywords: Sequence[KeywordRule]
     negation_patterns: Sequence[NegationRule]
+    # Optional: parameters for opportunity potential users estimation (Spec010)
+    opportunity_estimator: "OpportunityEstimatorConfig | None" = None
+
+
+@dataclass(frozen=True)
+class OpportunityEstimatorConfig:
+    base: float = 100.0
+    freq_weight: float = 50.0
+    avg_score_weight: float = 2.0
+    keyword_weight: float = 20.0
+    theme_relevance: float = 0.0
+    intent_factor: float = 0.0
+    participation_rate: float = 0.0
 
 
 class ScoringRulesLoader:
@@ -59,6 +72,7 @@ class ScoringRulesLoader:
             with self._path.open("r", encoding="utf-8") as fh:
                 payload = yaml.safe_load(fh) or {}
 
+            est = self._parse_opportunity_estimator(payload.get("opportunity_estimator", {}) or {})
             rules = ScoringRules(
                 positive_keywords=self._parse_keyword_rules(
                     payload.get("positive_keywords", []), default_weight=0.1
@@ -69,6 +83,7 @@ class ScoringRulesLoader:
                 negation_patterns=self._parse_negation_rules(
                     payload.get("negation_patterns", [])
                 ),
+                opportunity_estimator=est,
             )
 
             self._cache = rules
@@ -100,6 +115,23 @@ class ScoringRulesLoader:
         return rules
 
     @staticmethod
+    def _parse_opportunity_estimator(data: object) -> OpportunityEstimatorConfig:
+        try:
+            if not isinstance(data, dict):
+                return OpportunityEstimatorConfig()
+            return OpportunityEstimatorConfig(
+                base=float(data.get("base", 100.0) or 100.0),
+                freq_weight=float(data.get("freq_weight", 50.0) or 50.0),
+                avg_score_weight=float(data.get("avg_score_weight", 2.0) or 2.0),
+                keyword_weight=float(data.get("keyword_weight", 20.0) or 20.0),
+                theme_relevance=float(data.get("theme_relevance", 0.0) or 0.0),
+                intent_factor=float(data.get("intent_factor", 0.0) or 0.0),
+                participation_rate=float(data.get("participation_rate", 0.0) or 0.0),
+            )
+        except Exception:
+            return OpportunityEstimatorConfig()
+
+    @staticmethod
     def _parse_negation_rules(items: Iterable[object]) -> List[NegationRule]:
         rules: List[NegationRule] = []
         for item in items:
@@ -127,4 +159,5 @@ __all__ = [
     "NegationRule",
     "ScoringRules",
     "ScoringRulesLoader",
+    "OpportunityEstimatorConfig",
 ]

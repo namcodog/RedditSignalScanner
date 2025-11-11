@@ -1,0 +1,19 @@
+brands:
+  - Notion
+  - Trello
+  - Slack
+  - Discord
+  - ChatGPT
+features:
+  - calendar
+  - automation
+  - integration
+  - dashboard
+  - summarization
+pain_points:
+  - onboarding
+  - context switching
+  - notification overload
+  - fragmentation
+  - vendor lock-in
+

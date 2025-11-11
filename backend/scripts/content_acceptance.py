@@ -93,6 +93,53 @@ def _check_quality(report: Dict[str, Any]) -> Dict[str, Any]:
     opps = content.get("opportunities") or []
     richness_ok = (len(pains) >= 3) or (len(opps) >= 2)
 
+    # 实体覆盖度：统计 entity_summary 各分类的总数
+    entity_summary = (report.get("report") or {}).get("entity_summary") or {}
+    entity_total = 0
+    if isinstance(entity_summary, dict):
+        for rows in entity_summary.values():
+            if isinstance(rows, list):
+                entity_total += len(rows)
+
+    entity_coverage_ok = entity_total >= 3
+
+    # 中性比例区间（10%–40% 视为合理）：过低代表二分类偏置，过高代表信号稀释
+    neutral_range_ok = True
+    neutral_pct = 0
+    if total > 0:
+        neutral_pct = int(round(neu * 100.0 / total))
+        neutral_range_ok = 10 <= neutral_pct <= 40
+
+    # 社区纯度：Top 列中按 category 的主类占比 ≥ 80%
+    purity_ok = True
+    purity_ratio = 1.0
+    if top:
+        cats = [t.get("category") for t in top if t.get("category")]
+        if cats:
+            from collections import Counter
+            c = Counter(cats)
+            denom = len(cats)
+            purity_ratio = (c.most_common(1)[0][1] / max(1, denom))
+            # 至少 3 个有类目的样本时再严格要求
+            purity_ok = (denom < 3) or (purity_ratio >= 0.8)
+
+    # LLM 覆盖率：统计 note 是否为短要点句（而非“社区: … | 赞数 …”默认文案）
+    llm_coverage = 0.0
+    try:
+        items = content.get("action_items") or []
+        total_evid = 0
+        short_cnt = 0
+        for it in items:
+            for ev in (it.get("evidence_chain") or []):
+                total_evid += 1
+                note = str((ev or {}).get("note") or "")
+                if note and not note.startswith("社区:") and len(note) <= 32:
+                    short_cnt += 1
+        if total_evid > 0:
+            llm_coverage = short_cnt / total_evid
+    except Exception:
+        llm_coverage = 0.0
+
     score = 100
     if not stats_consistent:
         score -= 30
@@ -104,16 +151,100 @@ def _check_quality(report: Dict[str, Any]) -> Dict[str, Any]:
         score -= 20
     if not richness_ok:
         score -= 10
-    passed = score >= 70
+    if not entity_coverage_ok:
+        score -= 10
+    if not neutral_range_ok:
+        score -= 10
+    if not purity_ok:
+        score -= 10
+    # 洞察卡片质量（卡片≥3且每张证据≥2）
+    try:
+        import httpx  # type: ignore
+        token = os.getenv("ACCESS_TOKEN") or None
+        task_id = (report.get("task_id") or "").strip()
+        base = os.getenv("BACKEND_URL", "http://localhost:8006").rstrip("/")
+        cards_ok = False
+        if task_id:
+            with httpx.Client() as c:
+                headers = {"Authorization": f"Bearer {token}"} if token else {}
+                r = c.get(f"{base}/api/insights/{task_id}", headers=headers, timeout=15.0)
+                if r.status_code == 200:
+                    payload = r.json() or {}
+                    cards = payload.get("insights") or payload.get("items", []) or []
+                    if isinstance(cards, list) and len(cards) >= 3:
+                        if all((len((card.get("evidence") or [])) >= 2) for card in cards[:3]):
+                            cards_ok = True
+        if not cards_ok:
+            score -= 15
+    except Exception:
+        # 网络或接口异常不阻断，但降低评分
+        score -= 5
+
+    # Spec 010 额外硬门禁
+    clusters = (content.get("pain_clusters") or [])
+    competitor_layers = (content.get("competitor_layers_summary") or [])
+    opportunities = (content.get("opportunities") or [])
+
+    clusters_ok = len(clusters) >= 2
+    competitor_layers_ok = len(competitor_layers) >= 2
+    opportunity_users_ok = True
+    if opportunities:
+        for opp in opportunities:
+            est = opp.get("potential_users_est")
+            try:
+                if int(est) <= 0:
+                    opportunity_users_ok = False
+                    break
+            except Exception:
+                opportunity_users_ok = False
+                break
+    else:
+        # 若没有机会项，则按不通过处理，确保有量化样本
+        opportunity_users_ok = False
+
+    # 从审计文件读取 normalization_rate（若存在）
+    normalization_rate = None
+    try:
+        task_id = (report.get("task_id") or "").strip()
+        if task_id:
+            import json as _json
+            from pathlib import Path as _Path
+            audit = _Path(f"backend/reports/local-acceptance/llm-audit-{task_id}.json")
+            if audit.exists():
+                payload = _json.loads(audit.read_text(encoding="utf-8")) or {}
+                normalization_rate = float(payload.get("normalization_rate", 0.0) or 0.0)
+    except Exception:
+        normalization_rate = None
+
+    # LLM 产出覆盖率纳入必备门槛（>=0.6），规范化匹配率<0.9 仅扣分
+    llm_ok = llm_coverage >= 0.6
+    passed = (score >= 70) and clusters_ok and competitor_layers_ok and opportunity_users_ok and llm_ok
+    if normalization_rate is not None and normalization_rate < 0.9:
+        score -= 5
 
     return {
         "passed": passed,
         "score": score,
+        "insight_cards_ok": bool('cards_ok' in locals() and locals()['cards_ok']),
         "stats_consistent": stats_consistent,
         "action_items_count": len(ai),
         "evidence_ok": evidence_ok,
         "richness_ok": richness_ok,
         "top_communities_count": len(top),
+        "entity_total": entity_total,
+        "entity_coverage_ok": entity_coverage_ok,
+        "neutral_pct": neutral_pct,
+        "neutral_range_ok": neutral_range_ok,
+        "purity_ratio": round(purity_ratio, 2),
+        "purity_ok": purity_ok,
+        "llm_coverage": round(llm_coverage, 3),
+        "llm_ok": llm_ok,
+        "normalization_rate": round(normalization_rate or 0.0, 3) if normalization_rate is not None else None,
+        "normalization_ok": (normalization_rate is not None and normalization_rate >= 0.9) if normalization_rate is not None else None,
+        # Spec010 新增断言状态
+        "clusters_ok": clusters_ok,
+        "competitor_layers_ok": competitor_layers_ok,
+        "opportunity_users_ok": opportunity_users_ok,
     }
 
 

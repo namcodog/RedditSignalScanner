@@ -1,0 +1,38 @@
+brands:
+  - Amazon
+  - Etsy
+  - Shopify
+  - Walmart
+  - TikTok Shop
+  - Temu
+  - Shopee
+features:
+  - FBA
+  - FBM
+  - sponsored ads
+  - product research
+  - marketplace analytics
+  - review mining
+channels:
+  - Amazon
+  - Etsy
+  - Shopify
+  - Walmart
+  - TikTok Shop
+  - Temu
+  - Shopee
+  - Lazada
+logistics:
+  - 3PL
+  - DHL
+  - FedEx
+  - UPS
+  - freight forwarder
+  - bonded warehouse
+risks:
+  - compliance
+  - infringement
+  - customs hold
+  - logistics delay
+  - counterfeit
+  - saturated

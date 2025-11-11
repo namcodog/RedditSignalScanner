@@ -45,14 +45,19 @@ def _severity_to_urgency(severity: str) -> float:
     return mapping.get(severity, 0.7)
 
 
-def _score_product_fit(potential_users: str) -> float:
-    digits = "".join(ch for ch in potential_users if ch.isdigit())
-    if not digits:
-        return 0.65
-    try:
-        value = int(digits)
-    except ValueError:
-        return 0.65
+def _score_product_fit(potential_users: str | None, *, potential_users_est: int | None = None) -> float:
+    # 优先使用数值估计（Spec010 参数化产物）
+    if isinstance(potential_users_est, int):
+        value = max(0, potential_users_est)
+    else:
+        # 回退：从字符串中提取数字
+        digits = "".join(ch for ch in (potential_users or "") if ch.isdigit())
+        if not digits:
+            return 0.65
+        try:
+            value = int(digits)
+        except ValueError:
+            return 0.65
     if value >= 500:
         return 0.9
     if value >= 200:
@@ -130,7 +135,8 @@ def build_opportunity_reports(
         urgency = _severity_to_urgency(severity)
         # P3-3 修复: 使用英文
         product_fit = _score_product_fit(
-            opportunity.get("potential_users", "~0 potential teams")
+            opportunity.get("potential_users", "~0 potential teams"),
+            potential_users_est=opportunity.get("potential_users_est"),
         )
         priority = round(confidence * urgency * product_fit, 4)
 
@@ -163,4 +169,3 @@ def build_opportunity_reports(
 
 
 __all__ = ["OpportunityReport", "EvidenceItem", "build_opportunity_reports"]
-

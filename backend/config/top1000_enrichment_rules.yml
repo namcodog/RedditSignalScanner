@@ -1,0 +1,179 @@
+version: 1
+defaults:
+  quality_score: 0.6
+  default_weight: 60
+  estimated_daily_posts: 30
+
+categories:
+  - name: News & World
+    match:
+      - worldnews
+      - news
+    tags:
+      - news
+      - world
+      - politics
+    quality_score: 0.75
+    default_weight: 85
+    estimated_daily_posts: 100
+
+  - name: Entertainment & Culture
+    match:
+      - funny
+      - memes
+      - pics
+      - movies
+      - Music
+      - aww
+      - AskReddit
+      - Jokes
+      - Showerthoughts
+      - todayilearned
+    tags:
+      - entertainment
+      - culture
+    quality_score: 0.7
+    default_weight: 80
+    estimated_daily_posts: 100
+
+  - name: Finance & Crypto
+    match:
+      - CryptoCurrency
+      - Bitcoin
+      - ethereum
+      - defi
+      - stocks
+      - investing
+      - wallstreetbets
+      - options
+    tags:
+      - finance
+      - investing
+      - crypto
+    quality_score: 0.75
+    default_weight: 80
+    estimated_daily_posts: 90
+
+  - name: Dev & Infra
+    match:
+      - devops
+      - aws
+      - azure
+      - googlecloud
+      - kubernetes
+      - docker
+      - webdev
+      - programming
+      - golang
+      - Python
+      - javascript
+      - reactjs
+      - node
+      - django
+      - flask
+      - rails
+      - dotnet
+    tags:
+      - dev
+      - infra
+      - cloud
+    quality_score: 0.7
+    default_weight: 70
+    estimated_daily_posts: 70
+
+  - name: AI & Data
+    match:
+      - MachineLearning
+      - ArtificialInteligence
+      - artificial
+      - deeplearning
+      - datascience
+      - StableDiffusion
+      - dataengineering
+    tags:
+      - ai
+      - ml
+      - data
+    quality_score: 0.7
+    default_weight: 70
+    estimated_daily_posts: 70
+
+  - name: Design & UX
+    match:
+      - userexperience
+      - uxdesign
+      - UI_Design
+      - webdesign
+      - design
+    tags:
+      - design
+      - ux
+      - ui
+    quality_score: 0.65
+    default_weight: 65
+    estimated_daily_posts: 50
+
+  - name: Go-To-Market
+    match:
+      - growthhacking
+      - SEO
+      - PPC
+      - analytics
+      - marketing
+    tags:
+      - growth
+      - marketing
+    quality_score: 0.65
+    default_weight: 65
+    estimated_daily_posts: 50
+
+  - name: E-commerce
+    match:
+      - ecommerce
+      - shopify
+    tags:
+      - ecommerce
+      - retail
+    quality_score: 0.65
+    default_weight: 65
+    estimated_daily_posts: 45
+
+  - name: Startup & SMB
+    match:
+      - Entrepreneur
+      - startups
+      - smallbusiness
+      - indiehackers
+      - SaaS
+      - SideProject
+      - consulting
+      - freelance
+      - ProductManagement
+    tags:
+      - startup
+      - SMB
+      - product
+    quality_score: 0.65
+    default_weight: 65
+    estimated_daily_posts: 40
+
+  - name: Health & Lifestyle
+    match:
+      - fitness
+      - nutrition
+      - keto
+      - intermittentfasting
+      - MealPrep
+      - Cooking
+      - AskCulinary
+      - mentalhealth
+      - selfimprovement
+      - GetMotivated
+      - productivity
+    tags:
+      - health
+      - lifestyle
+    quality_score: 0.62
+    default_weight: 60
+    estimated_daily_posts: 40
+

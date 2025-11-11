@@ -76,6 +76,8 @@ async def _warmup_crawler_async(community_name: str | None = None) -> dict[str, 
                 rate_limit_window=settings.reddit_rate_limit_window_seconds,
                 request_timeout=settings.reddit_request_timeout_seconds,
                 max_concurrency=settings.reddit_max_concurrency,
+                max_retries=3,
+                retry_backoff_base=5.0,
             )
             cache_manager = CacheManager(
                 redis_url=settings.reddit_cache_redis_url,
@@ -305,6 +307,8 @@ async def _warmup_crawler_batch_async(batch_size: int = 10) -> dict[str, Any]:
                 rate_limit_window=settings.reddit_rate_limit_window_seconds,
                 request_timeout=settings.reddit_request_timeout_seconds,
                 max_concurrency=settings.reddit_max_concurrency,
+                max_retries=3,
+                retry_backoff_base=5.0,
             )
             cache_manager = CacheManager(
                 redis_url=settings.reddit_cache_redis_url,

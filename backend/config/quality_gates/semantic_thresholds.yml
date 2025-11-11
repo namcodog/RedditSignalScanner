@@ -1,0 +1,19 @@
+# Spec 011 semantic quality gates (defaults)
+# 可通过环境变量覆盖：见 backend/scripts/semantic_acceptance_gate.py 帮助
+
+overall_coverage_min: 0.70
+brands_coverage_min: 0.60
+features_coverage_min: 0.00  # 可选，不作为强门禁
+pain_points_coverage_min: 0.50
+
+layer_coverage_min:
+  L1: 0.85
+  L2: 0.80
+  L3: 0.75
+  L4: 0.70
+
+top10_unique_share_min: 0.60
+top10_unique_share_max: 0.90
+
+entity_dict_min_terms: 100
+

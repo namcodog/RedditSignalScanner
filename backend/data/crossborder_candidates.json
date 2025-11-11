@@ -1,0 +1,804 @@
+{
+  "communities": [
+    {
+      "name": "r/technology",
+      "sr_hits": 1,
+      "post_hits": 4,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 6.0
+    },
+    {
+      "name": "r/pcmasterrace",
+      "sr_hits": 1,
+      "post_hits": 3,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 5.0
+    },
+    {
+      "name": "r/amazonprime",
+      "sr_hits": 1,
+      "post_hits": 2,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 4.0
+    },
+    {
+      "name": "r/mildlyinfuriating",
+      "sr_hits": 1,
+      "post_hits": 2,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 4.0
+    },
+    {
+      "name": "r/amazonemployees",
+      "sr_hits": 1,
+      "post_hits": 2,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 4.0
+    },
+    {
+      "name": "r/antiwork",
+      "sr_hits": 1,
+      "post_hits": 2,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 4.0
+    },
+    {
+      "name": "r/Futurology",
+      "sr_hits": 0,
+      "post_hits": 3,
+      "author_bonus": 1.0,
+      "domain_hits": 0,
+      "total_weight": 3.5
+    },
+    {
+      "name": "r/AmazonFC",
+      "sr_hits": 1,
+      "post_hits": 1,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 3.0
+    },
+    {
+      "name": "r/funny",
+      "sr_hits": 1,
+      "post_hits": 1,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 3.0
+    },
+    {
+      "name": "r/worldnews",
+      "sr_hits": 1,
+      "post_hits": 1,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 3.0
+    },
+    {
+      "name": "r/aws",
+      "sr_hits": 1,
+      "post_hits": 1,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 3.0
+    },
+    {
+      "name": "r/Showerthoughts",
+      "sr_hits": 1,
+      "post_hits": 1,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 3.0
+    },
+    {
+      "name": "r/stocks",
+      "sr_hits": 0,
+      "post_hits": 3,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 3.0
+    },
+    {
+      "name": "r/cscareerquestions",
+      "sr_hits": 0,
+      "post_hits": 3,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 3.0
+    },
+    {
+      "name": "r/Seattle",
+      "sr_hits": 0,
+      "post_hits": 3,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 3.0
+    },
+    {
+      "name": "r/gaming",
+      "sr_hits": 0,
+      "post_hits": 3,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 3.0
+    },
+    {
+      "name": "r/MMORPG",
+      "sr_hits": 0,
+      "post_hits": 3,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 3.0
+    },
+    {
+      "name": "r/pcgaming",
+      "sr_hits": 0,
+      "post_hits": 2,
+      "author_bonus": 1.0,
+      "domain_hits": 0,
+      "total_weight": 2.5
+    },
+    {
+      "name": "r/Games",
+      "sr_hits": 0,
+      "post_hits": 2,
+      "author_bonus": 1.0,
+      "domain_hits": 0,
+      "total_weight": 2.5
+    },
+    {
+      "name": "r/amazon",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/AmazonWTF",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/AmazonDSPDrivers",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/VinylDeals",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/AmazonVine",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/AmazonSeller",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/AmazonFlexDrivers",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/AmazonFBA",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/AmazonPrimeVideo",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/bapcsalescanada",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/Random_Acts_Of_Amazon",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/FulfillmentByAmazon",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/AmazonAnswers",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/buildapcsales",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/GameDeals",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/Amazon_Influencer",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/AmazonDailyMustHaves",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/AmazonDS",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/AmazonMusic",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/Boardgamedeals",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/AmazonFinds",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/funkopop",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/AzureLane",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/BestOnAmazon",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/wtf_amazon",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/PS4Deals",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/AmazonWarehouse",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/AmazonUnder25",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/NintendoSwitchDeals",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/VideoGameDealsCanada",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/AmazonWishlistGiving",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/AmazonManagers",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/dvdcollection",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/AntiAmazon",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/vine",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/amiibo",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/television",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/AmazonQueen300",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/amazonreviews",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/legodeal",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/kindle",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/AmazonFBATips",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/AmazonTopRated",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/amazonecho",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/AmazonMerch",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/AmazonofDeals",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/india",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/AmazonDiscounts",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/consoledeals",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/4kbluray",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/AmazonFBAOnlineRetail",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/Steelbooks",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/leetcode",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/AmazonUnder5",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/amazonfresh",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/cordcutters",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/selfpublish",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/alexa",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/BestOfAmazonPrime",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/politics",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/Fantasy",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/amazonsellers",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/AmazonRME",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/transformers",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/AmazonFlex",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/AmazonWFShoppers",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/NintendoSwitch",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/MarvelLegends",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/fuckamazon",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/AmazonFlexUK",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/USPS",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/LateStageCapitalism",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/RealAmazonFlexDrivers",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/MerchByAmazon",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/FASCAmazon",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/JeffAmazon",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/AmazonFreebies",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/csMajors",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/IndianGaming",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/TheCheapestOfAmazon",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/AmazonKDP",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    }
+  ]
+}

@@ -38,12 +38,19 @@ class CompetitorSignal(ORMModel):
     weaknesses: list[str] = Field(default_factory=list)
     market_share: Optional[float] = Field(default=None, ge=0.0, le=100.0)
     context_snippets: Optional[list[str]] = Field(default_factory=list)
+    layer: str = Field(default="summary")
 
 
 class OpportunitySignal(ORMModel):
     description: str
     relevance_score: float = Field(ge=0.0, le=1.0)
     potential_users: str
+    # 数值估计（Spec010）：用于门禁和可调参量化
+    potential_users_est: Optional[int] = Field(default=None, ge=0)
+    # 关联痛点簇主题（Spec010）：用于“机会挂痛点”显示与审计
+    linked_pain_cluster: Optional[str] = None
+    # 机会相关热门渠道（Spec010）：摘要/导出可用
+    top_channels: list[str] = Field(default_factory=list)
     key_insights: list[str] = Field(default_factory=list)
     source_examples: Optional[list[dict[str, Any]]] = Field(default_factory=list)
 
@@ -57,6 +64,41 @@ class EntitySummary(ORMModel):
     brands: list[EntityMatch] = Field(default_factory=list)
     features: list[EntityMatch] = Field(default_factory=list)
     pain_points: list[EntityMatch] = Field(default_factory=list)
+    channels: list[EntityMatch] = Field(default_factory=list)
+    logistics: list[EntityMatch] = Field(default_factory=list)
+    risks: list[EntityMatch] = Field(default_factory=list)
+
+
+class PainClusterSummary(ORMModel):
+    topic: str
+    negative_mean: float = Field(ge=-1.0, le=1.0)
+    communities_count: int = Field(ge=0)
+    top_communities: list[str] = Field(default_factory=list)
+    samples: list[str] = Field(default_factory=list)
+
+
+class LayerTopCompetitor(ORMModel):
+    name: str
+    mentions: int = Field(ge=0)
+    sentiment: Optional[str] = None
+
+
+class CompetitorLayerSummary(ORMModel):
+    layer: str
+    label: str
+    top_competitors: list[LayerTopCompetitor] = Field(default_factory=list)
+    threats: Optional[str] = None
+
+
+class ChannelBreakdownItem(ORMModel):
+    name: str
+    mentions: int = Field(ge=0)
+
+
+class EntityLeaderboardItem(ORMModel):
+    name: str
+    category: str
+    mentions: int = Field(ge=0)
 
 
 class InsightsPayload(ORMModel):
@@ -65,6 +107,9 @@ class InsightsPayload(ORMModel):
     opportunities: list[OpportunitySignal]
     action_items: list["OpportunityReportOut"] = Field(default_factory=list)
     entity_summary: EntitySummary = Field(default_factory=EntitySummary)
+    pain_clusters: list[PainClusterSummary] = Field(default_factory=list)
+    competitor_layers_summary: list[CompetitorLayerSummary] = Field(default_factory=list)
+    channel_breakdown: list[ChannelBreakdownItem] = Field(default_factory=list)
 
 
 class CommunitySourceDetail(ORMModel):

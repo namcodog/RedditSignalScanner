@@ -8,6 +8,7 @@ from __future__ import annotations
 import json
 import logging
 from dataclasses import dataclass
+import os
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
@@ -55,6 +56,10 @@ class CommunityPoolLoader:
         if not default_seed.exists():
             default_seed = Path(__file__).parents[2] / "data" / "seed_communities.json"
         self.seed_file = seed_path or default_seed
+        # 可选：Top1000 基线（若存在则与 seed 合并去重）
+        self.top1000_file = Path(__file__).parents[2] / "data" / "top1000_subreddits.json"
+        # 可选：跨境白名单（存在则可启用白名单过滤）
+        self.whitelist_file = Path("backend/config/community_whitelist.yaml")
 
     def _should_refresh(self) -> bool:
         """Check if cache should be refreshed."""
@@ -90,6 +95,83 @@ class CommunityPoolLoader:
             raw_communities = data.get("seed_communities", data.get("communities", []))
         else:
             raw_communities = []
+
+        # 可选合并：Top1000 基线（允许字符串列表或对象列表）
+        # 隔离模式可通过环境变量禁用：DISABLE_TOP1000_BASELINE=1
+        disable_top = str(os.getenv("DISABLE_TOP1000_BASELINE", "")).strip().lower() in {"1", "true", "yes"}
+        if self.top1000_file.exists() and not disable_top:
+            try:
+                with open(self.top1000_file, "r", encoding="utf-8") as f:
+                    top_data = json.load(f)
+                if isinstance(top_data, dict):
+                    top_raw = top_data.get("communities", top_data.get("seed_communities", []))
+                else:
+                    top_raw = top_data
+                # 将字符串条目转为对象结构
+                normalized_top: list[dict[str, Any]] = []
+                for item in (top_raw or []):
+                    if isinstance(item, str):
+                        normalized_top.append({"name": item})
+                    elif isinstance(item, dict):
+                        normalized_top.append(item)
+                # 可选：白名单过滤（环境变量 ENFORCE_COMMUNITY_WHITELIST=1 生效）
+                enforce_whitelist = str(os.getenv("ENFORCE_COMMUNITY_WHITELIST", "")).strip().lower() in {"1", "true", "yes"}
+                whitelist: set[str] = set()
+                if enforce_whitelist and self.whitelist_file.exists():
+                    try:
+                        import yaml as _yaml  # 延迟导入
+                        conf = _yaml.safe_load(self.whitelist_file.read_text(encoding="utf-8")) or {}
+                        for n in conf.get("communities", []) or []:
+                            if isinstance(n, str) and n.strip():
+                                wl = n if n.startswith("r/") else f"r/{n}"
+                                whitelist.add(wl.lower())
+                    except Exception:  # pragma: no cover - 防御性降级
+                        whitelist = set()
+                if whitelist:
+                    normalized_top = [
+                        entry for entry in normalized_top
+                        if str(entry.get("name", "")).strip().lower() in whitelist or (
+                            f"r/{str(entry.get('name','')).strip()}".lower() in whitelist
+                        )
+                    ]
+                # 合并（name 去重，seed 优先，top1000 作为补充）
+                seen: set[str] = set()
+                merged: list[dict[str, Any]] = []
+                # 先放 seed
+                for entry in raw_communities:
+                    n = str((entry or {}).get("name", "")).strip()
+                    if n and not n.startswith("r/"):
+                        n = f"r/{n}"
+                    if n and n.lower() not in seen:
+                        seen.add(n.lower())
+                        merged.append(entry)
+                # 再补 top1000 缺失项，赋默认属性
+                for entry in normalized_top:
+                    n = str((entry or {}).get("name", "")).strip()
+                    if n and not n.startswith("r/"):
+                        n = f"r/{n}"
+                    if not n or n.lower() in seen:
+                        continue
+                    seen.add(n.lower())
+                    merged.append(
+                        {
+                            "name": n,
+                            "tier": entry.get("tier", "medium"),
+                            "priority": entry.get("priority", "medium"),
+                            "categories": entry.get("categories", []),
+                            "description_keywords": entry.get("description_keywords", {}),
+                            "estimated_daily_posts": int(entry.get("estimated_daily_posts", entry.get("daily_posts", 0)) or 0),
+                            "avg_comment_length": int(entry.get("avg_comment_length", 100) or 100),
+                            "quality_score": float(entry.get("quality_score", 0.6) or 0.6),
+                            "is_active": bool(entry.get("is_active", True)),
+                        }
+                    )
+                raw_communities = merged
+            except Exception:
+                # 合并失败不阻断主流程
+                logger.exception("Failed to merge top1000_subreddits.json; proceeding with seed only")
+        elif self.top1000_file.exists() and disable_top:
+            logger.info("Top1000 baseline merge disabled by DISABLE_TOP1000_BASELINE; proceeding with seed only")
 
         if not raw_communities:
             raise ValueError("No communities found in seed file")

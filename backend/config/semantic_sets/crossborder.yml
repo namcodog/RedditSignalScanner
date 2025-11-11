@@ -1,0 +1,246 @@
+version: 1
+domain: crossborder
+themes:
+  what_to_sell:
+    brands:
+    - Aliexpress
+    - Indiegogo
+    - Kickstarter
+    features:
+    - 3PL
+    - HS code
+    - MOQ
+    - QC
+    - RFQ
+    - SEO
+    - VAT
+    - customs
+    - discount
+    - dropship
+    - dropshipping
+    - fulfillment
+    - inspection
+    - private label
+    - refund
+    - white label
+    - wholesale
+    pain_points:
+    - ban
+    - compliance
+    - copyright
+    - counterfeit
+    - infringement
+    - logistics delay
+    - lost package
+    - saturated
+    - scam
+    - spam
+    - tax
+    - trademark
+    aliases:
+      Indiegogo:
+      - igg
+      Kickstarter:
+      - ks
+    exclude:
+    - anime
+    - funny
+    - gaming
+    - gif
+    - meme
+    - movie
+    - porn
+    weights:
+      brands: 1.5
+      features: 1.0
+      pain_points: 1.2
+  how_to_sell:
+    brands:
+    - Aliexpress
+    - Indiegogo
+    - Kickstarter
+    features:
+    - 3PL
+    - A/B test
+    - ACoS
+    - CTR
+    - CVR
+    - FBA
+    - FBM
+    - HS code
+    - MOQ
+    - PPC
+    - QC
+    - RFQ
+    - ROAS
+    - SEO
+    - VAT
+    - chargeback
+    - coupon
+    - customs
+    - discount
+    - dropship
+    - dropshipping
+    - fulfillment
+    - inspection
+    - listing
+    - private label
+    - refund
+    - returns
+    - sponsored ads
+    - white label
+    - wholesale
+    pain_points:
+    - ban
+    - compliance
+    - copyright
+    - counterfeit
+    - infringement
+    - logistics delay
+    - lost package
+    - policy violation
+    - saturated
+    - scam
+    - spam
+    - suspension
+    - tax
+    - trademark
+    aliases:
+      Indiegogo:
+      - igg
+      Kickstarter:
+      - ks
+    exclude:
+    - anime
+    - funny
+    - gaming
+    - gif
+    - meme
+    - movie
+    - porn
+    weights:
+      brands: 1.5
+      features: 1.0
+      pain_points: 1.2
+  where_to_sell:
+    brands:
+    - Aliexpress
+    - Amazon
+    - Etsy
+    - Indiegogo
+    - Kickstarter
+    - Lazada
+    - Shopee
+    - Shopify
+    - Temu
+    - TikTok Shop
+    - Walmart
+    - eBay
+    features:
+    - 3PL
+    - HS code
+    - MOQ
+    - QC
+    - RFQ
+    - SEO
+    - VAT
+    - customs
+    - discount
+    - dropship
+    - dropshipping
+    - fulfillment
+    - inspection
+    - private label
+    - refund
+    - white label
+    - wholesale
+    pain_points:
+    - ban
+    - compliance
+    - copyright
+    - counterfeit
+    - infringement
+    - logistics delay
+    - lost package
+    - saturated
+    - scam
+    - spam
+    - tax
+    - trademark
+    aliases:
+      Indiegogo:
+      - igg
+      Kickstarter:
+      - ks
+    exclude:
+    - anime
+    - funny
+    - gaming
+    - gif
+    - meme
+    - movie
+    - porn
+    weights:
+      brands: 1.5
+      features: 1.0
+      pain_points: 1.2
+  how_to_source:
+    brands:
+    - Alibaba
+    - Aliexpress
+    - Indiegogo
+    - Kickstarter
+    features:
+    - 3PL
+    - HS code
+    - MOQ
+    - QC
+    - RFQ
+    - SEO
+    - VAT
+    - customs
+    - discount
+    - dropship
+    - dropshipping
+    - factory
+    - fulfillment
+    - inspection
+    - private label
+    - refund
+    - sourcing
+    - supplier
+    - white label
+    - wholesale
+    pain_points:
+    - MOQ too high
+    - ban
+    - compliance
+    - copyright
+    - counterfeit
+    - delay
+    - infringement
+    - logistics delay
+    - lost package
+    - quality issue
+    - saturated
+    - scam
+    - spam
+    - tax
+    - trademark
+    aliases:
+      Indiegogo:
+      - igg
+      Kickstarter:
+      - ks
+    exclude:
+    - anime
+    - funny
+    - gaming
+    - gif
+    - meme
+    - movie
+    - porn
+    weights:
+      brands: 1.5
+      features: 1.0
+      pain_points: 1.2

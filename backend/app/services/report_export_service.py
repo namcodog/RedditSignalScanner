@@ -18,7 +18,7 @@ except ImportError:
 from app.schemas.report_payload import ReportPayload
 
 
-ExportFormat = Literal["pdf", "json"]
+ExportFormat = Literal["pdf", "json", "md"]
 
 
 class ReportExportService:
@@ -71,6 +71,69 @@ class ReportExportService:
         data = report.model_dump(mode="json")
         json_str = json.dumps(data, ensure_ascii=False, indent=2)
         return json_str.encode("utf-8")
+
+    @staticmethod
+    def generate_markdown(report: ReportPayload) -> bytes:
+        """Generate a lightweight Markdown report.
+
+        This is used as a stable fallback/export format when PDF is unavailable,
+        and also useful for sharing to docs or knowledge bases.
+        """
+        lines: list[str] = []
+        lines.append(f"# Reddit Signal Scanner 报告\n")
+        lines.append(f"- 任务ID: `{report.task_id}`")
+        try:
+            lines.append(f"- 生成时间: {report.generated_at.isoformat()}")
+        except Exception:
+            pass
+        if report.product_description:
+            lines.append(f"- 产品描述: {report.product_description}")
+        lines.append("")
+
+        lines.append("## 概览")
+        lines.append(
+            f"总提及: {report.stats.total_mentions} | 正面: {report.stats.positive_mentions} | 负面: {report.stats.negative_mentions} | 中性: {report.stats.neutral_mentions}"
+        )
+        if report.overview and report.overview.top_communities:
+            topn = len(report.overview.top_communities)
+            lines.append(f"Top 社区 (前 {topn}):")
+            for c in report.overview.top_communities:
+                cat = f" ({c.category})" if c.category else ""
+                lines.append(f"- {c.name}{cat}: {c.mentions} mentions")
+        lines.append("")
+
+        lines.append("## 痛点")
+        if report.report.pain_points:
+            for p in report.report.pain_points:
+                lines.append(f"- {p.description} (severity={p.severity})")
+        else:
+            lines.append("- 无")
+        lines.append("")
+
+        lines.append("## 机会")
+        if report.report.opportunities:
+            for o in report.report.opportunities[:5]:
+                lines.append(f"- {o.description} (relevance={o.relevance_score})")
+        else:
+            lines.append("- 无")
+        lines.append("")
+
+        lines.append("## 行动项")
+        if report.report.action_items:
+            for a in report.report.action_items[:5]:
+                lines.append(f"- {a.problem_definition} (priority={a.priority})")
+        else:
+            lines.append("- 无")
+        lines.append("")
+
+        if getattr(report.report, "entity_leaderboard", None):
+            lines.append("## 实体榜单 (Top)")
+            for e in report.report.entity_leaderboard[:10]:
+                lines.append(f"- [{e.category}] {e.name}: {e.mentions}")
+            lines.append("")
+
+        content = "\n".join(lines)
+        return content.encode("utf-8")
 
     @staticmethod
     def _generate_html(report: ReportPayload) -> str:
@@ -148,4 +211,3 @@ class ReportExportService:
 
 
 __all__ = ["ReportExportService", "ExportFormat"]
-

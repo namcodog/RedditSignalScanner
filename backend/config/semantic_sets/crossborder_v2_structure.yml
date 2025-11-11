@@ -1,0 +1,255 @@
+# 语义库 v2 架构设计（示例）
+# 核心改进：双层词库 + 元数据增强 + 自动扩展机制
+
+version: 2
+domain: crossborder
+last_updated: "2025-01-04"
+update_frequency: weekly
+
+# ============================================
+# Layer 1: 核心种子词库（人工维护）
+# ============================================
+core_lexicon:
+  what_to_sell:
+    brands:
+      - canonical: Amazon
+        aliases: [AMZ, 亚马逊, amazon.com]
+        precision_tag: exact
+        lifecycle_stage: approved
+        source: manual
+        weight: 1.5
+      
+      - canonical: Kickstarter
+        aliases: [KS, kickstarter.com]
+        precision_tag: exact
+        lifecycle_stage: approved
+        source: manual
+        weight: 1.5
+
+    features:
+      - canonical: dropshipping
+        aliases: [dropship, drop shipping, drop-shipping]
+        precision_tag: phrase
+        lifecycle_stage: approved
+        source: manual
+        weight: 1.0
+        related_themes: [how_to_sell, how_to_source]
+      
+      - canonical: private label
+        aliases: [white label, OEM, ODM]
+        precision_tag: phrase
+        lifecycle_stage: approved
+        source: manual
+        weight: 1.0
+
+    pain_points:
+      - canonical: saturated market
+        aliases: [saturated, oversaturated, too competitive]
+        precision_tag: semantic
+        polarity: negative
+        lifecycle_stage: approved
+        source: manual
+        weight: 1.2
+        severity: high
+      
+      - canonical: infringement
+        aliases: [copyright, trademark, IP violation]
+        precision_tag: phrase
+        polarity: negative
+        lifecycle_stage: approved
+        source: manual
+        weight: 1.2
+        severity: critical
+
+    # 排除词（噪音过滤）
+    exclude:
+      - term: meme
+        reason: entertainment_noise
+      - term: gaming
+        reason: off_topic
+      - term: porn
+        reason: adult_content
+
+# ============================================
+# Layer 2: 候选词库（自动挖掘）
+# ============================================
+candidate_lexicon:
+  what_to_sell:
+    brands:
+      - canonical: Temu
+        aliases: [temu.com]
+        precision_tag: exact
+        lifecycle_stage: candidate
+        source: auto_extracted
+        confidence: 0.85
+        first_seen: "2024-12-15"
+        evidence_posts: [post_id_123, post_id_456]
+        cluster_id: cluster_42
+        review_status: pending
+      
+      - canonical: Shein
+        aliases: [SHEIN, shein.com]
+        precision_tag: exact
+        lifecycle_stage: candidate
+        source: auto_extracted
+        confidence: 0.78
+        first_seen: "2024-12-20"
+        evidence_posts: [post_id_789]
+        cluster_id: cluster_43
+        review_status: pending
+
+    features:
+      - canonical: TikTok ads
+        aliases: [TikTok advertising, TikTok marketing]
+        precision_tag: phrase
+        lifecycle_stage: candidate
+        source: auto_extracted
+        confidence: 0.72
+        first_seen: "2024-12-18"
+        evidence_posts: [post_id_234, post_id_567]
+        cluster_id: cluster_44
+        review_status: pending
+
+    pain_points:
+      - canonical: account suspension
+        aliases: [banned account, suspended, deactivated]
+        precision_tag: semantic
+        polarity: negative
+        lifecycle_stage: candidate
+        source: auto_extracted
+        confidence: 0.88
+        severity: high
+        first_seen: "2024-12-10"
+        evidence_posts: [post_id_345, post_id_678, post_id_901]
+        cluster_id: cluster_45
+        review_status: approved  # 已通过人工审核
+
+# ============================================
+# 元数据配置
+# ============================================
+metadata:
+  # 匹配策略
+  precision_tags:
+    exact:
+      description: "完全匹配（品牌名、平台名）"
+      case_sensitive: false
+      word_boundary: true
+    phrase:
+      description: "短语匹配（功能词、痛点短语）"
+      case_sensitive: false
+      word_boundary: false
+    semantic:
+      description: "语义相似度匹配（向量近邻）"
+      threshold: 0.75
+      model: sentence-transformers/all-MiniLM-L6-v2
+
+  # 生命周期阶段
+  lifecycle_stages:
+    seed:
+      description: "初始种子词（人工策划）"
+      auto_promote: false
+    candidate:
+      description: "自动挖掘的候选词"
+      auto_promote: true
+      promotion_threshold: 0.8
+    approved:
+      description: "已审核通过的词"
+      auto_deprecate: false
+    deprecated:
+      description: "已废弃的词（过时/误判）"
+      auto_remove: true
+
+  # 情感极性
+  polarity:
+    positive: "机会、优势、解决方案"
+    negative: "痛点、风险、问题"
+    neutral: "中性描述、功能特性"
+
+  # 严重程度（仅用于 pain_points）
+  severity:
+    critical: "致命问题（账号封禁、法律风险）"
+    high: "严重问题（资金损失、运营中断）"
+    medium: "中等问题（效率降低、成本增加）"
+    low: "轻微问题（体验不佳、小麻烦）"
+
+# ============================================
+# 自动扩展配置
+# ============================================
+auto_expansion:
+  enabled: true
+  
+  # 短语挖掘
+  phrase_mining:
+    methods: [KeyBERT, YAKE, TextRank]
+    min_frequency: 5
+    min_distinctiveness: 0.6
+    max_candidates_per_cluster: 10
+  
+  # 别名归并
+  alias_merging:
+    similarity_threshold: 0.85
+    methods: [jaro_winkler, cosine_similarity]
+    auto_merge: false  # 需要人工确认
+  
+  # 候选词晋升
+  promotion_rules:
+    min_confidence: 0.8
+    min_evidence_posts: 3
+    min_cluster_coverage: 0.1
+    require_human_review: true
+
+# ============================================
+# 评分权重配置
+# ============================================
+scoring_weights:
+  default:
+    brands: 1.5
+    features: 1.0
+    pain_points: 1.2
+  
+  # 按主题微调
+  theme_specific:
+    what_to_sell:
+      brands: 1.2  # 产品选品时品牌权重降低
+      features: 1.5  # 功能特性更重要
+      pain_points: 1.0
+    
+    how_to_sell:
+      brands: 1.0
+      features: 1.8  # 运营技巧最重要
+      pain_points: 1.2
+    
+    where_to_sell:
+      brands: 2.0  # 渠道选择时平台最重要
+      features: 0.8
+      pain_points: 1.0
+    
+    how_to_source:
+      brands: 1.5  # 货源平台重要
+      features: 1.2
+      pain_points: 1.5  # 供应链风险很重要
+
+# ============================================
+# 质量指标
+# ============================================
+quality_metrics:
+  coverage:
+    target: 0.7
+    current: 0.62
+    trend: increasing
+  
+  precision_at_20:
+    target: 0.75
+    current: 0.68
+    trend: stable
+  
+  dictionary_growth:
+    approved_this_week: 12
+    candidates_this_week: 45
+    deprecated_this_week: 3
+    approval_rate: 0.73
+  
+  drift:
+    kl_divergence_vs_last_week: 0.12
+    interpretation: moderate_shift
+

@@ -1,0 +1,31 @@
+theme: how_to_sell
+include_keywords:
+  - listing
+  - title optimization
+  - bullet points
+  - images
+  - seo
+  - ctr
+  - cvr
+  - a/b
+  - ppc
+  - acos
+  - roas
+  - coupon
+  - bundle
+  - price test
+  - creatives
+  - reviews
+  - returns
+  - seller support
+  - policy
+  - storefront
+aliases:
+  - ab testing
+  - split test
+exclude:
+  - meme
+  - shitpost
+stopwords:
+  - design meme
+

@@ -1,0 +1,27 @@
+channels:
+  - marketing
+  - advertising
+  - growth marketing
+  - performance marketing
+  - demand generation
+brands:
+  - HubSpot
+  - Mailchimp
+  - Marketo
+  - Salesforce Marketing Cloud
+  - Google Ads
+  - Facebook Ads
+  - LinkedIn Ads
+metrics:
+  - cac
+  - cpl
+  - cpa
+  - roas
+  - ltv
+  - conversion rate
+pain_points:
+  - attribution blindness
+  - campaign fatigue
+  - budget overrun
+  - lead quality
+  - channel saturation

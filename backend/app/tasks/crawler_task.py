@@ -15,6 +15,7 @@ from app.db.session import SessionFactory
 from app.models.community_cache import CommunityCache
 from app.models.crawl_metrics import CrawlMetrics
 from app.services.cache_manager import DEFAULT_CACHE_TTL_SECONDS, CacheManager
+from app.services.crawler_config import TierSettings, get_crawler_config
 from app.services.community_cache_service import upsert_community_cache
 from app.services.community_pool_loader import CommunityPoolLoader, CommunityProfile
 from app.services.incremental_crawler import IncrementalCrawler
@@ -26,14 +27,41 @@ from app.services.tiered_scheduler import TieredScheduler
 logger = get_task_logger(__name__)
 _MODULE_LOGGER = logging.getLogger(__name__)
 
-DEFAULT_BATCH_SIZE = int(os.getenv("CRAWLER_BATCH_SIZE", "12"))
+CRAWLER_CONFIG = get_crawler_config()
+GLOBAL_SETTINGS = CRAWLER_CONFIG.global_settings
+
+DEFAULT_BATCH_SIZE = int(
+    os.getenv("CRAWLER_BATCH_SIZE", str(GLOBAL_SETTINGS.scheduler_batch_size))
+)
 # 数据库操作：低并发（2）避免 "concurrent operations are not permitted" 错误
 # 参考：https://docs.sqlalchemy.org/en/20/_modules/examples/asyncio/gather_orm_statements.html
-DEFAULT_MAX_CONCURRENCY = int(os.getenv("CRAWLER_MAX_CONCURRENCY", "2"))
+DEFAULT_MAX_CONCURRENCY = int(
+    os.getenv("CRAWLER_MAX_CONCURRENCY", str(GLOBAL_SETTINGS.max_db_concurrency))
+)
 DEFAULT_POST_LIMIT = int(os.getenv("CRAWLER_POST_LIMIT", "100"))
-DEFAULT_TIME_FILTER = os.getenv("CRAWLER_TIME_FILTER", "month")  # week/month/year/all
-DEFAULT_SORT = os.getenv("CRAWLER_SORT", "top")  # top/new/hot/rising
-DEFAULT_HOT_CACHE_TTL_HOURS = int(os.getenv("HOT_CACHE_TTL_HOURS", "24"))
+DEFAULT_TIME_FILTER = os.getenv("CRAWLER_TIME_FILTER", "month")
+DEFAULT_SORT = os.getenv("CRAWLER_SORT", "top")
+
+EFFECTIVE_BATCH_SIZE = DEFAULT_BATCH_SIZE
+EFFECTIVE_MAX_CONCURRENCY = DEFAULT_MAX_CONCURRENCY
+EFFECTIVE_TIME_FILTER = DEFAULT_TIME_FILTER
+EFFECTIVE_SORT = DEFAULT_SORT
+EFFECTIVE_HOT_CACHE_TTL_HOURS = GLOBAL_SETTINGS.hot_cache_ttl_hours
+
+if CRAWLER_CONFIG.tiers:
+    primary_tier = CRAWLER_CONFIG.tiers[0]
+    if "CRAWLER_POST_LIMIT" not in os.environ:
+        DEFAULT_POST_LIMIT = primary_tier.post_limit
+    if "CRAWLER_TIME_FILTER" not in os.environ:
+        EFFECTIVE_TIME_FILTER = primary_tier.time_filter
+    if "CRAWLER_SORT" not in os.environ:
+        EFFECTIVE_SORT = primary_tier.pick_sort(default_sort=EFFECTIVE_SORT)
+
+
+def _tier_settings_for(profile: CommunityProfile | None) -> TierSettings | None:
+    if profile is None:
+        return None
+    return CRAWLER_CONFIG.resolve_tier(profile.tier)
 
 
 def _chunked(
@@ -64,6 +92,8 @@ async def _build_reddit_client(settings: Settings) -> RedditAPIClient:
         rate_limit_window=settings.reddit_rate_limit_window_seconds,
         request_timeout=settings.reddit_request_timeout_seconds,
         max_concurrency=settings.reddit_max_concurrency,
+        max_retries=3,  # 429 错误最大重试 3 次
+        retry_backoff_base=5.0,  # 指数退避基础等待时间 5 秒
     )
 
 
@@ -74,6 +104,9 @@ async def _crawl_single(
     cache_manager: CacheManager,
     reddit_client: RedditAPIClient,
     post_limit: int,
+    time_filter: str | None = None,
+    sort: str | None = None,
+    hot_cache_ttl_hours: int | None = None,
 ) -> dict[str, Any]:
     start_time = datetime.now(timezone.utc)
     logger.info("开始爬取社区: %s", community_name)
@@ -85,12 +118,15 @@ async def _crawl_single(
     posts: List[RedditPost] = await reddit_client.fetch_subreddit_posts(
         api_subreddit,
         limit=post_limit,
-        time_filter="week",
-        sort="top",
+        time_filter=(time_filter or EFFECTIVE_TIME_FILTER),
+        sort=(sort or EFFECTIVE_SORT),
     )
 
     # 内部缓存与数据库仍然使用带前缀的社区名，保证与社区池/键命名一致
-    await cache_manager.set_cached_posts(community_name, posts)
+    ttl_seconds = None
+    if hot_cache_ttl_hours is not None:
+        ttl_seconds = max(60, int(hot_cache_ttl_hours) * 3600)
+    await cache_manager.set_cached_posts(community_name, posts, ttl_seconds=ttl_seconds)
     await upsert_community_cache(
         community_name,
         posts_cached=len(posts),
@@ -133,19 +169,88 @@ async def _crawl_seeds_impl(force_refresh: bool = False) -> dict[str, Any]:
             seed_profiles = list(seeds)
 
         results: List[dict[str, Any]] = []
-        semaphore = asyncio.Semaphore(max(1, DEFAULT_MAX_CONCURRENCY))
+        semaphore = asyncio.Semaphore(max(1, EFFECTIVE_MAX_CONCURRENCY))
 
         async def runner(profile: CommunityProfile) -> dict[str, Any]:
             async with semaphore:
-                return await _crawl_single(
+                tier_cfg = _tier_settings_for(profile)
+                plimit = tier_cfg.post_limit if tier_cfg else DEFAULT_POST_LIMIT
+                tfilter = tier_cfg.time_filter if tier_cfg else EFFECTIVE_TIME_FILTER
+                svalue = (
+                    tier_cfg.pick_sort(default_sort=EFFECTIVE_SORT)
+                    if tier_cfg
+                    else EFFECTIVE_SORT
+                )
+                ttl_hours = tier_cfg.hot_cache_ttl_hours if tier_cfg else EFFECTIVE_HOT_CACHE_TTL_HOURS
+                # 首次抓取
+                result = await _crawl_single(
                     profile.name,
                     settings=settings,
                     cache_manager=cache_manager,
                     reddit_client=reddit_client,
-                    post_limit=DEFAULT_POST_LIMIT,
+                    post_limit=plimit,
+                    time_filter=tfilter,
+                    sort=svalue,
+                    hot_cache_ttl_hours=ttl_hours,
                 )
+                # 回退策略（Spec009）：若空集则尝试放宽/不过滤
+                try:
+                    if (
+                        result.get("status") == "success"
+                        and int(result.get("posts_count", 0) or 0) == 0
+                        and tier_cfg is not None
+                        and tier_cfg.fallback is not None
+                    ):
+                        fb = tier_cfg.fallback
+                        # 1) 扩大时间窗 / 放宽排序后重试
+                        widened = False
+                        new_filter = tfilter
+                        new_sort = svalue
+                        if getattr(fb, "widen_time_filter_to", None):
+                            new_filter = str(fb.widen_time_filter_to)
+                            widened = True
+                        relax = getattr(fb, "relax_sort_mix", None)
+                        if isinstance(relax, dict) and relax:
+                            # 选择权重最高的排序
+                            new_sort = max(relax.items(), key=lambda item: (float(item[1] or 0.0), str(item[0])))[0]
+                        if widened or relax:
+                            retry1 = await _crawl_single(
+                                profile.name,
+                                settings=settings,
+                                cache_manager=cache_manager,
+                                reddit_client=reddit_client,
+                                post_limit=plimit,
+                                time_filter=new_filter,
+                                sort=new_sort,
+                                hot_cache_ttl_hours=ttl_hours,
+                            )
+                            if int(retry1.get("posts_count", 0) or 0) > 0:
+                                retry1["fallback_applied"] = "widen_or_relax"
+                                return retry1
+                            result = retry1
+                        # 2) 不过滤全集（保底）
+                        if getattr(fb, "allow_unfiltered_on_exhausted", False):
+                            retry2 = await _crawl_single(
+                                profile.name,
+                                settings=settings,
+                                cache_manager=cache_manager,
+                                reddit_client=reddit_client,
+                                post_limit=min(120, int(plimit * 1.2)),
+                                time_filter="all",
+                                sort="top",
+                                hot_cache_ttl_hours=ttl_hours,
+                            )
+                            if int(retry2.get("posts_count", 0) or 0) > 0:
+                                retry2["fallback_applied"] = "unfiltered_all"
+                                return retry2
+                            result = retry2
+                except Exception as _:
+                    # 回退失败不阻断主流程；按原始结果返回
+                    pass
 
-        for batch in _chunked(seed_profiles, DEFAULT_BATCH_SIZE):
+                return result
+
+        for batch in _chunked(seed_profiles, EFFECTIVE_BATCH_SIZE):
             batch_results = await asyncio.gather(
                 *[runner(profile) for profile in batch],
                 return_exceptions=True,
@@ -322,52 +427,59 @@ async def _crawl_seeds_incremental_impl(force_refresh: bool = False) -> dict[str
             logger.warning("⚠️ 没有找到符合条件的社区，已回退为不过滤 priority/tier 的抓取集")
             seed_profiles = list(seeds)
 
-            # 创建增量抓取器
-            results: List[dict[str, Any]] = []
-            semaphore = asyncio.Semaphore(max(1, DEFAULT_MAX_CONCURRENCY))
+        # 创建增量抓取器
+        results: List[dict[str, Any]] = []
+        semaphore = asyncio.Semaphore(max(1, EFFECTIVE_MAX_CONCURRENCY))
 
-            async def runner(profile: CommunityProfile) -> dict[str, Any]:
-                async with semaphore:
-                    async with SessionFactory() as crawl_session:
-                        # 使用 AUTOCOMMIT 隔离级别减少事务竞争
-                        # 参考：https://docs.sqlalchemy.org/en/20/_modules/examples/asyncio/gather_orm_statements.html
-                        await crawl_session.connection(
-                            execution_options={"isolation_level": "AUTOCOMMIT"}
-                        )
-                        crawler = IncrementalCrawler(
-                            db=crawl_session,
-                            reddit_client=reddit_client,
-                            hot_cache_ttl_hours=DEFAULT_HOT_CACHE_TTL_HOURS,
-                        )
-                        return await crawler.crawl_community_incremental(
-                            profile.name,
-                            limit=DEFAULT_POST_LIMIT,
-                            time_filter=DEFAULT_TIME_FILTER,
-                            sort=DEFAULT_SORT,
-                        )
+        async def runner(profile: CommunityProfile) -> dict[str, Any]:
+            async with semaphore:
+                async with SessionFactory() as crawl_session:
+                    await crawl_session.connection(
+                        execution_options={"isolation_level": "AUTOCOMMIT"}
+                    )
+                    tier_cfg = _tier_settings_for(profile)
+                    _plimit = tier_cfg.post_limit if tier_cfg else DEFAULT_POST_LIMIT
+                    _tfilter = tier_cfg.time_filter if tier_cfg else EFFECTIVE_TIME_FILTER
+                    _svalue = (
+                        tier_cfg.pick_sort(default_sort=EFFECTIVE_SORT)
+                        if tier_cfg
+                        else EFFECTIVE_SORT
+                    )
+                    _ttl = tier_cfg.hot_cache_ttl_hours if tier_cfg else EFFECTIVE_HOT_CACHE_TTL_HOURS
+                    crawler = IncrementalCrawler(
+                        db=crawl_session,
+                        reddit_client=reddit_client,
+                        hot_cache_ttl_hours=_ttl,
+                    )
+                    return await crawler.crawl_community_incremental(
+                        profile.name,
+                        limit=_plimit,
+                        time_filter=_tfilter,
+                        sort=_svalue,
+                    )
 
-            for batch in _chunked(seed_profiles, DEFAULT_BATCH_SIZE):
-                batch_results = await asyncio.gather(
-                    *[runner(profile) for profile in batch],
-                    return_exceptions=True,
-                )
-                for profile, outcome in zip(batch, batch_results):
-                    if isinstance(outcome, Exception):
-                        logger.warning("❌ %s: 增量爬取失败 - %s", profile.name, outcome)
-                        # 失败计数（failure_hit += 1）
-                        try:
-                            await _mark_failure_hit(profile.name)
-                        except Exception:
-                            logger.exception("计数 failure_hit 失败：%s", profile.name)
-                        results.append(
-                            {
-                                "community": profile.name,
-                                "status": "failed",
-                                "error": str(outcome),
-                            }
-                        )
-                    else:
-                        results.append(cast(dict[str, Any], outcome))
+        for batch in _chunked(seed_profiles, EFFECTIVE_BATCH_SIZE):
+            batch_results = await asyncio.gather(
+                *[runner(profile) for profile in batch],
+                return_exceptions=True,
+            )
+            for profile, outcome in zip(batch, batch_results):
+                if isinstance(outcome, Exception):
+                    logger.warning("❌ %s: 增量爬取失败 - %s", profile.name, outcome)
+                    # 失败计数（failure_hit += 1）
+                    try:
+                        await _mark_failure_hit(profile.name)
+                    except Exception:
+                        logger.exception("计数 failure_hit 失败：%s", profile.name)
+                    results.append(
+                        {
+                            "community": profile.name,
+                            "status": "failed",
+                            "error": str(outcome),
+                        }
+                    )
+                else:
+                    results.append(cast(dict[str, Any], outcome))
 
             total_new = sum(r.get("new_posts", 0) for r in results)
             total_updated = sum(r.get("updated_posts", 0) for r in results)

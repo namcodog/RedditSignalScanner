@@ -1,0 +1,3559 @@
+{
+  "version": "v2.0",
+  "domain": "crossborder",
+  "layers": {
+    "L1": {
+      "brands": [
+        {
+          "canonical": "woocommerce",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 30.69,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "software",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 28.49,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "walmart",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 19.35,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "wordpress",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 17.97,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "wix",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 15.12,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "standard",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 13.24,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "apple",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 11.59,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "whatsapp",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 11.58,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "customer service",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 11.57,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "temu",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 10.89,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "api",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 10.7,
+          "polarity": "neutral"
+        }
+      ],
+      "features": [
+        {
+          "canonical": "platform",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 55.17,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "___",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 46.4,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "platforms",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 32.33,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "costs",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 32.33,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "process",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 32.1,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "users",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 30.68,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "similar",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 29.63,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "launch",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 28.91,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "example",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 28.85,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "said",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 28.27,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "plan",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 27.88,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "search",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 27.82,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "suggestions",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 27.45,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "bit",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 27.36,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "companies",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 27.34,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "services",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 27.17,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "rates",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 27.11,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "pretty",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 27.02,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "thanks advance",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 26.92,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "emails",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 26.88,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "media",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 26.81,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "thoughts",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 26.71,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "end",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 26.67,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "specific",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 26.24,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "worked",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 26.23,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "point",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 26.17,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "value",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 25.62,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "open",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 25.6,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "clothing",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 25.35,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "handle",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 25.25,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "solution",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 25.11,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "sites",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 24.93,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "shopping",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 24.69,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "come",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 24.65,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "delivery",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 24.24,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "past",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 24.2,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "recommend",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 24.14,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "prices",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 23.84,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "payments",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 23.8,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "tax",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 23.62,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "love hear",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 23.6,
+          "polarity": "positive"
+        },
+        {
+          "canonical": "recommendations",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 23.5,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "list",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 23.36,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "pricing",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 23.29,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "social media",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 23.22,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "businesses",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 23.15,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "multiple",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 23.1,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "easy",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 23.09,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "figure",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 22.74,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "seen",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 22.46,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "large",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 22.25,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "ideas",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 22.21,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "main",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 21.94,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "increase",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 21.91,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "discount",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 21.89,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "thought",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 21.83,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "kind",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 21.82,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "3pl",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 21.55,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "user",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 21.53,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "change",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 21.45,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "images",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 21.42,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "especially",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 21.4,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "imgur",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 21.25,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "imgur com",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 21.25,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "packaging",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 21.23,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "information",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 21.04,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "country",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 21.02,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "case",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 20.93,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "pages",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 20.58,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "makes",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 20.42,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "marketplace",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 20.34,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "job",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 20.34,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "insights",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 20.31,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "domain",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 20.24,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "place",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 20.23,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "owners",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 20.15,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "advertising",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 20.09,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "age 24",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 19.11,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "questions start",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 19.08,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "new seller",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 19.06,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "critiques weekly discussion",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 19.05,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "weekly newbie",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 19.05,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "critiques weekly",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 19.05,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "critiques note",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 19.05,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "simple questions",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 19.05,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "new dropshipping questions",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 19.05,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "hours required",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 19.05,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "24 hours required",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 19.05,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "weekly discussion",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 19.05,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "dropshipping questions start",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 19.05,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "dropship new dropshipping",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 19.05,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "account age 24",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 19.05,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "age 24 hours",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 19.05,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "account age",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 19.05,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "shopify payments",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 18.92,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "buy box",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 18.76,
+          "polarity": "neutral"
+        }
+      ],
+      "pain_points": [
+        {
+          "canonical": "customs",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 13.6,
+          "polarity": "negative"
+        },
+        {
+          "canonical": "feed",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 7.88,
+          "polarity": "negative"
+        },
+        {
+          "canonical": "ban",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 4.17,
+          "polarity": "negative"
+        }
+      ]
+    },
+    "L2": {
+      "brands": [
+        {
+          "canonical": "shopify",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 394.91,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "amazon",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 360.76,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "google",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 80.58,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "fbm",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 51.62,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "ebay",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 45.18,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "facebook",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 45.04,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "youtube",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 40.67,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "ups",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 35.63,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "meta",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 34.49,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "ecommerce",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 30.28,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "paypal",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 29.89,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "sku",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 28.66,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "vat",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 28.28,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "usps",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 27.92,
+          "polarity": "neutral"
+        }
+      ],
+      "features": [
+        {
+          "canonical": "product",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 303.98,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "store",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 207.94,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "products",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 202.86,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "shipping",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 198.89,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "account",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 178.41,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "app",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 173.33,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "new",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 156.7,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "help",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 155.9,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "order",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 147.94,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "seller",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 146.78,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "sales",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 145.91,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "sell",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 138.9,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "need",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 136.21,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "customer",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 132.87,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "time",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 129.67,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "selling",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 129.25,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "way",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 127.08,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "don",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 124.76,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "page",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 123.8,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "does",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 120.12,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "orders",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 118.44,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "items",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 117.21,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "business",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 115.78,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "using",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 112.67,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "thanks",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 111.0,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "inventory",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 110.56,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "item",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 109.82,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "brand",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 109.6,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "email",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 107.63,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "theme",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 107.32,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "fba",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 106.14,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "looking",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 104.83,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "customers",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 103.71,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "price",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 98.39,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "listing",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 96.34,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "days",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 96.29,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "different",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 95.32,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "add",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 94.37,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "website",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 93.28,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "site",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 92.05,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "trying",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 91.53,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "ads",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 90.84,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "set",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 90.46,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "people",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 89.0,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "got",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 86.39,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "good",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 84.38,
+          "polarity": "positive"
+        },
+        {
+          "canonical": "support",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 84.11,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "work",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 84.06,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "apps",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 83.97,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "really",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 83.45,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "getting",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 82.93,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "free",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 82.46,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "buy",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 80.96,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "day",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 78.94,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "post",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 78.66,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "best",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 78.23,
+          "polarity": "positive"
+        },
+        {
+          "canonical": "shop",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 77.35,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "month",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 74.98,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "advice",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 74.61,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "going",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 73.4,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "box",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 72.91,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "shopify store",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 72.76,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "cart",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 72.52,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "did",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 72.43,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "question",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 72.4,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "address",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 72.33,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "create",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 71.81,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "pay",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 71.47,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "tried",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 70.97,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "code",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 70.48,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "hey",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 70.41,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "used",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 69.96,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "guys",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 69.96,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "thank",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 69.19,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "months",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 68.74,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "currently",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 67.36,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "sure",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 67.34,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "stock",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 66.97,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "sellers",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 66.89,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "company",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 66.32,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "checkout",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 66.07,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "small",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 66.01,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "start",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 65.48,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "option",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 65.37,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "right",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 65.28,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "experience",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 64.73,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "doing",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 64.56,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "online",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 64.3,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "able",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 63.98,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "hello",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 63.55,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "doesn",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 63.09,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "options",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 62.86,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "x200b",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 62.75,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "amp x200b",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 62.75,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "having",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 62.53,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "number",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 62.07,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "custom",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 61.92,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "cost",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 61.74,
+          "polarity": "neutral"
+        }
+      ],
+      "pain_points": [
+        {
+          "canonical": "issue",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 93.01,
+          "polarity": "negative"
+        },
+        {
+          "canonical": "problem",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 61.12,
+          "polarity": "negative"
+        },
+        {
+          "canonical": "fees",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 57.38,
+          "polarity": "negative"
+        },
+        {
+          "canonical": "return",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 54.89,
+          "polarity": "negative"
+        },
+        {
+          "canonical": "issues",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 54.16,
+          "polarity": "negative"
+        },
+        {
+          "canonical": "refund",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 53.11,
+          "polarity": "negative"
+        },
+        {
+          "canonical": "fee",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 43.62,
+          "polarity": "negative"
+        },
+        {
+          "canonical": "feedback",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 43.15,
+          "polarity": "negative"
+        },
+        {
+          "canonical": "wrong",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 40.82,
+          "polarity": "negative"
+        },
+        {
+          "canonical": "missing",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 40.1,
+          "polarity": "negative"
+        },
+        {
+          "canonical": "error",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 39.73,
+          "polarity": "negative"
+        },
+        {
+          "canonical": "reviews",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 39.54,
+          "polarity": "negative"
+        },
+        {
+          "canonical": "charge",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 38.44,
+          "polarity": "negative"
+        },
+        {
+          "canonical": "feel",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 37.93,
+          "polarity": "negative"
+        },
+        {
+          "canonical": "bank",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 37.18,
+          "polarity": "negative"
+        },
+        {
+          "canonical": "returns",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 30.53,
+          "polarity": "negative"
+        },
+        {
+          "canonical": "chargeback",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 29.7,
+          "polarity": "negative"
+        },
+        {
+          "canonical": "later",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 29.4,
+          "polarity": "negative"
+        },
+        {
+          "canonical": "charged",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 29.12,
+          "polarity": "negative"
+        },
+        {
+          "canonical": "template",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 28.84,
+          "polarity": "negative"
+        },
+        {
+          "canonical": "fraud",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 27.44,
+          "polarity": "negative"
+        },
+        {
+          "canonical": "risk",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 26.57,
+          "polarity": "negative"
+        },
+        {
+          "canonical": "stuck",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 26.09,
+          "polarity": "negative"
+        },
+        {
+          "canonical": "bad",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 24.07,
+          "polarity": "negative"
+        },
+        {
+          "canonical": "related",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 23.82,
+          "polarity": "negative"
+        },
+        {
+          "canonical": "review",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 21.71,
+          "polarity": "negative"
+        },
+        {
+          "canonical": "cancel",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 20.7,
+          "polarity": "negative"
+        },
+        {
+          "canonical": "scam",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 20.56,
+          "polarity": "negative"
+        }
+      ]
+    },
+    "L3": {
+      "brands": [
+        {
+          "canonical": "tiktok",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 62.26,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "aliexpress",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 55.5,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "videos",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 34.24,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "instagram",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 28.83,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "newbie",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 23.46,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "ctr",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 23.3,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "views",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 22.55,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "target",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 20.47,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "cpc",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 19.93,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "alibaba",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 18.52,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "conversion rate",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 15.49,
+          "polarity": "neutral"
+        }
+      ],
+      "features": [
+        {
+          "canonical": "dropshipping",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 130.52,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "thread",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 58.94,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "karma",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 58.64,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "questions",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 55.5,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "supplier",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 51.44,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "money",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 50.51,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "drop",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 50.38,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "dropship",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 49.27,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "niche",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 46.08,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "video",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 44.62,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "comment",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 44.17,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "suppliers",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 42.73,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "started",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 41.96,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "running",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 41.71,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "marketing",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 40.44,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "weekly",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 40.06,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "lot",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 39.41,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "critiques",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 39.06,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "amp store",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 39.03,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "store critiques",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 39.03,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "better",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 38.05,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "stores",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 37.94,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "sale",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 35.48,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "drop shipping",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 34.91,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "china",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 34.63,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "testing",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 34.62,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "hours",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 34.14,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "actually",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 33.62,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "let",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 33.53,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "things",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 33.06,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "run",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 33.04,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "campaign",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 32.99,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "watch",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 32.28,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "high",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 32.18,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "long",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 31.92,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "look",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 30.93,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "link",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 30.92,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "profit",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 30.84,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "budget",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 30.51,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "love",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 30.5,
+          "polarity": "positive"
+        },
+        {
+          "canonical": "test",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 30.36,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "starting",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 29.86,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "total",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 29.52,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "making",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 29.51,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "spend",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 29.41,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "content",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 29.39,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "simple",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 29.17,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "ship",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 28.74,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "week",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 28.69,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "working",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 28.69,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "wondering",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 28.47,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "years",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 28.38,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "times",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 28.08,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "facebook ads",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 27.93,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "try",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 27.9,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "market",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 27.66,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "say",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 27.58,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "traffic",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 26.66,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "conversion",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 26.62,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "youtube com",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 26.53,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "share",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 26.45,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "commerce",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 26.43,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "based",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 26.27,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "research",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 26.27,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "idea",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 26.16,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "audience",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 25.86,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "rate",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 25.82,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "real",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 25.7,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "spent",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 25.65,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "www youtube com",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 25.64,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "www youtube",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 25.64,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "youtube com watch",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 25.59,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "com watch",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 25.59,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "thing",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 25.55,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "new dropshipping",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 25.19,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "tips",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 24.66,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "profitable",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 24.63,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "amazon seller",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 45.99,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "seller account",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 33.15,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "selling amazon",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 29.53,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "amazon fba",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 24.28,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "seller central",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 23.24,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "shopify app",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 23.11,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "24 hours",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 21.32,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "gt lt",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 20.61,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "credit card",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 19.96,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "free shipping",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 19.79,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "sell amazon",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 19.5,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "dropship new",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 19.47,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "dropshipping questions",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 19.33,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "successful dropshipping",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 46.0,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "ad creatives",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 40.0,
+          "polarity": "neutral"
+        }
+      ],
+      "pain_points": [
+        {
+          "canonical": "feel like",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 15.17,
+          "polarity": "negative"
+        },
+        {
+          "canonical": "doing wrong",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 10.8,
+          "polarity": "negative"
+        },
+        {
+          "canonical": "banned",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 10.14,
+          "polarity": "negative"
+        },
+        {
+          "canonical": "feel free",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 9.79,
+          "polarity": "negative"
+        },
+        {
+          "canonical": "problems",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 9.69,
+          "polarity": "negative"
+        },
+        {
+          "canonical": "feels",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 8.86,
+          "polarity": "negative"
+        },
+        {
+          "canonical": "saturated",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 8.69,
+          "polarity": "negative"
+        },
+        {
+          "canonical": "failed",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 8.41,
+          "polarity": "negative"
+        },
+        {
+          "canonical": "abandoned",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 7.67,
+          "polarity": "negative"
+        }
+      ]
+    },
+    "L4": {
+      "brands": [
+        {
+          "canonical": "ecom",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 26.4,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "discord",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 18.97,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "ugc",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 16.77,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "digital",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 15.18,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "drive",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 13.05,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "stripe",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 12.04,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "cpm",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 11.29,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "usd",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 10.68,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "canva",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 10.63,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "chatgpt",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 10.53,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "google ads",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 10.41,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "smart",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 9.83,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "affiliate",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 9.43,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "etsy",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 8.53,
+          "polarity": "neutral"
+        }
+      ],
+      "features": [
+        {
+          "canonical": "png",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 45.23,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "que",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 34.92,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "results",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 34.49,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "year",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 33.55,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "auto",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 32.77,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "organic",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 32.63,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "build",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 31.34,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "ask",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 30.81,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "today",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 29.85,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "winning",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 29.77,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "payment",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 29.64,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "creatives",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 29.51,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "learn",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 29.47,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "offer",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 29.46,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "ago",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 29.05,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "format",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 29.05,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "interested",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 29.03,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "tools",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 29.02,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "works",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 28.52,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "webp",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 27.72,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "scale",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 27.61,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "building",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 27.53,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "meta ads",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 27.5,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "redd",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 27.49,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "width",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 27.45,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "amp auto",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 27.4,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "auto webp amp",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 27.38,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "amp format",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 27.38,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "webp amp",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 27.38,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "auto webp",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 27.38,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "amp auto webp",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 27.38,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "course",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 26.91,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "appreciate",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 26.38,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "quality",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 26.32,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "dropshippers",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 25.14,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "need help",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 25.09,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "far",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 24.49,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "brands",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 24.43,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "design",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 24.13,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "advance",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 24.12,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "finally",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 24.11,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "check",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 24.05,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "weeks",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 24.02,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "big",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 23.77,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "maybe",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 23.5,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "appreciated",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 23.49,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "data",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 23.39,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "tell",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 23.1,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "paid",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 23.04,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "fast",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 23.01,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "dropshipping store",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 22.93,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "reddit",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 22.76,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "wanted",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 22.75,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "png amp",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 22.59,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "format png amp",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 22.59,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "format png",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 22.59,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "png width",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 22.59,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "amp format png",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 22.59,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "png amp auto",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 22.59,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "understand",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 22.5,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "purchase",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 22.44,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "launched",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 22.43,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "ready",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 22.4,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "improve",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 22.39,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "possible",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 22.24,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "didn",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 22.04,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "let know",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 21.98,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "worth",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 21.85,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "low",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 21.84,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "tool",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 21.76,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "built",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 21.68,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "conversions",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 21.64,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "send",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 21.38,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "fulfillment",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 21.33,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "service",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 21.24,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "focus",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 21.24,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "success",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 21.23,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "seo",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 21.21,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "isn",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 21.16,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "thinking",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 21.11,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "social",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 21.1,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "sessions",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 21.1,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "hard",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 20.94,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "recently",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 20.75,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "happy",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 20.73,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "great",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 20.47,
+          "polarity": "positive"
+        },
+        {
+          "canonical": "honest",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 20.42,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "hear",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 20.34,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "strategy",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 20.33,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "revenue",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 20.2,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "community",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 20.14,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "little",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 20.09,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "fix",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 20.02,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "stuff",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 20.01,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "don know",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 19.89,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "creative",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 19.87,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "scaling",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 19.81,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "curious",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 19.8,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "using shopify",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 18.17,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "new shopify",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 17.28,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "add cart",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 17.09,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "amazon seller account",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 16.32,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "seller support",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 15.74,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "running ads",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 15.31,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "start dropshipping",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 15.14,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "tiktok ads",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 14.62,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "self promotion",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 13.81,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "shopify support",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 13.32,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "thank advance",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 13.0,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "shopify plus",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 12.88,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "apps shopify",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 12.86,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "bank account",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 12.67,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "ad spend",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 12.61,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "3rd party",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 12.29,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "phone number",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 12.26,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "fb ads",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 11.99,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "amazon account",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 11.96,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "shipping costs",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 11.95,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "start selling",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 11.77,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "biggest seo",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 33.0,
+          "polarity": "neutral"
+        }
+      ],
+      "pain_points": [
+        {
+          "canonical": "preview",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 28.02,
+          "polarity": "negative"
+        },
+        {
+          "canonical": "preview redd",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 27.38,
+          "polarity": "negative"
+        },
+        {
+          "canonical": "lately",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 9.79,
+          "polarity": "negative"
+        },
+        {
+          "canonical": "feeling",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 9.64,
+          "polarity": "negative"
+        },
+        {
+          "canonical": "feels like",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 9.13,
+          "polarity": "negative"
+        },
+        {
+          "canonical": "fail",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 6.97,
+          "polarity": "negative"
+        },
+        {
+          "canonical": "negative",
+          "aliases": [],
+          "precision_tag": "exact",
+          "weight": 4.92,
+          "polarity": "negative"
+        }
+      ]
+    }
+  }
+}

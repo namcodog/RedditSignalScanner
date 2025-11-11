@@ -1,0 +1,804 @@
+{
+  "communities": [
+    {
+      "name": "r/Entrepreneur",
+      "sr_hits": 3,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 6.0
+    },
+    {
+      "name": "r/ecommerce",
+      "sr_hits": 3,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 6.0
+    },
+    {
+      "name": "r/VinylDeals",
+      "sr_hits": 2,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 4.0
+    },
+    {
+      "name": "r/AmazonSeller",
+      "sr_hits": 2,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 4.0
+    },
+    {
+      "name": "r/AmazonFBA",
+      "sr_hits": 2,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 4.0
+    },
+    {
+      "name": "r/shopify",
+      "sr_hits": 2,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 4.0
+    },
+    {
+      "name": "r/dropship",
+      "sr_hits": 2,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 4.0
+    },
+    {
+      "name": "r/amazon",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/AmazonFC",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/AmazonWTF",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/AmazonDSPDrivers",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/amazonprime",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/AmazonVine",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/AmazonFlexDrivers",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/bapcsalescanada",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/AmazonPrimeVideo",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/buildapcsales",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/GameDeals",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/Random_Acts_Of_Amazon",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/AmazonFBATips",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/FulfillmentByAmazon",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/Flipping",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/AmazonFBAOnlineRetail",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/Amazonsellercentral",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/fba_software",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/RecRoom",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/sewing",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/LengfOrGirf",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/FBA_B1",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/sidehustle",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/shopifyDev",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/ShopifyWebsites",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/ShopifyeCommerce",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/reviewmyshopify",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/shopify_store_owners",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/ShopifySEO",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/ShopifyAppDev",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/Shopify_Users",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/shopify_hustlers",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/Shopify_Success",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/ShopifyDevelopment",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/Etsy",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/EtsySellers",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/EtsyCommunity",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/CrossStitch",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/etsypromos",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/EtsyAdvertise",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/EtsyPrintables",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/crochet",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/Random_Acts_of_Etsy",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/EtsySuccess",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/EtsyHelp",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/weddingplanning",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/artstore",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/VintageEtsy",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/EtsySellerOnly",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/dropshipping",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/Dropshipping_Guide",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/battletech",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/titanfall",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/DropShipping101",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/DropshipForBeginners",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/Helldivers",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/legostarwars",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/DropshippingTips",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/Dropshipsupplier",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/apexlegends",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/spaceengineers",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/ChinaDropship",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/DropshipService",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/EcommerceWebsite",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/EcommercePartners",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/ecommercemarketing",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/ecommerce_growth",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/e_commerce",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/webdev",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/smallbusiness",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/EcommerceSuccess",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/AI_ecommerce",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/SEO",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/AI_In_ECommerce",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/B2B_Ecommerce_Talk",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/Aliexpress",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/Aliexpress_Addicts",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/Aliexpress_tips",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/AliExpressBR",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/ChineseWatches",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/aliexpressfinds",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/AliexpressFinds_",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/BestAliExpressFinds",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/lepin",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/BestBuyAliexpress",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/aliexpress_finds",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/MechanicalKeyboards",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/FashionReps",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/Aliexpress_dupes",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/AliexpressHacks",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/walmart",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/WalmartEmployees",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    },
+    {
+      "name": "r/WalmartCelebrities",
+      "sr_hits": 1,
+      "post_hits": 0,
+      "author_bonus": 0.0,
+      "domain_hits": 0,
+      "total_weight": 2.0
+    }
+  ]
+}

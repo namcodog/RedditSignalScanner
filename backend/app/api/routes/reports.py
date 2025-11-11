@@ -16,6 +16,7 @@ from app.schemas.report_payload import ReportPayload
 from app.schemas.analysis import CommunitySourceDetail
 from app.services.report_service import ReportService, ReportServiceError
 from app.schemas.community_export import CommunityExportItem, CommunityExportResponse
+from app.schemas.entity_export import EntityExportItem, EntityExportResponse
 from app.services.report_service import (
     InMemoryReportCache,
     ReportAccessDeniedError,
@@ -98,7 +99,7 @@ async def get_analysis_report(
 @router.get("/{task_id}/download", summary="Download report in specified format")
 async def download_report(
     task_id: UUID,
-    format: ExportFormat = Query("pdf", description="Export format: pdf or json"),
+    format: ExportFormat = Query("pdf", description="Export format: pdf|json|md"),
     payload: TokenPayload = Depends(decode_jwt_token),
     db: AsyncSession = Depends(get_session),
 ) -> StreamingResponse:
@@ -133,21 +134,30 @@ async def download_report(
     except ReportServiceError as exc:
         raise HTTPException(status_code=exc.status_code, detail=exc.detail) from exc
 
-    # 生成导出文件
+    # 生成导出文件（带降级兜底）
+    fallback_headers: dict[str, str] = {}
     try:
         if format == "pdf":
             content = ReportExportService.generate_pdf(report)
             media_type = "application/pdf"
             filename = f"reddit-signal-scanner-{task_id}.pdf"
+        elif format == "md":
+            content = ReportExportService.generate_markdown(report)
+            media_type = "text/markdown; charset=utf-8"
+            filename = f"reddit-signal-scanner-{task_id}.md"
         else:  # json
             content = ReportExportService.generate_json(report)
             media_type = "application/json"
             filename = f"reddit-signal-scanner-{task_id}.json"
-    except RuntimeError as exc:
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=str(exc)
-        ) from exc
+    except Exception as exc:
+        # PDF/MD 失败时，降级为 JSON
+        content = ReportExportService.generate_json(report)
+        media_type = "application/json"
+        filename = f"reddit-signal-scanner-{task_id}.json"
+        fallback_headers = {
+            "X-Export-Fallback": "json",
+            "X-Export-Error": str(exc),
+        }
 
     # 返回文件流
     from io import BytesIO
@@ -157,6 +167,7 @@ async def download_report(
         headers={
             "Content-Disposition": f'attachment; filename="{filename}"',
             "Content-Length": str(len(content)),
+            **fallback_headers,
         },
     )
 
@@ -182,43 +193,126 @@ async def get_report_communities(
     except ValueError as exc:  # pragma: no cover
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid access token") from exc
 
+    # 先走 ReportService 以复用鉴权与缓存，随后读取底层 analysis.sources 以取 communities_detail
+    try:
+        # 鉴权与基本校验
+        await service.get_report(task_id, user_id)
+    except ReportServiceError as exc:
+        raise HTTPException(status_code=exc.status_code, detail=exc.detail) from exc
+
+    # 直接查询底层分析记录以获取 sources.communities_detail（ReportPayload 不直接暴露）
+    try:
+        from app.repositories.report_repository import ReportRepository
+
+        repo = ReportRepository(db)
+        task = await repo.get_task_with_analysis(task_id)
+        if task is None or task.analysis is None:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Analysis not found")
+
+        # 借用 ReportService 的校验/迁移逻辑
+        analysis_read = service._validate_analysis_payload(task.analysis)  # type: ignore[attr-defined]
+        # _validate_analysis_payload 返回元组 (insights, sources, version)
+        sources = analysis_read.sources  # type: ignore[attr-defined]
+        details = sources.communities_detail or []
+        return details
+    except HTTPException:
+        raise
+    except Exception:
+        # 兜底：回退到 top_communities（精度较低）
+        try:
+            report = await service.get_report(task_id, user_id)
+            communities: list[CommunitySourceDetail] = []
+            for t in report.overview.top_communities:
+                communities.append(
+                    CommunitySourceDetail(
+                        name=t.name,
+                        categories=[t.category] if t.category else [],
+                        mentions=t.mentions,
+                        daily_posts=t.daily_posts or 0,
+                        avg_comment_length=t.avg_comment_length or 0,
+                        cache_hit_rate=(t.relevance or 0) / 100.0,
+                        from_cache=t.from_cache,
+                    )
+                )
+            return communities
+        except Exception as exc:
+            raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(exc))
+
+
+@router.get(
+    "/{task_id}/entities",
+    summary="Export recognised entities (flattened)",
+    response_model=EntityExportResponse,
+)
+async def export_entities(
+    task_id: UUID,
+    payload: TokenPayload = Depends(decode_jwt_token),
+    db: AsyncSession = Depends(get_session),
+) -> EntityExportResponse:
+    """Aggregate recognised entities from report.entity_summary and return as a flat list."""
+    service = ReportService(db, cache=REPORT_CACHE)
+    try:
+        user_id = UUID(payload.sub)
+    except ValueError as exc:  # pragma: no cover
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid access token") from exc
+
     try:
         report = await service.get_report(task_id, user_id)
     except ReportServiceError as exc:
         raise HTTPException(status_code=exc.status_code, detail=exc.detail) from exc
 
-    details = report.overview.top_communities
-    # 优先用 sources.communities_detail（更完整），get_report 内部未直接返回，改为基于 overview/top_n 和 sources 简化返回
-    # 这里直接从报告字段构造；若需要 mentions 全量，可后续将 sources.communities_detail 暴露到 payload。
-    communities: list[CommunitySourceDetail] = []
-    try:
-        # 此处尝试从 report.report.entity_summary 或 metadata 中无法获取完整明细，
-        # 因此以 overview.top_communities 为主，剩余的从 sources.communities 名称回退（mentions=0）。
-        names_from_overview = {item.name for item in details}
-        for t in details:
-            communities.append(
-                CommunitySourceDetail(
-                    name=t.name,
-                    categories=[t.category] if t.category else [],
-                    mentions=t.mentions,
-                    daily_posts=t.daily_posts or 0,
-                    avg_comment_length=t.avg_comment_length or 0,
-                    cache_hit_rate=(t.relevance or 0) / 100.0,
-                    from_cache=t.from_cache,
-                )
+    items: list[EntityExportItem] = []
+    entity_summary = getattr(report.report, "entity_summary", None)
+    if entity_summary:
+        # entity_summary is a mapping of categories -> [{name, mentions}]
+        try:
+            for category, rows in entity_summary.dict().items():  # type: ignore[attr-defined]
+                if not isinstance(rows, list):
+                    continue
+                for row in rows:
+                    name = row.get("name") if isinstance(row, dict) else None
+                    mentions = row.get("mentions") if isinstance(row, dict) else None
+                    if isinstance(name, str) and isinstance(mentions, int):
+                        items.append(EntityExportItem(name=name, category=str(category), mentions=max(0, mentions)))
+        except Exception:
+            # Fallback to attribute access if .dict() is not present
+            for category in ("brands", "features", "pain_points"):
+                rows = getattr(entity_summary, category, [])
+                for row in rows or []:
+                    name = getattr(row, "name", None)
+                    mentions = getattr(row, "mentions", None)
+                    if isinstance(name, str) and isinstance(mentions, int):
+                        items.append(EntityExportItem(name=name, category=category, mentions=max(0, mentions)))
+
+    # If empty, compute on the fly from insights using the pipeline
+    if not items:
+        try:
+            from app.services.analysis.entity_pipeline import EntityPipeline
+            pipe = EntityPipeline()
+            summary = pipe.summarize(
+                {
+                    "pain_points": [i.model_dump(mode="json") for i in (report.report.pain_points or [])],
+                    "competitors": [i.model_dump(mode="json") for i in (report.report.competitors or [])],
+                    "opportunities": [i.model_dump(mode="json") for i in (report.report.opportunities or [])],
+                    "action_items": [i.model_dump(mode="json") for i in (report.report.action_items or [])],
+                }
             )
-        # 添加剩余社区（名称级别，明细未知时填缺省）
-        # 为了兼容现有 payload，不直接访问内部 sources，对完整需求建议前端调用导出接口或增补 payload。
-    except Exception:
-        pass
-    return communities
+            for category, rows in summary.items():
+                for row in rows:
+                    items.append(
+                        EntityExportItem(
+                            name=str(row.get("name")),
+                            category=str(category),
+                            mentions=int(row.get("mentions", 0)),
+                        )
+                    )
+        except Exception:
+            pass
+
+    return EntityExportResponse(task_id=str(task_id), items=items)
 
 
-@router.get(
-    "/{task_id}/communities",
-    summary="Export communities list (top or all)",
-    response_model=CommunityExportResponse,
-)
+@router.get("/{task_id}/communities/export", summary="Export communities list (top or all)", response_model=CommunityExportResponse)
 async def export_communities(
     task_id: UUID,
     scope: str = Query("all", regex="^(top|all)$", description="导出范围：top 或 all"),
@@ -632,6 +726,79 @@ async def download_communities(
 
     content = buf.getvalue().encode("utf-8")
     filename = f"communities-{task_id}-{scope}.csv"
+    return StreamingResponse(
+        content=BytesIO(content),
+        media_type="text/csv; charset=utf-8",
+        headers={
+            "Content-Disposition": f'attachment; filename="{filename}"',
+            "Content-Length": str(len(content)),
+        },
+    )
+
+
+@router.get(
+    "/{task_id}/entities/download",
+    summary="Download recognised entities as CSV",
+)
+async def download_entities(
+    task_id: UUID,
+    payload: TokenPayload = Depends(decode_jwt_token),
+    db: AsyncSession = Depends(get_session),
+) -> StreamingResponse:
+    """Server-side CSV for entities (name/category/mentions)."""
+    service = ReportService(db, cache=REPORT_CACHE)
+    try:
+        user_id = UUID(payload.sub)
+    except ValueError as exc:  # pragma: no cover
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid access token") from exc
+
+    allowed = await REPORT_RATE_LIMITER.allow(payload.sub)
+    if not allowed:
+        raise HTTPException(
+            status_code=status.HTTP_429_TOO_MANY_REQUESTS,
+            detail="Too many report downloads, please wait and try again.",
+        )
+
+    try:
+        report = await service.get_report(task_id, user_id)
+    except ReportServiceError as exc:
+        raise HTTPException(status_code=exc.status_code, detail=exc.detail) from exc
+
+    items: list[tuple[str, str, int]] = []
+    entity_summary = getattr(report.report, "entity_summary", None)
+    if entity_summary:
+        try:
+            for category, rows in entity_summary.dict().items():  # type: ignore[attr-defined]
+                if not isinstance(rows, list):
+                    continue
+                for row in rows:
+                    name = row.get("name") if isinstance(row, dict) else None
+                    mentions = row.get("mentions") if isinstance(row, dict) else None
+                    if isinstance(name, str) and isinstance(mentions, int):
+                        items.append((name, str(category), max(0, mentions)))
+        except Exception:
+            for category in ("brands", "features", "pain_points"):
+                rows = getattr(entity_summary, category, [])
+                for row in rows or []:
+                    name = getattr(row, "name", None)
+                    mentions = getattr(row, "mentions", None)
+                    if isinstance(name, str) and isinstance(mentions, int):
+                        items.append((name, category, max(0, mentions)))
+
+    # CSV
+    import csv
+    from io import StringIO, BytesIO
+
+    buf = StringIO()
+    writer = csv.writer(buf)
+    writer.writerow(["task_id", str(task_id)])
+    writer.writerow([])
+    writer.writerow(["name", "category", "mentions"])
+    for name, category, mentions in items:
+        writer.writerow([name, category, mentions])
+
+    content = buf.getvalue().encode("utf-8")
+    filename = f"entities-{task_id}.csv"
     return StreamingResponse(
         content=BytesIO(content),
         media_type="text/csv; charset=utf-8",

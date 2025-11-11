@@ -22,7 +22,7 @@ from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 from functools import partial
 from textwrap import dedent
-from typing import Any, Dict, List, Optional, Sequence
+from typing import Any, Dict, List, Optional, Sequence, Mapping
 
 from sqlalchemy import select
 from sqlalchemy.dialects.postgresql import insert as pg_insert
@@ -38,7 +38,10 @@ from app.services.analysis.deduplicator import (
     get_last_stats,
 )
 from app.services.analysis.entity_matcher import EntityMatcher
+from app.services.analysis.entity_pipeline import EntityPipeline
 from app.services.analysis.keyword_crawler import keyword_crawl
+from app.services.analysis.pain_cluster import cluster_pain_points
+from app.services.analysis.competitor_layering import assign_competitor_layers
 from app.services.analysis.opportunity_scorer import OpportunityScorer
 from app.services.analysis.signal_extraction import SignalExtractor
 from app.services.cache_manager import CacheManager
@@ -55,6 +58,7 @@ SAMPLE_LOOKBACK_DAYS: int = 30
 _GUARD_SAMPLE_LIMIT: int = 2000
 OPPORTUNITY_SCORER = OpportunityScorer()
 ENTITY_MATCHER = EntityMatcher()
+ENTITY_PIPELINE = EntityPipeline()
 
 
 @dataclass(frozen=True)
@@ -959,6 +963,75 @@ async def run_analysis(
             )
             communities = result.scalars().all()
 
+            def _safe_categories(obj) -> list[str]:
+                raw = getattr(obj, "categories", None)
+                if isinstance(raw, dict):
+                    return list(raw.keys())
+                if isinstance(raw, list):
+                    return [str(x) for x in raw]
+                return []
+
+            def _safe_desc(obj) -> dict:
+                raw = getattr(obj, "description_keywords", None)
+                if isinstance(raw, dict):
+                    return raw
+                return {}
+
+            def _hybrid_weight(obj) -> float:
+                cats = set(_safe_categories(obj))
+                desc = _safe_desc(obj)
+                base = 0.0
+                if "crossborder:hybrid" in cats:
+                    base += 1.0
+                try:
+                    base += float(desc.get("score", 0.0))
+                except Exception:
+                    pass
+                try:
+                    base += float(getattr(obj, "quality_score", 0.0)) * 0.5
+                except Exception:
+                    pass
+                return float(base)
+
+            # 轻权重排序：优先 hybrid_scoring + 高分 + 质量分
+            try:
+                communities.sort(key=_hybrid_weight, reverse=True)
+            except Exception:
+                pass
+
+            # 层级均衡（若存在 categories 中的 layer 标签）
+            layered: dict[str, list] = {"L1": [], "L2": [], "L3": [], "L4": []}
+            rest: list = []
+            for comm in communities:
+                cats = set(_safe_categories(comm))
+                assigned = False
+                for code in ("L1", "L2", "L3", "L4"):
+                    if f"layer:{code}" in cats:
+                        layered[code].append(comm)
+                        assigned = True
+                        break
+                if not assigned:
+                    rest.append(comm)
+
+            def _round_robin(groups: dict[str, list], fallback: list, limit: int = 10) -> list:
+                order = ["L1", "L2", "L3", "L4"]
+                out = []
+                idx = 0
+                while len(out) < limit and any(groups[k] for k in order) or fallback:
+                    key = order[idx % len(order)]
+                    if groups.get(key):
+                        out.append(groups[key].pop(0))
+                    elif fallback:
+                        out.append(fallback.pop(0))
+                    idx += 1
+                    if idx > limit * 4:
+                        break
+                return out
+
+            balanced = _round_robin(layered, rest, limit=10)
+            if balanced:
+                communities = balanced
+
             for comm in communities:
                 # 提前获取所有属性，避免 session 过期
                 name = comm.name
@@ -968,9 +1041,7 @@ async def run_analysis(
                 keywords_raw = comm.description_keywords or {}
 
                 categories: list[str] = (
-                    list(categories_raw.keys())
-                    if isinstance(categories_raw, dict)
-                    else []
+                    list(categories_raw.keys()) if isinstance(categories_raw, dict) else (list(categories_raw) if isinstance(categories_raw, list) else [])
                 )
                 keywords_list: list[str] = (
                     list(keywords_raw.keys()) if isinstance(keywords_raw, dict) else []
@@ -1221,25 +1292,76 @@ async def run_analysis(
     }
 
     def build_example_posts(source_ids: Sequence[str]) -> List[Dict[str, Any]]:
+        """Select up to 3 example posts with preference for distinct communities.
+
+        Guarantees at least 2 examples whenever possible by supplementing from
+        the global deduped_posts (sorted by score) if source_ids are insufficient
+        or map to missing payloads.
+        """
         examples: List[Dict[str, Any]] = []
-        for post_id in source_ids:
+        seen_communities: set[str] = set()
+
+        # 1) First pass: follow source_ids, prefer distinct communities
+        for post_id in source_ids or []:
             payload = post_lookup.get(post_id)
             if not payload:
                 continue
-            examples.append(
-                {
-                    "community": payload.get("subreddit", ""),
-                    "content": payload.get("summary", ""),
-                    "upvotes": int(payload.get("score", 0) or 0),
-                    "url": payload.get("url"),
-                    "author": payload.get("author"),
-                    "permalink": payload.get("permalink"),
-                    "evidence_count": int(payload.get("evidence_count", 1) or 1),
-                    "duplicate_ids": payload.get("duplicate_ids", []),
-                }
-            )
+            community = str(payload.get("subreddit", ""))
+            if community and community in seen_communities:
+                # try to keep diversity; allow duplicates only if we still need items
+                if len(examples) >= 2:
+                    continue
+            example = {
+                "community": community,
+                "content": payload.get("summary", ""),
+                "upvotes": int(payload.get("score", 0) or 0),
+                "url": payload.get("url"),
+                "author": payload.get("author"),
+                "permalink": payload.get("permalink"),
+                "evidence_count": int(payload.get("evidence_count", 1) or 1),
+                "duplicate_ids": payload.get("duplicate_ids", []),
+            }
+            examples.append(example)
+            if community:
+                seen_communities.add(community)
             if len(examples) >= 3:
                 break
+
+        # 2) Supplement: ensure at least 2 examples
+        if len(examples) < 2:
+            # Pick top-scored posts not already selected
+            selected_ids = {pid for pid in (source_ids or [])}
+            candidates = [
+                p for p in deduped_posts
+                if str(p.get("id", "")) not in selected_ids
+                and (p.get("url") or p.get("permalink"))
+            ]
+            try:
+                candidates.sort(key=lambda x: int(x.get("score", 0) or 0), reverse=True)
+            except Exception:
+                pass
+            for payload in candidates:
+                community = str(payload.get("subreddit", ""))
+                if community and community in seen_communities and len(examples) >= 1:
+                    # keep some diversity if we already have one
+                    continue
+                examples.append(
+                    {
+                        "community": community,
+                        "content": payload.get("summary", ""),
+                        "upvotes": int(payload.get("score", 0) or 0),
+                        "url": payload.get("url"),
+                        "author": payload.get("author"),
+                        "permalink": payload.get("permalink"),
+                        "evidence_count": int(payload.get("evidence_count", 1) or 1),
+                        "duplicate_ids": payload.get("duplicate_ids", []),
+                    }
+                )
+                if community:
+                    seen_communities.add(community)
+                if len(examples) >= 2:
+                    break
+
         return examples
 
     def build_user_examples(source_ids: Sequence[str]) -> List[str]:
@@ -1315,6 +1437,36 @@ async def run_analysis(
             }
         )
 
+    competitors_payload = assign_competitor_layers(competitors_payload)
+
+    # Prepare helper views for linking
+    clusters = []
+    try:
+        clusters = cluster_pain_points(pain_points_payload)
+    except Exception:
+        clusters = insights.get("pain_clusters", []) or []
+
+    channel_names: List[str] = []
+    try:
+        channel_names = [row.get("name") for row in insights.get("channel_breakdown", []) if isinstance(row, Mapping) and row.get("name")]
+    except Exception:
+        channel_names = []
+
+    def _link_pain_cluster(desc: str) -> str | None:
+        try:
+            lower = (desc or "").lower()
+            best = None
+            for entry in clusters:
+                topic = str(entry.get("topic") or "").strip()
+                if topic and topic.lower() in lower:
+                    best = topic
+                    break
+            if best is None and clusters:
+                best = str(clusters[0].get("topic") or "")
+            return best
+        except Exception:
+            return None
+
     opportunities_payload: List[Dict[str, Any]] = []
     for opportunity_signal in business_signals.opportunities:
         key_insights = (
@@ -1322,11 +1474,16 @@ async def run_analysis(
         )
         if not key_insights:
             key_insights = [opportunity_signal.description]
+        linked_cluster = _link_pain_cluster(opportunity_signal.description)
+        top_channels = channel_names[:3] if channel_names else []
         opportunities_payload.append(
             {
                 "description": opportunity_signal.description,
                 "relevance_score": round(opportunity_signal.relevance, 2),
                 "potential_users": f"约{opportunity_signal.potential_users}个潜在团队",
+                "potential_users_est": int(opportunity_signal.potential_users),
+                "linked_pain_cluster": linked_cluster,
+                "top_channels": top_channels,
                 "key_insights": key_insights,
                 "source_examples": build_example_posts(opportunity_signal.source_posts),
             }
@@ -1337,12 +1494,29 @@ async def run_analysis(
         "competitors": competitors_payload,
         "opportunities": opportunities_payload,
     }
+    insights["pain_clusters"] = clusters or cluster_pain_points(pain_points_payload)
 
     action_reports = [
         report.to_dict() for report in build_opportunity_reports(insights)
     ]
     insights["action_items"] = action_reports
-    insights["entity_summary"] = ENTITY_MATCHER.summarize(insights)
+    # Entity summary via new pipeline (folder-based dictionaries); fallback to matcher
+    try:
+        entity_summary = ENTITY_PIPELINE.summarize(insights)
+        insights["entity_summary"] = entity_summary
+        channels = entity_summary.get("channels", []) if isinstance(entity_summary, Mapping) else []
+        insights["channel_breakdown"] = [
+            {
+                "name": str(row.get("name")),
+                "mentions": int(row.get("mentions") or 0),
+            }
+            for row in channels[:5]
+            if isinstance(row, Mapping) and row.get("name")
+        ]
+    except Exception:  # defensive fallback
+        entity_summary = ENTITY_MATCHER.summarize(insights)
+        insights["entity_summary"] = entity_summary
+        insights["channel_breakdown"] = []
 
     processing_seconds = int(30 + len(collected) * 6 + total_cache_misses * 2)
     processing_seconds = min(processing_seconds, 260)

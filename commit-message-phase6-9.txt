@@ -1,0 +1,185 @@
+feat(phase6-9): implement insights, metrics, and entity analysis features
+
+完成 Phase 6-9 核心功能开发，包括洞察分析、指标统计、实体识别等关键特性。
+
+## Backend 核心功能
+
+### 1. Insights 系统重构 (Phase 6-7)
+- 重构 insights API，支持多维度洞察分析
+- 新增 InsightService 服务层，解耦业务逻辑
+- 实现 action_items 字段，支持可操作建议
+- 优化 insight 数据结构，提升前端展示效果
+
+### 2. Metrics 指标统计 (Phase 7)
+- 新增 /api/metrics 端点，提供多维度数据统计
+- 实现 MetricsService，支持时间序列分析
+- 支持按时间范围、社区、类型过滤指标
+- 提供趋势分析和对比功能
+
+### 3. Entity 实体识别 (Phase 8)
+- 实现 EntityMatcher 服务，支持实体提取和匹配
+- 配置 entity_dictionary.yaml，定义实体词典
+- 配置 scoring_rules.yaml，定义评分规则
+- 支持实体高亮和关联分析
+
+### 4. Analysis Engine 增强
+- 优化分析引擎，支持更复杂的分析逻辑
+- 新增 action_items 生成逻辑
+- 改进评分算法，提升准确性
+- 支持实体关联分析
+
+### 5. Report Service 优化
+- 优化报告生成逻辑，支持更丰富的数据展示
+- 改进导出功能，支持 PDF/Excel 格式
+- 新增实体高亮功能
+- 优化性能，减少数据库查询
+
+## Frontend 新功能
+
+### 1. Dashboard 页面 (Phase 7)
+- 新增 DashboardPage，提供数据概览
+- 集成 MetricsChart 组件，可视化指标趋势
+- 支持时间范围选择和数据过滤
+- 响应式设计，适配移动端
+
+### 2. Entity 相关组件 (Phase 8)
+- 新增 EntityHighlights 组件，高亮显示实体
+- 新增 EvidenceList 组件，展示证据列表
+- 优化 InsightCard，支持 action_items 展示
+- 改进 EvidencePanel，支持实体关联
+
+### 3. API 集成
+- 新增 insights.ts API 客户端
+- 新增 metrics.ts API 客户端
+- 优化 API 错误处理和重试逻辑
+- 改进类型定义，提升类型安全
+
+### 4. 类型系统完善
+- 新增 metrics.types.ts，定义指标类型
+- 新增 entity.types.ts，定义实体类型
+- 优化 insight.types.ts，支持新字段
+- 改进 report 类型定义
+
+### 5. 国际化支持
+- 扩展 TranslationProvider，支持更多语言
+- 新增 insights、metrics 相关翻译
+- 优化翻译加载逻辑
+- 支持动态语言切换
+
+## 测试覆盖
+
+### Backend 测试
+- 新增 test_metrics.py，覆盖指标 API
+- 新增 test_entity_matcher.py，覆盖实体识别
+- 新增 test_local_acceptance.py，本地验收测试
+- 优化现有测试，提升覆盖率
+
+### Frontend 测试
+- 优化 ReportPage 测试，覆盖新功能
+- 优化 contract 测试，验证 API 契约
+- 新增 export 功能测试
+- 改进测试工具和 mock 数据
+
+## 配置与工具
+
+### 配置文件
+- backend/config/entity_dictionary.yaml: 实体词典配置
+- backend/config/scoring_rules.yaml: 评分规则配置
+- backend/.env.example: 环境变量示例更新
+
+### 脚本工具
+- backend/scripts/calibrate_threshold.py: 阈值校准工具
+- backend/scripts/local_acceptance.py: 本地验收脚本
+- backend/scripts/sample_posts_for_annotation.py: 数据标注工具
+- backend/scripts/test_reddit_api.py: Reddit API 测试工具
+
+### 数据库迁移
+- 34a283ef7d4e_add_action_items_to_analysis.py: 新增 action_items 字段
+
+## 文档更新
+
+### 项目文档
+- docs/API-REFERENCE.md: 更新 API 文档
+- docs/SQLALCHEMY_POOL_CONFIG.md: 数据库连接池配置
+- docs/annotation-guide.md: 数据标注指南
+- docs/2025-10-10-实施检查清单.md: 更新实施进度
+
+### 阶段报告
+- reports/phase-log/phase3.md: Phase 3 完成报告
+- reports/phase-log/phase6-7-8-9-acceptance.md: Phase 6-9 验收报告
+- reports/phase-log/phase8.md: Phase 8 完成报告
+- reports/phase-log/phase9.md: Phase 9 完成报告
+- reports/phase-log/spec-007-full-acceptance.md: Spec 007 完整验收
+
+### Spec 文档
+- .specify/specs/006-项目优化重构/: 项目优化重构规范
+- .specify/specs/007-mvp-product-loop/: MVP 产品闭环规范
+- reports/2025-10-27-Spec-007-MVP产品闭环计划.md: MVP 闭环计划
+- reports/api-audit.md: API 审计报告
+
+## 基础设施改进
+
+### Makefile 增强
+- 新增 metrics 相关命令
+- 优化测试命令，支持更多选项
+- 改进开发环境启动流程
+
+### 依赖更新
+- frontend/package.json: 新增图表库等依赖
+- frontend/package-lock.json: 锁定依赖版本
+
+## 代码质量
+
+### 类型安全
+- Backend: mypy strict mode (29 个类型警告，非阻塞)
+- Frontend: TypeScript strict mode (0 错误)
+
+### Lint 检查
+- Backend: Black + isort 格式化
+- Frontend: ESLint (7 个警告，非阻塞)
+
+### 测试覆盖
+- Backend: 193+ 测试用例
+- Frontend: 完整的单元测试和集成测试
+
+## 技术债务记录
+
+### 已知问题
+1. mypy 类型警告 (29个): 主要是第三方库缺少类型存根
+2. ESLint 警告 (7个): React hooks 依赖和 fast-refresh 警告
+3. 部分临时脚本需要清理（已在 .gitignore 中排除）
+
+### 后续优化
+1. 安装缺失的类型存根包 (psutil, weasyprint, datasketch)
+2. 优化 React hooks 依赖
+3. 重构部分临时脚本为正式工具
+
+## 变更统计
+
+- 修改文件: 55 个
+- 新增文件: 43 个
+- 删除文件: 1 个 (insights.py 重构为 insight.py)
+- 代码变更: +11,452 行, -526 行
+
+## 验收状态
+
+- ✅ Phase 6: Real Reddit API Integration
+- ✅ Phase 7: Metrics & Dashboard
+- ✅ Phase 8: Entity Recognition
+- ✅ Phase 9: Insights Enhancement
+- ✅ Spec 007: MVP Product Loop
+
+## 参考文档
+
+- Spec: .specify/specs/007-mvp-product-loop/
+- 验收报告: reports/phase-log/spec-007-full-acceptance.md
+- API 文档: docs/API-REFERENCE.md
+- 测试覆盖: backend/tests/, frontend/src/tests/
+
+## 下一步计划
+
+1. 修复已知的类型警告和 lint 警告
+2. 完善数据标注工具和流程
+3. 优化性能和用户体验
+4. 准备生产环境部署
+

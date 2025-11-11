@@ -45,6 +45,7 @@ class RedditClient:
         self.user_agent = user_agent or "RedditSignalScanner/1.0"
 
         # Rate limiter: 58 requests per minute
+        # 保持原有的 60 秒窗口，因为 PRAW 有自己的限流机制
         self.rate_limiter = AsyncLimiter(max_rate=58, time_period=60)
 
         # Initialize PRAW client
@@ -61,6 +62,7 @@ class RedditClient:
         subreddit_name: str,
         limit: int = 100,
         time_filter: str = "week",
+        sort: str = "top",
     ) -> list[dict[str, Any]]:
         """Fetch posts from a subreddit.
 
@@ -68,6 +70,7 @@ class RedditClient:
             subreddit_name: Name of subreddit (without r/)
             limit: Maximum number of posts to fetch (default: 100)
             time_filter: Time filter (hour, day, week, month, year, all)
+            sort: Sort method (top, new, hot, rising)
 
         Returns:
             list: List of post dictionaries
@@ -85,7 +88,7 @@ class RedditClient:
             raise ValueError("Subreddit name cannot be empty")
 
         logger.info(
-            f"Fetching posts from r/{subreddit_name} (limit={limit}, time_filter={time_filter})"
+            f"Fetching posts from r/{subreddit_name} (limit={limit}, time_filter={time_filter}, sort={sort})"
         )
 
         try:
@@ -96,10 +99,27 @@ class RedditClient:
                     self.reddit.subreddit, subreddit_name
                 )
 
-                # Fetch top posts
-                posts = await asyncio.to_thread(
-                    lambda: list(subreddit.top(time_filter=time_filter, limit=limit))
-                )
+                # Fetch posts based on sort method
+                if sort == "new":
+                    posts = await asyncio.to_thread(
+                        lambda: list(subreddit.new(limit=limit))
+                    )
+                elif sort == "hot":
+                    posts = await asyncio.to_thread(
+                        lambda: list(subreddit.hot(limit=limit))
+                    )
+                elif sort == "rising":
+                    posts = await asyncio.to_thread(
+                        lambda: list(subreddit.rising(limit=limit))
+                    )
+                elif sort == "controversial":
+                    posts = await asyncio.to_thread(
+                        lambda: list(subreddit.controversial(time_filter=time_filter, limit=limit))
+                    )
+                else:  # default: top
+                    posts = await asyncio.to_thread(
+                        lambda: list(subreddit.top(time_filter=time_filter, limit=limit))
+                    )
 
             # Convert to dict
             post_dicts = []

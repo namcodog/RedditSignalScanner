@@ -1,0 +1,3541 @@
+{
+  "version": "v2.0",
+  "domain": "crossborder",
+  "layers": {
+    "L1": {
+      "brands": [],
+      "features": [
+        {
+          "canonical": "product",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 59.1963254457808,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "store",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 58.90553276756944,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "ve",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 52.16856753459192,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "shopify",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 51.323404293671125,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "business",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 50.76157334526005,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "commerce",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 49.451474794742715,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "ecommerce",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 44.944829289910956,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "sales",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 42.85903068383992,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "products",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 42.838147895818686,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "ads",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 41.97798465201081,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "people",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 41.01153953491103,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "website",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 38.720921463072585,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "amazon",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 37.98313143986495,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "time",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 37.90977546793823,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "new",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 36.53669427638785,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "brand",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 34.32445916209852,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "site",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 33.983272071961956,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "looking",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 33.86349330042371,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "shipping",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 33.27837663097223,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "com",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 33.22202848072855,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "good",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 31.787881532391708,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "ai",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 30.895176711761923,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "customers",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 30.3338794659603,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "marketing",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 29.695504460518457,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "really",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 28.851848508070507,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "best",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 28.70447734566468,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "online",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 28.283780724744133,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "https",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 27.508588177223565,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "actually",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 27.481653702971638,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "customer",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 27.21442774545325,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "way",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 25.947166600030457,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "email",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 25.82309789830809,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "using",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 25.816636569924555,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "selling",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 25.587423798219785,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "advice",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 24.881766462502476,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "google",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 24.672590769208433,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "month",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 24.630773725301246,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "small",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 24.534824879666985,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "does",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 24.47783171238137,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "orders",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 24.33442791073614,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "money",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 24.000385736436453,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "did",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 23.795229978335527,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "thanks",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 23.701756534066668,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "doing",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 23.44140520489204,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "day",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 23.051172998331936,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "experience",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 22.67041226818499,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "better",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 22.664511350005817,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "lot",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 22.394107713792177,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "ad",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 22.114138030029434,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "trying",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 21.717926425567406,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "order",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 21.4240100082519,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "things",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 21.19812269342181,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "right",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 21.045418284680288,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "curious",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 20.63168730511828,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "guys",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 20.531667870634003,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "year",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 20.395441600308377,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "tools",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 20.279422323763615,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "getting",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 20.1770601703649,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "page",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 20.07123720676416,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "hey",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 19.65116350732871,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "free",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 19.64592659440332,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "traffic",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 19.54582091011063,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "china",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 19.453467468105814,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "meta",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 19.12857542334209,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "platform",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 19.06425401678665,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "running",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 18.959324044247456,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "worth",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 18.83362714470546,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "price",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 18.711437730134055,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "company",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 18.425932035484074,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "hi",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 18.409456197668835,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "started",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 18.325306455078177,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "account",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 18.309436252603486,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "shop",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 18.174786222271397,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "starting",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 17.87724570395766,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "service",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 17.861892313612728,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "stores",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 17.808110396853603,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "going",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 17.663971827994665,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "got",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 17.535912083920575,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "social",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 17.284915532384545,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "rate",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 17.0306506237262,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "data",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 16.92064895160105,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "sure",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 16.892687412220575,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "post",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 16.783990041621028,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "cost",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 16.729336267815594,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "idea",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 16.72071435473411,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "real",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 16.60634564022726,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "years",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 16.592553364038846,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "tiktok",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 16.57780569095476,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "working",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 16.562206706010127,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "used",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 16.515410922320076,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "months",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 16.492399159736536,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "content",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 16.429245529473665,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "conversion",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 16.17845026427739,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "facebook",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 16.16256589602506,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "making",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 16.12635172622457,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "feedback",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 16.03057963650385,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "www",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 15.734973806936472,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "platforms",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 15.591899719048918,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "days",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 15.567225013580384,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "market",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 15.518942963761454,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "items",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 15.410202702313944,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "brands",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 15.337881618571231,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "wondering",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 15.219131284237289,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "paid",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 15.129871607694973,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "seo",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 14.926289596639538,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "reviews",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 14.854283398221645,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "revenue",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 14.757798689839065,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "payment",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 14.709480121217679,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "different",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 14.701398024965885,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "app",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 14.615881031493482,
+          "polarity": "neutral"
+        }
+      ],
+      "pain_points": []
+    },
+    "L2": {
+      "brands": [],
+      "features": [
+        {
+          "canonical": "amazon",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 195.79913902848375,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "shopify",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 179.10983850869968,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "product",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 126.52191113029555,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "store",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 103.02488461020243,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "account",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 85.8185153229203,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "products",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 83.33087520778393,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "ve",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 81.42325059988451,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "seller",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 77.23784447430626,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "new",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 73.34062658380108,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "app",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 72.76669084263273,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "shipping",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 72.52780115284565,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "sales",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 71.59417504408162,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "selling",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 63.82621483149123,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "business",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 63.35607262823428,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "does",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 58.33755244333562,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "time",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 58.208716433827746,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "brand",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 55.38988341957783,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "fba",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 53.42352984587355,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "order",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 53.02175775568007,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "way",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 52.392198682464965,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "email",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 51.82544709170382,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "customer",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 51.55438037831985,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "using",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 48.33257914417595,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "com",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 47.975267328024714,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "orders",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 47.95649387470697,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "thanks",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 47.370940106077555,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "people",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 47.03824060295386,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "looking",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 46.16865092981497,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "items",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 45.2948419194037,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "website",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 45.260498610173805,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "listing",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 44.772791742328,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "support",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 44.71049440597963,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "really",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 44.085914174539255,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "sellers",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 43.99633047680491,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "inventory",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 43.86041272673071,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "https",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 43.690085617819406,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "page",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 43.43033251449879,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "trying",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 42.80546081832913,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "got",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 42.79728297711683,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "item",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 42.537945605828824,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "good",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 42.515314376653414,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "customers",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 42.38084397405032,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "price",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 42.3417835130149,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "apps",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 42.06102219535557,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "ads",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 39.93896541360446,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "getting",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 39.428272995377434,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "hi",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 39.41181772207764,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "shopify store",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 39.117801771113584,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "theme",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 39.05285590802078,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "month",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 38.76875570110514,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "site",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 38.30601775353683,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "best",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 37.11559031763286,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "shop",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 36.99602225503398,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "day",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 36.771952819041985,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "did",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 36.651538752168705,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "days",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 36.28837725972718,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "free",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 36.186453306907254,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "money",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 36.157208559385076,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "advice",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 35.79850043024072,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "doing",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 34.58653403508336,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "guys",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 34.24537917637942,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "going",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 34.063753156085006,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "tried",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 33.631352299604416,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "different",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 32.84455692415887,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "right",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 32.08547185620456,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "small",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 31.35237371030696,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "lot",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 31.096118931255123,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "company",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 30.44380515174191,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "started",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 30.435436057448978,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "hey",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 30.41087576841244,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "actually",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 29.977193226092655,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "experience",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 29.910232004138532,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "google",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 29.63600691711129,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "used",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 29.58003439520222,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "address",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 29.37414026697412,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "year",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 29.162078345521756,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "thank",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 28.652044853720405,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "ai",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 28.58103337635096,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "amazon seller",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 28.56566627190632,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "things",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 28.17498353170845,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "today",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 27.517544401045473,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "years",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 27.50816345976815,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "stores",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 27.421184170719002,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "sure",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 27.035354982662344,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "fees",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 26.529053081594572,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "list",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 26.51363757785648,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "online",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 26.487132404936514,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "question",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 26.395867456610702,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "having",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 26.34327813574893,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "hello",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 26.28853409854712,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "months",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 26.267511544586416,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "number",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 26.172416725083508,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "better",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 25.929072027831594,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "ship",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 25.768868491361232,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "able",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 25.611761444673775,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "fbm",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 25.590109342548974,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "wondering",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 25.38550124433576,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "uk",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 25.250332339161726,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "stock",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 25.159655849157858,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "cost",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 24.97498047144149,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "post",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 24.844985446876393,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "currently",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 24.73269484609361,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "possible",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 24.64466726672627,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "payment",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 24.598307190331845,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "option",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 24.48537826648139,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "tax",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 24.448268594607228,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "says",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 24.381101744021752,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "service",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 24.3370152530259,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "doesn",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 24.188716151736223,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "long",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 24.036922327865607,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "cart",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 23.938311004954727,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "working",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 23.769957906123437,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "custom",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 23.730282641514062,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "label",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 23.63090842428097,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "running",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 23.515825732769176,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "checkout",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 23.504969021635,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "sold",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 23.21224597285273,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "listings",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 23.169372840674995,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "process",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 23.112833714037563,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "marketing",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 23.0187959719001,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "code",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 22.942231826836203,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "say",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 22.864157612946112,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "www",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 22.811720042312693,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "ago",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 22.778587534251823,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "return",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 22.654703049303148,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "paid",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 22.649881208754554,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "sale",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 22.474541385546765,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "starting",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 22.381828753526566,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "received",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 22.271323990119345,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "recently",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 22.163819052018372,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "advance",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 21.83013157045041,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "week",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 21.821601758172516,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "information",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 21.68274567787104,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "options",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 21.625963641257886,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "payments",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 21.487820221846,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "emails",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 21.229956532714457,
+          "polarity": "neutral"
+        }
+      ],
+      "pain_points": [
+        {
+          "canonical": "issue",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 37.75761907863363,
+          "polarity": "negative"
+        },
+        {
+          "canonical": "issues",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 24.80304737091434,
+          "polarity": "negative"
+        },
+        {
+          "canonical": "problem",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 23.52938106323654,
+          "polarity": "negative"
+        },
+        {
+          "canonical": "refund",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 23.221765141439345,
+          "polarity": "negative"
+        }
+      ]
+    },
+    "L3": {
+      "brands": [],
+      "features": [
+        {
+          "canonical": "dropshipping",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 81.75399738404865,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "product",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 74.38270084405588,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "store",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 69.43423484416017,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "ads",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 58.41185918523763,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "products",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 51.00820067138072,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "ve",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 48.35219418699918,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "shipping",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 45.10293344654007,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "shopify",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 42.99994035409135,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "people",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 42.99552423216268,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "sales",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 39.54341689350301,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "time",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 39.14824492806556,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "good",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 36.657111870219424,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "https",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 35.94911931003576,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "business",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 35.921059819212985,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "ad",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 35.07485008399567,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "day",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 33.553286736480345,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "drop",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 33.41305036054906,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "com",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 32.4893409085043,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "website",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 32.16849365917473,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "new",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 31.695675508735473,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "guys",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 31.21575492577715,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "looking",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 31.178664300494916,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "money",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 30.812307954550576,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "really",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 30.41813049462032,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "tiktok",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 29.145043314370046,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "supplier",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 28.051613287119597,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "aliexpress",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 27.085121471374617,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "free",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 26.835870400925554,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "got",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 26.641799256854227,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "selling",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 25.638857574890345,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "drop shipping",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 25.472049461647323,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "niche",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 25.208948670674946,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "orders",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 25.2002480580846,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "started",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 24.380419496376202,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "way",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 24.315138161915254,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "facebook",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 23.942335729414072,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "ebay",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 23.88032518783159,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "days",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 23.8432708973252,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "dropship",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 23.78188314110354,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "order",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 23.763884339316853,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "best",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 23.686321101037297,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "doing",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 23.66412317285942,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "using",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 23.18228826473945,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "does",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 23.173486694330425,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "ai",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 22.82084440115343,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "advice",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 22.10055774761076,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "actually",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 22.00935252663927,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "account",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 21.99473713377565,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "amazon",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 21.869324825398294,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "thanks",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 21.797853446419865,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "customer",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 21.73764390082176,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "suppliers",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 21.187522864049967,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "hey",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 21.12676065157169,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "lot",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 20.879913213317586,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "getting",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 20.682948491050073,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "brand",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 20.607810951366623,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "month",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 20.14026996386764,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "china",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 19.865412777372015,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "right",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 19.625530812695406,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "marketing",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 19.508996605954255,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "going",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 19.411474865563132,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "video",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 19.36648761480721,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "running",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 19.362973535771406,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "page",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 19.226739752411994,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "did",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 19.086195767004636,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "post",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 19.0740041431259,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "im",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 18.857470548293122,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "price",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 18.80951936815488,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "trying",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 18.73568186478367,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "testing",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 18.610321157498355,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "things",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 18.421978624049665,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "making",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 18.385043090406956,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "videos",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 18.339577668582923,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "sale",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 18.335305012449894,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "profit",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 18.147059205522126,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "better",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 18.11388395682043,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "questions",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 18.102137562473928,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "real",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 17.882161609876587,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "worth",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 17.712536022626807,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "stores",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 17.53651045727793,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "site",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 17.52456593579083,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "starting",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 17.40703409126467,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "customers",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 17.31586103790582,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "shop",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 17.30601108925726,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "high",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 17.14388751717096,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "ll",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 16.939444859773573,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "items",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 16.7964997036969,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "working",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 16.709533322118926,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "market",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 16.682992574026112,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "tried",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 16.586179661588663,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "experience",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 16.562703605374477,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "year",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 16.330078341112817,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "hi",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 16.305417102197215,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "different",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 15.930052412600446,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "test",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 15.753548500175171,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "share",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 15.602510964714192,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "years",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 15.448350644260344,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "months",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 15.357399153639278,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "wondering",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 15.155600805358521,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "long",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 15.071825398954278,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "budget",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 15.046420131625025,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "hello",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 14.988051955805997,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "profitable",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 14.965617499013403,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "hours",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 14.804343468614645,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "online",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 14.7086806913575,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "youtube",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 14.572615903993821,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "thing",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 14.423928138819292,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "times",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 14.408119364372824,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "dropshippers",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 14.406204904252832,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "content",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 14.374799449729474,
+          "polarity": "neutral"
+        }
+      ],
+      "pain_points": []
+    },
+    "L4": {
+      "brands": [],
+      "features": [
+        {
+          "canonical": "dropshipping",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 86.36534867933806,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "store",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 72.61343711285852,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "product",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 69.30983231036164,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "ads",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 63.030474782999676,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "ve",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 48.410467132497395,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "products",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 48.2383527493029,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "sales",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 46.34221285786002,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "shopify",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 46.16546830100849,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "new",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 40.02959779678302,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "day",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 38.81648772498159,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "people",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 38.644510484207075,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "ai",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 37.09032297688795,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "ad",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 35.77376245955949,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "time",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 34.8446884789967,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "looking",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 34.653455345174955,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "https",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 34.35525692659056,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "guys",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 34.30735234159751,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "good",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 34.25399979831108,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "business",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 33.57747083313573,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "website",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 33.1615584914123,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "month",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 33.081173733224006,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "com",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 32.328366616317865,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "sale",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 31.88358390541502,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "shipping",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 31.224349220508845,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "got",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 30.956181618512222,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "actually",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 29.014299181581368,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "money",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 28.69410544917171,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "started",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 27.923155384800136,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "ll",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 27.922365616096247,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "doing",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 27.53783514609818,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "really",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 26.93228420540882,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "drop",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 26.866536369450596,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "free",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 26.120281175666463,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "advice",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 25.611462038221923,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "days",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 25.302772819014802,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "real",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 25.046426249298303,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "hey",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 24.785800670524075,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "brand",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 24.629012259251105,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "meta",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 24.52738634586493,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "best",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 23.397035334399323,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "trying",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 22.42101895944596,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "right",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 22.384584018523334,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "tiktok",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 22.064032719992582,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "months",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 22.059383846360337,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "account",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 22.05074722017722,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "selling",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 20.85286203549372,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "supplier",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 20.810242898200773,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "marketing",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 20.74747358745501,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "lot",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 20.362167289050404,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "running",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 20.243281435082032,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "getting",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 20.23297796388814,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "testing",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 20.144557511192026,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "suppliers",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 20.02453891432179,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "way",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 19.89902163168432,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "profit",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 19.708137208875872,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "making",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 19.582410862337166,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "thanks",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 19.516196589338772,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "did",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 19.372801906550826,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "starting",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 19.32305501347959,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "video",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 19.108279067715642,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "week",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 19.05634926385694,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "niche",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 19.043715936571374,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "im",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 18.992595022172868,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "finally",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 18.940788749355754,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "working",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 18.920313527536603,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "going",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 18.895222831705272,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "better",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 18.848617688005426,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "orders",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 18.73203419500097,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "using",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 18.45656304549035,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "experience",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 18.348658562328072,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "drop shipping",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 18.26981039080779,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "page",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 18.074003889094108,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "share",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 17.81260920143857,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "winning",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 17.7528202133318,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "ebay",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 17.70012023853434,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "facebook",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 17.685519310456467,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "post",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 17.564956031130567,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "does",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 17.54906159175757,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "stores",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 17.474759652082614,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "year",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 17.290989756353444,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "commerce",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 17.045410582976242,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "videos",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 16.79640756495889,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "feedback",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 16.706491752047,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "content",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 16.565863298843674,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "worth",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 16.525193553767245,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "order",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 16.39756385226643,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "test",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 16.351131682691147,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "hit",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 16.078172462306828,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "years",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 15.984503842440553,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "google",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 15.946252390885673,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "things",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 15.802090632140528,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "online",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 15.798286313925097,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "questions",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 15.749992666994173,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "results",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 15.730979786615215,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "different",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 15.642755252795446,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "customer",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 15.523627180929383,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "hi",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 15.43831533976635,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "dm",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 15.38657726965622,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "thing",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 15.297182692240185,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "works",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 15.05562706196021,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "tried",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 15.027047463296435,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "small",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 14.980640109278553,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "design",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 14.916858764403818,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "tools",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 14.834714127275685,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "meta ads",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 14.76848871330634,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "tips",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 14.58334536210228,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "customers",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 14.440982861585136,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "research",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 14.42211821454366,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "1k",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 14.208931367054827,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "market",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 14.179756901317322,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "dropshippers",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 14.104565485087297,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "amazon",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 14.09819378408101,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "building",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 14.082874607591455,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "site",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 13.99520839378232,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "china",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 13.967899725703887,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "thank",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 13.943186910673317,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "high",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 13.667213081679545,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "today",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 13.663153095872767,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "course",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 13.62892570851961,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "weeks",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 13.507398670680258,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "interested",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 13.417886086043852,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "hello",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 13.397337175406347,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "aliexpress",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 13.397261453708438,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "idea",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 13.335463568727121,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "far",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 13.287335208296401,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "campaign",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 13.149236790706846,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "shopify store",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 13.098160540214378,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "organic",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 13.073810831290196,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "possible",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 13.044371357404511,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "tool",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 12.925683181943375,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "ago",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 12.819885426674043,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "spent",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 12.768483592008305,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "wanted",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 12.762860711277213,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "cost",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 12.724020619227915,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "traffic",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 12.688355099696263,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "sure",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 12.58721898721347,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "budget",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 12.58446743108278,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "scale",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 12.540206602962838,
+          "polarity": "neutral"
+        },
+        {
+          "canonical": "creatives",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 12.517175595656965,
+          "polarity": "neutral"
+        }
+      ],
+      "pain_points": [
+        {
+          "canonical": "problem",
+          "aliases": [],
+          "precision_tag": "phrase",
+          "weight": 14.915422691201478,
+          "polarity": "negative"
+        }
+      ]
+    }
+  },
+  "stats": {
+    "by_layer": {
+      "L1": 110,
+      "L2": 140,
+      "L3": 110,
+      "L4": 140
+    },
+    "total": 500
+  }
+}

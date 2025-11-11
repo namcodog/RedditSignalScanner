@@ -317,6 +317,93 @@ async def test_version_migration_preserves_existing_data() -> None:
 
 
 @pytest.mark.asyncio
+async def test_report_service_adds_competitor_layers_summary() -> None:
+    task = _build_fake_task(version="1.0")
+    task.analysis.insights["competitors"] = [
+        {
+            "name": "Notion",
+            "mentions": 42,
+            "sentiment": "positive",
+            "strengths": ["用户反馈积极"],
+            "weaknesses": ["移动端填报效率低"],
+            "market_share": 40,
+            "context_snippets": [],
+        },
+        {
+            "name": "Mixpanel",
+            "mentions": 33,
+            "sentiment": "mixed",
+            "strengths": ["深度指标对比全面"],
+            "weaknesses": ["学习曲线陡峭"],
+            "market_share": 25,
+            "context_snippets": [],
+        },
+        {
+            "name": "Google Sheets",
+            "mentions": 28,
+            "sentiment": "positive",
+            "strengths": ["上手零门槛"],
+            "weaknesses": ["缺少自动化"],
+            "market_share": 18,
+            "context_snippets": [],
+        },
+    ]
+    task.analysis.insights["entity_summary"] = {
+        "brands": [
+            {"name": "Notion", "mentions": 42},
+        ],
+        "features": [
+            {"name": "automation", "mentions": 15},
+        ],
+        "pain_points": [
+            {"name": "compliance", "mentions": 9},
+        ],
+        "channels": [
+            {"name": "Amazon", "mentions": 27},
+            {"name": "TikTok Shop", "mentions": 18},
+        ],
+        "logistics": [
+            {"name": "DHL", "mentions": 12},
+        ],
+        "risks": [
+            {"name": "infringement", "mentions": 7},
+        ],
+    }
+
+    repo = FakeRepository(task)
+    config = ReportServiceConfig(
+        community_members={"r/startups": 1200000},
+        cache_ttl_seconds=3600,
+        target_analysis_version="1.0",
+    )
+
+    service = ReportService(
+        db=None,  # type: ignore[arg-type]
+        repository=repo,
+        cache=None,
+        config=config,
+    )
+
+    payload = await service.get_report(task.id, task.user_id)
+
+    competitor_layers = [comp.layer for comp in payload.report.competitors]
+    assert competitor_layers == ["workspace", "analytics", "summary"]
+
+    summary = payload.report.competitor_layers_summary
+    assert summary, "Expected per-layer summary to be populated"
+    workspace_entry = next(item for item in summary if item.layer == "workspace")
+    assert workspace_entry.top_competitors[0].name == "Notion"
+    assert workspace_entry.threats
+
+    leaderboard_categories = {entry.category for entry in payload.report.entity_leaderboard}
+    assert {"brands", "channels", "logistics", "risks"}.issubset(leaderboard_categories)
+
+    channel_breakdown = payload.report.channel_breakdown
+    assert channel_breakdown, "Expected channel breakdown populated"
+    assert channel_breakdown[0].name == "Amazon"
+
+
+@pytest.mark.asyncio
 async def test_version_migration_skips_if_already_target() -> None:
     """测试如果已经是目标版本则跳过迁移"""
     task = _build_fake_task(version="1.0")  # 已经是目标版本

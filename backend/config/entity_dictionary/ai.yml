@@ -1,0 +1,25 @@
+models:
+  - gpt
+  - llama
+  - claude
+  - mistral
+  - gemini
+  - stable diffusion
+tooling:
+  - langchain
+  - hugging face
+  - openai
+  - anthropic
+  - huggingface
+use_cases:
+  - text summarisation
+  - code generation
+  - customer support automation
+  - content moderation
+  - medical imaging
+risks:
+  - hallucination
+  - bias
+  - data leakage
+  - safety alignment
+  - regulation compliance

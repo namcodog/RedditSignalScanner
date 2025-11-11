@@ -6,6 +6,7 @@ from dataclasses import dataclass
 from typing import Any, Dict, Iterable, List, Sequence
 
 from app.services.analysis.opportunity_scorer import OpportunityScorer
+from app.services.analysis.scoring_rules import ScoringRulesLoader
 from app.services.analysis.text_cleaner import clean_text, score_with_context
 
 
@@ -246,6 +247,7 @@ class SignalExtractor:
     _MAX_COMPETITORS = 12  # 增加到 12 个
     _MAX_OPPORTUNITIES = 10  # 增加到 10 个
     OPPORTUNITY_SCORER = OpportunityScorer()
+    _RULES_LOADER = ScoringRulesLoader()
 
     _PRODUCT_PATTERN = re.compile(r"\b([A-Z][A-Za-z0-9]+(?:\s+[A-Z][A-Za-z0-9]+)?)\b")
     _PRODUCT_WITH_SUFFIX_PATTERN = re.compile(
@@ -602,9 +604,24 @@ class SignalExtractor:
                 context_avg = entry["context_score_total"] / context_samples
                 relevance = max(0.0, min(1.0, relevance + context_avg * 0.2))
 
+            # 参数化潜在团队量级估计（Spec010）
+            rules = self._RULES_LOADER.load()
+            est = getattr(rules, "opportunity_estimator", None)
+            base = getattr(est, "base", 100.0) if est else 100.0
+            w_freq = getattr(est, "freq_weight", 50.0) if est else 50.0
+            w_avg = getattr(est, "avg_score_weight", 2.0) if est else 2.0
+            w_kw = getattr(est, "keyword_weight", 20.0) if est else 20.0
+            m_theme = getattr(est, "theme_relevance", 0.0) if est else 0.0
+            m_intent = getattr(est, "intent_factor", 0.0) if est else 0.0
+
             potential_users = int(
-                100 + frequency * 50 + avg_score * 2.0 + len(entry["keywords"]) * 20
+                base + frequency * w_freq + avg_score * w_avg + len(entry["keywords"]) * w_kw
             )
+            # 乘性调整：主题相关性与意愿强度
+            multiplier = 1.0 + max(0.0, min(1.0, relevance)) * m_theme
+            multiplier += max(0.0, min(1.0, scorer_result.base_score)) * m_intent
+            multiplier = max(0.5, min(2.0, multiplier))
+            potential_users = max(0, int(potential_users * multiplier))
 
             signals.append(
                 OpportunitySignal(

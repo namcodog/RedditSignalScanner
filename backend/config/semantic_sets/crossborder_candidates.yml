@@ -1,0 +1,2824 @@
+{
+  "L1": {
+    "features": [
+      {
+        "canonical": "free shipping",
+        "category": "features",
+        "layer": "L1",
+        "score": 13.05,
+        "freq": 170
+      },
+      {
+        "canonical": "add cart",
+        "category": "features",
+        "layer": "L1",
+        "score": 9.54,
+        "freq": 87
+      },
+      {
+        "canonical": "ad spend",
+        "category": "features",
+        "layer": "L1",
+        "score": 8.67,
+        "freq": 119
+      },
+      {
+        "canonical": "paid ads",
+        "category": "features",
+        "layer": "L1",
+        "score": 8.46,
+        "freq": 76
+      },
+      {
+        "canonical": "running ads",
+        "category": "features",
+        "layer": "L1",
+        "score": 8.0,
+        "freq": 64
+      },
+      {
+        "canonical": "conversion rates",
+        "category": "features",
+        "layer": "L1",
+        "score": 7.82,
+        "freq": 81
+      },
+      {
+        "canonical": "tiktok shop",
+        "category": "features",
+        "layer": "L1",
+        "score": 7.59,
+        "freq": 183
+      },
+      {
+        "canonical": "black friday",
+        "category": "features",
+        "layer": "L1",
+        "score": 6.87,
+        "freq": 127
+      },
+      {
+        "canonical": "shipping costs",
+        "category": "features",
+        "layer": "L1",
+        "score": 6.77,
+        "freq": 60
+      },
+      {
+        "canonical": "credit card",
+        "category": "features",
+        "layer": "L1",
+        "score": 6.72,
+        "freq": 140
+      },
+      {
+        "canonical": "commerce industry",
+        "category": "features",
+        "layer": "L1",
+        "score": 6.18,
+        "freq": 337
+      },
+      {
+        "canonical": "run ads",
+        "category": "features",
+        "layer": "L1",
+        "score": 6.17,
+        "freq": 60
+      },
+      {
+        "canonical": "customer support",
+        "category": "features",
+        "layer": "L1",
+        "score": 6.16,
+        "freq": 70
+      },
+      {
+        "canonical": "commerce platform",
+        "category": "features",
+        "layer": "L1",
+        "score": 5.78,
+        "freq": 117
+      },
+      {
+        "canonical": "high quality",
+        "category": "features",
+        "layer": "L1",
+        "score": 5.64,
+        "freq": 79
+      },
+      {
+        "canonical": "real time",
+        "category": "features",
+        "layer": "L1",
+        "score": 5.04,
+        "freq": 123
+      },
+      {
+        "canonical": "facebook instagram",
+        "category": "features",
+        "layer": "L1",
+        "score": 4.79,
+        "freq": 100
+      },
+      {
+        "canonical": "3rd party",
+        "category": "features",
+        "layer": "L1",
+        "score": 4.71,
+        "freq": 73
+      },
+      {
+        "canonical": "launched new",
+        "category": "features",
+        "layer": "L1",
+        "score": 4.69,
+        "freq": 164
+      },
+      {
+        "canonical": "past years",
+        "category": "features",
+        "layer": "L1",
+        "score": 4.58,
+        "freq": 133
+      },
+      {
+        "canonical": "brick mortar",
+        "category": "features",
+        "layer": "L1",
+        "score": 4.5,
+        "freq": 72
+      },
+      {
+        "canonical": "___ amazon",
+        "category": "features",
+        "layer": "L1",
+        "score": 4.49,
+        "freq": 313
+      },
+      {
+        "canonical": "commerce newsletter",
+        "category": "features",
+        "layer": "L1",
+        "score": 4.35,
+        "freq": 266
+      },
+      {
+        "canonical": "online shopping",
+        "category": "features",
+        "layer": "L1",
+        "score": 4.34,
+        "freq": 68
+      },
+      {
+        "canonical": "shopifreaks commerce newsletter",
+        "category": "features",
+        "layer": "L1",
+        "score": 4.33,
+        "freq": 265
+      },
+      {
+        "canonical": "shopifreaks commerce",
+        "category": "features",
+        "layer": "L1",
+        "score": 4.33,
+        "freq": 265
+      },
+      {
+        "canonical": "hi ecommerce",
+        "category": "features",
+        "layer": "L1",
+        "score": 4.15,
+        "freq": 172
+      },
+      {
+        "canonical": "google shopping",
+        "category": "features",
+        "layer": "L1",
+        "score": 3.89,
+        "freq": 68
+      },
+      {
+        "canonical": "ecommerce comments",
+        "category": "features",
+        "layer": "L1",
+        "score": 3.61,
+        "freq": 78
+      },
+      {
+        "canonical": "supply chain",
+        "category": "features",
+        "layer": "L1",
+        "score": 3.5,
+        "freq": 71
+      },
+      {
+        "canonical": "ai powered",
+        "category": "features",
+        "layer": "L1",
+        "score": 3.39,
+        "freq": 148
+      },
+      {
+        "canonical": "commerce platforms",
+        "category": "features",
+        "layer": "L1",
+        "score": 3.0,
+        "freq": 68
+      },
+      {
+        "canonical": "follow commerce industry",
+        "category": "features",
+        "layer": "L1",
+        "score": 3.0,
+        "freq": 165
+      },
+      {
+        "canonical": "follow commerce",
+        "category": "features",
+        "layer": "L1",
+        "score": 3.0,
+        "freq": 165
+      },
+      {
+        "canonical": "paul follow commerce",
+        "category": "features",
+        "layer": "L1",
+        "score": 3.0,
+        "freq": 165
+      },
+      {
+        "canonical": "paul follow",
+        "category": "features",
+        "layer": "L1",
+        "score": 3.0,
+        "freq": 165
+      },
+      {
+        "canonical": "recap helpful",
+        "category": "features",
+        "layer": "L1",
+        "score": 3.0,
+        "freq": 165
+      },
+      {
+        "canonical": "summary recap",
+        "category": "features",
+        "layer": "L1",
+        "score": 2.97,
+        "freq": 166
+      },
+      {
+        "canonical": "closely shopifreaks",
+        "category": "features",
+        "layer": "L1",
+        "score": 2.95,
+        "freq": 164
+      },
+      {
+        "canonical": "closely shopifreaks commerce",
+        "category": "features",
+        "layer": "L1",
+        "score": 2.95,
+        "freq": 164
+      },
+      {
+        "canonical": "ecommerce paul",
+        "category": "features",
+        "layer": "L1",
+        "score": 2.93,
+        "freq": 161
+      },
+      {
+        "canonical": "ecommerce paul follow",
+        "category": "features",
+        "layer": "L1",
+        "score": 2.93,
+        "freq": 161
+      },
+      {
+        "canonical": "industry news",
+        "category": "features",
+        "layer": "L1",
+        "score": 2.93,
+        "freq": 165
+      },
+      {
+        "canonical": "commerce industry news",
+        "category": "features",
+        "layer": "L1",
+        "score": 2.92,
+        "freq": 163
+      },
+      {
+        "canonical": "cover depth",
+        "category": "features",
+        "layer": "L1",
+        "score": 2.92,
+        "freq": 163
+      },
+      {
+        "canonical": "seed rounds",
+        "category": "features",
+        "layer": "L1",
+        "score": 2.88,
+        "freq": 159
+      },
+      {
+        "canonical": "rounds ipos",
+        "category": "features",
+        "layer": "L1",
+        "score": 2.87,
+        "freq": 158
+      },
+      {
+        "canonical": "seed rounds ipos",
+        "category": "features",
+        "layer": "L1",
+        "score": 2.87,
+        "freq": 158
+      },
+      {
+        "canonical": "news recap",
+        "category": "features",
+        "layer": "L1",
+        "score": 2.86,
+        "freq": 155
+      },
+      {
+        "canonical": "rounds ipos acquisitions",
+        "category": "features",
+        "layer": "L1",
+        "score": 2.79,
+        "freq": 153
+      },
+      {
+        "canonical": "ipos acquisitions",
+        "category": "features",
+        "layer": "L1",
+        "score": 2.79,
+        "freq": 153
+      },
+      {
+        "canonical": "mobile app",
+        "category": "features",
+        "layer": "L1",
+        "score": 2.78,
+        "freq": 61
+      },
+      {
+        "canonical": "holiday season",
+        "category": "features",
+        "layer": "L1",
+        "score": 2.69,
+        "freq": 66
+      },
+      {
+        "canonical": "ipos acquisitions including",
+        "category": "features",
+        "layer": "L1",
+        "score": 2.68,
+        "freq": 148
+      },
+      {
+        "canonical": "acquisitions including",
+        "category": "features",
+        "layer": "L1",
+        "score": 2.68,
+        "freq": 148
+      },
+      {
+        "canonical": "generative ai",
+        "category": "features",
+        "layer": "L1",
+        "score": 2.39,
+        "freq": 101
+      },
+      {
+        "canonical": "editor shopifreaks",
+        "category": "features",
+        "layer": "L1",
+        "score": 2.37,
+        "freq": 137
+      },
+      {
+        "canonical": "paul editor",
+        "category": "features",
+        "layer": "L1",
+        "score": 2.37,
+        "freq": 137
+      },
+      {
+        "canonical": "paul editor shopifreaks",
+        "category": "features",
+        "layer": "L1",
+        "score": 2.37,
+        "freq": 137
+      },
+      {
+        "canonical": "stories cover depth",
+        "category": "features",
+        "layer": "L1",
+        "score": 2.33,
+        "freq": 93
+      },
+      {
+        "canonical": "stories cover",
+        "category": "features",
+        "layer": "L1",
+        "score": 2.33,
+        "freq": 93
+      },
+      {
+        "canonical": "new york",
+        "category": "features",
+        "layer": "L1",
+        "score": 2.33,
+        "freq": 95
+      },
+      {
+        "canonical": "pretty closely",
+        "category": "features",
+        "layer": "L1",
+        "score": 2.3,
+        "freq": 84
+      },
+      {
+        "canonical": "commerce industry pretty",
+        "category": "features",
+        "layer": "L1",
+        "score": 2.3,
+        "freq": 84
+      },
+      {
+        "canonical": "industry pretty closely",
+        "category": "features",
+        "layer": "L1",
+        "score": 2.3,
+        "freq": 84
+      },
+      {
+        "canonical": "industry pretty",
+        "category": "features",
+        "layer": "L1",
+        "score": 2.3,
+        "freq": 84
+      },
+      {
+        "canonical": "pretty closely shopifreaks",
+        "category": "features",
+        "layer": "L1",
+        "score": 2.24,
+        "freq": 83
+      },
+      {
+        "canonical": "search results",
+        "category": "features",
+        "layer": "L1",
+        "score": 2.23,
+        "freq": 67
+      },
+      {
+        "canonical": "___ meta",
+        "category": "features",
+        "layer": "L1",
+        "score": 2.1,
+        "freq": 141
+      },
+      {
+        "canonical": "hi ecommerce paul",
+        "category": "features",
+        "layer": "L1",
+        "score": 2.08,
+        "freq": 123
+      },
+      {
+        "canonical": "share comments",
+        "category": "features",
+        "layer": "L1",
+        "score": 2.08,
+        "freq": 124
+      },
+      {
+        "canonical": "hope recap",
+        "category": "features",
+        "layer": "L1",
+        "score": 2.08,
+        "freq": 125
+      },
+      {
+        "canonical": "hope recap helpful",
+        "category": "features",
+        "layer": "L1",
+        "score": 2.08,
+        "freq": 125
+      },
+      {
+        "canonical": "ai generated",
+        "category": "features",
+        "layer": "L1",
+        "score": 2.06,
+        "freq": 71
+      },
+      {
+        "canonical": "ps missed",
+        "category": "features",
+        "layer": "L1",
+        "score": 2.04,
+        "freq": 123
+      },
+      {
+        "canonical": "credit cards",
+        "category": "features",
+        "layer": "L1",
+        "score": 2.04,
+        "freq": 62
+      },
+      {
+        "canonical": "missed big news",
+        "category": "features",
+        "layer": "L1",
+        "score": 2.02,
+        "freq": 122
+      },
+      {
+        "canonical": "big news",
+        "category": "features",
+        "layer": "L1",
+        "score": 2.02,
+        "freq": 122
+      },
+      {
+        "canonical": "ps missed big",
+        "category": "features",
+        "layer": "L1",
+        "score": 2.02,
+        "freq": 122
+      },
+      {
+        "canonical": "missed big",
+        "category": "features",
+        "layer": "L1",
+        "score": 2.02,
+        "freq": 122
+      },
+      {
+        "canonical": "___ tiktok",
+        "category": "features",
+        "layer": "L1",
+        "score": 1.95,
+        "freq": 131
+      },
+      {
+        "canonical": "industry news recap",
+        "category": "features",
+        "layer": "L1",
+        "score": 1.87,
+        "freq": 114
+      },
+      {
+        "canonical": "depth newsletter",
+        "category": "features",
+        "layer": "L1",
+        "score": 1.77,
+        "freq": 59
+      },
+      {
+        "canonical": "cover depth newsletter",
+        "category": "features",
+        "layer": "L1",
+        "score": 1.77,
+        "freq": 59
+      },
+      {
+        "canonical": "elon musk",
+        "category": "features",
+        "layer": "L1",
+        "score": 1.77,
+        "freq": 96
+      },
+      {
+        "canonical": "amazon prime",
+        "category": "features",
+        "layer": "L1",
+        "score": 1.75,
+        "freq": 74
+      },
+      {
+        "canonical": "new ai",
+        "category": "features",
+        "layer": "L1",
+        "score": 1.71,
+        "freq": 79
+      },
+      {
+        "canonical": "cover depth sources",
+        "category": "features",
+        "layer": "L1",
+        "score": 1.65,
+        "freq": 104
+      },
+      {
+        "canonical": "depth sources",
+        "category": "features",
+        "layer": "L1",
+        "score": 1.65,
+        "freq": 104
+      },
+      {
+        "canonical": "new feature",
+        "category": "features",
+        "layer": "L1",
+        "score": 1.64,
+        "freq": 63
+      },
+      {
+        "canonical": "plus seed",
+        "category": "features",
+        "layer": "L1",
+        "score": 1.55,
+        "freq": 64
+      },
+      {
+        "canonical": "plus seed rounds",
+        "category": "features",
+        "layer": "L1",
+        "score": 1.55,
+        "freq": 64
+      },
+      {
+        "canonical": "editor shopifreaks commerce",
+        "category": "features",
+        "layer": "L1",
+        "score": 1.54,
+        "freq": 99
+      },
+      {
+        "canonical": "newsletter ps",
+        "category": "features",
+        "layer": "L1",
+        "score": 1.53,
+        "freq": 98
+      },
+      {
+        "canonical": "newsletter ps missed",
+        "category": "features",
+        "layer": "L1",
+        "score": 1.53,
+        "freq": 98
+      },
+      {
+        "canonical": "commerce newsletter ps",
+        "category": "features",
+        "layer": "L1",
+        "score": 1.53,
+        "freq": 98
+      },
+      {
+        "canonical": "let dive",
+        "category": "features",
+        "layer": "L1",
+        "score": 1.53,
+        "freq": 98
+      },
+      {
+        "canonical": "edition let dive",
+        "category": "features",
+        "layer": "L1",
+        "score": 1.35,
+        "freq": 89
+      },
+      {
+        "canonical": "edition let",
+        "category": "features",
+        "layer": "L1",
+        "score": 1.35,
+        "freq": 89
+      },
+      {
+        "canonical": "sources edition",
+        "category": "features",
+        "layer": "L1",
+        "score": 1.35,
+        "freq": 89
+      }
+    ],
+    "pain_points": []
+  },
+  "L2": {
+    "features": [
+      {
+        "canonical": "amazon seller",
+        "category": "features",
+        "layer": "L2",
+        "score": 45.99,
+        "freq": 419
+      },
+      {
+        "canonical": "seller account",
+        "category": "features",
+        "layer": "L2",
+        "score": 33.15,
+        "freq": 304
+      },
+      {
+        "canonical": "selling amazon",
+        "category": "features",
+        "layer": "L2",
+        "score": 29.53,
+        "freq": 233
+      },
+      {
+        "canonical": "amazon fba",
+        "category": "features",
+        "layer": "L2",
+        "score": 24.28,
+        "freq": 191
+      },
+      {
+        "canonical": "seller central",
+        "category": "features",
+        "layer": "L2",
+        "score": 23.24,
+        "freq": 214
+      },
+      {
+        "canonical": "shopify app",
+        "category": "features",
+        "layer": "L2",
+        "score": 23.11,
+        "freq": 244
+      },
+      {
+        "canonical": "gt lt",
+        "category": "features",
+        "layer": "L2",
+        "score": 20.61,
+        "freq": 2189
+      },
+      {
+        "canonical": "credit card",
+        "category": "features",
+        "layer": "L2",
+        "score": 19.96,
+        "freq": 235
+      },
+      {
+        "canonical": "free shipping",
+        "category": "features",
+        "layer": "L2",
+        "score": 19.79,
+        "freq": 197
+      },
+      {
+        "canonical": "sell amazon",
+        "category": "features",
+        "layer": "L2",
+        "score": 19.5,
+        "freq": 161
+      },
+      {
+        "canonical": "new seller",
+        "category": "features",
+        "layer": "L2",
+        "score": 19.06,
+        "freq": 136
+      },
+      {
+        "canonical": "shopify payments",
+        "category": "features",
+        "layer": "L2",
+        "score": 18.92,
+        "freq": 182
+      },
+      {
+        "canonical": "buy box",
+        "category": "features",
+        "layer": "L2",
+        "score": 18.76,
+        "freq": 137
+      },
+      {
+        "canonical": "using shopify",
+        "category": "features",
+        "layer": "L2",
+        "score": 18.17,
+        "freq": 159
+      },
+      {
+        "canonical": "new shopify",
+        "category": "features",
+        "layer": "L2",
+        "score": 17.28,
+        "freq": 130
+      },
+      {
+        "canonical": "add cart",
+        "category": "features",
+        "layer": "L2",
+        "score": 17.09,
+        "freq": 169
+      },
+      {
+        "canonical": "amazon seller account",
+        "category": "features",
+        "layer": "L2",
+        "score": 16.32,
+        "freq": 125
+      },
+      {
+        "canonical": "seller support",
+        "category": "features",
+        "layer": "L2",
+        "score": 15.74,
+        "freq": 144
+      },
+      {
+        "canonical": "self promotion",
+        "category": "features",
+        "layer": "L2",
+        "score": 13.81,
+        "freq": 224
+      },
+      {
+        "canonical": "shopify support",
+        "category": "features",
+        "layer": "L2",
+        "score": 13.32,
+        "freq": 133
+      },
+      {
+        "canonical": "thank advance",
+        "category": "features",
+        "layer": "L2",
+        "score": 13.0,
+        "freq": 98
+      },
+      {
+        "canonical": "shopify plus",
+        "category": "features",
+        "layer": "L2",
+        "score": 12.88,
+        "freq": 122
+      },
+      {
+        "canonical": "apps shopify",
+        "category": "features",
+        "layer": "L2",
+        "score": 12.86,
+        "freq": 150
+      },
+      {
+        "canonical": "3rd party",
+        "category": "features",
+        "layer": "L2",
+        "score": 12.29,
+        "freq": 114
+      },
+      {
+        "canonical": "phone number",
+        "category": "features",
+        "layer": "L2",
+        "score": 12.26,
+        "freq": 111
+      },
+      {
+        "canonical": "amazon account",
+        "category": "features",
+        "layer": "L2",
+        "score": 11.96,
+        "freq": 93
+      },
+      {
+        "canonical": "shipping costs",
+        "category": "features",
+        "layer": "L2",
+        "score": 11.95,
+        "freq": 99
+      },
+      {
+        "canonical": "start selling",
+        "category": "features",
+        "layer": "L2",
+        "score": 11.77,
+        "freq": 78
+      },
+      {
+        "canonical": "shopify pos",
+        "category": "features",
+        "layer": "L2",
+        "score": 11.49,
+        "freq": 79
+      },
+      {
+        "canonical": "days ago",
+        "category": "features",
+        "layer": "L2",
+        "score": 11.47,
+        "freq": 85
+      },
+      {
+        "canonical": "trying figure",
+        "category": "features",
+        "layer": "L2",
+        "score": 11.23,
+        "freq": 85
+      },
+      {
+        "canonical": "new amazon",
+        "category": "features",
+        "layer": "L2",
+        "score": 11.23,
+        "freq": 73
+      },
+      {
+        "canonical": "shipping cost",
+        "category": "features",
+        "layer": "L2",
+        "score": 10.87,
+        "freq": 78
+      },
+      {
+        "canonical": "shopify website",
+        "category": "features",
+        "layer": "L2",
+        "score": 10.81,
+        "freq": 87
+      },
+      {
+        "canonical": "account health",
+        "category": "features",
+        "layer": "L2",
+        "score": 10.74,
+        "freq": 87
+      },
+      {
+        "canonical": "dawn theme",
+        "category": "features",
+        "layer": "L2",
+        "score": 10.67,
+        "freq": 81
+      },
+      {
+        "canonical": "shopify theme",
+        "category": "features",
+        "layer": "L2",
+        "score": 10.66,
+        "freq": 85
+      },
+      {
+        "canonical": "shopify apps",
+        "category": "features",
+        "layer": "L2",
+        "score": 10.25,
+        "freq": 85
+      },
+      {
+        "canonical": "shipping rates",
+        "category": "features",
+        "layer": "L2",
+        "score": 10.0,
+        "freq": 84
+      },
+      {
+        "canonical": "community shopify",
+        "category": "features",
+        "layer": "L2",
+        "score": 9.99,
+        "freq": 105
+      },
+      {
+        "canonical": "shipping label",
+        "category": "features",
+        "layer": "L2",
+        "score": 9.84,
+        "freq": 77
+      },
+      {
+        "canonical": "create new",
+        "category": "features",
+        "layer": "L2",
+        "score": 9.77,
+        "freq": 94
+      },
+      {
+        "canonical": "discount code",
+        "category": "features",
+        "layer": "L2",
+        "score": 9.17,
+        "freq": 70
+      },
+      {
+        "canonical": "email address",
+        "category": "features",
+        "layer": "L2",
+        "score": 9.15,
+        "freq": 89
+      },
+      {
+        "canonical": "30 days",
+        "category": "features",
+        "layer": "L2",
+        "score": 9.07,
+        "freq": 79
+      },
+      {
+        "canonical": "does mean",
+        "category": "features",
+        "layer": "L2",
+        "score": 9.06,
+        "freq": 71
+      },
+      {
+        "canonical": "customer support",
+        "category": "features",
+        "layer": "L2",
+        "score": 9.03,
+        "freq": 80
+      },
+      {
+        "canonical": "shop pay",
+        "category": "features",
+        "layer": "L2",
+        "score": 8.84,
+        "freq": 69
+      },
+      {
+        "canonical": "makes sense",
+        "category": "features",
+        "layer": "L2",
+        "score": 8.58,
+        "freq": 77
+      },
+      {
+        "canonical": "community promotion",
+        "category": "features",
+        "layer": "L2",
+        "score": 8.45,
+        "freq": 136
+      },
+      {
+        "canonical": "lt div",
+        "category": "features",
+        "layer": "L2",
+        "score": 8.12,
+        "freq": 866
+      },
+      {
+        "canonical": "shipping address",
+        "category": "features",
+        "layer": "L2",
+        "score": 7.43,
+        "freq": 76
+      },
+      {
+        "canonical": "lt gt",
+        "category": "features",
+        "layer": "L2",
+        "score": 7.3,
+        "freq": 385
+      },
+      {
+        "canonical": "shopify comments",
+        "category": "features",
+        "layer": "L2",
+        "score": 6.73,
+        "freq": 78
+      },
+      {
+        "canonical": "ad spend",
+        "category": "features",
+        "layer": "L2",
+        "score": 6.53,
+        "freq": 78
+      },
+      {
+        "canonical": "ip address",
+        "category": "features",
+        "layer": "L2",
+        "score": 6.48,
+        "freq": 76
+      },
+      {
+        "canonical": "united states",
+        "category": "features",
+        "layer": "L2",
+        "score": 6.39,
+        "freq": 78
+      },
+      {
+        "canonical": "email addresses",
+        "category": "features",
+        "layer": "L2",
+        "score": 6.21,
+        "freq": 85
+      },
+      {
+        "canonical": "hi shopify",
+        "category": "features",
+        "layer": "L2",
+        "score": 6.16,
+        "freq": 77
+      },
+      {
+        "canonical": "sellercentral amazon",
+        "category": "features",
+        "layer": "L2",
+        "score": 6.07,
+        "freq": 67
+      },
+      {
+        "canonical": "amazonseller community",
+        "category": "features",
+        "layer": "L2",
+        "score": 5.85,
+        "freq": 95
+      },
+      {
+        "canonical": "real time",
+        "category": "features",
+        "layer": "L2",
+        "score": 5.63,
+        "freq": 71
+      },
+      {
+        "canonical": "follow rules",
+        "category": "features",
+        "layer": "L2",
+        "score": 5.56,
+        "freq": 87
+      },
+      {
+        "canonical": "gt gt",
+        "category": "features",
+        "layer": "L2",
+        "score": 5.49,
+        "freq": 140
+      },
+      {
+        "canonical": "search results",
+        "category": "features",
+        "layer": "L2",
+        "score": 5.43,
+        "freq": 67
+      },
+      {
+        "canonical": "spam self",
+        "category": "features",
+        "layer": "L2",
+        "score": 5.26,
+        "freq": 89
+      },
+      {
+        "canonical": "spam self promotion",
+        "category": "features",
+        "layer": "L2",
+        "score": 5.26,
+        "freq": 89
+      },
+      {
+        "canonical": "gt lt div",
+        "category": "features",
+        "layer": "L2",
+        "score": 5.03,
+        "freq": 662
+      },
+      {
+        "canonical": "cdn shopify",
+        "category": "features",
+        "layer": "L2",
+        "score": 4.86,
+        "freq": 89
+      },
+      {
+        "canonical": "phone numbers",
+        "category": "features",
+        "layer": "L2",
+        "score": 4.84,
+        "freq": 72
+      },
+      {
+        "canonical": "amazon tell",
+        "category": "features",
+        "layer": "L2",
+        "score": 4.72,
+        "freq": 72
+      },
+      {
+        "canonical": "div gt",
+        "category": "features",
+        "layer": "L2",
+        "score": 4.61,
+        "freq": 446
+      },
+      {
+        "canonical": "promotion rules",
+        "category": "features",
+        "layer": "L2",
+        "score": 4.57,
+        "freq": 75
+      },
+      {
+        "canonical": "self promotion rules",
+        "category": "features",
+        "layer": "L2",
+        "score": 4.57,
+        "freq": 75
+      },
+      {
+        "canonical": "lt div gt",
+        "category": "features",
+        "layer": "L2",
+        "score": 4.49,
+        "freq": 444
+      },
+      {
+        "canonical": "sure include",
+        "category": "features",
+        "layer": "L2",
+        "score": 4.47,
+        "freq": 74
+      },
+      {
+        "canonical": "thank sharing",
+        "category": "features",
+        "layer": "L2",
+        "score": 4.44,
+        "freq": 69
+      },
+      {
+        "canonical": "sharing community",
+        "category": "features",
+        "layer": "L2",
+        "score": 4.23,
+        "freq": 68
+      },
+      {
+        "canonical": "enforced strictly",
+        "category": "features",
+        "layer": "L2",
+        "score": 4.23,
+        "freq": 68
+      },
+      {
+        "canonical": "rules enforced strictly",
+        "category": "features",
+        "layer": "L2",
+        "score": 4.23,
+        "freq": 68
+      },
+      {
+        "canonical": "promotion rules enforced",
+        "category": "features",
+        "layer": "L2",
+        "score": 4.23,
+        "freq": 68
+      },
+      {
+        "canonical": "share affiliated",
+        "category": "features",
+        "layer": "L2",
+        "score": 4.23,
+        "freq": 68
+      },
+      {
+        "canonical": "respond replies",
+        "category": "features",
+        "layer": "L2",
+        "score": 4.23,
+        "freq": 68
+      },
+      {
+        "canonical": "sidebar attempt submit",
+        "category": "features",
+        "layer": "L2",
+        "score": 4.23,
+        "freq": 68
+      },
+      {
+        "canonical": "sidebar attempt",
+        "category": "features",
+        "layer": "L2",
+        "score": 4.23,
+        "freq": 68
+      },
+      {
+        "canonical": "sharing community promotion",
+        "category": "features",
+        "layer": "L2",
+        "score": 4.23,
+        "freq": 68
+      },
+      {
+        "canonical": "rules enforced",
+        "category": "features",
+        "layer": "L2",
+        "score": 4.23,
+        "freq": 68
+      },
+      {
+        "canonical": "amazonseller sidebar attempt",
+        "category": "features",
+        "layer": "L2",
+        "score": 4.23,
+        "freq": 68
+      },
+      {
+        "canonical": "amazonseller sidebar",
+        "category": "features",
+        "layer": "L2",
+        "score": 4.23,
+        "freq": 68
+      },
+      {
+        "canonical": "amazonseller community promotion",
+        "category": "features",
+        "layer": "L2",
+        "score": 4.23,
+        "freq": 68
+      },
+      {
+        "canonical": "include description",
+        "category": "features",
+        "layer": "L2",
+        "score": 4.23,
+        "freq": 68
+      },
+      {
+        "canonical": "informative fun",
+        "category": "features",
+        "layer": "L2",
+        "score": 4.23,
+        "freq": 68
+      }
+    ],
+    "pain_points": [
+      {
+        "canonical": "bank account",
+        "category": "pain_points",
+        "layer": "L2",
+        "score": 12.67,
+        "freq": 102
+      },
+      {
+        "canonical": "high risk",
+        "category": "pain_points",
+        "layer": "L2",
+        "score": 8.41,
+        "freq": 81
+      },
+      {
+        "canonical": "related amazon",
+        "category": "pain_points",
+        "layer": "L2",
+        "score": 5.9,
+        "freq": 96
+      },
+      {
+        "canonical": "related amazon tell",
+        "category": "pain_points",
+        "layer": "L2",
+        "score": 4.23,
+        "freq": 68
+      },
+      {
+        "canonical": "affiliated related amazon",
+        "category": "pain_points",
+        "layer": "L2",
+        "score": 4.23,
+        "freq": 68
+      },
+      {
+        "canonical": "affiliated related",
+        "category": "pain_points",
+        "layer": "L2",
+        "score": 4.23,
+        "freq": 68
+      },
+      {
+        "canonical": "share affiliated related",
+        "category": "pain_points",
+        "layer": "L2",
+        "score": 4.23,
+        "freq": 68
+      },
+      {
+        "canonical": "failure follow",
+        "category": "pain_points",
+        "layer": "L2",
+        "score": 4.23,
+        "freq": 68
+      }
+    ]
+  },
+  "L3": {
+    "features": [
+      {
+        "canonical": "24 hours",
+        "category": "features",
+        "layer": "L3",
+        "score": 21.32,
+        "freq": 264
+      },
+      {
+        "canonical": "dropship new",
+        "category": "features",
+        "layer": "L3",
+        "score": 19.47,
+        "freq": 225
+      },
+      {
+        "canonical": "dropshipping questions",
+        "category": "features",
+        "layer": "L3",
+        "score": 19.33,
+        "freq": 229
+      },
+      {
+        "canonical": "age 24",
+        "category": "features",
+        "layer": "L3",
+        "score": 19.11,
+        "freq": 225
+      },
+      {
+        "canonical": "questions start",
+        "category": "features",
+        "layer": "L3",
+        "score": 19.08,
+        "freq": 225
+      },
+      {
+        "canonical": "critiques weekly discussion",
+        "category": "features",
+        "layer": "L3",
+        "score": 19.05,
+        "freq": 224
+      },
+      {
+        "canonical": "weekly newbie",
+        "category": "features",
+        "layer": "L3",
+        "score": 19.05,
+        "freq": 224
+      },
+      {
+        "canonical": "critiques weekly",
+        "category": "features",
+        "layer": "L3",
+        "score": 19.05,
+        "freq": 224
+      },
+      {
+        "canonical": "critiques note",
+        "category": "features",
+        "layer": "L3",
+        "score": 19.05,
+        "freq": 224
+      },
+      {
+        "canonical": "simple questions",
+        "category": "features",
+        "layer": "L3",
+        "score": 19.05,
+        "freq": 224
+      },
+      {
+        "canonical": "new dropshipping questions",
+        "category": "features",
+        "layer": "L3",
+        "score": 19.05,
+        "freq": 224
+      },
+      {
+        "canonical": "hours required",
+        "category": "features",
+        "layer": "L3",
+        "score": 19.05,
+        "freq": 224
+      },
+      {
+        "canonical": "24 hours required",
+        "category": "features",
+        "layer": "L3",
+        "score": 19.05,
+        "freq": 224
+      },
+      {
+        "canonical": "weekly discussion",
+        "category": "features",
+        "layer": "L3",
+        "score": 19.05,
+        "freq": 224
+      },
+      {
+        "canonical": "dropshipping questions start",
+        "category": "features",
+        "layer": "L3",
+        "score": 19.05,
+        "freq": 224
+      },
+      {
+        "canonical": "dropship new dropshipping",
+        "category": "features",
+        "layer": "L3",
+        "score": 19.05,
+        "freq": 224
+      },
+      {
+        "canonical": "account age 24",
+        "category": "features",
+        "layer": "L3",
+        "score": 19.05,
+        "freq": 224
+      },
+      {
+        "canonical": "age 24 hours",
+        "category": "features",
+        "layer": "L3",
+        "score": 19.05,
+        "freq": 224
+      },
+      {
+        "canonical": "account age",
+        "category": "features",
+        "layer": "L3",
+        "score": 19.05,
+        "freq": 224
+      },
+      {
+        "canonical": "fb ads",
+        "category": "features",
+        "layer": "L3",
+        "score": 11.99,
+        "freq": 112
+      },
+      {
+        "canonical": "tiktok shop",
+        "category": "features",
+        "layer": "L3",
+        "score": 11.59,
+        "freq": 117
+      },
+      {
+        "canonical": "shipping times",
+        "category": "features",
+        "layer": "L3",
+        "score": 11.29,
+        "freq": 107
+      },
+      {
+        "canonical": "running ads",
+        "category": "features",
+        "layer": "L3",
+        "score": 10.05,
+        "freq": 94
+      },
+      {
+        "canonical": "start dropshipping",
+        "category": "features",
+        "layer": "L3",
+        "score": 9.97,
+        "freq": 71
+      },
+      {
+        "canonical": "tiktok ads",
+        "category": "features",
+        "layer": "L3",
+        "score": 9.9,
+        "freq": 87
+      },
+      {
+        "canonical": "ad sets",
+        "category": "features",
+        "layer": "L3",
+        "score": 9.53,
+        "freq": 141
+      },
+      {
+        "canonical": "ad spend",
+        "category": "features",
+        "layer": "L3",
+        "score": 8.37,
+        "freq": 102
+      },
+      {
+        "canonical": "facebook ad",
+        "category": "features",
+        "layer": "L3",
+        "score": 8.15,
+        "freq": 91
+      },
+      {
+        "canonical": "free shipping",
+        "category": "features",
+        "layer": "L3",
+        "score": 8.02,
+        "freq": 85
+      },
+      {
+        "canonical": "drop ship",
+        "category": "features",
+        "layer": "L3",
+        "score": 7.88,
+        "freq": 58
+      },
+      {
+        "canonical": "add cart",
+        "category": "features",
+        "layer": "L3",
+        "score": 7.86,
+        "freq": 83
+      },
+      {
+        "canonical": "run ads",
+        "category": "features",
+        "layer": "L3",
+        "score": 7.69,
+        "freq": 76
+      },
+      {
+        "canonical": "shopify dropshipping",
+        "category": "features",
+        "layer": "L3",
+        "score": 7.59,
+        "freq": 51
+      },
+      {
+        "canonical": "add carts",
+        "category": "features",
+        "layer": "L3",
+        "score": 7.48,
+        "freq": 61
+      },
+      {
+        "canonical": "days ago",
+        "category": "features",
+        "layer": "L3",
+        "score": 7.37,
+        "freq": 58
+      },
+      {
+        "canonical": "started dropshipping",
+        "category": "features",
+        "layer": "L3",
+        "score": 7.16,
+        "freq": 52
+      },
+      {
+        "canonical": "ad account",
+        "category": "features",
+        "layer": "L3",
+        "score": 7.13,
+        "freq": 75
+      },
+      {
+        "canonical": "ad set",
+        "category": "features",
+        "layer": "L3",
+        "score": 6.97,
+        "freq": 111
+      },
+      {
+        "canonical": "shipping time",
+        "category": "features",
+        "layer": "L3",
+        "score": 6.56,
+        "freq": 53
+      },
+      {
+        "canonical": "target audience",
+        "category": "features",
+        "layer": "L3",
+        "score": 6.51,
+        "freq": 82
+      },
+      {
+        "canonical": "link clicks",
+        "category": "features",
+        "layer": "L3",
+        "score": 6.36,
+        "freq": 56
+      },
+      {
+        "canonical": "2024 welcome",
+        "category": "features",
+        "layer": "L3",
+        "score": 6.14,
+        "freq": 52
+      },
+      {
+        "canonical": "2023 welcome",
+        "category": "features",
+        "layer": "L3",
+        "score": 6.14,
+        "freq": 52
+      },
+      {
+        "canonical": "2022 welcome",
+        "category": "features",
+        "layer": "L3",
+        "score": 5.94,
+        "freq": 50
+      },
+      {
+        "canonical": "video ads",
+        "category": "features",
+        "layer": "L3",
+        "score": 5.85,
+        "freq": 47
+      },
+      {
+        "canonical": "starting dropshipping",
+        "category": "features",
+        "layer": "L3",
+        "score": 5.71,
+        "freq": 39
+      },
+      {
+        "canonical": "paid ads",
+        "category": "features",
+        "layer": "L3",
+        "score": 5.71,
+        "freq": 66
+      },
+      {
+        "canonical": "past days",
+        "category": "features",
+        "layer": "L3",
+        "score": 5.66,
+        "freq": 61
+      },
+      {
+        "canonical": "print demand",
+        "category": "features",
+        "layer": "L3",
+        "score": 5.54,
+        "freq": 41
+      },
+      {
+        "canonical": "shipping costs",
+        "category": "features",
+        "layer": "L3",
+        "score": 5.54,
+        "freq": 45
+      },
+      {
+        "canonical": "2025 welcome",
+        "category": "features",
+        "layer": "L3",
+        "score": 5.36,
+        "freq": 44
+      },
+      {
+        "canonical": "lot people",
+        "category": "features",
+        "layer": "L3",
+        "score": 5.32,
+        "freq": 59
+      },
+      {
+        "canonical": "ali express",
+        "category": "features",
+        "layer": "L3",
+        "score": 5.09,
+        "freq": 46
+      },
+      {
+        "canonical": "high quality",
+        "category": "features",
+        "layer": "L3",
+        "score": 5.08,
+        "freq": 76
+      },
+      {
+        "canonical": "delivery times",
+        "category": "features",
+        "layer": "L3",
+        "score": 5.07,
+        "freq": 29
+      },
+      {
+        "canonical": "ad campaign",
+        "category": "features",
+        "layer": "L3",
+        "score": 5.06,
+        "freq": 40
+      },
+      {
+        "canonical": "shipping cost",
+        "category": "features",
+        "layer": "L3",
+        "score": 4.95,
+        "freq": 35
+      },
+      {
+        "canonical": "let say",
+        "category": "features",
+        "layer": "L3",
+        "score": 4.92,
+        "freq": 53
+      },
+      {
+        "canonical": "ebay dropshipping",
+        "category": "features",
+        "layer": "L3",
+        "score": 4.71,
+        "freq": 61
+      },
+      {
+        "canonical": "got sale",
+        "category": "features",
+        "layer": "L3",
+        "score": 4.68,
+        "freq": 29
+      },
+      {
+        "canonical": "drop shippers",
+        "category": "features",
+        "layer": "L3",
+        "score": 4.66,
+        "freq": 32
+      },
+      {
+        "canonical": "dropshipping ebay",
+        "category": "features",
+        "layer": "L3",
+        "score": 4.66,
+        "freq": 39
+      },
+      {
+        "canonical": "good idea",
+        "category": "features",
+        "layer": "L3",
+        "score": 4.65,
+        "freq": 32
+      },
+      {
+        "canonical": "customer support",
+        "category": "features",
+        "layer": "L3",
+        "score": 4.57,
+        "freq": 42
+      },
+      {
+        "canonical": "profit margin",
+        "category": "features",
+        "layer": "L3",
+        "score": 4.56,
+        "freq": 57
+      },
+      {
+        "canonical": "long time",
+        "category": "features",
+        "layer": "L3",
+        "score": 4.56,
+        "freq": 48
+      },
+      {
+        "canonical": "thank advance",
+        "category": "features",
+        "layer": "L3",
+        "score": 4.48,
+        "freq": 33
+      },
+      {
+        "canonical": "people buy",
+        "category": "features",
+        "layer": "L3",
+        "score": 4.22,
+        "freq": 42
+      },
+      {
+        "canonical": "ad copy",
+        "category": "features",
+        "layer": "L3",
+        "score": 4.1,
+        "freq": 51
+      },
+      {
+        "canonical": "youtube videos",
+        "category": "features",
+        "layer": "L3",
+        "score": 4.1,
+        "freq": 33
+      },
+      {
+        "canonical": "ad campaigns",
+        "category": "features",
+        "layer": "L3",
+        "score": 4.08,
+        "freq": 29
+      },
+      {
+        "canonical": "shopify app",
+        "category": "features",
+        "layer": "L3",
+        "score": 4.07,
+        "freq": 34
+      },
+      {
+        "canonical": "fb ad",
+        "category": "features",
+        "layer": "L3",
+        "score": 3.97,
+        "freq": 30
+      },
+      {
+        "canonical": "30 days",
+        "category": "features",
+        "layer": "L3",
+        "score": 3.96,
+        "freq": 44
+      },
+      {
+        "canonical": "facebook instagram",
+        "category": "features",
+        "layer": "L3",
+        "score": 3.86,
+        "freq": 39
+      },
+      {
+        "canonical": "profit margins",
+        "category": "features",
+        "layer": "L3",
+        "score": 3.82,
+        "freq": 46
+      },
+      {
+        "canonical": "wanted share",
+        "category": "features",
+        "layer": "L3",
+        "score": 3.76,
+        "freq": 38
+      },
+      {
+        "canonical": "credit card",
+        "category": "features",
+        "layer": "L3",
+        "score": 3.74,
+        "freq": 41
+      },
+      {
+        "canonical": "conversion rates",
+        "category": "features",
+        "layer": "L3",
+        "score": 3.73,
+        "freq": 34
+      },
+      {
+        "canonical": "black friday",
+        "category": "features",
+        "layer": "L3",
+        "score": 3.7,
+        "freq": 56
+      },
+      {
+        "canonical": "running facebook",
+        "category": "features",
+        "layer": "L3",
+        "score": 3.66,
+        "freq": 28
+      },
+      {
+        "canonical": "high ticket",
+        "category": "features",
+        "layer": "L3",
+        "score": 3.65,
+        "freq": 38
+      },
+      {
+        "canonical": "10 days",
+        "category": "features",
+        "layer": "L3",
+        "score": 3.65,
+        "freq": 31
+      },
+      {
+        "canonical": "united states",
+        "category": "features",
+        "layer": "L3",
+        "score": 3.6,
+        "freq": 29
+      },
+      {
+        "canonical": "dropship comments",
+        "category": "features",
+        "layer": "L3",
+        "score": 3.59,
+        "freq": 67
+      },
+      {
+        "canonical": "years old",
+        "category": "features",
+        "layer": "L3",
+        "score": 3.52,
+        "freq": 29
+      },
+      {
+        "canonical": "best selling",
+        "category": "features",
+        "layer": "L3",
+        "score": 3.45,
+        "freq": 35
+      },
+      {
+        "canonical": "step step",
+        "category": "features",
+        "layer": "L3",
+        "score": 3.44,
+        "freq": 39
+      },
+      {
+        "canonical": "ad creatives",
+        "category": "features",
+        "layer": "L3",
+        "score": 3.4,
+        "freq": 40
+      },
+      {
+        "canonical": "testing new",
+        "category": "features",
+        "layer": "L3",
+        "score": 3.38,
+        "freq": 32
+      },
+      {
+        "canonical": "ai tools",
+        "category": "features",
+        "layer": "L3",
+        "score": 3.37,
+        "freq": 28
+      },
+      {
+        "canonical": "successful dropshipping",
+        "category": "features",
+        "layer": "L3",
+        "score": 3.34,
+        "freq": 46
+      },
+      {
+        "canonical": "10 000",
+        "category": "features",
+        "layer": "L3",
+        "score": 3.24,
+        "freq": 40
+      },
+      {
+        "canonical": "little bit",
+        "category": "features",
+        "layer": "L3",
+        "score": 3.24,
+        "freq": 40
+      },
+      {
+        "canonical": "phone number",
+        "category": "features",
+        "layer": "L3",
+        "score": 3.2,
+        "freq": 29
+      },
+      {
+        "canonical": "answer questions",
+        "category": "features",
+        "layer": "L3",
+        "score": 3.18,
+        "freq": 32
+      },
+      {
+        "canonical": "doing research",
+        "category": "features",
+        "layer": "L3",
+        "score": 3.12,
+        "freq": 27
+      },
+      {
+        "canonical": "past months",
+        "category": "features",
+        "layer": "L3",
+        "score": 2.97,
+        "freq": 27
+      },
+      {
+        "canonical": "lot money",
+        "category": "features",
+        "layer": "L3",
+        "score": 2.95,
+        "freq": 28
+      }
+    ],
+    "pain_points": [
+      {
+        "canonical": "bank account",
+        "category": "pain_points",
+        "layer": "L3",
+        "score": 5.06,
+        "freq": 39
+      }
+    ]
+  },
+  "L4": {
+    "features": [
+      {
+        "canonical": "running ads",
+        "category": "features",
+        "layer": "L4",
+        "score": 15.31,
+        "freq": 121
+      },
+      {
+        "canonical": "start dropshipping",
+        "category": "features",
+        "layer": "L4",
+        "score": 15.14,
+        "freq": 102
+      },
+      {
+        "canonical": "tiktok ads",
+        "category": "features",
+        "layer": "L4",
+        "score": 14.62,
+        "freq": 103
+      },
+      {
+        "canonical": "ad spend",
+        "category": "features",
+        "layer": "L4",
+        "score": 12.61,
+        "freq": 140
+      },
+      {
+        "canonical": "shopify dropshipping",
+        "category": "features",
+        "layer": "L4",
+        "score": 10.05,
+        "freq": 86
+      },
+      {
+        "canonical": "started dropshipping",
+        "category": "features",
+        "layer": "L4",
+        "score": 9.97,
+        "freq": 69
+      },
+      {
+        "canonical": "days ago",
+        "category": "features",
+        "layer": "L4",
+        "score": 9.01,
+        "freq": 56
+      },
+      {
+        "canonical": "starting dropshipping",
+        "category": "features",
+        "layer": "L4",
+        "score": 8.09,
+        "freq": 53
+      },
+      {
+        "canonical": "format pjpg",
+        "category": "features",
+        "layer": "L4",
+        "score": 7.94,
+        "freq": 104
+      },
+      {
+        "canonical": "jpg width",
+        "category": "features",
+        "layer": "L4",
+        "score": 7.94,
+        "freq": 104
+      },
+      {
+        "canonical": "ad account",
+        "category": "features",
+        "layer": "L4",
+        "score": 7.82,
+        "freq": 80
+      },
+      {
+        "canonical": "run ads",
+        "category": "features",
+        "layer": "L4",
+        "score": 7.8,
+        "freq": 62
+      },
+      {
+        "canonical": "ebay dropshipping",
+        "category": "features",
+        "layer": "L4",
+        "score": 7.77,
+        "freq": 56
+      },
+      {
+        "canonical": "add carts",
+        "category": "features",
+        "layer": "L4",
+        "score": 7.65,
+        "freq": 48
+      },
+      {
+        "canonical": "got sale",
+        "category": "features",
+        "layer": "L4",
+        "score": 7.58,
+        "freq": 38
+      },
+      {
+        "canonical": "honest feedback",
+        "category": "features",
+        "layer": "L4",
+        "score": 7.54,
+        "freq": 55
+      },
+      {
+        "canonical": "paid ads",
+        "category": "features",
+        "layer": "L4",
+        "score": 7.42,
+        "freq": 59
+      },
+      {
+        "canonical": "tik tok",
+        "category": "features",
+        "layer": "L4",
+        "score": 7.31,
+        "freq": 43
+      },
+      {
+        "canonical": "add cart",
+        "category": "features",
+        "layer": "L4",
+        "score": 7.1,
+        "freq": 76
+      },
+      {
+        "canonical": "free shipping",
+        "category": "features",
+        "layer": "L4",
+        "score": 7.09,
+        "freq": 70
+      },
+      {
+        "canonical": "high ticket",
+        "category": "features",
+        "layer": "L4",
+        "score": 7.08,
+        "freq": 53
+      },
+      {
+        "canonical": "doing dropshipping",
+        "category": "features",
+        "layer": "L4",
+        "score": 6.71,
+        "freq": 43
+      },
+      {
+        "canonical": "black friday",
+        "category": "features",
+        "layer": "L4",
+        "score": 6.5,
+        "freq": 55
+      },
+      {
+        "canonical": "30 days",
+        "category": "features",
+        "layer": "L4",
+        "score": 6.33,
+        "freq": 57
+      },
+      {
+        "canonical": "ad set",
+        "category": "features",
+        "layer": "L4",
+        "score": 6.29,
+        "freq": 83
+      },
+      {
+        "canonical": "high quality",
+        "category": "features",
+        "layer": "L4",
+        "score": 6.27,
+        "freq": 82
+      },
+      {
+        "canonical": "fb ads",
+        "category": "features",
+        "layer": "L4",
+        "score": 6.07,
+        "freq": 46
+      },
+      {
+        "canonical": "canva pro",
+        "category": "features",
+        "layer": "L4",
+        "score": 5.97,
+        "freq": 34
+      },
+      {
+        "canonical": "private supplier",
+        "category": "features",
+        "layer": "L4",
+        "score": 5.95,
+        "freq": 34
+      },
+      {
+        "canonical": "shopify payments",
+        "category": "features",
+        "layer": "L4",
+        "score": 5.92,
+        "freq": 35
+      },
+      {
+        "canonical": "tiktok shop",
+        "category": "features",
+        "layer": "L4",
+        "score": 5.83,
+        "freq": 34
+      },
+      {
+        "canonical": "ai tools",
+        "category": "features",
+        "layer": "L4",
+        "score": 5.72,
+        "freq": 64
+      },
+      {
+        "canonical": "trying figure",
+        "category": "features",
+        "layer": "L4",
+        "score": 5.7,
+        "freq": 49
+      },
+      {
+        "canonical": "high converting",
+        "category": "features",
+        "layer": "L4",
+        "score": 5.62,
+        "freq": 43
+      },
+      {
+        "canonical": "profit margins",
+        "category": "features",
+        "layer": "L4",
+        "score": 5.54,
+        "freq": 46
+      },
+      {
+        "canonical": "answer questions",
+        "category": "features",
+        "layer": "L4",
+        "score": 5.47,
+        "freq": 40
+      },
+      {
+        "canonical": "print demand",
+        "category": "features",
+        "layer": "L4",
+        "score": 5.38,
+        "freq": 38
+      },
+      {
+        "canonical": "ad creatives",
+        "category": "features",
+        "layer": "L4",
+        "score": 5.35,
+        "freq": 51
+      },
+      {
+        "canonical": "thank advance",
+        "category": "features",
+        "layer": "L4",
+        "score": 5.28,
+        "freq": 31
+      },
+      {
+        "canonical": "people actually",
+        "category": "features",
+        "layer": "L4",
+        "score": 5.23,
+        "freq": 47
+      },
+      {
+        "canonical": "shipping times",
+        "category": "features",
+        "layer": "L4",
+        "score": 5.19,
+        "freq": 51
+      },
+      {
+        "canonical": "10 days",
+        "category": "features",
+        "layer": "L4",
+        "score": 4.98,
+        "freq": 30
+      },
+      {
+        "canonical": "profit margin",
+        "category": "features",
+        "layer": "L4",
+        "score": 4.83,
+        "freq": 36
+      },
+      {
+        "canonical": "dropshipping comments",
+        "category": "features",
+        "layer": "L4",
+        "score": 4.78,
+        "freq": 80
+      },
+      {
+        "canonical": "video ads",
+        "category": "features",
+        "layer": "L4",
+        "score": 4.78,
+        "freq": 36
+      },
+      {
+        "canonical": "getting started",
+        "category": "features",
+        "layer": "L4",
+        "score": 4.76,
+        "freq": 33
+      },
+      {
+        "canonical": "ad campaign",
+        "category": "features",
+        "layer": "L4",
+        "score": 4.71,
+        "freq": 37
+      },
+      {
+        "canonical": "lot people",
+        "category": "features",
+        "layer": "L4",
+        "score": 4.66,
+        "freq": 41
+      },
+      {
+        "canonical": "wanted share",
+        "category": "features",
+        "layer": "L4",
+        "score": 4.63,
+        "freq": 49
+      },
+      {
+        "canonical": "using ai",
+        "category": "features",
+        "layer": "L4",
+        "score": 4.55,
+        "freq": 37
+      },
+      {
+        "canonical": "landing pages",
+        "category": "features",
+        "layer": "L4",
+        "score": 4.46,
+        "freq": 52
+      },
+      {
+        "canonical": "real time",
+        "category": "features",
+        "layer": "L4",
+        "score": 4.41,
+        "freq": 48
+      },
+      {
+        "canonical": "dropshipping supplier",
+        "category": "features",
+        "layer": "L4",
+        "score": 4.39,
+        "freq": 34
+      },
+      {
+        "canonical": "shipping costs",
+        "category": "features",
+        "layer": "L4",
+        "score": 4.27,
+        "freq": 41
+      },
+      {
+        "canonical": "shopify theme",
+        "category": "features",
+        "layer": "L4",
+        "score": 4.23,
+        "freq": 46
+      },
+      {
+        "canonical": "ad sets",
+        "category": "features",
+        "layer": "L4",
+        "score": 4.23,
+        "freq": 49
+      },
+      {
+        "canonical": "customer support",
+        "category": "features",
+        "layer": "L4",
+        "score": 4.2,
+        "freq": 39
+      },
+      {
+        "canonical": "looking forward",
+        "category": "features",
+        "layer": "L4",
+        "score": 4.17,
+        "freq": 37
+      },
+      {
+        "canonical": "shopify app",
+        "category": "features",
+        "layer": "L4",
+        "score": 4.09,
+        "freq": 34
+      },
+      {
+        "canonical": "ask questions",
+        "category": "features",
+        "layer": "L4",
+        "score": 4.06,
+        "freq": 38
+      },
+      {
+        "canonical": "target audience",
+        "category": "features",
+        "layer": "L4",
+        "score": 4.04,
+        "freq": 38
+      },
+      {
+        "canonical": "net profit",
+        "category": "features",
+        "layer": "L4",
+        "score": 4.01,
+        "freq": 32
+      },
+      {
+        "canonical": "free ask",
+        "category": "features",
+        "layer": "L4",
+        "score": 3.99,
+        "freq": 31
+      },
+      {
+        "canonical": "meta ad",
+        "category": "features",
+        "layer": "L4",
+        "score": 3.95,
+        "freq": 31
+      },
+      {
+        "canonical": "usp sharing",
+        "category": "features",
+        "layer": "L4",
+        "score": 3.9,
+        "freq": 31
+      },
+      {
+        "canonical": "making money",
+        "category": "features",
+        "layer": "L4",
+        "score": 3.87,
+        "freq": 37
+      },
+      {
+        "canonical": "trying sell",
+        "category": "features",
+        "layer": "L4",
+        "score": 3.85,
+        "freq": 34
+      },
+      {
+        "canonical": "actually works",
+        "category": "features",
+        "layer": "L4",
+        "score": 3.78,
+        "freq": 34
+      },
+      {
+        "canonical": "time money",
+        "category": "features",
+        "layer": "L4",
+        "score": 3.72,
+        "freq": 37
+      },
+      {
+        "canonical": "payment processor",
+        "category": "features",
+        "layer": "L4",
+        "score": 3.67,
+        "freq": 42
+      },
+      {
+        "canonical": "google trends",
+        "category": "features",
+        "layer": "L4",
+        "score": 3.61,
+        "freq": 35
+      },
+      {
+        "canonical": "conversion rates",
+        "category": "features",
+        "layer": "L4",
+        "score": 3.61,
+        "freq": 42
+      },
+      {
+        "canonical": "apps shopify",
+        "category": "features",
+        "layer": "L4",
+        "score": 3.48,
+        "freq": 32
+      },
+      {
+        "canonical": "step step",
+        "category": "features",
+        "layer": "L4",
+        "score": 3.48,
+        "freq": 37
+      },
+      {
+        "canonical": "dropshipping ebay",
+        "category": "features",
+        "layer": "L4",
+        "score": 3.47,
+        "freq": 34
+      },
+      {
+        "canonical": "10 000",
+        "category": "features",
+        "layer": "L4",
+        "score": 3.37,
+        "freq": 39
+      },
+      {
+        "canonical": "right away",
+        "category": "features",
+        "layer": "L4",
+        "score": 3.36,
+        "freq": 36
+      },
+      {
+        "canonical": "ad accounts",
+        "category": "features",
+        "layer": "L4",
+        "score": 3.33,
+        "freq": 32
+      },
+      {
+        "canonical": "target market",
+        "category": "features",
+        "layer": "L4",
+        "score": 3.32,
+        "freq": 53
+      },
+      {
+        "canonical": "supply chain",
+        "category": "features",
+        "layer": "L4",
+        "score": 3.28,
+        "freq": 34
+      },
+      {
+        "canonical": "case study",
+        "category": "features",
+        "layer": "L4",
+        "score": 3.25,
+        "freq": 43
+      },
+      {
+        "canonical": "utm_source share",
+        "category": "features",
+        "layer": "L4",
+        "score": 2.94,
+        "freq": 49
+      },
+      {
+        "canonical": "makes sense",
+        "category": "features",
+        "layer": "L4",
+        "score": 2.94,
+        "freq": 36
+      },
+      {
+        "canonical": "ad creative",
+        "category": "features",
+        "layer": "L4",
+        "score": 2.86,
+        "freq": 32
+      },
+      {
+        "canonical": "social proof",
+        "category": "features",
+        "layer": "L4",
+        "score": 2.86,
+        "freq": 44
+      },
+      {
+        "canonical": "cheat code",
+        "category": "features",
+        "layer": "L4",
+        "score": 2.77,
+        "freq": 40
+      },
+      {
+        "canonical": "good luck",
+        "category": "features",
+        "layer": "L4",
+        "score": 2.77,
+        "freq": 31
+      },
+      {
+        "canonical": "google shopping",
+        "category": "features",
+        "layer": "L4",
+        "score": 2.75,
+        "freq": 36
+      },
+      {
+        "canonical": "utm_name web3xcss",
+        "category": "features",
+        "layer": "L4",
+        "score": 2.73,
+        "freq": 48
+      },
+      {
+        "canonical": "utm_medium web3x",
+        "category": "features",
+        "layer": "L4",
+        "score": 2.73,
+        "freq": 48
+      },
+      {
+        "canonical": "utm_content share_button",
+        "category": "features",
+        "layer": "L4",
+        "score": 2.73,
+        "freq": 48
+      },
+      {
+        "canonical": "game changer",
+        "category": "features",
+        "layer": "L4",
+        "score": 2.72,
+        "freq": 30
+      },
+      {
+        "canonical": "pain points",
+        "category": "features",
+        "layer": "L4",
+        "score": 2.69,
+        "freq": 40
+      },
+      {
+        "canonical": "credit card",
+        "category": "features",
+        "layer": "L4",
+        "score": 2.65,
+        "freq": 34
+      },
+      {
+        "canonical": "completely different",
+        "category": "features",
+        "layer": "L4",
+        "score": 2.49,
+        "freq": 32
+      },
+      {
+        "canonical": "speedbee article",
+        "category": "features",
+        "layer": "L4",
+        "score": 2.18,
+        "freq": 32
+      },
+      {
+        "canonical": "alibaba aliexpress",
+        "category": "features",
+        "layer": "L4",
+        "score": 2.13,
+        "freq": 30
+      },
+      {
+        "canonical": "biggest seo",
+        "category": "features",
+        "layer": "L4",
+        "score": 2.03,
+        "freq": 33
+      },
+      {
+        "canonical": "biggest seo cheat",
+        "category": "features",
+        "layer": "L4",
+        "score": 2.03,
+        "freq": 33
+      },
+      {
+        "canonical": "seo cheat",
+        "category": "features",
+        "layer": "L4",
+        "score": 2.03,
+        "freq": 33
+      }
+    ],
+    "pain_points": []
+  }
+}

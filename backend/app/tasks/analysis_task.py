@@ -305,7 +305,15 @@ async def _store_analysis_results(task_id: uuid.UUID, result: AnalysisResult) ->
                         for p in entry.get("example_posts") or []:
                             if ev_count >= 3:
                                 break
-                            url = str(p.get("url") or p.get("permalink") or "").strip() or "https://reddit.com"
+                            # 统一规范化 Reddit 原帖链接
+                            try:
+                                from app.utils.url import normalize_reddit_url  # type: ignore
+                                url = normalize_reddit_url(
+                                    url=str(p.get("url") or ""),
+                                    permalink=str(p.get("permalink") or ""),
+                                )
+                            except Exception:
+                                url = str(p.get("url") or p.get("permalink") or "").strip() or "https://www.reddit.com"
                             excerpt = str(p.get("content") or "Excerpt unavailable")
                             subreddit = str(p.get("community") or "r/unknown")
                             score = 0.0

@@ -58,11 +58,16 @@ celerybeat-schedule.db
 # Logs
 *.log
 logs/
+nohup.out
+backend/nohup.out
 
 # Temporary files
 tmp/
 *.tmp
 *.bak
+backend/tmp_*/
+backend/tmp_test/
+backend/tmp_l1/
 
 # Test coverage
 .coverage
@@ -138,6 +143,8 @@ backend/backend/
 *.xlsx
 *.json.bak
 backend/data/*.json.bak
+backend/data/*_scraped.json
+backend/data/top5000_*.json
 
 # Backup files (备份文件)
 *.backup

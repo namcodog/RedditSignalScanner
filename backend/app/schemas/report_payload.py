@@ -10,10 +10,14 @@ from app.models.task import TaskStatus
 from app.schemas.analysis import (
     CommunitySourceDetail,
     CompetitorSignal,
+    CompetitorLayerSummary,
     EntitySummary,
+    EntityLeaderboardItem,
     OpportunityReportOut,
     OpportunitySignal,
+    PainClusterSummary,
     PainPoint,
+    ChannelBreakdownItem,
 )
 from app.schemas.base import ORMModel
 
@@ -71,15 +75,40 @@ class ReportMetadata(ORMModel):
     total_mentions: int = Field(ge=0)
     recovery_applied: Optional[str] = None
     fallback_quality: Optional[FallbackQuality] = None
+    # 可选：LLM 审计字段（启用后端增强时填写）
+    llm_used: Optional[bool] = None
+    llm_model: Optional[str] = None
+    llm_rounds: Optional[int] = Field(default=None, ge=0)
+    # 可选：语义词库版本（Spec009/011 对齐，用于报告追溯）
+    lexicon_version: Optional[str] = None
 
 
 class ReportContent(ORMModel):
     executive_summary: ReportExecutiveSummary
     pain_points: list[PainPoint] = Field(default_factory=list)
+    pain_clusters: list[PainClusterSummary] = Field(default_factory=list)
     competitors: list[CompetitorSignal] = Field(default_factory=list)
     opportunities: list[OpportunitySignal] = Field(default_factory=list)
     action_items: list[OpportunityReportOut] = Field(default_factory=list)
     entity_summary: EntitySummary = Field(default_factory=EntitySummary)
+    entity_leaderboard: list[EntityLeaderboardItem] = Field(default_factory=list)
+    competitor_layers_summary: list[CompetitorLayerSummary] = Field(default_factory=list)
+    channel_breakdown: list[ChannelBreakdownItem] = Field(default_factory=list)
+
+
+class LayerCoverageItem(ORMModel):
+    layer: str
+    posts: int = Field(ge=0)
+    hit_posts: int = Field(ge=0)
+    coverage: float = Field(ge=0.0, le=1.0)
+
+
+class MetricsSummary(ORMModel):
+    overall: float = Field(ge=0.0, le=1.0)
+    brands: float = Field(ge=0.0, le=1.0)
+    pain_points: float = Field(ge=0.0, le=1.0)
+    top10_unique_share: float = Field(ge=0.0, le=1.0)
+    layers: list[LayerCoverageItem] = Field(default_factory=list)
 
 
 class ReportPayload(ORMModel):
@@ -92,6 +121,8 @@ class ReportPayload(ORMModel):
     metadata: ReportMetadata
     overview: ReportOverview
     stats: ReportStats
+    # 可选：语义指标摘要（便于前端按需展示）
+    metrics_summary: MetricsSummary | None = None
 
 
 __all__ = [
@@ -104,4 +135,7 @@ __all__ = [
     "ReportStats",
     "SentimentBreakdown",
     "TopCommunity",
+    "ChannelBreakdownItem",
+    "MetricsSummary",
+    "LayerCoverageItem",
 ]

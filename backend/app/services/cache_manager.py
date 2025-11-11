@@ -94,6 +94,8 @@ class CacheManager:
         self,
         subreddit: str,
         posts: Sequence[RedditPost],
+        *,
+        ttl_seconds: int | None = None,
     ) -> None:
         """Persist subreddit posts and timestamp."""
         key = self._build_key(subreddit)
@@ -101,7 +103,8 @@ class CacheManager:
             "cached_at": datetime.now(timezone.utc).isoformat(),
             "posts": [self._serialise_post(post) for post in posts],
         }
-        await self.redis.setex(key, self.cache_ttl, json.dumps(data, ensure_ascii=False))
+        ttl = self.cache_ttl if ttl_seconds is None else max(60, int(ttl_seconds))
+        await self.redis.setex(key, ttl, json.dumps(data, ensure_ascii=False))
 
     async def calculate_cache_hit_rate(
         self,

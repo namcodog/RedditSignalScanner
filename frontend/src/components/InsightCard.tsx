@@ -71,7 +71,7 @@ export default function InsightCard({
           </h3>
         </div>
 
-        {/* 右侧：置信度标签 + 证据数量 */}
+        {/* 右侧：置信度标签 + 指标徽章 */}
         <div className="flex shrink-0 items-center gap-2">
           <span
             className={`inline-flex items-center px-3 py-1 rounded-md text-sm font-semibold ${getConfidenceStyle(
@@ -80,9 +80,19 @@ export default function InsightCard({
           >
             置信度: {getConfidenceLabel(insight.confidence)}
           </span>
-          <span className="text-sm text-muted-foreground">
-            {insight.evidence.length} 条证据
+          <span className="text-xs text-muted-foreground border rounded px-2 py-0.5">
+            证据 {insight.evidence_count ?? insight.evidence.length}
           </span>
+          {typeof insight.source_diversity === 'number' && (
+            <span className="text-xs text-muted-foreground border rounded px-2 py-0.5">
+              社区 {insight.source_diversity}
+            </span>
+          )}
+          {insight.recency_hint && (
+            <span className="text-xs text-muted-foreground border rounded px-2 py-0.5">
+              {insight.recency_hint === '7d' ? '近7天' : insight.recency_hint === '30d' ? '近30天' : '较早'}
+            </span>
+          )}
         </div>
       </div>
 

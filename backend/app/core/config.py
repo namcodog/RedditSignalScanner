@@ -69,10 +69,11 @@ class Settings(BaseModel):
     reddit_client_id: str = Field(default="")
     reddit_client_secret: str = Field(default="")
     reddit_user_agent: str = Field(default="RedditSignalScanner/1.0")
-    reddit_rate_limit: int = Field(default=60)
-    reddit_rate_limit_window_seconds: float = Field(default=60.0)
+    # Reddit API 限流配置（对齐官方建议：60 req/min，使用 10 分钟窗口更稳定）
+    reddit_rate_limit: int = Field(default=58)  # 留 2 个请求余量
+    reddit_rate_limit_window_seconds: float = Field(default=600.0)  # 10 分钟窗口
     reddit_request_timeout_seconds: float = Field(default=30.0)
-    reddit_max_concurrency: int = Field(default=3)  # 降低并发以避免多 Worker 场景下超限
+    reddit_max_concurrency: int = Field(default=2)  # 降低并发避免突发流量  # 降低并发以避免多 Worker 场景下超限
     reddit_cache_redis_url: str = Field(default_factory=_default_redis_cache_url)
     reddit_cache_ttl_seconds: int = Field(default=24 * 60 * 60)
     admin_emails_raw: str = Field(default="")
@@ -84,6 +85,9 @@ class Settings(BaseModel):
     report_rate_limit_window_seconds: int = Field(default=60)
     report_export_dir: str = Field(default="reports/exports")
     default_membership_level: str = Field(default="free")
+    # LLM 增益（必开：可回退）
+    enable_llm_summary: bool = Field(default=True)
+    llm_model_name: str = Field(default="local-extractive")
 
     @property
     def cors_origins(self) -> List[str]:
@@ -232,6 +236,11 @@ def get_settings() -> Settings:
         default_membership_level=os.getenv(
             "DEFAULT_MEMBERSHIP_LEVEL",
             Settings.model_fields["default_membership_level"].default,
+        ),
+        enable_llm_summary=os.getenv("ENABLE_LLM_SUMMARY", "true").strip().lower()
+        in {"1", "true", "yes"},
+        llm_model_name=os.getenv(
+            "LLM_MODEL_NAME", Settings.model_fields["llm_model_name"].default
         ),
     )
 

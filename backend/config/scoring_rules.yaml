@@ -9,3 +9,14 @@ calibration_info:
   opportunity_count: 93
   k: 50
   step: 0.05
+
+# Spec010: 参数化机会规模估计（用于 potential_users_est）
+opportunity_estimator:
+  base: 100            # 基线
+  freq_weight: 50      # 需求频次权重
+  avg_score_weight: 2.0  # 帖子互动得分权重
+  keyword_weight: 20   # 命中关键词数量权重
+  theme_relevance: 0.5 # 主题相关性乘子（0-1，叠加在 multiplier 上）
+  intent_factor: 0.5   # 购买/意愿强度乘子（来自规则基分）
+  participation_rate: 0.0 # 预留，暂不使用
+  scale_weight: 0.2    # 社群规模乘子权重（0-1），越大越敏感

@@ -130,7 +130,17 @@ class InsightService:
                             sub = str(getattr(p, 'community', None) or p.get('community') if isinstance(p, dict) else '')
                             if sub and sub not in subs:
                                 subs.append(sub)
-                            url = str(getattr(p, 'url', None) or getattr(p, 'permalink', None) or (p.get('url') if isinstance(p, dict) else '') or '')
+                            # 统一规范化原帖链接
+                            try:
+                                from app.utils.url import normalize_reddit_url  # type: ignore
+                                raw_url = getattr(p, 'url', None)
+                                raw_pl = getattr(p, 'permalink', None)
+                                if isinstance(p, dict):
+                                    raw_url = raw_url or p.get('url')
+                                    raw_pl = raw_pl or p.get('permalink')
+                                url = normalize_reddit_url(url=str(raw_url or ''), permalink=str(raw_pl or ''))
+                            except Exception:
+                                url = str(getattr(p, 'url', None) or getattr(p, 'permalink', None) or (p.get('url') if isinstance(p, dict) else '') or '')
                             excerpt = str(getattr(p, 'content', None) or (p.get('content') if isinstance(p, dict) else '') or '')
                             ev_list.append(EvidenceItem(id=UUID(int=0), post_id=None, post_url=url, excerpt=excerpt, timestamp=None, subreddit=sub or '', score=None))
                         synthetic.append(InsightCardResponse(
@@ -199,6 +209,26 @@ class InsightService:
             for evidence in card.evidences
         ]
 
+        # 计算型指标（不入库）：evidence_count / source_diversity / recency_hint
+        evidence_count = len(evidence_items)
+        src_div = len({e.subreddit for e in evidence_items if getattr(e, "subreddit", None)})
+        recency_hint: str | None = None
+        try:
+            from datetime import datetime, timezone, timedelta
+            now = datetime.now(timezone.utc)
+            ts_list = [e.timestamp for e in evidence_items if getattr(e, "timestamp", None) is not None]
+            if ts_list:
+                latest = max(ts_list)
+                delta = now - latest
+                if delta <= timedelta(days=7):
+                    recency_hint = "7d"
+                elif delta <= timedelta(days=30):
+                    recency_hint = "30d"
+                else:
+                    recency_hint = "older"
+        except Exception:
+            recency_hint = None
+
         return InsightCardResponse(
             id=card.id,
             task_id=card.task_id,
@@ -209,6 +239,9 @@ class InsightService:
             time_window_days=card.time_window_days,
             subreddits=card.subreddits,
             evidence=evidence_items,
+            evidence_count=evidence_count,
+            source_diversity=src_div,
+            recency_hint=recency_hint,
             created_at=card.created_at,
             updated_at=card.updated_at,
         )

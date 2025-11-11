@@ -1,0 +1,40 @@
+# LLM configuration (Spec 010)
+#
+# This file externalises LLM-related toggles and model choices. The runtime
+# ultimately reads environment variables in app.core.config.Settings; this YAML
+# serves as a single place to document and override defaults for local/dev.
+#
+# Notes:
+# - Do NOT commit secrets. API keys are still read from environment variables
+#   (e.g. OPENAI_API_KEY) and not stored here.
+# - If you change values here, export the equivalent env vars or mount this file
+#   and convert it to envs in your process manager.
+
+llm:
+  # Enable LLM-assisted summarisation/normalisation. Falls back to local
+  # deterministic/extractive implementations if disabled.
+  enable_llm_summary: ${ENABLE_LLM_SUMMARY:true}
+
+  # Default model to use when LLM is enabled. Supported:
+  # - "local-extractive" (built-in, offline)
+  # - any OpenAI chat model like "gpt-4o-mini"
+  model_name: ${LLM_MODEL_NAME:gpt-4o-mini}
+
+  # Timeouts (seconds) for individual LLM calls
+  timeout:
+    summarizer: ${LLM_SUMMARIZER_TIMEOUT:8}
+    normalizer: ${LLM_NORMALIZER_TIMEOUT:6}
+
+providers:
+  openai:
+    # Read from env OPENAI_API_KEY at runtime; not stored here
+    api_key: ${OPENAI_API_KEY:}
+    # Optional: override base URL for compatible providers
+    base_url: ${OPENAI_BASE_URL:https://api.openai.com/v1}
+
+defaults:
+  # Used by controlled report generator and report_service when building
+  # executive summary and titles. Kept here for visibility.
+  title_max_chars: 16
+  slogan_max_chars: 20
+

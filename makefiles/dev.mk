@@ -1,6 +1,7 @@
 # Development server orchestration and golden path helpers
 
-.PHONY: dev-backend dev-frontend dev-all dev-full dev-real dev-golden-path crawl-seeds quickstart
+.PHONY: dev-backend dev-frontend dev-all dev-full dev-real dev-golden-path crawl-seeds quickstart crawl-once crawl-crossborder
+.PHONY: crawler-dryrun
 
 dev-backend: ## 启动后端开发服务器 (FastAPI + Uvicorn, 端口 8006, 启用Celery dispatch)
 	@. $(COMMON_SH)
@@ -100,15 +101,30 @@ dev-real: ## 启动真实 Reddit 验收环境（不注入任何 mock/seed 数据
 dev-golden-path: ## 🌟 黄金路径：一键启动完整环境并创建测试数据（Day 12 验收通过）
 	@bash scripts/dev_golden_path.sh
 
-crawl-seeds: ## 触发种子社区真实爬取（需要 Celery 与 Backend 已启动）
-	@echo "==> 触发爬取种子社区（真实 Reddit API） ..."
-	@cd $(BACKEND_DIR) && PYTHONPATH=. $(PYTHON) scripts/trigger_initial_crawl.py --force-refresh || true
-	@echo "✅ 批量爬取任务已触发；使用 'make celery-logs' 查看进度"
+crawl-seeds: ## [谨慎] 触发旧版种子爬取（会刷新 seed 并可能合并 Top1000；跨境隔离请勿使用）
+	@echo "==> ⚠️ 旧版种子抓取将刷新种子并可能合并 Top1000（已默认禁用，设置 DISABLE_TOP1000_BASELINE=0 才会启用）"
+	@cd $(BACKEND_DIR) && DISABLE_TOP1000_BASELINE=$${DISABLE_TOP1000_BASELINE:-1} PYTHONPATH=. $(PYTHON) scripts/trigger_initial_crawl.py --force-refresh || true
+	@echo "✅ 批量爬取任务已触发；使用 'make celery-logs' 查看进度；跨境隔离模式请使用 'make crawl-crossborder'"
 
-crawl-seeds-incremental: ## 触发种子社区增量爬取（冷热双写 + 水位线）
-	@echo "==> 触发增量爬取（冷热双写 + 水位） ..."
-	@cd $(BACKEND_DIR) && PYTHONPATH=. $(PYTHON) scripts/trigger_incremental_crawl.py --force-refresh || true
-	@echo "✅ 增量爬取任务已触发；使用 'make celery-logs' 查看进度"
+crawler-dryrun: ## 读取并打印 crawler.yml 生效策略（不实际执行抓取）
+	@echo "==> 读取 crawler.yml 并打印生效策略 ..."
+	@cd $(BACKEND_DIR) && PYTHONPATH=. $(PYTHON) scripts/crawler_dryrun.py
+
+crawl-seeds-incremental: ## [谨慎] 触发增量爬取并刷新 seeds（可能合并 Top1000；跨境隔离请勿使用）
+	@echo "==> ⚠️ 增量+刷新模式将写入 seeds；默认已禁用 Top1000 合并（DISABLE_TOP1000_BASELINE=1）"
+	@cd $(BACKEND_DIR) && DISABLE_TOP1000_BASELINE=$${DISABLE_TOP1000_BASELINE:-1} PYTHONPATH=. $(PYTHON) scripts/trigger_incremental_crawl.py --force-refresh || true
+	@echo "✅ 增量爬取已触发；跨境隔离模式请使用 'make crawl-crossborder'（不刷新、不合并）"
+
+crawl-crossborder: ## 使用当前社区池执行增量抓取（不刷新、不合并；隔离模式推荐）
+	@echo "==> 使用当前社区池执行增量抓取（不 force-refresh，隔离模式） ..."
+	@cd $(BACKEND_DIR) && DISABLE_TOP1000_BASELINE=1 PYTHONPATH=. $(PYTHON) scripts/trigger_incremental_crawl.py || true
+	@echo "✅ 已按隔离模式触发增量抓取；使用 'make celery-logs' 查看进度"
+
+crawl-once: ## 从 crawler.yml 读取并抓取一次（按 SCOPE=T1|T2|T3|all，可加 FORCE=1）
+	@SCOPE=$${SCOPE:-T1}; FORCE=$${FORCE:-0}; \
+	 echo "==> crawl-once scope=$$SCOPE force=$$FORCE ..."; \
+	 cd $(BACKEND_DIR) && PYTHONPATH=. $(PYTHON) scripts/crawl_once.py --scope $$SCOPE $$( [ "$$FORCE" = "1" ] && echo "--force-refresh" )
+	@echo "✅ 结果请查看 reports/local-acceptance/crawl-once-*.json"
 
 quickstart: ## 显示快速启动指南
 	@echo ""

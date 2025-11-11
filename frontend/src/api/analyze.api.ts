@@ -274,6 +274,9 @@ export const getReportCommunities = async (
   return data;
 };
 
+// 实体线索导出（CSV 下载）
+// 提示：实体 CSV 下载接口保留于后端，但用户端暂不直接暴露入口（避免与洞察卡片职责重叠）。
+
 /**
  * 轮询任务状态直到完成
  * 

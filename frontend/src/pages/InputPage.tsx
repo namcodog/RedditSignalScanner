@@ -38,9 +38,9 @@ const formSchema = z
 type InputFormValues = z.infer<typeof formSchema>;
 
 const SAMPLE_PROMPTS: string[] = [
-  '一款帮助忙碌专业人士进行餐食准备的移动应用，根据饮食偏好、烹饪时间限制和当地杂货店供应情况生成个性化的每周餐食计划。包括自动购物清单、分步烹饪指导以及与配送服务集成。',
-  '一个面向远程团队的项目管理 SaaS，通过 Slack 集成自动同步项目动态，并提供 AI 生成的每周状态报告，帮助团队在不加班的情况下维持透明度与执行力。',
-  '一个专注中小型电商的结账优化工具，实时分析购物车流失原因，提供一键化 AB 测试和支付方式推荐，目标是在 30 天内提升转化率 20%。',
+  '面向欧美妈妈人群的婴童辅食机，在 Amazon US/EU 销售。关注侵权/认证（FDA/UL）、FBA 费用与退货率，想找到热卖关键词、竞品差评痛点和 DHL/3PL 物流方案，目标 30 天内完成小批量试卖。',
+  '在 Etsy/Shopify 销售定制饰品，小单快返供应链。希望获取 where_to_sell 渠道建议、TikTok Shop 引流策略、VAT/关税合规清单，以及近 7/30 天热销风向与证据链接。',
+  '宠物用品选品（跨境），关注近 30 天增速快的子类目与风险。需要平台对比（亚马逊/Etsy）、物流方案（海外仓/4PX/DHL）、广告投放参考（CPC）与至少 2 条证据帖。',
 ];
 
 const PROCESS_STEPS = [
@@ -225,6 +225,16 @@ const InputPage: React.FC = () => {
             </div>
 
             <div className="px-6 py-6">
+              {/* 结构化输入引导（自然语言，不增加交互复杂度） */}
+              <div className="mb-4 rounded-md border border-border bg-muted/30 p-4 text-sm text-muted-foreground">
+                <p className="mb-2 font-medium text-foreground">如何更清晰地描述？</p>
+                <p>
+                  建议用一句话包含以下要素：目标人群 + 核心场景/痛点 + 关键能力/差异点 + 期望目标。示例：
+                  “面向<span className="font-medium">独立开发者</span>的<span className="font-medium">AI 文档助手</span>，
+                  解决<span className="font-medium">英文资料检索慢、难提炼</span>的问题，
+                  提供<span className="font-medium">自动摘要+证据链接+术语对齐</span>，期望在<span className="font-medium">14 天内完成 3 次用户访谈</span>。”
+                </p>
+              </div>
               <form className="space-y-6" noValidate onSubmit={onSubmit}>
                 <div className="space-y-2">
                   <label className="sr-only" htmlFor="productDescription">

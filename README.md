@@ -107,11 +107,28 @@ python scripts/start_celery_worker.py
 | `make test-admin-e2e` | 验证Admin端到端流程（需配置`ADMIN_EMAILS`） |
 | `make celery-start` | 启动 Celery Worker |
 | `make local-acceptance` | 一键执行本地验收脚本并生成 Markdown 报告 |
+| `make discover-crossborder` | 关键字发现跨境社区并导出候选（Spec009） |
+| `make crawl-all-communities` | 一键抓取社区池（201 基线+），按 tier 配置并发 |
+| `make pool-init` | 初始化社区池（导入 200 个基线社区） |
+| `make pool-import-top1000` | 导入 `backend/data/top1000_subreddits.json` 到社区池 |
+| `make semantic-build-L1` | 构建 L1 语义坐标基线（生成 `L1_baseline_embeddings.pkl`） |
+| `make semantic-mine-pain` | 从真实数据挖掘 pain_points 候选（输出 CSV） |
+| `make crossborder-high-value` | 生成高价值跨境社区列表（CSV） |
 | `make db-upgrade` | 升级数据库到最新版本 |
 | `make clean` | 清理所有生成文件 |
 | `make deploy-checklist` | （待实现）部署前Checklist占位 |
 
 > **部署 / 运维**：生产部署步骤详见 `docs/DEPLOYMENT.md`；日常监控、故障排查和备份请参考 `docs/OPERATIONS.md`。
+
+#### 数据与 LLM 配置基线
+- 初始“201个社区”来源：`backend/data/community_expansion_200.json`（另含 5 个核心社区，合计 205 条，已结构化存储 tier/categories/quality_score 等元数据）。
+- LLM 使用：服务端目录 `backend/app/services/llm/` 已实现本地兜底与 OpenAI 客户端；外部化配置样例见 `backend/config/llm.yml`（运行时仍由环境变量读取，如 `ENABLE_LLM_SUMMARY`、`LLM_MODEL_NAME`）。
+
+#### 社区发现与语义工具速览
+- 发现候选：`make discover-crossborder KEYWORDS="amazon,fba,shopify,etsy,dropship" LIMIT=10000`
+- 初始化社区池：`make pool-init`；导入 Top1000：`make pool-import-top1000`
+- 构建 L1 基线（用于提取语义词典时对齐语义空间）：`make semantic-build-L1`
+- 挖掘痛点候选：`make semantic-mine-pain`
 
 #### Makefile 模块结构
 
@@ -218,6 +235,45 @@ python scripts/start_celery_worker.py
 - 新人第一天：完整阅读"新人开发者"章节
 - 日常开发：按当前阶段查找对应文档
 - 遇到问题：查看FAQ或快速查找表
+
+---
+
+## 🔬 Spec 011（语义）发布与门禁（高级）
+
+> 面向后端/算法工程师与运维。用户端无需关注此节。
+
+### 常用命令
+
+- 生成质量指标（CSV+JSON）：`make semantic-metrics`
+- 质量门禁（默认启用CI置信区间）：`make semantic-acceptance`
+- 自动发布（别名自适应阈值 → 品牌基线 + 锁痛点 → 多样化字典 → 门禁 → （可选）报告 → （可选）回灌）：
+  - `make semantic-release-auto`
+- 合并外部种子并发布：`make semantic-release-contrib`
+- 周更治理（候选 → 别名高置信 → 黑名单候选 → 合并 → 门禁）：`make semantic-weekly-govern`
+- 回灌定时入口（评分→导入pool，容错）：`make semantic-refresh-cron`
+
+### 环境变量（可覆盖默认）
+
+- `SEMANTIC_GATE_ARGS`（默认 `--use-ci`）：门禁附加参数，如 `--tolerance 0.02`
+- `ALIAS_QUANTILE`（默认 `0.95`）：别名自适应阈值分位
+- `ALIAS_MIN_FLOOR`（默认 `0.90`）：别名阈值地板
+- `MIN_PAINS`（默认 `55`）：实体词典痛点槽位下限
+- `MAX_BRANDS`（默认 `30`）：实体词典品牌槽位上限
+- `ENABLE_ST_AUGMENT`（默认 `0`）：是否启用 ST 长尾增广（离线权重）
+- `ST_SIM_MAX`（默认 `0.45`）：ST 增广相似度上限
+- `ST_REPLACE_N`（默认 `16`）：ST 增广替换数量
+- `SEMANTIC_LEXICON_PATH`：受控摘要生成时使用的词库路径（默认 v2.1）
+- `SEMANTIC_METRICS_PATH`：受控摘要生成时使用的指标 JSON（默认 metrics.json）
+- `SEMANTIC_LAYER_MAP`：Layer 覆盖统计的 subreddit→Layer 映射（JSON/YAML）
+
+### 产物与路径
+
+- 指标：`backend/reports/local-acceptance/metrics/*.json|csv`
+- 词典：`backend/config/entity_dictionary/crossborder_v2_diverse.csv`
+- 别名建议/高置信：`backend/reports/local-acceptance/alias_map*.csv`
+- 受控摘要（Markdown→HTML 注入）：Report API 的 `report_html`
+- 阶段记录：`reports/phase-log/phase3.md`
+
 
 **适合人群**: 全体团队成员（强烈推荐首先阅读）
 

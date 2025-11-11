@@ -1,0 +1,24 @@
+theme: where_to_sell
+include_keywords:
+  - amazon
+  - fba
+  - fbm
+  - ebay
+  - etsy
+  - walmart
+  - shopify
+  - tiktok shop
+  - temu
+  - shein
+  - aliexpress
+  - shopee
+  - lazada
+aliases:
+  - "wfs: walmart fulfillment"
+  - "sp: sponsored products"
+exclude:
+  - prime video
+  - twitch
+stopwords:
+  - amazon prime video
+

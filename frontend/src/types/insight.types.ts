@@ -60,6 +60,11 @@ export interface InsightCard {
   
   /** 证据列表 */
   evidence: Evidence[];
+
+  // P0 轻量指标（可选）
+  evidence_count?: number | null;
+  source_diversity?: number | null;
+  recency_hint?: string | null; // '7d' | '30d' | 'older'
   
   /** 创建时间 (ISO 8601) */
   created_at: string;

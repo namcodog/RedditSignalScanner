@@ -52,6 +52,10 @@ class InsightCardResponse(BaseModel):
         description="证据列表",
         default_factory=list,
     )
+    # P0 轻量指标（计算型字段，不入库）：
+    evidence_count: int | None = Field(default=None, description="证据条数（计算得出）")
+    source_diversity: int | None = Field(default=None, description="来源社区多样性（去重计数）")
+    recency_hint: str | None = Field(default=None, description="近期性提示：7d/30d/older")
     created_at: datetime = Field(description="创建时间")
     updated_at: datetime = Field(description="更新时间")
 

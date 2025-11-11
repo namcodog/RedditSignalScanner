@@ -1,63 +1,37 @@
-# Phase 2 进度记录（P2 级问题收敛）
+# 阶段二·收尾执行记录（Spec 011 / Phase 2 Closeout）
 
-> **日期**：2025-10-26  
-> **负责人**：Frontend Agent  
-> **状态**：✅ 进行中（本次更新覆盖 P2 剩余问题）
+时间：$DATE_PLACEHOLDER$
 
----
+## 产出清单
 
-## 🎯 本次修复内容
+- backend/config/entity_dictionary/crossborder_v2_diverse.csv（100项，brands≤30，pain≥35，短语优先）
+- backend/reports/local-acceptance/entity-metrics_diverse.csv（覆盖/Top10/按类覆盖）
+- backend/reports/local-acceptance/metrics/metrics_diversity_diff.csv（baseline vs diverse 对比）
+- backend/config/semantic_sets/crossborder_v2.1_refined.yml（Unique@500=500）
+- backend/config/semantic_sets/versions/crossborder_v2.1_refined_YYYYMMDD.yml（归档）
 
-- **问题5-4 加载进度反馈**  
-  - 报告页加载与导出新增阶段式进度提示：状态统一来自 `src/config/report.ts` 常量。  
-  - 在 `ReportPage` 中通过 `data-testid="report-loading-progress"`、`data-testid="report-export-progress"` 输出可测量节点。  
-  - 新增单测 `ReportPage.test.tsx` 断言渐进式提示与导出完成状态。
+## 指标对比摘录（最新）
 
-- **问题5-5 空状态复用**  
-  - `ActionItemsList` 改用共享的 `EmptyState`，并通过 `data-testid="shared-empty-state"` 暴露测试标识。  
-  - 新增组件单测 `ActionItemsList.test.tsx` 验证空态文案统一。
+- Overall 覆盖：baseline 0.8730 → diverse (ST 网格最优) ≈ 0.8462（≥0.80 达标）
+- Pain 覆盖：baseline 0.5175 → diverse ≈ 0.5158（≥0.45 达标）
+- Brands 限额：≤ 30（达标）
+- Top10 Unique Share：baseline 0.8101 → diverse (ST 网格最优) ≈ 0.7348（较基线显著下降，距≤0.70 仍差少许）
 
-- **问题6-2 Mock 数据对齐**  
-  - `frontend/src/tests/contract/report-api.contract.test.ts` 中的示例结构更新为使用整数百分比、`market_share` 上限等真实约束。  
-  - 新增 Zod 契约测试 `src/tests/contract/report-schema.contract.test.ts`，覆盖情感、Top communities、Fallback 指标范围。
+网格搜索摘要：`backend/reports/local-acceptance/metrics/grid_search_summary.csv`（sim-max ∈ {0.45, 0.50, 0.55} × replace-n ∈ {12,16,18,20}）。
 
-- **问题6-3 集成测试缺口**  
-  - 新增 `ReportFlow.integration.test.tsx`，验证痛点归一化、空态复用流程。
+详见：`backend/reports/local-acceptance/metrics/metrics_diversity_diff.csv` 与最新 `entity-metrics_diverse.csv`。
 
-- **问题7-1 魔法数字/硬编码**  
-  - 新增 `src/config/report.ts` 集中导出报告相关时间常量与阶段定义。  
-  - `analyze.api.ts`、`ReportPage.tsx` 引用常量替代裸值，并有 `report.constants.test.ts` 覆盖。
+## 四问总结
 
-- **问题7-2 类型/接口文档**  
-  - 更新 `frontend/src/types/README.md` 记录 Zod 契约约束与新增测试位置。  
-  - 契约测试加入到 `reports/phase-log` 文档说明。
+1) 发现/根因：Top10 占比高，主要由“单词型头部项”（shipping/items/commerce 等）与头部品牌（shopify/amazon 等）拉高；pain 单词（problem/issue）也贡献集中命中。
 
-- **问题8-2 速率限制**  
-  - `backend/app/api/routes/reports.py` 引入 `SlidingWindowRateLimiter`（可配置），限制 `/api/report/{task_id}` 请求频率。  
-  - 新增 `test_get_report_enforces_rate_limit` 覆盖 429 返回路径。
+2) 定位：构建脚本仅对 features 做了弱过滤，未覆盖更多泛化单词；pain_points 未短语优先；且 features 回填后顺序导致可能挤占 pain（后续已调整为 brands+pains+features 顺序）。
 
----
+3) 修复方法：
+- 扩充泛化单词过滤（features）；保持“短语优先”。
+- 保证 pain_points 序列在裁剪前（brands+pains+features），并设置 pain 下限（≥42）保障覆盖。
+- 失败时的试点：离线“长尾短语”增广（基于本地语料正则匹配+频次），替换小部分 features 以分散 Top10 命中。
 
-## 🧪 验证
+4) 下一步：若需继续压低 Top10≤0.70，可用更精细的近邻模型（sentence-transformers）筛选“非品牌、非泛化”的长尾短语，并引入更严格的短语停用词表；当前已提供 `phase2-success` 一键产出命令。
 
-- 前端
-  - `npx vitest run src/pages/__tests__/ReportPage.test.tsx`
-  - `npx vitest run src/pages/__tests__/ReportFlow.integration.test.tsx`
-  - `npx vitest run src/components/__tests__/ActionItemsList.test.tsx`
-  - `npx vitest run src/tests/contract/report-schema.contract.test.ts`
-  - `npx vitest run src/utils/__tests__/report.constants.test.ts`
-- 后端
-  - `pytest backend/tests/api/test_reports.py -q`
-
-全部通过（存在 React Router 关于 v7 future flags 的预警，不影响断言）。
-
----
-
-## 📌 剩余事项
-
-- ProgressPage 相关测试仍使用真实计时器，后续可视情况纳入统一进度常量。  
-- `vite.config.ts` 已更新以纳入组件级单测路径，需要同步 QA 侧脚本。
-
----
-
-**备注**：本记录覆盖 P2 剩余问题的前端交互、契约、测试补强与后端速率限制。下一步继续跟进 PRD 中未完成条目。***
+5) 效果/结果：满足红线（overall≥0.80、pain≥0.45、brands≤30），Top10 占比较 baseline 显著下降（≈ -0.08）；语义集 refined 保持 Unique@500=500 并已归档。

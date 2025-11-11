@@ -1,0 +1,26 @@
+theme: what_to_sell
+include_keywords:
+  - product research
+  - niche
+  - trend
+  - keyword tool
+  - review mining
+  - crowdfunding
+  - kickstarter
+  - indiegogo
+  - buy it for life
+  - bifl
+  - shutupandtakemymoney
+  - winning product
+  - product idea
+  - product validation
+  - supplier feedback
+aliases:
+  - "bifl: buy it for life"
+exclude:
+  - meme
+  - giveaway
+  - nsfw
+stopwords:
+  - what is ai
+

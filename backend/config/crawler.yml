@@ -1,0 +1,95 @@
+# Crawler strategy (Spec 009 · M1/M2 基线)
+# - 统一在此配置抓取节奏、排序混合、回退与重试策略
+# - 由调度器读取并按 tier 执行（T1=high/gold/seed，T2=medium/silver，T3=low）
+# - 该文件为产品/数据/后端共同维护的“可治理”开关
+
+version: 1
+
+global:
+  # Reddit API 访问与执行
+  concurrency: 4              # 全局最大并发（调度器可在限流时自动降级）
+  scheduler_batch_size: 12    # 每批处理的社区数量（Celery 分组）
+  max_db_concurrency: 2       # 访问数据库时的并发上限
+  timeout_seconds: 20         # 单请求超时
+  rate_limit_per_minute: 60   # 软限流提示（严限请以环境变量配置）
+
+  # 热缓存与增量（冷热库协同）
+  hot_cache_ttl_hours: 48     # 热缓存 TTL（T1 可更短）
+  watermark_enabled: true     # 增量水位线开关
+  watermark_grace_hours: 4    # 水位线最小间隔，避免短时间重复抓取
+
+  # 重试与退避
+  retry:
+    max_retries: 2            # 全局默认重试次数（按 tier 可覆盖）
+    backoff_base_seconds: 300 # 初始退避 5 分钟
+    backoff_factor: 3.0       # 指数退避因子
+    backoff_max_seconds: 3600 # 最大退避 60 分钟
+
+  # 空集与失败的回退阈值
+  fallback_thresholds:
+    empty_to_widen: 2         # 连续空集≥2 → 扩大时间窗或放宽排序
+    empty_to_unfiltered: 3    # 连续空集≥3 → 回退为“不过滤全集”（保底）
+    failure_to_backoff: 2     # 连续失败≥2 → 进入退避
+
+tiers:
+  # T1：关键社区（高优先级）——保证新鲜度，捕捉上升趋势
+  - name: T1
+    match_tiers: ["high", "gold", "seed"]
+    re_crawl_frequency: "2h"           # 每 2 小时一次
+    time_filter: "week"                # 以 7 天窗口为主
+    sort_mix: { top: 0.4, new: 0.4, hot: 0.2 }  # 混排，避免历史名帖偏置
+    post_limit: 100
+    retry:
+      max_retries: 2
+    hot_cache_ttl_hours: 24            # 更短 TTL，保证最新内容
+    fallback:
+      widen_time_filter_to: "month"    # 空集时先扩大到 30 天
+      relax_sort_mix: { top: 0.5, new: 0.3, hot: 0.2 }
+      allow_unfiltered_on_exhausted: true
+
+  # T2：重要社区（中优先级）——覆盖度优先，关注 30 天走势
+  - name: T2
+    match_tiers: ["medium", "silver"]
+    re_crawl_frequency: "6h"           # 每 6 小时一次
+    time_filter: "month"
+    sort_mix: { top: 0.5, new: 0.3, hot: 0.2 }
+    post_limit: 80
+    retry:
+      max_retries: 2
+    hot_cache_ttl_hours: 48
+    fallback:
+      relax_sort_mix: { top: 0.4, new: 0.4, hot: 0.2 }
+      allow_unfiltered_on_exhausted: true
+
+  # T3：长尾社区（低优先级）——保证广覆盖与冷库新鲜度
+  - name: T3
+    match_tiers: ["low"]
+    re_crawl_frequency: "24h"          # 每日一次
+    time_filter: "month"
+    sort_mix: { top: 0.6, new: 0.2, hot: 0.2 }
+    post_limit: 60
+    retry:
+      max_retries: 1
+    hot_cache_ttl_hours: 72
+    fallback:
+      relax_sort_mix: { top: 0.5, new: 0.3, hot: 0.2 }
+      allow_unfiltered_on_exhausted: true
+
+# 发现与治理（可选：M2/M3 扩展）
+discovery:
+  enabled: false                 # 默认为关，待数据质量稳定后再启用
+  growth_signal:
+    short_window_days: 7
+    long_window_days: 30
+    promote_threshold: 1.2       # 增速指数 ≥ 1.2 → 提升至 T2
+  sources: ["product_description", "entity_dictionary"]
+
+governance:
+  blacklist_file: "backend/config/community_blacklist.yaml"
+  # 当检测到黑名单或异常社区时，直接跳过并记录到 crawl_metrics.tier_assignments
+
+# 限流降级（防止 API 超限）
+degradation:
+  on_rate_limit:
+    reduce_concurrency_by: 0.5   # 并发减半
+    duration_minutes: 10

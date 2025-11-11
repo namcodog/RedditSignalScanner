@@ -930,7 +930,7 @@ const EntitySummarySection = ({ report, t }: SectionProps) => {
   };
 
   return (
-    <div className="rounded-lg border border-border bg-card p-6">
+  <div className="rounded-lg border border-border bg-card p-6">
       <h4 className="mb-4 text-sm font-semibold text-foreground">
         {t('report.tabs.entities')}
       </h4>
@@ -993,6 +993,12 @@ const ReportSummaryCard = ({ report, t }: SectionProps) => {
           isText
         />
       </div>
+      {report.report_html ? (
+        <div className="mt-6 rounded-md border border-border bg-muted/40 p-4">
+          <h4 className="mb-2 text-sm font-semibold text-foreground">{t('report.summary.controlled')}</h4>
+          <div className="text-sm text-foreground whitespace-pre-wrap">{report.report_html}</div>
+        </div>
+      ) : null}
     </div>
   );
 };

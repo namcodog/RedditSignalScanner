@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import asyncio
 from collections import deque
+import logging
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 from typing import TYPE_CHECKING, Any, Deque, Dict, Iterable, List, Optional, Sequence
@@ -57,6 +58,8 @@ class RedditAPIClient:
         rate_limit_window: float = 60.0,
         request_timeout: float = 30.0,
         max_concurrency: int = 5,
+        max_retries: int = 3,  # 429 错误最大重试次数
+        retry_backoff_base: float = 5.0,  # 指数退避基础等待时间（秒）
         session: Any | None = None,  # aiohttp.ClientSession
     ) -> None:
         if not client_id or not client_secret:
@@ -70,6 +73,8 @@ class RedditAPIClient:
         self.rate_limit = max(1, rate_limit)
         self.rate_limit_window = max(0.1, rate_limit_window)
         self.request_timeout = max(1.0, request_timeout)
+        self.max_retries = max(0, max_retries)
+        self.retry_backoff_base = max(1.0, retry_backoff_base)
         self._session: Any | None = session  # aiohttp.ClientSession
         self._session_owner = session is None
         self._auth_lock = asyncio.Lock()
@@ -78,6 +83,12 @@ class RedditAPIClient:
         self._semaphore = asyncio.Semaphore(max(1, max_concurrency))
         self.access_token: Optional[str] = None
         self.token_expires_at: Optional[datetime] = None
+        # 动态速率限制监控
+        self._ratelimit_remaining: Optional[int] = None
+        self._ratelimit_reset: Optional[datetime] = None
+        # Module logger
+        global logger
+        logger = logging.getLogger(__name__)
 
     async def __aenter__(self) -> "RedditAPIClient":
         return self
@@ -266,6 +277,103 @@ class RedditAPIClient:
         payload = await self._request_json("GET", url, headers=headers, params=params)
         return self._parse_posts("all", payload)
 
+    async def search_subreddit_page(
+        self,
+        subreddit: str,
+        query: str,
+        *,
+        limit: int = 100,
+        sort: str = "new",
+        time_filter: str = "all",
+        restrict_sr: int | str = 1,
+        syntax: str | None = "cloudsearch",
+        after: str | None = None,
+    ) -> tuple[List[RedditPost], str | None]:
+        """
+        Search within a specific subreddit using Reddit's search endpoint.
+
+        This supports pagination via the `after` token returned in the
+        response payload under `data.after`.
+
+        Args:
+            subreddit: Subreddit name (without r/)
+            query: Search query; for time slicing use `timestamp:START..END`
+            limit: Page size (max 100)
+            sort: Sort strategy (`new` recommended for time slicing)
+            time_filter: One of `hour`, `day`, `week`, `month`, `year`, `all`
+            restrict_sr: 1 to restrict to the subreddit
+            syntax: `cloudsearch` to enable timestamp range queries
+            after: Pagination token from previous page (payload.data.after)
+
+        Returns:
+            (posts, next_after)
+        """
+        if not subreddit:
+            raise ValueError("subreddit must be provided")
+        if limit <= 0 or limit > 100:
+            raise ValueError("limit must be between 1 and 100 (inclusive)")
+
+        await self.authenticate()
+
+        url = f"{API_BASE_URL}/r/{subreddit}/search"
+        params: Dict[str, str] = {
+            "q": query.strip(),
+            "limit": str(limit),
+            "sort": sort,
+            "restrict_sr": str(restrict_sr),
+        }
+        # 当使用 timestamp:START..END 查询时，避免再传 t（time_filter），以减少冲突
+        if "timestamp:" not in query:
+            params["t"] = time_filter
+        if syntax:
+            params["syntax"] = syntax
+        if after:
+            params["after"] = after
+        headers = {
+            "Authorization": f"Bearer {self.access_token}",
+            "User-Agent": self.user_agent,
+        }
+
+        payload = await self._request_json("GET", url, headers=headers, params=params)
+        posts = self._parse_posts(subreddit, payload)
+        next_after = None
+        try:
+            next_after = payload.get("data", {}).get("after")
+        except Exception:
+            next_after = None
+        return posts, next_after
+
+    async def list_subreddit_page(
+        self,
+        subreddit: str,
+        *,
+        sort: str = "new",
+        limit: int = 100,
+        after: str | None = None,
+    ) -> tuple[List[RedditPost], str | None]:
+        if not subreddit:
+            raise ValueError("subreddit must be provided")
+        if limit <= 0 or limit > 100:
+            raise ValueError("limit must be between 1 and 100 (inclusive)")
+
+        await self.authenticate()
+        url = f"{API_BASE_URL}/r/{subreddit}/{sort}"
+        params: Dict[str, str] = {"limit": str(limit)}
+        if after:
+            params["after"] = after
+        headers = {
+            "Authorization": f"Bearer {self.access_token}",
+            "User-Agent": self.user_agent,
+        }
+        payload = await self._request_json("GET", url, headers=headers, params=params)
+        posts = self._parse_posts(subreddit, payload)
+        next_after = None
+        try:
+            next_after = payload.get("data", {}).get("after")
+        except Exception:
+            next_after = None
+        return posts, next_after
+
     async def _request_json(
         self,
         method: str,
@@ -275,67 +383,128 @@ class RedditAPIClient:
         params: Optional[Dict[str, str]] = None,
         data: Optional[Dict[str, str]] = None,
     ) -> Dict[str, Any]:
-        """Issue an HTTP request with retry-once semantics for authentication failures."""
+        """Issue an HTTP request with retry semantics for auth failures and rate limits.
+
+        Implements exponential backoff for 429 (rate limit) errors.
+        """
         import aiohttp  # Runtime import to avoid event loop conflicts
 
         session = await self._ensure_session()
         timeout = aiohttp.ClientTimeout(total=self.request_timeout)
         last_error: Exception | None = None
+        retry_count_429 = 0  # 429 错误重试计数器
 
         for attempt in range(2):
             await self._throttle()
-            async with session.request(
-                method,
-                url,
-                headers=headers,
-                params=params,
-                data=data,
-                timeout=timeout,
-            ) as response:
-                if response.status == 401 and attempt == 0:
-                    await self._invalidate_token()
-                    await self.authenticate()
+            try:
+                async with session.request(
+                    method,
+                    url,
+                    headers=headers,
+                    params=params,
+                    data=data,
+                    timeout=timeout,
+                ) as response:
+                    # 提取 Reddit 速率限制响应头
+                    self._update_ratelimit_info(response)
+
+                    if response.status == 401 and attempt == 0:
+                        await self._invalidate_token()
+                        await self.authenticate()
+                        continue
+
+                    if response.status == 429:
+                        # 速率限制错误 - 使用指数退避重试
+                        retry_count_429 += 1
+                        if retry_count_429 <= self.max_retries:
+                            # 计算退避时间：base * (2 ^ retry_count)
+                            backoff_seconds = min(
+                                self.retry_backoff_base * (2 ** (retry_count_429 - 1)),
+                                60.0  # 最大等待 60 秒
+                            )
+                            logger.warning(
+                                "[RATE_LIMIT] Reddit API rate limit (429), retry %d/%d after %.1fs. "
+                                "url=%s, remaining=%s, reset_at=%s",
+                                retry_count_429,
+                                self.max_retries,
+                                backoff_seconds,
+                                url,
+                                self._ratelimit_remaining,
+                                self._ratelimit_reset.isoformat() if self._ratelimit_reset else "unknown",
+                            )
+                            await asyncio.sleep(backoff_seconds)
+                            continue  # 重试请求
+                        else:
+                            # 超过最大重试次数
+                            logger.error(
+                                "[RATE_LIMIT] Reddit API rate limit exceeded after %d retries. "
+                                "url=%s, rate_limit=%d req/%.0fs, current_requests=%d",
+                                self.max_retries,
+                                url,
+                                self.rate_limit,
+                                self.rate_limit_window,
+                                len(self._request_times),
+                            )
+                            raise RedditAPIError(
+                                f"Reddit API rate limit exceeded after {self.max_retries} retries."
+                            )
+
+                    if response.status >= 500:
+                        # P3-5 修复: 不暴露 Reddit API 原始错误文本
+                        logger.error(
+                            "Reddit API server error: status=%s, url=%s",
+                            response.status,
+                            url,
+                        )
+                        raise RedditAPIError(
+                            f"Reddit API temporarily unavailable (status={response.status})"
+                        )
+                    # Graceful handling for not found/private subs: treat as empty
+                    if response.status in (403, 404):
+                        logger.info(
+                            "Reddit API client info: status=%s (treated as empty), url=%s",
+                            response.status,
+                            url,
+                        )
+                        return {}
+                    if response.status >= 400:
+                        # P3-5 修复: 不暴露 Reddit API 原始错误文本
+                        logger.warning(
+                            "Reddit API client error: status=%s, url=%s",
+                            response.status,
+                            url,
+                        )
+                        raise RedditAPIError(
+                            f"Reddit API request failed (status={response.status})"
+                        )
+                    try:
+                        payload: Dict[str, Any] = await response.json()
+                    except Exception as exc:  # pragma: no cover - defensive guard
+                        logger.warning("Invalid JSON response from Reddit API (attempt=%s): %s", attempt + 1, exc)
+                        if attempt == 0:
+                            continue
+                        # Treat as empty to avoid aborting long runs
+                        return {}
+                    else:
+                        return payload
+            except asyncio.TimeoutError:
+                logger.warning("Reddit API request timeout (attempt=%s): %s", attempt + 1, url)
+                if attempt == 0:
                     continue
-                if response.status == 429:
-                    # 速率限制错误 - 特别监控
-                    logger.error(
-                        "[RATE_LIMIT] Reddit API rate limit exceeded (429). "
-                        "url=%s, rate_limit=%d req/%ds, current_requests=%d",
-                        url,
-                        self.rate_limit,
-                        self.rate_limit_window,
-                        len(self._request_times),
-                    )
-                    raise RedditAPIError(
-                        "Reddit API rate limit exceeded. Please try again later."
-                    )
-                if response.status >= 500:
-                    # P3-5 修复: 不暴露 Reddit API 原始错误文本
-                    logger.error(
-                        "Reddit API server error: status=%s, url=%s",
-                        response.status,
-                        url,
-                    )
-                    raise RedditAPIError(
-                        f"Reddit API temporarily unavailable (status={response.status})"
-                    )
-                if response.status >= 400:
-                    # P3-5 修复: 不暴露 Reddit API 原始错误文本
-                    logger.warning(
-                        "Reddit API client error: status=%s, url=%s",
-                        response.status,
-                        url,
-                    )
-                    raise RedditAPIError(
-                        f"Reddit API request failed (status={response.status})"
-                    )
+                # Return empty payload on persistent timeout
+                return {}
+            except Exception as exc:
+                # Network-level disconnects or client errors (e.g., ServerDisconnectedError)
                 try:
-                    payload: Dict[str, Any] = await response.json()
-                except Exception as exc:  # pragma: no cover - defensive guard
-                    logger.error("Invalid JSON response from Reddit API: %s", exc)
-                    last_error = RedditAPIError("Invalid response format from Reddit API")
-                else:
-                    return payload
+                    import aiohttp  # type: ignore
+                except Exception:
+                    aiohttp = None  # type: ignore
+                logger.warning("Reddit API connection error (attempt=%s): %s", attempt + 1, exc)
+                if attempt == 0:
+                    # brief backoff before retry
+                    await asyncio.sleep(0.5)
+                    continue
+                return {}
 
         if last_error is None:
             last_error = RedditAPIError("Reddit API returned invalid JSON payload.")
@@ -358,6 +527,36 @@ class RedditAPIClient:
     async def _invalidate_token(self) -> None:
         self.access_token = None
         self.token_expires_at = None
+
+    def _update_ratelimit_info(self, response: Any) -> None:
+        """从 Reddit API 响应头中提取速率限制信息。
+
+        Reddit API 返回以下响应头：
+        - X-Ratelimit-Remaining: 剩余请求配额
+        - X-Ratelimit-Reset: 配额重置时间（Unix 时间戳）
+        - X-Ratelimit-Used: 已使用请求数
+        """
+        try:
+            remaining_str = response.headers.get("X-Ratelimit-Remaining")
+            reset_str = response.headers.get("X-Ratelimit-Reset")
+
+            if remaining_str is not None:
+                self._ratelimit_remaining = int(float(remaining_str))
+
+            if reset_str is not None:
+                reset_timestamp = int(float(reset_str))
+                self._ratelimit_reset = datetime.fromtimestamp(reset_timestamp, tz=timezone.utc)
+
+            # 如果剩余配额很少，记录警告
+            if self._ratelimit_remaining is not None and self._ratelimit_remaining < 10:
+                logger.warning(
+                    "[RATE_LIMIT] Low remaining quota: %d requests left, resets at %s",
+                    self._ratelimit_remaining,
+                    self._ratelimit_reset.isoformat() if self._ratelimit_reset else "unknown",
+                )
+        except (ValueError, TypeError) as exc:
+            # 解析失败不影响主流程
+            logger.debug("Failed to parse rate limit headers: %s", exc)
 
     async def _throttle(self) -> None:
         """

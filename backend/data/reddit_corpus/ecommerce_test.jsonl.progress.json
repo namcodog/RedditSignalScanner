@@ -1,0 +1,12 @@
+{
+  "subreddit": "ecommerce",
+  "slice_index": 1,
+  "total_accumulated": 0,
+  "last_slice": {
+    "start": "2024-10-25T00:00:00+00:00",
+    "end": "2024-11-08T00:00:00+00:00",
+    "count": 0
+  },
+  "seen_ids": 0,
+  "updated_at": 1762501368.71699
+}

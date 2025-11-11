@@ -1,0 +1,17 @@
+blacklisted_communities:
+  - name: r/noise
+    reason: 非目标域/噪音示例
+downranked_communities: []
+downrank_keywords: []
+filter_keywords: []
+whitelist_keywords: []
+
+# Simple blacklist list used by fusion/calibration utilities
+blacklist:
+  - r/strictlycomedancing
+  - r/AITAH
+  - r/brasil
+  - r/SwiftieMerch
+  - r/AI_Agents
+  - r/AIAgentsStack
+  - r/AI_In_ECommerce

@@ -21,6 +21,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.models.community_cache import CommunityCache
 from app.models.community_pool import CommunityPool
 from app.services.blacklist_loader import get_blacklist_config
+from app.services.crawler_config import get_crawler_config
 
 logger = logging.getLogger(__name__)
 
@@ -83,6 +84,48 @@ TIER_CONFIG: dict[str, TierDefinition] = {
         description="低活跃社区，覆盖历史内容",
     ),
 }
+
+
+def _resolve_tier_key(match_aliases: set[str]) -> str:
+    lowered = {alias.lower() for alias in match_aliases}
+    if lowered & {"tier1", "t1", "high", "gold", "seed"}:
+        return "tier1"
+    if lowered & {"tier2", "t2", "medium", "silver"}:
+        return "tier2"
+    if lowered & {"tier3", "t3", "low"}:
+        return "tier3"
+    # Fallback to lexical ordering for stable assignment
+    return sorted(lowered)[0] if lowered else "tier3"
+
+
+_crawler_cfg = get_crawler_config()
+if _crawler_cfg.tiers:
+    overrides: dict[str, TierDefinition] = {}
+    for tier_settings in _crawler_cfg.tiers:
+        key = _resolve_tier_key(set(tier_settings.match_aliases))
+        base = TIER_CONFIG.get(key)
+        if base is None:
+            base = TierDefinition(
+                name=tier_settings.name,
+                threshold_min=Decimal("0"),
+                threshold_max=None,
+                frequency_hours=tier_settings.re_crawl_frequency_hours,
+                sort=tier_settings.pick_sort(default_sort="top"),
+                time_filter=tier_settings.time_filter,
+                limit=tier_settings.post_limit,
+                description="Auto-generated from crawler.yml",
+            )
+        overrides[key] = TierDefinition(
+            name=base.name,
+            threshold_min=base.threshold_min,
+            threshold_max=base.threshold_max,
+            frequency_hours=tier_settings.re_crawl_frequency_hours,
+            sort=tier_settings.pick_sort(default_sort=base.sort),
+            time_filter=tier_settings.time_filter,
+            limit=tier_settings.post_limit,
+            description=base.description,
+        )
+    TIER_CONFIG.update(overrides)
 
 
 class TieredScheduler:

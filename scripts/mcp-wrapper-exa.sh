@@ -23,6 +23,12 @@ else
     echo "警告: 未找到 .env.local 文件" >> "$LOG_FILE"
 fi
 
-# 执行实际的 MCP 工具
-exec /usr/local/bin/npx -y exa-code-mcp "$@" 2>> "$LOG_FILE"
+# 增加网络超时配置（通过 Node.js 环境变量）
+export NODE_OPTIONS="--max-http-header-size=80000"
+export AXIOS_TIMEOUT=120000
+export REQUEST_TIMEOUT=120000
+export HTTP_TIMEOUT=120000
+
+# 使用最新版本的 exa-code-mcp
+exec /usr/local/bin/npx -y exa-code-mcp@3.0.0 "$@" 2>> "$LOG_FILE"
 

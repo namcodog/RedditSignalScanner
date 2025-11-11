@@ -1,0 +1,25 @@
+assets:
+  - bitcoin
+  - ethereum
+  - treasury bond
+  - index fund
+  - etf
+  - dividend stock
+indicators:
+  - inflation
+  - interest rate
+  - fed funds
+  - yield curve
+  - cpi
+institutions:
+  - jp morgan
+  - goldman sachs
+  - fidelity
+  - vanguard
+  - robinhood
+topics:
+  - passive income
+  - financial independence
+  - retirement planning
+  - asset allocation
+  - risk management
