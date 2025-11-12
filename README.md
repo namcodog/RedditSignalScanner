@@ -154,11 +154,11 @@ python scripts/start_celery_worker.py
 
 ## 📚 文档导航
 
-> 💡 **首次阅读？** 请查看 [📖 文档阅读指南](./2025-10-10-文档阅读指南.md) - 包含分角色、分阶段的详细阅读路径
+> 💡 **首次阅读？** 请查看 [📖 文档阅读指南](./docs/2025-10-10-文档阅读指南.md) - 包含分角色、分阶段的详细阅读路径
 
 ### 🗺️ 主文档（必读）
 
-#### 1. [0-1重写蓝图](./2025-10-10-Reddit信号扫描器0-1重写蓝图.md)
+#### 1. [0-1重写蓝图](./docs/2025-10-10-Reddit信号扫描器0-1重写蓝图.md)
 **用途**: 总体架构、技术选型、15天实施路线图
 
 **关键内容**:
@@ -171,7 +171,7 @@ python scripts/start_celery_worker.py
 
 ---
 
-#### 2. [每日实施检查清单](./2025-10-10-实施检查清单.md)
+#### 2. [每日实施检查清单](./docs/2025-10-10-实施检查清单.md)
 **用途**: 每日任务跟踪、进度管理、质量验收
 
 **关键内容**:
@@ -186,7 +186,7 @@ python scripts/start_celery_worker.py
 
 ---
 
-#### 3. [架构决策记录ADR](./2025-10-10-架构决策记录ADR.md)
+#### 3. [架构决策记录ADR](./docs/2025-10-10-架构决策记录ADR.md)
 **用途**: 记录所有重大技术决策的背景、理由和后果
 
 **已记录的决策**:
@@ -206,7 +206,7 @@ python scripts/start_celery_worker.py
 
 ---
 
-#### 4. [质量标准与门禁规范](./2025-10-10-质量标准与门禁规范.md)
+#### 4. [质量标准与门禁规范](./docs/2025-10-10-质量标准与门禁规范.md)
 **用途**: 定义代码质量标准、门禁流程、检查清单
 
 **关键内容**:
@@ -221,7 +221,7 @@ python scripts/start_celery_worker.py
 
 ---
 
-#### 5. [📖 文档阅读指南](./2025-10-10-文档阅读指南.md) ⭐ 新增
+#### 5. [📖 文档阅读指南](./docs/2025-10-10-文档阅读指南.md) ⭐ 新增
 **用途**: 帮助团队快速定位所需文档，理解文档关系
 
 **关键内容**:
@@ -321,6 +321,33 @@ python scripts/start_celery_worker.py
 
 ---
 
+#### 8. 🗂️ 规划 / 蓝图归档（`docs/planning/`）
+- [2025-10-29 项目清晰的蓝图](./docs/planning/2025-10-29-项目清晰的蓝图.md)
+- [2025-10-18 GitHub提交清洁方案](./docs/planning/2025-10-18-GitHub提交清洁方案.md)
+- [2025-10-18 GitHub提交完整执行方案](./docs/planning/2025-10-18-GitHub提交完整执行方案.md)
+- [2025-10-18 本地运行就绪性评估与修复计划](./docs/planning/2025-10-18-本地运行就绪性评估与修复计划.md)
+- [day13-20 可行性分析](./docs/planning/day13-20可行性分析.md)
+- [GitHub提交情况总结与方案分析](./docs/planning/GitHub提交情况总结与方案分析.md)
+- [项目工程规划](./docs/planning/项目工程规划.md)
+
+#### 9. 📚 参考案例 / 诊断资料（`docs/reference/`）
+- [报告样本](./docs/reference/报告样本.md)
+- [词义库思路](./docs/reference/词义库思路.md)
+- [异步事件循环问题完整解决方案](./docs/reference/异步事件循环问题完整解决方案.md)
+- [端口配置总览](./docs/reference/PORT_CONFIGURATION.md)
+
+#### 10. 🛠️ MCP & DevTools 资料（`docs/tools/mcp/`）
+- [MCP 工具文档总览](./docs/tools/mcp/MCP工具文档总览.md)
+- [MCP 工具快速参考](./docs/tools/mcp/MCP工具快速参考.md)
+- [Chrome DevTools MCP 使用指南](./docs/tools/mcp/Chrome-DevTools-MCP使用指南.md)
+- [Chrome DevTools 与 Playwright 实战案例](./docs/tools/mcp/Chrome-DevTools与Playwright实战案例.md)
+
+#### 11. 🧪 测试进度档案（`reports/test-progress/`）
+- [测试验证总结](./reports/test-progress/TEST_VERIFICATION_SUMMARY.md)
+- [测试状态报告](./reports/test-progress/TEST_STATUS_REPORT.md)
+- [失败测试详细清单](./reports/test-progress/FAILED_TESTS_DETAILED.md)
+- [测试修复进度](./reports/test-progress/PROGRESS.md)
+
 ### 📖 原项目参考文档
 
 这些文档位于 `/Users/hujia/Desktop/最小化Navigator/docs/PRD/`
@@ -353,10 +380,10 @@ python scripts/start_celery_worker.py
 
 **Step 1: 阅读文档（2小时）**
 1. 阅读本README（10分钟）
-2. **[📖 文档阅读指南](./2025-10-10-文档阅读指南.md) - 新人开发者章节（20分钟）** ⭐ 必读
-3. 阅读[0-1重写蓝图](./2025-10-10-Reddit信号扫描器0-1重写蓝图.md)的"执行摘要"和"核心设计原则"章节（30分钟）
-4. 阅读[质量标准](./2025-10-10-质量标准与门禁规范.md)的"零容忍原则"和"质量门禁"章节（30分钟）
-5. 浏览[架构决策记录](./2025-10-10-架构决策记录ADR.md)（30分钟）
+2. **[📖 文档阅读指南](./docs/2025-10-10-文档阅读指南.md) - 新人开发者章节（20分钟）** ⭐ 必读
+3. 阅读[0-1重写蓝图](./docs/2025-10-10-Reddit信号扫描器0-1重写蓝图.md)的"执行摘要"和"核心设计原则"章节（30分钟）
+4. 阅读[质量标准](./docs/2025-10-10-质量标准与门禁规范.md)的"零容忍原则"和"质量门禁"章节（30分钟）
+5. 浏览[架构决策记录](./docs/2025-10-10-架构决策记录ADR.md)（30分钟）
 6. 查看[PRD-INDEX](../最小化Navigator/docs/PRD/PRD-INDEX.md)了解功能全貌（30分钟）
 
 **Step 2: 环境搭建（2-3小时）**
@@ -375,7 +402,7 @@ python scripts/start_celery_worker.py
 
 ```bash
 # 1. 早上：查看当日任务
-cat 2025-10-10-实施检查清单.md | grep "Day X"
+cat docs/2025-10-10-实施检查清单.md | grep "Day X"
 
 # 2. 开发过程中：实时类型检查（IDE自动）
 
@@ -386,7 +413,7 @@ git commit -m "..."  # pre-commit自动运行
 ./scripts/daily_quality_check.sh
 
 # 5. 填写每日总结
-vim 2025-10-10-实施检查清单.md
+vim docs/2025-10-10-实施检查清单.md
 ```
 
 ### API 契约维护

@@ -1,0 +1,316 @@
+brands:
+- Aim
+- Airflow
+- Alibaba DAMO
+- Alteryx
+- Anthropic
+- Anysphere
+- Auto-WEKA
+- Auto-sklearn
+- AutoML
+- Azure ML
+- Baidu
+- BigQuery
+- ByteDance
+- CatBoost
+- CentralReach
+- ChromaDB
+- Claude 3
+- Claude 3.5 Sonnet
+- ClearML
+- ClickHouse
+- Cohere
+- Conda
+- Copy.ai
+- DALL-E 3
+- DVC
+- Dagster
+- Databricks
+- Dataiku
+- Dify
+- Elasticsearch
+- FAISS
+- Flax
+- Flux
+- GPT-4
+- GPT-4.5
+- GPT-4o
+- Gemini
+- Gemini 2.5
+- Glean
+- Google Colab
+- Google DeepMind
+- Grok
+- Grok Vision
+- H2O
+- H2O AutoML
+- Hadoop
+- Hugging Face
+- Hugging Face Transformers
+- Imagen
+- JAX
+- Jasper
+- Jupyter
+- KNIME
+- Keras
+- Label Studio
+- Labelbox
+- LangChain
+- LightGBM
+- Llama 2
+- Llama 3
+- LlamaIndex
+- MLflow
+- MXNet
+- Mercor
+- Meta AI
+- Midjourney
+- Milvus
+- MiniMax
+- Mistral AI
+- Mixtral
+- MongoDB
+- Neptune
+- OpenAI
+- Orange
+- Perplexity AI
+- Phenom
+- Phi
+- Pinecone
+- PostgreSQL
+- Prefect
+- Prodigy
+- PyCaret
+- PyTorch
+- Qdrant
+- Qwen
+- RapidMiner
+- Ray
+- Redshift
+- Replicate
+- Roboflow
+- Rogue Labs
+- Rossum
+- SageMaker
+- Scale AI
+- Scikit-learn
+- SenseTime
+- Snowflake
+- Spark
+- Stability AI
+- Stable Diffusion
+- SuperAnnotate
+- TPOT
+- Tencent
+- TensorBoard
+- TensorFlow
+- Thinking Machine
+- TimescaleDB
+- Together AI
+- VectorDB
+- Vertex AI
+- Wandb
+- Weaviate
+- Weights & Biases
+- World Labs
+- Writesonic
+- XGBoost
+- Yi
+features:
+- A/B testing
+- API endpoint
+- AUC-ROC
+- Accuracy
+- Activation function
+- Adam optimizer
+- BLEU
+- Backpropagation
+- Batch inference
+- Batch normalization
+- Bayesian optimization
+- Benchmark
+- Blue-green deployment
+- Canary deployment
+- Chain-of-Thought
+- Cloud deployment
+- Confusion matrix
+- Cosine similarity
+- Cross-validation
+- Data augmentation
+- Data cleaning
+- Data labeling
+- Data preprocessing
+- Dimensionality reduction
+- Domain adaptation
+- Dropout
+- Edge deployment
+- Evaluation metrics
+- Experiment tracking
+- F1-score
+- Face recognition
+- Feature engineering
+- Few-shot learning
+- Fine-tuning
+- Foundation Model
+- Generative AI
+- Gradient descent
+- Grid search
+- Hyperparameter tuning
+- Image captioning
+- Image classification
+- Image generation
+- In-context learning
+- Information extraction
+- Knowledge distillation
+- LLM
+- Large Language Model
+- Loss function
+- Machine translation
+- Meta-learning
+- Model compression
+- Model deployment
+- Model inference
+- Model serving
+- Model training
+- Model validation
+- NER
+- NLP
+- Named Entity Recognition
+- Natural Language Processing
+- Normalization
+- OCR
+- ONNX
+- Object detection
+- PCA
+- Paraphrase generation
+- Performance metrics
+- Perplexity
+- Pose estimation
+- Precision
+- Prompt engineering
+- Pruning
+- QA
+- Quantization
+- Question answering
+- RAG
+- ROUGE
+- Random search
+- Real-time inference
+- Recall
+- Regularization
+- Reproducibility
+- Retrieval-Augmented Generation
+- SGD
+- Scene understanding
+- Segmentation
+- Semantic search
+- Semantic similarity
+- Sentiment analysis
+- Similarity matching
+- Standardization
+- Streaming inference
+- Super-resolution
+- TensorFlow Lite
+- Text classification
+- Text generation
+- Text summarization
+- Tokenization
+- Topic modeling
+- Transfer learning
+- Transformer
+- VQA
+- Vector embedding
+- Vectorization
+- Version control
+- Visual question answering
+- Zero-shot learning
+- t-SNE
+pain_points:
+- API rate limit
+- Adversarial attack
+- Algorithm bias
+- Annotation error
+- Attention visualization
+- Backdoor attack
+- Bias amplification
+- Black box model
+- CCPA compliance
+- Class imbalance
+- Cold start problem
+- Concept drift
+- Confirmation bias
+- Context window limitation
+- Data anonymization
+- Data leakage
+- Data poisoning
+- Data privacy
+- Data quality
+- Dataset bias
+- Debugging difficulty
+- Decision transparency
+- Dependency hell
+- Differential privacy
+- Distribution shift
+- Domain shift
+- Edge case
+- Environment mismatch
+- Error analysis
+- Explainability gap
+- Exploding gradient
+- Factual inaccuracy
+- False negative
+- False positive
+- Feature importance
+- GDPR compliance
+- GPU cost
+- GPU memory shortage
+- Hallucination
+- Hard to explain
+- High bias
+- High computational cost
+- High latency
+- High variance
+- Imbalanced dataset
+- Impossible to understand
+- Inference cost
+- Jailbreak
+- LIME
+- Label noise
+- Lack of interpretability
+- Latency
+- Maximum sequence length
+- Membership inference
+- Memory consumption
+- Missing data
+- Model debugging
+- Model degradation
+- Model drift
+- Model governance
+- Model hallucination
+- Model inversion attack
+- Model monitoring
+- Model transparency
+- Model versioning
+- Overfitting
+- Performance degradation
+- Poisoning attack
+- Privacy compliance
+- Privacy concern
+- Privacy leakage
+- Production debugging
+- Prompt injection
+- Rate limiting
+- Reproducibility issue
+- SHAP value
+- Saliency map
+- Selection bias
+- Slow inference
+- Stereotype
+- Token cost
+- Token limit
+- Training cost expensive
+- Training time
+- Training-test mismatch
+- Underfitting
+- Vanishing gradient
+- 幻觉

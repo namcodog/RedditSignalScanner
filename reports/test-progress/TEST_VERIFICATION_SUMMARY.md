@@ -64,21 +64,21 @@
 
 ## 📁 生成的文档
 
-### 1. FAILED_TESTS_DETAILED.md
+### 1. [FAILED_TESTS_DETAILED.md](./FAILED_TESTS_DETAILED.md)
 **内容**: 55个失败测试的详细清单
 - 按错误类型分类
 - 每个测试的具体位置
 - 详细的修复方法和代码示例
 - 快速修复脚本
 
-### 2. TEST_STATUS_REPORT.md
+### 2. [TEST_STATUS_REPORT.md](./TEST_STATUS_REPORT.md)
 **内容**: 执行摘要和行动计划
 - 测试结果对比
 - 失败测试分类统计
 - 已修复问题列表
 - 优先级排序的修复计划
 
-### 3. PROGRESS.md
+### 3. [PROGRESS.md](./PROGRESS.md)
 **内容**: 历史进度跟踪
 - 修复前后对比
 - 已修复的5个问题
@@ -138,7 +138,7 @@
 
 ## 🚀 快速修复脚本
 
-详见 `FAILED_TESTS_DETAILED.md` 第150-254行的"快速修复脚本"部分。
+详见 [`FAILED_TESTS_DETAILED.md`](./FAILED_TESTS_DETAILED.md) 第150-254行的"快速修复脚本"部分。
 
 核心修复：
 ```bash
@@ -204,4 +204,3 @@ cd backend && python -m pytest tests/ --tb=no -q
 **报告生成时间**: 2025-10-20 13:20:00
 **验证人**: AI Assistant
 **状态**: ✅ 验证完成，待用户修复
-

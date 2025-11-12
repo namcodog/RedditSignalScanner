@@ -121,6 +121,21 @@ async def get_quality_metrics(
     ]
 
 
+def _resolve_metrics_directory() -> Path:
+    current_dir = Path(__file__).resolve()
+    backend_root = current_dir.parents[4]
+    repo_root = backend_root.parent
+    candidates = [
+        Path("reports/daily_metrics"),  # 当前工作目录（backend/）
+        backend_root / "reports" / "daily_metrics",
+        repo_root / "reports" / "daily_metrics",
+    ]
+    for path in candidates:
+        if path.exists():
+            return path
+    return candidates[0]
+
+
 @router.get("/daily", response_model=DailyMetricsListResponse)
 async def get_daily_quality_metrics(
     start_date: Optional[date] = Query(
@@ -154,7 +169,7 @@ async def get_daily_quality_metrics(
     metrics_list = get_daily_metrics(
         start_date=start_date,
         end_date=end_date,
-        metrics_directory=Path("reports/daily_metrics"),
+        metrics_directory=_resolve_metrics_directory(),
     )
 
     # 转换为响应模型

@@ -163,7 +163,7 @@ day13-seed-all: db-migrate-up seed-from-excel validate-seed import-community-poo
 **发现**：
 - 当前 JSON 文件：`backend/config/seed_communities.json`
 - 当前社区数量：**5 个**（而非用户声称的 100 个）
-- Excel 文件：`社区筛选.xlsx`（存在）
+- Excel 文件：`data/community/社区筛选.xlsx`（存在）
 
 **社区列表**：
 1. r/startups (gold, 0.91)
@@ -198,7 +198,7 @@ day13-seed-all: db-migrate-up seed-from-excel validate-seed import-community-poo
 #### **需要确认的问题**
 
 1. **Excel 文件实际有多少个社区？**
-   - 需要执行：`python3 -c "import pandas as pd; df = pd.read_excel('社区筛选.xlsx'); print(len(df))"`
+   - 需要执行：`python3 -c "import pandas as pd; df = pd.read_excel('data/community/社区筛选.xlsx'); print(len(df))"`
 
 2. **是否已执行 `make seed-from-excel`？**
    - 如果未执行，需要运行：`make seed-from-excel`
@@ -274,7 +274,7 @@ asyncio.run(check())
 1. **确认种子社区数量**
    ```bash
    # 检查 Excel 文件
-   python3 -c "import pandas as pd; df = pd.read_excel('社区筛选.xlsx'); print(f'Excel rows: {len(df)}')"
+   python3 -c "import pandas as pd; df = pd.read_excel('data/community/社区筛选.xlsx'); print(f'Excel rows: {len(df)}')"
    
    # 检查 JSON 文件
    cat backend/config/seed_communities.json | python3 -c "import sys, json; data = json.load(sys.stdin); print(f'JSON communities: {len(data[\"seed_communities\"])}')"
@@ -424,4 +424,3 @@ Day 13 前端无开发任务，学习和准备工作已完成。
 **更新时间**: 2025-10-14 15:30
 **验收人**: Lead Agent
 **状态**: ✅ Backend Agent A 验收通过
-

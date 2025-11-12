@@ -78,7 +78,7 @@
 
 ## 📝 修复脚本
 
-见 `FAILED_TESTS_DETAILED.md` 中的"快速修复脚本"部分。
+见 [`FAILED_TESTS_DETAILED.md`](./FAILED_TESTS_DETAILED.md) 中的"快速修复脚本"部分。
 
 ---
 

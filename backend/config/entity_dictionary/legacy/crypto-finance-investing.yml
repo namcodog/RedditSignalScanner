@@ -1,0 +1,354 @@
+brands:
+- AAVE
+- ADA
+- AR
+- ARB
+- ATOM
+- AVAX
+- Aave
+- Arbitrum
+- Argent
+- Artemis
+- Arweave
+- Avalanche
+- BAL
+- BCH
+- BTC
+- BUSD
+- Balancer
+- Binance
+- Binance Futures
+- Bitcoin
+- Bitcoin Cash
+- Bitcoin ETF
+- Bitfinex
+- Bithumb
+- BlockSec
+- Blox Staking
+- Blur
+- Bybit
+- COMP
+- CRV
+- CVX
+- Cardano
+- Chainalysis
+- Chainlink
+- CoinGecko
+- CoinMarketCap
+- Coinbase
+- Coinbase Staking
+- Coincheck
+- Compound
+- Convex
+- Cosmos
+- Crypto.com
+- Curve
+- DAI
+- DOGE
+- DOT
+- DYDX
+- Dai
+- Deribit
+- Dextools
+- Dogecoin
+- Dydx
+- ETH
+- Ethereum
+- Ethereum ETF
+- FIL
+- FRAX
+- FTX
+- Filecoin
+- Futures ETF
+- GBTC
+- GRT
+- Gemini
+- Glassnode
+- Gnosis Safe
+- Grayscale Bitcoin Trust
+- HNT
+- Hardware Security Module
+- Hardware Wallet
+- Helium
+- Huobi
+- Huobi Global
+- Hyperliquid
+- IntoTheBlock
+- Jupiter
+- Keystone
+- Kraken
+- Kraken Staking
+- Kucoin
+- LDO
+- LINK
+- LTC
+- Ledger
+- Lido
+- Lightning Network
+- Litecoin
+- MATIC
+- MIM
+- MKR
+- Magic Eden
+- MakerDAO
+- Mantle
+- Messari
+- MetaMask
+- Microstrategy
+- Monero
+- MultiSig
+- Nansen
+- OKX
+- OP
+- OpenSea
+- Optimism
+- PERP
+- Perpetual Protocol
+- Phantom
+- Polkadot
+- Polygon
+- Raydium
+- Ripple
+- Rocket Pool
+- SHIB
+- SNX
+- SOL
+- Safe
+- Santiment
+- Scroll
+- Shiba Inu
+- Solana
+- Solflare
+- Spot ETF
+- StakeFish
+- Stakewise
+- Starknet
+- Synthetix
+- TUSD
+- Tether
+- The Graph
+- Trading View
+- Trezor
+- UNI
+- USD Coin
+- USDC
+- USDT
+- Uniswap
+- Upbit
+- XMR
+- XRP
+- YFI
+- Yearn Finance
+- zkSync
+features:
+- 2FA
+- AMM
+- Address whitelisting
+- Atomic swap
+- Auditing
+- Automated Market Maker
+- Base fee
+- Blockchain
+- Borrowing protocol
+- Bridge
+- CDP
+- Code review
+- Cold storage
+- Collateralized debt position
+- Consensus mechanism
+- Cosmos IBC
+- Cross-chain
+- DAO
+- DPoS
+- DeFi
+- Decentralized
+- Decentralized Autonomous Organization
+- Decentralized Finance
+- Delegated PoS
+- Derivatives
+- Distributed ledger
+- EIP-1559
+- Execution cost
+- Fee mechanism
+- Flash loan
+- Flash loan attack
+- Front-running
+- Futures trading
+- Gas fee
+- Gas limit
+- Governance
+- Governance token
+- Hardware wallet
+- Hot wallet
+- IBC
+- Impermanent loss
+- Inter-Blockchain Communication
+- Interoperability
+- Key management
+- Layer 2 fee
+- Lending
+- Lending protocol
+- Leverage trading
+- Leveraged trading
+- Liquidation
+- Liquidity mining
+- Liquidity pool
+- Longing
+- MEV
+- Margin trading
+- Maximal Extractable Value
+- Miner fee
+- Mining
+- Mnemonic
+- Multi-signature
+- MultiSig
+- Network fee
+- Non-custodial
+- On-chain governance
+- Options
+- Passphrase
+- Peer-to-peer
+- Perpetual futures
+- Perpetuals
+- PoS
+- PoW
+- Portal
+- Price impact
+- Priority fee
+- Private key
+- Proof of Stake
+- Proof of Work
+- Proposal
+- Reentrancy attack
+- Sandwich attack
+- Security
+- Security vulnerability
+- Seed phrase
+- Self-custody
+- Short selling
+- Shorting
+- Slippage
+- Slippage protection
+- Smart contract
+- Smart contract audit
+- Snapshot voting
+- Spot trading
+- Staking
+- Swap
+- Teleportation
+- Transaction confirmation
+- Transaction fee
+- Two-factor authentication
+- Validator
+- Voting
+- Wallet
+- Wrapped token
+- Yield farming
+- wBTC
+- wETH
+pain_points:
+- AML requirement
+- Bid-ask spread
+- Black swan event
+- Bridge fee
+- Bug
+- CBDC competition
+- Cannot find trading pair
+- Capital gains
+- Chain reorganization
+- Coordinated attack
+- Counterparty risk
+- Cross-chain fee
+- Custody risk
+- Diamond hands
+- Emotional trading
+- Exchange hack
+- Exchange insolvency
+- Exit scam
+- Expensive transaction
+- Exploit
+- Extreme volatility
+- FOMO
+- FUD
+- Fake project
+- Fear and greed
+- Fee volatile
+- Flash crash
+- Fork
+- Frontrunning
+- Gas fee spike
+- Gas limit too low
+- Hack loss
+- High gas fee
+- High volatility
+- Hodling trap
+- Honeypot token
+- IL
+- Illiquid market
+- Impermanent loss
+- Impulsive decision
+- Insider trading
+- KYC requirement
+- Leverage liquidation
+- License uncertainty
+- Liquidation
+- Liquidation risk
+- Liquidity mining risk
+- Low liquidity
+- MEV exploitation
+- Maintenance downtime
+- Malware
+- Margin call
+- Market crash
+- Market manipulation
+- Network congestion
+- Network split
+- Nonce error
+- Out of gas
+- Overtrading
+- Pair missing
+- Panic selling
+- Paper hands
+- Phishing attack
+- Platform risk
+- Ponzi scheme
+- Portfolio loss
+- Price manipulation
+- Price slippage
+- Price volatility
+- Private key theft
+- Prohibitive cost
+- Pump and dump
+- Regulatory risk
+- Regulatory uncertainty
+- Reorg
+- Rug pull
+- Sandwich attack
+- Scam
+- Seed phrase compromise
+- Service downtime
+- Slashing
+- Slippage
+- Slippage high
+- Smart contract bug
+- Social engineering
+- Stablecoin regulation
+- Stuck transaction
+- System error
+- Tax complexity
+- Tax reporting
+- Trading halt
+- Transaction cost
+- Transaction pending
+- Unclear regulation
+- Underwater position
+- Unfair execution
+- Validator slashing
+- Volatility spike
+- Vulnerability
+- Wallet hack
+- Wash trading
+- Whale manipulation
+- Wide spread
+- Withdrawal freeze
+- Withdrawal limit

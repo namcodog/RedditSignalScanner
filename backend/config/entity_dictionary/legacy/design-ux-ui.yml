@@ -1,0 +1,268 @@
+brands:
+- ARIA
+- Adobe Creative Cloud
+- Adobe XD
+- Affinity Designer
+- Ant Design
+- Axe
+- Axure RP
+- Balsamiq
+- Blok
+- Bootstrap
+- Brand Kit
+- Chakra UI
+- Color Contrast Analyzer
+- Comet
+- Component Kit
+- Craft
+- Design Kit
+- Design Tokens Studio
+- FigJam
+- Figma
+- Figma2Code
+- Fluid UI
+- Font Awesome
+- Framer
+- Freepik
+- Gather
+- Google Fonts
+- Hotjar
+- Iconfinder
+- Illustrator
+- InDesign
+- InVision
+- Instacopy
+- JAWS
+- Justinmind
+- Kactus
+- Lighthouse
+- Loom
+- Lunacy
+- Marvel
+- Material Design
+- Material-UI
+- Maze
+- Miro
+- MockFlow
+- Moqups
+- Mural
+- NVDA
+- Notion
+- Optimal Workshop
+- Overflow
+- Pa11y
+- Penpot
+- Pexels
+- Photoshop
+- Pixabay
+- Playbill
+- Principle
+- Proto.io
+- Respondent
+- Sketch
+- Slack
+- Storybook
+- Supernova
+- Tailwind CSS
+- Testing Time
+- TryMyUI
+- UXPin
+- Unsplash
+- UserTesting
+- Userecho
+- Userlytics
+- Validately
+- Vectornator
+- VoiceOver
+- WCAG
+- Wave
+- Webflow
+- Zeplin
+- Zeroheight
+features:
+- A/B testing
+- AA level
+- AAA level
+- ARIA labels
+- Accessibility
+- Active state
+- Adaptive design
+- Alignment
+- Alt text
+- Animation
+- Annotation
+- Audio description
+- Balance
+- Brainstorming
+- Brand guidelines
+- Breakpoint
+- Caption
+- Closed caption
+- Collaboration
+- Color contrast
+- Color palette
+- Color theory
+- Component library
+- Composition
+- Contrast
+- Design critique
+- Design handoff
+- Design pattern
+- Design review
+- Design spec
+- Design system
+- Design tokens
+- Desktop optimization
+- Developer handoff
+- Disabled state
+- Discoverability
+- Discovery
+- Double-tap
+- Empty state
+- Error handling
+- Feedback
+- Findability
+- Flexible design
+- Fluid layout
+- Focus indicator
+- Focus state
+- Form validation
+- Gesture
+- Grid system
+- Heatmap
+- High-fidelity design
+- Hover state
+- Ideation
+- Information architecture
+- Input validation
+- Interactive prototype
+- Iteration
+- Keyboard navigation
+- Layout
+- Lo-fi prototype
+- Loading state
+- Long-press
+- Margin
+- Micro-interaction
+- Mobile optimization
+- Mobile-first
+- Navigation
+- Padding
+- Persona
+- Progressive enhancement
+- Prototyping
+- Real-time collaboration
+- Refinement
+- Research
+- Responsive design
+- Scenario
+- Screen reader
+- Semantic HTML
+- Session recording
+- Sketching
+- Skip link
+- Spacing
+- Style guide
+- Success state
+- Swipe
+- Symmetry
+- Tablet optimization
+- Tap
+- Task flow
+- Template
+- Transcript
+- Transition
+- Typography
+- Usability testing
+- Use case
+- User behavior
+- User flow
+- User interaction
+- User journey
+- User research
+- User testing
+- Version control
+- Visual hierarchy
+- WCAG 2.1
+- WCAG compliance
+- Warning state
+- White space
+- Wireframing
+pain_points:
+- Accessibility debt
+- Asset management
+- Breakpoint problem
+- Browser inconsistency
+- CLS issue
+- Cognitive load
+- Cognitive overload
+- Collaboration conflict
+- Color contrast issue
+- Communication gap
+- Component bloat
+- Component sprawl
+- Cross-browser compatibility
+- Cross-device testing burden
+- Cumulative Layout Shift
+- Dark mode support
+- Design drift
+- Design drift from code
+- Design handoff difficulty
+- Design inconsistency
+- Design spec ambiguity
+- Design system adoption
+- Design system maintenance
+- Design-dev mismatch
+- Developer misunderstanding
+- Device fragmentation
+- Discoverability issue
+- Documentation debt
+- Figma lag
+- File organization
+- First Contentful Paint
+- Focus management issue
+- Font loading delay
+- Handoff friction
+- Hidden feature
+- High bundle size
+- IE support burden
+- Image optimization issue
+- Information overload
+- Language barrier
+- Largest Contentful Paint
+- Layout shift
+- Missing ARIA labels
+- Missing alt text
+- Missing documentation
+- Mobile responsiveness
+- Motion sensitivity issue
+- No design-dev alignment
+- Notification fatigue
+- Notification overload
+- Outdated component
+- Paint timing
+- Performance issue
+- Pixel-perfect expectation
+- Poor information architecture
+- Poor keyboard navigation
+- Poor performance
+- Prototype abandonment
+- Render blocking
+- Responsive design complexity
+- Responsive design debt
+- Safari issue
+- Screen reader issue
+- Semantic HTML problem
+- Slow loading
+- Technical debt
+- Theme switching
+- Tool switching
+- Touch target too small
+- UX debt
+- Unclear specs
+- Usability problem
+- User confusion
+- Variant explosion
+- Version control nightmare
+- Viewport issue
+- WCAG non-compliance

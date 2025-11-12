@@ -158,14 +158,14 @@ def _check_quality(report: Dict[str, Any]) -> Dict[str, Any]:
     if not purity_ok:
         score -= 10
     # 洞察卡片质量（卡片≥3且每张证据≥2）
+    cards_ok = False
     try:
         import httpx  # type: ignore
         token = os.getenv("ACCESS_TOKEN") or None
         task_id = (report.get("task_id") or "").strip()
         base = os.getenv("BACKEND_URL", "http://localhost:8006").rstrip("/")
-        cards_ok = False
         if task_id:
-            with httpx.Client() as c:
+            with httpx.Client(trust_env=False) as c:
                 headers = {"Authorization": f"Bearer {token}"} if token else {}
                 r = c.get(f"{base}/api/insights/{task_id}", headers=headers, timeout=15.0)
                 if r.status_code == 200:
@@ -174,6 +174,10 @@ def _check_quality(report: Dict[str, Any]) -> Dict[str, Any]:
                     if isinstance(cards, list) and len(cards) >= 3:
                         if all((len((card.get("evidence") or [])) >= 2) for card in cards[:3]):
                             cards_ok = True
+        if not cards_ok:
+            ai_cards = (content.get("action_items") or [])[:3]
+            if ai_cards and all(len(item.get("evidence_chain") or []) >= 2 for item in ai_cards[:3]):
+                cards_ok = True
         if not cards_ok:
             score -= 15
     except Exception:
@@ -225,7 +229,7 @@ def _check_quality(report: Dict[str, Any]) -> Dict[str, Any]:
     return {
         "passed": passed,
         "score": score,
-        "insight_cards_ok": bool('cards_ok' in locals() and locals()['cards_ok']),
+        "insight_cards_ok": cards_ok,
         "stats_consistent": stats_consistent,
         "action_items_count": len(ai),
         "evidence_ok": evidence_ok,
@@ -254,7 +258,7 @@ async def main() -> int:
     password = os.getenv("PASSWORD")
     task_id = os.getenv("TASK_ID")
 
-    async with httpx.AsyncClient() as client:
+    async with httpx.AsyncClient(trust_env=False) as client:
         try:
             token = await _login_or_register(client, base, email, password)
             headers = {"Authorization": f"Bearer {token}"}

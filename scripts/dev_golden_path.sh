@@ -112,6 +112,8 @@ for month, data in by_month.items():
         writer.writeheader()
         writer.writerows(data)
 PY
+mkdir -p backend/reports/daily_metrics
+cp reports/daily_metrics/*.csv backend/reports/daily_metrics/ 2>/dev/null || true
 echo "✅ 指标样例数据已准备"
 echo ""
 echo "==> 7️⃣  启动前端服务 ..."

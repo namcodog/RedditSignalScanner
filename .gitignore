@@ -52,7 +52,7 @@ frontend/.env.*
 *.db
 *.sqlite
 *.sqlite3
-dump.rdb
+data/redis/dump.rdb
 celerybeat-schedule.db
 
 # Logs
@@ -106,6 +106,11 @@ reports/failed_e2e/
 # Development tools
 .augment/
 .cursor/
+.claude/
+.spec-workflow/
+
+# Reference materials (参考资料)
+跨境社区资料库/
 
 # Temporary analysis documents (临时分析文档)
 *-分析.md

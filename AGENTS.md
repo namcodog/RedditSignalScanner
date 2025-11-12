@@ -51,5 +51,5 @@
 ## Security & Configuration
 
 - Secrets: keep out of VCS; use `.env` files (`.env.local`, `backend/.env`, `frontend/.env.development`).
-- Ports: see `PORT_CONFIGURATION.md`; defaults backend `8006`, frontend `3006`, Redis `6379`.
+- Ports: see `docs/reference/PORT_CONFIGURATION.md`; defaults backend `8006`, frontend `3006`, Redis `6379`.
 - Optional: `docker-compose.test.yml` for consistent test environments.

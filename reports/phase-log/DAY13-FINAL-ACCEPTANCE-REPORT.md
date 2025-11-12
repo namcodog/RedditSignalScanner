@@ -137,7 +137,7 @@
    ```bash
    # 文件: backend/scripts/import_from_excel_simple.py
    # 功能: 直接处理中文列名，跳过分类行，自动确定层级
-   python backend/scripts/import_from_excel_simple.py '社区筛选.xlsx' backend/config/seed_communities.json
+   python backend/scripts/import_from_excel_simple.py 'data/community/社区筛选.xlsx' backend/config/seed_communities.json
    ```
 
 2. **使用绝对路径导入数据库**
@@ -352,4 +352,3 @@
 **创建时间**: 2025-10-14 15:45  
 **验收人**: Lead Agent  
 **状态**: ✅ **Day 13 验收通过，可进入 Day 14**
-

@@ -64,7 +64,7 @@ class CommunityImportService:
         "priority": "可选：爬取优先级 high/medium/low，默认 medium",
     }
 
-    # 支持常见中文/别名表头，便于直接导入“社区筛选.xlsx”
+    # 支持常见中文/别名表头，便于直接导入 data/community/社区筛选.xlsx
     # 仅用于列名匹配，不改变字段语义
     HEADER_ALIASES: Dict[str, list[str]] = {
         "name": ["name", "社区", "社区名", "社区名称", "subreddit", "子版块名称"],

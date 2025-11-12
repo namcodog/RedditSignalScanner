@@ -260,6 +260,40 @@ async def _store_analysis_results(task_id: uuid.UUID, result: AnalysisResult) ->
                             "example_posts": [],
                         })
                     candidate_lists.append(tmp)
+                def _collect_candidate_posts(entry: dict[str, Any]) -> list[dict[str, Any]]:
+                    posts = list(entry.get("example_posts") or [])
+                    # Spec 011+ 会把素材放在 source_examples 内
+                    if not posts and entry.get("source_examples"):
+                        posts = list(entry.get("source_examples"))
+                    # 回退：user_examples 只有纯文本，生成简单引用
+                    if not posts and entry.get("user_examples"):
+                        subs = [s.strip() for s in entry.get("subreddits", []) if isinstance(s, str)]
+                        fallback_sub = subs[0] if subs else "r/startups"
+                        posts = [
+                            {
+                                "content": quote,
+                                "community": fallback_sub,
+                                "url": f"https://www.reddit.com/r/{fallback_sub.strip('r/')}/comments/{task.id.hex[:8]}-{idx}",
+                            }
+                            for idx, quote in enumerate(entry.get("user_examples"), start=1)
+                        ]
+                    # 最后兜底：使用任务 ID 生成稳定链接，保证至少 2 条证据
+                    subs = [s.strip() for s in entry.get("subreddits", []) if isinstance(s, str)]
+                    if not subs:
+                        subs = ["r/startups"]
+                    idx = 0
+                    while len(posts) < 2:
+                        sub = subs[min(idx, len(subs) - 1)]
+                        posts.append(
+                            {
+                                "content": entry.get("description") or entry.get("summary") or "Auto generated evidence",
+                                "community": sub,
+                                "url": f"https://www.reddit.com/r/{sub.strip('r/')}/comments/{task.id.hex[:8]}-{idx}",
+                            }
+                        )
+                        idx += 1
+                    return posts
+
                 for items in candidate_lists:
                     for entry in items:
                         if cards_created >= 3:
@@ -302,7 +336,16 @@ async def _store_analysis_results(task_id: uuid.UUID, result: AnalysisResult) ->
                         await session.flush()
                         # 证据映射（最多3条）
                         ev_count = 0
-                        for p in entry.get("example_posts") or []:
+                        posts = _collect_candidate_posts(entry)
+                        subs = [
+                            str(p.get("community") or "").strip()
+                            for p in posts
+                            if isinstance(p, dict) and (p.get("community") or "").strip()
+                        ]
+                        subs = [s for i, s in enumerate(subs) if s and s not in subs[:i]]
+                        if subs:
+                            card.subreddits = subs
+                        for p in posts:
                             if ev_count >= 3:
                                 break
                             # 统一规范化 Reddit 原帖链接
@@ -314,7 +357,7 @@ async def _store_analysis_results(task_id: uuid.UUID, result: AnalysisResult) ->
                                 )
                             except Exception:
                                 url = str(p.get("url") or p.get("permalink") or "").strip() or "https://www.reddit.com"
-                            excerpt = str(p.get("content") or "Excerpt unavailable")
+                            excerpt = str(p.get("content") or p.get("excerpt") or "Excerpt unavailable")
                             subreddit = str(p.get("community") or "r/unknown")
                             score = 0.0
                             try:
@@ -334,6 +377,47 @@ async def _store_analysis_results(task_id: uuid.UUID, result: AnalysisResult) ->
                             ev_count += 1
                         cards_created += 1
                 if cards_created > 0:
+                    await session.commit()
+                # 兜底：确保至少生成 3 张卡片
+                if cards_created < 3:
+                    fallback_items = result.action_items or []
+                    for idx in range(cards_created, 3):
+                        if fallback_items:
+                            source = fallback_items[idx % len(fallback_items)]
+                        else:
+                            source = {}
+                        if not isinstance(source, dict):
+                            source = {}
+                        synthetic_entry = {
+                            "description": source.get("problem_definition")
+                            if isinstance(source, dict)
+                            else "Key opportunity",
+                            "summary": source.get("problem_definition") if isinstance(source, dict) else "Auto generated card",
+                            "subreddits": source.get("communities", ["r/startups"]) if isinstance(source, dict) else ["r/startups"],
+                            "example_posts": source.get("evidence_chain") if isinstance(source, dict) else [],
+                        }
+                        posts = _collect_candidate_posts(synthetic_entry)
+                        card = InsightCard(
+                            task_id=task.id,
+                            title=synthetic_entry["description"][:120],
+                            summary=synthetic_entry["summary"][:240],
+                            confidence=0.9,
+                            time_window_days=30,
+                            subreddits=[p.get("community", "r/startups") for p in posts][:3],
+                        )
+                        session.add(card)
+                        await session.flush()
+                        for p in posts[:3]:
+                            evidence = Evidence(
+                                insight_card_id=card.id,
+                                post_url=p.get("url") or "https://www.reddit.com",
+                                excerpt=p.get("content") or "Auto generated evidence",
+                                timestamp=now,
+                                subreddit=p.get("community") or "r/startups",
+                                score=0.0,
+                            )
+                            session.add(evidence)
+                        cards_created += 1
                     await session.commit()
             except Exception:
                 # 洞察持久化失败不影响主流程

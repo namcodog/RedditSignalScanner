@@ -32,12 +32,17 @@ cd ..
 echo ""
 
 echo "3️⃣  检查 Excel 文件..."
-if [ -f "社区筛选.xlsx" ]; then
-    echo "   ✅ Excel 文件存在"
+EXCEL_PATH="data/community/社区筛选.xlsx"
+if [ -f "$EXCEL_PATH" ]; then
+    echo "   ✅ Excel 文件存在 ($EXCEL_PATH)"
+    EXCEL_COUNT=$(python3 -c "import pandas as pd; df = pd.read_excel('$EXCEL_PATH'); print(len(df))" 2>/dev/null || echo "未知")
+    echo "   Excel 文件行数: $EXCEL_COUNT"
+elif [ -f "社区筛选.xlsx" ]; then
+    echo "   ⚠️  data/community 未找到，使用仓库根目录副本"
     EXCEL_COUNT=$(python3 -c "import pandas as pd; df = pd.read_excel('社区筛选.xlsx'); print(len(df))" 2>/dev/null || echo "未知")
     echo "   Excel 文件行数: $EXCEL_COUNT"
 else
-    echo "   ❌ Excel 文件不存在"
+    echo "   ❌ Excel 文件不存在 (期待 $EXCEL_PATH)"
 fi
 echo ""
 
@@ -69,4 +74,3 @@ else
     echo "⚠️  数据不一致，需要检查"
 fi
 echo ""
-

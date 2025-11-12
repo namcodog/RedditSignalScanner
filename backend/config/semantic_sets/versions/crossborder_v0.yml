@@ -1,0 +1,305 @@
+version: 0
+domain: crossborder
+themes:
+  what_to_sell:
+    brands:
+    - Alibaba
+    - Aliexpress
+    - Amazon
+    - Etsy
+    - Indiegogo
+    - Kickstarter
+    - Lazada
+    - Shopee
+    - Shopify
+    - Temu
+    - TikTok Shop
+    - Walmart
+    - eBay
+    features:
+    - 3PL
+    - A/B test
+    - ACoS
+    - CTR
+    - CVR
+    - FBA
+    - FBM
+    - HS code
+    - MOQ
+    - PPC
+    - QC
+    - RFQ
+    - ROAS
+    - SEO
+    - VAT
+    - chargeback
+    - coupon
+    - customs
+    - discount
+    - dropship
+    - dropshipping
+    - fulfillment
+    - inspection
+    - listing
+    - private label
+    - refund
+    - returns
+    - sponsored ads
+    - white label
+    - wholesale
+    pain_points:
+    - ban
+    - compliance
+    - copyright
+    - counterfeit
+    - infringement
+    - logistics delay
+    - lost package
+    - policy violation
+    - saturated
+    - scam
+    - spam
+    - suspension
+    - tax
+    - trademark
+    aliases: &id001
+      Amazon:
+      - AMZ
+      - 亚马逊
+      Etsy:
+      - Etsy
+      Shopify:
+      - Shopify
+      Walmart:
+      - Walmart
+      eBay:
+      - Ebay
+      - 易趣
+      TikTok Shop:
+      - TikTok
+      - 抖音海外
+      Temu:
+      - Temu
+      Shopee:
+      - Shopee
+      Lazada:
+      - Lazada
+      Alibaba:
+      - 阿里巴巴
+      Aliexpress:
+      - AliExpress
+      - 速卖通
+      Kickstarter:
+      - KS
+      Indiegogo:
+      - Indiegogo
+    exclude: &id002
+    - meme
+    - funny
+    - gaming
+    - movie
+    - anime
+    - gif
+    - porn
+    weights: &id003
+      brands: 1.5
+      features: 1.0
+      pain_points: 1.2
+  how_to_sell:
+    brands:
+    - Alibaba
+    - Aliexpress
+    - Amazon
+    - Etsy
+    - Indiegogo
+    - Kickstarter
+    - Lazada
+    - Shopee
+    - Shopify
+    - Temu
+    - TikTok Shop
+    - Walmart
+    - eBay
+    features:
+    - 3PL
+    - A/B test
+    - ACoS
+    - CTR
+    - CVR
+    - FBA
+    - FBM
+    - HS code
+    - MOQ
+    - PPC
+    - QC
+    - RFQ
+    - ROAS
+    - SEO
+    - VAT
+    - chargeback
+    - coupon
+    - customs
+    - discount
+    - dropship
+    - dropshipping
+    - fulfillment
+    - inspection
+    - listing
+    - private label
+    - refund
+    - returns
+    - sponsored ads
+    - white label
+    - wholesale
+    pain_points:
+    - ban
+    - compliance
+    - copyright
+    - counterfeit
+    - infringement
+    - logistics delay
+    - lost package
+    - policy violation
+    - saturated
+    - scam
+    - spam
+    - suspension
+    - tax
+    - trademark
+    aliases: *id001
+    exclude: *id002
+    weights: *id003
+  where_to_sell:
+    brands:
+    - Alibaba
+    - Aliexpress
+    - Amazon
+    - Etsy
+    - Indiegogo
+    - Kickstarter
+    - Lazada
+    - Shopee
+    - Shopify
+    - Temu
+    - TikTok Shop
+    - Walmart
+    - eBay
+    features:
+    - 3PL
+    - ACoS
+    - CTR
+    - CVR
+    - FBA
+    - FBM
+    - HS code
+    - MOQ
+    - PPC
+    - QC
+    - RFQ
+    - ROAS
+    - SEO
+    - VAT
+    - chargeback
+    - coupon
+    - customs
+    - discount
+    - dropship
+    - dropshipping
+    - fulfillment
+    - inspection
+    - listing
+    - private label
+    - refund
+    - returns
+    - sponsored ads
+    - white label
+    - wholesale
+    pain_points:
+    - ban
+    - compliance
+    - copyright
+    - counterfeit
+    - infringement
+    - logistics delay
+    - lost package
+    - policy violation
+    - saturated
+    - scam
+    - spam
+    - suspension
+    - tax
+    - trademark
+    aliases: *id001
+    exclude: *id002
+    weights: *id003
+  how_to_source:
+    brands:
+    - Alibaba
+    - Aliexpress
+    - Amazon
+    - Etsy
+    - Indiegogo
+    - Kickstarter
+    - Lazada
+    - Shopee
+    - Shopify
+    - Temu
+    - TikTok Shop
+    - Walmart
+    - eBay
+    features:
+    - 3PL
+    - A/B test
+    - ACoS
+    - CTR
+    - CVR
+    - FBA
+    - FBM
+    - HS code
+    - MOQ
+    - PPC
+    - QC
+    - RFQ
+    - ROAS
+    - SEO
+    - VAT
+    - chargeback
+    - coupon
+    - customs
+    - discount
+    - dropship
+    - dropshipping
+    - factory
+    - fulfillment
+    - inspection
+    - inspection
+    - listing
+    - private label
+    - refund
+    - returns
+    - sourcing
+    - sponsored ads
+    - supplier
+    - white label
+    - wholesale
+    pain_points:
+    - MOQ too high
+    - ban
+    - compliance
+    - copyright
+    - counterfeit
+    - delay
+    - infringement
+    - logistics delay
+    - lost package
+    - policy violation
+    - quality issue
+    - saturated
+    - scam
+    - spam
+    - suspension
+    - tax
+    - trademark
+    aliases: *id001
+    exclude: *id002
+    weights: *id003

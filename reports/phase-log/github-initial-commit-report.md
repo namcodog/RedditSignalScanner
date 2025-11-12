@@ -66,7 +66,7 @@
 - Python: `__pycache__/`, `*.pyc`, `venv/`, `.env`, `.coverage`
 - Node.js: `node_modules/`, `.npm-cache/`, `dist/`
 - IDE: `.vscode/`, `.DS_Store`
-- 数据库: `*.db`, `dump.rdb`, `celerybeat-schedule.db`
+- 数据库: `*.db`, `data/redis/dump.rdb`, `celerybeat-schedule.db`
 - 日志: `*.log`
 - 开发工具: `.serena/`, `.codex/`
 
@@ -130,7 +130,7 @@ Found 13 errors in 5 files (checked 63 source files)
 #### 3.1 清理的文件
 - Python 缓存: `__pycache__/`, `*.pyc`
 - 系统文件: `.DS_Store`
-- 数据库文件: `dump.rdb`, `celerybeat-schedule.db`
+- 数据库文件: `data/redis/dump.rdb`, `celerybeat-schedule.db`
 - 测试覆盖率: `backend/.coverage`
 - **重要**: 从 Git 移除 `node_modules/` (31,560 个文件)
 
@@ -319,4 +319,3 @@ branch 'main' set up to track 'origin/main'.
 **报告生成时间**: 2025-10-16 20:00:00  
 **总执行时间**: ~45 分钟  
 **状态**: ✅ **全部完成**
-

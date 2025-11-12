@@ -276,7 +276,7 @@ head -n 11 backend/reports/local-acceptance/pain_points_candidates.csv | column 
 
 1. **完整计划**: `.specify/specs/011-semantic-lexicon-development-plan.md`
 2. **快速启动**: `.specify/specs/011-quick-start-guide.md`
-3. **原始思路**: `词义库思路.md`
+3. **原始思路**: `docs/reference/词义库思路.md`
 4. **项目规范**: `AGENTS.md`
 5. **实施清单**: `docs/2025-10-10-实施检查清单.md`
 
@@ -351,4 +351,3 @@ head -n 11 backend/reports/local-acceptance/pain_points_candidates.csv | column 
 **下一步**: 阅读快速启动指南，立即开始 P0 任务！
 
 📖 `.specify/specs/011-quick-start-guide.md`
-

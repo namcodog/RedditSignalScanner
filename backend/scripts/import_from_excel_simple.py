@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""简化的 Excel 导入脚本 - 直接处理社区筛选.xlsx"""
+"""简化的 Excel 导入脚本 - 默认读取 data/community/社区筛选.xlsx"""
 
 import json
 import sys
@@ -99,8 +99,17 @@ def convert_excel_to_json(excel_path: str, output_path: str) -> None:
 
 
 if __name__ == '__main__':
-    excel_file = sys.argv[1] if len(sys.argv) > 1 else '社区筛选.xlsx'
+    default_excel = Path('data/community/社区筛选.xlsx')
+    legacy_excel = Path('社区筛选.xlsx')
+
+    if len(sys.argv) > 1:
+        excel_input = Path(sys.argv[1])
+    else:
+        excel_input = default_excel
+        if not excel_input.exists() and legacy_excel.exists():
+            print("⚠️  data/community 未发现社区筛选Excel，回退读取仓库根目录副本 ...")
+            excel_input = legacy_excel
+
     output_file = sys.argv[2] if len(sys.argv) > 2 else 'backend/config/seed_communities.json'
     
-    convert_excel_to_json(excel_file, output_file)
-
+    convert_excel_to_json(str(excel_input), output_file)

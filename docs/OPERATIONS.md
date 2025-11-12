@@ -118,8 +118,8 @@ celery -A app.core.celery_app.celery_app inspect active
 - 建议使用 WAL 归档提升恢复点目标 (RPO)
 
 ### 5.2 Redis
-- 如使用自建实例，开启 `save 900 1`，定期备份 `dump.rdb`
-- 恢复：将旧的 `dump.rdb` 放入数据目录，重启 Redis
+- 如使用自建实例，开启 `save 900 1`，定期备份 `data/redis/dump.rdb`
+- 恢复：将旧的 `dump.rdb` 放入 `data/redis/`，重启 Redis
 
 ---
 

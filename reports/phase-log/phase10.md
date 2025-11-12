@@ -60,3 +60,57 @@
 - schema: backend/app/schemas/analysis.py（机会数值位）
 - tools: backend/scripts/cluster_smoke.py、backend/scripts/competitor_smoke.py
 - Make: 新增 clusters-smoke、competitors-smoke 目标；help 菜单增加指引
+
+---
+
+## 结构优化记录（2025-11-03）
+
+1）**发现了什么问题/根因？**
+- README 与文档阅读指南指向的 `2025-10-10-*` 文档仍假设文件在仓库根目录，导致新人照做会报 "No such file"。
+- 根目录堆积 GitHub 提交流程、蓝图、报告样本、MCP 指南、测试报告等历史文件，没有分类也没有版本标签，难以判断最新基线。
+- `reports/` 中缺少统一的测试进度目录，4 份测试报告散落在根目录，CI 无法自动引用。
+- `backend/backend/` 遗留一份旧的配置/数据副本，`entity_stopwords.yaml` 仅存在于该目录，脚本默认路径 `backend/config/*` 会读不到；同时 pip 安装日志 `backend/=1.1.0` / `=7.7.0` 误导为包目录。
+
+2）**是否已精确定位？**
+- 通过 `rg "backend/backend"` 确认没有代码引用旧路径，可以安全迁移。
+- `backend/scripts/import_entities_from_csv.py` 默认写入 `backend/config/entity_stopwords.yaml`，因此直接缺文件就是根因。
+- README 中的所有 `./2025-10-10-*` 链接均集中在文档导航与 Onboarding 两段，可一次性修复。
+
+3）**精确修复方法？**
+    - 新建 `docs/planning/`、`docs/reference/`、`docs/tools/mcp/`、`reports/test-progress/`，将对应蓝图/案例/工具/测试文档迁入并在 README + 文档阅读指南中新增分区导航。
+    - 更新 README 中所有文档链接、命令示例路径；补充新的文档分组介绍 + MCP/测试档案引用。
+    - 迁移 `词义库思路` 引用、`TEST_*` 报告之间的互链，使路径跟随新目录。
+    - 将 `backend/backend/config` 中唯一仍需保留的 `entity_stopwords.yaml` 移到主配置目录，其余历史文件落盘到 `backend/config/entity_dictionary/legacy`、`backend/config/semantic_sets/versions/crossborder_v0.yml`、`backend/config/legacy/scoring_rules_v0.yaml`；旧数据与审核记录移动到 `backend/data/archive/` 与 `backend/reports/local-acceptance/archive/`，然后删除 `backend/backend/` 与 pip 日志文件。
+    - 根目录脚本/诊断工具统一迁入 `scripts/`，VSCode 配置收拢到 `config/vscode/`，Redis dump/社区 Excel 则落在 `data/redis/`、`data/community/` 并在 Makefile、脚本、文档中更新引用路径。
+
+4）**下一步做什么？**
+- 后续若新增蓝图/方案，请直接放入 `docs/planning/` 并在 README 的分区内登记条目。
+- 运行 `make test-backend` 前，如需更新 stopwords/dictionary，可统一从 `backend/config/` 读取，避免重新生成到 legacy 目录。
+- 待下一轮测试前，将 `reports/test-progress` 作为固定产出目录纳入 CI 附件。
+
+5）**这次修复的效果/结果？**
+    - 文档链接全部指向实际存在的 `docs/` 路径，README 的导航一次到位，新人不再需要猜测位置。
+    - 规划/参考/MCP/测试文档各有独立目录，查找时可按类型过滤；测试报告集中在 `reports/test-progress`，便于持续追踪通过率。
+    - `backend/config/entity_stopwords.yaml` 回到主配置目录，相关脚本开箱即用；`backend/backend` 与 pip 日志被清理，避免双份配置或误导导入路径。
+    - 根目录回归“只放核心文件”，常用脚本与数据都按 `scripts/`、`data/**` 归档，相关 Makefile/Spec/日志引用同步修复，可直接运行 `make week2-acceptance` / `make final-acceptance` / Excel 导入等流程。
+
+## Spec012 实机验证记录（2025-11-12）
+
+1）**执行内容**
+- `make dev-golden-path` 启动 Redis/Celery/后端/前端，并用 `make semantic-build-L1`、`make semantic-metrics`、`make semantic-acceptance`、`make seed-json-from-excel FILE=data/community/社区筛选.xlsx`、`make seed-import-json`、`bash scripts/day13_quick_check.sh` 搭建基线。
+- `make crawl-crossborder LIMIT=5` 实际抓取跨境社区（首轮耗时较长，二次执行得到 `status: completed` 汇总），随后 `make content-acceptance` 通过。
+- Spec012 所需三套验收命令：`make local-acceptance`、`make week2-acceptance`、`make final-acceptance`，运行时统一通过 `NO_PROXY=localhost,127.0.0.1,::1` 关闭系统代理（否则 httpx 会走代理直接报 "Server disconnected"）。
+
+2）**问题定位（历史）**
+- **本地验收失败**：`reports/local-acceptance/local-acceptance-20251112-050242.md:5-33` 中 `fetch-report`/`download-report` 500，根因是 `insights.pain_clusters[1].negative_mean=-1.1` 违反 schema，且洞察证据/质量看板数据缺失。
+- **Week2 验收**：脚本路径修复后已 PASS（Precision@50=0.64，行动位满足规范）。
+- **最终验收失败**：PDF 导出依赖 WeasyPrint，缺包时降级为 JSON，被验收判定失败；质量看板读不到 CSV。
+
+3）**结果复核（2025-11-12 13:40 UTC）**
+- `reports/local-acceptance/local-acceptance-20251112-053958.md` ✅ 全 12 步通过。
+- `make week2-acceptance` ✅ （最新任务 `32353728-b3ed-4a56-b0cb-beeaa53c0082`）。
+- `make final-acceptance` ✅ （任务 `71f49094-6bf3-4ef0-90f2-02dd969157e5` 等多次），PDF 成功导出且 content-acceptance 紧随其后保持通过。
+
+4）**下一步建议**
+- 先修复分析结果的 JSON 结构（热修 `report_service`，确保 `negative_mean` 被 clamp 至 [-1,1]），再重跑 `make local-acceptance`、`make final-acceptance`，同时排查洞察证据和质量看板的种子数据是否缺失。
+- 把 `NO_PROXY=localhost,127.0.0.1,::1` 写入开发/验收文档，或在脚本里显式 `trust_env=False`，避免下次又被系统代理截断本地请求。

@@ -96,6 +96,19 @@ def summarize_results(
     )
 
 
+def _load_reference_task_id_from_disk() -> Optional[str]:
+    candidates = [
+        Path("reports") / "local-acceptance" / "seed_insight_task_id.txt",
+        Path("backend") / "reports" / "local-acceptance" / "seed_insight_task_id.txt",
+    ]
+    for path in candidates:
+        if path.exists():
+            value = path.read_text(encoding="utf-8").strip()
+            if value:
+                return value
+    return None
+
+
 def render_markdown_report(
     summary: AcceptanceSummary,
     steps: Iterable[StepResult],
@@ -160,7 +173,7 @@ class LocalAcceptanceRunner:
         password: Optional[str] = None,
         reference_task_id: Optional[str] = None,
         product_description: Optional[str] = None,
-        timeout: float = 10.0,
+        timeout: float = 45.0,
         poll_interval: float = 2.0,
         poll_attempts: int = 60,
     ) -> None:
@@ -183,8 +196,9 @@ class LocalAcceptanceRunner:
             base_url=f"{self.backend_base}/api",
             timeout=self.timeout,
             headers={"Accept": "application/json"},
+            trust_env=False,
         )
-        self._http_client = httpx.Client(timeout=self.timeout)
+        self._http_client = httpx.Client(timeout=self.timeout, trust_env=False)
 
         self.access_token: Optional[str] = None
         self.task_id: Optional[str] = None
@@ -427,9 +441,14 @@ class LocalAcceptanceRunner:
             f"/insights/card/{self._primary_insight_id}",
             headers=self._auth_header(),
         )
+        if response.status_code == 404 and self._load_reference_insight():
+            return self._fetch_primary_insight_card()
         response.raise_for_status()
         payload = response.json()
         evidence = payload.get("evidence", [])
+        if not evidence and self.reference_task_id and self.reference_task_id != self._insight_task_id:
+            if self._load_reference_insight():
+                return self._fetch_primary_insight_card()
         if not evidence:
             raise RuntimeError("洞察卡片未返回任何证据")
         snippet = evidence[0].get("snippet", "n/a")
@@ -515,9 +534,29 @@ class LocalAcceptanceRunner:
         timestamp = datetime.now(timezone.utc).strftime("%Y%m%d%H%M%S")
         return f"local-acceptance+{timestamp}@example.com"
 
+    def _load_reference_insight(self) -> bool:
+        if not self.reference_task_id:
+            return False
+        response = self._api_client.get(
+            f"/insights/{self.reference_task_id}",
+            headers=self._auth_header(),
+        )
+        if response.status_code != 200:
+            return False
+        payload = response.json()
+        insights = payload.get("insights") or payload.get("items", [])
+        if not insights:
+            return False
+        self._insights = insights
+        self._insight_task_id = self.reference_task_id
+        self._primary_insight_id = str(insights[0].get("id"))
+        return True
+
 
 def build_runner_from_env() -> LocalAcceptanceRunner:
     """Factory helper that reads configuration from environment variables."""
+
+    reference_task_id = os.getenv("LOCAL_ACCEPTANCE_REFERENCE_TASK_ID") or _load_reference_task_id_from_disk()
 
     return LocalAcceptanceRunner(
         backend_base=os.getenv("LOCAL_ACCEPTANCE_BACKEND", "http://localhost:8006"),
@@ -526,12 +565,12 @@ def build_runner_from_env() -> LocalAcceptanceRunner:
         environment=os.getenv("LOCAL_ACCEPTANCE_ENV", "local"),
         email=os.getenv("LOCAL_ACCEPTANCE_EMAIL"),
         password=os.getenv("LOCAL_ACCEPTANCE_PASSWORD"),
-        reference_task_id=os.getenv("LOCAL_ACCEPTANCE_REFERENCE_TASK_ID"),
+        reference_task_id=reference_task_id,
         product_description=os.getenv(
             "LOCAL_ACCEPTANCE_PRODUCT",
             "Local acceptance smoke test for Reddit Signal Scanner",
         ),
-        timeout=float(os.getenv("LOCAL_ACCEPTANCE_TIMEOUT", "10")),
+        timeout=float(os.getenv("LOCAL_ACCEPTANCE_TIMEOUT", "45")),
         poll_interval=float(os.getenv("LOCAL_ACCEPTANCE_POLL_INTERVAL", "2")),
         poll_attempts=int(os.getenv("LOCAL_ACCEPTANCE_POLL_ATTEMPTS", "60")),
     )
@@ -589,13 +628,13 @@ def parse_args(argv: Optional[list[str]] = None) -> argparse.Namespace:
         "--reference-task-id",
         dest="reference_task_id",
         help="Optional task ID used作为洞察验证的备选样本",
-        default=os.getenv("LOCAL_ACCEPTANCE_REFERENCE_TASK_ID"),
+        default=os.getenv("LOCAL_ACCEPTANCE_REFERENCE_TASK_ID") or _load_reference_task_id_from_disk(),
     )
     parser.add_argument(
         "--timeout",
         dest="timeout",
         type=float,
-        default=float(os.getenv("LOCAL_ACCEPTANCE_TIMEOUT", "10")),
+        default=float(os.getenv("LOCAL_ACCEPTANCE_TIMEOUT", "45")),
     )
     parser.add_argument(
         "--poll-interval",

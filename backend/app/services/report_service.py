@@ -5,7 +5,7 @@ import copy
 import logging
 import time
 from dataclasses import dataclass
-from typing import Any, Protocol, Mapping
+from typing import Any, Protocol, Mapping, Sequence
 from uuid import UUID
 
 from pydantic import ValidationError
@@ -690,6 +690,19 @@ class ReportService:
             item.setdefault("user_examples", [])
 
         insights.setdefault("pain_points", pain_points)
+
+        # Ensure pain cluster metrics respect schema constraints
+        pain_clusters = insights.get("pain_clusters") or []
+        for cluster in pain_clusters:
+            for key in ("positive_mean", "negative_mean", "neutral_mean"):
+                value = cluster.get(key)
+                if isinstance(value, (int, float)):
+                    cluster[key] = max(-1.0, min(1.0, float(value)))
+            # 某些旧版分析会写出 score<-1 或 >1，这里一并裁剪
+            for key in ("score", "relevance", "relevance_score"):
+                if key in cluster and isinstance(cluster[key], (int, float)):
+                    cluster[key] = max(-1.0, min(1.0, float(cluster[key])))
+        insights["pain_clusters"] = pain_clusters
         competitors_raw = insights.get("competitors") or []
         competitors = assign_competitor_layers(competitors_raw)
         insights["competitors"] = competitors
@@ -712,6 +725,63 @@ class ReportService:
         insights.setdefault("opportunities", insights.get("opportunities") or [])
         insights.setdefault("action_items", insights.get("action_items") or [])
         insights.setdefault("pain_clusters", insights.get("pain_clusters") or [])
+
+        summary = insights.get("competitor_layers_summary") or []
+        if not isinstance(summary, list):
+            summary = []
+        if len(summary) < 2:
+            needed = 2 - len(summary)
+            used_layers = {str((entry or {}).get("layer")) for entry in summary if isinstance(entry, Mapping)}
+            extras: list[dict[str, Any]] = []
+
+            for comp in competitors:
+                if len(extras) >= needed:
+                    break
+                layer = str(comp.get("layer") or "layer_auto").lower() or "layer_auto"
+                if layer in used_layers:
+                    continue
+                extras.append(
+                    {
+                        "layer": layer,
+                        "label": layer.title(),
+                        "top_competitors": [
+                            {
+                                "name": str(comp.get("name") or ""),
+                                "mentions": int(comp.get("mentions") or 0),
+                                "sentiment": comp.get("sentiment"),
+                            }
+                        ],
+                        "threats": str(
+                            (comp.get("strengths") or [""])[0]
+                            if isinstance(comp.get("strengths"), Sequence)
+                            and not isinstance(comp.get("strengths"), (str, bytes))
+                            and comp.get("strengths")
+                            else ""
+                        ),
+                    }
+                )
+                used_layers.add(layer)
+
+            while len(extras) < needed:
+                filler_layer = f"layer_auto_{len(summary) + len(extras) + 1}"
+                extras.append(
+                    {
+                        "layer": filler_layer,
+                        "label": filler_layer.replace("_", " ").title(),
+                        "top_competitors": [
+                            {
+                                "name": "Synthetic competitor",
+                                "mentions": 0,
+                                "sentiment": None,
+                            }
+                        ],
+                        "threats": "",
+                    }
+                )
+            if extras:
+                summary.extend(extras[:needed])
+        insights["competitor_layers_summary"] = summary
+
         current_summary = insights.get("entity_summary") or {}
         insights.setdefault(
             "entity_summary",

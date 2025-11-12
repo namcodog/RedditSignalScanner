@@ -357,6 +357,15 @@ competitors-smoke:
 content-acceptance:
 	@mkdir -p reports/local-acceptance
 	$(PYTHON) -u backend/scripts/content_acceptance.py
+	@ts=$$(date +%Y%m%d-%H%M%S); \
+	  latest=$$(ls -t reports/local-acceptance/content-acceptance-*.json 2>/dev/null | head -n1); \
+	  if [ -n "$$latest" ]; then \
+	    mkdir -p reports/local-acceptance/archive; \
+	    cp "$$latest" "reports/local-acceptance/archive/content-acceptance-$$ts.json"; \
+	    echo "✅ 内容质量门禁已完成；报告: $$latest"; \
+	  else \
+	    echo "⚠️ 未生成 content-acceptance 报告"; \
+	  fi
 
 # ==========================================
 # Spec 009 - Crossborder convenience wrappers

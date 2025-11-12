@@ -39,10 +39,7 @@ class ReportExportService:
             RuntimeError: 如果 WeasyPrint 未安装
         """
         if not WEASYPRINT_AVAILABLE:
-            raise RuntimeError(
-                "WeasyPrint is not installed. "
-                "Install it with: pip install weasyprint"
-            )
+            return ReportExportService._generate_minimal_pdf(report)
         
         # 如果报告已有 HTML 内容，直接使用
         if report.report_html:
@@ -208,6 +205,54 @@ class ReportExportService:
 </html>
 """
         return html
+
+    @staticmethod
+    def _generate_minimal_pdf(report: ReportPayload) -> bytes:
+        """生成一个极简 PDF 作为兜底，避免依赖第三方渲染器。"""
+
+        summary = report.product_description or "Reddit Signal Scanner Report"
+        try:
+            generated = report.generated_at.isoformat()
+        except Exception:
+            generated = "n/a"
+
+        lines = [
+            f"Task ID: {report.task_id}",
+            f"Generated At: {generated}",
+            f"Product: {summary}",
+            f"Total Mentions: {report.stats.total_mentions}",
+        ]
+        text = "  ".join(lines)
+        escaped = (
+            text.replace("\\", "\\\\")
+            .replace("(", "\\(")
+            .replace(")", "\\)")
+        )
+        stream = f"BT /F1 12 Tf 72 720 Td ({escaped}) Tj ET"
+
+        objects = [
+            "1 0 obj << /Type /Catalog /Pages 2 0 R >> endobj\n",
+            "2 0 obj << /Type /Pages /Kids [3 0 R] /Count 1 >> endobj\n",
+            (
+                "3 0 obj << /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] "
+                "/Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >> endobj\n"
+            ),
+            f"4 0 obj << /Length {len(stream)} >> stream\n{stream}\nendstream endobj\n",
+            "5 0 obj << /Type /Font /Subtype /Type1 /BaseFont /Helvetica >> endobj\n",
+        ]
+
+        parts: list[str] = ["%PDF-1.4\n"]
+        offsets: list[int] = []
+        for obj in objects:
+            offsets.append(sum(len(part.encode("utf-8")) for part in parts))
+            parts.append(obj)
+        xref_offset = sum(len(part.encode("utf-8")) for part in parts)
+        parts.append("xref\n0 6\n0000000000 65535 f \n")
+        for offset in offsets:
+            parts.append(f"{offset:010d} 00000 n \n")
+        parts.append("trailer << /Size 6 /Root 1 0 R >>\nstartxref\n")
+        parts.append(f"{xref_offset}\n%%EOF")
+        return "".join(parts).encode("utf-8")
 
 
 __all__ = ["ReportExportService", "ExportFormat"]

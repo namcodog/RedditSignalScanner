@@ -1,0 +1,382 @@
+brands:
+- AKS
+- ASP.NET
+- AWS
+- AWS Lambda
+- Alibaba Cloud
+- Amazon Web Services
+- Angular
+- Ansible
+- AppMesh
+- ArgoCD
+- Artifactory
+- Azure
+- Azure Blob Storage
+- Azure DevOps
+- Azure Functions
+- Azure Kubernetes Service
+- Azure Monitor
+- Babel
+- Bitbucket
+- C#
+- CRI-O
+- Cassandra
+- Ceph
+- Chef
+- CircleCI
+- Cloud Run
+- CloudBuild
+- CloudFormation
+- CloudWatch
+- CockroachDB
+- CodePipeline
+- Continuous Deployment
+- Cypress
+- DataDog
+- Dependabot
+- DigitalOcean
+- Django
+- Docker
+- Docker Compose
+- Docker Registry
+- DroneCI
+- DynamoDB
+- Dynatrace
+- EBS
+- ECS
+- ECS Fargate
+- EKS
+- ELK Stack
+- ESLint
+- Echo
+- Elastic Kubernetes Service
+- Elasticsearch
+- Elixir
+- Envoy
+- Express
+- FastAPI
+- Fastify
+- Firebase
+- Flask
+- Flux
+- GCP
+- GCS
+- GKE
+- Gin
+- Git
+- GitHub
+- GitHub Actions
+- GitLab
+- GitLab CI/CD
+- GitOps
+- Gitea
+- Go
+- Google Cloud
+- Google Cloud Functions
+- Google Cloud Storage
+- Google Kubernetes Engine
+- Grafana
+- GraphQL
+- Hapi
+- Harbor
+- Harness
+- Helm
+- Heroku
+- Hetzner
+- IBM Cloud
+- IaC
+- Infrastructure as Code
+- Istio
+- Jaeger
+- Java
+- JavaScript
+- Jenkins
+- Jest
+- K8s
+- Kibana
+- Koa
+- Kotlin
+- Kubernetes
+- Kustomize
+- Lambda
+- Laravel
+- Linkerd
+- Linode
+- Logstash
+- Loki
+- MinIO
+- Mocha
+- MongoDB
+- MySQL
+- NFS
+- Netlify
+- New Relic
+- Next.js
+- Nexus
+- Node.js
+- Nuxt
+- OWASP
+- OpenAPI
+- OpenTelemetry
+- Operator
+- Oracle Cloud
+- PHP
+- Parcel
+- Persistent Volume
+- Playwright
+- Podman
+- PostgreSQL
+- Prettier
+- Prometheus
+- Pulumi
+- Puppet
+- Python
+- REST API
+- React
+- Redis
+- Rollup
+- Ruby
+- Ruby on Rails
+- Rust
+- S3
+- S3 Storage
+- SaltStack
+- Scala
+- Sentry
+- Snyk
+- SonarQube
+- Spacelift
+- Splunk
+- Spring Boot
+- Stackdriver
+- Supabase
+- Svelte
+- Swagger
+- Symfony
+- Tekton
+- Tempo
+- Tencent Cloud
+- Terraform
+- TiDB
+- Travis CI
+- TypeScript
+- Vercel
+- Vite
+- Vitess
+- Vitest
+- Vue.js
+- Vultr
+- Zipkin
+- containerd
+- esbuild
+- gRPC
+- npm
+- pnpm
+- webpack
+- yarn
+features:
+- ABAC
+- API Gateway
+- API authentication
+- API key
+- APM
+- Alerting
+- Application Performance Monitoring
+- Artifact storage
+- Async programming
+- Auto-scaling
+- Backup
+- Batch processing
+- Blue-green deployment
+- Build automation
+- CDN
+- CI/CD pipeline
+- Caching
+- Canary deployment
+- Chaos engineering
+- Concurrency
+- ConfigMap
+- Configuration management
+- Container orchestration
+- Containerization
+- Content delivery
+- Continuous Deployment
+- Continuous Integration
+- CronJob
+- DDoS protection
+- DNS
+- DaemonSet
+- Database replication
+- Declarative infrastructure
+- Deployment
+- Deployment automation
+- Direct Connect
+- Disaster recovery
+- Distributed computing
+- Distributed tracing
+- Edge computing
+- Elastic IP
+- Encryption
+- Error tracking
+- Event-driven
+- Failover
+- Fault injection
+- Fault tolerance
+- Feature flag
+- Firewall
+- HA
+- High availability
+- IAM
+- IaC
+- Immutable infrastructure
+- Infrastructure as Code
+- Ingress
+- JWT
+- Job
+- Load balancing
+- Log aggregation
+- Logging
+- MTTF
+- MTTR
+- Message queue
+- Metrics
+- Microservices
+- Monitoring
+- Monolithic
+- NAT
+- Network interface
+- Network security
+- NetworkPolicy
+- OAuth 2.0
+- Observability
+- Parallelism
+- Performance monitoring
+- Pod
+- Provisioning
+- Pub/Sub
+- RBAC
+- RPO
+- RTO
+- Rate limiting
+- Real-time processing
+- Redundancy
+- Release management
+- Resilience testing
+- Rollback
+- Route table
+- SLA
+- SLO
+- SOA
+- Secret
+- Secrets management
+- Service discovery
+- Service mesh
+- Shadow deployment
+- Span
+- StatefulSet
+- Stream processing
+- Subnet
+- Synthetic monitoring
+- TLS/SSL
+- Templating
+- Test automation
+- Trace sampling
+- Tracing
+- VPC
+- VPN
+- Vault
+- Virtual Private Cloud
+- Volume
+- WAF
+- Web Application Firewall
+pain_points:
+- API deprecation
+- Access control issue
+- Alert fatigue
+- Alert noise
+- Audit trail
+- Auto-scaling lag
+- Auto-scaling misconfiguration
+- Bandwidth limitation
+- Bottleneck
+- Breaking change
+- Build failure
+- CPU spike
+- Capacity planning
+- Cascading failure
+- Chargeback model
+- Compatibility issue
+- Compliance reporting
+- Compliance violation
+- Connection pool exhaustion
+- Container complexity
+- Container sprawl
+- Cost attribution
+- Cost explosion
+- Cost optimization difficulty
+- Cost prediction
+- Cost visibility
+- Cross-region latency
+- DNS resolution issue
+- DNS timeout
+- Data transfer cost
+- Debugging difficulty
+- Dependency hell
+- Deploy rollback
+- Deployment bottleneck
+- Deployment complexity
+- Deployment failure
+- Deployment slowness
+- Disk full
+- Distributed tracing complexity
+- Docker learning curve
+- Exposed secrets
+- Failed rollback
+- Firewall rules complexity
+- Hard to debug
+- High latency
+- Image size bloat
+- Incomplete trace
+- Insufficient logging
+- K8s debugging difficult
+- Kubernetes complexity
+- Lag in alerting
+- Legacy system integration
+- Library upgrade
+- Load imbalance
+- Log overflow
+- Log volume
+- Manual deployment
+- Memory leak
+- Migration difficulty
+- Missing alert
+- Multi-cloud complexity
+- Multi-cloud cost
+- Namespace collision
+- Network congestion
+- Network cost
+- Network debugging difficulty
+- Network latency
+- Performance degradation
+- Pipeline failure
+- Privilege escalation
+- RBAC misconfiguration
+- Reserved instance planning
+- Resource leak
+- Resource waste
+- Runaway costs
+- Scaling complexity
+- Scaling issue
+- Secret leakage
+- Security misconfiguration
+- Silent failure
+- Slow response time
+- Spot instance interruption
+- Test failure
+- Timeout issue
+- Too many alerts
+- Trace sampling loss
+- Unexpected charges
+- Vendor lock-in
+- Version mismatch
+- Version upgrade

@@ -19,6 +19,8 @@ load_backend_env() {
     # shellcheck disable=SC2046
     export $(grep -v '^#' "${BACKEND_DIR}/.env" | xargs)
   fi
+  export NO_PROXY="localhost,127.0.0.1,::1"
+  export no_proxy="localhost,127.0.0.1,::1"
 }
 
 require_backend_env() {
