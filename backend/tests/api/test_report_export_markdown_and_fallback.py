@@ -99,10 +99,9 @@ async def test_download_report_pdf_fallback_to_json(client: AsyncClient, db_sess
         params={"format": "pdf"},
         headers={"Authorization": f"Bearer {token}"},
     )
-    # 在未安装 WeasyPrint 时，会降级为 JSON
+    # 现在即使未安装 WeasyPrint，也会生成极简 PDF 而不是降级为 JSON
     assert resp.status_code == 200
-    assert resp.headers["content-type"].startswith("application/json")
-    assert resp.headers.get("X-Export-Fallback") == "json"
-    data = json.loads(resp.content.decode("utf-8"))
-    assert data["task_id"] == str(task.id)
+    assert resp.headers["content-type"].startswith("application/pdf")
+    # 验证返回的是有效的 PDF（以 %PDF 开头）
+    assert resp.content.startswith(b"%PDF")
 
