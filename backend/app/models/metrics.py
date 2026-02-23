@@ -32,19 +32,19 @@ class QualityMetrics(TimestampMixin, Base):
     __table_args__ = (
         CheckConstraint(
             "collection_success_rate BETWEEN 0.00 AND 1.00",
-            name="ck_quality_metrics_collection_success_rate_range",
+            name="ck_quality_metrics_collection_rate_range",
         ),
         CheckConstraint(
             "deduplication_rate BETWEEN 0.00 AND 1.00",
-            name="ck_quality_metrics_deduplication_rate_range",
+            name="ck_quality_metrics_dedup_rate_range",
         ),
         CheckConstraint(
             "processing_time_p50 >= 0",
-            name="ck_quality_metrics_processing_time_p50_non_negative",
+            name="ck_quality_metrics_p50_positive",
         ),
         CheckConstraint(
             "processing_time_p95 >= 0",
-            name="ck_quality_metrics_processing_time_p95_non_negative",
+            name="ck_quality_metrics_p95_positive",
         ),
         CheckConstraint(
             "processing_time_p95 >= processing_time_p50",

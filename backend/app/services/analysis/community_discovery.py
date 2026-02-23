@@ -226,11 +226,10 @@ def _calculate_target_communities(cache_hit_rate: float) -> int:
 
 async def _load_community_pool() -> List[Any]:
     await asyncio.sleep(0)
-    # Only use DB-backed pool when explicitly enabled to avoid
-    # introducing external dependencies in unit tests.
+    # 默认用 DB 社区池；单测可设 COMMUNITY_POOL_FROM_DB=0 跳过 DB 依赖。
     import os
 
-    use_db = os.getenv("COMMUNITY_POOL_FROM_DB", "0").strip().lower() in {
+    use_db = os.getenv("COMMUNITY_POOL_FROM_DB", "1").strip().lower() in {
         "1",
         "true",
         "yes",

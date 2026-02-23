@@ -13,6 +13,7 @@ from sqlalchemy import (
     Column,
     Index,
     Integer,
+    SmallInteger,
     Sequence,
     String,
     Text,
@@ -59,6 +60,12 @@ class PostRaw(Base):
         default=lambda: datetime(9999, 12, 31, tzinfo=timezone.utc),
     )
     is_current = Column(Boolean, nullable=False, default=True)
+    first_seen_at = Column(
+        TIMESTAMP(timezone=True),
+        nullable=True,
+        default=lambda: datetime.now(timezone.utc),
+    )
+    source_track = Column(String(32), nullable=True, default="incremental")
 
     # 作者信息
     author_id = Column(String(100))
@@ -78,6 +85,15 @@ class PostRaw(Base):
     is_deleted = Column(Boolean, default=False)
     edit_count = Column(Integer, default=0)
     lang = Column(String(10))
+    # Deprecated: value_score / business_pool are kept only for legacy reads.
+    # New scoring must write to post_scores (versioned) and not mutate these.
+    value_score = Column(SmallInteger)  # legacy only
+    business_pool = Column(String(10), default="lab")  # legacy only (core/lab/noise)
+
+    # 🔗 Operation: Fortification (Phase 1)
+    community_id = Column(Integer)  # FK to community_pool.id
+    score_source = Column(String(50))  # legacy source tag
+    score_version = Column(Integer, default=1)  # legacy versioning
 
     # JSONB 元数据（注意：metadata 是 SQLAlchemy 保留字，使用 name="metadata"）
     extra_data = Column("metadata", JSONB)
@@ -92,11 +108,16 @@ class PostRaw(Base):
             "valid_from < valid_to OR valid_to = '9999-12-31'::TIMESTAMP",
             name="ck_posts_raw_valid_period",
         ),
+        CheckConstraint(
+            "business_pool IN ('core','lab','noise')",
+            name="ck_posts_raw_business_pool",
+        ),
         Index("idx_posts_raw_created_at", "created_at"),
         Index("idx_posts_raw_fetched_at", "fetched_at"),
         Index("idx_posts_raw_subreddit", "subreddit", "created_at"),
         Index("idx_posts_raw_text_hash", "text_norm_hash"),
         Index("idx_posts_raw_source_post_id", "source", "source_post_id"),
+        Index("idx_posts_raw_source_track", "source_track"),
         Index(
             "idx_posts_raw_current",
             "source",
@@ -105,6 +126,9 @@ class PostRaw(Base):
             postgresql_where=(is_current.is_(True)),
         ),
         Index("idx_posts_raw_metadata_gin", "metadata", postgresql_using="gin"),
+        Index("idx_posts_raw_value_score", "value_score"),
+        Index("idx_posts_raw_business_pool", "business_pool"),
+        Index("idx_posts_raw_community_id", "community_id"),
     )
 
     def __repr__(self) -> str:

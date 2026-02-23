@@ -16,6 +16,7 @@ from .scoring_rules import ScoringRulesLoader
 from .scoring_templates import TemplateConfigLoader
 from .template_matcher import TemplateMatcher
 from .text_cleaner import clean_text, score_with_context
+from .quote_extractor import QuoteExtractor, QuoteResult
 
 __all__ = [
     "BusinessSignals",
@@ -33,6 +34,8 @@ __all__ = [
     "TemplateMatcher",
     "clean_text",
     "score_with_context",
+    "QuoteExtractor",
+    "QuoteResult",
     "SignalExtractor",
     "discover_communities",
     "extract_keywords",

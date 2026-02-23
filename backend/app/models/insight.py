@@ -5,10 +5,12 @@ from datetime import datetime
 from typing import TYPE_CHECKING, List
 
 from sqlalchemy import (
+    BigInteger,
     CheckConstraint,
     DateTime,
     ForeignKey,
     Index,
+    Integer,
     Numeric,
     String,
     Text,
@@ -38,7 +40,7 @@ class InsightCard(TimestampMixin, Base):
 
     __tablename__ = "insight_cards"
     __table_args__ = (
-        UniqueConstraint("task_id", "title", name="uq_insight_cards_task_title"),
+        UniqueConstraint("task_id", "kind", "title", name="uq_insight_cards_task_kind_title"),
         CheckConstraint(
             "(confidence >= 0.0) AND (confidence <= 1.0)",
             name="ck_insight_cards_confidence_range",
@@ -51,6 +53,11 @@ class InsightCard(TimestampMixin, Base):
         Index("idx_insight_cards_confidence", "confidence"),
         Index("idx_insight_cards_created_at", "created_at"),
         Index("idx_insight_cards_subreddits_gin", "subreddits", postgresql_using="gin"),
+        Index("idx_insight_cards_kind_created_at", "kind", "created_at"),
+        Index("idx_insight_cards_task_kind_created_at", "task_id", "kind", "created_at"),
+        Index("idx_insight_cards_concept_kind_created_at", "concept_id", "kind", "created_at"),
+        Index("idx_insight_cards_signal_kind_created_at", "signal_type", "kind", "created_at"),
+        Index("idx_insight_cards_du_payload_gin", "du_payload", postgresql_using="gin"),
     )
 
     id: Mapped[uuid.UUID] = uuid_pk_column()
@@ -58,6 +65,35 @@ class InsightCard(TimestampMixin, Base):
         ForeignKey("tasks.id", ondelete="CASCADE"),
         nullable=False,
         comment="关联的分析任务 ID",
+    )
+    kind: Mapped[str] = mapped_column(
+        String(32),
+        nullable=False,
+        default="insight",
+        server_default="insight",
+        comment="卡片类型：insight（旧洞察卡）/ decision_unit（平台决策单元）",
+    )
+    concept_id: Mapped[int | None] = mapped_column(
+        ForeignKey("semantic_concepts.id", ondelete="SET NULL"),
+        nullable=True,
+        comment="语义概念 ID（可选）",
+    )
+    signal_type: Mapped[str | None] = mapped_column(
+        String(20),
+        nullable=True,
+        comment="信号类型（pain/competitor/opportunity/risk/ops 等）",
+    )
+    du_schema_version: Mapped[int | None] = mapped_column(
+        Integer,
+        nullable=True,
+        comment="DecisionUnit payload schema 版本号",
+    )
+    du_payload: Mapped[dict[str, object]] = mapped_column(
+        JSONB,
+        nullable=False,
+        default=dict,
+        server_default="{}",
+        comment="DecisionUnit 出厂说明书（claim/metrics/actions/versions/lineage…）",
     )
     title: Mapped[str] = mapped_column(
         String(500),
@@ -129,6 +165,7 @@ class Evidence(TimestampMixin, Base):
         Index("idx_evidences_score", "score"),
         Index("idx_evidences_timestamp", "timestamp"),
         Index("idx_evidences_subreddit", "subreddit"),
+        Index("idx_evidences_content_ref", "content_type", "content_id"),
     )
 
     id: Mapped[uuid.UUID] = uuid_pk_column()
@@ -157,6 +194,16 @@ class Evidence(TimestampMixin, Base):
         nullable=False,
         comment="子版块名称",
     )
+    content_type: Mapped[str | None] = mapped_column(
+        String(16),
+        nullable=True,
+        comment="证据对应的内容类型（post/comment）",
+    )
+    content_id: Mapped[int | None] = mapped_column(
+        BigInteger,
+        nullable=True,
+        comment="证据对应的内容内部主键（posts_raw.id 或 comments.id）",
+    )
     score: Mapped[float] = mapped_column(
         Numeric(5, 4),
         nullable=False,
@@ -183,4 +230,3 @@ class Evidence(TimestampMixin, Base):
 
 
 __all__ = ["InsightCard", "Evidence"]
-

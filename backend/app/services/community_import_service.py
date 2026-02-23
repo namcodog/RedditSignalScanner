@@ -14,6 +14,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.community_import import CommunityImportHistory
 from app.models.community_pool import CommunityPool
+from app.services.community_category_map_service import replace_community_category_map
 from app.models.user import User
 
 logger = logging.getLogger(__name__)
@@ -311,11 +312,13 @@ class CommunityImportService:
         created_by_ref = None if is_single_user_mode else actor_ref
         updated_by_ref = None if is_single_user_mode else actor_ref
 
+        pending_map_updates: list[tuple[CommunityPool, object | None]] = []
+
         for entry in rows:
             community = CommunityPool(
                 name=entry.name,
                 tier=entry.tier,
-                categories=entry.categories,
+                categories=[],
                 description_keywords=entry.description_keywords,
                 daily_posts=int(entry.daily_posts or 0),
                 avg_comment_length=int(entry.avg_comment_length or 0),
@@ -325,7 +328,15 @@ class CommunityImportService:
                 updated_by=updated_by_ref,
             )
             self._session.add(community)
+            pending_map_updates.append((community, entry.categories))
         await self._session.flush()
+
+        for community, categories in pending_map_updates:
+            await replace_community_category_map(
+                self._session,
+                community_id=community.id,
+                categories=categories,
+            )
         return len(rows)
 
     async def _persist_history(

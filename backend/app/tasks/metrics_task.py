@@ -48,7 +48,7 @@ def generate_daily_metrics_task(
     checker = RedLineChecker(
         threshold_config_path=Path(threshold_config_path)
         if threshold_config_path
-        else Path("config/thresholds.yaml"),
+        else Path("config/scoring_rules.yaml"),
         dedup_config_path=Path(dedup_config_path)
         if dedup_config_path
         else Path("config/deduplication.yaml"),

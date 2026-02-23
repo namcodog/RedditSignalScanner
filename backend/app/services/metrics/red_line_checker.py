@@ -86,7 +86,7 @@ class RedLineChecker:
     ) -> None:
         self._config = config or RedLineConfig()
         self._threshold_config_path = threshold_config_path or Path(
-            "config/thresholds.yaml"
+            "config/scoring_rules.yaml"
         )
         self._dedup_config_path = dedup_config_path or Path(
             "config/deduplication.yaml"
@@ -205,4 +205,3 @@ class RedLineChecker:
 
 
 __all__ = ["RedLineChecker", "RedLineAction", "RedLineConfig"]
-

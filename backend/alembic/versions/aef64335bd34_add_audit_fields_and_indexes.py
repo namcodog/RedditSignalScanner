@@ -182,37 +182,55 @@ def upgrade() -> None:
     """)
 
     # --- community_import_history ---
+    # NOTE: created_by and updated_by columns already exist from migration 20251024_000022
+    # Only ensure foreign keys exist (idempotent)
     op.alter_column(
         "community_import_history",
         "uploaded_by_user_id",
         existing_type=postgresql.UUID(),
         nullable=True,
     )
-    op.add_column(
-        "community_import_history",
-        sa.Column("created_by", postgresql.UUID(as_uuid=True), nullable=True),
-    )
-    op.add_column(
-        "community_import_history",
-        sa.Column("updated_by", postgresql.UUID(as_uuid=True), nullable=True),
-    )
 
-    op.create_foreign_key(
-        "fk_community_import_history_created_by_users",
-        "community_import_history",
-        "users",
-        ["created_by"],
-        ["id"],
-        ondelete="SET NULL",
-    )
-    op.create_foreign_key(
-        "fk_community_import_history_updated_by_users",
-        "community_import_history",
-        "users",
-        ["updated_by"],
-        ["id"],
-        ondelete="SET NULL",
-    )
+    # Check and create foreign keys only if they don't exist
+    conn = op.get_bind()
+
+    # Check if fk_community_import_history_created_by_users exists
+    fk_created_by_exists = conn.execute(sa.text("""
+        SELECT EXISTS (
+            SELECT 1 FROM information_schema.table_constraints
+            WHERE constraint_name = 'fk_community_import_history_created_by_users'
+            AND table_name = 'community_import_history'
+        )
+    """)).scalar()
+
+    if not fk_created_by_exists:
+        op.create_foreign_key(
+            "fk_community_import_history_created_by_users",
+            "community_import_history",
+            "users",
+            ["created_by"],
+            ["id"],
+            ondelete="SET NULL",
+        )
+
+    # Check if fk_community_import_history_updated_by_users exists
+    fk_updated_by_exists = conn.execute(sa.text("""
+        SELECT EXISTS (
+            SELECT 1 FROM information_schema.table_constraints
+            WHERE constraint_name = 'fk_community_import_history_updated_by_users'
+            AND table_name = 'community_import_history'
+        )
+    """)).scalar()
+
+    if not fk_updated_by_exists:
+        op.create_foreign_key(
+            "fk_community_import_history_updated_by_users",
+            "community_import_history",
+            "users",
+            ["updated_by"],
+            ["id"],
+            ondelete="SET NULL",
+        )
     # Create indexes with IF NOT EXISTS
     op.execute("""
         CREATE INDEX IF NOT EXISTS idx_community_import_history_uploaded_by

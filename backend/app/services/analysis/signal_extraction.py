@@ -8,6 +8,8 @@ from typing import Any, Dict, Iterable, List, Sequence
 from app.services.analysis.opportunity_scorer import OpportunityScorer
 from app.services.analysis.scoring_rules import ScoringRulesLoader
 from app.services.analysis.text_cleaner import clean_text, score_with_context
+from app.services.analysis.deduplicator import deduplicate_posts
+from app.services.analysis.signal_lexicon import get_signal_lexicon
 
 
 @dataclass(slots=True)
@@ -83,10 +85,29 @@ class OpportunitySignal:
 
 
 @dataclass(slots=True)
+class SolutionSignal:
+    description: str
+    frequency: int
+    sentiment: float
+    source_posts: List[str]
+    relevance: float
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "description": self.description,
+            "frequency": self.frequency,
+            "sentiment_score": round(self.sentiment, 2),
+            "example_posts": self.source_posts[:3],
+        }
+
+
+@dataclass(slots=True)
 class BusinessSignals:
     pain_points: List[PainPointSignal]
     competitors: List[CompetitorSignal]
     opportunities: List[OpportunitySignal]
+    solutions: List[SolutionSignal]  # New field
+    ps_ratio: float | None = None
 
 
 class SignalExtractor:
@@ -96,156 +117,24 @@ class SignalExtractor:
     The goal is to provide deterministic-yet-believable signals for automated
     tests while keeping the implementation free of heavyweight NLP models.
     """
-
-    _NEGATIVE_TERMS = {
-        # 英文痛点词汇
-        "slow",
-        "confusing",
-        "expensive",
-        "complex",
-        "bug",
-        "broken",
-        "issue",
-        "problem",
-        "frustrating",
-        "annoying",
-        "difficult",
-        "hate",
-        "can't stand",
-        "can't believe",
-        "painful",
-        "unreliable",
-        "doesn't work",
-        "terrible",
-        "awful",
-        "horrible",
-        "useless",
-        "waste",
-        "sucks",
-        "bad",
-        "poor",
-        "lacking",
-        "missing",
-        "limited",
-        "clunky",
-        "outdated",
-        "buggy",
-        "crashes",
-        "fails",
-        "error",
-        "wrong",
-        "hard",
-        "complicated",
-        "tedious",
-        "time-consuming",
-        "inefficient",
-        # 情感词汇
-        "disappointed",
-        "frustrated",
-        "angry",
-        "upset",
-        "annoyed",
-        "irritated",
-        # 功能缺失
-        "no way to",
-        "can't",
-        "unable to",
-        "impossible to",
-        "doesn't support",
-        "lacks",
-        "missing feature",
-        "not working",
-        "stopped working",
-    }
-
-    _PAIN_PATTERNS = [
-        re.compile(r"\b(i\s+(?:hate|can't stand|dislike)\s+.+)", re.IGNORECASE),
-        re.compile(
-            r"\b(.+?\s+is\s+(?:too\s+)?(?:slow|broken|unreliable|expensive|bad|terrible))",
-            re.IGNORECASE,
-        ),
-        re.compile(r"\b(struggle[s]? to\s+.+)", re.IGNORECASE),
-        re.compile(r"\b(problem[s]? with\s+.+)", re.IGNORECASE),
-        re.compile(r"\b(why is .+? so .+)", re.IGNORECASE),
-        re.compile(r"\b(can't believe .+)", re.IGNORECASE),
-        re.compile(r"\b(.+ doesn't work)", re.IGNORECASE),
-        re.compile(r"\b(frustrated with\s+.+)", re.IGNORECASE),
-        re.compile(r"\b(tired of\s+.+)", re.IGNORECASE),
-        re.compile(r"\b(sick of\s+.+)", re.IGNORECASE),
-        re.compile(r"\b(no way to\s+.+)", re.IGNORECASE),
-        re.compile(r"\b(can't figure out\s+.+)", re.IGNORECASE),
-    ]
-
-    _OPPORTUNITY_CUES = [
-        # 需求表达
-        "looking for",
-        "need a",
-        "need an",
-        "need to",
-        "searching for",
-        "want a",
-        "want an",
-        # 愿意付费
-        "would pay for",
-        "willing to pay",
-        "pay for",
-        "subscription",
-        # 期望功能
-        "would love",
-        "wish there was",
-        "wish I could",
-        "if only",
-        "hope for",
-        # 缺失功能
-        "missing",
-        "lacks",
-        "doesn't have",
-        "no support for",
-        # 替代方案
-        "alternative to",
-        "better than",
-        "replacement for",
-        # 推荐请求
-        "recommend",
-        "suggestion",
-        "any tools",
-        "best tool",
-        "what do you use",
-    ]
-
-    _URGENCY_TERMS = {
-        "urgent",
-        "now",
-        "immediately",
-        "asap",
-        "today",
-        "right now",
-        "desperately",
-        "critical",
-        "must have",
-        "essential",
-        "required",
-        "necessary",
-    }
-
-    _COMPETITOR_CUES = (
-        " vs ",
-        " versus ",
-        "alternative to",
-        "instead of",
-        "compared to",
-        "better than",
-        "switching from",
-        "migrating from",
-        "replacing",
-        "vs.",
-        "or",
-        " v ",
-    )
+    def __init__(self, solution_config: Dict[str, Any] | None = None) -> None:
+        cfg = solution_config or {}
+        self.sentiment_primary = cfg.get("sentiment_primary", -0.05)
+        self.sentiment_secondary = cfg.get("sentiment_secondary", -0.15)
+        self.sentiment_tertiary = cfg.get("sentiment_tertiary", -0.2)
+        self.solution_dedup_threshold = cfg.get("dedup_threshold", 0.75)
+        lexicon = get_signal_lexicon()
+        self._negative_terms = lexicon.negative_terms
+        self._solution_cues = lexicon.solution_cues
+        self._opportunity_cues = lexicon.opportunity_cues
+        self._urgency_terms = lexicon.urgency_terms
+        self._competitor_cues = lexicon.competitor_cues
+        self._pain_patterns = lexicon.pain_patterns
 
     _MAX_PAIN_POINTS = 15  # 增加到 15 个
     _MAX_COMPETITORS = 12  # 增加到 12 个
     _MAX_OPPORTUNITIES = 10  # 增加到 10 个
+    _MAX_SOLUTIONS = 8
     OPPORTUNITY_SCORER = OpportunityScorer()
     _RULES_LOADER = ScoringRulesLoader()
 
@@ -263,6 +152,7 @@ class SignalExtractor:
         max_pain_points: int | None = None,
         max_competitors: int | None = None,
         max_opportunities: int | None = None,
+        max_solutions: int | None = None,
     ) -> BusinessSignals:
         normalized_posts = list(self._normalize_posts(posts))
         keyword_set = {kw.lower() for kw in keywords if kw}
@@ -270,6 +160,7 @@ class SignalExtractor:
         pain_points = self._extract_pain_points(normalized_posts, keyword_set)
         competitors = self._extract_competitors(normalized_posts)
         opportunities = self._extract_opportunities(normalized_posts, keyword_set)
+        solutions = self._extract_solutions(normalized_posts, keyword_set)
 
         return BusinessSignals(
             pain_points=self._rank_pain_points(
@@ -281,6 +172,9 @@ class SignalExtractor:
             opportunities=self._rank_opportunities(
                 opportunities, max_opportunities or self._MAX_OPPORTUNITIES
             ),
+            solutions=self._rank_solutions(
+                solutions, max_solutions or self._MAX_SOLUTIONS
+            ),
         )
 
     def _normalize_posts(
@@ -289,14 +183,23 @@ class SignalExtractor:
         for post in posts:
             title = clean_text(str(post.get("title", "")))
             body = clean_text(str(post.get("summary", post.get("selftext", ""))))
-            text = f"{title} {body}".strip()
+            # Ensure title and body stay as separate sentences so the extractor can
+            # accumulate repeated pains across different titles.
+            if title and body:
+                boundary = "" if title.endswith((".", "!", "?")) else "."
+                text = f"{title}{boundary} {body}".strip()
+            else:
+                text = (title or body).strip()
             if not text:
                 continue
+            priority_score = post.get("priority_score")
+            if priority_score is None:
+                priority_score = post.get("score", 0)
             yield {
                 "id": str(post.get("id", "")),
                 "text": text,
                 "text_lower": text.lower(),
-                "score": float(post.get("score", 0) or 0),
+                "score": float(priority_score or 0),
                 "num_comments": int(post.get("num_comments", 0) or 0),
             }
 
@@ -316,12 +219,12 @@ class SignalExtractor:
 
                 # 检查是否包含负面词汇
                 matched_terms = [
-                    term for term in self._NEGATIVE_TERMS if term in sentence_lower
+                    term for term in self._negative_terms if term in sentence_lower
                 ]
 
                 # 或者匹配痛点模式
                 pattern_matched = any(
-                    pattern.search(sentence) for pattern in self._PAIN_PATTERNS
+                    pattern.search(sentence) for pattern in self._pain_patterns
                 )
 
                 if not matched_terms and not pattern_matched:
@@ -409,7 +312,7 @@ class SignalExtractor:
 
                 # 检查是否包含竞品线索
                 has_competitor_cue = any(
-                    cue in sentence_lower for cue in self._COMPETITOR_CUES
+                    cue in sentence_lower for cue in self._competitor_cues
                 )
 
                 # 提取产品名称
@@ -423,7 +326,7 @@ class SignalExtractor:
 
                 # 计算情感分数
                 negative_count = sum(
-                    1 for term in self._NEGATIVE_TERMS if term in sentence_lower
+                    1 for term in self._negative_terms if term in sentence_lower
                 )
                 if negative_count > 0:
                     sentiment = max(-0.8, -0.2 - 0.15 * negative_count)
@@ -517,7 +420,7 @@ class SignalExtractor:
 
                 # 检查是否包含机会线索
                 cue = next(
-                    (c for c in self._OPPORTUNITY_CUES if c in sentence_lower), None
+                    (c for c in self._opportunity_cues if c in sentence_lower), None
                 )
                 if cue is None:
                     continue
@@ -536,7 +439,7 @@ class SignalExtractor:
                 entry["source_posts"].add(post["id"])
                 
                 # 计算紧迫性
-                if any(term in sentence_lower for term in self._URGENCY_TERMS):
+                if any(term in sentence_lower for term in self._urgency_terms):
                     entry["urgency"] += 1.5  # 紧急词汇权重更高
                 elif "need" in sentence_lower or "must" in sentence_lower:
                     entry["urgency"] += 1.0
@@ -656,6 +559,179 @@ class SignalExtractor:
         return sorted(signals, key=lambda signal: signal.relevance, reverse=True)[
             :limit
         ]
+
+    def _extract_solutions(
+        self,
+        posts: Sequence[Dict[str, Any]],
+        keyword_set: set[str],
+    ) -> List[SolutionSignal]:
+        # Use VADER (standard in this project) instead of TextBlob
+        try:
+            from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
+            analyzer = SentimentIntensityAnalyzer()
+        except ImportError:
+            analyzer = None
+
+        aggregates: Dict[str, Dict[str, Any]] = {}
+        verb_boost = {
+            "fix": 0.1, "fixed": 0.1, "solve": 0.1, "solved": 0.1,
+            "replace": 0.05, "replaced": 0.05, "clean": 0.05, "cleaned": 0.05,
+            "use": 0.03, "using": 0.03, "install": 0.05, "installed": 0.05,
+            "update": 0.05, "updated": 0.05, "adjust": 0.05, "adjusted": 0.05,
+        }
+        
+        # Context-aware blacklist (words that negate a solution)
+        negative_context = {
+            "not fixed", "didn't fix", "never solved", "still broken", 
+            "useless", "waste", "returned", "refund", "trash", "garbage",
+            "fail", "didn't work", "tried everything"
+        }
+
+        def _process(require_keywords: bool, min_sentiment: float = self.sentiment_primary) -> None:
+            for post in posts:
+                sentences = self._split_sentences(post["text"])
+                for sentence in sentences:
+                    if not sentence or len(sentence) < 20:  # Minimum length constraint
+                        continue
+                    sentence_lower = sentence.lower()
+
+                    # Check cues
+                    if not any(cue in sentence_lower for cue in self._solution_cues):
+                        continue
+                    
+                    # Check negative context (Context-Aware Filter)
+                    if any(neg in sentence_lower for neg in negative_context):
+                        continue
+
+                    # Check keywords (context) when required
+                    if require_keywords and keyword_set and not any(k in sentence_lower for k in keyword_set):
+                        continue
+
+                    # Sentiment Analysis (VADER)
+                    sentiment = 0.0
+                    if analyzer:
+                        sentiment = analyzer.polarity_scores(sentence)["compound"]
+                    else:
+                        if any(w in sentence_lower for w in ["best", "perfect", "great", "works"]):
+                            sentiment = 0.5
+                    
+                    # Only accept non-negative sentiment solutions
+                    if sentiment < min_sentiment:
+                        continue
+
+                    # Verb boost to reward actionable fixes
+                    for v, bonus in verb_boost.items():
+                        if v in sentence_lower:
+                            sentiment += bonus
+
+                    description = sentence.strip()[:200]
+                    key = description.lower()[:80] # fuzzy key
+
+                    entry = aggregates.setdefault(
+                        key,
+                        {
+                            "description": description,
+                            "frequency": 0,
+                            "sentiment_total": 0.0,
+                            "source_posts": set(),
+                        },
+                    )
+                    entry["frequency"] += 1
+                    entry["sentiment_total"] += sentiment
+                    entry["source_posts"].add(post["id"])
+
+        # Pass 1: 严格要求关键词
+        _process(require_keywords=True, min_sentiment=self.sentiment_primary)
+        # 如果完全没抓到，放宽关键词要求（有眼睛兜底）
+        if not aggregates and keyword_set:
+            _process(require_keywords=False, min_sentiment=self.sentiment_primary)
+
+        # solutions 不足时，放宽情绪阈值到 -0.15
+        if len(aggregates) < 5:
+            _process(require_keywords=False, min_sentiment=self.sentiment_secondary)
+
+        # 仍然不足再兜底：只要有动作词即可，情绪阈值 -0.3，不要求 cues/关键词，句长>=10
+        if len(aggregates) < 5:
+            def _process_widest() -> None:
+                for post in posts:
+                    sentences = self._split_sentences(post["text"])
+                    for sentence in sentences:
+                        if not sentence or len(sentence) < 10:
+                            continue
+                        sentence_lower = sentence.lower()
+                        if not any(v in sentence_lower for v in verb_boost):
+                            continue
+                        if any(neg in sentence_lower for neg in negative_context):
+                            continue
+                        sentiment = 0.0
+                        if analyzer:
+                            sentiment = analyzer.polarity_scores(sentence)["compound"]
+                        if sentiment < self.sentiment_tertiary:
+                            continue
+                        for v, bonus in verb_boost.items():
+                            if v in sentence_lower:
+                                sentiment += bonus
+                        description = sentence.strip()[:200]
+                        key = description.lower()[:80]
+                        entry = aggregates.setdefault(
+                            key,
+                            {
+                                "description": description,
+                                "frequency": 0,
+                                "sentiment_total": 0.0,
+                                "source_posts": set(),
+                            },
+                        )
+                        entry["frequency"] += 1
+                        entry["sentiment_total"] += sentiment
+                        entry["source_posts"].add(post["id"])
+            _process_widest()
+
+        signals: List[SolutionSignal] = []
+        # 语义去重，阈值配置化
+        dedup_input = [
+            {
+                "id": str(idx),
+                "title": entry["description"][:80],
+                "summary": entry["description"],
+                "score": entry["frequency"],
+                "num_comments": entry["frequency"],
+            }
+            for idx, entry in enumerate(aggregates.values())
+        ]
+        dedup_threshold = self.solution_dedup_threshold if len(aggregates) >= 5 else min(self.solution_dedup_threshold, 0.65)
+        keep_ids = {p.get("id") for p in deduplicate_posts(dedup_input, threshold=dedup_threshold)}
+
+        for idx, entry in enumerate(aggregates.values()):
+            if str(idx) not in keep_ids:
+                continue
+            frequency = entry["frequency"]
+            sentiment_avg = entry["sentiment_total"] / max(frequency, 1)
+            relevance = min(frequency / 2.0, 1.0) * 0.6 + sentiment_avg * 0.4
+
+            signals.append(
+                SolutionSignal(
+                    description=entry["description"],
+                    frequency=frequency,
+                    sentiment=sentiment_avg,
+                    source_posts=sorted(entry["source_posts"]),
+                    relevance=relevance,
+                )
+            )
+        # 去重：再跑一次低阈值去重防止相似句重复
+        dedup_input = [
+            {"id": str(i), "title": s.description[:80], "summary": s.description, "score": s.sentiment, "num_comments": s.frequency}
+            for i, s in enumerate(signals)
+        ]
+        deduped = deduplicate_posts(dedup_input, threshold=self.solution_dedup_threshold)
+        kept_ids = {p.get("id") for p in deduped}
+        signals = [s for i, s in enumerate(signals) if str(i) in kept_ids]
+        return signals
+
+    def _rank_solutions(
+        self, signals: List[SolutionSignal], limit: int
+    ) -> List[SolutionSignal]:
+        return sorted(signals, key=lambda s: s.relevance, reverse=True)[:limit]
 
     @staticmethod
     def _split_sentences(text: str) -> List[str]:

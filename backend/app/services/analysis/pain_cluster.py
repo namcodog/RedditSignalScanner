@@ -391,4 +391,145 @@ def _extract_topic(
     return primary[:50] if primary else "pain cluster"
 
 
-__all__ = ["cluster_pain_points"]
+from datetime import datetime, timedelta, timezone
+from typing import Iterable, Optional
+from sqlalchemy import text
+from sqlalchemy.ext.asyncio import AsyncSession
+
+
+async def cluster_pain_points_from_labels(
+    session: AsyncSession,
+    *,
+    since_days: int = 30,
+    subreddits: Optional[Iterable[str]] = None,
+    limit_per_source: int = 200,
+) -> list[dict[str, object]]:
+    """Build pain clusters directly from stable labels/entities tables.
+
+    This aggregates both comments and posts (posts_hot) where category='pain',
+    prioritises comment samples, and feeds them into the existing clustering
+    routine to produce stable cluster summaries. Designed to be tolerant of
+    partial data: if no records are found, returns an empty list.
+
+    Args:
+        session: Async SQLAlchemy session
+        since_days: Lookback window for content selection
+        subreddits: Optional subreddit filter (names like 'r/startups')
+        limit_per_source: Safety cap per source type to bound input size
+    """
+    since_dt = datetime.now(timezone.utc) - timedelta(days=max(1, since_days))
+    # Normalize subreddits to match DB variations (with and without r/ prefix)
+    raw_subs = [s.lower().replace("r/", "") for s in (subreddits or []) if s]
+    subs = list(set([f"r/{s}" for s in raw_subs] + raw_subs))
+
+    # 1) Comments labelled as pain (preferred samples)
+    comment_sql = text(
+        """
+        SELECT c.subreddit, c.body AS content, c.score, c.permalink
+        FROM content_labels cl
+        JOIN comments c ON c.id = cl.content_id
+        WHERE cl.content_type = 'comment'
+          AND cl.category IN ('pain', 'Survival')
+          AND c.created_utc >= :since
+          AND (:has_subs = FALSE OR lower(c.subreddit) = ANY(:subs))
+        ORDER BY c.score DESC, c.created_utc DESC
+        LIMIT :lim
+        """
+    )
+    res = await session.execute(
+        comment_sql,
+        {"since": since_dt, "has_subs": bool(subs), "subs": subs or [""], "lim": max(50, min(2000, limit_per_source))},
+    )
+    comment_rows = list(res.mappings())
+
+    # 2) Posts in hot cache labelled as pain (fallback to reach diversity)
+    post_sql = text(
+        """
+        SELECT ph.subreddit, COALESCE(ph.title,'') || ' ' || COALESCE(ph.body,'') AS content, ph.score, NULL::text AS permalink
+        FROM content_labels cl
+        JOIN posts_hot ph ON ph.id = cl.content_id
+        WHERE cl.content_type = 'post'
+          AND cl.category IN ('pain', 'Survival')
+          AND ph.created_at >= :since
+          AND (:has_subs = FALSE OR lower(ph.subreddit) = ANY(:subs))
+        ORDER BY ph.score DESC, ph.created_at DESC
+        LIMIT :lim
+        """
+    )
+    res2 = await session.execute(
+        post_sql,
+        {"since": since_dt, "has_subs": bool(subs), "subs": subs or [""], "lim": max(50, min(2000, limit_per_source))},
+    )
+    post_rows = list(res2.mappings())
+
+    # Build pseudo pain-point items compatible with cluster_pain_points()
+    items: list[dict[str, object]] = []
+    def _mk_item(row: Mapping[str, object]) -> dict[str, object]:
+        content = str(row.get("content") or "").strip()
+        comm = str(row.get("subreddit") or "").strip()
+        score = int(row.get("score") or 0)
+        permalink = str(row.get("permalink") or "").strip()
+        example = {"community": comm, "content": content}
+        if permalink:
+            example["permalink"] = permalink
+        return {
+            "description": content[:100] if content else "pain",
+            "frequency": max(1, score),
+            "sentiment_score": -0.2,  # unknown: default mild negative
+            "severity": "medium",
+            "example_posts": [example],
+            "user_examples": [],
+        }
+
+    for r in comment_rows:
+        items.append(_mk_item(r))
+    # add a smaller portion of posts to diversify when comments are scarce
+    for r in post_rows[: max(0, (len(post_rows) // 2) or 50)]:
+        items.append(_mk_item(r))
+
+    if not items:
+        return []
+    return cluster_pain_points(items, min_clusters=2, max_clusters=5)
+
+
+from typing import Iterable, Optional
+from sqlalchemy.ext.asyncio import AsyncSession
+
+
+async def cluster_pain_points_auto(
+    session: AsyncSession,
+    *,
+    since_days: int = 30,
+    subreddits: Optional[Iterable[str]] = None,
+    limit_per_source: int = 200,
+    fallback_items: Optional[Sequence[Mapping[str, object]]] = None,
+    min_clusters: int = 2,
+    max_clusters: int = 5,
+) -> list[dict[str, object]]:
+    """
+    优先用 DB 标签聚合痛点簇，不足时回落到 TF-IDF 启发式。
+
+    - 数据足够：直接返回 DB 聚合簇
+    - 数据为空/异常：使用传入的 fallback_items 经 TF-IDF 聚合
+    """
+    try:
+        clusters = await cluster_pain_points_from_labels(
+            session,
+            since_days=since_days,
+            subreddits=subreddits,
+            limit_per_source=limit_per_source,
+        )
+        if clusters:
+            return clusters
+    except Exception:
+        clusters = []
+
+    if fallback_items:
+        try:
+            return cluster_pain_points(fallback_items, min_clusters=min_clusters, max_clusters=max_clusters)
+        except Exception:
+            return []
+    return []
+
+
+__all__ = ["cluster_pain_points", "cluster_pain_points_from_labels", "cluster_pain_points_auto"]

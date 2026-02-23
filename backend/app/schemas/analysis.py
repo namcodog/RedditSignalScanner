@@ -23,6 +23,8 @@ class ExamplePost(ORMModel):
 
 class PainPoint(ORMModel):
     description: str
+    title: Optional[str] = None
+    text: Optional[str] = None
     frequency: int = Field(ge=0)
     sentiment_score: float = Field(ge=-1.0, le=1.0)
     severity: Literal["low", "medium", "high"]
@@ -43,6 +45,8 @@ class CompetitorSignal(ORMModel):
 
 class OpportunitySignal(ORMModel):
     description: str
+    title: Optional[str] = None
+    text: Optional[str] = None
     relevance_score: float = Field(ge=0.0, le=1.0)
     potential_users: str
     # 数值估计（Spec010）：用于门禁和可调参量化
@@ -75,6 +79,49 @@ class PainClusterSummary(ORMModel):
     communities_count: int = Field(ge=0)
     top_communities: list[str] = Field(default_factory=list)
     samples: list[str] = Field(default_factory=list)
+
+
+class TrendPoint(ORMModel):
+    month: str
+    count: int = Field(ge=0)
+    growth_rate: Optional[float] = None
+    trend: Optional[str] = None
+    recent_velocity: Optional[float] = None
+
+
+class TrendSummary(ORMModel):
+    label: str = Field(default="N/A")
+    reason: str = Field(default="N/A")
+    series: list[TrendPoint] = Field(default_factory=list)
+
+
+class SaturationBrand(ORMModel):
+    brand: str
+    saturation: float = Field(ge=0.0, le=1.0)
+    status: str = Field(default="中等")
+
+
+class MarketSaturation(ORMModel):
+    community: str
+    overall_saturation: float = Field(ge=0.0, le=1.0)
+    status: str = Field(default="中等")
+    top_brands: list[SaturationBrand] = Field(default_factory=list)
+
+
+class BattlefieldProfile(ORMModel):
+    communities: list[str] = Field(default_factory=list)
+    persona: str = Field(default="未定义画像")
+    pain_focus: list[str] = Field(default_factory=list)
+    strategy: list[str] = Field(default_factory=list)
+    evidence_posts: list[ExamplePost] = Field(default_factory=list)
+
+
+class DriverSignal(ORMModel):
+    title: str
+    description: Optional[str] = None
+    rationale: str = Field(default="N/A")
+    actions: list[str] = Field(default_factory=list)
+    source_pains: list[str] = Field(default_factory=list)
 
 
 class LayerTopCompetitor(ORMModel):
@@ -110,6 +157,10 @@ class InsightsPayload(ORMModel):
     pain_clusters: list[PainClusterSummary] = Field(default_factory=list)
     competitor_layers_summary: list[CompetitorLayerSummary] = Field(default_factory=list)
     channel_breakdown: list[ChannelBreakdownItem] = Field(default_factory=list)
+    trend_summary: TrendSummary | None = None
+    market_saturation: list[MarketSaturation] = Field(default_factory=list)
+    battlefield_profiles: list[BattlefieldProfile] = Field(default_factory=list)
+    top_drivers: list[DriverSignal] = Field(default_factory=list)
 
 
 class CommunitySourceDetail(ORMModel):
@@ -129,6 +180,8 @@ class EvidenceItemOut(ORMModel):
 
 
 class OpportunityReportOut(ORMModel):
+    title: Optional[str] = None
+    category: Optional[str] = None
     problem_definition: str
     evidence_chain: list[EvidenceItemOut] = Field(default_factory=list)
     suggested_actions: list[str] = Field(default_factory=list)
@@ -142,8 +195,11 @@ class SourcesPayload(ORMModel):
     communities: list[str]
     posts_analyzed: int = Field(ge=0)
     cache_hit_rate: float = Field(ge=0.0, le=1.0)
+    ps_ratio: Optional[float] = Field(default=None, ge=0.0)
     analysis_duration_seconds: int | None = Field(default=None, ge=0)
+    hybrid_posts_used: int | None = Field(default=None, ge=0)
     reddit_api_calls: int | None = Field(default=None, ge=0)
+    collection_warnings: Optional[list[str]] = None
     product_description: Optional[str] = None
     communities_detail: Optional[list[CommunitySourceDetail]] = None
     recovery_strategy: Optional[str] = None
@@ -152,6 +208,17 @@ class SourcesPayload(ORMModel):
     duplicates_summary: Optional[list[dict[str, Any]]] = Field(default_factory=list)
     # 数据来源注记：例如 "pool" / "pool+discovery" / "cache-only"
     seed_source: Optional[str] = None
+    # 数据源标记：real / cache / synthetic / insufficient
+    data_source: Optional[str] = None
+    # 趋势物化视图状态
+    trend_source: Optional[list[str]] = None
+    trend_degraded: Optional[bool] = None
+    facts_slice: Optional[dict[str, Any]] = None
+    report_structured: Optional[dict[str, Any]] = None
+    knowledge_graph: Optional[dict[str, Any]] = None
+    llm_used: Optional[bool] = None
+    llm_model: Optional[str] = None
+    llm_rounds: Optional[int] = Field(default=None, ge=0)
 
 
 class AnalysisRead(ORMModel):

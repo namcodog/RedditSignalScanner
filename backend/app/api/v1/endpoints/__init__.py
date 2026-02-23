@@ -1,0 +1,41 @@
+"""Unified import surface for v1 endpoints."""
+
+from app.api.v1.endpoints import (
+    admin,
+    admin_beta_feedback,
+    admin_communities,
+    admin_community_pool,
+    admin_semantic_candidates,
+    analyze,
+    decision_units,
+    auth,
+    beta_feedback,
+    diagnostics,
+    export,
+    guidance,
+    insights,
+    metrics,
+    reports,
+    stream,
+    tasks,
+)
+
+__all__ = [
+    "admin",
+    "admin_beta_feedback",
+    "admin_communities",
+    "admin_community_pool",
+    "admin_semantic_candidates",
+    "analyze",
+    "decision_units",
+    "auth",
+    "beta_feedback",
+    "diagnostics",
+    "export",
+    "guidance",
+    "insights",
+    "metrics",
+    "reports",
+    "stream",
+    "tasks",
+]

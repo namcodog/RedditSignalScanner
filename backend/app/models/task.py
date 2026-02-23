@@ -22,6 +22,8 @@ from app.db.base import Base, TimestampMixin, uuid_pk_column
 
 if TYPE_CHECKING:  # pragma: no cover
     from app.models.analysis import Analysis
+    from app.models.facts_snapshot import FactsSnapshot
+    from app.models.facts_run_log import FactsRunLog
     from app.models.insight import InsightCard
     from app.models.user import User
 
@@ -61,14 +63,29 @@ class Task(TimestampMixin, Base):
             "("
             "failure_category IS NULL OR "
             "failure_category IN ("
-            "'network_error', 'processing_error', 'data_validation_error', 'system_error'"
+            "'network_error', 'processing_error', 'data_validation_error', 'system_error', "
+            "'insufficient_data', 'worker_stalled', 'system_dependency_down'"
             ")"
             ")",
             name="ck_tasks_failure_category_whitelist",
         ),
+        CheckConstraint(
+            "mode IN ('market_insight', 'operations')",
+            name="ck_tasks_valid_mode",
+        ),
+        CheckConstraint(
+            "audit_level IN ('gold', 'lab', 'noise')",
+            name="ck_tasks_valid_audit_level",
+        ),
+        CheckConstraint(
+            "(topic_profile_id IS NULL) OR (topic_profile_id <> '')",
+            name="ck_tasks_valid_topic_profile_id",
+        ),
         Index("ix_tasks_user_status", "user_id", "status"),
         Index("ix_tasks_user_created", "user_id", "created_at"),
         Index("ix_tasks_status_created", "status", "created_at"),
+        Index("ix_tasks_topic_profile_id", "topic_profile_id"),
+        Index("ix_tasks_audit_level", "audit_level"),
         Index(
             "ix_tasks_processing",
             "status",
@@ -82,6 +99,17 @@ class Task(TimestampMixin, Base):
         ForeignKey("users.id", ondelete="CASCADE"), nullable=False
     )
     product_description: Mapped[str] = mapped_column(Text, nullable=False)
+    mode: Mapped[str] = mapped_column(
+        String(50),
+        default="market_insight",
+        nullable=False,
+    )
+    audit_level: Mapped[str] = mapped_column(
+        String(20),
+        default="lab",
+        nullable=False,
+    )
+    topic_profile_id: Mapped[str | None] = mapped_column(String(100), nullable=True)
     status: Mapped[TaskStatus] = mapped_column(
         Enum(
             TaskStatus,
@@ -107,6 +135,20 @@ class Task(TimestampMixin, Base):
     insight_cards: Mapped[list["InsightCard"]] = relationship(
         "InsightCard", back_populates="task", cascade="all, delete-orphan"
     )
+    facts_snapshots: Mapped[list["FactsSnapshot"]] = relationship(
+        "FactsSnapshot",
+        back_populates="task",
+        cascade="all, delete-orphan",
+        order_by="FactsSnapshot.created_at.desc()",
+    )
+    facts_run_logs: Mapped[list["FactsRunLog"]] = relationship(
+        "FactsRunLog",
+        back_populates="task",
+        cascade="all, delete-orphan",
+        order_by="FactsRunLog.created_at.desc()",
+    )
 
     def __repr__(self) -> str:
-        return f"Task(id={self.id!s}, user_id={self.user_id!s}, status={self.status.value!r})"
+        return (
+            f"Task(id={self.id!s}, user_id={self.user_id!s}, mode={self.mode!r}, audit_level={self.audit_level!r}, topic_profile_id={self.topic_profile_id!r}, status={self.status.value!r})"
+        )

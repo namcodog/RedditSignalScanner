@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import re
 from dataclasses import dataclass
+from typing import Mapping
 from difflib import SequenceMatcher
 from pathlib import Path
 from threading import Lock
@@ -273,4 +274,74 @@ def deduplicate_posts(
     return enriched
 
 
-__all__ = ["deduplicate_posts", "get_last_stats", "DeduplicationStats"]
+def deduplicate_posts_by_embeddings(
+    posts: Sequence[Dict[str, object]],
+    embeddings: Mapping[str, Sequence[float]],
+    *,
+    threshold: float = 0.92,
+) -> List[Dict[str, object]]:
+    """Greedy dedupe using cosine similarity over precomputed embeddings."""
+    if not posts or not embeddings:
+        return list(posts)
+
+    def _post_id(post: Mapping[str, object], idx: int) -> str:
+        raw = post.get("db_id") or post.get("id") or idx
+        return str(raw)
+
+    def _engagement(post: Mapping[str, object]) -> float:
+        score_val: Any = post.get("score", 0) or 0
+        comments_val: Any = post.get("num_comments", 0) or 0
+        return float(score_val) + float(comments_val) * 0.75
+
+    def _cosine(a: Sequence[float], b: Sequence[float]) -> float:
+        if not a or not b or len(a) != len(b):
+            return 0.0
+        return sum(x * y for x, y in zip(a, b))
+
+    indexed = list(enumerate(posts))
+    indexed.sort(key=lambda pair: _engagement(pair[1]), reverse=True)
+
+    kept: List[Dict[str, object]] = []
+    kept_vectors: List[Sequence[float]] = []
+
+    for idx, post in indexed:
+        post_id = _post_id(post, idx)
+        vec = embeddings.get(post_id)
+        if vec is None:
+            kept.append(dict(post))
+            continue
+
+        duplicate_of: Dict[str, object] | None = None
+        for kept_post, kept_vec in zip(kept, kept_vectors):
+            similarity = _cosine(vec, kept_vec)
+            if similarity >= threshold:
+                duplicate_of = kept_post
+                break
+
+        if duplicate_of is None:
+            kept.append(dict(post))
+            kept_vectors.append(vec)
+            continue
+
+        duplicate_ids = set(duplicate_of.get("duplicate_ids") or [])
+        duplicate_ids.add(post_id)
+        duplicate_of["duplicate_ids"] = sorted(duplicate_ids)
+
+        evidence_ids = set(duplicate_of.get("evidence_post_ids") or [])
+        if not evidence_ids:
+            primary_id = duplicate_of.get("id") or duplicate_of.get("db_id")
+            if primary_id is not None:
+                evidence_ids.add(str(primary_id))
+        evidence_ids.add(post_id)
+        duplicate_of["evidence_post_ids"] = sorted(evidence_ids)
+        duplicate_of["evidence_count"] = len(evidence_ids)
+
+    return kept
+
+
+__all__ = [
+    "deduplicate_posts",
+    "deduplicate_posts_by_embeddings",
+    "get_last_stats",
+    "DeduplicationStats",
+]

@@ -33,6 +33,16 @@ from app.schemas.task import (
     TaskStatusUpdate,
     TaskSummary,
 )
+from app.schemas.hotpost import (
+    HotpostSearchRequest,
+    HotpostSearchResponse,
+    HotpostDeepdiveResponse,
+    HotpostDeepdiveRequest,
+    Hotpost,
+    HotpostComment,
+    HotpostTopic,
+    HotpostTopicEvidence,
+    )
 from app.schemas.user import UserCreate, UserRead
 
 __all__ = [
@@ -66,4 +76,12 @@ __all__ = [
     "InsightCardResponse",
     "EvidenceItem",
     "InsightCardListResponse",
+    "HotpostSearchRequest",
+    "HotpostSearchResponse",
+    "HotpostDeepdiveResponse",
+    "HotpostDeepdiveRequest",
+    "Hotpost",
+    "HotpostComment",
+    "HotpostTopic",
+    "HotpostTopicEvidence",
 ]

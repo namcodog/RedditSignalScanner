@@ -248,5 +248,106 @@ class CommunityDiscoveryService:
 
         await self.db.commit()
 
+    async def discover_from_pain_keywords(
+        self,
+        keywords: List[str] | None = None,
+        *,
+        max_keywords: int = 20,
+        posts_per_keyword: int = 25,
+    ) -> List[str]:
+        """Discover new communities using pain point keywords.
+        
+        Phase 6: The Hunter's Eye - Semantic Radar for community discovery.
+        
+        Args:
+            keywords: Optional list of pain keywords. If None, fetches from semantic_rules table.
+            max_keywords: Maximum number of keywords to use (default 20)
+            posts_per_keyword: Posts to fetch per keyword (default 25)
+            
+        Returns:
+            List of newly discovered community names (status='pending')
+        """
+        # Step 1: Get pain keywords (from args or from semantic_rules)
+        if keywords is None:
+            keywords = await self._fetch_pain_keywords_from_db(max_keywords)
+        
+        if not keywords:
+            return []
+        
+        # Step 2: Search Reddit for each keyword
+        all_posts: List[RedditPost] = []
+        for keyword in keywords[:max_keywords]:
+            try:
+                posts = await self.reddit_client.search_posts(
+                    query=keyword,
+                    limit=posts_per_keyword,
+                    time_filter="month",  # Wider time window for discovery
+                    sort="relevance",
+                )
+                all_posts.extend(posts)
+            except Exception:
+                continue  # Skip failed keywords
+        
+        if not all_posts:
+            return []
+        
+        # Step 3: Deduplicate posts
+        seen_ids = set()
+        unique_posts: List[RedditPost] = []
+        for post in all_posts:
+            if post.id not in seen_ids:
+                seen_ids.add(post.id)
+                unique_posts.append(post)
+        
+        # Step 4: Extract and count communities
+        communities = self._extract_communities(unique_posts)
+        
+        # Step 5: Filter out existing active communities from community_pool
+        from sqlalchemy import text
+        existing_result = await self.db.execute(
+            text("SELECT name FROM community_pool WHERE is_active = true")
+        )
+        existing_names = {row[0] for row in existing_result}
+        
+        new_communities = {
+            name: count 
+            for name, count in communities.items() 
+            if name not in existing_names
+        }
+        
+        # Step 6: Record discoveries (status='pending', no auto-promotion!)
+        await self._record_discoveries(None, keywords[:10], new_communities)
+        
+        return list(new_communities.keys())
+
+    async def _fetch_pain_keywords_from_db(self, limit: int = 20) -> List[str]:
+        """Fetch high-value pain keywords from semantic_rules table.
+        
+        Prioritizes keywords with rule_type='pain_keywords' that have
+        higher weights or frequent usage.
+        
+        Args:
+            limit: Maximum keywords to fetch
+            
+        Returns:
+            List of pain keyword patterns
+        """
+        from sqlalchemy import text
+        
+        result = await self.db.execute(
+            text("""
+                SELECT term
+                FROM semantic_rules
+                WHERE rule_type = 'pain_keywords'
+                  AND is_active = true
+                GROUP BY term
+                ORDER BY MAX(weight) DESC NULLS LAST, term
+                LIMIT :limit
+            """),
+            {"limit": limit}
+        )
+        
+        return [row[0] for row in result if row[0]]
+
 
 __all__ = ["CommunityDiscoveryService"]

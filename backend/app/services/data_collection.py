@@ -2,8 +2,9 @@ from __future__ import annotations
 
 import asyncio
 import logging
+import os
 from collections import defaultdict
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime, timedelta, timezone
 from typing import TYPE_CHECKING, Callable, Dict, List, Sequence, cast
 
@@ -27,6 +28,9 @@ class CollectionResult:
     cache_hit_rate: float
     posts_by_subreddit: Dict[str, List[RedditPost]]
     cached_subreddits: set[str]
+    stale_cache_subreddits: set[str] = field(default_factory=set)
+    stale_cache_fallback_subreddits: set[str] = field(default_factory=set)
+    api_failures: list[dict[str, str]] = field(default_factory=list)
 
 
 class DataCollectionService:
@@ -47,6 +51,40 @@ class DataCollectionService:
         self._session_factory = session_factory or SessionFactory
         self._cold_retention_days = max(1, cold_retention_days)
         self._logger = logging.getLogger(__name__)
+        self._cache_stale_hours = self._read_int_env(
+            "DATA_COLLECTION_CACHE_STALE_HOURS", 12
+        )
+        self._stale_fallback_enabled = self._read_truthy_env(
+            "DATA_COLLECTION_STALE_FALLBACK_ENABLED", default="1"
+        )
+
+    @staticmethod
+    def _read_int_env(name: str, default: int) -> int:
+        raw = os.getenv(name, str(default)).strip()
+        try:
+            return max(0, int(raw))
+        except ValueError:
+            return default
+
+    @staticmethod
+    def _read_truthy_env(name: str, *, default: str = "0") -> bool:
+        return os.getenv(name, default).strip().lower() in {"1", "true", "yes", "y"}
+
+    def _is_cache_stale(self, posts: Sequence[RedditPost]) -> bool:
+        if self._cache_stale_hours <= 0:
+            return False
+        newest_ts = 0.0
+        for post in posts:
+            try:
+                newest_ts = max(newest_ts, float(post.created_utc or 0.0))
+            except (TypeError, ValueError):
+                continue
+        if newest_ts <= 0:
+            return True
+        newest_dt = datetime.fromtimestamp(newest_ts, tz=timezone.utc)
+        return datetime.now(timezone.utc) - newest_dt > timedelta(
+            hours=self._cache_stale_hours
+        )
 
     async def collect_posts(
         self,
@@ -69,6 +107,10 @@ class DataCollectionService:
             )
 
         cached_subreddits: set[str] = set()
+        stale_cache_subreddits: set[str] = set()
+        stale_cache_fallback_subreddits: set[str] = set()
+        stale_cache_candidates: Dict[str, List[RedditPost]] = {}
+        api_failures: list[dict[str, str]] = []
         posts_by_subreddit: Dict[str, List[RedditPost]] = {}
 
         for subreddit in subreddits:
@@ -81,6 +123,10 @@ class DataCollectionService:
                 cached = None
             if cached:
                 trimmed = list(cached[:limit_per_subreddit])
+                if self._is_cache_stale(trimmed):
+                    stale_cache_subreddits.add(subreddit)
+                    stale_cache_candidates[subreddit] = trimmed
+                    continue
                 posts_by_subreddit[subreddit] = trimmed
                 cached_subreddits.add(subreddit)
 
@@ -144,11 +190,55 @@ class DataCollectionService:
             results = await asyncio.gather(*fetch_coroutines, return_exceptions=True)
             for subreddit, result in zip(missing_after_cold, results):
                 if isinstance(result, Exception):
-                    raise RuntimeError(
-                        f"Failed to fetch subreddit {subreddit}"
-                    ) from result
+                    error_text = str(result)
+                    reason = (
+                        "rate_limit"
+                        if "rate limit" in error_text.lower()
+                        else "error"
+                    )
+                    api_failures.append(
+                        {
+                            "subreddit": subreddit,
+                            "error": error_text,
+                            "reason": reason,
+                        }
+                    )
+                    if (
+                        self._stale_fallback_enabled
+                        and subreddit in stale_cache_candidates
+                    ):
+                        posts_by_subreddit[subreddit] = list(
+                            stale_cache_candidates[subreddit][:limit_per_subreddit]
+                        )
+                        stale_cache_fallback_subreddits.add(subreddit)
+                    continue
 
-                posts = list(cast(List[RedditPost], result))
+                # 确保 API 返回统一转为 RedditPost dataclass，避免缓存序列化报错
+                posts: List[RedditPost] = []
+                for item in result:
+                    if isinstance(item, RedditPost):
+                        posts.append(item)
+                    elif isinstance(item, dict):
+                        try:
+                            posts.append(
+                                RedditPost(
+                                    id=str(item.get("id", "")),
+                                    title=str(item.get("title", "")),
+                                    selftext=str(item.get("selftext", "")),
+                                    score=int(item.get("score", 0) or 0),
+                                    num_comments=int(item.get("num_comments", 0) or 0),
+                                    created_utc=float(item.get("created_utc", 0) or 0.0),
+                                    subreddit=str(item.get("subreddit", "")),
+                                    author=str(item.get("author", "")),
+                                    url=str(item.get("url", "")),
+                                    permalink=str(item.get("permalink", "")),
+                                )
+                            )
+                        except Exception:
+                            continue
+                    else:
+                        # 忽略无法解析的类型
+                        continue
                 posts_by_subreddit[subreddit] = posts
                 try:
                     await self.cache.set_cached_posts(subreddit, posts)
@@ -169,6 +259,9 @@ class DataCollectionService:
             cache_hit_rate=cache_hit_rate,
             posts_by_subreddit=posts_by_subreddit,
             cached_subreddits=cached_subreddits,
+            stale_cache_subreddits=stale_cache_subreddits,
+            stale_cache_fallback_subreddits=stale_cache_fallback_subreddits,
+            api_failures=api_failures,
         )
 
     @staticmethod
@@ -178,17 +271,24 @@ class DataCollectionService:
         if not communities:
             return []
 
+        # NOTE（大白话）：
+        # - DB 里 subreddit 有格式门禁（必须是 r/<lowercase>）
+        # - 上游输入可能是 "python" / "r/PPC" 这种不统一
+        # - 这里统一成 r/<lowercase>，避免“明明冷库有数据却误打 API”
+        from app.utils.subreddit import normalize_subreddit_name
+
         names: List[str] = []
         seen: set[str] = set()
 
         for entry in communities:
             subreddit = getattr(entry, "name", entry)
-            subreddit = str(subreddit)
-            key = subreddit.strip().lower()
-            if not key or key in seen:
+            canonical = normalize_subreddit_name(str(subreddit))
+            if not canonical:
                 continue
-            seen.add(key)
-            names.append(subreddit.strip())
+            if canonical in seen:
+                continue
+            seen.add(canonical)
+            names.append(canonical)
 
         return names
 

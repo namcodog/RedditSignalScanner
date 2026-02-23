@@ -48,6 +48,11 @@ class TaskStatusPayload:
     message: str
     error: Optional[str] = None
     updated_at: str | None = None
+    # Contract B/C: richer status semantics for "blocked/warmup" visibility in API/SSE.
+    stage: str | None = None
+    blocked_reason: str | None = None
+    next_action: str | None = None
+    details: dict[str, Any] | None = None
 
     def encode(self) -> str:
         return json.dumps(asdict(self), ensure_ascii=False)
@@ -62,6 +67,10 @@ class TaskStatusPayload:
             message=data.get("message", ""),
             error=data.get("error"),
             updated_at=data.get("updated_at"),
+            stage=data.get("stage"),
+            blocked_reason=data.get("blocked_reason"),
+            next_action=data.get("next_action"),
+            details=data.get("details") if isinstance(data.get("details"), dict) else None,
         )
 
 

@@ -6,6 +6,7 @@ Quality Metrics Collector
 """
 from __future__ import annotations
 
+import logging
 import json
 from datetime import date, datetime, timedelta, timezone
 from decimal import Decimal
@@ -14,10 +15,13 @@ from typing import Optional
 
 from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.exc import IntegrityError
 
 from app.models.crawl_metrics import CrawlMetrics
 from app.models.metrics import QualityMetrics
 from app.models.task import Task, TaskStatus
+
+logger = logging.getLogger(__name__)
 
 
 async def collect_metrics(
@@ -156,7 +160,16 @@ async def save_metrics(
         db.add(metrics)
         persisted = metrics
 
-    await db.commit()
+    try:
+        await db.commit()
+    except IntegrityError as exc:
+        await db.rollback()
+        logger.error(
+            "Failed to persist quality metrics for %s due to constraint violation: %s",
+            metrics.date.isoformat(),
+            exc,
+        )
+        raise
 
     # 确保新插入记录拥有 created_at（由数据库默认值/ORM 默认填充）
     try:
@@ -187,4 +200,3 @@ async def save_metrics(
 
 
 __all__ = ["collect_metrics", "save_metrics"]
-

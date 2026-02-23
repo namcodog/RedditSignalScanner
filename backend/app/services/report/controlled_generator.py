@@ -282,14 +282,19 @@ def build_context(
     context.setdefault("L1_evidence_ids", "无")
 
     # Derived indicators for summary card (Spec010/P0 §7)
+    # Allow override from analysis payload if present
     try:
-        pains_count = len(insights.get("pain_points") or [])
-        solutions_count = len(insights.get("opportunities") or [])
-        if solutions_count > 0:
-            ratio = pains_count / max(1, solutions_count)
-            context["ps_ratio"] = f"{ratio:.1f} : 1"
+        override = insights.get("ps_ratio_override")
+        if isinstance(override, (int, float)) and override > 0:
+            context["ps_ratio"] = f"{float(override):.1f} : 1"
         else:
-            context["ps_ratio"] = "N/A"
+            pains_count = len(insights.get("pain_points") or [])
+            solutions_count = len(insights.get("opportunities") or [])
+            if solutions_count > 0:
+                ratio = pains_count / max(1, solutions_count)
+                context["ps_ratio"] = f"{ratio:.1f} : 1"
+            else:
+                context["ps_ratio"] = "N/A"
     except Exception:
         context["ps_ratio"] = "N/A"
 

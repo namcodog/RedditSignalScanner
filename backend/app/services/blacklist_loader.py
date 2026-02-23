@@ -23,6 +23,11 @@ class BlacklistConfig:
         self.downrank_keywords: dict[str, dict[str, Any]] = {}
         self.filter_keywords: set[str] = set()
         self.whitelist_keywords: dict[str, dict[str, Any]] = {}
+        self.blacklisted_authors: dict[str, dict[str, Any]] = {}
+        self.filter_patterns: list[dict[str, Any]] = []
+        self.author_auto_rules: dict[str, Any] = {}
+        self.contextual_filters: list[dict[str, Any]] = []
+        self.semantic_expansion_stopwords: set[str] = set()
 
         self._load_config()
 
@@ -36,9 +41,20 @@ class BlacklistConfig:
             with open(self.config_path, "r", encoding="utf-8") as f:
                 config = yaml.safe_load(f)
 
-            # 加载黑名单社区
-            for item in config.get("blacklisted_communities", []):
-                self.blacklisted_communities.add(item["name"])
+            # 全局黑名单（新结构）
+            for item in config.get("global_blacklist", []) or []:
+                if isinstance(item, str):
+                    self.blacklisted_communities.add(item.strip().lower())
+                elif isinstance(item, dict) and item.get("name"):
+                    self.blacklisted_communities.add(str(item["name"]).strip().lower())
+
+            # 上下文过滤组（新结构）
+            self.contextual_filters = config.get("contextual_filters", []) or []
+            
+            # Semantic Expansion Stopwords
+            for w in config.get("semantic_expansion_stopwords", []) or []:
+                if w and isinstance(w, str):
+                    self.semantic_expansion_stopwords.add(w.strip().lower())
 
             # 加载降权社区
             for item in config.get("downranked_communities", []):
@@ -67,12 +83,35 @@ class BlacklistConfig:
                     "reason": item.get("reason", ""),
                 }
 
+            # 作者黑名单
+            for item in config.get("blacklisted_authors", []) or []:
+                username = str(item.get("username") or "").strip().lower()
+                if username:
+                    self.blacklisted_authors[username] = {"reason": item.get("reason", "")}
+
+            # 作者自动规则
+            self.author_auto_rules = config.get("author_auto_blacklist_rules", {}) or {}
+
+            # 正则模式过滤
+            for item in config.get("filter_patterns", []) or []:
+                try:
+                    pattern = str(item.get("pattern") or "").strip()
+                    if pattern:
+                        self.filter_patterns.append(
+                            {"pattern": pattern, "reason": item.get("reason", "")}
+                        )
+                except Exception:
+                    continue
+
             logger.info(
                 f"✅ 黑名单配置加载成功: "
                 f"{len(self.blacklisted_communities)} 个黑名单社区, "
                 f"{len(self.downranked_communities)} 个降权社区, "
                 f"{len(self.downrank_keywords)} 个降权关键词, "
-                f"{len(self.filter_keywords)} 个过滤关键词"
+                f"{len(self.filter_keywords)} 个过滤关键词, "
+                f"{len(self.blacklisted_authors)} 个黑名单作者, "
+                f"{len(self.filter_patterns)} 条正则模式, "
+                f"{len(self.contextual_filters)} 个上下文过滤组"
             )
 
         except Exception as e:
@@ -140,6 +179,24 @@ class BlacklistConfig:
                 "reason"
             )
         return None
+
+    def is_author_blacklisted(self, username: str) -> bool:
+        key = (username or "").strip().lower()
+        return bool(key) and key in self.blacklisted_authors
+
+    def matches_spam_pattern(self, text: str) -> bool:
+        import re
+
+        if not text or not self.filter_patterns:
+            return False
+        for item in self.filter_patterns:
+            pat = item.get("pattern")
+            try:
+                if pat and re.search(pat, text, flags=re.IGNORECASE):
+                    return True
+            except re.error:
+                continue
+        return False
 
 
 # 全局单例

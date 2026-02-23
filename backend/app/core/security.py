@@ -11,6 +11,7 @@ from passlib.hash import django_pbkdf2_sha256
 from pydantic import BaseModel, ValidationError, field_validator
 
 from app.core.config import Settings, get_settings
+from app.core.tenant_context import set_current_user_id
 
 
 class TokenPayload(BaseModel):
@@ -30,7 +31,7 @@ class TokenPayload(BaseModel):
 http_bearer = HTTPBearer(auto_error=False)
 
 
-def decode_jwt_token(
+async def decode_jwt_token(
     credentials: HTTPAuthorizationCredentials = Depends(http_bearer),
     settings: Settings = Depends(get_settings),
 ) -> TokenPayload:
@@ -65,6 +66,9 @@ def decode_jwt_token(
                 headers={"WWW-Authenticate": "Bearer"},
             )
 
+    # Make RLS context injection "infrastructure": any DB session opened within this request
+    # should have a tenant id available (deny-by-default when absent).
+    set_current_user_id(data.sub)
     return data
 
 

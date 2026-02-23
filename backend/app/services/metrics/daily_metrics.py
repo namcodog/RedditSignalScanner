@@ -37,7 +37,7 @@ def _default_labeled_path(path: Optional[Path]) -> Path:
 
 
 def _default_threshold_path(path: Optional[Path]) -> Path:
-    return path or Path("config/thresholds.yaml")
+    return path or Path("config/scoring_rules.yaml")
 
 
 def _load_threshold(config_path: Path) -> float:

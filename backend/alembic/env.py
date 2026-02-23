@@ -29,10 +29,15 @@ target_metadata = Base.metadata
 
 
 def get_url() -> str:
-    database_url = os.environ.get("DATABASE_URL")
-    if not database_url:
-        raise RuntimeError("DATABASE_URL environment variable must be set for migrations.")
-    return database_url
+    # Migrations often require privileges (e.g. altering RLS policies) that the runtime
+    # application role should not have. Prefer a dedicated migration URL if provided.
+    for key in ("MIGRATION_DATABASE_URL", "DATABASE_URL_MIGRATION", "DATABASE_URL"):
+        database_url = os.environ.get(key)
+        if database_url:
+            return database_url
+    raise RuntimeError(
+        "DATABASE_URL (or MIGRATION_DATABASE_URL / DATABASE_URL_MIGRATION) must be set for migrations."
+    )
 
 
 def run_migrations_offline() -> None:

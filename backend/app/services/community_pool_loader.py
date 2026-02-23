@@ -13,11 +13,12 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
 
-from sqlalchemy import select
+from sqlalchemy import select, func, or_
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.community_cache import CommunityCache
 from app.models.community_pool import CommunityPool
+from app.services.community_category_map_service import replace_community_category_map
 
 logger = logging.getLogger(__name__)
 
@@ -184,6 +185,8 @@ class CommunityPoolLoader:
         loaded_count = 0
         updated_count = 0
 
+        pending_map_updates: list[tuple[CommunityPool, object | None]] = []
+
         for community_data in communities:
             name = community_data["name"]
 
@@ -196,7 +199,6 @@ class CommunityPoolLoader:
                 # Update existing community
                 existing.tier = community_data["tier"]
                 existing.priority = community_data["priority"]
-                existing.categories = community_data["categories"]
                 existing.description_keywords = community_data["description_keywords"]
                 existing.daily_posts = community_data["estimated_daily_posts"]
                 existing.avg_comment_length = community_data["avg_comment_length"]
@@ -207,6 +209,7 @@ class CommunityPoolLoader:
                 existing.deleted_by = None
                 existing.updated_at = datetime.now(timezone.utc)
                 updated_count += 1
+                pending_map_updates.append((existing, community_data.get("categories")))
                 logger.debug(f"Updated existing community: {name}")
             else:
                 # Create new community
@@ -214,7 +217,7 @@ class CommunityPoolLoader:
                     name=name,
                     tier=community_data["tier"],
                     priority=community_data["priority"],
-                    categories=community_data["categories"],
+                    categories=[],
                     description_keywords=community_data["description_keywords"],
                     daily_posts=community_data["estimated_daily_posts"],
                     avg_comment_length=community_data["avg_comment_length"],
@@ -222,8 +225,17 @@ class CommunityPoolLoader:
                     is_active=community_data["is_active"],
                 )
                 self.db.add(community)
+                pending_map_updates.append((community, community_data.get("categories")))
                 loaded_count += 1
                 logger.debug(f"Loaded new community: {name}")
+
+        await self.db.flush()
+        for pool, categories in pending_map_updates:
+            await replace_community_category_map(
+                self.db,
+                community_id=pool.id,
+                categories=categories,
+            )
 
         # Commit all changes
         await self.db.commit()
@@ -357,13 +369,59 @@ class CommunityPoolLoader:
         """
         if force_refresh or self._should_refresh():
             stmt = select(CommunityPool).where(
-                CommunityPool.is_active == True
+                CommunityPool.is_active == True,  # noqa: E712
+                CommunityPool.is_blacklisted == False,  # noqa: E712
             )  # noqa: E712
             result = await self.db.execute(stmt)
             rows = result.scalars().all()
             self._cache = [self._to_profile(row) for row in rows]
             self._last_refresh = datetime.now(timezone.utc)
         return list(self._cache)
+
+    async def get_due_communities(
+        self, buffer_minutes: int = 5
+    ) -> list[CommunityProfile]:
+        """
+        返回“到期需要抓取”的社区列表。
+
+        逻辑：
+        - 仅返回 last_crawled_at + crawl_frequency_hours 已过期（预留 buffer）的社区
+        - 同时要求 CommunityPool/CommunityCache 均为活跃
+        """
+        now = datetime.now(timezone.utc)
+        buffer_delta = timedelta(minutes=max(buffer_minutes, 0))
+
+        stmt = (
+            select(CommunityPool, CommunityCache)
+            .join(CommunityCache, CommunityPool.name == CommunityCache.community_name, isouter=True)
+            .where(CommunityPool.is_active == True)  # noqa: E712
+            .where(CommunityPool.is_blacklisted == False)  # noqa: E712
+        )
+        result = await self.db.execute(stmt)
+        rows = result.all()
+
+        due: list[CommunityProfile] = []
+        for pool_row, cache_row in rows:
+            # 无缓存记录时视为立即到期（首轮抓取）
+            last_crawled = getattr(cache_row, "last_crawled_at", None)
+            freq_hours = getattr(cache_row, "crawl_frequency_hours", None)
+            cache_active = getattr(cache_row, "is_active", True)
+
+            if cache_row is not None and not cache_active:
+                continue
+
+            # 当频率缺失时默认 2 小时
+            freq_hours = int(freq_hours or 2)
+            due_at = (
+                last_crawled + timedelta(hours=freq_hours)
+                if last_crawled is not None
+                else now - timedelta(seconds=1)
+            )
+
+            if now + buffer_delta >= due_at:
+                due.append(self._to_profile(pool_row))
+
+        return due
 
     async def get_community_by_name(self, name: str) -> CommunityProfile | None:
         """Get community by name.

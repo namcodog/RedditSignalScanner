@@ -64,11 +64,12 @@ class InsightService:
                 joinedload(InsightCard.evidences),
                 joinedload(InsightCard.task),
             )
-            .where(InsightCard.task_id == task_id)
+            .where(InsightCard.task_id == task_id, InsightCard.kind == "insight")
         )
 
         count_query = select(func.count(InsightCard.id)).where(
-            InsightCard.task_id == task_id
+            InsightCard.task_id == task_id,
+            InsightCard.kind == "insight",
         )
 
         if filters.min_confidence is not None:
@@ -177,7 +178,7 @@ class InsightService:
                 joinedload(InsightCard.evidences),
                 joinedload(InsightCard.task),
             )
-            .where(InsightCard.id == insight_id)
+            .where(InsightCard.id == insight_id, InsightCard.kind == "insight")
         )
 
         result = await self._session.execute(query)

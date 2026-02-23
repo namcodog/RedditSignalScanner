@@ -6,11 +6,14 @@ from decimal import Decimal
 from sqlalchemy import (
     Boolean,
     CheckConstraint,
+    Computed,
     DateTime,
     Index,
     Integer,
     Numeric,
+    SmallInteger,
     String,
+    Text,
 )
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -33,7 +36,8 @@ class CommunityCache(TimestampMixin, Base):
         Index("idx_cache_priority", "crawl_priority"),
         Index("idx_cache_last_crawled", "last_crawled_at"),
         Index("idx_cache_hit_count", "hit_count"),
-        Index("idx_cache_quality", "quality_score"),
+        Index("idx_cache_quality", "crawl_quality_score"),
+        Index("idx_cache_community_key", "community_key"),
         Index(
             "idx_community_cache_name_trgm",
             "community_name",
@@ -43,13 +47,22 @@ class CommunityCache(TimestampMixin, Base):
     )
 
     community_name: Mapped[str] = mapped_column(String(100), primary_key=True)
+    # Canonical key without r/ prefix, lowercased, for consistent joins with comments/subreddit fields.
+    community_key: Mapped[str] = mapped_column(
+        String(100),
+        Computed("lower(regexp_replace(community_name, '^r/', ''))", persisted=True),
+        nullable=False,
+    )
     last_crawled_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), nullable=False
     )
     posts_cached: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
     ttl_seconds: Mapped[int] = mapped_column(Integer, default=3600, nullable=False)
     quality_score: Mapped[Decimal] = mapped_column(
-        Numeric(3, 2), default=0.50, nullable=False
+        "crawl_quality_score",
+        Numeric(3, 2),
+        default=0.50,
+        nullable=False,
     )
     hit_count: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
     crawl_priority: Mapped[int] = mapped_column(Integer, default=50, nullable=False)
@@ -72,6 +85,38 @@ class CommunityCache(TimestampMixin, Base):
     last_seen_post_id: Mapped[str | None] = mapped_column(String(100))
     last_seen_created_at: Mapped[datetime | None] = mapped_column(
         DateTime(timezone=True)
+    )
+
+    # 补数底线（用于回填抓取）：越补越老（更小的时间）
+    backfill_floor: Mapped[datetime | None] = mapped_column(
+        DateTime(timezone=True), nullable=True
+    )
+
+    # 回填状态（DONE_12M / DONE_CAPPED / NEEDS / RUNNING / ERROR）
+    backfill_status: Mapped[str | None] = mapped_column(
+        String(20), default="NEEDS", nullable=True
+    )
+    coverage_months: Mapped[int | None] = mapped_column(
+        SmallInteger, default=0, nullable=True
+    )
+    sample_posts: Mapped[int | None] = mapped_column(Integer, default=0, nullable=True)
+    sample_comments: Mapped[int | None] = mapped_column(
+        Integer, default=0, nullable=True
+    )
+    backfill_capped: Mapped[bool | None] = mapped_column(
+        Boolean, default=False, nullable=True
+    )
+    backfill_cursor: Mapped[str | None] = mapped_column(Text)
+    backfill_cursor_created_at: Mapped[datetime | None] = mapped_column(
+        DateTime(timezone=True)
+    )
+    backfill_updated_at: Mapped[datetime | None] = mapped_column(
+        DateTime(timezone=True)
+    )
+
+    # 尝试时间（失败/中断只记这里，不代表成功）
+    last_attempt_at: Mapped[datetime | None] = mapped_column(
+        DateTime(timezone=True), nullable=True
     )
 
     # 社区成员数（从 Reddit API 获取，用于报告生成）

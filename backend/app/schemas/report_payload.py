@@ -11,6 +11,7 @@ from app.schemas.analysis import (
     CommunitySourceDetail,
     CompetitorSignal,
     CompetitorLayerSummary,
+    DriverSignal,
     EntitySummary,
     EntityLeaderboardItem,
     OpportunityReportOut,
@@ -81,6 +82,15 @@ class ReportMetadata(ORMModel):
     llm_rounds: Optional[int] = Field(default=None, ge=0)
     # 可选：语义词库版本（Spec009/011 对齐，用于报告追溯）
     lexicon_version: Optional[str] = None
+    # 可选：市场增强结果（Phase 1 集成），保持向后兼容
+    market_enhancements: dict[str, Any] | None = None
+
+
+class MarketHealth(ORMModel):
+    saturation_level: Optional[str] = None
+    saturation_score: Optional[float] = Field(default=None, ge=0.0, le=1.0)
+    ps_ratio: Optional[float] = Field(default=None, ge=0.0)
+    ps_ratio_assessment: Optional[str] = None
 
 
 class ReportContent(ORMModel):
@@ -90,6 +100,8 @@ class ReportContent(ORMModel):
     competitors: list[CompetitorSignal] = Field(default_factory=list)
     opportunities: list[OpportunitySignal] = Field(default_factory=list)
     action_items: list[OpportunityReportOut] = Field(default_factory=list)
+    purchase_drivers: list[DriverSignal] = Field(default_factory=list)
+    market_health: Optional[MarketHealth] = None
     entity_summary: EntitySummary = Field(default_factory=EntitySummary)
     entity_leaderboard: list[EntityLeaderboardItem] = Field(default_factory=list)
     competitor_layers_summary: list[CompetitorLayerSummary] = Field(default_factory=list)
@@ -116,7 +128,9 @@ class ReportPayload(ORMModel):
     status: TaskStatus
     generated_at: datetime
     product_description: Optional[str] = None
+    data_source: Optional[str] = None
     report_html: Optional[str] = None
+    report_structured: dict[str, Any] | None = None
     report: ReportContent
     metadata: ReportMetadata
     overview: ReportOverview
@@ -129,6 +143,7 @@ __all__ = [
     "FallbackQuality",
     "ReportContent",
     "ReportExecutiveSummary",
+    "MarketHealth",
     "ReportMetadata",
     "ReportOverview",
     "ReportPayload",
