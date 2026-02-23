@@ -1,37 +1,24 @@
-# 阶段二·收尾执行记录（Spec 011 / Phase 2 Closeout）
+# Phase 2 集成记录（GTM行动计划器）
 
-时间：$DATE_PLACEHOLDER$
+时间：2025-11-13 进度点：2.4-2.7（GTMPlanner 核心）
 
-## 产出清单
-
-- backend/config/entity_dictionary/crossborder_v2_diverse.csv（100项，brands≤30，pain≥35，短语优先）
-- backend/reports/local-acceptance/entity-metrics_diverse.csv（覆盖/Top10/按类覆盖）
-- backend/reports/local-acceptance/metrics/metrics_diversity_diff.csv（baseline vs diverse 对比）
-- backend/config/semantic_sets/crossborder_v2.1_refined.yml（Unique@500=500）
-- backend/config/semantic_sets/versions/crossborder_v2.1_refined_YYYYMMDD.yml（归档）
-
-## 指标对比摘录（最新）
-
-- Overall 覆盖：baseline 0.8730 → diverse (ST 网格最优) ≈ 0.8462（≥0.80 达标）
-- Pain 覆盖：baseline 0.5175 → diverse ≈ 0.5158（≥0.45 达标）
-- Brands 限额：≤ 30（达标）
-- Top10 Unique Share：baseline 0.8101 → diverse (ST 网格最优) ≈ 0.7348（较基线显著下降，距≤0.70 仍差少许）
-
-网格搜索摘要：`backend/reports/local-acceptance/metrics/grid_search_summary.csv`（sim-max ∈ {0.45, 0.50, 0.55} × replace-n ∈ {12,16,18,20}）。
-
-详见：`backend/reports/local-acceptance/metrics/metrics_diversity_diff.csv` 与最新 `entity-metrics_diverse.csv`。
-
-## 四问总结
-
-1) 发现/根因：Top10 占比高，主要由“单词型头部项”（shipping/items/commerce 等）与头部品牌（shopify/amazon 等）拉高；pain 单词（problem/issue）也贡献集中命中。
-
-2) 定位：构建脚本仅对 features 做了弱过滤，未覆盖更多泛化单词；pain_points 未短语优先；且 features 回填后顺序导致可能挤占 pain（后续已调整为 brands+pains+features 顺序）。
-
-3) 修复方法：
-- 扩充泛化单词过滤（features）；保持“短语优先”。
-- 保证 pain_points 序列在裁剪前（brands+pains+features），并设置 pain 下限（≥42）保障覆盖。
-- 失败时的试点：离线“长尾短语”增广（基于本地语料正则匹配+频次），替换小部分 features 以分散 Top10 命中。
-
-4) 下一步：若需继续压低 Top10≤0.70，可用更精细的近邻模型（sentence-transformers）筛选“非品牌、非泛化”的长尾短语，并引入更严格的短语停用词表；当前已提供 `phase2-success` 一键产出命令。
-
-5) 效果/结果：满足红线（overall≥0.80、pain≥0.45、brands≤30），Top10 占比较 baseline 显著下降（≈ -0.08）；语义集 refined 保持 Unique@500=500 并已归档。
+- 发现/根因：
+  - 现有 GTMActionPlanner 仅包含 3 条基础动作，未覆盖两周节奏与审核强度降级，难以直接用于 Phase 2 验收。
+- 定位：
+  - 目标文件：`backend/app/services/reporting/gtm_planner.py`，保持模板回退、可扩展、无外部依赖。
+- 精确修复：
+  - 两周极简节奏：新增 W1（潜伏/价值/讨论）、W2（复盘/软植入/反馈）共 ≥6 条动作；
+  - 合规降级：`moderation_score>=0.9` 自动替换“发布帖子”为“总结/留言”等更保守方式，并给出 `compliance_warning`；
+  - 不改变对外数据结构（`GTMPlan`/`GTMAction`），保持回退友好；
+- 测试：
+  - `backend/tests/services/report/test_gtm_planner.py`：
+    - `test_gtm_planner_fallback_generates_actions`（基础生成）
+    - `test_gtm_planner_generates_two_weeks_min_actions_count`（两周≥6条）
+    - `test_gtm_planner_compliance_warning_and_copy_tone`（合规降级，禁用“发布帖子”用语）
+  - `backend/tests/services/test_report_service_phase2_integration.py`：
+    - `test_phase2_integration_generates_gtm_plans`（集成校验：返回结构包含 gtm_plans 且动作数≥6）
+- 结果：
+  - 单测通过（4 passed）；实现最小可用 GTM 计划输出，集成落点为 `ReportMetadata.market_enhancements.gtm_plans`，满足 Phase 2 的节奏与合规约束；未修改其他模块以避免过度开发。
+- 下一步（Phase 2 范畴内可选）：
+  - 细化社区差异化模版（按 persona.traits 做轻微措辞替换）；
+  - 提供可插拔的频次/天数参数，便于 A/B；

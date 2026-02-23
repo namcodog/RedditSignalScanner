@@ -118,6 +118,7 @@ reports/phase-log/*.json
 reports/phase-log/*-temp.md
 reports/phase-log/*-draft.md
 reports/failed_e2e/
+reports/llm-client/
 
 # ─── Temporary Analysis Documents ──────────────────────────
 *-分析.md

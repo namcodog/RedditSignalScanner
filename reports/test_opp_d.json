@@ -1,0 +1,275 @@
+{
+  "query_id": "6fff203a-f5f2-4a03-93db-d3c8b7105d77",
+  "query": "paint by numbers relaxing",
+  "mode": "opportunity",
+  "search_time": "2026-02-02 15:11:59.748859+00:00",
+  "from_cache": false,
+  "status": "success",
+  "position": null,
+  "estimated_wait_seconds": null,
+  "summary": "样本有限，仅一帖展示Number Artist PBN作品，用户反馈正面，提及有更精细细节套件。",
+  "markdown_report": "# paint by numbers relaxing — 机会发现报告\n\n> 生成时间：2026-02-02T15:11:59.748859+00:00  \n> 模式：机会发现 (Opportunity)  \n\n## 📌 一句话结论\n样本有限，仅一帖展示Number Artist PBN作品，用户反馈正面，提及有更精细细节套件。\n\n## 📊 数据概况\n| 指标 | 值 |\n|------|-----|\n| 可信度 | low |\n| 需求帖数 | 1 |\n| 社区数 | 1 |\n| 机会强度 | weak |\n\n**需求紧迫度分布**：\n紧迫 0% / 一般 100% / 随意 0%\n\n## 🔎 核心需求 Top 1\n### #1 🎨 更精细细节的PBN套件\n| 紧迫度 | 提及次数 | 共鸣数 | 价格区间 |\n|-------|---------|-------|---------|\n| low | 1 | 0 | - |\n**核心观点**：用户提到现有品牌有更精细选项，暗示对细节的兴趣\n\n> \"They do have kits with much finer details, btw!\"\n\n**现有替代方案**：\n- Number Artist PBN kit: medium\n\n**代表性帖子**：\n- Red Cardinal using Number Artist PBN kit (paintbynumbers) | 👍 44 💬 3 | 热度 50\n  - 链接：https://i.redd.it/64jrca8vu7bg1.jpeg\n\n## 🧰 现有工具\n### Number Artist PBN kit\n- 提及次数：1\n- 情绪倾向：positive（0.8）\n- 优势：Looks good、stunning\n- 不足分析：细节可进一步精细化\n\n## 👥 用户画像\n- PBN爱好者 (100%)\n  - 关键需求：精细细节套件\n  - 价格敏感度：中\n  > \"Looks good ☺️ They do have kits with much finer details, btw!\"\n\n## 📈 市场机会\n- 机会强度：weak\n- 市场空白：对更精细放松PBN细节的需求信号弱\n- 需求信号：low\n- 竞争强度：medium\n- 建议：样本有限，建议收集更多求助帖验证精细套件需求\n\n## 📰 Top 发现帖 Top 5\n### Red Cardinal using Number Artist PBN kit\n- 社区：paintbynumbers | 👍 44 | 💬 3 | 热度 50 | 共鸣 0\n> i liked using NUMBER artist kit. color coded, clear numbers, less fine details. perfect for beginners, people with sight issues, just want relaxing fun. not as challenging if you are looking for more detail and are experienced. but i like their kit, paints etc. used 1\ncoat of gesso. that helped alo…\n📎 原帖：https://i.redd.it/64jrca8vu7bg1.jpeg\n\n## 可靠性说明\n当前样本量 1 条，样本有限，仅供预览。\n\n## 🚀 下一步\n- ✅ 可生成深度报告 → ?token=\n- 💡 建议关键词：paint、by、numbers、relaxing\n",
+  "top_posts": [
+    {
+      "rank": 1,
+      "id": "1q397h3",
+      "title": "Red Cardinal using Number Artist PBN kit",
+      "body_preview": "i liked using NUMBER artist kit. color coded, clear numbers, less fine details. perfect for beginners, people with sight issues, just want relaxing fun. not as challenging if you are looking for more detail and are experienced. but i like their kit, paints etc. used 1\ncoat of gesso. that helped alot. but no more than 1. ",
+      "score": 44,
+      "num_comments": 3,
+      "heat_score": 50,
+      "rant_score": 10.5,
+      "rant_signals": [
+        "looking for"
+      ],
+      "resonance_count": null,
+      "subreddit": "paintbynumbers",
+      "author": "Snoopysleuth",
+      "reddit_url": "https://i.redd.it/64jrca8vu7bg1.jpeg",
+      "created_utc": 1767481809.0,
+      "signals": [
+        "looking for"
+      ],
+      "signal_score": 10.5,
+      "why_relevant": null,
+      "why_important": null,
+      "top_comments": [
+        {
+          "comment_fullname": null,
+          "author": "Yup_Mhm_1539",
+          "body": "Looks good ☺️ They do have kits with much finer details, btw!",
+          "score": 3,
+          "permalink": "/r/paintbynumbers/comments/1q397h3/red_cardinal_using_number_artist_pbn_kit/nxizrtc/"
+        },
+        {
+          "comment_fullname": null,
+          "author": "Michellesmusingsau",
+          "body": "This is stunning!",
+          "score": 2,
+          "permalink": "/r/paintbynumbers/comments/1q397h3/red_cardinal_using_number_artist_pbn_kit/nxln0ax/"
+        }
+      ]
+    }
+  ],
+  "key_comments": [
+    {
+      "comment_fullname": null,
+      "author": "Yup_Mhm_1539",
+      "body": "Looks good ☺️ They do have kits with much finer details, btw!",
+      "score": 3,
+      "permalink": "/r/paintbynumbers/comments/1q397h3/red_cardinal_using_number_artist_pbn_kit/nxizrtc/"
+    },
+    {
+      "comment_fullname": null,
+      "author": "Michellesmusingsau",
+      "body": "This is stunning!",
+      "score": 2,
+      "permalink": "/r/paintbynumbers/comments/1q397h3/red_cardinal_using_number_artist_pbn_kit/nxln0ax/"
+    }
+  ],
+  "top_rants": null,
+  "top_discovery_posts": [
+    {
+      "rank": 1,
+      "id": "1q397h3",
+      "title": "Red Cardinal using Number Artist PBN kit",
+      "body_preview": "i liked using NUMBER artist kit. color coded, clear numbers, less fine details. perfect for beginners, people with sight issues, just want relaxing fun. not as challenging if you are looking for more detail and are experienced. but i like their kit, paints etc. used 1\ncoat of gesso. that helped alot. but no more than 1. ",
+      "score": 44,
+      "num_comments": 3,
+      "heat_score": 50,
+      "rant_score": 10.5,
+      "rant_signals": [
+        "looking for"
+      ],
+      "resonance_count": 0,
+      "subreddit": "paintbynumbers",
+      "author": "Snoopysleuth",
+      "reddit_url": "https://i.redd.it/64jrca8vu7bg1.jpeg",
+      "created_utc": 1767481809.0,
+      "signals": [
+        "looking for"
+      ],
+      "signal_score": 10.5,
+      "why_relevant": null,
+      "why_important": null,
+      "top_comments": [
+        {
+          "comment_fullname": null,
+          "author": "Yup_Mhm_1539",
+          "body": "Looks good ☺️ They do have kits with much finer details, btw!",
+          "score": 3,
+          "permalink": "/r/paintbynumbers/comments/1q397h3/red_cardinal_using_number_artist_pbn_kit/nxizrtc/"
+        },
+        {
+          "comment_fullname": null,
+          "author": "Michellesmusingsau",
+          "body": "This is stunning!",
+          "score": 2,
+          "permalink": "/r/paintbynumbers/comments/1q397h3/red_cardinal_using_number_artist_pbn_kit/nxln0ax/"
+        }
+      ]
+    }
+  ],
+  "pain_points": null,
+  "opportunities": [
+    {
+      "summary": "用户在讨论中表达了需求缺口",
+      "me_too_count": 0
+    }
+  ],
+  "trending_keywords": null,
+  "topics": null,
+  "competitor_mentions": null,
+  "migration_intent": null,
+  "top_quotes": null,
+  "unmet_needs": [
+    {
+      "rank": 1,
+      "need": "🎨 更精细细节的PBN套件",
+      "need_en": "PBN kits with finer details",
+      "urgency": "low",
+      "mentions": 1,
+      "demand_signal": "weak",
+      "me_too_count": 0,
+      "willingness_to_pay": "low",
+      "pay_evidence": null,
+      "price_range": "",
+      "key_takeaway": "用户提到现有品牌有更精细选项，暗示对细节的兴趣",
+      "user_voice": "They do have kits with much finer details, btw!",
+      "current_workarounds": [
+        {
+          "solution": null,
+          "pain": null,
+          "name": "Number Artist PBN kit",
+          "satisfaction": "medium"
+        }
+      ],
+      "opportunity_insight": "开发高细节放松主题PBN套件",
+      "evidence": [
+        {
+          "title": "Red Cardinal using Number Artist PBN kit",
+          "score": 44,
+          "comments": 3,
+          "me_too_comments": null,
+          "subreddit": "paintbynumbers",
+          "url": "https://i.redd.it/64jrca8vu7bg1.jpeg",
+          "key_quote": "Looks good ☺️ They do have kits with much finer details, btw!"
+        }
+      ],
+      "evidence_posts": [
+        {
+          "rank": 1,
+          "id": "1q397h3",
+          "title": "Red Cardinal using Number Artist PBN kit",
+          "body_preview": "i liked using NUMBER artist kit. color coded, clear numbers, less fine details. perfect for beginners, people with sight issues, just want relaxing fun. not as challenging if you are looking for more detail and are experienced. but i like their kit, paints etc. used 1\ncoat of gesso. that helped alot. but no more than 1. ",
+          "score": 44,
+          "num_comments": 3,
+          "heat_score": 50,
+          "rant_score": 10.5,
+          "rant_signals": [
+            "looking for"
+          ],
+          "resonance_count": null,
+          "subreddit": "paintbynumbers",
+          "author": "Snoopysleuth",
+          "reddit_url": "https://i.redd.it/64jrca8vu7bg1.jpeg",
+          "created_utc": 1767481809.0,
+          "signals": [
+            "looking for"
+          ],
+          "signal_score": 10.5,
+          "why_relevant": null,
+          "why_important": null,
+          "top_comments": [
+            {
+              "comment_fullname": null,
+              "author": "Yup_Mhm_1539",
+              "body": "Looks good ☺️ They do have kits with much finer details, btw!",
+              "score": 3,
+              "permalink": "/r/paintbynumbers/comments/1q397h3/red_cardinal_using_number_artist_pbn_kit/nxizrtc/"
+            },
+            {
+              "comment_fullname": null,
+              "author": "Michellesmusingsau",
+              "body": "This is stunning!",
+              "score": 2,
+              "permalink": "/r/paintbynumbers/comments/1q397h3/red_cardinal_using_number_artist_pbn_kit/nxln0ax/"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "existing_tools": [
+    {
+      "name": "Number Artist PBN kit",
+      "sentiment": "positive",
+      "mentions": 1,
+      "sentiment_score": 0.8,
+      "common_praise": [
+        "Looks good",
+        "stunning"
+      ],
+      "common_complaint": [],
+      "praised_for": [
+        "视觉效果好",
+        "有更精细细节选项"
+      ],
+      "criticized_for": [],
+      "gap_analysis": "细节可进一步精细化"
+    }
+  ],
+  "user_segments": [
+    {
+      "segment": "PBN爱好者",
+      "percentage": "100%",
+      "core_need": null,
+      "key_need": "精细细节套件",
+      "price_sensitivity": "中",
+      "typical_quote": "Looks good ☺️ They do have kits with much finer details, btw!"
+    }
+  ],
+  "market_opportunity": {
+    "gap": null,
+    "target_user": null,
+    "pricing_hint": null,
+    "gtm_channel": null,
+    "strength": "weak",
+    "unmet_gap": "对更精细放松PBN细节的需求信号弱",
+    "demand_signal": "low",
+    "competition_level": "medium",
+    "recommendation": "样本有限，建议收集更多求助帖验证精细套件需求"
+  },
+  "communities": [
+    "paintbynumbers"
+  ],
+  "related_queries": [],
+  "evidence_count": 1,
+  "community_distribution": {
+    "paintbynumbers": "100%"
+  },
+  "sentiment_overview": {
+    "positive": 1.0,
+    "neutral": 0.0,
+    "negative": 0.0
+  },
+  "rant_intensity": null,
+  "need_urgency": {
+    "urgent": 0.0,
+    "moderate": 1.0,
+    "casual": 0.0
+  },
+  "opportunity_strength": "weak",
+  "confidence": "low",
+  "reliability_note": "当前样本量 1 条，样本有限，仅供预览。",
+  "next_steps": {
+    "deepdive_available": true,
+    "deepdive_token": null,
+    "suggested_keywords": [
+      "paint",
+      "by",
+      "numbers",
+      "relaxing"
+    ]
+  }
+}

@@ -1,0 +1,1051 @@
+{
+  "query_id": "ded4e336-9934-47bf-bc9d-ee129e996e71",
+  "query": "hobby recommendation stress",
+  "mode": "opportunity",
+  "search_time": "2026-02-02 15:03:55.290354+00:00",
+  "from_cache": false,
+  "status": "success",
+  "position": null,
+  "estimated_wait_seconds": null,
+  "summary": "用户寻求成人着色爱好入门推荐及预医申请中爱好补充建议，以缓解压力。",
+  "markdown_report": "# hobby recommendation stress — 机会发现报告\n\n> 生成时间：2026-02-02T15:03:55.290354+00:00  \n> 模式：机会发现 (Opportunity)  \n\n## 📌 一句话结论\n用户寻求成人着色爱好入门推荐及预医申请中爱好补充建议，以缓解压力。\n\n## 📊 数据概况\n| 指标 | 值 |\n|------|-----|\n| 可信度 | low |\n| 需求帖数 | 5 |\n| 社区数 | 2 |\n| 机会强度 | weak |\n\n**需求紧迫度分布**：\n紧迫 40% / 一般 60% / 随意 0%\n\n## 🔎 核心需求 Top 5\n### #1 🎨 成人着色入门用品推荐（蜡笔/马克笔/书籍）\n| 紧迫度 | 提及次数 | 共鸣数 | 价格区间 |\n|-------|---------|-------|---------|\n| medium | 1 | 0 | - |\n**核心观点**：新手寻求首次着色购买建议\n\n> \"Advice on my first coloring purchase? (Pastel markers?books?)\"\n\n**现有替代方案**：\n- Ohuhu markers: low\n- Prismacolor and Faber Castell pencils: medium\n\n**代表性帖子**：\n- Advice on my first coloring purchase? (Pastel markers?books?) (AdultColoring) | 👍 0 💬 2 | 热度 4\n  - 链接：https://www.reddit.com/r/AdultColoring/comments/1q37h1b/advice_on_my_first_coloring_purchase_pastel/\n\n### #2 🖤 非AI单色着色书籍推荐\n| 紧迫度 | 提及次数 | 共鸣数 | 价格区间 |\n|-------|---------|-------|---------|\n| medium | 1 | 0 | - |\n**核心观点**：寻求非AI生成的单色成人着色书\n\n> \"Monochrome colouring books - not AI ?\"\n\n**代表性帖子**：\n- Monochrome colouring books - not AI ? (AdultColoring) | 👍 6 💬 0 | 热度 6\n  - 链接：https://www.reddit.com/r/AdultColoring/comments/1q2yc9k/monochrome_colouring_books_not_ai/\n\n### #3 📚 预医申请中添加爱好建议\n| 紧迫度 | 提及次数 | 共鸣数 | 价格区间 |\n|-------|---------|-------|---------|\n| low | 1 | 0 | - |\n**核心观点**：建议在申请中补充爱好如阅读/跑步\n\n> \"add in hobbies (eg reading or running or even movie critic if you love movies or something)\"\n\n**代表性帖子**：\n- preparing to reapply, hoping for some advice (3.7/513 tx orm) (premed) | 👍 13 💬 11 | 热度 35\n  - 链接：https://www.reddit.com/r/premed/comments/1qevisz/preparing_to_reapply_hoping_for_some_advice_37513/\n\n### #4 🏥 预医重新申请建议\n| 紧迫度 | 提及次数 | 共鸣数 | 价格区间 |\n|-------|---------|-------|---------|\n| medium | 2 | 0 | - |\n**核心观点**：寻求GPA/MCAT差距下的重新申请指导\n\n> \"preparing to reapply, hoping for some advice (3.7/513 tx orm)\"\n\n**现有替代方案**：\n- Optional essays: medium\n\n**代表性帖子**：\n- preparing to reapply, hoping for some advice (3.7/513 tx orm) (premed) | 👍 13 💬 11 | 热度 35\n  - 链接：https://www.reddit.com/r/premed/comments/1qevisz/preparing_to_reapply_hoping_for_some_advice_37513/\n- A piece of my story, and I want your opinion/advice. TL;DR I need help finding my way back to medicine. (premed) | 👍 7 💬 3 | 热度 13\n  - 链接：https://www.reddit.com/r/premed/comments/1qmxudq/a_piece_of_my_story_and_i_want_your_opinionadvice/\n\n### #5 📝 预医学校列表和申请审查\n| 紧迫度 | 提及次数 | 共鸣数 | 价格区间 |\n|-------|---------|-------|---------|\n| low | 1 | 0 | - |\n**核心观点**：高研究但GPA低的应用审查\n\n> \"Two Gap-Year, High Research, MCAT/GPA discrepancy, App + Schools review\"\n\n**代表性帖子**：\n- Two Gap-Year, High Research, MCAT/GPA discrepancy, App + Schools review (premed) | 👍 6 💬 6 | 热度 18\n  - 链接：https://www.reddit.com/r/premed/comments/1q6t61e/two_gapyear_high_research_mcatgpa_discrepancy_app/\n\n## 🧰 现有工具\n### Ohuhu markers\n- 提及次数：1\n- 情绪倾向：negative（-0.8）\n- 短板：too juicy\n- 不足分析：渗墨严重，不适合新手\n\n### Prismacolor pencils\n- 提及次数：1\n- 情绪倾向：positive（0.7）\n- 优势：picked up\n- 不足分析：作为马克笔替代，但非首选\n\n### Faber Castell Black Edition\n- 提及次数：1\n- 情绪倾向：positive（0.7）\n- 优势：picked up\n- 不足分析：铅笔选项受欢迎\n\n### Mythographic colouring books\n- 提及次数：1\n- 情绪倾向：positive（0.8）\n- 优势：one sided pages、detailed\n- 不足分析：适合马克笔，细节丰富\n\n### Coco wyo books\n- 提及次数：1\n- 情绪倾向：mixed（0.2）\n- 短板：less detailed\n- 不足分析：细节不足\n\n## 👥 用户画像\n- 成人着色新手 (约40%)\n  - 关键需求：入门用品推荐\n  - 价格敏感度：中\n  > \"Advice on my first coloring purchase?\"\n- 预医申请者 (约60%)\n  - 关键需求：申请优化包括爱好\n  - 价格敏感度：低\n  > \"add in hobbies (eg reading or running\"\n\n## 📈 市场机会\n- 机会强度：weak\n- 市场空白：着色新手用品指导及预医压力爱好推荐不足\n- 需求信号：low\n- 竞争强度：low\n- 建议：开发针对压力群体的着色入门套装和爱好匹配App，样本有限仅供预览\n\n## 📰 Top 发现帖 Top 5\n### Two Gap-Year, High Research, MCAT/GPA discrepancy, App + Schools review\n- 社区：premed | 👍 6 | 💬 6 | 热度 18 | 共鸣 1\n> Hi I am a year out of college and going on my second gap year, wanted to take the time explore myself a bit and make a little bit of money before applying. But now that I am ready to apply for the 2026-2027 cycle I am putting my app together just wanted some input. Used [admit.org](http://admit.org…\n**为什么重要**：申请审查需求，包括潜在爱好补充\n📎 原帖：https://www.reddit.com/r/premed/comments/1q6t61e/two_gapyear_high_research_mcatgpa_discrepancy_app/\n\n### Advice on my first coloring purchase? (Pastel markers?books?)\n- 社区：AdultColoring | 👍 0 | 💬 2 | 热度 4 | 共鸣 0\n> Hi, \nI have always been into arts and crafts. Over the last few years I have been loving watercolors and crocheting, but I'm now going through some very stressful times and looking for something different. I don't know much about coloring but I have found some amazing inspo on this subreddit! \nI'm …\n**为什么重要**：直接求助着色入门推荐，评论讨论马克笔痛点\n📎 原帖：https://www.reddit.com/r/AdultColoring/comments/1q37h1b/advice_on_my_first_coloring_purchase_pastel/\n\n### Monochrome colouring books - not AI ?\n- 社区：AdultColoring | 👍 6 | 💬 0 | 热度 6 | 共鸣 0\n> Just wondering if anyone knows of any monochrome colouring books that are definitely drawn by a real person ?\n\n  \nI got the Still and Slow advent / Christmas book, and I love that I can just colour without the stress of choosing colours - I was going to order some more, but I've read several review…\n**为什么重要**：寻求非AI单色书，突出质量需求\n📎 原帖：https://www.reddit.com/r/AdultColoring/comments/1q2yc9k/monochrome_colouring_books_not_ai/\n\n### preparing to reapply, hoping for some advice (3.7/513 tx orm)\n- 社区：premed | 👍 13 | 💬 11 | 热度 35 | 共鸣 0\n> hello reddit,\n\ni applied to medical school for ey2026, and my cycle has not gone well so far. 2 ii (1 is, 1 oos) -&gt; waitlisted at the oos school and waiting for match day for the tx school. fingers crossed i match, but i want to start preparing for reapplication in case i don't. i am so lost and…\n**为什么重要**：预医求助，评论提及添加爱好缓解申请压力\n📎 原帖：https://www.reddit.com/r/premed/comments/1qevisz/preparing_to_reapply_hoping_for_some_advice_37513/\n\n### A piece of my story, and I want your opinion/advice. TL;DR I need help finding my way back to medicine.\n- 社区：premed | 👍 7 | 💬 3 | 热度 13 | 共鸣 0\n> This is going to be a long one. If you feel up for the read, great, if not, scroll to the bottom for key points. The goal is to gain some insight of those with shared experiences, advice, tips, and connections. \n\nMy story begins in 2018. I was a junior in high school and solidified my decision to p…\n**为什么重要**：寻找医学道路，暗示压力下方向需求\n📎 原帖：https://www.reddit.com/r/premed/comments/1qmxudq/a_piece_of_my_story_and_i_want_your_opinionadvice/\n\n## 可靠性说明\n当前样本量 5 条，样本有限，仅供预览。\n\n## 🚀 下一步\n- ✅ 可生成深度报告 → ?token=\n- 💡 建议关键词：hobby、recommendation、stress\n",
+  "top_posts": [
+    {
+      "rank": 1,
+      "id": "1q37h1b",
+      "title": "Advice on my first coloring purchase? (Pastel markers?books?)",
+      "body_preview": "Hi, \nI have always been into arts and crafts. Over the last few years I have been loving watercolors and crocheting, but I'm now going through some very stressful times and looking for something different. I don't know much about coloring but I have found some amazing inspo on this subreddit! \nI'm now trying to figure out what my first coloring purchase could be. I'm thinking I'd like to get pastel alcohol markers (I like the idea of markers, but I don't love bright and bold colors, I thought ma",
+      "score": 0,
+      "num_comments": 2,
+      "heat_score": 4,
+      "rant_score": 10.04,
+      "rant_signals": [
+        "looking for"
+      ],
+      "resonance_count": null,
+      "subreddit": "AdultColoring",
+      "author": "LongStoryShort__",
+      "reddit_url": "https://www.reddit.com/r/AdultColoring/comments/1q37h1b/advice_on_my_first_coloring_purchase_pastel/",
+      "created_utc": 1767477551.0,
+      "signals": [
+        "looking for"
+      ],
+      "signal_score": 10.04,
+      "why_relevant": "直接求助着色入门推荐，评论讨论马克笔痛点",
+      "why_important": null,
+      "top_comments": [
+        {
+          "comment_fullname": null,
+          "author": "This_Fig2022",
+          "body": "I bought markers last night - an Ohuhu set with the fine tip.  I had to return them for pencils this morning.  I bought a set of prismacolor and the Faber Castell Black Edition.  I picked up a couple books at the store / stopped at a discount store they had a ton so I got a few there and will order ones online when I see shares of styles I like.  \n\nThe markers were not for me they were too juicy a",
+          "score": 1,
+          "permalink": "/r/AdultColoring/comments/1q37h1b/advice_on_my_first_coloring_purchase_pastel/nxio1bn/"
+        },
+        {
+          "comment_fullname": null,
+          "author": "puZZled59",
+          "body": "The mythographic colouring books are printed with one sided pages, so you could use markers in those. They are much more detailed than the coco wyo type of books",
+          "score": 1,
+          "permalink": "/r/AdultColoring/comments/1q37h1b/advice_on_my_first_coloring_purchase_pastel/nxjc908/"
+        }
+      ]
+    },
+    {
+      "rank": 2,
+      "id": "1q2yc9k",
+      "title": "Monochrome colouring books - not AI ?",
+      "body_preview": "Just wondering if anyone knows of any monochrome colouring books that are definitely drawn by a real person ?\n\n  \nI got the Still and Slow advent / Christmas book, and I love that I can just colour without the stress of choosing colours - I was going to order some more, but I've read several reviews that say they use AI art, which I don't want to support.\n\n  \nThanks in advance for any recommendations !",
+      "score": 6,
+      "num_comments": 0,
+      "heat_score": 6,
+      "rant_score": 20.06,
+      "rant_signals": [
+        "any recommendations",
+        "anyone know"
+      ],
+      "resonance_count": null,
+      "subreddit": "AdultColoring",
+      "author": "SchoolScienceTech",
+      "reddit_url": "https://www.reddit.com/r/AdultColoring/comments/1q2yc9k/monochrome_colouring_books_not_ai/",
+      "created_utc": 1767456436.0,
+      "signals": [
+        "any recommendations",
+        "anyone know"
+      ],
+      "signal_score": 20.06,
+      "why_relevant": "寻求非AI单色书，突出质量需求",
+      "why_important": null,
+      "top_comments": []
+    },
+    {
+      "rank": 3,
+      "id": "1qevisz",
+      "title": "preparing to reapply, hoping for some advice (3.7/513 tx orm)",
+      "body_preview": "hello reddit,\n\ni applied to medical school for ey2026, and my cycle has not gone well so far. 2 ii (1 is, 1 oos) -&gt; waitlisted at the oos school and waiting for match day for the tx school. fingers crossed i match, but i want to start preparing for reapplication in case i don't. i am so lost and the idea of having to go through this process again makes me wanna rip all my hair out LOL. if you have any suggestions/criticism/etc. for me, i would greatly appreciate it. below are my application d",
+      "score": 13,
+      "num_comments": 11,
+      "heat_score": 35,
+      "rant_score": 10.35,
+      "rant_signals": [
+        "any suggestions"
+      ],
+      "resonance_count": null,
+      "subreddit": "premed",
+      "author": "RadioactiveArrow",
+      "reddit_url": "https://www.reddit.com/r/premed/comments/1qevisz/preparing_to_reapply_hoping_for_some_advice_37513/",
+      "created_utc": 1768605207.0,
+      "signals": [
+        "any suggestions"
+      ],
+      "signal_score": 10.35,
+      "why_relevant": "预医求助，评论提及添加爱好缓解申请压力",
+      "why_important": null,
+      "top_comments": [
+        {
+          "comment_fullname": null,
+          "author": "ShadowKing227",
+          "body": "Back when I was applying mainly to TMDSAS, my undergrad advisor told me that the optional essays weren’t really optional. You have allocated space to hype yourself up more and showcase yet another side to yourself. Or you get the opportunity to explain something that doesn’t quite fit anywhere else. Based on your post, you could go with either. \n\nAs you reapply, also get your secondaries in earlie",
+          "score": 10,
+          "permalink": "/r/premed/comments/1qevisz/preparing_to_reapply_hoping_for_some_advice_37513/o00mm2i/"
+        },
+        {
+          "comment_fullname": null,
+          "author": "glimmeringsea",
+          "body": "You don't need a postbacc or SMP to make up for one C. You need to reapply and also apply to more schools. You need [more clinical hours and more clinical and non-clinical volunteering hours](https://career.virginia.edu/phap-perspective-clinical-vs-non-clinical-volunteering); find something that is relevant and meaningful to you that you can really express when describing your experiences. And of ",
+          "score": 6,
+          "permalink": "/r/premed/comments/1qevisz/preparing_to_reapply_hoping_for_some_advice_37513/o00rp2d/"
+        },
+        {
+          "comment_fullname": null,
+          "author": "Psychological_War516",
+          "body": "We have the same gpa! I def recommend more volunteer hours, add in hobbies (eg reading or running or even movie critic if you love movies or something) and possibly some more clinical hours and research if you can do it? And u def need to do the optional essays! Reapps are fairly common in Texas especially if you can really show how you’ve grown- a lot of my friends and friends of friends are/were",
+          "score": 2,
+          "permalink": "/r/premed/comments/1qevisz/preparing_to_reapply_hoping_for_some_advice_37513/o01img0/"
+        }
+      ]
+    },
+    {
+      "rank": 4,
+      "id": "1q6t61e",
+      "title": "Two Gap-Year, High Research, MCAT/GPA discrepancy, App + Schools review",
+      "body_preview": "Hi I am a year out of college and going on my second gap year, wanted to take the time explore myself a bit and make a little bit of money before applying. But now that I am ready to apply for the 2026-2027 cycle I am putting my app together just wanted some input. Used [admit.org](http://admit.org) to make my list and didn’t really change anything since I still need to finalize my list (thankfully got all spring). I love research so having a hard time with my “why medicine” but the EMT work as ",
+      "score": 6,
+      "num_comments": 6,
+      "heat_score": 18,
+      "rant_score": 10.18,
+      "rant_signals": [
+        "lack of"
+      ],
+      "resonance_count": null,
+      "subreddit": "premed",
+      "author": "Ok_Belt_1873",
+      "reddit_url": "https://www.reddit.com/r/premed/comments/1q6t61e/two_gapyear_high_research_mcatgpa_discrepancy_app/",
+      "created_utc": 1767823422.0,
+      "signals": [
+        "lack of"
+      ],
+      "signal_score": 10.18,
+      "why_relevant": "申请审查需求，包括潜在爱好补充",
+      "why_important": null,
+      "top_comments": [
+        {
+          "comment_fullname": null,
+          "author": "Substantial_Eyes",
+          "body": "first off huge congratulations you are obviously very committed :D you need to stop calling yourself illiterate lol. A 3.75 cGPA from a T10 LAC isn't bad especially with your 522 MCAT. I don't think a sane adcom would assume you can't handle med school rigor, which realistically is probably the main barrier people have when scores get low. \n\nfor the mission fit and service stuff You're undersellin",
+          "score": 6,
+          "permalink": "/r/premed/comments/1q6t61e/two_gapyear_high_research_mcatgpa_discrepancy_app/nyahqf1/"
+        },
+        {
+          "comment_fullname": null,
+          "author": "Rice_322",
+          "body": "i think you got a good app and should see some loves for schools on your list! keep in mind that iowa did pass a new law though that would make their class be around 80% IS. i would add some more schools with mcat medians in the 510-514 range though tbh.",
+          "score": 3,
+          "permalink": "/r/premed/comments/1q6t61e/two_gapyear_high_research_mcatgpa_discrepancy_app/nybrtc5/"
+        },
+        {
+          "comment_fullname": null,
+          "author": "AutoModerator",
+          "body": "For more information on building a school list, please consider using the following resources:\n- The subreddit's [School List Wiki](https://www.reddit.com/r/premed/wiki/schoollist/)\n- admit.org's [School List Builder](https://med.admit.org/school-list-builder) and [School Statistics](https://med.admit.org/school-statistics)\n- MD Schools - [MSAR](https://students-residents.aamc.org/medical-school-a",
+          "score": 1,
+          "permalink": "/r/premed/comments/1q6t61e/two_gapyear_high_research_mcatgpa_discrepancy_app/nya7cy9/"
+        }
+      ]
+    },
+    {
+      "rank": 5,
+      "id": "1qmxudq",
+      "title": "A piece of my story, and I want your opinion/advice. TL;DR I need help finding my way back to medicine.",
+      "body_preview": "This is going to be a long one. If you feel up for the read, great, if not, scroll to the bottom for key points. The goal is to gain some insight of those with shared experiences, advice, tips, and connections. \n\nMy story begins in 2018. I was a junior in high school and solidified my decision to pursue medicine. I am a first-gen American and College Student and medicine had always fascinated me. However, it wasn’t until a health crisis of my own that I realized how wide the pot of opportunity t",
+      "score": 7,
+      "num_comments": 3,
+      "heat_score": 13,
+      "rant_score": 40.13,
+      "rant_signals": [
+        "need help finding",
+        "seeking",
+        "lack of",
+        "following"
+      ],
+      "resonance_count": null,
+      "subreddit": "premed",
+      "author": "One-Touch6650",
+      "reddit_url": "https://www.reddit.com/r/premed/comments/1qmxudq/a_piece_of_my_story_and_i_want_your_opinionadvice/",
+      "created_utc": 1769380536.0,
+      "signals": [
+        "need help finding",
+        "seeking",
+        "lack of",
+        "following"
+      ],
+      "signal_score": 40.13,
+      "why_relevant": "寻找医学道路，暗示压力下方向需求",
+      "why_important": null,
+      "top_comments": [
+        {
+          "comment_fullname": null,
+          "author": "299person299",
+          "body": "i think you’ve made the magnitude of adversity you have faced quite clear. any medical school you apply to will see the value in that and your story will play greatly to your favor (given you shift away from the victim narrative).\n\n\nbut i need to be blunt. you need to retake your MCAT and you need to score very, very well. schools are first and foremost looking for applicants who are going to pass",
+          "score": 4,
+          "permalink": "/r/premed/comments/1qmxudq/a_piece_of_my_story_and_i_want_your_opinionadvice/o1sfvqk/"
+        },
+        {
+          "comment_fullname": null,
+          "author": "AutoModerator",
+          "body": "If you are a high school student, check out /r/ApplyingToCollege. If you are an incoming undergraduate, please read [our Wiki](https://www.reddit.com/r/premed/wiki/index) and search /r/premed before posting, as you are not likely to be the first person to ask your question. As a friendly reminder, medical schools do not care what you major/minor in as long as you take the medical school pre-requis",
+          "score": 1,
+          "permalink": "/r/premed/comments/1qmxudq/a_piece_of_my_story_and_i_want_your_opinionadvice/o1phsu1/"
+        }
+      ]
+    }
+  ],
+  "key_comments": [
+    {
+      "comment_fullname": null,
+      "author": "ShadowKing227",
+      "body": "Back when I was applying mainly to TMDSAS, my undergrad advisor told me that the optional essays weren’t really optional. You have allocated space to hype yourself up more and showcase yet another side to yourself. Or you get the opportunity to explain something that doesn’t quite fit anywhere else. Based on your post, you could go with either. \n\nAs you reapply, also get your secondaries in earlie",
+      "score": 10,
+      "permalink": "/r/premed/comments/1qevisz/preparing_to_reapply_hoping_for_some_advice_37513/o00mm2i/"
+    },
+    {
+      "comment_fullname": null,
+      "author": "glimmeringsea",
+      "body": "You don't need a postbacc or SMP to make up for one C. You need to reapply and also apply to more schools. You need [more clinical hours and more clinical and non-clinical volunteering hours](https://career.virginia.edu/phap-perspective-clinical-vs-non-clinical-volunteering); find something that is relevant and meaningful to you that you can really express when describing your experiences. And of ",
+      "score": 6,
+      "permalink": "/r/premed/comments/1qevisz/preparing_to_reapply_hoping_for_some_advice_37513/o00rp2d/"
+    },
+    {
+      "comment_fullname": null,
+      "author": "Substantial_Eyes",
+      "body": "first off huge congratulations you are obviously very committed :D you need to stop calling yourself illiterate lol. A 3.75 cGPA from a T10 LAC isn't bad especially with your 522 MCAT. I don't think a sane adcom would assume you can't handle med school rigor, which realistically is probably the main barrier people have when scores get low. \n\nfor the mission fit and service stuff You're undersellin",
+      "score": 6,
+      "permalink": "/r/premed/comments/1q6t61e/two_gapyear_high_research_mcatgpa_discrepancy_app/nyahqf1/"
+    },
+    {
+      "comment_fullname": null,
+      "author": "299person299",
+      "body": "i think you’ve made the magnitude of adversity you have faced quite clear. any medical school you apply to will see the value in that and your story will play greatly to your favor (given you shift away from the victim narrative).\n\n\nbut i need to be blunt. you need to retake your MCAT and you need to score very, very well. schools are first and foremost looking for applicants who are going to pass",
+      "score": 4,
+      "permalink": "/r/premed/comments/1qmxudq/a_piece_of_my_story_and_i_want_your_opinionadvice/o1sfvqk/"
+    },
+    {
+      "comment_fullname": null,
+      "author": "Rice_322",
+      "body": "i think you got a good app and should see some loves for schools on your list! keep in mind that iowa did pass a new law though that would make their class be around 80% IS. i would add some more schools with mcat medians in the 510-514 range though tbh.",
+      "score": 3,
+      "permalink": "/r/premed/comments/1q6t61e/two_gapyear_high_research_mcatgpa_discrepancy_app/nybrtc5/"
+    }
+  ],
+  "top_rants": null,
+  "top_discovery_posts": [
+    {
+      "rank": 4,
+      "id": "1q6t61e",
+      "title": "Two Gap-Year, High Research, MCAT/GPA discrepancy, App + Schools review",
+      "body_preview": "Hi I am a year out of college and going on my second gap year, wanted to take the time explore myself a bit and make a little bit of money before applying. But now that I am ready to apply for the 2026-2027 cycle I am putting my app together just wanted some input. Used [admit.org](http://admit.org) to make my list and didn’t really change anything since I still need to finalize my list (thankfully got all spring). I love research so having a hard time with my “why medicine” but the EMT work as ",
+      "score": 6,
+      "num_comments": 6,
+      "heat_score": 18,
+      "rant_score": 10.18,
+      "rant_signals": [
+        "lack of"
+      ],
+      "resonance_count": 1,
+      "subreddit": "premed",
+      "author": "Ok_Belt_1873",
+      "reddit_url": "https://www.reddit.com/r/premed/comments/1q6t61e/two_gapyear_high_research_mcatgpa_discrepancy_app/",
+      "created_utc": 1767823422.0,
+      "signals": [
+        "lack of"
+      ],
+      "signal_score": 10.18,
+      "why_relevant": "申请审查需求，包括潜在爱好补充",
+      "why_important": "申请审查需求，包括潜在爱好补充",
+      "top_comments": [
+        {
+          "comment_fullname": null,
+          "author": "Substantial_Eyes",
+          "body": "first off huge congratulations you are obviously very committed :D you need to stop calling yourself illiterate lol. A 3.75 cGPA from a T10 LAC isn't bad especially with your 522 MCAT. I don't think a sane adcom would assume you can't handle med school rigor, which realistically is probably the main barrier people have when scores get low. \n\nfor the mission fit and service stuff You're undersellin",
+          "score": 6,
+          "permalink": "/r/premed/comments/1q6t61e/two_gapyear_high_research_mcatgpa_discrepancy_app/nyahqf1/"
+        },
+        {
+          "comment_fullname": null,
+          "author": "Rice_322",
+          "body": "i think you got a good app and should see some loves for schools on your list! keep in mind that iowa did pass a new law though that would make their class be around 80% IS. i would add some more schools with mcat medians in the 510-514 range though tbh.",
+          "score": 3,
+          "permalink": "/r/premed/comments/1q6t61e/two_gapyear_high_research_mcatgpa_discrepancy_app/nybrtc5/"
+        },
+        {
+          "comment_fullname": null,
+          "author": "AutoModerator",
+          "body": "For more information on building a school list, please consider using the following resources:\n- The subreddit's [School List Wiki](https://www.reddit.com/r/premed/wiki/schoollist/)\n- admit.org's [School List Builder](https://med.admit.org/school-list-builder) and [School Statistics](https://med.admit.org/school-statistics)\n- MD Schools - [MSAR](https://students-residents.aamc.org/medical-school-a",
+          "score": 1,
+          "permalink": "/r/premed/comments/1q6t61e/two_gapyear_high_research_mcatgpa_discrepancy_app/nya7cy9/"
+        }
+      ]
+    },
+    {
+      "rank": 1,
+      "id": "1q37h1b",
+      "title": "Advice on my first coloring purchase? (Pastel markers?books?)",
+      "body_preview": "Hi, \nI have always been into arts and crafts. Over the last few years I have been loving watercolors and crocheting, but I'm now going through some very stressful times and looking for something different. I don't know much about coloring but I have found some amazing inspo on this subreddit! \nI'm now trying to figure out what my first coloring purchase could be. I'm thinking I'd like to get pastel alcohol markers (I like the idea of markers, but I don't love bright and bold colors, I thought ma",
+      "score": 0,
+      "num_comments": 2,
+      "heat_score": 4,
+      "rant_score": 10.04,
+      "rant_signals": [
+        "looking for"
+      ],
+      "resonance_count": 0,
+      "subreddit": "AdultColoring",
+      "author": "LongStoryShort__",
+      "reddit_url": "https://www.reddit.com/r/AdultColoring/comments/1q37h1b/advice_on_my_first_coloring_purchase_pastel/",
+      "created_utc": 1767477551.0,
+      "signals": [
+        "looking for"
+      ],
+      "signal_score": 10.04,
+      "why_relevant": "直接求助着色入门推荐，评论讨论马克笔痛点",
+      "why_important": "直接求助着色入门推荐，评论讨论马克笔痛点",
+      "top_comments": [
+        {
+          "comment_fullname": null,
+          "author": "This_Fig2022",
+          "body": "I bought markers last night - an Ohuhu set with the fine tip.  I had to return them for pencils this morning.  I bought a set of prismacolor and the Faber Castell Black Edition.  I picked up a couple books at the store / stopped at a discount store they had a ton so I got a few there and will order ones online when I see shares of styles I like.  \n\nThe markers were not for me they were too juicy a",
+          "score": 1,
+          "permalink": "/r/AdultColoring/comments/1q37h1b/advice_on_my_first_coloring_purchase_pastel/nxio1bn/"
+        },
+        {
+          "comment_fullname": null,
+          "author": "puZZled59",
+          "body": "The mythographic colouring books are printed with one sided pages, so you could use markers in those. They are much more detailed than the coco wyo type of books",
+          "score": 1,
+          "permalink": "/r/AdultColoring/comments/1q37h1b/advice_on_my_first_coloring_purchase_pastel/nxjc908/"
+        }
+      ]
+    },
+    {
+      "rank": 2,
+      "id": "1q2yc9k",
+      "title": "Monochrome colouring books - not AI ?",
+      "body_preview": "Just wondering if anyone knows of any monochrome colouring books that are definitely drawn by a real person ?\n\n  \nI got the Still and Slow advent / Christmas book, and I love that I can just colour without the stress of choosing colours - I was going to order some more, but I've read several reviews that say they use AI art, which I don't want to support.\n\n  \nThanks in advance for any recommendations !",
+      "score": 6,
+      "num_comments": 0,
+      "heat_score": 6,
+      "rant_score": 20.06,
+      "rant_signals": [
+        "any recommendations",
+        "anyone know"
+      ],
+      "resonance_count": 0,
+      "subreddit": "AdultColoring",
+      "author": "SchoolScienceTech",
+      "reddit_url": "https://www.reddit.com/r/AdultColoring/comments/1q2yc9k/monochrome_colouring_books_not_ai/",
+      "created_utc": 1767456436.0,
+      "signals": [
+        "any recommendations",
+        "anyone know"
+      ],
+      "signal_score": 20.06,
+      "why_relevant": "寻求非AI单色书，突出质量需求",
+      "why_important": "寻求非AI单色书，突出质量需求",
+      "top_comments": []
+    },
+    {
+      "rank": 3,
+      "id": "1qevisz",
+      "title": "preparing to reapply, hoping for some advice (3.7/513 tx orm)",
+      "body_preview": "hello reddit,\n\ni applied to medical school for ey2026, and my cycle has not gone well so far. 2 ii (1 is, 1 oos) -&gt; waitlisted at the oos school and waiting for match day for the tx school. fingers crossed i match, but i want to start preparing for reapplication in case i don't. i am so lost and the idea of having to go through this process again makes me wanna rip all my hair out LOL. if you have any suggestions/criticism/etc. for me, i would greatly appreciate it. below are my application d",
+      "score": 13,
+      "num_comments": 11,
+      "heat_score": 35,
+      "rant_score": 10.35,
+      "rant_signals": [
+        "any suggestions"
+      ],
+      "resonance_count": 0,
+      "subreddit": "premed",
+      "author": "RadioactiveArrow",
+      "reddit_url": "https://www.reddit.com/r/premed/comments/1qevisz/preparing_to_reapply_hoping_for_some_advice_37513/",
+      "created_utc": 1768605207.0,
+      "signals": [
+        "any suggestions"
+      ],
+      "signal_score": 10.35,
+      "why_relevant": "预医求助，评论提及添加爱好缓解申请压力",
+      "why_important": "预医求助，评论提及添加爱好缓解申请压力",
+      "top_comments": [
+        {
+          "comment_fullname": null,
+          "author": "ShadowKing227",
+          "body": "Back when I was applying mainly to TMDSAS, my undergrad advisor told me that the optional essays weren’t really optional. You have allocated space to hype yourself up more and showcase yet another side to yourself. Or you get the opportunity to explain something that doesn’t quite fit anywhere else. Based on your post, you could go with either. \n\nAs you reapply, also get your secondaries in earlie",
+          "score": 10,
+          "permalink": "/r/premed/comments/1qevisz/preparing_to_reapply_hoping_for_some_advice_37513/o00mm2i/"
+        },
+        {
+          "comment_fullname": null,
+          "author": "glimmeringsea",
+          "body": "You don't need a postbacc or SMP to make up for one C. You need to reapply and also apply to more schools. You need [more clinical hours and more clinical and non-clinical volunteering hours](https://career.virginia.edu/phap-perspective-clinical-vs-non-clinical-volunteering); find something that is relevant and meaningful to you that you can really express when describing your experiences. And of ",
+          "score": 6,
+          "permalink": "/r/premed/comments/1qevisz/preparing_to_reapply_hoping_for_some_advice_37513/o00rp2d/"
+        },
+        {
+          "comment_fullname": null,
+          "author": "Psychological_War516",
+          "body": "We have the same gpa! I def recommend more volunteer hours, add in hobbies (eg reading or running or even movie critic if you love movies or something) and possibly some more clinical hours and research if you can do it? And u def need to do the optional essays! Reapps are fairly common in Texas especially if you can really show how you’ve grown- a lot of my friends and friends of friends are/were",
+          "score": 2,
+          "permalink": "/r/premed/comments/1qevisz/preparing_to_reapply_hoping_for_some_advice_37513/o01img0/"
+        }
+      ]
+    },
+    {
+      "rank": 5,
+      "id": "1qmxudq",
+      "title": "A piece of my story, and I want your opinion/advice. TL;DR I need help finding my way back to medicine.",
+      "body_preview": "This is going to be a long one. If you feel up for the read, great, if not, scroll to the bottom for key points. The goal is to gain some insight of those with shared experiences, advice, tips, and connections. \n\nMy story begins in 2018. I was a junior in high school and solidified my decision to pursue medicine. I am a first-gen American and College Student and medicine had always fascinated me. However, it wasn’t until a health crisis of my own that I realized how wide the pot of opportunity t",
+      "score": 7,
+      "num_comments": 3,
+      "heat_score": 13,
+      "rant_score": 40.13,
+      "rant_signals": [
+        "need help finding",
+        "seeking",
+        "lack of",
+        "following"
+      ],
+      "resonance_count": 0,
+      "subreddit": "premed",
+      "author": "One-Touch6650",
+      "reddit_url": "https://www.reddit.com/r/premed/comments/1qmxudq/a_piece_of_my_story_and_i_want_your_opinionadvice/",
+      "created_utc": 1769380536.0,
+      "signals": [
+        "need help finding",
+        "seeking",
+        "lack of",
+        "following"
+      ],
+      "signal_score": 40.13,
+      "why_relevant": "寻找医学道路，暗示压力下方向需求",
+      "why_important": "寻找医学道路，暗示压力下方向需求",
+      "top_comments": [
+        {
+          "comment_fullname": null,
+          "author": "299person299",
+          "body": "i think you’ve made the magnitude of adversity you have faced quite clear. any medical school you apply to will see the value in that and your story will play greatly to your favor (given you shift away from the victim narrative).\n\n\nbut i need to be blunt. you need to retake your MCAT and you need to score very, very well. schools are first and foremost looking for applicants who are going to pass",
+          "score": 4,
+          "permalink": "/r/premed/comments/1qmxudq/a_piece_of_my_story_and_i_want_your_opinionadvice/o1sfvqk/"
+        },
+        {
+          "comment_fullname": null,
+          "author": "AutoModerator",
+          "body": "If you are a high school student, check out /r/ApplyingToCollege. If you are an incoming undergraduate, please read [our Wiki](https://www.reddit.com/r/premed/wiki/index) and search /r/premed before posting, as you are not likely to be the first person to ask your question. As a friendly reminder, medical schools do not care what you major/minor in as long as you take the medical school pre-requis",
+          "score": 1,
+          "permalink": "/r/premed/comments/1qmxudq/a_piece_of_my_story_and_i_want_your_opinionadvice/o1phsu1/"
+        }
+      ]
+    }
+  ],
+  "pain_points": null,
+  "opportunities": [
+    {
+      "summary": "用户在讨论中表达了需求缺口",
+      "me_too_count": 1
+    }
+  ],
+  "trending_keywords": null,
+  "topics": null,
+  "competitor_mentions": null,
+  "migration_intent": null,
+  "top_quotes": null,
+  "unmet_needs": [
+    {
+      "rank": 1,
+      "need": "🎨 成人着色入门用品推荐（蜡笔/马克笔/书籍）",
+      "need_en": "Beginner coloring supplies recommendations (pastel markers/books)",
+      "urgency": "medium",
+      "mentions": 1,
+      "demand_signal": "medium",
+      "me_too_count": 0,
+      "willingness_to_pay": "low",
+      "pay_evidence": null,
+      "price_range": "",
+      "key_takeaway": "新手寻求首次着色购买建议",
+      "user_voice": "Advice on my first coloring purchase? (Pastel markers?books?)",
+      "current_workarounds": [
+        {
+          "solution": null,
+          "pain": null,
+          "name": "Ohuhu markers",
+          "satisfaction": "low"
+        },
+        {
+          "solution": null,
+          "pain": null,
+          "name": "Prismacolor and Faber Castell pencils",
+          "satisfaction": "medium"
+        }
+      ],
+      "opportunity_insight": "开发新手友好着色套装，避免马克笔渗墨问题",
+      "evidence": [
+        {
+          "title": "Advice on my first coloring purchase? (Pastel markers?books?)",
+          "score": 0,
+          "comments": 2,
+          "me_too_comments": null,
+          "subreddit": "AdultColoring",
+          "url": "https://www.reddit.com/r/AdultColoring/comments/1q37h1b/advice_on_my_first_coloring_purchase_pastel/",
+          "key_quote": "I bought markers last night - an Ohuhu set with the fine tip.  I had to return them for pencils this morning.  I bought a set of prismacolor and the Faber Castell Black Edition.  I picked up a couple books at the store / stopped at a discount store they had a ton so I got a few there and will order ones online when I see shares of styles I like.  \n\nThe markers were not for me they were too juicy a"
+        }
+      ],
+      "evidence_posts": [
+        {
+          "rank": 1,
+          "id": "1q37h1b",
+          "title": "Advice on my first coloring purchase? (Pastel markers?books?)",
+          "body_preview": "Hi, \nI have always been into arts and crafts. Over the last few years I have been loving watercolors and crocheting, but I'm now going through some very stressful times and looking for something different. I don't know much about coloring but I have found some amazing inspo on this subreddit! \nI'm now trying to figure out what my first coloring purchase could be. I'm thinking I'd like to get pastel alcohol markers (I like the idea of markers, but I don't love bright and bold colors, I thought ma",
+          "score": 0,
+          "num_comments": 2,
+          "heat_score": 4,
+          "rant_score": 10.04,
+          "rant_signals": [
+            "looking for"
+          ],
+          "resonance_count": null,
+          "subreddit": "AdultColoring",
+          "author": "LongStoryShort__",
+          "reddit_url": "https://www.reddit.com/r/AdultColoring/comments/1q37h1b/advice_on_my_first_coloring_purchase_pastel/",
+          "created_utc": 1767477551.0,
+          "signals": [
+            "looking for"
+          ],
+          "signal_score": 10.04,
+          "why_relevant": "直接求助着色入门推荐，评论讨论马克笔痛点",
+          "why_important": null,
+          "top_comments": [
+            {
+              "comment_fullname": null,
+              "author": "This_Fig2022",
+              "body": "I bought markers last night - an Ohuhu set with the fine tip.  I had to return them for pencils this morning.  I bought a set of prismacolor and the Faber Castell Black Edition.  I picked up a couple books at the store / stopped at a discount store they had a ton so I got a few there and will order ones online when I see shares of styles I like.  \n\nThe markers were not for me they were too juicy a",
+              "score": 1,
+              "permalink": "/r/AdultColoring/comments/1q37h1b/advice_on_my_first_coloring_purchase_pastel/nxio1bn/"
+            },
+            {
+              "comment_fullname": null,
+              "author": "puZZled59",
+              "body": "The mythographic colouring books are printed with one sided pages, so you could use markers in those. They are much more detailed than the coco wyo type of books",
+              "score": 1,
+              "permalink": "/r/AdultColoring/comments/1q37h1b/advice_on_my_first_coloring_purchase_pastel/nxjc908/"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rank": 2,
+      "need": "🖤 非AI单色着色书籍推荐",
+      "need_en": "Non-AI monochrome colouring books",
+      "urgency": "medium",
+      "mentions": 1,
+      "demand_signal": "medium",
+      "me_too_count": 0,
+      "willingness_to_pay": "low",
+      "pay_evidence": null,
+      "price_range": "",
+      "key_takeaway": "寻求非AI生成的单色成人着色书",
+      "user_voice": "Monochrome colouring books - not AI ?",
+      "current_workarounds": [],
+      "opportunity_insight": "推出手工非AI单色着色书系列",
+      "evidence": [
+        {
+          "title": "Monochrome colouring books - not AI ?",
+          "score": 6,
+          "comments": 0,
+          "me_too_comments": null,
+          "subreddit": "AdultColoring",
+          "url": "https://www.reddit.com/r/AdultColoring/comments/1q2yc9k/monochrome_colouring_books_not_ai/",
+          "key_quote": null
+        }
+      ],
+      "evidence_posts": [
+        {
+          "rank": 2,
+          "id": "1q2yc9k",
+          "title": "Monochrome colouring books - not AI ?",
+          "body_preview": "Just wondering if anyone knows of any monochrome colouring books that are definitely drawn by a real person ?\n\n  \nI got the Still and Slow advent / Christmas book, and I love that I can just colour without the stress of choosing colours - I was going to order some more, but I've read several reviews that say they use AI art, which I don't want to support.\n\n  \nThanks in advance for any recommendations !",
+          "score": 6,
+          "num_comments": 0,
+          "heat_score": 6,
+          "rant_score": 20.06,
+          "rant_signals": [
+            "any recommendations",
+            "anyone know"
+          ],
+          "resonance_count": null,
+          "subreddit": "AdultColoring",
+          "author": "SchoolScienceTech",
+          "reddit_url": "https://www.reddit.com/r/AdultColoring/comments/1q2yc9k/monochrome_colouring_books_not_ai/",
+          "created_utc": 1767456436.0,
+          "signals": [
+            "any recommendations",
+            "anyone know"
+          ],
+          "signal_score": 20.06,
+          "why_relevant": "寻求非AI单色书，突出质量需求",
+          "why_important": null,
+          "top_comments": []
+        }
+      ]
+    },
+    {
+      "rank": 3,
+      "need": "📚 预医申请中添加爱好建议",
+      "need_en": "Hobby recommendations for premed applications",
+      "urgency": "low",
+      "mentions": 1,
+      "demand_signal": "weak",
+      "me_too_count": 0,
+      "willingness_to_pay": "low",
+      "pay_evidence": null,
+      "price_range": "",
+      "key_takeaway": "建议在申请中补充爱好如阅读/跑步",
+      "user_voice": "add in hobbies (eg reading or running or even movie critic if you love movies or something)",
+      "current_workarounds": [],
+      "opportunity_insight": "压力缓解爱好推荐工具针对预医学生",
+      "evidence": [
+        {
+          "title": "preparing to reapply, hoping for some advice (3.7/513 tx orm)",
+          "score": 13,
+          "comments": 11,
+          "me_too_comments": null,
+          "subreddit": "premed",
+          "url": "https://www.reddit.com/r/premed/comments/1qevisz/preparing_to_reapply_hoping_for_some_advice_37513/",
+          "key_quote": "Back when I was applying mainly to TMDSAS, my undergrad advisor told me that the optional essays weren’t really optional. You have allocated space to hype yourself up more and showcase yet another side to yourself. Or you get the opportunity to explain something that doesn’t quite fit anywhere else. Based on your post, you could go with either. \n\nAs you reapply, also get your secondaries in earlie"
+        }
+      ],
+      "evidence_posts": [
+        {
+          "rank": 3,
+          "id": "1qevisz",
+          "title": "preparing to reapply, hoping for some advice (3.7/513 tx orm)",
+          "body_preview": "hello reddit,\n\ni applied to medical school for ey2026, and my cycle has not gone well so far. 2 ii (1 is, 1 oos) -&gt; waitlisted at the oos school and waiting for match day for the tx school. fingers crossed i match, but i want to start preparing for reapplication in case i don't. i am so lost and the idea of having to go through this process again makes me wanna rip all my hair out LOL. if you have any suggestions/criticism/etc. for me, i would greatly appreciate it. below are my application d",
+          "score": 13,
+          "num_comments": 11,
+          "heat_score": 35,
+          "rant_score": 10.35,
+          "rant_signals": [
+            "any suggestions"
+          ],
+          "resonance_count": null,
+          "subreddit": "premed",
+          "author": "RadioactiveArrow",
+          "reddit_url": "https://www.reddit.com/r/premed/comments/1qevisz/preparing_to_reapply_hoping_for_some_advice_37513/",
+          "created_utc": 1768605207.0,
+          "signals": [
+            "any suggestions"
+          ],
+          "signal_score": 10.35,
+          "why_relevant": "预医求助，评论提及添加爱好缓解申请压力",
+          "why_important": null,
+          "top_comments": [
+            {
+              "comment_fullname": null,
+              "author": "ShadowKing227",
+              "body": "Back when I was applying mainly to TMDSAS, my undergrad advisor told me that the optional essays weren’t really optional. You have allocated space to hype yourself up more and showcase yet another side to yourself. Or you get the opportunity to explain something that doesn’t quite fit anywhere else. Based on your post, you could go with either. \n\nAs you reapply, also get your secondaries in earlie",
+              "score": 10,
+              "permalink": "/r/premed/comments/1qevisz/preparing_to_reapply_hoping_for_some_advice_37513/o00mm2i/"
+            },
+            {
+              "comment_fullname": null,
+              "author": "glimmeringsea",
+              "body": "You don't need a postbacc or SMP to make up for one C. You need to reapply and also apply to more schools. You need [more clinical hours and more clinical and non-clinical volunteering hours](https://career.virginia.edu/phap-perspective-clinical-vs-non-clinical-volunteering); find something that is relevant and meaningful to you that you can really express when describing your experiences. And of ",
+              "score": 6,
+              "permalink": "/r/premed/comments/1qevisz/preparing_to_reapply_hoping_for_some_advice_37513/o00rp2d/"
+            },
+            {
+              "comment_fullname": null,
+              "author": "Psychological_War516",
+              "body": "We have the same gpa! I def recommend more volunteer hours, add in hobbies (eg reading or running or even movie critic if you love movies or something) and possibly some more clinical hours and research if you can do it? And u def need to do the optional essays! Reapps are fairly common in Texas especially if you can really show how you’ve grown- a lot of my friends and friends of friends are/were",
+              "score": 2,
+              "permalink": "/r/premed/comments/1qevisz/preparing_to_reapply_hoping_for_some_advice_37513/o01img0/"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rank": 4,
+      "need": "🏥 预医重新申请建议",
+      "need_en": "Premed reapplication advice",
+      "urgency": "medium",
+      "mentions": 2,
+      "demand_signal": "medium",
+      "me_too_count": 0,
+      "willingness_to_pay": "low",
+      "pay_evidence": null,
+      "price_range": "",
+      "key_takeaway": "寻求GPA/MCAT差距下的重新申请指导",
+      "user_voice": "preparing to reapply, hoping for some advice (3.7/513 tx orm)",
+      "current_workarounds": [
+        {
+          "solution": null,
+          "pain": null,
+          "name": "Optional essays",
+          "satisfaction": "medium"
+        }
+      ],
+      "opportunity_insight": "个性化预医申请咨询服务",
+      "evidence": [
+        {
+          "title": "preparing to reapply, hoping for some advice (3.7/513 tx orm)",
+          "score": 13,
+          "comments": 11,
+          "me_too_comments": null,
+          "subreddit": "premed",
+          "url": "https://www.reddit.com/r/premed/comments/1qevisz/preparing_to_reapply_hoping_for_some_advice_37513/",
+          "key_quote": "Back when I was applying mainly to TMDSAS, my undergrad advisor told me that the optional essays weren’t really optional. You have allocated space to hype yourself up more and showcase yet another side to yourself. Or you get the opportunity to explain something that doesn’t quite fit anywhere else. Based on your post, you could go with either. \n\nAs you reapply, also get your secondaries in earlie"
+        },
+        {
+          "title": "A piece of my story, and I want your opinion/advice. TL;DR I need help finding my way back to medicine.",
+          "score": 7,
+          "comments": 3,
+          "me_too_comments": null,
+          "subreddit": "premed",
+          "url": "https://www.reddit.com/r/premed/comments/1qmxudq/a_piece_of_my_story_and_i_want_your_opinionadvice/",
+          "key_quote": "i think you’ve made the magnitude of adversity you have faced quite clear. any medical school you apply to will see the value in that and your story will play greatly to your favor (given you shift away from the victim narrative).\n\n\nbut i need to be blunt. you need to retake your MCAT and you need to score very, very well. schools are first and foremost looking for applicants who are going to pass"
+        }
+      ],
+      "evidence_posts": [
+        {
+          "rank": 3,
+          "id": "1qevisz",
+          "title": "preparing to reapply, hoping for some advice (3.7/513 tx orm)",
+          "body_preview": "hello reddit,\n\ni applied to medical school for ey2026, and my cycle has not gone well so far. 2 ii (1 is, 1 oos) -&gt; waitlisted at the oos school and waiting for match day for the tx school. fingers crossed i match, but i want to start preparing for reapplication in case i don't. i am so lost and the idea of having to go through this process again makes me wanna rip all my hair out LOL. if you have any suggestions/criticism/etc. for me, i would greatly appreciate it. below are my application d",
+          "score": 13,
+          "num_comments": 11,
+          "heat_score": 35,
+          "rant_score": 10.35,
+          "rant_signals": [
+            "any suggestions"
+          ],
+          "resonance_count": null,
+          "subreddit": "premed",
+          "author": "RadioactiveArrow",
+          "reddit_url": "https://www.reddit.com/r/premed/comments/1qevisz/preparing_to_reapply_hoping_for_some_advice_37513/",
+          "created_utc": 1768605207.0,
+          "signals": [
+            "any suggestions"
+          ],
+          "signal_score": 10.35,
+          "why_relevant": "预医求助，评论提及添加爱好缓解申请压力",
+          "why_important": null,
+          "top_comments": [
+            {
+              "comment_fullname": null,
+              "author": "ShadowKing227",
+              "body": "Back when I was applying mainly to TMDSAS, my undergrad advisor told me that the optional essays weren’t really optional. You have allocated space to hype yourself up more and showcase yet another side to yourself. Or you get the opportunity to explain something that doesn’t quite fit anywhere else. Based on your post, you could go with either. \n\nAs you reapply, also get your secondaries in earlie",
+              "score": 10,
+              "permalink": "/r/premed/comments/1qevisz/preparing_to_reapply_hoping_for_some_advice_37513/o00mm2i/"
+            },
+            {
+              "comment_fullname": null,
+              "author": "glimmeringsea",
+              "body": "You don't need a postbacc or SMP to make up for one C. You need to reapply and also apply to more schools. You need [more clinical hours and more clinical and non-clinical volunteering hours](https://career.virginia.edu/phap-perspective-clinical-vs-non-clinical-volunteering); find something that is relevant and meaningful to you that you can really express when describing your experiences. And of ",
+              "score": 6,
+              "permalink": "/r/premed/comments/1qevisz/preparing_to_reapply_hoping_for_some_advice_37513/o00rp2d/"
+            },
+            {
+              "comment_fullname": null,
+              "author": "Psychological_War516",
+              "body": "We have the same gpa! I def recommend more volunteer hours, add in hobbies (eg reading or running or even movie critic if you love movies or something) and possibly some more clinical hours and research if you can do it? And u def need to do the optional essays! Reapps are fairly common in Texas especially if you can really show how you’ve grown- a lot of my friends and friends of friends are/were",
+              "score": 2,
+              "permalink": "/r/premed/comments/1qevisz/preparing_to_reapply_hoping_for_some_advice_37513/o01img0/"
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "id": "1qmxudq",
+          "title": "A piece of my story, and I want your opinion/advice. TL;DR I need help finding my way back to medicine.",
+          "body_preview": "This is going to be a long one. If you feel up for the read, great, if not, scroll to the bottom for key points. The goal is to gain some insight of those with shared experiences, advice, tips, and connections. \n\nMy story begins in 2018. I was a junior in high school and solidified my decision to pursue medicine. I am a first-gen American and College Student and medicine had always fascinated me. However, it wasn’t until a health crisis of my own that I realized how wide the pot of opportunity t",
+          "score": 7,
+          "num_comments": 3,
+          "heat_score": 13,
+          "rant_score": 40.13,
+          "rant_signals": [
+            "need help finding",
+            "seeking",
+            "lack of",
+            "following"
+          ],
+          "resonance_count": null,
+          "subreddit": "premed",
+          "author": "One-Touch6650",
+          "reddit_url": "https://www.reddit.com/r/premed/comments/1qmxudq/a_piece_of_my_story_and_i_want_your_opinionadvice/",
+          "created_utc": 1769380536.0,
+          "signals": [
+            "need help finding",
+            "seeking",
+            "lack of",
+            "following"
+          ],
+          "signal_score": 40.13,
+          "why_relevant": "寻找医学道路，暗示压力下方向需求",
+          "why_important": null,
+          "top_comments": [
+            {
+              "comment_fullname": null,
+              "author": "299person299",
+              "body": "i think you’ve made the magnitude of adversity you have faced quite clear. any medical school you apply to will see the value in that and your story will play greatly to your favor (given you shift away from the victim narrative).\n\n\nbut i need to be blunt. you need to retake your MCAT and you need to score very, very well. schools are first and foremost looking for applicants who are going to pass",
+              "score": 4,
+              "permalink": "/r/premed/comments/1qmxudq/a_piece_of_my_story_and_i_want_your_opinionadvice/o1sfvqk/"
+            },
+            {
+              "comment_fullname": null,
+              "author": "AutoModerator",
+              "body": "If you are a high school student, check out /r/ApplyingToCollege. If you are an incoming undergraduate, please read [our Wiki](https://www.reddit.com/r/premed/wiki/index) and search /r/premed before posting, as you are not likely to be the first person to ask your question. As a friendly reminder, medical schools do not care what you major/minor in as long as you take the medical school pre-requis",
+              "score": 1,
+              "permalink": "/r/premed/comments/1qmxudq/a_piece_of_my_story_and_i_want_your_opinionadvice/o1phsu1/"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rank": 5,
+      "need": "📝 预医学校列表和申请审查",
+      "need_en": "Premed school list and app review",
+      "urgency": "low",
+      "mentions": 1,
+      "demand_signal": "weak",
+      "me_too_count": 0,
+      "willingness_to_pay": "low",
+      "pay_evidence": null,
+      "price_range": "",
+      "key_takeaway": "高研究但GPA低的应用审查",
+      "user_voice": "Two Gap-Year, High Research, MCAT/GPA discrepancy, App + Schools review",
+      "current_workarounds": [],
+      "opportunity_insight": "在线预医学校匹配工具",
+      "evidence": [
+        {
+          "title": "Two Gap-Year, High Research, MCAT/GPA discrepancy, App + Schools review",
+          "score": 6,
+          "comments": 6,
+          "me_too_comments": null,
+          "subreddit": "premed",
+          "url": "https://www.reddit.com/r/premed/comments/1q6t61e/two_gapyear_high_research_mcatgpa_discrepancy_app/",
+          "key_quote": "first off huge congratulations you are obviously very committed :D you need to stop calling yourself illiterate lol. A 3.75 cGPA from a T10 LAC isn't bad especially with your 522 MCAT. I don't think a sane adcom would assume you can't handle med school rigor, which realistically is probably the main barrier people have when scores get low. \n\nfor the mission fit and service stuff You're undersellin"
+        }
+      ],
+      "evidence_posts": [
+        {
+          "rank": 4,
+          "id": "1q6t61e",
+          "title": "Two Gap-Year, High Research, MCAT/GPA discrepancy, App + Schools review",
+          "body_preview": "Hi I am a year out of college and going on my second gap year, wanted to take the time explore myself a bit and make a little bit of money before applying. But now that I am ready to apply for the 2026-2027 cycle I am putting my app together just wanted some input. Used [admit.org](http://admit.org) to make my list and didn’t really change anything since I still need to finalize my list (thankfully got all spring). I love research so having a hard time with my “why medicine” but the EMT work as ",
+          "score": 6,
+          "num_comments": 6,
+          "heat_score": 18,
+          "rant_score": 10.18,
+          "rant_signals": [
+            "lack of"
+          ],
+          "resonance_count": null,
+          "subreddit": "premed",
+          "author": "Ok_Belt_1873",
+          "reddit_url": "https://www.reddit.com/r/premed/comments/1q6t61e/two_gapyear_high_research_mcatgpa_discrepancy_app/",
+          "created_utc": 1767823422.0,
+          "signals": [
+            "lack of"
+          ],
+          "signal_score": 10.18,
+          "why_relevant": "申请审查需求，包括潜在爱好补充",
+          "why_important": null,
+          "top_comments": [
+            {
+              "comment_fullname": null,
+              "author": "Substantial_Eyes",
+              "body": "first off huge congratulations you are obviously very committed :D you need to stop calling yourself illiterate lol. A 3.75 cGPA from a T10 LAC isn't bad especially with your 522 MCAT. I don't think a sane adcom would assume you can't handle med school rigor, which realistically is probably the main barrier people have when scores get low. \n\nfor the mission fit and service stuff You're undersellin",
+              "score": 6,
+              "permalink": "/r/premed/comments/1q6t61e/two_gapyear_high_research_mcatgpa_discrepancy_app/nyahqf1/"
+            },
+            {
+              "comment_fullname": null,
+              "author": "Rice_322",
+              "body": "i think you got a good app and should see some loves for schools on your list! keep in mind that iowa did pass a new law though that would make their class be around 80% IS. i would add some more schools with mcat medians in the 510-514 range though tbh.",
+              "score": 3,
+              "permalink": "/r/premed/comments/1q6t61e/two_gapyear_high_research_mcatgpa_discrepancy_app/nybrtc5/"
+            },
+            {
+              "comment_fullname": null,
+              "author": "AutoModerator",
+              "body": "For more information on building a school list, please consider using the following resources:\n- The subreddit's [School List Wiki](https://www.reddit.com/r/premed/wiki/schoollist/)\n- admit.org's [School List Builder](https://med.admit.org/school-list-builder) and [School Statistics](https://med.admit.org/school-statistics)\n- MD Schools - [MSAR](https://students-residents.aamc.org/medical-school-a",
+              "score": 1,
+              "permalink": "/r/premed/comments/1q6t61e/two_gapyear_high_research_mcatgpa_discrepancy_app/nya7cy9/"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "existing_tools": [
+    {
+      "name": "Ohuhu markers",
+      "sentiment": "negative",
+      "mentions": 1,
+      "sentiment_score": -0.8,
+      "common_praise": [],
+      "common_complaint": [
+        "too juicy"
+      ],
+      "praised_for": [],
+      "criticized_for": [
+        "too juicy a"
+      ],
+      "gap_analysis": "渗墨严重，不适合新手"
+    },
+    {
+      "name": "Prismacolor pencils",
+      "sentiment": "positive",
+      "mentions": 1,
+      "sentiment_score": 0.7,
+      "common_praise": [
+        "picked up"
+      ],
+      "common_complaint": [],
+      "praised_for": [
+        "alternative to markers"
+      ],
+      "criticized_for": [],
+      "gap_analysis": "作为马克笔替代，但非首选"
+    },
+    {
+      "name": "Faber Castell Black Edition",
+      "sentiment": "positive",
+      "mentions": 1,
+      "sentiment_score": 0.7,
+      "common_praise": [
+        "picked up"
+      ],
+      "common_complaint": [],
+      "praised_for": [
+        "alternative to markers"
+      ],
+      "criticized_for": [],
+      "gap_analysis": "铅笔选项受欢迎"
+    },
+    {
+      "name": "Mythographic colouring books",
+      "sentiment": "positive",
+      "mentions": 1,
+      "sentiment_score": 0.8,
+      "common_praise": [
+        "one sided pages",
+        "detailed"
+      ],
+      "common_complaint": [],
+      "praised_for": [
+        "suitable for markers",
+        "more detailed"
+      ],
+      "criticized_for": [],
+      "gap_analysis": "适合马克笔，细节丰富"
+    },
+    {
+      "name": "Coco wyo books",
+      "sentiment": "mixed",
+      "mentions": 1,
+      "sentiment_score": 0.2,
+      "common_praise": [],
+      "common_complaint": [
+        "less detailed"
+      ],
+      "praised_for": [],
+      "criticized_for": [
+        "not as detailed"
+      ],
+      "gap_analysis": "细节不足"
+    }
+  ],
+  "user_segments": [
+    {
+      "segment": "成人着色新手",
+      "percentage": "约40%",
+      "core_need": null,
+      "key_need": "入门用品推荐",
+      "price_sensitivity": "中",
+      "typical_quote": "Advice on my first coloring purchase?"
+    },
+    {
+      "segment": "预医申请者",
+      "percentage": "约60%",
+      "core_need": null,
+      "key_need": "申请优化包括爱好",
+      "price_sensitivity": "低",
+      "typical_quote": "add in hobbies (eg reading or running"
+    }
+  ],
+  "market_opportunity": {
+    "gap": null,
+    "target_user": null,
+    "pricing_hint": null,
+    "gtm_channel": null,
+    "strength": "weak",
+    "unmet_gap": "着色新手用品指导及预医压力爱好推荐不足",
+    "demand_signal": "low",
+    "competition_level": "low",
+    "recommendation": "开发针对压力群体的着色入门套装和爱好匹配App，样本有限仅供预览"
+  },
+  "communities": [
+    "AdultColoring",
+    "premed"
+  ],
+  "related_queries": [],
+  "evidence_count": 5,
+  "community_distribution": {
+    "premed": "60%",
+    "AdultColoring": "40%"
+  },
+  "sentiment_overview": {
+    "positive": 0.2,
+    "neutral": 0.8,
+    "negative": 0.0
+  },
+  "rant_intensity": null,
+  "need_urgency": {
+    "urgent": 0.4,
+    "moderate": 0.6,
+    "casual": 0.0
+  },
+  "opportunity_strength": "weak",
+  "confidence": "low",
+  "reliability_note": "当前样本量 5 条，样本有限，仅供预览。",
+  "next_steps": {
+    "deepdive_available": true,
+    "deepdive_token": null,
+    "suggested_keywords": [
+      "hobby",
+      "recommendation",
+      "stress"
+    ]
+  }
+}

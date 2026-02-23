@@ -1,0 +1,80 @@
+{
+  "query_id": "59b8de58-2d86-452a-b902-cd107439dcea",
+  "query": "what is a good relaxing craft",
+  "mode": "opportunity",
+  "search_time": "2026-02-02 15:11:29.179537+00:00",
+  "from_cache": false,
+  "status": "success",
+  "position": null,
+  "estimated_wait_seconds": null,
+  "summary": "暂无相关讨论，样本不足。",
+  "markdown_report": "# what is a good relaxing craft — 机会发现报告\n\n> 生成时间：2026-02-02T15:11:29.179537+00:00  \n> 模式：机会发现 (Opportunity)  \n\n## 📌 一句话结论\n暂无相关讨论，样本不足。\n\n## 📊 数据概况\n| 指标 | 值 |\n|------|-----|\n| 可信度 | none |\n| 需求帖数 | 0 |\n| 社区数 | 0 |\n| 机会强度 | weak |\n\n**需求紧迫度分布**：\n紧迫 0% / 一般 0% / 随意 0%\n\n## 🔎 核心需求 Top 1\n### #1 用户在讨论中表达了需求缺口\n| 紧迫度 | 提及次数 | 共鸣数 | 价格区间 |\n|-------|---------|-------|---------|\n| - | 0 | 0 | - |\n\n## 可靠性说明\n当前样本量 0 条，样本有限，仅供预览。\n\n## 🚀 下一步\n- ✅ 可生成深度报告 → ?token=\n- 💡 建议关键词：what、is、a、good、relaxing\n",
+  "top_posts": [],
+  "key_comments": [],
+  "top_rants": null,
+  "top_discovery_posts": [],
+  "pain_points": null,
+  "opportunities": [
+    {
+      "summary": "用户在讨论中表达了需求缺口",
+      "me_too_count": 0
+    }
+  ],
+  "trending_keywords": null,
+  "topics": null,
+  "competitor_mentions": null,
+  "migration_intent": null,
+  "top_quotes": null,
+  "unmet_needs": [
+    {
+      "rank": 1,
+      "need": "用户在讨论中表达了需求缺口",
+      "need_en": null,
+      "urgency": null,
+      "mentions": null,
+      "demand_signal": "medium",
+      "me_too_count": 0,
+      "willingness_to_pay": null,
+      "pay_evidence": null,
+      "price_range": null,
+      "key_takeaway": null,
+      "user_voice": null,
+      "current_workarounds": [],
+      "opportunity_insight": "用户在讨论中表达了需求缺口",
+      "evidence": [],
+      "evidence_posts": []
+    }
+  ],
+  "existing_tools": null,
+  "user_segments": null,
+  "market_opportunity": null,
+  "communities": [],
+  "related_queries": [],
+  "evidence_count": 0,
+  "community_distribution": {},
+  "sentiment_overview": {
+    "positive": 0.0,
+    "neutral": 0.0,
+    "negative": 0.0
+  },
+  "rant_intensity": null,
+  "need_urgency": {
+    "urgent": 0.0,
+    "moderate": 0.0,
+    "casual": 0.0
+  },
+  "opportunity_strength": "weak",
+  "confidence": "none",
+  "reliability_note": "当前样本量 0 条，样本有限，仅供预览。",
+  "next_steps": {
+    "deepdive_available": true,
+    "deepdive_token": null,
+    "suggested_keywords": [
+      "what",
+      "is",
+      "a",
+      "good",
+      "relaxing"
+    ]
+  }
+}

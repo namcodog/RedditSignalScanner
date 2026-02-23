@@ -1,0 +1,137 @@
+# Phase 175 - 示例库 example_id 流程 + 延迟模拟 + 前端示例对接
+
+## 目标
+- 示例库公开可用：输入页示例可携带 example_id 触发稳定报告。
+- 例报告走主链路但不秒出：模拟 10-20s 等待，并更新 SSE/状态缓存。
+- 保持前后端接口口径一致（guidance + analyze）。
+
+## 变更摘要
+- 后端示例链路：`backend/app/api/v1/endpoints/analyze.py`
+  - 支持 `example_id` 校验并复用 ExampleLibrary 内容。
+  - 增加示例任务延迟（env: `EXAMPLE_REPORT_DELAY_MIN_SECONDS` / `EXAMPLE_REPORT_DELAY_MAX_SECONDS`）。
+  - 示例任务完成后写入 `Analysis` + `Report`，并更新 `TaskStatusCache`。
+- guidance 示例输出：`backend/app/api/legacy/guidance.py`
+  - examples 返回 `example_id`（前端可用于示例库复用）。
+- 前端对接 example_id：
+  - `frontend/src/types/task.types.ts` 添加 `example_id`。
+  - `frontend/src/api/guidance.api.ts` 改为 `example_id`。
+  - `frontend/src/pages/InputPage.tsx`：示例点击记录 example_id，用户改写后自动清空；提交时带 example_id。
+- 测试更新：
+  - `backend/tests/api/test_guidance_examples.py`
+  - `backend/tests/api/test_analyze.py` 新增 example_id 测试（延迟设为 0）。
+
+## 测试
+- 未跑（仅更新用例）。
+
+## 备注
+- 示例任务延迟参数可在本地 env 覆盖；测试中可设为 0 以避免等待。
+- 迁移初次执行报权限不足（`permission denied for table users`），改用具备 DDL 权限的连接后已完成。
+
+## 执行结果（dev）
+- 迁移完成：使用具备 DDL 权限的连接执行 `alembic upgrade heads`。
+- 新增任务（4 条）：
+  - `a9f4593d-3ede-479e-928a-cab2670c8513`
+  - `1448103e-93af-41bc-9550-28a3afcea547`
+  - `722398ed-5733-4ffc-8e70-940c437c6e28`
+  - `aad7b0f1-20fd-43a7-bc2d-e1b7b32ee61f`
+- 示例库入库（6 条）已完成：包含 2 条既有任务 + 4 条新增任务。
+- guidance 示例输出固定为 6 条且全部带 `example_id`（不再混入 fallback）。
+- 补齐示例库去重与缺口（dev）：
+  - 新增任务：`2c321b51-6d8b-4f7d-a35a-3c2cc3758522`（SaaS 协作）
+  - 回填 `report_structured` 成功（LLM v9）
+  - 示例库新增 `SaaS协作`（example_id `36eb6f0b-9820-43f1-9177-20e470400b52`）
+  - 下线重复示例（example_id `1329862a-0102-48b2-9fab-7ab720115272`）
+  - 示例标题去重：`跨境电商/回款费率`、`跨境电商/现金流`、`跨境电商/PayPal`
+  - guidance 现为 6 条唯一示例：跨境电商/回款费率、跨境电商/现金流、跨境电商/PayPal、SaaS协作、家居、户外
+- v9 prompt 通俗补全：
+  - `REPORT_SYSTEM_PROMPT_V9_JSON` 追加“通俗补全规则”（人话兜底、专业词替换、拒绝空话）
+  - `build_report_structured_prompt_v9` 追加“通俗补全”字段约束
+  - 文档同步：`docs/v9json prompt.md`、`docs/v9prompt.md`
+  - 测试新增：`backend/tests/services/llm/test_report_prompts_v9.py`
+- 示例库任务回填（dev）：
+  - 使用 v9 JSON prompt 重新生成 `report_structured`
+  - 已回填 6 条示例任务：
+    - `0c3bccf5-dd2c-4ca1-96ec-c3035cc21eac`
+    - `a9f4593d-3ede-479e-928a-cab2670c8513`
+    - `aad7b0f1-20fd-43a7-bc2d-e1b7b32ee61f`
+    - `2c321b51-6d8b-4f7d-a35a-3c2cc3758522`
+    - `722398ed-5733-4ffc-8e70-940c437c6e28`
+    - `1448103e-93af-41bc-9550-28a3afcea547`
+- 根目录清理归档：
+  - 归档路径：`docs/archive/root/`（data/json/sql/scripts/logs/docs）
+  - 已移动：CSV/JSON 进度文件、SQL 执行脚本、debug/verify 脚本、运行时日志与 dump
+  - 根目录保留入口：`README.md`、`AGENTS.md`、`Makefile`、`package*.json`、`.env*`、`docker-compose.test.yml`、`GEMINI.md`
+- Celery 数据源稳定化（dev）：
+  - 清理重复 worker，仅保留单一 worker
+  - 启动 `celery beat`（定时巡航/补量生效）
+  - 健康检查通过：`backend/scripts/check_celery_health.py`（active_workers=1）
+  - 配置校验通过：`backend/scripts/verify_celery_config.py`
+- backend/scripts/legacy 归档：
+  - 原路径：`backend/scripts/archive/legacy`
+  - 新路径：`docs/archive/root/scripts/legacy`
+  - 相关索引同步：`backend/scripts/LEGACY.md`、`docs/archive/legacy-scripts-inventory.md`、`reports/phase-log/phase139.md`
+- 最小抓取（dev）：
+  - 执行：`backend/scripts/crawl_once.py --scope T1`（显式指向 dev DB）
+  - 产物：`reports/local-acceptance/crawl-once-T1-20260128-164453.json`
+  - 现象：多社区出现 `NoActiveSQLTransactionError`（SAVEPOINT 仅在事务块内可用）失败记录；已留作后续排查。
+- Makefile 规则固化：
+  - 新增 `crawl-min` 入口（仅 dev/test DB）
+  - 补充 Celery worker 规则说明（analysis_queue vs crawler 队列）
+  - 新增稳定入口：`crawl-start` / `crawl-status` / `start-worker-analysis` / `crawl-stop`
+  - 新增诊断入口：`celery-health` / `celery-config` / `local-acceptance` / `monitor-crawl` / `seed-test-accounts`
+- 脚本系统化索引：
+  - 白名单入口：`docs/sop/脚本入口白名单.md`
+  - 工具箱与归档候选：`docs/sop/脚本工具箱索引.md`
+  - 归类口径：以 Makefile/非归档文档引用为“有用”，archive/未引用为候选归档
+- 全仓库脚本盘点：
+  - 盘点清单：`reports/phase-log/phase175_scripts_full_scan.txt`
+  - 统计：总 244；白名单 21；工具箱 29；仅 archive 引用 38；未引用 156（其中可能保留 55 / 可能归档 101）
+- 二次确认归档（第一批）：
+  - 已归档 13 个测试/临时脚本到 `docs/archive/root/scripts/legacy/2026-01-unused/`
+- 二次确认归档（第二批）：
+  - 已归档 38 个仅 archive 引用脚本到 `docs/archive/root/scripts/legacy/2026-01-archive-only/`
+  - 盘点更新：`reports/phase-log/phase175_scripts_full_scan.txt`（未引用 156 / 可能归档 101 / 可能保留 55）
+- 二次确认归档（第三批）：
+  - 已归档 11 个无价值/临时/冗余脚本到 `docs/archive/root/scripts/legacy/2026-02-prune-batch3/`
+  - 索引同步：`docs/sop/脚本工具箱索引.md`、`docs/archive/legacy-scripts-inventory.md`
+- 二次确认归档（第四批）：
+  - 已归档 6 个阶段/验收脚本到 `docs/archive/root/scripts/legacy/2026-02-prune-batch4/`
+  - 索引同步：`docs/sop/脚本工具箱索引.md`、`docs/archive/legacy-scripts-inventory.md`
+- Makefile/Celery 口径修复：
+  - analysis-only worker 默认队列改为 `analysis_queue`（不再混跑抓取/beat）
+  - `makefiles/celery.mk` 指向现存脚本（`seed_user_task.py`、`verify_celery_config.py` 等）
+  - `dev-celery-beat` 改为走 `crawl-start`（smart crawler）入口
+  - bulk worker 默认队列移除 `analysis_queue`，仅保留抓取/回填相关队列
+  - `crawl-start` 明确传入 `BULK_QUEUE_LIST`，避免 smart crawler 混跑分析队列
+  - dev-full/dev-real 按 SOP 启动顺序：crawl-start → analysis worker → backend
+- SAVEPOINT 失败修复（dev）：
+  - `IncrementalCrawler._dual_write` 在 begin_nested 前确保外层事务存在
+- 抓取降噪：
+  - `backend/config/crawler.yml` 下调 T1/T2/T3 的 `post_limit`（100/100/100，匹配 API 上限）
+- 最小抓取验证（dev）：
+  - 执行 `make crawl-min` 超时中止（120s），期间未再出现 SAVEPOINT 报错
+  - 观察到 `limit > 100` 警告（已通过配置修正为 100）
+- 最小抓取缩小范围（dev）：
+  - `crawl_once.py` 新增 `--limit` 参数，`crawl-min` 默认限制为 5 个社区
+  - 去除 `crawl_once.py` 中的 AUTOCOMMIT，避免 SAVEPOINT 报错
+  - 执行：`make crawl-min MIN_CRAWL_LIMIT=5` 成功（5/5 成功，无 SAVEPOINT）
+- 数据短板基线盘点（dev）：
+  - 执行：`make monitor-crawl`
+  - 现状：社区池 160；posts_hot 8,453；进度约 5.28%
+  - 今日新增：500 posts（5 个社区）
+  - 未抓取社区示例：`r/freelance` / `r/running` / `r/walmartsellers`
+- 补短板执行（dev）：
+  - 执行：`make crawl-start`（Beat + patrol + bulk），实际启动了 probe worker（后续手动关闭以遵循“探针按需不开”）
+  - 执行：`make celery-health`（active_workers=2）
+  - 执行：`make monitor-crawl`
+  - 最新：posts_hot 13,625；posts_raw 200,631；comments 2,063,982；进度约 8.52%
+  - 今日新增：5,749 posts（25 个社区）
+- 探针默认关闭（dev）：
+  - backend/.env 固化：`PROBE_HOT_BEAT_ENABLED=0` / `PROBE_AUTO_EVALUATE_ENABLED=0` / `CRON_DISCOVERY_ENABLED=0`
+- 巡航+补量按新口径重启（dev）：
+  - 执行：`make crawl-stop` → `make crawl-start`
+  - 结果：Probe 提示“先不启动”（符合预期）
+  - 执行：`make celery-health`（active_workers=2）
+  - 执行：`make monitor-crawl`
+  - 最新：posts_hot 50,428；posts_raw 234,316；comments 2,065,344；进度约 31.52%
+  - 今日新增：42,786 posts（93 个社区）

@@ -1,0 +1,165 @@
+{
+  "decision_cards": [
+    {
+      "title": "需求趋势",
+      "conclusion": "整体降温，近一月只剩2条讨论，环比暴跌100%",
+      "details": [
+        "近三月速度系数0.00，趋势数据不完整",
+        "之前10月爆火17945，11月25949后直线下滑"
+      ]
+    },
+    {
+      "title": "难题与攻略比",
+      "conclusion": "纯难题0攻略，ps_ratio直接0.0",
+      "details": [
+        "抱怨声量碾压，r/tiktokshop卖家吐槽回款坑最多",
+        "大家普遍在说平台锁钱、ban店，没人分享解法"
+      ]
+    },
+    {
+      "title": "核心社群",
+      "conclusion": "TikTok Shop和Etsy卖家扎堆，痛点集中回款和店铺稳定",
+      "details": [
+        "r/tiktokshop 11帖22评，掉坑党求安慰占比高",
+        "r/etsy 7帖，r/etsysellers 5帖5评，跨平台避坑需求强"
+      ]
+    },
+    {
+      "title": "落地机会",
+      "conclusion": "饱和度全0，机会窗口大开",
+      "details": [
+        "所有社区overall_saturation 0.0，top_brands如TikTok/Etsy也0",
+        "数据覆盖虽partial，但痛点未解空间足"
+      ]
+    }
+  ],
+  "market_health": {
+    "competition_saturation": {
+      "level": "低饱和",
+      "details": [
+        "全社区status机会窗口，saturation 0.0",
+        "r/tiktokshop/r/etsy等top_brands无竞争痕迹"
+      ],
+      "interpretation": "说白了没人抢饭碗，新工具切入零阻力"
+    },
+    "ps_ratio": {
+      "ratio": "0.0",
+      "conclusion": "难题独大零攻略",
+      "interpretation": "痛点帖压倒性多，卖家急等解法（直接数据）",
+      "health_assessment": "市场生病，痛点堆积未消"
+    }
+  },
+  "battlefields": [
+    {
+      "name": "战场：r/tiktokshop",
+      "subreddits": [
+        "r/tiktokshop"
+      ],
+      "profile": "那些掉过回款坑、店铺突然ban、资金卡31天的TikTok卖家，来抱怨求安慰的急需避坑党",
+      "pain_points": [
+        "15天慢payout门槛高到离谱",
+        "结算突然变31天，10k资金锁死"
+      ],
+      "strategy_advice": "发帖直击结算痛，分享工具缩短周期案例，吸吐槽党"
+    },
+    {
+      "name": "战场：r/etsy",
+      "subreddits": [
+        "r/etsy",
+        "r/etsysellers"
+      ],
+      "profile": "Etsy老鸟跨TikTok Shop，担心抄袭、费率不透明、资金分散的找货避坑党",
+      "pain_points": [
+        "批发商偷卖到TikTok Shop",
+        "店铺永久关门生意全废"
+      ],
+      "strategy_advice": "混迹评论区，提供多平台费率透明工具，帮他们稳现金流"
+    },
+    {
+      "name": "战场：r/passive_income",
+      "subreddits": [
+        "r/passive_income",
+        "r/printify"
+      ],
+      "profile": "想省时省心搞被动收入、POD跨平台的效率党，恨重复操作和回款慢",
+      "pain_points": [
+        "Etsy首单等4个月太煎熬",
+        "Printify到TikTok流程卡壳"
+      ],
+      "strategy_advice": "分享效率工具帖，强调一键聚合回款，钓效率控"
+    }
+  ],
+  "pain_points": [
+    {
+      "title": "回款周期长资金卡死",
+      "user_voices": [
+        "Is anyone else sick of the slow 15 day payout period on tiktok and how incredibly high they set the bar to achieve a 3 day settlement period",
+        "they changed my settlement last week...to 31 days no explanation...over 10k of mine which I can't get for 20 more days"
+      ],
+      "data_impression": "r/tiktokshop高频吐槽，卖家直呼受不了",
+      "interpretation": "这就导致了现金流断裂，补货晚了生意黄，连锁反应到销量下滑"
+    },
+    {
+      "title": "平台不稳店铺易ban",
+      "user_voices": [
+        "Stay away from TikTok shop if you can! ... Tiktok p...（突然问题）",
+        "I got banned yesterday for not suppling documents...After being on shop for 2 years"
+      ],
+      "data_impression": "跨r/tiktokshop和r/etsysellers常见，unique_authors超10",
+      "interpretation": "零预警关店，收入全断，卖家被迫多平台分散却更乱"
+    },
+    {
+      "title": "费率不透明重复操作多",
+      "user_voices": [
+        "Does the BS ever end? Do you still have to fight with them about everything",
+        "I don't know what I am doing wrong"
+      ],
+      "data_impression": "high_value_pains主要抱怨声量14提11人",
+      "interpretation": "每天手动对账费率坑，时间成本高，实际利润缩水"
+    }
+  ],
+  "drivers": [
+    {
+      "title": "效率提升与省时省心",
+      "description": "卖家恨小重复操作如手动对账，工具一键搞定他们就掏钱"
+    },
+    {
+      "title": "回款速度与现金流",
+      "description": "15天等不起、31天锁钱太煎熬，缩短周期稳周转才肯买单"
+    }
+  ],
+  "opportunities": [
+    {
+      "title": "多平台回款聚合器",
+      "target_pain_points": [
+        "回款周期长资金卡死",
+        "费率不透明重复操作多"
+      ],
+      "target_communities": [
+        "r/tiktokshop",
+        "r/etsy"
+      ],
+      "product_positioning": "覆盖Amazon/Etsy/Shopify/TikTok，一键统管回款费率避坑",
+      "core_selling_points": [
+        "实时资金视图，结算周期可视化缩短",
+        "费率透明对比，防平台黑箱锁钱"
+      ]
+    },
+    {
+      "title": "跨店现金流稳器",
+      "target_pain_points": [
+        "平台不稳店铺易ban",
+        "回款周期长资金卡死"
+      ],
+      "target_communities": [
+        "r/etsysellers",
+        "r/passive_income"
+      ],
+      "product_positioning": "分散资金一览无余，帮Etsy/TikTok卖家防突发断流",
+      "core_selling_points": [
+        "多平台同步回款，ban店不慌",
+        "手续费自动追踪，省时省心不掉坑"
+      ]
+    }
+  ]
+}

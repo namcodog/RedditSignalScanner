@@ -1,0 +1,3 @@
+frontend/scripts/generate-api-client.js
+frontend/scripts/setup-test-user.py
+frontend/scripts/test-api.sh

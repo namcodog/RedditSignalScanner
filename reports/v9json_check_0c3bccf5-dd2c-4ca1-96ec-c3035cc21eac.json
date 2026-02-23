@@ -1,0 +1,172 @@
+{
+  "decision_cards": [
+    {
+      "title": "需求趋势",
+      "conclusion": "整体降温，最近一个月讨论只剩2条，环比暴跌100%",
+      "details": [
+        "过去几个月从爆火到回落，2025-12月6797条掉到2026-01的2条",
+        "数据覆盖不全，但卖家痛点还在，趋势已凉"
+      ]
+    },
+    {
+      "title": "难题与攻略比",
+      "conclusion": "难题压倒攻略，抱怨帖远多于解决方案",
+      "details": [
+        "高价值痛点28次提到，独特作者19人，主要卡在回款和整合",
+        "解决方案14条多是官方贴或代理推销，实际攻略少"
+      ]
+    },
+    {
+      "title": "核心社群",
+      "conclusion": "TikTok Shop相关子版最活跃，Etsy和Shopify卖家次之",
+      "details": [
+        "r/tiktokshop 23帖37评，痛点吐槽集中",
+        "r/etsy 7帖，r/etsysellers 6帖，r/printify 5帖，卖家跨平台烦恼多"
+      ]
+    },
+    {
+      "title": "落地机会",
+      "conclusion": "饱和度零，纯机会窗口",
+      "details": [
+        "所有社区top品牌如Etsy/Shopify/TikTok饱和0，工具缺口大",
+        "卖家急需回款管理，产品直击痛点"
+      ]
+    }
+  ],
+  "market_health": {
+    "competition_saturation": {
+      "level": "低饱和",
+      "details": [
+        "全社区overall_saturation 0.0，Etsy/Shopify/TikTok等品牌无竞争",
+        "无现有工具霸屏，窗口大开"
+      ],
+      "interpretation": "市场空白，卖家到处吐槽回款乱没人管，说白了就是等你切入"
+    },
+    "ps_ratio": {
+      "ratio": "难题:攻略 = 28:14（估算）",
+      "conclusion": "难题主导，攻略稀缺",
+      "interpretation": "通过痛点mentions 28 vs solutions frequency 14对比（估算口径），卖家抱怨多回款慢整合卡，经验帖少，健康度高机会足",
+      "health_assessment": "机会市场，痛点未解"
+    }
+  },
+  "battlefields": [
+    {
+      "name": "战场：r/tiktokshop",
+      "subreddits": [
+        "r/tiktokshop",
+        "r/tiktokshophelps"
+      ],
+      "profile": "那些掉过坑来抱怨回款慢、Shopify连不上、库存不同步、急需避雷解决的人，帖子里全是求助声",
+      "pain_points": [
+        "15天回款太慢达不到3天门槛",
+        "TikTok Shop与Shopify连接卡2个月客服推诿"
+      ],
+      "strategy_advice": "发帖分享回款工具demo，直击整合痛点，提供免费试用拉信任"
+    },
+    {
+      "name": "战场：r/etsy",
+      "subreddits": [
+        "r/etsy",
+        "r/etsysellers"
+      ],
+      "profile": "Etsy老卖家转TikTok遇坑、担心抄袭、跨平台资金散的人，讨论混着求安慰和找货",
+      "pain_points": [
+        "Etsy店被抄到TikTok Shop",
+        "多平台资金分散难管"
+      ],
+      "strategy_advice": "混迹评论区答疑费率透明，推多平台聚合定位"
+    },
+    {
+      "name": "战场：r/printify",
+      "subreddits": [
+        "r/printify",
+        "r/shopifydev"
+      ],
+      "profile": "POD卖家冲效率找工具、钻研Shopify TikTok连动、玩转多店的人，帖少但精准",
+      "pain_points": [
+        "POD上TikTok Shop担心不成",
+        "库存跨平台超卖退款"
+      ],
+      "strategy_advice": "分享手续费对比帖，定位省时工具切入进阶党"
+    }
+  ],
+  "pain_points": [
+    {
+      "title": "回款周期长门槛高",
+      "user_voices": [
+        "Is anyone else sick of the slow 15 day payout period on tiktok and how incredibly high they set the bar to achieve a 3 day settlement period",
+        "Tiktok shop seller - ridiculous strict settlement period metrics"
+      ],
+      "data_impression": "r/tiktokshop反复吐槽，声量明显",
+      "interpretation": "资金卡住影响周转，一单晚到手就多等半月，连锁断货补货链"
+    },
+    {
+      "title": "多平台整合卡壳",
+      "user_voices": [
+        "Been Stuck for 2 Months: TikTok Shop ↔ Shopify Connection Broken (Support Keeps Redirecting Me)",
+        "Every time I try to link my shop account to Shopify, I keep getting this already connected other shop error"
+      ],
+      "data_impression": "整合帖常见，作者求助无果",
+      "interpretation": "连不上导致订单漏、库存错乱，卖家白忙活客服不管用"
+    },
+    {
+      "title": "库存同步超卖",
+      "user_voices": [
+        "Added tiktok shop three months ago and I've already had to cancel orders and issue refunds twice because inventory didn't sync",
+        "Tiktok fulfillment plus shopify plus amazon, how is anyone managing inventory without constant overselling"
+      ],
+      "data_impression": "跨平台卖家高频坑",
+      "interpretation": "不同步直接超卖退款，砸口碑资金还卡，恶性循环"
+    }
+  ],
+  "drivers": [
+    {
+      "title": "回款速度与现金流",
+      "description": "卖家恨等钱到账，工具缩短周期提确定性，直接救现金流命根"
+    },
+    {
+      "title": "效率提升与省时省心",
+      "description": "重复查费率连平台太烦，聚合管一劳永逸，时间省下来冲销量"
+    },
+    {
+      "title": "合规与风控稳健",
+      "description": "禁店验证坑多，清晰规则避雷，稳住店不被封才敢放大干"
+    }
+  ],
+  "opportunities": [
+    {
+      "title": "多平台回款聚合器",
+      "target_pain_points": [
+        "回款周期长门槛高",
+        "多平台整合卡壳"
+      ],
+      "target_communities": [
+        "r/tiktokshop",
+        "r/etsy",
+        "r/etsysellers"
+      ],
+      "product_positioning": "一键管Amazon/Etsy/Shopify/TikTok回款费率，资金不散周期短",
+      "core_selling_points": [
+        "实时费率透明对比，避隐形扣款",
+        "自动同步缩短结算等钱不愁"
+      ]
+    },
+    {
+      "title": "库存费率风控管家",
+      "target_pain_points": [
+        "库存同步超卖",
+        "合规与风控稳健"
+      ],
+      "target_communities": [
+        "r/printify",
+        "r/shopifydev",
+        "r/tiktokshop"
+      ],
+      "product_positioning": "跨店防超卖+费率预警，专治POD多平台乱象",
+      "core_selling_points": [
+        "库存实时对齐零退款",
+        "风控规则一键合规防封"
+      ]
+    }
+  ]
+}

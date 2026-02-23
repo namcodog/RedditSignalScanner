@@ -1,0 +1,69 @@
+{
+  "query_id": "c830988e-239a-4bca-9dbc-dc8cc838d8c7",
+  "query": "craft kit quality OR DIY kit instructions OR art kit cheap OR kit materials disappointing OR beginner kit frustrating",
+  "mode": "rant",
+  "search_time": "2026-02-02 14:48:42.961249+00:00",
+  "from_cache": false,
+  "status": "success",
+  "position": null,
+  "estimated_wait_seconds": null,
+  "summary": "暂无相关讨论，样本不足。",
+  "markdown_report": "# craft kit quality OR DIY kit instructions OR art kit cheap OR kit materials disappointing OR beginner kit frustrating — 痛点挖掘报告\n\n> 生成时间：2026-02-02T14:48:42.961249+00:00  \n> 模式：痛点挖掘 (Rant)  \n\n## 📌 一句话结论\n暂无相关讨论，样本不足。\n\n## 📊 数据概况\n| 指标 | 值 |\n|------|-----|\n| 可信度 | none |\n| 吐槽帖数 | 0 |\n| 社区数 | 0 |\n\n**情绪分布**：\n正向 0% / 中性 0% / 负向 0%\n\n**吐槽强度分布**：\n强烈 0% / 中等 0% / 轻微 0%\n\n## 🚶 迁移意向分析\n| 指标 | 值 |\n|------|-----|\n| 涉及迁移的帖子 | 0 条 |\n| 迁移意向占比 | 0% |\n\n**状态分布**：\n已离开 0% / 考虑中 0% / 留守 0%\n\n## 可靠性说明\n当前样本量 0 条，样本有限，仅供预览。\n\n## 🚀 下一步\n- ✅ 可生成深度报告 → ?token=\n- 💡 建议关键词：craft、kit、quality、OR、DIY\n",
+  "top_posts": [],
+  "key_comments": [],
+  "top_rants": [],
+  "top_discovery_posts": null,
+  "pain_points": [],
+  "opportunities": null,
+  "trending_keywords": null,
+  "topics": null,
+  "competitor_mentions": [],
+  "migration_intent": {
+    "already_left": "0%",
+    "considering": "0%",
+    "staying_reluctantly": "0%",
+    "total_mentions": 0,
+    "percentage": 0.0,
+    "status_distribution": {
+      "already_left": 0.0,
+      "considering": 0.0,
+      "staying": 0.0
+    },
+    "destinations": [],
+    "key_quote": null
+  },
+  "top_quotes": null,
+  "unmet_needs": null,
+  "existing_tools": null,
+  "user_segments": null,
+  "market_opportunity": null,
+  "communities": [],
+  "related_queries": [],
+  "evidence_count": 0,
+  "community_distribution": {},
+  "sentiment_overview": {
+    "positive": 0.0,
+    "neutral": 0.0,
+    "negative": 0.0
+  },
+  "rant_intensity": {
+    "strong": 0.0,
+    "medium": 0.0,
+    "weak": 0.0
+  },
+  "need_urgency": null,
+  "opportunity_strength": null,
+  "confidence": "none",
+  "reliability_note": "当前样本量 0 条，样本有限，仅供预览。",
+  "next_steps": {
+    "deepdive_available": true,
+    "deepdive_token": null,
+    "suggested_keywords": [
+      "craft",
+      "kit",
+      "quality",
+      "OR",
+      "DIY"
+    ]
+  }
+}

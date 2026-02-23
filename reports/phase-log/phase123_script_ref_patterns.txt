@@ -1,0 +1,3 @@
+scripts/legacy/
+scripts/mcp-wrapper-
+scripts/mcp/

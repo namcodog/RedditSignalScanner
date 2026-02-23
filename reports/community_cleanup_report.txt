@@ -1,0 +1,63 @@
+================================================================================
+社区池清理报告
+================================================================================
+
+清理时间：1368110.239924083
+清理社区数：48
+
+清理的社区列表：
+1. 处理策略：停止抓取，保留历史数据但不再更新
+2. r/SoBooster_Shopify
+3. r/WalmartSmiley
+4. r/AmazonFinds
+5. r/dropshipping_on_ebay
+6. r/DropshippingMaster
+7. r/printOnDemand
+8. r/Shopify_Advanced
+9. r/AmazonFBA_USA
+10. r/WalmartCustomers
+11. r/ShopifyUK
+12. r/Canadian_FBA_Sellers
+13. r/B2Becommerce_Hub
+14. r/ShopifyPartners
+15. r/EtsySellerOnly
+16. r/aliexpress_finds
+17. r/TikTokShopAffiliates
+18. r/EcommerceDACH
+19. r/fbastrategy
+20. r/AmazonSellerTipsUSA
+21. r/AutomateShopify
+22. r/AskShopify
+23. r/TikTokShopping
+24. r/shopifyappstore
+25. r/EtsyTurkiye
+26. r/m2ecommerce
+27. r/philippinescoupon
+28. r/ShopeeFindsPH
+29. r/DropshippingHustle44
+30. r/Walmart_Resellers
+31. r/VintageEtsySellers
+32. r/EcommerceMillionaire
+33. r/DropshippingProducts
+34. r/LazadaSellersGroup
+35. r/ShopifyHydrogen
+36. r/TikToksellerssupport
+37. r/Dropshippingebay
+38. r/WalmartAfterHours
+39. r/ShopeePHCommunity
+40. r/juststart
+41. r/AliExpressCode
+42. r/ShopifyAttribution
+43. r/aliexpressfinds
+44. r/Shopify_USA
+45. r/aliexpresscouponcodes
+46. r/AliexpressCoins
+47. r/Shopify_India
+48. r/Dropshipping_com
+
+清理后社区池统计：
+  活跃社区数：低活跃（50-99）
+  停用社区数：27
+  总社区数：1937
+
+================================================================================
