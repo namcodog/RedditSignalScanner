@@ -1,4 +1,9 @@
-# Python
+# ===========================================================
+# RedditSignalScanner .gitignore
+# 更新: 2026-02-23 — 清理重复规则，补充缺失规则
+# ===========================================================
+
+# ─── Python ────────────────────────────────────────────────
 __pycache__/
 *.py[cod]
 *$py.class
@@ -7,40 +12,42 @@ __pycache__/
 venv/
 env/
 ENV/
-.venv
+.venv/
 *.egg-info/
-dist/
 build/
 .coverage
 htmlcov/
 .pytest_cache/
 .mypy_cache/
+.hypothesis/
+backend/.hypothesis/
 
-# Node.js
+# ─── Node.js ───────────────────────────────────────────────
 node_modules/
-backend/node_modules/
-frontend/node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .npm-cache/
-dist/
 .cache/
 
-# Environment variables (强化规则)
-# 忽略所有 .env 文件（除了 .env.example）
+# ─── Build Artifacts ───────────────────────────────────────
+dist/
+build/
+frontend/dist/
+frontend/coverage/
+*.pyc
+*.pyo
+
+# ─── Environment Variables ─────────────────────────────────
+# 忽略所有 .env（除了 .env.example）
 *.env
 .env
 .env.*
 !.env.example
-backend/.env
-backend/.env.*
 !backend/.env.example
-frontend/.env
-frontend/.env.*
 !frontend/.env.example
 
-# IDEs
+# ─── IDEs & OS ─────────────────────────────────────────────
 .vscode/
 .idea/
 *.swp
@@ -48,83 +55,82 @@ frontend/.env.*
 *~
 .DS_Store
 
-# Databases
+# ─── Databases & Redis ─────────────────────────────────────
 *.db
 *.sqlite
 *.sqlite3
-data/redis/dump.rdb
+*.rdb
+dump.rdb
 celerybeat-schedule.db
+backend/celerybeat-schedule.db
+data/redis/dump.rdb
 
-# Logs
+# ─── Logs ──────────────────────────────────────────────────
 *.log
 logs/
 nohup.out
 backend/nohup.out
+frontend/frontend_server.log
 
-# Temporary files
+# ─── Runtime State Files ───────────────────────────────────
+backend/crawl_progress.json
+
+# ─── Temporary Files ───────────────────────────────────────
 tmp/
 *.tmp
 *.bak
+backend/tmp/
 backend/tmp_*/
 backend/tmp_test/
 backend/tmp_l1/
 
-# Test coverage
-.coverage
+# ─── Test Coverage & E2E Results ───────────────────────────
 coverage/
-htmlcov/
-
-# Playwright test results (E2E 测试结果)
 frontend/test-results/
 frontend/playwright-report/
 frontend/playwright-results.json
 **/test-results/
 **/playwright-report/
 
-# Build artifacts
-*.pyc
-*.pyo
+# ─── Large Data Files (根目录) ─────────────────────────────
+client_llm_labels_*.jsonl
 
-# Serena MCP (development tools)
-.serena/
-.serena-cli/
-.serena-mcp/
+# ─── Data Files ────────────────────────────────────────────
+*.xlsx
+*.json.bak
+backend/data/*.json.bak
+backend/data/*_scraped.json
+backend/data/top5000_*.json
+backend/data/temp_batch_fill/
+backend/data/reddit_corpus/waterline/
 
-# Codex (development tools)
-.codex/
+# ─── Backup Directories ────────────────────────────────────
+backup/
+backups/
+backups/*.sql.gz
 
-# Reports and analysis (开发过程文档)
+# ─── Reports & Temporary Docs ──────────────────────────────
+backend/reports/
+reports/blockers/
+reports/local-acceptance/
+reports/threshold-calibration/
 reports/phase-log/*.json
 reports/phase-log/*-temp.md
 reports/phase-log/*-draft.md
 reports/failed_e2e/
 
-# Specify (项目规划工具) - 保留 specs 和 templates，忽略临时文件
-.specify/memory/
-.specify/scripts/
-
-# Development tools
-.augment/
-.cursor/
-.claude/
-.spec-workflow/
-
-# Reference materials (参考资料)
-跨境社区资料库/
-
-# Temporary analysis documents (临时分析文档)
+# ─── Temporary Analysis Documents ──────────────────────────
 *-分析.md
 *-计划.md
 *-方案.md
 *-总结.md
 *-评估*.md
 GitHub*.md
-2025-*.md
 !README.md
 !docs/**/*.md
 !reports/**/*.md
 
-# Temporary scripts (临时脚本)
+# ─── Temporary Scripts ─────────────────────────────────────
 check_entities.py
 diagnose_*.py
 test_report_access.py
@@ -134,34 +140,22 @@ week2_*.py
 week2_*.sh
 final_acceptance.py
 
-# Local reports and temporary data (本地报告和临时数据)
-backend/reports/
-reports/blockers/
-reports/local-acceptance/
-reports/threshold-calibration/
+# ─── Development Tools (AI Assistants) ─────────────────────
+.serena/
+.serena-cli/
+.serena-mcp/
+.codex/
+.augment/
+.cursor/
+.claude/
+.spec-workflow/
+.specify/memory/
+.specify/scripts/
+.gemini/
+.gemini-clipboard/
 
-# Duplicate directories (重复目录)
+# ─── Reference Materials ───────────────────────────────────
+跨境社区资料库/
+
+# ─── Duplicate / Nested Directories ────────────────────────
 backend/backend/
-
-# Data files (数据文件)
-*.csv
-*.xlsx
-*.json.bak
-backend/data/*.json.bak
-backend/data/*_scraped.json
-backend/data/top5000_*.json
-
-# Backup files (备份文件)
-*.backup
-*.old
-*~
-node_modules
-node_modules
-node_modules
-node_modules
-node_modules
-node_modules
-node_modules
-node_modules
-node_modules
-backup/*.sql.gz
