@@ -1,1 +1,2 @@
-opportunity_threshold: 0.6
+rule_version: rulebook_v1
+opportunity_threshold: 0.75

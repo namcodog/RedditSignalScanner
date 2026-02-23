@@ -1,0 +1,104 @@
+topic_profiles:
+  - id: shopify_ads_conversion_v1
+    topic_name: "Shopify Traffic Ads Conversion"
+    product_desc: "面向 Shopify 卖家的广告优化与转化率提升工具"
+    vertical: "Ecommerce_Business"
+
+    # 允许/优先的社区 (Whitelist)
+    allowed_communities:
+      - r/shopify
+      - r/shopifybusiness
+      - r/facebookads
+      - r/PPC
+      - r/Entrepreneur
+      - r/smallbusiness
+      - r/dropshipping
+      - r/ecommerce
+      - r/marketing
+      - r/JustStart
+      - r/BigSEO
+
+    # 社区名称匹配模式 (Fallback)
+    community_patterns:
+      - "shopify"
+      - "facebookads"
+      - "ppc"
+      - "advertising"
+      - "marketing"
+      - "ecommerce"
+
+    # 帖子必须命中的实体 (Any)
+    required_entities_any:
+      - "Shopify"
+      - "Shopify store"
+
+    # 软性要求实体 (Context)
+    soft_required_entities_any:
+      - "Facebook Ads"
+      - "Meta Ads"
+      - "Google Ads"
+      - "TikTok Ads"
+      - "Instagram Ads"
+
+    # 包含关键词 (Any)
+    include_keywords_any:
+      - "CTR"
+      - "CPC"
+      - "ROAS"
+      - "campaign"
+      - "conversion rate"
+      - "traffic"
+      - "ad spend"
+      - "retargeting"
+      - "sales"
+      - "orders"
+      - "convert"
+      - "testing"
+      - "creative"
+
+    # 排除关键词 (Any Hit = Reject)
+    exclude_keywords_any:
+      - "recipe"
+      - "cook"
+      - "baby"
+      - "marriage"
+      - "relationship"
+      - "cleaning"
+      - "kitchen"
+      - "food"
+      - "meal"
+      - "husband"
+      - "wife"
+      - "boyfriend"
+      - "girlfriend"
+      - "dating"
+
+    # --- 窄题“放水阀门”（Shopify Ads 这种小盘子专用） ---
+    # 1) 时间窗：默认至少 24 个月，尽量让“同类抱怨/经验”聚得起来
+    preferred_days: 730
+    # 2) 质量门槛：比大盘更宽松，但仍然要有“多人重复出现”的证据
+    pain_min_mentions: 5
+    pain_min_unique_authors: 3
+    brand_min_mentions: 3
+    brand_min_unique_authors: 2
+    min_solutions: 3
+    # 4) 评论口径：至少要吃到一点评论证据，避免 facts_v2 假闭环（comments 永远 0）
+    min_sample_comments: 1
+    # 3) 双钥匙入场：样本抓取阶段不把“只提到 Shopify 的泛运营贴”全收进来
+    require_context_for_fetch: true
+    context_keywords_any:
+      - "ROAS"
+      - "CPC"
+      - "CTR"
+      - "CPM"
+      - "CPA"
+      - "campaign"
+      - "ads"
+      - "ad account"
+      - "pixel"
+      - "attribution"
+      - "tracking"
+      - "conversion"
+      - "conversion rate"
+      - "retargeting"
+      - "creative"

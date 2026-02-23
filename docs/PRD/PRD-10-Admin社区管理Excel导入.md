@@ -3,7 +3,7 @@
 **创建日期**: 2025-10-14  
 **优先级**: P1（MVP 必需）  
 **预计工时**: 4-6 小时  
-**状态**: 📝 待实现
+**状态**: ✅ 已落地（现状对齐）
 
 ---
 
@@ -58,7 +58,7 @@
 | r/SaaS        | silver| saas,pricing,metrics    | subscription,pricing,mrr       | 65          | 84                | 0.80          | medium   |
 ```
 
-### 2.3 验证规则
+### 2.3 验证规则（现状对齐）
 
 **必填字段验证**：
 - `name`: 必须以 `r/` 开头，长度 3-100 字符
@@ -69,12 +69,16 @@
 **可选字段验证**：
 - `daily_posts`: 0-10000 之间的整数
 - `avg_comment_length`: 0-1000 之间的整数
-- `quality_score`: 0.0-1.0 之间的小数
+- `quality_score`: 0.0-1.0 之间的小数（支持 1-100 自动归一化）
 - `priority`: `high`, `medium`, `low` 之一
 
 **业务规则验证**：
 - 社区名称不能重复（与数据库中已有社区对比）
 - 同一 Excel 中不能有重复的社区名称
+
+**表头兼容**：
+- 支持常见中文/别名表头（如“社区名/等级/分类/关键词/质量分”等）
+- 可选字段 `is_active` 可用于过滤未入选行
 
 ---
 
@@ -185,7 +189,12 @@ dry_run: false  # true=仅验证，false=验证并导入
 
 ---
 
-## 4. 前端设计
+## 4. 现状实现与追溯
+- 解析与校验：`backend/app/services/community_import_service.py`
+- API 入口：`backend/app/api/legacy/admin_communities.py`
+- 测试：`backend/tests/api/test_admin_community_import.py`
+
+## 5. 前端设计
 
 ### 4.1 页面布局
 
@@ -434,4 +443,3 @@ class CommunityImportService:
 ---
 
 **结论**：✅ **Excel 上传方式明显优于 Git 提交方式，强烈推荐实现！**
-

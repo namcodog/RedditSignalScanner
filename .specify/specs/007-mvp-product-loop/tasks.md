@@ -171,7 +171,7 @@
 - [ ] T052 [US5] 抽样 200 条帖子到 `data/annotations/sample_200.csv`
 - [ ] T053 [US5] 创建标注模板（列：post_id, title, summary, label, strength）
 - [ ] T054 [US5] 人工标注：机会/非机会、强/中/弱（预计 6 小时）
-- [ ] T055 [US5] 记录标注指南到 `docs/annotation-guide.md`
+- [ ] T055 [US5] 记录标注指南到 `docs/archive/annotation-guide.md`
 
 ### 阈值校准脚本
 

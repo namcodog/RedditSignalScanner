@@ -1,5 +1,11 @@
 # PRD-08: 端到端测试规范
 
+## 0. 对齐口径（现状）
+- E2E 入口：`make test-e2e` / `make test-admin-e2e`
+- KAG 验收入口：`make kag-acceptance`（检查 knowledge_graph / hybrid_posts_used）
+- 前端配置：`frontend/playwright.config.ts`
+- 主要执行记录：`reports/phase-log/phase106.md`、`reports/phase-log/phase107.md`
+
 ## 1. 问题陈述
 
 ### 1.1 背景
@@ -19,6 +25,9 @@
 - **安全隔离有效性**：多租户数据零泄露保证
 - **降级链条正确性**：每个降级方案的实际验证
 - **故障恢复能力**：系统在组件失效后的自愈能力
+- **LLM 报告可用**：正常任务必须输出 LLM 报告正文；若 C/X 只输出解释页
+- **报告结构完整**：报告必须包含“决策卡/概览/战场/痛点/驱动力/机会卡”
+- **报告字段口径**：`report.pain_points/opportunities/action_items/purchase_drivers/market_health` 必须存在
 
 ### 1.3 非目标
 - **不测试**单个函数的逻辑正确性（单元测试负责）
@@ -83,9 +92,16 @@ async def test_complete_user_journey():
     report = await get_report(token, task.id)
     report_time = time.time() - start_report
     assert report_time < 2  # 2秒承诺
-    assert "pain_points" in report.data
-    assert "competitors" in report.data
-    assert "opportunities" in report.data
+    assert report.data.get("report_html")  # 必须有 LLM 正文
+    assert "决策卡片" in report.data.get("report_html", "")
+    report_payload = report.data.get("report", {})
+    assert "pain_points" in report_payload
+    assert "competitors" in report_payload
+    assert "opportunities" in report_payload
+    assert "action_items" in report_payload
+    assert "purchase_drivers" in report_payload
+    assert "market_health" in report_payload
+    assert report_payload.get("market_health", {}).get("ps_ratio") is not None
 ```
 
 #### 场景2：缓存失效下的5分钟承诺
@@ -169,6 +185,17 @@ async def test_concurrent_multi_tenant_isolation():
 ```
 
 ### 2.3 故障注入测试
+
+#### 现状实现入口（真实代码为准）
+- 主要用例：`backend/tests/e2e/test_fault_injection.py`
+  - Redis 不可用、DB 慢、worker 崩溃重试、Reddit rate limit 失败升级
+- 故障管理器：`backend/tests/utils/fault_injection.py`
+- 说明：本节示例为“概念伪代码”，以实际测试文件为准。
+
+#### 真人演练矩阵（生产演练）
+- 演练脚本：`scripts/phase106_rehearsal_matrix.py`
+- 场景配置：`scripts/phase106_rehearsal_matrix.sample.json`
+- 目标：富样本/窄题/必拦截/故障注入可复现，结果可写入 JSON 复核
 
 #### 任务失败恢复测试
 ```python
@@ -373,7 +400,7 @@ async def clean_database(test_environment):
 ### 3.2 故障注入工具
 
 ```python
-# tests/utils/fault_injection.py
+# backend/tests/utils/fault_injection.py
 class FaultInjectionManager:
     """故障注入管理器"""
     
@@ -580,24 +607,22 @@ def validate_coverage(test_results):
 
 ### 5.3 降级方案
 
-**完全降级：手动验证**
+**完全降级：手动验证（无脚本）**
 ```bash
-#!/bin/bash
-# scripts/manual_verification.sh
 echo "🔍 手动验证关键功能..."
 
 echo "1. 用户注册测试:"
-curl -X POST localhost:8000/api/auth/register \
+curl -X POST http://localhost:8006/api/auth/register \
   -H "Content-Type: application/json" \
   -d '{"email":"manual@test.com","password":"test123"}'
 
 echo "2. 任务提交测试:"
-TOKEN=$(curl -s -X POST localhost:8000/api/auth/login \
+TOKEN=$(curl -s -X POST http://localhost:8006/api/auth/login \
   -H "Content-Type: application/json" \
   -d '{"email":"manual@test.com","password":"test123"}' \
   | jq -r '.access_token')
 
-curl -X POST localhost:8000/api/analyze \
+curl -X POST http://localhost:8006/api/analyze \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"product_description":"手动测试产品"}'

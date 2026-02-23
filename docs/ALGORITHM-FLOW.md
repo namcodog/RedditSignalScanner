@@ -162,7 +162,7 @@ async def execute_analysis_pipeline(task_id: uuid.UUID) -> Dict[str, Any]:
 
 ### 3.2 步骤1：智能社区发现
 
-**目标**: 从社区池中筛选与产品描述最相关的社区
+**目标**: 从 `community_pool` + 静态基线（`COMMUNITY_CATALOGUE`）+ 可选 Reddit 搜索中筛选最相关社区
 
 #### 算法模块
 
@@ -189,11 +189,13 @@ async def execute_analysis_pipeline(task_id: uuid.UUID) -> Dict[str, Any]:
    ```python
    scored_communities = _score_communities(communities, keywords)
    # 基于关键词匹配度、社区质量分数评分
-   # 返回Top 10社区
+   # 返回 Top 10/20/30（动态）
    ```
 
 **数据来源**:
 - 数据库表：`community_pool`（社区池）
+- 静态基线：`COMMUNITY_CATALOGUE`
+- 可选：Reddit 搜索结果匹配
 - 字段：`name`, `categories`, `description_keywords`, `quality_score`, `priority`
 
 ---
@@ -234,14 +236,14 @@ async def execute_analysis_pipeline(task_id: uuid.UUID) -> Dict[str, Any]:
    ```
 
 **数据来源**:
-- 热缓存：`posts_hot`表（最近24小时）
-- 冷库：`posts_raw`表（历史30天）
+- 热缓存：`posts_hot`（TTL 由 `backend/config/crawler.yml` 控制）
+- 冷库：`posts_raw`（全量历史）
 - Reddit API：实时搜索
 
 **缓存命中率计算**:
 ```python
 cache_hit_rate = cache_hits / (cache_hits + cache_misses)
-# 目标：≥90%
+# 目标：≥90%（实际随数据波动）
 ```
 
 ---
@@ -326,12 +328,12 @@ cache_hit_rate = cache_hits / (cache_hits + cache_misses)
 1. **置信度计算** (`analysis_engine.py::_calculate_confidence_score`)
    ```python
    confidence_score = _calculate_confidence_score(
-       cache_hit_rate=0.92,
-       posts_analyzed=1500,
-       communities_found=10,
-       pain_points_count=8,
-       competitors_count=5,
-       opportunities_count=12
+       cache_hit_rate=cache_hit_rate,
+       posts_analyzed=posts_analyzed,
+       communities_found=communities_found,
+       pain_points_count=pain_points_count,
+       competitors_count=competitors_count,
+       opportunities_count=opportunities_count
    )
    # 综合评分：缓存命中率(40%) + 数据量(30%) + 洞察质量(30%)
    ```
@@ -355,10 +357,16 @@ cache_hit_rate = cache_hits / (cache_hits + cache_misses)
        priority: float                # 优先级 = confidence × urgency × product_fit
    ```
 
-3. **HTML报告生成** (`analysis_engine.py::_generate_html_report`)
+2.1 **完整结论字段（算法输出）**
+   - 需求趋势 `trend_summary`
+   - 竞争饱和度 `market_saturation`
+   - 战场画像 `battlefield_profiles`
+   - Top 驱动力 `top_drivers`
+
+3. **LLM 报告生成**（insights 主线 + facts_slice 证据）
    ```python
-   html_report = _generate_html_report(insights, sources)
-   # 生成HTML格式的分析报告
+   html_report = llm_generate_report(insights, facts_slice)
+   # 门禁为 C/X 时仅输出解释页
    ```
 
 ---
@@ -381,32 +389,34 @@ cache_hit_rate = cache_hits / (cache_hits + cache_misses)
 │ ├─ 样本充足 → 继续                                           │
 │ └─ 样本不足 → 关键词补抓 (keyword_crawler.py)                │
 │ ↓                                                            │
-│ 加载社区池 (community_pool表, 限制10个)                      │
+│ 加载候选池 (community_pool + COMMUNITY_CATALOGUE)            │
+│ ↓                                                            │
+│ 可选 Reddit 搜索匹配社区                                     │
 │ ↓                                                            │
 │ 社区评分 (_score_communities)                                │
 │ ↓                                                            │
-│ 输出: Top 10 社区                                            │
+│ 输出: Top 10/20/30 社区（动态）                              │
 └─────────────────────────────────────────────────────────────┘
                           ↓
 ┌─────────────────────────────────────────────────────────────┐
 │ 2. 并行数据采集                                              │
 ├─────────────────────────────────────────────────────────────┤
-│ 输入: Top 10 社区, keywords                                  │
+│ 输入: Top 10/20/30 社区, keywords                            │
 │ ↓                                                            │
 │ 并行采集 (data_collection.py)                                │
 │ ├─ 读取热缓存 (posts_hot表)                                  │
-│ ├─ 读取冷库 (posts_raw表, 最近30天)                          │
+│ ├─ 读取冷库 (posts_raw, 全量/按窗口)                         │
 │ └─ 调用Reddit API (reddit_client.py, 限制50条/社区)          │
 │ ↓                                                            │
 │ 计算缓存命中率 (cache_hit_rate)                              │
 │ ↓                                                            │
-│ 输出: 1500+ 帖子, cache_hit_rate ≥ 90%                       │
+│ 输出: ≥1500 帖子, cache_hit_rate 目标≥90%                    │
 └─────────────────────────────────────────────────────────────┘
                           ↓
 ┌─────────────────────────────────────────────────────────────┐
 │ 3. 信号提取                                                  │
 ├─────────────────────────────────────────────────────────────┤
-│ 输入: 1500+ 帖子                                             │
+│ 输入: ≥1500 帖子                                             │
 │ ↓                                                            │
 │ 文本清洗 (text_cleaner.py)                                   │
 │ ├─ 去除URL                                                   │
@@ -506,7 +516,7 @@ Report (报告表)
 ```
 CommunityPool (社区池)
   ├─ name: string (r/webdev)
-  ├─ tier: string (high|medium|low)
+  ├─ tier: string (high|medium|semantic 等)
   ├─ categories: JSONB
   ├─ description_keywords: JSONB
   ├─ quality_score: float
@@ -514,7 +524,7 @@ CommunityPool (社区池)
   
   ↓ (用于采集)
   
-PostHot (热缓存，24小时)
+PostHot (热缓存，TTL 由 `backend/config/crawler.yml` 控制)
   ├─ post_id: string
   ├─ subreddit: string
   ├─ title: string
@@ -523,7 +533,7 @@ PostHot (热缓存，24小时)
   ├─ created_at: datetime
   └─ extra_data: JSONB
   
-PostRaw (冷库，30天+)
+PostRaw (冷库，全量历史)
   ├─ post_id: string
   ├─ subreddit: string
   ├─ title: string
@@ -619,12 +629,11 @@ API请求 → Celery任务 → 核心引擎 → 算法模块 → 数据库 → A
 
 ### 性能优化
 
-- 社区查询：50 → 10（减少80%）
-- Reddit API：100 → 50条/社区（减少50%）
+- 社区查询：预选上限已下调（当前默认 10）
+- Reddit API：单次搜索上限默认 50 条
 - 去重性能：O(n²) → O(n)（MinHash + LSH）
-- 缓存命中率：目标90%+
+- 缓存命中率：目标 90%+
 
 ---
 
 **文档维护**: 本文档随算法迭代更新，当前版本对应 Phase 3 完成状态。
-

@@ -1,0 +1,53 @@
+defaults:
+  keywords: []
+  core_whitelist: []
+  hard_blacklist: []
+  dynamic_whitelist_cap: 10
+  dynamic_blacklist_cap: 20
+  min_topic_hits: 5
+  max_offtopic_ratio: 0.35
+  semantic_sim_threshold: 0.38
+  quality:
+    comments_min: 60
+    posts_min: 30
+    solutions_min: 5
+    coverage_min: 5
+  comments:
+    limit: 150
+    per_sub_cap: 40
+    fallback_threshold: 60
+    fallback_limit: 180
+    fallback_days: 540
+    fallback_min_len_other: 80
+  posts:
+    limit: 60
+    fallback_limit: 80
+    fallback_days: 540
+  solutions:
+    sentiment_primary: -0.05
+    sentiment_secondary: -0.15
+    sentiment_tertiary: -0.2
+    dedup_threshold: 0.75
+verticals:
+  edc:
+    keywords: ["flashlight", "flashlights", "edc", "olight", "lumen", "lumens", "tactical", "beam", "throw", "hotspot", "charger", "battery", "runtime", "torch", "head", "headlamp", "tailcap"]
+    core_whitelist:
+      - "r/flashlight"
+      - "r/flashlights"
+      - "r/flashlight_builds"
+      - "r/flashlight_mods"
+      - "r/edc"
+      - "r/edcexchange"
+    hard_blacklist:
+      - "r/financialindependence"
+      - "r/frugal"
+      - "r/povertyfinance"
+      - "r/personalfinance"
+      - "r/cleaningtips"
+      - "r/cooking"
+    dynamic_whitelist_cap: 10
+    dynamic_blacklist_cap: 20
+    quality: {}
+    comments: {}
+    posts: {}
+    solutions: {}

@@ -42,9 +42,33 @@ tail -20 "${CELERY_WORKER_LOG}" | grep "ready" && echo "✅ Celery Worker starte
 "${PYTHON_BIN}" backend/scripts/check_celery_health.py || echo "⚠️  Celery 健康检查未通过"
 echo ""
 echo "==> 4️⃣  数据库迁移 (Alembic upgrade) ..."
-make db-upgrade || { echo "❌ 数据库迁移失败，请检查 DATABASE_URL 和 Postgres 连接"; exit 1; }
+if [[ -z "${MIGRATION_DATABASE_URL:-}" && -z "${DATABASE_URL_MIGRATION:-}" && -n "${DATABASE_URL:-}" ]]; then
+  read -r db_host db_port db_name < <("${PYTHON_BIN}" - <<'PY'
+from urllib.parse import urlparse
+import os
+
+raw = os.environ.get("DATABASE_URL", "")
+url = urlparse(raw.replace("+asyncpg", "").replace("+psycopg", "").replace("+psycopg2", ""))
+host = url.hostname or "localhost"
+port = url.port or 5432
+db = (url.path or "").lstrip("/")
+print(host, port, db)
+PY
+)
+
+  if [[ -n "${db_name}" && ( "${db_host}" == "localhost" || "${db_host}" == "127.0.0.1" ) ]]; then
+    export MIGRATION_DATABASE_URL="postgresql+asyncpg://postgres:${POSTGRES_PASSWORD:-postgres}@${db_host}:${db_port}/${db_name}"
+    echo "   ✅ 已自动设置 MIGRATION_DATABASE_URL（用于跑迁移，避免权限不足）"
+  else
+    echo "   ⚠️  MIGRATION_DATABASE_URL 未设置：如果迁移失败，请用 owner/superuser 账号设置它"
+  fi
+fi
+
+make db-upgrade || { echo "❌ 数据库迁移失败（可能是迁移账号权限不足）。请检查 MIGRATION_DATABASE_URL/DATABASE_URL_MIGRATION 和 Postgres 连接"; exit 1; }
 echo ""
 echo "==> 5️⃣  启动后端服务 ..."
+# 黄金路径：默认走 worker（不走 inline），避免把 API 自己跑崩
+export ENABLE_CELERY_DISPATCH=1
 start_backend_reload
 echo "   ⏳ 等待后端健康检查 ..."
 for _ in {1..5}; do

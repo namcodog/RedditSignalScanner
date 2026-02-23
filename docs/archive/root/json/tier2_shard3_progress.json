@@ -1,0 +1,57 @@
+{
+  "r/ecommerce": {
+    "subreddit": "r/ecommerce",
+    "last_completed_slice_idx": 12,
+    "total_slices": 13,
+    "completed": true,
+    "total_posts": 0,
+    "total_new": 0,
+    "total_updated": 0,
+    "total_duplicates": 0,
+    "last_updated": "2025-11-17T11:03:57.661456+00:00"
+  },
+  "r/shopify": {
+    "subreddit": "r/shopify",
+    "last_completed_slice_idx": 12,
+    "total_slices": 13,
+    "completed": true,
+    "total_posts": 0,
+    "total_new": 0,
+    "total_updated": 0,
+    "total_duplicates": 0,
+    "last_updated": "2025-11-17T11:03:57.665864+00:00"
+  },
+  "r/tiktokshopfinds": {
+    "subreddit": "r/tiktokshopfinds",
+    "last_completed_slice_idx": 12,
+    "total_slices": 13,
+    "completed": true,
+    "total_posts": 0,
+    "total_new": 0,
+    "total_updated": 0,
+    "total_duplicates": 0,
+    "last_updated": "2025-11-17T11:04:01.974882+00:00"
+  },
+  "r/walmart": {
+    "subreddit": "r/walmart",
+    "last_completed_slice_idx": 12,
+    "total_slices": 13,
+    "completed": true,
+    "total_posts": 0,
+    "total_new": 0,
+    "total_updated": 0,
+    "total_duplicates": 0,
+    "last_updated": "2025-11-17T11:04:06.361471+00:00"
+  },
+  "r/walmartworkers": {
+    "subreddit": "r/walmartworkers",
+    "last_completed_slice_idx": 12,
+    "total_slices": 13,
+    "completed": true,
+    "total_posts": 0,
+    "total_new": 0,
+    "total_updated": 0,
+    "total_duplicates": 0,
+    "last_updated": "2025-11-17T11:04:10.744417+00:00"
+  }
+}

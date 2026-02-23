@@ -46,7 +46,7 @@ mcp-install: ## 安装和配置 MCP 工具 (exa, chrome-devtools, spec-kit)
 	@echo ""
 	@echo "2️⃣  配置 MCP servers 到你的 IDE/editor:"
 	@echo "   参考配置文件: mcp-config.json"
-	@echo "   或查看详细指南: docs/MCP-SETUP-GUIDE.md"
+	@echo "   或查看详细指南: docs/archive/MCP-SETUP-GUIDE.md"
 	@echo ""
 	@echo "3️⃣  验证安装:"
 	@echo "   运行: make mcp-verify"
@@ -83,7 +83,7 @@ mcp-verify: ## 验证 MCP 工具安装
 	@grep -q "EXA_API_KEY" .env.local && echo "✅ EXA_API_KEY found in .env.local" || echo "❌ EXA_API_KEY not found in .env.local"
 	@echo ""
 	@echo "📚 Documentation:"
-	@echo "   完整配置指南: docs/MCP-SETUP-GUIDE.md"
+	@echo "   完整配置指南: docs/archive/MCP-SETUP-GUIDE.md"
 	@echo "   MCP 配置文件: mcp-config.json"
 	@echo "   exa-mcp-server: https://docs.exa.ai/reference/exa-mcp"
 	@echo "   Chrome DevTools: https://github.com/ChromeDevTools/chrome-devtools-mcp"
@@ -112,50 +112,6 @@ fetch-communities: ## 通用抓取（可覆盖 LIMIT=5000 BASENAME=top5000_scrap
 	 echo "==> 抓取 $$LIMIT 社区列表 ..."; \
 	 cd $(BACKEND_DIR) && PYTHONPATH=. $(PYTHON) scripts/scrape_top_reddit_communities.py --limit $$LIMIT --max-pages $$MP $$( [ -n "$$BASENAME" ] && echo --basename $$BASENAME )
 
-enrich-top1000: ## 规则化补齐字段并生成 enriched CSV，再转换为 JSON（可覆盖 IN=... OUT=...）
-	@IN=$${IN:-backend/data/top1000_scraped.csv}; OUT=$${OUT:-backend/data/top1000_enriched.csv}; \
-	 echo "==> 富化字段: $$IN → $$OUT ..."; \
- 	 cd $(BACKEND_DIR) && PYTHONPATH=. $(PYTHON) scripts/enrich_top1000_csv.py --input "../$$IN" --output "../$$OUT" && \
-	 PYTHONPATH=. $(PYTHON) scripts/top1000_csv_to_json.py "../$$OUT" --output "../backend/data/top1000_subreddits.json"
-
-enrich-communities: ## 富化任意 CSV（IN=backend/data/top5000_scraped.csv OUT=backend/data/top5000_enriched.csv JSONOUT=backend/data/top5000_subreddits.json）
-	@IN=$${IN:-backend/data/top1000_scraped.csv}; OUT=$${OUT:-backend/data/top1000_enriched.csv}; JSONOUT=$${JSONOUT:-backend/data/top1000_subreddits.json}; \
-	 echo "==> 富化字段: $$IN → $$OUT ..."; \
-	 cd $(BACKEND_DIR) && PYTHONPATH=. $(PYTHON) scripts/enrich_top1000_csv.py --input "../$$IN" --output "../$$OUT" && \
-	 PYTHONPATH=. $(PYTHON) scripts/top1000_csv_to_json.py "../$$OUT" --output "../$$JSONOUT"
-
-score-crossborder: ## 评分：跨境四主题（LIMIT/INPUT/THEMES/TOPN/RESUME 可覆盖；RESUME=1 时断点续跑）
-	@LIMIT=$${LIMIT:-5000}; IN=$${INPUT:-}; THEMES=$${THEMES:-what_to_sell,how_to_sell,where_to_sell,how_to_source}; TOPN=$${TOPN:-200}; RES=$${RESUME:-}; \
-	 echo "==> 跨境社区评分: limit=$$LIMIT themes=$$THEMES topn=$$TOPN resume=$${RES:+on} ..."; \
-	 cd $(BACKEND_DIR) && PYTHONPATH=. $(PYTHON) scripts/score_crossborder.py $$( [ -n "$$IN" ] && echo --input "../$$IN" ) --limit $$LIMIT --themes $$THEMES --topn $$TOPN $$( [ -n "$$RES" ] && echo --resume )
-
-discover-crossborder: ## 发现：跨境候选社区（KEYWORDS=... LIMIT=10000）
-	@KEYS=$${KEYWORDS:-amazon,fba,shopify,etsy,dropship,ecommerce,tiktok shop,aliexpress,walmart,etsy sellers,lazada,shopee,kickstarter,indiegogo,product research,winning product}; \
-	 LIM=$${LIMIT:-10000}; \
-	 echo "==> 发现跨境候选社区: keywords=[$$KEYS] limit=$$LIM ..."; \
-	 cd $(BACKEND_DIR) && PYTHONPATH=. $(PYTHON) scripts/discover_crossborder_subreddits.py --keywords "$$KEYS" --limit $$LIM --export-csv ../backend/data/crossborder_candidates.csv --export-json ../backend/data/crossborder_candidates.json
-
-score-from-candidates: ## 用 discover 结果评分（LIMIT/TOPN/RESUME 可覆盖；RESUME=1 时断点续跑）
-	@LIM=$${LIMIT:-2000}; TOPN=$${TOPN:-200}; RES=$${RESUME:-1}; \
-	 echo "==> 候选评分: limit=$$LIM topn=$$TOPN resume=$${RES:+on} ..."; \
-	 $(MAKE) score-crossborder LIMIT=$$LIM INPUT=backend/data/crossborder_candidates.json THEMES=what_to_sell,how_to_sell,where_to_sell,how_to_source TOPN=$$TOPN RESUME=$$RES
-
-score-batched: ## 分批断点续跑（更稳妥）。BATCHES="300 600 ... LIMIT" 可覆盖。
-	@LIM=$${LIMIT:-1762}; TOPN=$${TOPN:-200}; \
-	 echo "==> 分批评分: limit=$$LIM topn=$$TOPN (resume) ..."; \
-	 cd $(BACKEND_DIR) && PYTHONPATH=. bash scripts/score_batched.sh --input ../backend/data/crossborder_candidates.json --limit $$LIM --topn $$TOPN
-
-crossborder-progress: ## 快速查看当前评分进度（不打断）
-	@echo "==> 进度快照"; \
-	 if [ -f backend/data/top5000_subreddits_scored.csv ]; then \
-	   echo -n "总表数据行: "; wc -l backend/data/top5000_subreddits_scored.csv | awk '{print $$1-1}'; \
-	 else echo "总表尚未生成"; fi; \
-	 for f in reports/local-acceptance/crossborder-*-top200.csv; do \
-	   if [ -f "$$f" ]; then \
-	     echo "$$(basename "$$f") : $$(($$(wc -l < "$$f") - 1)) rows"; \
-	   fi; \
-	 done
-
 crawler-dryrun: ## 打印 crawler.yml 生效策略并保存到 reports/local-acceptance/crawler-dryrun-*.md
 	@echo "==> 读取 backend/config/crawler.yml 并打印摘要 ..."
 	@cd $(BACKEND_DIR) && PYTHONPATH=. $(PYTHON) scripts/crawler_dryrun.py
@@ -166,23 +122,23 @@ entities-dictionary-check: ## 校验实体词典目录结构并输出统计 JSON
 	@cd $(BACKEND_DIR) && PYTHONPATH=. $(PYTHON) scripts/entities_dictionary_check.py
 	@echo "✅ 结果已保存到 reports/local-acceptance/entities-dictionary-check-*.json"
 
-import-crossborder-pool: ## 导入四张 crossborder 榜单到社区池（隔离模式主入口；不会合并 Top1000）
-	@echo "==> 导入 crossborder 榜单到社区池 ..."
-	@cd $(BACKEND_DIR) && DISABLE_TOP1000_BASELINE=1 PYTHONPATH=. $(PYTHON) scripts/import_toplists_to_pool.py \
-	  --lists ../reports/local-acceptance/crossborder-what_to_sell-top200.csv \
-	          ../reports/local-acceptance/crossborder-how_to_sell-top200.csv \
-	          ../reports/local-acceptance/crossborder-where_to_sell-top200.csv \
-	          ../reports/local-acceptance/crossborder-how_to_source-top200.csv \
-	  --what-only-low --export-csv ../backend/reports/local-acceptance/crossborder_pool_freeze.csv
-	@echo "✅ 导入完成；核对表: backend/reports/local-acceptance/crossborder_pool_freeze.csv"
-
 pool-stats: ## 打印社区池统计（总量/优先级分布/带 crossborder 标签数量）
 	@cd $(BACKEND_DIR) && PYTHONPATH=. $(PYTHON) scripts/pool_stats.py
 
-pool-clear: ## 清空社区池（可加 CACHE=1 同时清空缓存表）
-	@echo "==> Clearing community_pool$${CACHE:+ and community_cache} ..."
-	@cd $(BACKEND_DIR) && PYTHONPATH=. $(PYTHON) scripts/pool_clear.py $$( [ -n "$$CACHE" ] && echo --cache-too )
-	@echo "✅ 已清空社区池$${CACHE:+与缓存}"
+pool-clear: ## 清空社区池（可加 CACHE=1 同时清空缓存表）- 默认阻止主库，需显式 ALLOW_POOL_CLEAR=1 FORCE=1
+	@DB_NAME=$$(cd $(BACKEND_DIR) && $(PYTHON) - <<'PY'\nimport os\nfrom pathlib import Path\nfrom urllib.parse import urlparse\nurl=os.getenv('DATABASE_URL','')\nif not url:\n    env_path=Path('backend/.env')\n    if env_path.exists():\n        for line in env_path.read_text().splitlines():\n            if line.startswith('DATABASE_URL='):\n                url=line.split('=',1)[1].strip()\n                break\nparsed=urlparse(url.replace('+asyncpg','').replace('+psycopg',''))\nprint((parsed.path or '').lstrip('/'))\nPY); \
+	if [ "$$DB_NAME" = "reddit_signal_scanner" ] && [ "$${ALLOW_POOL_CLEAR:-0}" != "1" ]; then \
+		echo "❌ 已阻止：检测到主库 reddit_signal_scanner。若确需清空，请显式设置 ALLOW_POOL_CLEAR=1 FORCE=1（推荐只在 _test 库执行）。"; \
+		exit 1; \
+	fi; \
+	if [ "$${FORCE:-0}" != "1" ]; then echo "ℹ️ 提示：未设置 FORCE=1，不会传 --force（保护模式）。"; fi; \
+	if [ "$$DB_NAME" = "reddit_signal_scanner" ] && [ "$${ALLOW_POOL_CLEAR:-0}" = "1" ] && [ "$${FORCE:-0}" = "1" ]; then \
+		echo "⚠️  警告：你正尝试清空主库社区池 (reddit_signal_scanner)。确认这样做会丢失社区列表。"; \
+		read -r -p '再次确认 (输入 YES 再继续): ' answer; \
+		if [ "$$answer" != "YES" ]; then echo '已取消'; exit 1; fi; \
+	fi; \
+	cd $(BACKEND_DIR) && PYTHONPATH=. $(PYTHON) scripts/pool_clear.py $$( [ -n "$$CACHE" ] && echo --cache-too ) $$( [ "$${FORCE:-0}" = "1" ] && [ "$${ALLOW_POOL_CLEAR:-0}" = "1" ] && echo --force || true ); \
+	echo "✅ 已清空社区池$${CACHE:+与缓存}（DB=$$DB_NAME）"
 
 pool-clear-and-freeze: ## 一键清空并导入当前 crossborder 冻结榜单（隔离模式，禁用 Top1000 合并）
 	@$(MAKE) pool-clear CACHE=1
@@ -206,11 +162,9 @@ semantic-suggest: ## 从真实帖子自动建议 pain_points 与 alias 候选（
 	 echo "==> 生成 pain_points 与 alias 候选: per_theme=$$PER posts_per=$$POSTS ..."; \
 	 cd $(BACKEND_DIR) && PYTHONPATH=. $(PYTHON) scripts/semantic_suggest.py --lexicon ../backend/config/semantic_sets/crossborder.yml --per-theme $$PER --posts-per $$POSTS
 
-semantic-lexicon-import: ## 从 CSV 导入词库（可自动填充 pain_points），示例: make semantic-lexicon-import FILE=backend/reports/local-acceptance/semantic-lexicon-v1.csv FILL=1
-	@IN=$${FILE:-backend/reports/local-acceptance/semantic-lexicon-v1.csv}; FILL=$${FILL:-0}; TOP=$${PAIN_TOP:-30}; \
-	 echo "==> 导入词库: $$IN (auto-fill pain=$$FILL top=$$TOP) ..."; \
-	 cd $(BACKEND_DIR) && PYTHONPATH=. $(PYTHON) scripts/semantic_lexicon_import.py --input ../$$IN --output ../backend/config/semantic_sets/crossborder.yml $$( [ "$$FILL" = "1" ] && echo "--fill-pain --pain-top $$TOP" )
-	@echo "✅ 词库已导入: backend/config/semantic_sets/crossborder.yml"
+semantic-lexicon-import: ## 词库导入脚本当前未落地（请用 build/export 手工更新）
+	@echo "❌ semantic_lexicon_import.py 未落地，当前请使用 semantic-lexicon-build 或手动编辑 YAML"
+	@exit 1
 
 semantic-batched: ## 分批语义评分（更稳妥）。BATCHES="600 1000 1400 1762" 可覆盖。
 	@LIM=$${LIMIT:-1762}; TOPN=$${TOPN:-200}; POSTS=$${POSTS_PER:-10}; BATCHES="$${BATCHES:-600 1000 1400 1762}"; \

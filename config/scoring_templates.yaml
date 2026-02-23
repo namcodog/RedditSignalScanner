@@ -1,3 +1,5 @@
+rule_version: rulebook_v1
+
 positive:
   - name: budget
     pattern: "\\$\\s?\\d+(?:,\\d{3})*"

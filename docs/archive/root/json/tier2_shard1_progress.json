@@ -1,0 +1,57 @@
+{
+  "r/AmazonDSPDrivers": {
+    "subreddit": "r/AmazonDSPDrivers",
+    "last_completed_slice_idx": 12,
+    "total_slices": 13,
+    "completed": true,
+    "total_posts": 0,
+    "total_new": 0,
+    "total_updated": 0,
+    "total_duplicates": 0,
+    "last_updated": "2025-11-17T11:03:57.470215+00:00"
+  },
+  "r/AmazonFC": {
+    "subreddit": "r/AmazonFC",
+    "last_completed_slice_idx": 12,
+    "total_slices": 13,
+    "completed": true,
+    "total_posts": 0,
+    "total_new": 0,
+    "total_updated": 0,
+    "total_duplicates": 0,
+    "last_updated": "2025-11-17T11:04:01.619771+00:00"
+  },
+  "r/AmazonVine": {
+    "subreddit": "r/AmazonVine",
+    "last_completed_slice_idx": 12,
+    "total_slices": 13,
+    "completed": true,
+    "total_posts": 0,
+    "total_new": 0,
+    "total_updated": 0,
+    "total_duplicates": 0,
+    "last_updated": "2025-11-17T11:04:07.766715+00:00"
+  },
+  "r/AmazonWarehousingAndDelivery": {
+    "subreddit": "r/AmazonWarehousingAndDelivery",
+    "last_completed_slice_idx": 12,
+    "total_slices": 13,
+    "completed": true,
+    "total_posts": 0,
+    "total_new": 0,
+    "total_updated": 0,
+    "total_duplicates": 0,
+    "last_updated": "2025-11-17T11:04:16.268532+00:00"
+  },
+  "r/FBAOnlineRetail": {
+    "subreddit": "r/FBAOnlineRetail",
+    "last_completed_slice_idx": 12,
+    "total_slices": 13,
+    "completed": true,
+    "total_posts": 0,
+    "total_new": 0,
+    "total_updated": 0,
+    "total_duplicates": 0,
+    "last_updated": "2025-11-17T11:04:24.242492+00:00"
+  }
+}

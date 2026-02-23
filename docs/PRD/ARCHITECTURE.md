@@ -7,41 +7,32 @@
 ```
 .
 ├── backend/                 # FastAPI + Celery 服务端
-│   ├── app/                 # 生产代码（遵循 Clean-ish 分层）
-│   │   ├── api/             # HTTP / SSE / WS 入口 (v1 endpoints, router)
-│   │   ├── core/            # 配置、数据库、任务调度、SSE 等基础设施
-│   │   ├── services/        # 领域服务：任务生产、分析引擎、仪表盘、缓存等
-│   │   ├── tasks/           # Celery 任务实现与状态机逻辑
-│   │   ├── models/          # SQLAlchemy ORM
-│   │   ├── schemas/         # Pydantic 契约 / API 响应结构
-│   │   ├── middleware/      # 中间件与横切关注点
-│   │   ├── algorithms/      # 算法与评分逻辑
-│   │   └── utils/           # 受控的工具函数
+│   ├── app/                 # 生产代码（分层：api/core/services/tasks/models/schemas）
 │   ├── config/              # YAML/ENV 配置模板
 │   ├── alembic/             # 数据库迁移脚本
-│   ├── scripts/             # 运维/巡检脚本（保持最小化）
-│   ├── tests/               # 后端局部测试（将统一纳入 /tests/ 体系）
-│   ├── data/                # 结构化基准数据
-│   └── playwright/          # 专项 UI/流程校验
+│   ├── scripts/             # 运维/巡检脚本
+│   ├── tests/               # 后端测试
+│   └── data/                # 结构化基准数据
 ├── frontend/                # Vite + React 前端
 │   ├── src/
-│   │   ├── components/      # UI 组件（含 ui/, v0/ 设计复刻）
-│   │   ├── pages/ & layouts/ # 页面与布局
-│   │   ├── services/        # API/SSE/WebSocket 客户端
+│   │   ├── api/             # API/SSE 客户端
+│   │   ├── components/      # UI 组件（含 ui/）
+│   │   ├── pages/           # 页面与 Admin 页面
+│   │   ├── services/        # 业务服务封装
 │   │   ├── hooks/           # 状态管理、上下文
 │   │   ├── router/          # 客户端路由与守卫
 │   │   ├── types/ & utils/  # 公共类型与工具
 │   │   └── __tests__/       # Vitest 用例
 │   ├── tests/               # 独立测试资产
-│   └── cypress/             # E2E 场景
-├── tests/                   # 全局测试框架（smoke / integration / perf / chaos / fixtures）
-├── infrastructure/          # 长期运维脚本、结构校验、Git 辅助
-├── scripts/                 # 对外或一次性脚本（需持续审计）
-├── docker/                  # 本地/CI 容器配置
-├── docs/ & reports/         # 运行手册、质量/分析报告
-├── workflow/                # workflow.py 及调度数据
-├── mock_data/               # 受控示例数据
-└── tmp/                     # 临时产物（自动清理）
+│   └── e2e/                 # Playwright 场景
+├── tests/                   # 全局测试框架（smoke / integration / perf / chaos）
+├── infrastructure/          # 预留目录（当前未落地）
+├── scripts/                 # 对外/一次性脚本（需持续审计）
+├── makefiles/               # Makefile 拆分模块
+├── docs/                    # 产品/运维/架构文档
+├── reports/                 # 阶段验收与执行记录
+├── .specify/                # 规格与计划基线
+└── data/                    # 数据资产与临时导出
 ```
 
 ## 3. Module Boundaries & Allowed Dependencies
@@ -51,24 +42,26 @@
 - `frontend/src/pages` 只通过 `services`/`hooks` 访问 API，不直接耦合底层 HTTP 客户端。
 - 顶层 `tests/` 应通过公共夹具调用服务/前端构建，禁止把生产代码复制到测试目录。
 
-以上边界将通过结构校验脚本（`infrastructure/scripts/verify_structure.py`）持续检查。
+以上边界当前通过代码审查与目录治理流程保证，结构校验脚本尚未落地。
 
 ## 4. High-Level Data Flow
-1. **任务创建**：`frontend` → `/api/v1/analyze/` (FastAPI) → `TaskManager` → `tasks` 表
-2. **异步处理**：Celery Worker (`app/tasks/analysis_tasks.py`) → Reddit 数据收集 + 分析引擎 (`app/services/analysis_engine.py`)
-3. **状态推送**：任务更新通过 `core/sse.py` 推送到前端 EventSource
-4. **结果呈现**：前端 `services/sse.service.ts` 与 `services/api.client.ts` 协同更新状态，渲染报告组件
-5. **管理面**：`/api/v1/admin/*` 提供任务监控、反馈导出等功能，对应 `services/admin/*`
+1. **任务创建**：`frontend` → `POST /api/analyze` (FastAPI) → `tasks` 表
+2. **异步处理**：Celery Worker (`app/tasks/analysis_task.py`) → 数据采集 + 分析引擎 (`app/services/analysis_engine.py`)
+3. **状态推送**：`GET /api/analyze/stream/{task_id}` (SSE) → EventSource
+4. **结果呈现**：`GET /api/report/{task_id}` 返回结构化报告
+5. **质量账本**：`GET /api/tasks/{task_id}/sources` 解释 tier/降级原因
+6. **决策单元**：`/api/decision-units` 提供平台级可复用决策与反馈
+7. **管理面**：`/api/admin/*` 提供任务监控、审计与社区池管理（已同步）
 
 ## 5. Build & Quality Pipeline
 - **本地启动**：严格按照 `make backend-hard-restart → make dev-up → curl 健康检查 → make sse-test → make quick-gate-local → make openapi-check-stream` 顺序执行。
 - **类型门控**：`make type-check`（后端 MyPy + 前端 TS 检查）即将升级为阻塞项，核心与测试均需 0 报错。
 - **测试分类**：`tests/` 目录承担全局冒烟/集成/性能；`backend/tests/` 与 `frontend/src/__tests__` 则是局部单元测试。清理完成后，将统一调度入口。
-- **结构巡检**：`infrastructure/scripts/verify_structure.py`、`check_deps.py` 等脚本必须在 Quick Gate 中执行保证无冗余。
+- **结构巡检**：当前无自动脚本，依赖手工审查与目录规范保障无冗余。
 
 ## 6. Naming & Location Conventions
 - 新增后端模块优先落在 `backend/app/services|core|api` 对应层级；禁止在根目录放置临时 `.py`。
-- 所有脚本必须位于 `infrastructure/scripts/` 或 `scripts/`，文件名使用动词短语（如 `archive_deprecated.py`）。
+- 所有脚本必须位于 `scripts/` 或 `backend/scripts/`，历史脚本进入归档目录。
 - 测试文件遵循 `tests/<domain>/test_*.py`，夹具统一放在 `tests/fixtures/` 或 `backend/tests/fixtures/`。
 - 前端组件使用 PascalCase 命名，Hooks 使用 `useXxx`，服务层使用 `something.service.ts`。
 

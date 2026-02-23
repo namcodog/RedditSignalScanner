@@ -230,7 +230,7 @@ F1@50: [填写数值]
 
 - [ ] 更新 `README.md`（新增洞察卡片、质量看板使用说明）
 - [ ] 更新 `docs/API-REFERENCE.md`（新增 insights、metrics 端点）
-- [ ] 更新 `docs/annotation-guide.md`（人工标注指南）
+- [ ] 更新 `docs/archive/annotation-guide.md`（人工标注指南）
 - [ ] 生成 OpenAPI schema：`make update-api-schema`
 
 ---

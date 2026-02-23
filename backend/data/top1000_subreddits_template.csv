@@ -1,0 +1,31 @@
+name,domain_label,tags,quality_score,default_weight,estimated_daily_posts
+r/startups,Startup & SMB,startup|founder|MVP|fundraising,0.85,90,120
+r/Entrepreneur,Startup & SMB,entrepreneurship|bootstrapping|marketing,0.82,85,110
+r/indiehackers,Startup & SMB,indie|SaaS|side-project,0.8,80,65
+r/smallbusiness,Startup & SMB,SMB|operations|hiring,0.75,70,70
+r/SaaS,Software & SaaS,subscription|B2B|metrics,0.78,75,60
+r/ProductManagement,Software & SaaS,product|roadmap|PM|discovery,0.76,70,55
+r/SideProject,Software & SaaS,side-project|validate|launch,0.72,65,80
+r/webdev,Dev & Infra,frontend|backend|web,0.7,60,150
+r/programming,Dev & Infra,code|algorithms|language,0.68,55,180
+r/devops,Dev & Infra,CI/CD|SRE|observability,0.72,65,90
+r/aws,Dev & Infra,cloud|aws|infra,0.74,70,85
+r/kubernetes,Dev & Infra,container|k8s|ops,0.73,70,70
+r/MachineLearning,AI & Data,ML|models|research,0.8,80,90
+r/ArtificialInteligence,AI & Data,AI|AGI|ethics,0.77,75,70
+r/datascience,AI & Data,data|analytics|python,0.76,70,120
+r/cryptocurrency,Finance & Crypto,crypto|exchange|trading,0.7,60,300
+r/investing,Finance & Crypto,stocks|portfolio|ETF,0.72,65,200
+r/marketing,Go-To-Market,SEO|content|growth,0.7,60,140
+r/growthhacking,Go-To-Market,growth|A/B|activation,0.69,60,65
+r/userexperience,Design & UX,UX|research|usability,0.7,60,55
+r/uxdesign,Design & UX,UX|UI|design-system,0.72,65,60
+r/design,Design & UX,visual|brand|typography,0.68,55,130
+r/ecommerce,E-commerce,shopify|conversion|logistics,0.7,60,120
+r/shopify,E-commerce,shopify|apps|checkout,0.68,55,80
+r/cybersecurity,Security & Privacy,security|vuln|threat,0.72,65,75
+r/legaladvice,Operations,legal|contract|compliance,0.6,40,200
+r/freelance,Operations,freelance|pricing|client,0.62,45,100
+r/consulting,Operations,consulting|proposal|retainer,0.6,40,60
+r/healthIT,Health,health|IT|EMR,0.58,35,25
+r/edtech,Education,edtech|LMS|learning,0.6,40,30

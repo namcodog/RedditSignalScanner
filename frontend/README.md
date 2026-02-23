@@ -198,9 +198,10 @@ frontend/
 - [PRD-06 用户认证系统](../docs/PRD/PRD-06-用户认证.md)
 
 ### 项目文档
-- [0-1 重写蓝图](../docs/2025-10-10-Reddit信号扫描器0-1重写蓝图.md)
-- [3人并行开发方案](../docs/2025-10-10-3人并行开发方案.md)
+- [系统架构快速参考](../docs/系统架构快速参考.md)
+- [API 参考](../docs/API-REFERENCE.md)
 - [质量标准与门禁规范](../docs/2025-10-10-质量标准与门禁规范.md)
+> 历史蓝图/旧方案已归档至 `docs/archive/`
 
 ### 工作日志
 - [Phase 1 工作日志](../reports/phase-log/phase1.md)
@@ -254,4 +255,3 @@ npm run build
 **最后更新**: 2025-10-10 Day 1
 **状态**: 📋 准备阶段
 **下一步**: 参加 14:00 Schema Workshop
-

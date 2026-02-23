@@ -1,0 +1,34 @@
+{
+  "base_url": "http://localhost:8006/api",
+  "scenarios": [
+    {
+      "name": "rich_sample_should_be_A_or_B",
+      "product_description": "面向跨境电商卖家的选品与投放情报工具（希望抓到稳定讨论）",
+      "topic_profile_id": null,
+      "mode": "market_insight",
+      "audit_level": "lab",
+      "max_wait_seconds": 600,
+      "expect_tier_in": ["A_full", "B_trimmed"]
+    },
+    {
+      "name": "narrow_shopify_ads_should_not_lie",
+      "product_description": "面向 Shopify 卖家的广告优化与转化率提升工具",
+      "topic_profile_id": "shopify_ads_conversion_v1",
+      "mode": "operations",
+      "audit_level": "gold",
+      "max_wait_seconds": 900,
+      "expect_tier_in": ["A_full", "B_trimmed", "C_scouting"],
+      "require_comments": true,
+      "stop_on_next_action_in": ["auto_rerun_scheduled"]
+    },
+    {
+      "name": "must_block_topic_mismatch",
+      "product_description": "Ecommerce marketing growth tool for founders (demo)",
+      "topic_profile_id": "mismatch_demo_v1",
+      "mode": "market_insight",
+      "audit_level": "lab",
+      "max_wait_seconds": 600,
+      "expect_tier_in": ["X_blocked"]
+    }
+  ]
+}

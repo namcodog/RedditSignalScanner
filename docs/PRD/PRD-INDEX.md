@@ -6,23 +6,43 @@
 
 **核心承诺**: 30秒输入，5分钟分析，找到目标客户在Reddit上的真实声音。
 
+**系统级 PRD**：`PRD-SYSTEM.md` 为唯一总标准；各 PRD 为分模块细化说明。
+
+## ✅ 对齐口径（PRD 为唯一标准）
+
+> 说明：PRD 是最终标准；下列资料作为“实现事实校验源”，已反向对齐到 PRD。
+
+- **API 实现事实**：`docs/API-REFERENCE.md`（已同步入 PRD-02）
+- **报告字段口径**：PRD-02 / PRD-03 / PRD-05 / PRD-SYSTEM（含 market_health + ps_ratio 口径）
+- **数据库真相**：`docs/sop/2025-12-14-database-architecture-atlas.md` + `current_schema.sql`
+- **抓取真相**：`docs/sop/数据抓取系统SOP_v3_修正版_v3.2.md`
+- **清洗/打分真相**：`docs/sop/数据清洗打分规则v1.2规范.md`
+- **语义库/闭环真相**：`.specify/specs/011-semantic-lexicon-development-plan.md`、`.specify/specs/016-unified-semantic-report-loop/spec.md`、`.specify/specs/016-unified-semantic-report-loop/design.md`
+- **演练与故障注入**：`scripts/phase106_rehearsal_matrix.py`、`backend/tests/e2e/test_fault_injection.py`
+- **执行与验收记录**：`reports/phase-log/phase106.md`、`reports/phase-log/phase107.md`、`reports/phase-log/phase108.md`、`reports/phase-log/phase109.md`、`reports/phase-log/phase110.md`、`reports/phase-log/phase111.md`、`reports/phase-log/phase112.md`、`reports/phase-log/phase113.md`、`reports/phase-log/phase114.md`
+- **运行手册**：`docs/本地启动指南.md`、`docs/OPERATIONS.md`
+
 ---
 
 ## 📋 PRD文档一览表
 
 | PRD | 标题 | 一句话总结 | 状态 | 关键输出 |
 |-----|------|-----------|------|----------|
-| [PRD-01](PRD-01-数据模型.md) | 数据模型设计 | 四表架构支撑多租户+缓存的数据基础 | ✅ Linus审查通过 | `users`, `tasks`, `analysis`, `subreddit_cache` |
-| [PRD-02](PRD-02-API设计.md) | API设计规范 | 四端点架构：SSE实时推送替代轮询 | ✅ Linus审查通过 | `/api/analyze`, `/api/stream/{task_id}` |
-| [PRD-03](PRD-03-分析引擎.md) | 分析引擎设计 | 四步分析流水线：缓存优先的智能处理 | ✅ 已更新（动态社区池） | 社区发现→数据收集→智能分析→报告生成 |
-| [PRD-04](PRD-04-任务系统.md) | 任务系统架构 | Celery+Redis解耦HTTP层与分析引擎 | ✅ Linus审查通过 | 生产者-消费者模式，3次重试机制 |
-| [PRD-05](PRD-05-前端交互.md) | 前端交互设计 | 三页面React SPA：极简用户旅程 | ✅ Linus审查通过 | 输入页→等待页→报告页 |
-| [PRD-06](PRD-06-用户认证.md) | 用户认证系统 | JWT无状态认证+多租户数据隔离 | ✅ Linus审查通过 | 注册、登录、租户隔离API |
-| [PRD-07](PRD-07-Admin后台.md) | Admin后台设计 | 只读监控+Git配置的运维界面 | ✅ Linus审查通过 | 系统监控、配置管理、日志查看 |
-| [PRD-08](PRD-08-端到端测试规范.md) | 端到端测试规范 | 四层测试金字塔：故障优先的质量保证 | ✅ Linus审查通过 | 关键路径、故障注入、性能边界测试 |
-| [PRD-09](PRD-09-动态社区池与预热期实施计划.md) | 动态社区池与预热期 | 四层社区池架构：自我进化的智能系统 | ✅ 已确认 | 种子社区→自动发现→用户反馈→Admin添加 |
+| [PRD-SYSTEM](PRD-SYSTEM.md) | 系统级 PRD | 全量系统规范与追溯矩阵 | ✅ 已同步 | 系统全貌 + 可追溯口径 |
+| [PRD-01](PRD-01-数据模型.md) | 数据模型设计 | 多域数据模型（爬取/清洗/评分/事实/报告/决策单元）与 DB Atlas 对齐 | ✅ 已同步 | `users`, `tasks`, `analyses`, `reports`, `decision_units_v`, `semantic_main_view` |
+| [PRD-02](PRD-02-API设计.md) | API设计规范 | 全量接口合同（黄金链路 + Admin + DecisionUnit） | ✅ 已同步 | `/api/analyze`, `/api/status/{task_id}`, `/api/tasks/{task_id}/sources`, `/api/decision-units` |
+| [PRD-03](PRD-03-分析引擎.md) | 分析引擎设计 | 缓存优先 + 社区池 + facts_v2 门禁 + LLM 报告 | ✅ 已同步 | 社区发现→数据采集→信号提取→门禁→LLM 报告 |
+| [PRD-04](PRD-04-任务系统.md) | 任务系统架构 | Celery 多队列 + Beat + 可靠性与预算牙齿 | ✅ 已同步 | 队列路由、重试、监控、自动补量 |
+| [PRD-05](PRD-05-前端交互.md) | 前端交互设计 | 核心三页 + SSE + 报告结构标准 + DecisionUnits | ✅ 已同步 | 输入页→等待页→报告页→决策单元 |
+| [PRD-06](PRD-06-用户认证.md) | 用户认证系统 | JWT 无状态认证 + Admin 鉴权 | ✅ 已同步 | `/api/auth/register`, `/api/auth/login`, `/api/auth/me` |
+| [PRD-07](PRD-07-Admin后台.md) | Admin后台设计 | 候选审核/社区池/任务复盘（P0）+ 导入/调级/语义/反馈（P1） | ✅ 已同步 | `/api/admin/communities/*`, `/api/admin/tasks/*`, `/api/admin/metrics/contract-health`, `/api/admin/dashboard/stats` |
+| [PRD-08](PRD-08-端到端测试规范.md) | 端到端测试规范 | 关键路径 + 故障注入 + 合同门禁 | ✅ 已同步 | E2E/性能/稳定性矩阵 |
+| [PRD-09](PRD-09-动态社区池与预热期实施计划.md) | 动态社区池与预热期 | 社区池+发现+验毒+评估+调级建议 | ✅ 已同步 | `community_pool`/`discovered_communities`/`tier_suggestions` |
+| [PRD-10](PRD-10-Admin社区管理Excel导入.md) | Admin Excel 导入 | 社区批量导入与追踪 | ✅ 已同步 | `/api/admin/communities/template|import|import-history` |
 
 ---
+
+> 说明：所有 PRD 已按统一口径更新，并以本索引为唯一导航入口。
 
 ## 🔗 依赖关系DAG图
 
@@ -74,6 +94,7 @@ Reddit Signal Scanner - PRD依赖关系图
 | PRD-06 | PRD-01,02 | 无 | ❌ 需等待01,02 | 🟡 中风险 - 阻塞认证 |
 | PRD-07 | PRD-01,02,04 | 无 | ❌ 需等待多个前置 | 🟢 低风险 - 运维功能 |
 | PRD-08 | ALL | ALL | ❌ 最后实施 | 🟢 低风险 - 质量保证 |
+| PRD-10 | PRD-01,02,07 | 无 | ❌ 需等待 Admin 基础 | 🟢 低风险 - 运维入口 |
 
 ### 关键依赖说明
 
@@ -91,23 +112,25 @@ Reddit Signal Scanner - PRD依赖关系图
 
 | PRD | 关键代码目录 | 核心验证命令 / 测试 | 主要参考文档 |
 |-----|--------------|----------------------|--------------|
-| PRD-01 数据模型 | `backend/app/models`<br>`backend/app/schemas`<br>`backend/alembic/` | `pytest backend/tests/test_database_schema.py`<br>`make backend-smoke` | `docs/strategy/代码库完整性分析报告-2025-09-26.md`<br>`docs/standards/测试架构设计文档.md` |
-| PRD-02 API 设计 | `backend/app/api/v1`<br>`backend/app/core/sse.py`<br>`backend/app/services/task_producer.py` | `pytest backend/tests/test_feedback_events_api.py`<br>`make sse-test`＊ | `docs/standards/API响应统一规范.md`<br>`docs/handbook/本地运行验收执行方案-2025-10-07.md` |
-| PRD-03 分析引擎 | `backend/app/services/analysis_engine.py`<br>`backend/app/algorithms/` | `pytest backend/tests/test_analysis_tasks.py`<br>`pytest backend/tests/test_analysis_model.py` | `docs/strategy/8.25-prd03-02架构分析技术方案.md`<br>`docs/strategy/技术债务全面评估报告-2025年9月13日.md` |
-| PRD-04 任务系统 | `backend/app/tasks/`<br>`backend/app/services/task_monitor.py`<br>`backend/app/core/` | `pytest backend/tests/test_task_integration.py`<br>`pytest backend/tests/test_retry_mechanism.py` | `docs/strategy/系统级重构方案-黄金路径稳定化与可中断超时.md`<br>`docs/handbook/运维手册-日常起停与验收.md` |
-| PRD-05 前端交互 | `frontend/src/pages/`<br>`frontend/src/components/`<br>`frontend/src/services/` | `npm run test`<br>`npm run type-check` | `docs/strategy/reddit_v0_layout_spec.md`<br>`docs/handbook/前端像素级还原强执行计划.md` |
-| PRD-06 用户认证 | `backend/app/api/v1/endpoints/auth.py`<br>`backend/app/services/auth_service.py`<br>`frontend/src/services/auth.service.ts` | `pytest backend/tests/test_jwt_auth.py`<br>`pytest backend/tests/test_v0_auth_integration.py` | `docs/strategy/2025-09-23-前端后端状态管理修复方案.md`<br>`docs/standards/PRD实施计划_基于依赖关系.md` |
-| PRD-07 Admin 后台 | `backend/app/api/v1/endpoints/admin_*`<br>`backend/app/services/admin/`<br>`frontend/src/pages/admin/` | `pytest backend/tests/test_task_monitoring.py`<br>`pytest backend/tests/test_feedback_events_api.py` | `docs/strategy/backend_state_management_priorities.md`<br>`docs/handbook/运维手册-日常起停与验收.md` |
-| PRD-08 端到端测试 | `tests/`<br>`backend/tests/integration/`<br>`frontend/tests/` | `make quick-gate-local`<br>`make openapi-check-stream`＊<br>`pytest backend/tests/services/test_signal_to_report_integration.py::test_signal_to_report_chain_builds_consistent_report -q` | `docs/standards/QUALITY-GATE-RULES.md`<br>`docs/handbook/本地运行验收执行方案-2025-10-07.md` |
+| PRD-01 数据模型 | `backend/app/models`<br>`backend/alembic/` | `pytest backend/tests/models` | `docs/sop/2025-12-14-database-architecture-atlas.md` |
+| PRD-02 API 设计 | `backend/app/api/`<br>`backend/app/api/v1/` | `pytest backend/tests/api` | `docs/API-REFERENCE.md` |
+| PRD-03 分析引擎 | `backend/app/services/analysis_engine.py`<br>`backend/app/services/report_service.py` | `pytest backend/tests/services` | `docs/ALGORITHM-FLOW.md` |
+| PRD-04 任务系统 | `backend/app/core/celery_app.py`<br>`backend/app/tasks/` | `pytest backend/tests/tasks` | `docs/OPERATIONS.md` |
+| PRD-05 前端交互 | `frontend/src/pages/`<br>`frontend/src/api/`<br>`frontend/src/router/` | `npm run test`<br>`npm run type-check` | `docs/本地启动指南.md` |
+| PRD-06 用户认证 | `backend/app/api/v1/endpoints/auth.py`<br>`backend/app/core/security.py` | `pytest backend/tests/api` | `docs/2025-10-10-质量标准与门禁规范.md` |
+| PRD-07 Admin 后台 | `backend/app/api/admin`<br>`backend/app/api/legacy`<br>`frontend/src/pages/admin/` | `pytest backend/tests/api` | `docs/OPERATIONS.md` |
+| PRD-08 端到端测试 | `tests/`<br>`frontend/tests/`<br>`backend/tests/` | `make test-e2e` | `docs/真实Reddit-API端到端测试指南.md` |
+| PRD-09 动态社区池 | `backend/app/services/discovery`<br>`backend/app/tasks/discovery` | `pytest backend/tests/services` | `docs/sop/数据抓取系统SOP_v3_修正版_v3.2.md` |
+| PRD-10 Excel 导入 | `backend/app/api/legacy/admin_communities.py`<br>`backend/app/services/community_import_service.py` | `pytest backend/tests/api/test_admin_community_import.py` | `docs/PRD/PRD-10-Admin社区管理Excel导入.md` |
 
 ---
 
-＊ 当前实现：SSE 测试端点仅发送 connected + 心跳，需要后端补齐完成事件；如需继续开发，可先使用 `make sse-test` 观察警告。OpenAPI 校验在无默认 token 时会返回 401/timeout，可临时设置 `RSS_ALLOW_OPENAPI_MISMATCH=1`，待 PRD-08 实施阶段补上鉴权方案。
+＊ 当前实现：SSE 支持 connected/progress/completed/error/heartbeat/close，`make sse-test` 可用于基础连通性验证。
 
 
 
 
-＊ 阶段执行工作表见《2025-10-09 敏捷开发避坑与高效交付指南》第7章，包含命令与依赖注意事项。
+＊ 阶段执行工作表已归档到 `docs/archive/2025-10-09-敏捷开发避坑与高效交付指南.md`，仅供历史追溯。
 
 ## 🚀 推荐实现顺序
 
@@ -141,7 +164,7 @@ Reddit Signal Scanner - PRD依赖关系图
 ### Phase 4: 运维管理 (Day 11-12)
 ```
 7. PRD-07 Admin后台设计 [需要基础系统稳定]
-   └── 输出: 只读监控界面
+   └── 输出: 候选审核 + 社区池管理 + 任务复盘
 ```
 
 ### Phase 5: 质量保证 (Day 13-15)
@@ -277,39 +300,22 @@ Reddit Signal Scanner - PRD依赖关系图
 
 ---
 
-## 🔧 实施检查清单
+## 🔧 实施与验收清单（以当前口径为准）
 
-### Day 1-2: 数据基础
-- [ ] PRD-01实施完成：数据库表创建+索引
-- [ ] 多租户隔离验证：跨租户查询返回空结果  
-- [ ] 缓存表设计：24小时TTL自动清理
+- **运行清单**：`docs/验收清单-本地环境.md`
+- **端到端测试**：`docs/真实Reddit-API端到端测试指南.md`
+- **质量门禁**：`docs/2025-10-10-质量标准与门禁规范.md`
+- **执行记录**：`reports/phase-log/phase{N}.md`
+- **PRD 对齐**：`docs/PRD/PRD-INDEX.md` + `docs/PRD/PRD-SYSTEM.md`
 
-### Day 3-6: 核心服务  
-- [ ] PRD-02实施：4个API端点 + SSE
-- [ ] PRD-04实施：Celery worker + 队列
-- [ ] PRD-03实施：四步分析算法
-- [ ] 5分钟承诺验证：缓存命中率>80%场景
-
-### Day 7-10: 用户界面
-- [ ] PRD-06实施：JWT认证 + 用户注册
-- [ ] PRD-05实施：React SPA + SSE客户端  
-- [ ] 端到端测试：注册→分析→报告完整流程
-
-### Day 11-12: 运维管理
-- [ ] PRD-07实施：只读Admin界面
-- [ ] 配置热更新验证：运行任务不受影响
-
-### Day 13-15: 质量保证
-- [ ] PRD-08实施：测试套件 + CI/CD
-- [ ] 故障注入测试：Redis宕机恢复
-- [ ] 性能边界测试：100并发用户
+> 旧“Day 分阶段实施清单”已归档到 `docs/archive/2025-10-10-实施检查清单.md`。
 
 ---
 
 ## 📚 相关文档
 
 ### 核心设计文档
-- [Reddit 商业信号扫描器.md](Reddit 商业信号扫描器.md) - 完整产品蓝图
+- [系统架构完整讲解](../系统架构完整讲解.md) - 当前架构全景
 - [产品重构方案_Linus视角.md](产品重构方案_Linus视角.md) - 技术架构重构
 - [PRD体系计划.md](PRD体系计划.md) - PRD撰写标准
 

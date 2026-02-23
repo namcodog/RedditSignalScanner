@@ -12,7 +12,7 @@ db-migrate: ## 创建新的数据库迁移 (需要 MESSAGE="描述")
 
 db-upgrade: ## 升级数据库到最新版本
 	@echo "==> Upgrading database to latest version ..."
-	@if [ ! -f $(BACKEND_DIR)/.env ] && [ -z "$$DATABASE_URL" ]; then \
+	@if [ ! -f $(BACKEND_DIR)/.env ] && [ -z "$$DATABASE_URL" ] && [ -z "$$MIGRATION_DATABASE_URL" ] && [ -z "$$DATABASE_URL_MIGRATION" ]; then \
 		echo "❌ DATABASE_URL 未设置。请在环境变量或 backend/.env 中配置后再执行。"; \
 		exit 1; \
 	fi

@@ -15,5 +15,4 @@ cd /Users/hujia/Desktop/RedditSignalScanner/backend
 exec /opt/homebrew/bin/python3.11 -m celery -A app.core.celery_app:celery_app worker \
   --loglevel=info \
   --pool=solo \
-  --queues=analysis_queue,maintenance_queue,cleanup_queue,crawler_queue,monitoring_queue
-
+  --queues=analysis_queue,patrol_queue,backfill_queue,backfill_posts_queue_v2,probe_queue,maintenance_queue,cleanup_queue,crawler_queue,monitoring_queue

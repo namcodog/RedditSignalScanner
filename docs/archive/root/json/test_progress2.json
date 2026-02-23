@@ -1,0 +1,24 @@
+{
+  "r/shopify": {
+    "subreddit": "r/shopify",
+    "last_completed_slice_idx": 1,
+    "total_slices": 2,
+    "completed": true,
+    "total_posts": 0,
+    "total_new": 0,
+    "total_updated": 0,
+    "total_duplicates": 0,
+    "last_updated": "2025-11-17T10:54:19.395144+00:00"
+  },
+  "r/walmart": {
+    "subreddit": "r/walmart",
+    "last_completed_slice_idx": 1,
+    "total_slices": 2,
+    "completed": true,
+    "total_posts": 0,
+    "total_new": 0,
+    "total_updated": 0,
+    "total_duplicates": 0,
+    "last_updated": "2025-11-17T10:54:28.985911+00:00"
+  }
+}

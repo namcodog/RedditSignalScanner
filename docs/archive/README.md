@@ -1,0 +1,58 @@
+# 文档归档区（仅追溯，不作当前口径）
+
+## 归档原则
+- 旧蓝图/旧清单/旧执行方案/旧运维记录统一移入归档
+- 归档内容仅用于历史追溯，不作为当前规范或实现依据
+- 现行口径以 `docs/PRD/*`、`docs/sop/*`、`docs/系统架构*` 与 `docs/API-REFERENCE.md` 为准
+
+## 已归档文档（节选）
+- `docs/archive/2025-10-10-Reddit信号扫描器0-1重写蓝图.md`
+- `docs/archive/2025-10-10-实施检查清单.md`
+- `docs/archive/2025-10-10-架构决策记录ADR.md`
+- `docs/archive/2025-10-10-3人并行开发方案.md`
+- `docs/archive/2025-10-10-环境配置完全指南.md`
+- `docs/archive/2025-12-14-database-architecture-atlas.md`（历史副本）
+- `docs/archive/数据库优化执行指南11-28.md`
+- `docs/archive/数据库优化全记录_20251128.md`
+- `docs/archive/Facts数据优化全记录_20251210.md`
+- `docs/archive/数据库生产执行脚本与操作手册production_db_fix_manual.md`
+- `docs/archive/平台全景价值说明_对外版.md`
+- `docs/archive/图片文案替换对照表.md`
+- `docs/archive/planning/`（原 `docs/planning/`）
+- `docs/archive/PRD/PRD实施计划_基于依赖关系.md`
+- `docs/archive/sop/`（旧版SOP与阶段性SOP归档）
+- `docs/archive/reference/`（历史说明/方案/复盘汇总归档）
+- `docs/archive/sop/数据抓取系统SOP_v1.md`
+- `docs/archive/sop/数据抓取系统SOP_v2.md`
+- `docs/archive/sop/数据抓取系统SOP_v3.md`
+- `docs/archive/sop/数据抓取系统SOP_v3_修正版_v3.1.md`
+- `docs/archive/sop/数据挖掘sop.md`
+- `docs/archive/sop/数据挖掘sop_v3.md`
+- `docs/archive/sop/数据挖掘sop_v4.md`
+- `docs/archive/sop/SOP_Phase1_Semantic_Initialization.md`
+- `docs/archive/sop/SOP_Phase2_Strategic_Calibration.md`
+- `docs/archive/sop/SOP_Phase3_Human_Needs_Graph.md`
+- `docs/archive/sop/数据库开发与使用规范-数据库sop.md`
+- `docs/archive/sop/2025-12-13-数据架构重构全记录.md`
+- `docs/archive/reference/有价值的信息11-26.md`
+- `docs/archive/reference/分析引擎系统强化开发计划_v1.0.md`
+- `docs/archive/reference/数据挖掘问题总结报告2025年11月29日.md`
+- `docs/archive/reference/社区分级价值证明报告.md`
+- `docs/archive/reference/次高价值社区_12个月数据抓取_执行指南.md`
+- `docs/archive/reference/数据库优化执行指南.md`
+- `docs/archive/legacy-scripts-inventory.md`（backend/scripts/legacy 归档清单）
+- `docs/archive/2025-11-主业务线说明书.md`
+- `docs/archive/API-QUICK-REFERENCE.md`
+- `docs/archive/DATABASE_CONFIGURATION.md`
+- `docs/archive/MAKEFILE_GUIDE.md`
+- `docs/archive/MCP-SETUP-GUIDE.md`
+- `docs/archive/PR-WORKFLOW-CHEATSHEET.md`
+- `docs/archive/SQLALCHEMY_POOL_CONFIG.md`
+- `docs/archive/annotation-guide.md`
+- `docs/archive/dev_spec_ingest_jsonl.md`
+- `docs/archive/domain-goals.md`
+- `docs/archive/mcp_configuration_guide.md`
+- `docs/archive/scoring_protocol_v1.md`
+- `docs/archive/分析算法设计详解.md`
+- `docs/archive/测试账号.md`
+- `docs/archive/语义库资产化执行方案.md`

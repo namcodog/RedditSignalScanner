@@ -1,1123 +1,337 @@
-# Reddit Signal Scanner - API 接口文档
+# Reddit Signal Scanner - API 接口文档（给前端/产品）
 
-**版本**: v0.1.0  
-**生成时间**: 2025-10-22  
-**基础路径**: `/api`  
-**文档类型**: 前后端联调规范文档
+**更新日期**：2026-01-19  
+**主门牌**：`/api`（前端统一用这个）  
+**影子门牌**：`/api/v1`（只覆盖 v1 模块：analysis/stream/tasks/reports/export/decision-units；auth/admin/metrics/insights/guidance/diag 仅 `/api`）  
+**真相源**：运行中的 `GET /openapi.json`（字段细节以它为准）
 
----
-
-## 目录
-
-- [1. 认证模块 (Authentication)](#1-认证模块-authentication)
-- [2. 分析任务模块 (Analysis)](#2-分析任务模块-analysis)
-- [3. 任务状态模块 (Task Status)](#3-任务状态模块-task-status)
-- [4. 报告模块 (Reports)](#4-报告模块-reports)
-- [5. 洞察卡片模块 (Insights)](#5-洞察卡片模块-insights)
-- [6. 质量指标模块 (Metrics)](#6-质量指标模块-metrics)
-- [7. Beta反馈模块 (Beta Feedback)](#7-beta反馈模块-beta-feedback)
-- [8. 管理后台模块 (Admin)](#8-管理后台模块-admin)
-- [9. 健康检查 (Health Check)](#9-健康检查-health-check)
-- [10. 算法调用链路图](#10-算法调用链路图)
+> 这份文档说人话：告诉前端“怎么接最稳、哪些情况别当 bug”。  
+> 如果你发现这份文档和 `openapi.json` 不一致，以 `openapi.json` 为准。
 
 ---
 
-## API 概览
+## 0) 前端必看（注意事项，别踩坑）
 
-| 模块 | 接口数量 | 认证要求 | 说明 |
-|------|---------|---------|------|
-| 认证模块 | 2 | 无 | 用户注册、登录 |
-| 分析任务 | 1 | JWT | 创建分析任务 |
-| 任务状态 | 3 | JWT | 查询任务状态、SSE流、队列统计 |
-| 报告模块 | 2 | JWT | 获取分析报告 |
-| 洞察卡片 | 2 | JWT | 获取洞察卡片列表和详情 |
-| 质量指标 | 1 | JWT | 获取质量指标 |
-| Beta反馈 | 1 | JWT | 提交Beta反馈 |
-| 管理后台 | 13 | Admin JWT | 仪表盘、社区管理、反馈管理 |
-| 健康检查 | 2 | 无 | 健康检查、运行时诊断 |
-| **总计** | **27** | - | - |
+1. **报告不是永远“满配”**  
+   有些话题天生料少，系统会给你 `C_scouting`（勘探版）或者直接 `blocked`。这不是报错，是“诚实输出”。
 
----
+2. **报告正文默认由 LLM 生成**  
+   LLM 读取 **insights 主线 + facts_v2 证据切片** 生成报告；若门禁为 C/X，只返回解释与下一步动作。开发环境未配置 LLM 时会回退模板（仅调试用）。
 
-## 通用说明
+3. **别只盯 `/api/report/{task_id}`，一定要配套看 sources 账本**  
+   `GET /api/tasks/{task_id}/sources` 才是“为什么是这个结果”的说明书（tier、缺口、下一步动作都在里面）。
 
-### 认证方式
+4. **SSE 需要带 Token**  
+   原生 `EventSource` 不能带 header，前端请用 `fetch-event-source`（仓库前端已使用）或其它支持 header 的方案。
 
-所有需要认证的接口使用 **JWT Bearer Token**：
+5. **返回格式有两套，前端要兼容**  
+   - 多数业务接口：直接返回对象（比如 `/api/analyze`、`/api/report/...`、`/api/decision-units`）。  
+   - 多数 admin 接口：返回包裹型 `{ "code": 0, "data": {...}, "trace_id": "..." }`。  
+   - 例外（admin 直返）：`/api/admin/tasks/{task_id}/ledger`、`/api/admin/metrics/*`、`/api/admin/facts/*`。
 
-```http
-Authorization: Bearer <access_token>
-```
+6. **主业务链路的“合同”**  
+   - 不允许 500（尤其是 RLS/GUC 相关）。  
+   - 料不够要能解释（`blocked_reason` / `next_action` / `sources` 账本）。  
+   - 前端把 `blocked_reason` 当“状态”，别当“报错弹窗”。
 
-### 响应格式
-
-#### 成功响应
-```json
-{
-  "data": { ... },
-  "code": 0,
-  "trace_id": "abc123..."
-}
-```
-
-- `entity_summary`：按实体词典统计品牌 (`brands`)、功能 (`features`) 与痛点关键词 (`pain_points`) 的命中次数，协助产品经理快速确认哪些线索在报告中最常出现。
-
-#### 错误响应
-```json
-{
-  "detail": "错误描述",
-  "status_code": 400
-}
-```
-
-### 通用错误码
-
-| HTTP状态码 | 说明 |
-|-----------|------|
-| 200 | 成功 |
-| 201 | 创建成功 |
-| 400 | 请求参数错误 |
-| 401 | 未认证或Token无效 |
-| 403 | 无权限访问 |
-| 404 | 资源不存在 |
-| 409 | 资源冲突 |
-| 500 | 服务器内部错误 |
-| 503 | 服务不可用 |
+7. **前端 baseURL 建议**  
+   - 本地默认：`http://localhost:8006/api`（前端已用 `VITE_API_BASE_URL` 支持配置）  
+   - 接口路径统一写相对 `/api/...`，不要硬编码 `/api/v1/...`
 
 ---
 
-## 1. 认证模块 (Authentication)
+## 1) 黄金链路（前端最先接这 6 个就能开工）
 
-### 1.1 用户注册
-
-**接口**: `POST /api/auth/register`  
-**认证**: 无  
-**标签**: `auth`
-
-#### 请求体
-
-```json
-{
-  "email": "user@example.com",
-  "password": "SecurePassword123!",
-  "membership_level": "free"
-}
-```
-
-**字段说明**:
-- `email` (string, required): 用户邮箱
-- `password` (string, required): 密码
-- `membership_level` (string, optional): 会员等级，默认 `free`，可选 `free|pro|enterprise`
-
-#### 响应 (201 Created)
-
-```json
-{
-  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-  "expires_at": "2025-10-23T10:00:00Z",
-  "user": {
-    "id": "550e8400-e29b-41d4-a716-446655440000",
-    "email": "user@example.com",
-    "membership_level": "free"
-  }
-}
-```
-
-#### 错误响应
-
-- `409 Conflict`: 邮箱已注册
-
-```json
-{
-  "detail": "Email is already registered"
-}
-```
+1. 登录拿 token：`POST /api/auth/login`
+2. 创建任务：`POST /api/analyze` → 拿到 `task_id` + `sse_endpoint`
+3. 进度：  
+   - SSE：`GET /api/analyze/stream/{task_id}`（推荐）  
+   - 轮询兜底：`GET /api/status/{task_id}`
+4. 报告：`GET /api/report/{task_id}`
+5. 解释“为什么”：`GET /api/tasks/{task_id}/sources`（拿 tier + 缺口 + 建议动作）
+6.（可选）DecisionUnit：  
+   - 列表：`GET /api/decision-units`  
+   - 详情：`GET /api/decision-units/{decision_unit_id}`  
+   - 反馈：`POST /api/decision-units/{decision_unit_id}/feedback`
 
 ---
 
-### 1.2 用户登录
+## 2) Tier / Blocked（前端怎么展示才“不撒谎”）
 
-**接口**: `POST /api/auth/login`  
-**认证**: 无  
-**标签**: `auth`
+这些信息主要来自 `GET /api/tasks/{task_id}/sources`（都在返回的 `sources` 字段里）：
 
-#### 请求体
+- `sources.report_tier`：
+  - `A_full`：完整版  
+  - `B_trimmed`：缩水版（痛点/方案少，但不乱编）  
+  - `C_scouting`：勘探版（只说明“目前看到的结构”，不下定论）  
+  - `X_blocked`：直接拦截（不生成报告）
+- `sources.facts_v2_quality.flags`：为什么降级/拦截（比如 `pains_low` / `solutions_low` / `topic_mismatch` 等）
+- `GET /api/status/{task_id}` 里的 `blocked_reason / next_action`：给用户看的“一句话解释”
 
-```json
-{
-  "email": "user@example.com",
-  "password": "SecurePassword123!"
-}
-```
-
-#### 响应 (200 OK)
-
-```json
-{
-  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-  "expires_at": "2025-10-23T10:00:00Z",
-  "user": {
-    "id": "550e8400-e29b-41d4-a716-446655440000",
-    "email": "user@example.com",
-    "membership_level": "free"
-  }
-}
-```
-
-#### 错误响应
-
-- `401 Unauthorized`: 邮箱或密码错误
-
-```json
-{
-  "detail": "Invalid email or password"
-}
-```
+**前端最稳的做法**：  
+报告页顶部固定展示：`tier + flags + next_action`，让用户一眼明白“这份报告能不能当结论用”。
 
 ---
 
-## 2. 分析任务模块 (Analysis)
+## 3) 报告结构标准（LLM 输出）
+报告正文必须按以下顺序输出：
+1. 顶部信息（标题 + 简述）
+2. 决策卡片（需求趋势 / P/S Ratio / 高潜力社群 / 明确机会点）
+3. 概览（市场健康度：竞争饱和度 + P/S 解读）
+4. 核心战场推荐（分社区画像：画像/痛点/策略）
+5. 用户痛点（3 个）
+6. Top 购买驱动力（2–3 条）
+7. 商业机会卡（2 张）
 
-### 2.1 创建分析任务
+说明：结论必须来自算法（insights + facts_slice），LLM 只负责表达。
 
-**接口**: `POST /api/analyze`  
-**认证**: JWT  
-**标签**: `analysis`
-
-#### 请求体
-
-```json
-{
-  "product_description": "一款帮助开发者快速构建API的SaaS工具"
-}
-```
-
-**字段说明**:
-- `product_description` (string, required): 产品描述，用于分析
-
-#### 响应 (201 Created)
-
-```json
-{
-  "task_id": "550e8400-e29b-41d4-a716-446655440000",
-  "status": "pending",
-  "created_at": "2025-10-22T10:00:00Z",
-  "estimated_completion": "2025-10-22T10:05:00Z",
-  "sse_endpoint": "/api/analyze/stream/550e8400-e29b-41d4-a716-446655440000"
-}
-```
-
-**响应头**:
-```http
-Location: /api/analyze/stream/550e8400-e29b-41d4-a716-446655440000
-```
-
-#### 错误响应
-
-- `401 Unauthorized`: Token无效
-- `404 Not Found`: 用户不存在
-- `503 Service Unavailable`: 分析队列不可用
+补充：`GET /api/report/{task_id}` 的关键字段口径（前端直接用）
+- `report.pain_points[].title/text`：后端补齐，title 为短标题，text 为完整描述
+- `report.opportunities[].title/text`：同上
+- `report.action_items[].title/category`：title 用于卡片标题，category 默认 `strategy`
+- `report.purchase_drivers`：来自 `insights.top_drivers`
+- `report.market_health`：包含 `saturation_level / saturation_score / ps_ratio / ps_ratio_assessment`
+  - `ps_ratio` 取值口径：`facts_slice.ps_ratio` 优先，缺失则回退 `sources.ps_ratio`
 
 ---
 
-## 3. 任务状态模块 (Task Status)
+## 4) 返回格式（两套，别搞混）
 
-### 3.1 获取任务状态
+### 4.1 直返型（大多数业务接口）
 
-**接口**: `GET /api/status/{task_id}`  
-**认证**: JWT  
-**标签**: `status`
+例：`POST /api/analyze` 返回就是一个对象（没有 `code/data` 外壳）。
 
-#### 路径参数
+### 4.2 包裹型（多是 admin 接口）
 
-- `task_id` (UUID, required): 任务ID
-
-#### 响应 (200 OK)
-
-```json
-{
-  "task_id": "550e8400-e29b-41d4-a716-446655440000",
-  "status": "processing",
-  "progress": 50,
-  "message": "正在并行采集数据...",
-  "error": null,
-  "retry_count": 0,
-  "failure_category": null,
-  "last_retry_at": null,
-  "dead_letter_at": null,
-  "updated_at": "2025-10-22T10:02:30Z"
-}
-```
-
-**状态枚举**:
-- `pending`: 任务排队中
-- `processing`: 任务正在处理
-- `completed`: 分析完成
-- `failed`: 任务失败
-
-#### 错误响应
-
-- `404 Not Found`: 任务不存在
-- `403 Forbidden`: 无权访问该任务
-
----
-
-### 3.2 SSE实时进度流
-
-**接口**: `GET /api/analyze/stream/{task_id}`  
-**认证**: JWT  
-**标签**: `analysis`  
-**响应类型**: `text/event-stream`
-
-#### 路径参数
-
-- `task_id` (UUID, required): 任务ID
-
-#### SSE事件流
-
-```
-event: connected
-data: {"task_id": "550e8400-e29b-41d4-a716-446655440000"}
-
-event: progress
-data: {"task_id": "550e8400-...", "status": "processing", "progress": 25, "message": "正在发现相关社区...", "updated_at": "2025-10-22T10:01:00Z"}
-
-event: progress
-data: {"task_id": "550e8400-...", "status": "processing", "progress": 50, "message": "正在并行采集数据...", "updated_at": "2025-10-22T10:02:00Z"}
-
-event: completed
-data: {"task_id": "550e8400-...", "status": "completed", "progress": 100, "message": "分析完成", "updated_at": "2025-10-22T10:05:00Z"}
-
-event: close
-data: {"task_id": "550e8400-e29b-41d4-a716-446655440000"}
-```
-
-**事件类型**:
-- `connected`: 连接建立
-- `progress`: 进度更新
-- `completed`: 任务完成
-- `error`: 任务失败
-- `heartbeat`: 心跳（每30秒）
-- `close`: 连接关闭
-
----
-
-## 5. 洞察卡片模块 (Insights)
-
-### 5.1 获取洞察卡片列表
-
-**接口**: `GET /api/insights`
-**认证**: JWT
-**标签**: `insights`
-
-#### 查询参数
-
-- `task_id` (UUID, optional): 按任务ID过滤
-- `entity_filter` (string, optional): 按实体过滤（暂未实现）
-- `limit` (integer, optional): 每页数量，默认10，范围1-100
-- `offset` (integer, optional): 偏移量，默认0
-
-#### 响应 (200 OK)
-
-```json
-{
-  "total": 50,
-  "items": [
-    {
-      "id": "660e8400-e29b-41d4-a716-446655440000",
-      "task_id": "550e8400-e29b-41d4-a716-446655440000",
-      "title": "API文档自动化需求强烈",
-      "summary": "在r/webdev等社区中，开发者频繁提到API文档维护困难...",
-      "confidence": 0.85,
-      "time_window_days": 30,
-      "subreddits": ["r/webdev", "r/programming"],
-      "evidences": [
-        {
-          "id": "770e8400-e29b-41d4-a716-446655440000",
-          "post_url": "https://reddit.com/r/webdev/comments/...",
-          "excerpt": "我们团队在API文档上花费了太多时间...",
-          "timestamp": "2025-10-20T15:30:00Z",
-          "subreddit": "r/webdev",
-          "score": 0.9
-        }
-      ],
-      "created_at": "2025-10-22T10:05:00Z",
-      "updated_at": "2025-10-22T10:05:00Z"
-    }
-  ]
-}
-```
-
-#### 错误响应
-
-- `404 Not Found`: 任务不存在
-- `403 Forbidden`: 无权访问该任务
-
----
-
-### 5.2 获取单个洞察卡片
-
-**接口**: `GET /api/insights/{insight_id}`
-**认证**: JWT
-**标签**: `insights`
-
-#### 路径参数
-
-- `insight_id` (UUID, required): 洞察卡片ID
-
-#### 响应 (200 OK)
-
-```json
-{
-  "id": "660e8400-e29b-41d4-a716-446655440000",
-  "task_id": "550e8400-e29b-41d4-a716-446655440000",
-  "title": "API文档自动化需求强烈",
-  "summary": "在r/webdev等社区中，开发者频繁提到API文档维护困难...",
-  "confidence": 0.85,
-  "time_window_days": 30,
-  "subreddits": ["r/webdev", "r/programming"],
-  "evidences": [
-    {
-      "id": "770e8400-e29b-41d4-a716-446655440000",
-      "post_url": "https://reddit.com/r/webdev/comments/...",
-      "excerpt": "我们团队在API文档上花费了太多时间...",
-      "timestamp": "2025-10-20T15:30:00Z",
-      "subreddit": "r/webdev",
-      "score": 0.9
-    }
-  ],
-  "created_at": "2025-10-22T10:05:00Z",
-  "updated_at": "2025-10-22T10:05:00Z"
-}
-```
-
-#### 错误响应
-
-- `404 Not Found`: 洞察卡片不存在
-- `403 Forbidden`: 无权访问该洞察卡片
-
----
-
-## 6. 质量指标模块 (Metrics)
-
-### 6.1 获取质量指标
-
-**接口**: `GET /api/metrics`
-**认证**: JWT
-**标签**: `metrics`
-
-#### 查询参数
-
-- `start_date` (date, optional): 开始日期，默认7天前，格式：YYYY-MM-DD
-- `end_date` (date, optional): 结束日期，默认今天，格式：YYYY-MM-DD
-
-#### 请求示例
-
-```http
-GET /api/metrics?start_date=2025-10-15&end_date=2025-10-21
-```
-
-#### 响应 (200 OK)
-
-```json
-[
-  {
-    "date": "2025-10-15",
-    "collection_success_rate": 0.93,
-    "deduplication_rate": 0.15,
-    "processing_time_p50": 120.5,
-    "processing_time_p95": 180.2
-  },
-  {
-    "date": "2025-10-16",
-    "collection_success_rate": 0.95,
-    "deduplication_rate": 0.12,
-    "processing_time_p50": 115.3,
-    "processing_time_p95": 175.8
-  }
-]
-```
-
-**字段说明**:
-- `collection_success_rate`: 数据采集成功率 (0.0-1.0)
-- `deduplication_rate`: 去重率 (0.0-1.0)
-- `processing_time_p50`: 处理时间中位数（秒）
-- `processing_time_p95`: 处理时间95分位数（秒）
-
----
-
-## 7. Beta反馈模块 (Beta Feedback)
-
-### 7.1 提交Beta反馈
-
-**接口**: `POST /api/beta/feedback`
-**认证**: JWT
-**标签**: `beta`
-
-#### 请求体
-
-```json
-{
-  "task_id": "550e8400-e29b-41d4-a716-446655440000",
-  "satisfaction": 4,
-  "missing_communities": ["r/golang", "r/rust"],
-  "comments": "分析结果很准确，但希望能覆盖更多技术社区"
-}
-```
-
-**字段说明**:
-- `task_id` (UUID, required): 任务ID
-- `satisfaction` (integer, required): 满意度评分，范围1-5
-- `missing_communities` (array, optional): 缺失的社区列表
-- `comments` (string, optional): 反馈意见
-
-#### 响应 (201 Created)
+例：`GET /api/admin/dashboard/stats`
 
 ```json
 {
   "code": 0,
-  "data": {
-    "id": "880e8400-e29b-41d4-a716-446655440000",
-    "task_id": "550e8400-e29b-41d4-a716-446655440000",
-    "user_id": "990e8400-e29b-41d4-a716-446655440000",
-    "satisfaction": 4,
-    "missing_communities": ["r/golang", "r/rust"],
-    "comments": "分析结果很准确，但希望能覆盖更多技术社区",
-    "created_at": "2025-10-22T10:10:00Z"
-  },
-  "trace_id": "abc123..."
-}
-```
-
-#### 错误响应
-
-- `404 Not Found`: 任务不存在
-- `403 Forbidden`: 任务不属于当前用户
-
----
-
-## 8. 管理后台模块 (Admin)
-
-### 8.1 仪表盘统计
-
-**接口**: `GET /api/admin/dashboard/stats`
-**认证**: Admin JWT
-**标签**: `admin`
-
-#### 响应 (200 OK)
-
-```json
-{
-  "code": 0,
-  "data": {
-    "total_users": 1250,
-    "total_tasks": 5680,
-    "tasks_today": 45,
-    "tasks_completed_today": 38,
-    "avg_processing_time": 125.5,
-    "cache_hit_rate": 0.92,
-    "active_workers": 3
-  },
-  "trace_id": "abc123..."
+  "data": { "total_users": 3, "total_tasks": 3 },
+  "trace_id": "59559c0f8e2d4205a1e483ecebda0393"
 }
 ```
 
 ---
 
-### 8.2 最近任务列表
+## 4) 接口总表（只列 `/api`，不列 `/api/v1` 别名）
 
-**接口**: `GET /api/admin/tasks/recent`
-**认证**: Admin JWT
-**标签**: `admin`
+统计口径：以运行时 `GET /openapi.json` 为准（已过滤 `/api/v1`）。
 
-#### 查询参数
+| 模块 | 接口数 | 认证 | 说明 |
+|---|---:|---|---|
+| auth | 3 | 无/JWT | 注册/登录/当前用户 |
+| analysis | 1 | JWT | 创建分析任务 |
+| stream | 1 | JWT | SSE 进度流 |
+| tasks | 4 | 无/JWT | 状态/诊断/队列统计/sources 账本 |
+| reports | 7 | JWT | LLM 报告 + 导出 |
+| insights | 2 | JWT | 洞察卡（旧卡片，不含 DecisionUnit） |
+| decision-units | 3 | JWT | DecisionUnit 列表/详情/反馈 |
+| beta | 1 | JWT | Beta 反馈 |
+| guidance | 1 | 无 | 输入指导 |
+| metrics | 2 | 无 | 指标（公开） |
+| diagnostics | 1 | JWT | 运行时诊断 |
+| health | 1 | 无 | 健康检查 |
+| admin | 30 | Admin JWT | 管理后台/社区池/审计/运营 |
+| root | 1 | 无 | 根路由 |
+| **合计** | **59** | - | - |
 
-- `limit` (integer, optional): 返回数量，默认50，范围1-200
+### admin（30）
 
-#### 响应 (200 OK)
+| 方法 | 路径 | 认证 | 说明 |
+|---|---|---|---|
+| `GET` | `/api/admin/beta/feedback` | Admin JWT | List beta feedback |
+| `POST` | `/api/admin/communities/apply-suggestions` | Admin JWT | 应用调级建议 |
+| `POST` | `/api/admin/communities/approve` | Admin JWT | 批准社区 |
+| `PATCH` | `/api/admin/communities/batch` | Admin JWT | 批量更新社区配置 |
+| `GET` | `/api/admin/communities/discovered` | Admin JWT | 查看待审核社区 |
+| `POST` | `/api/admin/communities/import` | Admin JWT | 上传并导入社区信息 |
+| `GET` | `/api/admin/communities/import-history` | Admin JWT | 查询社区导入历史 |
+| `GET` | `/api/admin/communities/pool` | Admin JWT | 查看社区池（增强版） |
+| `POST` | `/api/admin/communities/reject` | Admin JWT | 拒绝社区 |
+| `POST` | `/api/admin/communities/rollback` | Admin JWT | 回滚社区 Tier 变更 |
+| `POST` | `/api/admin/communities/suggest-tier-adjustments` | Admin JWT | 生成社区 Tier 调级建议 |
+| `GET` | `/api/admin/communities/summary` | Admin JWT | 获取社区验收列表 |
+| `GET` | `/api/admin/communities/template` | Admin JWT | 下载社区导入 Excel 模板 |
+| `GET` | `/api/admin/communities/tier-suggestions` | Admin JWT | 查看社区调级建议列表 |
+| `POST` | `/api/admin/communities/tier-suggestions/emit-decision-units` | Admin JWT | 把调级建议翻译成 ops DecisionUnits（带证据链） |
+| `DELETE` | `/api/admin/communities/{name}` | Admin JWT | 禁用社区 |
+| `GET` | `/api/admin/communities/{name}/tier-audit-logs` | Admin JWT | 查看社区 Tier 调整历史 |
+| `GET` | `/api/admin/dashboard/stats` | Admin JWT | Admin dashboard aggregate metrics |
+| `GET` | `/api/admin/facts/snapshots/{snapshot_id}` | Admin JWT | 获取指定 facts_v2 审计快照 |
+| `GET` | `/api/admin/facts/tasks/{task_id}/latest` | Admin JWT | 获取任务最新 facts_v2 审计包 |
+| `GET` | `/api/admin/metrics/contract-health` | Admin JWT | 合同健康度（Phase106-2） |
+| `GET` | `/api/admin/metrics/routes` | Admin JWT | 路由调用统计（golden vs legacy） |
+| `GET` | `/api/admin/metrics/semantic` | Admin JWT | 语义库运行指标 |
+| `GET` | `/api/admin/semantic-candidates` | Admin JWT | List semantic candidates |
+| `GET` | `/api/admin/semantic-candidates/statistics` | Admin JWT | Semantic candidate statistics |
+| `POST` | `/api/admin/semantic-candidates/{candidate_id}/approve` | Admin JWT | Approve semantic candidate |
+| `POST` | `/api/admin/semantic-candidates/{candidate_id}/reject` | Admin JWT | Reject semantic candidate |
+| `GET` | `/api/admin/tasks/recent` | Admin JWT | Recent tasks overview |
+| `GET` | `/api/admin/tasks/{task_id}/ledger` | Admin JWT | Admin 任务复盘（sources 账本 + facts_v2 审计包索引） |
+| `GET` | `/api/admin/users/active` | Admin JWT | Active users ranked by recent tasks |
 
-```json
-{
-  "code": 0,
-  "data": {
-    "items": [
-      {
-        "task_id": "550e8400-e29b-41d4-a716-446655440000",
-        "user_email": "user@example.com",
-        "status": "completed",
-        "created_at": "2025-10-22T10:00:00Z",
-        "completed_at": "2025-10-22T10:05:00Z",
-        "processing_seconds": 300.5,
-        "confidence_score": 0.85,
-        "analysis_version": "1.0",
-        "posts_analyzed": 1500,
-        "cache_hit_rate": 0.92,
-        "communities_count": 10,
-        "reddit_api_calls": 50,
-        "pain_points_count": 8,
-        "competitors_count": 5,
-        "opportunities_count": 12
-      }
-    ],
-    "total": 50
-  },
-  "trace_id": "abc123..."
-}
-```
+### analysis（1）
 
----
+| 方法 | 路径 | 认证 | 说明 |
+|---|---|---|---|
+| `POST` | `/api/analyze` | JWT | Create analysis task |
 
-### 8.3 活跃用户列表
+### auth（3）
 
-**接口**: `GET /api/admin/users/active`
-**认证**: Admin JWT
-**标签**: `admin`
+| 方法 | 路径 | 认证 | 说明 |
+|---|---|---|---|
+| `POST` | `/api/auth/login` | 无 | Authenticate existing user and receive an access token |
+| `GET` | `/api/auth/me` | JWT | Get current authenticated user |
+| `POST` | `/api/auth/register` | 无 | Create a new account and receive an access token |
 
-#### 查询参数
+### beta（1）
 
-- `limit` (integer, optional): 返回数量，默认50，范围1-200
+| 方法 | 路径 | 认证 | 说明 |
+|---|---|---|---|
+| `POST` | `/api/beta/feedback` | JWT | Submit Beta Feedback |
 
-#### 响应 (200 OK)
+### decision-units（3）
 
-```json
-{
-  "code": 0,
-  "data": {
-    "items": [
-      {
-        "user_id": "990e8400-e29b-41d4-a716-446655440000",
-        "email": "user@example.com",
-        "tasks_last_7_days": 15,
-        "last_task_at": "2025-10-22T09:30:00Z"
-      }
-    ],
-    "total": 50
-  },
-  "trace_id": "abc123..."
-}
-```
+| 方法 | 路径 | 认证 | 说明 |
+|---|---|---|---|
+| `GET` | `/api/decision-units` | JWT | 获取 DecisionUnits 列表（平台级主合同） |
+| `GET` | `/api/decision-units/{decision_unit_id}` | JWT | 获取 DecisionUnit 详情（含证据链） |
+| `POST` | `/api/decision-units/{decision_unit_id}/feedback` | JWT | 提交 DecisionUnit 反馈（append-only） |
 
----
+### diagnostics（1）
 
-### 8.4 社区验收列表
+| 方法 | 路径 | 认证 | 说明 |
+|---|---|---|---|
+| `GET` | `/api/diag/runtime` | JWT | 运行时诊断信息 |
 
-**接口**: `GET /api/admin/communities/summary`
-**认证**: Admin JWT
-**标签**: `admin`
+### export（1）
 
-#### 查询参数
+| 方法 | 路径 | 认证 | 说明 |
+|---|---|---|---|
+| `POST` | `/api/export/csv` | JWT | 导出分析报告 CSV |
 
-- `q` (string, optional): 搜索关键词
-- `status` (string, optional): 状态筛选，可选 `green|yellow|red`
-- `tag` (string, optional): 标签筛选
-- `sort` (string, optional): 排序方式，默认 `cscore_desc`，可选 `cscore_desc|hit_desc`
-- `page` (integer, optional): 页码，默认1
-- `page_size` (integer, optional): 每页数量，默认50，范围1-200
+### guidance（1）
 
-#### 响应 (200 OK)
+| 方法 | 路径 | 认证 | 说明 |
+|---|---|---|---|
+| `GET` | `/api/guidance/input` | 无 | 结构化输入指导与示例 |
 
-```json
-{
-  "code": 0,
-  "data": {
-    "items": [
-      {
-        "community": "r/webdev",
-        "hit_7d": 250,
-        "last_crawled_at": "2025-10-22T09:00:00Z",
-        "dup_ratio": 0.12,
-        "spam_ratio": 0.0,
-        "topic_score": 0.85,
-        "c_score": 85,
-        "status_color": "green",
-        "labels": ["状态:正常", "质量:优秀"]
-      }
-    ],
-    "total": 100
-  },
-  "trace_id": "abc123..."
-}
-```
+### health（1）
 
----
+| 方法 | 路径 | 认证 | 说明 |
+|---|---|---|---|
+| `GET` | `/api/healthz` | 无 | Health Check Alias |
 
-### 8.5 下载社区导入模板
+### insights（2）
 
-**接口**: `GET /api/admin/communities/template`
-**认证**: Admin JWT
-**标签**: `admin`
+| 方法 | 路径 | 认证 | 说明 |
+|---|---|---|---|
+| `GET` | `/api/insights/card/{insight_id}` | JWT | 获取单个洞察卡片 |
+| `GET` | `/api/insights/{task_id}` | JWT | 获取指定任务的洞察卡片列表 |
 
-#### 响应 (200 OK)
+### metrics（2）
 
-返回Excel文件（.xlsx格式）
+| 方法 | 路径 | 认证 | 说明 |
+|---|---|---|---|
+| `GET` | `/api/metrics` | 无 | Get Quality Metrics |
+| `GET` | `/api/metrics/daily` | 无 | Get Daily Quality Metrics |
 
-**响应头**:
-```http
-Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
-Content-Disposition: attachment; filename="community_template.xlsx"
-```
+### reports（7）
 
----
+| 方法 | 路径 | 认证 | 说明 |
+|---|---|---|---|
+| `GET` | `/api/report/{task_id}` | JWT | Fetch LLM-generated report (scouting/blocked returns explanation only) |
+| `GET` | `/api/report/{task_id}/communities` | JWT | Fetch full community list used in report |
+| `GET` | `/api/report/{task_id}/communities/download` | JWT | Download communities list as CSV (top or all) |
+| `GET` | `/api/report/{task_id}/communities/export` | JWT | Export communities list (top or all) |
+| `GET` | `/api/report/{task_id}/download` | JWT | Download report in specified format |
+| `GET` | `/api/report/{task_id}/entities` | JWT | Export recognised entities (flattened) |
+| `GET` | `/api/report/{task_id}/entities/download` | JWT | Download recognised entities as CSV |
 
-### 8.6 上传并导入社区
+### root（1）
 
-**接口**: `POST /api/admin/communities/import`
-**认证**: Admin JWT
-**标签**: `admin`
-**Content-Type**: `multipart/form-data`
+| 方法 | 路径 | 认证 | 说明 |
+|---|---|---|---|
+| `GET` | `/` | 无 | Root |
 
-#### 请求体
+### stream（1）
 
-- `file` (file, required): Excel模板文件（.xlsx）
-- `dry_run` (boolean, optional): true=仅验证，false=验证并导入，默认false
+| 方法 | 路径 | 认证 | 说明 |
+|---|---|---|---|
+| `GET` | `/api/analyze/stream/{task_id}` | JWT | Task streaming progress (SSE) |
 
-#### 响应 (200 OK)
+### tasks（4）
 
-```json
-{
-  "code": 0,
-  "data": {
-    "success": true,
-    "imported_count": 25,
-    "skipped_count": 3,
-    "errors": []
-  },
-  "trace_id": "abc123..."
-}
-```
+| 方法 | 路径 | 认证 | 说明 |
+|---|---|---|---|
+| `GET` | `/api/status/{task_id}` | JWT | 获取任务状态（缓存优先） |
+| `GET` | `/api/tasks/diag` | 无 | 运行时配置诊断 |
+| `GET` | `/api/tasks/stats` | JWT | 获取任务队列统计信息 |
+| `GET` | `/api/tasks/{task_id}/sources` | JWT | 获取任务 sources 账本（用于复盘/演练） |
 
 ---
 
-### 8.7 查询社区导入历史
+## 5) 关键接口示例（前端照着接就行）
 
-**接口**: `GET /api/admin/communities/import-history`
-**认证**: Admin JWT
-**标签**: `admin`
+### 5.1 创建任务（`POST /api/analyze`）
 
-#### 响应 (200 OK)
+请求体（最少只要 `product_description`）：
 
 ```json
 {
-  "code": 0,
-  "data": {
-    "items": [
-      {
-        "id": "aa0e8400-e29b-41d4-a716-446655440000",
-        "filename": "communities_2025-10-22.xlsx",
-        "imported_count": 25,
-        "imported_at": "2025-10-22T08:00:00Z",
-        "imported_by": "admin@example.com"
-      }
-    ],
-    "total": 10
-  },
-  "trace_id": "abc123..."
+  "product_description": "面向 Shopify 卖家的广告优化与转化率提升工具",
+  "mode": "operations",
+  "audit_level": "gold",
+  "topic_profile_id": "shopify_ads_conversion_v1"
 }
 ```
 
----
+说明（大白话）：
+- `mode`：`market_insight`（偏买家声音） / `operations`（偏卖家/运营声音）。不传也行，系统会尽量自动选。  
+- `audit_level`：通常不用前端写死，调试才会用到。  
+- `topic_profile_id`：你要“锁死赛道”才传，不传就是走默认策略。
 
-### 8.8 查看社区池
+### 5.2 获取 sources 账本（`GET /api/tasks/{task_id}/sources`）
 
-**接口**: `GET /api/admin/communities/pool`
-**认证**: Admin JWT
-**标签**: `admin`
-
-#### 响应 (200 OK)
-
-```json
-{
-  "code": 0,
-  "data": {
-    "items": [
-      {
-        "name": "r/webdev",
-        "tier": "high",
-        "categories": {"technology": true, "web": true},
-        "description_keywords": {"api": true, "development": true},
-        "daily_posts": 500,
-        "avg_comment_length": 150,
-        "quality_score": 0.85,
-        "priority": "high",
-        "user_feedback_count": 10,
-        "discovered_count": 5,
-        "is_active": true
-      }
-    ],
-    "total": 200
-  },
-  "trace_id": "abc123..."
-}
-```
-
----
-
-### 8.9 查看待审核社区
-
-**接口**: `GET /api/admin/communities/discovered`
-**认证**: Admin JWT
-**标签**: `admin`
-
-#### 响应 (200 OK)
+返回结构长这样（重点在 `sources` 字段里）：
 
 ```json
 {
-  "code": 0,
-  "data": {
-    "items": [
-      {
-        "name": "r/golang",
-        "discovered_from_keywords": {"go": true, "backend": true},
-        "discovered_count": 3,
-        "first_discovered_at": "2025-10-20T10:00:00Z",
-        "last_discovered_at": "2025-10-22T09:00:00Z",
-        "status": "pending"
-      }
-    ],
-    "total": 15
-  },
-  "trace_id": "abc123..."
-}
-```
-
----
-
-### 8.10 批准社区
-
-**接口**: `POST /api/admin/communities/approve`
-**认证**: Admin JWT
-**标签**: `admin`
-
-#### 请求体
-
-```json
-{
-  "name": "r/golang",
-  "tier": "medium",
-  "categories": {"technology": true, "programming": true},
-  "admin_notes": "优质技术社区，批准加入"
-}
-```
-
-#### 响应 (200 OK)
-
-```json
-{
-  "code": 0,
-  "data": {
-    "approved": "r/golang",
-    "pool_is_active": true
-  },
-  "trace_id": "abc123..."
-}
-```
-
----
-
-### 8.11 拒绝社区
-
-**接口**: `POST /api/admin/communities/reject`
-**认证**: Admin JWT
-**标签**: `admin`
-
-#### 请求体
-
-```json
-{
-  "name": "r/spam_community",
-  "admin_notes": "内容质量低，不符合标准"
-}
-```
-
-#### 响应 (200 OK)
-
-```json
-{
-  "code": 0,
-  "data": {
-    "rejected": "r/spam_community"
-  },
-  "trace_id": "abc123..."
-}
-```
-
----
-
-### 8.12 禁用社区
-
-**接口**: `DELETE /api/admin/communities/{name}`
-**认证**: Admin JWT
-**标签**: `admin`
-
-#### 路径参数
-
-- `name` (string, required): 社区名称（URL编码）
-
-#### 响应 (200 OK)
-
-```json
-{
-  "code": 0,
-  "data": {
-    "disabled": "r/webdev"
-  },
-  "trace_id": "abc123..."
-}
-```
-
----
-
-### 8.13 查看Beta反馈列表
-
-**接口**: `GET /api/admin/beta/feedback`
-**认证**: Admin JWT
-**标签**: `admin`
-
-#### 响应 (200 OK)
-
-```json
-{
-  "code": 0,
-  "data": {
-    "items": [
-      {
-        "id": "bb0e8400-e29b-41d4-a716-446655440000",
-        "task_id": "550e8400-e29b-41d4-a716-446655440000",
-        "user_id": "990e8400-e29b-41d4-a716-446655440000",
-        "satisfaction": 4,
-        "missing_communities": ["r/golang"],
-        "comments": "希望增加更多技术社区",
-        "created_at": "2025-10-22T10:10:00Z"
-      }
-    ],
-    "total": 50
-  },
-  "trace_id": "abc123..."
-}
-```
-
----
-
-## 9. 健康检查 (Health Check)
-
-### 9.1 健康检查
-
-**接口**: `GET /api/healthz`
-**认证**: 无
-**标签**: `health`
-
-#### 响应 (200 OK)
-
-```json
-{
-  "status": "ok"
-}
-```
-
----
-
-### 9.2 运行时诊断
-
-**接口**: `GET /api/diag/runtime`
-**认证**: 无
-**标签**: `health`
-
-#### 响应 (200 OK)
-
-```json
-{
-  "has_reddit_client": true,
-  "app_env": "production",
-  "sse_base_path": "/api/analyze/stream"
-}
-```
-
----
-
-### 9.3 任务诊断
-
-**接口**: `GET /api/tasks/diag`
-**认证**: JWT
-**标签**: `tasks`
-
-#### 响应 (200 OK)
-
-```json
-{
-  "has_reddit_client": true,
-  "environment": "production"
-}
-```
-
----
-
-### 3.3 获取任务队列统计
-
-**接口**: `GET /api/tasks/stats`  
-**认证**: JWT  
-**标签**: `tasks`
-
-#### 响应 (200 OK)
-
-```json
-{
-  "active_workers": 2,
-  "active_tasks": 3,
-  "reserved_tasks": 5,
-  "scheduled_tasks": 10,
-  "total_tasks": 18
-}
-```
-
----
-
-## 4. 报告模块 (Reports)
-
-### 4.1 获取分析报告
-
-**接口**: `GET /api/report/{task_id}`  
-**认证**: JWT  
-**标签**: `analysis`
-
-#### 路径参数
-
-- `task_id` (UUID, required): 任务ID
-
-#### 响应 (200 OK)
-
-```json
-{
-  "task_id": "550e8400-e29b-41d4-a716-446655440000",
+  "task_id": "5e4ac12c-df88-4597-b45d-74faa1a42e00",
   "status": "completed",
-  "generated_at": "2025-10-22T10:05:00Z",
-  "product_description": "一款帮助开发者快速构建API的SaaS工具",
-  "report": {
-    "executive_summary": {
-      "total_communities": 10,
-      "key_insights": 25,
-      "top_opportunity": "开发者需要更快的API文档生成工具"
-    },
-    "pain_points": [
-      {
-        "description": "API文档维护困难",
-        "frequency": 45,
-        "sentiment_score": -0.6,
-        "severity": "high",
-        "example_posts": [
-          {
-            "community": "r/programming",
-            "content": "文档更新太慢，很难跟进新版本",
-            "upvotes": 52,
-            "url": "https://reddit.com/..."
-          }
-        ],
-        "user_examples": [
-          "写文档比写代码还难",
-          "发布后再补文档效率太低"
-        ]
-      }
-    ],
-    "competitors": [
-      {
-        "name": "Postman",
-        "mentions": 120,
-        "sentiment": "positive",
-        "strengths": ["易用性好", "功能丰富"],
-        "weaknesses": ["价格较高"],
-        "market_share": 32
-      }
-    ],
-    "opportunities": [
-      {
-        "description": "自动化API测试需求强烈",
-        "relevance_score": 0.85,
-        "potential_users": "DevOps 团队",
-        "key_insights": [
-          "大量帖子提到 CI 集成困难",
-          "愿意为更快的回归测试付费"
-        ]
-      }
-    ],
-    "action_items": [
-      {
-        "problem_definition": "开发者在API文档维护上花费大量时间",
-        "evidence_chain": [
-          {"post_url": "https://reddit.com/...", "excerpt": "..."},
-          {"post_url": "https://reddit.com/...", "excerpt": "..."}
-        ],
-        "suggested_actions": [
-          "开发自动文档生成功能",
-          "集成主流框架"
-        ],
-        "confidence": 0.85,
-        "urgency": 0.9,
-        "product_fit": 0.95,
-        "priority": 0.73
-      }
-    ],
-    "entity_summary": {
-      "brands": [
-        {"name": "Postman", "mentions": 42}
-      ],
-      "features": [
-        {"name": "automation", "mentions": 18}
-      ],
-      "pain_points": [
-        {"name": "slow", "mentions": 25}
-      ]
+  "sources": {
+    "report_tier": "C_scouting",
+    "facts_v2_quality": {
+      "tier": "C_scouting",
+      "flags": ["pains_low", "brand_pain_low", "solutions_low"]
     }
-  },
-  "metadata": {
-    "analysis_version": "1.0",
-    "confidence_score": 0.85,
-    "processing_time_seconds": 120.5,
-    "cache_hit_rate": 0.92,
-    "total_mentions": 1500
-  },
-  "overview": {
-    "sentiment": {
-      "positive": 45,
-      "negative": 30,
-      "neutral": 25
-    },
-    "top_communities": [
-      {
-        "name": "r/webdev",
-        "mentions": 250,
-        "relevance": 92,
-        "members": 1200000,
-        "category": "technology",
-        "daily_posts": 500,
-        "avg_comment_length": 150,
-        "from_cache": true
-      }
-    ]
-  },
-  "stats": {
-    "total_mentions": 1500,
-    "positive_mentions": 675,
-    "negative_mentions": 450,
-    "neutral_mentions": 375
   }
 }
 ```
 
-#### 错误响应
+### 5.3 DecisionUnit 反馈（`POST /api/decision-units/{id}/feedback`）
 
-- `404 Not Found`: 任务、分析或报告不存在
-- `403 Forbidden`: 无权访问该任务
-- `409 Conflict`: 任务尚未完成
+请求体：
 
----
+```json
+{
+  "label": "valuable",
+  "note": "这条建议很有用"
+}
+```
 
-### 4.2 OPTIONS预检请求
-
-**接口**: `OPTIONS /api/report/{task_id}`  
-**认证**: 无  
-**标签**: `analysis`
-
-用于CORS预检请求。
-
-#### 响应 (204 No Content)
+`label` 只能是：`correct` / `incorrect` / `mismatch` / `valuable` / `worthless`。  
+你不传 `evidence_id` 也可以，后端会自动绑定一条 top evidence（但前端建议优先传，复盘更清晰）。
 
 ---
+
+## 6) 健康检查 / 诊断（本地联调用）
+
+- `GET /api/healthz`：健康检查（200 就算活着）
+- `GET /api/tasks/diag`：运行时配置诊断（偏运维）
+- `GET /api/diag/runtime`：运行时诊断信息（需要 Admin JWT）
+**注意**：admin 并非全包裹  
+- 直返：`/api/admin/tasks/{task_id}/ledger`、`/api/admin/metrics/*`、`/api/admin/facts/*`  
+- 包裹：`/api/admin/communities/*`、`/api/admin/dashboard/stats`、`/api/admin/tasks/recent`、`/api/admin/users/active`、`/api/admin/beta/feedback`、`/api/admin/semantic-candidates*`

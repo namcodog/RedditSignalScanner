@@ -209,7 +209,7 @@ make test-e2e
 ### 项目文档
 - [README.md](../../../README.md): 项目总览
 - [docs/系统架构完整讲解.md](../../../docs/系统架构完整讲解.md): 系统架构详解
-- [docs/分析算法设计详解.md](../../../docs/分析算法设计详解.md): 分析算法详解
+- [docs/archive/分析算法设计详解.md](../../../docs/archive/分析算法设计详解.md): 分析算法详解
 
 ### PRD 文档
 - [PRD/PRD-INDEX.md](../../../PRD/PRD-INDEX.md): PRD 索引

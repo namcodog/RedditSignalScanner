@@ -218,7 +218,7 @@ reports/
 1. **人工标注**（6h）
    - 抽样 200 条帖子到 `data/annotations/sample_200.csv`
    - 人工标注：机会/非机会、强/中/弱
-   - 记录标注指南到 `docs/annotation-guide.md`
+   - 记录标注指南到 `docs/archive/annotation-guide.md`
 
 2. **阈值校准脚本**（4h）
    - 新增 `backend/scripts/calibrate_threshold.py`（网格搜索最优阈值）

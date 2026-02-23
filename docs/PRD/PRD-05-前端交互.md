@@ -16,8 +16,11 @@ Reddit Signal Scanner的核心承诺是"30秒输入，5分钟分析"，这要求
 - **极简输入**：一个文本框，一个按钮，零配置
 - **实时反馈**：使用SSE(Server-Sent Events)替代轮询
 - **结果展示**：结构化报告，高亮关键洞察
+- **LLM 报告**：报告正文必须来自 LLM 输出（insights 主线 + facts_v2 证据切片）
 - **状态恢复**：刷新页面后恢复任务状态
 - **优雅降级**：SSE不可用时自动降级为轮询
+- **质量解释**：报告页展示 tier/flags（sources 账本）
+- **决策反馈**：DecisionUnit 反馈入口
 
 ### 1.3 非目标
 - **不支持**复杂的用户设置和配置选项
@@ -27,7 +30,7 @@ Reddit Signal Scanner的核心承诺是"30秒输入，5分钟分析"，这要求
 
 ## 2. 解决方案
 
-### 2.1 核心设计：三页面架构
+### 2.1 核心设计：三页面架构（主路径）
 
 基于用户旅程设计最简洁的页面流：
 
@@ -40,11 +43,35 @@ Reddit Signal Scanner的核心承诺是"30秒输入，5分钟分析"，这要求
 **页面职责**：
 - **输入页(/)**：产品描述输入，启动分析
 - **进度页(/progress/{task_id})**：实时显示分析进度，SSE推送
-- **报告页(/report/{task_id})**：展示结构化分析结果
+- **报告页(/report/{task_id})**：展示 LLM 报告正文 + 质量 Banner（tier/flags/next_action）
+
+### 2.2 报告页结构（必须按顺序渲染）
+1) 顶部信息（标题 + 简述）  
+2) 决策卡片（需求趋势 / P/S Ratio / 高潜力社群 / 明确机会点）  
+3) 概览（市场健康度：竞争饱和度 + P/S 解读）  
+4) 核心战场推荐（分社区画像：画像/痛点/策略）  
+5) 用户痛点（3 个）  
+6) Top 购买驱动力（2–3 条）  
+7) 商业机会卡（2 张）  
+
+> 说明：这些内容来自算法结论（insights + facts_slice），LLM 负责表达。
+
+**字段映射（前端直用）**：
+- 痛点：`report.pain_points[].title/text`
+- 机会：`report.opportunities[].title/text`
+- 行动项：`report.action_items[].title/category`
+- 购买驱动力：`report.purchase_drivers`（来源 `insights.top_drivers`）
+- 市场健康度：`report.market_health`（含 `ps_ratio`，facts_slice 优先）
 
 **设计哲学**：消除所有不必要的交互元素，每个页面只有一个主要行动。
 
-### 2.2 实时通信：SSE优先策略
+### 2.3 现状页面与路由（实现对齐）
+- `/insights/{task_id}`：洞察卡列表（旧卡片）
+- `/decision-units`：决策单元反馈页（RLHF）
+- `/admin`：Admin 后台入口（社区池/导入/调级/指标/账本）
+- `/dashboard`：质量指标看板
+
+### 2.4 实时通信：SSE优先策略
 
 基于Linus审查建议，使用SSE替代传统轮询：
 
@@ -73,7 +100,11 @@ sequenceDiagram
 2. 备用路径：轮询查询（间隔5秒）
 3. 兜底方案：手动刷新按钮
 
-### 2.3 关键决策
+**实现细节**：
+- SSE 需要带 JWT Header，前端使用 `fetch-event-source`（原生 EventSource 不支持 header）。
+- 基础 URL 由 `VITE_API_BASE_URL` 控制，避免硬编码端口。
+
+### 2.5 关键决策
 
 #### 决策1：单文本框 vs 结构化表单
 **选择**：单文本框
@@ -93,6 +124,8 @@ sequenceDiagram
 ## 3. 技术规范
 
 ### 3.1 页面组件设计
+
+> 说明：以下为示意伪代码，实际实现以 `frontend/src/pages` 与 `frontend/src/api` 为准。
 
 ```jsx
 // src/components/InputPage.jsx
