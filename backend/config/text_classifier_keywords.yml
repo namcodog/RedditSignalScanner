@@ -1,0 +1,150 @@
+price_kws:
+  - price
+  - expensive
+  - cost
+  - $
+  - usd
+  - overpriced
+  - rip off
+  - hidden fee
+  - waste of money
+  - not worth it
+  - scam
+  - greedy
+  - cheap
+subs_kws:
+  - subscription
+  - paywall
+  - auto renew
+  - recurring charge
+  - billing cycle
+  - premium tier
+  - cancel subscription
+  - subscription fee
+  - monthly subscription
+content_kws:
+  - content
+  - classes
+  - course
+  - library
+  - update
+  - tutorial
+  - guide
+  - manual
+install_kws:
+  - install
+  - mount
+  - space
+  - wall
+  - apartment
+  - setup
+  - pair
+  - connect
+eco_kws:
+  - ecosystem
+  - apple watch
+  - garmin
+  - peloton
+  - fitbit
+  - integration
+  - compatible
+strength_kws:
+  - strength
+  - weights
+  - deadlift
+  - squat
+  - bench
+  - power
+  - resistance
+solution_kws:
+  - recommend
+  - solution
+  - fix
+  - workaround
+  - try
+strong_pain_kws:
+  - hate
+  - frustrated
+  - annoy
+  - nightmare
+  - terrible
+  - horrible
+  - awful
+  - suck
+  - fail
+  - broken
+  - scam
+  - trap
+weak_pain_kws:
+  - problem
+  - issue
+  - trouble
+  - hard
+  - weird
+quality_kws:
+  - broken
+  - defective
+  - flimsy
+  - cheap
+  - fell apart
+  - leak
+  - rust
+  - scratch
+  - crack
+  - doa
+  - dead on arrival
+  - poor quality
+  - garbage
+shipping_kws:
+  - shipping
+  - delivery
+  - lost package
+  - delayed
+  - wrong item
+  - damaged
+  - dhl
+  - fedex
+  - usps
+  - tracking
+  - stuck
+  - customs
+service_kws:
+  - support
+  - customer service
+  - rude
+  - no response
+  - ignored
+  - refused refund
+  - chargeback
+  - nightmare
+  - terrible
+function_kws:
+  - bug
+  - glitch
+  - crash
+  - disconnect
+  - wifi issue
+  - app
+  - "won't connect"
+  - pairing
+  - error
+  - lag
+  - unresponsive
+  - inaccurate
+ux_kws:
+  - confusing
+  - hard to use
+  - complicated
+  - manual
+  - unclear
+  - frustration
+  - headache
+  - intuitive
+  - learning curve
+return_kws:
+  - return
+  - refund
+  - exchange
+  - warranty
+  - replacement
+  - rma

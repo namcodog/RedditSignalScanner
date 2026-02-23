@@ -1,0 +1,101 @@
+canonical,category,source_layer,weight,norm_weight,polarity
+shopify,brands,L2,394.9100,1.060,neutral
+amazon,brands,L2,360.7600,0.968,neutral
+ban,pain_points,L1,4.1700,0.320,negative
+chargeback,pain_points,L2,29.7000,0.497,negative
+fraud,pain_points,L2,27.4400,0.459,negative
+doing wrong,pain_points,L3,10.8000,0.805,negative
+banned,pain_points,L3,10.1400,0.755,negative
+saturated,pain_points,L3,8.6900,0.647,negative
+failed,pain_points,L3,8.4100,0.627,negative
+abandoned,pain_points,L3,7.6700,0.571,negative
+lately,pain_points,L4,9.7900,0.352,negative
+account suspension,pain_points,L2,8.0000,1.300,negative
+policy violation,pain_points,L2,9.0000,1.300,negative
+refund dispute,pain_points,L2,1.0000,1.300,negative
+late shipment,pain_points,L2,13.0000,1.300,negative
+customer complaint,pain_points,L2,4.0000,1.300,negative
+ecom,brands,L4,26.4000,1.224,neutral
+shipping,features,L2,198.8900,1.142,neutral
+tiktok,brands,L3,62.2600,1.057,neutral
+woocommerce,brands,L1,30.6900,1.037,neutral
+software,brands,L1,28.4900,0.963,neutral
+aliexpress,brands,L3,55.5000,0.943,neutral
+refund,pain_points,L2,53.1100,0.888,negative
+discord,brands,L4,18.9700,0.879,neutral
+ugc,brands,L4,16.7700,0.777,neutral
+digital,brands,L4,15.1800,0.704,neutral
+wrong,pain_points,L2,40.8200,0.682,negative
+missing,pain_points,L2,40.1000,0.670,negative
+error,pain_points,L2,39.7300,0.664,negative
+walmart,brands,L1,19.3500,0.654,neutral
+bank,pain_points,L2,37.1800,0.622,negative
+theme,features,L2,107.3200,0.616,neutral
+fba,features,L2,106.1400,0.610,neutral
+wordpress,brands,L1,17.9700,0.607,neutral
+drive,brands,L4,13.0500,0.605,neutral
+videos,brands,L3,34.2400,0.582,neutral
+stripe,brands,L4,12.0400,0.558,neutral
+listing,features,L2,96.3400,0.553,neutral
+cpm,brands,L4,11.2900,0.523,neutral
+wix,brands,L1,15.1200,0.511,neutral
+usd,brands,L4,10.6800,0.495,neutral
+canva,brands,L4,10.6300,0.493,neutral
+later,pain_points,L2,29.4000,0.492,negative
+instagram,brands,L3,28.8300,0.490,neutral
+chatgpt,brands,L4,10.5300,0.488,neutral
+google ads,brands,L4,10.4100,0.483,neutral
+template,pain_points,L2,28.8400,0.482,negative
+smart,brands,L4,9.8300,0.456,neutral
+standard,brands,L1,13.2400,0.447,neutral
+risk,pain_points,L2,26.5700,0.444,negative
+supplier,features,L3,51.4400,0.443,neutral
+affiliate,brands,L4,9.4300,0.437,neutral
+stuck,pain_points,L2,26.0900,0.436,negative
+shopify store,features,L2,72.7600,0.418,neutral
+bad,pain_points,L2,24.0700,0.402,negative
+newbie,brands,L3,23.4600,0.398,neutral
+related,pain_points,L2,23.8200,0.398,negative
+ctr,brands,L3,23.3000,0.396,neutral
+etsy,brands,L4,8.5300,0.395,neutral
+apple,brands,L1,11.5900,0.392,neutral
+whatsapp,brands,L1,11.5800,0.391,neutral
+checkout,features,L2,66.0700,0.380,neutral
+amp x200b,features,L2,62.7500,0.360,neutral
+amp store,features,L3,39.0300,0.336,neutral
+store critiques,features,L3,39.0300,0.336,neutral
+drop shipping,features,L3,34.9100,0.300,neutral
+facebook ads,features,L3,27.9300,0.240,neutral
+youtube com,features,L3,26.5300,0.228,neutral
+www youtube com,features,L3,25.6400,0.221,neutral
+www youtube,features,L3,25.6400,0.221,neutral
+youtube com watch,features,L3,25.5900,0.220,neutral
+com watch,features,L3,25.5900,0.220,neutral
+new dropshipping,features,L3,25.1900,0.217,neutral
+thanks advance,features,L1,26.9200,0.260,neutral
+love hear,features,L1,23.6000,0.228,positive
+social media,features,L1,23.2200,0.224,neutral
+3pl,features,L1,21.5500,0.208,neutral
+meta ads,features,L4,27.5000,0.267,neutral
+amp auto,features,L4,27.4000,0.266,neutral
+product,features,L2,303.9800,1.746,neutral
+dropshipping,features,L4,160.7400,1.559,neutral
+issue,pain_points,L2,93.0100,1.555,negative
+store,features,L4,157.2800,1.525,neutral
+ads,features,L4,139.7900,1.355,neutral
+products,features,L2,202.8600,1.165,neutral
+feel like,pain_points,L3,15.1700,1.130,negative
+customs,pain_points,L1,13.6000,1.044,negative
+commerce,features,L1,106.1600,1.026,neutral
+account,features,L2,178.4100,1.025,neutral
+sales,features,L4,105.5300,1.023,neutral
+problem,pain_points,L2,61.1200,1.022,negative
+website,features,L1,105.3100,1.018,neutral
+preview,pain_points,L4,28.0200,1.007,negative
+business,features,L1,104.1900,1.007,neutral
+help,features,L4,102.8800,0.998,neutral
+app,features,L2,173.3300,0.996,neutral
+preview redd,pain_points,L4,27.3800,0.984,negative
+fees,pain_points,L2,57.3800,0.959,negative
+new,features,L1,95.0800,0.919,neutral
+return,pain_points,L2,54.8900,0.918,negative

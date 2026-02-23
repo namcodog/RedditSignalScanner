@@ -15,7 +15,7 @@ def test_run_analysis_task_retries_until_success(monkeypatch: pytest.MonkeyPatch
     """The Celery task should request retries for transient failures and eventually succeed."""
     attempts: list[int] = []
 
-    async def fake_execute(task_id: uuid.UUID, retries: int) -> None:
+    async def fake_execute(task_id: uuid.UUID, retries: int, *, user_id: uuid.UUID | None = None) -> None:  # noqa: ARG001
         attempts.append(retries)
         if len(attempts) < 3:
             raise RuntimeError("temporary failure")
@@ -52,18 +52,19 @@ def test_run_analysis_task_retries_until_success(monkeypatch: pytest.MonkeyPatch
 
     dummy_task = DummyTask()
     task_id = str(uuid.uuid4())
+    user_id = str(uuid.uuid4())
 
     task_fn = analysis_task.run_analysis_task.run.__func__
 
     with pytest.raises(Retry):
-        task_fn(dummy_task, task_id)
+        task_fn(dummy_task, task_id, user_id)
     dummy_task.request.retries += 1
 
     with pytest.raises(Retry):
-        task_fn(dummy_task, task_id)
+        task_fn(dummy_task, task_id, user_id)
     dummy_task.request.retries += 1
 
-    result = task_fn(dummy_task, task_id)
+    result = task_fn(dummy_task, task_id, user_id)
 
     assert result["status"] == "completed"
     assert attempts == [0, 1, 2]
@@ -74,7 +75,7 @@ def test_run_analysis_task_respects_max_retries(monkeypatch: pytest.MonkeyPatch)
     """The Celery task should stop retrying once the configured threshold is reached."""
     attempts: list[int] = []
 
-    async def fake_execute(task_id: uuid.UUID, retries: int) -> None:
+    async def fake_execute(task_id: uuid.UUID, retries: int, *, user_id: uuid.UUID | None = None) -> None:  # noqa: ARG001
         attempts.append(retries)
         raise RuntimeError("permanent failure")
 
@@ -109,19 +110,20 @@ def test_run_analysis_task_respects_max_retries(monkeypatch: pytest.MonkeyPatch)
 
     dummy_task = DummyTask()
     task_id = str(uuid.uuid4())
+    user_id = str(uuid.uuid4())
 
     task_fn = analysis_task.run_analysis_task.run.__func__
 
     with pytest.raises(Retry):
-        task_fn(dummy_task, task_id)
+        task_fn(dummy_task, task_id, user_id)
     dummy_task.request.retries += 1
 
     with pytest.raises(Retry):
-        task_fn(dummy_task, task_id)
+        task_fn(dummy_task, task_id, user_id)
     dummy_task.request.retries += 1
 
     with pytest.raises(RuntimeError):
-        task_fn(dummy_task, task_id)
+        task_fn(dummy_task, task_id, user_id)
 
     assert attempts == [0, 1, 2]
 
@@ -203,3 +205,44 @@ async def test_check_celery_health_detects_failure_rate(monkeypatch: pytest.Monk
 
     with pytest.raises(CeleryHealthError):
         await check_celery_health(max_failure_rate=0.1)
+
+
+@pytest.mark.asyncio
+async def test_check_celery_health_falls_back_to_ping_when_inspect_empty(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """When inspect returns empty (timeout), health check should still detect live workers via ping."""
+
+    class EmptyInspect:
+        def active(self) -> dict[str, list[int]]:
+            return {}
+
+        def reserved(self) -> dict[str, list[int]]:
+            return {}
+
+        def scheduled(self) -> dict[str, list[int]]:
+            return {}
+
+        def stats(self) -> dict[str, dict[str, dict[str, int]]]:
+            return {}
+
+    class HealthyCache:
+        def __init__(self) -> None:
+            class _Redis:
+                async def ping(self) -> bool:
+                    return True
+
+                async def close(self) -> None:
+                    return None
+
+            self.redis = _Redis()
+
+    def fake_ping(*_args: object, **_kwargs: object) -> list[dict[str, object]]:
+        return [{"worker-1": {"ok": "pong"}}]
+
+    monkeypatch.setattr("scripts.check_celery_health.celery_app.control.inspect", lambda: EmptyInspect())
+    monkeypatch.setattr("scripts.check_celery_health.celery_app.control.ping", fake_ping)
+    monkeypatch.setattr("scripts.check_celery_health.TaskStatusCache", HealthyCache)
+
+    summary = await check_celery_health()
+    assert summary["active_workers"] == 1

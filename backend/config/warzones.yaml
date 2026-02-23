@@ -1,0 +1,100 @@
+version: 1
+description: "8-warzone rule dictionary (v0). Keep small + explainable."
+
+warzones:
+  Ecommerce_Business:
+    keywords:
+      - shopify
+      - ecommerce
+      - facebook ads
+      - google ads
+      - tiktok ads
+      - roas
+      - cpc
+      - ppc
+      - conversion
+      - dropshipping
+      - fulfillment
+      - fba
+      - saas
+
+  Home_Lifestyle:
+    keywords:
+      - homeowners
+      - diy
+      - lawn
+      - hvac
+      - vacuum
+      - cleaning
+      - organization
+      - storage
+      - renovation
+
+  Tools_EDC:
+    keywords:
+      - tool
+      - tools
+      - ratchet
+      - torx
+      - socket
+      - wrench
+      - drill
+      - multitool
+      - edc
+
+  AI_Workflow:
+    keywords:
+      - llm
+      - local llm
+      - llama
+      - local llama
+      - chatgpt
+      - stable diffusion
+      - prompt
+      - agent
+      - workflow
+      - automation
+
+  Family_Parenting:
+    keywords:
+      - parenting
+      - baby
+      - toddler
+      - mom
+      - dad
+      - child
+      - kids
+      - dog
+      - cat
+      - pet
+
+  Food_Coffee_Lifestyle:
+    keywords:
+      - coffee
+      - espresso
+      - grinder
+      - airfryer
+      - instant pot
+      - rice cooker
+      - recipe
+      - kitchen
+
+  Minimal_Outdoor:
+    keywords:
+      - onebag
+      - travel
+      - backpack
+      - camping
+      - hiking
+      - outdoor
+
+  Frugal_Living:
+    keywords:
+      - frugal
+      - budget
+      - deal
+      - coupon
+      - save money
+      - cheap
+      - discount
+

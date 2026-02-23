@@ -19,7 +19,7 @@ from typing import Optional
 from app.core.security import hash_password
 from app.db.session import SessionFactory
 from app.models.task import Task, TaskStatus
-from app.models.user import User
+from app.models.user import MembershipLevel, User
 
 
 TEST_USER_ID = uuid.UUID("248ddd5c-f071-43f4-8513-5324cd54bfad")
@@ -36,9 +36,15 @@ async def _create_records() -> uuid.UUID:
                 email=TEST_EMAIL,
                 password_hash=hash_password("TestPassword123"),  # 使用真实的密码哈希
                 is_active=True,
+                membership_level=MembershipLevel.PRO,
             )
             session.add(user)
             await session.flush()
+        else:
+            if user.membership_level != MembershipLevel.PRO:
+                user.membership_level = MembershipLevel.PRO
+                session.add(user)
+                await session.flush()
 
         task = Task(
             id=task_id,
@@ -62,7 +68,7 @@ def _trigger_analysis(task_id: uuid.UUID) -> Optional[str]:
         # Celery task (preferred)
         from app.tasks.analysis_task import run_analysis_task  # type: ignore
 
-        result = run_analysis_task.delay(str(task_id))
+        result = run_analysis_task.delay(str(task_id), str(TEST_USER_ID))
         print("🚀 Triggering analysis via Celery queue...")
         print(f"✅ Task submitted to Celery: {result.id}")
         return result.id
@@ -97,4 +103,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

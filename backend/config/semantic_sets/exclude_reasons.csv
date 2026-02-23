@@ -1,0 +1,30 @@
+term,reason,example,layer,decision
+problem,too generic when used alone,"problem with setup",L2,exclude
+issues,too generic when used alone,"anyone has issues?",L2,exclude
+card,not a brand,credit card chargeback,L2,exclude
+sale,not a brand,"big sale this week",L2,exclude
+reviews,not a brand,"bad reviews hurt ranking",L2,exclude
+conversion,not a brand,"low conversion",L2,exclude
+content,not a brand,"content quality",L2,exclude
+bank,not a brand,"bank froze funds",L2,exclude
+seo,not a brand,seo tips,L2,exclude
+edition let dive,markup noise,,2025-11-10,L1
+edition let,markup noise,,2025-11-10,L1
+sources edition,markup noise,,2025-11-10,L1
+newsletter ps,markup noise,,2025-11-10,L1
+newsletter ps missed,markup noise,,2025-11-10,L1
+commerce newsletter ps,markup noise,,2025-11-10,L1
+editor shopifreaks commerce,markup noise,,2025-11-10,L1
+gt lt div,markup noise,,2025-11-10,L2
+lt div,markup noise,,2025-11-10,L2
+lt div gt,markup noise,,2025-11-10,L2
+div gt,markup noise,,2025-11-10,L2
+gt lt,markup noise,,2025-11-10,L2
+lot money,generic phrase,,2025-11-10,L3
+past months,time filler,,2025-11-10,L3
+doing research,generic phrase,,2025-11-10,L3
+10 000,numeric noise,,2025-11-10,L3
+little bit,generic filler,,2025-11-10,L3
+answer questions,AMA boilerplate,,2025-11-10,L3
+phone number,PII request,,2025-11-10,L3
+dropship comments,moderation noise,,2025-11-10,L3

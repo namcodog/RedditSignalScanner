@@ -123,7 +123,8 @@ def test_celery_worker_crash_requests_retry(monkeypatch: pytest.MonkeyPatch) -> 
         task_fn = analysis_task.run_analysis_task.run.__func__
 
         with pytest.raises(Retry):
-            task_fn(dummy, str(uuid.uuid4()))
+            # Pass a dummy user_id to bypass DB lookup; this test only verifies retry signalling.
+            task_fn(dummy, str(uuid.uuid4()), str(uuid.uuid4()))
     finally:
         # Explicitly restore the original functions to ensure no state leakage
         at_module.execute_analysis_pipeline = original_execute

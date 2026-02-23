@@ -116,3 +116,19 @@ def test_extract_pain_points_handles_cant_believe_pattern(extractor: SignalExtra
     signals = extractor.extract(posts, keywords=["export"])
     descriptions = [signal.description.lower() for signal in signals.pain_points]
     assert any("can't believe" in description for description in descriptions)
+
+
+def test_normalize_posts_prefers_priority_score(extractor: SignalExtractor) -> None:
+    posts = [
+        {
+            "id": "p9",
+            "title": "Need a better export flow",
+            "summary": "Export keeps failing and it is frustrating.",
+            "score": 2,
+            "priority_score": 42,
+            "num_comments": 3,
+        }
+    ]
+
+    normalized = list(extractor._normalize_posts(posts))
+    assert normalized[0]["score"] == 42.0

@@ -247,6 +247,72 @@ async def test_version_migration_adds_missing_fields() -> None:
 
 
 @pytest.mark.asyncio
+async def test_report_service_normalizes_example_post_urls() -> None:
+    task_id = uuid4()
+    analysis_id = uuid4()
+
+    insights = {
+        "pain_points": [
+            {
+                "description": "支付流程复杂",
+                "frequency": 3,
+                "sentiment_score": -0.4,
+                "severity": "medium",
+                "example_posts": [
+                    {
+                        "community": "r/test",
+                        "content": "checkout keeps failing",
+                        "permalink": "/r/test/comments/abc123/checkout_issue",
+                    }
+                ],
+                "user_examples": [],
+            }
+        ],
+        "competitors": [],
+        "opportunities": [],
+    }
+    sources = {
+        "communities": ["r/test"],
+        "posts_analyzed": 12,
+        "cache_hit_rate": 0.6,
+    }
+
+    analysis = FakeAnalysis(
+        id=analysis_id,
+        task_id=task_id,
+        insights=insights,
+        sources=sources,
+        confidence_score=Decimal("0.75"),
+        analysis_version="1.0",
+        created_at=datetime.now(timezone.utc),
+        report=FakeReport(
+            generated_at=datetime.now(timezone.utc),
+            html_content="<html>demo</html>",
+        ),
+    )
+
+    task = FakeTask(
+        id=task_id,
+        user_id=uuid4(),
+        status=TaskStatus.COMPLETED,
+        analysis=analysis,
+        product_description="测试产品",
+        user=FakeUser(id=uuid4(), membership_level=MembershipLevel.PRO),
+    )
+
+    repo = FakeRepository(task)
+    service = ReportService(
+        db=None,  # type: ignore[arg-type]
+        repository=repo,
+        cache=None,
+    )
+
+    payload = await service.get_report(task.id, task.user_id)
+    example_post = payload.report.pain_points[0].example_posts[0]
+    assert example_post.url == "https://www.reddit.com/r/test/comments/abc123/checkout_issue"
+
+
+@pytest.mark.asyncio
 async def test_version_migration_preserves_existing_data() -> None:
     """测试版本迁移保留现有数据"""
     task_id = uuid4()
@@ -495,3 +561,192 @@ async def test_severity_classification() -> None:
 
         payload = await service.get_report(task.id, task.user_id)
         assert payload.report.pain_points[0].severity == expected_severity
+
+
+@pytest.mark.asyncio
+async def test_report_service_populates_titles_and_market_health() -> None:
+    task = _build_fake_task(version="1.0")
+    task.analysis.insights = {
+        "pain_points": [
+            {
+                "description": "手续费太高，汇损难懂",
+                "frequency": 6,
+                "sentiment_score": -0.7,
+            }
+        ],
+        "competitors": [],
+        "opportunities": [
+            {
+                "description": "提供一站式资金管理",
+                "relevance_score": 0.8,
+                "potential_users": "约100个团队",
+            }
+        ],
+        "action_items": [
+            {
+                "problem_definition": "回款慢导致现金流紧张",
+                "evidence_chain": [],
+                "suggested_actions": ["Title: 回款慢", "优化放款流程"],
+                "confidence": 0.6,
+                "urgency": 0.7,
+                "product_fit": 0.5,
+                "priority": 0.6,
+            }
+        ],
+        "market_saturation": [
+            {
+                "community": "r/demo",
+                "overall_saturation": 0.82,
+                "status": "高",
+            }
+        ],
+        "top_drivers": [
+            {
+                "title": "回款速度",
+                "rationale": "用户关心现金流",
+                "actions": [],
+                "source_pains": [],
+            }
+        ],
+    }
+    task.analysis.sources = {
+        "communities": ["r/demo"],
+        "posts_analyzed": 12,
+        "cache_hit_rate": 0.4,
+        "facts_slice": {"ps_ratio": 1.4},
+    }
+
+    repo = FakeRepository(task)
+    config = ReportServiceConfig(
+        community_members={},
+        cache_ttl_seconds=3600,
+        target_analysis_version="1.0",
+    )
+
+    service = ReportService(
+        db=None,  # type: ignore[arg-type]
+        repository=repo,
+        cache=None,
+        config=config,
+    )
+
+    payload = await service.get_report(task.id, task.user_id)
+    pain_point = payload.report.pain_points[0]
+    opportunity = payload.report.opportunities[0]
+    action_item = payload.report.action_items[0]
+
+    assert pain_point.text == "手续费太高，汇损难懂"
+    assert pain_point.title
+    assert opportunity.title
+    assert action_item.title == "回款慢"
+    assert action_item.category == "strategy"
+    assert payload.report.purchase_drivers
+    assert payload.report.market_health
+    assert payload.report.market_health.saturation_level == "high"
+
+
+@pytest.mark.asyncio
+async def test_market_health_ps_ratio_fallback_to_sources() -> None:
+    task = _build_fake_task(version="1.0")
+    task.analysis.insights = {
+        "pain_points": [
+            {
+                "description": "回款慢",
+                "frequency": 3,
+                "sentiment_score": -0.4,
+            }
+        ],
+        "competitors": [],
+        "opportunities": [],
+    }
+    task.analysis.sources = {
+        "communities": ["r/demo"],
+        "posts_analyzed": 8,
+        "cache_hit_rate": 0.2,
+        "ps_ratio": 0.9,
+    }
+
+    repo = FakeRepository(task)
+    config = ReportServiceConfig(
+        community_members={},
+        cache_ttl_seconds=3600,
+        target_analysis_version="1.0",
+    )
+
+    service = ReportService(
+        db=None,  # type: ignore[arg-type]
+        repository=repo,
+        cache=None,
+        config=config,
+    )
+
+    payload = await service.get_report(task.id, task.user_id)
+    assert payload.report.market_health
+    assert payload.report.market_health.ps_ratio == 0.9
+    assert payload.report.market_health.ps_ratio_assessment == "healthy"
+
+
+@pytest.mark.asyncio
+async def test_report_html_prefers_analysis_html_over_controlled(monkeypatch: pytest.MonkeyPatch) -> None:
+    task = _build_fake_task()
+    task.analysis.sources = {
+        "communities": ["r/demo"],
+        "posts_analyzed": 8,
+        "cache_hit_rate": 0.2,
+    }
+
+    import app.services.report_service as report_service
+
+    monkeypatch.setattr(report_service, "_cg_build_ctx", lambda *args, **kwargs: ({}, {}))
+    monkeypatch.setattr(report_service, "_cg_render", lambda *args, **kwargs: "CONTROLLED")
+
+    repo = FakeRepository(task)
+    config = ReportServiceConfig(
+        community_members={},
+        cache_ttl_seconds=3600,
+        target_analysis_version="1.0",
+    )
+
+    service = ReportService(
+        db=None,  # type: ignore[arg-type]
+        repository=repo,
+        cache=None,
+        config=config,
+    )
+
+    payload = await service.get_report(task.id, task.user_id)
+    assert payload.report_html == task.analysis.report.html_content
+
+
+@pytest.mark.asyncio
+async def test_report_html_falls_back_to_controlled_when_missing(monkeypatch: pytest.MonkeyPatch) -> None:
+    task = _build_fake_task()
+    task.analysis.report.html_content = ""
+    task.analysis.sources = {
+        "communities": ["r/demo"],
+        "posts_analyzed": 8,
+        "cache_hit_rate": 0.2,
+    }
+
+    import app.services.report_service as report_service
+
+    monkeypatch.setattr(report_service, "_cg_build_ctx", lambda *args, **kwargs: ({}, {}))
+    monkeypatch.setattr(report_service, "_cg_render", lambda *args, **kwargs: "CONTROLLED")
+
+    repo = FakeRepository(task)
+    config = ReportServiceConfig(
+        community_members={},
+        cache_ttl_seconds=3600,
+        target_analysis_version="1.0",
+    )
+
+    service = ReportService(
+        db=None,  # type: ignore[arg-type]
+        repository=repo,
+        cache=None,
+        config=config,
+    )
+
+    payload = await service.get_report(task.id, task.user_id)
+    assert payload.report_html
+    assert "CONTROLLED" in payload.report_html

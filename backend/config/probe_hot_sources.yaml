@@ -1,0 +1,23 @@
+version: 1
+
+# probe_hot v1 默认热源（Key 拍板：先稳再放开）
+#
+# - Phase 1：5 个强相关锚点社区（默认启用）
+# - Phase 2：r/all 的 rising/top(day)（建议 Phase 1 跑稳 3～7 天后再加）
+#
+# 说明：
+# - 支持两种写法：
+#   1) 字符串： "r/shopify"
+#   2) 对象： {subreddit: "r/all", sort: "rising", time_filter: "day"}
+# - 具体执行由 probe executor 做 hard clamp（防手滑灌爆）
+
+phase1:
+  - "r/ecommerce"
+  - "r/shopify"
+  - "r/dropshipping"
+  - "r/aliexpress"
+  - "r/marketing"
+
+phase2:
+  - {subreddit: "r/all", sort: "rising", time_filter: "day"}
+  - {subreddit: "r/all", sort: "top", time_filter: "day"}

@@ -1,0 +1,83 @@
+version: 1
+domain: crossborder
+themes:
+  crossborder:
+    brands:
+      - Amazon
+      - Temu
+      - TikTok Shop
+      - Peloton
+      - Fitbit
+      - Tonal
+      - Mirror
+      - Fiture
+    features:
+      - FBA
+      - FBM
+      - listing
+      - PPC
+      - SEO
+      - returns
+      - refund
+    pain_points:
+      - subscription fee
+      - pricing
+      - tax
+      - chargeback
+      - broken
+      - defective
+      - cheap material
+      - flimsy
+      - fell apart
+      - stopped working
+      - dead on arrival
+      - doa
+      - plastic garbage
+      - leak
+      - smell
+      - rust
+      - scratch
+      - disconnect
+      - wifi issue
+      - app crash
+      - buggy
+      - glitch
+      - "won't connect"
+      - pairing failed
+      - error code
+      - lag
+      - slow
+      - unresponsive
+      - false alarm
+      - inaccurate
+      - rude
+      - no response
+      - ignored me
+      - refused refund
+      - lost package
+      - delayed
+      - wrong item
+      - nightmare support
+      - useless
+      - waste of time
+      - rip off
+      - overpriced
+      - hidden fee
+      - monthly charge
+      - waste of money
+      - not worth it
+      - scam
+      - greedy
+      - confusing
+      - hard to use
+      - complicated
+      - manual is wrong
+      - unclear
+      - headache
+      - frustration
+    aliases:
+      Amazon: ["AMZ", "亚马逊"]
+      TikTok Shop: ["TikTok", "抖音海外"]
+      Temu: ["TEMU"]
+    exclude: ["meme", "gif", "funny", "gaming", "movie", "anime"]
+    weights: {brands: 1.5, features: 1.0, pain_points: 1.2}

@@ -166,3 +166,93 @@ async def test_task_progress_update(monkeypatch: pytest.MonkeyPatch) -> None:
 
     progress_steps = [payload.progress for payload in recorded]
     assert progress_steps == [10, 25, 50, 75, 100]
+
+
+@pytest.mark.asyncio
+async def test_task_warmup_auto_rerun_schedules_followup(monkeypatch: pytest.MonkeyPatch) -> None:
+    scheduled: list[dict[str, Any]] = []
+
+    class _NullCache:
+        async def set_status(self, payload: TaskStatusPayload, ttl_seconds: int = 3600) -> None:  # noqa: ARG002
+            return None
+
+    monkeypatch.setattr(analysis_task, "STATUS_CACHE", _NullCache())
+
+    def fake_send_task(name: str, args=None, kwargs=None, countdown=None, task_id=None, **_extra):  # type: ignore[no-untyped-def]
+        scheduled.append(
+            {
+                "name": name,
+                "args": list(args or []),
+                "kwargs": dict(kwargs or {}),
+                "countdown": countdown,
+                "task_id": task_id,
+            }
+        )
+        return None
+
+    monkeypatch.setattr(analysis_task.celery_app, "send_task", fake_send_task)
+
+    summary = TaskSummary(
+        id=uuid.uuid4(),
+        status=TaskStatus.PROCESSING,
+        product_description="test warmup rerun",
+        created_at=datetime.now(timezone.utc),
+        updated_at=datetime.now(timezone.utc),
+        completed_at=None,
+        retry_count=0,
+        failure_category=None,
+    )
+
+    async def fake_mark_processing(task_id: uuid.UUID, retries: int) -> TaskSummary:
+        return summary
+
+    async def fake_store_results(task_id: uuid.UUID, result: AnalysisResult) -> None:
+        return None
+
+    async def fake_run_analysis(_: TaskSummary) -> AnalysisResult:
+        return AnalysisResult(
+            insights={
+                "pain_points": [],
+                "competitors": [],
+                "opportunities": [],
+                "action_items": [],
+                "entity_summary": {"brands": [], "features": [], "pain_points": []},
+            },
+            sources={
+                "analysis_blocked": "insufficient_samples",
+                "remediation_actions": [{"type": "backfill_posts", "targets": 3}],
+            },
+            report_html="<html></html>",
+            action_items=[],
+            confidence_score=0.0,
+        )
+
+    monkeypatch.setattr(analysis_task, "_mark_processing", fake_mark_processing)
+    monkeypatch.setattr(analysis_task, "_store_analysis_results", fake_store_results)
+    monkeypatch.setattr(analysis_task, "run_analysis", fake_run_analysis)
+
+    await analysis_task._execute_success_flow(
+        uuid.uuid4(),
+        retries=0,
+        user_id=uuid.uuid4(),
+    )
+
+    assert scheduled, "Expected a follow-up auto rerun task to be scheduled when warmup is needed"
+    assert scheduled[0]["name"] == "tasks.analysis.auto_rerun"
+
+
+def test_sources_ledger_validation_rejects_missing_fields() -> None:
+    with pytest.raises(analysis_task.SourcesSchemaError):
+        analysis_task._validate_sources_ledger_min_schema({})
+
+
+def test_sources_ledger_validation_requires_data_lineage() -> None:
+    sources = {
+        "report_tier": "A_full",
+        "facts_v2_quality": {"passed": True, "tier": "A_full", "flags": [], "metrics": {}},
+        "counts_analyzed": {"posts": 1, "comments": 0},
+        "counts_db": {"posts_current": 1, "comments_total": 0, "comments_eligible": 0},
+        "comments_pipeline_status": "ok",
+    }
+    with pytest.raises(analysis_task.SourcesSchemaError):
+        analysis_task._validate_sources_ledger_min_schema(sources)

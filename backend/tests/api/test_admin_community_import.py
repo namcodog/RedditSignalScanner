@@ -145,9 +145,8 @@ async def test_admin_import_and_history_endpoints(
         communities = (await db_session.execute(communities_stmt)).scalars().all()
         assert len(communities) == len(community_rows)
 
-        # 单用户模式：uploaded_by_user_id 为 None,通过 uploaded_by 邮箱查询
         history_stmt = select(CommunityImportHistory).where(
-            CommunityImportHistory.uploaded_by == "admin@local"
+            CommunityImportHistory.uploaded_by == admin_email
         )
         history_records = (await db_session.execute(history_stmt)).scalars().all()
         assert len(history_records) >= 2

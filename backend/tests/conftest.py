@@ -3,6 +3,7 @@ from __future__ import annotations
 import asyncio
 import os
 import sys
+from urllib.parse import urlparse
 import uuid
 from pathlib import Path
 from typing import AsyncIterator, Awaitable, Callable, Tuple, Iterator
@@ -27,6 +28,13 @@ if str(BACKEND_ROOT) not in sys.path:
 
 # Tests rely on NullPool to avoid cross-event-loop conflicts; production overrides this.
 os.environ.setdefault("SQLALCHEMY_DISABLE_POOL", "1")
+# Ensure config.py doesn't override DATABASE_URL from backend/.env during pytest runs.
+os.environ.setdefault("PYTEST_RUNNING", "1")
+# Safety default: if caller didn't set DATABASE_URL, run against local *_test DB.
+os.environ.setdefault(
+    "DATABASE_URL",
+    "postgresql+asyncpg://postgres@localhost:5432/reddit_signal_scanner_test",
+)
 
 # Workaround for RecursionError with SQLAlchemy + Pydantic + pytest
 # See: https://github.com/pydantic/pydantic/issues/5108
@@ -86,22 +94,57 @@ def reset_database() -> None:
     import psycopg
     from psycopg import errors as psycopg_errors
 
-
+    if os.getenv("SKIP_DB_RESET", "").strip().lower() in {"1", "true", "yes"}:
+        return
 
     # Use synchronous connection to avoid event loop conflicts
     # Prefer DATABASE_URL so this matches the async engine's target DB
     dsn_env = os.getenv('DATABASE_URL')
+    
+    # ========== CRITICAL SAFETY GUARD ==========
+    # This guard MUST NOT be inside a try/except to prevent silent bypass!
+    # Production databases WILL be cleared if this check fails.
+    def _validate_test_database(db_name: str, host: str) -> None:
+        """Hard block if database name doesn't end with _test."""
+        allow_override = os.getenv('ALLOW_TEST_ON_PROD', '').strip().lower() in {'1','true','yes'}
+        whitelist = {h.strip() for h in os.getenv('TEST_DB_HOST_WHITELIST', 'localhost,127.0.0.1,db,db.internal').split(',') if h.strip()}
+        
+        # 强力保护：非 _test 库一律禁止运行
+        if db_name and not db_name.endswith('_test'):
+            print(f"\n{'='*60}", flush=True)
+            print(f"🚨 CRITICAL: Tests BLOCKED!", flush=True)
+            print(f"   Database '{db_name}' is NOT a test database.", flush=True)
+            print(f"   Production data would be DESTROYED!", flush=True)
+            print(f"   ", flush=True)
+            print(f"   To fix: Set DATABASE_URL to a _test database, e.g.:", flush=True)
+            print(f"   DATABASE_URL=postgresql+asyncpg://.../{db_name}_test", flush=True)
+            print(f"{'='*60}\n", flush=True)
+            import sys as _sys
+            _sys.exit(1)
+        
+        if not allow_override and host and host not in whitelist:
+            print(f"❌ Tests blocked: DATABASE_URL host '{host}' not in whitelist {whitelist}. Set ALLOW_TEST_ON_PROD=1 to override.", flush=True)
+            import sys as _sys
+            _sys.exit(1)
+    # ========== END SAFETY GUARD ==========
+    
     if dsn_env:
+        parsed = urlparse(dsn_env.replace('+asyncpg','').replace('+psycopg',''))
+        host = (parsed.hostname or '').lower()
+        db_name = (parsed.path or '').lstrip('/')
+        _validate_test_database(db_name, host)
         dsn = dsn_env.replace('+asyncpg', '').replace('+psycopg', '')
         alembic_url = dsn_env
         conn = psycopg.connect(dsn)
     else:
         # Fallback to TEST_DB_* vars or local defaults
+        # NOTE: Default db_name is now 'reddit_signal_scanner_test' (with _test suffix)
         db_host = os.getenv('TEST_DB_HOST', 'localhost')
         db_port = int(os.getenv('TEST_DB_PORT', '5432'))
         db_user = os.getenv('TEST_DB_USER', 'postgres')
         db_password = os.getenv('TEST_DB_PASSWORD', '')
-        db_name = os.getenv('TEST_DB_NAME', 'reddit_signal_scanner')
+        db_name = os.getenv('TEST_DB_NAME', 'reddit_signal_scanner_test')  # CRITICAL: Default to _test!
+        _validate_test_database(db_name, db_host)  # Apply guard to fallback too!
         dsn = f"postgresql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}"
         alembic_url = f"postgresql+asyncpg://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}"
         conn = psycopg.connect(dsn)
@@ -111,13 +154,26 @@ def reset_database() -> None:
     # 运行 Alembic 迁移以确保 schema 最新
     os.environ.setdefault("DATABASE_URL", alembic_url)
 
-    # Ensure community_import_history schema exists (for environments created before 20251024_000022)
-    cursor.execute("SELECT to_regclass('community_import_history')")
-    history_exists = cursor.fetchone()[0] is not None
-    if not history_exists:
+    def _column_exists(table: str, column: str) -> bool:
         cursor.execute(
             """
-            CREATE TABLE community_import_history (
+            SELECT 1
+            FROM information_schema.columns
+            WHERE table_schema='public' AND table_name=%s AND column_name=%s
+            LIMIT 1
+            """,
+            (table, column),
+        )
+        return cursor.fetchone() is not None
+
+    def _ensure_community_import_history(cursor) -> None:
+        cursor.execute("SELECT to_regclass('community_import_history')")
+        history_exists = cursor.fetchone()[0] is not None
+        if history_exists:
+            return
+        cursor.execute(
+            """
+            CREATE TABLE IF NOT EXISTS community_import_history (
                 id SERIAL PRIMARY KEY,
                 filename VARCHAR(255) NOT NULL,
                 uploaded_by VARCHAR(255) NOT NULL,
@@ -145,12 +201,17 @@ def reset_database() -> None:
             "CREATE INDEX IF NOT EXISTS idx_community_import_history_uploaded_by ON community_import_history(uploaded_by_user_id)"
         )
 
+    # Ensure community_import_history exists before migrations for legacy DBs
+    _ensure_community_import_history(cursor)
+
     alembic_cfg = Config(str(ROOT / "backend" / "alembic.ini"))
     alembic_cfg.set_main_option("script_location", str(ROOT / "backend" / "alembic"))
     alembic_cfg.set_main_option("sqlalchemy.url", alembic_url)
     alembic_cfg.attributes["configure_logger"] = False
     # 使用 "heads" 以支持多分支迁移历史
     command.upgrade(alembic_cfg, "heads")
+    # Guard against divergent migrations dropping the table; recreate if missing post-upgrade
+    _ensure_community_import_history(cursor)
 
     cursor.execute(
         """
@@ -213,44 +274,9 @@ def reset_database() -> None:
             )
         except psycopg_errors.DuplicateObject:
             conn.rollback()
-        cursor.execute(
-            """
-            ALTER TABLE community_import_history
-            ADD COLUMN IF NOT EXISTS updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-            ADD COLUMN IF NOT EXISTS created_by UUID NULL,
-            ADD COLUMN IF NOT EXISTS updated_by UUID NULL
-            """
-        )
-        try:
-            cursor.execute(
-                """
-                ALTER TABLE community_import_history
-                ADD CONSTRAINT fk_community_import_history_created_by
-                FOREIGN KEY (created_by) REFERENCES users(id) ON DELETE SET NULL
-                """
-            )
-        except psycopg_errors.DuplicateObject:
-            conn.rollback()
-        try:
-            cursor.execute(
-                """
-                ALTER TABLE community_import_history
-                ADD CONSTRAINT fk_community_import_history_updated_by
-                FOREIGN KEY (updated_by) REFERENCES users(id) ON DELETE SET NULL
-                """
-            )
-        except psycopg_errors.DuplicateObject:
-            conn.rollback()
-        try:
-            cursor.execute(
-                """
-                ALTER TABLE community_import_history
-                ADD CONSTRAINT fk_community_import_history_uploaded_by_user_id
-                FOREIGN KEY (uploaded_by_user_id) REFERENCES users(id) ON DELETE SET NULL
-                """
-            )
-        except psycopg_errors.DuplicateObject:
-            conn.rollback()
+        # NOTE: community_import_history audit fields (created_by, updated_by, updated_at)
+        # and their foreign keys are now managed by Alembic migration aef64335bd34.
+        # No need to manually add them here.
         cursor.execute(
             """
             ALTER TABLE discovered_communities
@@ -386,6 +412,16 @@ def reset_database() -> None:
         cursor.execute(
             "UPDATE crawl_metrics SET created_at = CURRENT_TIMESTAMP WHERE created_at IS NULL"
         )
+        # Enlarge audit log operator columns to avoid email length violations
+        try:
+            cursor.execute(
+                "ALTER TABLE tier_audit_logs ALTER COLUMN changed_by TYPE VARCHAR(120)"
+            )
+            cursor.execute(
+                "ALTER TABLE tier_audit_logs ALTER COLUMN rolled_back_by TYPE VARCHAR(120)"
+            )
+        except psycopg_errors.Error:
+            conn.rollback()
 
         # Check if posts_hot table exists before modifying it
         cursor.execute("""
@@ -597,9 +633,36 @@ def reset_database() -> None:
             """
         )
 
-        cursor.execute(
-            "TRUNCATE TABLE community_import_history, storage_metrics, posts_archive, beta_feedback, community_cache, community_pool, discovered_communities, crawl_metrics, quality_metrics, reports, analyses, tasks, users RESTART IDENTITY CASCADE"
-        )
+        tables_to_truncate = [
+            "community_import_history",
+            "storage_metrics",
+            "posts_archive",
+            "beta_feedback",
+            "community_cache",
+            "community_pool",
+            "discovered_communities",
+            "tier_suggestions",
+            "tier_audit_logs",
+            "semantic_candidates",
+            "semantic_terms",
+            "crawl_metrics",
+            "quality_metrics",
+            "reports",
+            "analyses",
+            "tasks",
+            "users",
+        ]
+        existing_tables: list[str] = []
+        for t in tables_to_truncate:
+            cursor.execute("SELECT to_regclass(%s)", (t,))
+            if cursor.fetchone()[0] is not None:
+                existing_tables.append(t)
+        if existing_tables:
+            cursor.execute(
+                "TRUNCATE TABLE "
+                + ", ".join(existing_tables)
+                + " RESTART IDENTITY CASCADE"
+            )
     finally:
         cursor.close()
         conn.close()
@@ -645,6 +708,14 @@ def _isolate_analysis_loop_for_e2e(request: pytest.FixtureRequest) -> Iterator[N
             time.sleep(0.1)
         except Exception:
             pass
+    else:
+        # 对非 e2e 用例也清理遗留的 analysis_task 事件循环，避免跨用例污染
+        try:
+            from app.tasks import analysis_task
+
+            analysis_task._shutdown_loop()
+        except Exception:
+            pass
 
     # run the test
     yield
@@ -659,6 +730,14 @@ def _isolate_analysis_loop_for_e2e(request: pytest.FixtureRequest) -> Iterator[N
             time.sleep(0.1)
         except Exception:
             pass
+    else:
+        # 非 e2e 场景也做一次清理，降低跨用例事件循环/任务残留
+        try:
+            from app.tasks import analysis_task
+
+            analysis_task._shutdown_loop()
+        except Exception:
+            pass
 
 
 @pytest.fixture(scope="function", autouse=True)
@@ -668,6 +747,9 @@ def truncate_tables_between_tests(request: pytest.FixtureRequest) -> Iterator[No
 
     # Pre-setup: do nothing (cleanup happens after the test)
     yield
+    # Fast unit-test mode: skip DB truncation entirely.
+    if os.getenv("SKIP_DB_RESET", "").strip().lower() in {"1", "true", "yes"}:
+        return
 
     # Skip truncation for integration/e2e tests (they need real data)
     # Detect either explicit markers or files under tests/e2e/
@@ -687,8 +769,22 @@ def truncate_tables_between_tests(request: pytest.FixtureRequest) -> Iterator[No
         db_port = int(os.getenv('TEST_DB_PORT', '5432'))
         db_user = os.getenv('TEST_DB_USER', 'postgres')
         db_password = os.getenv('TEST_DB_PASSWORD', '')
-        db_name = os.getenv('TEST_DB_NAME', 'reddit_signal_scanner')
+        db_name = os.getenv('TEST_DB_NAME', 'reddit_signal_scanner_test')  # CRITICAL: Default to _test!
         dsn = f"postgresql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}"
+
+    parsed = urlparse(dsn)
+    db_name = (parsed.path or "").lstrip("/")
+    host = (parsed.hostname or "").lower()
+    allow_override = os.getenv('ALLOW_TEST_ON_PROD', '').strip().lower() in {'1','true','yes'}
+    whitelist = {h.strip() for h in os.getenv('TEST_DB_HOST_WHITELIST', 'localhost,127.0.0.1,db,db.internal').split(',') if h.strip()}
+    if db_name and not db_name.endswith('_test'):
+        print(f"❌ Tests blocked: DATABASE_NAME '{db_name}' is not a _test database (truncate safeguard).", flush=True)
+        import sys as _sys
+        _sys.exit(1)
+    if host and (host not in whitelist) and not allow_override:
+        print(f"❌ Tests blocked: host '{host}' not in whitelist {whitelist} (truncate safeguard). Set ALLOW_TEST_ON_PROD=1 to override.", flush=True)
+        import sys as _sys
+        _sys.exit(1)
 
     # Use DSN string and set longer lock/statement timeouts for retry strategy
     conn = psycopg.connect(dsn, options='-c lock_timeout=5000 -c statement_timeout=10000')
@@ -702,7 +798,7 @@ def truncate_tables_between_tests(request: pytest.FixtureRequest) -> Iterator[No
             for i in range(attempts):
                 try:
                     cursor.execute(
-                        "TRUNCATE TABLE beta_feedback, community_cache, community_pool, discovered_communities, crawl_metrics, quality_metrics, reports, analyses, tasks, storage_metrics, posts_archive RESTART IDENTITY CASCADE"
+                        "TRUNCATE TABLE beta_feedback, community_cache, community_pool, discovered_communities, tier_suggestions, tier_audit_logs, semantic_candidates, semantic_terms, crawl_metrics, quality_metrics, reports, analyses, tasks, storage_metrics, posts_archive RESTART IDENTITY CASCADE"
                     )
                     break
                 except psycopg.errors.LockNotAvailable:
@@ -727,6 +823,20 @@ def reset_history_for_import_module(request: pytest.FixtureRequest) -> None:
         dsn = DATABASE_URL.replace("+asyncpg", "")
         # Allow override via TEST_DATABASE_URL if provided (e.g. in CI)
         dsn = os.getenv("TEST_DATABASE_URL", dsn)
+
+        parsed = urlparse(dsn)
+        db_name = (parsed.path or "").lstrip("/")
+        host = (parsed.hostname or "").lower()
+        allow_override = os.getenv('ALLOW_TEST_ON_PROD', '').strip().lower() in {'1','true','yes'}
+        whitelist = {h.strip() for h in os.getenv('TEST_DB_HOST_WHITELIST', 'localhost,127.0.0.1,db,db.internal').split(',') if h.strip()}
+        if db_name and not db_name.endswith('_test'):
+            print(f"❌ Tests blocked: DATABASE_NAME '{db_name}' is not a _test database (import history safeguard).", flush=True)
+            import sys as _sys
+            _sys.exit(1)
+        if host and (host not in whitelist) and not allow_override:
+            print(f"❌ Tests blocked: host '{host}' not in whitelist {whitelist} (import history safeguard). Set ALLOW_TEST_ON_PROD=1 to override.", flush=True)
+            import sys as _sys
+            _sys.exit(1)
 
         conn = psycopg.connect(dsn)
         conn.autocommit = True

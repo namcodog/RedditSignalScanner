@@ -14,8 +14,8 @@ global:
   rate_limit_per_minute: 60   # 软限流提示（严限请以环境变量配置）
 
   # 热缓存与增量（冷热库协同）
-  hot_cache_ttl_hours: 48     # 热缓存 TTL（T1 可更短）
-  watermark_enabled: true     # 增量水位线开关
+  hot_cache_ttl_hours: 4320   # 热缓存 TTL = 180天（6个月），与celery_app.py注释一致
+  watermark_enabled: true     # ✅ 启用水位线（增量抓取）
   watermark_grace_hours: 4    # 水位线最小间隔，避免短时间重复抓取
 
   # 重试与退避
@@ -36,12 +36,13 @@ tiers:
   - name: T1
     match_tiers: ["high", "gold", "seed"]
     re_crawl_frequency: "2h"           # 每 2 小时一次
-    time_filter: "week"                # 以 7 天窗口为主
+    time_filter: "month"               # ✅ 增量模式：抓取最近30天
     sort_mix: { top: 0.4, new: 0.4, hot: 0.2 }  # 混排，避免历史名帖偏置
-    post_limit: 100
+    post_limit: 100                    # ✅ 降噪：每个社区最多100（API 单次上限）
+    enable_comments: true              # ✅ 启用评论抓取
     retry:
       max_retries: 2
-    hot_cache_ttl_hours: 24            # 更短 TTL，保证最新内容
+    hot_cache_ttl_hours: 4320          # 180天（6个月），与全局配置一致
     fallback:
       widen_time_filter_to: "month"    # 空集时先扩大到 30 天
       relax_sort_mix: { top: 0.5, new: 0.3, hot: 0.2 }
@@ -50,27 +51,29 @@ tiers:
   # T2：重要社区（中优先级）——覆盖度优先，关注 30 天走势
   - name: T2
     match_tiers: ["medium", "silver"]
-    re_crawl_frequency: "6h"           # 每 6 小时一次
-    time_filter: "month"
+    re_crawl_frequency: "4h"           # 每 4 小时一次（Spec013 需求）
+    time_filter: "month"               # ✅ 增量模式：抓取最近30天
     sort_mix: { top: 0.5, new: 0.3, hot: 0.2 }
-    post_limit: 80
+    post_limit: 100                    # ✅ 降噪：每个社区最多100（API 单次上限）
+    enable_comments: true              # ✅ 启用评论抓取
     retry:
       max_retries: 2
-    hot_cache_ttl_hours: 48
+    hot_cache_ttl_hours: 4320          # 180天（6个月），与全局配置一致
     fallback:
       relax_sort_mix: { top: 0.4, new: 0.4, hot: 0.2 }
       allow_unfiltered_on_exhausted: true
 
-  # T3：长尾社区（低优先级）——保证广覆盖与冷库新鲜度
+  # T3：扩展语义社区（低优先级）——保证广覆盖与冷库新鲜度
   - name: T3
-    match_tiers: ["low"]
-    re_crawl_frequency: "24h"          # 每日一次
-    time_filter: "month"
+    match_tiers: ["semantic"]
+    re_crawl_frequency: "8h"           # 每 8 小时一次（扩展语义社区）
+    time_filter: "month"               # ✅ 增量模式：抓取最近30天
     sort_mix: { top: 0.6, new: 0.2, hot: 0.2 }
-    post_limit: 60
+    post_limit: 100                    # ✅ 降噪：语义社区抓取量更小（API 单次上限）
+    enable_comments: false             # ✅ 仅抓取帖子，不抓取评论
     retry:
       max_retries: 1
-    hot_cache_ttl_hours: 72
+    hot_cache_ttl_hours: 4320          # 180天（6个月），与全局配置一致
     fallback:
       relax_sort_mix: { top: 0.5, new: 0.3, hot: 0.2 }
       allow_unfiltered_on_exhausted: true

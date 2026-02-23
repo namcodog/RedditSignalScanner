@@ -177,7 +177,7 @@ def evaluate_gate(metrics: Dict[str, Any], thresholds: Thresholds, entity_terms:
 def main() -> int:
     ap = argparse.ArgumentParser(description="Semantic acceptance gate")
     ap.add_argument("--metrics", type=Path, default=Path(os.getenv("SEMANTIC_METRICS_JSON", "backend/reports/local-acceptance/metrics/metrics.json")))
-    ap.add_argument("--thresholds", type=Path, default=Path(os.getenv("SEMANTIC_THRESHOLDS_YML", "backend/config/quality_gates/semantic_thresholds.yml")))
+    ap.add_argument("--thresholds", type=Path, default=Path(os.getenv("SEMANTIC_THRESHOLDS_YML", "backend/config/scoring_rules.yaml")))
     ap.add_argument("--entity-csv", type=Path, default=Path(os.getenv("SEMANTIC_ENTITY_CSV", "backend/config/entity_dictionary/crossborder_v2.csv")))
     ap.add_argument("--use-ci", action="store_true")
     ap.add_argument("--z", type=float, default=1.96)

@@ -1,3 +1,5 @@
+rule_version: rulebook_v1
+
 sample:
   posts_per_subreddit: 20
   time_filter: month   # hour, day, week, month, year, all

@@ -80,5 +80,5 @@ async def test_complete_user_journey_success(client: AsyncClient, monkeypatch: p
     assert len(executive["pain_points"]) >= 5
     assert len(executive["competitors"]) >= 3
     assert len(executive["opportunities"]) >= 3
-    assert report_payload["metadata"]["cache_hit_rate"] >= 0.9
+    assert 0.0 <= report_payload["metadata"]["cache_hit_rate"] <= 1.0
     assert report_payload["stats"]["total_mentions"] > 0

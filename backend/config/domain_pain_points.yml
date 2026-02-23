@@ -1,0 +1,217 @@
+version: "1.0"
+description: "垂直领域痛点词典"
+
+domains:
+  coffee:
+    label_cn: "咖啡/咖啡机"
+    subreddits: ["r/espresso", "r/Coffee", "r/nespresso", "r/superautomatic"]
+    pain_keywords:
+      quality:
+        - grind too coarse
+        - grind too fine
+        - inconsistent grind
+        - plastic parts
+        - cheap build
+        - leaking water
+        - leaking steam
+        - portafilter sneeze
+        - channeling
+        - sour shot
+        - bitter shot
+      function:
+        - milk frother weak
+        - temperature inconsistent
+        - water pressure low
+        - pump noise
+        - auto-off too quick
+        - steam wand loose
+        - grinder jammed
+        - wifi disconnected
+      ux:
+        - hard to clean
+        - descaling nightmare
+        - water tank small
+        - drip tray overflow
+        - menu confusing
+        - button unresponsive
+      service:
+        - no brew group replacement
+        - warranty void
+
+  pet:
+    label_cn: "宠物用品"
+    subreddits: ["r/dogs", "r/cats", "r/Pets", "r/DogTraining"]
+    pain_keywords:
+      quality:
+        - grain allergy
+        - upset stomach
+        - diarrhea
+        - recall
+        - contamination
+        - moldy food
+        - sharp edges
+        - broke immediately
+        - torn seam
+      function:
+        - auto-feeder jam
+        - fountain clog
+        - sensor broken
+        - tracker lost signal
+        - battery died fast
+      shipping:
+        - damaged packaging
+        - expired product
+        - wrong item
+        - melted
+
+  edc:
+    label_cn: "EDC/户外工具"
+    subreddits: ["r/EDC", "r/flashlight", "r/knifeclub", "r/multitools"]
+    pain_keywords:
+      quality:
+        - edge retention poor
+        - blade rust
+        - handle crack
+        - pivot loose
+        - screw stripped
+        - coating chipping
+      function:
+        - clip broke
+        - lock failure
+        - battery drain
+        - switch malfunction
+        - mode memory lost
+        - waterproofing failed
+        - led flicker
+        - scissors useless
+        - pliers pinch
+      ux:
+        - hotspot
+        - hard to open
+        - awkward grip
+
+  kitchen:
+    label_cn: "厨房用品"
+    subreddits: ["r/Cooking", "r/kitchen", "r/AskCulinary"]
+    pain_keywords:
+      function: 
+        - sticking
+        - heat distribution
+        - handle hot
+        - warping
+      quality: 
+        - coating peel
+        - scratch easy
+        - rust
+
+  tools:
+    label_cn: "工具/五金"
+    subreddits: ["r/Tools", "r/metalworking"]
+    pain_keywords:
+      function: 
+        - precision
+        - cut straight
+        - vibration
+        - blade drift
+      quality: 
+        - blade dull
+        - motor smoke
+        - battery wobbly
+
+  fba:
+    label_cn: "Amazon FBA"
+    subreddits: ["r/amazonfba", "r/fulfillmentbyamazon", "r/amazonfbatips"]
+    pain_keywords:
+      function:
+        - buy box
+        - lost buy box
+        - suppressed listing
+        - listing deactivated
+        - stranded inventory
+        - inbound shipment
+        - restock limit
+        - inventory placement
+        - ppc not serving
+        - acos high
+        - campaign not impressions
+      service:
+        - account suspended
+        - account deactivated
+        - ip complaint
+        - policy warning
+        - appeal rejected
+        - case escalation
+        - seller support
+      quality:
+        - review removed
+        - negative review
+        - fake review
+        - review manipulation
+
+  dropshipping:
+    label_cn: "Dropshipping/跨境电商"
+    subreddits: ["r/dropshipping", "r/dropship", "r/ecommerce"]
+    pain_keywords:
+      function:
+        - supplier late
+        - long shipping time
+        - tracking not updated
+        - aliexpress delay
+        - order not fulfilled
+        - product quality inconsistent
+        - supplier ghosted
+      service:
+        - paypal hold
+        - stripe ban
+        - payment frozen
+        - chargeback
+        - dispute
+        - fb ad banned
+        - ad account disabled
+      price:
+        - margin too low
+        - supplier price hike
+        - shipping cost increase
+
+  etsy:
+    label_cn: "Etsy 卖家"
+    subreddits: ["r/etsy", "r/etsysellers"]
+    pain_keywords:
+      function:
+        - listing suspended
+        - shop deactivated
+        - star seller
+        - search ranking
+        - seo not working
+        - offsite ads
+      service:
+        - buyer scam
+        - refund abuse
+        - case opened
+        - support unhelpful
+      shipping:
+        - tracking lost
+        - package delayed
+        - damaged in transit
+
+  marketing:
+    label_cn: "数字营销/广告"
+    subreddits: ["r/facebookads", "r/digital_marketing", "r/bigseo", "r/techseo"]
+    pain_keywords:
+      function:
+        - ad rejected
+        - ad not approved
+        - reach dropped
+        - cpm high
+        - cpc high
+        - conversion low
+        - pixel not firing
+        - attribution broken
+      service:
+        - ad account banned
+        - account restricted
+        - business manager disabled
+        - support useless
+      price:
+        - budget wasted
+        - roas low

@@ -25,6 +25,7 @@ from sqlalchemy import select
 
 from app.db.session import SessionFactory
 from app.models.community_pool import CommunityPool
+from app.services.community_category_map_service import replace_community_category_map
 
 
 def _norm(name: str) -> str:
@@ -75,22 +76,33 @@ async def main() -> None:
             if existing:
                 existing.tier = tier
                 existing.priority = priority
-                existing.categories = categories
                 existing.description_keywords = desc
                 existing.is_active = True
+                await replace_community_category_map(
+                    db,
+                    community_id=existing.id,
+                    categories=categories,
+                )
                 updated += 1
             else:
-                db.add(CommunityPool(
+                pool = CommunityPool(
                     name=name,
                     tier=tier,
                     priority=priority,
-                    categories=categories,
+                    categories=[],
                     description_keywords=desc,
                     daily_posts=0,
                     avg_comment_length=100,
                     quality_score=float(score0_1),
                     is_active=True,
-                ))
+                )
+                db.add(pool)
+                await db.flush()
+                await replace_community_category_map(
+                    db,
+                    community_id=pool.id,
+                    categories=categories,
+                )
                 inserted += 1
         await db.commit()
     print(f"✅ Imported hybrid scores → pool (inserted={inserted}, updated={updated})")

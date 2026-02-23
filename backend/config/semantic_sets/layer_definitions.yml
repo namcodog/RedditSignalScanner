@@ -1,0 +1,41 @@
+# 层级定义文档（供开发者和算法参考）
+
+layers:
+  L1:
+    name: "决策层（核心平台/场景）"
+    description: |
+      用户在这里做关键决策（卖什么/在哪卖）。
+      这一层的覆盖率直接影响社区的核心相关性。
+    examples:
+      brands: ["Amazon", "Shopify", "Etsy", "TikTok Shop"]
+      features: []
+    weight_in_scoring: 0.4
+    minimum_coverage_threshold: 0.3
+
+  L2:
+    name: "执行层（核心功能/模式）"
+    description: |
+      用户选定平台后要掌握的核心玩法。
+      这一层反映社区的运营深度。
+    examples:
+      features: ["FBA", "dropshipping", "private label", "sponsored ads"]
+    weight_in_scoring: 0.3
+
+  L3:
+    name: "支撑层（工具/服务）"
+    description: |
+      辅助执行的工具和服务。
+      覆盖率反映社区的实操性。
+    examples:
+      features: ["3PL", "product research", "keyword tool", "review mining"]
+    weight_in_scoring: 0.2
+
+  L4:
+    name: "反馈层（痛点/风险）"
+    description: |
+      用户遇到的问题和需要规避的风险。
+      痛点丰富度反映社区的真实性和价值密度。
+    examples:
+      pain_points: ["saturated", "infringement", "customs hold", "account suspension"]
+    weight_in_scoring: 0.1
+

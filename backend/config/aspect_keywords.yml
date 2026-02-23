@@ -1,0 +1,131 @@
+version: 1.0
+aspect_mapping:
+  quality:
+    - quality_check
+    - broken
+    - defective
+    - flimsy
+    - cheap material
+    - dead on arrival
+    - doa
+    - leak
+    - rust
+    - scratch
+    - crack
+    - poor quality
+    - garbage
+  shipping:
+    - lead_time
+    - customs
+    - epacket
+    - lost_in_transit_claim
+    - last_mile_damage
+    - shipping
+    - delivery
+    - delayed
+    - tracking
+    - stuck
+    - lost package
+    - damaged
+    - fedex
+    - dhl
+    - usps
+  service:
+    - a_to_z
+    - chargeback
+    - paypal_hold
+    - seller_support_loop
+    - nightmare support
+    - refused refund
+    - no response
+    - customer service
+    - support
+    - rude
+    - ignored
+    - froze
+    - frozen
+    - funds
+    - paypal
+  function:
+    - pixel
+    - shadowban
+    - ad_account_ban
+    - listing_suppressed
+    - bug
+    - glitch
+    - crash
+    - disconnect
+    - error
+    - wifi issue
+    - app
+    - wont connect
+    - pairing
+    - lag
+    - unresponsive
+    - inaccurate
+    - suppressed
+    - suppression
+  sub_cancel:
+    - cancel subscription
+    - can't cancel
+    - unable to cancel
+    - cancellation
+    - tried to cancel
+    - won't let me cancel
+    - canceling is hard
+  sub_hidden_fee:
+    - hidden fee
+    - hidden charge
+    - surprise charge
+    - charged extra
+    - unexpected charge
+    - didn't know about fee
+    - fine print
+  sub_auto_renew:
+    - auto renew
+    - automatically renewed
+    - renewed without
+    - charged again
+    - forgot to cancel
+    - auto billing
+  sub_price:
+    - subscription too expensive
+    - monthly fee too high
+    - subscription cost
+    - paying too much
+    - overpriced subscription
+  ux:
+    - abandoned_cart
+    - page_speed
+    - checkout_conversion_low
+    - shopify_app_bloat
+    - confusing
+    - hard to use
+    - complicated
+    - manual
+    - unclear
+    - frustration
+    - headache
+    - intuitive
+    - learning curve
+  scam:
+    - scam
+    - fraud
+    - phishing
+    - fake buyer
+    - fake order
+    - stolen card
+    - chargeback fraud
+    - hacked account
+    - impersonat
+    - suspicious message
+    - asking for email
+    - off platform
+  return:
+    - return_rate_high
+    - return_no_resell
+    - refund
+    - exchange
+    - warranty
+    - replacement
+    - rma

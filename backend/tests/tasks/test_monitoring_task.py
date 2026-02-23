@@ -8,6 +8,7 @@ from typing import Any, Dict
 import pytest
 
 from app.tasks import monitoring_task as mt
+from app.middleware.route_metrics import DEFAULT_ROUTE_METRICS_KEY_PREFIX
 
 
 class _FakeRedis:
@@ -31,6 +32,12 @@ class _FakeRedis:
         elif key is not None:
             self.hashes[name][str(key)] = value
         return 1
+
+    def hget(self, name: str, key: str) -> Any | None:
+        return self.hashes.get(name, {}).get(str(key))
+
+    def hgetall(self, name: str) -> Dict[str, Any]:
+        return self.hashes.get(name, {})
 
     # used in collect_test_logs
     def delete(self, key: str) -> int:
@@ -69,10 +76,19 @@ def test_update_performance_dashboard(monkeypatch: pytest.MonkeyPatch, tmp_path:
     monkeypatch.setenv("TEST_METRICS_PATH", str(metrics_path))
 
     fake = _FakeRedis()
+    monkeypatch.setattr(mt, "_route_metrics_bucket", lambda: 123)
+    fake.hashes[f"{DEFAULT_ROUTE_METRICS_KEY_PREFIX}:123"] = {
+        "golden|_total": "2",
+        "legacy|_total": "5",
+        "legacy|GET|/api/auth/me": "3",
+        "legacy|GET|/api/guidance/input": "2",
+    }
     monkeypatch.setattr(mt, "_get_metrics_redis", lambda settings: fake)
 
     payload = mt.update_performance_dashboard()
     assert "report_generated_at" in payload
     # dashboard content should be written as a hash
     assert "last_e2e_run" in payload
-
+    assert payload["golden_calls_last_minute"] == 2
+    assert payload["legacy_calls_last_minute"] == 5
+    assert payload["legacy_top_paths_last_minute"][0]["route"] == "GET /api/auth/me"

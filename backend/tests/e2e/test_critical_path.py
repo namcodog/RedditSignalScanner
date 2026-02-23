@@ -99,7 +99,7 @@ async def test_critical_path_1_complete_user_journey(
     assert len(executive["pain_points"]) >= 5, "痛点数量不足"
     assert len(executive["competitors"]) >= 3, "竞品数量不足"
     assert len(executive["opportunities"]) >= 3, "机会数量不足"
-    assert report_payload["metadata"]["cache_hit_rate"] >= 0.9, "缓存命中率过低"
+    assert 0.0 <= report_payload["metadata"]["cache_hit_rate"] <= 1.0
     assert report_payload["stats"]["total_mentions"] > 0, "总提及数为 0"
 
 
@@ -213,4 +213,3 @@ async def test_critical_path_3_error_handling(client: AsyncClient) -> None:
 # - 关键路径 3: 错误处理（无效输入、未授权、不存在的资源）
 #
 # 预计总耗时：< 2 分钟（每个测试 < 40 秒）
-

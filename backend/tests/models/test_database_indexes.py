@@ -57,7 +57,7 @@ def test_posts_hot_metadata_gin_index() -> None:
 
 def test_settings_default_database_name() -> None:
     settings = Settings()
-    assert "reddit_signal_scanner" in settings.database_url
+    assert "reddit_signal_scanner_dev" in settings.database_url
 
 
 def test_audit_and_soft_delete_columns_present() -> None:

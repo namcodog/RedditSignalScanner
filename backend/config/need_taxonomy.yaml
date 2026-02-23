@@ -1,0 +1,262 @@
+version: 1
+need_categories:
+  - Survival
+  - Efficiency
+  - Belonging
+  - Aesthetic
+  - Growth
+intent_phrases:
+  Growth:
+    - how to
+    - how do i
+    - how can i
+    - what is the best way
+    - guide
+    - tutorial
+    - beginner
+    - getting started
+    - learn
+    - anyone know how
+    - teach me
+    - explain
+  Efficiency:
+    - best app
+    - best tool
+    - what tool
+    - recommend a tool
+    - alternative to
+    - software for
+    - app for
+    - extension for
+    - automate
+    - automation
+    - workflow
+    - shortcut
+    - faster way
+need_keywords:
+  Survival:
+    - broken
+    - fail
+    - scam
+    - leak
+    - suspend
+    - ban
+    - banned
+    - damage
+    - defect
+    - crash
+    - terrible
+    - awful
+    - worst
+    - hate
+    - fraud
+    - fake
+    - dangerous
+    - refund
+    - complaint
+  Efficiency:
+    - tool
+    - software
+    - app
+    - extension
+    - plugin
+    - automate
+    - bot
+    - script
+    - browser
+    - vpn
+    - erp
+    - saas
+    - integration
+    - api
+    - workflow
+    - productive
+    - efficient
+    - streamline
+    - shortcut
+    - template
+    - dashboard
+    - analytics
+    - automation
+    - klaviyo
+    - mailchimp
+    - omnisend
+    - privy
+    - sms bump
+    - facebook ads
+    - google ads
+    - tiktok ads
+    - pinterest ads
+    - oberlo
+    - dsers
+    - cj dropshipping
+    - spocket
+    - zendrop
+    - printful
+    - printify
+    - gooten
+    - customcat
+    - shopify
+    - woocommerce
+    - wix
+    - bigcommerce
+    - squarespace
+    - etsy
+    - ebay seller
+    - amazon seller
+    - fba
+    - zapier
+    - integromat
+    - make
+    - airtable
+    - notion
+    - inventory
+    - shipstation
+    - shippo
+    - easyship
+    - aftership
+    - quickbooks
+    - xero
+    - stripe
+    - paypal
+    - google analytics
+    - hotjar
+    - jungle scout
+    - helium 10
+    - keepa
+    - camelcamelcamel
+    - semrush
+    - ahrefs
+    - canva
+    - figma
+    - photoshop
+    - lightroom
+    - excel
+    - csv
+    - spreadsheet
+    - webhook
+    - json
+  Belonging:
+    - gift
+    - friend
+    - family
+    - love
+    - lonely
+    - share
+    - community
+    - pet
+    - relationship
+    - together
+    - birthday
+    - anniversary
+    - wedding
+    - baby
+    - dog
+    - cat
+    - partner
+    - girlfriend
+    - boyfriend
+    - husband
+    - wife
+  Aesthetic:
+    - beautiful
+    - design
+    - unique
+    - style
+    - art
+    - cool
+    - vibe
+    - look
+    - aesthetic
+    - pretty
+    - gorgeous
+    - elegant
+    - minimalist
+    - modern
+    - vintage
+    - cozy
+    - clean
+    - setup
+    - decor
+  Growth:
+    - learn
+    - profit
+    - start
+    - money
+    - scale
+    - business
+    - idea
+    - create
+    - diy
+    - tutorial
+    - course
+    - income
+    - passive
+    - side hustle
+    - startup
+    - entrepreneur
+    - skill
+    - improve
+    - success
+    - achieve
+    - goal
+    - beginner
+    - guide
+    - how to
+    - strategy
+    - tips
+noise_keywords:
+  - my manager
+  - clock in
+  - clock out
+  - paycheck
+  - salary
+  - quitting
+  - two weeks notice
+  - pto
+  - vacation time
+  - store manager
+  - asm
+  - coach
+  - team lead
+  - payroll
+  - union
+  - strike
+  - understaffed
+  - break room
+  - dress code
+  - severance
+  - layoff
+  - timestamp
+  - paypal f&f
+  - paypal g&s
+  - shipped
+  - conus
+  - grade a
+  - grade b
+  - grade c
+  - bnib
+  - lnib
+  - wtb
+  - wtt
+  - wts
+  - price drop
+  - sold
+  - available
+  - yolo
+  - dibs
+  - pm sent
+  - chatted
+  - stbxh
+  - stbxw
+  - divorce
+  - break up
+  - breaking up
+  - my ex
+  - cheating
+  - cheated
+  - narcissist
+  - gaslighting
+  - toxic
+  - custody
+  - alimony

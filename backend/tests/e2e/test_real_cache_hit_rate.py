@@ -5,7 +5,7 @@ Day 14 真实缓存命中率测试
 验证缓存命中率 >= 90%（PRD-09 要求）
 
 注意：
-- 需要先运行 backend/scripts/warmup_cache_now.py 预热缓存
+- 需要先预热缓存（建议：`make crawl-min`）
 - 只测试 2 个任务，避免触发 API 风控
 - 每个任务约 2-5 分钟（取决于缓存命中率）
 """
@@ -71,4 +71,3 @@ async def test_real_cache_hit_rate(
     
     print("\n✅ 所有任务完成，缓存命中率测试通过")
     print("📝 注意：详细的缓存命中率需要从日志或数据库查询")
-

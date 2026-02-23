@@ -6,7 +6,7 @@ from datetime import datetime, timezone
 
 import pytest
 from httpx import AsyncClient
-from sqlalchemy import select
+from sqlalchemy import select, text
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.config import Settings, get_settings
@@ -79,7 +79,23 @@ async def test_list_pool_and_discovered_success(
         )
         db_session.add(pool)
 
-        # Seed pending/discovered
+        # Seed another pool entry for discovered community to satisfy FK
+        discovered_pool = CommunityPool(
+            name="r/discovered_ok",
+            tier="silver",
+            categories={"topic": ["ml"]},
+            description_keywords={"keywords": ["ai", "product"]},
+            daily_posts=10,
+            avg_comment_length=30,
+            quality_score=0.7,
+            priority="medium",
+            user_feedback_count=0,
+            discovered_count=0,
+            is_active=True,
+        )
+        db_session.add(discovered_pool)
+
+        # Seed pending/discovered (must reference existing pool name)
         now = datetime.now(timezone.utc)
         pending = DiscoveredCommunity(
             name="r/discovered_ok",
@@ -94,6 +110,78 @@ async def test_list_pool_and_discovered_success(
             reviewed_by=None,
         )
         db_session.add(pending)
+        unique_suffix = uuid.uuid4().hex
+        post_id_top = f"post-{unique_suffix}-1"
+        post_id_second = f"post-{unique_suffix}-2"
+        evidence_sql = text(
+            """
+            INSERT INTO evidence_posts (
+                probe_source,
+                source_query,
+                source_query_hash,
+                source_post_id,
+                subreddit,
+                title,
+                summary,
+                score,
+                num_comments,
+                post_created_at,
+                evidence_score,
+                created_at,
+                updated_at
+            )
+            VALUES (
+                :probe_source,
+                :source_query,
+                :source_query_hash,
+                :source_post_id,
+                :subreddit,
+                :title,
+                :summary,
+                :score,
+                :num_comments,
+                :post_created_at,
+                :evidence_score,
+                :created_at,
+                :updated_at
+            )
+            """
+        )
+        await db_session.execute(
+            evidence_sql,
+            [
+                {
+                    "probe_source": "search",
+                    "source_query": "ai product",
+                    "source_query_hash": f"hash_{unique_suffix}",
+                    "source_post_id": post_id_top,
+                    "subreddit": "r/discovered_ok",
+                    "title": "Evidence title A",
+                    "summary": "Evidence summary A",
+                    "score": 120,
+                    "num_comments": 30,
+                    "post_created_at": now,
+                    "evidence_score": 95,
+                    "created_at": now,
+                    "updated_at": now,
+                },
+                {
+                    "probe_source": "search",
+                    "source_query": "ai product",
+                    "source_query_hash": f"hash_{unique_suffix}",
+                    "source_post_id": post_id_second,
+                    "subreddit": "r/discovered_ok",
+                    "title": "Evidence title B",
+                    "summary": "Evidence summary B",
+                    "score": 80,
+                    "num_comments": 10,
+                    "post_created_at": now,
+                    "evidence_score": 60,
+                    "created_at": now,
+                    "updated_at": now,
+                },
+            ],
+        )
         await db_session.commit()
 
         resp_pool = await client.get("/api/admin/communities/pool", headers=headers)
@@ -110,6 +198,12 @@ async def test_list_pool_and_discovered_success(
         assert body_disc["code"] == 0
         disc_names = [item["name"] for item in body_disc["data"]["items"]]
         assert "r/discovered_ok" in disc_names
+        discovered_item = next(
+            item for item in body_disc["data"]["items"] if item["name"] == "r/discovered_ok"
+        )
+        evidence_posts = discovered_item.get("evidence_posts", [])
+        assert len(evidence_posts) >= 1
+        assert evidence_posts[0]["source_post_id"] == post_id_top
     finally:
         app.dependency_overrides.pop(get_settings, None)
 
@@ -129,6 +223,23 @@ async def test_approve_creates_or_updates_pool_and_marks_pending_approved(
         headers = {"Authorization": f"Bearer {admin_token}"}
 
         now = datetime.now(timezone.utc)
+        # Seed pool record so FK from discovered_communities(name) is satisfied.
+        # This exercises the \"update existing\" branch of approve_community.
+        db_session.add(
+            CommunityPool(
+                name="r/approve_me",
+                tier="medium",
+                categories={"topic": ["ml"]},
+                description_keywords={"keywords": ["notes"]},
+                daily_posts=1,
+                avg_comment_length=10,
+                quality_score=0.5,
+                priority="medium",
+                user_feedback_count=0,
+                discovered_count=0,
+                is_active=False,
+            )
+        )
         db_session.add(
             DiscoveredCommunity(
                 name="r/approve_me",
@@ -150,6 +261,8 @@ async def test_approve_creates_or_updates_pool_and_marks_pending_approved(
             headers=headers,
             json={"name": "r/approve_me", "tier": "silver"},
         )
+        # 调试辅助：打印响应，便于排查集成行为
+        print("DEBUG approve response:", resp.status_code, resp.json())
         assert resp.status_code == 200
         body = resp.json()
         assert body["code"] == 0
@@ -158,12 +271,14 @@ async def test_approve_creates_or_updates_pool_and_marks_pending_approved(
         stored_pool = (
             await db_session.execute(select(CommunityPool).where(CommunityPool.name == "r/approve_me"))
         ).scalar_one()
+        print("DEBUG stored_pool:", stored_pool.tier, stored_pool.is_active)
         assert stored_pool.tier == "silver"
         assert stored_pool.is_active is True
 
         stored_pending = (
             await db_session.execute(select(DiscoveredCommunity).where(DiscoveredCommunity.name == "r/approve_me"))
         ).scalar_one()
+        print("DEBUG stored_pending:", stored_pending.status, stored_pending.reviewed_by)
         assert stored_pending.status == "approved"
         assert stored_pending.reviewed_by is not None
     finally:
@@ -185,6 +300,22 @@ async def test_reject_marks_pending_rejected(
         headers = {"Authorization": f"Bearer {admin_token}"}
 
         now = datetime.now(timezone.utc)
+        # Seed pool record for FK constraint
+        db_session.add(
+            CommunityPool(
+                name="r/reject_me",
+                tier="medium",
+                categories={"topic": ["ml"]},
+                description_keywords={"keywords": ["badfit"]},
+                daily_posts=1,
+                avg_comment_length=10,
+                quality_score=0.4,
+                priority="low",
+                user_feedback_count=0,
+                discovered_count=0,
+                is_active=True,
+            )
+        )
         db_session.add(
             DiscoveredCommunity(
                 name="r/reject_me",
@@ -300,7 +431,7 @@ async def test_approve_logs_when_discovered_count_conversion_fails(
     monkeypatch: pytest.MonkeyPatch,
     caplog: pytest.LogCaptureFixture,
 ) -> None:
-    import app.api.routes.admin_community_pool as admin_module
+    import app.api.legacy.admin_community_pool as admin_module
 
     admin_email = f"admin-{uuid.uuid4().hex}@example.com"
     overridden = _override_admin_settings(admin_email)

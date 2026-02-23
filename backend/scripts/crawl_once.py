@@ -57,7 +57,7 @@ def resolve_sort_from_mix(mix: Mapping[str, Any] | None, default: str) -> str:
         return default
 
 
-async def crawl_once(scope: str, force_refresh: bool) -> dict[str, Any]:
+async def crawl_once(scope: str, force_refresh: bool, limit: int) -> dict[str, Any]:
     cfg = load_cfg()
     g = cfg.get("global") or {}
     default_limit = int(g.get("post_limit", 100))
@@ -83,6 +83,8 @@ async def crawl_once(scope: str, force_refresh: bool) -> dict[str, Any]:
             return True
 
     selected = [p for p in seeds if _match(p)]
+    if limit > 0:
+        selected = selected[:limit]
 
     async def _run_for_profiles(profiles: list[CommunityProfile]) -> list[dict[str, Any]]:
         client = RedditAPIClient(
@@ -112,7 +114,6 @@ async def crawl_once(scope: str, force_refresh: bool) -> dict[str, Any]:
                     ttl = int((tcfg or {}).get("hot_cache_ttl_hours", default_ttl))
 
                     async with SessionFactory() as crawl_db:
-                        await crawl_db.connection(execution_options={"isolation_level": "AUTOCOMMIT"})
                         crawler = IncrementalCrawler(db=crawl_db, reddit_client=client, hot_cache_ttl_hours=ttl)
                         return await crawler.crawl_community_incremental(p.name, limit=limit, time_filter=tfilter, sort=sort)
 
@@ -136,6 +137,7 @@ async def crawl_once(scope: str, force_refresh: bool) -> dict[str, Any]:
     payload = {
         "scope": scope,
         "force_refresh": bool(force_refresh),
+        "limit": limit,
         "total": len(selected),
         "succeeded": succ,
         "failed": fail,
@@ -154,10 +156,10 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--scope", default="T1", choices=["T1","T2","T3","all"], help="Tier scope to crawl once")
     ap.add_argument("--force-refresh", action="store_true")
+    ap.add_argument("--limit", type=int, default=0, help="Max communities to crawl (0 = no limit)")
     args = ap.parse_args()
-    return 0 if asyncio.run(crawl_once(args.scope, args.force_refresh)) else 1
+    return 0 if asyncio.run(crawl_once(args.scope, args.force_refresh, args.limit)) else 1
 
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

@@ -1,10 +1,59 @@
 blacklisted_communities:
   - name: r/noise
     reason: 非目标域/噪音示例
+  - name: r/relationship_advice
+    reason: General advice, off-topic
+  - name: r/AskWomen
+    reason: General discussion
+  - name: r/childfree
+    reason: Lifestyle, off-topic
+  - name: r/financialindependence
+    reason: Finance, off-topic
+  - name: r/marketing
+    reason: Professional service, off-topic
+  - name: r/baking
+    reason: General cooking, too broad
+  - name: r/budgetfood
+    reason: General food, off-topic
 downranked_communities: []
 downrank_keywords: []
-filter_keywords: []
+filter_keywords:
+  - keyword: "giveaway"
+  - keyword: "coupon code"
+  - keyword: "promo code"
+  - keyword: "[removed]"
 whitelist_keywords: []
+
+# Semantic Expansion Stopwords (Prevent generic topic drift)
+semantic_expansion_stopwords:
+  - "cup"
+  - "maker"
+  - "machine"
+  - "combo"
+  - "brewer"
+  - "pot"
+  - "french"
+  - "manual"
+  - "auto"
+  - "super"
+  - "serve"
+  - "single"
+  - "pod"
+  - "drip"
+  - "press"
+  - "best"
+  - "review"
+  - "reviews"
+  - "advice"
+  - "help"
+  - "store"
+  - "shop"
+  - "buy"
+  - "sell"
+  - "online"
+  - "question"
+  - "discussion"
+  - "comment"
 
 # Simple blacklist list used by fusion/calibration utilities
 blacklist:
@@ -15,3 +64,25 @@ blacklist:
   - r/AI_Agents
   - r/AIAgentsStack
   - r/AI_In_ECommerce
+
+# 作者黑名单
+blacklisted_authors:
+  - username: "AutoModerator"
+    reason: "Bot, system message"
+  - username: "Some_Spam_Bot"
+    reason: "High spam rate detected"
+
+# 自动作者拉黑策略（可选，供建议脚本使用）
+author_auto_blacklist_rules:
+  min_posts: 3          # 至少发过 3 篇帖子
+  avg_score_below: 1    # 平均分 < 1
+  spam_hit_rate_above: 0.5  # 被 Spam 规则命中率 > 50%
+
+# 正则模式过滤（变种广告/外链）
+filter_patterns:
+  - pattern: "[A-Z]{2,5}\\s*\\d{2,4}%\\s*(profit|gain|return)"
+    reason: "Stock/Crypto scam pattern"
+  - pattern: "(?i)(telegram|whatsapp|discord).{0,20}(join|link)"
+    reason: "External contact spam"
+  - pattern: "(?i)\\$\\d+k?\\s*(per|a)\\s*(day|week|month)"
+    reason: "Get-rich-quick scam"

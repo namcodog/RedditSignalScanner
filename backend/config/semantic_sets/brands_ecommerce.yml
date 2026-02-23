@@ -1,0 +1,282 @@
+category: Ecommerce_Business
+brands:
+  # Market Intelligence & Product Research
+  - Jungle Scout
+  - Helium 10
+  - Viral Launch
+  - AMZScout
+  - Keepa
+  - CamelCamelCamel
+  - SmartScout
+  - MerchantWords
+  - ZonGuru
+  - DataHawk
+  - Egrow
+  - Sellics
+  - Unicorn Smasher
+  - ASINspector
+  - OAXray
+  - Tactical Arbitrage
+  - SourceMogul
+  - ProfitGuru
+  - ScoutIQ
+  - AmazeOwl
+  - Sonar
+  - Keyword Tool Dominator
+  - Scientific Seller
+  - SellerSprite
+  - AMZBase
+  - FBAtoolkit
+  - DS Amazon Quick View
+  - RevSeller
+  - Profit Bandit
+  - ScanPower
+
+  # PPC & Marketing
+  - Perpetua
+  - Teikametrics
+  - SellerApp
+  - AiHello
+  - Quartile
+  - Adtomic
+  - Pacvue
+  - Skai
+  - Downstream
+  - Tinuiti
+  - Sellozo
+  - PPC Entourage
+  - BidX
+  - AdBadger
+  - Prestozon
+  - Intentwise
+  - Sellics Advertising
+  - Amazon Marketing Services
+  - Google Ads
+  - Facebook Ads
+  - Bing Ads
+  - Pinterest Ads
+  - TikTok Ads
+  - Criteo
+  - AdRoll
+  - Outbrain
+  - Taboola
+  - StackAdapt
+  - The Trade Desk
+  - MediaMath
+  - Klaviyo
+  - Mailchimp
+  - Omnisend
+  - Attentive
+  - Privy
+  - Yotpo
+  - Gorgias
+  - Intercom
+  - Zendesk
+  - HubSpot
+
+  # Operations, Inventory & Repricing
+  - Seller Snap
+  - Aura
+  - Bqool
+  - RepricerExpress
+  - Informed.co
+  - Feedvisor
+  - ChannelAdvisor
+  - Sellbrite
+  - Veeqo
+  - Skubana
+  - Orderhive
+  - InventoryLab
+  - RestockPro
+  - Forecastly
+  - SoStocked
+  - Sellerboard
+  - HelloProfit
+  - Fetcher
+  - Shopkeeper
+  - ManageByStats
+  - GETIDA
+  - SellerBench
+  - Refunds Manager
+  - AMZRefund
+  - Refund Sniper
+  - Bindwise
+  - FeedbackWhiz
+  - FeedbackFive
+  - SageMailer
+  - Kibly
+  - Xero
+  - QuickBooks
+  - TaxJar
+  - Avalara
+  - SimplyVAT
+
+  # Platforms & Tools
+  - Shopify
+  - BigCommerce
+  - WooCommerce
+  - Magento
+  - Adobe Commerce
+  - Salesforce Commerce Cloud
+  - Wix eCommerce
+  - Squarespace
+  - Volusion
+  - PrestaShop
+  - Ecwid
+  - 3dcart
+  - Shift4Shop
+  - OpenCart
+  - Zen Cart
+  - X-Cart
+  - Kartra
+  - ClickFunnels
+  - Leadpages
+  - Unbounce
+  - Shogun
+  - GemPages
+  - PageFly
+  - Zipify
+  - ClickBank
+  - Gumroad
+  - SamCart
+  - ThriveCart
+  - Kajabi
+  - Teachable
+  - Thinkific
+  - Podia
+  - Subbly
+  - Elastic Path
+  - Sana Commerce
+
+  # Logistics (3PL & Freight)
+  - Flexport
+  - ShipBob
+  - ShipHero
+  - ShipMonk
+  - Red Stag Fulfillment
+  - Deliverr
+  - Saltbox
+  - DHL
+  - FedEx
+  - UPS
+  - USPS
+  - Royal Mail
+  - Canada Post
+  - Australia Post
+  - DB Schenker
+  - Kuehne + Nagel
+  - C.H. Robinson
+  - XPO Logistics
+  - Maersk
+  - Geodis
+  - DSV
+  - Panalpina
+  - Nippon Express
+  - CEVA Logistics
+  - Agility
+  - Kerry Logistics
+  - Sinotrans
+  - Expeditors
+  - Hellmann
+  - Bolloré Logistics
+  - Kintetsu World Express
+  - Rhenus
+  - Ryder
+  - J.B. Hunt
+  - Schneider
+  - Old Dominion
+  - ArcBest
+  - Estes
+  - YRC Freight
+  - TQL
+  - Coyote Logistics
+  - Uber Freight
+  - Convoy
+  - Flock Freight
+  - Zencargo
+  - Forto
+  - Beacon
+  - FlavorCloud
+  - Easyship
+  - Shippo
+  - ShipStation
+  - ShippingEasy
+  - Stamps.com
+  - Pirate Ship
+  - SendCloud
+  - Packlink
+  - AfterShip
+  - Route
+  - Narvar
+  - GoBolt
+  - ShipRush
+  - Aramex
+
+  # Payments & Fintech
+  - Stripe
+  - PayPal
+  - Square
+  - Adyen
+  - Authorize.Net
+  - Braintree
+  - Worldpay
+  - Checkout.com
+  - 2Checkout
+  - Verifone
+  - Payoneer
+  - Wise
+  - Airwallex
+  - OFX
+  - Veem
+  - Currencies Direct
+  - WorldFirst
+  - PingPong
+  - Revolut Business
+  - Monzo Business
+  - Brex
+  - Ramp
+  - Divvy
+  - Mercury
+  - Novo
+  - BlueVine
+  - Kabbage
+  - Fundbox
+  - OnDeck
+  - Clearco
+  - Wayflyer
+  - Payability
+  - Yardline
+  - SellersFunding
+  - Klarna
+  - Afterpay
+  - Affirm
+  - Sezzle
+  - Zip
+  - Splitit
+  - GoCardless
+  - Mollie
+  - PPRO
+  - Banking Circle
+  - Jeeves
+
+  # Sourcing & Supply Chain
+  - Alibaba
+  - AliExpress
+  - Global Sources
+  - Thomasnet
+  - 1688.com
+  - SaleHoo
+  - Worldwide Brands
+  - Spocket
+  - Printful
+  - Printify
+  - Gooten
+  - Gelato
+  - Teelaunch
+  - CustomCat
+  - Modalyst
+  - Dropified
+  - Oberlo
+  - Doba
+  - Sunrise Wholesale
+  - Wholesale Central

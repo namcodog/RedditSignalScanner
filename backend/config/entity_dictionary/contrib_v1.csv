@@ -1,0 +1,155 @@
+canonical,category
+# core marketplaces/platforms
+shopify,brands
+amazon,brands
+aliexpress,brands
+alibaba,brands
+ebay,brands
+etsy,brands
+walmart,brands
+shein,brands
+temu,brands
+bigcommerce,brands
+magento,brands
+woocommerce,brands
+wix,brands
+wordpress,brands
+shopify plus,brands
+amazon fba,brands
+fba,brands
+seller central,brands
+amazon ads,brands
+shopify apps,brands
+
+# payments/fintech/logistics
+paypal,brands
+stripe,brands
+klarna,brands
+afterpay,brands
+affirm,brands
+adyen,brands
+square,brands
+shop pay,brands
+google pay,brands
+apple pay,brands
+shipstation,brands
+shippo,brands
+easypost,brands
+dhl,brands
+fedex,brands
+ups,brands
+usps,brands
+
+# ops tools/apps
+dsers,brands
+oberlo,brands
+printful,brands
+printify,brands
+zendrop,brands
+cj dropshipping,brands
+dsers,brands
+loox,brands
+judge.me,brands
+klaviyo,brands
+mailchimp,brands
+omnisend,brands
+recharge,brands
+gorgias,brands
+zendesk,brands
+
+# social/ads
+tiktok,brands
+instagram,brands
+facebook,brands
+youtube,brands
+twitter,brands
+reddit,brands
+pinterest,brands
+google,brands
+meta ads,brands
+google ads,brands
+facebook ads,brands
+tiktok ads,brands
+
+# pain points (operational/compliance)
+chargeback,pain_points
+payment hold,pain_points
+account suspension,pain_points
+policy violation,pain_points
+ad account ban,pain_points
+low conversion,pain_points
+cart abandonment,pain_points
+high cac,pain_points
+high return rate,pain_points
+shipping delay,pain_points
+customs hold,pain_points
+stockout,pain_points
+supplier delay,pain_points
+quality issue,pain_points
+counterfeit claim,pain_points
+listing hijacking,pain_points
+buy box loss,pain_points
+ip strike,pain_points
+feed disapproval,pain_points
+refund abuse,pain_points
+fraud dispute,pain_points
+ad fatigue,pain_points
+targeting mismatch,pain_points
+pixel tracking issue,pain_points
+cookie consent risk,pain_points
+gdpr complaint,pain_points
+ccpa request,pain_points
+vat threshold,pain_points
+customs duty,pain_points
+charge dispute,pain_points
+unsafe claims,pain_points
+false positive fraud,pain_points
+lost parcel,pain_points
+failed delivery,pain_points
+address verification,pain_points
+authorization error,pain_points
+
+# methods/features/channels
+ugc ads,features
+influencer marketing,features
+seo,features
+sem,features
+ppc,features
+email marketing,features
+sms marketing,features
+landing page optimization,features
+upsell,features
+cross sell,features
+bundles,features
+subscription,features
+affiliate program,features
+referral program,features
+remarketing,features
+retargeting,features
+ltv optimization,features
+cohort analysis,features
+spark ads,features
+shopping ads,features
+performance max,features
+manual bidding,features
+bid cap,features
+tcpa,features
+conversion api,features
+ga4,features
+pixel,features
+webhook,features
+shopify flow,features
+3pl,features
+fulfillment automation,features
+inventory sync,features
+order routing,features
+sku bundling,features
+pre order,features
+backorder,features
+live shopping,features
+ugc creator,features
+ugc whitelisting,features
+post purchase survey,features
+on site search,features
+search merchandising,features
+feeds optimization,features

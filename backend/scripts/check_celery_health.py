@@ -50,11 +50,26 @@ async def check_celery_health(
         raise CeleryHealthError("Unable to contact Celery control interface")
 
     active_workers = inspect.active() or {}
-    if not active_workers:
-        raise CeleryHealthError("No active Celery workers detected")
-
     reserved_tasks = inspect.reserved() or {}
     scheduled_tasks = inspect.scheduled() or {}
+
+    # Phase106（大白话）：
+    # 本地/开发环境里 inspect.*() 偶发超时会直接返回空 dict，导致“worker 明明在线”却被判死。
+    # 兜底：当 inspect 三件套都空时，用 ping 只判断“有没有 worker 活着”。
+    worker_names = set(active_workers) | set(reserved_tasks) | set(scheduled_tasks)
+    if not worker_names:
+        try:
+            replies = celery_app.control.ping(timeout=3) or []
+        except Exception:
+            replies = []
+        for item in replies:
+            if isinstance(item, dict):
+                for name in item.keys():
+                    if isinstance(name, str) and name.strip():
+                        worker_names.add(name.strip())
+
+    if not worker_names:
+        raise CeleryHealthError("No active Celery workers detected")
 
     total_active_tasks = sum(len(tasks) for tasks in active_workers.values())
     total_reserved_tasks = sum(len(tasks) for tasks in reserved_tasks.values())
@@ -80,7 +95,7 @@ async def check_celery_health(
     await _ensure_status_cache_ready()
 
     return {
-        "active_workers": len(active_workers),
+        "active_workers": len(worker_names),
         "active_tasks": total_active_tasks,
         "reserved_tasks": total_reserved_tasks,
         "scheduled_tasks": total_scheduled_tasks,

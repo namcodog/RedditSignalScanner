@@ -10,6 +10,7 @@ from pathlib import Path
 
 import pytest
 from sqlalchemy import select
+from sqlalchemy.exc import IntegrityError
 
 from app.models.crawl_metrics import CrawlMetrics
 from app.models.metrics import QualityMetrics
@@ -183,3 +184,24 @@ async def test_save_metrics_update_existing(db_session, tmp_path):
     assert len(all_metrics) == 1
     assert all_metrics[0].collection_success_rate == Decimal("0.9800")
 
+
+@pytest.mark.asyncio
+async def test_save_metrics_constraint_violation(db_session, tmp_path, caplog):
+    """校验约束违规会被记录并抛出"""
+    invalid_metrics = QualityMetrics(
+        date=date(2025, 10, 22),
+        collection_success_rate=Decimal("1.5000"),  # 超出 0-1 范围
+        deduplication_rate=Decimal("0.1000"),
+        processing_time_p50=Decimal("10.00"),
+        processing_time_p95=Decimal("20.00"),
+    )
+
+    with caplog.at_level("ERROR"):
+        with pytest.raises(IntegrityError):
+            await save_metrics(db_session, invalid_metrics, output_dir=tmp_path)
+
+    assert "Failed to persist quality metrics" in caplog.text
+
+    result = await db_session.execute(select(QualityMetrics))
+    assert result.scalars().all() == []
+    assert not (tmp_path / "daily_metrics.jsonl").exists()

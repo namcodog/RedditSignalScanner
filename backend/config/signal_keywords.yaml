@@ -1,0 +1,196 @@
+version: 1
+negative_terms:
+  - slow
+  - confusing
+  - expensive
+  - complex
+  - bug
+  - broken
+  - issue
+  - problem
+  - frustrating
+  - annoying
+  - difficult
+  - hate
+  - "can't stand"
+  - "can't believe"
+  - painful
+  - unreliable
+  - "doesn't work"
+  - terrible
+  - awful
+  - horrible
+  - useless
+  - waste
+  - sucks
+  - bad
+  - poor
+  - lacking
+  - missing
+  - limited
+  - clunky
+  - outdated
+  - buggy
+  - crashes
+  - fails
+  - error
+  - wrong
+  - hard
+  - complicated
+  - tedious
+  - time-consuming
+  - inefficient
+  - disappointed
+  - frustrated
+  - angry
+  - upset
+  - annoyed
+  - irritated
+  - "no way to"
+  - "can't"
+  - "unable to"
+  - "impossible to"
+  - "doesn't support"
+  - lacks
+  - "missing feature"
+  - "not working"
+  - "stopped working"
+solution_cues:
+  - "fixed it"
+  - fix
+  - fixed
+  - solved
+  - "solution is"
+  - "worked for me"
+  - works
+  - "work for me"
+  - "try using"
+  - recommend
+  - "best way to"
+  - "how to"
+  - "you can"
+  - "i use"
+  - "i did"
+  - replace
+  - replaced
+  - clean
+  - cleaned
+  - "help with"
+  - resolved
+  - "answer is"
+  - "key is to"
+  - guide
+  - tutorial
+  - "step by step"
+  - walkthrough
+  - tips
+  - trick
+  - tricks
+  - workaround
+  - "quick fix"
+  - hack
+opportunity_cues:
+  - "looking for"
+  - "need a"
+  - "need an"
+  - "need to"
+  - "searching for"
+  - "want a"
+  - "want an"
+  - "would pay for"
+  - "willing to pay"
+  - "pay for"
+  - subscription
+  - "would love"
+  - "wish there was"
+  - "wish I could"
+  - "if only"
+  - "hope for"
+  - missing
+  - lacks
+  - "doesn't have"
+  - "no support for"
+  - "alternative to"
+  - "better than"
+  - "replacement for"
+  - recommend
+  - suggestion
+  - "any tools"
+  - "best tool"
+  - "what do you use"
+urgency_terms:
+  - urgent
+  - now
+  - immediately
+  - asap
+  - today
+  - "right now"
+  - desperately
+  - critical
+  - "must have"
+  - essential
+  - required
+  - necessary
+competitor_cues:
+  - " vs "
+  - " versus "
+  - "alternative to"
+  - "instead of"
+  - "compared to"
+  - "better than"
+  - "switching from"
+  - "migrating from"
+  - replacing
+  - "vs."
+  - "or"
+  - " v "
+pain_patterns:
+  - "\\b(i\\s+(?:hate|can't stand|dislike)\\s+.+)"
+  - "\\b(.+?\\s+is\\s+(?:too\\s+)?(?:slow|broken|unreliable|expensive|bad|terrible))"
+  - "\\b(struggle[s]? to\\s+.+)"
+  - "\\b(problem[s]? with\\s+.+)"
+  - "\\b(why is .+? so .+)"
+  - "\\b(can't believe .+)"
+  - "\\b(.+ doesn't work)"
+  - "\\b(frustrated with\\s+.+)"
+  - "\\b(tired of\\s+.+)"
+  - "\\b(sick of\\s+.+)"
+  - "\\b(no way to\\s+.+)"
+  - "\\b(can't figure out\\s+.+)"
+pain_buckets:
+  broken:
+    - error
+    - crash
+    - crashes
+    - fails
+    - failed
+    - broken
+    - bug
+    - buggy
+    - "not working"
+    - "doesn't work"
+  blocked:
+    - "can't"
+    - cannot
+    - unable
+    - impossible
+    - "no way to"
+    - blocked
+  cost:
+    - expensive
+    - cost
+    - price
+    - pricing
+    - budget
+  slow:
+    - slow
+    - latency
+    - lag
+    - sluggish
+  complex:
+    - confusing
+    - complex
+    - complicated
+    - difficult
+    - hard
+    - clunky

@@ -142,3 +142,22 @@ async def test_admin_can_list_feedback(client: AsyncClient, token_factory, db_se
         from app.core.config import get_settings as _get
         app.dependency_overrides.pop(_get, None)
 
+
+@pytest.mark.asyncio
+async def test_admin_feedback_forbidden_for_non_admin(client: AsyncClient, token_factory) -> None:
+    admin_email = f"admin-{uuid.uuid4().hex}@example.com"
+    from app.core.config import get_settings
+
+    overridden = get_settings().model_copy(update={"admin_emails_raw": admin_email})
+    app.dependency_overrides[get_settings] = lambda: overridden
+
+    try:
+        token, _ = await token_factory(email=f"user-{uuid.uuid4().hex}@example.com")
+        resp = await client.get(
+            "/api/admin/beta/feedback",
+            headers={"Authorization": f"Bearer {token}"},
+        )
+        assert resp.status_code == 403
+    finally:
+        from app.core.config import get_settings as _get
+        app.dependency_overrides.pop(_get, None)

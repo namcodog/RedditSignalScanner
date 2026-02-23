@@ -25,37 +25,36 @@ class TestCeleryBeatSchedule:
         assert isinstance(celery_app.conf.beat_schedule, dict)
 
     def test_warmup_crawler_scheduled(self) -> None:
-        """Test that warmup crawler is scheduled every 2 hours."""
+        """Tiered crawl 心跳应每 30 分钟触发一次。"""
         schedule = celery_app.conf.beat_schedule
-        
-        # Check warmup crawler task exists
-        assert "warmup-crawl-seed-communities" in schedule
-        
-        warmup_task = schedule["warmup-crawl-seed-communities"]
-        assert warmup_task["task"] == "tasks.crawler.crawl_seed_communities"
-        
-        # Verify schedule is every 2 hours (minute=0, hour=*/2)
-        task_schedule = warmup_task["schedule"]
+
+        assert "tick-tiered-crawl" in schedule
+
+        tick_task = schedule["tick-tiered-crawl"]
+        assert tick_task["task"] == "tasks.crawler.crawl_seed_communities_incremental"
+
+        task_schedule = tick_task["schedule"]
         assert isinstance(task_schedule, crontab)
-        assert task_schedule.minute == {0}  # At minute 0
-        assert task_schedule.hour == {0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22}  # Every 2 hours
+        assert task_schedule.minute == {0, 30}
+        assert task_schedule.hour == set(range(24))
 
     def test_auto_crawl_incremental_runs_twice_per_hour(self) -> None:
-        """Auto crawl incremental should run至少每30分钟一次，并且落在crawler_queue。"""
+        """低质量社区补抓任务应每 4 小时执行一次。"""
         schedule = celery_app.conf.beat_schedule
 
-        assert "auto-crawl-incremental" in schedule
+        assert "crawl-low-quality-communities" in schedule
 
-        crawl_task = schedule["auto-crawl-incremental"]
-        assert crawl_task["task"] == "tasks.crawler.crawl_seed_communities_incremental"
+        crawl_task = schedule["crawl-low-quality-communities"]
+        assert crawl_task["task"] == "tasks.crawler.crawl_low_quality_communities"
 
         task_schedule = crawl_task["schedule"]
         assert isinstance(task_schedule, crontab)
-        assert task_schedule.minute == {0, 30}
+        assert task_schedule.minute == {0}
+        assert task_schedule.hour == {0, 4, 8, 12, 16, 20}
 
         options = crawl_task.get("options", {})
-        assert options.get("queue") == "crawler_queue"
-        assert options.get("expires") == 1800
+        assert options.get("queue") == "patrol_queue"
+        assert options.get("expires") == 3600
 
     def test_auto_crawl_bootstrap_uses_worker_signal(self, monkeypatch: pytest.MonkeyPatch) -> None:
         """Bootstrap 任务通过 worker_ready signal 触发且只发送一次。"""
@@ -86,6 +85,7 @@ class TestCeleryBeatSchedule:
         
         monitor_task = schedule["monitor-warmup-metrics"]
         assert monitor_task["task"] == "tasks.monitoring.monitor_warmup_metrics"
+        assert monitor_task.get("options", {}).get("queue") == "monitoring_queue"
         
         # Verify schedule is every 15 minutes
         task_schedule = monitor_task["schedule"]
@@ -119,6 +119,19 @@ class TestCeleryBeatSchedule:
         assert isinstance(task_schedule, crontab)
         assert task_schedule.minute == {0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55}
 
+    def test_monitor_facts_audit_scheduled(self) -> None:
+        """facts 审计清理监控应每日运行。"""
+        schedule = celery_app.conf.beat_schedule
+
+        assert "monitor-facts-audit" in schedule
+        monitor_task = schedule["monitor-facts-audit"]
+        assert monitor_task["task"] == "tasks.monitoring.monitor_facts_audit_cleanup"
+
+        task_schedule = monitor_task["schedule"]
+        assert isinstance(task_schedule, crontab)
+        assert task_schedule.minute == {40}
+        assert task_schedule.hour == {4}
+
     def test_storage_maintenance_tasks_scheduled(self) -> None:
         """存储层维护任务应全部注册并调度正确。"""
         schedule = celery_app.conf.beat_schedule
@@ -133,8 +146,8 @@ class TestCeleryBeatSchedule:
         assert "cleanup-expired-posts-hot" in schedule
         hot_cleanup_task = schedule["cleanup-expired-posts-hot"]
         assert isinstance(hot_cleanup_task["schedule"], crontab)
-        assert hot_cleanup_task["schedule"].minute == {15}
-        assert hot_cleanup_task["schedule"].hour == set(range(24))
+        assert hot_cleanup_task["schedule"].minute == {0}
+        assert hot_cleanup_task["schedule"].hour == {4}
 
         assert "cleanup-old-posts" in schedule
         cold_cleanup_task = schedule["cleanup-old-posts"]
@@ -150,6 +163,13 @@ class TestCeleryBeatSchedule:
         assert metrics_task["schedule"].minute == {10}
         assert metrics_task["schedule"].hour == set(range(24))
 
+        assert "cleanup-expired-facts-audit" in schedule
+        audit_task = schedule["cleanup-expired-facts-audit"]
+        assert audit_task["task"] == "tasks.maintenance.cleanup_expired_facts_audit"
+        assert isinstance(audit_task["schedule"], crontab)
+        assert audit_task["schedule"].minute == {20}
+        assert audit_task["schedule"].hour == {4}
+
         assert "archive-old-posts" in schedule
         archive_task = schedule["archive-old-posts"]
         assert archive_task["task"] == "tasks.maintenance.archive_old_posts"
@@ -157,12 +177,12 @@ class TestCeleryBeatSchedule:
         assert archive_task["schedule"].minute == {45}
         assert archive_task["schedule"].hour == {2}
 
-        assert "check-storage-capacity" in schedule
-        capacity_task = schedule["check-storage-capacity"]
-        assert capacity_task["task"] == "tasks.maintenance.check_storage_capacity"
-        assert isinstance(capacity_task["schedule"], crontab)
-        assert capacity_task["schedule"].minute == {40}
-        assert capacity_task["schedule"].hour == {0, 6, 12, 18}
+        assert "sync-community-member-counts" in schedule
+        sync_task = schedule["sync-community-member-counts"]
+        assert sync_task["task"] == "tasks.community.sync_member_counts"
+        assert isinstance(sync_task["schedule"], crontab)
+        assert sync_task["schedule"].minute == {0}
+        assert sync_task["schedule"].hour == {0, 12}
 
     def test_all_scheduled_tasks_registered(self) -> None:
         """Test that all scheduled tasks are registered in Celery."""
@@ -182,19 +202,10 @@ class TestCeleryBeatSchedule:
             ), f"Scheduled task '{task_path}' (from '{task_name}') not found in registered tasks"
 
     def test_legacy_crawler_still_exists(self) -> None:
-        """Test that legacy crawler task still exists for backward compatibility."""
+        """Legacy crawler 已移出常驻调度。"""
         schedule = celery_app.conf.beat_schedule
         
-        # Check legacy task exists
-        assert "crawl-seed-communities" in schedule
-        
-        legacy_task = schedule["crawl-seed-communities"]
-        assert legacy_task["task"] == "tasks.crawler.crawl_seed_communities"
-        
-        # Verify it's still every 30 minutes
-        task_schedule = legacy_task["schedule"]
-        assert isinstance(task_schedule, crontab)
-        assert task_schedule.minute == {0, 30}
+        assert "crawl-seed-communities" not in schedule
 
     def test_monitoring_tasks_count(self) -> None:
         """Test that all expected monitoring tasks are scheduled."""
@@ -206,9 +217,8 @@ class TestCeleryBeatSchedule:
             "monitor-api-calls",
             "monitor-cache-health",
             "monitor-crawler-health",
-            "monitor-e2e-tests",
-            "collect-test-logs",
-            "update-performance-dashboard",
+            "monitor-facts-audit",
+            "monitor-contract-health",
         ]
         
         for task_name in expected_monitoring:
@@ -236,20 +246,17 @@ class TestCeleryBeatSchedule:
             assert all(0 <= h <= 23 for h in task_schedule.hour)
 
     def test_warmup_period_tasks_priority(self) -> None:
-        """Test that warmup period tasks are properly configured."""
+        """Tiered crawl 心跳应比低质量补抓更频繁。"""
         schedule = celery_app.conf.beat_schedule
         
-        # Warmup crawler should run less frequently than monitoring
-        warmup_schedule = schedule["warmup-crawl-seed-communities"]["schedule"]
-        monitor_schedule = schedule["monitor-warmup-metrics"]["schedule"]
-        
-        # Warmup runs every 2 hours (12 times per day)
-        warmup_runs_per_day = len(warmup_schedule.hour)
-        assert warmup_runs_per_day == 12
-        
-        # Monitor runs every 15 minutes (96 times per day)
-        monitor_runs_per_hour = len(monitor_schedule.minute)
-        assert monitor_runs_per_hour == 4  # 4 times per hour (every 15 min)
+        tick_schedule = schedule["tick-tiered-crawl"]["schedule"]
+        low_quality_schedule = schedule["crawl-low-quality-communities"]["schedule"]
+
+        tick_runs_per_day = len(tick_schedule.minute) * len(tick_schedule.hour)
+        low_quality_runs_per_day = len(low_quality_schedule.minute) * len(
+            low_quality_schedule.hour
+        )
+        assert tick_runs_per_day > low_quality_runs_per_day
 
 
 class TestCeleryBeatTaskRouting:
@@ -265,11 +272,14 @@ class TestCeleryBeatTaskRouting:
     def test_monitoring_tasks_routed_to_monitoring_queue(self) -> None:
         """Test that monitoring tasks are routed to monitoring_queue."""
         task_routes = celery_app.conf.task_routes
-        
+
         monitoring_tasks = [
+            "tasks.monitoring.monitor_warmup_metrics",
             "tasks.monitoring.monitor_api_calls",
             "tasks.monitoring.monitor_cache_health",
             "tasks.monitoring.monitor_crawler_health",
+            "tasks.monitoring.monitor_facts_audit_cleanup",
+            "tasks.monitoring.monitor_contract_health",
         ]
         
         for task_name in monitoring_tasks:

@@ -10,16 +10,19 @@
 from __future__ import annotations
 
 from datetime import datetime, timezone
+from decimal import Decimal
+from typing import Any
 from unittest.mock import AsyncMock, MagicMock
 
 import pytest
 import pytest_asyncio
 import uuid
-from sqlalchemy import select
+from sqlalchemy import select, text
 
 from app.services.incremental_crawler import IncrementalCrawler
 from app.services.reddit_client import RedditPost
 from app.db.session import SessionFactory
+from app.models.community_pool import CommunityPool
 from app.models.posts_storage import PostHot, PostRaw
 
 
@@ -32,6 +35,15 @@ class TestIncrementalCrawlerDedup:
         async with SessionFactory() as db:
             yield db
 
+    @pytest_asyncio.fixture(autouse=True)
+    async def _reset_tables(self, db_session) -> None:
+        await db_session.execute(
+            text(
+                "TRUNCATE TABLE community_cache, community_pool, posts_raw, posts_hot RESTART IDENTITY CASCADE"
+            )
+        )
+        await db_session.commit()
+
     @pytest_asyncio.fixture
     async def crawler(self, db_session) -> IncrementalCrawler:
         """创建测试用的 IncrementalCrawler 实例"""
@@ -40,6 +52,7 @@ class TestIncrementalCrawlerDedup:
             db=db_session,
             reddit_client=reddit_client,
             hot_cache_ttl_hours=24,
+            spam_filter_mode="allow",
         )
         yield crawler
 
@@ -71,9 +84,34 @@ class TestIncrementalCrawlerDedup:
         post.upvote_ratio = 0.95  # 添加 upvote_ratio 属性
         return post
 
+    async def _ensure_pool(self, db_session, community_name: str) -> None:
+        existing = (
+            await db_session.execute(
+                select(CommunityPool).where(CommunityPool.name == community_name)
+            )
+        ).scalar_one_or_none()
+        if existing:
+            return
+        pool = CommunityPool(
+            name=community_name,
+            tier="medium",
+            categories={"topic": ["test"]},
+            description_keywords={"test": 1},
+            daily_posts=1,
+            quality_score=Decimal("0.50"),
+            priority="medium",
+        )
+        db_session.add(pool)
+        await db_session.commit()
+
     @pytest.mark.asyncio
-    async def test_new_post_detection(self, crawler: IncrementalCrawler) -> None:
+    async def test_new_post_detection(
+        self,
+        crawler: IncrementalCrawler,
+        db_session,
+    ) -> None:
         """验收: 准确识别新增帖子"""
+        await self._ensure_pool(db_session, "r/test_new")
         # 准备测试数据: 10个全新帖子（使用 UUID 确保唯一性）
         mock_posts = [
             self._create_mock_post(title=f"New Post {i}")
@@ -93,8 +131,13 @@ class TestIncrementalCrawlerDedup:
         assert result["watermark_updated"] is True
 
     @pytest.mark.asyncio
-    async def test_duplicate_detection(self, crawler: IncrementalCrawler) -> None:
+    async def test_duplicate_detection(
+        self,
+        crawler: IncrementalCrawler,
+        db_session,
+    ) -> None:
         """验收: 准确识别重复帖子"""
+        await self._ensure_pool(db_session, "r/test_dup")
         # 生成唯一的 post_id 列表（用于两次抓取）
         post_ids = [str(uuid.uuid4())[:8] for _ in range(10)]
 
@@ -130,8 +173,139 @@ class TestIncrementalCrawlerDedup:
         assert result2["updated_posts"] == 0
 
     @pytest.mark.asyncio
-    async def test_update_detection(self, crawler: IncrementalCrawler) -> None:
+    async def test_content_hash_dedup(
+        self,
+        crawler: IncrementalCrawler,
+        db_session,
+    ) -> None:
+        """验收: 内容哈希去重（不同ID但内容相同）"""
+        await self._ensure_pool(db_session, "r/test_hash")
+        now = datetime.now(timezone.utc).timestamp()
+        post_a = self._create_mock_post(post_id="hash-a", title="Same Content", created_utc=now)
+        post_b = self._create_mock_post(
+            post_id="hash-b",
+            title="Same Content",
+            created_utc=now + 1,
+        )
+
+        crawler.reddit_client.fetch_subreddit_posts = AsyncMock(return_value=[post_a])
+        await crawler.crawl_community_incremental("r/test_hash", limit=1)
+
+        crawler.reddit_client.fetch_subreddit_posts = AsyncMock(return_value=[post_b])
+        result = await crawler.crawl_community_incremental("r/test_hash", limit=1)
+
+        assert result["new_posts"] == 0
+        assert result["duplicates"] == 1
+        assert result["updated_posts"] == 0
+
+        result_db = await db_session.execute(
+            select(PostRaw).where(PostRaw.source_post_id.in_([post_a.id, post_b.id]))
+        )
+        records = list(result_db.scalars())
+        assert len(records) == 2
+        metadata = {record.source_post_id: record.extra_data for record in records}
+        assert metadata[post_b.id]["duplicate_of"] == post_a.id
+        assert metadata[post_b.id]["is_duplicate"] is True
+        assert metadata[post_a.id].get("is_duplicate") is not True
+
+    @pytest.mark.asyncio
+    async def test_spam_tag_mode_keeps_post(
+        self,
+        db_session,
+        monkeypatch: pytest.MonkeyPatch,
+    ) -> None:
+        """验收: spam tag 模式会保留帖子并打标"""
+        await self._ensure_pool(db_session, "r/test_spam_tag")
+        reddit_client = AsyncMock()
+        crawler = IncrementalCrawler(
+            db=db_session,
+            reddit_client=reddit_client,
+            hot_cache_ttl_hours=24,
+            spam_filter_mode="tag",
+        )
+        post = RedditPost(
+            id="spam-tag-1",
+            title="Spam Tag Post",
+            selftext="Spam body",
+            score=1,
+            num_comments=1,
+            created_utc=datetime.now(timezone.utc).timestamp(),
+            subreddit="r/test_spam_tag",
+            author="test_author",
+            url="https://reddit.com/r/test_spam_tag/comments/spam-tag-1",
+            permalink="/r/test_spam_tag/comments/spam-tag-1",
+        )
+        crawler.reddit_client.fetch_subreddit_posts = AsyncMock(return_value=[post])
+        monkeypatch.setattr(crawler, "_is_spam_post", lambda _p: "Spam_Ad")
+
+        result = await crawler.crawl_community_incremental("r/test_spam_tag", limit=1)
+
+        assert result["new_posts"] == 1
+        assert result["duplicates"] == 0
+
+        record = (
+            await db_session.execute(
+                select(PostRaw).where(PostRaw.source_post_id == post.id)
+            )
+        ).scalar_one()
+        assert record.extra_data.get("spam_category") == "Spam_Ad"
+
+    @pytest.mark.asyncio
+    async def test_comments_backfill_enqueues_for_new_posts(
+        self,
+        db_session,
+        monkeypatch: pytest.MonkeyPatch,
+    ) -> None:
+        """验收: 增量回填评论只对新增帖子触发且受上限控制"""
+        await self._ensure_pool(db_session, "r/test_comments")
+        reddit_client = AsyncMock()
+        crawler = IncrementalCrawler(
+            db=db_session,
+            reddit_client=reddit_client,
+            hot_cache_ttl_hours=24,
+            enable_comments_backfill=True,
+            comments_backfill_max_posts=2,
+            comments_backfill_limit=5,
+            comments_backfill_depth=1,
+            spam_filter_mode="allow",
+        )
+
+        posts = [
+            self._create_mock_post(post_id="c1", title="C1"),
+            self._create_mock_post(post_id="c2", title="C2"),
+            self._create_mock_post(post_id="c3", title="C3"),
+        ]
+        posts[0].num_comments = 10
+        posts[1].num_comments = 3
+        posts[2].num_comments = 7
+
+        reddit_client.fetch_subreddit_posts = AsyncMock(return_value=posts)
+        scheduled: list[tuple[str, dict[str, Any]]] = []
+
+        def fake_send_task(task_name: str, *args, **kwargs) -> None:
+            scheduled.append((task_name, kwargs))
+
+        monkeypatch.setattr("app.core.celery_app.celery_app.send_task", fake_send_task)
+
+        await crawler.crawl_community_incremental("r/test_comments", limit=3)
+
+        comment_tasks = [
+            item for item in scheduled if item[0] == "comments.fetch_and_ingest"
+        ]
+        assert len(comment_tasks) == 2
+        comment_ids = {
+            task[1]["kwargs"]["source_post_id"] for task in comment_tasks
+        }
+        assert comment_ids == {"c1", "c3"}
+
+    @pytest.mark.asyncio
+    async def test_update_detection(
+        self,
+        crawler: IncrementalCrawler,
+        db_session,
+    ) -> None:
         """验收: 准确识别更新帖子（score/comments 变化）"""
+        await self._ensure_pool(db_session, "r/test_update")
         # 生成唯一的 post_id 列表（用于两次抓取）
         post_ids = [str(uuid.uuid4())[:8] for _ in range(10)]
 
@@ -163,8 +337,13 @@ class TestIncrementalCrawlerDedup:
         assert result2["new_posts"] == 0
 
     @pytest.mark.asyncio
-    async def test_statistics_consistency(self, crawler: IncrementalCrawler) -> None:
+    async def test_statistics_consistency(
+        self,
+        crawler: IncrementalCrawler,
+        db_session,
+    ) -> None:
         """验收: 统计数量一致性"""
+        await self._ensure_pool(db_session, "r/test_mixed")
         # 准备混合数据: 5个新帖子 + 5个重复帖子
         # 先插入5个帖子
         initial_posts = [
@@ -196,6 +375,7 @@ class TestIncrementalCrawlerDedup:
     ) -> None:
         """验收: 热缓存记录保存作者信息"""
         subreddit = "r/test_hot_author"
+        await self._ensure_pool(db_session, subreddit)
         post = self._create_mock_post(post_id="hot-author-1", title="Hot Author Post")
 
         crawler.reddit_client.fetch_subreddit_posts = AsyncMock(return_value=[post])
@@ -213,9 +393,11 @@ class TestIncrementalCrawlerDedup:
     async def test_dual_write_triggers_refresh_on_changes(
         self,
         crawler: IncrementalCrawler,
+        db_session,
         monkeypatch: pytest.MonkeyPatch,
     ) -> None:
         """验收: 新增数据后会异步触发物化视图刷新"""
+        await self._ensure_pool(db_session, "r/test_refresh")
         scheduled: list[str] = []
 
         def fake_send_task(task_name: str, *args, **kwargs) -> None:
@@ -240,6 +422,7 @@ class TestIncrementalCrawlerDedup:
     ) -> None:
         """验收: 更新时生成新版本并正确关闭旧版本"""
         subreddit = "r/test_scd2"
+        await self._ensure_pool(db_session, subreddit)
         post_id = str(uuid.uuid4())[:8]
 
         # 第一次抓取: 新增版本1
@@ -276,8 +459,13 @@ class TestIncrementalCrawlerDedup:
         assert v2.valid_from >= v1.valid_to
 
     @pytest.mark.asyncio
-    async def test_watermark_filtering(self, crawler: IncrementalCrawler) -> None:
+    async def test_watermark_filtering(
+        self,
+        crawler: IncrementalCrawler,
+        db_session,
+    ) -> None:
         """验收: 水位线过滤旧帖子"""
+        await self._ensure_pool(db_session, "r/test_watermark")
         # 准备测试数据: 5个旧帖子 + 5个新帖子
         now = datetime.now(timezone.utc).timestamp()
         old_time = now - 86400 * 7  # 7天前

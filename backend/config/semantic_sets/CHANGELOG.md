@@ -1,5 +1,14 @@
 # Semantic Lexicon Changelog
 
+## [v1.1.0] - Semantic Library Unification
+- Added: UnifiedLexicon (SSOT) with safe YAML loading and query APIs
+- Added: SemanticScorer (layered scoring with legacy compatibility)
+- Added: CandidateExtractor (auto-discovery from posts_hot, CSV export)
+- Changed: score_with_semantic.py refactored to use UnifiedLexicon + SemanticScorer
+- Added: compare_scoring_algorithms.py to benchmark new vs old scoring
+- Tooling: Makefile targets semantic-score, semantic-compare, semantic-candidates-extract, semantic-migrate
+- Migration: migrate_to_unified_lexicon.py (dry-run by default, --apply appends under themes.migration)
+
 ## [v2.1] - Stage 0 complete
 - Built 500-term semantic_sets with L1–L4 layers
 - Fixed brand misclassification via hard negatives + case-insensitive lookup

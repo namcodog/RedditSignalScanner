@@ -1,0 +1,274 @@
+version: 1.0
+last_updated: "2025-12-08"
+description: "垂直市场领域行话与痛点词典，用于NLP语义映射与情感分析。"
+
+domains:
+
+  # 1. 电商与商业智能 (Ecommerce & Business Intelligence)
+  # ---------------------------------------------------
+  - id: ecommerce_business
+    name: "Ecommerce & SaaS"
+    sub_categories:
+    
+    # 核心规格/指标 (Metrics & Specs)
+    specs:
+      - ["acos", "advertising cost of sales"]       # 广告费比
+      - ["roas", "return on ad spend"]              # 广告回报率
+      - ["IPI", "inventory performance index"]      # 库存绩效指数
+      - ["bsr", "best seller rank"]                 # 畅销榜排名
+      - ["odr", "order defect rate"]                # 订单缺陷率
+      - ["ltv", "cac", "clv"]                       # 客户终身价值/获客成本
+      - ["arr", "mrr"]                              # 年度/月度经常性收入
+      - ["churn rate", "revenue churn", "negative churn"]   # 流失率
+
+    # 运营场景 (Actions/Workflows)
+    scenarios:
+      - ["listing optimization", "seo"]
+      - ["PPC campaign management", "bid adjustment", "dayparting"]
+      - ["fba shipment creation", "reconciliation"]
+      - ["brand registry", "A+ content", "enhanced brand content"]
+      - ["hijacker removal", "test buy"]
+
+    # 核心痛点 (Pain Points)
+    pain_points:
+      - ["section 3 suspension", "account deactivation", "POA"]  # 封号/申诉
+      - ["api throttling", "rate limit exceeded", "token bucket"] # API限制
+      - ["inauthentic claim", "invoice verification"]            # 正品审核
+      - ["stranded inventory", "unfulfillable"]                  # 滞留库存
+      - ["suppressed listing", "search suppression"]             # 链接被屏蔽
+      - ["review gating", "review manipulation"]                 # 评论限制
+
+    # 领域黑话 (Slang & Acronyms)
+    slang:
+      - term: "Buy Box"
+        meaning: "黄金购物车 (获得90%转化)"
+      - term: "PL (Private Label)"
+        meaning: "贴牌/私有品牌模式"
+      - term: "OA (Online Arbitrage)"
+        meaning: "在线套利/倒买倒卖"
+      - term: "Q4"
+        meaning: "第四季度旺季 (Make or break period)"
+      - term: "Gate/Ungate"
+        meaning: "品牌限售/解锁销售权限"
+
+  # 2. 家庭与育儿 (Family, Parenting & Pets)
+  # ---------------------------------------------------
+  - id: family_parenting
+    name: "Family, Baby & Pets"
+    sub_categories:
+
+    specs:
+      - ["tog rating", "0.5 tog", "2.5 tog"]                # 睡袋热阻
+      - ["r-value", "insulation"]                           # 爬行垫保暖值
+      - ["car seat expiration", "latch system"]             # 安全座椅
+      - ["crude protein", "calcium phosphorus ratio"]       # 宠物食品成分
+      - ["montessori", "open-ended"]                        # 玩具类型
+
+    scenarios:
+      - ["sleep training", "ferber method", "pick up put down"]
+      - ["tummy time", "motor skill development"]
+      - ["weaning", "blw", "baby led weaning"]              # 自主进食
+      - ["pumping", "power pumping"]                        # 吸奶
+      - ["raw feeding", "barf diet"]                        # 宠物生骨肉喂养
+
+    pain_points:
+      - ["sleep regression", "false starts", "early waking"] # 睡眠倒退
+      - ["cluster feeding", "witching hour"]                # 密集喂养/黄昏闹
+      - ["vasospasm", "bleb", "clogged duct"]               # 哺乳疼痛/堵奶
+      - ["diaper blowout", "leaking"]                       # 尿布后漏
+      - ["separation anxiety", "reactivity"]                # 宠物焦虑/应激
+
+    slang:
+      - term: "CIO (Cry It Out)"
+        meaning: "哭声免疫法 (睡眠训练)"
+      - term: "WW (Wake Window)"
+        meaning: "清醒窗口 (决定入睡时机)"
+      - term: "LO (Little One)"
+        meaning: "自家小孩"
+      - term: "FTM/STM"
+        meaning: "First/Second Time Mom (新手/二胎妈妈)"
+      - term: "Blowout"
+        meaning: "炸屎 (尿布失效)"
+      - term: "Zoomies"
+        meaning: "宠物疯跑 (Frantic Random Activity Periods)"
+
+  # 3. 食品与生活方式 (Food, Coffee & Lifestyle)
+  # ---------------------------------------------------
+  - id: food_coffee_lifestyle
+    name: "Culinary & Coffee"
+    sub_categories:
+
+    specs:
+      - ["grind size", "micron", "uniformity"]              # 研磨度
+      - ["9 bar", "pressure profile", "flow rate"]          # 萃取压力
+      - ["horsepower", "peak hp", "cavitation"]             # 破壁机参数
+      - ["smoke point", "polymerization"]                   # 油脂特性(铸铁锅)
+      - ["pid", "temperature stability"]                    # 温控
+
+    scenarios:
+      - ["dialing in", "puck prep", "tamping"]              # 咖啡调试
+      - ["wdt", "rdt", "distribution"]                      # 布粉技术
+      - ["seasoning", "strip and re-season"]                # 铸铁锅开锅
+      - ["water displacement method", "vacuum sealing"]     # 低温慢煮密封
+      - ["burping", "second fermentation (F2)"]             # 发酵(康普茶)
+
+    pain_points:
+      - ["channeling", "sputtering", "messy puck"]          # 通道效应
+      - ["retention", "stale coffee"]                       # 残粉
+      - ["sour", "bitter", "underextracted", "overextracted"] # 萃取瑕疵 (酸/苦/涩)
+      - ["kahm yeast", "mold", "fuzzy"]                     # 发酵失败
+      - ["flaking seasoning", "sticky pan"]                 # 涂层脱落
+
+    slang:
+      - term: "God Shot"
+        meaning: "完美萃取的浓缩咖啡"
+      - term: "Naked Portafilter"
+        meaning: "无底手柄 (用于观察通道效应)"
+      - term: "Scoby"
+        meaning: "红茶菌菌膜 (Symbiotic Culture Of Bacteria and Yeast)"
+      - term: "Pellicle"
+        meaning: "发酵形成的表层膜"
+      - term: "Gusher"
+        meaning: "发酵过度开瓶喷涌"
+
+  # 4. 省钱与信用卡 (Frugal Living)
+  # ---------------------------------------------------
+  - id: frugal_living
+    name: "Credit Cards & Travel Hacking"
+    sub_categories:
+
+    specs:
+      - ["cpp", "cents per point"]                          # 积分价值
+      - ["annual fee", "credits", "effective annual fee"]   # 年费
+      - ["SUB", "sign up bonus"]                            # 开卡礼
+
+    scenarios:
+      - ["manufactured spending", "ms"]                     # 制造消费
+      - ["recon", "reconsideration line"]                   # 申诉拒信
+      - ["product change (PC)", "downgrade"]                # 降级卡片
+      - ["skiplagging", "hidden city ticketing"]            # 弃程购票
+
+    pain_points:
+      - ["shutdown", "audit"]                               # 杀全家/风控
+      - ["5/24", "pop-up jail"]                             # 申卡限制(Chase/Amex)
+      - ["phantom award space", "fuel surcharges"]          # 幽灵票/燃油费
+      - ["no-show penalty"]                                 # 弃程惩罚
+
+    slang:
+      - term: "Churning"
+        meaning: "反复开卡薅羊毛"
+      - term: "Velocity"
+        meaning: "申卡/刷卡频率 (风控指标)"
+      - term: "Gardening"
+        meaning: "养信用记录 (暂停申卡)"
+      - term: "Player 2 (P2)"
+        meaning: "配偶 (用于双倍薅羊毛)"
+      - term: "Glitch Fare / Error Fare"
+        meaning: "BUG票价"
+
+  # 5. 家居生活 (Home & Lifestyle)
+  # ---------------------------------------------------
+  - id: home_lifestyle
+    name: "Smart Home & Decor"
+    sub_categories:
+
+    specs:
+      - ["pa", "suction power", "cfm"]                      # 吸力
+      - ["lidar", "vslam", "navigation"]                    # 导航技术
+      - ["solid wood", "veneer", "mdf"]                     # 家具材质
+      - ["janka hardness"]                                  # 木材硬度
+      - ["clumping", "tracking", "dust control"]            # 猫砂指标
+
+    scenarios:
+      - ["mapping", "no-go zones", "room division"]         # 建图
+      - ["self-emptying", "mop washing"]                    # 自动维护
+      - ["acclimation"]                                     # 地板适应环境
+
+    pain_points:
+      - ["hair tangle", "roller brush jam"]                 # 毛发缠绕
+      - ["getting stuck", "eating cables"]                  # 避障失败
+      - ["cupping", "crowning", "buckling"]                 # 地板受潮变形
+      - ["peeling veneer", "bubbling"]                      # 贴皮起泡
+      - ["phantom mapping"]                                 # 地图漂移
+
+    slang:
+      - term: "Dumb Robot"
+        meaning: "随机碰撞式扫地机"
+      - term: "Valetudo"
+        meaning: "一种破解扫地机以脱离云端的固件 (极客黑话)"
+      - term: "Toe-kick"
+        meaning: "橱柜底部的踢脚空间"
+
+  # 6. 极简与户外 (Minimal & Outdoor)
+  # ---------------------------------------------------
+  - id: minimal_outdoor
+    name: "Ultralight & Techwear"
+    sub_categories: ["Camping", "Hiking", "Apparel"]
+
+    specs:
+      - ["base weight", "skin out weight"]                  # 基础重量
+      - ["hh", "hydrostatic head", "water column"]          # 静水压 (防水指标)
+      - ["mvtr", "breathability", "ret"]                    # 透湿率
+      - ["denier", "ripstop"]                               # 面料强度
+      - ["fill power", "down to feather ratio"]             # 蓬松度
+
+    scenarios:
+      - ["seam sealing", "re-proofing"]                     # 缝线涂胶/涂层修复
+      - ["thru-hiking", "section hiking"]                   # 长距离徒步
+      - ["layering", "base/mid/shell"]                      # 洋葱穿衣法
+
+    pain_points:
+      - ["condensation", "wetting out"]                     # 结露/表层浸润
+      - ["hydrolysis", "sticky", "delamination"]            # 水解/脱胶 (PU涂层失效)
+      - ["cold spots"]                                      # 羽绒移位导致失温
+      - ["chafing"]                                         # 摩擦伤
+
+    slang:
+      - term: "UL (Ultralight)"
+        meaning: "超轻量化"
+      - term: "Gram Weenie"
+        meaning: "斤斤计较重量的人"
+      - term: "Bombproof"
+        meaning: "极其耐用 (通常很重)"
+      - term: "Gorpcore"
+        meaning: "户外机能风穿搭"
+      - term: "DCF (Dyneema)"
+        meaning: "大力马 (昂贵的超轻面料)"
+
+  # 7. 工具与 EDC (Tools & Everyday Carry)
+  # ---------------------------------------------------
+  - id: tools_edc
+    name: "EDC, Knives & Tech"
+    sub_categories: ["Knives", "Flashlights", "Mechanical Keyboards", "Audio"]
+
+    specs:
+      - ["hrc", "rockwell hardness"]                        # 钢材硬度
+      - ["magnacut", "s30v", "m390", "d2"]                  # 钢材型号
+      - ["cri", "color rendering index", "high cri"]        # 显色指数
+      - ["lumens", "candela (throw)"]                       # 亮度/射程
+      - ["actuation force", "bottom out"]                   # 键盘轴体参数
+      - ["impedance", "sensitivity"]                        # 耳机阻抗/灵敏度
+
+    scenarios:
+      - ["sharpening", "stropping", "honing"]               # 磨刀
+      - ["lube switch", "film switch", "modding"]           # 润轴/客制化
+      - ["fidgeting"]                                       # 把玩 (EDC核心功能)
+
+    pain_points:
+      - ["lock stick", "lock rock", "blade play"]           # 锁定故障/晃动
+      - ["parasitic drain"]                                 # 电池寄生耗电
+      - ["green tint", "tint shift"]                        # 偏色 (手电)
+      - ["stem wobble", "spring ping", "scratchiness"]      # 轴心晃动/弹簧音
+      - ["sibilance", "muddy bass"]                         # 齿音/低频浑浊
+
+    slang:
+      - term: "Safe Queen"
+        meaning: "只收藏不使用的昂贵装备"
+      - term: "Beater"
+        meaning: "耐操的日用装备"
+      - term: "Thock / Clack"
+        meaning: "键盘敲击声 (低沉 vs 清脆)"
+      - term: "Grail"
+        meaning: "梦中情刀/终极目标"
+      - term: "Soundstage"
+        meaning: "声场 (耳机的空间感)"

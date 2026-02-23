@@ -1,0 +1,72 @@
+version: 2.0
+domain: general_commerce
+description: "Universal pain points for e-commerce and hardware products"
+
+pain_categories:
+  quality:
+    keywords:
+      - broken
+      - defective
+      - cheap material
+      - flimsy
+      - fell apart
+      - stopped working
+      - dead on arrival
+      - doa
+      - plastic garbage
+      - leak
+      - smell
+      - rust
+      - scratch
+
+  function:
+    keywords:
+      - disconnect
+      - wifi issue
+      - app crash
+      - buggy
+      - glitch
+      - won't connect
+      - pairing failed
+      - error code
+      - lag
+      - slow
+      - unresponsive
+      - false alarm
+      - inaccurate
+
+  service:
+    keywords:
+      - rude
+      - no response
+      - ignored me
+      - refused refund
+      - chargeback
+      - lost package
+      - delayed
+      - wrong item
+      - nightmare support
+      - useless
+      - waste of time
+
+  price:
+    keywords:
+      - rip off
+      - overpriced
+      - hidden fee
+      - subscription
+      - monthly charge
+      - waste of money
+      - not worth it
+      - scam
+      - greedy
+
+  ux:
+    keywords:
+      - confusing
+      - hard to use
+      - complicated
+      - manual is wrong
+      - unclear
+      - headache
+      - frustration

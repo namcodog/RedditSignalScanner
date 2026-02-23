@@ -1,0 +1,25 @@
+# Role definitions for dynamic community routing
+# market_insight: Default consumer-centric view (Listening to buyers)
+# operations: Seller-centric view (Listening to peers/experts)
+
+roles:
+  operations:
+    description: "B2B, Seller Support, Marketing, Logistics"
+    communities:
+      - r/amazonfba
+      - r/fulfillmentbyamazon
+      - r/dropshipping
+      - r/ecommerce
+      - r/seo
+      - r/smallbusiness
+      - r/entrepreneur
+      - r/flipping
+      - r/amazonseller
+      - r/digital_marketing
+      - r/shopifyseo
+      - r/shopifyecommerce
+      - r/printondemand
+      - r/freelance
+      - r/startups
+      - r/marketing
+      - r/shopify

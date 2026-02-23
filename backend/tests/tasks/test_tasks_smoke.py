@@ -13,8 +13,8 @@ from app.tasks import maintenance_task, monitoring_task
 @pytest.mark.parametrize(
     "task_name",
     [
-        "refresh_posts_latest",
         "cleanup_expired_posts_hot",
+        "cleanup_expired_facts_audit",
         "collect_storage_metrics",
     ],
 )
@@ -42,6 +42,38 @@ def test_maintenance_tasks_delegate_to_async_impl(monkeypatch: pytest.MonkeyPatc
 
     assert result == expected
     assert called["impl"] and called["run"]
+
+
+def test_refresh_posts_latest_uses_sync_engine(monkeypatch: pytest.MonkeyPatch) -> None:
+    called: dict[str, bool] = {"execute": False}
+
+    class _DummyConn:
+        def execute(self, *_: Any, **__: Any) -> None:
+            called["execute"] = True
+
+    class _DummyEngine:
+        def begin(self) -> "_DummyEngine":
+            return self
+
+        def __enter__(self) -> _DummyConn:
+            return _DummyConn()
+
+        def __exit__(self, *_: Any) -> None:
+            return None
+
+    monkeypatch.setattr(
+        maintenance_task,
+        "get_settings",
+        lambda: type("Settings", (), {"database_url": "postgresql+asyncpg://test"})(),
+    )
+    monkeypatch.setattr(
+        maintenance_task, "create_engine", lambda *_args, **_kwargs: _DummyEngine()
+    )
+
+    result = maintenance_task.refresh_posts_latest()
+
+    assert result["status"] == "completed"
+    assert called["execute"] is True
 
 
 def test_monitor_api_calls_uses_redis(monkeypatch: pytest.MonkeyPatch) -> None:

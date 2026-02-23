@@ -1,0 +1,9 @@
+# Optional overrides for subreddit verticals / crawl tracks.
+# Each entry: subreddit (with or without r/), vertical name, optional crawl_track/priority.
+# Example:
+# overrides:
+#   - subreddit: r/Coffee
+#     vertical: coffee
+#     crawl_track: both        # both | posts_only | comments_only | none
+#     priority: high
+overrides: []

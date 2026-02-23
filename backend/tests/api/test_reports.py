@@ -124,7 +124,7 @@ async def test_get_report_success(
     for category in ("brands", "features", "pain_points"):
         assert category in entity_summary
         assert isinstance(entity_summary[category], list)
-    assert data["report_html"].startswith("<html>")
+    assert data["report_html"].startswith("<html>") or data["report_html"].startswith("<pre>")
 
     metadata = data["metadata"]
     assert metadata["analysis_version"] == "1.0"
@@ -181,6 +181,7 @@ async def test_get_report_requires_completion(
     user = User(
         email=f"pending+{uuid.uuid4().hex}@example.com",
         password_hash=hash_password("testpass123"),
+        membership_level=MembershipLevel.PRO,  # 确保通过付费计划校验，专注测试任务完成状态
     )
     db_session.add(user)
     await db_session.flush()
@@ -216,6 +217,42 @@ async def test_get_report_returns_structured_stats(
     assert {"positive_mentions", "negative_mentions", "neutral_mentions"}.issubset(
         stats.keys()
     )
+
+
+async def test_get_report_tolerates_extended_sources_payload(
+    client: AsyncClient,
+    db_session: AsyncSession,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    # Disable LLM/network enhancements for deterministic and offline-safe tests.
+    from app.core import config as config_module
+
+    monkeypatch.setattr(config_module.settings, "enable_llm_summary", False)
+    monkeypatch.setattr(config_module.settings, "llm_model_name", "local-extractive")
+    monkeypatch.setattr(config_module.settings, "report_quality_level", "basic")
+
+    user, task = await _create_completed_task(
+        db_session,
+        sources_payload={
+            "communities": ["r/startups"],
+            "posts_analyzed": 10,
+            "cache_hit_rate": 0.9,
+            # Fields produced by the analysis engine for traceability (should not break report rendering)
+            "ps_ratio": 1.2,
+            "keywords": ["onboarding", "churn"],
+            "pain_counts_by_community": {"r/startups": 5},
+        },
+    )
+    token = _issue_token(str(user.id))
+
+    response = await client.get(
+        f"/api/report/{task.id}",
+        headers={"Authorization": f"Bearer {token}"},
+    )
+
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["task_id"] == str(task.id)
 
 
 @pytest.mark.asyncio

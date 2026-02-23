@@ -1,0 +1,723 @@
+# Pain Dictionary V3.0: The Ultimate Encyclopedia of Cross-border E-commerce Pains
+# Coverage: 100+ Keywords across 10+ Categories
+# ---------------------------------------------------------
+
+# ==========================================
+# 1. 亚马逊专属痛点 (Amazon Specific)
+# ==========================================
+fba:
+  title_cn: "FBA 仓储费刺客"
+  insight: "长期仓储费（LTSF）和旺季配送费的上涨，让低客单价产品无利可图。卖家对'库存周转率'极其焦虑。"
+  opportunity: "FBA 库存健康度监控工具，或第三方海外仓（3PL）比价平台。"
+
+asins:
+  title_cn: "ASIN 变狗（下架）"
+  insight: "辛苦推起来的链接突然变成'狗'（页面不存在），通常是因为被误判违规或被攻击。每一分钟的下架都是金钱损失。"
+  opportunity: "ASIN 状态24小时监控与自动申诉助手。"
+
+hijack:
+  title_cn: "跟卖狗皮膏药"
+  insight: "深夜跟卖防不胜防，抢走购物车（Buy Box）。品牌备案也没法完全杜绝，卖家对此深恶痛绝。"
+  opportunity: "全天候防跟卖监控（赶跟卖）软件，或品牌透明计划（Transparency）注册代理。"
+
+review_deleted:
+  title_cn: "好评被撸（掉评）"
+  insight: "亚马逊删评算法越来越疯，连真实好评都被误删。Review是转化率的核心，掉评等于掉销量。"
+  opportunity: "合规获评（Vine计划）辅助工具，或站外索评（通过插卡/保修卡）系统。"
+
+a_to_z:
+  title_cn: "A-to-Z 索赔滥用"
+  insight: "买家动不动就开A-to-Z索赔，亚马逊偏袒买家直接退款。店铺ODR（订单缺陷率）飙升，账号岌岌可危。"
+  opportunity: "ODR 指标预警与索赔申诉模板库。"
+
+inauthentic:
+  title_cn: "真实性审核（二手当新品）"
+  insight: "FBA退货被重新上架，下一个买家收到后投诉'假货'或'旧货'。卖家冤枉但申诉极难。"
+  opportunity: "FBA 不可售库存自动移除设置教程，或发票审核辅助服务。"
+
+hazmat:
+  title_cn: "危险品审核误判"
+  insight: "普通产品被误判为Hazmat（危险品），导致无法入库或上架，审核周期长达数周。"
+  opportunity: "危险品豁免（SDS表格）自动生成器。"
+
+category_change:
+  title_cn: "类目节点被篡改"
+  insight: "竞争对手恶意修改你的类目节点，导致BSR排名消失，流量腰斩。"
+  opportunity: "Listing 属性篡改监控与自动恢复工具。"
+
+# ==========================================
+# 2. 独立站与建站 (Shopify/DTC)
+# ==========================================
+theme_customization:
+  title_cn: "主题修改无底洞"
+  insight: "想改个字体大小都要动Liquid代码，找Fiverr外包又贵又慢。DTC品牌感卡在细节上。"
+  opportunity: "可视化CSS编辑器插件，或'模块化'的高级主题市场。"
+
+abandoned_cart:
+  title_cn: "弃单率居高不下"
+  insight: "用户加购了但就是不结账。每挽回1%的弃单，净利润可能增加10%。"
+  opportunity: "多渠道弃单挽回系统（SMS+邮件+WhatsApp），含智能折扣策略。"
+
+page_speed:
+  title_cn: "移动端加载龟速"
+  insight: "App装多了导致JS臃肿，Google PageSpeed评分低，直接影响SEO和广告转化。"
+  opportunity: "无损代码压缩与懒加载（Lazy Load）一键优化工具。"
+
+payment_gateway:
+  title_cn: "支付成功率低"
+  insight: "新兴市场（拉美/中东）信用卡普及率低，只接PayPal会流失大量本地支付订单。"
+  opportunity: "本地支付聚合网关（dLocal/Payssion）集成服务。"
+
+pixel:
+  title_cn: "Pixel 追踪丢失"
+  insight: "iOS隐私政策导致FB Pixel漏抓数据，广告机器学习不到转化人群，投放效果越来越差。"
+  opportunity: "Conversion API（CAPI）一键配置工具。"
+
+fraud_order:
+  title_cn: "高风险欺诈订单"
+  insight: "Shopify自带风控太弱，发货后被拒付，不发货又怕误伤真实客户。"
+  opportunity: "AI 欺诈订单识别与拦截系统（如NoFraud平替）。"
+
+# ==========================================
+# 3. 社交电商 (TikTok/Social)
+# ==========================================
+shadowban:
+  title_cn: "账号限流（Shadowban）"
+  insight: "视频突然0播放，账号被关进小黑屋且无通知。对于依靠自然流的卖家是毁灭性打击。"
+  opportunity: "账号健康度检测工具，或环境隔离（原生IP）解决方案。"
+
+creative_fatigue:
+  title_cn: "素材寿命极短"
+  insight: "TikTok爆款视频寿命只有3-5天，需要持续不断地生产新内容，创作压力巨大。"
+  opportunity: "AI 混剪与去重工具，或UGC创作者批量对接平台。"
+
+livestream:
+  title_cn: "直播无人在线"
+  insight: "请了主播、搭了场景，结果直播间只有个位数在线，ROI惨不忍睹。"
+  opportunity: "TikTok 投流涨粉服务，或互动留人话术提词器。"
+
+shop_violation:
+  title_cn: "TikTok Shop 违规分"
+  insight: "发货稍微晚一点、回复慢一点就扣分，分扣完了直接封店。平台规则极其严苛且多变。"
+  opportunity: "Shop 违规预警与履约时效监控看板。"
+
+# ==========================================
+# 4. 广告与流量 (Ads & Traffic)
+# ==========================================
+cpc:
+  title_cn: "点击成本飙升"
+  insight: "流量红利结束，CPC每年涨30%。小卖家被大卖家的预算挤出市场。"
+  opportunity: "长尾关键词挖掘工具（避开热词），或蓝海渠道（Pinterest/Snapchat）投放指南。"
+
+roas:
+  title_cn: "广告亏损难止"
+  insight: "睡觉时广告跑飞了，一觉醒来亏了几千刀。卖家需要24小时盯着账户。"
+  opportunity: "自动止损规则引擎（Rule-based Automation）。"
+
+audience:
+  title_cn: "受众定位不准"
+  insight: "兴趣标签越来越模糊，投'猫粮'结果广告展示给了'养狗'的人。"
+  opportunity: "基于第一方数据（Lookalike）的受众包生成工具。"
+
+ad_account_ban:
+  title_cn: "广告账户被封"
+  insight: "FB广告号动不动就'关联'或'规避政策'被封，申诉无门，有钱花不出去。"
+  opportunity: "Facebook 广告号租赁（Agency Account），或防关联指纹浏览器。"
+
+influencer_ghosting:
+  title_cn: "网红拿钱跑路"
+  insight: "寄了样品、付了坑位费，网红失联或发的内容敷衍了事。"
+  opportunity: "网红营销CRM（带履约追踪），或纯佣金模式合作平台。"
+
+# ==========================================
+# 5. 供应链与物流 (Supply Chain)
+# ==========================================
+lead_time:
+  title_cn: "发货时效延迟"
+  insight: "供应商说'有货'，下单后三天不发。这种信息差导致卖家在前台虚假承诺，引发客诉。"
+  opportunity: "供应链ERP（实时同步库存），或备货模式转型咨询。"
+
+quality_check:
+  title_cn: "货不对板（质检）"
+  insight: "样品很好，大货很烂。跨国维权成本太高，通常只能吃哑巴亏。"
+  opportunity: "中国端按次付费的验货服务（QC Service）。"
+
+moq:
+  title_cn: "起订量门槛"
+  insight: "想做定制（Logo/包装），工厂要求1000起订。资金不足的小卖家只能卖通货。"
+  opportunity: "小单定制（POD）柔性供应链平台，或拼单采购社区。"
+
+customs:
+  title_cn: "海关扣关/查验"
+  insight: "货物在海关被扣，不仅要交高额税金，还会错过销售旺季。"
+  opportunity: "双清包税物流专线推荐，或关税计算器。"
+
+epacket:
+  title_cn: "E邮宝太慢"
+  insight: "曾经的神器现在时效极不稳定（20-40天），买家等不及直接拒付。"
+  opportunity: "云途/4PX等商业快递专线对接，或海外仓一件代发。"
+
+# ==========================================
+# 6. 资金与支付 (Finance)
+# ==========================================
+paypal_hold:
+  title_cn: "PayPal 资金冻结"
+  insight: "新号一收款就冻结21天，或者直接180天。现金流断裂是致死原因。"
+  opportunity: "提供物流单号自动同步到PayPal的工具（加速解冻）。"
+
+exchange_rate:
+  title_cn: "汇损吃掉利润"
+  insight: "平台打款给第三方，第三方提现到银行，中间汇率损耗可能高达3-5%。"
+  opportunity: "优汇率的全球收款账户（类似Airwallex/Wise）。"
+
+vat:
+  title_cn: "VAT 税务合规"
+  insight: "欧洲站必须注册VAT，流程复杂且费用高。不合规直接关店。"
+  opportunity: "IOSS 一站式申报服务，或税务合规自动化SaaS。"
+
+virtual_card:
+  title_cn: "虚拟卡被拒"
+  insight: "用于扣广告费的虚拟卡段被平台拉黑，导致广告欠费停投。"
+  opportunity: "稳定高权重的企业级虚拟卡发卡平台。"
+
+payout_delay_platform:
+  title_cn: "平台打款一拖再拖"
+  insight: "平台账期说7天，实际常常 14-30 天，现金流被锁死，广告和备货断粮。"
+  opportunity: "多平台打款日历 + 预测回款模块，异常延迟自动预警。"
+
+rolling_reserve_high:
+  title_cn: "滚动备付金过高"
+  insight: "支付服务商扣 10-20% 备付金，且释放周期不透明，利润被吃掉。"
+  opportunity: "备付金模拟器 + 多 PSP 对比，给出最低滚动比例选项。"
+
+chargeback_burst:
+  title_cn: "拒付暴增"
+  insight: "广告投放放量后，拒付率突然飙升，账户被风控，资金被扣留。"
+  opportunity: "拒付预警 + 证据包一键提交（物流单号、聊天记录、签收）。"
+
+dispute_manual:
+  title_cn: "争议处理全靠手工"
+  insight: "每单争议都要人工收集材料，30 分钟起步，团队疲于奔命。"
+  opportunity: "争议材料自动拼包 + 模板化回应，批量提交接口。"
+
+fx_spread_hidden:
+  title_cn: "汇率价差被暗扣"
+  insight: "标称 0 手续费，但汇率价差高达 300-500bp，真实成本被掩盖。"
+  opportunity: "实时汇率对账 + 总成本揭示，对比 PSP/银行方案。"
+
+fx_conversion_chain:
+  title_cn: "多次换汇链路"
+  insight: "平台结算 USD→第三方 EUR→本地银行 CNY，层层兑换吞掉利润。"
+  opportunity: "一次换汇直达本地币种，或多币种钱包内部净额结算。"
+
+bank_wire_fee:
+  title_cn: "跨行电汇费刺客"
+  insight: "SWIFT 手续费 + 收款行入账费 + 中间行费用，到账金额不确定。"
+  opportunity: "透明费用估算器 + 低费率通道选择建议。"
+
+swift_trace_missing:
+  title_cn: "款去哪了？SWIFT Trace 拿不到"
+  insight: "客户说没收到钱，银行需要 SWIFT Trace，申请周期长、跨时区沟通崩溃。"
+  opportunity: "自动生成/拉取 SWIFT Trace，或切换可视化链路的通道。"
+
+compliance_kyc_loop:
+  title_cn: "KYC 套娃审查"
+  insight: "反洗要求更新频繁，反复提交护照/水电账单/法人证明，开户周期一拖再拖。"
+  opportunity: "KYC 文档到期提醒 + 一键打包提交，多 PSP 复用。"
+
+aml_flag_false:
+  title_cn: "误伤 AML 标记"
+  insight: "正常大额被标红，账户冻结，需人工申诉，收入骤停。"
+  opportunity: "交易模式监控 + 触发前置预警，提供合规说明模板。"
+
+tax_withholding_unknown:
+  title_cn: "源头扣税不透明"
+  insight: "平台或 PSP 扣了一笔税，金额/税种/申报方式不清楚，财务对不上账。"
+  opportunity: "扣税解析 + 补申报指引，提供抵扣证明下载。"
+
+payout_threshold_unexpected:
+  title_cn: "最低提款额坑"
+  insight: "到账必须满 100/500 美金才能提，低于门槛只能干等。"
+  opportunity: "多通道联动或自动凑单提现，给出最优提现路径。"
+
+min_withdrawal_fee:
+  title_cn: "提现固定费用压小单"
+  insight: "每次提现固定扣 10-15 美金，小卖家频繁提现成本爆炸。"
+  opportunity: "提现频率优化建议 + 聚合提现，或支持零钱包滚存后低费率提取。"
+
+weekend_cutoff:
+  title_cn: "周末/节假日断档"
+  insight: "周五晚上的款要到周一/周二才到，供应商催款，广告要续费，现金流断档。"
+  opportunity: "T+0/T+1 预付或保理服务，周末加速通道。"
+
+settlement_mismatch:
+  title_cn: "结算对不上账"
+  insight: "平台对账单、支付网关、银行入账三套数字不一致，财务核对极其痛苦。"
+  opportunity: "多来源自动对账引擎，差异定位与报表导出。"
+
+reconciliation_time_sink:
+  title_cn: "手工对账耗时"
+  insight: "每天 2-3 小时 Excel 对账，容易出错，月底关账更崩溃。"
+  opportunity: "自动对账 + 异常提醒，支持多币种多渠道。"
+
+api_rate_limit:
+  title_cn: "支付 API 限频"
+  insight: "流量高峰时被网关限流，交易失败率飙升，用户流失。"
+  opportunity: "降级与排队策略、自动重试；多网关路由分流。"
+
+webhook_miss:
+  title_cn: "Webhook 丢事件"
+  insight: "支付成功但 webhook 未送达，订单状态不更新，引发客服/拒付。"
+  opportunity: "Webhook 重放与补偿机制，状态拉取兜底。"
+
+ledger_out_of_sync:
+  title_cn: "总账/分账不同步"
+  insight: "订单、退款、手续费、汇损分散在不同系统，利润算不清。"
+  opportunity: "统一财务子账本，自动归集交易、退款、费率、汇损。"
+
+payout_statement_inconsistent:
+  title_cn: "对账单口径不一致"
+  insight: "同一笔交易在不同报表里的时间、金额、币种不一致，审计困难。"
+  opportunity: "标准化报表格式 + 口径映射，支持导出审计版。"
+
+hidden_platform_fee:
+  title_cn: "平台隐形手续费"
+  insight: "标价 2.9%+0.3，但额外收'跨境费/高风险 MCC 费'，结算才发现。"
+  opportunity: "费率拆解器，提前预估并给出最优费率组合。"
+
+tier_pricing_unclear:
+  title_cn: "阶梯费率不透明"
+  insight: "销量越高费率应下降，但平台/PSP 计算口径不清，无法验证。"
+  opportunity: "阶梯费率模拟与校验工具，异常自动申诉。"
+
+payout_calendar_uncertain:
+  title_cn: "到账日不可预测"
+  insight: "商家无法知道下次到账具体日期/金额，无法安排广告和供货。"
+  opportunity: "回款日历 + 预测模型，结合账期/节假日/延迟历史。"
+
+multi_currency_split:
+  title_cn: "多币种分账麻烦"
+  insight: "多个币种散在不同钱包/银行，难以统一调拨付款给供应商。"
+  opportunity: "多币种主账户 + 内部净额结算，一键结汇或跨币种转付。"
+
+refund_double_fee:
+  title_cn: "退款还要二次收费"
+  insight: "退款不仅退货款，还扣一笔固定费或不退交易费，利润被蚕食。"
+  opportunity: "退款成本测算 + 政策对比，优选低成本网关。"
+
+partial_refund_fx_loss:
+  title_cn: "部分退款汇损"
+  insight: "退款按当前汇率返还，汇损由商家承担，频繁退款导致利润波动。"
+  opportunity: "部分退款对冲建议，或支持原汇率锁定的通道。"
+
+subscription_payment_fail:
+  title_cn: "订阅扣款失败率高"
+  insight: "卡过期/3DS/风控导致续费失败，流失率上升。"
+  opportunity: "智能重试策略 + 多支付路由，提前卡过期提醒。"
+
+3ds_conversion_drop:
+  title_cn: "3DS 导致转化下降"
+  insight: "强制 3DS 让用户流失，转化率显著下滑。"
+  opportunity: "风险分级：低风险跳过 3DS，高风险再触发；支持豁免通道。"
+
+avs_mismatch:
+  title_cn: "AVS 地址不匹配"
+  insight: "北美地址验证失败，交易被拒，真实用户也被挡掉。"
+  opportunity: "地址规范化与自动补全，或提供 AVS 宽松的网关。"
+
+card_decline_rate_high:
+  title_cn: "卡拒付率高"
+  insight: "跨境卡 BIN、预付卡、风控策略导致大量拒付，广告白烧。"
+  opportunity: "BIN 风险分级 + 智能路由到高通过率通道。"
+
+virtual_card_spend_limit:
+  title_cn: "虚拟卡限额卡脖子"
+  insight: "广告费/采买费需要大额，虚拟卡每日/每月限额太低。"
+  opportunity: "高额度企业虚拟卡方案，或多卡池自动轮转。"
+
+ad_spend_vs_payout_gap:
+  title_cn: "广告花钱快，回款慢"
+  insight: "投放现金流出在前，回款在后，导致资金缺口。"
+  opportunity: "回款预测 + 提前结算/保理组合，平滑现金流。"
+
+preauth_hold:
+  title_cn: "预授权占额太久"
+  insight: "预授权长时间未释放，用户额度被占用，引发投诉或拒付。"
+  opportunity: "自动释放/部分捕获策略，缩短占额时间。"
+
+pci_scope_overload:
+  title_cn: "PCI 合规成本高"
+  insight: "自建收银台需要承担 PCI DSS 范围，合规审计/加固费用巨大。"
+  opportunity: "托管支付页或 Token 化方案，缩小 PCI 范围。"
+
+invoice_payment_mismatch:
+  title_cn: "对公收款对不上发票"
+  insight: "B2B 客户打款备注混乱，无法快速对应订单，发货/对账延迟。"
+  opportunity: "对公收款虚拟子账户 + 自动对账匹配。"
+
+beneficial_owner_docs:
+  title_cn: "受益人材料补交反复"
+  insight: "合规要求更新，频繁补交董事/实控人文件，跨时区沟通拖慢放款。"
+  opportunity: "材料有效期管理 + 一键打包多通道提交。"
+
+payout_split_rules:
+  title_cn: "分账规则灵活度不足"
+  insight: "平台抽佣、服务商分润、供应商结算多方参与，现有通道不支持灵活分账。"
+  opportunity: "可配置分账/分润引擎，支持事后调整与审计。"
+
+payout_api_downtime:
+  title_cn: "打款接口宕机"
+  insight: "支付网关或银行 API 宕机，批量打款失败，客服工单暴增。"
+  opportunity: "多通道打款路由 + 失败自动重试与告警。"
+
+payment_gateway_downtime:
+  title_cn: "收款网关宕机"
+  insight: "高峰期网关不可用，转化直接归零。"
+  opportunity: "多网关健康监控 + 自动切换，最小化停机损失。"
+
+payout_fx_spread_variance:
+  title_cn: "不同通道汇差悬殊"
+  insight: "同一时间不同 PSP/银行给的汇率差 200-400bp，选择不当亏损大。"
+  opportunity: "实时比价 + 自动择优通道，汇率提醒。"
+
+kyc_reject_loop:
+  title_cn: "KYC 驳回死循环"
+  insight: "同一材料被不同审核员反复驳回，要求不一致，开户时间无限拉长。"
+  opportunity: "多版本材料生成（翻译/水电账单/对账单），逐项核对清单。"
+
+withholding_statement_delay:
+  title_cn: "扣税证明开具慢"
+  insight: "需要扣税证明抵扣，平台开具周期长，影响报税。"
+  opportunity: "扣税证明进度跟踪 + 催办提醒；提供替代证明路径。"
+
+merchant_of_record_confusion:
+  title_cn: "MoR 责任不清"
+  insight: "到底是平台还是卖家承担 MoR？税/风控/退款责任模糊，风险外溢。"
+  opportunity: "MoR 责任划分解析 + 合规落地建议。"
+
+kyb_complexity:
+  title_cn: "KYB 企业审核复杂"
+  insight: "多法人、多国公司架构，层层穿透，材料准备成本高。"
+  opportunity: "结构化 KYB 清单生成 + 按国家差异化指引。"
+
+aml_rule_changes:
+  title_cn: "AML 规则频繁变更"
+  insight: "支付通道随时更新高风险国家/行业列表，突然限流或封禁。"
+  opportunity: "规则变更监控 + 替代通道推荐，提前迁移流量。"
+
+offline_settlement_gap:
+  title_cn: "线下收款入账慢"
+  insight: "POS/线下转账到账不及时，线上线下对账困难。"
+  opportunity: "统一收款记账与对账，线下款项状态可视化。"
+
+crossborder_refund_latency:
+  title_cn: "跨境退款到账慢"
+  insight: "退款需要跨境回流，周期 7-30 天，客户投诉/拒付风险上升。"
+  opportunity: "加速退款通道或本地化退款钱包，缩短周期。"
+
+psp_lockin:
+  title_cn: "被单一 PSP 绑死"
+  insight: "单通道风险高，一旦风控/故障即全盘停摆。"
+  opportunity: "多 PSP 并行路由，健康度监控与自动切换。"
+
+statement_currency_mismatch:
+  title_cn: "结算币种和对账币种不一致"
+  insight: "合同约定 USD 结算，账单显示 EUR，汇率换算难以核对。"
+  opportunity: "币种映射与差异标注，自动换算对账。"
+
+fee_spread_acquirer:
+  title_cn: "收单行费率差异大"
+  insight: "同卡段在不同收单行通过率/费率差别大，选错通道被多收费且转化低。"
+  opportunity: "BIN→收单行路由优化，费率/通过率联动决策。"
+
+payout_cutoff_timezone:
+  title_cn: "时区截点踩坑"
+  insight: "截点按 PST/UTC，团队在 CST/EU 误判提交时间，导致回款延后。"
+  opportunity: "时区感知截点提醒 + 自动换算显示。"
+
+holistic_cashflow_visibility:
+  title_cn: "现金流全貌不可见"
+  insight: "多平台、多 PSP、多币种，资金在哪里、何时可用没人说得清。"
+  opportunity: "资金总览仪表盘：在途/冻结/可用/预估回款一屏呈现。"
+
+# ==========================================
+# 7. 运营效率 (Operations)
+# ==========================================
+multichannel:
+  title_cn: "多平台库存不同步"
+  insight: "同时做Amazon和Shopify，一边卖空了另一边还在卖，导致超卖违规。"
+  opportunity: "多渠道库存实时同步ERP。"
+
+email_overload:
+  title_cn: "邮件回复不及时"
+  insight: "周末不上班，周一回来几百封邮件，回复慢了影响绩效。"
+  opportunity: "AI 自动回复机器人（带情绪识别），或工单聚合系统。"
+
+va_management:
+  title_cn: "VA（虚拟助理）管理难"
+  insight: "菲律宾VA虽然便宜，但经常失联、停电、效率低。沟通成本极高。"
+  opportunity: "带时间追踪和截屏功能的远程团队管理软件。"
+
+data_silo:
+  title_cn: "数据孤岛"
+  insight: "广告数据在FB，订单在Shopify，物流在17Track。老板每天花3小时做Excel报表。"
+  opportunity: "全链路电商数据BI看板（一屏看全）。"
+
+# ==========================================
+# 8. 法律与知识产权 (Legal)
+# ==========================================
+tm_infringement:
+  title_cn: "商标侵权投诉"
+  insight: "不知道某个词是商标（如Velcro），用了就被投诉侵权，Listing被下架。"
+  opportunity: "Listing 文案侵权词自动检测插件。"
+
+patent_troll:
+  title_cn: "外观专利流氓"
+  insight: "流氓律所注册通用产品的外观专利，批量起诉卖家，冻结PayPal资金。"
+  opportunity: "TRO（临时限制令）和解谈判法律服务。"
+
+gdpr:
+  title_cn: "GDPR/CCPA 合规"
+  insight: "Cookie弹窗没设置好，被欧洲钓鱼执法起诉。"
+  opportunity: "一键合规的Cookie Consent横幅插件。"
+
+epr:
+  title_cn: "EPR 包装法合规"
+  insight: "德国/法国要求注册包装回收法，不合规产品直接被下架。"
+  opportunity: "EPR 代注册与申报服务。"
+
+# ==========================================
+# 9. 选品与市场 (Product Research)
+# ==========================================
+saturation:
+  title_cn: "市场过度饱和"
+  insight: "选品软件推出来的'爆款'，其实已经是'红海'。进去就是当炮灰。"
+  opportunity: "蓝海细分市场（Niche）挖掘算法，基于供需比而非销量。"
+
+copycat:
+  title_cn: "产品同质化"
+  insight: "大家都卖义乌通货，除了打价格战别无他法。"
+  opportunity: "独家设计/私模产品供应链对接，或POD定制化选品。"
+
+seasonality:
+  title_cn: "季节性库存积压"
+  insight: "泳衣卖到秋天还没清完，仓储费爆炸。季节性把控不准。"
+  opportunity: "季节性产品趋势预测日历。"
+
+# ==========================================
+# 10. 心理与成长 (Mindset)
+# ==========================================
+loneliness:
+  title_cn: "独立创客的孤独"
+  insight: "一个人在家SOHO，没有同事，遇到问题没人商量，容易钻牛角尖。"
+  opportunity: "高门槛的卖家互助Mastermind圈子。"
+
+anxiety:
+  title_cn: "封号焦虑症"
+  insight: "每天早上醒来第一件事是看店铺还在不在。这种不安全感严重影响生活质量。"
+  opportunity: "资产分散化咨询，或心理支持社群。"
+
+shiny_object:
+  title_cn: "新奇事物综合症"
+  insight: "今天做FB，明天做TikTok，后天做SEO。什么都想做，什么都做不深。"
+  opportunity: "专注力与执行力监督社群（Accountability Partner）。"
+
+# ==========================================
+# 11. 客户体验 (CX)
+# ==========================================
+wismo:
+  title_cn: "我的包裹在哪 (WISMO)"
+  insight: "60%的客服邮件都是问物流状态。人工回复纯属浪费生命。"
+  opportunity: "自助式物流查询页面（Branded Tracking Page）。"
+
+size_fit:
+  title_cn: "尺码不合退货"
+  insight: "服装类目退货率高达20-30%，主要因为尺码表不准或用户不会选。"
+  opportunity: "AI 尺码推荐助手（基于身高体重）。"
+
+instruction:
+  title_cn: "说明书看不懂"
+  insight: "产品太复杂说明书又烂，用户不会用直接差评/退货。"
+  opportunity: "视频说明书（QR码）托管平台。"
+
+# ==========================================
+# 12. 邮件营销 (Email Marketing)
+# ==========================================
+open_rate:
+  title_cn: "邮件打开率低"
+  insight: "发的邮件都进了垃圾箱（Spam），精心写的营销内容没人看。"
+  opportunity: "邮件域名预热（Warm-up）工具，或Spam词检测器。"
+
+list_growth:
+  title_cn: "订阅列表增长慢"
+  insight: "弹窗太烦人被关掉，不知道怎么收集潜在客户邮箱。"
+  opportunity: "交互式转盘抽奖（Spin-to-win）插件，或Lead Magnet设计服务。"
+creative_burnout:
+  title_cn: "广告素材一天就废"
+  insight: "TikTok/FB 素材寿命极短，3-5 天就衰减，素材产能跟不上，测试成本高。"
+  opportunity: "批量混剪/去重/变体生成，配合低成本快速测素材。"
+
+ad_learning_reset:
+  title_cn: "广告学习阶段反复重置"
+  insight: "频繁改预算/素材导致学习阶段重置，ROI 不稳定，花费容易跑飞。"
+  opportunity: "投放节奏/出价/受众改动的 SOP，自动化规则防跑飞。"
+
+ad_budget_spike:
+  title_cn: "睡醒一觉广告烧穿预算"
+  insight: "夜间/时区差导致无人值守，预算飙升，ROI 跑亏。"
+  opportunity: "预算封顶+异常熔断规则，告警+自动降级。"
+
+feed_disapprove:
+  title_cn: "商品 Feed 被拒"
+  insight: "独立站商品被 FB/Google/META 频繁拒登（标题/图/类目），流量被卡。"
+  opportunity: "Feed 体检与自动纠错（类目/标题/图像合规）。"
+
+ad_account_chainban:
+  title_cn: "广告号/商务号连坐封禁"
+  insight: "同一商务管理/支付卡/域名关联，封号牵连全局，推广停摆。"
+  opportunity: "防关联方案（域名/支付/设备隔离），应急号池。"
+
+ugc_cost_high:
+  title_cn: "网红/UGC 价格虚高"
+  insight: "KOL 报价水分大，付了坑位费拿到的内容质量差，ROI 难测。"
+  opportunity: "按效果分成或批量低价 UGC 供给平台，带履约追踪。"
+
+influencer_roi_uncertain:
+  title_cn: "网红投放 ROI 不透明"
+  insight: "缺乏归因，寄样/付费后效果未知，品牌方难以决策复投。"
+  opportunity: "网红归因与履约看板，转化/券码/UTM 一体跟踪。"
+
+listing_suppressed:
+  title_cn: "Listing 被抑制/下架"
+  insight: "类目/合规/图片等原因被隐藏流量，流量腰斩。"
+  opportunity: "Listing 体检与抑制原因排查，自动修复建议。"
+
+bsr_drop_spike:
+  title_cn: "BSR 排名暴跌"
+  insight: "被恶意改类目/差评攻击/库存断货，销量骤降。"
+  opportunity: "BSR/类目/价格/库存监控，异常预警和自动调价补货建议。"
+
+keyword_snipe:
+  title_cn: "核心关键词被抢占"
+  insight: "竞品抢走主词/长尾词广告位，曝光下降。"
+  opportunity: "长尾词拓展与竞价防守策略，自动竞价上限控制。"
+
+brand_registry_pending:
+  title_cn: "品牌备案久拖不下"
+  insight: "备案材料/流程卡住，无法开 A+、防跟卖，损失转化。"
+  opportunity: "备案流程加速与材料准备服务。"
+
+review_scam_attack:
+  title_cn: "恶意差评/骚扰"
+  insight: "竞品刷一星或留诋毁性评论，转化率断崖。"
+  opportunity: "差评监控+证据收集+申诉模板，站外引导真实测评。"
+
+blackhat_sabotage:
+  title_cn: "黑帽攻击"
+  insight: "恶意下单退款、跟卖上假货、恶改类目、虚假侵权投诉等，店铺健康度受损。"
+  opportunity: "黑帽行为检测与快速应对 SOP；防跟卖与侵权申诉支持。"
+
+fba_peak_surcharge:
+  title_cn: "旺季 FBA 额外费"
+  insight: "旺季配送费/仓储费激增，低客单产品被挤压利润。"
+  opportunity: "旺季费率模拟器 + 补货/提价策略建议，或海外仓替代。"
+
+warehouse_lost_inventory:
+  title_cn: "仓库丢货/入库异常"
+  insight: "FBA/3PL 入库丢件或数量不符，补货/赔付流程繁琐。"
+  opportunity: "入库核对与赔付申诉工具，异常预警。"
+
+last_mile_damage:
+  title_cn: "尾程破损/丢件"
+  insight: "用户收到破损或未收到货，差评/退款率上升。"
+  opportunity: "包装方案优化 + 高时效专线推荐 + 赔付追踪。"
+
+return_rate_high:
+  title_cn: "退货率居高不下"
+  insight: "尺码/材质/期望差导致高退货，利润被吞噬。"
+  opportunity: "尺码/期望管理（视频/对比图/AI 尺码推荐）+ 退货成本核算。"
+
+return_no_resell:
+  title_cn: "退货无法再售"
+  insight: "退回货品无法翻新/二次销售，纯亏损。"
+  opportunity: "二次销售渠道/翻新流程，或退货分级策略。"
+
+lost_in_transit_claim:
+  title_cn: "物流赔付难"
+  insight: "丢件/延误索赔周期长、材料繁琐，成功率低。"
+  opportunity: "索赔自动化材料生成，快递/专线对比选择低纠纷渠道。"
+
+checkout_conversion_low:
+  title_cn: "独立站结账转化低"
+  insight: "支付方式少、表单长、信任缺失，用户半途流失。"
+  opportunity: "一页式结账、信任背书、丰富本地支付（COD/钱包/分期）。"
+
+shopify_app_bloat:
+  title_cn: "独立站插件臃肿"
+  insight: "装了太多 App，JS 阻塞，页面龟速，转化掉。"
+  opportunity: "性能体检+冗余插件清理+轻量替代方案。"
+
+currency_switch_loss:
+  title_cn: "多币种显示/结算不一致"
+  insight: "前台显示本地币，结算扣 USD，用户二次汇损，拒付/放弃。"
+  opportunity: "多币种真实结算与本地化展示，减少汇损。"
+
+cod_cancel_high:
+  title_cn: "货到付款拒收高"
+  insight: "COD 地区（中东/拉美/东南亚）用户下单易反悔，拒收/逆向物流成本高。"
+  opportunity: "COD 风险分级 + 定金/确认机制 + 局部预付款策略。"
+
+local_payment_missing:
+  title_cn: "本地支付缺失导致流失"
+  insight: "仅卡/PayPal，缺少拉美 boleto、MENA 钱包、印度 UPI 等，转化低。"
+  opportunity: "本地支付聚合接入，按地区自动展示。"
+
+policy_update_surprise:
+  title_cn: "平台政策突袭"
+  insight: "政策更新（类目、合规、物流）临时生效，未准备就被扣分/下架。"
+  opportunity: "政策变更监控+预警，合规清单与应对 SOP。"
+
+dsr_rating_drop:
+  title_cn: "店铺评分骤降"
+  insight: "发货慢/客服慢/产品与描述不符导致评分掉，流量被限。"
+  opportunity: "评分驱动分析 + 针对性修复（履约、客服SLA、文案校准）。"
+
+seller_support_loop:
+  title_cn: "客服/支持扯皮"
+  insight: "平台支持工单反复踢皮球，问题久拖不决，影响销售。"
+  opportunity: "申诉模板库 + 关键字/证据打包，加速处理；必要时代理服务。"
+
+marketplace_law_change:
+  title_cn: "本地法规变化踩坑"
+  insight: "巴西/土耳其等市场税/合规要求变更，未跟进被扣货/罚款。"
+  opportunity: "分市场合规更新订阅与执行清单。"
+
+ad_spend_vs_payout_gap:
+  title_cn: "广告花钱快，回款慢"
+  insight: "投放现金流出在前，平台回款在后，资金缺口压垮小卖。"
+  opportunity: "回款预测 + 提前结算/保理组合，平滑现金流。"
+
+select_product_red_ocean:
+  title_cn: "选品踩红海"
+  insight: "选品软件推的爆款已过度饱和，新手一进去就打价格战。"
+  opportunity: "供需比/竞争度分析的蓝海挖掘工具，避开同质化。"
+
+select_product_copycat:
+  title_cn: "产品同质化严重"
+  insight: "义乌通货一片雷同，品牌差异化不足，只能卷价格。"
+  opportunity: "私模/定制/POD 供应链对接，差异化设计资源。"
+
+select_product_seasonality:
+  title_cn: "季节性压货"
+  insight: "旺季后库存压仓，仓储费高企，现金流占用。"
+  opportunity: "季节性预测/补货日历，提前清库存策略。"
+
+community_mismatch:
+  title_cn: "社区选错，流量无转化"
+  insight: "在低相关度 subreddit 推广/调研，信噪比低，结论偏差。"
+  opportunity: "社区画像/热度匹配工具，按品类/需求匹配高相关社区。"
+
+pricing_confusion:
+  title_cn: "多币种定价混乱"
+  insight: "各站点定价不一致，汇率波动导致利润率不稳，引发用户投诉。"
+  opportunity: "多站点/多币种统一定价与汇率自动调整策略。"

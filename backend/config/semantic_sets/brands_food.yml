@@ -1,0 +1,309 @@
+category: Food_Coffee_Lifestyle
+brands:
+  # Coffee Roasters
+  - Onyx Coffee Lab
+  - Intelligentsia
+  - Stumptown
+  - Blue Bottle
+  - Counter Culture
+  - Verve
+  - Heart
+  - George Howell
+  - Sey Coffee
+  - Tim Wendelboe
+  - Proud Mary
+  - Toby's Estate
+  - La Cabra
+  - The Barn
+  - Gardelli
+  - April Coffee
+  - Square Mile
+  - Colonna
+  - Coffee Bros
+  - Red Rooster
+  - Black & White
+  - Dragonfly
+  - Bird Rock
+  - Klatch
+  - Equator
+  - PT's
+  - Joe Coffee
+  - Colectivo
+  - Peet's
+  - Starbucks
+  - JBC Coffee Roasters
+  - Regalia
+  - Drink Coffee Do Stuff
+  - Sweet Bloom
+  - Greater Goods
+  - Alma Coffee
+  - Mother Tongue
+  - Perc Coffee
+  - Cuvee Coffee
+  - Philz Coffee
+  - Dunkin'
+  - Caribou Coffee
+  - Lavazza
+  - Illy
+  - Julius Meinl
+  - Tchibo
+  - Segafredo
+  - Costa Coffee
+  - McCafe
+  - Tim Hortons
+
+  # Coffee Gear
+  - Breville
+  - De'Longhi
+  - Gaggia
+  - Rancilio
+  - La Marzocco
+  - Rocket Espresso
+  - ECM
+  - Profitec
+  - Lelit
+  - Slayer
+  - Nuova Simonelli
+  - Victoria Arduino
+  - Miele
+  - Jura
+  - Saeco
+  - Philips
+  - Krups
+  - Nespresso
+  - Keurig
+  - Technivorm Moccamaster
+  - Ratio
+  - Chemex
+  - Hario
+  - Kalita
+  - Aeropress
+  - Fellow
+  - Baratza
+  - Mahlkonig
+  - Commandante
+  - 1Zpresso
+  - Timemore
+  - Kinu
+  - Acaia
+  - Rhino Coffee Gear
+  - Espro
+  - Bodum
+  - Bialetti
+  - Wacaco
+  - Flair Espresso
+  - Cafelat Robot
+  - Terra Kaffe
+  - KitchenAid
+  - Spinn
+  - xBloom
+
+  # Beverages
+  - Liquid Death
+  - La Croix
+  - Spindrift
+  - Bubly
+  - Waterloo
+  - Topo Chico
+  - San Pellegrino
+  - Perrier
+  - Olipop
+  - Poppi
+  - Culture Pop
+  - Zevia
+  - Celsius
+  - Alani Nu
+  - C4
+  - Red Bull
+  - Monster
+  - Gatorade
+  - Powerade
+  - BodyArmor
+  - Electrolit
+  - LMNT
+  - Liquid IV
+  - Nuun
+  - Vitaminwater
+  - Hint
+  - Flow
+  - Boxed Water
+  - Oatly
+  - Califia Farms
+  - Minor Figures
+  - Chobani
+  - Silk
+  - Almond Breeze
+  - Ripple
+  - Malk
+  - Elmhurst
+  - Harmless Harvest
+  - Vita Coco
+  - GT's Kombucha
+  - Health-Ade
+  - Kevita
+
+  # Snacks & Food
+  - Magic Spoon
+  - Cereal School
+  - Catalina Crunch
+  - Three Wishes
+  - OffLimits
+  - Banza
+  - Goodles
+  - RightRice
+  - Brami
+  - Chomps
+  - Epic Provisions
+  - The New Primal
+  - Country Archer
+  - Carnivore Snax
+  - RXBAR
+  - Larabar
+  - Kind
+  - Clif Bar
+  - Perfect Bar
+  - GoMacro
+  - Siete
+  - Hu Kitchen
+  - Taza Chocolate
+  - Tony's Chocolonely
+  - Raaka
+  - Alter Eco
+  - Theo
+  - Endangered Species
+  - Justin's
+  - RX Nut Butter
+  - Tru Fru
+  - Ryze Superfoods
+  - Rheal
+  - Cometeer
+  - Katkin
+  - Voyage Foods
+  - Bevi
+  - Remedy Organics
+  - Meati
+  - NotCo
+  - Nuggs
+  - Momofuku
+  - Fly By Jing
+  - Bachan's
+  - Omsom
+  - A Dozen Cousins
+
+  # Meal Kits & Delivery
+  - HelloFresh
+  - Blue Apron
+  - Home Chef
+  - Sunbasket
+  - Green Chef
+  - Purple Carrot
+  - Marley Spoon
+  - Dinnerly
+  - EveryPlate
+  - Gobble
+  - Factor
+  - Freshly
+  - Tovala
+  - CookUnity
+  - Daily Harvest
+  - Splendid Spoon
+  - Sakara Life
+  - Thistle
+  - Hungryroot
+  - Misfits Market
+  - Imperfect Foods
+  - Weee!
+  - Umami Cart
+  - Goldbelly
+  - Instacart
+  - Uber Eats
+  - DoorDash
+  - Grubhub
+  - Postmates
+  - Gopuff
+  - Zepto
+  - Blinkit
+  - Say Weee
+  - Yami Buy
+  - FreshDirect
+  - Amazon Fresh
+
+  # Supermarkets
+  - Walmart
+  - Costco
+  - Target
+  - Kroger
+  - Whole Foods
+  - Trader Joe's
+  - Aldi
+  - Lidl
+  - Publix
+  - H-E-B
+  - Wegmans
+  - Safeway
+  - Tesco
+  - Sainsbury's
+  - Asda
+  - Morrisons
+  - Carrefour
+  - Auchan
+  - E.Leclerc
+  - Intermarché
+  - Rewe
+  - Edeka
+  - Kaufland
+  - Metro
+  - Ahold Delhaize
+  - Albert Heijn
+  - Delhaize
+  - Mercadona
+  - Conad
+  - Coop
+  - Billa
+  - Spar
+  - Woolworths
+  - Coles
+  - Loblaw
+  - Sobeys
+  - Aeon
+  - 7-Eleven
+  - FamilyMart
+  - Lawson
+
+  # Kitchenware
+  - Le Creuset
+  - Staub
+  - All-Clad
+  - Calphalon
+  - Cuisinart
+  - Vitamix
+  - Blendtec
+  - Ninja
+  - Instant Pot
+  - Our Place
+  - Caraway
+  - Great Jones
+  - Made In
+  - HexClad
+  - Material
+  - Misen
+  - Zwilling J.A. Henckels
+  - Wusthof
+  - Shun
+  - Global
+  - Miyabi
+  - Victorinox
+  - Lodge
+  - Finex
+  - Smithey
+  - Field Company
+  - Stargazer
+  - Yeti
+  - Hydro Flask
+  - Big Green Egg
+  - Traeger
+  - Weber
+  - Blackstone
+  - Ooni
+  - Gozney
+  - Kamado Joe

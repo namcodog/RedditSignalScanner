@@ -1,0 +1,27 @@
+version: 1
+trend_label_map:
+  "🔥 EXPLODING": "爆发式增长"
+  "📈 RISING": "持续升温"
+  "📉 FALLING": "降温"
+  "➡️ STABLE": "稳定"
+driver_rules:
+  - keywords: ["expensive", "贵", "cost", "fee", "price", "fba fees", "vat", "pricing"]
+    driver: "透明定价与成本可控"
+  - keywords: ["slow", "latency", "速度", "卡", "delay", "payout", "withdraw", "到账", "回款"]
+    driver: "回款速度与现金流"
+  - keywords: ["multi", "multi-platform", "multi platform", "multi currency", "multi-currency", "多平台", "多币种", "跨平台", "跨币种", "wallet", "账户分散"]
+    driver: "多平台多币种统一管理"
+  - keywords: ["confusing", "complex", "易用", "onboarding", "流程", "setup", "上手"]
+    driver: "易用性与自动化"
+  - keywords: ["ban", "suspend", "compliance", "gdpr", "policy", "冻结", "风控"]
+    driver: "合规与风控稳健"
+  - keywords: ["roas", "cpc", "pixel", "conversion", "转化", "投放"]
+    driver: "投放效果与转化提升"
+driver_actions:
+  "透明定价与成本可控": ["费用结构透明化", "成本可预测与可对比"]
+  "回款速度与现金流": ["缩短回款周期", "提高资金周转确定性"]
+  "多平台多币种统一管理": ["集中管理多平台资金", "多币种对账更清晰"]
+  "易用性与自动化": ["降低上手成本", "流程自动化与可视化"]
+  "合规与风控稳健": ["风控规则清晰", "合规流程可执行"]
+  "投放效果与转化提升": ["提高转化漏斗效率", "投放链路更可控"]
+  "效率提升与省时省心": ["减少重复操作", "提升日常效率"]

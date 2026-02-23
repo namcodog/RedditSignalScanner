@@ -51,6 +51,8 @@ async def test_tiered_scheduler_assignments_and_application() -> None:
                 ),
             ]
         )
+        # 确保社区主表先落库，以满足外键约束
+        await db.flush()
         db.add_all(
             [
                 CommunityCache(

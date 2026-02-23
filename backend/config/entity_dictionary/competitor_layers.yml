@@ -1,31 +1,2364 @@
-version: 0
-default_layer: summary
+default_layer: brands
 layers:
-  workspace:
-    label: "Workspace"
+  logistics:
+    label: 物流/配送 (Logistics)
     aliases:
-      - notion
-      - clickup
-      - airtable
-      - asana
-      - monday
-      - confluence
-      - linear
-  analytics:
-    label: "Analytics"
+      - ups
+      - usps
+      - fedex
+      - dhl
+      - royal mail
+      - canada post
+      - australia post
+      - hermes
+      - dpd
+      - gls
+      - sf express
+      - yanwen
+      - yunexpress
+      - 4px
+      - cne
+      - epacket
+      - ems
+  platforms:
+    label: 购买渠道 (Platforms)
     aliases:
-      - amplitude
-      - mixpanel
-      - tableau
-      - looker
-      - datadog
-      - powerbi
-      - power bi
-  summary:
-    label: "Summary"
+      - amazon
+      - ebay
+      - etsy
+      - shopify
+      - target
+      - walmart
+      - aliexpress
+      - taobao
+      - costco
+      - bestbuy
+      - wayfair
+      - homedepot
+      - lowes
+      - rei
+      - backcountry
+      - moosejaw
+      - opticsplanet
+      - bladehq
+      - knifecenter
+      - whole foods
+      - trader joes
+      - aldi
+      - goodwill
+      - craigslist
+      - facebook marketplace
+      - mercari
+      - poshmark
+      - depop
+      - newegg
+      - bhphotovideo
+      - adorama
+      - microcenter
+      - gamestop
+      - steam
+      - gog
+      - epic games store
+      - playstation store
+      - xbox store
+      - nintendo eshop
+      - app store
+      - google play
+  channels:
+    label: 信息渠道 (Channels)
     aliases:
-      - google sheets
-      - excel
-      - powerpoint
-      - notion ai
-      - docs
+      - google
+      - youtube
+      - tiktok
+      - instagram
+      - facebook
+      - discord
+      - reddit
+      - twitter
+      - pinterest
+      - linkedin
+      - quora
+      - medium
+      - substack
+      - podcast
+      - blog
+      - forum
+      - twitch
+      - telegram
+      - whatsapp
+      - signal
+      - wechat
+      - line
+      - kakaotalk
+  attributes:
+    label: 产品属性/噪音 (Attributes)
+    aliases:
+      - price
+      - cost
+      - shipping
+      - tax
+      - fees
+      - quality
+      - service
+      - support
+      - warranty
+      - return
+      - refund
+      - scam
+      - fake
+      - video
+      - review
+      - tutorial
+      - guide
+      - manual
+      - app
+      - software
+      - machine
+      - grinder
+      - espresso
+      - coffee
+      - tool
+      - gear
+      - kit
+      - set
+      - bundle
+      - battery
+      - power
+      - light
+      - lumen
+      - blade
+      - steel
+      - handle
+      - material
+      - size
+      - weight
+      - color
+      - design
+      - style
+      - fit
+      - comfort
+      - durability
+      - reliability
+      - performance
+      - speed
+      - capacity
+      - memory
+      - storage
+      - screen
+      - display
+      - camera
+      - sound
+      - audio
+      - noise
+      - quiet
+      - loud
+      - heat
+      - cold
+      - temperature
+      - water
+      - waterproof
+      - dustproof
+      - shockproof
+      - drop
+      - scratch
+      - dent
+      - rust
+      - corrosion
+      - sharp
+      - dull
+      - bright
+      - dim
+      - fast
+      - slow
+      - heavy
+      - light
+      - big
+      - small
+      - long
+      - short
+      - wide
+      - narrow
+      - thick
+      - thin
+      - soft
+      - hard
+      - rough
+      - smooth
+      - sticky
+      - slippery
+      - clean
+      - dirty
+      - messy
+      - neat
+      - organized
+      - disorganized
+      - easy
+      - hard
+      - simple
+      - complex
+      - intuitive
+      - confusing
+      - user friendly
+      - developer friendly
+      - open source
+      - proprietary
+      - free
+      - paid
+      - premium
+      - subscription
+      - one time
+      - lifetime
+      - monthly
+      - yearly
+      - annual
+      - trial
+      - demo
+      - beta
+      - alpha
+      - release
+      - update
+      - upgrade
+      - downgrade
+      - patch
+      - fix
+      - bug
+      - error
+      - crash
+      - glitch
+      - lag
+      - freeze
+      - hang
+      - boot
+      - reboot
+      - restart
+      - shutdown
+      - sleep
+      - wake
+      - charge
+      - discharge
+      - connect
+      - disconnect
+      - pair
+      - unpair
+      - sync
+      - unsync
+      - backup
+      - restore
+      - format
+      - erase
+      - delete
+      - remove
+      - install
+      - uninstall
+      - download
+      - upload
+      - import
+      - export
+      - copy
+      - paste
+      - cut
+      - move
+      - rename
+      - edit
+      - save
+      - open
+      - close
+      - print
+      - scan
+      - fax
+      - email
+      - message
+      - call
+      - text
+      - chat
+      - voice
+      - video
+      - photo
+      - image
+      - music
+      - song
+      - album
+      - artist
+      - playlist
+      - movie
+      - show
+      - series
+      - episode
+      - season
+      - game
+      - level
+      - score
+      - rank
+      - achievement
+      - trophy
+      - badge
+      - reward
+      - bonus
+      - point
+      - coin
+      - credit
+      - currency
+      - money
+      - cash
+      - card
+      - wallet
+      - bank
+      - account
+      - profile
+      - setting
+      - option
+      - preference
+      - configuration
+      - customization
+      - personalization
+      - theme
+      - skin
+      - mod
+      - plugin
+      - extension
+      - addon
+      - script
+      - code
+      - api
+      - sdk
+      - library
+      - framework
+      - engine
+      - platform
+      - os
+      - system
+      - network
+      - server
+      - client
+      - cloud
+      - edge
+      - local
+      - remote
+      - online
+      - offline
+      - wireless
+      - wired
+      - bluetooth
+      - wifi
+      - nfc
+      - gps
+      - lte
+      - 5g
+      - 4g
+      - 3g
+      - 2g
+      - gsm
+      - cdma
+      - sim
+      - esim
+      - usb
+      - thunderbolt
+      - hdmi
+      - displayport
+      - vga
+      - dvi
+      - audio jack
+      - ethernet
+      - sd card
+      - microsd
+      - ssd
+      - hdd
+      - ram
+      - cpu
+      - gpu
+      - motherboard
+      - psu
+      - case
+      - cooler
+      - fan
+      - heatsink
+      - radiator
+      - pump
+      - reservoir
+      - block
+      - fitting
+      - tube
+      - coolant
+      - paste
+      - pad
+      - monitor
+      - keyboard
+      - mouse
+      - trackpad
+      - controller
+      - joystick
+      - wheel
+      - pedal
+      - headset
+      - headphone
+      - earphone
+      - speaker
+      - microphone
+      - webcam
+      - printer
+      - scanner
+      - router
+      - modem
+      - switch
+      - hub
+      - dock
+      - adapter
+      - cable
+      - wire
+      - cord
+      - plug
+      - socket
+      - outlet
+      - strip
+      - surge
+      - ups
+      - battery
+      - charger
+      - powerbank
+      - solar
+      - generator
+      - inverter
+      - converter
+      - transformer
+      - regulator
+      - stabilizer
+      - protector
+      - cover
+      - case
+      - screen protector
+      - skin
+      - sleeve
+      - bag
+      - backpack
+      - strap
+      - mount
+      - stand
+      - holder
+      - grip
+      - tripod
+      - gimbal
+      - drone
+      - robot
+      - ai
+      - ml
+      - dl
+      - nn
+      - cv
+      - nlp
+      - llm
+      - gpt
+      - bert
+      - transformer
+      - diffusion
+      - gan
+      - vae
+      - rnn
+      - cnn
+      - lstm
+      - gru
+      - attention
+      - embedding
+      - vector
+      - tensor
+      - matrix
+      - graph
+      - tree
+      - list
+      - set
+      - map
+      - dict
+      - queue
+      - stack
+      - heap
+      - hash
+      - algorithm
+      - data
+      - database
+      - sql
+      - nosql
+      - graphdb
+      - vectordb
+      - keyvalue
+      - document
+      - column
+      - time series
+      - blob
+      - file
+      - object
+      - block
+      - stream
+      - batch
+      - pipeline
+      - workflow
+      - job
+      - task
+      - process
+      - thread
+      - coroutine
+      - async
+      - await
+      - future
+      - promise
+      - callback
+      - event
+      - signal
+      - slot
+      - channel
+      - pipe
+      - socket
+      - port
+      - address
+      - domain
+      - url
+      - uri
+      - urn
+      - http
+      - https
+      - ftp
+      - sftp
+      - ssh
+      - telnet
+      - smtp
+      - pop3
+      - imap
+      - dns
+      - dhcp
+      - arp
+      - icmp
+      - tcp
+      - udp
+      - ip
+      - ipv4
+      - ipv6
+      - mac
+      - vlan
+      - vpn
+      - proxy
+      - firewall
+      - nat
+      - pat
+      - dmz
+      - subnet
+      - mask
+      - gateway
+      - route
+      - hop
+      - trace
+      - ping
+      - latency
+      - jitter
+      - packet
+      - frame
+      - segment
+      - bit
+      - byte
+      - kilobyte
+      - megabyte
+      - gigabyte
+      - terabyte
+      - petabyte
+      - exabyte
+      - zettabyte
+      - yottabyte
+      - kb
+      - mb
+      - gb
+      - tb
+      - pb
+      - eb
+      - zb
+      - yb
+      - kbps
+      - mbps
+      - gbps
+      - tbps
+      - hertz
+      - khz
+      - mhz
+      - ghz
+      - thz
+      - volt
+      - amp
+      - watt
+      - ohm
+      - farad
+      - henry
+      - joule
+      - calorie
+      - lumen
+      - lux
+      - candela
+      - nit
+      - pixel
+      - voxel
+      - polygon
+      - vertex
+      - edge
+      - face
+      - mesh
+      - texture
+      - material
+      - shader
+      - light
+      - camera
+      - scene
+      - world
+      - level
+      - map
+      - character
+      - player
+      - npc
+      - enemy
+      - boss
+      - mob
+      - item
+      - inventory
+      - loot
+      - drop
+      - craft
+      - trade
+      - buy
+      - sell
+      - quest
+      - mission
+      - objective
+      - goal
+      - achievement
+      - trophy
+      - badge
+      - rank
+      - level
+      - exp
+      - hp
+      - mp
+      - sp
+      - str
+      - dex
+      - int
+      - wis
+      - cha
+      - luk
+      - atk
+      - def
+      - matk
+      - mdef
+      - spd
+      - acc
+      - eva
+      - crit
+      - hit
+      - dodge
+      - block
+      - parry
+      - counter
+      - stun
+      - sleep
+      - poison
+      - burn
+      - freeze
+      - shock
+      - bleed
+      - curse
+      - buff
+      - debuff
+      - heal
+      - damage
+      - dps
+      - aoe
+      - dot
+      - hot
+      - cc
+      - cd
+      - gcd
+      - mana
+      - stamina
+      - energy
+      - rage
+      - focus
+      - combo
+      - ultimate
+      - skill
+      - spell
+      - ability
+      - talent
+      - perk
+      - trait
+      - passive
+      - active
+      - aura
+      - stance
+      - form
+      - mode
+      - phase
+      - stage
+      - round
+      - match
+      - game
+      - set
+      - series
+      - season
+      - tournament
+      - league
+      - cup
+      - championship
+      - world
+      - region
+      - server
+      - guild
+      - clan
+      - team
+      - party
+      - raid
+      - dungeon
+      - instance
+      - boss
+      - add
+      - trash
+      - loot
+      - roll
+      - bid
+      - dkp
+      - gkp
+      - gold
+      - silver
+      - copper
+      - platinum
+      - diamond
+      - gem
+      - jewel
+      - stone
+      - ore
+      - bar
+      - ingot
+      - wood
+      - log
+      - plank
+      - stick
+      - branch
+      - leaf
+      - flower
+      - herb
+      - potion
+      - flask
+      - elixir
+      - food
+      - drink
+      - scroll
+      - book
+      - recipe
+      - blueprint
+      - schematic
+      - pattern
+      - plan
+      - map
+      - key
+      - lock
+      - chest
+      - box
+      - crate
+      - barrel
+      - bag
+      - sack
+      - pouch
+      - pocket
+      - slot
+      - equip
+      - unequip
+      - wear
+      - remove
+      - use
+      - consume
+      - eat
+      - drink
+      - read
+      - learn
+      - study
+      - cast
+      - attack
+      - defend
+      - block
+      - dodge
+      - jump
+      - run
+      - walk
+      - sneak
+      - crawl
+      - swim
+      - fly
+      - ride
+      - drive
+      - sail
+      - teleport
+      - recall
+      - hearth
+      - warp
+      - travel
+      - move
+      - stop
+      - wait
+      - rest
+      - sleep
+      - wake
+      - sit
+      - stand
+      - dance
+      - emote
+      - talk
+      - speak
+      - shout
+      - whisper
+      - say
+      - yell
+      - tell
+      - ask
+      - answer
+      - reply
+      - chat
+      - message
+      - mail
+      - letter
+      - note
+      - sign
+      - book
+      - page
+      - paper
+      - scroll
+      - pen
+      - ink
+      - quill
+      - feather
+      - wax
+      - seal
+      - stamp
+      - envelope
+  brands:
+    label: Brands
+    aliases:
+      # --- 1. Ecommerce_Business (Removed common platforms/logistics to prevent overlap) ---
+      - junglescout
+      - helium10
+      - viral launch
+      - amzscout
+      - keepa
+      - camelcamelcamel
+      - smartscout
+      - merchantwords
+      - zonguru
+      - datahawk
+      - egrow
+      - sellics
+      - unicorn smasher
+      - asinspector
+      - oaxray
+      - tactical arbitrage
+      - sourcemogul
+      - profitguru
+      - scoutiq
+      - amazeowl
+      - sonar
+      - keyword tool dominator
+      - scientific seller
+      - sellersprite
+      - amzbase
+      - fbatoolkit
+      - ds amazon quick view
+      - revseller
+      - profit bandit
+      - scanpower
+      - perpetua
+      - teikametrics
+      - sellerapp
+      - aihello
+      - quartile
+      - adtomic
+      - pacvue
+      - skai
+      - downstream
+      - tinuiti
+      - sellozo
+      - ppc entourage
+      - bidx
+      - adbadger
+      - prestozon
+      - intentwise
+      - sellics advertising
+      - amazon marketing services
+      - google ads
+      - facebook ads
+      - bing ads
+      - pinterest ads
+      - tiktok ads
+      - criteo
+      - adroll
+      - outbrain
+      - taboola
+      - stackadapt
+      - the trade desk
+      - mediamath
+      - klaviyo
+      - mailchimp
+      - omnisend
+      - attentive
+      - privy
+      - yotpo
+      - gorgias
+      - intercom
+      - zendesk
+      - hubspot
+      - seller snap
+      - aura
+      - bqool
+      - repricerexpress
+      - informed.co
+      - feedvisor
+      - channeladvisor
+      - sellbrite
+      - veeqo
+      - skubana
+      - orderhive
+      - inventorylab
+      - restockpro
+      - forecastly
+      - sostocked
+      - sellerboard
+      - helloprofit
+      - fetcher
+      - shopkeeper
+      - managebystats
+      - getida
+      - sellerbench
+      - refunds manager
+      - amzrefund
+      - refund sniper
+      - bindwise
+      - feedbackwhiz
+      - feedbackfive
+      - sagemailer
+      - kibly
+      - xero
+      - quickbooks
+      - taxjar
+      - avalara
+      - simplyvat
+      # Removed Ecommerce Platforms/Logistics/Payments to strictly filter Consumer Brands
+
+
+      # --- 2. Family_Parenting (Baby, Toys, Kids) ---
+      - pampers
+      - huggies
+      - luvs
+      - hello bello
+      - honest company
+      - coterie
+      - dyper
+      - parasol
+      - healthybaby
+      - bambo nature
+      - andy pandy
+      - eco by naty
+      - mama bear
+      - kirkland signature
+      - up & up
+      - seventh generation
+      - babyganics
+      - waterwipes
+      - ubbi
+      - diaper dekor
+      - munchkin
+      - skip hop
+      - keekaroo
+      - hatch baby
+      - prince lionheart
+      - grovia
+      - charlie banana
+      - thirsties
+      - bumgenius
+      - esembly
+      - rascal + friends
+      - millie moon
+      - abby&finn
+      - kudos
+      - nest diapers
+      - graco
+      - chicco
+      - britax
+      - uppababy
+      - nuna
+      - bugaboo
+      - stokke
+      - cybex
+      - maxi-cosi
+      - evenflo
+      - baby jogger
+      - bob gear
+      - thule
+      - doona
+      - clek
+      - diono
+      - peg perego
+      - silver cross
+      - mockingbird
+      - colugo
+      - wonderfold
+      - veer
+      - ergobaby
+      - baby bjorn
+      - lillebaby
+      - tula
+      - solly baby
+      - wildbird
+      - artipoppe
+      - lalabu
+      - moby wrap
+      - century
+      - cosco
+      - safety 1st
+      - orbit baby
+      - bumbleride
+      - mountain buggy
+      - keenz
+      - zoe strollers
+      - snoo
+      - halo
+      - owlet
+      - nanit
+      - infant optics
+      - motorola baby
+      - vtech
+      - eufy
+      - cubo ai
+      - lollipop
+      - newton baby
+      - naturepedic
+      - avocado green mattress
+      - moonlight slumber
+      - colgate mattress
+      - davinci
+      - babyletto
+      - delta children
+      - storkcraft
+      - million dollar baby
+      - pottery barn kids
+      - west elm kids
+      - crate & kids
+      - oeuf
+      - kalon studios
+      - monte design
+      - nurture&
+      - 3 sprouts
+      - pehr
+      - crane
+      - hatch
+      - dockatot
+      - snuggle me organic
+      - guava family
+      - 4moms
+      - fisher-price
+      - philips avent
+      - dr. brown's
+      - tommee tippee
+      - comotomo
+      - mam
+      - nuk
+      - medela
+      - spectra
+      - elvie
+      - willow
+      - haakaa
+      - lansinoh
+      - boon
+      - oxo tot
+      - beaba
+      - ezpz
+      - mushie
+      - lalo
+      - inglesina
+      - gerber
+      - enfamil
+      - similac
+      - earth's best
+      - happy baby
+      - plum organics
+      - serenity kids
+      - once upon a farm
+      - holle
+      - hipp
+      - kendamil
+      - bobbie
+      - byheart
+      - else nutrition
+      - baby brezza
+      - nutribullet baby
+      - yumi
+      - little spoon
+      - cerebelly
+      - amara
+      - kabrita
+      - nanny care
+      - aptamil
+      - cow & gate
+      - sma
+      - milupa
+      - carter's
+      - oshkosh b'gosh
+      - the children's place
+      - old navy
+      - gap kids
+      - h&m kids
+      - zara kids
+      - primary
+      - hanna andersson
+      - burt's bees baby
+      - monica + andy
+      - kyte baby
+      - little sleepies
+      - magnetic me
+      - posh peanut
+      - kate quinn
+      - goumi
+      - l'ovedbaby
+      - patpat
+      - janie and jack
+      - mini rodini
+      - bobo choses
+      - tinycottons
+      - tea collection
+      - boden
+      - joules
+      - hatley
+      - reima
+      - columbia kids
+      - patagonia kids
+      - birdie bean
+      - worthy threads
+      - lallie london
+      - age of innocence
+      - angel dear
+      - kickee pants
+      - rags
+      - childhoods clothing
+      - jamie kay
+      - quincy mae
+      - lovevery
+      - kiwico
+      - melissa & doug
+      - hape
+      - plantoys
+      - green toys
+      - fat brain toys
+      - manhattan toy
+      - jellycat
+      - gund
+      - lamaze
+      - sassy
+      - smartnoggin
+      - tiny love
+      - baby einstein
+      - magna-tiles
+      - lego duplo
+      - playmobil
+      - brio
+      - tegu
+      - grimm's
+      - grapat
+      - raduga grez
+      - piccalio
+      - liewood
+      - done by deer
+      - toothbrush toys
+      - toynk
+      - sago mini
+      - toca boca
+      - osmo
+      - tonies
+      - yoto
+      - slumberkins
+      - johnson & johnson
+      - aveeno baby
+      - cetaphil baby
+      - mustela
+      - pipette
+      - tubby todd
+      - california baby
+      - babo botanicals
+      - sheamoisture
+      - burt's bees
+      - aquaphor
+      - desitin
+      - boudreaux's butt paste
+      - earth mama
+      - fridababy
+      - nosefrida
+      - windi
+      - red cross
+      - braun
+      - kinsa
+      - exergen
+      - vicks
+      - zarbee's
+      - mommy's bliss
+      - wellements
+      - biogaia
+      - culturelle
+      - nordic naturals
+      - maty's
+      - hyland's
+      - little remedies
+      - boogie wipes
+      - oogiebear
+
+      # --- 3. Food_Coffee_Lifestyle (Espresso, Kitchen, Food) ---
+      - onyx coffee lab
+      - intelligentsia
+      - stumptown
+      - blue bottle
+      - counter culture
+      - verve
+      - heart
+      - george howell
+      - sey coffee
+      - tim wendelboe
+      - proud mary
+      - toby's estate
+      - la cabra
+      - the barn
+      - gardelli
+      - april coffee
+      - square mile
+      - colonna
+      - coffee bros
+      - red rooster
+      - black & white
+      - dragonfly
+      - bird rock
+      - klatch
+      - equator
+      - pt's
+      - joe coffee
+      - colectivo
+      - peet's
+      - starbucks
+      - jbc coffee roasters
+      - regalia
+      - drink coffee do stuff
+      - sweet bloom
+      - greater goods
+      - alma coffee
+      - mother tongue
+      - perc coffee
+      - cuvee coffee
+      - philz coffee
+      - dunkin'
+      - caribou coffee
+      - lavazza
+      - illy
+      - julius meinl
+      - tchibo
+      - segafredo
+      - costa coffee
+      - mccafe
+      - tim hortons
+      - breville
+      - de'longhi
+      - gaggia
+      - rancilio
+      - la marzocco
+      - rocket espresso
+      - ecm
+      - profitec
+      - lelit
+      - slayer
+      - nuova simonelli
+      - victoria arduino
+      - miele
+      - jura
+      - saeco
+      - philips
+      - krups
+      - nespresso
+      - keurig
+      - technivorm moccamaster
+      - ratio
+      - chemex
+      - hario
+      - kalita
+      - aeropress
+      - fellow
+      - baratza
+      - mahlkonig
+      - commandante
+      - 1zpresso
+      - timemore
+      - kinu
+      - comandante
+      - acaia
+      - rhino coffee gear
+      - espro
+      - bodum
+      - bialetti
+      - wacaco
+      - flair espresso
+      - cafelat robot
+      - terra kaffe
+      - kitchenaid
+      - spinn
+      - xbloom
+      - liquid death
+      - la croix
+      - spindrift
+      - bubly
+      - waterloo
+      - topo chico
+      - san pellegrino
+      - perrier
+      - olipop
+      - poppi
+      - culture pop
+      - zevia
+      - celsius
+      - alani nu
+      - c4
+      - red bull
+      - monster
+      - gatorade
+      - powerade
+      - bodyarmor
+      - electrolit
+      - lmnt
+      - liquid iv
+      - nuun
+      - vitaminwater
+      - hint
+      - flow
+      - boxed water
+      - oatly
+      - califia farms
+      - minor figures
+      - chobani
+      - silk
+      - almond breeze
+      - ripple
+      - malk
+      - elmhurst
+      - harmless harvest
+      - vita coco
+      - gt's kombucha
+      - health-ade
+      - kevita
+      - magic spoon
+      - cereal school
+      - catalina crunch
+      - three wishes
+      - offlimits
+      - banza
+      - goodles
+      - rightrice
+      - brami
+      - chomps
+      - epic provisions
+      - the new primal
+      - country archer
+      - carnivore snax
+      - rxbar
+      - larabar
+      - kind
+      - clif bar
+      - perfect bar
+      - gomacro
+      - siete
+      - hu kitchen
+      - taza chocolate
+      - tony's chocolonely
+      - raaka
+      - alter eco
+      - theo
+      - endangered species
+      - justin's
+      - rx nut butter
+      - tru fru
+      - ryze superfoods
+      - rheal
+      - cometeer
+      - katkin
+      - voyage foods
+      - bevi
+      - remedy organics
+      - meati
+      - notco
+      - nuggs
+      - momofuku
+      - fly by jing
+      - bachan's
+      - omsom
+      - a dozen cousins
+      - hellofresh
+      - blue apron
+      - home chef
+      - sunbasket
+      - green chef
+      - purple carrot
+      - marley spoon
+      - dinnerly
+      - everyplate
+      - gobble
+      - factor
+      - freshly
+      - tovala
+      - cookunity
+      - daily harvest
+      - splendid spoon
+      - sakara life
+      - thistle
+      - hungryroot
+      - misfits market
+      - imperfect foods
+      - weee!
+      - umami cart
+      - goldbelly
+      - instacart
+      - uber eats
+      - doordash
+      - grubhub
+      - postmates
+      - gopuff
+      - zepto
+      - blinkit
+      - say weee
+      - yami buy
+      - freshdirect
+      - amazon fresh
+      - walmart
+      - costco
+      - target
+      - kroger
+      - whole foods
+      - trader joe's
+      - aldi
+      - lidl
+      - publix
+      - h-e-b
+      - wegmans
+      - safeway
+      - tesco
+      - sainsbury's
+      - asda
+      - morrisons
+      - carrefour
+      - auchan
+      - e.leclerc
+      - intermarché
+      - rewe
+      - edeka
+      - kaufland
+      - metro
+      - ahold delhaize
+      - albert heijn
+      - delhaize
+      - mercadona
+      - conad
+      - coop
+      - billa
+      - spar
+      - woolworths
+      - coles
+      - loblaw
+      - sobeys
+      - aeon
+      - 7-eleven
+      - familymart
+      - lawson
+      - le creuset
+      - staub
+      - all-clad
+      - calphalon
+      - cuisinart
+      - vitamix
+      - blendtec
+      - ninja
+      - instant pot
+      - our place
+      - caraway
+      - great jones
+      - made in
+      - hexclad
+      - material
+      - misen
+      - zwilling j.a. henckels
+      - wusthof
+      - shun
+      - global
+      - miyabi
+      - victorinox
+      - lodge
+      - finex
+      - smithey
+      - field company
+      - stargazer
+      - yeti
+      - hydro flask
+      - big green egg
+      - traeger
+      - weber
+      - blackstone
+      - ooni
+      - gozney
+      - kamado joe
+      
+      # --- 4. Frugal_Living (Groceries, Thrift) ---
+      - aldi
+      - lidl
+      - trader joe's
+      - winco foods
+      - save-a-lot
+      - grocery outlet
+      - market basket
+      - food 4 less
+      - smart & final
+      - price rite
+      - h mart
+      - 99 ranch
+      - patel brothers
+      - netto
+      - penny
+      - norma
+      - denner
+      - hofer
+      - biedronka
+      - dia
+      - eurospin
+      - bim
+      - a101
+      - shock
+      - pyaterochka
+      - magnit
+      - mere
+      - colruyt
+      - boni
+      - kaufland
+      - rema 1000
+      - kiwi
+      - bunnpris
+      - leader price
+      - supeco
+      - todis
+      - md
+      - dpiù
+      - in's mercato
+      - t market
+      - walmart
+      - target
+      - costco
+      - sam's club
+      - bj's wholesale
+      - dollar general
+      - dollar tree
+      - family dollar
+      - five below
+      - big lots
+      - ollie's bargain outlet
+      - burlington
+      - ross dress for less
+      - tj maxx
+      - marshalls
+      - homegoods
+      - sierra
+      - tuesday morning
+      - primark
+      - daiso
+      - miniso
+      - action
+      - poundland
+      - b&m
+      - home bargains
+      - the range
+      - flying tiger
+      - hema
+      - zeeman
+      - kik
+      - pepco
+      - takko
+      - dealz
+      - europris
+      - tokmanni
+      - rustae
+      - don quijote
+      - seria
+      - can do
+      - ebay
+      - thredup
+      - poshmark
+      - depop
+      - mercari
+      - vinted
+      - the realreal
+      - vestiaire collective
+      - grailed
+      - stockx
+      - goat
+      - rebag
+      - fashionphile
+      - swap.com
+      - goodwill
+      - shopgoodwill.com
+      - salvation army
+      - craigslist
+      - facebook marketplace
+      - offerup
+      - nextdoor
+      - freecycle
+      - buy nothing project
+      - curtsy
+      - kidizen
+      - menswear market
+      - noihsaf bazaar
+      - lucky sweater
+      - shoptomorrows
+      - tulerie
+      - chairish
+      - 1stdibs
+      - aptdeco
+      - kaiyo
+      - amazon warehouse
+      - ebay refurbished
+      - apple refurbished
+      - dell outlet
+      - best buy outlet
+      - back market
+      - gazelle
+      - swappa
+      - decluttr
+      - music go round
+      - keh camera
+      - mpb
+      - b&h used
+      - adorama used
+      - rei re/supply
+      - patagonia worn wear
+      - arc'teryx regear
+      - the north face renewed
+      - levi's secondhand
+      - lululemon like new
+      - madewell forever
+      - eileen fisher renew
+      - ikea as-is
+      - sonos refurbished
+      - dyson outlet
+      - kitchenaid refurbished
+      - vitamix certified reconditioned
+      - nintendo refurbished
+      - gamestop
+      - cex
+      - cash converters
+      - honey
+      - camelcamelcamel
+      - keepa
+      - rakuten
+      - ibotta
+      - fetch rewards
+      - groupon
+      - retailmenot
+      - coupons.com
+      - slickdeals
+      - brad's deals
+      - woot!
+      - meh
+      - flipp
+      - shopsavvy
+      - pricegrabber
+      - google shopping
+      - yahoo shopping
+      - bizrate
+      - shopzilla
+      - pricerunner
+      - idealo
+      - kelkoo
+      - skinflint
+      - mycartsavings
+      - invisiblehand
+      - priceblink
+      - cnet shopping
+      - capital one shopping
+      - upside
+      - gasbuddy
+      - mint
+      - ynab
+      - everydollar
+      - toyota
+      - honda
+      - brother
+      - darn tough
+      - lodge
+      - corelle
+      - pyrex
+      - anchor hocking
+      - stanley
+      - jansport
+      - eastpak
+      - dickies
+      - carhartt
+      - red wing
+      - dr. martens
+      - birkenstock
+      - crocs
+      - casio
+      - seiko
+      - timex
+      - anker
+      - monoprice
+      - amazonbasics
+      - kirkland signature
+      - member's mark
+      - le creuset
+      - vitamix
+      - speed queen
+      - miele
+      - zippo
+      - victorinox
+      - leatherman
+      
+      # --- 5. Home_Lifestyle (Furniture, Cleaning, Decor) ---
+      - west elm
+      - cb2
+      - crate & barrel
+      - pottery barn
+      - room & board
+      - article
+      - burrow
+      - campaign
+      - floyd
+      - sabai
+      - maiden home
+      - interior define
+      - joybird
+      - poly & bark
+      - castlery
+      - albany park
+      - benchmade modern
+      - the inside
+      - sixpenny
+      - lulu and georgia
+      - mcgee & co
+      - serena & lily
+      - rejuvenation
+      - schoolhouse
+      - design within reach
+      - herman miller
+      - knoll
+      - vitra
+      - kartell
+      - hay
+      - muuto
+      - ikea
+      - wayfair
+      - allmodern
+      - joss & main
+      - blu dot
+      - gus modern
+      - apt2b
+      - rove concepts
+      - modloft
+      - kardiel
+      - restoration hardware
+      - arhaus
+      - ethan allen
+      - bassett
+      - la-z-boy
+      - ashley furniture
+      - havertys
+      - raymour & flanigan
+      - bernhardt
+      - century furniture
+      - baker
+      - hickory chair
+      - hancock & moore
+      - stickley
+      - sherrill
+      - lee industries
+      - vanguard
+      - roche bobois
+      - poliform
+      - minotti
+      - flexform
+      - b&b italia
+      - cassina
+      - ligne roset
+      - fendi casa
+      - bentley home
+      - hooker furniture
+      - universal furniture
+      - lexington
+      - kincaid
+      - drexel heritage
+      - henredon
+      - marge carson
+      - ej victor
+      - theodore alexander
+      - caracole
+      - jonathan charles
+      - christopher guy
+      - parachute
+      - brooklinen
+      - boll & branch
+      - the citizenry
+      - coyuchi
+      - red land cotton
+      - riley home
+      - quince
+      - buffy
+      - saatva
+      - casper
+      - tuft & needle
+      - purple
+      - leesa
+      - nectar
+      - helix
+      - avocado green
+      - birch
+      - awara
+      - nest bedding
+      - tempur-pedic
+      - sealy
+      - serta
+      - simmons
+      - stearns & foster
+      - beautyrest
+      - sleep number
+      - hästens
+      - vispring
+      - savoir
+      - duxiana
+      - matouk
+      - frette
+      - sferra
+      - peacock alley
+      - yves delorme
+      - scandia home
+      - downlite
+      - pacific coast feather
+      - minna
+      - goodee
+      - ten thousand villages
+      - ruggable
+      - loloi
+      - surya
+      - safavieh
+      - nourison
+      - jaipur living
+      - dash & albert
+      - lorena canals
+      - beni rugs
+      - revival rugs
+      - loomy
+      - chilewich
+      - pampa
+      - armadillo
+      - ferm living
+      - menu
+      - gubi
+      - hem
+      - normann copenhagen
+      - blomus
+      - georg jensen
+      - iittala
+      - marimekko
+      - jonathan adler
+      - fornasetti
+      - rifle paper co
+      - minted
+      - society6
+      - redbubble
+      - etsy
+      - uncommon goods
+      - anthropologie home
+      - urban outfitters home
+      - h&m home
+      - zara home
+      - dyson
+      - shark
+      - miele
+      - sebo
+      - numatic
+      - bissell
+      - hoover
+      - dirt devil
+      - eureka
+      - tineco
+      - roborock
+      - irobot
+      - ecovacs
+      - eufy
+      - neato
+      - narwal
+      - dreame
+      - samsung
+      - lg
+      - whirlpool
+      - ge
+      - frigidaire
+      - bosch
+      - kitchenaid
+      - maytag
+      - electrolux
+      - sub-zero
+      - wolf
+      - viking
+      - thermador
+      - kenmore
+      - amana
+      - haier
+      - hisense
+      - panasonic
+      - sharp
+      - toshiba
+      - balmuda
+      - smeg
+      - blueair
+      - coway
+      - levoit
+      - honeywell
+      - the container store
+      - elfa
+      - rubbermaid
+      - sterilite
+      - iris
+      - oxo
+      - yamazaki home
+      - simplehuman
+      - joseph joseph
+      - brabantia
+      - umbra
+      - muji
+      - marie kondo
+      - open spaces
+      - neatfreak
+      - whitmor
+      - honey-can-do
+      - mdesign
+      - idesign
+      - command
+      - closets by design
+      - california closets
+      - easy track
+      - closetmaid
+      - rev-a-shelf
+      
+      # --- 6. Minimal_Outdoor (Camping, Apparel) ---
+      - arc'teryx
+      - patagonia
+      - the north face
+      - columbia
+      - marmot
+      - mountain hardwear
+      - outdoor research
+      - black diamond
+      - mammut
+      - rab
+      - norrona
+      - helly hansen
+      - fjallraven
+      - houdini
+      - klattermusen
+      - peak performance
+      - 66 north
+      - montbell
+      - eddie bauer
+      - rei co-op
+      - kuhl
+      - prana
+      - cotopaxi
+      - topo designs
+      - vuori
+      - smartwool
+      - icebreaker
+      - darn tough
+      - farm to feet
+      - buff
+      - veilance
+      - goldwin
+      - and wander
+      - snow peak apparel
+      - finisterre
+      - gramicci
+      - jack wolfskin
+      - salomon apparel
+      - canada goose
+      - moncler
+      - salomon
+      - merrell
+      - keen
+      - oboz
+      - la sportiva
+      - scarpa
+      - lowa
+      - vasque
+      - altra
+      - hoka
+      - brooks
+      - saucony
+      - topo athletic
+      - inov-8
+      - danner
+      - red wing
+      - blundstone
+      - birkenstock
+      - teva
+      - chaco
+      - bedrock sandals
+      - luna sandals
+      - xero shoes
+      - vivobarefoot
+      - astral
+      - on running
+      - nike acg
+      - adidas terrex
+      - asolo
+      - zamberlan
+      - hanwag
+      - meindl
+      - salewa
+      - tecnica
+      - dynafit
+      - garmont
+      - baffin
+      - kamik
+      - sorel
+      - hunter
+      - osprey
+      - gregory
+      - deuter
+      - mystery ranch
+      - matador
+      - hyperlite mountain gear
+      - zpacks
+      - gossamer gear
+      - ula equipment
+      - granite gear
+      - six moon designs
+      - mountain laurel designs
+      - pa'lante
+      - waymark
+      - superior wilderness designs
+      - liteaf
+      - hill people gear
+      - savotta
+      - tasmanian tiger
+      - 5.11 tactical
+      - goruck
+      - evergoods
+      - aer
+      - bellroy
+      - peak design
+      - wandrd
+      - shimoda
+      - lowe pro
+      - ortlieb
+      - thule
+      - db journey
+      - herschel supply
+      - timbuk2
+      - chrome industries
+      - mission workshop
+      - big agnes
+      - nemo
+      - msr
+      - therm-a-rest
+      - sea to summit
+      - exped
+      - klymit
+      - hest
+      - western mountaineering
+      - feathered friends
+      - enlightened equipment
+      - katabatic gear
+      - nunatak
+      - hammock gear
+      - warbonnet
+      - dutchware
+      - hennessy hammock
+      - kammok
+      - eno
+      - hilleberg
+      - terra nova
+      - nordisk
+      - heimplanet
+      - tentbox
+      - roofnest
+      - ikamper
+      - tepui
+      - coleman
+      - kelty
+      - alps mountaineering
+      - tarptent
+      - durston gear
+      - sierra designs
+      - samaya
+      - slingfin
+      - jetboil
+      - snow peak
+      - soto
+      - primus
+      - optimus
+      - camp chef
+      - blackstone
+      - solo stove
+      - biolite
+      - gsi outdoors
+      - toaks
+      - vargo
+      - stanley
+      - yeti
+      - hydro flask
+      - klean kanteen
+      - nalgene
+      - camelbak
+      - hydrapak
+      - platypus
+      - sawyer
+      - katadyn
+      - grayl
+      - lifestraw
+      - steripen
+      - lifestaver
+      - cnoc outdoors
+      - vapur
+      - owala
+      - corkcicle
+      - zojirushi
+      - miir
+      - fellow
+      - light my fire
+      - uco
+      - barebones living
+      - lodge
+      - garmin
+      - suunto
+      - coros
+      - casio pro trek
+      - spot
+      - zoleo
+      - somewear
+      - acr bivy
+      - brunton
+      - silva
+      - goal zero
+      - jackery
+      - ecoflow
+      - bluetti
+      - anker
+      - petzl
+      - black diamond
+      - princeton tec
+      - nitecore
+      - ledlenser
+      
+      # --- 7. Tools_EDC (Flashlights, Knives, Multi-tools) ---
+      - milwaukee
+      - dewalt
+      - makita
+      - bosch
+      - festool
+      - hilti
+      - metabo hpt
+      - ridgid
+      - ryobi
+      - craftsman
+      - kobalt
+      - husky
+      - porter-cable
+      - skil
+      - black & decker
+      - fein
+      - flex
+      - mafell
+      - sawstop
+      - delta
+      - jet
+      - powermatic
+      - grizzly
+      - laguna
+      - rikon
+      - wen
+      - dremel
+      - proxxon
+      - worx
+      - ego power+
+      - snap-on
+      - ingersoll rand
+      - chicago pneumatic
+      - panasonic
+      - baier
+      - eisenblaetter
+      - lamello
+      - mirka
+      - rupes
+      - tormek
+      - knipex
+      - wera
+      - wiha
+      - klein tools
+      - mac tools
+      - matco
+      - cornwell
+      - hazet
+      - gedore
+      - stahlwille
+      - facom
+      - beta
+      - pb swiss
+      - vessel
+      - engineer
+      - tsunoda
+      - lobtex
+      - ko-ken
+      - nepros
+      - tone
+      - bahco
+      - irwin
+      - lenox
+      - crescent
+      - channellock
+      - estwing
+      - vaughan
+      - stiletto
+      - martinez tools
+      - tekton
+      - gearwrench
+      - icon
+      - pittsburgh
+      - doyle
+      - quinn
+      - stanley
+      - sata
+      - benchmade
+      - spyderco
+      - kershaw
+      - zero tolerance
+      - crkt
+      - gerber
+      - buck knives
+      - case
+      - victorinox
+      - leatherman
+      - sog
+      - cold steel
+      - civivi
+      - we knife
+      - kizer
+      - cjrb
+      - artisan cutlery
+      - reate
+      - lionsteel
+      - giantmouse
+      - james brand
+      - wesn
+      - tactile knife co
+      - chris reeve
+      - hinderer
+      - strider
+      - microtech
+      - protech
+      - flytanium
+      - quiet carry
+      - opinel
+      - mora
+      - esee
+      - ka-bar
+      - tops knives
+      - bark river
+      - fallkniven
+      - helle
+      - bradford knives
+      - white river
+      - olight
+      - streamlight
+      - fenix
+      - surefire
+      - nitecore
+      - thrunite
+      - sofirn
+      - wurkkos
+      - acebeam
+      - zebralight
+      - armytek
+      - emisar
+      - noctigon
+      - lumintop
+      - rovyvon
+      - prometheus lights
+      - muyshondt
+      - malkoff
+      - modlite
+      - cloud defensive
+      - coast
+      - ledlenser
+      - maglite
+      - princeton tec
+      - petzl
+      - black diamond
+      - biolite
+      - goal zero
+      - nebo
+      - pelican
+      - convoy
+      - manker
+      - reylight
+      - skilhunt
+      - weltool
+      - bellroy
+      - dango products
+      - trayvax
+      - ridge wallet
+      - ekster
+      - secrid
+      - herschel supply
+      - pioneer carry
+      - recycled firefighter
+      - flowfold
+      - magpul
+      - tanner goods
+      - saddleback leather
+      - filson
+      - goruck
+      - mystery ranch
+      - aer
+      - alpaka
+      - codeofbell
+      - orbitkey
+      - keybar
+      - keysmart
+      - fisher space pen
+      - rite in the rain
+      - field notes
+      - tactile turn
+      - big idea design
+      - kaweco
+      - lamy
+      - rotring
+      - zebra
+      - pilot
+      - parker
+      - cross
+      - montblanc
+      - pelikan
+      - twsbi
+      - starrett
+      - mitutoyo
+      - fluke
+      - testo
+      - fieldpiece
+      - stabila
+      - empire level
+      - swanson
+      - johnson level
+      - fastcap
+      - incra
+      - woodpeckers
+      - veritas
+      - lie-nielsen
+      - bridge city tool works
+      - shinwa
+      - tajima
+      - keson
+      - lufkin
+      - pica marker
+      - sharpie
