@@ -1,0 +1,3 @@
+export BULK_WORKER_CONCURRENCY=4
+export BULK_QUEUE_LIST=backfill_queue,compensation_queue
+export DISABLE_COMMENTS_FETCH=1
