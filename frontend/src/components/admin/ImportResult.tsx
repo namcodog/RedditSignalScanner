@@ -64,7 +64,7 @@ export default function ImportResult({ result }: ImportResultProps) {
                     </tr>
                   </thead>
                   <tbody>
-                    {communities.map((community, index) => (
+                    {communities.map((community: any, index: number) => (
                       <tr
                         key={index}
                         className="border-t border-border hover:bg-muted/50"
@@ -146,7 +146,7 @@ export default function ImportResult({ result }: ImportResultProps) {
                   </tr>
                 </thead>
                 <tbody>
-                  {errors.map((error, index) => (
+                  {errors.map((error: any, index: number) => (
                     <tr
                       key={index}
                       className="border-t border-border hover:bg-muted/50"

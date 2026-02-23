@@ -38,6 +38,14 @@ export interface Task {
  */
 export interface AnalyzeRequest {
   product_description: string;
+  /** 可选示例库 ID（用于稳定演示） */
+  example_id?: string;
+  /** 分析模式：market_insight (市场洞察) 或 operations (运营策略) */
+  mode?: 'market_insight' | 'operations';
+  /** 审计等级 (调试用) */
+  audit_level?: string;
+  /** 话题画像 ID (用于锁定赛道) */
+  topic_profile_id?: string;
 }
 
 /**
@@ -72,6 +80,10 @@ export interface TaskStatusResponse {
   percentage: number;
   message: string;
   current_step: string;
+  stage?: string | null;
+  blocked_reason?: string | null;
+  next_action?: string | null;
+  details?: Record<string, unknown> | null;
   error: string | null;
   sse_endpoint: string;
   retry_count: number;
@@ -79,4 +91,17 @@ export interface TaskStatusResponse {
   last_retry_at: string | null;
   dead_letter_at: string | null;
   updated_at: string;
+}
+
+export interface TaskSourcesResponse {
+  task_id: string;
+  status: string;
+  sources: {
+    report_tier: 'A_full' | 'B_trimmed' | 'C_scouting' | 'X_blocked';
+    facts_v2_quality?: {
+      tier: string;
+      flags: string[];
+    };
+    next_action?: string;
+  };
 }

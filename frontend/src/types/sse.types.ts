@@ -16,7 +16,9 @@ export type SSEEventType =
   | 'completed'
   | 'error'
   | 'close'
-  | 'heartbeat';
+  | 'heartbeat'
+  | 'queue_update'
+  | 'ping';
 
 /**
  * SSE 连接状态
@@ -36,7 +38,10 @@ export interface SSEBaseEvent {
   event: SSEEventType;
   
   /** 任务 ID (UUID) */
-  task_id: string;
+  task_id?: string;
+
+  /** 查询 ID (UUID) */
+  query_id?: string;
   
   /** 事件时间戳 (ISO 8601) */
   timestamp?: string;
@@ -78,6 +83,18 @@ export interface SSEProgressEvent extends SSEBaseEvent {
 
   /** 预计剩余时间（秒，可选） */
   estimated_remaining?: number;
+
+  /** 后端阶段标记（Phase105/106） */
+  stage?: string | null;
+
+  /** 阻塞原因（如 insufficient_samples / system_dependency_down） */
+  blocked_reason?: string | null;
+
+  /** 下一步动作（如 wait_for_warmup / auto_rerun_scheduled / manual_intervention） */
+  next_action?: string | null;
+
+  /** 扩展详情（例如 remediation_actions / next_retry_at） */
+  details?: Record<string, unknown> | null;
 }
 
 /**
@@ -100,6 +117,11 @@ export interface SSECompletedEvent extends SSEBaseEvent {
 
   /** 更新时间 (ISO 8601) */
   updated_at: string;
+
+  stage?: string | null;
+  blocked_reason?: string | null;
+  next_action?: string | null;
+  details?: Record<string, unknown> | null;
 }
 
 /**
@@ -136,6 +158,16 @@ export interface SSEHeartbeatEvent extends SSEBaseEvent {
 }
 
 /**
+ * SSE Queue Update Event (For HotPost)
+ */
+export interface SSEQueueUpdateEvent extends SSEBaseEvent {
+    event: 'queue_update';
+    position: number;
+    estimated_wait_seconds: number;
+    status: 'queued' | 'waiting' | 'processing';
+}
+
+/**
  * SSE 事件联合类型
  */
 export type SSEEvent =
@@ -144,7 +176,8 @@ export type SSEEvent =
   | SSECompletedEvent
   | SSEErrorEvent
   | SSECloseEvent
-  | SSEHeartbeatEvent;
+  | SSEHeartbeatEvent
+  | SSEQueueUpdateEvent;
 
 /**
  * SSE 事件处理器类型

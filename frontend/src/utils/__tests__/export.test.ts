@@ -20,6 +20,7 @@ describe('Export Utils', () => {
       },
       pain_points: [
         {
+          text: '价格太高',
           description: '价格太高',
           frequency: 42,
           sentiment_score: -0.6,
@@ -46,6 +47,7 @@ describe('Export Utils', () => {
       ],
       opportunities: [
         {
+          title: '开发移动端应用',
           description: '开发移动端应用',
           relevance_score: 0.85,
           potential_users: '5000+ 用户',
@@ -54,6 +56,7 @@ describe('Export Utils', () => {
       ],
       action_items: [
         {
+          title: '自动化流程',
           problem_definition: '自动化 onboarding 流程',
           evidence_chain: [
             {

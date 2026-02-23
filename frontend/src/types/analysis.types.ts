@@ -26,6 +26,9 @@ export interface ExamplePost {
   /** 社区名称（如 "r/productivity"） */
   community: string;
 
+  /** 帖子标题（可选） */
+  title?: string;
+
   /** 帖子内容摘要（允许 null） */
   content?: string | null | undefined;
 
@@ -49,6 +52,9 @@ export interface ExamplePost {
  * 痛点接口
  */
 export interface PainPoint {
+  /** 痛点文本摘要 */
+  text?: string;
+
   /** 痛点描述 */
   description: string;
 
@@ -95,6 +101,12 @@ export interface Competitor {
  * 机会接口
  */
 export interface Opportunity {
+  /** 机会标题 */
+  title?: string;
+
+  /** 机会文本摘要 */
+  text?: string;
+
   /** 机会描述 */
   description: string;
 

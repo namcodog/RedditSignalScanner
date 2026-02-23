@@ -49,6 +49,10 @@ vi.mock('@/api/analyze.api', () => ({
     percentage: 25,
     message: '数据收集中...',
     current_step: '数据收集中...',
+    stage: null,
+    blocked_reason: null,
+    next_action: null,
+    details: null,
     error: null,
     sse_endpoint: '/api/analyze/stream/test-task-123',
     retry_count: 0,
@@ -167,6 +171,49 @@ describe('ProgressPage', () => {
 
     await waitFor(() => {
       expect(mockNavigate).toHaveBeenCalledWith('/report/test-task-123');
+    });
+  });
+
+  it('warmup completed 时不自动跳转（要把原因和下一步说清楚）', async () => {
+    render(
+      <MemoryRouter initialEntries={['/progress/test-task-123']}>
+        <Routes>
+          <Route path="/progress/:taskId" element={<ProgressPage />} />
+        </Routes>
+      </MemoryRouter>
+    );
+
+    await waitFor(() => expect(mockCreateTaskProgressSSE).toHaveBeenCalled());
+
+    await act(async () => {
+      handlers.onEvent({
+        event: 'completed',
+        progress: 100,
+        task_id: 'test-task-123',
+        status: 'completed',
+        message: '补量已下单：系统会在 2 分钟后自动再跑一次',
+        stage: 'warmup',
+        blocked_reason: 'insufficient_samples',
+        next_action: 'auto_rerun_scheduled',
+        details: {
+          next_retry_at: '2025-12-29T00:00:00Z',
+        },
+      });
+    });
+
+    await waitFor(() => {
+      expect(screen.getByText('阶段')).toBeInTheDocument();
+      expect(screen.getByText('卡点原因')).toBeInTheDocument();
+      expect(screen.getByText('下一步')).toBeInTheDocument();
+      expect(screen.getByText('预计重试')).toBeInTheDocument();
+    });
+
+    await act(async () => {
+      await new Promise((resolve) => setTimeout(resolve, 2200));
+    });
+
+    await waitFor(() => {
+      expect(mockNavigate).not.toHaveBeenCalledWith('/report/test-task-123');
     });
   });
 });

@@ -87,6 +87,36 @@ const createAxiosInstance = (config: Partial<ApiClientConfig> = {}): AxiosInstan
   // 响应拦截器：统一错误处理
   instance.interceptors.response.use(
     (response) => {
+      // P0: Handle Blob responses (Download)
+      if (response.config.responseType === 'blob') {
+        return response;
+      }
+
+      // P0: Normalize Admin Response
+      // Check if response matches { code: number, data: any, trace_id?: string }
+      const responseData = response.data;
+      if (responseData && typeof responseData === 'object' && 'code' in responseData) {
+        // Wrapped response detected
+        if (responseData.code === 0) {
+          // Success: Unwrap data
+          // If 'data' property exists, use it; otherwise use the whole object (unlikely per spec but safe)
+          response.data = 'data' in responseData ? responseData.data : responseData;
+          return response;
+        } else {
+          // Logic Error (Business Error)
+          const error = {
+            config: response.config,
+            request: response.request,
+            response: response,
+            message: responseData.message || 'Unknown Admin Error',
+            code: responseData.code, // Custom property
+            isBusinessError: true // Marker
+          };
+          // Reject to trigger the error handler
+          return Promise.reject(error);
+        }
+      }
+
       // 开发模式日志
       if (import.meta.env.VITE_DEV_MODE && import.meta.env.VITE_LOG_API_REQUESTS) {
         console.log('[API Response]', {
@@ -99,7 +129,19 @@ const createAxiosInstance = (config: Partial<ApiClientConfig> = {}): AxiosInstan
       // 成功响应直接返回
       return response;
     },
-    (error: AxiosError<ErrorResponse>) => {
+    (error: any) => {
+      // Handle Business Errors (code != 0 from above)
+      if (error.isBusinessError) {
+         console.error('[API Business Error]', error.message);
+         // Transform to match the structure handleApiError expects or return directly
+         return Promise.reject({
+             status: 200, // It was a 200 OK HTTP response
+             message: error.message,
+             code: error.code,
+             error: { message: error.message, code: error.code }
+         });
+      }
+
       // 统一错误处理
       return handleApiError(error);
     }

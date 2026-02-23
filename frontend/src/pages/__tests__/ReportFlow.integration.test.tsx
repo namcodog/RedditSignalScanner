@@ -36,6 +36,7 @@ const buildReport = (): ReportResponse => ({
     },
     pain_points: [
       {
+        text: '页面加载速度慢',
         description: '页面加载速度慢，用户等待超过 5 秒才看到内容。',
         frequency: 18,
         sentiment_score: -0.72,

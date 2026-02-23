@@ -1,19 +1,15 @@
 /**
  * 认证对话框组件
  *
- * 基于 PRD-06 用户认证系统
- * 参考实现: https://v0-reddit-business-signals.vercel.app
- *
- * 功能:
- * - Tab切换（登录/注册）
- * - 表单验证
- * - 集成auth.api
+ * 基于 v0 设计还原 (auth-dialog.tsx)
+ * 移除所有内联样式，使用 Tailwind 类名
  */
 
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { login, register } from '@/api/auth.api';
-import { X } from 'lucide-react';
+import { X, Loader2 } from 'lucide-react';
+import clsx from 'clsx';
 
 interface AuthDialogProps {
   isOpen: boolean;
@@ -41,7 +37,6 @@ export const AuthDialog: React.FC<AuthDialogProps> = ({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // 同步 defaultTab 到 activeTab
   useEffect(() => {
     if (isOpen) {
       setActiveTab(defaultTab);
@@ -63,19 +58,14 @@ export const AuthDialog: React.FC<AuthDialogProps> = ({
   } = useForm<RegisterFormData>();
 
   const handleLogin = async (data: LoginFormData) => {
-    console.log('[AuthDialog] handleLogin called with data:', data);
     setIsSubmitting(true);
     setError(null);
     try {
-      console.log('[AuthDialog] Calling login API...');
       await login(data);
-      console.log('[AuthDialog] Login successful!');
       resetLoginForm();
       onClose();
-      // 刷新页面以更新认证状态
       window.location.reload();
     } catch (err) {
-      console.error('[AuthDialog] Login failed:', err);
       setError(err instanceof Error ? err.message : '登录失败，请检查邮箱和密码');
     } finally {
       setIsSubmitting(false);
@@ -92,7 +82,6 @@ export const AuthDialog: React.FC<AuthDialogProps> = ({
       });
       resetRegisterForm();
       onClose();
-      // 刷新页面以更新认证状态
       window.location.reload();
     } catch (err) {
       setError(err instanceof Error ? err.message : '注册失败，请稍后重试');
@@ -108,414 +97,164 @@ export const AuthDialog: React.FC<AuthDialogProps> = ({
     onClose();
   };
 
-  console.log('[AuthDialog] Render - isOpen:', isOpen, 'activeTab:', activeTab);
-
-  if (!isOpen) {
-    console.log('[AuthDialog] Not rendering - isOpen is false');
-    return null;
-  }
-
-  console.log('[AuthDialog] Rendering dialog');
+  if (!isOpen) return null;
 
   return (
-    <div
-      role="dialog"
-      aria-labelledby="auth-dialog-title"
-      aria-describedby="auth-dialog-description"
-      style={{
-        position: 'fixed',
-        inset: 0,
-        zIndex: 50,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
-      }}
-      onClick={handleClose}
-    >
-      <div
-        style={{
-          backgroundColor: 'white',
-          borderRadius: '8px',
-          padding: '24px',
-          maxWidth: '400px',
-          width: '90%',
-          maxHeight: '90vh',
-          overflow: 'auto',
-          position: 'relative',
-        }}
-        onClick={(e) => e.stopPropagation()}
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm animate-in fade-in duration-200">
+      <div 
+        className="relative w-full max-w-md bg-white rounded-xl shadow-lg p-6 animate-in zoom-in-95 duration-200"
+        role="dialog" 
+        aria-modal="true"
       >
-        {/* 关闭按钮 */}
         <button
           onClick={handleClose}
-          style={{
-            position: 'absolute',
-            top: '16px',
-            right: '16px',
-            padding: '4px',
-            border: 'none',
-            background: 'transparent',
-            cursor: 'pointer',
-            color: '#6b7280',
-          }}
-          aria-label="关闭"
+          className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
         >
-          <X size={20} />
+          <X className="h-4 w-4" />
+          <span className="sr-only">Close</span>
         </button>
 
-        {/* 标题 */}
-        <h2
-          id="auth-dialog-title"
-          style={{
-            fontSize: '24px',
-            fontWeight: '600',
-            marginBottom: '8px',
-            color: '#111827',
-          }}
-        >
-          账户登录
-        </h2>
-        <p
-          id="auth-dialog-description"
-          style={{
-            fontSize: '14px',
-            color: '#6b7280',
-            marginBottom: '24px',
-          }}
-        >
-          登录或注册以保存您的分析结果和访问高级功能
-        </p>
-
-        {/* Tab切换 */}
-        <div
-          role="tablist"
-          aria-orientation="horizontal"
-          style={{
-            display: 'flex',
-            borderBottom: '1px solid #e5e7eb',
-            marginBottom: '24px',
-          }}
-        >
-          <button
-            role="tab"
-            aria-selected={activeTab === 'login'}
-            aria-controls="login-panel"
-            onClick={() => {
-              setActiveTab('login');
-              setError(null);
-            }}
-            style={{
-              flex: 1,
-              padding: '12px',
-              border: 'none',
-              background: 'transparent',
-              cursor: 'pointer',
-              fontSize: '14px',
-              fontWeight: '500',
-              color: activeTab === 'login' ? '#2563eb' : '#6b7280',
-              borderBottom: activeTab === 'login' ? '2px solid #2563eb' : 'none',
-            }}
-          >
-            登录
-          </button>
-          <button
-            role="tab"
-            aria-selected={activeTab === 'register'}
-            aria-controls="register-panel"
-            onClick={() => {
-              setActiveTab('register');
-              setError(null);
-            }}
-            style={{
-              flex: 1,
-              padding: '12px',
-              border: 'none',
-              background: 'transparent',
-              cursor: 'pointer',
-              fontSize: '14px',
-              fontWeight: '500',
-              color: activeTab === 'register' ? '#2563eb' : '#6b7280',
-              borderBottom: activeTab === 'register' ? '2px solid #2563eb' : 'none',
-            }}
-          >
-            注册
-          </button>
+        <div className="mb-6 space-y-1">
+          <h2 className="text-lg font-semibold leading-none tracking-tight">账户登录</h2>
+          <p className="text-sm text-muted-foreground">
+            登录或注册以保存您的分析结果和访问高级功能
+          </p>
         </div>
 
-        {/* 错误提示 */}
-        {error && (
-          <div
-            role="alert"
-            style={{
-              padding: '12px',
-              marginBottom: '16px',
-              backgroundColor: '#fef2f2',
-              border: '1px solid #fecaca',
-              borderRadius: '4px',
-              color: '#991b1b',
-              fontSize: '14px',
-            }}
-          >
-            {error}
+        <div className="w-full">
+          <div className="grid w-full grid-cols-2 bg-muted p-1 rounded-lg mb-6">
+            <button
+              onClick={() => { setActiveTab('login'); setError(null); }}
+              className={clsx(
+                "inline-flex items-center justify-center whitespace-nowrap rounded-md px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+                activeTab === 'login' ? "bg-white text-foreground shadow-sm" : "text-muted-foreground hover:bg-white/50"
+              )}
+            >
+              登录
+            </button>
+            <button
+              onClick={() => { setActiveTab('register'); setError(null); }}
+              className={clsx(
+                "inline-flex items-center justify-center whitespace-nowrap rounded-md px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+                activeTab === 'register' ? "bg-white text-foreground shadow-sm" : "text-muted-foreground hover:bg-white/50"
+              )}
+            >
+              注册
+            </button>
           </div>
-        )}
 
-        {/* 登录面板 */}
-        {activeTab === 'login' && (
-          <div role="tabpanel" id="login-panel" aria-labelledby="login-tab">
-            <h3 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '8px' }}>
-              登录账户
-            </h3>
-            <p style={{ fontSize: '14px', color: '#6b7280', marginBottom: '16px' }}>
-              输入您的邮箱和密码登录
-            </p>
-            <form onSubmit={handleLoginSubmit(handleLogin)}>
-              <div style={{ marginBottom: '16px' }}>
-                <label
-                  htmlFor="login-email"
-                  style={{
-                    display: 'block',
-                    fontSize: '14px',
-                    fontWeight: '500',
-                    marginBottom: '4px',
-                    color: '#374151',
-                  }}
-                >
-                  邮箱
-                </label>
-                <input
-                  id="login-email"
-                  type="email"
-                  {...registerLoginForm('email', {
-                    required: '请输入邮箱',
-                    pattern: {
-                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                      message: '请输入有效的邮箱地址',
-                    },
-                  })}
-                  style={{
-                    width: '100%',
-                    padding: '8px 12px',
-                    border: '1px solid #d1d5db',
-                    borderRadius: '4px',
-                    fontSize: '14px',
-                  }}
-                />
-                {loginErrors.email && (
-                  <p style={{ color: '#dc2626', fontSize: '12px', marginTop: '4px' }}>
-                    {loginErrors.email.message}
-                  </p>
-                )}
+          {error && (
+            <div className="mb-4 rounded-md bg-destructive/10 p-3 text-sm text-destructive border border-destructive/20">
+              {error}
+            </div>
+          )}
+
+          {activeTab === 'login' && (
+            <div className="space-y-4 animate-in fade-in slide-in-from-left-2 duration-300">
+              <div className="rounded-lg border bg-card text-card-foreground shadow-sm p-6 space-y-4">
+                <div className="space-y-1.5">
+                  <h3 className="font-semibold leading-none tracking-tight">登录账户</h3>
+                  <p className="text-sm text-muted-foreground">输入您的邮箱和密码登录</p>
+                </div>
+                <form onSubmit={handleLoginSubmit(handleLogin)} className="space-y-4">
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" htmlFor="login-email">
+                      邮箱
+                    </label>
+                    <input
+                      id="login-email"
+                      type="email"
+                      className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                      placeholder="your@email.com"
+                      {...registerLoginForm('email', { required: '请输入邮箱' })}
+                    />
+                    {loginErrors.email && <p className="text-xs text-destructive">{loginErrors.email.message}</p>}
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" htmlFor="login-password">
+                      密码
+                    </label>
+                    <input
+                      id="login-password"
+                      type="password"
+                      className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                      {...registerLoginForm('password', { required: '请输入密码', minLength: { value: 8, message: '密码至少8个字符' } })}
+                    />
+                    {loginErrors.password && <p className="text-xs text-destructive">{loginErrors.password.message}</p>}
+                  </div>
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 w-full"
+                  >
+                    {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                    登录
+                  </button>
+                </form>
               </div>
+            </div>
+          )}
 
-              <div style={{ marginBottom: '16px' }}>
-                <label
-                  htmlFor="login-password"
-                  style={{
-                    display: 'block',
-                    fontSize: '14px',
-                    fontWeight: '500',
-                    marginBottom: '4px',
-                    color: '#374151',
-                  }}
-                >
-                  密码
-                </label>
-                <input
-                  id="login-password"
-                  type="password"
-                  {...registerLoginForm('password', {
-                    required: '请输入密码',
-                    minLength: {
-                      value: 8,
-                      message: '密码至少8个字符',
-                    },
-                  })}
-                  style={{
-                    width: '100%',
-                    padding: '8px 12px',
-                    border: '1px solid #d1d5db',
-                    borderRadius: '4px',
-                    fontSize: '14px',
-                  }}
-                />
-                {loginErrors.password && (
-                  <p style={{ color: '#dc2626', fontSize: '12px', marginTop: '4px' }}>
-                    {loginErrors.password.message}
-                  </p>
-                )}
+          {activeTab === 'register' && (
+            <div className="space-y-4 animate-in fade-in slide-in-from-right-2 duration-300">
+              <div className="rounded-lg border bg-card text-card-foreground shadow-sm p-6 space-y-4">
+                <div className="space-y-1.5">
+                  <h3 className="font-semibold leading-none tracking-tight">创建账户</h3>
+                  <p className="text-sm text-muted-foreground">注册新账户开始使用</p>
+                </div>
+                <form onSubmit={handleRegisterSubmit(handleRegister)} className="space-y-4">
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" htmlFor="register-name">
+                      姓名
+                    </label>
+                    <input
+                      id="register-name"
+                      className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                      {...registerRegisterForm('name', { required: '请输入姓名', minLength: { value: 2, message: '姓名至少2个字符' } })}
+                    />
+                    {registerErrors.name && <p className="text-xs text-destructive">{registerErrors.name.message}</p>}
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" htmlFor="register-email">
+                      邮箱
+                    </label>
+                    <input
+                      id="register-email"
+                      type="email"
+                      className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                      placeholder="your@email.com"
+                      {...registerRegisterForm('email', { required: '请输入邮箱' })}
+                    />
+                    {registerErrors.email && <p className="text-xs text-destructive">{registerErrors.email.message}</p>}
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" htmlFor="register-password">
+                      密码
+                    </label>
+                    <input
+                      id="register-password"
+                      type="password"
+                      className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                      {...registerRegisterForm('password', { required: '请输入密码', minLength: { value: 8, message: '密码至少8个字符' } })}
+                    />
+                    {registerErrors.password && <p className="text-xs text-destructive">{registerErrors.password.message}</p>}
+                  </div>
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 w-full"
+                  >
+                    {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                    注册
+                  </button>
+                </form>
               </div>
-
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                style={{
-                  width: '100%',
-                  padding: '10px',
-                  backgroundColor: isSubmitting ? '#9ca3af' : '#2563eb',
-                  color: 'white',
-                  border: 'none',
-                  borderRadius: '4px',
-                  fontSize: '14px',
-                  fontWeight: '500',
-                  cursor: isSubmitting ? 'not-allowed' : 'pointer',
-                }}
-              >
-                {isSubmitting ? '登录中...' : '登录'}
-              </button>
-            </form>
-          </div>
-        )}
-
-        {/* 注册面板 */}
-        {activeTab === 'register' && (
-          <div role="tabpanel" id="register-panel" aria-labelledby="register-tab">
-            <h3 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '8px' }}>
-              创建账户
-            </h3>
-            <p style={{ fontSize: '14px', color: '#6b7280', marginBottom: '16px' }}>
-              注册新账户开始使用
-            </p>
-            <form onSubmit={handleRegisterSubmit(handleRegister)}>
-              <div style={{ marginBottom: '16px' }}>
-                <label
-                  htmlFor="register-name"
-                  style={{
-                    display: 'block',
-                    fontSize: '14px',
-                    fontWeight: '500',
-                    marginBottom: '4px',
-                    color: '#374151',
-                  }}
-                >
-                  姓名
-                </label>
-                <input
-                  id="register-name"
-                  type="text"
-                  {...registerRegisterForm('name', {
-                    required: '请输入姓名',
-                    minLength: {
-                      value: 2,
-                      message: '姓名至少2个字符',
-                    },
-                  })}
-                  style={{
-                    width: '100%',
-                    padding: '8px 12px',
-                    border: '1px solid #d1d5db',
-                    borderRadius: '4px',
-                    fontSize: '14px',
-                  }}
-                />
-                {registerErrors.name && (
-                  <p style={{ color: '#dc2626', fontSize: '12px', marginTop: '4px' }}>
-                    {registerErrors.name.message}
-                  </p>
-                )}
-              </div>
-
-              <div style={{ marginBottom: '16px' }}>
-                <label
-                  htmlFor="register-email"
-                  style={{
-                    display: 'block',
-                    fontSize: '14px',
-                    fontWeight: '500',
-                    marginBottom: '4px',
-                    color: '#374151',
-                  }}
-                >
-                  邮箱
-                </label>
-                <input
-                  id="register-email"
-                  type="email"
-                  {...registerRegisterForm('email', {
-                    required: '请输入邮箱',
-                    pattern: {
-                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                      message: '请输入有效的邮箱地址',
-                    },
-                  })}
-                  style={{
-                    width: '100%',
-                    padding: '8px 12px',
-                    border: '1px solid #d1d5db',
-                    borderRadius: '4px',
-                    fontSize: '14px',
-                  }}
-                />
-                {registerErrors.email && (
-                  <p style={{ color: '#dc2626', fontSize: '12px', marginTop: '4px' }}>
-                    {registerErrors.email.message}
-                  </p>
-                )}
-              </div>
-
-              <div style={{ marginBottom: '16px' }}>
-                <label
-                  htmlFor="register-password"
-                  style={{
-                    display: 'block',
-                    fontSize: '14px',
-                    fontWeight: '500',
-                    marginBottom: '4px',
-                    color: '#374151',
-                  }}
-                >
-                  密码
-                </label>
-                <input
-                  id="register-password"
-                  type="password"
-                  {...registerRegisterForm('password', {
-                    required: '请输入密码',
-                    minLength: {
-                      value: 8,
-                      message: '密码至少8个字符',
-                    },
-                  })}
-                  style={{
-                    width: '100%',
-                    padding: '8px 12px',
-                    border: '1px solid #d1d5db',
-                    borderRadius: '4px',
-                    fontSize: '14px',
-                  }}
-                />
-                {registerErrors.password && (
-                  <p style={{ color: '#dc2626', fontSize: '12px', marginTop: '4px' }}>
-                    {registerErrors.password.message}
-                  </p>
-                )}
-              </div>
-
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                style={{
-                  width: '100%',
-                  padding: '10px',
-                  backgroundColor: isSubmitting ? '#9ca3af' : '#2563eb',
-                  color: 'white',
-                  border: 'none',
-                  borderRadius: '4px',
-                  fontSize: '14px',
-                  fontWeight: '500',
-                  cursor: isSubmitting ? 'not-allowed' : 'pointer',
-                }}
-              >
-                {isSubmitting ? '注册中...' : '注册'}
-              </button>
-            </form>
-          </div>
-        )}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
 };
 
 export default AuthDialog;
-

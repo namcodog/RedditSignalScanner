@@ -42,7 +42,7 @@ export async function getDailyMetrics(
   }
 
   const response = await apiClient.get<DailyMetricsListResponse>(
-    '/api/metrics/daily',
+    '/metrics/daily',
     { params: query }
   );
   return response.data;

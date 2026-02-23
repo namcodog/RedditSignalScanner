@@ -32,6 +32,7 @@ export {
   type AnalyzeResponse,
   type TaskProgress,
   type TaskStatusResponse,
+  type TaskSourcesResponse,
 } from './task.types';
 
 // ============================================================================
@@ -90,6 +91,7 @@ export type {
   SSEErrorEvent,
   SSECloseEvent,
   SSEHeartbeatEvent,
+  SSEQueueUpdateEvent,
   SSEEvent,
   SSEEventHandler,
   SSEClientConfig,

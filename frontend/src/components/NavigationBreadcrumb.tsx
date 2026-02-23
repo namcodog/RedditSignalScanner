@@ -91,7 +91,7 @@ export default function NavigationBreadcrumb({
               onClick={() => (isAccessible && onNavigate ? onNavigate(step.id) : undefined)}
               className={`flex items-center space-x-2 rounded-md px-3 py-1 transition-colors ${
                 isActive
-                  ? 'bg-secondary text-secondary-foreground'
+                  ? 'bg-primary text-primary-foreground'
                   : isCompleted
                   ? 'text-foreground hover:bg-muted'
                   : isAccessible

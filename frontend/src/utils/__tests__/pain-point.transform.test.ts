@@ -5,18 +5,19 @@ import type { PainPoint } from '@/types';
 
 describe('normalizePainPoints', () => {
   it('根据情感分数补全严重程度并提取示例', () => {
-    const rawPainPoints: PainPoint[] = [
+    const painPoints: PainPoint[] = [
       {
+        text: '支付流程复杂',
         description: '支付流程太复杂。用户需要多次点击才能完成订单。',
-        frequency: 12,
-        sentiment_score: -0.75,
-        severity: undefined as unknown as PainPoint['severity'],
+        frequency: 10,
+        sentiment_score: -0.8,
+        severity: 'high' as const,
         example_posts: [],
         user_examples: [],
       },
     ];
 
-    const normalized = normalizePainPoints(rawPainPoints);
+    const normalized = normalizePainPoints(painPoints);
 
     expect(normalized).toHaveLength(1);
     expect(normalized[0]?.severity).toBe('high');

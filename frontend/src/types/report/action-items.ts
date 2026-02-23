@@ -12,6 +12,8 @@ export interface EvidenceItem {
 }
 
 export interface ActionItem {
+  title?: string;
+  description?: string;
   problem_definition: string;
   evidence_chain: EvidenceItem[];
   suggested_actions: string[];

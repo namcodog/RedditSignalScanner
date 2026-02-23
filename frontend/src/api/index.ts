@@ -51,3 +51,12 @@ export {
   getInsightById,
 } from './insights';
 export type { GetInsightsParams } from './insights';
+
+// 引导与示例 API
+export {
+  getInputGuidance,
+} from './guidance.api';
+export type { GuidanceExample, GuidanceInputResponse } from './guidance.api';
+
+// Admin API
+export * from './admin.api';

@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import OpportunitiesList from '../OpportunitiesList';
+import type { Opportunity } from '@/types';
 
 describe('OpportunitiesList', () => {
   it('应该显示空状态当没有商业机会数据时', () => {
@@ -9,20 +10,22 @@ describe('OpportunitiesList', () => {
   });
 
   it('应该正确渲染商业机会列表', () => {
-    const opportunities = [
-      {
-        description: '开发移动端应用',
-        relevance_score: 0.85,
-        potential_users: '5000+ 用户',
-        key_insights: ['用户需求强烈', '市场空间大'],
-      },
-      {
-        description: '添加离线模式',
-        relevance_score: 0.72,
-        potential_users: '3200+ 用户',
-        key_insights: ['提升用户体验'],
-      },
-    ];
+  const opportunities: Opportunity[] = [
+    {
+      title: 'Opportunity 1',
+      description: 'AI推荐系统',
+      relevance_score: 0.95,
+      potential_users: '中小型电商卖家',
+      key_insights: ['市场需求大', '技术可行'],
+    },
+    {
+      title: 'Opportunity 2',
+      description: '自动化客服',
+      relevance_score: 0.85,
+      potential_users: 'SaaS公司',
+      key_insights: ['降低成本', '提高效率'],
+    },
+  ];
 
     render(<OpportunitiesList opportunities={opportunities} />);
 

@@ -118,6 +118,61 @@ const entitySummarySchema = z.object({
   pain_points: z.array(entityMatchSchema),
 });
 
+const structuredReportSchema = z.object({
+  decision_cards: z.array(
+    z.object({
+      title: z.string(),
+      conclusion: z.string(),
+      details: z.array(z.string()),
+    }),
+  ),
+  market_health: z.object({
+    competition_saturation: z.object({
+      level: z.string(),
+      details: z.array(z.string()),
+      interpretation: z.string(),
+    }),
+    ps_ratio: z.object({
+      ratio: z.string(),
+      conclusion: z.string(),
+      interpretation: z.string(),
+      health_assessment: z.string(),
+    }),
+  }),
+  battlefields: z.array(
+    z.object({
+      name: z.string(),
+      subreddits: z.array(z.string()),
+      profile: z.string(),
+      pain_points: z.array(z.string()).optional(),
+      strategy_advice: z.string(),
+    }),
+  ),
+  pain_points: z.array(
+    z.object({
+      title: z.string(),
+      user_voices: z.array(z.string()),
+      data_impression: z.string().optional(),
+      interpretation: z.string(),
+    }),
+  ),
+  drivers: z.array(
+    z.object({
+      title: z.string(),
+      description: z.string(),
+    }),
+  ),
+  opportunities: z.array(
+    z.object({
+      title: z.string(),
+      target_pain_points: z.array(z.string()),
+      target_communities: z.array(z.string()),
+      product_positioning: z.string(),
+      core_selling_points: z.array(z.string()),
+    }),
+  ),
+});
+
 const reportContentSchema = z.object({
   executive_summary: executiveSummarySchema,
   pain_points: z.array(painPointSchema),
@@ -133,6 +188,7 @@ export const reportResponseSchema = z.object({
   generated_at: z.string(),
   product_description: z.string().nullish(),
   report_html: z.string().nullish(),
+  report_structured: structuredReportSchema.optional(),
   report: reportContentSchema,
   metadata: reportMetadataSchema,
   overview: overviewSchema,

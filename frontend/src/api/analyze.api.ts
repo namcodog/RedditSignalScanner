@@ -10,6 +10,7 @@ import type {
   AnalyzeRequest,
   AnalyzeResponse,
   TaskStatusResponse,
+  TaskSourcesResponse,
   ReportResponse,
 } from '@/types';
 import { reportResponseSchema } from '@/types';
@@ -162,6 +163,21 @@ export const getTaskStatus = async (
 };
 
 /**
+ * 获取任务 Sources 账本（用于查看 Tier 和降级原因）
+ * 
+ * GET /api/tasks/{task_id}/sources
+ * 
+ * @param taskId 任务 ID
+ * @returns Sources 账本信息
+ */
+export const getTaskSources = async (
+  taskId: string
+): Promise<TaskSourcesResponse> => {
+  const response = await apiClient.get<TaskSourcesResponse>(`/tasks/${taskId}/sources`);
+  return response.data;
+};
+
+/**
  * 获取分析报告
  *
  * GET /api/report/{task_id}
@@ -201,8 +217,10 @@ export const getAnalysisReport = (taskId: string): Promise<ReportResponse> => {
   const response = await apiClient.get(`/report/${taskId}`);
   let data: ReportResponse;
   try {
-    data = reportResponseSchema.parse(response.data);
-  } catch (error) {
+        // Validate response structure
+        // Since backend now provides title/text/category, no need for complex polyfills.
+        data = reportResponseSchema.parse(response.data);
+      } catch (error) {
     console.error('[Report] Schema validation failed:', error);
     throw new Error('报告数据格式异常，请稍后重试');
   }
