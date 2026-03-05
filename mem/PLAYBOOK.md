@@ -3,7 +3,7 @@
 > 被证伪的模式、成功的护城河、诊断框架。只在"学到教训"时更新。
 > 对应文件：IDENTITY.md（身份） / MEMORY.md（活跃记忆）
 
-Last updated: 2026-03-04
+Last updated: 2026-03-05
 
 ---
 
@@ -84,6 +84,23 @@ Last updated: 2026-03-04
 - 不确定怎么定价 → 设计三种SKU
 - **诊断方法：** 如果一份文档描述的角色数量＞实际执行人数，就是过度设计
 - **解药：** 停止写蓝图，去做一个真实案例
+
+### 多 Agent 编排实战教训 — 2026-03-05
+
+**验证的模式：**
+- Antigravity（指挥官）= 深度分析 + Sequential Thinking + Serena 代码理解 + 验收
+- Codex gpt-5.3-codex（执行者）= 批量文件操作（git mv/grep/sed/代码修复）
+- 两者通过 `run_command` 连接，零框架成本
+
+**Codex CLI 调用陷阱：**
+| 方式 | 稳定性 | 原因 |
+|------|--------|------|
+| `cat file \| codex exec -` (stdin pipe) | ❌ 不稳定 | command ID 不可追踪，秒退无输出 |
+| `PROMPT=$(cat file) && codex ... "$PROMPT"` | ✅ 稳定 | 变量展开后作为位置参数传入 |
+
+**参数顺序很重要：** `-a never` 必须在 `exec` 之前，`--sandbox` 在 `exec` 之后。
+
+**MCP 失败不致命：** `chrome-devtools` 和 `spec-kit` 每次都失败，但不影响 Codex 正常执行任务。只有 `required=true` 的 MCP 失败才会导致 `codex exec` 直接退出。
 
 ---
 

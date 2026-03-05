@@ -10,16 +10,16 @@
 > - **MEMORY.md** — 活跃记忆（你在这里）
 > - ARCHIVE.md — 归档（30天+的旧记忆，按主题分类）
 
-Last updated: 2026-03-05T13:36:00+08:00
+Last updated: 2026-03-05T16:00:00+08:00
 
 ## Current State (实时状态)
 
-**正在做**: MCP 工具全量配置完成，多 Agent 编排方案调研完成，准备重启后执行任务
-**下一步**: 重启 session 验证 serena/exa-code 是否正常加载 | 开始执行仓库优化任务
-**关键决策**: Antigravity = Orchestrator，直接通过 run_command spawn Codex/Gemini CLI 实现多 Agent 分工，零额外框架
+**正在做**: 仓库结构大扫除 Phase A→F3 全部完成，427 个文件变动已推到 GitHub
+**下一步**: 处理 tests/services/ 根目录剩余 13 个未归类测试文件（Phase F4）| 处理 `test_semantic_scorer.py` 两版本冲突（根目录 39 行 vs semantic/ 71 行）| 清理 `tests/services/reporting/` 遗留目录
+**关键决策**: Antigravity = Orchestrator + Codex = 执行者。稳定调用方式已验证：`PROMPT=$(cat file) && codex -m gpt-5.3-codex -a never exec --sandbox danger-full-access -C /path "$PROMPT"`
 **待落实**:
-- P0: 重启验证 serena + exa-code MCP 正常（已干跑通过，等重启确认）
-- P1: 用 Antigravity + Codex/Gemini 分工执行仓库优化任务
+- P0: tests/ 根目录 13 个文件归类（10 个 unmapped + 3 个 protected 跨域文件）
+- P1: 跑完整 `pytest --run`（需先创建 `_test` 数据库或确认 conftest safeguard 正常）
 - P1: NotebookLM 启用（自己的→Obsidian，别人的→NotebookLM）
 - P2: 研究 Maestro 插件（Gemini CLI 多 Agent 编排插件）
 
@@ -34,6 +34,7 @@ Last updated: 2026-03-05T13:36:00+08:00
 - [capability-vs-product] **能力 vs 产品的分界线** — 分界线=翻译过程是否需要人的判断力。快速测试："如果我不在，这个东西还能运转吗？" (2026-03-04)
 - [system-design-escape] **系统设计逃逸模式识别** — 诊断方法：文档角色数＞实际执行人数=过度设计。解药：停止写蓝图，做一个真实案例。(2026-03-04)
 - [5-file-memory-architecture] **5文件记忆体系** — SOUL(人格)+IDENTITY(身份)+PLAYBOOK(判断)+MEMORY(活跃)+ARCHIVE(归档)。文件即接口，任何AI工具可读写。记忆不绑平台，跟着人走。(2026-03-05)
+- [codex-stable-invocation] **Codex CLI 稳定调用范式** — stdin pipe 方式不可追踪command ID。正确用法：`PROMPT=$(cat file) && codex -m model -a never exec --sandbox danger-full-access -C /path "$PROMPT"`。`-a never` 必须放在 `exec` 前面。两个 MCP（chrome-devtools/spec-kit）每次失败但不影响执行。(2026-03-05)
 
 ## Recent Actions (行动记录)
 
@@ -48,17 +49,21 @@ Last updated: 2026-03-05T13:36:00+08:00
 - [antigravity-memory-integration] **Antigravity 记忆系统自动化接入** — GEMINI.md 加 Section 6(启动/关闭协议+权限红线)，MEMORY.md 加 Current State 快速上下文头，创建 3 个 workflow(load/save/archive)。启动协议升级为全量必读。(2026-03-05)
 - [openclaw-memory-wiring] **OpenClaw 记忆管道接线** — backend-config.ts 加搜索范围(+3文件)，system-prompt.ts 更新指令，session.ts 接线 archiveDailyFiles。12行代码，32/32测试通过。(2026-03-05)
 - [antigravity-mcp-full-config] **Antigravity MCP 工具全量配置** — .gemini/settings.json 新增 sequential-thinking/serena/exa-code 三个 MCP。修复两处 bug：serena uvx 路径错误(改为/opt/homebrew/bin/uvx)、exa-code npx 路径错误(改为nvm实际路径)、serena context 名称过期(ide-assistant→claude-code)、npm 缓存冲突清理。三个工具均干跑验证通过。(2026-03-05)
+- [repo-cleanup-phase-a-to-f3] **仓库结构大扫除 Phase A→F3 完成** — 427 个文件变动，4 个 commit（12123b2/071ceb4/e9eafa0/688f6da）。services/ 39 文件按域分家，tests/ 104 文件按域分家，5 个 __init__.py 补齐，safe_pytest.sh 安全脚本创建。DB 安全三层保护确认（_test 后缀 + host 白名单 + ALLOW_TEST_ON_PROD flag）。(2026-03-05)
 
 ## Recent Decisions (决策)
 
 - [reddit-intel-role] **reddit-intel 定位归位** — 作为个人研究工具已足够好。正确角色：自用侦察兵 + AIGC 后台能力。(2026-03-04)
 - [multi-agent-orchestration-approach] **多 Agent 编排方案选型** — 不引入 Maestro/ADK 等重框架。Antigravity = Orchestrator，通过 run_command 直接 spawn Codex CLI(后端任务) + Gemini CLI(前端/分析任务)，零配置成本即可实现分工。Codex v0.104.0 + Gemini v0.31.0 均已安装在 nvm 路径下。(2026-03-05)
+- [db-safety-pytest] **DB 安全策略确立** — conftest.py 三层保护确认安全。创建 safe_pytest.sh 作为默认测试入口，强制 SKIP_DB_RESET=1 防止 TRUNCATE。当前 .env 指向 dev 库（非 _test），safeguard 会 sys.exit(1) 阻断。(2026-03-05)
 
 ---
 
 ## Pending Implementation (待落实)
 
 - ~~**⚡ 记忆自动管道接线**~~ — ✅ 已完成。archiveDailyFiles 接到 session 重置流程，memory_search 范围扩展到 4 个文件。(2026-03-05)
+- ~~**⚡ 仓库优化任务**~~ — ✅ 已完成。Phase A→F3 共 427 个文件变动，services/ + tests/ 全按域归位。(2026-03-05)
+- **⚡ tests/ 剩余归类 (Phase F4)** — 13 个文件待归类：test_candidate_vetting_service/test_discovery_auto_backfill_service/test_evaluator_service/test_facts_slice/test_facts_v2_*/test_hybrid_retriever/test_scoring_rules_*。(优先级：P1)
 - **⚡ OpenCode/Codex 记忆接入** — 需配置 AGENTS.md / instructions 文件，让它们启动时读取 MEMORY.md + IDENTITY.md。(优先级：P1)
 - **⚡ NotebookLM 启用** — 自己的东西→Obsidian，别人的东西→NotebookLM。尚未用起来。(优先级：P1)
 - **🔍 antigravity + stitch 工具组合** — 待研究商业场景。(优先级：P2)
@@ -67,6 +72,7 @@ Last updated: 2026-03-05T13:36:00+08:00
 
 ## Calibration Log (最近 5 条)
 
+- 2026-03-05(下午): 仓库结构大扫除执行 — Antigravity 指挥 + Codex gpt-5.3-codex 执行，完成 Phase A→F3（427 文件变动）。验证多 Agent 编排可行性：Codex 适合批量文件操作（git mv/grep/sed），Antigravity 适合深度分析和验收（Sequential Thinking + Serena）。发现 Codex stdin pipe 调用不稳定，改用 $PROMPT 变量方式解决。DB 安全深度分析确认三层保护足够，创建 safe_pytest.sh 作为安全入口。
 - 2026-03-05: 记忆系统接线 + 架构确立 — OpenClaw 代码接线完成（12行改动，4文件）。确立 5 文件记忆架构（SOUL/IDENTITY/PLAYBOOK/MEMORY/ARCHIVE）。明确记忆系统=文件系统，不绑定任何 AI 工具。待配置 OpenCode/Codex 接入。
 - 2026-03-04: Reddit 情报产品化证伪 + 记忆系统重组 — 确认 Reddit 情报无法产品化（产品化三前提全不满足）。系统设计逃逸再次发作。发现记忆系统 archivist 代码写完但未接线/未部署。执行 MEMORY.md 四文件拆分。
 - 2026-03-02: Pinterest 套利机证伪 + EchoTik 竞品拆解 — Pinterest 无历史趋势数据，EchoTik 已做完全部设想。新增病因"量化幻觉"。
