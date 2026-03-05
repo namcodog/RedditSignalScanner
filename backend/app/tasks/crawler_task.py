@@ -57,6 +57,36 @@ import redis.asyncio as redis  # type: ignore
 from app.services.infrastructure.tiered_scheduler import TieredScheduler
 from app.services.infrastructure.subreddit_snapshot import persist_subreddit_snapshot
 
+# ╔══════════════════════════════════════════════════════════════════════════════╗
+# ║                      CRAWLER TASK MODULE STRUCTURE                          ║
+# ║                                                                            ║
+# ║  Group 1 - Configuration & Utilities:                                      ║
+# ║    _tier_settings_for, _chunked, _env_truthy, _env_int,                    ║
+# ║    _build_cache_manager, _build_reddit_client, _crawler_run_targets_exists  ║
+# ║                                                                            ║
+# ║  Group 2 - Locking & Outbox:                                               ║
+# ║    _planner_lock, _enqueue_execute_target_outbox,                          ║
+# ║    _normalize_outbox_payload, dispatch_task_outbox                          ║
+# ║                                                                            ║
+# ║  Group 3 - Probe Fallback:                                                ║
+# ║    _load_last_probe_hot_started_at, _maybe_trigger_probe_hot_fallback      ║
+# ║                                                                            ║
+# ║  Group 4 - Core Crawl Functions (Celery Tasks):                            ║
+# ║    _crawl_single, _crawl_seeds_impl, crawl_community,                     ║
+# ║    crawl_seed_communities, crawl_seed_communities_incremental              ║
+# ║                                                                            ║
+# ║  Group 5 - Quality & Low-Priority Crawl:                                   ║
+# ║    crawl_low_quality_communities, _crawl_low_quality_impl,                 ║
+# ║    _mark_failure_hit, _mark_empty_hit, list_stale_caches                   ║
+# ║                                                                            ║
+# ║  Group 6 - Backfill & Sampling Planning:                                   ║
+# ║    plan_backfill_bootstrap, _plan_backfill_bootstrap_impl,                 ║
+# ║    plan_seed_sampling, _plan_seed_sampling_impl                            ║
+# ║                                                                            ║
+# ║  Group 7 - Patrol Planning:                                                ║
+# ║    _plan_patrol_targets (incremental crawl target generation)              ║
+# ╚══════════════════════════════════════════════════════════════════════════════╝
+
 logger = get_task_logger(__name__)
 _MODULE_LOGGER = logging.getLogger(__name__)
 
@@ -94,6 +124,9 @@ if CRAWLER_CONFIG.tiers:
         EFFECTIVE_SORT = primary_tier.pick_sort(default_sort=EFFECTIVE_SORT)
 
 
+# ── Group 1: Configuration & Utilities ─────────────────────────────────────
+
+
 def _tier_settings_for(profile: CommunityProfile | None) -> TierSettings | None:
     if profile is None:
         return None
@@ -126,6 +159,9 @@ async def _crawler_run_targets_table_exists(session: AsyncSession) -> bool:
         await session.execute(text("SELECT to_regclass('public.crawler_run_targets')"))
     ).scalar_one_or_none()
     return bool(exists)
+
+
+# ── Group 2: Locking & Outbox ──────────────────────────────────────────────
 
 
 @asynccontextmanager
@@ -181,6 +217,9 @@ def _normalize_outbox_payload(raw_payload: Any) -> dict[str, Any]:
         except Exception:
             return {}
     return {}
+
+
+# ── Group 3: Probe Fallback ────────────────────────────────────────────────
 
 
 async def _load_last_probe_hot_started_at(session: AsyncSession) -> datetime | None:
@@ -292,6 +331,9 @@ async def _build_reddit_client(settings: Settings) -> RedditAPIClient:
         retry_backoff_base=5.0,  # 指数退避基础等待时间 5 秒
         global_rate_limiter=limiter,
     )
+
+
+# ── Group 4: Core Crawl Functions ──────────────────────────────────────────
 
 
 async def _crawl_single(
@@ -699,6 +741,9 @@ async def _crawl_seeds_impl(force_refresh: bool = False) -> dict[str, Any]:
             "communities": results,
             "tier_assignments": tier_metrics_payload or tier_assignments or {},
         }
+
+
+# ── Group 5: Quality & Failure Tracking ────────────────────────────────────
 
 
 async def _mark_failure_hit(community_name: str) -> None:

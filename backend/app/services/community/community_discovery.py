@@ -350,4 +350,8 @@ class CommunityDiscoveryService:
         return [row[0] for row in result if row[0]]
 
 
+# ✅ PRIMARY community discovery implementation (2026-03-05 audit confirmed).
+# Used by: tasks/discovery_task.py → discover_new_communities_weekly
+# Other files with similar names (analysis/community_discovery.py,
+# crawl/community_discovery_v2.py) are unused — see P2 audit markers.
 __all__ = ["CommunityDiscoveryService"]

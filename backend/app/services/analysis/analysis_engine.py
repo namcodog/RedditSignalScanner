@@ -94,6 +94,51 @@ from app.services.analysis.topic_profiles import (
 from app.services.analysis.signal_lexicon import get_signal_lexicon
 from app.services.community.blacklist_loader import get_blacklist_config
 
+# ╔══════════════════════════════════════════════════════════════════════════════╗
+# ║                         FUNCTION CALL GRAPH                                ║
+# ║                                                                            ║
+# ║  Entry Point: run_analysis() (line ~3330)                                  ║
+# ║                                                                            ║
+# ║  Phase 1 - Preparation:                                                   ║
+# ║    run_analysis                                                            ║
+# ║    ├── _extract_keywords              关键词提取                            ║
+# ║    ├── _augment_keywords              关键词扩展                            ║
+# ║    ├── _build_reddit_search_queries    构建 Reddit 搜索查询                  ║
+# ║    ├── _select_top_communities         社区选择与评分                        ║
+# ║    │   ├── _score_community            社区评分                             ║
+# ║    │   └── _filter_communities_by_mode 模式过滤 (market_insight/operations) ║
+# ║    └── _collect_data                   数据采集                             ║
+# ║                                                                            ║
+# ║  Phase 2 - Sample Guard & Data Readiness:                                 ║
+# ║    ├── _run_sample_guard               样本量检查                           ║
+# ║    ├── _build_data_readiness_snapshot  数据就绪快照                          ║
+# ║    ├── _fetch_hot_samples              热缓存采样                           ║
+# ║    ├── _fetch_cold_samples             冷库采样                             ║
+# ║    ├── _supplement_samples             补充采样                             ║
+# ║    └── _schedule_auto_backfill_*       自动回填调度                          ║
+# ║                                                                            ║
+# ║  Phase 3 - Signal Extraction & Analysis:                                   ║
+# ║    ├── _cluster_pain_signals_for_facts 痛点聚类                             ║
+# ║    ├── _extract_business_signals_from_labels 商业信号提取 (labels/entities) ║
+# ║    ├── _build_knowledge_graph          知识图谱构建                          ║
+# ║    ├── _attach_post_scores             帖子评分                             ║
+# ║    ├── _record_discovered_communities  社区发现记录                          ║
+# ║    └── _fetch_post_embeddings          向量嵌入获取                          ║
+# ║                                                                            ║
+# ║  Phase 4 - Report Rendering:                                              ║
+# ║    ├── _render_report                  规则渲染 (纯逻辑, 无 LLM)            ║
+# ║    ├── _render_scouting_report         侦察报告渲染                         ║
+# ║    ├── _render_report_with_llm         LLM 增强渲染                         ║
+# ║    └── _render_structured_report_with_llm 结构化 LLM 深度推理               ║
+# ║                                                                            ║
+# ║  Supporting Utilities:                                                     ║
+# ║    _build_data_lineage, _normalise_community_name,                         ║
+# ║    _merge_posts_by_id, _calculate_confidence_score,                        ║
+# ║    _classify_pain_severity, _normalise_cache_hit_rate,                     ║
+# ║    _build_collection_warnings, _check_trend_views_freshness,               ║
+# ║    _fetch_coverage_summary, _build_data_collection_service                 ║
+# ╚══════════════════════════════════════════════════════════════════════════════╝
+
 logger = logging.getLogger(__name__)
 
 SIGNAL_EXTRACTOR = SignalExtractor()
@@ -142,6 +187,9 @@ _DEFAULT_EXPANSION_STOPWORDS: set[str] = {
     "http",
     "https",
 }
+
+
+# ── Section 1: Pain Clustering Helpers ──────────────────────────────────────
 
 
 def _get_pain_bucket_rules() -> list[tuple[str, tuple[str, ...]]]:
@@ -258,6 +306,9 @@ def _get_remediation_budget_redis(settings: Settings):
         redis_url = os.getenv("REMEDIATION_BUDGET_REDIS_URL") or settings.reddit_cache_redis_url
         _REMEDIATION_BUDGET_REDIS = Redis.from_url(redis_url, decode_responses=True)
     return _REMEDIATION_BUDGET_REDIS
+
+
+# ── Section 2: Data Models ─────────────────────────────────────────────────
 
 
 class InsufficientDataError(RuntimeError):
@@ -857,6 +908,9 @@ async def _record_discovered_communities(
             )
             await session.execute(stmt)
         await session.commit()
+
+
+# ── Section 3: Sample Guard & Data Readiness ───────────────────────────────
 
 
 async def _fetch_hot_samples(
@@ -2220,6 +2274,9 @@ COMMUNITY_CATALOGUE: List[CommunityProfile] = [
 ]
 
 
+# ── Section 4: Keyword & Filter Pipeline ───────────────────────────────────
+
+
 def _tokenise(text: str) -> List[str]:
     tokens: List[str] = []
     current: List[str] = []
@@ -2958,6 +3015,9 @@ def _backfill_cache_misses(
     return supplemented
 
 
+# ── Section 5: Report Rendering ────────────────────────────────────────────
+
+
 def _render_report(
     task_summary: TaskSummary,
     communities: Sequence[CollectedCommunity],
@@ -3326,6 +3386,9 @@ async def _render_structured_report_with_llm(
     client = OpenAIChatClient(model=settings.llm_model_name, timeout=60.0, api_key=api_key)
     raw = await client.generate(prompt, max_tokens=4000, temperature=0.25)
     return _extract_json_payload(raw)
+
+
+# ── Section 6: Main Entry Point ────────────────────────────────────────────
 
 
 async def run_analysis(
@@ -5067,6 +5130,9 @@ async def run_analysis(
         action_items=action_reports,
         confidence_score=confidence_score,
     )
+
+
+# ── Section 7: Factory & Utilities ─────────────────────────────────────────
 
 
 def _build_data_collection_service(settings: Settings) -> DataCollectionService | None:

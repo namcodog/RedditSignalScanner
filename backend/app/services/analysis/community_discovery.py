@@ -28,6 +28,16 @@ else:  # pragma: no cover - runtime type fallback
     CommunityProfile = Any  # type: ignore[assignment]
 
 
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# ⚠️  UNUSED (2026-03-05 audit: zero imports across entire codebase)
+#
+# This file provides community scoring helpers for analysis-layer ranking.
+# It is NOT imported by any module.
+# The active community discovery implementation lives in:
+#   → app/services/community/community_discovery.py (主实现)
+#
+# TODO: Confirm unused status and remove in a future cleanup phase.
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 _DESCRIPTION_WEIGHT = 0.4
 _ACTIVITY_WEIGHT = 0.3
 _QUALITY_WEIGHT = 0.3

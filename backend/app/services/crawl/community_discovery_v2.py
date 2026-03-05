@@ -18,6 +18,16 @@ from app.services.analysis.t1_clustering import build_pain_clusters
 from app.services.analysis.tier_intelligence import TierIntelligenceService
 from app.services.community.blacklist_loader import BlacklistConfig
 
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# ⚠️  UNUSED (2026-03-05 audit: zero direct imports across codebase)
+#
+# This file provides V2 community discovery with pain keyword extraction.
+# It is NOT directly imported by any module.
+# The active community discovery implementation lives in:
+#   → app/services/community/community_discovery.py (主实现)
+#
+# TODO: Confirm unused status and remove in a future cleanup phase.
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 logger = logging.getLogger(__name__)
 
 
