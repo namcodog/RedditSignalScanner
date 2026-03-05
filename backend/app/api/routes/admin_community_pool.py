@@ -19,8 +19,8 @@ from app.models.discovered_community import DiscoveredCommunity
 from app.models.evidence_post import EvidencePost
 from app.models.tier_audit_log import TierAuditLog
 from app.models.tier_suggestion import TierSuggestion
-from app.services.tier_intelligence import TierIntelligenceService, TierThresholds
-from app.services.community_category_map_service import replace_community_category_map
+from app.services.analysis.tier_intelligence import TierIntelligenceService, TierThresholds
+from app.services.community.community_category_map_service import replace_community_category_map
 from app.services.ops.tier_suggestion_decision_units import emit_tier_suggestions_as_decision_units
 
 router = APIRouter(prefix="/admin/communities", tags=["admin"])  # mounted under /api

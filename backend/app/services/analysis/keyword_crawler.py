@@ -4,7 +4,7 @@ import re
 from itertools import islice
 from typing import Dict, List, Sequence
 
-from app.services.reddit_client import RedditAPIClient, RedditPost
+from app.services.infrastructure.reddit_client import RedditAPIClient, RedditPost
 
 
 def _extract_candidate_terms(description: str) -> List[str]:

@@ -10,8 +10,8 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.community_pool import CommunityPool
-from app.services.blacklist_loader import BlacklistConfig
-from app.services.community_pool_loader import CommunityProfile
+from app.services.community.blacklist_loader import BlacklistConfig
+from app.services.community.community_pool_loader import CommunityProfile
 from app.utils.subreddit import normalize_subreddit_name
 
 logger = logging.getLogger(__name__)

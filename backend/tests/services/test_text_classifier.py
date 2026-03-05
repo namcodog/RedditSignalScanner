@@ -1,7 +1,7 @@
 import inspect
 import pytest
 
-from app.services.text_classifier import TextClassifier, classify_category_aspect
+from app.services.semantic.text_classifier import TextClassifier, classify_category_aspect
 from app.services.semantic.robust_loader import RobustSemanticLoader
 from app.interfaces.semantic_provider import SemanticLoadStrategy
 

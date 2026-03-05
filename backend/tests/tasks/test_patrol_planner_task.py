@@ -152,7 +152,7 @@ async def test_patrol_heartbeat_planner_writes_queued_targets_and_enqueues(monke
 @pytest.mark.asyncio
 async def test_patrol_planner_idempotent_enqueue_with_same_crawl_run_id(monkeypatch: pytest.MonkeyPatch) -> None:
     from app.tasks import crawler_task
-    from app.services.community_pool_loader import CommunityProfile
+    from app.services.community.community_pool_loader import CommunityProfile
 
     sent: list[str] = []
 
@@ -196,7 +196,7 @@ async def test_patrol_planner_clamps_posts_limit_and_sets_guardrails(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     from app.tasks import crawler_task
-    from app.services.community_pool_loader import CommunityProfile
+    from app.services.community.community_pool_loader import CommunityProfile
 
     sent: list[dict[str, Any]] = []
 
@@ -267,7 +267,7 @@ async def test_patrol_planner_limits_total_targets_per_heartbeat(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     from app.tasks import crawler_task
-    from app.services.community_pool_loader import CommunityProfile
+    from app.services.community.community_pool_loader import CommunityProfile
 
     monkeypatch.setattr(crawler_task, "EFFECTIVE_BATCH_SIZE", 2)
 

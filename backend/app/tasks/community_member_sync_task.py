@@ -21,7 +21,7 @@ from app.core.celery_app import celery_app
 from app.core.config import get_settings
 from app.db.session import SessionFactory
 from app.models.community_cache import CommunityCache
-from app.services.reddit_client import RedditAPIClient, RedditAPIError
+from app.services.infrastructure.reddit_client import RedditAPIClient, RedditAPIError
 
 logger = logging.getLogger(__name__)
 

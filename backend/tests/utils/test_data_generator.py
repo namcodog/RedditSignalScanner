@@ -15,7 +15,7 @@ from uuid import UUID, uuid4
 
 from app.models.task import TaskStatus
 from app.schemas.task import TaskSummary
-from app.services.reddit_client import RedditPost
+from app.services.infrastructure.reddit_client import RedditPost
 
 
 def seed_rng(seed: int = 42) -> None:

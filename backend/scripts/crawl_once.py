@@ -12,9 +12,9 @@ import yaml
 
 from app.core.config import get_settings
 from app.db.session import SessionFactory
-from app.services.community_pool_loader import CommunityPoolLoader, CommunityProfile
-from app.services.incremental_crawler import IncrementalCrawler
-from app.services.reddit_client import RedditAPIClient
+from app.services.community.community_pool_loader import CommunityPoolLoader, CommunityProfile
+from app.services.crawl.incremental_crawler import IncrementalCrawler
+from app.services.infrastructure.reddit_client import RedditAPIClient
 
 
 def load_cfg() -> Mapping[str, Any]:

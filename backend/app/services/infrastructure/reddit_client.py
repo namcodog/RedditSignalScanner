@@ -687,7 +687,7 @@ class RedditAPIClient:
             except Exception:
                 return payload
 
-        from app.services.comments_parser import (
+        from app.services.crawl.comments_parser import (
             compute_smart_shallow_limits,
             flatten_reddit_comments,
             parse_morechildren_things,

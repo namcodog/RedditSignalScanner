@@ -10,7 +10,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.community_import import CommunityImportHistory
 from app.models.community_pool import CommunityPool
-from app.services.community_import_service import CommunityImportService
+from app.services.community.community_import_service import CommunityImportService
 
 
 def _make_workbook(rows: list[list[object]]) -> bytes:

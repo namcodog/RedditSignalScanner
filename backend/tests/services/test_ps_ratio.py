@@ -8,7 +8,7 @@ from sqlalchemy import text
 
 from app.db.session import SessionFactory
 from app.models.comment import ContentLabel, ContentType, Category, Aspect
-from app.services.ps_ratio import compute_ps_ratio_from_labels
+from app.services.analysis.ps_ratio import compute_ps_ratio_from_labels
 
 
 @pytest.mark.asyncio

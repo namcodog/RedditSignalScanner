@@ -4,8 +4,8 @@ import logging
 from typing import Any
 
 from app.services.llm.market_analyst import MarketAnalyst
-from app.services.t1_clustering import T1ClusteringService
-from app.services.t1_stats import T1StatsService
+from app.services.analysis.t1_clustering import T1ClusteringService
+from app.services.analysis.t1_stats import T1StatsService
 
 logger = logging.getLogger(__name__)
 

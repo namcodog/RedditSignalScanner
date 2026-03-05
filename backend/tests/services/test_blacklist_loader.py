@@ -7,7 +7,7 @@ from unittest.mock import patch
 import tempfile
 import yaml
 
-from app.services.blacklist_loader import BlacklistConfig
+from app.services.community.blacklist_loader import BlacklistConfig
 
 
 class TestBlacklistLoader:

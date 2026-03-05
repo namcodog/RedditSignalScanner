@@ -6,7 +6,7 @@ from typing import Any, Dict
 
 import pytest
 
-from app.services.cache_metrics import CacheMetrics, RedisLikeMetrics
+from app.services.infrastructure.cache_metrics import CacheMetrics, RedisLikeMetrics
 
 
 class _FakeRedis(RedisLikeMetrics):  # type: ignore[misc]

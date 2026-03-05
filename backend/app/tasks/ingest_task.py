@@ -9,7 +9,7 @@ from celery.utils.log import get_task_logger  # type: ignore[import-untyped]
 
 from app.core.celery_app import celery_app
 from app.db.session import SessionFactory
-from app.services.community_cache_service import (
+from app.services.community.community_cache_service import (
     mark_crawl_attempt,
     update_backfill_floor_if_lower,
     update_incremental_waterline_if_forward,
@@ -21,13 +21,13 @@ from app.services.crawl.plan_contract import (
     compute_idempotency_key,
     compute_idempotency_key_human,
 )
-from app.services.crawler_run_targets_service import (
+from app.services.crawl.crawler_run_targets_service import (
     complete_crawler_run_target,
     ensure_crawler_run_target,
     fail_crawler_run_target,
 )
-from app.services.crawler_runs_service import ensure_crawler_run
-from app.services.incremental_crawler import IncrementalCrawler
+from app.services.crawl.crawler_runs_service import ensure_crawler_run
+from app.services.crawl.incremental_crawler import IncrementalCrawler
 from app.utils.asyncio_runner import run as run_coro
 from app.utils.subreddit import subreddit_key
 

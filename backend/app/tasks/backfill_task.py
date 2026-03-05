@@ -8,7 +8,7 @@ from celery.utils.log import get_task_logger  # type: ignore[import-untyped]
 from app.core.celery_app import celery_app
 from app.core.config import get_settings
 from app.db.session import SessionFactory
-from app.services.community_cache_service import mark_crawl_attempt
+from app.services.community.community_cache_service import mark_crawl_attempt
 from app.services.crawl.execute_plan import execute_crawl_plan
 from app.services.crawl.plan_contract import (
     CrawlPlanContract,
@@ -17,13 +17,13 @@ from app.services.crawl.plan_contract import (
     compute_idempotency_key,
     compute_idempotency_key_human,
 )
-from app.services.crawler_run_targets_service import (
+from app.services.crawl.crawler_run_targets_service import (
     complete_crawler_run_target,
     ensure_crawler_run_target,
     fail_crawler_run_target,
 )
-from app.services.crawler_runs_service import ensure_crawler_run
-from app.services.reddit_client import RedditAPIClient
+from app.services.crawl.crawler_runs_service import ensure_crawler_run
+from app.services.infrastructure.reddit_client import RedditAPIClient
 from app.utils.asyncio_runner import run as run_coro
 from app.utils.subreddit import subreddit_key
 

@@ -5,7 +5,7 @@ import logging
 from typing import Any, Dict
 
 from app.core.celery_app import celery_app
-from app.services.scheduler_service import recalibrate_crawl_frequencies
+from app.services.infrastructure.scheduler_service import recalibrate_crawl_frequencies
 from app.db.session import SessionFactory
 
 logger = logging.getLogger(__name__)

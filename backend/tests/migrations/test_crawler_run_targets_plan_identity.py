@@ -7,7 +7,7 @@ from sqlalchemy import text
 from sqlalchemy.exc import IntegrityError
 
 from app.db.session import SessionFactory
-from app.services.crawler_runs_service import ensure_crawler_run
+from app.services.crawl.crawler_runs_service import ensure_crawler_run
 
 
 @pytest.mark.asyncio

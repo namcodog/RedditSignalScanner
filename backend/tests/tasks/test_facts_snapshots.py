@@ -12,7 +12,7 @@ from app.models.facts_run_log import FactsRunLog
 from app.models.facts_snapshot import FactsSnapshot
 from app.models.task import Task
 from app.models.user import User
-from app.services.analysis_engine import AnalysisResult
+from app.services.analysis.analysis_engine import AnalysisResult
 
 
 pytestmark = pytest.mark.asyncio

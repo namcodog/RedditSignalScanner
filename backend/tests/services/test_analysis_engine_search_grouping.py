@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-from app.services.analysis_engine import CommunityProfile, _group_search_posts_by_selected_subreddit
-from app.services.reddit_client import RedditPost
+from app.services.analysis.analysis_engine import CommunityProfile, _group_search_posts_by_selected_subreddit
+from app.services.infrastructure.reddit_client import RedditPost
 
 
 def test_group_search_posts_normalizes_subreddit_names() -> None:

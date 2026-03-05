@@ -23,7 +23,7 @@ from app.services.analysis.keyword_extraction import (
 )
 
 if TYPE_CHECKING:
-    from app.services.analysis_engine import CommunityProfile
+    from app.services.analysis.analysis_engine import CommunityProfile
 else:  # pragma: no cover - runtime type fallback
     CommunityProfile = Any  # type: ignore[assignment]
 
@@ -237,7 +237,7 @@ async def _load_community_pool() -> List[Any]:
     if use_db:
         try:
             from app.db.session import SessionFactory
-            from app.services.community_pool_loader import CommunityPoolLoader
+            from app.services.community.community_pool_loader import CommunityPoolLoader
 
             async with SessionFactory() as db:
                 loader = CommunityPoolLoader(db)
@@ -248,7 +248,7 @@ async def _load_community_pool() -> List[Any]:
             # Fallback if DB not configured or loader unavailable
             pass
 
-    from app.services.analysis_engine import COMMUNITY_CATALOGUE
+    from app.services.analysis.analysis_engine import COMMUNITY_CATALOGUE
 
     return list(COMMUNITY_CATALOGUE)
 

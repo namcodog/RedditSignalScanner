@@ -9,8 +9,8 @@ from sqlalchemy import text
 from app.db.session import SessionFactory
 from app.models.task import TaskStatus
 from app.schemas.task import TaskSummary
-from app.services.topic_profiles import TopicProfile
-from app.services import analysis_engine as analysis_engine_module
+from app.services.analysis.topic_profiles import TopicProfile
+from app.services.analysis import analysis_engine as analysis_engine_module
 
 
 pytestmark = pytest.mark.asyncio(loop_scope="session")

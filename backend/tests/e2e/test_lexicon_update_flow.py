@@ -4,7 +4,7 @@ from pathlib import Path
 import textwrap
 
 from app.services.semantic.unified_lexicon import UnifiedLexicon
-from app.services.labeling import _extract_entities_from_text
+from app.services.labeling.labeling_service import _extract_entities_from_text
 
 
 def _write(tmp_path: Path, rel: str, content: str) -> Path:

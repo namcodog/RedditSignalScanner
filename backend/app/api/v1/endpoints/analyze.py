@@ -24,8 +24,8 @@ from app.models.task import Task, TaskStatus
 from app.models.user import User
 from app.schemas.task import TaskCreate, TaskCreateResponse
 from app.tasks.analysis_task import execute_analysis_pipeline
-from app.services.topic_profiles import TopicProfile, load_topic_profiles, match_topic_profile
-from app.services.task_status_cache import TaskStatusCache, TaskStatusPayload
+from app.services.analysis.topic_profiles import TopicProfile, load_topic_profiles, match_topic_profile
+from app.services.infrastructure.task_status_cache import TaskStatusCache, TaskStatusPayload
 
 router = APIRouter()
 logger = logging.getLogger(__name__)

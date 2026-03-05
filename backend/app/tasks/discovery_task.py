@@ -26,15 +26,15 @@ from app.core.celery_app import celery_app
 from app.db.session import SessionFactory
 from app.models.discovered_community import DiscoveredCommunity
 from app.services.community_discovery import CommunityDiscoveryService
-from app.services.crawler_runs_service import ensure_crawler_run
+from app.services.crawl.crawler_runs_service import ensure_crawler_run
 from app.services.discovery.auto_backfill_service import plan_auto_backfill_posts_targets
 from app.services.discovery.candidate_vetting_service import (
     check_vetting_and_trigger_evaluation,
     ensure_candidate_vetting_backfill,
 )
 from app.services.discovery.evaluator_service import CommunityEvaluator
-from app.services.task_outbox_service import enqueue_execute_target_outbox
-from app.services.reddit_client import RedditAPIClient
+from app.services.infrastructure.task_outbox_service import enqueue_execute_target_outbox
+from app.services.infrastructure.reddit_client import RedditAPIClient
 from app.core.config import get_settings
 
 logger = logging.getLogger(__name__)

@@ -13,7 +13,7 @@ from app.models.discovered_community import DiscoveredCommunity
 from app.models.posts_storage import Base as PostsBase, PostRaw
 from app.models.task import Task
 from app.models.user import User
-from app.services.community_category_map_service import replace_community_category_map
+from app.services.community.community_category_map_service import replace_community_category_map
 
 
 @pytest.mark.asyncio

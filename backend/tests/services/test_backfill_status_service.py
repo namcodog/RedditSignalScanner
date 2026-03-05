@@ -8,7 +8,7 @@ from sqlalchemy import text
 
 from app.db.session import SessionFactory
 from app.models.community_cache import CommunityCache
-from app.services.community_cache_service import (
+from app.services.community.community_cache_service import (
     mark_backfill_running,
     update_backfill_status,
 )

@@ -9,7 +9,7 @@ import jwt
 from httpx import AsyncClient
 
 from app.core.config import get_settings
-from app.services.analysis_engine import AnalysisResult
+from app.services.analysis.analysis_engine import AnalysisResult
 from app.tasks import analysis_task
 
 SampleInsights = {

@@ -14,7 +14,7 @@ from app.core.security import TokenPayload, decode_jwt_token
 from app.db.session import get_session
 from app.models.task import Task, TaskStatus
 from app.schemas.task import TaskDiagResponse, TaskStatsResponse, TaskStatusSnapshot
-from app.services.task_status_cache import TaskStatusCache, TaskStatusPayload
+from app.services.infrastructure.task_status_cache import TaskStatusCache, TaskStatusPayload
 
 status_router = APIRouter(prefix="/status", tags=["status"])
 tasks_router = APIRouter(prefix="/tasks", tags=["tasks"])

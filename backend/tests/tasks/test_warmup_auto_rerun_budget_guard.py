@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import pytest
 
-from app.services.analysis_engine import AnalysisResult
+from app.services.analysis.analysis_engine import AnalysisResult
 from app.tasks.analysis_task import _warmup_auto_rerun_needed
 
 

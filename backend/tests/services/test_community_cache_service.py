@@ -6,7 +6,7 @@ from decimal import Decimal
 import pytest
 
 from app.models.community_cache import CommunityCache
-from app.services.community_cache_service import (
+from app.services.community.community_cache_service import (
     update_backfill_cursor,
     upsert_community_cache,
 )

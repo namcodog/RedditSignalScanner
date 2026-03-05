@@ -10,7 +10,7 @@ from app.services.facts_v2.midstream import (
     compute_source_range,
     filter_solutions_by_profile,
 )
-from app.services.topic_profiles import TopicProfile
+from app.services.analysis.topic_profiles import TopicProfile
 
 
 def _dt(day: int) -> str:

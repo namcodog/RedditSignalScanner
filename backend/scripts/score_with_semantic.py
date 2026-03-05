@@ -30,7 +30,7 @@ import sqlalchemy as sa
 
 from app.core.config import get_settings
 from app.db.session import SessionFactory
-from app.services.reddit_client import RedditAPIClient, RedditAPIError
+from app.services.infrastructure.reddit_client import RedditAPIClient, RedditAPIError
 from app.services.semantic import UnifiedLexicon, SemanticScorer
 
 

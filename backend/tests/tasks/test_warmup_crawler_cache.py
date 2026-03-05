@@ -4,7 +4,7 @@ from typing import Any, List
 import pytest
 
 from app.tasks.warmup_crawler import _crawl_community
-from app.services.reddit_client import RedditPost
+from app.services.infrastructure.reddit_client import RedditPost
 
 
 class DummyDB:

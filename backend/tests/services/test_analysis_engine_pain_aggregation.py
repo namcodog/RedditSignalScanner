@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from app.services.analysis.signal_extraction import PainPointSignal
-from app.services.analysis_engine import _cluster_pain_signals_for_facts
+from app.services.analysis.analysis_engine import _cluster_pain_signals_for_facts
 
 
 def test_cluster_pain_signals_for_facts_rolls_up_mentions_and_authors() -> None:

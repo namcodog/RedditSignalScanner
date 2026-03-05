@@ -21,7 +21,7 @@ from app.db.session import SessionFactory
 from app.models.community_cache import CommunityCache
 from app.models.community_pool import CommunityPool
 from app.models.crawl_metrics import CrawlMetrics
-from app.services.incremental_crawler import IncrementalCrawler
+from app.services.crawl.incremental_crawler import IncrementalCrawler
 
 
 @pytest.mark.asyncio
@@ -65,7 +65,7 @@ async def test_crawler_records_success_metrics() -> None:
         await db.commit()
 
     # Mock Reddit API to return 10 posts
-    from app.services.reddit_client import RedditPost
+    from app.services.infrastructure.reddit_client import RedditPost
 
     mock_posts = [
         RedditPost(
@@ -83,7 +83,7 @@ async def test_crawler_records_success_metrics() -> None:
         for i in range(10)
     ]
 
-    with patch("app.services.reddit_client.RedditAPIClient") as MockRedditClient:
+    with patch("app.services.infrastructure.reddit_client.RedditAPIClient") as MockRedditClient:
         mock_client = AsyncMock()
         mock_client.fetch_subreddit_posts.return_value = mock_posts
         MockRedditClient.return_value = mock_client
@@ -145,7 +145,7 @@ async def test_crawler_records_empty_metrics() -> None:
         await db.commit()
 
     # Mock Reddit API to return empty list
-    with patch("app.services.reddit_client.RedditAPIClient") as MockRedditClient:
+    with patch("app.services.infrastructure.reddit_client.RedditAPIClient") as MockRedditClient:
         mock_client = AsyncMock()
         mock_client.fetch_subreddit_posts.return_value = []
         MockRedditClient.return_value = mock_client
@@ -207,7 +207,7 @@ async def test_crawler_records_failure_metrics() -> None:
         await db.commit()
 
     # Mock Reddit API to raise exception
-    with patch("app.services.reddit_client.RedditAPIClient") as MockRedditClient:
+    with patch("app.services.infrastructure.reddit_client.RedditAPIClient") as MockRedditClient:
         mock_client = AsyncMock()
         mock_client.fetch_subreddit_posts.side_effect = Exception("API Error")
         MockRedditClient.return_value = mock_client
@@ -270,9 +270,9 @@ async def test_crawler_writes_crawl_metrics() -> None:
         await db.commit()
 
     # Mock Reddit API
-    from app.services.reddit_client import RedditPost
+    from app.services.infrastructure.reddit_client import RedditPost
 
-    with patch("app.services.reddit_client.RedditAPIClient") as MockRedditClient:
+    with patch("app.services.infrastructure.reddit_client.RedditAPIClient") as MockRedditClient:
         mock_client = AsyncMock()
         mock_client.fetch_subreddit_posts.return_value = [
             RedditPost(

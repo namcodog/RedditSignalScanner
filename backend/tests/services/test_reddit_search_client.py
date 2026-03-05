@@ -3,7 +3,7 @@ from types import SimpleNamespace
 
 import pytest
 
-from app.services.reddit_client import RedditAPIClient, RedditPost
+from app.services.infrastructure.reddit_client import RedditAPIClient, RedditPost
 
 
 @pytest.mark.asyncio

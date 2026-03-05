@@ -19,8 +19,8 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.discovered_community import DiscoveredCommunity
-from app.services.keyword_extractor import KeywordExtractor
-from app.services.reddit_client import RedditAPIClient, RedditPost
+from app.services.semantic.keyword_extractor import KeywordExtractor
+from app.services.infrastructure.reddit_client import RedditAPIClient, RedditPost
 
 
 def _normalise_community_name(raw_name: str) -> str:

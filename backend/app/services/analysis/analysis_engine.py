@@ -61,8 +61,8 @@ from app.services.analysis.signal_extraction import (
     PainPointSignal,
     SignalExtractor,
 )
-from app.services.cache_manager import CacheManager
-from app.services.data_collection import CollectionResult, DataCollectionService
+from app.services.infrastructure.cache_manager import CacheManager
+from app.services.crawl.data_collection import CollectionResult, DataCollectionService
 from app.services.facts_v2.quality import quality_check_facts_v2
 from app.services.facts_v2.slice import build_facts_slice_for_report
 from app.services.llm.clients.openai_client import OpenAIChatClient
@@ -72,15 +72,15 @@ from app.services.llm.report_prompts import (
     format_facts_for_prompt,
 )
 from app.services.mock.demo_data_provider import generate_demo_posts
-from app.services.reddit_client import RedditAPIClient, RedditPost
+from app.services.infrastructure.reddit_client import RedditAPIClient, RedditPost
 from app.services.report.opportunity_report import build_opportunity_reports
-from app.services.t1_stats import build_trend_analysis, fetch_topic_relevant_communities
+from app.services.analysis.t1_stats import build_trend_analysis, fetch_topic_relevant_communities
 from app.services.semantic.embedding_service import MODEL_NAME
 from app.models.community_cache import CommunityCache
 from app.models.discovered_community import DiscoveredCommunity
 from app.models.community_pool import CommunityPool
-from app.services.community_roles import communities_for_role
-from app.services.topic_profiles import (
+from app.services.community.community_roles import communities_for_role
+from app.services.analysis.topic_profiles import (
     TopicProfile,
     build_fetch_keywords,
     build_search_keywords,
@@ -92,7 +92,7 @@ from app.services.topic_profiles import (
     topic_profile_blocklist_keywords,
 )
 from app.services.analysis.signal_lexicon import get_signal_lexicon
-from app.services.blacklist_loader import get_blacklist_config
+from app.services.community.blacklist_loader import get_blacklist_config
 
 logger = logging.getLogger(__name__)
 
@@ -1355,7 +1355,7 @@ async def _schedule_auto_backfill_for_insufficient_samples(
             BACKFILL_POSTS_QUEUE,
             plan_auto_backfill_posts_targets,
         )
-        from app.services.task_outbox_service import enqueue_execute_target_outbox
+        from app.services.infrastructure.task_outbox_service import enqueue_execute_target_outbox
 
         def _truthy_env(name: str, default: str) -> bool:
             raw = os.getenv(name, default).strip().lower()
@@ -1762,9 +1762,9 @@ async def _schedule_auto_backfill_for_missing_comments(
         compute_idempotency_key,
         compute_idempotency_key_human,
     )
-    from app.services.crawler_runs_service import ensure_crawler_run
-    from app.services.crawler_run_targets_service import ensure_crawler_run_target
-    from app.services.task_outbox_service import enqueue_execute_target_outbox
+    from app.services.crawl.crawler_runs_service import ensure_crawler_run
+    from app.services.crawl.crawler_run_targets_service import ensure_crawler_run_target
+    from app.services.infrastructure.task_outbox_service import enqueue_execute_target_outbox
 
     crawl_run_id = str(uuid.uuid5(uuid.NAMESPACE_URL, f"analysis_preflight_comments:{task.id}"))
     now = datetime.now(timezone.utc)

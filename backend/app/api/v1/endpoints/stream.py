@@ -14,7 +14,7 @@ from app.core.config import Settings, get_settings
 from app.core.security import TokenPayload, decode_jwt_token
 from app.db.session import get_session
 from app.models.task import Task
-from app.services.task_status_cache import TaskStatusCache, TaskStatusPayload
+from app.services.infrastructure.task_status_cache import TaskStatusCache, TaskStatusPayload
 
 # Reuse legacy stream module so monkeypatches in tests stay in effect
 from app.api.routes import stream as legacy_stream

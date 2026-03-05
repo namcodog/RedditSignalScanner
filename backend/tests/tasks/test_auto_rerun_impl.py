@@ -6,7 +6,7 @@ import pytest
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.task import Task, TaskStatus
-from app.services.analysis_engine import AnalysisResult
+from app.services.analysis.analysis_engine import AnalysisResult
 
 
 @pytest.mark.asyncio

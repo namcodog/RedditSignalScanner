@@ -18,7 +18,7 @@ class MockSession:
 
 # Import target functions
 from app.services.analysis import community_ranker
-from app.services import t1_stats
+from app.services.analysis import t1_stats
 
 async def test_ranking_algorithm():
     print("\n--- Testing Signal Density Ranking Algorithm ---")

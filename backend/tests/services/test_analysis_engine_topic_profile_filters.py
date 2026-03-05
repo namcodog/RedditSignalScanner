@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-from app.services.topic_profiles import TopicProfile
-from app.services import analysis_engine as analysis_engine_module
+from app.services.analysis.topic_profiles import TopicProfile
+from app.services.analysis import analysis_engine as analysis_engine_module
 
 
 def _profile() -> TopicProfile:

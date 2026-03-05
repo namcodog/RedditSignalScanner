@@ -6,7 +6,7 @@ from typing import Protocol
 from celery.schedules import crontab
 
 from app.core.celery_app import celery_app
-from app.services.cache_metrics import CacheMetrics
+from app.services.infrastructure.cache_metrics import CacheMetrics
 
 
 class CacheMetricsLike(Protocol):

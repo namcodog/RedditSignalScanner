@@ -6,7 +6,7 @@ from typing import Any, Dict
 
 import pytest
 
-from app.services.reddit_client import RedditAPIClient
+from app.services.infrastructure.reddit_client import RedditAPIClient
 
 
 pytestmark = pytest.mark.asyncio

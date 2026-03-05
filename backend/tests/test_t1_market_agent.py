@@ -1,8 +1,8 @@
 from datetime import datetime, timezone
 
 from app.services.report.t1_market_agent import ReportInputs, T1MarketReportAgent
-from app.services.t1_clustering import PainCluster
-from app.services.t1_stats import (
+from app.services.analysis.t1_clustering import PainCluster
+from app.services.analysis.t1_stats import (
     AspectBreakdown,
     BrandPainCooccurrence,
     CommunityStat,

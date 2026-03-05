@@ -14,9 +14,9 @@ from time import perf_counter
 from app.db.session import SessionFactory
 from app.models.posts_storage import PostHot, PostRaw
 from app.services.analysis import Community
-from app.services.cache_manager import CacheManager, DEFAULT_CACHE_TTL_SECONDS
-from app.services.data_collection import CollectionResult, DataCollectionService
-from app.services.reddit_client import RedditPost
+from app.services.infrastructure.cache_manager import CacheManager, DEFAULT_CACHE_TTL_SECONDS
+from app.services.crawl.data_collection import CollectionResult, DataCollectionService
+from app.services.infrastructure.reddit_client import RedditPost
 
 
 @dataclass

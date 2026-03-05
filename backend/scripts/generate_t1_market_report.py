@@ -46,17 +46,17 @@ from app.services.facts_v2.midstream import (
     filter_solutions_by_profile,
 )
 from app.services.facts_v2.quality import quality_check_facts_v2
-from app.services.t1_stats import (
+from app.services.analysis.t1_stats import (
     build_stats_snapshot,
     build_trend_analysis,
     build_entity_sentiment_matrix,
     fetch_topic_relevant_communities,
     write_snapshot_to_file,
 )
-from app.services.blacklist_loader import BlacklistConfig
+from app.services.community.blacklist_loader import BlacklistConfig
 from app.services.labeling.comments_labeling import classify_and_label_comments
-from app.services.labeling_posts import label_posts_recent
-from app.services.topic_profiles import (
+from app.services.labeling.labeling_posts import label_posts_recent
+from app.services.analysis.topic_profiles import (
     TopicProfile,
     build_fetch_keywords,
     build_search_keywords,
@@ -69,7 +69,7 @@ from app.services.topic_profiles import (
     topic_profile_blocklist_keywords,
 )
 from app.utils.url import normalize_reddit_url
-from app.services.text_classifier import classify_category_aspect
+from app.services.semantic.text_classifier import classify_category_aspect
 from app.models.comment import Category
 from sqlalchemy import text
 from sqlalchemy.engine import Result

@@ -18,7 +18,7 @@ from app.services.evaluation.threshold_optimizer import (
     calculate_precision_at_k,
     score_posts,
 )
-from app.services.labeling import load_labeled_data
+from app.services.labeling.labeling_service import load_labeled_data
 
 
 @dataclass

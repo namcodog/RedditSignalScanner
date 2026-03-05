@@ -1,7 +1,7 @@
 import json
 from types import SimpleNamespace
 from unittest.mock import MagicMock
-from app.services.t1_stats import T1StatsSnapshot
+from app.services.analysis.t1_stats import T1StatsSnapshot
 from scripts.generate_t1_market_report import (
     _build_facts,
     _classify_entity,
@@ -9,7 +9,7 @@ from scripts.generate_t1_market_report import (
     _pick_relevant_subreddits,
     _resolve_mode,
 )
-from app.services.topic_profiles import TopicProfile
+from app.services.analysis.topic_profiles import TopicProfile
 
 def test_classify_entity():
     # Platforms

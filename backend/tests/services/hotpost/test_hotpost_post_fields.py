@@ -4,7 +4,7 @@ from unittest.mock import AsyncMock
 
 from app.core.config import Settings
 from app.services.hotpost.service import HotpostService
-from app.services.reddit_client import RedditPost
+from app.services.infrastructure.reddit_client import RedditPost
 
 
 def _make_service() -> HotpostService:

@@ -20,8 +20,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.community_cache import CommunityCache
 from app.models.community_pool import CommunityPool
-from app.services.blacklist_loader import get_blacklist_config
-from app.services.crawler_config import get_crawler_config
+from app.services.community.blacklist_loader import get_blacklist_config
+from app.services.crawl.crawler_config import get_crawler_config
 
 logger = logging.getLogger(__name__)
 

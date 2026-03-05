@@ -16,7 +16,7 @@ from sqlalchemy import text
 from app.core.celery_app import celery_app
 from app.core.config import get_settings
 from app.db.session import SessionFactory
-from app.services.community_cache_service import (
+from app.services.community.community_cache_service import (
     mark_crawl_attempt,
     mark_backfill_running,
     mark_backfill_status_only,
@@ -24,14 +24,14 @@ from app.services.community_cache_service import (
 )
 from app.services.crawl.execute_plan import execute_crawl_plan
 from app.services.crawl.plan_contract import CrawlPlanContract, compute_idempotency_key
-from app.services.crawler_run_targets_service import (
+from app.services.crawl.crawler_run_targets_service import (
     complete_crawler_run_target,
     ensure_crawler_run_target,
     fail_crawler_run_target,
     partial_crawler_run_target,
 )
-from app.services.task_outbox_service import enqueue_execute_target_outbox
-from app.services.reddit_client import RedditAPIClient, RedditGlobalRateLimitExceeded
+from app.services.infrastructure.task_outbox_service import enqueue_execute_target_outbox
+from app.services.infrastructure.reddit_client import RedditAPIClient, RedditGlobalRateLimitExceeded
 from app.utils.asyncio_runner import run as run_coro
 from app.utils.subreddit import subreddit_key
 
@@ -287,7 +287,7 @@ def _build_global_rate_limiter(*, settings: Any, plan_kind: str) -> Any | None:
         return None
 
     try:
-        from app.services.global_rate_limiter import GlobalRateLimiter
+        from app.services.infrastructure.global_rate_limiter import GlobalRateLimiter
     except Exception:
         return None
 

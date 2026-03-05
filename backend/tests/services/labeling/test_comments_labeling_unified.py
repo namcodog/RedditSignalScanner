@@ -4,7 +4,7 @@ from pathlib import Path
 import textwrap
 import os
 
-from app.services.labeling import _extract_entities_from_text
+from app.services.labeling.labeling_service import _extract_entities_from_text
 from app.models.comment import EntityType
 
 

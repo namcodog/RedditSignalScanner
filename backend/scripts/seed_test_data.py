@@ -26,8 +26,8 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 from app.core.config import get_settings  # noqa: E402
-from app.services.cache_manager import CacheManager  # noqa: E402
-from app.services.reddit_client import RedditPost  # noqa: E402
+from app.services.infrastructure.cache_manager import CacheManager  # noqa: E402
+from app.services.infrastructure.reddit_client import RedditPost  # noqa: E402
 
 
 def _minutes_ago(minutes: int) -> float:

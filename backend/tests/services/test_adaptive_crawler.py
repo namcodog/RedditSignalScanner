@@ -6,7 +6,7 @@ import types
 import pytest
 
 from app.core.celery_app import celery_app
-from app.services.adaptive_crawler import AdaptiveCrawler, AdaptiveCrawlerConfig
+from app.services.crawl.adaptive_crawler import AdaptiveCrawler, AdaptiveCrawlerConfig
 
 
 class _FakeMetrics:

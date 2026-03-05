@@ -16,8 +16,8 @@ from app.services.crawl.plan_contract import (
     compute_idempotency_key_human,
 )
 from app.services.crawl.time_slicer import generate_slices
-from app.services.crawler_runs_service import ensure_crawler_run
-from app.services.crawler_run_targets_service import ensure_crawler_run_target
+from app.services.crawl.crawler_runs_service import ensure_crawler_run
+from app.services.crawl.crawler_run_targets_service import ensure_crawler_run_target
 from app.utils.subreddit import subreddit_key
 
 BACKFILL_POSTS_QUEUE = os.getenv("BACKFILL_POSTS_QUEUE", "backfill_posts_queue_v2")

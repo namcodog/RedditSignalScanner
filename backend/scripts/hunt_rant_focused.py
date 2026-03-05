@@ -21,7 +21,7 @@ from pathlib import Path
 from typing import Any, Dict, List
 
 from app.core.config import get_settings
-from app.services.reddit_client import RedditAPIClient, RedditPost
+from app.services.infrastructure.reddit_client import RedditAPIClient, RedditPost
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 log = logging.getLogger(__name__)

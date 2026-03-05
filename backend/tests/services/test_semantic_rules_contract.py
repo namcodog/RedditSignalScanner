@@ -7,7 +7,7 @@ from sqlalchemy import text
 
 from app.db.session import SessionFactory
 from app.services.community_discovery import CommunityDiscoveryService
-from app.services.reddit_client import RedditAPIClient
+from app.services.infrastructure.reddit_client import RedditAPIClient
 
 
 @pytest.mark.asyncio

@@ -9,7 +9,7 @@ try:
 except Exception:  # pragma: no cover - CI fallback if fakeredis not available
     fakeredis = None  # type: ignore
 
-from app.services.global_rate_limiter import GlobalRateLimiter
+from app.services.infrastructure.global_rate_limiter import GlobalRateLimiter
 
 
 @pytest.mark.asyncio

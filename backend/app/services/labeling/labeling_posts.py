@@ -7,8 +7,8 @@ from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.comment import ContentLabel, ContentEntity, ContentType
-from app.services.text_classifier import classify_category_aspect
-from app.services.labeling import _extract_entities_from_text
+from app.services.semantic.text_classifier import classify_category_aspect
+from app.services.labeling.labeling_service import _extract_entities_from_text
 
 
 async def label_posts_recent(session: AsyncSession, *, since_days: int = 7, limit: int = 500) -> dict[str, int]:

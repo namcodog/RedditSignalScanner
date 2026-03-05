@@ -13,7 +13,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.discovered_community import DiscoveredCommunity
 from app.services.community_discovery import CommunityDiscoveryService
-from app.services.reddit_client import RedditPost
+from app.services.infrastructure.reddit_client import RedditPost
 
 
 @pytest.fixture

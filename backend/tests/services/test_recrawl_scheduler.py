@@ -9,7 +9,7 @@ from sqlalchemy import text
 from app.db.session import SessionFactory
 from app.models.community_cache import CommunityCache
 from app.models.community_pool import CommunityPool
-from app.services.recrawl_scheduler import find_low_quality_candidates
+from app.services.crawl.recrawl_scheduler import find_low_quality_candidates
 
 
 @pytest.mark.asyncio

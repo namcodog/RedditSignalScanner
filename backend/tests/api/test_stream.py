@@ -20,7 +20,7 @@ if str(BACKEND_PACKAGE_ROOT) not in sys.path:
 from app.core.config import get_settings
 from app.models.task import Task
 from app.models.user import User
-from app.services.task_status_cache import TaskStatusPayload
+from app.services.infrastructure.task_status_cache import TaskStatusPayload
 from app.core.security import hash_password
 
 

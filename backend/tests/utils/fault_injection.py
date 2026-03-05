@@ -35,7 +35,7 @@ from typing import Any, Callable, Coroutine, Optional
 def simulate_redis_down(monkeypatch: Any):
     """Patch CacheManager's Redis client to raise connection errors.
 
-    Targets app.services.cache_manager.redis.Redis.from_url and returns a stub
+    Targets app.services.infrastructure.cache_manager.redis.Redis.from_url and returns a stub
     whose methods raise redis.exceptions.ConnectionError.
     """
     try:
@@ -64,7 +64,7 @@ def simulate_redis_down(monkeypatch: Any):
     m = monkeypatch
     mctx = contextlib.ExitStack()
     mctx.enter_context(m.context())  # type: ignore[attr-defined]
-    m.setattr("app.services.cache_manager.redis.Redis.from_url", _from_url, raising=True)
+    m.setattr("app.services.infrastructure.cache_manager.redis.Redis.from_url", _from_url, raising=True)
     try:
         yield
     finally:

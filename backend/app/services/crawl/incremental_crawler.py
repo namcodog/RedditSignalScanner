@@ -19,16 +19,16 @@ from app.core.config import settings
 from app.models.community_cache import CommunityCache
 from app.models.crawl_metrics import CrawlMetrics
 from app.models.posts_storage import PostHot, PostRaw
-from app.services.crawler_runs_service import ensure_crawler_run
-from app.services.community_cache_service import (
+from app.services.crawl.crawler_runs_service import ensure_crawler_run
+from app.services.community.community_cache_service import (
     mark_crawl_attempt,
     update_backfill_floor_if_lower,
     update_backfill_cursor,
     update_incremental_waterline_if_forward,
 )
-from app.services.reddit_client import RedditAPIClient, RedditPost
+from app.services.infrastructure.reddit_client import RedditAPIClient, RedditPost
 from app.utils.subreddit import normalize_subreddit_name, subreddit_key
-from app.services.blacklist_loader import BlacklistConfig
+from app.services.community.blacklist_loader import BlacklistConfig
 import re
 
 logger = logging.getLogger(__name__)

@@ -25,7 +25,7 @@ from sqlalchemy import select
 
 from app.db.session import SessionFactory
 from app.models.community_pool import CommunityPool
-from app.services.community_category_map_service import replace_community_category_map
+from app.services.community.community_category_map_service import replace_community_category_map
 
 
 def _norm(name: str) -> str:

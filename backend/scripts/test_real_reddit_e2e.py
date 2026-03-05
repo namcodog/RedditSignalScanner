@@ -21,9 +21,9 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.config import get_settings
-from app.services.reddit_client import RedditAPIClient
-from app.services.cache_manager import CacheManager
-from app.services.community_pool_loader import CommunityPoolLoader
+from app.services.infrastructure.reddit_client import RedditAPIClient
+from app.services.infrastructure.cache_manager import CacheManager
+from app.services.community.community_pool_loader import CommunityPoolLoader
 from app.db.session import SessionFactory
 from app.models.community_pool import CommunityPool
 from app.models.community_cache import CommunityCache

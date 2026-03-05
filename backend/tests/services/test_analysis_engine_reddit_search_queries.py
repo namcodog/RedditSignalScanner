@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from app.services.analysis_engine import _build_reddit_search_queries
+from app.services.analysis.analysis_engine import _build_reddit_search_queries
 
 
 def test_build_reddit_search_queries_filters_non_ascii_and_keeps_anchor() -> None:

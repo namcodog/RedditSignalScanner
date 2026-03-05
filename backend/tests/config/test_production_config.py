@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from app.services.crawler_config import get_crawler_config
+from app.services.crawl.crawler_config import get_crawler_config
 from app.services.semantic.unified_lexicon import UnifiedLexicon
 
 

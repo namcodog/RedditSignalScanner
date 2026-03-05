@@ -7,13 +7,13 @@ import sys
 os.environ.setdefault("SKIP_DB_RESET", "1")  # 避免测试触发数据库重置
 
 from app.services.report.t1_market_agent import ReportInputs, T1MarketReportAgent
-from app.services.t1_stats import (
+from app.services.analysis.t1_stats import (
     T1StatsSnapshot,
     CommunityStat,
     AspectBreakdown,
     BrandPainCooccurrence,
 )
-from app.services.t1_clustering import PainCluster
+from app.services.analysis.t1_clustering import PainCluster
 from app.core import config
 
 

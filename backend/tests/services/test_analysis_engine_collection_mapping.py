@@ -1,8 +1,8 @@
 from __future__ import annotations
 
-from app.services.analysis_engine import CommunityProfile, _collection_from_result
-from app.services.data_collection import CollectionResult
-from app.services.reddit_client import RedditPost
+from app.services.analysis.analysis_engine import CommunityProfile, _collection_from_result
+from app.services.crawl.data_collection import CollectionResult
+from app.services.infrastructure.reddit_client import RedditPost
 
 
 def test_collection_from_result_normalizes_profile_name_for_lookup() -> None:

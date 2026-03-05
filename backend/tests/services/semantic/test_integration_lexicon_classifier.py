@@ -36,7 +36,7 @@ async def test_text_classifier_uses_unified_lexicon(tmp_path: Path, monkeypatch:
     monkeypatch.setenv("SEMANTIC_LEXICON_PATH", str(yml))
 
     # reload modules to pick up settings
-    mod = importlib.import_module("app.services.text_classifier")
+    mod = importlib.import_module("app.services.semantic.text_classifier")
     importlib.reload(mod)
 
     cls = mod.classify_category_aspect("we discuss pricingtrap here")
@@ -55,4 +55,3 @@ async def test_comments_labeling_uses_unified_lexicon(tmp_path: Path, monkeypatc
     extracted = mod._extract_entities_from_text("We love TemuX deals!")
     names = [n for n, _ in extracted]
     assert "temux" in names
-

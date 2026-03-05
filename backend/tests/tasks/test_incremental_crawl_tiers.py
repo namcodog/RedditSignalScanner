@@ -4,7 +4,7 @@ from types import SimpleNamespace
 
 import pytest
 
-from app.services.community_pool_loader import CommunityProfile
+from app.services.community.community_pool_loader import CommunityProfile
 from app.tasks import crawler_task
 
 

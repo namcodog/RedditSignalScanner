@@ -12,7 +12,7 @@ from sqlalchemy import text
 from app.core.config import get_settings
 from app.db.session import SessionFactory
 from app.models.community_cache import CommunityCache
-from app.services.reddit_client import RedditGlobalRateLimitExceeded
+from app.services.infrastructure.reddit_client import RedditGlobalRateLimitExceeded
 from app.services.crawl.plan_contract import (
     CrawlPlanContract,
     CrawlPlanLimits,
@@ -20,8 +20,8 @@ from app.services.crawl.plan_contract import (
     compute_idempotency_key,
     compute_idempotency_key_human,
 )
-from app.services.crawler_runs_service import ensure_crawler_run
-from app.services.crawler_run_targets_service import ensure_crawler_run_target
+from app.services.crawl.crawler_runs_service import ensure_crawler_run
+from app.services.crawl.crawler_run_targets_service import ensure_crawler_run_target
 
 
 async def _load_task_outbox() -> list[dict[str, Any]]:
@@ -477,7 +477,7 @@ async def test_execute_target_patrol_timeout_marks_partial(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     from app.tasks import crawl_execute_task
-    from app.services import task_outbox_service
+    from app.services.infrastructure import task_outbox_service
 
     crawl_run_id = str(uuid.uuid4())
     subreddit = "r/test_patrol_timeout"

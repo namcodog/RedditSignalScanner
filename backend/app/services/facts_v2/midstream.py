@@ -7,7 +7,7 @@ from pathlib import Path
 import re
 from typing import cast
 
-from app.services.topic_profiles import TopicProfile
+from app.services.analysis.topic_profiles import TopicProfile
 
 
 def compute_source_range(

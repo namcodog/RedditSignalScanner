@@ -29,14 +29,14 @@ from sqlalchemy import select, text
 from app.core.config import get_settings
 from app.db.session import SessionFactory
 from app.models.community_pool import CommunityPool
-from app.services.reddit_client import RedditAPIClient
-from app.services.comments_ingest import persist_comments
-from app.services.labeling import (
+from app.services.infrastructure.reddit_client import RedditAPIClient
+from app.services.crawl.comments_ingest import persist_comments
+from app.services.labeling.labeling_service import (
     classify_and_label_comments,
     extract_and_label_entities_for_comments,
 )
 from app.utils.subreddit import normalize_subreddit_name
-from app.services.global_rate_limiter import GlobalRateLimiter
+from app.services.infrastructure.global_rate_limiter import GlobalRateLimiter
 import redis.asyncio as redis  # type: ignore
 
 

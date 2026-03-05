@@ -7,8 +7,8 @@ import fakeredis.aioredis as fakeredis
 from fakeredis import FakeServer
 import pytest
 
-from app.services.cache_manager import CacheManager
-from app.services.reddit_client import RedditPost
+from app.services.infrastructure.cache_manager import CacheManager
+from app.services.infrastructure.reddit_client import RedditPost
 
 
 def _build_post(subreddit: str = "python") -> RedditPost:

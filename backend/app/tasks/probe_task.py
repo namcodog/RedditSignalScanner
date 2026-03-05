@@ -18,9 +18,9 @@ from app.services.crawl.plan_contract import (
     compute_idempotency_key,
     compute_idempotency_key_human,
 )
-from app.services.crawler_run_targets_service import ensure_crawler_run_target
-from app.services.crawler_runs_service import ensure_crawler_run
-from app.services.task_outbox_service import enqueue_execute_target_outbox
+from app.services.crawl.crawler_run_targets_service import ensure_crawler_run_target
+from app.services.crawl.crawler_runs_service import ensure_crawler_run
+from app.services.infrastructure.task_outbox_service import enqueue_execute_target_outbox
 from app.utils.asyncio_runner import run as run_coro
 
 logger = logging.getLogger(__name__)

@@ -14,7 +14,7 @@ from redis.asyncio import Redis
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.config import Settings
-from app.services.global_rate_limiter import GlobalRateLimiter
+from app.services.infrastructure.global_rate_limiter import GlobalRateLimiter
 from app.services.hotpost.keywords import HotpostLexicon, load_default_hotpost_keywords
 from app.services.hotpost.enrichment import enrich_opportunity_payload, enrich_rant_payload
 from app.services.hotpost.cache import build_hotpost_cache_key, get_hotpost_cache_ttl_seconds
@@ -51,7 +51,7 @@ from app.services.hotpost.rules import (
     normalize_text,
 )
 from app.services.llm.clients.openai_client import OpenAIChatClient, resolve_llm_api_key
-from app.services.reddit_client import RedditAPIClient, RedditPost
+from app.services.infrastructure.reddit_client import RedditAPIClient, RedditPost
 from app.schemas.hotpost import Hotpost, HotpostComment, HotpostSearchRequest, HotpostSearchResponse, PainPoint
 from app.utils.url import normalize_reddit_url
 

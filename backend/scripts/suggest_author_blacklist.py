@@ -23,7 +23,7 @@ sys.path.append(str(Path(__file__).resolve().parents[1]))
 sys.path.append(str(Path(__file__).resolve().parents[2]))
 
 from app.core.config import get_settings  # noqa: E402
-from app.services.blacklist_loader import BlacklistConfig  # noqa: E402
+from app.services.community.blacklist_loader import BlacklistConfig  # noqa: E402
 
 
 def main() -> None:

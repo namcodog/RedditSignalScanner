@@ -1,4 +1,4 @@
-from app.services.analysis_engine import _merge_posts_by_id
+from app.services.analysis.analysis_engine import _merge_posts_by_id
 
 
 def test_merge_posts_by_id_skips_duplicates() -> None:

@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from app.services.text_classifier import classify_category_aspect
+from app.services.semantic.text_classifier import classify_category_aspect
 from app.models.comment import Category, Aspect
 
 

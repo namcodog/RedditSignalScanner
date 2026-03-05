@@ -3,7 +3,7 @@ from __future__ import annotations
 import os
 
 from app.services.hotpost.service import DEFAULT_RATE_LIMIT, DEFAULT_RATE_WINDOW
-from app.services.global_rate_limiter import GlobalRateLimiter
+from app.services.infrastructure.global_rate_limiter import GlobalRateLimiter
 
 
 class _FakeRedis:

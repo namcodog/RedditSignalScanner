@@ -13,8 +13,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.db.session import SessionFactory
 from app.models.posts_storage import PostHot, PostRaw
-from app.services.cache_manager import CacheManager
-from app.services.reddit_client import RedditAPIClient, RedditPost
+from app.services.infrastructure.cache_manager import CacheManager
+from app.services.infrastructure.reddit_client import RedditAPIClient, RedditPost
 
 if TYPE_CHECKING:
     from app.services.analysis import Community

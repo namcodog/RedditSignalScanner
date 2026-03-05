@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from app.services.analysis_engine import _looks_like_reddit_post_id
+from app.services.analysis.analysis_engine import _looks_like_reddit_post_id
 
 
 def test_looks_like_reddit_post_id_accepts_common_shapes() -> None:

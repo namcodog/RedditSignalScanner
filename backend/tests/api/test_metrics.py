@@ -18,7 +18,7 @@ BACKEND_PACKAGE_ROOT = (PROJECT_ROOT / "backend").resolve()
 if str(BACKEND_PACKAGE_ROOT) not in sys.path:
     sys.path.insert(0, str(BACKEND_PACKAGE_ROOT))
 
-from app.services.metrics_service import get_daily_metrics
+from app.services.infrastructure.metrics_service import get_daily_metrics
 
 
 @pytest.fixture

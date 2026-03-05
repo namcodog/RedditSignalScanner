@@ -5,7 +5,7 @@ from typing import Any, Dict
 
 import pytest
 
-from app.services.monitoring import MonitoringService
+from app.services.infrastructure.monitoring import MonitoringService
 
 
 class _FakeInspect:

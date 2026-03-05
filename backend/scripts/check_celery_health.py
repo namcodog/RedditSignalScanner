@@ -14,7 +14,7 @@ import asyncio
 from typing import Any, Dict
 
 from app.core.celery_app import celery_app
-from app.services.task_status_cache import TaskStatusCache
+from app.services.infrastructure.task_status_cache import TaskStatusCache
 
 
 class CeleryHealthError(RuntimeError):

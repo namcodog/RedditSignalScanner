@@ -17,8 +17,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.task import TaskStatus
 from app.schemas.task import TaskSummary
-from app.services.analysis_engine import AnalysisResult
-from app.services.task_status_cache import TaskStatusCache, TaskStatusPayload
+from app.services.analysis.analysis_engine import AnalysisResult
+from app.services.infrastructure.task_status_cache import TaskStatusCache, TaskStatusPayload
 from app.tasks import analysis_task
 
 

@@ -32,8 +32,8 @@ from app.services.crawl.plan_contract import (
     compute_idempotency_key_human,
 )
 from app.services.crawl.time_slicer import TimeSlice, generate_slices
-from app.services.crawler_runs_service import ensure_crawler_run
-from app.services.crawler_run_targets_service import ensure_crawler_run_target
+from app.services.crawl.crawler_runs_service import ensure_crawler_run
+from app.services.crawl.crawler_run_targets_service import ensure_crawler_run_target
 from app.utils.asyncio_runner import run as run_coro
 from app.utils.subreddit import subreddit_key
 

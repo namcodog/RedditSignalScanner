@@ -27,7 +27,7 @@ from sqlalchemy import select, func
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.config import get_settings
-from app.services.community_pool_loader import CommunityPoolLoader
+from app.services.community.community_pool_loader import CommunityPoolLoader
 from app.db.session import SessionFactory
 from app.models.community_pool import CommunityPool
 from app.models.community_cache import CommunityCache

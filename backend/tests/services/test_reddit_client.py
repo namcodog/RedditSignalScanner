@@ -8,7 +8,7 @@ from typing import Any, Dict, List, Sequence
 
 import pytest
 
-from app.services.reddit_client import RedditAPIClient, RedditPost
+from app.services.infrastructure.reddit_client import RedditAPIClient, RedditPost
 
 
 pytestmark = pytest.mark.asyncio

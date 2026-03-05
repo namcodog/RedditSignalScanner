@@ -6,10 +6,10 @@ from typing import Any
 
 import pytest
 
-from app.services.reddit_client import RedditPost
+from app.services.infrastructure.reddit_client import RedditPost
 from app.db.session import SessionFactory
 from app.models.community_cache import CommunityCache
-from app.services.incremental_crawler import IncrementalCrawler
+from app.services.crawl.incremental_crawler import IncrementalCrawler
 
 
 @pytest.mark.asyncio

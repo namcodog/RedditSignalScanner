@@ -6,8 +6,8 @@ import pytest
 from sqlalchemy import text
 
 from app.db.session import SessionFactory
-from app.services.comments_ingest import persist_comments
-from app.services.labeling import (
+from app.services.crawl.comments_ingest import persist_comments
+from app.services.labeling.labeling_service import (
     classify_and_label_comments,
     extract_and_label_entities_for_comments,
 )

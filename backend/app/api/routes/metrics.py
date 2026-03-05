@@ -21,7 +21,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.db.session import get_session
 from app.models.metrics import QualityMetrics
 from app.schemas.metrics import DailyMetricsResponse, DailyMetricsListResponse
-from app.services.metrics_service import get_daily_metrics
+from app.services.infrastructure.metrics_service import get_daily_metrics
 
 router = APIRouter(prefix="/metrics", tags=["metrics"])
 

@@ -12,7 +12,7 @@ from app.models.discovered_community import DiscoveredCommunity
 from app.models.community_pool import CommunityPool
 from app.core.celery_app import celery_app
 from app.services.discovery.auto_backfill_service import plan_auto_backfill_posts_targets
-from app.services.task_outbox_service import enqueue_execute_target_outbox
+from app.services.infrastructure.task_outbox_service import enqueue_execute_target_outbox
 from app.utils.subreddit import subreddit_key
 
 BACKFILL_POSTS_QUEUE = os.getenv("BACKFILL_POSTS_QUEUE", "backfill_posts_queue_v2")

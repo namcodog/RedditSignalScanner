@@ -8,7 +8,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.models.comment import ContentLabel, ContentEntity, ContentType, EntityType
 import os
 import re
-from app.services.text_classifier import classify_category_aspect
+from app.services.semantic.text_classifier import classify_category_aspect
 from pathlib import Path
 from app.core.config import get_settings
 from app.services.semantic.unified_lexicon import UnifiedLexicon

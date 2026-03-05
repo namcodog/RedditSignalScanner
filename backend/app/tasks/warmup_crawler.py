@@ -16,9 +16,9 @@ from app.core.celery_app import celery_app
 from app.core.config import settings
 from app.models.community_cache import CommunityCache
 from app.models.community_pool import CommunityPool
-from app.services.cache_manager import CacheManager
-from app.services.community_cache_service import upsert_community_cache
-from app.services.reddit_client import RedditAPIClient
+from app.services.infrastructure.cache_manager import CacheManager
+from app.services.community.community_cache_service import upsert_community_cache
+from app.services.infrastructure.reddit_client import RedditAPIClient
 
 logger = logging.getLogger(__name__)
 

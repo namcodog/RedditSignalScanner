@@ -7,7 +7,7 @@ from typing import Any, Dict, Iterable, List, Optional, Protocol, Sequence, cast
 
 import redis.asyncio as redis
 
-from app.services.reddit_client import RedditPost
+from app.services.infrastructure.reddit_client import RedditPost
 
 DEFAULT_CACHE_TTL_SECONDS = 24 * 60 * 60
 

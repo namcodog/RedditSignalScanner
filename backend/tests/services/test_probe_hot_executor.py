@@ -10,9 +10,9 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.db.session import SessionFactory
 from app.services.crawl.plan_contract import CrawlPlanContract, CrawlPlanLimits
-from app.services.crawler_run_targets_service import ensure_crawler_run_target
-from app.services.crawler_runs_service import ensure_crawler_run
-from app.services.reddit_client import RedditPost
+from app.services.crawl.crawler_run_targets_service import ensure_crawler_run_target
+from app.services.crawl.crawler_runs_service import ensure_crawler_run
+from app.services.infrastructure.reddit_client import RedditPost
 
 
 @pytest.mark.asyncio

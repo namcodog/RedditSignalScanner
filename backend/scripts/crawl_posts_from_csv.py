@@ -28,10 +28,10 @@ from sqlalchemy import text
 
 from app.core.config import get_settings
 from app.db.session import SessionFactory
-from app.services.incremental_crawler import IncrementalCrawler
-from app.services.reddit_client import RedditAPIClient
+from app.services.crawl.incremental_crawler import IncrementalCrawler
+from app.services.infrastructure.reddit_client import RedditAPIClient
 from app.utils.subreddit import normalize_subreddit_name
-from app.services.global_rate_limiter import GlobalRateLimiter
+from app.services.infrastructure.global_rate_limiter import GlobalRateLimiter
 import redis.asyncio as redis  # type: ignore
 
 

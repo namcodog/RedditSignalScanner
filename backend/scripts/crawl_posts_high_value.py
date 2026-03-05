@@ -16,10 +16,10 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 from app.core.celery_app import celery_app
 from sqlalchemy import text
 from app.db.session import SessionFactory
-from app.services.reddit_client import RedditAPIClient
-from app.services.incremental_crawler import IncrementalCrawler
+from app.services.infrastructure.reddit_client import RedditAPIClient
+from app.services.crawl.incremental_crawler import IncrementalCrawler
 from app.core.config import get_settings
-from app.services.global_rate_limiter import GlobalRateLimiter
+from app.services.infrastructure.global_rate_limiter import GlobalRateLimiter
 import redis.asyncio as redis  # type: ignore
 from datetime import timezone, timedelta
 

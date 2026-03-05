@@ -19,18 +19,18 @@ from app.core.config import Settings, get_settings
 from app.db.session import SessionFactory
 from app.models.community_cache import CommunityCache
 from app.models.crawl_metrics import CrawlMetrics
-from app.services.cache_manager import DEFAULT_CACHE_TTL_SECONDS, CacheManager
-from app.services.crawler_config import TierSettings, get_crawler_config
-from app.services.community_cache_service import upsert_community_cache
-from app.services.community_pool_loader import CommunityPoolLoader, CommunityProfile
-from app.services.incremental_crawler import IncrementalCrawler
-from app.services.crawler_runs_service import complete_crawler_run, ensure_crawler_run
-from app.services.crawler_run_targets_service import (
+from app.services.infrastructure.cache_manager import DEFAULT_CACHE_TTL_SECONDS, CacheManager
+from app.services.crawl.crawler_config import TierSettings, get_crawler_config
+from app.services.community.community_cache_service import upsert_community_cache
+from app.services.community.community_pool_loader import CommunityPoolLoader, CommunityProfile
+from app.services.crawl.incremental_crawler import IncrementalCrawler
+from app.services.crawl.crawler_runs_service import complete_crawler_run, ensure_crawler_run
+from app.services.crawl.crawler_run_targets_service import (
     complete_crawler_run_target,
     ensure_crawler_run_target,
     fail_crawler_run_target,
 )
-from app.services.task_outbox_service import (
+from app.services.infrastructure.task_outbox_service import (
     enqueue_execute_target_outbox,
     fetch_pending_task_outbox,
     mark_task_outbox_failed,
@@ -49,13 +49,13 @@ from app.services.crawl.plan_contract import (
 from app.utils.subreddit import subreddit_key
 
 T = TypeVar("T")
-from app.services.reddit_client import RedditAPIClient, RedditAPIError, RedditPost
+from app.services.infrastructure.reddit_client import RedditAPIClient, RedditAPIError, RedditPost
 from app.services.crawl.adaptive_scheduler import AdaptiveScheduler
-from app.services.comments_ingest import persist_comments
-from app.services.global_rate_limiter import GlobalRateLimiter
+from app.services.crawl.comments_ingest import persist_comments
+from app.services.infrastructure.global_rate_limiter import GlobalRateLimiter
 import redis.asyncio as redis  # type: ignore
-from app.services.tiered_scheduler import TieredScheduler
-from app.services.subreddit_snapshot import persist_subreddit_snapshot
+from app.services.infrastructure.tiered_scheduler import TieredScheduler
+from app.services.infrastructure.subreddit_snapshot import persist_subreddit_snapshot
 
 logger = get_task_logger(__name__)
 _MODULE_LOGGER = logging.getLogger(__name__)

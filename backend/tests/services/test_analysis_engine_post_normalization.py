@@ -1,5 +1,5 @@
-from app.services.analysis_engine import _reddit_post_to_dict
-from app.services.reddit_client import RedditPost
+from app.services.analysis.analysis_engine import _reddit_post_to_dict
+from app.services.infrastructure.reddit_client import RedditPost
 
 
 def test_reddit_post_to_dict_handles_redditpost() -> None:

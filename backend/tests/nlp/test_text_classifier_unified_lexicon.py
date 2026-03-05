@@ -5,7 +5,7 @@ import textwrap
 import os
 
 from app.models.comment import Category
-from app.services.text_classifier import classify_category_aspect
+from app.services.semantic.text_classifier import classify_category_aspect
 
 
 def _write(tmp_path: Path, rel: str, content: str) -> Path:

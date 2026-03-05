@@ -17,8 +17,8 @@ from app.models.task import Task, TaskStatus
 from app.models.user import MembershipLevel
 from app.repositories.report_repository import ReportRepository
 from app.services.report.t1_market_agent import ReportInputs, T1MarketReportAgent
-from app.services.t1_clustering import build_pain_clusters
-from app.services.t1_stats import build_stats_snapshot
+from app.services.analysis.t1_clustering import build_pain_clusters
+from app.services.analysis.t1_stats import build_stats_snapshot
 from app.schemas.analysis import (
     AnalysisRead,
     CommunitySourceDetail,
@@ -1509,7 +1509,7 @@ class ReportService:
         # 社区治理：过滤黑名单社区，避免噪音出现在 Top 列
         filtered_details = communities_detail
         try:
-            from app.services.blacklist_loader import get_blacklist_config
+            from app.services.community.blacklist_loader import get_blacklist_config
             bl = get_blacklist_config()
             filtered_details = [d for d in communities_detail if not bl.is_community_blacklisted(d.name)] or communities_detail
         except Exception:

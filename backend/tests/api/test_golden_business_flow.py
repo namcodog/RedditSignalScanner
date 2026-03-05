@@ -11,7 +11,7 @@ from app.models.analysis import Analysis
 from app.models.report import Report
 from app.models.task import Task, TaskStatus
 from app.models.user import MembershipLevel, User
-from app.services.analysis_engine import AnalysisResult
+from app.services.analysis.analysis_engine import AnalysisResult
 
 
 pytestmark = pytest.mark.asyncio

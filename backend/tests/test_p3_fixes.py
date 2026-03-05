@@ -23,7 +23,7 @@ def test_p3_3_backend_i18n_tasks():
 
 def test_p3_5_reddit_error_messages():
     """P3-5: 验证 Reddit API 错误消息不泄露敏感信息"""
-    from app.services.reddit_client import RedditAPIError
+    from app.services.infrastructure.reddit_client import RedditAPIError
     
     # 验证错误消息是通用的，不包含敏感信息
     error_500 = RedditAPIError("Reddit API temporarily unavailable (status=500)")

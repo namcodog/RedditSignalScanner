@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from app.services.comments_parser import (
+from app.services.crawl.comments_parser import (
     compute_smart_shallow_limits,
     select_smart_shallow_comments,
 )

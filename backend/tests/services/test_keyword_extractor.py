@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import pytest
 
-from app.services.keyword_extractor import KeywordExtractor
+from app.services.semantic.keyword_extractor import KeywordExtractor
 
 
 class TestKeywordExtractor:

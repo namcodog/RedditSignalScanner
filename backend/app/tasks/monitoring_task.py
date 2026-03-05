@@ -16,8 +16,8 @@ from app.core.celery_app import celery_app
 from app.core.config import Settings, get_settings
 from app.middleware.route_metrics import DEFAULT_ROUTE_METRICS_KEY_PREFIX
 from app.models.community_cache import CommunityCache
-from app.services.cache_manager import CacheManager
-from app.services.community_pool_loader import CommunityPoolLoader
+from app.services.infrastructure.cache_manager import CacheManager
+from app.services.community.community_pool_loader import CommunityPoolLoader
 from app.services.ops.contract_health import (
     ContractHealthAlert,
     ContractHealthAlertThresholds,

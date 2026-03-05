@@ -33,8 +33,8 @@ from app.models.report import Report
 from app.models.task import Task as TaskModel
 from app.models.task import TaskStatus
 from app.schemas.task import TaskSummary
-from app.services.analysis_engine import AnalysisResult, run_analysis, InsufficientDataError
-from app.services.task_status_cache import TaskStatusCache, TaskStatusPayload
+from app.services.analysis.analysis_engine import AnalysisResult, run_analysis, InsufficientDataError
+from app.services.infrastructure.task_status_cache import TaskStatusCache, TaskStatusPayload
 from app.core.tenant_context import set_current_user_id, unset_current_user_id
 from app.utils.asyncio_runner import run as run_coro, shutdown as shutdown_asyncio_runner
 

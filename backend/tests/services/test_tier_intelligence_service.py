@@ -7,7 +7,7 @@ import pytest
 from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.services.tier_intelligence import TierIntelligenceService, TierThresholds
+from app.services.analysis.tier_intelligence import TierIntelligenceService, TierThresholds
 from app.models.community_pool import CommunityPool
 from app.models.posts_storage import PostRaw
 

@@ -20,7 +20,7 @@ from app.models.user import User
 from app.services.ops.tier_suggestion_decision_units import (
     emit_tier_suggestions_as_decision_units,
 )
-from app.services.tier_intelligence import TierIntelligenceService, TierThresholds
+from app.services.analysis.tier_intelligence import TierIntelligenceService, TierThresholds
 
 logger = get_task_logger(__name__)
 

@@ -127,7 +127,7 @@ async def test_community_pool_from_db_default_enabled(
             return ["r/db_default"]
 
     monkeypatch.setattr("app.db.session.SessionFactory", lambda: DummySession())
-    monkeypatch.setattr("app.services.community_pool_loader.CommunityPoolLoader", DummyLoader)
+    monkeypatch.setattr("app.services.community.community_pool_loader.CommunityPoolLoader", DummyLoader)
 
     result = await community_discovery._load_community_pool()
 

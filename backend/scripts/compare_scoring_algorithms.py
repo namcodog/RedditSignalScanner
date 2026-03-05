@@ -24,7 +24,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Mapping
 
 from app.core.config import get_settings
-from app.services.reddit_client import RedditAPIClient, RedditAPIError
+from app.services.infrastructure.reddit_client import RedditAPIClient, RedditAPIError
 from app.services.semantic import UnifiedLexicon, SemanticScorer
 
 

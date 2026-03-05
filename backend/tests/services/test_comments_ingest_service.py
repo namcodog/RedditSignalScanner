@@ -7,7 +7,7 @@ import pytest
 from sqlalchemy import text
 
 from app.db.session import SessionFactory
-from app.services.comments_ingest import persist_comments
+from app.services.crawl.comments_ingest import persist_comments
 
 
 @pytest.mark.asyncio

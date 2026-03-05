@@ -9,25 +9,25 @@ from celery.utils.log import get_task_logger  # type: ignore[import-untyped]
 
 from app.core.celery_app import celery_app
 from app.db.session import SessionFactory
-from app.services.comments_ingest import persist_comments
+from app.services.crawl.comments_ingest import persist_comments
 from app.services.crawl.plan_contract import (
     CrawlPlanContract,
     CrawlPlanLimits,
     compute_idempotency_key,
     compute_idempotency_key_human,
 )
-from app.services.crawler_runs_service import ensure_crawler_run
-from app.services.crawler_run_targets_service import ensure_crawler_run_target
-from app.services.task_outbox_service import enqueue_execute_target_outbox
+from app.services.crawl.crawler_runs_service import ensure_crawler_run
+from app.services.crawl.crawler_run_targets_service import ensure_crawler_run_target
+from app.services.infrastructure.task_outbox_service import enqueue_execute_target_outbox
 from app.core.config import get_settings
-from app.services.reddit_client import RedditAPIClient
-from app.services.labeling import (
+from app.services.infrastructure.reddit_client import RedditAPIClient
+from app.services.labeling.labeling_service import (
     classify_and_label_comments,
     extract_and_label_entities_for_comments,
 )
-from app.services.subreddit_snapshot import persist_subreddit_snapshot
-from app.services.labeling_posts import label_posts_recent
-from app.services.moderation_metrics import compute_removal_ratio_by_subreddit, to_rules_friendliness_score
+from app.services.infrastructure.subreddit_snapshot import persist_subreddit_snapshot
+from app.services.labeling.labeling_posts import label_posts_recent
+from app.services.infrastructure.moderation_metrics import compute_removal_ratio_by_subreddit, to_rules_friendliness_score
 from app.utils.asyncio_runner import run as run_coro
 
 logger = get_task_logger(__name__)

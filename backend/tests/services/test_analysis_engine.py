@@ -11,10 +11,10 @@ from sqlalchemy import delete, select, text
 
 from app.models.task import TaskStatus
 from app.schemas.task import TaskSummary
-from app.services import analysis_engine as analysis_engine_module
-from app.services.analysis_engine import run_analysis, _community_pool_priority_order
-from app.services.data_collection import CollectionResult
-from app.services.reddit_client import RedditPost
+from app.services.analysis import analysis_engine as analysis_engine_module
+from app.services.analysis.analysis_engine import run_analysis, _community_pool_priority_order
+from app.services.crawl.data_collection import CollectionResult
+from app.services.infrastructure.reddit_client import RedditPost
 from app.services.analysis.sample_guard import SampleCheckResult
 from app.db.session import SessionFactory
 from app.models.posts_storage import PostRaw
@@ -85,7 +85,7 @@ async def test_run_analysis_fast_with_mocked_database() -> None:
     mock_result.scalars.return_value.all.return_value = []
     mock_session.execute.return_value = mock_result
 
-    with patch('app.services.analysis_engine.SessionFactory') as mock_factory:
+    with patch('app.services.analysis.analysis_engine.SessionFactory') as mock_factory:
         mock_factory.return_value.__aenter__.return_value = mock_session
 
         task = TaskSummary(
@@ -982,7 +982,7 @@ async def test_run_analysis_insufficient_samples_triggers_auto_backfill_targets(
 async def test_run_analysis_uses_topic_profile_preferred_days_for_sample_guard(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
-    from app.services.topic_profiles import TopicProfile
+    from app.services.analysis.topic_profiles import TopicProfile
 
     profile = TopicProfile(
         id="preferred_days_test_v1",
@@ -1856,7 +1856,7 @@ async def test_run_analysis_quality_gate_blocks_when_topic_mismatch(
 
 def test_classify_pain_severity_high_by_frequency():
     """Test high severity classification when frequency >= 5."""
-    from app.services.analysis_engine import _classify_pain_severity
+    from app.services.analysis.analysis_engine import _classify_pain_severity
 
     # Boundary: frequency = 5 should be high
     assert _classify_pain_severity(5, -0.3) == "high"
@@ -1867,7 +1867,7 @@ def test_classify_pain_severity_high_by_frequency():
 
 def test_classify_pain_severity_high_by_sentiment():
     """Test high severity classification when sentiment <= -0.6."""
-    from app.services.analysis_engine import _classify_pain_severity
+    from app.services.analysis.analysis_engine import _classify_pain_severity
 
     # Boundary: sentiment = -0.6 should be high
     assert _classify_pain_severity(2, -0.6) == "high"
@@ -1878,7 +1878,7 @@ def test_classify_pain_severity_high_by_sentiment():
 
 def test_classify_pain_severity_high_combined():
     """Test high severity when both frequency and sentiment are high."""
-    from app.services.analysis_engine import _classify_pain_severity
+    from app.services.analysis.analysis_engine import _classify_pain_severity
 
     assert _classify_pain_severity(5, -0.6) == "high"
     assert _classify_pain_severity(10, -0.9) == "high"
@@ -1886,7 +1886,7 @@ def test_classify_pain_severity_high_combined():
 
 def test_classify_pain_severity_medium_by_frequency():
     """Test medium severity classification when 3 <= frequency < 5."""
-    from app.services.analysis_engine import _classify_pain_severity
+    from app.services.analysis.analysis_engine import _classify_pain_severity
 
     # Boundary: frequency = 3 should be medium
     assert _classify_pain_severity(3, -0.2) == "medium"
@@ -1895,7 +1895,7 @@ def test_classify_pain_severity_medium_by_frequency():
 
 def test_classify_pain_severity_medium_by_sentiment():
     """Test medium severity classification when -0.6 < sentiment <= -0.3."""
-    from app.services.analysis_engine import _classify_pain_severity
+    from app.services.analysis.analysis_engine import _classify_pain_severity
 
     # Boundary: sentiment = -0.3 should be medium
     assert _classify_pain_severity(2, -0.3) == "medium"
@@ -1906,7 +1906,7 @@ def test_classify_pain_severity_medium_by_sentiment():
 
 def test_classify_pain_severity_medium_combined():
     """Test medium severity with combined moderate values."""
-    from app.services.analysis_engine import _classify_pain_severity
+    from app.services.analysis.analysis_engine import _classify_pain_severity
 
     assert _classify_pain_severity(3, -0.3) == "medium"
     assert _classify_pain_severity(4, -0.4) == "medium"
@@ -1914,7 +1914,7 @@ def test_classify_pain_severity_medium_combined():
 
 def test_classify_pain_severity_low():
     """Test low severity classification for low frequency and mild sentiment."""
-    from app.services.analysis_engine import _classify_pain_severity
+    from app.services.analysis.analysis_engine import _classify_pain_severity
 
     # Low frequency, mild sentiment
     assert _classify_pain_severity(1, -0.1) == "low"
@@ -1928,7 +1928,7 @@ def test_classify_pain_severity_low():
 
 def test_classify_pain_severity_edge_cases():
     """Test edge cases and boundary conditions."""
-    from app.services.analysis_engine import _classify_pain_severity
+    from app.services.analysis.analysis_engine import _classify_pain_severity
 
     # Zero frequency
     assert _classify_pain_severity(0, -0.5) == "medium"

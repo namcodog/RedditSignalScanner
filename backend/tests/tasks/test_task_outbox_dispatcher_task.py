@@ -7,9 +7,9 @@ import pytest
 from sqlalchemy import text
 
 from app.db.session import SessionFactory
-from app.services.crawler_runs_service import ensure_crawler_run
-from app.services.crawler_run_targets_service import ensure_crawler_run_target
-from app.services.task_outbox_service import (
+from app.services.crawl.crawler_runs_service import ensure_crawler_run
+from app.services.crawl.crawler_run_targets_service import ensure_crawler_run_target
+from app.services.infrastructure.task_outbox_service import (
     OUTBOX_EVENT_EXECUTE_TARGET,
     build_task_outbox_event_key,
     ensure_task_outbox_event,

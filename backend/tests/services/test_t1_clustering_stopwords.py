@@ -1,4 +1,4 @@
-from app.services.t1_clustering import _tokenize
+from app.services.analysis.t1_clustering import _tokenize
 
 
 def test_tokenize_filters_commercial_stopwords() -> None:

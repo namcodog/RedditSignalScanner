@@ -3,9 +3,9 @@ from __future__ import annotations
 from pathlib import Path
 import textwrap
 
-from app.services.text_classifier import classify_category_aspect
+from app.services.semantic.text_classifier import classify_category_aspect
 from app.models.comment import Category
-from app.services.labeling import _extract_entities_from_text
+from app.services.labeling.labeling_service import _extract_entities_from_text
 
 
 def _write(tmp_path: Path, rel: str, content: str) -> Path:

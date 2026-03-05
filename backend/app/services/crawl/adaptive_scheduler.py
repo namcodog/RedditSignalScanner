@@ -7,7 +7,7 @@ from typing import Iterable, Sequence, Tuple
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.services.tier_intelligence import CommunityMetrics, TierIntelligenceService
+from app.services.analysis.tier_intelligence import CommunityMetrics, TierIntelligenceService
 
 logger = logging.getLogger(__name__)
 

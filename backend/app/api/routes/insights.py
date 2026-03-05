@@ -8,7 +8,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.core.security import TokenPayload, decode_jwt_token
 from app.db.session import get_session
 from app.schemas.insight import InsightCardListResponse, InsightCardResponse
-from app.services.insight_service import (
+from app.services.analysis.insight_service import (
     InsightFilters,
     InsightNotFoundError,
     InsightService,

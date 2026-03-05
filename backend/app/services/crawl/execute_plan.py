@@ -16,14 +16,14 @@ from app.models.community_pool import CommunityPool
 from app.models.discovered_community import DiscoveredCommunity
 from app.models.evidence_post import EvidencePost
 from app.services.crawl.plan_contract import CrawlPlanContract
-from app.services.comments_ingest import persist_comments
-from app.services.labeling import (
+from app.services.crawl.comments_ingest import persist_comments
+from app.services.labeling.labeling_service import (
     classify_and_label_comments,
     extract_and_label_entities_for_comments,
 )
-from app.services.incremental_crawler import IncrementalCrawler
+from app.services.crawl.incremental_crawler import IncrementalCrawler
 from app.services.discovery.warzone_classifier import WarzoneClassifier
-from app.services.reddit_client import RedditAPIClient
+from app.services.infrastructure.reddit_client import RedditAPIClient
 from app.utils.subreddit import subreddit_key
 
 

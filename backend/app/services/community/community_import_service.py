@@ -14,7 +14,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.community_import import CommunityImportHistory
 from app.models.community_pool import CommunityPool
-from app.services.community_category_map_service import replace_community_category_map
+from app.services.community.community_category_map_service import replace_community_category_map
 from app.models.user import User
 
 logger = logging.getLogger(__name__)

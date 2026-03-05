@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from app.services.facts_v2.quality import FactsV2QualityGateConfig, quality_check_facts_v2
-from app.services.topic_profiles import TopicProfile
+from app.services.analysis.topic_profiles import TopicProfile
 
 
 def _profile() -> TopicProfile:

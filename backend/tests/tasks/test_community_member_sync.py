@@ -133,7 +133,7 @@ async def test_sync_community_members_impl_with_failures(db_session):
         
         # Mock _fetch_member_count to raise error
         with patch("app.tasks.community_member_sync_task._fetch_member_count") as mock_fetch:
-            from app.services.reddit_client import RedditAPIError
+            from app.services.infrastructure.reddit_client import RedditAPIError
             mock_fetch.side_effect = RedditAPIError("API error")
             
             # Run sync

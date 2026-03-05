@@ -9,7 +9,7 @@ from sqlalchemy import text
 from app.db.session import SessionFactory
 from app.models.community_cache import CommunityCache
 from app.models.community_pool import CommunityPool
-from app.services.tiered_scheduler import TieredScheduler
+from app.services.infrastructure.tiered_scheduler import TieredScheduler
 
 
 @pytest.mark.asyncio

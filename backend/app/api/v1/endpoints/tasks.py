@@ -21,7 +21,7 @@ from app.schemas.task import (
     TaskStatsResponse,
     TaskStatusSnapshot,
 )
-from app.services.task_status_cache import TaskStatusCache, TaskStatusPayload
+from app.services.infrastructure.task_status_cache import TaskStatusCache, TaskStatusPayload
 
 router = APIRouter()
 STATUS_CACHE = TaskStatusCache()

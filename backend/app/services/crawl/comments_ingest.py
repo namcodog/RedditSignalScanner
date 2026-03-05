@@ -10,7 +10,7 @@ from sqlalchemy.exc import SQLAlchemyError
 
 from app.core.config import get_settings
 from app.db.session import SessionFactory
-from app.services.crawler_runs_service import ensure_crawler_run
+from app.services.crawl.crawler_runs_service import ensure_crawler_run
 from app.utils.subreddit import normalize_subreddit_name, subreddit_key
 
 

@@ -677,7 +677,7 @@ def reset_database() -> None:
 @pytest_asyncio.fixture(scope="function", autouse=True)
 async def _flush_task_status_cache_before_test() -> None:
     try:
-        from app.services.task_status_cache import TaskStatusCache
+        from app.services.infrastructure.task_status_cache import TaskStatusCache
 
         cache = TaskStatusCache()
         redis_client = getattr(cache, "redis", None)
@@ -964,10 +964,10 @@ async def seeded_cache(monkeypatch):
     except ImportError:
         pytest.skip("fakeredis (async) not installed")
 
-    from app.services.cache_manager import CacheManager
-    from app.services.reddit_client import RedditPost
+    from app.services.infrastructure.cache_manager import CacheManager
+    from app.services.infrastructure.reddit_client import RedditPost
     from app.core.config import Settings, get_settings
-    import app.services.analysis_engine as analysis_engine_module
+    import app.services.analysis.analysis_engine as analysis_engine_module
 
     # Monkeypatch get_settings to return Settings without Reddit credentials
     # This forces _build_data_collection_service to return None, ensuring cache-only mode

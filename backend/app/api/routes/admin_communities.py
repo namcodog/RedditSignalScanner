@@ -15,7 +15,7 @@ from app.core.auth import require_admin
 from app.core.security import TokenPayload
 from app.db.session import get_session
 from app.models.community_cache import CommunityCache
-from app.services.community_import_service import CommunityImportService
+from app.services.community.community_import_service import CommunityImportService
 
 router = APIRouter(prefix="/admin/communities", tags=["admin"])
 

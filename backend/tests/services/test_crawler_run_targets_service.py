@@ -6,8 +6,8 @@ import pytest
 from sqlalchemy import text
 
 from app.db.session import SessionFactory
-from app.services.crawler_runs_service import ensure_crawler_run
-from app.services.crawler_run_targets_service import (
+from app.services.crawl.crawler_runs_service import ensure_crawler_run
+from app.services.crawl.crawler_run_targets_service import (
     complete_crawler_run_target,
     ensure_crawler_run_target,
     fail_crawler_run_target,

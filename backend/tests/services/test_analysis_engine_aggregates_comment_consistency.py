@@ -11,10 +11,10 @@ from app.models.community_pool import CommunityPool
 from app.models.posts_storage import PostRaw
 from app.models.task import TaskStatus
 from app.schemas.task import TaskSummary
-from app.services import analysis_engine as analysis_engine_module
-from app.services.analysis_engine import run_analysis
-from app.services.data_collection import CollectionResult
-from app.services.reddit_client import RedditPost
+from app.services.analysis import analysis_engine as analysis_engine_module
+from app.services.analysis.analysis_engine import run_analysis
+from app.services.crawl.data_collection import CollectionResult
+from app.services.infrastructure.reddit_client import RedditPost
 from app.services.analysis.sample_guard import SampleCheckResult
 
 

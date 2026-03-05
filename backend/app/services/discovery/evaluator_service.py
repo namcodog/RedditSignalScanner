@@ -23,7 +23,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.models.discovered_community import DiscoveredCommunity
 from app.models.community_pool import CommunityPool
 from app.services.semantic.smart_tagger import SemanticTagger, NeedScore
-from app.services.reddit_client import RedditAPIClient, RedditPost
+from app.services.infrastructure.reddit_client import RedditAPIClient, RedditPost
 from app.utils.subreddit import normalize_subreddit_name
 
 logger = logging.getLogger(__name__)

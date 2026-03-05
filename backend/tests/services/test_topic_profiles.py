@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from app.services.topic_profiles import (
+from app.services.analysis.topic_profiles import (
     TopicProfile,
     build_fetch_keywords,
     build_search_keywords,

@@ -2,8 +2,8 @@ import pytest
 from unittest.mock import MagicMock
 
 from app.services.report.report_service import ReportService
-from app.services.t1_clustering import PainCluster
-from app.services.t1_stats import (
+from app.services.analysis.t1_clustering import PainCluster
+from app.services.analysis.t1_stats import (
     AspectBreakdown,
     BrandPainCooccurrence,
     CommunityStat,

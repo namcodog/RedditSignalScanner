@@ -6,7 +6,7 @@ from typing import Any, Mapping, Sequence
 import os
 import yaml
 
-from app.services.community_roles import load_community_role_map
+from app.services.community.community_roles import load_community_role_map
 from app.utils.subreddit import normalize_subreddit_name
 
 _DEFAULT_TREND_LABEL_MAP = {

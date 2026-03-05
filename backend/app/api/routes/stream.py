@@ -16,7 +16,7 @@ from app.core.config import Settings, get_settings
 from app.core.security import TokenPayload, decode_jwt_token
 from app.db.session import get_session
 from app.models.task import Task, TaskStatus
-from app.services.task_status_cache import TaskStatusCache, TaskStatusPayload
+from app.services.infrastructure.task_status_cache import TaskStatusCache, TaskStatusPayload
 
 POLL_INTERVAL_SECONDS = float(os.getenv("TASK_STREAM_POLL_INTERVAL", "1.0"))
 HEARTBEAT_INTERVAL_SECONDS = float(os.getenv("TASK_STREAM_HEARTBEAT_INTERVAL", "30.0"))

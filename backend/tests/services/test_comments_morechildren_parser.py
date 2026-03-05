@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from app.services.comments_parser import parse_morechildren_things
+from app.services.crawl.comments_parser import parse_morechildren_things
 
 
 def test_parse_morechildren_returns_comments_and_more_ids() -> None:

@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from app.services.comments_parser import flatten_reddit_comments
+from app.services.crawl.comments_parser import flatten_reddit_comments
 
 
 def test_flatten_reddit_comments_basic() -> None:

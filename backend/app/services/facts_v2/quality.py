@@ -5,7 +5,7 @@ from dataclasses import dataclass, field, replace
 from typing import Any
 from collections.abc import Mapping, Sequence
 
-from app.services.topic_profiles import TopicProfile
+from app.services.analysis.topic_profiles import TopicProfile
 
 
 @dataclass(frozen=True, slots=True)

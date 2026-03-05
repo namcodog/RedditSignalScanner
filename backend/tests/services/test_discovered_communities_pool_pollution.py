@@ -10,7 +10,7 @@ from app.models.community_pool import CommunityPool
 from app.models.discovered_community import DiscoveredCommunity
 from app.models.task import Task
 from app.models.user import User
-from app.services.analysis_engine import (
+from app.services.analysis.analysis_engine import (
     CollectedCommunity,
     CommunityProfile,
     _record_discovered_communities,

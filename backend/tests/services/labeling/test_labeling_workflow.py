@@ -10,7 +10,7 @@ from sqlalchemy import delete
 
 from app.db.session import SessionFactory
 from app.models.posts_storage import PostRaw
-from app.services.labeling import (
+from app.services.labeling.labeling_service import (
     SAMPLE_COLUMNS,
     export_samples_to_csv,
     load_labeled_data,

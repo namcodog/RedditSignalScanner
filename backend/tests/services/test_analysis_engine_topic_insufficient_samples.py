@@ -8,12 +8,12 @@ import pytest
 
 from app.models.task import TaskStatus
 from app.schemas.task import TaskSummary
-from app.services import analysis_engine as analysis_engine_module
-from app.services.analysis_engine import run_analysis
-from app.services.data_collection import CollectionResult
-from app.services.reddit_client import RedditPost
+from app.services.analysis import analysis_engine as analysis_engine_module
+from app.services.analysis.analysis_engine import run_analysis
+from app.services.crawl.data_collection import CollectionResult
+from app.services.infrastructure.reddit_client import RedditPost
 from app.services.analysis.sample_guard import SampleCheckResult
-from app.services.topic_profiles import TopicProfile
+from app.services.analysis.topic_profiles import TopicProfile
 
 
 pytestmark = pytest.mark.asyncio

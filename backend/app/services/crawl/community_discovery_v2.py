@@ -13,10 +13,10 @@ from typing import Iterable, List, Sequence
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.services.analysis.deduplicator import deduplicate_posts
-from app.services.reddit_client import RedditAPIClient
-from app.services.t1_clustering import build_pain_clusters
-from app.services.tier_intelligence import TierIntelligenceService
-from app.services.blacklist_loader import BlacklistConfig
+from app.services.infrastructure.reddit_client import RedditAPIClient
+from app.services.analysis.t1_clustering import build_pain_clusters
+from app.services.analysis.tier_intelligence import TierIntelligenceService
+from app.services.community.blacklist_loader import BlacklistConfig
 
 logger = logging.getLogger(__name__)
 

@@ -7,8 +7,8 @@ import pytest
 from sqlalchemy.exc import IntegrityError
 
 from app.db.session import SessionFactory
-from app.services.incremental_crawler import IncrementalCrawler
-from app.services.reddit_client import RedditPost
+from app.services.crawl.incremental_crawler import IncrementalCrawler
+from app.services.infrastructure.reddit_client import RedditPost
 
 
 @pytest.mark.asyncio
