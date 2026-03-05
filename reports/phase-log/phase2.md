@@ -22,3 +22,29 @@
 - 下一步（Phase 2 范畴内可选）：
   - 细化社区差异化模版（按 persona.traits 做轻微措辞替换）；
   - 提供可插拔的频次/天数参数，便于 A/B；
+
+---
+
+时间：2026-03-05 进度点：Phase 2A（`run_analysis()` 分支注释注入）
+
+1) 发现了什么？
+- `backend/app/services/analysis/analysis_engine.py` 的 `run_analysis()` 存在多个关键分支点，但缺少统一编号注释，不利于后续排障和联调对齐。
+
+2) 是否需要修复？
+- 需要。当前任务目标是补齐标准化分支注释，提升可读性与定位效率。
+
+3) 精确修复方法
+- 仅修改注释，不改任何逻辑代码。
+- 新增/替换共 12 处注释：
+  - `🔀 分支` 注释共 10 条（分支 0-9）；
+  - `⚙️ 参数` 注释共 2 条（DB 社区上限、每社区帖子上限）。
+- 校验结果：
+  - `python3 -c "import ast; ast.parse(open('backend/app/services/analysis/analysis_engine.py').read()); print('✅ AST OK')"` 输出 `✅ AST OK`
+  - `grep -c '🔀 分支' backend/app/services/analysis/analysis_engine.py` 输出 `10`
+  - `grep -c '⚙️ 参数' backend/app/services/analysis/analysis_engine.py` 输出 `2`
+
+4) 下一步系统性的计划是什么？
+- 基于分支编号，在 Phase 2A 后续任务中补一份“分支编号 → 监控指标/告警位点”映射文档，便于线上问题快速定位。
+
+5) 这次执行的价值是什么？达到了什么目的？
+- 达成“可读不改行为”的目标：代码行为 0 变更，分支语义显式化，后续排查和评审沟通成本更低。

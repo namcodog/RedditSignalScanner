@@ -14,8 +14,8 @@ Last updated: 2026-03-05T17:20:00+08:00
 
 ## Current State (实时状态)
 
-**正在做**: 全部 Phase G-L + Import Fix 完成 — 仓库 AI 可理解性 9.0/10 ✅
-**下一步**: git commit → NotebookLM 启用 → P2 config/tasks 优化 → P3 根 scripts/ 重命名
+**正在做**: 业务逻辑诊断完成 — 业务逻辑地图 v1.0 输出 + P1-P4 盲点修复 ✅
+**下一步**: 业务逻辑深度诊断 Phase 2 → analysis_engine.py run_analysis() 分段审计 → hotpost 域深查
 **关键决策**: Antigravity = Orchestrator + Codex = 执行者。稳定调用方式已验证。Codex CLI 卡死根因: MCP 启动失败阻塞 Session::new()
 **已完成**:
 - ✅ Phase A-E: services/ 41 文件按域归位，17 个子目录

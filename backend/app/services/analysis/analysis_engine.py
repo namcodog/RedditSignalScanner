@@ -3396,6 +3396,9 @@ async def run_analysis(
     *,
     data_collection: DataCollectionService | None = None,
 ) -> AnalysisResult:
+    # 🔀 分支 0: TopicProfile 模式选择
+    #    路径 A: topic_profile_id 存在 → 使用 profile 的关键词/社区/时间窗 (精准模式)
+    #    路径 B: topic_profile_id 不存在 → 默认 NLP 提取关键词 (通用模式)
     topic_profile: TopicProfile | None = None
     topic_profile_id = getattr(task, "topic_profile_id", None)
     if topic_profile_id:
@@ -3440,6 +3443,10 @@ async def run_analysis(
         except Exception:  # pragma: no cover - best effort
             data_readiness = None
 
+    # 🔀 分支 1: Sample Guard 前置门禁 ⛔ (EARLY RETURN #1)
+    #    路径 A: remaining_shortfall > 0 → 触发 backfill (Redis budget 三层限流) + 返回 blocked
+    #    路径 B: remaining_shortfall == 0 → 继续; guard 异常时返回 None 也继续
+    #    阈值: MIN_SAMPLE_SIZE + SAMPLE_LOOKBACK_DAYS
     sample_result = await _run_sample_guard(
         keywords, task.product_description, lookback_days=lookback_days
     )
@@ -3466,7 +3473,9 @@ async def run_analysis(
         return blocked
 
     settings = get_settings()
-    # 禁用 mock 回退，只有显式打开 allow_mock_fallback 且非标准/高级质量时才允许使用演示数据
+    # 🔀 分支 2: Mock 数据回退开关 (几乎不触发)
+    #    仅当 quality_level ∉ {standard, premium} 且 allow_mock_fallback + enable_mock_data 同时打开
+    #    默认: False (安全)
     allow_mock_fallback = False
     try:
         level = str(getattr(settings, "report_quality_level", "standard")).lower()
@@ -3486,7 +3495,7 @@ async def run_analysis(
                 select(CommunityPoolModel)
                 .where(CommunityPoolModel.is_active == True)
                 .order_by(_community_pool_priority_order(CommunityPoolModel).desc())
-                .limit(10)  # 优化：从 50 减少到 10，减少数据库查询和后续处理时间
+                .limit(10)  # ⚙️ 参数: DB 社区上限 = 10 (从50优化; L1-L4 round-robin 保证层级均衡)
             )
             communities = result.scalars().all()
 
@@ -3592,6 +3601,11 @@ async def run_analysis(
 
     # 2) 使用组合查询提高搜索精度
     # 注意：如果 data_collection 参数被显式提供（测试场景），跳过 Reddit 搜索
+    # 🔀 分支 4: 数据采集三条路径
+    #    路径 A: Reddit API 搜索 (data_collection=None + 有凭证) → search_posts 直采
+    #    路径 B: DataCollectionService (有 service) → Cache+API 混合
+    #    路径 C: 纯缓存回退 (无凭证无 service) → _try_cache_only_collection
+    #    兜底: 全部为空 → raise InsufficientDataError("No real data found!")
     search_posts: List[RedditPost] = []
     reddit_search_success = False
     try:
@@ -3658,6 +3672,11 @@ async def run_analysis(
             for c in base_communities
             if not blacklist_config.is_community_blacklisted(c.name)
         ]
+    # 🔀 分支 3: 社区过滤策略 (Serena 验证: _filter_communities_by_mode L2951)
+    #    路径 A: TopicProfile 存在 → topic_profile_allows_community() 白名单 (精准)
+    #    路径 B: TopicProfile 不存在, mode=operations → 只保留 community_roles.yaml 的 ops 社区
+    #    路径 C: TopicProfile 不存在, mode=market_insight → 排除 ops 社区
+    #    兜底: all_communities 为空 → raise InsufficientDataError
     if topic_profile is not None:
         # 有 TopicProfile 时，以 profile 的社区范围为准（避免被 mode 的粗粒度过滤“误杀”）
         base_communities = [
@@ -3869,7 +3888,7 @@ async def run_analysis(
         try:
             collection_result = await service.collect_posts(
                 [profile.name for profile in selected],
-                limit_per_subreddit=50,  # 优化：从 100 减少到 50，减少数据处理时间
+                limit_per_subreddit=50,  # ⚙️ 参数: 每社区帖子上限 = 50 (从100优化)
             )
         except Exception as exc:  # pragma: no cover - defensive fallback
             logger.warning(
@@ -3964,6 +3983,11 @@ async def run_analysis(
     post_remediation_actions: list[dict[str, Any]] = []
     analysis_blocked_reason: str | None = None
 
+    # 🔀 分支 5: 窄题样本预检 ⛔ (EARLY RETURN #2)
+    #    条件: TopicProfile 存在 + 双钥匙过滤后帖子 < min_posts
+    #    路径 A: 帖子 == 0 → 立即返回 blocked (等待回填)
+    #    路径 B: 帖子 > 0 但 < min_posts → 标记 scouting 继续 (含 remediation_actions)
+    #    阈值: min_posts = max(10, pain_min_mentions × 2)，默认 20
     # Contract B (topic-level preflight):
     # If a narrow topic's "double-key" filter yields too few posts, treat it as insufficient_samples and auto backfill
     # instead of proceeding to produce an X_blocked facts package (which looks like a failure but doesn't self-heal).
@@ -4090,6 +4114,9 @@ async def run_analysis(
             except Exception:
                 continue
 
+    # 🔀 分支 6: 信号提取策略
+    #    路径 A: DB labels 可用 (content_labels/content_entities) → 精准结构化信号
+    #    路径 B: DB labels 不可用 (返回 None) → SIGNAL_EXTRACTOR 启发式 (TF-IDF + 正则)
     business_signals = await _extract_business_signals_from_labels(numeric_ids)
     if business_signals is None:
         logger.debug("Label-based signals unavailable; falling back to heuristic extraction.")
@@ -4869,6 +4896,13 @@ async def run_analysis(
         "sample_posts_db": sample_posts_db,
         "sample_comments_db": sample_comments_db,
     }
+    # 🔀 分支 7: Facts V2 质量门禁 (Serena 验证: _determine_report_tier in facts_v2/quality.py)
+    #    → X_blocked:  topic_mismatch 或 range_mismatch (报告拦截)
+    #    → C_scouting: comments_low 或 comments_not_used (侦察简报)
+    #    → A_full:     good_pains ≥ min 且 brands ≥ min 且 solutions ≥ min (完整报告)
+    #    → B_trimmed:  good_pains ≥ 1 但不满足 A_full (截断: 痛点≤2, 机会≤2, 行动≤1)
+    #    → C_scouting: 其他 (默认降级)
+    #    后续: analysis_blocked + 非 X_blocked → 强制 C_scouting
     quality = quality_check_facts_v2(
         facts_v2_package,
         profile=topic_profile,
@@ -5054,6 +5088,11 @@ async def run_analysis(
             suggestion = "换一个更准的 `topic_profile_id`，或扩充样本（更多社区/更长时间窗/更明确关键词）。"
         else:
             suggestion = "先扩充样本（更多社区/更长时间窗/更明确关键词），再看是否需要建立 topic_profile。"
+    # 🔀 分支 8: 报告渲染路径
+    #    X_blocked  → 纯文本拦截页 (无渲染)
+    #    C_scouting → _render_scouting_report (侦察简报)
+    #    A/B        → _render_report (规则渲染)
+    #    + _render_structured_report_with_llm (Grok-4.1; 已内置 C/X tier 保护, 不会浪费调用)
     if report_tier == "X_blocked":
         report_html = dedent(
             f"""
@@ -5086,7 +5125,8 @@ async def run_analysis(
     sources["llm_model"] = settings.llm_model_name if structured_report else None
     sources["llm_rounds"] = 1 if structured_report else 0
 
-    # 计算置信度分数 (0.0-1.0)
+    # 🔀 分支 9: 置信度评分 + 最终清理
+    #    基于 cache_hit_rate + posts + communities + signals 六维度计算 0.0-1.0 分数
     # 从 sources 和 insights 中提取数据（使用类型断言）
     cache_hit_rate_value = sources["cache_hit_rate"]
     posts_analyzed_value = sources["posts_analyzed"]
