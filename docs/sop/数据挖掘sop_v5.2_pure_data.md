@@ -205,13 +205,13 @@ make ingest-jsonl FILE="data/history.jsonl" COMMUNITY="r/ecommerce"
 ### 6.3 新增维护脚本
 ```bash
 # 向量去重扫描
-python backend/scripts/mark_duplicates.py --limit 1000 --threshold 0.95
+python backend/scripts/import/mark_duplicates.py --limit 1000 --threshold 0.95
 
 # 垃圾成分分析
 python backend/scripts/maintenance/analyze_spam_composition.py --days 30
 
 # 作者拉黑建议
-python backend/scripts/suggest_author_blacklist.py --limit 5000
+python backend/scripts/community/suggest_author_blacklist.py --limit 5000
 ```
 
 ### 6.4 报告自动过滤

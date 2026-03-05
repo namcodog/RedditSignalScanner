@@ -6,10 +6,10 @@
 
 ## 变更
 - export 脚本支持仅导出 posts 或 comments
-  - backend/scripts/export_llm_label_candidates.py（新增 --posts-only / --comments-only）
+  - backend/scripts/report/export_llm_label_candidates.py（新增 --posts-only / --comments-only）
 
 ## 导出命令
-- PYTHONPATH=backend python backend/scripts/export_llm_label_candidates.py \
+- PYTHONPATH=backend python backend/scripts/report/export_llm_label_candidates.py \
   --export-all --posts-only --post-limit 0 --comment-limit 0 \
   --lookback-days 36500 --output-dir reports/llm-client/missing
 
@@ -28,7 +28,7 @@
 - 缺口：170,653
 
 ### 导出命令
-- PYTHONPATH=backend python backend/scripts/export_llm_label_candidates.py \
+- PYTHONPATH=backend python backend/scripts/report/export_llm_label_candidates.py \
   --export-all --comments-only --comment-limit 170653 \
   --lookback-days 36500 --output-dir reports/llm-client/missing
 

@@ -42,11 +42,13 @@ test-contract: ## 运行 API 契约测试（schema 验证 + breaking changes 检
 	@echo "==> Running API contract tests ..."
 	@echo ""
 	@echo "📝 Step 1: 检测 Breaking Changes"
+	@# FIXME: scripts/check_breaking_changes.py does not exist (dead reference)
 	@cd $(BACKEND_DIR) && python scripts/check_breaking_changes.py
 	@echo ""
 	@echo "✅ API 契约测试完成"
 	@echo ""
 	@echo "💡 提示: Property-based 测试（schemathesis）需要较长时间，已跳过"
+	@# FIXME: scripts/test_contract.py does not exist (dead reference)
 	@echo "   如需运行完整测试，请执行: cd backend && python scripts/test_contract.py"
 
 test-admin-e2e: ## 运行Admin端到端测试（需运行Redis/Celery/Backend并配置ADMIN_EMAILS）

@@ -16,7 +16,7 @@
 
 **执行步骤**：
 1. ✅ 删除旧社区池（260个社区）
-2. ✅ 创建导入脚本（`backend/scripts/import_166_crossborder_communities.py`）
+2. ✅ 创建导入脚本（`backend/scripts/import/import_166_crossborder_communities.py`）
 3. ✅ 导入新社区池（165个社区，1行表头）
 4. ✅ 验证导入结果
 

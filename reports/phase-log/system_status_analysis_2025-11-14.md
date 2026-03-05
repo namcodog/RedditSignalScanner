@@ -222,7 +222,7 @@ T3 (Low):
 
 **可能冗余的导入脚本**:
 1. `backend/scripts/import_top1000_to_pool.py` - 导入Top 1000社区
-2. `backend/scripts/import_hybrid_scores_to_pool.py` - 导入混合评分社区
+2. `backend/scripts/import/import_hybrid_scores_to_pool.py` - 导入混合评分社区
 3. `backend/scripts/import_toplists_to_pool.py` - 导入Top列表
 4. `scripts/import_community_expansion.py` - 导入社区扩展
 5. `backend/scripts/import_clean_260_communities.py` - ✅ 当前使用的脚本
@@ -308,7 +308,7 @@ python -c "from app.tasks.crawler_task import crawl_seed_communities; crawl_seed
 
 # 方式2: 使用脚本
 cd backend
-python scripts/trigger_initial_crawl.py
+python scripts/crawl/trigger_initial_crawl.py
 ```
 
 **预期结果**:
@@ -322,7 +322,7 @@ python scripts/trigger_initial_crawl.py
 ```bash
 mkdir -p backend/scripts/archive/import_legacy
 mv backend/scripts/import_top1000_to_pool.py backend/scripts/archive/import_legacy/
-mv backend/scripts/import_hybrid_scores_to_pool.py backend/scripts/archive/import_legacy/
+mv backend/scripts/import/import_hybrid_scores_to_pool.py backend/scripts/archive/import_legacy/
 mv backend/scripts/import_toplists_to_pool.py backend/scripts/archive/import_legacy/
 mv scripts/import_community_expansion.py backend/scripts/archive/import_legacy/
 ```
@@ -350,7 +350,7 @@ mv community_list_clean.csv backend/data/archive/
 ```bash
 # 检查Celery Beat调度
 cd backend
-python scripts/check_celery_health.py
+python scripts/monitor/check_celery_health.py
 
 # 查看抓取指标
 python scripts/crawl_metrics_latest.py

@@ -21,10 +21,10 @@ code() { echo '```' | tee -a "$OUT_MD"; cat "$1" | tee -a "$OUT_MD"; echo '```' 
 section "Celery"
 (
   echo "### verify_celery_config.py" 
-  PYTHONPATH=backend /opt/homebrew/bin/python3.11 backend/scripts/verify_celery_config.py || true
+  PYTHONPATH=backend /opt/homebrew/bin/python3.11 backend/scripts/monitor/verify_celery_config.py || true
   echo
   echo "### check_celery_health.py"
-  PYTHONPATH=backend /opt/homebrew/bin/python3.11 backend/scripts/check_celery_health.py || true
+  PYTHONPATH=backend /opt/homebrew/bin/python3.11 backend/scripts/monitor/check_celery_health.py || true
 ) 2>&1 | tee -a "$OUT_MD"
 
 # 2) Beat schedule (short dump)

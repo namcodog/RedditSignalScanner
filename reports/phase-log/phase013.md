@@ -37,7 +37,7 @@
 
 - 新增 Make 入口：
   - `make dev-celery-beat`（makefiles/celery.mk: 追加目标）
-  - `make posts-growth-7d`（makefiles/ops.mk: 新增目标；backend/scripts/posts_growth_7d.py）
+  - `make posts-growth-7d`（makefiles/ops.mk: 新增目标；backend/scripts/monitor/posts_growth_7d.py）
   - `make celery-meta-count`（makefiles/ops.mk: 新增目标）
   - `make pipeline-health`（端到端快照）
   - `make autoheal-start`（本地自愈守护，失败自动重启 Beat+Worker）

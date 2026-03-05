@@ -24,7 +24,7 @@ Phase E 将服务文件按域迁移到子目录后，测试收集阶段出现大
 ## 影响文件（本次直接修复）
 - `backend/app/services/labeling/labeling_service.py`
 - `backend/app/tasks/comments_task.py`
-- `backend/scripts/generate_t1_market_report.py`
+- `backend/scripts/report/generate_t1_market_report.py`
 - `backend/tests/services/semantic/test_integration_lexicon_classifier.py`
 
 ## 统一反馈（5问）

@@ -15,7 +15,7 @@
 - 文本分类器词库去硬编码：`backend/app/services/text_classifier.py`
   - 新增配置：`backend/config/text_classifier_keywords.yml`
 - 新增信号词库配置：`backend/config/signal_keywords.yaml`
-- 迁移脚本支持信号词库：`backend/scripts/migrate_semantics.py`
+- 迁移脚本支持信号词库：`backend/scripts/semantic/migrate_semantics.py`
   - 新增 `signal_keywords` 概念 + rule_type 写入
 - 新增测试：`backend/tests/services/test_signal_lexicon.py`
 
@@ -33,7 +33,7 @@
 - YAML 仍作为冷启动兜底；DB 有数据时覆盖。
 
 ## 执行结果（dev）
-- 修复迁移脚本 f-string 语法错误：`backend/scripts/migrate_semantics.py`
+- 修复迁移脚本 f-string 语法错误：`backend/scripts/semantic/migrate_semantics.py`
 - dev 数据库已执行：`python -m backend.scripts.migrate_semantics`
   - 输出：pain_keywords=136, blacklist=15, filter_keywords=4, signal_keywords=183
 

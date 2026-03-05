@@ -53,7 +53,7 @@
 - 自动补量（样本不足时不再只返回“缺料”，而是下单）：
   - `backend/app/services/analysis_engine.py`：insufficient_samples → 自动下单 `backfill_posts_queue_v2` 并写 `sources.remediation_actions`
 - 脚本侧 bug 修复（不影响 API 主链路，但修复单测）
-  - `backend/scripts/generate_t1_market_report.py`：`market_landscape` 需要保留平台/渠道全景，不能复用被过滤后的 `brand_co`（否则 platforms/channels 为空）
+  - `backend/scripts/report/generate_t1_market_report.py`：`market_landscape` 需要保留平台/渠道全景，不能复用被过滤后的 `brand_co`（否则 platforms/channels 为空）
 
 ## 测试与证据
 - 重点回归（RLS + 主链路 + 分级输出 + 评论纳入）：

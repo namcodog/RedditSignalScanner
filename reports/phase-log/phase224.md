@@ -11,7 +11,7 @@
 - 新增配置开关与参数：混合检索、向量去重阈值、召回权重等。
 - Makefile 增补 KAG 流水线目标（data-embeddings / data-pipeline-kag）。
 - PRD-03 / PRD-02 / 清洗SOP 更新口径。
-- 新增 KAG 验收脚本：`backend/scripts/kag_acceptance.py` 并固化到 `make kag-acceptance`。
+- 新增 KAG 验收脚本：`backend/scripts/seed/kag_acceptance.py` 并固化到 `make kag-acceptance`。
 
 ## 测试
 - `pytest -q backend/tests/services/test_deduplicator_vector.py backend/tests/services/test_hybrid_retriever.py backend/tests/services/test_analysis_engine_hybrid_merge.py`

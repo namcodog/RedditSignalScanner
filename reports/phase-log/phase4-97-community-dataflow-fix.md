@@ -81,7 +81,7 @@
       - 多个连接处于 `idle in transaction` / `idle in transaction (aborted)` 状态；
       - 最终触发 `FATAL: sorry, too many clients already`。
   - 根因定位：
-    - `backend/scripts/backfill_comments_for_posts.py` 中：
+    - `backend/scripts/import/backfill_comments_for_posts.py` 中：
       - 每个帖子处理时使用 `asyncio.wait_for(...)` 做总超时保护，但触发 `TimeoutError` 后只打印日志，没有对当前 `AsyncSession` 进行 `rollback`；
       - 被 `wait_for` 取消的协程在数据库侧可能已经进入“事务 aborted”状态（持有 transactionid 锁），后续对同一连接的任何 SQL 都会报 “当前事务已中止”，直到手动 rollback；
     - 多个 Celery 任务/抓取任务在写 `comments` 表时：
@@ -91,7 +91,7 @@
 
 - 已落地的系统性修复：
   1. 超时场景强制 rollback（脚本）  
-     - 文件：`backend/scripts/backfill_comments_for_posts.py`  
+     - 文件：`backend/scripts/import/backfill_comments_for_posts.py`  
      - 改动：
        - 在 per-post 超时处理分支中，补充显式的 `await session.rollback()`：
          - 触发 `TimeoutError` 时，立即释放当前事务持有的锁并重置连接状态；

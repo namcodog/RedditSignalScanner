@@ -64,14 +64,14 @@
 - Celery 数据源稳定化（dev）：
   - 清理重复 worker，仅保留单一 worker
   - 启动 `celery beat`（定时巡航/补量生效）
-  - 健康检查通过：`backend/scripts/check_celery_health.py`（active_workers=1）
-  - 配置校验通过：`backend/scripts/verify_celery_config.py`
+  - 健康检查通过：`backend/scripts/monitor/check_celery_health.py`（active_workers=1）
+  - 配置校验通过：`backend/scripts/monitor/verify_celery_config.py`
 - backend/scripts/legacy 归档：
   - 原路径：`backend/scripts/archive/legacy`
   - 新路径：`docs/archive/root/scripts/legacy`
   - 相关索引同步：`backend/scripts/LEGACY.md`、`docs/archive/legacy-scripts-inventory.md`、`reports/phase-log/phase139.md`
 - 最小抓取（dev）：
-  - 执行：`backend/scripts/crawl_once.py --scope T1`（显式指向 dev DB）
+  - 执行：`backend/scripts/crawl/crawl_once.py --scope T1`（显式指向 dev DB）
   - 产物：`reports/local-acceptance/crawl-once-T1-20260128-164453.json`
   - 现象：多社区出现 `NoActiveSQLTransactionError`（SAVEPOINT 仅在事务块内可用）失败记录；已留作后续排查。
 - Makefile 规则固化：

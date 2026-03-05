@@ -8,7 +8,7 @@ import pytest
 from celery.exceptions import Retry
 
 from app.tasks import analysis_task
-from scripts.check_celery_health import CeleryHealthError, check_celery_health
+from scripts.monitor.check_celery_health import CeleryHealthError, check_celery_health
 
 
 def test_run_analysis_task_retries_until_success(monkeypatch: pytest.MonkeyPatch) -> None:

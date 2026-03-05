@@ -13,12 +13,12 @@
 
 1) 语义质量（Spec011）
 - 命令：`make semantic-metrics`、`make semantic-acceptance`（Makefile 已提供）。
-- 阈值文件：`backend/config/quality_gates/semantic_thresholds.yml` 与脚本 `backend/scripts/semantic_acceptance_gate.py` 一致。
+- 阈值文件：`backend/config/quality_gates/semantic_thresholds.yml` 与脚本 `backend/scripts/semantic/semantic_acceptance_gate.py` 一致。
 - 产物：`backend/reports/local-acceptance/metrics/metrics.{json,csv}`（OK）。
 
 2) 语义→社区池回灌（Spec009）
 - 自动流水线：`make semantic-release-auto`（影子评估/别名/门禁/报告/回灌）。
-- 轻量回灌：`make semantic-refresh-pool`（Hybrid 评分 → 导入 `CommunityPool`，打 `layer:*` 标签，参考 `backend/scripts/import_hybrid_scores_to_pool.py`）。
+- 轻量回灌：`make semantic-refresh-pool`（Hybrid 评分 → 导入 `CommunityPool`，打 `layer:*` 标签，参考 `backend/scripts/import/import_hybrid_scores_to_pool.py`）。
 - 类别与层级标注：`categories=["crossborder","crossborder:hybrid","layer:<L>"]`（OK）。
 
 3) 抓取运行（Spec009）

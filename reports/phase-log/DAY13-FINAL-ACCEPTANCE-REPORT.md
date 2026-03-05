@@ -307,7 +307,7 @@
    - `backend/app/tasks/monitoring_task.py`
 
 5. **脚本**
-   - `backend/scripts/import_seed_communities_from_excel.py`
+   - `backend/scripts/import/import_seed_communities_from_excel.py`
    - `backend/scripts/import_seed_to_db.py`
    - `backend/scripts/validate_seed_communities.py`
    - `backend/scripts/import_from_excel_simple.py` (新增)

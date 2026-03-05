@@ -1,12 +1,13 @@
 from __future__ import annotations
 
 import asyncio
+import importlib
 from dataclasses import dataclass
 from typing import Any, Iterable, List
 
 import pytest
 
-from backend.scripts import backfill_comments_for_posts as mod
+mod = importlib.import_module("scripts.import.backfill_comments_for_posts")
 
 
 class _DummyResult:

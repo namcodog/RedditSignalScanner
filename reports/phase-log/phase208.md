@@ -6,7 +6,7 @@
 
 ## 执行
 - 回填：
-  - `PYTHONPATH=. python scripts/import_client_llm_labels.py --posts ../client_llm_labels_posts_emptytags.jsonl --llm-version client-emptytags --prompt-version client-emptytags --model-name client-offline`
+  - `PYTHONPATH=. python scripts/import/import_client_llm_labels.py --posts ../client_llm_labels_posts_emptytags.jsonl --llm-version client-emptytags --prompt-version client-emptytags --model-name client-offline`
 - 回流：
   - `make semantic-llm-sync`
 

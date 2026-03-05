@@ -7,7 +7,7 @@
 
 ## 执行内容
 - 运行离线报告脚本（跳过 LLM）：
-  - 命令：`set -a && source backend/.env && set +a && PYTHONPATH=backend python backend/scripts/generate_t1_market_report.py --days 30 --skip-llm --out reports/t1-auto-quickcheck.md`
+  - 命令：`set -a && source backend/.env && set +a && PYTHONPATH=backend python backend/scripts/report/generate_t1_market_report.py --days 30 --skip-llm --out reports/t1-auto-quickcheck.md`
 
 ## 运行结果
 - 脚本正常 заверш成，生成 facts_v2 JSON：

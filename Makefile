@@ -76,7 +76,7 @@ help:
 ## 1. System Health Check
 check-health:
 	@echo "${GREEN}[*] Checking System Health...${RESET}"
-	@$(PYTHON) $(BACKEND_DIR)/scripts/t1_data_audit.py || (echo "${RED}[!] Health Check Failed${RESET}"; exit 1)
+	@$(PYTHON) $(BACKEND_DIR)/scripts/report/t1_data_audit.py || (echo "${RED}[!] Health Check Failed${RESET}"; exit 1)
 
 ## 1.1 Dev Backend (Stable Restart Flow)
 dev-backend-start:
@@ -97,12 +97,12 @@ dev-backend-logs:
 ## 2. T1 Data Audit (Wrapper)
 audit-t1:
 	@echo "${GREEN}[*] Auditing T1 Data availability...${RESET}"
-	@$(PYTHON) $(BACKEND_DIR)/scripts/t1_data_audit.py
+	@$(PYTHON) $(BACKEND_DIR)/scripts/report/t1_data_audit.py
 
 ## 3. Refresh Views (SOP Phase 2)
 refresh-mining:
 	@echo "${GREEN}[*] Refreshing Analysis Materialized Views (SOP Sec.2)...${RESET}"
-	@$(PYTHON) $(BACKEND_DIR)/scripts/refresh_mining_views.py
+	@$(PYTHON) $(BACKEND_DIR)/scripts/infra/refresh_mining_views.py
 
 ## 4. Generate T1 Report (SOP v4.0 Omni-Analyst)
 # Usage: make report-t1 TOPIC="Your Topic" DESC="Your Product Desc"
@@ -130,9 +130,9 @@ report-t1:
 	@echo "    Model: ${MODEL_NAME}"
 	@echo "    File:  ${OUT}"
 	@# Data Guard: Stop if DB is empty
-	@$(PYTHON) $(BACKEND_DIR)/scripts/db_guard.py || (echo "${RED}[!] Data Guard Blocked Execution. See above.${RESET}"; exit 1)
+	@$(PYTHON) $(BACKEND_DIR)/scripts/infra/db_guard.py || (echo "${RED}[!] Data Guard Blocked Execution. See above.${RESET}"; exit 1)
 	@# CRITICAL: Dynamically pass the model from .env
-	@$(PYTHON) $(BACKEND_DIR)/scripts/generate_t1_market_report.py \
+	@$(PYTHON) $(BACKEND_DIR)/scripts/report/generate_t1_market_report.py \
 		--topic "${TOPIC}" \
 		--product-desc "${DESC}" \
 		--model "${MODEL_NAME}" \
@@ -155,7 +155,7 @@ restore-db:
 	@# Note: Using PGPASSWORD inline is not secure for prod, but okay for local dev restoration
 	@export PGPASSWORD=postgres && pg_restore --verbose --clean --if-exists -h localhost -U postgres -d $(DB_NAME) $(BACKUP_FILE) > /tmp/restore.log 2>&1 || echo "${YELLOW}[!] Restore finished with warnings (check /tmp/restore.log)${RESET}"
 	@echo "${GREEN}[✓] Restore Complete. Verifying data...${RESET}"
-	@$(PYTHON) $(BACKEND_DIR)/scripts/t1_data_audit.py
+	@$(PYTHON) $(BACKEND_DIR)/scripts/report/t1_data_audit.py
 
 ## 6. Testing (SAFE: Uses test database, never touches production!)
 # Test Database URL - ALWAYS use this for pytest!
@@ -175,7 +175,7 @@ test-unit:
 
 ## 7. Manual Guard Check
 guard-db:
-	@$(PYTHON) $(BACKEND_DIR)/scripts/db_guard.py
+	@$(PYTHON) $(BACKEND_DIR)/scripts/infra/db_guard.py
 
 ## 8. Quality Gate (Placeholder)
 stage4-quality:
@@ -253,10 +253,10 @@ dispatch-outbox:
 
 ## 14.1 Smart Ops: Crawl system starter (DB-aware)
 crawler-smart-status: ## 只看本地 Dev 库现状 + 启动建议（不启动进程）
-	@PY=$$( [ -x .venv/bin/python ] && echo .venv/bin/python || echo $(PYTHON) ); $$PY $(BACKEND_DIR)/scripts/smart_crawler_workflow.py
+	@PY=$$( [ -x .venv/bin/python ] && echo .venv/bin/python || echo $(PYTHON) ); $$PY $(BACKEND_DIR)/scripts/crawl/smart_crawler_workflow.py
 
 crawler-smart-start: ## 按建议一键启动 Celery（Beat + patrol + bulk；probe 视开关）
-	@PY=$$( [ -x .venv/bin/python ] && echo .venv/bin/python || echo $(PYTHON) ); BULK_QUEUE_LIST="$(BULK_QUEUE_LIST)" $$PY $(BACKEND_DIR)/scripts/smart_crawler_workflow.py --apply
+	@PY=$$( [ -x .venv/bin/python ] && echo .venv/bin/python || echo $(PYTHON) ); BULK_QUEUE_LIST="$(BULK_QUEUE_LIST)" $$PY $(BACKEND_DIR)/scripts/crawl/smart_crawler_workflow.py --apply
 
 ## 14.3 Minimal Crawl (local smoke test; dev/test only)
 MIN_CRAWL_SCOPE ?= T1
@@ -270,7 +270,7 @@ crawl-min:
 		*reddit_signal_scanner_dev*|*reddit_signal_scanner_test*) ;; \
 		*reddit_signal_scanner*) echo "${RED}[!] Blocked: gold DB is not allowed for crawl-min.${RESET}"; exit 1 ;; \
 	esac
-	@PYTHONPATH=$(PYTHONPATH) DATABASE_URL=$(MIN_CRAWL_DB_URL) $(PYTHON) $(BACKEND_DIR)/scripts/crawl_once.py --scope $(MIN_CRAWL_SCOPE) --limit $(MIN_CRAWL_LIMIT)
+	@PYTHONPATH=$(PYTHONPATH) DATABASE_URL=$(MIN_CRAWL_DB_URL) $(PYTHON) $(BACKEND_DIR)/scripts/crawl/crawl_once.py --scope $(MIN_CRAWL_SCOPE) --limit $(MIN_CRAWL_LIMIT)
 
 ## 14.4 Safe crawler shortcuts
 crawl-start: ## Safe start for crawler system (beat + patrol + bulk; probe optional)
@@ -288,19 +288,19 @@ crawl-stop: ## Stop all local celery processes (dev/test only)
 
 ## 14.5 Diagnostics & Utility (read-only unless stated)
 celery-health:
-	@$(PYTHON) $(BACKEND_DIR)/scripts/check_celery_health.py
+	@$(PYTHON) $(BACKEND_DIR)/scripts/monitor/check_celery_health.py
 
 celery-config:
-	@$(PYTHON) $(BACKEND_DIR)/scripts/verify_celery_config.py
+	@$(PYTHON) $(BACKEND_DIR)/scripts/monitor/verify_celery_config.py
 
 local-acceptance:
-	@$(PYTHON) $(BACKEND_DIR)/scripts/local_acceptance.py
+	@$(PYTHON) $(BACKEND_DIR)/scripts/seed/local_acceptance.py
 
 monitor-crawl:
-	@$(PYTHON) $(BACKEND_DIR)/scripts/monitor_crawl_progress.py
+	@$(PYTHON) $(BACKEND_DIR)/scripts/monitor/monitor_crawl_progress.py
 
 seed-test-accounts:
-	@$(PYTHON) $(BACKEND_DIR)/scripts/seed_test_accounts.py
+	@$(PYTHON) $(BACKEND_DIR)/scripts/seed/seed_test_accounts.py
 
 ## 14.6 Data Pipeline (clean -> score -> llm label)
 data-clean:
@@ -333,7 +333,7 @@ data-pipeline-kag: data-clean data-score data-embeddings llm-label semantic-llm-
 
 kag-acceptance:
 	@echo "${GREEN}[*] Running KAG acceptance check...${RESET}"
-	@cd $(BACKEND_DIR) && $(PYTHON) scripts/kag_acceptance.py --from-examples --limit 6
+	@cd $(BACKEND_DIR) && $(PYTHON) scripts/seed/kag_acceptance.py --from-examples --limit 6
 
 semantic-llm-sync:
 	@echo "${GREEN}[*] Syncing LLM candidates -> semantic library...${RESET}"
@@ -348,7 +348,7 @@ discover-communities:
 ingest-jsonl:
 	@echo "${GREEN}[*] Ingesting Historical JSONL Data...${RESET}"
 	@# Usage: make ingest-jsonl FILE="path/to/data.jsonl" COMMUNITY="r/name"
-	@$(PYTHON) $(BACKEND_DIR)/scripts/ingest_jsonl.py --file "${FILE}" --community "${COMMUNITY}" --update-watermark
+	@$(PYTHON) $(BACKEND_DIR)/scripts/import/ingest_jsonl.py --file "${FILE}" --community "${COMMUNITY}" --update-watermark
 
 
 # --- Database Operations (SOP v1.8) ---
@@ -403,12 +403,12 @@ db-realtime-stats:
 
 semantic-tag:
 	@echo "${GREEN}[*] Running Semantic Tagger (Incremental Batch)...${RESET}"
-	@$(PYTHON) $(BACKEND_DIR)/scripts/run_semantic_pipeline.py --limit 1000
+	@$(PYTHON) $(BACKEND_DIR)/scripts/semantic/run_semantic_pipeline.py --limit 1000
 
 semantic-refresh:
 	@echo "${GREEN}[*] Running Full Semantic Refresh (All Posts)...${RESET}"
 	@echo "${YELLOW}    This may take a while.${RESET}"
-	@$(PYTHON) $(BACKEND_DIR)/scripts/run_semantic_pipeline.py --refresh-all --verbose
+	@$(PYTHON) $(BACKEND_DIR)/scripts/semantic/run_semantic_pipeline.py --refresh-all --verbose
 
 semantic-embed:
 	@echo "${GREEN}[*] Starting Vector Embedding Backfill (Phase 3 Task A)...${RESET}"

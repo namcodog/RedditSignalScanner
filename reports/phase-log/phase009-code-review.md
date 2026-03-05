@@ -47,7 +47,7 @@
     - score-batched（封装 backend/scripts/score_batched.sh）。
     - pool-clear-and-freeze（封装 backend/scripts/pool_clear.py 并输出 freeze 快照）。
     - crawl-crossborder（封装 crawler_task 旧版 Redis 热缓存路径）。
-    - pool-stats（封装 backend/scripts/pool_stats.py）。
+    - pool-stats（封装 backend/scripts/community/pool_stats.py）。
 - 前端样例聚焦跨境：
   - 用亚马逊/Etsy/Shopify/TikTok Shop、物流（DHL/3PL）、合规（侵权/关税/VAT）等场景替换 SAMPLE_PROMPTS 文案（不改组件）。
 - Serena MCP 修正：

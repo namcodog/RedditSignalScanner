@@ -28,12 +28,12 @@
 
 ### 验收结果
 
-#### ✅ T044: 创建 `backend/scripts/local_acceptance.py`
+#### ✅ T044: 创建 `backend/scripts/seed/local_acceptance.py`
 **状态**: 通过  
 **证据**:
 ```bash
 $ find backend/scripts -name "local_acceptance.py"
-backend/scripts/local_acceptance.py
+backend/scripts/seed/local_acceptance.py
 ```
 
 **功能验证**:

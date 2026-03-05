@@ -5,7 +5,7 @@
 - 用现行代码重写 facts_v2 SOP，保证新人可直接上手。
 
 ## 变更
-- `backend/scripts/generate_t1_market_report.py`
+- `backend/scripts/report/generate_t1_market_report.py`
   - mode 支持 auto（自动跟随 TopicProfile.mode）
   - 运行时打印 legacy 提示
 - `backend/tests/services/test_report_logic.py`

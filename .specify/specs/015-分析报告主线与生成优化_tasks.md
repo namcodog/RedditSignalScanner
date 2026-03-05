@@ -87,7 +87,7 @@
 
 - [x] **R015-T31** Report Agent 实现（离线路径）  
   - 实现 Report Agent 模块，使用现有 LLM/模板基础（可以复用 `controlled_generator` 思路）；  
-  - 提供 CLI 命令（如 `make t1-report-demo` 或 `python backend/scripts/generate_t1_market_report.py`），生成：  
+  - 提供 CLI 命令（如 `make t1-report-demo` 或 `python backend/scripts/report/generate_t1_market_report.py`），生成：  
     - `reports/t1-auto.md`。  
   - 控制运行时间和 LLM 调用次数，避免超出当前配额/成本。
 

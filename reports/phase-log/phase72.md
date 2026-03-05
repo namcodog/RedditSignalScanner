@@ -28,7 +28,7 @@
 - backend/app/models/community_pool.py
 - backend/alembic/versions/20251222_000004_enable_auto_tier_default.py
 - backend/.env.example
-- backend/scripts/smart_crawler_workflow.py
+- backend/scripts/crawl/smart_crawler_workflow.py
 
 ## 测试
 - python -m pytest backend/tests/config/test_default_flags.py backend/tests/tasks/test_tier_intelligence_task.py backend/tests/models/test_tier_intelligence_models.py

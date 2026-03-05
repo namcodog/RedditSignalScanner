@@ -13,7 +13,7 @@
 - OpportunityScorer 读配置权重：`backend/app/services/analysis/opportunity_scorer.py`
 - 趋势/驱动规则配置化：新增 `backend/config/insights_enrichment.yaml`
 - InsightsEnrichment 读取配置：`backend/app/services/analysis/insights_enrichment.py`
-- 迁移脚本新增 need_taxonomy：`backend/scripts/migrate_semantics.py`
+- 迁移脚本新增 need_taxonomy：`backend/scripts/semantic/migrate_semantics.py`
 - 新增测试：
   - `backend/tests/services/test_need_taxonomy.py`
   - `backend/tests/services/test_scoring_rules_need_weights.py`

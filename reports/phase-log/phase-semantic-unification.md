@@ -18,10 +18,10 @@
   - Temu/TikTok Shop 命中，The Product 排除；Amazon（已在词典）被过滤；TEMU 全大写高置信；Temu+FBA→建议L1；CSV格式校验
 
 ## Week 3 – 算法优化
-- 重构脚本：`backend/scripts/score_with_semantic.py`
+- 重构脚本：`backend/scripts/semantic/score_with_semantic.py`
   - 改为使用 `UnifiedLexicon + SemanticScorer`，保留原CLI与输出列（semantic_score_*, coverage_*, density_*, purity_*）
   - 新增 `--enable-layered` 开关（默认开启）
-- 对比工具：`backend/scripts/compare_scoring_algorithms.py`
+- 对比工具：`backend/scripts/scoring/compare_scoring_algorithms.py`
   - 同一批文本对新旧算法打分，输出 `backend/data/semantic_compare.csv`，控制台打印相关性
 
 ## 统一反馈四问

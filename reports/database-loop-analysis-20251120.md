@@ -76,7 +76,7 @@ Tier3 (<10分): 82个
 make semantic-score
 
 # 或手动触发
-python backend/scripts/score_with_semantic.py
+python backend/scripts/semantic/score_with_semantic.py
 ```
 
 **Top 10 社区**（按名称排序）:
@@ -318,7 +318,7 @@ watch -n 60 "psql -d reddit_signal_scanner -c 'SELECT COUNT(*) FROM posts_hot;'"
 make semantic-score
 
 # 方式2: 直接运行脚本
-python backend/scripts/score_with_semantic.py
+python backend/scripts/semantic/score_with_semantic.py
 
 # 验证结果
 psql -d reddit_signal_scanner -c "
@@ -418,7 +418,7 @@ chmod +x scripts/monitor_posts_hot.sh
 make semantic-score
 
 # 或详细执行
-python backend/scripts/score_with_semantic.py --verbose
+python backend/scripts/semantic/score_with_semantic.py --verbose
 ```
 
 #### 2. 验证Tier分级

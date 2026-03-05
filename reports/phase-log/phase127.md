@@ -17,8 +17,8 @@
 
 3) 脚本口径同步
 - `backend/monitor_db_connections.sh` 默认监控 Dev（支持 `DB_NAME` 覆盖）。
-- `backend/scripts/configure_db_timeouts.py`、`backend/scripts/smart_crawler_workflow.py` 提示口径切到 Dev。
-- `backend/analyze_test_results.py`、`backend/scripts/analyze_community_value.py` 默认库切到 Dev。
+- `backend/scripts/infra/configure_db_timeouts.py`、`backend/scripts/crawl/smart_crawler_workflow.py` 提示口径切到 Dev。
+- `backend/analyze_test_results.py`、`backend/scripts/scoring/analyze_community_value.py` 默认库切到 Dev。
 
 4) 文档同步补充
 - `docs/DATABASE_CONFIGURATION.md`、`docs/sop/数据库使用规范_v2_全景版.md` 补充 `ALLOW_GOLD_DB` 说明。

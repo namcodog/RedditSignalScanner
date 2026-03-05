@@ -243,7 +243,7 @@ $ make test-contract
 
 ### 任务清单
 **验收脚本**:
-- [x] T044 创建 `backend/scripts/local_acceptance.py`
+- [x] T044 创建 `backend/scripts/seed/local_acceptance.py`
 - [x] T045 新增 `Makefile::local-acceptance` 命令
 - [x] T046 新增健康检查函数
 
@@ -259,7 +259,7 @@ $ make test-contract
 ### 验收证据
 ```bash
 $ find backend/scripts -name "local_acceptance.py"
-✅ backend/scripts/local_acceptance.py
+✅ backend/scripts/seed/local_acceptance.py
 
 $ grep "local-acceptance" Makefile
 ✅ .PHONY: ... local-acceptance

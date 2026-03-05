@@ -5,7 +5,7 @@
 - 客户端打标数据包准备
 
 ## 交付物
-- 导出脚本：backend/scripts/export_llm_label_candidates.py
+- 导出脚本：backend/scripts/report/export_llm_label_candidates.py
 - 导出文件：
   - reports/llm-client/posts_batch_001.jsonl
   - reports/llm-client/comments_batch_001.jsonl

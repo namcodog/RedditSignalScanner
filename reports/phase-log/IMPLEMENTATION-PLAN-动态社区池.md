@@ -171,7 +171,7 @@ class CommunityPoolLoader:
   ```
 - [ ] 手动触发首次爬取
   ```bash
-  python backend/scripts/trigger_initial_crawl.py
+  python backend/scripts/crawl/trigger_initial_crawl.py
   ```
 - [ ] 监控爬取进度和 API 调用
 

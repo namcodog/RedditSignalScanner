@@ -13,7 +13,7 @@
 ## 统一反馈（大白话 5 问）
 
 ### 1）发现了什么问题/根因？
-- facts_v2 的“完整审计包”在 `backend/scripts/generate_t1_market_report.py` 里很完整，但 **API 主线**（`backend/app/services/analysis_engine.py:run_analysis`）只做了一个“门禁用最小包”，算完就丢了。
+- facts_v2 的“完整审计包”在 `backend/scripts/report/generate_t1_market_report.py` 里很完整，但 **API 主线**（`backend/app/services/analysis_engine.py:run_analysis`）只做了一个“门禁用最小包”，算完就丢了。
 - 结果就是：报告是有了，但你要追查“当时样本够不够、哪块缺口导致降级/拦截”，缺少一个稳定落库的证据源。
 
 ### 2）是否已精确定位？

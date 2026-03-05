@@ -9,7 +9,7 @@ Key 需要一个“别靠记忆/别靠口头”的启动方式：看一眼本地
 ## 做了什么
 
 ### 1) 新增一个“DB 现状 → 启动建议/一键启动”的脚本
-- 新增 `backend/scripts/smart_crawler_workflow.py`
+- 新增 `backend/scripts/crawl/smart_crawler_workflow.py`
   - 默认 dry-run：只读 DB、输出快照 + 建议，不启动任何进程
   - `--apply`：按建议启动 Celery Beat + 分队列 Worker（patrol/bulk/probe）
   - 输出固定的“下一步检查”口径：1~3 分钟后看 `posts_raw.max(fetched_at)`

@@ -11,7 +11,7 @@
 ### ✅ Backend A 已完成的工作
 
 **已修复**：
-1. ✅ 创建了 `backend/scripts/seed_test_data.py` 脚本
+1. ✅ 创建了 `backend/scripts/seed/seed_test_data.py` 脚本
 2. ✅ 成功向Redis DB 5写入测试数据：
    - `reddit:posts:r/artificial` (5个帖子)
    - `reddit:posts:r/startups` (4个帖子)

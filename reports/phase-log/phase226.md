@@ -44,7 +44,7 @@ Codex `--full-auto` 使用 `workspace-write` 沙箱，**不允许连接外部端
 - `--time-filter`：控制时间窗口
 - `--limit`：控制最大帖子数
 
-修改文件：`backend/scripts/export_hotpost_report.py`（语法检查通过）
+修改文件：`backend/scripts/report/export_hotpost_report.py`（语法检查通过）
 
 ### 5. 二轮执行 — 定向社区后数据对了，但报告价值不达标（v2）
 
@@ -132,4 +132,4 @@ Codex `--full-auto` 使用 `workspace-write` 沙箱，**不允许连接外部端
 | `reports/hotpost/adult_toys_trending_v2.md` | v2 trending 报告（主题对了，大社区霸占） |
 | `reports/hotpost/adult_toys_rant_v2.md` | v2 rant 报告（仅2条，信号词不匹配） |
 | `reports/hotpost/adult_toys_opportunity_v2.md` | v2 opportunity 报告（内容跑偏） |
-| `backend/scripts/export_hotpost_report.py` | 已修改：新增 subreddits/time-filter/limit 参数 |
+| `backend/scripts/report/export_hotpost_report.py` | 已修改：新增 subreddits/time-filter/limit 参数 |

@@ -39,7 +39,7 @@ echo "   关键配置: SQLALCHEMY_DISABLE_POOL=1 (避免事件循环冲突)"
 start_celery_worker background
 sleep 3
 tail -20 "${CELERY_WORKER_LOG}" | grep "ready" && echo "✅ Celery Worker started" || echo "⚠️  请检查日志: ${CELERY_WORKER_LOG}"
-"${PYTHON_BIN}" backend/scripts/check_celery_health.py || echo "⚠️  Celery 健康检查未通过"
+"${PYTHON_BIN}" backend/scripts/monitor/check_celery_health.py || echo "⚠️  Celery 健康检查未通过"
 echo ""
 echo "==> 4️⃣  数据库迁移 (Alembic upgrade) ..."
 if [[ -z "${MIGRATION_DATABASE_URL:-}" && -z "${DATABASE_URL_MIGRATION:-}" && -n "${DATABASE_URL:-}" ]]; then

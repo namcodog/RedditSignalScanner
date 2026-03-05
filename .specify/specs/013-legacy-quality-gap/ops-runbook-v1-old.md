@@ -55,7 +55,7 @@
 
 **当前社区池**：166个跨境电商相关社区
 - 数据源：`reddit_crossborder_relevant_communities.csv`
-- 导入脚本：`backend/scripts/import_166_crossborder_communities.py`
+- 导入脚本：`backend/scripts/import/import_166_crossborder_communities.py`
 - 分层分布：
   - High Tier (T1): 15个社区（post_count ≥ 1000 且 avg_score ≥ 50）
   - Medium Tier (T2): 53个社区（post_count ≥ 500 或 avg_score ≥ 20）
@@ -68,7 +68,7 @@
 
 **导入命令**：
 ```bash
-cd backend && PYTHONPATH=. python scripts/import_166_crossborder_communities.py
+cd backend && PYTHONPATH=. python scripts/import/import_166_crossborder_communities.py
 ```
 
 ---
@@ -192,7 +192,7 @@ cd backend && PYTHONPATH=. python scripts/import_166_crossborder_communities.py
 
 - 一键快照：`make pipeline-health`（Beat配置、Pool统计、Redis热键、7天增长）
 - 增长曲线：`make posts-growth-7d`
-- 健康体检：`PYTHONPATH=backend python backend/scripts/check_celery_health.py`
+- 健康体检：`PYTHONPATH=backend python backend/scripts/monitor/check_celery_health.py`
 
 ---
 
@@ -246,7 +246,7 @@ cd backend && PYTHONPATH=. python scripts/import_166_crossborder_communities.py
   - Beat 调度：`backend/app/core/celery_app.py`
   - 抓取：`backend/app/tasks/crawler_task.py`、`backend/app/services/incremental_crawler.py`
   - Reddit 客户端（退避/超时）：`backend/app/services/reddit_client.py`
-  - 池与发现：`backend/app/services/community_discovery.py`、`backend/scripts/import_hybrid_scores_to_pool.py`
+  - 池与发现：`backend/app/services/community_discovery.py`、`backend/scripts/import/import_hybrid_scores_to_pool.py`
   - 快照/自愈：`scripts/pipeline_health_snapshot.sh`、`scripts/autoheal.sh`
 
 ---
@@ -435,7 +435,7 @@ psql -l | grep reddit
 
 **导入命令**：
 ```bash
-cd backend && PYTHONPATH=. python scripts/import_166_crossborder_communities.py
+cd backend && PYTHONPATH=. python scripts/import/import_166_crossborder_communities.py
 ```
 
 #### 发现3：分离抓取架构的合理性（已确认）

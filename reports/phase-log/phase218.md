@@ -7,7 +7,7 @@
 - 新增导出模块：`backend/app/services/hotpost/report_export.py`
 - 搜索响应补充 markdown_report：`backend/app/services/hotpost/service.py`
 - Schema/前端类型补齐：`backend/app/schemas/hotpost.py`, `frontend/src/types/hotpost.ts`
-- 独立导出脚本：`backend/scripts/export_hotpost_report.py`
+- 独立导出脚本：`backend/scripts/report/export_hotpost_report.py`
 
 ## 测试
 - `pytest backend/tests/services/hotpost/test_hotpost_report_export.py -q`

@@ -195,7 +195,7 @@ RootWebArea "Reddit Signal Scanner"
 ### 更新文件
 1. **Makefile** - 新增15+个命令，统一Python版本
 2. **backend/app/services/analysis_engine.py** - 添加缓存优先策略和调试日志
-3. **backend/scripts/seed_test_data.py** - Redis测试数据填充脚本
+3. **backend/scripts/seed/seed_test_data.py** - Redis测试数据填充脚本
 
 ---
 

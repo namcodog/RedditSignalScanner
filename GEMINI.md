@@ -34,7 +34,7 @@
     *   **Facts V6**: 现在的 `facts.json` 包含 **Price Sensitivity** (价格锚点)、**Usage Context** (场景标签) 和 **Community Personas**。
 
 ### 1.2 关键文件
-*   `backend/scripts/generate_t1_market_report.py`: 报告生成主程序 (支持 `--mode` 和智能过滤)。
+*   `backend/scripts/report/generate_t1_market_report.py`: 报告生成主程序 (支持 `--mode` 和智能过滤)。
 *   `backend/config/community_roles.yaml`: 定义卖家/运营社区 (B2B) 的角色清单。
 *   `backend/config/community_blacklist.yaml`: 定义上下文相关的动态黑名单规则。
 *   `backend/app/services/analysis/persona_generator.py`: 用户画像生成服务。
@@ -48,7 +48,7 @@
 
 ```bash
 # 生成家用咖啡机报告 (自动屏蔽 r/AmazonFBA, r/Marketing 等)
-python backend/scripts/generate_t1_market_report.py \
+python backend/scripts/report/generate_t1_market_report.py \
   --topic "家用咖啡机" \
   --product-desc "高性价比智能咖啡机" \
   --days 365 \
@@ -60,7 +60,7 @@ python backend/scripts/generate_t1_market_report.py \
 
 ```bash
 # 生成亚马逊广告策略报告 (聚焦 r/PPC, r/AmazonSeller 等)
-python backend/scripts/generate_t1_market_report.py \
+python backend/scripts/report/generate_t1_market_report.py \
   --topic "Amazon PPC Strategy" \
   --mode operations
 ```

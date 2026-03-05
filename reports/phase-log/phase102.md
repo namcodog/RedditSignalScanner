@@ -65,12 +65,12 @@
 - `backend/alembic/versions/20251225_000004_category_cache_guard.py`
 - `backend/tests/models/test_database_constraints.py`
 - `backend/scripts/import_toplists_to_pool.py`
-- `backend/scripts/import_166_crossborder_communities.py`
+- `backend/scripts/import/import_166_crossborder_communities.py`
 - `backend/scripts/import_communities_incremental.py`
 - `backend/scripts/import_top1000_to_pool.py`
-- `backend/scripts/import_hybrid_scores_to_pool.py`
+- `backend/scripts/import/import_hybrid_scores_to_pool.py`
 - `backend/scripts/init_community_pool_82.py`
-- `backend/scripts/restore_pool_hybrid.py`
+- `backend/scripts/import/restore_pool_hybrid.py`
 
 ## 追加测试
 - 已执行：

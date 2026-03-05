@@ -2,7 +2,7 @@ import json
 from types import SimpleNamespace
 from unittest.mock import MagicMock
 from app.services.analysis.t1_stats import T1StatsSnapshot
-from scripts.generate_t1_market_report import (
+from scripts.report.generate_t1_market_report import (
     _build_facts,
     _classify_entity,
     _compute_intent_scores,

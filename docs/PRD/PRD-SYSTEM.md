@@ -216,7 +216,7 @@
 - **现状资产（已落地）**：
   - 语义库与版本：`backend/config/semantic_sets/*`（含 `crossborder_v2.*` 与 `unified_lexicon.yml`）
   - 实体词典：`backend/config/entity_dictionary/*`（含 `crossborder_v2.csv`）
-  - 语义抽取脚本：`backend/scripts/extract_lexicon_from_corpus.py`、`backend/scripts/semantic_lexicon_build.py`
+  - 语义抽取脚本：`backend/scripts/semantic/extract_lexicon_from_corpus.py`、`backend/scripts/semantic/semantic_lexicon_build.py`
 - **闭环现状（已落地 + 未自动化）**：
   - 已落地：候选词/语义规则产出、候选审核入口、社区池动态分级、报告生成与质量账本
   - 未自动化：语义激活/淘汰仍以脚本/人工为主（见抓取 SOP 6.4.3）

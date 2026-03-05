@@ -90,7 +90,7 @@
 ### J. 语义库闭环入口（PRD-SYSTEM 8.6）
 - [ ] 语义库配置：`backend/config/semantic_sets/*`（含 crossborder_v2.* / unified_lexicon.yml）
 - [ ] 实体词典：`backend/config/entity_dictionary/*`（含 crossborder_v2.csv）
-- [ ] 语义抽取脚本：`backend/scripts/extract_lexicon_from_corpus.py`、`backend/scripts/semantic_lexicon_build.py`
+- [ ] 语义抽取脚本：`backend/scripts/semantic/extract_lexicon_from_corpus.py`、`backend/scripts/semantic/semantic_lexicon_build.py`
 - [ ] 语义候选审核入口：`/api/admin/semantic-candidates/*`
 
 ### K. 导出与反馈入口（PRD-SYSTEM 11）

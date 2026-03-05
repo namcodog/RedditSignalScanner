@@ -57,8 +57,8 @@
 - `backend/app/tasks/backfill_task.py`
 - `backend/app/tasks/ingest_task.py`
 - `backend/scripts/crawl_incremental.py`
-- `backend/scripts/crawl_comprehensive.py`
-- `backend/scripts/ingest_jsonl.py`
+- `backend/scripts/crawl/crawl_comprehensive.py`
+- `backend/scripts/import/ingest_jsonl.py`
 - `backend/app/services/community_discovery.py`
 - `backend/app/core/celery_app.py`
 - `backend/tests/migrations/test_community_cache_waterlines.py`

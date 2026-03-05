@@ -25,7 +25,7 @@ from sqlalchemy import select
 from app.core.celery_app import celery_app
 from app.db.session import SessionFactory
 from app.models.discovered_community import DiscoveredCommunity
-from app.services.community_discovery import CommunityDiscoveryService
+from app.services.community.community_discovery import CommunityDiscoveryService
 from app.services.crawl.crawler_runs_service import ensure_crawler_run
 from app.services.discovery.auto_backfill_service import plan_auto_backfill_posts_targets
 from app.services.discovery.candidate_vetting_service import (

@@ -10,22 +10,33 @@
 > - **MEMORY.md** — 活跃记忆（你在这里）
 > - ARCHIVE.md — 归档（30天+的旧记忆，按主题分类）
 
-Last updated: 2026-03-05T16:00:00+08:00
+Last updated: 2026-03-05T17:20:00+08:00
 
 ## Current State (实时状态)
 
-**正在做**: 仓库结构大扫除 Phase A→F3 全部完成，427 个文件变动已推到 GitHub
-**下一步**: 处理 tests/services/ 根目录剩余 13 个未归类测试文件（Phase F4）| 处理 `test_semantic_scorer.py` 两版本冲突（根目录 39 行 vs semantic/ 71 行）| 清理 `tests/services/reporting/` 遗留目录
-**关键决策**: Antigravity = Orchestrator + Codex = 执行者。稳定调用方式已验证：`PROMPT=$(cat file) && codex -m gpt-5.3-codex -a never exec --sandbox danger-full-access -C /path "$PROMPT"`
+**正在做**: 全部 Phase G-L + Import Fix 完成 — 仓库 AI 可理解性 9.0/10 ✅
+**下一步**: git commit → NotebookLM 启用 → P2 config/tasks 优化 → P3 根 scripts/ 重命名
+**关键决策**: Antigravity = Orchestrator + Codex = 执行者。稳定调用方式已验证。Codex CLI 卡死根因: MCP 启动失败阻塞 Session::new()
+**已完成**:
+- ✅ Phase A-E: services/ 41 文件按域归位，17 个子目录
+- ✅ Phase G: Serena 记忆 + MEMORY.md + Phase E log 补建
+- ✅ Phase H: tests/ 20 文件归位 (tests/ root + tests/services/ root 清空)
+- ✅ Phase I-Full: scripts/ 73 文件 → 9 域子目录 + README + 50+ Makefile 路径更新
+- ✅ Phase J: reporting/ 合并到 report/ + compat shim 删除 + discovery_task.py import 修复
+- ✅ Phase K: 6 处 Makefile dead reference 标注 @# FIXME
+- ✅ Phase L: Root Makefile 路径确认 (Phase I 已全部更新)
+- ✅ Import Fix: 9 个测试文件 import 修复 + 9 个 scripts __init__.py 补齐 (847 tests / 4 pre-existing namespace errors)
+- ✅ Codex CLI Fix: 移除 chrome-devtools (Windows cmd) + spec-kit (握手失败) 全局 MCP
 **待落实**:
-- P0: tests/ 根目录 13 个文件归类（10 个 unmapped + 3 个 protected 跨域文件）
-- P1: 跑完整 `pytest --run`（需先创建 `_test` 数据库或确认 conftest safeguard 正常）
-- P1: NotebookLM 启用（自己的→Obsidian，别人的→NotebookLM）
-- P2: 研究 Maestro 插件（Gemini CLI 多 Agent 编排插件）
+- P1: NotebookLM 启用
+- P2: config/ 30+ 配置文件按领域分组
+- P2: Celery task 文件按领域归并
+- P3: 根 scripts/ 重命名为 ops/ (解决 namespace 冲突，消除最后 4 个 pytest collect errors)
 
 ---
 
 ## Recent Signals (外部信号)
+
 
 - [echotik-creatok-flywheel] **EchoTik+CreaTok 飞轮验证** — Data→Content→Sales→Data。品牌为内容付费，不为洞察付费。差异化在多平台交叉验证。(2026-03-02)
 
@@ -49,6 +60,9 @@ Last updated: 2026-03-05T16:00:00+08:00
 - [antigravity-memory-integration] **Antigravity 记忆系统自动化接入** — GEMINI.md 加 Section 6(启动/关闭协议+权限红线)，MEMORY.md 加 Current State 快速上下文头，创建 3 个 workflow(load/save/archive)。启动协议升级为全量必读。(2026-03-05)
 - [openclaw-memory-wiring] **OpenClaw 记忆管道接线** — backend-config.ts 加搜索范围(+3文件)，system-prompt.ts 更新指令，session.ts 接线 archiveDailyFiles。12行代码，32/32测试通过。(2026-03-05)
 - [antigravity-mcp-full-config] **Antigravity MCP 工具全量配置** — .gemini/settings.json 新增 sequential-thinking/serena/exa-code 三个 MCP。修复两处 bug：serena uvx 路径错误(改为/opt/homebrew/bin/uvx)、exa-code npx 路径错误(改为nvm实际路径)、serena context 名称过期(ide-assistant→claude-code)、npm 缓存冲突清理。三个工具均干跑验证通过。(2026-03-05)
+- [repo-ai-comprehensibility-audit] **仓库 AI 可理解性审计 + Phase G/H/I 优化完成** — 9 维度评分从 6.5/10 提升到约 8.5/10。Phase G: Serena 3 个 memory 刷新。Phase H: 20 个测试文件归位（tests/ root + tests/services/ root 清空）。Phase I-Full: scripts/ 73 文件 → 9 域子目录 + README.md + 50+ Makefile 路径更新。Codex 执行（86K tokens），Antigravity 规划验收。(2026-03-05)
+- [repo-round2-cleanup] **仓库 Round 2 清理 + Import Fix** — Phase J: reporting/→report/ 合并 + compat shim 删除。Phase K: 6x Makefile FIXME 标注。Import Fix: 9 个测试文件 import 路径修复 + 9x __init__.py 补齐。最终: 847 tests / 4 pre-existing namespace errors / 0 stale imports。(2026-03-05)
+- [codex-cli-mcp-hang-fix] **Codex CLI 卡死修复** — 根因: chrome-devtools(Windows cmd on macOS) + spec-kit(握手失败) MCP 阻塞 Session::new()（GitHub #7827）。修复: `codex mcp remove chrome-devtools && codex mcp remove spec-kit`。exa-code MCP 搜索定位。(2026-03-05)
 - [repo-cleanup-phase-a-to-f3] **仓库结构大扫除 Phase A→F3 完成** — 427 个文件变动，4 个 commit（12123b2/071ceb4/e9eafa0/688f6da）。services/ 39 文件按域分家，tests/ 104 文件按域分家，5 个 __init__.py 补齐，safe_pytest.sh 安全脚本创建。DB 安全三层保护确认（_test 后缀 + host 白名单 + ALLOW_TEST_ON_PROD flag）。(2026-03-05)
 
 ## Recent Decisions (决策)

@@ -56,14 +56,14 @@ class UnifiedLexicon:
         return items
 
     def get_patterns_for_matching(self, terms: List[SemanticTerm]) -> List[Tuple[str, re.Pattern[str]]]:
-        """生成匹配模式；与 scripts/score_with_semantic.compile_patterns 一致。"""
+        """生成匹配模式；与 scripts/semantic/score_with_semantic.compile_patterns 一致。"""
         try:
             from scripts.score_with_semantic import compile_patterns  # type: ignore
         except Exception:
             try:
                 from backend.scripts.score_with_semantic import compile_patterns  # type: ignore
             except Exception:
-                # 兜底：本地实现与 scripts/score_with_semantic.compile_patterns 等价
+                # 兜底：本地实现与 scripts/semantic/score_with_semantic.compile_patterns 等价
                 def compile_patterns(items: Iterable[str]) -> List[Tuple[str, re.Pattern[str]]]:  # type: ignore
                     out: List[Tuple[str, re.Pattern[str]]] = []
                     for t in items:

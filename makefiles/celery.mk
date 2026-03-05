@@ -27,11 +27,11 @@ celery-logs: ## 查看Celery Worker日志
 
 celery-verify: ## 验证 Celery 配置与 Redis/Result backend
 	@echo "==> Verifying Celery configuration ..."
-	PYTHONPATH=$(BACKEND_DIR) $(PYTHON) $(BACKEND_DIR)/scripts/verify_celery_config.py $(ARGS)
+	PYTHONPATH=$(BACKEND_DIR) $(PYTHON) $(BACKEND_DIR)/scripts/monitor/verify_celery_config.py $(ARGS)
 
 celery-seed: ## 创建默认测试任务（固定用户+随机任务ID）
 	@echo "==> Seeding Celery verification task ..."
-	PYTHONPATH=$(BACKEND_DIR) $(PYTHON) $(BACKEND_DIR)/scripts/seed_user_task.py
+	PYTHONPATH=$(BACKEND_DIR) $(PYTHON) $(BACKEND_DIR)/scripts/seed/seed_user_task.py
 
 celery-seed-unique: ## 兼容入口：等同 celery-seed（任务ID已随机）
 	@$(MAKE) celery-seed
@@ -49,9 +49,9 @@ celery-mypy: ## 对任务系统核心文件运行 mypy --strict
 	PYTHONPATH=$(BACKEND_DIR) mypy --strict \
 		$(BACKEND_DIR)/app/services/task_status_cache.py \
 		$(BACKEND_DIR)/app/tasks/analysis_task.py \
-		$(BACKEND_DIR)/scripts/verify_celery_config.py \
-		$(BACKEND_DIR)/scripts/check_celery_health.py \
-		$(BACKEND_DIR)/scripts/seed_user_task.py \
+		$(BACKEND_DIR)/scripts/monitor/verify_celery_config.py \
+		$(BACKEND_DIR)/scripts/monitor/check_celery_health.py \
+		$(BACKEND_DIR)/scripts/seed/seed_user_task.py \
 		$(BACKEND_DIR)/tests/test_task_system.py
 
 # ---- Spec013: 便捷启动 Celery Beat（含 Worker）----

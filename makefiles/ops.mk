@@ -24,7 +24,7 @@ check-services: ## 检查前后端服务是否正常运行
 
 posts-growth-7d: ## 打印最近7天 posts_hot 按天计数（CSV）
 	@echo "==> posts_hot growth (last 7 days) ..."
-	@PYTHONPATH=$(BACKEND_DIR) $(PYTHON) $(BACKEND_DIR)/scripts/posts_growth_7d.py
+	@PYTHONPATH=$(BACKEND_DIR) $(PYTHON) $(BACKEND_DIR)/scripts/monitor/posts_growth_7d.py
 
 celery-meta-count: ## 统计 Redis 中 celery-task-meta-* 数量（用于确认任务执行）
 	@echo "==> Counting celery-task-meta-* in Redis (db0..db5) ..."

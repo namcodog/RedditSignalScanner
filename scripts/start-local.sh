@@ -151,7 +151,7 @@ fi
 
 # 创建测试账号
 echo -e "${YELLOW}正在创建测试账号...${NC}"
-if /opt/homebrew/bin/python3.11 scripts/seed_test_accounts.py > /dev/null 2>&1; then
+if /opt/homebrew/bin/python3.11 scripts/seed/seed_test_accounts.py > /dev/null 2>&1; then
     echo -e "${GREEN}✅ 测试账号创建成功${NC}"
     echo -e "${YELLOW}   管理员: admin@test.com / Admin123!${NC}"
     echo -e "${YELLOW}   用户: user1@test.com / User123!${NC}"

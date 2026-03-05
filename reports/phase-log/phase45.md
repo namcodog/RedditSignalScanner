@@ -10,7 +10,7 @@
   - `tasks.crawler.execute_target(target_id)` 会从 `crawler_run_targets.config` 读 Crawl Plan 合同并执行。
   - 已完成的 target（status=completed）会直接跳过，避免重复抓取/重复写库。
 - 回填脚本改造为“先落计划、后执行”：
-  - `backend/scripts/crawl_incremental.py`、`backend/scripts/crawl_comprehensive.py`
+  - `backend/scripts/crawl_incremental.py`、`backend/scripts/crawl/crawl_comprehensive.py`
     - 先写 `crawler_run_targets`（status=queued，config=Plan）
     - 再 enqueue `tasks.crawler.execute_target` 到 `backfill_queue`
 - 修复一个隐藏坑：Plan config 里有 datetime 时，`json.dumps()` 会炸
@@ -23,7 +23,7 @@
 - `backend/app/tasks/__init__.py`
 - `backend/app/core/celery_app.py`
 - `backend/scripts/crawl_incremental.py`
-- `backend/scripts/crawl_comprehensive.py`
+- `backend/scripts/crawl/crawl_comprehensive.py`
 - `backend/app/tasks/crawler_task.py`
 - `backend/app/tasks/backfill_task.py`
 - `backend/app/tasks/ingest_task.py`

@@ -126,7 +126,7 @@ class CommunityPoolLoader:
 **发现**：
 - Makefile 命令：`make day13-seed-all`
 - 脚本文件：
-  - `backend/scripts/import_seed_communities_from_excel.py` - Excel 转 JSON
+  - `backend/scripts/import/import_seed_communities_from_excel.py` - Excel 转 JSON
   - `backend/scripts/import_seed_to_db.py` - JSON 导入数据库
   - `backend/scripts/validate_seed_communities.py` - 验证种子数据
 - 流程：`db-migrate-up` → `seed-from-excel` → `validate-seed` → `import-community-pool`

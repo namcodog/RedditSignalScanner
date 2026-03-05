@@ -230,7 +230,7 @@
 ---
 
 #### 1.3.2 脚本更新
-- [ ] 更新 `backend/scripts/score_with_semantic.py`
+- [ ] 更新 `backend/scripts/semantic/score_with_semantic.py`
 - [ ] 传入 `semantic_provider` 参数
 
 **验收**：

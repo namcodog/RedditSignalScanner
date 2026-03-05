@@ -277,7 +277,7 @@ make celery-meta-count
 
 ```bash
 # 导入166个跨境电商社区
-cd backend && PYTHONPATH=. python scripts/import_166_crossborder_communities.py
+cd backend && PYTHONPATH=. python scripts/import/import_166_crossborder_communities.py
 
 # 查看社区池统计
 make pool-stats
@@ -308,7 +308,7 @@ make autoheal-start
 
 ```bash
 # 导入166个社区
-cd backend && PYTHONPATH=. python scripts/import_166_crossborder_communities.py
+cd backend && PYTHONPATH=. python scripts/import/import_166_crossborder_communities.py
 
 # 验证导入结果
 make pool-stats
