@@ -10,12 +10,12 @@
 > - **MEMORY.md** — 活跃记忆（你在这里）
 > - ARCHIVE.md — 归档（30天+的旧记忆，按主题分类）
 
-Last updated: 2026-03-05T17:20:00+08:00
+Last updated: 2026-03-05T23:02:00+08:00
 
 ## Current State (实时状态)
 
-**正在做**: 业务逻辑诊断完成 — 业务逻辑地图 v1.0 输出 + P1-P4 盲点修复 ✅
-**下一步**: 业务逻辑深度诊断 Phase 2 → analysis_engine.py run_analysis() 分段审计 → hotpost 域深查
+**正在做**: 业务逻辑深度诊断 Phase 2A+2B 完成 ✅
+**下一步**: 报告质量回测 (P0) — 选 3 个已跑 topic 对比 facts_v2 输出 vs 人工判断; 或阈值校准 (P1) — 审计 quality gate 分级阈值 + backfill budget 参数
 **关键决策**: Antigravity = Orchestrator + Codex = 执行者。稳定调用方式已验证。Codex CLI 卡死根因: MCP 启动失败阻塞 Session::new()
 **已完成**:
 - ✅ Phase A-E: services/ 41 文件按域归位，17 个子目录
@@ -63,6 +63,8 @@ Last updated: 2026-03-05T17:20:00+08:00
 - [repo-ai-comprehensibility-audit] **仓库 AI 可理解性审计 + Phase G/H/I 优化完成** — 9 维度评分从 6.5/10 提升到约 8.5/10。Phase G: Serena 3 个 memory 刷新。Phase H: 20 个测试文件归位（tests/ root + tests/services/ root 清空）。Phase I-Full: scripts/ 73 文件 → 9 域子目录 + README.md + 50+ Makefile 路径更新。Codex 执行（86K tokens），Antigravity 规划验收。(2026-03-05)
 - [repo-round2-cleanup] **仓库 Round 2 清理 + Import Fix** — Phase J: reporting/→report/ 合并 + compat shim 删除。Phase K: 6x Makefile FIXME 标注。Import Fix: 9 个测试文件 import 路径修复 + 9x __init__.py 补齐。最终: 847 tests / 4 pre-existing namespace errors / 0 stale imports。(2026-03-05)
 - [codex-cli-mcp-hang-fix] **Codex CLI 卡死修复** — 根因: chrome-devtools(Windows cmd on macOS) + spec-kit(握手失败) MCP 阻塞 Session::new()（GitHub #7827）。修复: `codex mcp remove chrome-devtools && codex mcp remove spec-kit`。exa-code MCP 搜索定位。(2026-03-05)
+- [phase2a-run-analysis-audit] **Phase 2A: run_analysis() 分支注释注入** — Serena 符号级精读 7 个函数体（跨 2 文件），提取完整决策树（10 分支 + 2 early-return + 4 报告等级）。修正 1 个误判（LLM 已有 tier guard）。Codex 49K tokens，12 条注释注入。commit dea89d2。(2026-03-05)
+- [phase2b-hotpost-subsystem-map] **Phase 2B: hotpost 爆帖子系统完整梳理** — Serena 分析 12 service + API + models。8 阶段管线，3 种模式 (trending/rant/opportunity)，YAML 词典驱动信号检测，与主引擎共享 evidence_posts 表。commit 0883827。(2026-03-05)
 - [repo-cleanup-phase-a-to-f3] **仓库结构大扫除 Phase A→F3 完成** — 427 个文件变动，4 个 commit（12123b2/071ceb4/e9eafa0/688f6da）。services/ 39 文件按域分家，tests/ 104 文件按域分家，5 个 __init__.py 补齐，safe_pytest.sh 安全脚本创建。DB 安全三层保护确认（_test 后缀 + host 白名单 + ALLOW_TEST_ON_PROD flag）。(2026-03-05)
 
 ## Recent Decisions (决策)
@@ -86,6 +88,7 @@ Last updated: 2026-03-05T17:20:00+08:00
 
 ## Calibration Log (最近 5 条)
 
+- 2026-03-05(晚): 业务逻辑深度诊断 Phase 2A+2B — Serena 符号级分析证明比纯行号读取更精确（修正 1 个误判）。Codex 注释注入 49K tokens 成功。hotpost 子系统完整梳理（12 文件，8 阶段管线，3 模式）。确立下一步方向：从“AI 能不能看懂代码”转向“代码跑出来的东西对不对”。
 - 2026-03-05(下午): 仓库结构大扫除执行 — Antigravity 指挥 + Codex gpt-5.3-codex 执行，完成 Phase A→F3（427 文件变动）。验证多 Agent 编排可行性：Codex 适合批量文件操作（git mv/grep/sed），Antigravity 适合深度分析和验收（Sequential Thinking + Serena）。发现 Codex stdin pipe 调用不稳定，改用 $PROMPT 变量方式解决。DB 安全深度分析确认三层保护足够，创建 safe_pytest.sh 作为安全入口。
 - 2026-03-05: 记忆系统接线 + 架构确立 — OpenClaw 代码接线完成（12行改动，4文件）。确立 5 文件记忆架构（SOUL/IDENTITY/PLAYBOOK/MEMORY/ARCHIVE）。明确记忆系统=文件系统，不绑定任何 AI 工具。待配置 OpenCode/Codex 接入。
 - 2026-03-04: Reddit 情报产品化证伪 + 记忆系统重组 — 确认 Reddit 情报无法产品化（产品化三前提全不满足）。系统设计逃逸再次发作。发现记忆系统 archivist 代码写完但未接线/未部署。执行 MEMORY.md 四文件拆分。
