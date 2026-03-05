@@ -73,7 +73,7 @@ from app.services.llm.report_prompts import (
 )
 from app.services.mock.demo_data_provider import generate_demo_posts
 from app.services.reddit_client import RedditAPIClient, RedditPost
-from app.services.reporting.opportunity_report import build_opportunity_reports
+from app.services.report.opportunity_report import build_opportunity_reports
 from app.services.t1_stats import build_trend_analysis, fetch_topic_relevant_communities
 from app.services.semantic.embedding_service import MODEL_NAME
 from app.models.community_cache import CommunityCache

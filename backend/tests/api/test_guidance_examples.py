@@ -1,6 +1,6 @@
 from types import SimpleNamespace
 
-from app.api.legacy.guidance import build_guidance_examples, infer_guidance_tags
+from app.api.routes.guidance import build_guidance_examples, infer_guidance_tags
 
 
 def test_infer_guidance_tags_matches_keywords() -> None:

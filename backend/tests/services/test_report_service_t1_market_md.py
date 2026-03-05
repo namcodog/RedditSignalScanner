@@ -1,7 +1,7 @@
 import pytest
 from unittest.mock import MagicMock
 
-from app.services.report_service import ReportService
+from app.services.report.report_service import ReportService
 from app.services.t1_clustering import PainCluster
 from app.services.t1_stats import (
     AspectBreakdown,
@@ -43,12 +43,12 @@ async def test_build_t1_market_report_md(monkeypatch):
     async def fake_clusters(_session, **_kwargs):
         return clusters
 
-    monkeypatch.setattr("app.services.report_service.build_stats_snapshot", fake_stats)
-    monkeypatch.setattr("app.services.report_service.build_pain_clusters", fake_clusters)
+    monkeypatch.setattr("app.services.report.report_service.build_stats_snapshot", fake_stats)
+    monkeypatch.setattr("app.services.report.report_service.build_pain_clusters", fake_clusters)
 
     # Force market mode on
-    monkeypatch.setattr("app.services.report_service.settings.enable_market_report", True)
-    monkeypatch.setattr("app.services.report_service.settings.report_mode", "market")
+    monkeypatch.setattr("app.services.report.report_service.settings.enable_market_report", True)
+    monkeypatch.setattr("app.services.report.report_service.settings.report_mode", "market")
 
     svc = ReportService(db=None, repository=MagicMock(), cache=MagicMock())
     md, _stats, _clusters, llm_used = await svc._build_t1_market_report_md()  # type: ignore[attr-defined]

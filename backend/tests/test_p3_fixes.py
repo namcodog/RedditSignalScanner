@@ -43,7 +43,7 @@ def test_p3_3_opportunity_report_i18n():
     """P3-3: 验证机会报告使用英文"""
     # 这个测试验证代码中的字符串常量
     import inspect
-    from app.services.reporting import opportunity_report
+    from app.services.report import opportunity_report
     
     source = inspect.getsource(opportunity_report)
     

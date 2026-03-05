@@ -9,7 +9,7 @@ from uuid import UUID, uuid4
 import pytest
 
 from app.models.task import TaskStatus
-from app.services.report_service import ReportService, ReportServiceConfig
+from app.services.report.report_service import ReportService, ReportServiceConfig
 from app.models.user import MembershipLevel
 
 

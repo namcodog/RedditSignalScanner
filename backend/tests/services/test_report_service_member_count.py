@@ -9,7 +9,7 @@ import pytest
 from datetime import datetime, timezone
 from unittest.mock import AsyncMock, MagicMock
 
-from app.services.report_service import ReportService, ReportServiceConfig
+from app.services.report.report_service import ReportService, ReportServiceConfig
 from app.models.community_cache import CommunityCache
 from app.repositories.report_repository import ReportRepository
 

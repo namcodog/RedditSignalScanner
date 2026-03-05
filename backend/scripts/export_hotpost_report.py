@@ -19,12 +19,25 @@ def _default_output_path(query: str) -> Path:
     return Path("reports") / f"hotpost_report_{safe}_{ts}.md"
 
 
-async def _run(query: str, mode: str, output: Path) -> None:
+async def _run(
+    query: str,
+    mode: str,
+    output: Path,
+    subreddits: list[str] | None,
+    time_filter: str | None,
+    limit: int,
+) -> None:
     settings = get_settings()
     async with SessionFactory() as db:
         service = HotpostService(settings=settings, db=db)
         try:
-            request = HotpostSearchRequest(query=query, mode=mode)
+            request = HotpostSearchRequest(
+                query=query,
+                mode=mode,
+                subreddits=subreddits,
+                time_filter=time_filter,
+                limit=limit,
+            )
             response = await service.search(request, session_id="hotpost-export")
         finally:
             await service.close()
@@ -40,11 +53,23 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Export Hotpost markdown report")
     parser.add_argument("query", help="Search query")
     parser.add_argument("--mode", default="trending", choices=["trending", "rant", "opportunity"])
+    parser.add_argument("--subreddits", nargs="+", default=None, help="指定目标 subreddit 列表，如 r/SexToys r/sextoys")
+    parser.add_argument("--time-filter", default=None, choices=["week", "month", "year", "all"], help="时间窗口")
+    parser.add_argument("--limit", type=int, default=30, help="最大帖子数")
     parser.add_argument("--output", default="", help="Output markdown path")
     args = parser.parse_args()
 
     output = Path(args.output) if args.output else _default_output_path(args.query)
-    asyncio.run(_run(args.query, args.mode, output))
+    asyncio.run(
+        _run(
+            args.query,
+            args.mode,
+            output,
+            args.subreddits,
+            args.time_filter,
+            args.limit,
+        )
+    )
 
 
 if __name__ == "__main__":

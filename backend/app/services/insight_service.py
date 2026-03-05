@@ -95,7 +95,7 @@ class InsightService:
         if total == 0:
             # 兜底策略：基于 Analysis.insights 动态生成卡片响应，保证前端可见性
             try:
-                from app.services.report_service import ReportService
+                from app.services.report.report_service import ReportService
                 service = ReportService(self._session)
                 payload = await service.get_report(task_id, user_id)
                 synthetic: list[InsightCardResponse] = []

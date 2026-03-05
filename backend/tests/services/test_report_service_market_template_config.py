@@ -12,7 +12,7 @@ import pytest
 from app.core.config import settings
 from app.models.task import TaskStatus
 from app.models.user import MembershipLevel
-from app.services.report_service import ReportService, ReportServiceConfig
+from app.services.report.report_service import ReportService, ReportServiceConfig
 
 
 @dataclass

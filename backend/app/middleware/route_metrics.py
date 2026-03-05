@@ -29,7 +29,7 @@ def _classify_endpoint_module(module: str | None) -> str:
         return "other"
     if module.startswith("app.api.v1.endpoints."):
         return "golden"
-    if module.startswith("app.api.routes.") or module.startswith("app.api.legacy."):
+    if module.startswith("app.api.routes."):
         return "legacy"
     return "other"
 

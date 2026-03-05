@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-from app.services.reporting.gtm_planner import GTMActionPlanner
-from app.services.reporting.market_report import PersonaResult
+from app.services.report.gtm_planner import GTMActionPlanner
+from app.services.report.market_report import PersonaResult
 
 
 def test_gtm_planner_fallback_generates_actions() -> None:

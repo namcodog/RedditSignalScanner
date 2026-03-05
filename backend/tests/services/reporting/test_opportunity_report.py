@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from app.services.reporting.opportunity_report import build_opportunity_reports
+from app.services.report.opportunity_report import build_opportunity_reports
 
 
 def _build_insights() -> dict[str, object]:

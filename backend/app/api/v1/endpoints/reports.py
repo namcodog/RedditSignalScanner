@@ -18,10 +18,10 @@ from app.core.security import TokenPayload, decode_jwt_token
 from app.db.session import get_session
 from app.schemas.report_payload import ReportPayload
 from app.schemas.analysis import CommunitySourceDetail
-from app.services.report_service import ReportService, ReportServiceError
+from app.services.report.report_service import ReportService, ReportServiceError
 from app.schemas.community_export import CommunityExportItem, CommunityExportResponse
 from app.schemas.entity_export import EntityExportItem, EntityExportResponse
-from app.services.report_service import (
+from app.services.report.report_service import (
     InMemoryReportCache,
     ReportAccessDeniedError,
     ReportDataValidationError,
@@ -30,7 +30,7 @@ from app.services.report_service import (
     ReportService,
     ReportServiceError,
 )
-from app.services.report_export_service import ExportFormat, ReportExportService
+from app.services.report.report_export_service import ExportFormat, ReportExportService
 from sqlalchemy import select
 from app.models.community_pool import CommunityPool
 from app.models.community_cache import CommunityCache

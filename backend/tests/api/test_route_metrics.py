@@ -78,7 +78,7 @@ async def test_route_metrics_counts_golden_and_legacy(monkeypatch) -> None:
     async def legacy() -> dict[str, bool]:
         return {"ok": True}
 
-    legacy.__module__ = "app.api.legacy.test"
+    legacy.__module__ = "app.api.routes.test"
 
     transport = ASGITransport(app=app)
     async with AsyncClient(transport=transport, base_url="http://testserver") as client:

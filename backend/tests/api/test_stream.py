@@ -67,7 +67,7 @@ async def _prepare_task(db_session: AsyncSession) -> tuple[User, Task]:
 async def test_sse_connection_and_completion(
     monkeypatch: pytest.MonkeyPatch, client: AsyncClient, db_session: AsyncSession
 ) -> None:
-    from app.api.legacy import stream
+    from app.api.routes import stream
 
     user, task = await _prepare_task(db_session)
     _ = _issue_token(str(user.id))  # keep auth helper exercised
@@ -143,7 +143,7 @@ async def test_sse_heartbeat(
     Validate heartbeat emission by invoking the internal event generator directly
     (avoids httpx.AsyncClient streaming hang on some platforms).
     """
-    from app.api.legacy import stream
+    from app.api.routes import stream
 
     user, task = await _prepare_task(db_session)
 

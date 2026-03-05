@@ -10,7 +10,7 @@ import pytest
 
 from app.models.task import TaskStatus
 from app.models.user import MembershipLevel
-from app.services.report_service import (
+from app.services.report.report_service import (
     InMemoryReportCache,
     ReportService,
     ReportServiceConfig,
@@ -695,7 +695,7 @@ async def test_report_html_prefers_analysis_html_over_controlled(monkeypatch: py
         "cache_hit_rate": 0.2,
     }
 
-    import app.services.report_service as report_service
+    import app.services.report.report_service as report_service
 
     monkeypatch.setattr(report_service, "_cg_build_ctx", lambda *args, **kwargs: ({}, {}))
     monkeypatch.setattr(report_service, "_cg_render", lambda *args, **kwargs: "CONTROLLED")
@@ -728,7 +728,7 @@ async def test_report_html_falls_back_to_controlled_when_missing(monkeypatch: py
         "cache_hit_rate": 0.2,
     }
 
-    import app.services.report_service as report_service
+    import app.services.report.report_service as report_service
 
     monkeypatch.setattr(report_service, "_cg_build_ctx", lambda *args, **kwargs: ({}, {}))
     monkeypatch.setattr(report_service, "_cg_render", lambda *args, **kwargs: "CONTROLLED")

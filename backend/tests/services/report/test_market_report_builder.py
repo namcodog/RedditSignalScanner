@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from app.services.report.controlled_generator import render_report
-from app.services.reporting.market_report import (
+from app.services.report.market_report import (
     MarketReportBuilder,
     CommunitySaturation,
     BrandSaturation,

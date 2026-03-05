@@ -12,7 +12,7 @@ import pytest
 from app.core import config
 from app.models.task import TaskStatus
 from app.models.user import MembershipLevel
-from app.services.report_service import ReportService, ReportServiceConfig
+from app.services.report.report_service import ReportService, ReportServiceConfig
 
 # 避免自动重置数据库
 os.environ.setdefault("SKIP_DB_RESET", "1")

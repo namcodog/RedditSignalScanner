@@ -431,7 +431,7 @@ async def test_approve_logs_when_discovered_count_conversion_fails(
     monkeypatch: pytest.MonkeyPatch,
     caplog: pytest.LogCaptureFixture,
 ) -> None:
-    import app.api.legacy.admin_community_pool as admin_module
+    import app.api.routes.admin_community_pool as admin_module
 
     admin_email = f"admin-{uuid.uuid4().hex}@example.com"
     overridden = _override_admin_settings(admin_email)

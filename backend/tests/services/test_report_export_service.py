@@ -20,7 +20,7 @@ from app.schemas.report_payload import (
     SentimentBreakdown,
     TopCommunity,
 )
-from app.services.report_export_service import ReportExportService
+from app.services.report.report_export_service import ReportExportService
 
 
 @pytest.fixture
@@ -96,7 +96,7 @@ def test_generate_pdf_without_weasyprint(
 ) -> None:
     """测试没有 WeasyPrint 时的错误处理"""
     # 模拟 WeasyPrint 不可用
-    import app.services.report_export_service as module
+    import app.services.report.report_export_service as module
 
     monkeypatch.setattr(module, "WEASYPRINT_AVAILABLE", False)
 

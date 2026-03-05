@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from backend.app.services.reporting.opportunity_report import build_opportunity_reports
+from backend.app.services.report.opportunity_report import build_opportunity_reports
 
 
 def test_build_opportunity_reports_uses_numeric_est_for_product_fit() -> None:

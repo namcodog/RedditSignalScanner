@@ -1,4 +1,4 @@
-from app.services.report_service import ReportService
+from app.services.report.report_service import ReportService
 from app.core import config
 
 

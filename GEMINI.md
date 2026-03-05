@@ -111,3 +111,55 @@ python backend/scripts/generate_t1_market_report.py \
 ---
 
 **注**: 本文档作为项目的长期记忆。详细执行细节见 `docs/archive/Facts数据优化全记录_20251210.md`。
+
+---
+
+## 6. 记忆系统协议
+
+本项目使用跨工具的 5 文件记忆架构，存放在 `mem/` 目录下。Antigravity 必须遵循以下启动/关闭协议。
+
+### 6.1 文件体系与权限
+
+| 文件 | 用途 | AI 权限 |
+|------|------|---------|
+| `mem/IDENTITY.md` | 底层心智（世界观/哲学/决策规则） | 🔒 **只读。绝不修改。** 需更新时只能建议用户自行修改 |
+| `mem/SOUL.md` | 表人格（AI 行为准则） | ✏️ 可写，修改后**必须告知**用户 |
+| `mem/USER.md` | 用户画像（兴趣图谱/社媒习惯/活跃项目） | ✏️ 可写 |
+| `mem/MEMORY.md` | 活跃记忆（30天窗口） | ✏️ 可写 |
+| `mem/PLAYBOOK.md` | 商业判断手册 | ✏️ 可写（新教训直接追加） |
+| `mem/ARCHIVE.md` | 归档仓库 | ✏️ 可写（迁移过期条目） |
+
+> **红线：IDENTITY.md 是用户的 DNA，硬编码。AI 绝不能直接修改。**
+
+### 6.2 启动协议（每次对话自动执行）
+
+**所有 mem/ 文件都是校准数据，必须全量通读。** 讨论项目细节和商业判断时都需要这些数据作为矫正基准。
+
+1. **必读** `mem/MEMORY.md` — 重点看 `Current State` 段 + `Pending Implementation` + 最近 3 条 `Calibration Log`
+2. **必读** `mem/IDENTITY.md` 全文 — 加载底层心智、决策规则、哲学框架（🔒只读）
+3. **必读** `mem/USER.md` 全文 — 加载用户画像、兴趣图谱、活跃项目
+4. **必读** `mem/PLAYBOOK.md` 全文 — 加载被证伪的模式和诊断框架（避免重复踩坑）
+5. **必读** `mem/SOUL.md` 全文 — 加载 AI 行为准则和 Memory Protocol
+6. **按需** `mem/ARCHIVE.md` — 需要回溯 30 天前旧记忆时
+
+### 6.3 关闭协议（完成重要工作后自动执行）
+
+在完成任何有实质产出的工作后，主动更新记忆：
+
+1. 更新 `mem/MEMORY.md` 的 `Current State` 段（刷新：正在做/下一步/关键决策/待落实）
+2. 用 Fragment 格式追加新条目到对应分区（Recent Actions / Decisions / Signals / Frameworks）
+3. 如有商业教训或证伪 → 写入 `mem/PLAYBOOK.md`
+4. 如有底层认知变化 → 建议用户更新 `mem/IDENTITY.md`（绝不代改）
+5. 更新 `Last updated` 时间戳
+
+### 6.4 Fragment 格式
+
+```markdown
+- [tag-name] **标题** — 一句话描述。(YYYY-MM-DD)
+```
+
+### 6.5 与 Antigravity 原生记忆的关系
+
+- `mem/` 文件 = 跨工具统一真相源（OpenClaw/Antigravity/OpenCode 共享）
+- Antigravity KI = 对话级知识蒸馏（自动运行，作为补充层）
+- 两套系统互补，不冲突
