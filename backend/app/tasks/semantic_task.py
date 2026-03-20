@@ -27,6 +27,24 @@ logger = logging.getLogger(__name__)
 task_logger = get_task_logger(__name__)
 
 
+def _with_status(
+    payload: Dict[str, Any],
+    *,
+    default_status: str = "completed",
+    task_scope: str | None = None,
+    degraded_reasons: list[str] | None = None,
+    **extra: Any,
+) -> Dict[str, Any]:
+    result = dict(payload)
+    result.setdefault("status", default_status)
+    if task_scope is not None:
+        result.setdefault("task_scope", task_scope)
+    result.setdefault("degraded_reasons", list(degraded_reasons or []))
+    for key, value in extra.items():
+        result.setdefault(key, value)
+    return result
+
+
 async def _run_extract_semantic_candidates(lookback_days: int = 90) -> Dict[str, Any]:
     async with SessionFactory() as session:
         # 构建语义库（YAML 为兜底，真实环境中语义表会逐步接管）
@@ -46,11 +64,13 @@ async def _run_extract_semantic_candidates(lookback_days: int = 90) -> Dict[str,
 
         term_repo = SemanticTermRepository(session)
         cand_repo = SemanticCandidateRepository(session, term_repo)
+        diagnostics: dict[str, Any] = {}
 
         candidates = await extractor.extract_from_db(
             session=session,
             repository=cand_repo,
             lookback_days=lookback_days,
+            diagnostics=diagnostics,
         )
         await session.commit()
 
@@ -58,10 +78,28 @@ async def _run_extract_semantic_candidates(lookback_days: int = 90) -> Dict[str,
         top_terms: List[str] = [
             c.term for c in sorted(candidates, key=lambda c: (-c.frequency, c.term))[:20]
         ]
-        return {
-            "total_candidates": total,
-            "top_terms": top_terms,
-        }
+        extraction_source = diagnostics.get("candidate_extract_source", "unknown")
+        extraction_status = diagnostics.get("candidate_extract_status", "unknown")
+        degraded_reasons: list[str] = []
+        if extraction_status == "failed":
+            status = "failed"
+        elif extraction_source == "posts_fallback":
+            status = "degraded"
+            degraded_reasons.append("posts_fallback")
+        else:
+            status = "completed"
+        return _with_status(
+            {
+                "total_candidates": total,
+                "top_terms": top_terms,
+                "extraction_source": extraction_source,
+                "extraction_status": extraction_status,
+                "extraction_error": diagnostics.get("candidate_extract_error"),
+            },
+            default_status=status,
+            task_scope="semantic_candidate_extract",
+            degraded_reasons=degraded_reasons,
+        )
 
 
 @celery_app.task(  # type: ignore[misc]
@@ -72,9 +110,12 @@ def extract_semantic_candidates_weekly() -> Dict[str, Any]:
     """Celery entrypoint for weekly semantic candidate extraction."""
     try:
         result = asyncio.run(_run_extract_semantic_candidates(lookback_days=90))
+        result = _with_status(result, task_scope="semantic_candidate_extract")
         task_logger.info(
             "Semantic candidates extraction completed",
             extra={
+                "status": result.get("status"),
+                "task_scope": result.get("task_scope"),
                 "total_candidates": result.get("total_candidates", 0),
                 "top_terms": result.get("top_terms", []),
             },
@@ -83,12 +124,16 @@ def extract_semantic_candidates_weekly() -> Dict[str, Any]:
     except Exception:
         task_logger.exception("Semantic candidates extraction failed")
         # 任务仍然返回结构化信息，便于上层监控
-        return {
-            "total_candidates": 0,
-            "top_terms": [],
-            "error": "extraction_failed",
-            "timestamp": datetime.now(timezone.utc).isoformat(),
-        }
+        return _with_status(
+            {
+                "total_candidates": 0,
+                "top_terms": [],
+                "error": "extraction_failed",
+                "timestamp": datetime.now(timezone.utc).isoformat(),
+            },
+            default_status="failed",
+            task_scope="semantic_candidate_extract",
+        )
 
 
 def _pick_category(categories: set[str]) -> tuple[str, str]:
@@ -144,11 +189,16 @@ async def _run_llm_candidate_sync() -> Dict[str, Any]:
         )
 
         if not stats:
-            return {
-                "candidates": 0,
-                "auto_approved": 0,
-                "pending": 0,
-            }
+            return _with_status(
+                {
+                    "candidates": 0,
+                    "auto_approved": 0,
+                    "pending": 0,
+                    "candidate_source": "llm_labels",
+                    "sync_status": "no_candidates",
+                },
+                task_scope="semantic_candidate_sync",
+            )
 
         cand_repo = SemanticCandidateRepository(session, term_repo)
 
@@ -195,11 +245,24 @@ async def _run_llm_candidate_sync() -> Dict[str, Any]:
                 pending += 1
 
         await session.commit()
-        return {
-            "candidates": len(items),
-            "auto_approved": auto_approved,
-            "pending": pending,
-        }
+        if auto_approved > 0 and pending > 0:
+            sync_status = "synced"
+        elif auto_approved > 0:
+            sync_status = "auto_approved_only"
+        elif pending > 0:
+            sync_status = "pending_only"
+        else:
+            sync_status = "no_candidates"
+        return _with_status(
+            {
+                "candidates": len(items),
+                "auto_approved": auto_approved,
+                "pending": pending,
+                "candidate_source": "llm_labels",
+                "sync_status": sync_status,
+            },
+            task_scope="semantic_candidate_sync",
+        )
 
 
 @celery_app.task(  # type: ignore[misc]
@@ -210,17 +273,24 @@ def sync_llm_candidates() -> Dict[str, Any]:
     """从 LLM 标签抽候选词，自动回流语义库。"""
     try:
         result = asyncio.run(_run_llm_candidate_sync())
+        result = _with_status(result, task_scope="semantic_candidate_sync")
         task_logger.info("LLM candidates sync completed", extra=result)
         return result
     except Exception:
         task_logger.exception("LLM candidates sync failed")
-        return {
-            "candidates": 0,
-            "auto_approved": 0,
-            "pending": 0,
-            "error": "sync_failed",
-            "timestamp": datetime.now(timezone.utc).isoformat(),
-        }
+        return _with_status(
+            {
+                "candidates": 0,
+                "auto_approved": 0,
+                "pending": 0,
+                "candidate_source": "llm_labels",
+                "sync_status": "failed",
+                "error": "sync_failed",
+                "timestamp": datetime.now(timezone.utc).isoformat(),
+            },
+            default_status="failed",
+            task_scope="semantic_candidate_sync",
+        )
 
 
 __all__ = [
@@ -240,11 +310,21 @@ def tag_post_semantics(post_id: int) -> Dict[str, Any]:
     tagger = SemanticTagger()
     try:
         result = tagger.process_single(post_id)
+        result = _with_status(
+            result,
+            task_scope="semantic_post_tagging",
+            semantic_source="semantic_tagger",
+        )
         task_logger.info("post tagged", extra={"post_id": post_id, "status": result.get("status")})
         return result
     except Exception:
         task_logger.exception("post tagging failed", extra={"post_id": post_id})
-        return {"post_id": post_id, "status": "error"}
+        return _with_status(
+            {"post_id": post_id},
+            default_status="failed",
+            task_scope="semantic_post_tagging",
+            semantic_source="semantic_tagger",
+        )
 
 
 @celery_app.task(  # type: ignore[misc]
@@ -256,8 +336,18 @@ def tag_posts_batch(limit: int = 500) -> Dict[str, Any]:
     tagger = SemanticTagger()
     try:
         result = tagger.process_batch(limit=limit)
+        result = _with_status(
+            result,
+            task_scope="semantic_batch_tagging",
+            semantic_source="semantic_tagger",
+        )
         task_logger.info("batch tagging completed", extra=result)
         return result
     except Exception:
         task_logger.exception("batch tagging failed")
-        return {"processed": 0, "status": "error"}
+        return _with_status(
+            {"processed": 0},
+            default_status="failed",
+            task_scope="semantic_batch_tagging",
+            semantic_source="semantic_tagger",
+        )

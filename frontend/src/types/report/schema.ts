@@ -57,6 +57,48 @@ const overviewSchema = z.object({
   seed_source: z.string().nullish().optional(),
 });
 
+const communitySourceDetailSchema = z.object({
+  name: z.string(),
+  categories: z.array(z.string()),
+  mentions: nonNegativeInt,
+  daily_posts: nonNegativeInt,
+  avg_comment_length: nonNegativeInt,
+  cache_hit_rate: boundedProbability,
+  from_cache: z.boolean(),
+});
+
+const sourcesSchema = z.object({
+  communities: z.array(z.string()),
+  posts_analyzed: nonNegativeInt,
+  cache_hit_rate: boundedProbability,
+  ps_ratio: z.number().min(0).nullish(),
+  analysis_duration_seconds: nonNegativeInt.nullish(),
+  hybrid_posts_used: nonNegativeInt.nullish(),
+  reddit_api_calls: nonNegativeInt.nullish(),
+  collection_warnings: z.array(z.string()).nullish(),
+  product_description: z.string().nullish(),
+  communities_detail: z.array(communitySourceDetailSchema).nullish(),
+  recovery_strategy: z.string().nullish(),
+  fallback_quality: z.record(z.string(), z.unknown()).nullish(),
+  dedup_stats: z.record(z.string(), z.unknown()).nullish(),
+  duplicates_summary: z.array(z.record(z.string(), z.unknown())).nullish(),
+  seed_source: z.string().nullish(),
+  data_source: z.string().nullish(),
+  report_tier: z.string().nullish(),
+  analysis_blocked: z.string().nullish(),
+  facts_v2_quality: z.record(z.string(), z.unknown()).nullish(),
+  trend_source: z.array(z.string()).nullish(),
+  trend_degraded: z.boolean().nullish(),
+  facts_slice: z.record(z.string(), z.unknown()).nullish(),
+  report_structured: z.record(z.string(), z.unknown()).nullish(),
+  structured_llm_status: z.string().nullish(),
+  structured_llm_reason: z.string().nullish(),
+  knowledge_graph: z.record(z.string(), z.unknown()).nullish(),
+  llm_used: z.boolean().nullish(),
+  llm_model: z.string().nullish(),
+  llm_rounds: nonNegativeInt.nullish(),
+});
+
 const reportMetadataSchema = z.object({
   analysis_version: z.string(),
   confidence_score: boundedProbability,
@@ -188,11 +230,12 @@ export const reportResponseSchema = z.object({
   generated_at: z.string(),
   product_description: z.string().nullish(),
   report_html: z.string().nullish(),
-  report_structured: structuredReportSchema.optional(),
+  report_structured: structuredReportSchema.nullish(),
   report: reportContentSchema,
   metadata: reportMetadataSchema,
   overview: overviewSchema,
   stats: statsSchema,
+  sources: sourcesSchema.nullish(),
 });
 
 export type ReportResponseParsed = z.infer<typeof reportResponseSchema>;

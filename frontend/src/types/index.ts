@@ -40,6 +40,7 @@ export {
 // ============================================================================
 export {
   Sentiment,
+  type CommunitySourceDetail,
   type ExamplePost,
   type PainPoint,
   type Competitor,

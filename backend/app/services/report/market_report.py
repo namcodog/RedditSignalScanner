@@ -60,7 +60,7 @@ class MarketReportBuilder:
         gtm_plans: Dict[str, GTMPlan],
     ) -> Dict[str, str]:
         ctx: Dict[str, str] = {
-            "title": "市场洞察报告 v1",
+            "title": "社区市场洞察报告",
         }
         ctx.update(self._build_metric_cards(analysis))
         ctx["persona_list"] = self._persona_summary(personas)
@@ -93,14 +93,14 @@ class MarketReportBuilder:
         insights = analysis.get("insights") or {}
         pains = list((insights or {}).get("pain_points") or [])
         desc = str((pains[0] or {}).get("description") or "订阅费太贵了") if pains else "订阅费太贵了"
-        src = str(((analysis.get("sources") or {}).get("communities") or ["r/unknown"])[0])
         return [
             QuoteResult(
-                pain_description=desc,
-                user_voice="硬件已经很贵，为什么还要每月付费？",
-                source_community=src,
-                sentiment_score=-0.6,
-                confidence=0.6,
+                text=f"{desc}。硬件已经很贵，为什么还要每月付费？",
+                score=0.6,
+                sentiment=0.6,
+                relevance=0.6,
+                length=max(50, len(desc) + 20),
+                source="description",
             )
         ]
 

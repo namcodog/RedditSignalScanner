@@ -9,7 +9,85 @@ from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.db.session import SessionFactory
+from app.models.community_pool import CommunityPool
 from app.services.crawl.plan_contract import CrawlPlanContract, CrawlPlanLimits
+
+
+async def _ensure_test_community(
+    session: AsyncSession,
+    name: str = "r/testsub",
+) -> None:
+    exists = await session.execute(
+        text("SELECT 1 FROM community_pool WHERE name = :name LIMIT 1"),
+        {"name": name},
+    )
+    if exists.scalar_one_or_none():
+        return
+    session.add(
+        CommunityPool(
+            name=name,
+            tier="medium",
+            categories={"topic": ["test"]},
+            description_keywords={"test": 1},
+            daily_posts=10,
+            priority="medium",
+        )
+    )
+    await session.commit()
+
+
+async def _insert_test_post(
+    session: AsyncSession,
+    *,
+    source_post_id: str,
+    created_at: datetime,
+    score: int,
+    num_comments: int,
+    subreddit: str = "r/testsub",
+) -> int:
+    row = await session.execute(
+        text(
+            """
+            INSERT INTO posts_raw (
+                source,
+                source_post_id,
+                version,
+                created_at,
+                fetched_at,
+                valid_from,
+                subreddit,
+                title,
+                body,
+                is_current,
+                score,
+                num_comments
+            )
+            VALUES (
+                'reddit',
+                :pid,
+                1,
+                :ts,
+                :ts,
+                :ts,
+                :subreddit,
+                'title',
+                'body',
+                true,
+                :score,
+                :num_comments
+            )
+            RETURNING id
+            """
+        ),
+        {
+            "pid": source_post_id,
+            "ts": created_at,
+            "subreddit": subreddit,
+            "score": score,
+            "num_comments": num_comments,
+        },
+    )
+    return int(row.scalar_one())
 
 
 @pytest.mark.asyncio
@@ -75,6 +153,7 @@ async def test_execute_crawl_plan_backfill_comments_fetches_and_persists(
     )
 
     async with SessionFactory() as session:
+        await _ensure_test_community(session)
         out = await execute_plan_module.execute_crawl_plan(
             plan=plan,
             session=session,
@@ -133,43 +212,14 @@ async def test_execute_crawl_plan_backfill_comments_maps_internal_post_id(
 
     async with SessionFactory() as session:
         now = datetime.now(timezone.utc)
-        row = await session.execute(
-            text(
-                """
-                INSERT INTO posts_raw (
-                    source,
-                    source_post_id,
-                    version,
-                    created_at,
-                    fetched_at,
-                    valid_from,
-                    subreddit,
-                    title,
-                    body,
-                    is_current,
-                    score,
-                    num_comments
-                )
-                VALUES (
-                    'reddit',
-                    :pid,
-                    1,
-                    :ts,
-                    :ts,
-                    :ts,
-                    'r/testsub',
-                    'title',
-                    'body',
-                    true,
-                    10,
-                    2
-                )
-                RETURNING id
-                """
-            ),
-            {"pid": source_post_id, "ts": now},
+        await _ensure_test_community(session)
+        internal_id = await _insert_test_post(
+            session,
+            source_post_id=source_post_id,
+            created_at=now,
+            score=10,
+            num_comments=2,
         )
-        internal_id = row.scalar_one()
         await session.commit()
 
         plan = CrawlPlanContract(
@@ -245,40 +295,13 @@ async def test_execute_crawl_plan_backfill_comments_smart_shallow_does_not_boost
     async with SessionFactory() as session:
         now = datetime.now(timezone.utc)
         blast_post_id = f"post_blast_{uuid.uuid4().hex}"
-        await session.execute(
-            text(
-                """
-                INSERT INTO posts_raw (
-                    source,
-                    source_post_id,
-                    version,
-                    created_at,
-                    fetched_at,
-                    valid_from,
-                    subreddit,
-                    title,
-                    body,
-                    is_current,
-                    score,
-                    num_comments
-                )
-                VALUES (
-                    'reddit',
-                    :pid,
-                    1,
-                    :ts,
-                    :ts,
-                    :ts,
-                    'r/testsub',
-                    'title',
-                    'body',
-                    true,
-                    600,
-                    400
-                )
-                """
-            ),
-            {"ts": now, "pid": blast_post_id},
+        await _ensure_test_community(session)
+        await _insert_test_post(
+            session,
+            source_post_id=blast_post_id,
+            created_at=now,
+            score=600,
+            num_comments=400,
         )
         await session.commit()
 
@@ -355,40 +378,13 @@ async def test_execute_crawl_plan_backfill_comments_smart_shallow_old_post_uses_
     async with SessionFactory() as session:
         now = datetime.now(timezone.utc)
         old_post_id = f"post_old_{uuid.uuid4().hex}"
-        await session.execute(
-            text(
-                """
-                INSERT INTO posts_raw (
-                    source,
-                    source_post_id,
-                    version,
-                    created_at,
-                    fetched_at,
-                    valid_from,
-                    subreddit,
-                    title,
-                    body,
-                    is_current,
-                    score,
-                    num_comments
-                )
-                VALUES (
-                    'reddit',
-                    :pid,
-                    1,
-                    :ts,
-                    :ts,
-                    :ts,
-                    'r/testsub',
-                    'title',
-                    'body',
-                    true,
-                    10,
-                    80
-                )
-                """
-            ),
-            {"ts": now - timedelta(days=10), "pid": old_post_id},
+        await _ensure_test_community(session)
+        await _insert_test_post(
+            session,
+            source_post_id=old_post_id,
+            created_at=now - timedelta(days=10),
+            score=10,
+            num_comments=80,
         )
         await session.commit()
 
@@ -431,40 +427,13 @@ async def test_execute_crawl_plan_backfill_comments_skips_when_no_comments() -> 
     async with SessionFactory() as session:
         now = datetime.now(timezone.utc)
         empty_post_id = f"post_empty_{uuid.uuid4().hex}"
-        await session.execute(
-            text(
-                """
-                INSERT INTO posts_raw (
-                    source,
-                    source_post_id,
-                    version,
-                    created_at,
-                    fetched_at,
-                    valid_from,
-                    subreddit,
-                    title,
-                    body,
-                    is_current,
-                    score,
-                    num_comments
-                )
-                VALUES (
-                    'reddit',
-                    :pid,
-                    1,
-                    :ts,
-                    :ts,
-                    :ts,
-                    'r/testsub',
-                    'title',
-                    'body',
-                    true,
-                    0,
-                    0
-                )
-                """
-            ),
-            {"ts": now, "pid": empty_post_id},
+        await _ensure_test_community(session)
+        await _insert_test_post(
+            session,
+            source_post_id=empty_post_id,
+            created_at=now,
+            score=0,
+            num_comments=0,
         )
         await session.commit()
 
@@ -503,40 +472,13 @@ async def test_execute_crawl_plan_backfill_comments_skips_when_up_to_date() -> N
     async with SessionFactory() as session:
         now = datetime.now(timezone.utc)
         post_id = f"post_uptodate_{uuid.uuid4().hex}"
-        await session.execute(
-            text(
-                """
-                INSERT INTO posts_raw (
-                    source,
-                    source_post_id,
-                    version,
-                    created_at,
-                    fetched_at,
-                    valid_from,
-                    subreddit,
-                    title,
-                    body,
-                    is_current,
-                    score,
-                    num_comments
-                )
-                VALUES (
-                    'reddit',
-                    :pid,
-                    1,
-                    :ts,
-                    :ts,
-                    :ts,
-                    'r/testsub',
-                    'title',
-                    'body',
-                    true,
-                    10,
-                    2
-                )
-                """
-            ),
-            {"ts": now, "pid": post_id},
+        await _ensure_test_community(session)
+        internal_post_id = await _insert_test_post(
+            session,
+            source_post_id=post_id,
+            created_at=now,
+            score=10,
+            num_comments=2,
         )
         await session.execute(
             text(
@@ -545,18 +487,26 @@ async def test_execute_crawl_plan_backfill_comments_skips_when_up_to_date() -> N
                     reddit_comment_id,
                     source,
                     source_post_id,
+                    post_id,
                     subreddit,
+                    depth,
                     body,
-                    created_utc
+                    created_utc,
+                    score,
+                    is_submitter,
+                    edited,
+                    awards_count,
+                    captured_at
                 )
                 VALUES
-                    (:cid1, 'reddit', :pid, 'r/testsub', 'a', :ts),
-                    (:cid2, 'reddit', :pid, 'r/testsub', 'b', :ts)
+                    (:cid1, 'reddit', :pid, :post_id, 'r/testsub', 0, 'a', :ts, 0, false, false, 0, :ts),
+                    (:cid2, 'reddit', :pid, :post_id, 'r/testsub', 0, 'b', :ts, 0, false, false, 0, :ts)
                 """
             ),
             {
                 "ts": now,
                 "pid": post_id,
+                "post_id": internal_post_id,
                 "cid1": uuid.uuid4().hex[:32],
                 "cid2": uuid.uuid4().hex[:32],
             },

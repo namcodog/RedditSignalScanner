@@ -37,7 +37,7 @@ async def test_crawler_records_success_metrics() -> None:
         await db.commit()
 
         pool = CommunityPool(
-            name="r/TestSuccess",
+            name="r/testsuccess",
             tier="high",
             categories={"topic": ["test"]},
             description_keywords={"test": 1},
@@ -48,7 +48,7 @@ async def test_crawler_records_success_metrics() -> None:
         from datetime import datetime, timezone
 
         cache = CommunityCache(
-            community_name="r/TestSuccess",
+            community_name="r/testsuccess",
             last_crawled_at=datetime.now(timezone.utc),
             posts_cached=0,
             ttl_seconds=3600,
@@ -76,9 +76,9 @@ async def test_crawler_records_success_metrics() -> None:
             created_utc=1697500000 + i,
             score=10,
             num_comments=5,
-            url=f"https://reddit.com/r/TestSuccess/comments/post{i}",
-            permalink=f"/r/TestSuccess/comments/post{i}",
-            subreddit="TestSuccess",
+            url=f"https://reddit.com/r/testsuccess/comments/post{i}",
+            permalink=f"/r/testsuccess/comments/post{i}",
+            subreddit="testsuccess",
         )
         for i in range(10)
     ]
@@ -90,12 +90,12 @@ async def test_crawler_records_success_metrics() -> None:
 
         async with SessionFactory() as db:
             crawler = IncrementalCrawler(db=db, reddit_client=mock_client)
-            await crawler.crawl_community_incremental("r/TestSuccess")
+            await crawler.crawl_community_incremental("r/testsuccess")
 
     # Verify: success_hit incremented, avg_valid_posts updated
     async with SessionFactory() as db:
         stmt = select(CommunityCache).where(
-            CommunityCache.community_name == "r/TestSuccess"
+            CommunityCache.community_name == "r/testsuccess"
         )
         result = await db.execute(stmt)
         cache = result.scalar_one()
@@ -119,7 +119,7 @@ async def test_crawler_records_empty_metrics() -> None:
         await db.commit()
 
         pool = CommunityPool(
-            name="r/TestEmpty",
+            name="r/testempty",
             tier="low",
             categories={"topic": ["test"]},
             description_keywords={"test": 1},
@@ -128,7 +128,7 @@ async def test_crawler_records_empty_metrics() -> None:
             priority="low",
         )
         cache = CommunityCache(
-            community_name="r/TestEmpty",
+            community_name="r/testempty",
             last_crawled_at=datetime.now(timezone.utc),
             posts_cached=0,
             ttl_seconds=3600,
@@ -152,12 +152,12 @@ async def test_crawler_records_empty_metrics() -> None:
 
         async with SessionFactory() as db:
             crawler = IncrementalCrawler(db=db, reddit_client=mock_client)
-            await crawler.crawl_community_incremental("r/TestEmpty")
+            await crawler.crawl_community_incremental("r/testempty")
 
     # Verify: empty_hit incremented
     async with SessionFactory() as db:
         stmt = select(CommunityCache).where(
-            CommunityCache.community_name == "r/TestEmpty"
+            CommunityCache.community_name == "r/testempty"
         )
         result = await db.execute(stmt)
         cache = result.scalar_one()
@@ -181,7 +181,7 @@ async def test_crawler_records_failure_metrics() -> None:
         await db.commit()
 
         pool = CommunityPool(
-            name="r/TestFailure",
+            name="r/testfailure",
             tier="medium",
             categories={"topic": ["test"]},
             description_keywords={"test": 1},
@@ -190,7 +190,7 @@ async def test_crawler_records_failure_metrics() -> None:
             priority="medium",
         )
         cache = CommunityCache(
-            community_name="r/TestFailure",
+            community_name="r/testfailure",
             last_crawled_at=datetime.now(timezone.utc),
             posts_cached=0,
             ttl_seconds=3600,
@@ -214,12 +214,12 @@ async def test_crawler_records_failure_metrics() -> None:
 
         async with SessionFactory() as db:
             crawler = IncrementalCrawler(db=db, reddit_client=mock_client)
-            await crawler.crawl_community_incremental("r/TestFailure")
+            await crawler.crawl_community_incremental("r/testfailure")
 
     # Verify: failure_hit incremented
     async with SessionFactory() as db:
         stmt = select(CommunityCache).where(
-            CommunityCache.community_name == "r/TestFailure"
+            CommunityCache.community_name == "r/testfailure"
         )
         result = await db.execute(stmt)
         cache = result.scalar_one()
@@ -244,7 +244,7 @@ async def test_crawler_writes_crawl_metrics() -> None:
 
         for i in range(5):
             pool = CommunityPool(
-                name=f"r/Test{i}",
+                name=f"r/test{i}",
                 tier="high",
                 categories={"topic": ["test"]},
                 description_keywords={"test": 1},
@@ -253,7 +253,7 @@ async def test_crawler_writes_crawl_metrics() -> None:
                 priority="high",
             )
             cache = CommunityCache(
-                community_name=f"r/Test{i}",
+                community_name=f"r/test{i}",
                 last_crawled_at=datetime.now(timezone.utc),
                 posts_cached=0,
                 ttl_seconds=3600,
@@ -285,14 +285,14 @@ async def test_crawler_writes_crawl_metrics() -> None:
                 num_comments=5,
                 url="https://reddit.com/test",
                 permalink="/test",
-                subreddit="Test",
+                subreddit="test0",
             )
         ]
         MockRedditClient.return_value = mock_client
 
         async with SessionFactory() as db:
             crawler = IncrementalCrawler(db=db, reddit_client=mock_client)
-            await crawler.crawl_communities([f"r/Test{i}" for i in range(5)])
+            await crawler.crawl_communities([f"r/test{i}" for i in range(5)])
 
     # Verify: crawl_metrics 表有记录
     async with SessionFactory() as db:

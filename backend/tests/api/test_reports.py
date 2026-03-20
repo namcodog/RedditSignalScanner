@@ -20,6 +20,8 @@ from app.api.routes.reports import REPORT_RATE_LIMITER
 from app.core.config import get_settings
 from app.core.security import hash_password
 from app.models.analysis import Analysis
+from app.models.community_cache import CommunityCache
+from app.models.community_pool import CommunityPool
 from app.models.report import Report
 from app.models.task import Task, TaskStatus
 from app.models.user import MembershipLevel, User
@@ -341,6 +343,143 @@ async def test_download_report_not_found_when_missing_artifact(
     )
 
     assert response.status_code == 404
+
+
+@pytest.mark.asyncio
+async def test_get_report_communities_marks_fallback_source_when_detail_missing(
+    client: AsyncClient,
+    db_session: AsyncSession,
+) -> None:
+    user, task = await _create_completed_task(
+        db_session,
+        sources_payload={
+            "communities": ["r/alpha"],
+            "posts_analyzed": 5,
+            "cache_hit_rate": 0.2,
+        },
+    )
+    token = _issue_token(str(user.id))
+
+    response = await client.get(
+        f"/api/report/{task.id}/communities",
+        headers={"Authorization": f"Bearer {token}"},
+    )
+
+    assert response.status_code == 200
+    assert response.headers["x-communities-source"] == "top_communities_fallback"
+    assert response.headers["x-communities-degraded"] == "missing_communities_detail"
+    payload = response.json()
+    assert isinstance(payload, list)
+    assert len(payload) == 1
+    assert payload[0]["name"] == "r/alpha"
+
+
+@pytest.mark.asyncio
+async def test_export_communities_all_only_returns_report_communities(
+    client: AsyncClient,
+    db_session: AsyncSession,
+) -> None:
+    alpha_name = f"r/alpha{uuid.uuid4().hex[:8]}"
+    ghost_name = f"r/ghost{uuid.uuid4().hex[:8]}"
+    user, task = await _create_completed_task(
+        db_session,
+        sources_payload={
+            "communities": [alpha_name],
+            "posts_analyzed": 10,
+            "cache_hit_rate": 0.4,
+            "communities_detail": [
+                {
+                    "name": alpha_name,
+                    "categories": ["tools"],
+                    "mentions": 7,
+                    "daily_posts": 3,
+                    "avg_comment_length": 42,
+                    "cache_hit_rate": 0.5,
+                    "from_cache": False,
+                }
+            ],
+        },
+    )
+    db_session.add(
+        CommunityPool(
+            name=alpha_name,
+            tier="high",
+            priority="high",
+            categories={"primary": ["tools"]},
+            description_keywords={},
+            daily_posts=3,
+            avg_comment_length=42,
+            quality_score=0.9,
+            is_active=True,
+        )
+    )
+    db_session.add(
+        CommunityPool(
+            name=ghost_name,
+            tier="medium",
+            priority="medium",
+            categories={"primary": ["noise"]},
+            description_keywords={},
+            daily_posts=1,
+            avg_comment_length=10,
+            quality_score=0.2,
+            is_active=True,
+        )
+    )
+    db_session.add(
+        CommunityCache(
+            community_name=alpha_name,
+            is_active=True,
+            member_count=123,
+            crawl_frequency_hours=8,
+            crawl_priority=20,
+            posts_cached=50,
+        )
+    )
+    await db_session.commit()
+
+    token = _issue_token(str(user.id))
+    response = await client.get(
+        f"/api/report/{task.id}/communities/export",
+        params={"scope": "all"},
+        headers={"Authorization": f"Bearer {token}"},
+    )
+
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["source"] == "analysis_sources"
+    assert payload["degraded_reason"] is None
+    items = payload["items"]
+    assert [item["name"] for item in items] == [alpha_name]
+    assert items[0]["members"] == 123
+
+
+@pytest.mark.asyncio
+async def test_export_communities_all_marks_fallback_when_detail_missing(
+    client: AsyncClient,
+    db_session: AsyncSession,
+) -> None:
+    user, task = await _create_completed_task(
+        db_session,
+        sources_payload={
+            "communities": ["r/alpha"],
+            "posts_analyzed": 5,
+            "cache_hit_rate": 0.2,
+        },
+    )
+    token = _issue_token(str(user.id))
+
+    response = await client.get(
+        f"/api/report/{task.id}/communities/export",
+        params={"scope": "all"},
+        headers={"Authorization": f"Bearer {token}"},
+    )
+
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["source"] == "top_communities_fallback"
+    assert payload["degraded_reason"] == "missing_communities_detail"
+    assert [item["name"] for item in payload["items"]] == ["r/alpha"]
 
 
 @pytest.mark.skip(

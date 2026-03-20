@@ -1,8 +1,22 @@
 # Test targets and diagnostics
 
 SAFE_PYTEST := $(BACKEND_DIR)/scripts/pytest_safe.sh
+PLAYWRIGHT_FORMAL_SPECS := e2e/user-journey.spec.ts e2e/report-page-simple.spec.ts e2e/product-polish-smoke.spec.ts e2e/admin-dashboard.spec.ts e2e/performance.spec.ts
+PLAYWRIGHT_FLAGS ?= --project=chromium --reporter=line --workers=1
+LIVE_REPORT_BULK_QUEUE_LIST ?= backfill_posts_queue_v2,backfill_queue,compensation_queue
+LIVE_REPORT_ACCEPTANCE_ARGS ?= --required-tier A_full --max-analysis-attempts 3 --warmup-wait-timeout-seconds 420
+TOPIC_PROFILE_MATRIX_ACCEPTANCE_ARGS ?=
+LIVE_REPORT_WARMUP_BASE_DELAY_SECONDS ?= 90
+LIVE_REPORT_WARMUP_MAX_DELAY_SECONDS ?= 300
+LIVE_REPORT_BACKFILL_SETTLE_SECONDS ?= 20
+LIVE_REPORT_BACKFILL_MAX_TARGETS ?= 120
+LIVE_REPORT_REQUIRED_RUNS ?= 5
+LIVE_REPORT_BACKLOG_STALE_MINUTES ?= 45
+LIVE_REPORT_MAX_STALE_TASK_OUTBOX_PENDING ?= 120
+LIVE_REPORT_MAX_STALE_CRAWLER_TARGETS_NOT_ENQUEUED ?= 200
+LIVE_REPORT_PREFLIGHT_ARGS ?= --strict --stale-minutes $(LIVE_REPORT_BACKLOG_STALE_MINUTES) --max-stale-task-outbox-pending $(LIVE_REPORT_MAX_STALE_TASK_OUTBOX_PENDING) --max-stale-crawler-targets-not-enqueued $(LIVE_REPORT_MAX_STALE_CRAWLER_TARGETS_NOT_ENQUEUED)
 
-.PHONY: test test-all test-backend test-frontend test-e2e test-admin-e2e test-contract test-tasks-smoke
+.PHONY: test test-all test-backend test-frontend test-e2e test-e2e-formal test-e2e-smoke test-e2e-backend test-e2e-live-report test-e2e-live-report-5x test-e2e-live-report-preflight test-e2e-live-report-unblock-locks-dryrun test-e2e-live-report-unblock-locks-apply test-e2e-live-report-cleanup-dryrun test-e2e-live-report-cleanup-apply test-e2e-topic-profile-matrix demo-live-a-full test-admin-e2e test-contract test-tasks-smoke
 .PHONY: test-backend-safe test-e2e-safe clean-e2e-snapshots test-clean test-fix test-diagnose test-kill-pytest
 
 test-backend: ## 运行后端所有测试
@@ -17,9 +31,96 @@ test-all: test-backend test-frontend ## 运行前后端所有测试
 
 test: test-backend ## 快捷方式：运行后端测试
 
-test-e2e: ## 运行端到端测试（需要先启动完整环境）- 只运行关键路径测试
-	@echo "==> Running critical path E2E tests (target: < 5 minutes) ..."
+test-e2e: test-e2e-formal ## 运行当前正式前端 E2E 套件（Playwright）
+
+test-e2e-formal: ## 运行当前正式前端 E2E 套件（Playwright）
+	@echo "==> Seeding local E2E accounts ..."
+	@cd $(BACKEND_DIR) && $(PYTHON) scripts/seed/seed_test_accounts.py >/dev/null
+	@cd $(BACKEND_DIR) && $(PYTHON) scripts/seed/seed_test_accounts.py --reset >/dev/null
+	@echo "==> Running current-world frontend E2E suite ..."
+	@cd $(FRONTEND_DIR) && npx playwright test $(PLAYWRIGHT_FORMAL_SPECS) $(PLAYWRIGHT_FLAGS)
+
+test-e2e-smoke: ## 运行产品打磨 smoke E2E
+	@echo "==> Running product polish smoke E2E ..."
+	@cd $(FRONTEND_DIR) && npx playwright test e2e/product-polish-smoke.spec.ts $(PLAYWRIGHT_FLAGS)
+
+test-e2e-backend: ## 运行旧后端关键链路 E2E（pytest）
+	@echo "==> Running backend critical-path E2E ..."
 	@cd $(BACKEND_DIR) && APP_ENV=test ENABLE_CELERY_DISPATCH=0 bash scripts/pytest_safe.sh tests/e2e/test_critical_path.py -v -s
+
+test-e2e-live-report-preflight: ## live report 验收前置门禁（队列积压）
+	@echo "==> Running live report preflight gate ..."
+	@cd $(BACKEND_DIR) && $(PYTHON) scripts/acceptance/live_report_preflight_gate.py $(LIVE_REPORT_PREFLIGHT_ARGS)
+
+test-e2e-live-report-unblock-locks-dryrun: ## 检查 live 验收相关数据库锁阻塞（dry-run）
+	@echo "==> Inspecting stale lock blockers ..."
+	@cd $(BACKEND_DIR) && $(PYTHON) scripts/acceptance/unblock_live_acceptance_locks.py
+
+test-e2e-live-report-unblock-locks-apply: ## 清理 live 验收相关数据库锁阻塞（apply）
+	@echo "==> Terminating stale lock blockers ..."
+	@cd $(BACKEND_DIR) && $(PYTHON) scripts/acceptance/unblock_live_acceptance_locks.py --apply
+
+test-e2e-live-report-cleanup-dryrun: ## live report 验收清淤（dry-run）
+	@echo "==> Dry-run stale backlog cleanup ..."
+	@cd $(BACKEND_DIR) && $(PYTHON) scripts/acceptance/cleanup_live_acceptance_backlog.py --stale-minutes $(LIVE_REPORT_BACKLOG_STALE_MINUTES)
+
+test-e2e-live-report-cleanup-apply: ## live report 验收清淤（apply）
+	@echo "==> Applying stale backlog cleanup ..."
+	@$(MAKE) test-e2e-live-report-unblock-locks-apply
+	@cd $(BACKEND_DIR) && $(PYTHON) scripts/acceptance/cleanup_live_acceptance_backlog.py --stale-minutes $(LIVE_REPORT_BACKLOG_STALE_MINUTES) --apply
+
+test-e2e-live-report: ## 运行实时 report 真链路验收（登录->分析->状态->报告）
+	@echo "==> Seeding local E2E accounts ..."
+	@cd $(BACKEND_DIR) && $(PYTHON) scripts/seed/seed_test_accounts.py >/dev/null
+	@cd $(BACKEND_DIR) && $(PYTHON) scripts/seed/seed_test_accounts.py --reset >/dev/null
+	@echo "==> Checking backend health ..."
+	@curl -s http://localhost:$(BACKEND_PORT)/api/healthz >/dev/null || (echo "❌ 后端未运行，请先启动 backend（make dev-backend 或 make dev-real）" && exit 1)
+	@$(MAKE) test-e2e-live-report-preflight
+	@echo "==> Resetting Celery workers + pending broker backlog for deterministic acceptance ..."
+	@$(MAKE) crawl-stop >/dev/null || true
+	@pkill -9 -f "celery.*app.core.celery_app" >/dev/null 2>&1 || true
+	@sleep 2
+	@cd $(BACKEND_DIR) && celery -A app.core.celery_app purge -f >/dev/null || true
+	@echo "==> Starting isolated analysis worker ..."
+	@mkdir -p logs
+	@cd $(BACKEND_DIR) && DISABLE_AUTO_CRAWL_BOOTSTRAP=1 \
+		WARMUP_AUTO_RERUN_BASE_DELAY_SECONDS="$(LIVE_REPORT_WARMUP_BASE_DELAY_SECONDS)" \
+		WARMUP_AUTO_RERUN_MAX_DELAY_SECONDS="$(LIVE_REPORT_WARMUP_MAX_DELAY_SECONDS)" \
+		WARMUP_INLINE_BACKFILL_SETTLE_SECONDS="$(LIVE_REPORT_BACKFILL_SETTLE_SECONDS)" \
+		WARMUP_INLINE_BACKFILL_MAX_TARGETS="$(LIVE_REPORT_BACKFILL_MAX_TARGETS)" \
+		celery -A app.core.celery_app worker --loglevel=info --pool=solo --concurrency=2 --queues=analysis_queue --hostname=analysis-live@%h >> ../logs/celery_analysis_live.log 2>&1 &
+	@echo "==> Starting isolated bulk worker (live acceptance queues only) ..."
+	@cd $(BACKEND_DIR) && DISABLE_AUTO_CRAWL_BOOTSTRAP=1 celery -A app.core.celery_app worker --loglevel=info --pool=solo --concurrency=$${BULK_WORKER_CONCURRENCY:-2} --queues="$(LIVE_REPORT_BULK_QUEUE_LIST)" --hostname=bulk-live@%h >> ../logs/celery_bulk_live.log 2>&1 &
+	@sleep 6
+	@pgrep -f "celery.*analysis-live@" >/dev/null || (echo "❌ analysis-live worker 启动失败，请检查 logs/celery_analysis_live.log" && exit 1)
+	@pgrep -f "celery.*bulk-live@" >/dev/null || (echo "❌ bulk-live worker 启动失败，请检查 logs/celery_bulk_live.log" && exit 1)
+	@echo "==> Running live report acceptance ..."
+	@status=0; \
+	(cd $(BACKEND_DIR) && $(PYTHON) scripts/acceptance/run_live_report_acceptance.py $(LIVE_REPORT_ACCEPTANCE_ARGS)) || status=$$?; \
+	$(MAKE) crawl-stop >/dev/null || true; \
+	pkill -9 -f "celery.*analysis-live@" >/dev/null 2>&1 || true; \
+	pkill -9 -f "celery.*bulk-live@" >/dev/null 2>&1 || true; \
+	exit $$status
+
+test-e2e-live-report-5x: ## 连跑 live report 验收，门禁要求连续5次 A_full
+	@echo "==> Running live report acceptance $(LIVE_REPORT_REQUIRED_RUNS)x ..."
+	@i=1; \
+	while [ $$i -le $(LIVE_REPORT_REQUIRED_RUNS) ]; do \
+		echo "==> [$$i/$(LIVE_REPORT_REQUIRED_RUNS)] live report acceptance"; \
+		$(MAKE) test-e2e-live-report || exit $$?; \
+		i=$$((i + 1)); \
+	done
+	@echo "✅ live report acceptance passed $(LIVE_REPORT_REQUIRED_RUNS)x"
+
+test-e2e-topic-profile-matrix: ## 运行首页 6 卡 Full A 矩阵验收（含 report_structured 与 DB 落库校验）
+	@echo "==> Seeding local E2E accounts ..."
+	@cd $(BACKEND_DIR) && $(PYTHON) scripts/seed/seed_test_accounts.py >/dev/null
+	@cd $(BACKEND_DIR) && $(PYTHON) scripts/seed/seed_test_accounts.py --reset >/dev/null
+	@echo "==> Running topic-profile Full A matrix acceptance ..."
+	@cd $(BACKEND_DIR) && $(PYTHON) scripts/acceptance/run_topic_profile_full_a_matrix.py $(TOPIC_PROFILE_MATRIX_ACCEPTANCE_ARGS)
+
+demo-live-a-full: test-e2e-live-report ## 标准演示入口：真输入->真分析->A_full 报告
+	@echo "✅ Live A_full demo flow passed"
 
 test-tasks-smoke: ## 运行后台维护/监控任务的快速巡检测试
 	@echo "==> Running maintenance & monitoring smoke tests ..."
@@ -51,9 +152,12 @@ test-contract: ## 运行 API 契约测试（schema 验证 + breaking changes 检
 	@# FIXME: scripts/test_contract.py does not exist (dead reference)
 	@echo "   如需运行完整测试，请执行: cd backend && python scripts/test_contract.py"
 
-test-admin-e2e: ## 运行Admin端到端测试（需运行Redis/Celery/Backend并配置ADMIN_EMAILS）
-	@echo "==> Running admin end-to-end validation ..."
-	@cd $(BACKEND_DIR) && ADMIN_E2E_BASE_URL="http://localhost:$(BACKEND_PORT)" $(PYTHON) scripts/test_admin_e2e.py
+test-admin-e2e: ## 运行当前 Admin 控制面 E2E（Playwright）
+	@echo "==> Seeding admin test account ..."
+	@cd $(BACKEND_DIR) && $(PYTHON) scripts/seed/seed_test_accounts.py >/dev/null
+	@cd $(BACKEND_DIR) && $(PYTHON) scripts/seed/seed_test_accounts.py --reset >/dev/null
+	@echo "==> Running admin dashboard E2E ..."
+	@cd $(FRONTEND_DIR) && npx playwright test e2e/admin-dashboard.spec.ts $(PLAYWRIGHT_FLAGS)
 
 test-kill-pytest: ## 清理所有残留的 pytest 进程
 	@echo "==> Killing all pytest processes ..."

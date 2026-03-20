@@ -2,7 +2,7 @@
  * 报告响应（ReportResponse）类型
  */
 
-import type { Insights } from '../analysis.types';
+import type { Insights, Sources } from '../analysis.types';
 import type { ExecutiveSummary } from './executive';
 import type { ActionItem } from './action-items';
 import type { ReportMetadata } from './metadata';
@@ -45,6 +45,8 @@ export interface ReportResponse {
   overview: Overview;
   /** 统计数据 */
   stats: Stats;
+  /** 数据来源与分析状态 */
+  sources?: Sources | null | undefined;
 }
 
 export interface StructuredReport {

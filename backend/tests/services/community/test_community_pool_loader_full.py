@@ -9,6 +9,7 @@ import json
 
 import pytest
 
+import app.services.community.community_pool_loader as pool_loader_module
 from app.services.community.community_pool_loader import CommunityPoolLoader
 
 
@@ -16,6 +17,7 @@ from app.services.community.community_pool_loader import CommunityPoolLoader
 @dataclass
 class Row:
     name: str
+    id: int | None = None
     tier: str = "mid"
     priority: str = "medium"
     categories: dict[str, Any] | list[str] | None = None
@@ -69,6 +71,9 @@ class FakeSession:
 
     def add(self, obj: Any) -> None:
         self.added.append(obj)
+
+    async def flush(self) -> None:
+        return None
 
     async def commit(self) -> None:
         self.committed = True
@@ -124,9 +129,21 @@ async def test_initialize_community_cache_creates_entries() -> None:
 
 
 @pytest.mark.asyncio
-async def test_load_seed_communities_clears_soft_delete(tmp_path: Path) -> None:
+async def test_load_seed_communities_clears_soft_delete(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    async def _noop_replace_categories(*_args: Any, **_kwargs: Any) -> None:
+        return None
+
+    monkeypatch.setattr(
+        pool_loader_module,
+        "replace_community_category_map",
+        _noop_replace_categories,
+    )
     deleted_time = datetime.now(timezone.utc)
     existing = Row(
+        id=1,
         name="r/test",
         tier="medium",
         priority="low",
@@ -172,9 +189,21 @@ async def test_load_seed_communities_clears_soft_delete(tmp_path: Path) -> None:
 
 
 @pytest.mark.asyncio
-async def test_load_seed_communities_updates_timestamp(tmp_path: Path) -> None:
+async def test_load_seed_communities_updates_timestamp(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    async def _noop_replace_categories(*_args: Any, **_kwargs: Any) -> None:
+        return None
+
+    monkeypatch.setattr(
+        pool_loader_module,
+        "replace_community_category_map",
+        _noop_replace_categories,
+    )
     initial_updated = datetime.now(timezone.utc) - timedelta(days=1)
     existing = Row(
+        id=2,
         name="r/productivity",
         tier="medium",
         priority="medium",

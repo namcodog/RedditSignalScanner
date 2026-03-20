@@ -24,7 +24,7 @@ import {
 import { insightsService } from '@/services/insights.service';
 import type { GetInsightsParams } from '@/api';
 import type { InsightCard as InsightCardType, Evidence } from '@/types';
-import { ROUTES } from '@/router';
+import { ROUTES } from '@/router/routes';
 import NavigationBreadcrumb from '@/components/NavigationBreadcrumb';
 import InsightCard from '@/components/InsightCard';
 import EvidenceList from '@/components/EvidenceList';

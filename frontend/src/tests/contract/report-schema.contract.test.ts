@@ -114,6 +114,32 @@ const buildValidPayload = () => ({
     negative_mentions: 210,
     neutral_mentions: 150,
   },
+  sources: {
+    communities: ['r/startups', 'r/entrepreneur'],
+    posts_analyzed: 128,
+    cache_hit_rate: 0.62,
+    analysis_duration_seconds: 33,
+    reddit_api_calls: 12,
+    product_description: 'Market intelligence snapshot',
+    communities_detail: [
+      {
+        name: 'r/startups',
+        categories: ['Ecommerce_Business'],
+        mentions: 42,
+        daily_posts: 180,
+        avg_comment_length: 48,
+        cache_hit_rate: 0.5,
+        from_cache: false,
+      },
+    ],
+    data_source: 'real',
+    report_tier: 'A_full',
+    structured_llm_status: 'completed',
+    structured_llm_reason: null,
+    llm_used: true,
+    llm_model: 'gpt-5.3-low',
+    llm_rounds: 1,
+  },
 });
 
 describe('reportResponseSchema 契约', () => {
@@ -137,5 +163,11 @@ describe('reportResponseSchema 契约', () => {
 
     const result = reportResponseSchema.safeParse(invalid);
     expect(result.success).toBe(false);
+  });
+
+  it('应该接受后端新增的 sources 契约字段', () => {
+    const parsed = reportResponseSchema.parse(buildValidPayload());
+    expect(parsed.sources?.report_tier).toBe('A_full');
+    expect(parsed.sources?.communities_detail?.[0]?.name).toBe('r/startups');
   });
 });

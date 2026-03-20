@@ -13,6 +13,24 @@ from app.utils.asyncio_runner import run as run_coro
 logger = logging.getLogger(__name__)
 
 
+def _with_score_status(
+    payload: dict[str, Any],
+    *,
+    default_status: str = "completed",
+    task_scope: str = "default_score_backfill",
+    score_target: str | None = None,
+    degraded_reasons: list[str] | None = None,
+) -> dict[str, Any]:
+    result = dict(payload)
+    result.setdefault("status", default_status)
+    result.setdefault("task_scope", task_scope)
+    result.setdefault("score_source", "rulebook_v1_default_fill")
+    if score_target is not None:
+        result.setdefault("score_target", score_target)
+    result.setdefault("degraded_reasons", list(degraded_reasons or []))
+    return result
+
+
 def _bucket_score(score: int, num_comments: int) -> tuple[float, str]:
     """Simple heuristic scoring to keep pipeline flowing."""
     if score >= 50 or num_comments >= 50:
@@ -47,7 +65,7 @@ async def _score_new_posts(limit: int = 500) -> dict[str, Any]:
         )
         posts = [(int(r.id), int(r.score or 0), int(r.num_comments or 0)) for r in rows]
         if not posts:
-            return {"processed": 0}
+            return _with_score_status({"processed": 0}, score_target="posts")
 
         now = datetime.now(timezone.utc)
         for pid, score, num_comments in posts:
@@ -80,7 +98,7 @@ async def _score_new_posts(limit: int = 500) -> dict[str, Any]:
             )
             processed += 1
         await session.commit()
-    return {"processed": processed}
+    return _with_score_status({"processed": processed}, score_target="posts")
 
 
 async def _score_new_comments(limit: int = 500) -> dict[str, Any]:
@@ -109,7 +127,7 @@ async def _score_new_comments(limit: int = 500) -> dict[str, Any]:
         )
         comments = [(int(r.id), int(r.score or 0)) for r in rows]
         if not comments:
-            return {"processed": 0}
+            return _with_score_status({"processed": 0}, score_target="comments")
 
         now = datetime.now(timezone.utc)
         for cid, score in comments:
@@ -142,7 +160,7 @@ async def _score_new_comments(limit: int = 500) -> dict[str, Any]:
             )
             processed += 1
         await session.commit()
-    return {"processed": processed}
+    return _with_score_status({"processed": processed}, score_target="comments")
 
 
 @celery_app.task(name="tasks.analysis.score_new_posts_v1")  # type: ignore[misc]
@@ -152,7 +170,15 @@ def score_new_posts_v1(limit: int = 500) -> dict[str, Any]:
     async def _run() -> dict[str, Any]:
         return await _score_new_posts(limit=limit)
 
-    result = run_coro(_run())
+    try:
+        result = _with_score_status(run_coro(_run()), score_target="posts")
+    except Exception:
+        logger.exception("score_new_posts_v1 failed")
+        return _with_score_status(
+            {"processed": 0, "error": "score_failed"},
+            default_status="failed",
+            score_target="posts",
+        )
     logger.info("score_new_posts_v1 processed=%s", result.get("processed"))
     return result
 
@@ -164,6 +190,14 @@ def score_new_comments_v1(limit: int = 500) -> dict[str, Any]:
     async def _run() -> dict[str, Any]:
         return await _score_new_comments(limit=limit)
 
-    result = run_coro(_run())
+    try:
+        result = _with_score_status(run_coro(_run()), score_target="comments")
+    except Exception:
+        logger.exception("score_new_comments_v1 failed")
+        return _with_score_status(
+            {"processed": 0, "error": "score_failed"},
+            default_status="failed",
+            score_target="comments",
+        )
     logger.info("score_new_comments_v1 processed=%s", result.get("processed"))
     return result

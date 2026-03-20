@@ -10,12 +10,52 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.core.security import hash_password
 from app.models.facts_run_log import FactsRunLog
 from app.models.facts_snapshot import FactsSnapshot
+from app.models.insight import Evidence, InsightCard
 from app.models.task import Task
 from app.models.user import User
 from app.services.analysis.analysis_engine import AnalysisResult
 
 
 pytestmark = pytest.mark.asyncio
+
+
+def _analysis_sources(
+    *,
+    facts_v2_quality: dict[str, object],
+    report_tier: str,
+    facts_v2_package: dict[str, object] | None = None,
+    communities: list[str] | None = None,
+    posts_analyzed: int = 1,
+    comments_analyzed: int = 0,
+) -> dict[str, object]:
+    data_lineage = (
+        dict(facts_v2_package.get("data_lineage") or {})
+        if isinstance(facts_v2_package, dict)
+        else {}
+    )
+    data_lineage.setdefault("source_range", {"posts": posts_analyzed, "comments": comments_analyzed})
+    data_lineage.setdefault("crawler_run_ids", [])
+    data_lineage.setdefault("target_ids", [])
+    return {
+        "communities": communities or ["r/test"],
+        "posts_analyzed": posts_analyzed,
+        "comments_analyzed": comments_analyzed,
+        "counts_analyzed": {"posts": posts_analyzed, "comments": comments_analyzed},
+        "counts_db": {
+            "posts_current": posts_analyzed,
+            "comments_total": comments_analyzed,
+            "comments_eligible": comments_analyzed,
+        },
+        "comments_pipeline_status": "ok" if comments_analyzed > 0 else "disabled",
+        "data_lineage": data_lineage,
+        "cache_hit_rate": 1.0,
+        "analysis_duration_seconds": 1,
+        "reddit_api_calls": 0,
+        "data_source": "synthetic",
+        "facts_v2_quality": facts_v2_quality,
+        "report_tier": report_tier,
+        **({"facts_v2_package": facts_v2_package} if facts_v2_package is not None else {}),
+    }
 
 
 async def test_analysis_pipeline_persists_facts_snapshot(
@@ -99,18 +139,11 @@ async def test_analysis_pipeline_persists_facts_snapshot(
                 "competitors": [],
                 "opportunities": [],
             },
-            sources={
-                "communities": ["r/test"],
-                "posts_analyzed": 1,
-                "cache_hit_rate": 1.0,
-                "analysis_duration_seconds": 1,
-                "reddit_api_calls": 0,
-                "data_source": "synthetic",
-                # 关键：把 facts_v2 审计包与质量结论带出来，供落库。
-                "facts_v2_package": facts_v2_package,
-                "facts_v2_quality": facts_v2_quality,
-                "report_tier": "A_full",
-            },
+            sources=_analysis_sources(
+                facts_v2_package=facts_v2_package,
+                facts_v2_quality=facts_v2_quality,
+                report_tier="A_full",
+            ),
             report_html="<html><body>stub report</body></html>",
             action_items=[],
             confidence_score=0.9,
@@ -161,16 +194,11 @@ async def test_gold_task_persists_snapshot_without_package(
     async def stub_run_analysis(_summary) -> AnalysisResult:
         return AnalysisResult(
             insights={"pain_points": [], "competitors": [], "opportunities": []},
-            sources={
-                "communities": ["r/test"],
-                "posts_analyzed": 0,
-                "cache_hit_rate": 1.0,
-                "analysis_duration_seconds": 1,
-                "reddit_api_calls": 0,
-                "data_source": "synthetic",
-                "facts_v2_quality": {"passed": True, "tier": "C_scouting", "flags": []},
-                "report_tier": "C_scouting",
-            },
+            sources=_analysis_sources(
+                facts_v2_quality={"passed": True, "tier": "C_scouting", "flags": []},
+                report_tier="C_scouting",
+                posts_analyzed=0,
+            ),
             report_html="<html><body>stub report</body></html>",
             action_items=[],
             confidence_score=0.5,
@@ -187,6 +215,186 @@ async def test_gold_task_persists_snapshot_without_package(
     assert snapshot.audit_level == "gold"
     assert snapshot.schema_version == "2.0"
     assert snapshot.v2_package.get("schema_version") == "2.0"
+
+
+async def test_analysis_pipeline_persists_only_real_insight_evidence(
+    db_session: AsyncSession,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    user = User(
+        email=f"facts-real-evidence-{uuid.uuid4().hex}@example.com",
+        password_hash=hash_password("SecurePass123!"),
+    )
+    db_session.add(user)
+    await db_session.flush()
+
+    task = Task(
+        user_id=user.id,
+        product_description="Task with real evidence should persist insight cards.",
+        mode="market_insight",
+        audit_level="gold",
+    )
+    db_session.add(task)
+    await db_session.commit()
+
+    from app.tasks import analysis_task as analysis_task_module
+
+    class _NoopStatusCache:
+        async def set_status(self, payload: object, ttl_seconds: int = 3600) -> None:
+            return None
+
+    monkeypatch.setattr(analysis_task_module, "STATUS_CACHE", _NoopStatusCache())
+
+    async def stub_run_analysis(_summary) -> AnalysisResult:
+        facts_v2_package = {
+            "schema_version": "2.0",
+            "meta": {"topic": "real-evidence-topic"},
+            "data_lineage": {"source_range": {"posts": 1, "comments": 0}},
+            "aggregates": {"communities": [{"name": "r/test", "posts": 1, "comments": 0}]},
+            "business_signals": {"high_value_pains": [], "brand_pain": [], "solutions": []},
+            "sample_posts_db": [{"title": "hello world", "text": "hello world"}],
+            "sample_comments_db": [],
+        }
+        return AnalysisResult(
+            insights={
+                "pain_points": [
+                    {
+                        "description": "Checkout is confusing.",
+                        "summary": "Checkout keeps confusing buyers.",
+                        "confidence": 0.8,
+                        "example_posts": [
+                            {
+                                "community": "r/test",
+                                "content": "Checkout is confusing for first-time buyers.",
+                                "url": "https://www.reddit.com/r/test/comments/abc123/test/",
+                                "permalink": "/r/test/comments/abc123/test/",
+                                "upvotes": 50,
+                            }
+                        ],
+                    }
+                ],
+                "competitors": [],
+                "opportunities": [],
+            },
+            sources=_analysis_sources(
+                facts_v2_package=facts_v2_package,
+                facts_v2_quality={"passed": True, "tier": "A_full", "flags": []},
+                report_tier="A_full",
+            ),
+            report_html="<html><body>stub report</body></html>",
+            action_items=[],
+            confidence_score=0.8,
+        )
+
+    monkeypatch.setattr(analysis_task_module, "run_analysis", stub_run_analysis)
+
+    await analysis_task_module.execute_analysis_pipeline(task.id)
+
+    card_result = await db_session.execute(select(InsightCard).where(InsightCard.task_id == task.id))
+    cards = card_result.scalars().all()
+    assert len(cards) == 1
+
+    evidence_result = await db_session.execute(
+        select(Evidence).where(Evidence.insight_card_id == cards[0].id)
+    )
+    evidences = evidence_result.scalars().all()
+    assert len(evidences) == 1
+    assert evidences[0].post_url.endswith("/abc123/test/")
+
+
+async def test_analysis_pipeline_clears_old_cards_and_skips_synthetic_only_entries(
+    db_session: AsyncSession,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    user = User(
+        email=f"facts-synthetic-skip-{uuid.uuid4().hex}@example.com",
+        password_hash=hash_password("SecurePass123!"),
+    )
+    db_session.add(user)
+    await db_session.flush()
+
+    task = Task(
+        user_id=user.id,
+        product_description="Synthetic-only fallback should not persist cards.",
+        mode="market_insight",
+        audit_level="gold",
+    )
+    db_session.add(task)
+    await db_session.flush()
+
+    stale_card = InsightCard(
+        task_id=task.id,
+        title="Old synthetic card",
+        summary="Should be removed on rerun.",
+        confidence=0.5,
+        time_window_days=30,
+        subreddits=["r/test"],
+    )
+    db_session.add(stale_card)
+    await db_session.flush()
+    db_session.add(
+        Evidence(
+            insight_card_id=stale_card.id,
+            post_url="https://www.reddit.com/r/test/comments/stale/",
+            excerpt="old stale evidence",
+            timestamp=datetime.now(timezone.utc),
+            subreddit="r/test",
+            score=0.0,
+        )
+    )
+    await db_session.commit()
+
+    from app.tasks import analysis_task as analysis_task_module
+
+    class _NoopStatusCache:
+        async def set_status(self, payload: object, ttl_seconds: int = 3600) -> None:
+            return None
+
+    monkeypatch.setattr(analysis_task_module, "STATUS_CACHE", _NoopStatusCache())
+
+    async def stub_run_analysis(_summary) -> AnalysisResult:
+        facts_v2_package = {
+            "schema_version": "2.0",
+            "meta": {"topic": "synthetic-only-topic"},
+            "data_lineage": {"source_range": {"posts": 1, "comments": 0}},
+            "aggregates": {"communities": [{"name": "r/test", "posts": 1, "comments": 0}]},
+            "business_signals": {"high_value_pains": [], "brand_pain": [], "solutions": []},
+            "sample_posts_db": [{"title": "hello world", "text": "hello world"}],
+            "sample_comments_db": [],
+        }
+        return AnalysisResult(
+            insights={
+                "pain_points": [
+                    {
+                        "description": "Need a better onboarding flow.",
+                        "user_examples": ["Onboarding feels like homework."],
+                    }
+                ],
+                "competitors": [],
+                "opportunities": [],
+            },
+            sources=_analysis_sources(
+                facts_v2_package=facts_v2_package,
+                facts_v2_quality={"passed": True, "tier": "A_full", "flags": []},
+                report_tier="A_full",
+            ),
+            report_html="<html><body>stub report</body></html>",
+            action_items=[
+                {
+                    "problem_definition": "Improve onboarding",
+                    "communities": ["r/test"],
+                    "evidence_chain": [],
+                }
+            ],
+            confidence_score=0.6,
+        )
+
+    monkeypatch.setattr(analysis_task_module, "run_analysis", stub_run_analysis)
+
+    await analysis_task_module.execute_analysis_pipeline(task.id)
+
+    card_result = await db_session.execute(select(InsightCard).where(InsightCard.task_id == task.id))
+    assert card_result.scalars().all() == []
 
 
 async def test_facts_snapshot_persists_audit_metadata(
@@ -338,17 +546,11 @@ async def test_lab_task_skips_snapshot_when_not_sampled(
         }
         return AnalysisResult(
             insights={"pain_points": [], "competitors": [], "opportunities": []},
-            sources={
-                "communities": ["r/test"],
-                "posts_analyzed": 1,
-                "cache_hit_rate": 1.0,
-                "analysis_duration_seconds": 1,
-                "reddit_api_calls": 0,
-                "data_source": "synthetic",
-                "facts_v2_package": facts_v2_package,
-                "facts_v2_quality": facts_v2_quality,
-                "report_tier": "A_full",
-            },
+            sources=_analysis_sources(
+                facts_v2_package=facts_v2_package,
+                facts_v2_quality=facts_v2_quality,
+                report_tier="A_full",
+            ),
             report_html="<html><body>stub report</body></html>",
             action_items=[],
             confidence_score=0.9,
@@ -420,17 +622,11 @@ async def test_lab_task_stores_snapshot_on_warn(
         }
         return AnalysisResult(
             insights={"pain_points": [], "competitors": [], "opportunities": []},
-            sources={
-                "communities": ["r/test"],
-                "posts_analyzed": 1,
-                "cache_hit_rate": 1.0,
-                "analysis_duration_seconds": 1,
-                "reddit_api_calls": 0,
-                "data_source": "synthetic",
-                "facts_v2_package": facts_v2_package,
-                "facts_v2_quality": facts_v2_quality,
-                "report_tier": "B_trimmed",
-            },
+            sources=_analysis_sources(
+                facts_v2_package=facts_v2_package,
+                facts_v2_quality=facts_v2_quality,
+                report_tier="B_trimmed",
+            ),
             report_html="<html><body>stub report</body></html>",
             action_items=[],
             confidence_score=0.9,
@@ -489,17 +685,11 @@ async def test_noise_task_writes_run_log_only(
         }
         return AnalysisResult(
             insights={"pain_points": [], "competitors": [], "opportunities": []},
-            sources={
-                "communities": ["r/test"],
-                "posts_analyzed": 1,
-                "cache_hit_rate": 1.0,
-                "analysis_duration_seconds": 1,
-                "reddit_api_calls": 0,
-                "data_source": "synthetic",
-                "facts_v2_package": facts_v2_package,
-                "facts_v2_quality": {"passed": True, "tier": "A_full", "flags": []},
-                "report_tier": "A_full",
-            },
+            sources=_analysis_sources(
+                facts_v2_package=facts_v2_package,
+                facts_v2_quality={"passed": True, "tier": "A_full", "flags": []},
+                report_tier="A_full",
+            ),
             report_html="<html><body>stub report</body></html>",
             action_items=[],
             confidence_score=0.8,

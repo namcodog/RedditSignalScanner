@@ -16,10 +16,37 @@ from app.models.user import User
 from app.tasks import monitoring_task
 
 
+async def _count_expired_backlog() -> tuple[int, int]:
+    now = datetime.now(timezone.utc)
+    async with SessionFactory() as session:
+        snapshot_row = await session.execute(
+            text(
+                """
+                SELECT COUNT(*)::bigint
+                FROM facts_snapshots
+                WHERE expires_at IS NOT NULL AND expires_at < :now
+                """
+            ),
+            {"now": now},
+        )
+        run_log_row = await session.execute(
+            text(
+                """
+                SELECT COUNT(*)::bigint
+                FROM facts_run_logs
+                WHERE expires_at IS NOT NULL AND expires_at < :now
+                """
+            ),
+            {"now": now},
+        )
+        return int(snapshot_row.scalar() or 0), int(run_log_row.scalar() or 0)
+
+
 def test_monitor_facts_audit_cleanup_reports_backlog_and_last_run(
     monkeypatch,
 ) -> None:
     now = datetime.now(timezone.utc)
+    baseline_snapshots, baseline_run_logs = asyncio.run(_count_expired_backlog())
 
     async def _prepare() -> None:
         async with SessionFactory() as session:
@@ -109,9 +136,9 @@ def test_monitor_facts_audit_cleanup_reports_backlog_and_last_run(
 
     payload = monitoring_task.monitor_facts_audit_cleanup()
 
-    assert payload["expired_snapshots"] == 1
-    assert payload["expired_run_logs"] == 1
-    assert payload["backlog_total"] == 2
+    assert payload["expired_snapshots"] == baseline_snapshots + 1
+    assert payload["expired_run_logs"] == baseline_run_logs + 1
+    assert payload["backlog_total"] == baseline_snapshots + baseline_run_logs + 2
     assert payload["last_cleanup_deleted_snapshots"] == 1
     assert payload["last_cleanup_deleted_run_logs"] == 1
     assert payload["status"] == "ok"

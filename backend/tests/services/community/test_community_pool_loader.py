@@ -4,10 +4,12 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+from unittest.mock import AsyncMock, MagicMock
 
 import pytest
 
 from app.services.community.community_pool_loader import CommunityPoolLoader
+from app.services.community import community_pool_loader as loader_module
 
 
 @pytest.mark.asyncio
@@ -56,18 +58,101 @@ class _FakeSession:
     def add(self, obj) -> None:
         self.added.append(obj)
 
+    async def flush(self) -> None:
+        return None
+
     async def commit(self) -> None:
         self.committed = True
 
 
 @pytest.mark.asyncio
-async def test_default_seed_loads_full_community_expansion() -> None:
-    """确保默认种子文件会导入 200 个社区。"""
+async def test_default_seed_loads_full_community_expansion(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """确保 200 个种子社区能被完整导入。"""
     session = _FakeSession()
-    loader = CommunityPoolLoader(db=session)  # type: ignore[arg-type]
+    seed_file = tmp_path / "seed.json"
+    seed_file.write_text(
+        json.dumps(
+            {
+                "communities": [
+                    {"name": f"r/test{i}", "tier": "medium"} for i in range(200)
+                ]
+            }
+        ),
+        encoding="utf-8",
+    )
+    loader = CommunityPoolLoader(db=session, seed_path=seed_file)  # type: ignore[arg-type]
+    loader.top1000_file = tmp_path / "missing.json"
+
+    async def _noop_replace(*_args, **_kwargs) -> None:
+        return None
+
+    monkeypatch.setattr(loader_module, "replace_community_category_map", _noop_replace)
 
     stats = await loader.load_seed_communities()
 
     assert stats["total_in_file"] == 200
     assert len(session.added) == 200
     assert session.committed is True
+
+
+class _NoExistingRow:
+    def scalar_one_or_none(self):
+        return None
+
+
+@pytest.mark.asyncio
+async def test_load_seed_communities_fails_closed_when_whitelist_invalid(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    seed_file = tmp_path / "seed.json"
+    seed_file.write_text(
+        json.dumps({"communities": [{"name": "r/test", "tier": "medium"}]}),
+        encoding="utf-8",
+    )
+    bad_whitelist = tmp_path / "community_whitelist.yaml"
+    bad_whitelist.write_text("communities: [broken", encoding="utf-8")
+
+    mock_db = AsyncMock()
+    loader = CommunityPoolLoader(db=mock_db, seed_path=seed_file)
+    loader.whitelist_file = bad_whitelist
+    loader.top1000_file = tmp_path / "missing.json"
+
+    monkeypatch.setenv("ENFORCE_COMMUNITY_WHITELIST", "1")
+    with pytest.raises(ValueError, match="community whitelist"):
+        await loader.load_seed_communities()
+
+
+@pytest.mark.asyncio
+async def test_load_seed_communities_ignores_deprecated_top1000(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    seed_file = tmp_path / "seed.json"
+    seed_file.write_text(
+        json.dumps({"communities": [{"name": "r/test", "tier": "medium"}]}),
+        encoding="utf-8",
+    )
+    deprecated_top1000 = tmp_path / "top1000.json"
+    deprecated_top1000.write_text("{invalid json", encoding="utf-8")
+
+    mock_db = AsyncMock()
+    mock_db.execute.return_value = _NoExistingRow()
+    mock_db.flush = AsyncMock()
+    mock_db.commit = AsyncMock()
+    mock_db.add = MagicMock()
+
+    async def _noop_replace(*_args, **_kwargs) -> None:
+        return None
+
+    monkeypatch.setattr(loader_module, "replace_community_category_map", _noop_replace)
+    monkeypatch.delenv("ENFORCE_COMMUNITY_WHITELIST", raising=False)
+
+    loader = CommunityPoolLoader(db=mock_db, seed_path=seed_file)
+    loader.top1000_file = deprecated_top1000
+
+    stats = await loader.load_seed_communities()
+
+    assert stats["degraded"] is False
+    assert stats["top1000_status"] == "deprecated_ignored"
+    assert stats["source_status"] == "loaded_full"

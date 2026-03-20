@@ -12,6 +12,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.routes.admin import _response
 from app.core.auth import require_admin
+from app.core.config import Settings, get_settings
 from app.core.security import TokenPayload
 from app.db.session import get_session
 from app.models.community_pool import CommunityPool
@@ -21,6 +22,7 @@ from app.models.tier_audit_log import TierAuditLog
 from app.models.tier_suggestion import TierSuggestion
 from app.services.analysis.tier_intelligence import TierIntelligenceService, TierThresholds
 from app.services.community.community_category_map_service import replace_community_category_map
+from app.services.community.community_governance_service import CommunityGovernanceService
 from app.services.ops.tier_suggestion_decision_units import emit_tier_suggestions_as_decision_units
 
 router = APIRouter(prefix="/admin/communities", tags=["admin"])  # mounted under /api
@@ -62,7 +64,7 @@ class BatchUpdateFields(BaseModel):
 
 
 class BatchUpdateRequest(BaseModel):
-    communities: list[str] = Field(..., min_items=1)
+    communities: list[str] = Field(..., min_length=1)
     updates: BatchUpdateFields
     reason: str | None = Field(
         None,
@@ -101,7 +103,7 @@ class TierSuggestionsRequest(BaseModel):
 
 
 class ApplySuggestionsRequest(BaseModel):
-    suggestion_ids: list[int] = Field(..., min_items=1)
+    suggestion_ids: list[int] = Field(..., min_length=1)
 
 
 class EmitDecisionUnitsRequest(BaseModel):
@@ -115,6 +117,13 @@ class EmitDecisionUnitsRequest(BaseModel):
 class RollbackRequest(BaseModel):
     audit_log_id: int
     reason: str = Field(..., min_length=1, max_length=2000)
+
+
+class GovernanceCleanupRequest(BaseModel):
+    dry_run: bool = Field(
+        True,
+        description="为 true 时只返回待删清单，不实际写库。",
+    )
 
 
 @router.get("/tier-suggestions", summary="查看社区调级建议列表")
@@ -260,12 +269,12 @@ async def list_community_pool(
     ),
     sort_by: str = Query(
         "quality_score",
-        regex="^(quality_score|daily_posts|avg_comment_length|name)$",
+        pattern="^(quality_score|daily_posts|avg_comment_length|name)$",
         description="排序字段",
     ),
     order: str = Query(
         "desc",
-        regex="^(asc|desc)$",
+        pattern="^(asc|desc)$",
         description="排序方向",
     ),
     page: int = Query(1, ge=1),
@@ -917,6 +926,50 @@ async def list_tier_audit_logs(
             "page_size": page_size,
         }
     )
+
+
+@router.get("/governance/summary", summary="查看社区治理快照")
+async def get_community_governance_summary(
+    session: AsyncSession = Depends(get_session),
+    payload: TokenPayload = Depends(require_admin),
+    settings: Settings = Depends(get_settings),
+) -> dict[str, Any]:
+    _ = payload
+    service = CommunityGovernanceService(session, database_url=settings.database_url)
+    snapshot = await service.build_snapshot()
+    return _response(snapshot.model_dump(mode="json"))
+
+
+@router.get("/governance/effective", summary="查看真正生效的社区清单")
+async def list_effective_communities(
+    session: AsyncSession = Depends(get_session),
+    payload: TokenPayload = Depends(require_admin),
+    settings: Settings = Depends(get_settings),
+) -> dict[str, Any]:
+    _ = payload
+    service = CommunityGovernanceService(session, database_url=settings.database_url)
+    snapshot = await service.build_snapshot()
+    items = snapshot.effective_communities
+    return _response({"items": [item.model_dump(mode="json") for item in items], "total": len(items)})
+
+
+@router.post("/governance/cleanup-dev", summary="清理 Dev/Test 库里的社区垃圾记录")
+async def cleanup_community_governance_dev(
+    body: GovernanceCleanupRequest,
+    session: AsyncSession = Depends(get_session),
+    payload: TokenPayload = Depends(require_admin),
+    settings: Settings = Depends(get_settings),
+) -> dict[str, Any]:
+    _ = payload
+    service = CommunityGovernanceService(session, database_url=settings.database_url)
+    try:
+        result = await service.cleanup_dev(dry_run=body.dry_run)
+    except RuntimeError as exc:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(exc),
+        ) from exc
+    return _response(result.model_dump(mode="json"))
 
 
 __all__ = ["router"]

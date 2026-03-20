@@ -63,6 +63,5 @@ def test_market_report_builder_context_and_render() -> None:
     tmpl = "# {title}\nPersona: {persona_list}\nQuote: {top_quote}"
     out = render_report(tmpl, ctx)
 
-    assert "市场洞察报告 v1" in out
+    assert "社区市场洞察报告" in out
     assert "DIY建设者" in out or "DIY用户" in out
-

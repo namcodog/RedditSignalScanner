@@ -89,6 +89,46 @@ async def test_crawl_seeds_impl_applies_fallback(monkeypatch: pytest.MonkeyPatch
 
     monkeypatch.setattr(mod, "CommunityPoolLoader", _FakeLoader)
 
+    class _PlanEntry:
+        def __init__(self, profile: _Profile) -> None:
+            self.profile = profile
+            self.status = "active"
+            self.crawl_track = "seed"
+
+    class _FakePlanBuilder:
+        def __init__(self, *_: Any, **__: Any) -> None:
+            pass
+
+        async def build_plan(self) -> List[_PlanEntry]:
+            return [
+                _PlanEntry(
+                    _Profile(
+                        name="r/TestSub",
+                        tier="high",
+                        categories=[],
+                        description_keywords={},
+                        daily_posts=0,
+                        avg_comment_length=0,
+                        quality_score=0.9,
+                        priority="high",
+                    )
+                )
+            ]
+
+    monkeypatch.setattr(mod, "CrawlPlanBuilder", _FakePlanBuilder)
+
+    async def _fake_record_seed_crawl_metrics(*_, **__):  # type: ignore[no-untyped-def]
+        return types.SimpleNamespace(
+            success_count=1,
+            failure_count=0,
+            empty_count=0,
+            total_new=3,
+            avg_latency=0.15,
+            tier_metrics_payload={"assignments": {"r/TestSub": "high"}},
+        )
+
+    monkeypatch.setattr(mod, "record_seed_crawl_metrics", _fake_record_seed_crawl_metrics)
+
     # Patch builder helpers (we won't hit external services)
     monkeypatch.setattr(mod, "_build_cache_manager", lambda *_: asyncio.sleep(0))
     # reddit client is used only for passing through to _crawl_single; we patch that below
@@ -99,7 +139,10 @@ async def test_crawl_seeds_impl_applies_fallback(monkeypatch: pytest.MonkeyPatch
         async def __aexit__(self, *_: Any) -> None:  # noqa: ANN401
             return None
 
-    monkeypatch.setattr(mod, "_build_reddit_client", lambda *_: _FakeReddit())
+    async def _fake_build_reddit_client(*_: Any) -> _FakeReddit:
+        return _FakeReddit()
+
+    monkeypatch.setattr(mod, "_build_reddit_client", _fake_build_reddit_client)
 
     # Patch _crawl_single to simulate empty → non-empty
     calls: List[Dict[str, Any]] = []
@@ -114,6 +157,7 @@ async def test_crawl_seeds_impl_applies_fallback(monkeypatch: pytest.MonkeyPatch
         time_filter: str | None = None,
         sort: str | None = None,
         hot_cache_ttl_hours: int | None = None,
+        tier_name: str | None = None,
     ) -> Dict[str, Any]:
         calls.append({"time_filter": time_filter, "sort": sort, "limit": post_limit})
         # first call returns empty, subsequent returns 3 posts
@@ -132,3 +176,39 @@ async def test_crawl_seeds_impl_applies_fallback(monkeypatch: pytest.MonkeyPatch
     assert isinstance(communities, list) and len(communities) == 1
     # Ensure we performed at least 2 calls (fallback path)
     assert len(calls) >= 2
+
+
+@pytest.mark.asyncio
+async def test_planner_lock_logs_when_lock_query_fails(
+    monkeypatch: pytest.MonkeyPatch,
+    caplog: pytest.LogCaptureFixture,
+) -> None:
+    import app.tasks.crawler_task as mod
+
+    class _BrokenSession:
+        async def __aenter__(self) -> "_BrokenSession":
+            return self
+
+        async def __aexit__(self, *_: Any) -> None:
+            return None
+
+        async def connection(self, **_kwargs: Any) -> None:
+            return None
+
+        async def execute(self, *_args: Any, **_kwargs: Any) -> Any:
+            raise RuntimeError("lock backend unavailable")
+
+    class _BrokenSessionFactory:
+        async def __aenter__(self) -> _BrokenSession:
+            return _BrokenSession()
+
+        async def __aexit__(self, *_: Any) -> None:
+            return None
+
+    monkeypatch.setattr(mod, "SessionFactory", lambda: _BrokenSessionFactory())
+
+    with caplog.at_level("WARNING"):
+        async with mod._planner_lock("round1-repair") as acquired:
+            assert acquired is False
+
+    assert "planner lock acquire failed" in caplog.text

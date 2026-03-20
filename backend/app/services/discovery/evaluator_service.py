@@ -151,8 +151,12 @@ class CommunityEvaluator:
 
         try:
             # Step 2: Prefer DB samples (posts_raw) after vetting; fallback to API only if needed.
+            sample_source = "db"
+            sample_fetch_status = "db_only"
             posts = await self._fetch_sample_posts_from_db(community)
             if len(posts) < max(5, self.sample_size // 3):
+                sample_source = "api"
+                sample_fetch_status = "api_fallback_after_db_insufficient"
                 posts = await self._fetch_sample_posts(community_name)
             
             if not posts:
@@ -160,7 +164,9 @@ class CommunityEvaluator:
                     community, 
                     value_density=0.0, 
                     breakdown={},
-                    reason="No posts found"
+                    reason="No posts found",
+                    sample_source=sample_source,
+                    sample_fetch_status="empty_after_fetch",
                 )
 
             # Step 3: Evaluate each post
@@ -182,12 +188,22 @@ class CommunityEvaluator:
             # Step 5: Make decision
             if value_density >= VALUE_DENSITY_THRESHOLD:
                 return await self._approve_community(
-                    community, value_density, breakdown, len(posts), high_value_count
+                    community,
+                    value_density,
+                    breakdown,
+                    len(posts),
+                    high_value_count,
+                    sample_source=sample_source,
+                    sample_fetch_status=sample_fetch_status,
                 )
             else:
                 return await self._reject_community(
-                    community, value_density, breakdown, 
-                    reason=f"Value density {value_density:.1%} below threshold {VALUE_DENSITY_THRESHOLD:.0%}"
+                    community,
+                    value_density,
+                    breakdown,
+                    reason=f"Value density {value_density:.1%} below threshold {VALUE_DENSITY_THRESHOLD:.0%}",
+                    sample_source=sample_source,
+                    sample_fetch_status=sample_fetch_status,
                 )
 
         except Exception as e:
@@ -298,6 +314,9 @@ class CommunityEvaluator:
         breakdown: dict,
         sample_size: int,
         high_value_count: int,
+        *,
+        sample_source: str = "unknown",
+        sample_fetch_status: str = "unknown",
     ) -> dict:
         """Approve a community and add to CommunityPool."""
         now = datetime.now(timezone.utc)
@@ -335,6 +354,8 @@ class CommunityEvaluator:
             "breakdown": breakdown,
             "sample_size": sample_size,
             "high_value_count": high_value_count,
+            "sample_source": sample_source,
+            "sample_fetch_status": sample_fetch_status,
             "evaluated_at": now.isoformat(),
         }
         community.metrics = base_metrics
@@ -382,6 +403,9 @@ class CommunityEvaluator:
         value_density: float,
         breakdown: dict,
         reason: str,
+        *,
+        sample_source: str = "unknown",
+        sample_fetch_status: str = "unknown",
     ) -> dict:
         """Reject a community with cooldown or blacklist."""
         now = datetime.now(timezone.utc)
@@ -393,6 +417,8 @@ class CommunityEvaluator:
             "value_density": value_density,
             "breakdown": breakdown,
             "rejection_reason": reason,
+            "sample_source": sample_source,
+            "sample_fetch_status": sample_fetch_status,
             "evaluated_at": now.isoformat(),
         }
         community.metrics = base_metrics

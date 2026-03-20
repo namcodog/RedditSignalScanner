@@ -108,6 +108,21 @@ const sampleResponse = reportResponseSchema.parse({
     negative_mentions: 30,
     neutral_mentions: 30,
   },
+  sources: {
+    communities: ['r/startups'],
+    posts_analyzed: 24,
+    cache_hit_rate: 0.75,
+    analysis_duration_seconds: 18,
+    reddit_api_calls: 6,
+    data_source: 'real',
+    report_tier: 'B_trimmed',
+    facts_v2_quality: {
+      tier: 'B_trimmed',
+      flags: ['pains_low'],
+    },
+    structured_llm_status: 'skipped',
+    structured_llm_reason: 'tier_skipped',
+  },
 });
 
 describe('Report API contract', () => {
@@ -121,6 +136,7 @@ describe('Report API contract', () => {
     const data = await getAnalysisReport('11111111-1111-1111-1111-111111111111');
     expect(data.report.pain_points[0]?.severity).toBe('high');
     expect(data.stats.total_mentions).toBe(150);
+    expect(data.sources?.structured_llm_status).toBe('skipped');
     expect(mockedClient.get).toHaveBeenCalled();
   });
 });

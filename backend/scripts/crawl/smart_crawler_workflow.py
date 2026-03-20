@@ -31,7 +31,8 @@ except ModuleNotFoundError as exc:  # pragma: no cover
     ) from exc
 
 # Ensure `import app.*` works when invoked from repo root.
-REPO_ROOT = Path(__file__).resolve().parents[2]
+# File path is backend/scripts/crawl/smart_crawler_workflow.py, so repo root is parents[3].
+REPO_ROOT = Path(__file__).resolve().parents[3]
 BACKEND_DIR = REPO_ROOT / "backend"
 sys.path.insert(0, str(BACKEND_DIR))
 
@@ -217,7 +218,8 @@ def _print_snapshot(snapshot: DbSnapshot) -> None:
 
 def _celery_process_lines() -> list[str]:
     result = subprocess.run(
-        ["pgrep", "-af", "celery"],
+        # Use `-lf` for macOS compatibility; `-a` is not supported by BSD pgrep.
+        ["pgrep", "-lf", "celery"],
         capture_output=True,
         text=True,
         check=False,

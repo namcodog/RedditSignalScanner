@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import logging
+from datetime import datetime, timedelta, timezone
 from typing import Any, Dict
 
 from sqlalchemy import text as sqltext
@@ -33,6 +34,11 @@ def _truncate(text: str, limit: int) -> str:
     return text[: max(0, limit - 1)] + "..."
 
 
+def _comment_cutoff_utc(lookback_days: int) -> datetime:
+    """Compute the UTC cutoff once per batch to avoid DB-side drifting windows."""
+    return datetime.now(timezone.utc) - timedelta(days=int(lookback_days))
+
+
 async def _fetch_missing_posts(limit: int) -> list[dict[str, Any]]:
     async with SessionFactory() as session:
         result = await session.execute(
@@ -56,6 +62,7 @@ async def _fetch_missing_comments(
     desired_high = int(limit * (1 - long_tail_ratio))
     high_limit = max(1, desired_high) if limit > 0 else 0
     tail_limit = max(0, int(limit) - high_limit)
+    cutoff_utc = _comment_cutoff_utc(lookback_days)
 
     async with SessionFactory() as session:
         high_rows = await session.execute(
@@ -66,7 +73,7 @@ async def _fetch_missing_comments(
                 JOIN comment_scores_latest_v cs ON cs.comment_id = c.id
                 LEFT JOIN comment_embeddings ce ON ce.comment_id = c.id
                 WHERE ce.comment_id IS NULL
-                  AND c.created_utc >= (NOW() - (:lookback_days * INTERVAL '1 day'))
+                  AND c.created_utc >= :cutoff_utc
                   AND cs.business_pool IN ('core', 'lab')
                   AND (
                     cs.value_score >= :high_score
@@ -80,7 +87,7 @@ async def _fetch_missing_comments(
             ),
             {
                 "limit": int(high_limit),
-                "lookback_days": int(lookback_days),
+                "cutoff_utc": cutoff_utc,
                 "high_score": float(DEFAULT_COMMENT_HIGH_SCORE),
                 "fallback_high_score": int(DEFAULT_COMMENT_FALLBACK_HIGH_SCORE),
             },
@@ -100,7 +107,7 @@ async def _fetch_missing_comments(
                 JOIN comment_scores_latest_v cs ON cs.comment_id = c.id
                 LEFT JOIN comment_embeddings ce ON ce.comment_id = c.id
                 WHERE ce.comment_id IS NULL
-                  AND c.created_utc >= (NOW() - (:lookback_days * INTERVAL '1 day'))
+                  AND c.created_utc >= :cutoff_utc
                   AND cs.business_pool IN ('core', 'lab')
                   AND (
                     (cs.value_score >= :low_score AND cs.value_score < :high_score)
@@ -114,7 +121,7 @@ async def _fetch_missing_comments(
             ),
             {
                 "limit": int(tail_limit),
-                "lookback_days": int(lookback_days),
+                "cutoff_utc": cutoff_utc,
                 "low_score": float(DEFAULT_COMMENT_LOW_SCORE),
                 "high_score": float(DEFAULT_COMMENT_HIGH_SCORE),
                 "fallback_low_score": int(DEFAULT_COMMENT_FALLBACK_LOW_SCORE),

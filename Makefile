@@ -29,7 +29,7 @@ RESET  := $(shell tput -Txterm sgr0)
 	plan-backfill plan-seed dispatch-outbox dev-backend-start dev-backend-stop \
 	dev-backend-restart dev-backend-logs crawl-min crawl-start crawl-status \
 	start-worker-analysis crawl-stop data-clean data-score llm-label data-pipeline \
-	db-sync-noise-labels semantic-llm-sync
+	db-sync-noise-labels semantic-llm-sync test-quality-gate check-determinism
 
 # --- Default Goal ---
 help:
@@ -51,6 +51,11 @@ help:
 	@echo "  ${YELLOW}dev-backend-restart${RESET}: Restart backend on port 8006."
 	@echo "  ${YELLOW}dev-backend-logs${RESET}   : Tail backend logs."
 	@echo "  ${YELLOW}test-core${RESET}      : Run core unit tests."
+	@echo "  ${YELLOW}test-e2e${RESET}       : Run current frontend formal E2E suite (Playwright)."
+	@echo "  ${YELLOW}test-e2e-smoke${RESET} : Run product polish smoke E2E."
+	@echo "  ${YELLOW}test-e2e-backend${RESET} : Run legacy backend critical-path E2E."
+	@echo "  ${YELLOW}test-e2e-live-report${RESET} : Run live report full-chain acceptance."
+	@echo "  ${YELLOW}test-admin-e2e${RESET} : Run current Admin dashboard E2E."
 	@echo "  ${YELLOW}crawl-min${RESET}      : Run minimal crawl once (dev/test DB only)."
 	@echo "  ${YELLOW}crawl-start${RESET}    : Start crawler system safely (beat + patrol + bulk [+probe])."
 	@echo "  ${YELLOW}crawl-status${RESET}   : Show crawler/worker status (no changes)."
@@ -105,9 +110,11 @@ refresh-mining:
 	@$(PYTHON) $(BACKEND_DIR)/scripts/infra/refresh_mining_views.py
 
 ## 4. Generate T1 Report (SOP v4.0 Omni-Analyst)
-# Usage: make report-t1 TOPIC="Your Topic" DESC="Your Product Desc"
+# Usage: make report-t1 TOPIC="Your Topic" DESC="Your Product Desc" MODE=market_insight DAYS=365
 TOPIC ?= "跨境电商运营与痛点"
 DESC ?= "跨境电商卖家工具与服务"
+MODE ?= market_insight
+DAYS ?= 365
 
 # Auto-generate filename from TOPIC:
 # 1. Keep Chinese, Letters, Numbers
@@ -136,6 +143,8 @@ report-t1:
 		--topic "${TOPIC}" \
 		--product-desc "${DESC}" \
 		--model "${MODEL_NAME}" \
+		--mode "${MODE}" \
+		--days ${DAYS} \
 		--out "${OUT}" \
 		--run-quality
 	@echo "${GREEN}[✓] Report generated at ${OUT}${RESET}"
@@ -177,10 +186,23 @@ test-unit:
 guard-db:
 	@$(PYTHON) $(BACKEND_DIR)/scripts/infra/db_guard.py
 
-## 8. Quality Gate (Placeholder)
-stage4-quality:
-	@echo "${GREEN}[*] Running Stage 4 Quality Checks (Placeholder)...${RESET}"
-	@# Add actual quality checks here (e.g., content validation, logic verification)
+## 8. Quality Gate
+## 检查报告链路中是否有 NOW() 残留 — Phase 240 确定性协议门禁
+check-determinism:
+	@echo "🔒 Checking determinism protocol compliance..."
+	@if grep -rn "NOW()" backend/scripts/report/generate_t1_market_report.py backend/app/services/analysis/t1_stats.py backend/app/tasks/embedding_task.py 2>/dev/null; then \
+		echo "❌ FAIL: NOW() found in determinism-critical files!"; \
+		echo "   Replace with anchor_ts parameter. See DETERMINISM PROTOCOL in file headers."; \
+		exit 1; \
+	else \
+		echo "✅ PASS: No NOW() in critical files."; \
+	fi
+
+test-quality-gate: check-determinism
+	@echo "${GREEN}[*] Running Quality Gate + Midstream Tests (19 tests)...${RESET}"
+	@cd $(BACKEND_DIR) && SKIP_DB_RESET=1 $(PYTHON) -m pytest tests/services/analysis/test_facts_v2_quality_gate.py tests/services/analysis/test_facts_v2_midstream.py -v
+
+stage4-quality: test-quality-gate
 	@echo "${GREEN}[✓] Quality Checks Passed.${RESET}"
 
 ## 13. Phase 5: Semantic Vectorization

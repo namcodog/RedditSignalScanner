@@ -18,6 +18,11 @@ class _FakeLLM:
         return self._content
 
 
+class _ErrorLLM:
+    async def generate(self, _prompt: str, **_kwargs: object) -> str:
+        raise RuntimeError("boom")
+
+
 @pytest.mark.asyncio
 async def test_generate_hotpost_llm_report_parses_json() -> None:
     client = _FakeLLM('{"summary": "ok", "confidence": "high"}')
@@ -31,8 +36,9 @@ async def test_generate_hotpost_llm_report_parses_json() -> None:
         max_tokens=256,
         temperature=0.1,
     )
-    assert report is not None
-    assert report["summary"] == "ok"
+    assert report.report is not None
+    assert report.report["summary"] == "ok"
+    assert report.source == "llm"
 
 
 @pytest.mark.asyncio
@@ -48,7 +54,27 @@ async def test_generate_hotpost_llm_report_invalid_json_returns_none() -> None:
         max_tokens=128,
         temperature=0.1,
     )
-    assert report is None
+    assert report.report is None
+    assert report.source == "fallback"
+    assert report.degraded_reason == "invalid_json"
+
+
+@pytest.mark.asyncio
+async def test_generate_hotpost_llm_report_llm_error_marks_fallback() -> None:
+    report = await generate_hotpost_llm_report(
+        mode="trending",
+        query="AI tools",
+        time_filter="week",
+        posts_data=[],
+        comments_data=[],
+        llm_client=_ErrorLLM(),
+        max_tokens=128,
+        temperature=0.1,
+    )
+
+    assert report.report is None
+    assert report.source == "fallback"
+    assert report.degraded_reason == "llm_generate_failed"
 
 
 def test_render_hotpost_prompt_contains_inputs() -> None:

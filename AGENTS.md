@@ -1,5 +1,60 @@
 # Repository Guidelines
 
+## 🧠 AI 记忆系统启动协议（Codex/OpenCode 必读）
+
+本项目的**唯一记忆真相源**不是仓库里的 `mem/`，而是：
+
+- `/Users/hujia/key-os`
+
+也就是说：
+
+- 读取长期画像、判断框架、活跃记忆、项目连续性时，统一从 `/Users/hujia/key-os` 读取
+- 写入新的碎片、研究结论、任务推进状态时，也统一写回 `/Users/hujia/key-os`
+- 不在当前项目目录里再维护第二套长期记忆系统
+
+### 启动顺序
+
+每次会话开始时，**必须按以下顺序读取**，加载上下文后再开始工作：
+
+1. `/Users/hujia/key-os/README.md`
+2. `/Users/hujia/key-os/04-runtime/adapters/codex/README.md` 或对应运行时说明
+3. `/Users/hujia/key-os/00-core/SOUL.md`
+4. `/Users/hujia/key-os/00-core/USER.md`
+5. `/Users/hujia/key-os/00-core/IDENTITY.md`（**只读，绝不修改**）
+6. `/Users/hujia/key-os/01-memory/MEMORY.md`
+7. `/Users/hujia/key-os/01-memory/daily/` 最近 2 天
+8. 与当前任务相关的 `/Users/hujia/key-os/02-projects/active/*.md`
+9. 需要方法论或历史判断时，再读 `/Users/hujia/key-os/00-core/PLAYBOOK.md`
+10. 需要追溯旧记忆时，再读 `/Users/hujia/key-os/01-memory/ARCHIVE.md`
+
+### 写回规则
+
+完成重要工作后，主动把新信息写回 `key-os`：
+
+- 新碎片、验收结论、会话提炼：
+  - `/Users/hujia/key-os/01-memory/daily/YYYY-MM-DD.md`
+- 项目推进状态、阻塞项、下一步：
+  - `/Users/hujia/key-os/02-projects/active/<project>.md`
+
+### 禁止自动覆盖
+
+以下文件默认只读，不允许自动覆盖：
+
+- `/Users/hujia/key-os/00-core/SOUL.md`
+- `/Users/hujia/key-os/00-core/USER.md`
+- `/Users/hujia/key-os/00-core/IDENTITY.md`
+- `/Users/hujia/key-os/00-core/PLAYBOOK.md`
+- `/Users/hujia/key-os/01-memory/MEMORY.md`
+- `/Users/hujia/key-os/01-memory/ARCHIVE.md`
+
+### 关于仓库内 `mem/`
+
+- `/Users/hujia/Desktop/RedditSignalScanner/mem/` 现在只作为历史资料层保留
+- 可以参考，但不再作为新的 canonical memory
+- 如果与 `/Users/hujia/key-os` 出现冲突，以 `/Users/hujia/key-os` 为准
+
+---
+
 ## 使用前提（User Rules）
 
 - 入门阅读顺序：`README.md` → `docs/2025-10-10-文档阅读指南.md` → 角色章节。

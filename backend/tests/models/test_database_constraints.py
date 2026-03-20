@@ -384,31 +384,58 @@ async def test_posts_raw_current_unique(db_session):
         "is_current": True,
     }
 
+    insert_sql = text(
+        """
+        INSERT INTO posts_raw
+            (source, source_post_id, version, created_at, title, body, subreddit, community_id, author_name, is_current)
+        VALUES
+            (:source, :source_post_id, :version, :created_at, :title, :body, :subreddit, :community_id, :author_name, :is_current)
+        """
+    )
+
+    await db_session.execute(insert_sql, {**common_fields, "version": 1})
     await db_session.execute(
         text(
             """
-            INSERT INTO posts_raw
-                (source, source_post_id, version, created_at, title, body, subreddit, community_id, author_name, is_current)
-            VALUES
-                (:source, :source_post_id, :version, :created_at, :title, :body, :subreddit, :community_id, :author_name, :is_current)
+            UPDATE posts_raw
+            SET is_current = FALSE,
+                valid_to = :valid_to
+            WHERE source = :source
+              AND source_post_id = :source_post_id
+              AND version = 1
             """
         ),
-        {**common_fields, "version": 1},
+        {
+            "source": common_fields["source"],
+            "source_post_id": source_post_id,
+            "valid_to": datetime.now(timezone.utc),
+        },
     )
-    with pytest.raises(IntegrityError):
+    await db_session.execute(insert_sql, {**common_fields, "version": 2})
+    await db_session.commit()
+
+    rows = (
         await db_session.execute(
             text(
                 """
-                INSERT INTO posts_raw
-                    (source, source_post_id, version, created_at, title, body, subreddit, community_id, author_name, is_current)
-                VALUES
-                    (:source, :source_post_id, :version, :created_at, :title, :body, :subreddit, :community_id, :author_name, :is_current)
+                SELECT version, is_current
+                FROM posts_raw
+                WHERE source = :source
+                  AND source_post_id = :source_post_id
+                ORDER BY version ASC
                 """
             ),
-            {**common_fields, "version": 2},
+            {
+                "source": common_fields["source"],
+                "source_post_id": source_post_id,
+            },
         )
-        await db_session.commit()
-    await db_session.rollback()
+    ).mappings().all()
+
+    assert rows == [
+        {"version": 1, "is_current": False},
+        {"version": 2, "is_current": True},
+    ]
 
 
 @pytest.mark.asyncio

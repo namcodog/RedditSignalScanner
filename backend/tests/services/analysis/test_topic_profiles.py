@@ -3,11 +3,13 @@ from __future__ import annotations
 from pathlib import Path
 
 from app.services.analysis.topic_profiles import (
+    BrandDiscoveryConfig,
     TopicProfile,
     build_fetch_keywords,
     build_search_keywords,
     filter_items_by_profile_context,
     filter_relevance_map_with_profile,
+    load_brand_discovery_defaults,
     load_topic_profiles,
     match_topic_profile,
     normalize_subreddit,
@@ -139,6 +141,7 @@ topic_profiles:
     preferred_days: 730
     pain_min_mentions: 5
     pain_min_unique_authors: 3
+    min_good_brands: 0
     brand_min_mentions: 3
     brand_min_unique_authors: 2
     min_solutions: 3
@@ -153,12 +156,76 @@ topic_profiles:
     assert p.preferred_days == 730
     assert p.pain_min_mentions == 5
     assert p.pain_min_unique_authors == 3
+    assert p.min_good_brands == 0
     assert p.brand_min_mentions == 3
     assert p.brand_min_unique_authors == 2
     assert p.min_solutions == 3
     assert p.mode == "operations"
     assert p.require_context_for_fetch is True
     assert p.context_keywords_any == ["ROAS", "campaign"]
+
+
+def test_load_brand_discovery_defaults_reads_yaml(tmp_path: Path) -> None:
+    yaml_path = tmp_path / "topic_profiles.yaml"
+    yaml_path.write_text(
+        """
+brand_discovery:
+  enabled: true
+  min_frequency: 4
+  max_candidates: 9
+  token_pattern: "\\\\b([A-Z][a-zA-Z]{1,20})\\\\b"
+  stopwords: [shopify, meta]
+topic_profiles: []
+        """.strip(),
+        encoding="utf-8",
+    )
+    cfg = load_brand_discovery_defaults(yaml_path)
+    assert isinstance(cfg, BrandDiscoveryConfig)
+    assert cfg.enabled is True
+    assert cfg.min_frequency == 4
+    assert cfg.max_candidates == 9
+    assert "shopify" in cfg.stopwords
+    assert "meta" in cfg.stopwords
+
+
+def test_load_topic_profiles_merges_brand_discovery_overrides(tmp_path: Path) -> None:
+    yaml_path = tmp_path / "topic_profiles.yaml"
+    yaml_path.write_text(
+        """
+brand_discovery:
+  min_frequency: 4
+  max_candidates: 9
+  stopwords: [shopify]
+topic_profiles:
+  - id: demo
+    topic_name: Demo Topic
+    product_desc: Demo Desc
+    vertical: demo_vertical
+    allowed_communities: [r/demo]
+    required_entities_any: [Shopify]
+    brand_discovery:
+      min_frequency: 2
+      stopwords: [meta]
+        """.strip(),
+        encoding="utf-8",
+    )
+    profiles = load_topic_profiles(yaml_path)
+    cfg = profiles[0].brand_discovery
+    assert cfg.min_frequency == 2
+    assert cfg.max_candidates == 9
+    assert "shopify" in cfg.stopwords
+    assert "meta" in cfg.stopwords
+
+
+def test_load_topic_profiles_records_diagnostics_when_yaml_invalid(tmp_path: Path) -> None:
+    yaml_path = tmp_path / "topic_profiles.yaml"
+    yaml_path.write_text("topic_profiles: [\n  - id: demo\n    topic_name: Demo", encoding="utf-8")
+    diagnostics: dict[str, object] = {}
+
+    profiles = load_topic_profiles(yaml_path, diagnostics=diagnostics)
+
+    assert profiles == []
+    assert diagnostics["topic_profiles_status"] == "load_failed"
 
 
 def test_build_fetch_keywords_prefers_context_and_drops_anchor_terms() -> None:

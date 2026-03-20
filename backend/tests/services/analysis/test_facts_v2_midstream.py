@@ -167,6 +167,323 @@ def test_brand_pain_unique_authors_not_zero_when_mentions_positive() -> None:
     assert shopify["evidence_quote_ids"]
 
 
+def test_brand_pain_discovers_candidates_when_profile_has_no_brand_anchors() -> None:
+    profile = TopicProfile(
+        id="adhoc",
+        topic_name="Adhoc Topic",
+        product_desc="无预配品牌名单的临时题目",
+        vertical="other",
+        allowed_communities=["r/facebookads"],
+        community_patterns=["facebookads"],
+        required_entities_any=[],
+        soft_required_entities_any=[],
+        include_keywords_any=["ROAS"],
+        exclude_keywords_any=["cake", "cook"],
+    )
+    domain_config = {
+        "marketing": {
+            "subreddits": ["r/facebookads"],
+            "pain_keywords": {"price": ["roas low"]},
+        }
+    }
+    comments = [
+        {
+            "quote_id": "t1_c1",
+            "comment_id": "t1_c1",
+            "post_id": "t3_p1",
+            "author_id": "u_1",
+            "subreddit": "r/facebookads",
+            "created_at": _dt(3),
+            "text": "Shopify ROAS low on Facebook Ads again.",
+            "comment_score": 10,
+        },
+        {
+            "quote_id": "t1_c2",
+            "comment_id": "t1_c2",
+            "post_id": "t3_p2",
+            "author_id": "u_2",
+            "subreddit": "r/facebookads",
+            "created_at": _dt(4),
+            "text": "Another Shopify case: ROAS low and budget wasted.",
+            "comment_score": 8,
+        },
+        {
+            "quote_id": "t1_c3",
+            "comment_id": "t1_c3",
+            "post_id": "t3_p3",
+            "author_id": "u_3",
+            "subreddit": "r/facebookads",
+            "created_at": _dt(5),
+            "text": "Shopify still has ROAS low issues this month.",
+            "comment_score": 7,
+        },
+    ]
+    posts: list[dict[str, object]] = []
+
+    clusters = compute_pain_clusters_v2(
+        posts=posts,
+        comments=comments,
+        profile=profile,
+        domain_pain_config=domain_config,
+        max_clusters=3,
+        min_mentions=1,
+        min_unique_authors=1,
+        max_evidence=5,
+    )
+    brand_pain = compute_brand_pain_v2(
+        posts=posts,
+        comments=comments,
+        profile=profile,
+        pain_clusters=clusters,
+        brand_candidates=None,
+        min_mentions=1,
+        min_unique_authors=1,
+        min_evidence=1,
+        max_items=10,
+        max_evidence=3,
+    )
+    assert brand_pain
+    assert any(row["brand"] == "Shopify" for row in brand_pain)
+
+
+def test_compute_pain_clusters_records_no_domain_mapping_diagnostics() -> None:
+    profile = TopicProfile(
+        id="adhoc",
+        topic_name="Adhoc Topic",
+        product_desc="没有 domain 配置映射的临时题目",
+        vertical="other",
+        allowed_communities=["r/unknown"],
+        community_patterns=["unknown"],
+        required_entities_any=[],
+        soft_required_entities_any=[],
+        include_keywords_any=["ROAS"],
+        exclude_keywords_any=[],
+    )
+    diagnostics: dict[str, object] = {}
+
+    clusters = compute_pain_clusters_v2(
+        posts=[],
+        comments=[],
+        profile=profile,
+        domain_pain_config={"marketing": {"subreddits": ["r/facebookads"], "pain_keywords": {"price": ["roas low"]}}},
+        diagnostics=diagnostics,
+    )
+
+    assert clusters == []
+    assert diagnostics["domain_pain_config_status"] == "provided"
+    assert diagnostics["pain_clusters_pipeline_status"] == "no_domain_mapping"
+
+
+def test_brand_pain_records_when_blocked_by_empty_pain_clusters() -> None:
+    profile = TopicProfile(
+        id="adhoc",
+        topic_name="Adhoc Topic",
+        product_desc="无痛点簇时的品牌痛点诊断",
+        vertical="other",
+        allowed_communities=["r/headphones"],
+        community_patterns=["headphones"],
+        required_entities_any=[],
+        soft_required_entities_any=[],
+        include_keywords_any=["battery"],
+        exclude_keywords_any=[],
+    )
+    diagnostics: dict[str, object] = {}
+
+    brand_pain = compute_brand_pain_v2(
+        posts=[],
+        comments=[],
+        profile=profile,
+        pain_clusters=[],
+        brand_candidates=["Sony"],
+        diagnostics=diagnostics,
+    )
+
+    assert brand_pain == []
+    assert diagnostics["brand_pain_pipeline_status"] == "blocked_by_pain_clusters"
+
+
+def test_pain_clusters_evidence_order_is_stable_when_scores_tie() -> None:
+    profile = TopicProfile(
+        id="shopify_ads_conversion_v1",
+        topic_name="Shopify Traffic Ads Conversion",
+        product_desc="面向 Shopify 卖家的广告优化与转化率提升工具",
+        vertical="Ecommerce_Business",
+        allowed_communities=["r/facebookads"],
+        community_patterns=["facebookads"],
+        required_entities_any=["Shopify"],
+        soft_required_entities_any=["Facebook Ads"],
+        include_keywords_any=["ROAS"],
+        exclude_keywords_any=["cake", "cook"],
+    )
+    domain_config = {
+        "marketing": {
+            "subreddits": ["r/facebookads"],
+            "pain_keywords": {"price": ["roas low"]},
+        }
+    }
+    comments = [
+        {
+            "quote_id": "t1_c2",
+            "comment_id": "t1_c2",
+            "post_id": "t3_p2",
+            "author_id": "u_2",
+            "subreddit": "r/facebookads",
+            "created_at": _dt(4),
+            "text": "Shopify ROAS low on Facebook Ads.",
+            "comment_score": 10,
+        },
+        {
+            "quote_id": "t1_c1",
+            "comment_id": "t1_c1",
+            "post_id": "t3_p1",
+            "author_id": "u_1",
+            "subreddit": "r/facebookads",
+            "created_at": _dt(3),
+            "text": "Another Shopify ROAS low case on Facebook Ads.",
+            "comment_score": 10,
+        },
+    ]
+    first = compute_pain_clusters_v2(
+        posts=[],
+        comments=comments,
+        profile=profile,
+        domain_pain_config=domain_config,
+        max_clusters=3,
+        min_mentions=1,
+        min_unique_authors=1,
+        max_evidence=5,
+    )
+    second = compute_pain_clusters_v2(
+        posts=[],
+        comments=list(reversed(comments)),
+        profile=profile,
+        domain_pain_config=domain_config,
+        max_clusters=3,
+        min_mentions=1,
+        min_unique_authors=1,
+        max_evidence=5,
+    )
+    assert first[0]["evidence_quote_ids"] == second[0]["evidence_quote_ids"] == ["t1_c1", "t1_c2"]
+
+
+def test_brand_pain_order_is_stable_when_brand_counts_tie() -> None:
+    profile = TopicProfile(
+        id="adhoc",
+        topic_name="Adhoc Topic",
+        product_desc="无预配品牌名单的临时题目",
+        vertical="other",
+        allowed_communities=["r/headphones"],
+        community_patterns=["headphones"],
+        required_entities_any=[],
+        soft_required_entities_any=[],
+        include_keywords_any=["battery"],
+        exclude_keywords_any=["cake", "cook"],
+    )
+    domain_config = {
+        "audio": {
+            "subreddits": ["r/headphones"],
+            "pain_keywords": {"function": ["battery drain"]},
+        }
+    }
+    comments = [
+        {
+            "quote_id": "t1_c2",
+            "comment_id": "t1_c2",
+            "post_id": "t3_p2",
+            "author_id": "u_2",
+            "subreddit": "r/headphones",
+            "created_at": _dt(4),
+            "text": "Sony battery drain issue on my earbuds.",
+            "comment_score": 10,
+        },
+        {
+            "quote_id": "t1_c1",
+            "comment_id": "t1_c1",
+            "post_id": "t3_p1",
+            "author_id": "u_1",
+            "subreddit": "r/headphones",
+            "created_at": _dt(3),
+            "text": "Bose battery drain issue on my headphones.",
+            "comment_score": 10,
+        },
+        {
+            "quote_id": "t1_c4",
+            "comment_id": "t1_c4",
+            "post_id": "t3_p4",
+            "author_id": "u_4",
+            "subreddit": "r/headphones",
+            "created_at": _dt(6),
+            "text": "Sony battery drain is still happening this month.",
+            "comment_score": 8,
+        },
+        {
+            "quote_id": "t1_c3",
+            "comment_id": "t1_c3",
+            "post_id": "t3_p3",
+            "author_id": "u_3",
+            "subreddit": "r/headphones",
+            "created_at": _dt(5),
+            "text": "Bose battery drain is still happening this month.",
+            "comment_score": 8,
+        },
+        {
+            "quote_id": "t1_c5",
+            "comment_id": "t1_c5",
+            "post_id": "t3_p5",
+            "author_id": "u_5",
+            "subreddit": "r/headphones",
+            "created_at": _dt(7),
+            "text": "Bose battery drain keeps coming back on flights.",
+            "comment_score": 7,
+        },
+        {
+            "quote_id": "t1_c6",
+            "comment_id": "t1_c6",
+            "post_id": "t3_p6",
+            "author_id": "u_6",
+            "subreddit": "r/headphones",
+            "created_at": _dt(8),
+            "text": "Sony battery drain keeps coming back on flights.",
+            "comment_score": 7,
+        },
+    ]
+    clusters = compute_pain_clusters_v2(
+        posts=[],
+        comments=comments,
+        profile=profile,
+        domain_pain_config=domain_config,
+        max_clusters=3,
+        min_mentions=1,
+        min_unique_authors=1,
+        max_evidence=5,
+    )
+    first = compute_brand_pain_v2(
+        posts=[],
+        comments=comments,
+        profile=profile,
+        pain_clusters=clusters,
+        brand_candidates=None,
+        min_mentions=1,
+        min_unique_authors=1,
+        min_evidence=1,
+        max_items=10,
+        max_evidence=3,
+    )
+    second = compute_brand_pain_v2(
+        posts=[],
+        comments=list(reversed(comments)),
+        profile=profile,
+        pain_clusters=clusters,
+        brand_candidates=None,
+        min_mentions=1,
+        min_unique_authors=1,
+        min_evidence=1,
+        max_items=10,
+        max_evidence=3,
+    )
+    assert [row["brand"] for row in first] == [row["brand"] for row in second] == ["Bose", "Sony"]
+
+
 def test_filter_solutions_by_profile_drops_offtopic() -> None:
     profile = TopicProfile(
         id="shopify_ads_conversion_v1",

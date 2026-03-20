@@ -16,15 +16,17 @@ async def persist_subreddit_snapshot(
     rules_text: Optional[str],
     over18: Optional[bool],
 ) -> None:
+    captured_at = datetime.now(timezone.utc)
     await session.execute(
         text(
             """
             INSERT INTO subreddit_snapshots (subreddit, captured_at, subscribers, active_user_count, rules_text, over18, moderation_score)
-            VALUES (:subreddit, NOW(), :subs, :active, :rules, :over18, :modscore)
+            VALUES (:subreddit, :captured_at, :subs, :active, :rules, :over18, :modscore)
             """
         ),
         {
             "subreddit": subreddit,
+            "captured_at": captured_at,
             "subs": str(subscribers) if subscribers is not None else None,
             "active": str(active_user_count) if active_user_count is not None else None,
             "rules": (rules_text or "")[:4000] if rules_text else None,

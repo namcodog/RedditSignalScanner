@@ -97,7 +97,6 @@ export interface Opportunity {
   need?: string; // The unmet need
   need_en?: string;
   urgency?: string;
-  mentions?: number;
   summary?: string;
   mentions?: number;
   me_too_count?: number; // demand_signal
@@ -185,7 +184,7 @@ export interface HotPostResponse {
   mode: HotPostMode;
   search_time: string;
   from_cache: boolean;
-  status?: 'queued' | 'waiting' | 'processing' | 'completed' | 'success' | 'failed';
+  status?: 'queued' | 'waiting' | 'processing' | 'completed' | 'success' | 'degraded' | 'failed';
   
   // Queue Info
   position?: number;
@@ -237,6 +236,7 @@ export interface HotPostResponse {
   notes?: string[];
   debug_info?: {
     query_source?: string;
+    query_degraded_reason?: string;
     search_query?: string;
     query_parts?: string[];
     keywords?: string[];
@@ -246,6 +246,13 @@ export interface HotPostResponse {
     raw_posts?: number;
     filtered_posts?: number;
     relevance_filtered?: number;
+    response_source?: string;
+    summary_source?: string;
+    summary_degraded_reason?: string;
+    report_source?: string;
+    report_degraded_reason?: string;
+    llm_report_applied?: boolean;
+    degraded_reasons?: string[];
   };
 
   // Meta

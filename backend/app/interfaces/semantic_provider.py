@@ -21,6 +21,8 @@ class SemanticMetrics:
     last_refresh: Optional[datetime | str]
     total_terms: int
     load_latency_p95_ms: float
+    source_status: str = "unknown"
+    last_error: Optional[str] = None
 
 
 class SemanticProvider(Protocol):

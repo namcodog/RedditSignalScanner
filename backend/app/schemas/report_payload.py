@@ -18,6 +18,7 @@ from app.schemas.analysis import (
     OpportunitySignal,
     PainClusterSummary,
     PainPoint,
+    SourcesPayload,
     ChannelBreakdownItem,
 )
 from app.schemas.base import ORMModel
@@ -135,6 +136,7 @@ class ReportPayload(ORMModel):
     metadata: ReportMetadata
     overview: ReportOverview
     stats: ReportStats
+    sources: SourcesPayload | None = None
     # 可选：语义指标摘要（便于前端按需展示）
     metrics_summary: MetricsSummary | None = None
 

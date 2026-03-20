@@ -1,5 +1,27 @@
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# 🔒 SINGLE SOURCE OF TRUTH (SSOT) — 8 大领域 (Vertical) 权威定义
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+#
+# 本文件是项目"8 大领域"划分的唯一权威源。
+# 所有代码、配置、AI 代理在涉及领域(Vertical)时，必须以此文件为准。
+#
+# 📋 8 个领域 (按 DB community_pool.vertical 字段值):
+#   1. Ecommerce_Business   — 电商创业/营销/SaaS
+#   2. Home_Lifestyle        — 家居生活/装修/园艺
+#   3. Tools_EDC             — 工具/EDC/机械键盘/汽车
+#   4. AI_Workflow           — AI 工作流/自动化/LLM
+#   5. Family_Parenting      — 家庭/育儿/宠物/关系
+#   6. Food_Coffee_Lifestyle — 食品/咖啡/厨房/饮品
+#   7. Minimal_Outdoor       — 户外/露营/徒步/旅行
+#   8. Frugal_Living         — 省钱/理财/极简/FIRE
+#
+# 🗄️ DB 映射: business_categories 表 (key 列) + community_pool.vertical 字段
+# 📝 修改规则: 新增/删除/改名领域时，只改此文件，然后同步更新 DB。
+# ⚠️ 禁止在其他文件中硬编码领域列表。
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
 version: 1
-description: "8-warzone rule dictionary (v0). Keep small + explainable."
+description: "8-warzone rule dictionary (v1-SSOT). Keep small + explainable."
 
 warzones:
   Ecommerce_Business:

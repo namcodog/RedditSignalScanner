@@ -15,6 +15,49 @@ blacklisted_communities:
     reason: General cooking, too broad
   - name: r/budgetfood
     reason: General food, off-topic
+  # === 2026-03-10 噪音域清理：非产品类社区 ===
+  # Amazon 卖家/运营 (对消费者洞察无价值)
+  - name: r/amazonfba
+    reason: 卖家运营社区，非消费者视角
+  - name: r/amazonseller
+    reason: 卖家运营社区
+  - name: r/amazonsellercentral
+    reason: 卖家运营社区
+  - name: r/amazonfbaonlineretail
+    reason: 卖家运营社区
+  - name: r/amazonfbatips
+    reason: 卖家运营社区
+  - name: r/amazonmerch
+    reason: 卖家运营社区
+  - name: r/amazonargentina
+    reason: 地域卖家社区
+  - name: r/fulfillmentbyamazon
+    reason: 物流运营社区
+  # Shopify 系列 (独立站运营，非消费者)
+  - name: r/shopify
+    reason: 独立站运营社区
+  - name: r/shopifyecommerce
+    reason: 独立站运营社区
+  - name: r/shopifyappdev
+    reason: 开发者社区
+  - name: r/shopifydev
+    reason: 开发者社区
+  - name: r/shopifyseo
+    reason: SEO运营社区
+  # SEO/数字营销
+  - name: r/digital_marketing
+    reason: 营销社区，非产品消费者
+  - name: r/bigseo
+    reason: SEO运营社区
+  # 食品饮料 (非跨境电商可售品类)
+  - name: r/breadit
+    reason: 面包烘焙，非可售品类
+  - name: r/bbq
+    reason: BBQ烧烤，非可售品类
+  - name: r/beer
+    reason: 啤酒，非可售品类
+  - name: r/cocktails
+    reason: 鸡尾酒，非可售品类
 downranked_communities: []
 downrank_keywords: []
 filter_keywords:

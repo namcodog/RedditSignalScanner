@@ -40,8 +40,9 @@ class CommunityExportResponse(BaseModel):
     seed_source: Optional[str] = None
     top_n: Optional[int] = None
     total_communities: Optional[int] = None
+    source: Optional[str] = None
+    degraded_reason: Optional[str] = None
     items: list[CommunityExportItem] = Field(default_factory=list)
 
 
 __all__ = ["CommunityExportItem", "CommunityExportResponse"]
-

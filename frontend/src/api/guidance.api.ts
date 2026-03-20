@@ -5,6 +5,7 @@ export interface GuidanceExample {
   prompt: string;
   tags?: string[];
   example_id?: string | null;
+  topic_profile_id?: string | null;
 }
 
 export interface GuidanceInputResponse {

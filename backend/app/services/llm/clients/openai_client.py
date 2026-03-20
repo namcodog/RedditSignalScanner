@@ -14,8 +14,9 @@ Model is provided by caller (e.g., settings.llm_model_name).
 
 import asyncio
 import json
+import logging
 import os
-import time
+import urllib.error
 import urllib.request
 from typing import List, Sequence
 
@@ -24,7 +25,9 @@ try:  # Prefer the official SDK if available (>=1.0)
 except Exception:  # pragma: no cover - optional dependency
     OpenAI = None  # type: ignore
 
-from app.services.llm.interfaces import LLMClient
+from app.services.llm.interfaces import LLMClient, LLMClientError
+
+logger = logging.getLogger(__name__)
 
 
 def resolve_llm_api_key(*, base_url: str | None = None, explicit_key: str | None = None) -> str:
@@ -145,6 +148,7 @@ class OpenAIChatClient(LLMClient):
     # --------------- Transport --------------- 
 
     def _chat_completion(self, messages: list[dict[str, str]], *, max_tokens: int, temperature: float, response_format: dict[str, str] | None = None) -> str:
+        sdk_error: Exception | None = None
         if self._sdk is not None:
             try:
                 kwargs = {
@@ -157,11 +161,19 @@ class OpenAIChatClient(LLMClient):
                     kwargs["response_format"] = response_format
                 resp = self._sdk.chat.completions.create(**kwargs)
                 return resp.choices[0].message.content or ""
-            except Exception as e:
-                print(f"⚠️ OpenAI SDK Error: {e}")
-                pass
-        
+            except Exception as exc:
+                sdk_error = exc
+                logger.warning(
+                    "OpenAI SDK request failed model=%s base=%s",
+                    self._model,
+                    self._base,
+                    exc_info=exc,
+                )
+
         # Fallback to raw HTTP (minimal dependency)
+        if not self._api_key:
+            raise LLMClientError("openai", "missing API key")
+
         url = f"{self._base}/chat/completions"
         headers = {
             "Authorization": f"Bearer {self._api_key}",
@@ -183,14 +195,24 @@ class OpenAIChatClient(LLMClient):
             with urllib.request.urlopen(req, timeout=self._timeout) as resp:
                 data = json.loads(resp.read().decode("utf-8"))
                 return ((data.get("choices") or [{}])[0].get("message") or {}).get("content", "")
-        except urllib.error.HTTPError as e:
-            err_body = e.read().decode("utf-8")
-            print(f"❌ OpenAI API HTTP Error {e.code}: {err_body}")
-            return ""
-        except Exception as e:
-            print(f"❌ OpenAI API Connection Error: {e}")
-            time.sleep(0.05)
-            return ""
+        except urllib.error.HTTPError as exc:
+            err_body = exc.read().decode("utf-8", errors="replace")
+            logger.error(
+                "OpenAI HTTP request failed model=%s status=%s sdk_fallback=%s body=%s",
+                self._model,
+                exc.code,
+                sdk_error is not None,
+                err_body[:300],
+            )
+            raise LLMClientError("openai", err_body or "HTTP request failed", status_code=exc.code) from exc
+        except Exception as exc:
+            logger.error(
+                "OpenAI connection failed model=%s sdk_fallback=%s",
+                self._model,
+                sdk_error is not None,
+                exc_info=exc,
+            )
+            raise LLMClientError("openai", str(exc) or "connection failed") from exc
 
 
-__all__ = ["OpenAIChatClient", "resolve_llm_api_key"]
+__all__ = ["OpenAIChatClient", "LLMClientError", "resolve_llm_api_key"]

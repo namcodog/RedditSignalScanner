@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import uuid
+from datetime import datetime, timezone
 
 import pytest
 from sqlalchemy import select
@@ -10,6 +11,7 @@ from app.models.community_pool import CommunityPool
 from app.models.discovered_community import DiscoveredCommunity
 from app.models.task import Task
 from app.models.user import User
+from app.schemas.task import TaskSummary
 from app.services.analysis.analysis_engine import (
     CollectedCommunity,
     CommunityProfile,
@@ -65,7 +67,25 @@ async def test_record_discovered_communities_does_not_activate_pool_rows() -> No
         )
     ]
 
-    await _record_discovered_communities(task_id=task_id, collected=collected, keywords=["e2e"])
+    task_summary = TaskSummary(
+        id=task_id,
+        user_id=user.id,
+        status=task.status,
+        product_description=task.product_description,
+        created_at=task.created_at or datetime.now(timezone.utc),
+        updated_at=task.updated_at or datetime.now(timezone.utc),
+        mode=task.mode,
+        audit_level=task.audit_level,
+    )
+
+    result = await _record_discovered_communities(
+        task=task_summary,
+        collected=collected,
+        keywords=["e2e"],
+    )
+
+    assert result.status == "completed"
+    assert result.upserted_count == 1
 
     async with SessionFactory() as session:
         pool_row = (

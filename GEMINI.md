@@ -34,6 +34,7 @@
     *   **Facts V6**: 现在的 `facts.json` 包含 **Price Sensitivity** (价格锚点)、**Usage Context** (场景标签) 和 **Community Personas**。
 
 ### 1.2 关键文件
+*   `backend/config/warzones.yaml`: **🔒 8 大领域(Vertical) 唯一权威源(SSOT)**。8 个领域: Ecommerce_Business / Home_Lifestyle / Tools_EDC / AI_Workflow / Family_Parenting / Food_Coffee_Lifestyle / Minimal_Outdoor / Frugal_Living。**涉及领域划分时必须以此文件为准，禁止在其他地方硬编码领域列表。**
 *   `backend/scripts/report/generate_t1_market_report.py`: 报告生成主程序 (支持 `--mode` 和智能过滤)。
 *   `backend/config/community_roles.yaml`: 定义卖家/运营社区 (B2B) 的角色清单。
 *   `backend/config/community_blacklist.yaml`: 定义上下文相关的动态黑名单规则。
@@ -116,41 +117,76 @@ python backend/scripts/report/generate_t1_market_report.py \
 
 ## 6. 记忆系统协议
 
-本项目使用跨工具的 5 文件记忆架构，存放在 `mem/` 目录下。Antigravity 必须遵循以下启动/关闭协议。
+本项目的**唯一记忆真相源**不再是本地 `mem/` 目录，而是：
 
-### 6.1 文件体系与权限
+- `/Users/hujia/key-os`
 
-| 文件 | 用途 | AI 权限 |
-|------|------|---------|
-| `mem/IDENTITY.md` | 底层心智（世界观/哲学/决策规则） | 🔒 **只读。绝不修改。** 需更新时只能建议用户自行修改 |
-| `mem/SOUL.md` | 表人格（AI 行为准则） | ✏️ 可写，修改后**必须告知**用户 |
-| `mem/USER.md` | 用户画像（兴趣图谱/社媒习惯/活跃项目） | ✏️ 可写 |
-| `mem/MEMORY.md` | 活跃记忆（30天窗口） | ✏️ 可写 |
-| `mem/PLAYBOOK.md` | 商业判断手册 | ✏️ 可写（新教训直接追加） |
-| `mem/ARCHIVE.md` | 归档仓库 | ✏️ 可写（迁移过期条目） |
+Antigravity 在这个项目里工作时，必须把 `/Users/hujia/key-os` 当成唯一的个人 AI OS。  
+也就是说：
 
-> **红线：IDENTITY.md 是用户的 DNA，硬编码。AI 绝不能直接修改。**
+- 读取长期画像、活跃记忆、判断框架、项目连续性时，优先读 `key-os`
+- 写入新的碎片、任务进展、项目状态时，也优先写回 `key-os`
+- 不能在当前项目目录里再长出第二套长期记忆系统
+
+`mem/` 目录现在只作为**历史资料和旧迁移来源**保留，不再作为新的 canonical memory。
+
+### 6.1 记忆文件体系与权限
+
+| 文件 | 路径 | 用途 | AI 权限 |
+|------|------|------|---------|
+| `SOUL.md` | `/Users/hujia/key-os/00-core/SOUL.md` | 表人格（AI 行为准则） | 默认不自动改；如确需调整，必须告知用户 |
+| `USER.md` | `/Users/hujia/key-os/00-core/USER.md` | 用户画像（兴趣、偏好、活跃项目） | 默认只读，不自动改 |
+| `IDENTITY.md` | `/Users/hujia/key-os/00-core/IDENTITY.md` | 底层心智（世界观、哲学、决策规则） | 🔒 **只读。绝不直接修改。** |
+| `PLAYBOOK.md` | `/Users/hujia/key-os/00-core/PLAYBOOK.md` | 判断手册、被证伪模式、方法论 | 默认只读；如要沉淀，先建议用户确认 |
+| `MEMORY.md` | `/Users/hujia/key-os/01-memory/MEMORY.md` | 活跃记忆（近 30 天） | 默认只读，不自动覆盖 |
+| `ARCHIVE.md` | `/Users/hujia/key-os/01-memory/ARCHIVE.md` | 长期归档 | 默认只读，不自动覆盖 |
+| `daily/*.md` | `/Users/hujia/key-os/01-memory/daily/` | 当天碎片、会话提炼、回写缓冲层 | ✅ 允许追加写入 |
+| `projects/*.md` | `/Users/hujia/key-os/02-projects/active/` | 复杂任务的状态外化 | ✅ 允许更新 |
+
+> **红线：** `IDENTITY.md` 是用户的底层 DNA，AI 绝不能直接修改。  
+> `SOUL.md / USER.md / PLAYBOOK.md / MEMORY.md / ARCHIVE.md` 也不应自动覆盖，除非用户明确要求。
 
 ### 6.2 启动协议（每次对话自动执行）
 
-**所有 mem/ 文件都是校准数据，必须全量通读。** 讨论项目细节和商业判断时都需要这些数据作为矫正基准。
+**所有关键记忆都从 `/Users/hujia/key-os` 读取。**  
+本项目里的 `GEMINI.md` 负责把 Antigravity 引到这套 OS，而不是把记忆复制到项目目录里。
 
-1. **必读** `mem/MEMORY.md` — 重点看 `Current State` 段 + `Pending Implementation` + 最近 3 条 `Calibration Log`
-2. **必读** `mem/IDENTITY.md` 全文 — 加载底层心智、决策规则、哲学框架（🔒只读）
-3. **必读** `mem/USER.md` 全文 — 加载用户画像、兴趣图谱、活跃项目
-4. **必读** `mem/PLAYBOOK.md` 全文 — 加载被证伪的模式和诊断框架（避免重复踩坑）
-5. **必读** `mem/SOUL.md` 全文 — 加载 AI 行为准则和 Memory Protocol
-6. **按需** `mem/ARCHIVE.md` — 需要回溯 30 天前旧记忆时
+启动顺序如下：
+
+1. **先读** `/Users/hujia/key-os/README.md`
+2. **再读** `/Users/hujia/key-os/04-runtime/adapters/antigravity/README.md`
+3. **必读** `/Users/hujia/key-os/00-core/SOUL.md`
+4. **必读** `/Users/hujia/key-os/00-core/USER.md`
+5. **必读** `/Users/hujia/key-os/00-core/IDENTITY.md`
+6. **必读** `/Users/hujia/key-os/01-memory/MEMORY.md`
+7. **按需** 读取 `/Users/hujia/key-os/01-memory/daily/` 最近 2 天
+8. **按需** 读取与当前任务相关的 `/Users/hujia/key-os/02-projects/active/*.md`
+9. **需要复用判断框架时** 再读 `/Users/hujia/key-os/00-core/PLAYBOOK.md`
+10. **需要追溯旧记忆时** 再读 `/Users/hujia/key-os/01-memory/ARCHIVE.md`
+
+如果当前任务只是局部工程问题，不要无条件全量读取所有长期文件；但一旦涉及方向判断、项目连续性、用户偏好、长期策略，就必须回到 `key-os`。
 
 ### 6.3 关闭协议（完成重要工作后自动执行）
 
-在完成任何有实质产出的工作后，主动更新记忆：
+在完成任何有实质产出的工作后，主动把结果写回 `key-os`：
 
-1. 更新 `mem/MEMORY.md` 的 `Current State` 段（刷新：正在做/下一步/关键决策/待落实）
-2. 用 Fragment 格式追加新条目到对应分区（Recent Actions / Decisions / Signals / Frameworks）
-3. 如有商业教训或证伪 → 写入 `mem/PLAYBOOK.md`
-4. 如有底层认知变化 → 建议用户更新 `mem/IDENTITY.md`（绝不代改）
-5. 更新 `Last updated` 时间戳
+1. 新碎片、验收结论、当天补充说明：
+   - 写到 `/Users/hujia/key-os/01-memory/daily/YYYY-MM-DD.md`
+2. 复杂任务推进状态、已完成、进行中、阻塞项、下一步：
+   - 写到 `/Users/hujia/key-os/02-projects/active/<project>.md`
+3. 如有明确稳定的方法论或被证伪模式：
+   - 先提出建议，再由用户决定是否沉淀到 `/Users/hujia/key-os/00-core/PLAYBOOK.md`
+4. 如有底层认知变化：
+   - 只能建议用户更新 `/Users/hujia/key-os/00-core/IDENTITY.md`
+
+**不要自动执行的动作：**
+
+- 不自动覆盖 `/Users/hujia/key-os/00-core/SOUL.md`
+- 不自动覆盖 `/Users/hujia/key-os/00-core/USER.md`
+- 不自动覆盖 `/Users/hujia/key-os/00-core/IDENTITY.md`
+- 不自动覆盖 `/Users/hujia/key-os/00-core/PLAYBOOK.md`
+- 不自动覆盖 `/Users/hujia/key-os/01-memory/MEMORY.md`
+- 不自动覆盖 `/Users/hujia/key-os/01-memory/ARCHIVE.md`
 
 ### 6.4 Fragment 格式
 
@@ -160,6 +196,16 @@ python backend/scripts/report/generate_t1_market_report.py \
 
 ### 6.5 与 Antigravity 原生记忆的关系
 
-- `mem/` 文件 = 跨工具统一真相源（OpenClaw/Antigravity/OpenCode 共享）
-- Antigravity KI = 对话级知识蒸馏（自动运行，作为补充层）
-- 两套系统互补，不冲突
+- `/Users/hujia/key-os` = 跨工具统一真相源（OpenClaw / Antigravity / Codex / OpenCode / Claude Code 共享）
+- Antigravity 自己的会话记忆 / KI = 对话级补充层，不是 canonical truth
+- 本项目目录下的 `mem/` = 历史资料层，可参考，但不再作为新的写入目标
+- 两层可以并存，但发生冲突时，以 `/Users/hujia/key-os` 为准
+
+### 6.6 本项目的明确执行口径
+
+在这个项目里，Antigravity 必须遵守以下口径：
+
+- 读取长期画像、判断框架、活跃记忆时，去 `/Users/hujia/key-os`
+- 写入新的研究碎片和项目推进状态时，也写回 `/Users/hujia/key-os`
+- 不在 `/Users/hujia/Desktop/RedditSignalScanner/mem/` 继续扩张一套新的长期记忆
+- 如果确实引用 `mem/`，只能当作历史参考，而不是新的权威来源

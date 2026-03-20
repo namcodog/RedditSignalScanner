@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import logging
 import uuid
 import os
 from datetime import datetime, timezone
@@ -16,10 +17,32 @@ from app.services.infrastructure.task_outbox_service import enqueue_execute_targ
 from app.utils.subreddit import subreddit_key
 
 BACKFILL_POSTS_QUEUE = os.getenv("BACKFILL_POSTS_QUEUE", "backfill_posts_queue_v2")
+logger = logging.getLogger(__name__)
 
 
 def _utc_now() -> datetime:
     return datetime.now(timezone.utc)
+
+
+def _merge_vetting_metrics(
+    dc: DiscoveredCommunity,
+    *,
+    status: str,
+    now: datetime,
+    reason: str | None = None,
+    extra: dict[str, Any] | None = None,
+) -> None:
+    metrics: dict[str, Any] = dict(dc.metrics or {})
+    vetting: dict[str, Any] = dict(metrics.get("vetting") or {})
+    vetting["status"] = status
+    vetting["updated_at"] = now.isoformat()
+    if reason:
+        vetting["reason"] = reason
+    if extra:
+        vetting.update(extra)
+    metrics["vetting"] = vetting
+    dc.metrics = metrics
+    dc.updated_at = now
 
 
 async def ensure_candidate_vetting_backfill(
@@ -56,6 +79,15 @@ async def ensure_candidate_vetting_backfill(
         select(CommunityPool.is_blacklisted).where(CommunityPool.name == name)
     )
     if pool_row.scalar_one_or_none() is True:
+        _merge_vetting_metrics(
+            dc,
+            status="blocked",
+            now=now,
+            reason="community_pool_blacklisted",
+            extra={"trigger": str(trigger or "")},
+        )
+        await session.flush()
+        logger.warning("Blocked candidate vetting for %s because community_pool is blacklisted", name)
         return []
 
     metrics: dict[str, Any] = dict(dc.metrics or {})
@@ -100,6 +132,15 @@ async def ensure_candidate_vetting_backfill(
                 target_id=target_id,
                 queue=BACKFILL_POSTS_QUEUE,
             )
+    else:
+        _merge_vetting_metrics(
+            dc,
+            status="blocked",
+            now=now,
+            reason="no_backfill_targets_planned",
+            extra={"crawl_run_id": crawl_run_id},
+        )
+        await session.flush()
 
     return target_ids
 
@@ -155,8 +196,25 @@ async def check_vetting_and_trigger_evaluation(
             kwargs={"community": name},
             queue="probe_queue",
         )
-    except Exception:
+        success_metrics: dict[str, Any] = dict(dc.metrics or {})
+        success_vetting: dict[str, Any] = dict(success_metrics.get("vetting") or {})
+        success_vetting["evaluation_trigger"] = "queued"
+        success_vetting["evaluation_triggered_at"] = now.isoformat()
+        success_metrics["vetting"] = success_vetting
+        dc.metrics = success_metrics
+        dc.updated_at = now
+        await session.flush()
+    except Exception as exc:
         # best-effort only
+        failed_metrics: dict[str, Any] = dict(dc.metrics or {})
+        failed_vetting: dict[str, Any] = dict(failed_metrics.get("vetting") or {})
+        failed_vetting["evaluation_trigger"] = "failed"
+        failed_vetting["evaluation_trigger_error"] = str(exc)
+        failed_metrics["vetting"] = failed_vetting
+        dc.metrics = failed_metrics
+        dc.updated_at = now
+        await session.flush()
+        logger.warning("Failed to trigger single-community evaluation for %s: %s", name, exc)
         return True
 
     return True

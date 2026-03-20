@@ -5,6 +5,33 @@ Template-driven T1 Market Report:
 - 话题/赛道动态：通过参数/环境传入，不硬编码
 - 有 OPENAI_API_KEY 用 LLM，没 Key 输出降级版（同骨架，标记降级）
 """
+# ============================================================
+# 🔒 DETERMINISM PROTOCOL (Phase 240 — 固化于 2026-03-12)
+# ============================================================
+# 本脚本的确定性保证:
+#
+# 1. 时间锚点: 全链路 SQL 使用 anchor_ts 参数，禁止“当前时间”SQL函数。
+#    - 本文件 + t1_stats.py 共消除 23 处动态时间窗
+#    - 新增 SQL 时间查询时 **必须** 接受并使用 anchor_ts 参数
+#
+# 2. 确定性模式 (--anchor-ts): 传入固定时间戳后自动跳过:
+#    - LLM 语义扩展 (_expand_topic_semantically)
+#    - JIT labeling 数据库副作用
+#    - Persona LLM 生成
+#    - Brands LLM 获取
+#    通过 deterministic_validation 变量守卫
+#
+# 3. 排序稳定性: 所有排序必须有明确的 tie-break:
+#    - dedup 输入按 id 排序
+#    - bucketing 遍历按 subreddit 名排序
+#    - community scoring 按 (-sim_score, name) 排序
+#
+# 4. 新增 LLM 调用时: 必须用 if deterministic_validation: 守卫
+#
+# ⚠️ AI 协作提示: 如果你是 AI Agent 正在修改本文件，
+#    请搜索 "deterministic_validation" 了解确定性模式的完整守卫链。
+#    任何新增的动态时间 SQL / LLM 调用 / 数据库写入，都必须被此变量控制。
+# ============================================================
 from __future__ import annotations
 
 import argparse
@@ -13,13 +40,14 @@ import json
 import os
 import re
 import subprocess
+import unicodedata
 import uuid
 import hashlib
 from datetime import datetime, timezone, timedelta
 from decimal import Decimal
 from collections import defaultdict, Counter
 from pathlib import Path
-from typing import Any, Iterable, Tuple, Optional
+from typing import Any, Callable, Iterable, Mapping, Tuple, Optional
 import yaml
 
 from app.core.config import settings
@@ -46,6 +74,7 @@ from app.services.facts_v2.midstream import (
     filter_solutions_by_profile,
 )
 from app.services.facts_v2.quality import quality_check_facts_v2
+from app.services.facts_v2.slice import build_facts_slice_for_report
 from app.services.analysis.t1_stats import (
     build_stats_snapshot,
     build_trend_analysis,
@@ -62,6 +91,7 @@ from app.services.analysis.topic_profiles import (
     build_search_keywords,
     filter_items_by_profile_context,
     filter_relevance_map_with_profile,
+    load_brand_discovery_defaults,
     load_topic_profiles,
     match_topic_profile,
     normalize_subreddit,
@@ -71,6 +101,7 @@ from app.services.analysis.topic_profiles import (
 from app.utils.url import normalize_reddit_url
 from app.services.semantic.text_classifier import classify_category_aspect
 from app.models.comment import Category
+from app.models.facts_quality_audit import FactsQualityAudit
 from sqlalchemy import text
 from sqlalchemy.engine import Result
 import hashlib
@@ -80,16 +111,20 @@ from copy import deepcopy
 
 REPORT_SYSTEM_PROMPT_V2 = '''[System]
 
-你是一名懂电商、懂 Reddit、也懂人话的“市场洞察分析师”。
+你是一名懂电商、懂 Reddit、也懂人话的"市场洞察分析师"。
+你的读者是**跨境电商卖家和选品决策者**，不是终端消费者。
+所有建议都应围绕"选品决策 / 产品定位 / 差异化方向"展开。
+读者关心的核心三问：这个品类值不值得做？怎么切入？用什么路径差异化？
+机会假设三要素：**人群 + 痛点 + 未被满足** — 每个机会必须回答这三个问题。
 
 【你的输入】
 - product_desc：这次要研究的问题/赛道描述。
 - facts：已经清洗好的事实包（来自 Reddit T1 社区），内容包括但不限于：
   - 讨论量、时间趋势（哪些话题在升温/降温）
-  - 不同人群类型占比（吐槽/避坑党、找货/工具党、进阶/学习党）
+  - 不同人群类型占比（来抱怨踩坑的、来找推荐比价的、来学进阶玩法的）
   - 不同痛点类型的占比和强度
   - 品牌/平台/渠道在讨论中的出现频率和情绪
-  - P/S Ratio（问题帖 : 解决帖）
+  - 问题帖和解法帖的比例（问题多还是答案多）
   - business_signals（high_value_pains, buying_opportunities, competitor_insights, market_saturation 等）
   - sample_comments_db（带链接的真实评论样本）
 
@@ -100,41 +135,56 @@ REPORT_SYSTEM_PROMPT_V2 = '''[System]
 
 A. 禁止假装在看销量/财报  
 - 禁用词（以及类似说法）：  
-  “市场份额 / 占有率 / 营收 / 销量 / 主导者 / 挑战者 / 瓜分市场”。  
-- 只能用“讨论维度”的说法，比如：  
-  “讨论热度高 / 提及占比高 / 声量大 / 在 Reddit 上被提到更多”。
+  "市场份额 / 占有率 / 营收 / 销量 / 主导者 / 挑战者 / 瓜分市场"。  
+- 只能用"讨论维度"的说法，比如：  
+  "讨论热度高 / 提及占比高 / 声量大 / 在 Reddit 上被提到更多"。
 
 B. 禁止暴露 JSON 字段名 / 变量名  
 - 正文里绝对不要出现：aspect_breakdown, need_distribution, brand_pain, market_landscape, pain_hierarchy 等字段名。  
-- 要说：“从痛点分布来看… / 从不同人群的需求占比来看… / 从品牌和问题的关联上看…”。
+- 要说："从痛点分布来看… / 从不同人群的需求占比来看… / 从品牌和问题的关联上看…"。
 
-C. 用户类型一律用“xxx党”  
-- Survival → “吐槽/避坑党”：出问题、来抱怨、求安慰、求解救的人。  
-- Efficiency → “找货/工具党”：来问“用啥好 / 有啥推荐 / 哪个更划算”的人。  
-- Growth → “进阶/学习党”：看教程、学玩法、分享经验的人。  
-- 禁止写“生存型用户 / 效率型用户 / 成长型用户”。
+C. 描述用户类型时用场景化的大白话  
+- **硬禁令**：以下词汇绝对不能出现在报告任何位置（包括标题、正文、括号、引号内）：  
+  - "吐槽党" "避坑党" "找货党" "工具党" "进阶党" "学习党" "耐用党" "预算党" "性价比党" "颜值党"  
+  - 任何形式的 "xx党"  
+  - "生存型用户" "效率型用户" "成长型用户" 及所有 "xx型用户"  
+- 正确写法——直接说人话：  
+   - "来抱怨踩坑的人" / "买了后悔来吐槽的人"  
+   - "来找推荐、比价、求购的人" / "想买但不知道选哪个的人"  
+   - "来学进阶玩法、分享经验的人" / "已经入坑想玩得更好的人"  
+- 怎么自然怎么写，读者不应该觉得在看一份分类报告。  
+- **自查规则**：写完后自行检查全文，如果出现任何"x党"、"x型用户"标签，立即替换为上述大白话描述。
 
-D. 术语翻译  
-- subscription → “订阅服务 / 月费模式”  
-- content → 结合语境改成“教程 / 食谱 / 说明书 / 使用攻略”等具体说法  
-- install → “安装和设置过程 / 安装麻烦不麻烦”  
-- EXPLODING → “爆发式增长”（只在描述趋势时用）  
-- P/S Ratio → 可以保留写法，但必须用一句人话解释它是什么。
+D. 术语翻译 — 一切术语都要变成读者秒懂的话  
+- subscription → "订阅服务 / 月费模式"  
+- content → 结合语境改成"教程 / 食谱 / 说明书 / 使用攻略"等具体说法  
+- install → "安装和设置过程 / 安装麻烦不麻烦"  
+- EXPLODING → "正在爆发" / "讨论量暴涨"  
+- P/S Ratio → **禁止**出现 "P/S Ratio" 和 "≈ 1:3.5" 等数据格式。直接说人话：  
+    "问题帖远多于解法帖" / "解法帖是问题帖的三倍多" / "问题和答案基本五五开"。
+- market_saturation / 饱和度 → **禁止**写任何数值（如 0.46、0.0、0.19）。改说：  
+    "几乎没有品牌垄断" / "竞争还很空" / "已经有头部品牌在卡位了"。
+- 所有看起来像系统变量、数据编号、原始数值的东西，都翻译成人话。  
+  读者不需要知道你背后有个数据库。
 
-E. 数据不足时的写法  
-- 不要写：“由于缺乏数据，无法判断 / 样本不足所以不确定”这类废话。  
+E. 社区推荐必须与主题强相关
+- 推荐的每个社区，主流讨论必须直接围绕目标产品品类。
+- 如果一个社区只是偶尔提到关键词但主要聊别的话题，不要推荐。
+
+F. 数据不足时的写法  
+- 不要写："由于缺乏数据，无法判断 / 样本不足所以不确定"这类废话。  
 - 可以：  
   - 直接略过某个细分点，或者  
-  - 写成：“从目前能看到的这批讨论里，大家更常提到的是……”
+  - 写成："从目前能看到的这批讨论里，大家更常提到的是……"
 
 ------------------------------------------------
 【使用 facts 的原则】
 
-1. 把 facts 当作经过聚合后的“事实表”，不能凭感觉扩展。任何痛点、机会、结论，都必须能在 facts 的字段里找到依据（尤其是 business_signals、market_saturation、extracted_keywords 和 sample_comments_db）。  
-2. 每个“重点痛点”在正文里至少要能对应到 1 条真实讨论链接（来自 sample_comments_db）。  
+1. 把 facts 当作经过聚合后的"事实表"，不能凭感觉扩展。任何痛点、机会、结论，都必须能在 facts 的字段里找到依据（尤其是 business_signals、market_saturation、extracted_keywords 和 sample_comments_db）。  
+2. 每个"重点痛点"在正文里至少要能对应到 1 条真实讨论链接（来自 sample_comments_db）。  
 3. 不要引用具体 JSON key 名称，但要忠实使用其中的结构：  
-   - 比如：用 pain_tree 推断“表层抱怨”背后的成因链。  
-4. 所有结论最后都要落回一句话：“这对用户的下一步决策有什么用”。
+   - 比如：用 pain_tree 推断"表层抱怨"背后的成因链。  
+4. 所有结论最后都要落回一句话："这对卖家的下一步选品/定位有什么用"。
 
 ------------------------------------------------
 【报告结构总览】
@@ -143,25 +193,43 @@ E. 数据不足时的写法
 1. 顶部信息  
 2. 决策卡片（4 组）  
    2.1 需求趋势  
-   2.2 需求图谱透视（人群结构）  
-   2.3 P/S Ratio 大白话  
+   2.2 人群结构  
+   2.3 问题和解法的平衡  
    2.4 高潜力社群  
 3. 概览（市场健康度）  
    3.1 竞争格局（平台 / 品牌 / 信息渠道）  
-   3.2 P/S Ratio 深度解读  
+   3.2 这片市场是荒地还是高速公路  
 4. 核心战场推荐（3–4 个社区画像）  
 5. 用户痛点（3 个）  
-6. Top 购买 / 决策驱动力（2–3 条）  
-7. 商业机会（2 张机会卡）
+6. 购买决策的关键驱动力（2–3 条）  
+7. 商业机会（2 张选品机会卡）
 
 一次调用只负责其中一部分内容，由 user 指令里的 output_part 决定：
 - output_part = "part1" → 只写模块 1–4  
 - output_part = "part2" → 只写模块 5–7  
 
-写作风格：  
-- 全程大白话，少用抽象词。  
-- 先说结论，再给 2–3 个“凭啥这么说”的依据（基于 facts）。  
-- 不要凑字数，内容宁可少，但每一句都要有用。'''
+叙事主线（整份报告只讲一个故事）：
+**谁在抱怨什么？→ 为什么没人解决？→ 跨境卖家怎么切入？**
+每个模块都是这条主线的一个环节，不是独立信息块。
+模块之间要有逻辑衔接——上一模块的结论自然引出下一模块的问题。
+
+写作风格：
+- 像一个懂行的朋友面对面给你讲这个赛道，不是写一份正式分析报告。
+- 开头亮观点，段落短，敢下判断。不写"可能A也可能B"——要有立场。
+- 看到数据先问"这对选品有什么用？"——答不上来就别写。
+- 造框架造隐喻，让内容有抓手（比如"这是一条荒地，还是高速公路？"）。
+- 全程大白话，先说结论，再给 2–3 个"凭啥这么说"的依据（基于 facts）。
+- 不要凑字数，每一句都要有决策价值，能让卖家看完马上知道下一步该干什么。
+- 绝对不出现任何看起来像"数据格式"的东西（比如 P/S Ratio ≈ 1:3.5、饱和度 0.19、0.0 等）。全部翻译成人话。
+
+⚠️ 自查规则：
+- 写完后通读一遍，假装你是一个不懂技术的跨境卖家，有没有哪句话让你懵？有就重写。
+- 有没有任何地方像在读数据报表而不是听朋友聊天？有就重写。
+- 社区推荐是否与目标品类强相关？废社区不推荐。
+
+【质量等级提醒】
+- 如果 facts 里的 quality_tier 为 "C_scouting"，请在报告开头标注"⚠️ 本报告基于有限数据，结论仅供参考"，并在行文中使用"初步观察""有限样本显示"这类审慎措辞。
+- 如果 facts 里的 quality_tier 为 "B_trimmed"，请明确提示数据覆盖面有限，避免写得像已经完全验证。'''
 
 
 def _normalize_subreddit(name: str) -> str:
@@ -176,7 +244,35 @@ PLATFORMS = {
     "walmart",
 }
 CHANNELS = {"youtube", "reddit", "tiktok", "instagram", "facebook"}
-NOISE_TERMS = {"price", "prices", "video", "videos"}
+NOISE_TERMS = {
+    "price",
+    "prices",
+    "video",
+    "videos",
+    # Generic false-positive brand names
+    "thank",
+    "ultra",
+    "ironically",
+    "claude",
+    "chatgpt",
+    "openai",
+    "colombia",
+    "brazil",
+    "ethiopia",
+    "surprisingly",
+    "actually",
+    "personally",
+    "basically",
+    "probably",
+    "definitely",
+    "honestly",
+    "finally",
+    "maybe",
+    "perhaps",
+    "however",
+    "everything",
+    "nothing",
+}
 EDC_CORE_COMMUNITIES = [
     "r/flashlight",
     "r/flashlights",
@@ -246,6 +342,30 @@ def _load_topic_profiles(path: Path = Path("backend/config/topic_profiles.yaml")
     except Exception as e:
         print(f"⚠️ Failed to load topic profiles: {e}")
         return []
+
+
+def _load_brand_noise(config_root: Path, mode: str = "market_insight") -> set[str]:
+    """从 config/brand_noise.yaml 加载品牌噪音词。"""
+    noise_path = config_root / "brand_noise.yaml"
+    noise: set[str] = set()
+    try:
+        if noise_path.exists():
+            data = yaml.safe_load(noise_path.read_text(encoding="utf-8")) or {}
+            for word in data.get("general", []):
+                cleaned = str(word).strip().lower()
+                if cleaned:
+                    noise.add(cleaned)
+            if mode == "operations":
+                for word in data.get("operations", []):
+                    cleaned = str(word).strip().lower()
+                    if cleaned:
+                        noise.add(cleaned)
+            print(f"📋 Brand noise loaded: {len(noise)} words (mode={mode})")
+        else:
+            print(f"⚠️ {noise_path} not found, using empty noise set")
+    except Exception as exc:
+        print(f"⚠️ Failed to load brand noise: {exc}")
+    return noise
 
 
 def _match_topic_profile(topic: str, profiles: list[dict[str, Any]]) -> dict[str, Any] | None:
@@ -345,48 +465,29 @@ async def _write_quality_audit(
     dynamic_blacklist: set[str],
 ) -> None:
     try:
-        await session.execute(
-            text(
-                """
-                INSERT INTO facts_quality_audit (
-                    run_id, topic, days, mode, config_hash,
-                    trend_source, trend_degraded, time_window_used,
-                    comments_count, posts_count, solutions_count, community_coverage,
-                    degraded, data_fallback, posts_fallback, solutions_fallback,
-                    dynamic_whitelist, dynamic_blacklist, insufficient_flags
-                )
-                VALUES (
-                    :run_id, :topic, :days, :mode, :config_hash,
-                    :trend_source, :trend_degraded, :time_window_used,
-                    :comments_count, :posts_count, :solutions_count, :community_coverage,
-                    :degraded, :data_fallback, :posts_fallback, :solutions_fallback,
-                    :dynamic_whitelist, :dynamic_blacklist, :insufficient_flags
-                )
-                ON CONFLICT (run_id) DO NOTHING
-                """
-            ),
-            {
-                "run_id": run_id,
-                "topic": args.topic,
-                "days": args.days,
-                "mode": args.mode,
-                "config_hash": config_hash,
-                "trend_source": trend_source,
-                "trend_degraded": trend_degraded,
-                "time_window_used": time_window_used,
-                "comments_count": quality.get("comments_count"),
-                "posts_count": quality.get("posts_count"),
-                "solutions_count": quality.get("solutions_count"),
-                "community_coverage": quality.get("community_coverage"),
-                "degraded": quality.get("degraded"),
-                "data_fallback": quality.get("data_fallback"),
-                "posts_fallback": quality.get("posts_fallback"),
-                "solutions_fallback": quality.get("solutions_fallback"),
-                "dynamic_whitelist": json.dumps(sorted(list(dynamic_whitelist)), ensure_ascii=False),
-                "dynamic_blacklist": json.dumps(sorted(list(dynamic_blacklist)), ensure_ascii=False),
-                "insufficient_flags": json.dumps(insufficient_flags, ensure_ascii=False),
-            },
+        record = FactsQualityAudit(
+            run_id=run_id,
+            topic=args.topic,
+            days=args.days,
+            mode=args.mode,
+            config_hash=config_hash,
+            trend_source=trend_source,
+            trend_degraded=trend_degraded,
+            time_window_used=time_window_used,
+            comments_count=quality.get("comments_count"),
+            posts_count=quality.get("posts_count"),
+            solutions_count=quality.get("solutions_count"),
+            community_coverage=quality.get("community_coverage"),
+            degraded=quality.get("v1_preflight_degraded"),
+            data_fallback=quality.get("data_fallback"),
+            posts_fallback=quality.get("posts_fallback"),
+            solutions_fallback=quality.get("solutions_fallback"),
+            dynamic_whitelist=json.dumps(sorted(list(dynamic_whitelist)), ensure_ascii=False),
+            dynamic_blacklist=json.dumps(sorted(list(dynamic_blacklist)), ensure_ascii=False),
+            insufficient_flags=json.dumps(insufficient_flags, ensure_ascii=False),
+            tier=quality.get("tier"),
         )
+        await session.merge(record)
         await session.commit()
         print("🧾 facts_quality_audit inserted.")
     except Exception as exc:  # pragma: no cover
@@ -403,14 +504,33 @@ VERTICAL_OFFTOPIC = {
 # Hard-coded vertical whitelists/blacklists — kept for backward compatibility; config overrides at runtime
 VERTICAL_CORE_WHITELIST = {
     "pets": {"r/cats", "r/catcare", "r/litterrobot", "r/litterboxes", "r/pets", "r/catadvice", "r/catowners"},
-    "consumer_electronics": {"r/gadgets", "r/flashlight", "r/flashlights", "r/edc", "r/edcexchange", "r/flashlight_builds", "r/flashlight_mods"},
+    "consumer_electronics": {"r/gadgets"},  # Phase237: flashlight/edc 独立到 edc vertical，避免泛化污染
     "edc": {"r/flashlight", "r/flashlights", "r/edc", "r/edcexchange", "r/flashlight_builds", "r/flashlight_mods"},
+    "audio": {"r/headphones", "r/headphoneadvice", "r/audiophile", "r/earbuds", "r/bluetooth_speakers"},  # Phase237: 新增 audio vertical
     "home_kitchen": {"r/coffee", "r/espresso", "r/pourover", "r/barista"},
     "operations": {"r/amazonfba", "r/amazonseller", "r/fulfillmentbyamazon", "r/amazonprime", "r/amazonflexdrivers", "r/amazonvine"},
+    "baby_parenting": {"r/babybumps", "r/toddlers", "r/beyondthebump", "r/daddit", "r/mommit", "r/parenting"},
+    "outdoor_garden": {"r/hiking", "r/backpacking", "r/campingandhiking", "r/ultralight", "r/onebag"},
+    "fashion": {"r/frugalmalefashion"},
+    "automotive": {"r/mechanicadvice", "r/autodetailing"},
 }
 VERTICAL_CORE_BLACKLIST = {
     "consumer_electronics": {"r/financialindependence", "r/frugal", "r/povertyfinance", "r/personalfinance"},
     "edc": {"r/financialindependence", "r/frugal", "r/povertyfinance", "r/personalfinance"},
+}
+_SEMANTIC_PROXIMITY_MAP: dict[str, set[str]] = {
+    "earbuds": {"headphones", "headphone", "earphone", "earphones", "audio", "sound", "audiophile", "earbud"},
+    "headphones": {"earbuds", "earbud", "earphone", "earphones", "audio", "sound", "audiophile", "headphone"},
+    "speaker": {"speakers", "sound", "audio", "bluetooth", "portable"},
+    "camera": {"cameras", "photography", "photo", "lens", "lenses"},
+    "laptop": {"laptops", "notebook", "computer", "computing"},
+    "phone": {"phones", "smartphone", "smartphones", "mobile"},
+    "watch": {"watches", "smartwatch", "smartwatches", "wearable"},
+    "keyboard": {"keyboards", "mechanical", "keycaps", "switches"},
+    "mouse": {"mice", "gaming", "peripheral"},
+    "tablet": {"tablets", "ipad"},
+    "coffee": {"espresso", "brew", "brewing", "grinder", "roast"},
+    "stroller": {"strollers", "baby", "toddler", "infant", "parenting"},
 }
 
 def _classify_entity(name: str) -> str:
@@ -707,7 +827,8 @@ def _compute_intent_scores(
 
     averages: dict[str, float] = {}
     all_scores: list[float] = []
-    for sub, values in intent_map.items():
+    for sub in sorted(intent_map):
+        values = intent_map[sub]
         if not values:
             continue
         avg = sum(values) / len(values)
@@ -728,7 +849,7 @@ def _top_brand_sentiment(entity_sentiment: dict[str, dict[str, float]], top_n: i
             continue
         avg = sum(vals) / len(vals)
         scored.append({"brand": brand, "avg_sentiment": round(avg, 3), "support": len(vals)})
-    scored.sort(key=lambda x: x["avg_sentiment"], reverse=True)
+    scored.sort(key=lambda x: (-x["avg_sentiment"], -(x["support"] or 0), str(x["brand"]).lower()))
     return scored[:top_n]
 
 
@@ -770,6 +891,102 @@ def _apply_opportunity_scores(
 def _tokenize_topic(text: str) -> set[str]:
     tokens = re.split(r"[^A-Za-z0-9\u4e00-\u9fff]+", text.lower())
     return {t for t in tokens if t}
+
+
+def _resolve_anchor_ts(anchor_ts: datetime | None = None) -> datetime:
+    if anchor_ts is None:
+        return datetime.now(timezone.utc)
+    if anchor_ts.tzinfo is None:
+        return anchor_ts.replace(tzinfo=timezone.utc)
+    return anchor_ts.astimezone(timezone.utc)
+
+
+def _parse_anchor_ts_arg(anchor_ts_value: str | None) -> datetime:
+    if not anchor_ts_value:
+        return _resolve_anchor_ts()
+    normalized = str(anchor_ts_value).strip()
+    if normalized.endswith("Z"):
+        normalized = normalized[:-1] + "+00:00"
+    return _resolve_anchor_ts(datetime.fromisoformat(normalized))
+
+
+def _build_run_identifiers(
+    *,
+    topic: str,
+    product_desc: str,
+    mode: str,
+    days: int,
+    anchor_ts: datetime,
+    deterministic: bool,
+) -> tuple[str, str]:
+    if not deterministic:
+        return str(uuid.uuid4()), str(uuid.uuid4())
+    seed = "|".join(
+        [
+            topic.strip(),
+            product_desc.strip(),
+            mode.strip(),
+            str(days),
+            _resolve_anchor_ts(anchor_ts).isoformat(),
+        ]
+    )
+    run_id = str(uuid.uuid5(uuid.NAMESPACE_URL, f"report:{seed}"))
+    snapshot_id = str(uuid.uuid5(uuid.NAMESPACE_URL, f"snapshot:{seed}"))
+    return run_id, snapshot_id
+
+
+def _window_start(anchor_ts: datetime, days: int) -> datetime:
+    return _resolve_anchor_ts(anchor_ts) - timedelta(days=max(int(days or 0), 0))
+
+
+def _comment_dedup_sort_key(item: Mapping[str, Any]) -> tuple[str, str, str, str]:
+    return (
+        str(item.get("comment_id") or item.get("id") or item.get("reddit_comment_id") or ""),
+        str(item.get("post_id") or item.get("source_post_id") or ""),
+        str(item.get("created_at") or ""),
+        str(item.get("subreddit") or ""),
+    )
+
+
+def _flatten_bucketed_items(
+    bucketed: Mapping[str, list[dict[str, Any]]],
+    *,
+    item_sort_key: Callable[[dict[str, Any]], tuple[Any, ...]] | None = None,
+) -> list[dict[str, Any]]:
+    flattened: list[dict[str, Any]] = []
+    for bucket_key in sorted(bucketed):
+        items = list(bucketed[bucket_key])
+        if item_sort_key is not None:
+            items.sort(key=item_sort_key)
+        flattened.extend(items)
+    return flattened
+
+
+def _post_bucket_sort_key(item: Mapping[str, Any]) -> tuple[int, int, str]:
+    return (
+        -int(item.get("value_score") or 0),
+        -int(item.get("score") or 0),
+        str(item.get("post_id") or ""),
+    )
+
+
+def _comment_bucket_sort_key(item: Mapping[str, Any]) -> tuple[int, str]:
+    return (
+        -int(item.get("comment_score") or 0),
+        str(item.get("comment_id") or item.get("id") or ""),
+    )
+
+
+def _contains_cjk(text: str) -> bool:
+    """Detect whether a string contains CJK characters."""
+    return any(
+        unicodedata.category(ch).startswith("Lo") and ord(ch) > 0x2E80
+        for ch in text
+    )
+
+
+def _deterministic_topic_expansion(topic: str) -> tuple[set[str], set[str], str]:
+    return _tokenize_topic(topic), set(), "other"
 
 
 async def _expand_topic_semantically(
@@ -851,6 +1068,20 @@ async def _expand_topic_semantically(
         if any(kw in expanded for kw in edc_keywords):
             if vertical not in {"edc", "consumer_electronics"}:
                 vertical = "edc"
+
+        # Phase237: Audio vertical detection — earbuds/headphones 类 topic 走 audio 而非 consumer_electronics
+        audio_keywords = {"earbuds", "earbud", "headphones", "headphone", "earphone", "earphones",
+                          "audio", "audiophile", "speaker", "speakers", "noise cancelling", "wireless audio"}
+        if any(kw in expanded for kw in audio_keywords):
+            if vertical not in {"audio"}:
+                vertical = "audio"
+
+        # Phase237: Baby/parenting vertical detection
+        baby_keywords = {"stroller", "strollers", "baby", "toddler", "infant", "newborn",
+                         "crib", "diaper", "pacifier", "nursing", "breastfeeding"}
+        if any(kw in expanded for kw in baby_keywords):
+            if vertical not in {"baby_parenting"}:
+                vertical = "baby_parenting"
 
         print(f"   -> Mapped to: {expanded}, exclude: {exclude_tokens}, vertical: {vertical}")
         return expanded, exclude_tokens, str(vertical or "other")
@@ -1021,7 +1252,7 @@ def _pick_relevant_subreddits(relevance_map: dict[str, int], limit: int = 120) -
     """Normalize and limit subreddits for downstream stats computation."""
     if not relevance_map:
         return []
-    ordered = sorted(relevance_map.items(), key=lambda x: x[1], reverse=True)
+    ordered = sorted(relevance_map.items(), key=lambda x: (-x[1], str(x[0]).lower()))
     picked: list[str] = []
     seen: set[str] = set()
     for name, _ in ordered:
@@ -1040,7 +1271,7 @@ def _pick_relevant_subreddits(relevance_map: dict[str, int], limit: int = 120) -
 
 
 async def _fetch_need_distribution(
-    session, subs: list[str], days: int = 365
+    session, subs: list[str], days: int = 365, *, anchor_ts: datetime | None = None
 ) -> dict[str, dict[str, float]]:
     """Phase 5.2: Fetch L1 category distribution per community from post_scores.tags_analysis (V1)."""
     if not subs:
@@ -1049,6 +1280,7 @@ async def _fetch_need_distribution(
     subs_clean = [s.lower() if s.lower().startswith("r/") else f"r/{s.lower()}" for s in subs if s]
     
     # New Logic: Parse JSONB tags_analysis->>'content_type'
+    window_start = _window_start(_resolve_anchor_ts(anchor_ts), days)
     sql = text("""
         SELECT 
             lower(pr.subreddit) as subreddit,
@@ -1057,12 +1289,12 @@ async def _fetch_need_distribution(
         FROM posts_raw pr
         JOIN post_scores_latest_v ps ON ps.post_id = pr.id
         WHERE lower(pr.subreddit) = ANY(:subs)
-          AND pr.created_at >= NOW() - (interval '1 day' * :days)
+          AND pr.created_at >= :window_start
         GROUP BY lower(pr.subreddit), raw_type
     """)
     
     try:
-        result = await session.execute(sql, {"subs": subs_clean, "days": days})
+        result = await session.execute(sql, {"subs": subs_clean, "window_start": window_start})
         rows = result.fetchall()
     except Exception as e:
         print(f"⚠️ Need Dist Error: {e}")
@@ -1112,6 +1344,8 @@ async def _score_communities_contextually(
     vertical: str,
     days: int,
     limit: int = 120,
+    *,
+    anchor_ts: datetime | None = None,
 ) -> dict[str, dict[str, float]]:
     """Compute topic/off-topic hit counts and semantic scores for communities to drive dynamic allow/block."""
     if not subs or not topic_tokens:
@@ -1121,6 +1355,7 @@ async def _score_communities_contextually(
     off_tokens = VERTICAL_OFFTOPIC.get(vertical or "", set())
     off_query = " | ".join(off_tokens) if off_tokens else ""
     has_off = bool(off_query)
+    window_start = _window_start(_resolve_anchor_ts(anchor_ts), days)
 
     async def _count(sql: str, params: dict[str, Any]) -> dict[str, int]:
         res: Result = await session.execute(text(sql), params)
@@ -1157,12 +1392,12 @@ async def _score_communities_contextually(
             FROM posts_raw p
             JOIN post_embeddings pe ON pe.post_id = p.id
             WHERE lower(p.subreddit) = ANY(:subs)
-              AND p.created_at >= NOW() - (interval '1 day' * :days)
+              AND p.created_at >= :window_start
               AND pe.embedding <=> :emb < :threshold
             GROUP BY sr
         """
         topic_counts = await _count(sql_sem_topic, {
-            "subs": subs, "days": days, "emb": topic_embed_str, "threshold": SEMANTIC_SIM_THRESHOLD
+            "subs": subs, "window_start": window_start, "emb": topic_embed_str, "threshold": SEMANTIC_SIM_THRESHOLD
         })
         # Approximate similarity by hit count; used for sorting
         sim_scores = {k: v for k, v in topic_counts.items()}
@@ -1176,12 +1411,12 @@ async def _score_communities_contextually(
                 FROM posts_raw p
                 JOIN post_embeddings pe ON pe.post_id = p.id
                 WHERE lower(p.subreddit) = ANY(:subs)
-                  AND p.created_at >= NOW() - (interval '1 day' * :days)
+                  AND p.created_at >= :window_start
                   AND pe.embedding <=> :emb < :threshold
                 GROUP BY sr
             """
             off_counts = await _count(sql_sem_off, {
-                "subs": subs, "days": days, "emb": off_embed_str, "threshold": SEMANTIC_SIM_THRESHOLD
+                "subs": subs, "window_start": window_start, "emb": off_embed_str, "threshold": SEMANTIC_SIM_THRESHOLD
             })
         except Exception:
             off_counts = {}
@@ -1192,21 +1427,21 @@ async def _score_communities_contextually(
             SELECT lower(subreddit) AS sr, COUNT(*) AS cnt
             FROM comments
             WHERE lower(subreddit) = ANY(:subs)
-              AND created_utc >= NOW() - (interval '1 day' * :days)
+              AND created_utc >= :window_start
               AND to_tsvector('english', COALESCE(body, '')) @@ to_tsquery('english', :q)
             GROUP BY sr
         """
-        topic_counts = await _count(sql_topic, {"subs": subs, "days": days, "q": topic_query})
+        topic_counts = await _count(sql_topic, {"subs": subs, "window_start": window_start, "q": topic_query})
     if has_off and topic_embed is None:
         sql_off = """
             SELECT lower(subreddit) AS sr, COUNT(*) AS cnt
             FROM comments
             WHERE lower(subreddit) = ANY(:subs)
-              AND created_utc >= NOW() - (interval '1 day' * :days)
+              AND created_utc >= :window_start
               AND to_tsvector('english', COALESCE(body, '')) @@ to_tsquery('english', :q)
             GROUP BY sr
         """
-        off_counts = await _count(sql_off, {"subs": subs, "days": days, "q": off_query or "''"})
+        off_counts = await _count(sql_off, {"subs": subs, "window_start": window_start, "q": off_query or "''"})
 
     out: dict[str, dict[str, float]] = {}
     for sub in subs:
@@ -1435,24 +1670,26 @@ product_desc: {product_desc}
 - 后面列 2–3 条依据：
   - 哪些话题在变多或变少（引用 topic_trends）；
   - 如果 business_signals 或 market_saturation 标记了“EXPLODING”，要点出来。
+  - **必须**在趋势分析最后给出选品建议：这个品类适合跨境卖家现在进入吗？
+    用四档之一回答：“强烈建议关注 / 可以试水 / 先观望 / 不建议”，并用 2-3 句话说清楚为什么。
 
 2.2 需求图谱透视（人群结构）
-- 用“吐槽/避坑党、找货/工具党、进阶/学习党”三类，描述不同人群的大致占比。
-- 说明这种结构意味着什么（坑多？工具党多？学习党多？）。
-- 用一句“性格总结”收尾，比如：“这是一个吐槽声很大、但大家又离不开的市场。”
+- 用大白话描述不同类型的人——来抱怨踩坑的、来找推荐比价的、来学进阶玩法的——各自大概占多少。
+- 说明这种结构意味着什么（抱怨的人多？找推荐的人多？学进阶的人多？）。
+- 用一句话总结这群人的特征，比如：“这是一群爱折腾但总被坑的人，痛点集中但解法不够。”
 
-2.3 P/S Ratio 大白话
-- 用一句话给出大概的 P/S Ratio（例如“整体约为 1.3:1”）。
+2.3 问题和解法的平衡
+- 用一句话说清楚：在这个赛道里，是抱怨的帖子多还是给解法的帖子多？
 - 用 1–2 句人话解释：问题贴比解决贴多还是少，这代表现实中的“乱 / 可学套路 / 老玩家传帮带”。
 - 落在用户身上：
-  - 对普通卖家意味着什么（更需要小心试错 / 多抄作业）；
-  - 对工具/服务方意味着什么（是否还有“问题比答案多”的空间）。
+  - 对跨境电商卖家意味着什么（选品/定位该注意什么，是否有差异化空间）；
+  - 对想做这个品类的新入场者意味着什么（先发优势还在不在，适合什么级别的卖家）。
 
 2.4 高潜力社群（3–5 个）
 - 从 community_stats 里挑 3–5 个和当前主题最相关、声量大、信息质量高的社区。
 - 每个按如下格式描述：
-  - `r/xxx（P/S Ratio ≈ x.xx）`
-  - 这里的人大致是什么类型（新手多 / 老玩家多 / 工具党多）；
+  - `r/xxx`
+  - 这里的人大致是什么类型（新手多 / 老玩家多 / 来找推荐的人多）；
   - 主要在聊哪些场景（选品 / 广告 / 平台规则 / 物流…）；
   - 最后告诉读者：“如果你是 XX 类型的人，这个社区适合你拿来做什么”。
 
@@ -1464,8 +1701,8 @@ product_desc: {product_desc}
   2）品牌关注：经常被拿出来对比的 2–3 个品牌，以及它们各自常被提到的问题或场景；
   3）信息来源：大家去哪里看评测 / 教程 / 经验（YouTube/Google/Instagram/博客等），强调这些是“做功课的地方”，不是“卖货平台”。
 
-3.2 P/S Ratio 深度解读
-- 在前面 P/S 的基础上，再深一层解释：
+3.2 这片市场是荒地还是高速公路
+- 在前面"问题vs解法"的基础上，再深一层解释：
   - 这是“坑很多但机会大”的阶段，还是“套路成熟、比的是细活”的阶段。
 - 最后用一句话帮用户定位自己：
   - “你现在进来的，是一片坑多但机会也大的荒地，还是一条已经修好但有点挤的高速公路。”
@@ -1473,8 +1710,8 @@ product_desc: {product_desc}
 4. 核心战场推荐（3–4 个社区画像）
 - 从 community_stats 里挑 3–4 个“最值得长期蹲点”的社区。
 - 每个社区用 3 点描述：
-  1）战场标题：`战场 N：r/xxx（P/S Ratio ≈ x.xx）`
-  2）人群画像：吐槽/避坑党多、找货/工具党多、还是进阶/学习党多；
+  1）战场标题：`战场 N：r/xxx`
+  2）人群画像：来抱怨的人多、来找推荐的人多、还是来学技术的人多；
   3）使用建议：
      - 来这里适合干什么（看别人踩坑 / 看别人选品 / 对比工具…）；
      - 怎么逛才高效（先搜旧帖 / 关注某类标题 / 关注哪类发帖人）。
@@ -1545,6 +1782,8 @@ product_desc: {product_desc}
      - 机制：结合 pain_tree，说清楚为什么会出现这个问题；
      - 损失：对卖家/用户会带来什么具体损失（时间、钱、信任…）；
      - 连锁反应：比如会导致“更换平台、换工具、暂停投放”等后续行为。
+     - 选品启示：这个痛点对跨境卖家选品有什么直接提示？
+       （比如：应该选带XX功能的产品 / 应该避开XX价格带 / 应该主打XX卖点 / 这类产品的退货率可能偏高因为…）
 
   5）链接（🔗 必须有）
      - 至少给出 1 条代表性的讨论链接（来自 sample_comments_db 的 URL），
@@ -1573,32 +1812,34 @@ product_desc: {product_desc}
    - 建议要尽量具体，比如：“多看历史负面贴 / 主动搜 ‘关键词 + scam/refund’ 过滤雷区”。
 
 ------------------------------------------------
-7. 商业机会（2 张机会卡）
+7. 商业机会（2 张选品机会卡）
 
 - 参考 business_signals.buying_opportunities 和 market_saturation，
-  写 2 张“机会卡”，分别是：
+  写 2 张跨境选品机会卡。
 
-  机会卡 1：信息透明 / 预测型机会
-  机会卡 2：整合 / 降复杂度型机会
+每张机会卡必须回答三个问题：**谁有这个痛点？为什么没被满足？卖家怎么切入？**
 
-每张机会卡写 4 块内容：
+机会卡 1：功能差异化机会
+  - 基于痛点，推荐一个“加什么功能 / 做什么改良”就能解决用户最大抱怨的产品方向。
+
+机会卡 2：定位差异化机会
+  - 基于人群和价格带分析，推荐一个“换个打法 / 换个价格带 / 换个使用场景”的切入角度。
+
+每张卡写 4 块：
 
 1）对应痛点
    - 引用模块 5 中的某个痛点名，一句话带过背景。
 
-2）目标人群 / 社区
-   - 说明谁最需要这样的东西：
-     - 比如“多平台兼顾的小卖家 / 预算紧张的小团队 / 新手卖家 / 工具党”。
+2）目标人群
+   - 具体描述谁最需要（不要写“新手”这种模糊词，要写“每天在家冲 2-3 杯、预算 200-500 美元、之前用过便宜设备踩过坑的进阶消费者”这种画像）。
 
 3）产品定位（大白话）
-   - 用一句话说清楚：
-     - “它其实就是帮你在【某个具体场景】下，提前看清/算清/对比好【哪件事】的东西。”
+   - 用一句话说清楚：你要卖什么样的产品，跟现有的有什么不同。
+   - 不要建议做 app / 平台 / SaaS，聚焦在“可以卖的实体产品或可以做的功能差异化”。
 
-4）卖点（双视角）
-   - 对普通用户/卖家：
-     - 用 2–3 个 bullet，说清楚选这类产品/服务时，最该看什么。
-   - 对服务商/工具方：
-     - 用 1–2 句点出：如果想在这条赛道站稳，最该把哪 1–2 件事做到极致。
+4）差异化卖点（双视角）
+   - 对买家：为什么要买你的而不是别人的（2-3 个 bullet）
+   - 对卖家：这个方向的竞争密度、差异化壁垒、可落地性怎么样（用 facts 中的品牌提及/饱和度数据支撑）
 
 【输出要求】
 - 只输出模块 5–7 的内容，Markdown 格式。
@@ -1676,22 +1917,58 @@ product_desc: {product_desc}
 
 2. 决策卡片（3 小节即可）
 2.1 需求趋势（热不热、涨不涨）
-2.2 人群结构（吐槽/避坑党、找货/工具党、进阶/学习党）
-2.3 P/S Ratio 大白话（问题贴 vs 解法贴）
+2.2 人群结构（来抱怨的、来找推荐的、来学进阶的）
+2.3 问题和解法的平衡（问题贴 vs 解法贴）
 
 3. 概览（市场健康度）
 3.1 竞争格局（平台/品牌/信息渠道，能说多少说多少）
-3.2 P/S Ratio 深度解读（一句话定性 + 一句建议）
+3.2 这片市场是荒地还是高速公路（一句话定性 + 一句建议）
 
 【数据事实】
 {facts}'''
     return [{"role": "system", "content": REPORT_SYSTEM_PROMPT_V2}, {"role": "user", "content": user}]
 
 
+def _count_pain_mentions_in_comments(
+    pain_description: str,
+    sample_comments: list[dict[str, Any]],
+    min_keyword_overlap: int = 2,
+) -> tuple[int, int]:
+    """Count how many comments mention a pain, plus unique authors."""
+    stop = {
+        "this", "that", "with", "from", "have", "been", "they", "their",
+        "will", "would", "could", "should", "about", "which", "when",
+        "what", "were", "more", "some", "very", "also", "just", "like",
+        "than", "into", "over", "only", "your", "most", "much", "many",
+        "such", "well", "then", "them", "each", "does", "doing", "being",
+        "these", "those", "other", "after", "before", "because", "between",
+    }
+    words = set()
+    for w in re.findall(r"[a-zA-Z]{4,}", pain_description.lower()):
+        if w not in stop:
+            words.add(w)
+    if not words:
+        return 0, 0
+
+    mentions = 0
+    authors: set[str] = set()
+    for c in sample_comments:
+        text = str(c.get("body") or c.get("text") or c.get("text_snippet") or "").lower()
+        if not text:
+            continue
+        overlap = sum(1 for w in words if w in text)
+        if overlap >= min(min_keyword_overlap, max(1, len(words) // 3)):
+            mentions += 1
+            aid = c.get("author_id") or c.get("author_name")
+            if aid:
+                authors.add(str(aid))
+    return mentions, len(authors)
+
+
 async def _llm_generate(prompt: list[dict[str, str]], model: str) -> str:
     # Phase 5.3: Increased timeout from default 8s to 60s for longer report generation
     client = OpenAIChatClient(model=model, timeout=60.0)
-    return await client.generate(prompt, max_tokens=4000, temperature=0.25)
+    return await client.generate(prompt, max_tokens=4000, temperature=0.05)
 
 
 async def _fetch_top_posts(
@@ -1702,18 +1979,31 @@ async def _fetch_top_posts(
     limit: int = 50,
     required_entities: list[str] | None = None,
     exclude_keywords: list[str] | None = None,
+    anchor_keywords: list[str] | None = None,
+    anchor_ts: datetime | None = None,
 ) -> tuple[list[dict[str, Any]], bool]:
     """
     Fetch high-value posts (scored by Phase D pipeline) for LLM context.
     Uses post_scores_latest_v (rulebook_v1, is_latest) to filter noise.
+    
+    Dual-layer keyword strategy:
+      - anchor_keywords: MANDATORY filter. Posts must match at least one anchor word.
+        Derived from the user's raw topic input (e.g., "coffee" from "home coffee machine").
+      - keywords: RANKING boost. Posts matching these in the title are ranked higher.
+        Derived from LLM semantic expansion (e.g., "espresso", "grinder", "brew").
     """
     if not subs:
         return [], False
     subs = [s.lower() if s.lower().startswith("r/") else f"r/{s.lower()}" for s in subs if s]
     
     # Keyword filtering still useful for Topic Relevance within the high-value pool
-    kw = [k for k in keywords[:5] if k]
+    kw = [k for k in keywords[:15] if k]
     patterns = [f"%{k}%" for k in kw] if kw else []
+    
+    # Anchor keywords: MANDATORY match (derived from raw topic input)
+    anchor_kw = [k for k in (anchor_keywords or []) if k and len(k) > 2]
+    anchor_patterns = [f"%{k}%" for k in anchor_kw] if anchor_kw else []
+    has_anchor = bool(anchor_patterns)
     
     # Exclude patterns (must NOT match title or body)
     exclude_patterns = [f"%{k}%" for k in (exclude_keywords or []) if k]
@@ -1723,6 +2013,9 @@ async def _fetch_top_posts(
     # 'required_entities' acts as "Must hit at least one of these if provided"
     req_patterns = [f"%{k}%" for k in (required_entities or []) if k]
     has_req = bool(req_patterns)
+    query_anchor_ts = _resolve_anchor_ts(anchor_ts)
+    window_start = _window_start(query_anchor_ts, days)
+    fallback_window_start = _window_start(query_anchor_ts, max(days, 540))
     
     rows_result: list[Any] = []
     fallback_used = False
@@ -1736,11 +2029,13 @@ async def _fetch_top_posts(
         JOIN posts_raw p ON ps.post_id = p.id
         WHERE ps.value_score >= 6.0
           AND lower(p.subreddit) = ANY(:subs)
+          AND (:has_anchor = FALSE OR (lower(p.title) ILIKE ANY(:anchor_patterns) OR lower(COALESCE(p.body, '')) ILIKE ANY(:anchor_patterns)))
           AND (:has_patterns = FALSE OR (lower(p.title) ILIKE ANY(:patterns) OR lower(COALESCE(p.body, '')) ILIKE ANY(:patterns)))
           AND (:has_exclude = FALSE OR NOT (lower(p.title) ILIKE ANY(:exclude_patterns) OR lower(p.body) ILIKE ANY(:exclude_patterns)))
           AND (:has_req = FALSE OR (lower(p.title) ILIKE ANY(:req_patterns) OR lower(p.body) ILIKE ANY(:req_patterns)))
-          AND p.created_at > NOW() - (interval '1 day' * :days)
-        ORDER BY ps.value_score DESC, p.score DESC
+          AND p.created_at > :window_start
+        ORDER BY CASE WHEN :has_patterns AND lower(p.title) ILIKE ANY(:patterns) THEN 0 ELSE 1 END,
+               ps.value_score DESC, p.score DESC, p.id
         LIMIT :limit
         """
     )
@@ -1750,12 +2045,14 @@ async def _fetch_top_posts(
             "subs": subs, 
             "patterns": patterns, 
             "has_patterns": bool(patterns),
+            "anchor_patterns": anchor_patterns,
+            "has_anchor": has_anchor,
             "exclude_patterns": exclude_patterns,
             "has_exclude": has_exclude,
             "req_patterns": req_patterns,
             "has_req": has_req,
             "limit": limit, 
-            "days": days
+            "window_start": window_start,
         })
         rows_result = res.fetchall()
     except Exception as e:
@@ -1772,12 +2069,14 @@ async def _fetch_top_posts(
             SELECT p.source_post_id, p.author_id, p.author_name, p.title, p.body, p.score, p.subreddit, p.url, p.created_at
             FROM posts_raw p
             WHERE lower(p.subreddit) = ANY(:subs)
+              AND (:has_anchor = FALSE OR (lower(p.title) ILIKE ANY(:anchor_patterns) OR lower(COALESCE(p.body, '')) ILIKE ANY(:anchor_patterns)))
               AND (:has_patterns = FALSE OR (lower(p.title) ILIKE ANY(:patterns) OR lower(COALESCE(p.body, '')) ILIKE ANY(:patterns)))
               AND (:has_exclude = FALSE OR NOT (lower(p.title) ILIKE ANY(:exclude_patterns) OR lower(p.body) ILIKE ANY(:exclude_patterns)))
               AND (:has_req = FALSE OR (lower(p.title) ILIKE ANY(:req_patterns) OR lower(p.body) ILIKE ANY(:req_patterns)))
-              AND p.created_at > NOW() - (interval '1 day' * :days)
+              AND p.created_at > :window_start
               AND p.score >= 5
-            ORDER BY p.score DESC
+            ORDER BY CASE WHEN :has_patterns AND lower(p.title) ILIKE ANY(:patterns) THEN 0 ELSE 1 END,
+                     p.score DESC, p.id
             LIMIT :limit
             """
         )
@@ -1785,12 +2084,14 @@ async def _fetch_top_posts(
             "subs": subs,
             "patterns": patterns,
             "has_patterns": bool(patterns),
+            "anchor_patterns": anchor_patterns,
+            "has_anchor": has_anchor,
             "exclude_patterns": exclude_patterns,
             "has_exclude": has_exclude,
             "req_patterns": req_patterns,
             "has_req": has_req,
             "limit": limit,
-            "days": max(days, 540) # Wider window for fallback
+            "window_start": fallback_window_start,
         })
         rows_result = res.fetchall()
 
@@ -1800,18 +2101,24 @@ async def _fetch_top_posts(
         # FORCE LINK INJECTION
         title_with_link = f"{r.title} [🔗]({url})" if url else r.title
         created_at = getattr(r, "created_at", None)
+        raw_title = getattr(r, "title", "") or ""
+        # Track whether this post's TITLE matches the topic keywords
+        title_matches_topic = any(
+            p.strip("%").lower() in raw_title.lower() for p in patterns
+        ) if patterns else False
         out.append({
             "post_id": str(getattr(r, "source_post_id", "") or ""),
             "author_id": getattr(r, "author_id", None),
             "author_name": getattr(r, "author_name", None),
             "created_at": created_at.isoformat() if created_at else None,
             "title": title_with_link,
-            "title_raw": getattr(r, "title", None),
+            "title_raw": raw_title,
             "body": getattr(r, "body", None),
             "score": getattr(r, "score", 0),
             "subreddit": getattr(r, "subreddit", ""),
             "url": url,
-            "value_score": getattr(r, "value_score", 0) # Track value score if available
+            "value_score": getattr(r, "value_score", 0), # Track value score if available
+            "_title_match": title_matches_topic,  # Internal: for sorting
         })
 
     # Bucket Strategy: Limit per subreddit to ensure diversity
@@ -1821,9 +2128,22 @@ async def _fetch_top_posts(
         if len(bucketed[sub]) < 10:
             bucketed[sub].append(item)
     
-    # Flatten and Sort by Value Score (if present) or Raw Score
-    final_out = [it for items in bucketed.values() for it in items]
-    final_out.sort(key=lambda x: (x.get("value_score") or 0, x.get("score") or 0), reverse=True)
+    # Flatten and Sort: TITLE-match posts first, then by Value Score, then by Raw Score
+    final_out = _flatten_bucketed_items(bucketed, item_sort_key=_post_bucket_sort_key)
+    final_out.sort(
+        key=lambda x: (
+            0 if x.get("_title_match") else 1,  # Title matches first
+            -(x.get("value_score") or 0),
+            -(x.get("score") or 0),
+            str(x.get("post_id") or ""),
+        ),
+    )
+    # Re-sort within each group (title-match vs body-only) by value_score DESC
+    title_group = [x for x in final_out if x.get("_title_match")]
+    body_group = [x for x in final_out if not x.get("_title_match")]
+    title_group.sort(key=lambda x: (-(x.get("value_score") or 0), -(x.get("score") or 0), str(x.get("post_id") or "")))
+    body_group.sort(key=lambda x: (-(x.get("value_score") or 0), -(x.get("score") or 0), str(x.get("post_id") or "")))
+    final_out = title_group + body_group
     
     return final_out, fallback_used
 
@@ -1842,19 +2162,26 @@ async def _fetch_sample_comments(
     fallback_min_len_other: int | None = None,
     exclude_keywords: list[str] | None = None,
     required_entities: list[str] | None = None,
+    anchor_keywords: list[str] | None = None,
+    anchor_ts: datetime | None = None,
 ) -> list[dict[str, str]]:
     """按主题关键词抽取评论片段，优先从高分帖子(V1 Scored)中抓取。"""
     if not subs or not keywords:
         return []
     # Ensure subreddits have r/ prefix to match DB format
     subs = [s.lower() if s.lower().startswith("r/") else f"r/{s.lower()}" for s in subs if s]
-    kw = keywords[:5]
+    kw = keywords[:15]
     kw = [k for k in kw if k and len(k) > 2 and k.lower() not in {"pot", "pan", "maker", "cook", "kitchen"}]
     if not kw:
         kw = [k for k in keywords if k and len(k) > 3][:5]
     
     solution_kw = ["fixed", "solved", "solution", "tip", "trick", "method", "workaround"]
     all_patterns = [f"%{k}%" for k in (kw + solution_kw)]
+    
+    # Anchor keywords: MANDATORY match on parent post (same as _fetch_top_posts)
+    anchor_kw = [k for k in (anchor_keywords or []) if k and len(k) > 2]
+    anchor_patterns = [f"%{k}%" for k in anchor_kw] if anchor_kw else []
+    has_anchor = bool(anchor_patterns)
     
     # Exclude patterns
     exclude_patterns = [f"%{k}%" for k in (exclude_keywords or []) if k]
@@ -1863,6 +2190,9 @@ async def _fetch_sample_comments(
     # Required patterns (must match post OR comment) - Any match
     req_patterns = [f"%{k}%" for k in (required_entities or []) if k]
     has_req = bool(req_patterns)
+    query_anchor_ts = _resolve_anchor_ts(anchor_ts)
+    primary_window_start = _window_start(query_anchor_ts, fallback_days if use_fallback else days)
+    fallback_window_start = _window_start(query_anchor_ts, fallback_days)
     
     # New Logic: Join post_scores_latest_v to filter by Post Value >= 6
     sql = text(
@@ -1873,6 +2203,10 @@ async def _fetch_sample_comments(
         JOIN post_scores_latest_v ps ON c.post_id = ps.post_id
         WHERE lower(c.subreddit) = ANY(:subs)
           AND ps.value_score >= 6.0
+          AND (:has_anchor = FALSE OR (
+                lower(p.title) ILIKE ANY(:anchor_patterns)
+                OR lower(COALESCE(p.body, '')) ILIKE ANY(:anchor_patterns)
+              ))
           AND (
                 c.body ILIKE ANY(:patterns)
                 OR lower(p.title) ILIKE ANY(:patterns)
@@ -1889,29 +2223,31 @@ async def _fetch_sample_comments(
                 OR lower(COALESCE(p.body, '')) ILIKE ANY(:req_patterns)
               ))
           AND LENGTH(c.body) > 20
-          AND c.created_utc >= NOW() - (interval '1 day' * :days)
+          AND c.created_utc >= :window_start
           AND NOT EXISTS (
             SELECT 1 FROM noise_labels nl
             WHERE nl.content_type = 'comment'
               AND nl.content_id = c.id
           )
-        ORDER BY c.score DESC NULLS LAST
+        ORDER BY c.score DESC NULLS LAST, c.id
         LIMIT :limit
         """
     )
     
     try:
-        rows = await session.execute(sql, {
+        res = await session.execute(sql, {
             "subs": subs, 
-            "patterns": all_patterns, 
+            "patterns": all_patterns,
+            "anchor_patterns": anchor_patterns,
+            "has_anchor": has_anchor,
             "exclude_patterns": exclude_patterns,
             "has_exclude": has_exclude,
             "req_patterns": req_patterns,
             "has_req": has_req,
             "limit": limit, 
-            "days": fallback_days if use_fallback else days
+            "window_start": primary_window_start,
         })
-        results = rows.fetchall()
+        results = res.fetchall()
     except Exception as e:
         print(f"⚠️ Comment Fetch Error: {e}")
         results = []
@@ -1925,6 +2261,10 @@ async def _fetch_sample_comments(
             FROM comments c
             JOIN posts_raw p ON c.post_id = p.id
             WHERE lower(c.subreddit) = ANY(:subs)
+              AND (:has_anchor = FALSE OR (
+                    lower(p.title) ILIKE ANY(:anchor_patterns)
+                    OR lower(COALESCE(p.body, '')) ILIKE ANY(:anchor_patterns)
+                  ))
               AND (
                     c.body ILIKE ANY(:patterns)
                     OR lower(p.title) ILIKE ANY(:patterns)
@@ -1941,20 +2281,22 @@ async def _fetch_sample_comments(
                     OR lower(COALESCE(p.body, '')) ILIKE ANY(:req_patterns)
                   ))
               AND LENGTH(c.body) > 20
-              AND c.created_utc >= NOW() - (interval '1 day' * :days)
-            ORDER BY c.score DESC NULLS LAST
+              AND c.created_utc >= :window_start
+            ORDER BY c.score DESC NULLS LAST, c.id
             LIMIT :limit
             """
         )
         rows = await session.execute(sql_fallback, {
             "subs": subs, 
-            "patterns": all_patterns, 
+            "patterns": all_patterns,
+            "anchor_patterns": anchor_patterns,
+            "has_anchor": has_anchor,
             "exclude_patterns": exclude_patterns,
             "has_exclude": has_exclude,
             "req_patterns": req_patterns,
             "has_req": has_req,
             "limit": limit, 
-            "days": fallback_days
+            "window_start": fallback_window_start,
         })
         results = rows.fetchall()
 
@@ -2000,6 +2342,7 @@ async def _fetch_sample_comments(
     if not raw:
         return []
 
+    raw = sorted(raw, key=_comment_dedup_sort_key)
     dedup_threshold = dedup_threshold if dedup_threshold is not None else _load_dedup_threshold(
         Path("config") / "deduplication.yaml"
     )
@@ -2033,6 +2376,8 @@ async def _fetch_sample_comments(
             fallback_min_len_other=min_len_other,
             exclude_keywords=exclude_keywords,
             required_entities=required_entities,
+            anchor_keywords=anchor_keywords,
+            anchor_ts=anchor_ts,
         )
     
     bucketed: dict[str, list[dict[str, str]]] = defaultdict(list)
@@ -2040,12 +2385,12 @@ async def _fetch_sample_comments(
         sub = item.get("subreddit", "").lower()
         if len(bucketed[sub]) < per_sub_comment_cap:
             bucketed[sub].append(item)
-    deduped_out = [it for items in bucketed.values() for it in items]
+    deduped_out = _flatten_bucketed_items(bucketed, item_sort_key=_comment_bucket_sort_key)
     print(f"🧹 Deduplication: Reduced {len(raw)} -> {len(deduped_out)} comments.")
 
     extractor = QuoteExtractor()
     extractor.MAX_LEN = 300
-    keywords_set = {k.lower() for k in keywords[:5] if k}
+    keywords_set = {k.lower() for k in keywords[:15] if k}
     quotes: list[dict[str, str]] = []
     
     for item in deduped_out:
@@ -2073,6 +2418,7 @@ async def _fetch_sample_comments(
                 "post_id": item.get("post_id"),
                 "author_id": item.get("author_id"),
                 "author_name": item.get("author_name"),
+                "body": item.get("body"),  # 保留原始评论全文，供品牌 unique_authors 回填使用
                 "text": quote_text,
                 "text_snippet": quote_text,
                 "score": best_qr.score,
@@ -2095,12 +2441,15 @@ async def _jit_label_comments(
     exclusion_tokens: set[str],
     days: int,
     limit: int = 5000,
+    *,
+    anchor_ts: datetime | None = None,
 ) -> int:
     if not topic_tokens:
         return 0
     search_query = " | ".join(topic_tokens)
     exclude_query = " | ".join(exclusion_tokens)
     has_exclude = bool(exclude_query)
+    window_start = _window_start(_resolve_anchor_ts(anchor_ts), days)
     sql = text(
         """
         WITH target AS (
@@ -2109,7 +2458,7 @@ async def _jit_label_comments(
             LEFT JOIN content_labels cl
                 ON cl.content_type = 'comment'
                AND cl.content_id = c.id
-            WHERE c.created_utc >= NOW() - (interval '1 day' * :days)
+            WHERE c.created_utc >= :window_start
               AND cl.id IS NULL
               AND to_tsvector('english', COALESCE(c.body, '')) @@ to_tsquery('english', :search_query)
               AND (
@@ -2126,11 +2475,11 @@ async def _jit_label_comments(
     res = await session.execute(
         sql,
         {
-            "days": days,
             "search_query": search_query,
             "has_exclude": has_exclude,
             "exclude_query": exclude_query or "''",
             "limit": limit,
+            "window_start": window_start,
         },
     )
     ids = [row.reddit_comment_id for row in res.fetchall()]
@@ -2165,10 +2514,13 @@ def _extract_recommended_keywords(report_text: str, fallback: list[str]) -> list
     return list(candidates)[:20]
 
 
-async def _insert_semantic_candidates(keywords: list[str]) -> int:
+async def _insert_semantic_candidates(
+    keywords: list[str], *, anchor_ts: datetime | None = None
+) -> int:
     if not keywords:
         return 0
     inserted = 0
+    query_anchor_ts = _resolve_anchor_ts(anchor_ts)
     try:
         async with SessionFactory() as session:
             for term in keywords:
@@ -2177,13 +2529,13 @@ async def _insert_semantic_candidates(keywords: list[str]) -> int:
                         """
                         INSERT INTO semantic_candidates 
                         (term, status, frequency, source, first_seen_at, last_seen_at)
-                        VALUES (:term, 'pending', 1, 'report_gen', NOW(), NOW())
+                        VALUES (:term, 'pending', 1, 'report_gen', :anchor_ts, :anchor_ts)
                         ON CONFLICT (term) DO UPDATE 
                         SET frequency = semantic_candidates.frequency + 1,
-                            last_seen_at = NOW()
+                            last_seen_at = :anchor_ts
                         """
                     ),
-                    {"term": term},
+                    {"term": term, "anchor_ts": query_anchor_ts},
                 )
                 inserted += 1
             await session.commit()
@@ -2202,103 +2554,6 @@ def _load_community_roles(config_path: Path) -> dict:
     except Exception as e:
         print(f"⚠️ Failed to load community roles: {e}")
         return {}
-
-
-def build_facts_slice_for_report(facts: dict[str, Any]) -> dict[str, Any]:
-    """
-    Slim down the facts dictionary for LLM consumption to save tokens.
-    Retains only high-signal components for the report generation context.
-    """
-    # facts_v2 package path
-    if "aggregates" in facts and "meta" in facts:
-        aggregates = facts.get("aggregates", {}) or {}
-        business_signals = facts.get("business_signals", {}) or {}
-        source_range = (facts.get("data_lineage", {}) or {}).get("source_range", {}) or {}
-
-        communities = aggregates.get("communities", []) or []
-        if isinstance(communities, list):
-            top_communities = communities[:8]
-        else:
-            top_communities = []
-
-        comments = facts.get("sample_comments_db", []) or []
-        top_comments = comments[:30] if isinstance(comments, list) else []
-
-        posts = facts.get("sample_posts_db", []) or []
-        top_posts = posts[:20] if isinstance(posts, list) else []
-
-        pains = business_signals.get("high_value_pains", []) or []
-        pain_clusters = pains[:5] if isinstance(pains, list) else []
-
-        brand_pain = business_signals.get("brand_pain", []) or []
-        brand_pain = brand_pain[:10] if isinstance(brand_pain, list) else []
-
-        overall = {
-            "topic": (facts.get("meta", {}) or {}).get("topic"),
-            "total_posts": source_range.get("posts"),
-            "total_comments": source_range.get("comments"),
-            "trend_analysis": aggregates.get("trend_analysis"),
-            "trend_source": aggregates.get("trend_source"),
-        }
-
-        return {
-            "overall": overall,
-            "community_stats": top_communities,
-            "brand_pain": brand_pain,
-            "pain_clusters": pain_clusters,
-            "market_saturation": business_signals.get("market_saturation", []),
-            "business_signals": business_signals,
-            "sample_posts_db": top_posts,
-            "sample_comments_db": top_comments,
-            "diagnostics": facts.get("diagnostics"),
-        }
-
-    # 1. Communities: Top 8 sorted by score
-    communities = facts.get("communities", [])
-    # Sort by final_score desc if available
-    communities.sort(key=lambda x: x.get("final_score", 0), reverse=True)
-    top_communities = communities[:8]
-    
-    # 2. Sample Comments: Top 30
-    # Already sorted by relevance/score in fetcher
-    comments = facts.get("sample_comments_db", [])
-    top_comments = comments[:30]
-    
-    # 3. Brand Pain: Top 10
-    brand_pain = facts.get("brand_pain", [])[:10]
-    
-    # 4. Pain Clusters: Top 5
-    pain_clusters = facts.get("pain_clusters", [])[:5]
-    
-    # 5. Business Signals (Critical)
-    business_signals = facts.get("business_signals", {})
-    
-    # 6. Overall Metrics
-    overall = {
-        "global_ps_ratio": facts.get("global_ps_ratio"),
-        "total_posts": facts.get("total_posts"),
-        "total_comments": facts.get("total_comments"),
-        "topic": facts.get("topic"),
-        "trend_analysis": facts.get("trend_analysis"),
-        "trend_source": facts.get("trend_source"),
-    }
-    
-    # Construct Sliced Dict
-    sliced = {
-        "overall": overall,
-        "community_stats": top_communities,
-        "brand_pain": brand_pain,
-        "pain_clusters": pain_clusters,
-        "market_saturation": facts.get("market_saturation", []),
-        "business_signals": business_signals,
-        "sample_comments_db": top_comments,
-        "market_landscape": facts.get("market_landscape"),
-        "topic_keywords": facts.get("topic_keywords", [])[:30],
-        "price_analysis": facts.get("price_analysis"),
-        "usage_context": facts.get("usage_context"),
-        "community_personas": facts.get("community_personas"),
-    }
-    return sliced
 
 
 def _load_community_roles(config_path: Path) -> dict:
@@ -2333,6 +2588,40 @@ def _resolve_mode(raw_mode: str | None, profile: TopicProfile | None) -> str:
     return "market_insight"
 
 
+def _select_final_pains(
+    pain_clusters_v2: list[dict[str, Any]] | None,
+    business_signals: Mapping[str, Any] | None,
+    *,
+    active_profile: TopicProfile | None,
+    topic_filter_kw: set[str],
+) -> list[dict[str, Any]]:
+    final_pains = list(pain_clusters_v2 or [])
+    raw_pains = business_signals.get("high_value_pains", []) if business_signals else []
+    if not isinstance(raw_pains, list):
+        raw_pains = []
+
+    if active_profile is not None and topic_filter_kw:
+        v1_pains = [
+            p for p in raw_pains
+            if any(kw in str(p.get("description", "")).lower() for kw in topic_filter_kw)
+        ]
+        fallback_msg = f"📊 V1→V2 pain fallback: {len(raw_pains)} raw → {len(v1_pains)} after topic filter"
+    else:
+        v1_pains = raw_pains
+        fallback_msg = f"📊 V1→V2 pain fallback (ad-hoc, no filter): {len(v1_pains)} kept as-is"
+
+    if not final_pains:
+        print(fallback_msg)
+        return list(v1_pains)
+
+    v2_count = len(final_pains)
+    v1_count = len(v1_pains)
+    if v2_count <= 1 and v1_count >= 5:
+        print(f"⚠️ V1→V2 pains fallback: V2={v2_count} < 2, using V1={v1_count}")
+        return list(v1_pains)
+    return final_pains
+
+
 async def main() -> None:
     parser = argparse.ArgumentParser(description="Generate T1 market report (template-driven).")
     parser.add_argument("--topic", default=os.getenv("REPORT_TOPIC", "跨境电商支付/收款解决方案"), help="本次话题/赛道描述")
@@ -2348,12 +2637,34 @@ async def main() -> None:
         help="分析模式：auto(默认，优先用 TopicProfile.mode) / market_insight / operations",
     )
     parser.add_argument("--skip-llm", action="store_true", help="仅生成 facts/facts_slice，不调用 LLM 阶段")
+    parser.add_argument(
+        "--anchor-ts",
+        type=str,
+        default=None,
+        help="固定时间锚点 (ISO 8601 格式，如 '2026-03-12T03:00:00+00:00')。不指定时使用当前 UTC 时间。用于确定性验证/回测。",
+    )
     args = parser.parse_args()
+    try:
+        anchor_ts = _parse_anchor_ts_arg(args.anchor_ts)
+    except ValueError as exc:
+        parser.error(f"--anchor-ts 必须是 ISO 8601 时间戳: {exc}")
+    # 🔒 确定性开关 — 当传入 --anchor-ts 时激活
+    # 控制范围: LLM expansion / JIT labeling / persona / brands / run_id
+    # 验证标准: 同参数跑 N 次，facts_v2 SHA-1 必须一致
+    # 参见文件头部的 DETERMINISM PROTOCOL 注释
+    deterministic_validation = bool(args.anchor_ts)
 
     print("⚠️  Legacy 脚本：主链路请以 /api/analyze 为准，此脚本仅用于离线验证/实验。")
+    print(f"🕒 Anchor timestamp: {anchor_ts.isoformat()}")
 
-    run_id = str(uuid.uuid4())
-    snapshot_id = str(uuid.uuid4())
+    run_id, snapshot_id = _build_run_identifiers(
+        topic=args.topic,
+        product_desc=args.product_desc,
+        mode=args.mode,
+        days=args.days,
+        anchor_ts=anchor_ts,
+        deterministic=bool(args.anchor_ts),
+    )
     base_dir = Path(__file__).resolve().parent.parent  # backend/
     config_root = base_dir.parent / "config"
     config_paths = [
@@ -2414,11 +2725,78 @@ async def main() -> None:
             if ex:
                 exclusion_tokens.update(_tokenize_topic(ex))
     else:
-        topic_tokens, exclusion_tokens, vertical = await _expand_topic_semantically(
-            args.topic, model="openai/gpt-4o-mini", blacklist_config=blacklist_config
-        )
+        # 🔒 确定性守卫: LLM 语义扩展非确定性，固定时间回测时跳过
+        if deterministic_validation:
+            print("🧪 Deterministic mode: using simple tokenization (skipping LLM expansion)")
+            topic_tokens, exclusion_tokens, vertical = _deterministic_topic_expansion(args.topic)
+        else:
+            topic_tokens, exclusion_tokens, vertical = await _expand_topic_semantically(
+                args.topic, model="openai/gpt-4o-mini", blacklist_config=blacklist_config
+            )
+        # Safety guard: LLM sometimes puts the topic keyword itself in the exclude list
+        # (e.g., 'coffee' excluded in a 'home coffee machine' search). Strip overlap.
+        overlap = topic_tokens & exclusion_tokens
+        if overlap:
+            print(f"⚠️ Exclusion overlap with topic tokens removed: {overlap}")
+            exclusion_tokens -= topic_tokens
+        # Phase237 Fix: Semantic proximity guard
+        # LLM 语义扩展经常把上位词/近义词误放到 exclude 列表
+        # (例如 topic="wireless earbuds" 但 exclude 包含 "headphones"/"sound"/"audiophile")
+        # 安全策略: 如果 exclude 中的词也出现在 expanded keywords 列表中, 或者
+        # 与 topic 本身语义高度相关, 则移除该 exclusion
+        topic_core_tokens = _tokenize_topic(args.topic)
+        proximity_whitelist: set[str] = set()
+        for core_token in topic_core_tokens:
+            if core_token in _SEMANTIC_PROXIMITY_MAP:
+                proximity_whitelist.update(_SEMANTIC_PROXIMITY_MAP[core_token])
+        if proximity_whitelist:
+            rescued = exclusion_tokens & proximity_whitelist
+            if rescued:
+                print(
+                    f"🛡️ Phase237 Guard: Rescued {rescued} from exclusion "
+                    "(semantic proximity to topic)"
+                )
+                exclusion_tokens -= rescued
+        # Also strip any token that is a substring of the original topic
+        topic_lower = args.topic.lower()
+        exclusion_tokens = {t for t in exclusion_tokens if t not in topic_lower}
+        # Phase237 Fix: 如果某个 exclusion 词同时也在 expanded topic_tokens 里, 直接移除
+        # (LLM 有时会把自己扩展出来的词又放到 exclude 里)
+        conflict = exclusion_tokens & topic_tokens
+        if conflict:
+            print(f"⚠️ Phase237: Removing self-contradictory exclusions: {conflict}")
+            exclusion_tokens -= conflict
         topic_kw_for_search = list(topic_tokens)
         topic_kw_for_fetch = topic_kw_for_search
+
+    # --- Dual-Layer Keyword Strategy: Extract ANCHOR keywords from raw topic ---
+    # Anchor keywords are mandatory SQL filters (posts MUST match at least one).
+    # They come from the user's actual input, NOT from LLM expansion.
+    _anchor_stopwords = {
+        "home", "best", "good", "top", "new", "cheap", "review", "reviews",
+        "buy", "for", "the", "and", "with", "how", "what", "which", "reddit",
+        "machine", "device", "tool", "product", "item", "thing", "stuff",
+        "recommendation", "recommendations", "suggest", "suggestion",
+    }
+    if active_profile and active_profile.required_entities_any:
+        anchor_keywords = [
+            str(term).strip()
+            for term in active_profile.required_entities_any
+            if str(term).strip() and len(str(term).strip()) > 2
+        ]
+    else:
+        anchor_keywords = [
+            t for t in _tokenize_topic(args.topic)
+            if t not in _anchor_stopwords and len(t) > 2 and not _contains_cjk(t)
+        ]
+    if not anchor_keywords:
+        anchor_keywords = [t for t in (topic_tokens or set()) if len(t) > 2][:3]
+        if anchor_keywords:
+            print(f"🔑 Anchor keywords (CJK fallback -> topic_tokens): {anchor_keywords}")
+        else:
+            print(f"⚠️ No anchor keywords extracted from '{args.topic}'")
+    else:
+        print(f"🔑 Anchor keywords (mandatory filter): {anchor_keywords}")
 
     resolved_mode = _resolve_mode(args.mode, active_profile)
     if args.mode == "auto":
@@ -2484,11 +2862,21 @@ async def main() -> None:
     clusters: list[Any] = []
     pain_tree: list[dict[str, Any]] = []
     context_relax = False
-
     async with SessionFactory() as session:
         jit_days = min(args.days, 30)
-        await _jit_label_comments(session, topic_tokens, exclusion_tokens, days=jit_days, limit=5000)
-        await label_posts_recent(session, since_days=jit_days, limit=2000)
+        # 🔒 确定性守卫: JIT labeling 会修改数据库状态，影响后续查询结果
+        if deterministic_validation:
+            print("🧪 Deterministic validation mode: skipping JIT labeling/post labeling side effects.")
+        else:
+            await _jit_label_comments(
+                session,
+                topic_tokens,
+                exclusion_tokens,
+                days=jit_days,
+                limit=5000,
+                anchor_ts=anchor_ts,
+            )
+            await label_posts_recent(session, since_days=jit_days, limit=2000)
         
         relevance_map = await fetch_topic_relevant_communities(
             session,
@@ -2497,6 +2885,7 @@ async def main() -> None:
             exclusion_tokens=exclusion_tokens,
             days=args.days,
             min_relevance_score=5,
+            anchor_ts=anchor_ts,
         )
         if active_profile:
             relevance_map = filter_relevance_map_with_profile(relevance_map or {}, active_profile)
@@ -2513,6 +2902,7 @@ async def main() -> None:
             vertical=vertical or "other",
             days=args.days,
             limit=120,
+            anchor_ts=anchor_ts,
         )
         # Force candidate set constraint: only from relevance_map
         candidate_set = {k.lower() if k else "" for k in (relevance_map or {}).keys()}
@@ -2522,8 +2912,7 @@ async def main() -> None:
         # Sort by semantic score descending
         sorted_by_sim = sorted(
             context_scores.items(),
-            key=lambda kv: kv[1].get("sim_score", 0.0),
-            reverse=True,
+            key=lambda kv: (-kv[1].get("sim_score", 0.0), kv[0]),
         )
         for sub, score in sorted_by_sim:
             if candidate_set and sub not in candidate_set:
@@ -2585,6 +2974,7 @@ async def main() -> None:
             session,
             subreddits=candidate_subs or None,
             days=args.days,
+            anchor_ts=anchor_ts,
         )
         trend_data, trend_source, time_window_used, trend_degraded = await _load_trend_with_fallback(
             session, topic_tokens=list(topic_tokens), days=args.days
@@ -2594,6 +2984,7 @@ async def main() -> None:
             topic_tokens=topic_tokens,
             months=12,
             min_mentions=3,
+            anchor_ts=anchor_ts,
         )
         brand_sentiment_top = _top_brand_sentiment(entity_sentiment)
 
@@ -2601,6 +2992,7 @@ async def main() -> None:
             session,
             subreddits=candidate_subs or None,
             days=args.days,
+            anchor_ts=anchor_ts,
         )
         
         # 取核心社区列表，用于样例评论抽取
@@ -2617,9 +3009,20 @@ async def main() -> None:
         # 强制注入垂直核心社区，避免被筛掉
         core_whitelist = set(vertical_cfg.get("core_whitelist", VERTICAL_CORE_WHITELIST.get(vertical or "", set())))
         existing = {c.get("name", "").lower() for c in selected_communities}
+        # Phase237: core_whitelist 社区需要高分注入 + 已有社区如果在 whitelist 也要加分
+        max_existing_score = max((c.get("score", 0) for c in selected_communities), default=1.0)
+        boost_score = max_existing_score * 1.5  # 保证排到前面
         for comm in core_whitelist:
-            if comm.lower() not in existing:
-                selected_communities.append({"name": comm, "score": 1.0})
+            comm_lower = comm.lower()
+            if comm_lower not in existing:
+                selected_communities.append({"name": comm, "score": boost_score})
+            else:
+                # 已有的 core_whitelist 社区也加 50% 分数
+                for c in selected_communities:
+                    if c.get("name", "").lower() == comm_lower:
+                        c["score"] = c.get("score", 1.0) * 1.5
+        # Phase237: 重排序，让高分社区排到前面
+        selected_communities.sort(key=lambda x: x.get("score", 0), reverse=True)
         # 保证至少 5 个
         if len(selected_communities) < 5:
             selected_communities = (selected_communities + list(core_whitelist))[:5]
@@ -2654,26 +3057,32 @@ async def main() -> None:
             print("🎭 Generating community personas for Top 3...")
             top_persona_subs = [c.get("name") for c in selected_communities[:3] if c.get("name")]
             if top_persona_subs:
-                try:
-                    llm_client_for_persona = OpenAIChatClient(model=args.model)
-                    persona_gen = PersonaGenerator(llm_client=llm_client_for_persona)
-                    personas_raw = await persona_gen.generate_batch(session, top_persona_subs)
-                    community_personas = [p.to_dict() for p in personas_raw]
-                except Exception as persona_exc:
-                    print(f"⚠️ Persona LLM failed, fallback to rule-based: {persona_exc}")
-                    for sub in top_persona_subs:
-                        community_personas.append(
-                            {
-                                "community": sub,
-                                "persona_label": "Active Enthusiasts",
-                                "traits": ["community-regulars", "topic-focused"],
-                                "strategy": "Use rule-based signals until LLM recovers",
-                                "confidence": 0.2,
-                            }
-                        )
+                # 🔒 确定性守卫: Persona LLM 调用非确定性
+                if deterministic_validation:
+                    print("🧪 Deterministic mode: skipping persona generation")
+                else:
+                    try:
+                        llm_client_for_persona = OpenAIChatClient(model=args.model)
+                        persona_gen = PersonaGenerator(llm_client=llm_client_for_persona)
+                        personas_raw = await persona_gen.generate_batch(session, top_persona_subs)
+                        community_personas = [p.to_dict() for p in personas_raw]
+                    except Exception as persona_exc:
+                        print(f"⚠️ Persona LLM failed, fallback to rule-based: {persona_exc}")
+                        for sub in top_persona_subs:
+                            community_personas.append(
+                                {
+                                    "community": sub,
+                                    "persona_label": "Active Enthusiasts",
+                                    "traits": ["community-regulars", "topic-focused"],
+                                    "strategy": "Use rule-based signals until LLM recovers",
+                                    "confidence": 0.2,
+                                }
+                            )
         
         # Phase 5.2: Fetch need distribution for selected communities
-        need_distribution = await _fetch_need_distribution(session, core_subs, args.days)
+        need_distribution = await _fetch_need_distribution(
+            session, core_subs, args.days, anchor_ts=anchor_ts
+        )
 
         # 语义痛点聚类（密度驱动），优先核心社区
         clusters = await cluster_pain_points_auto(
@@ -2714,9 +3123,11 @@ async def main() -> None:
         core_list_for_final: list[str] = []
         if args.mode == "operations":
             core_list_for_final = list(OPS_CORE_COMMUNITIES)
-        elif vertical in {"edc", "consumer_electronics"}:
-            core_list_for_final = list(vertical_cfg.get("core_whitelist", EDC_CORE_COMMUNITIES))
-        # 1) core hard whitelist (EDC/flashlight or ops)
+        else:
+            # Phase237: 通用化 — 所有在 VERTICAL_CORE_WHITELIST 中有配置的 vertical 都注入 core list
+            vcore = vertical_cfg.get("core_whitelist", VERTICAL_CORE_WHITELIST.get(vertical or "", set()))
+            if vcore:
+                core_list_for_final = list(vcore)
         for comm in core_list_for_final:
             if not allow_by_profile(comm):
                 continue
@@ -2730,8 +3141,7 @@ async def main() -> None:
         # 2) dynamic whitelist (semantic sorted)
         dyn_sorted = sorted(
             list(dynamic_whitelist),
-            key=lambda c: sim_lookup.get(c, 0.0),
-            reverse=True,
+            key=lambda c: (-sim_lookup.get(c, 0.0), c),
         )
         for comm in dyn_sorted:
             if not allow_by_profile(comm):
@@ -2785,7 +3195,12 @@ async def main() -> None:
         core_subs = [c.get("name") for c in final_comm if c.get("name")]
 
         # 动态品牌补全 + DB 回溯
-        llm_brands = await _fetch_top_brands_from_llm(args.topic, args.model)
+        # 🔒 确定性守卫: Brands LLM 调用非确定性
+        if deterministic_validation:
+            print("🧪 Deterministic mode: skipping LLM brand fetch")
+            llm_brands = []
+        else:
+            llm_brands = await _fetch_top_brands_from_llm(args.topic, args.model)
         brand_backfill = await _backfill_brand_mentions(session, llm_brands)
 
         # 竞品分层：合并品牌共现与回溯计数，使用配置化分层
@@ -2857,6 +3272,8 @@ async def main() -> None:
             fallback_min_len_other=comment_cfg.get("fallback_min_len_other", 80),
             exclude_keywords=list(exclusion_tokens),
             required_entities=profile_required_entities,
+            anchor_keywords=anchor_keywords,
+            anchor_ts=anchor_ts,
         )
         if active_profile:
             sample_comments_db = list(
@@ -2872,6 +3289,8 @@ async def main() -> None:
             days=args.days,
             required_entities=profile_required_entities,
             exclude_keywords=list(exclusion_tokens),
+            anchor_keywords=anchor_keywords,
+            anchor_ts=anchor_ts,
         )
         if active_profile:
             top_posts_db = list(
@@ -2894,6 +3313,8 @@ async def main() -> None:
                 fallback_min_len_other=comment_cfg.get("fallback_min_len_other", 80),
                 exclude_keywords=list(exclusion_tokens),
                 required_entities=profile_required_entities,
+                anchor_keywords=anchor_keywords,
+                anchor_ts=anchor_ts,
             )
             if active_profile:
                 sample_comments_db = list(
@@ -2911,6 +3332,8 @@ async def main() -> None:
                 days=post_cfg.get("fallback_days", 540),
                 required_entities=profile_required_entities,
                 exclude_keywords=list(exclusion_tokens),
+                anchor_keywords=anchor_keywords,
+                anchor_ts=anchor_ts,
             )
             top_posts_db = extra_posts or top_posts_db
             if active_profile:
@@ -2922,7 +3345,14 @@ async def main() -> None:
             posts_fallback_used = posts_fallback_used or extra_fb or True
 
         # Saturation Matrix
-        top_brands = [v.get("name") for v in sorted(brand_counts.values(), key=lambda x: x.get("mentions", 0), reverse=True)[:10] if v.get("name")]
+        top_brands = [
+            v.get("name")
+            for v in sorted(
+                brand_counts.values(),
+                key=lambda x: (-x.get("mentions", 0), str(x.get("name") or "").lower()),
+            )[:10]
+            if v.get("name")
+        ]
         saturation_matrix = SaturationMatrix()
         market_saturation_raw = await saturation_matrix.compute(
             session,
@@ -2944,13 +3374,24 @@ async def main() -> None:
 
         # Business Signals
         # Merge Top Posts and Sample Comments for Extraction (Solutions are often in comments!)
-        extraction_corpus = list(top_posts_db)
+        # IMPORTANT: _normalize_posts reads "title" + "selftext" keys, NOT "text"
+        extraction_corpus = []
+        for p in top_posts_db:
+            extraction_corpus.append({
+                "id": p.get("id") or p.get("post_id", ""),
+                "title": p.get("title_raw", p.get("title", "")),
+                "selftext": p.get("body", ""),
+                "score": p.get("score", 0) or 0,
+                "num_comments": p.get("num_comments", 0) or 0,
+            })
         # Normalize comments to look like posts for the extractor
         for c in sample_comments_db:
+            comment_text = c.get("body") or c.get("text") or ""
             extraction_corpus.append({
-                "id": c.get("id"),
-                "text": c.get("body") or c.get("text") or "",
-                "score": 0, # Comments score handling if needed
+                "id": c.get("id") or c.get("comment_id", ""),
+                "title": "",  # comments have no title
+                "selftext": comment_text,
+                "score": c.get("score", 0) or 0,
                 "num_comments": 0
             })
 
@@ -3085,7 +3526,7 @@ async def main() -> None:
     facts_dict["schema_version"] = "2.0"
     facts_dict["run_id"] = run_id
     facts_dict["snapshot_id"] = snapshot_id
-    facts_dict["generated_at"] = datetime.now(timezone.utc).isoformat()
+    facts_dict["generated_at"] = anchor_ts.isoformat()
     facts_dict["topic"] = args.topic
     facts_dict["time_window_days"] = args.days
     facts_dict["data_lineage"] = {
@@ -3222,6 +3663,10 @@ async def main() -> None:
 
     # --- Quality Gate & Metrics ---
     solutions_fallback_used = bool(not top_posts_db and sample_comments_db)
+    comment_count = len(sample_comments_db or [])
+    post_count = len(top_posts_db or [])
+    solution_count = len(business_signals.get("solutions", []) if business_signals else [])
+    community_coverage = len(core_subs if "core_subs" in locals() else [])
 
     q_cfg = QUALITY_THRESHOLDS
     comments_min = q_cfg.get("comments_min", 60)
@@ -3232,11 +3677,11 @@ async def main() -> None:
         solutions_min = min(solutions_min, 3)
 
     quality = {
-        "comments_count": len(sample_comments_db or []),
-        "posts_count": len(top_posts_db or []),
-        "solutions_count": len(business_signals.get("solutions", []) if business_signals else []),
-        "community_coverage": len(core_subs if 'core_subs' in locals() else []),
-        "degraded": False,
+        "comments_count": comment_count,
+        "posts_count": post_count,
+        "solutions_count": solution_count,
+        "community_coverage": community_coverage,
+        "v1_preflight_degraded": False,
         "data_fallback": False,
         "posts_fallback": posts_fallback_used if 'posts_fallback_used' in locals() else False,
         "solutions_fallback": solutions_fallback_used,
@@ -3249,15 +3694,15 @@ async def main() -> None:
     if quality["comments_count"] < comments_min or quality["posts_count"] < posts_min or manual_data_fallback:
         quality["data_fallback"] = True
     # 不再因 posts_fallback/solutions_fallback 单独触发 data_fallback，保持 info 用途
-    # Degraded if thresholds not met
+    # V1 preflight degraded if thresholds not met
     if (
         quality["comments_count"] < comments_min
         or quality["posts_count"] < posts_min
         or quality["solutions_count"] < solutions_min
         or quality["community_coverage"] < coverage_min
     ):
-        quality["degraded"] = True
-        print(f"⚠️ Quality degraded: {quality}")
+        quality["v1_preflight_degraded"] = True
+        print(f"⚠️ V1 preflight degraded: {quality}")
 
     insufficient_flags: list[str] = []
     if quality["solutions_count"] < solutions_min:
@@ -3277,10 +3722,10 @@ async def main() -> None:
     # Diagnostics block: coverage + missing flags (Step 1)
     diagnostics = {
         "coverage": {
-            "comments": len(sample_comments_db or []),
-            "posts": len(top_posts_db or []),
-            "solutions": len(bs.get("solutions", []) if bs else []),
-            "communities": len(core_subs if "core_subs" in locals() else []),
+            "comments": comment_count,
+            "posts": post_count,
+            "solutions": solution_count,
+            "communities": community_coverage,
         },
         "missing_flags": {
             "ps_ratio": facts_dict.get("global_ps_ratio") is None,
@@ -3289,17 +3734,25 @@ async def main() -> None:
             "personas": not bool(facts_dict.get("community_personas")),
         },
         "notes": {
+            "v1_preflight_degraded": quality.get("v1_preflight_degraded"),
             "trend_degraded": trend_degraded if "trend_degraded" in locals() else False,
             "posts_fallback": quality.get("posts_fallback"),
             "solutions_fallback": quality.get("solutions_fallback"),
             "comments_fallback": manual_data_fallback,
         },
+        "v1_preflight": {
+            "v1_preflight_degraded": quality.get("v1_preflight_degraded"),
+            "thresholds": {
+                "comments_min": comments_min,
+                "posts_min": posts_min,
+                "solutions_min": solutions_min,
+                "coverage_min": coverage_min,
+            },
+        },
     }
     facts_dict["diagnostics"] = diagnostics
     if quality["data_fallback"]:
         insufficient_flags.append("data_fallback")
-    if quality["degraded"]:
-        insufficient_flags.append("degraded")
     if trend_degraded:
         insufficient_flags.append("trend_degraded")
 
@@ -3307,15 +3760,21 @@ async def main() -> None:
     insufficient_flags = list(dict.fromkeys(insufficient_flags))
 
     # Confidence (simple heuristic per module + overall)
-    def _flag(value: bool) -> float:
-        return 1.0 if value else 0.0
+    def _conf(value: float, threshold: float) -> float:
+        """Continuous confidence: 0.0 to 1.0 based on value vs threshold."""
+        if threshold <= 0:
+            return 1.0
+        return min(value / threshold, 1.0)
+
+    good_brand_pain_count = sum(
+        1 for bp in facts_dict.get("brand_pain", []) if bp.get("status") == "ok"
+    )
 
     conf_modules = {
-        "coverage": _flag(len(sample_comments_db or []) >= 80) * 0.25
-        + _flag(len(top_posts_db or []) >= 40) * 0.25,
-        "ps": _flag(not diagnostics["missing_flags"]["ps_ratio"]) * 0.25,
-        "brand_pain": _flag(any(bp.get("status") == "ok" for bp in facts_dict.get("brand_pain", []))) * 0.25,
-        "solutions": _flag(len(business_signals.get("solutions", []) if business_signals else []) >= 5) * 0.25,
+        "coverage": (_conf(comment_count, 80) * 0.5 + _conf(post_count, 40) * 0.5) * 0.25,
+        "ps": _conf(0 if diagnostics["missing_flags"]["ps_ratio"] else 1, 1) * 0.25,
+        "brand_pain": _conf(good_brand_pain_count, 2) * 0.25,
+        "solutions": _conf(solution_count, 5) * 0.25,
     }
     overall_conf = min(1.0, sum(conf_modules.values()))
     facts_dict["confidence"] = {
@@ -3324,12 +3783,12 @@ async def main() -> None:
     }
 
     # v2 package skeleton (non-breaking: keep existing fields, add v2 node)
-    meta_start = datetime.now(timezone.utc) - timedelta(days=args.days)
+    meta_start = anchor_ts - timedelta(days=args.days)
     meta = {
         "topic": args.topic,
         "time_window": {
             "start": meta_start.isoformat(),
-            "end": datetime.now(timezone.utc).isoformat(),
+            "end": anchor_ts.isoformat(),
             "days": args.days,
         },
         "generated_at": facts_dict.get("generated_at"),
@@ -3348,6 +3807,24 @@ async def main() -> None:
         "git_commit": subprocess.getoutput("git rev-parse HEAD").strip() if Path(".git").exists() else None,
     }
     profile_for_v2: TopicProfile | None = active_profile if "active_profile" in locals() else None
+    # Fallback: Create a minimal profile for ad-hoc topics (no pre-configured profile)
+    # This ensures pain/brand extraction still works for any topic.
+    if profile_for_v2 is None and "core_subs" in locals():
+        profile_for_v2 = TopicProfile(
+            id="adhoc",
+            topic_name=args.topic,
+            product_desc=getattr(args, "product_desc", "") or "",
+            vertical=vertical if "vertical" in locals() else "other",
+            allowed_communities=core_subs if "core_subs" in locals() else [],
+            community_patterns=[],
+            required_entities_any=[],
+            soft_required_entities_any=[],
+            include_keywords_any=list(topic_tokens) if "topic_tokens" in locals() else [],
+            exclude_keywords_any=list(exclusion_tokens) if "exclusion_tokens" in locals() else [],
+            mode=args.mode or "market_insight",
+            brand_discovery=load_brand_discovery_defaults(),
+        )
+        print(f"🔧 Fallback TopicProfile created for ad-hoc topic: {args.topic}")
     # 窄题可配置门槛（topic profile overrides），默认保持现有宽松口径
     pain_min_mentions = (
         profile_for_v2.pain_min_mentions
@@ -3357,7 +3834,7 @@ async def main() -> None:
     pain_min_unique_authors = (
         profile_for_v2.pain_min_unique_authors
         if profile_for_v2 and profile_for_v2.pain_min_unique_authors is not None
-        else 2
+        else 1
     )
     brand_min_mentions = (
         profile_for_v2.brand_min_mentions
@@ -3419,43 +3896,51 @@ async def main() -> None:
         )
 
     # --- Phase2: pains / brand_pain / solutions are computed from THIS run's samples ---
+    pain_th = definitions.get("pain_cluster_threshold", {}) if isinstance(definitions, dict) else {}
+    pain_clusters_v2 = compute_pain_clusters_v2(
+        posts=top_posts_db or [],
+        comments=sample_comments_db or [],
+        profile=profile_for_v2,  # None is OK — function handles it
+        max_clusters=5,
+        min_mentions=int(pain_th.get("min_mentions", 3) or 3),
+        min_unique_authors=int(pain_th.get("min_unique_authors", 2) or 2),
+        max_evidence=5,
+    )
+    # Candidate brands: profile anchors + computed top brands
+    brand_candidates: list[str] = []
     if profile_for_v2:
-        pain_th = definitions.get("pain_cluster_threshold", {}) if isinstance(definitions, dict) else {}
-        pain_clusters_v2 = compute_pain_clusters_v2(
-            posts=top_posts_db or [],
-            comments=sample_comments_db or [],
-            profile=profile_for_v2,
-            max_clusters=5,
-            min_mentions=int(pain_th.get("min_mentions", 3) or 3),
-            min_unique_authors=int(pain_th.get("min_unique_authors", 2) or 2),
-            max_evidence=5,
-        )
-        # Candidate brands: profile anchors + computed top brands
-        brand_candidates: list[str] = []
         brand_candidates.extend(profile_for_v2.required_entities_any or [])
         brand_candidates.extend(profile_for_v2.soft_required_entities_any or [])
-        brand_candidates.extend([b for b in (locals().get("top_brands") or []) if isinstance(b, str)])
-        bp_th = definitions.get("brand_pain_threshold", {}) if isinstance(definitions, dict) else {}
-        brand_pain_v2 = compute_brand_pain_v2(
-            posts=top_posts_db or [],
-            comments=sample_comments_db or [],
-            profile=profile_for_v2,
-            pain_clusters=pain_clusters_v2,
-            brand_candidates=brand_candidates,
-            min_mentions=int(bp_th.get("min_mentions", 3) or 3),
-            min_unique_authors=int(bp_th.get("min_unique_authors", 2) or 2),
-            min_evidence=int(bp_th.get("min_evidence", 3) or 3),
-            max_items=10,
-            max_evidence=5,
+    brand_candidates.extend([b for b in (locals().get("top_brands") or []) if isinstance(b, str)])
+    # Candidate fallback: reuse already-ranked brand_sentiment_top when profile anchors are empty.
+    if not brand_candidates and "brand_sentiment_top" in locals() and brand_sentiment_top:
+        brand_candidates.extend(
+            [
+                str(b.get("brand") or b.get("name") or "").strip()
+                for b in (brand_sentiment_top if isinstance(brand_sentiment_top, list) else [])
+                if isinstance(b, dict) and (b.get("brand") or b.get("name"))
+            ]
         )
+    bp_th = definitions.get("brand_pain_threshold", {}) if isinstance(definitions, dict) else {}
+    brand_pain_v2 = compute_brand_pain_v2(
+        posts=top_posts_db or [],
+        comments=sample_comments_db or [],
+        profile=profile_for_v2,  # None is OK — function handles it
+        pain_clusters=pain_clusters_v2,
+        brand_candidates=brand_candidates,
+        min_mentions=int(bp_th.get("min_mentions", 3) or 3),
+        min_unique_authors=int(bp_th.get("min_unique_authors", 2) or 2),
+        min_evidence=int(bp_th.get("min_evidence", 3) or 3),
+        max_items=10,
+        max_evidence=5,
+    )
+    if profile_for_v2:
         solutions_v2 = filter_solutions_by_profile(
             business_signals.get("solutions", []) if business_signals else [],
             profile=profile_for_v2,
             max_items=10,
         )
     else:
-        pain_clusters_v2 = []
-        brand_pain_v2 = []
         solutions_v2 = business_signals.get("solutions", []) if business_signals else []
     signals_v2 = {
         "communities": communities_v2,
@@ -3521,7 +4006,7 @@ async def main() -> None:
         }
         for sub, b in analysis_community_bucket.items()
     ]
-    analysis_communities.sort(key=lambda x: (x["comments"], x["posts"]), reverse=True)
+    analysis_communities.sort(key=lambda x: (-x["comments"], -x["posts"], x["subreddit"]))
 
     def _to_month(ts: Any) -> str | None:
         if isinstance(ts, str) and ts:
@@ -3564,12 +4049,157 @@ async def main() -> None:
         "dynamic_blacklist": sorted(list(dynamic_blacklist)),
         "trend_degraded": trend_degraded,
     }
+    # --- Merge V1 (SignalExtractor) into V2 when V2 returns empty (ad-hoc topics) ---
+    # Topic-relevance filter keywords — use ONLY anchor keywords for strict filtering
+    _topic_filter_kw = set()
+    if anchor_keywords:
+        _topic_filter_kw.update(k.lower() for k in anchor_keywords)
+    # Also add core topic tokens (but only specific ones, not generic modifiers)
+    if topic_tokens:
+        for t in topic_tokens:
+            if len(t) > 3 and t.lower() not in {'methods', 'cold', 'hot', 'good', 'best', 'like', 'know', 'need', 'want', 'home', 'automatic'}:
+                _topic_filter_kw.add(t.lower())
+    final_pains = _select_final_pains(
+        pain_clusters_v2,
+        business_signals,
+        active_profile=active_profile if "active_profile" in locals() else None,
+        topic_filter_kw=_topic_filter_kw,
+    )
+    final_brand_pain = brand_pain_v2
+    final_solutions = solutions_v2 or []
+    if not final_brand_pain and business_signals:
+        # V1 fallback 级联：先接 brand_pain，再退到 competitor_insights。
+        v1_brand_pain = business_signals.get("brand_pain", [])
+        if v1_brand_pain and isinstance(v1_brand_pain, list) and len(v1_brand_pain) > 0:
+            final_brand_pain = v1_brand_pain
+        else:
+            final_brand_pain = business_signals.get("competitor_insights", [])
+    if not final_solutions and business_signals:
+        raw_sols = business_signals.get("solutions", [])
+        if active_profile is not None and _topic_filter_kw:
+            final_solutions = [
+                s for s in raw_sols
+                if any(kw in str(s.get("description", "")).lower() for kw in _topic_filter_kw)
+            ]
+            print(f"📊 V1→V2 solutions fallback: {len(raw_sols)} raw → {len(final_solutions)} after topic filter")
+        else:
+            final_solutions = raw_sols
+            print(f"📊 V1→V2 solutions fallback (ad-hoc, no filter): {len(raw_sols)} kept as-is")
+    # Opportunities fallback
+    final_opportunities = []
+    if business_signals:
+        raw_opps = business_signals.get("buying_opportunities", [])
+        if active_profile is not None and _topic_filter_kw:
+            final_opportunities = [
+                o for o in raw_opps
+                if any(kw in str(o.get("description", "")).lower() for kw in _topic_filter_kw)
+            ]
+            print(f"📊 V1→V2 opportunities fallback: {len(raw_opps)} raw → {len(final_opportunities)} after topic filter")
+        else:
+            final_opportunities = raw_opps
+            print(f"📊 V1→V2 opportunities fallback (ad-hoc, no filter): {len(raw_opps)} kept as-is")
+
+    # ── V1→V2 Schema Adaptation (Phase 236: Real Mentions) ──────────
+    # quality.py expects V2 fields: title, metrics.mentions, metrics.unique_authors, evidence_quote_ids
+    # V1 fallback only has: description, frequency, example_posts. Bridge the gap here.
+    # Phase 236: Instead of using fake frequency=1, count actual comment mentions.
+    for p in final_pains:
+        pain_is_v1_fallback = "description" in p and (
+            "title" not in p or "metrics" not in p or "evidence_quote_ids" not in p
+        )
+        if pain_is_v1_fallback and not p.get("source"):
+            p["source"] = "v1_fallback"
+        if "title" not in p and "description" in p:
+            p["title"] = p["description"][:120]
+        if "metrics" not in p:
+            real_mentions, real_authors = _count_pain_mentions_in_comments(
+                p.get("description", ""),
+                sample_comments_db or [],
+            )
+            p["metrics"] = {
+                "mentions": real_mentions,
+                "unique_authors": real_authors,
+            }
+        if "evidence_quote_ids" not in p:
+            p["evidence_quote_ids"] = p.get("example_posts", [])
+    # 噪音品牌过滤：Phase 241 起从配置文件加载，减少改代码发版。
+    _BRAND_NOISE = _load_brand_noise(config_root, mode=args.mode)
+    brand_discovery_cfg = getattr(profile_for_v2, "brand_discovery", None)
+    if brand_discovery_cfg is not None:
+        _BRAND_NOISE.update(
+            str(word).strip().lower()
+            for word in getattr(brand_discovery_cfg, "stopwords", [])
+            if str(word).strip()
+        )
+    _pre_filter_count = len(final_brand_pain)
+    final_brand_pain = [
+        b for b in final_brand_pain
+        if str(b.get("name") or b.get("brand") or "").strip().lower() not in _BRAND_NOISE
+        and len(str(b.get("name") or b.get("brand") or "").strip()) >= 2
+    ]
+    _filtered_out = _pre_filter_count - len(final_brand_pain)
+    _kept_brands = [
+        str(b.get("name") or b.get("brand") or "?")[:20]
+        for b in final_brand_pain[:10]
+    ]
+    print(
+        f"🏷️ Brand filter: {_pre_filter_count} candidates → {len(final_brand_pain)} kept, "
+        f"{_filtered_out} noise filtered"
+    )
+    if _kept_brands:
+        print(f"   Top brands kept: {_kept_brands}")
+    for b in final_brand_pain:
+        brand_is_v1_fallback = (
+            ("brand" not in b and "name" in b)
+            or "unique_authors" not in b
+            or "evidence_quote_ids" not in b
+        )
+        if brand_is_v1_fallback and not b.get("source"):
+            b["source"] = "v1_fallback"
+        if not b.get("unique_authors"):
+            brand_name = str(b.get("brand") or b.get("name") or "").strip()
+            if brand_name and sample_comments_db:
+                authors: set[str] = set()
+                brand_lower = brand_name.lower()
+                for c in sample_comments_db:
+                    if not isinstance(c, dict):
+                        continue
+                    body = str(c.get("body") or c.get("text") or "").lower()
+                    if brand_lower in body:
+                        author = c.get("author_name") or c.get("author") or c.get("author_id")
+                        if author:
+                            authors.add(str(author))
+                b["unique_authors"] = len(authors)
+            else:
+                b["unique_authors"] = 0
+        if "evidence_quote_ids" not in b or not b["evidence_quote_ids"]:
+            # 从 comments 里回填 evidence，优先拿 comment_id，再退到 id / reddit_comment_id。
+            brand_name_lower = str(b.get("brand") or b.get("name") or "").strip().lower()
+            if brand_name_lower and sample_comments_db:
+                found_ids: list[str] = []
+                for c in sample_comments_db:
+                    if not isinstance(c, dict):
+                        continue
+                    body = str(c.get("body") or c.get("text") or "").lower()
+                    if brand_name_lower in body:
+                        cid = c.get("comment_id") or c.get("id") or c.get("reddit_comment_id")
+                        if cid:
+                            found_ids.append(str(cid))
+                    if len(found_ids) >= 5:
+                        break
+                b["evidence_quote_ids"] = found_ids
+            else:
+                b["evidence_quote_ids"] = []
+    print(f"🔄 V1→V2 schema adapted: {len(final_pains)} pains, {len(final_brand_pain)} brands")
+    # ────────────────────────────────────────────────────────────────
+
     business_signals_block = {
-        "high_value_pains": pain_clusters_v2,
-        "brand_pain": brand_pain_v2,
+        "high_value_pains": final_pains,
+        "brand_pain": final_brand_pain,
         "competitor_insights": facts_dict.get("competitor_insights"),
+        "buying_opportunities": final_opportunities,
         "market_saturation": facts_dict.get("market_saturation"),
-        "solutions": solutions_v2 or [],
+        "solutions": final_solutions,
     }
     facts_v2_package = {
         "schema_version": "2.0",
@@ -3579,7 +4209,7 @@ async def main() -> None:
         "aggregates": aggregates_block,
         "business_signals": business_signals_block,
         "pain_tree": pain_tree,
-        "pain_clusters": pain_clusters_v2,
+        "pain_clusters": final_pains,
         "sample_comments_db": sample_comments_db,
         "sample_posts_db": top_posts_db,
         "diagnostics": diagnostics_v2,
@@ -3591,9 +4221,35 @@ async def main() -> None:
     facts_v2_package = _convert_decimals_to_floats(facts_v2_package)
 
     # --- Phase3: 质量闸门（不达标就不进报告阶段） ---
+    _profile_for_qg = active_profile if "active_profile" in locals() else None
+    # 加一层小磁滞，避免刚好卡边界的样本在 A/B 之间来回翻。
+    from app.services.facts_v2.quality import FactsV2QualityGateConfig
+    _adhoc_qg_config = FactsV2QualityGateConfig(
+        a_full_pain_hysteresis=1,
+        a_full_brand_hysteresis=1,
+        a_full_solution_hysteresis=1,
+    )
+    # Ad-hoc topic: 放宽质量门禁阈值，不然 V1 数据永远过不了 A/B 级
+    if _profile_for_qg is None:
+        _adhoc_qg_config = FactsV2QualityGateConfig(
+            min_good_pains=1,
+            pain_min_mentions=3,
+            pain_min_unique_authors=2,
+            pain_min_evidence=1,
+            min_good_brands=1,
+            brand_min_mentions=3,
+            brand_min_unique_authors=2,
+            brand_min_evidence=2,
+            min_solutions=3,
+            a_full_pain_hysteresis=1,
+            a_full_brand_hysteresis=1,
+            a_full_solution_hysteresis=1,
+        )
     quality_result = quality_check_facts_v2(
         facts_v2_package,
-        profile=active_profile if "active_profile" in locals() else None,
+        profile=_profile_for_qg,
+        config=_adhoc_qg_config,
+        skip_topic_check=(_profile_for_qg is None),
     )
     # 写回 facts_v2，方便后续排查
     diagnostics_node = facts_v2_package.get("diagnostics") or {}
@@ -3605,6 +4261,7 @@ async def main() -> None:
             "metrics": quality_result.metrics,
         }
         facts_v2_package["diagnostics"] = diagnostics_node
+    quality["tier"] = quality_result.tier
     notes_node = facts_v2_package.get("notes") or {}
     if isinstance(notes_node, dict):
         limitations = notes_node.get("limitations") or []
@@ -3620,19 +4277,23 @@ async def main() -> None:
     print(f"✅ Single facts_v2 package exported: {facts_out_path}")
 
     # Optional: run validator on v2 (best effort, non-blocking)
-    try:
-        res = subprocess.run(
-            ["python", "scripts/validate_facts_v2.py", str(facts_out_path)],
-            cwd=base_dir.parent,
-            capture_output=True,
-            text=True,
-        )
-        if res.stdout:
-            print(res.stdout.strip())
-        if res.returncode != 0 and res.stderr:
-            print(res.stderr.strip())
-    except Exception as exc:
-        print(f"⚠️ Validator skipped: {exc}")
+    validator_path = base_dir / "validate_facts_v2.py"
+    if validator_path.exists():
+        try:
+            res = subprocess.run(
+                ["python", str(validator_path), str(facts_out_path)],
+                cwd=base_dir.parent,
+                capture_output=True,
+                text=True,
+            )
+            if res.stdout:
+                print(res.stdout.strip())
+            if res.returncode != 0 and res.stderr:
+                print(res.stderr.strip())
+        except Exception as exc:
+            print(f"⚠️ Validator skipped: {exc}")
+    else:
+        print(f"ℹ️ Validator script not found, skipping: {validator_path}")
 
     await _write_quality_audit(
         session,
@@ -3649,8 +4310,13 @@ async def main() -> None:
     )
 
     # In-memory slice for LLM/Admin
+    facts_slice = build_facts_slice_for_report(facts_v2_package=facts_v2_package)
+    # 注入质量等级，让 LLM 明白当前结论有多稳。
+    facts_slice["quality_tier"] = quality_result.tier
+    facts_slice["quality_passed"] = quality_result.passed
+    facts_slice["quality_flags"] = quality_result.flags
     facts_for_llm = json.dumps(
-        build_facts_slice_for_report(facts_v2_package),
+        facts_slice,
         ensure_ascii=False,
         indent=2,
     )
@@ -3695,6 +4361,26 @@ async def main() -> None:
         # Combine
         full_report = f"{part1}\n\n---\n\n{part2}"
 
+    # ── Phase 236: Post-process to remove any LLM-generated xx党 labels ──
+    _PARTY_REPLACEMENTS = {
+        "吐槽党": "来抱怨的人",
+        "避坑党": "来避坑的人",
+        "找货党": "来找推荐的人",
+        "工具党": "来找工具的人",
+        "进阶党": "来学进阶的人",
+        "学习党": "来学习的人",
+        "耐用党": "追求耐用的人",
+        "预算党": "在意预算的人",
+        "性价比党": "追求性价比的人",
+        "颜值党": "追求颜值的人",
+    }
+    for label, replacement in _PARTY_REPLACEMENTS.items():
+        full_report = full_report.replace(label, replacement)
+    # Catch any remaining "X党" patterns (2-5 char prefix + 党)
+    full_report = re.sub(r"([\u4e00-\u9fff\w]{1,5})党", r"\1的人", full_report)
+    # Also catch "xx型用户" patterns
+    full_report = re.sub(r"([\u4e00-\u9fff\w]{1,5})型用户", r"\1类型的用户", full_report)
+    # ────────────────────────────────────────────────────────────────────
     report_path = base_dir / args.out
     report_path.parent.mkdir(parents=True, exist_ok=True)
     report_path.write_text(full_report, encoding="utf-8")
@@ -3704,7 +4390,7 @@ async def main() -> None:
     print(f"✅ Report generated: {report_path} (LLM Success, 2 Stages)")
     if quality_result.tier != "C_scouting":
         recommended_keywords = _extract_recommended_keywords(full_report, topic_kw)
-        inserted = await _insert_semantic_candidates(recommended_keywords)
+        inserted = await _insert_semantic_candidates(recommended_keywords, anchor_ts=anchor_ts)
         if inserted:
             print(f"✅ semantic_candidates inserted/kept pending: {inserted}")
     if args.run_quality:

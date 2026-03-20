@@ -48,6 +48,8 @@ async def recalibrate_crawl_frequencies(db: AsyncSession) -> Dict[str, Any]:
     基于 R-F-E 指标动态调整 community_cache 的抓取频率。
     返回更新统计。
     """
+    now = datetime.now(timezone.utc)
+    cutoff = now - timedelta(days=90)
     sql = text(
         """
         SELECT
@@ -60,12 +62,12 @@ async def recalibrate_crawl_frequencies(db: AsyncSession) -> Dict[str, Any]:
         WHERE
             is_current = TRUE
             AND is_deleted = FALSE
-            AND created_at >= NOW() - INTERVAL '90 days'
+            AND created_at >= :cutoff
         GROUP BY subreddit;
         """
     )
 
-    result = await db.execute(sql)
+    result = await db.execute(sql, {"cutoff": cutoff})
     rows = result.mappings().all()
     if not rows:
         return {"status": "no_data", "updated": 0}
@@ -86,7 +88,7 @@ async def recalibrate_crawl_frequencies(db: AsyncSession) -> Dict[str, Any]:
             pg_insert(CommunityCache)
             .values(
                 community_name=norm_sub,
-                last_crawled_at=datetime.now(timezone.utc),
+                last_crawled_at=now,
                 posts_cached=int(total_posts),
                 crawl_priority=priority,
                 crawl_frequency_hours=freq_hours,
@@ -106,7 +108,7 @@ async def recalibrate_crawl_frequencies(db: AsyncSession) -> Dict[str, Any]:
                     "crawl_frequency_hours": freq_hours,
                     "posts_cached": int(total_posts),
                     "total_posts_fetched": int(total_posts),
-                    "last_crawled_at": datetime.now(timezone.utc),
+                    "last_crawled_at": now,
                     "quality_tier": CommunityCache.quality_tier,
                 },
             )

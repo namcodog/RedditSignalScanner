@@ -9,6 +9,7 @@ from __future__ import annotations
 
 from collections import Counter
 from dataclasses import dataclass
+import logging
 import re
 from typing import Iterable, List, Mapping, Sequence
 
@@ -55,6 +56,7 @@ _STOPWORDS = ENGLISH_STOP_WORDS.union(
 
 _DEFAULT_THRESHOLDS: Sequence[float] = (0.35, 0.45, 0.55, 0.65)
 _TOKEN_RE = re.compile(r"[a-zA-Z]{4,}")
+logger = logging.getLogger(__name__)
 
 
 @dataclass(slots=True)
@@ -505,6 +507,7 @@ async def cluster_pain_points_auto(
     fallback_items: Optional[Sequence[Mapping[str, object]]] = None,
     min_clusters: int = 2,
     max_clusters: int = 5,
+    diagnostics: dict[str, object] | None = None,
 ) -> list[dict[str, object]]:
     """
     优先用 DB 标签聚合痛点簇，不足时回落到 TF-IDF 启发式。
@@ -520,15 +523,37 @@ async def cluster_pain_points_auto(
             limit_per_source=limit_per_source,
         )
         if clusters:
+            if diagnostics is not None:
+                diagnostics["pain_clusters_pipeline_status"] = "db_labels"
             return clusters
-    except Exception:
+    except Exception as exc:
+        logger.warning("Pain cluster DB aggregation failed", exc_info=True)
+        if diagnostics is not None:
+            diagnostics["pain_clusters_pipeline_status"] = "db_error"
+            diagnostics["pain_clusters_error"] = str(exc)[:200]
         clusters = []
 
     if fallback_items:
         try:
-            return cluster_pain_points(fallback_items, min_clusters=min_clusters, max_clusters=max_clusters)
-        except Exception:
+            fallback_clusters = cluster_pain_points(
+                fallback_items,
+                min_clusters=min_clusters,
+                max_clusters=max_clusters,
+            )
+            if diagnostics is not None:
+                previous = str(diagnostics.get("pain_clusters_pipeline_status") or "").strip()
+                diagnostics["pain_clusters_pipeline_status"] = (
+                    "db_error_tfidf_fallback" if previous == "db_error" else "tfidf_fallback"
+                )
+            return fallback_clusters
+        except Exception as exc:
+            logger.warning("Pain cluster TF-IDF fallback failed", exc_info=True)
+            if diagnostics is not None:
+                diagnostics["pain_clusters_pipeline_status"] = "fallback_error"
+                diagnostics["pain_clusters_error"] = str(exc)[:200]
             return []
+    if diagnostics is not None and "pain_clusters_pipeline_status" not in diagnostics:
+        diagnostics["pain_clusters_pipeline_status"] = "empty"
     return []
 
 

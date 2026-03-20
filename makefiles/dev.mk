@@ -36,12 +36,15 @@ dev-full: ## 启动完整开发环境（Redis + Celery + Backend + Frontend）
 	@echo "4️⃣  启动分析 Worker（analysis_queue）..."
 	@$(MAKE) start-worker-analysis
 	@sleep 3
-	@tail -20 logs/celery_analysis.log | grep "ready" && echo "✅ Analysis Worker started" || echo "⚠️  Analysis Worker可能未启动，请检查 logs/celery_analysis.log"
+	@if pgrep -f "celery.*analysis_queue" >/dev/null; then \
+		echo "✅ Analysis Worker started"; \
+	else \
+		echo "⚠️  Analysis Worker可能未启动，请检查 logs/celery_analysis.log"; \
+	fi
 	@echo ""
 	@echo "5️⃣  启动后端服务（后台）..."
 	@bash -lc '. $(COMMON_SH); start_backend_background'
-	@sleep 3
-	@bash -lc '. $(COMMON_SH); if check_backend_health; then echo "✅ Backend server started"; else echo "⚠️  Backend server可能未启动"; fi'
+	@bash -lc '. $(COMMON_SH); if wait_backend_health 20 1; then echo "✅ Backend server started"; else echo "⚠️  Backend server可能未启动"; fi'
 	@echo ""
 	@echo "✅ 完整开发环境已启动！"
 	@echo ""
@@ -70,17 +73,19 @@ dev-real: ## 启动真实 Reddit 验收环境（不注入任何 mock/seed 数据
 	@echo "3️⃣  启动分析 Worker（analysis_queue）..."
 	@$(MAKE) start-worker-analysis
 	@sleep 3
-	@tail -20 logs/celery_analysis.log | grep "ready" && echo "✅ Analysis Worker started" || echo "⚠️  请检查 logs/celery_analysis.log"
+	@if pgrep -f "celery.*analysis_queue" >/dev/null; then \
+		echo "✅ Analysis Worker started"; \
+	else \
+		echo "⚠️  请检查 logs/celery_analysis.log"; \
+	fi
 	@echo ""
 	@echo "4️⃣  启动后端服务 ..."
 	@bash -lc '. $(COMMON_SH); start_backend_background'
-	@sleep 3
-	@bash -lc '. $(COMMON_SH); if check_backend_health; then echo "✅ Backend server started"; else echo "⚠️  Backend server可能未启动"; fi'
+	@bash -lc '. $(COMMON_SH); if wait_backend_health 20 1; then echo "✅ Backend server started"; else echo "⚠️  Backend server可能未启动"; fi'
 	@echo ""
 	@echo "5️⃣  （可选）启动前端服务 ..."
 	@bash -lc '. $(COMMON_SH); start_frontend_background'
-	@sleep 3
-	@bash -lc '. $(COMMON_SH); if check_frontend_health; then echo "✅ Frontend server started"; else echo "⚠️  Frontend server可能未启动"; fi'
+	@bash -lc '. $(COMMON_SH); if wait_frontend_health 20 1; then echo "✅ Frontend server started"; else echo "⚠️  Frontend server可能未启动"; fi'
 	@echo ""
 	@echo "✅ 真实 Reddit 本地验收环境已就绪（未注入任何测试/Mock 数据）"
 	@echo "   注意：请确保 backend/.env 已设置 REDDIT_CLIENT_ID/REDDIT_CLIENT_SECRET"

@@ -145,6 +145,10 @@ async def test_report_service_market_mode_uses_market_template() -> None:
         settings.report_quality_level = "basic"  # 跳过 premium/standard 额外分支
 
         task = _fake_task_basic()
+        assert task.analysis is not None
+        assert task.analysis.report is not None
+        # 这条用例要测市场模板路径，不能提前塞入现成 HTML。
+        task.analysis.report.html_content = ""
         repo = FakeRepository(task)
         config = ReportServiceConfig(
             community_members={"r/homegym": 100000},
@@ -312,6 +316,56 @@ async def test_report_service_prefers_structured_report_for_html() -> None:
     assert payload.report_html is not None
     assert "需求趋势" in payload.report_html
     assert "OLD" not in payload.report_html
+
+
+@pytest.mark.asyncio
+async def test_report_service_preserves_sources_contract_from_analysis() -> None:
+    task = _fake_task_basic()
+    assert task.analysis is not None
+    task.analysis.sources.update(
+        {
+            "report_tier": "B_trimmed",
+            "analysis_blocked": "",
+            "facts_v2_quality": {
+                "passed": True,
+                "tier": "B_trimmed",
+                "flags": ["comments_low"],
+                "metrics": {"comments_count": 120},
+            },
+            "structured_llm_status": "failed",
+            "structured_llm_reason": "llm_generate_failed",
+            "trend_source": ["posts_raw"],
+            "trend_degraded": True,
+            "knowledge_graph": {"entities": [{"id": "brand:roborock"}]},
+            "llm_used": False,
+            "llm_model": "gpt-4o-mini",
+            "llm_rounds": 1,
+        }
+    )
+
+    repo = FakeRepository(task)
+    service = ReportService(
+        db=None,  # type: ignore[arg-type]
+        repository=repo,
+        cache=None,
+    )
+
+    payload = await service.get_report(task.id, task.user_id)
+
+    assert payload.sources.report_tier == "B_trimmed"
+    assert payload.sources.analysis_blocked == ""
+    assert payload.sources.facts_v2_quality is not None
+    assert payload.sources.facts_v2_quality["tier"] == "B_trimmed"
+    assert payload.sources.structured_llm_status == "failed"
+    assert payload.sources.structured_llm_reason == "llm_generate_failed"
+    assert payload.sources.trend_source == ["posts_raw"]
+    assert payload.sources.trend_degraded is True
+    assert payload.sources.knowledge_graph == {
+        "entities": [{"id": "brand:roborock"}]
+    }
+    assert payload.metadata.llm_used is False
+    assert payload.metadata.llm_model == "gpt-4o-mini"
+    assert payload.metadata.llm_rounds == 1
 
 
 @pytest.mark.asyncio

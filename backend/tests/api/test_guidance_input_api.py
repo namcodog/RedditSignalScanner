@@ -11,4 +11,9 @@ async def test_get_input_guidance(client: AsyncClient) -> None:
     assert isinstance(data.get("placeholder"), str)
     assert isinstance(data.get("tips"), list)
     assert isinstance(data.get("examples"), list)
-
+    if data["examples"]:
+        head_examples = data["examples"][:6]
+        for example in head_examples:
+            assert "topic_profile_id" in example
+            assert isinstance(example.get("topic_profile_id"), str)
+            assert example.get("topic_profile_id")

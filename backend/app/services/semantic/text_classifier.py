@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import logging
 import os
 import re
 import yaml
@@ -14,6 +15,7 @@ from app.services.semantic.unified_lexicon import UnifiedLexicon
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
 _vader = SentimentIntensityAnalyzer()
+logger = logging.getLogger(__name__)
 
 
 def _load_classifier_keywords() -> dict[str, list[str]]:
@@ -81,10 +83,10 @@ def _load_aspect_keywords() -> None:
                         _ASPECT_KEYWORDS[aspect] = []
                     _ASPECT_KEYWORDS[aspect].append(str(term))
                     db_count += 1
-            print(f"✅ Loaded {db_count} domain pain rules from DB")
+            logger.info("Loaded %s domain pain rules from DB", db_count)
             
         except Exception as e:
-            print(f"⚠️ Failed to load rules from DB: {e}")
+            logger.warning("Failed to load rules from DB: %s", e)
 
         # 3. Compile Regex
         pats: dict[str, list[re.Pattern[str]]] = {}
@@ -105,10 +107,13 @@ def _load_aspect_keywords() -> None:
             if compiled:
                 pats[aspect_name.lower()] = compiled
         _ASPECT_KEYWORD_PATS = pats
-        print(f"✅ Loaded total {sum(len(v) for v in _ASPECT_KEYWORDS.values())} aspect keywords")
+        logger.info(
+            "Loaded total %s aspect keywords",
+            sum(len(v) for v in _ASPECT_KEYWORDS.values()),
+        )
         
     except Exception as e:  # pragma: no cover - safe fallback
-        print(f"⚠️ Failed to load aspect_keywords: {e}")
+        logger.warning("Failed to load aspect keywords: %s", e)
         _ASPECT_KEYWORDS, _ASPECT_KEYWORD_PATS = {}, {}
 
 

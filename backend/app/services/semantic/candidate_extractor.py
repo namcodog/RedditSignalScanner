@@ -1,10 +1,12 @@
 from __future__ import annotations
 
 import csv
+import logging
 import re
+from datetime import datetime, timedelta, timezone
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Dict, Iterable, List, Mapping, Sequence, Tuple
+from typing import Any, Dict, Iterable, List, Mapping, Sequence, Tuple
 
 from sqlalchemy import select, text as sqltext
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -13,6 +15,9 @@ from app.db.read_scopes import get_comments_core_lab_relation
 from app.models.semantic_term import SemanticTerm
 from app.repositories.semantic_candidate_repository import SemanticCandidateRepository
 from app.services.semantic.unified_lexicon import UnifiedLexicon
+
+
+logger = logging.getLogger(__name__)
 
 
 # 3~4 token noun/专名短语，过滤数字/URL
@@ -94,6 +99,16 @@ class CandidateExtractor:
             if not (4 <= len(term) <= 30):
                 continue
             yield term
+            parts = term.split()
+            head = parts[0].strip() if parts else ""
+            if (
+                len(parts) > 1
+                and head
+                and len(head) >= 4
+                and head[0].isupper()
+                and head.lower() not in _STOPWORDS
+            ):
+                yield head
 
     def _is_stopword(self, term: str) -> bool:
         low = term.lower()
@@ -103,7 +118,7 @@ class CandidateExtractor:
 
     def _semantic_similarity(self, term: str) -> float | None:
         """Best-effort 语义相似度，依赖 sentence-transformers；缺省返回 None。"""
-        if not self._seed_terms:
+        if not self._seed_terms or len(self._seed_terms) < 5:
             return None
         try:
             import numpy as np
@@ -197,6 +212,7 @@ class CandidateExtractor:
         *,
         lookback_days: int = 90,
         limit: int = 500,
+        diagnostics: dict[str, Any] | None = None,
     ) -> list[SemanticTerm]:
         """Extract from DB, persist candidates, and return DB-backed rows.
 
@@ -207,7 +223,8 @@ class CandidateExtractor:
         """
         texts: list[str] = []
         text_ids: list[int] = []
-        source = "comments"
+        source = "comments_db"
+        cutoff_utc = datetime.now(timezone.utc) - timedelta(days=max(1, int(lookback_days)))
         try:
             comments_rel = await get_comments_core_lab_relation(session)
             # 痛点×品牌/功能共现：T1/T2 社区 + pain 标签 + brand/feature 实体 + 非机器人 + 近 lookback_days
@@ -224,7 +241,7 @@ class CandidateExtractor:
                     AND l.content_id = c.id
                     AND l.category = 'pain'
                 WHERE LOWER(cp.tier) IN ('t1', 't2', 'high', 'medium', 'semantic')
-                  AND c.created_utc >= NOW() - INTERVAL ':days days'
+                  AND c.created_utc >= :cutoff_utc
                   AND c.score > 0
                   AND (c.author_name IS NULL OR c.author_name NOT ILIKE '%bot%')
                 ORDER BY c.created_utc DESC
@@ -232,38 +249,53 @@ class CandidateExtractor:
                 """
             )
             res = await session.execute(
-                q.bindparams(days=int(lookback_days), limit=int(limit))
+                q.bindparams(cutoff_utc=cutoff_utc, limit=int(limit))
             )
             rows = res.fetchall()
             texts = [str(row[1] or "") for row in rows]
             text_ids = [int(row[0]) for row in rows]
-        except Exception:
+            if diagnostics is not None:
+                diagnostics["candidate_extract_source"] = source
+                diagnostics["candidate_extract_status"] = "comments_db"
+        except Exception as exc:
             # 回退 posts_hot，保证兼容
+            if diagnostics is not None:
+                diagnostics["candidate_extract_error"] = str(exc)
             try:
-                source = "posts"
+                source = "posts_fallback"
                 q2 = sqltext(
                     """
                     SELECT COALESCE(title,'') || ' ' || COALESCE(selftext,'') AS text, id
                     FROM posts_hot
-                    WHERE created_at >= NOW() - INTERVAL ':days days'
+                    WHERE created_at >= :cutoff_utc
                     ORDER BY created_at DESC
                     LIMIT :limit
                     """
                 )
                 res = await session.execute(
-                    q2.bindparams(days=int(lookback_days), limit=int(limit))
+                    q2.bindparams(cutoff_utc=cutoff_utc, limit=int(limit))
                 )
                 rows = res.fetchall()
                 texts = [str(row[0] or "") for row in rows]
                 text_ids = [int(row[1]) for row in rows]
+                if diagnostics is not None:
+                    diagnostics["candidate_extract_source"] = source
+                    diagnostics["candidate_extract_status"] = "posts_fallback"
             except Exception:
                 texts = []
                 text_ids = []
+                if diagnostics is not None:
+                    diagnostics["candidate_extract_status"] = "failed"
+                logger.warning("Candidate extraction DB and posts fallback both failed", exc_info=True)
         if not texts:
+            if diagnostics is not None and "candidate_extract_status" not in diagnostics:
+                diagnostics["candidate_extract_status"] = "empty"
             return []
 
         raw_candidates = self.extract_from_texts(texts, text_ids=text_ids)
         if not raw_candidates:
+            if diagnostics is not None:
+                diagnostics["candidate_extract_status"] = "no_candidates"
             return []
 
         # Filter out already-approved semantic terms
@@ -275,12 +307,18 @@ class CandidateExtractor:
             c for c in raw_candidates if c.canonical.lower() not in approved
         ]
         if not filtered:
+            if diagnostics is not None:
+                diagnostics["candidate_extract_status"] = "already_approved"
             return []
 
         term_freqs: list[Tuple[str, int]] = [
             (c.canonical, int(c.frequency)) for c in filtered
         ]
         persisted = await repository.bulk_upsert(term_freqs, source=source)
+        if diagnostics is not None:
+            diagnostics["candidate_extract_status"] = str(
+                diagnostics.get("candidate_extract_status") or source
+            )
         return persisted
 
     # -------- Export --------

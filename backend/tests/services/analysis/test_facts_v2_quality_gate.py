@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from dataclasses import replace
+
 from app.services.facts_v2.quality import FactsV2QualityGateConfig, quality_check_facts_v2
 from app.services.analysis.topic_profiles import TopicProfile
 
@@ -43,6 +45,90 @@ def test_quality_gate_flags_topic_mismatch() -> None:
     assert result.passed is False
     assert result.tier == "X_blocked"
     assert "topic_mismatch" in result.flags
+
+
+def test_quality_gate_skips_topic_check_for_open_questions() -> None:
+    facts_v2 = {
+        "meta": {"topic": "中文自由输入，不提供 profile"},
+        "data_lineage": {"source_range": {"posts": 1, "comments": 1}},
+        "aggregates": {
+            "communities": [{"subreddit": "r/cooking", "posts": 1, "comments": 1}]
+        },
+        "sample_posts_db": [{"title": "Best cake recipe ever", "subreddit": "r/cooking"}],
+        "sample_comments_db": [
+            {"quote_id": "c1", "text": "I love cooking and cake", "subreddit": "r/cooking"}
+        ],
+        "business_signals": {"high_value_pains": [], "brand_pain": [], "solutions": []},
+    }
+    cfg = FactsV2QualityGateConfig(
+        min_on_topic_ratio=0.8,
+        min_good_pains=0,
+        min_good_brands=0,
+        min_solutions=0,
+        range_mismatch_tolerance=0.2,
+    )
+
+    result = quality_check_facts_v2(
+        facts_v2,
+        profile=None,
+        config=cfg,
+        skip_topic_check=True,
+    )
+
+    assert result.tier != "X_blocked"
+    assert "topic_mismatch" not in result.flags
+    assert result.metrics.get("topic_check_skipped") is True
+
+
+def test_quality_gate_allows_profile_min_good_brands_zero_override() -> None:
+    facts_v2 = {
+        "meta": {"topic": "Shopify Traffic Ads Conversion"},
+        "data_lineage": {"source_range": {"posts": 4, "comments": 0}},
+        "aggregates": {
+            "communities": [{"subreddit": "r/shopify", "posts": 4, "comments": 0}]
+        },
+        "sample_posts_db": [
+            {"title": "Shopify ROAS is dropping and conversion is unstable", "subreddit": "r/shopify"},
+            {"title": "How to improve Shopify conversion rate with better campaign setup", "subreddit": "r/shopify"},
+            {"title": "Lower CPC but no sales from ads, need workflow fix", "subreddit": "r/shopify"},
+            {"title": "Retargeting task handoff hurts collaboration and velocity", "subreddit": "r/shopify"},
+        ],
+        "sample_comments_db": [],
+        "business_signals": {
+            "high_value_pains": [
+                {
+                    "title": "ROAS 下滑",
+                    "metrics": {"mentions": 2, "unique_authors": 2},
+                    "evidence_quote_ids": ["q1", "q2"],
+                },
+                {
+                    "title": "归因混乱",
+                    "metrics": {"mentions": 2, "unique_authors": 2},
+                    "evidence_quote_ids": ["q3", "q4"],
+                },
+            ],
+            "brand_pain": [],
+            "solutions": [{"x": 1}, {"x": 2}, {"x": 3}],
+        },
+    }
+    cfg = FactsV2QualityGateConfig(
+        min_on_topic_ratio=0.5,
+        min_good_pains=2,
+        min_good_brands=1,
+        min_solutions=3,
+    )
+    profile = replace(
+        _profile(),
+        min_good_brands=0,
+        min_solutions=3,
+        pain_min_mentions=2,
+        pain_min_unique_authors=2,
+    )
+
+    result = quality_check_facts_v2(facts_v2, profile=profile, config=cfg)
+
+    assert result.tier == "A_full"
+    assert "brand_pain_low" not in result.flags
 
 
 def test_quality_gate_flags_range_mismatch() -> None:
@@ -193,6 +279,48 @@ def test_quality_gate_flags_comments_not_used_when_db_has_comments() -> None:
     assert result.tier == "A_full"
 
 
+def test_quality_gate_exposes_pipeline_degraded_flags_from_diagnostics() -> None:
+    facts_v2 = {
+        "meta": {"topic": "Shopify Traffic Ads Conversion"},
+        "diagnostics": {
+            "topic_profiles_status": "load_failed",
+            "semantic_search_status": "keyword_only",
+            "pain_clusters_pipeline_status": "db_error_tfidf_fallback",
+            "brand_pain_pipeline_status": "blocked_by_pain_clusters",
+            "domain_pain_config_status": "load_failed",
+        },
+        "data_lineage": {"source_range": {"posts": 2, "comments": 2}},
+        "aggregates": {
+            "communities": [{"subreddit": "r/facebookads", "posts": 2, "comments": 2}]
+        },
+        "sample_posts_db": [
+            {"title": "Shopify ROAS low", "subreddit": "r/facebookads"},
+            {"title": "Shopify CPC high", "subreddit": "r/facebookads"},
+        ],
+        "sample_comments_db": [
+            {"quote_id": "c1", "text": "Shopify ROAS low on Facebook Ads", "subreddit": "r/facebookads"},
+            {"quote_id": "c2", "text": "Shopify CPC high on Facebook Ads", "subreddit": "r/facebookads"},
+        ],
+        "business_signals": {"high_value_pains": [], "brand_pain": [], "solutions": []},
+    }
+    cfg = FactsV2QualityGateConfig(
+        min_on_topic_ratio=0.5,
+        min_good_pains=1,
+        min_good_brands=1,
+        min_solutions=0,
+        range_mismatch_tolerance=0.2,
+    )
+
+    result = quality_check_facts_v2(facts_v2, profile=_profile(), config=cfg)
+
+    assert "topic_profiles_degraded" in result.flags
+    assert "semantic_search_degraded" in result.flags
+    assert "domain_pain_config_degraded" in result.flags
+    assert "pains_pipeline_degraded" in result.flags
+    assert "brand_pain_pipeline_degraded" in result.flags
+    assert result.metrics["pain_clusters_pipeline_status"] == "db_error_tfidf_fallback"
+
+
 def test_quality_gate_passes_when_core_signals_complete() -> None:
     facts_v2 = {
         "meta": {"topic": "Shopify Traffic Ads Conversion"},
@@ -240,6 +368,111 @@ def test_quality_gate_passes_when_core_signals_complete() -> None:
     assert result.passed is True
     assert result.tier == "A_full"
     assert not result.flags
+
+
+def test_quality_gate_hysteresis_keeps_boundary_case_in_b_trimmed() -> None:
+    facts_v2 = {
+        "meta": {"topic": "Shopify Traffic Ads Conversion"},
+        "data_lineage": {"source_range": {"posts": 3, "comments": 3}},
+        "aggregates": {"communities": [{"subreddit": "r/facebookads", "posts": 3, "comments": 3}]},
+        "sample_posts_db": [
+            {"title": "Shopify ROAS low", "subreddit": "r/facebookads"},
+            {"title": "Shopify CPC high", "subreddit": "r/facebookads"},
+            {"title": "Facebook Ads attribution issue", "subreddit": "r/facebookads"},
+        ],
+        "sample_comments_db": [
+            {"quote_id": "c1", "text": "Shopify ROAS low on Facebook Ads", "subreddit": "r/facebookads"},
+            {"quote_id": "c2", "text": "Shopify CPC high on Facebook Ads", "subreddit": "r/facebookads"},
+            {"quote_id": "c3", "text": "Shopify attribution issue on Facebook Ads", "subreddit": "r/facebookads"},
+        ],
+        "business_signals": {
+            "high_value_pains": [
+                {"title": "ROAS 低", "metrics": {"mentions": 2, "unique_authors": 2}, "evidence_quote_ids": ["c1"]},
+                {"title": "CPC 高", "metrics": {"mentions": 2, "unique_authors": 2}, "evidence_quote_ids": ["c2"]},
+            ],
+            "brand_pain": [
+                {"brand": "Shopify", "mentions": 2, "unique_authors": 2, "evidence_quote_ids": ["c1"]},
+                {"brand": "Facebook Ads", "mentions": 2, "unique_authors": 2, "evidence_quote_ids": ["c2"]},
+            ],
+            "solutions": [
+                {"description": "Pause Facebook Ads"},
+                {"description": "Fix Shopify attribution"},
+            ],
+        },
+    }
+    cfg = FactsV2QualityGateConfig(
+        min_on_topic_ratio=0.5,
+        min_good_pains=2,
+        pain_min_mentions=1,
+        pain_min_unique_authors=1,
+        pain_min_evidence=1,
+        min_good_brands=2,
+        brand_min_mentions=1,
+        brand_min_unique_authors=1,
+        brand_min_evidence=1,
+        min_solutions=2,
+        range_mismatch_tolerance=0.2,
+        a_full_pain_hysteresis=1,
+        a_full_brand_hysteresis=1,
+        a_full_solution_hysteresis=1,
+    )
+    result = quality_check_facts_v2(facts_v2, profile=_profile(), config=cfg)
+    assert result.tier == "B_trimmed"
+
+
+def test_quality_gate_hysteresis_allows_a_full_after_buffer() -> None:
+    facts_v2 = {
+        "meta": {"topic": "Shopify Traffic Ads Conversion"},
+        "data_lineage": {"source_range": {"posts": 4, "comments": 4}},
+        "aggregates": {"communities": [{"subreddit": "r/facebookads", "posts": 4, "comments": 4}]},
+        "sample_posts_db": [
+            {"title": "Shopify ROAS low", "subreddit": "r/facebookads"},
+            {"title": "Shopify CPC high", "subreddit": "r/facebookads"},
+            {"title": "Facebook Ads attribution issue", "subreddit": "r/facebookads"},
+            {"title": "Shopify conversion drop", "subreddit": "r/facebookads"},
+        ],
+        "sample_comments_db": [
+            {"quote_id": "c1", "text": "Shopify ROAS low on Facebook Ads", "subreddit": "r/facebookads"},
+            {"quote_id": "c2", "text": "Shopify CPC high on Facebook Ads", "subreddit": "r/facebookads"},
+            {"quote_id": "c3", "text": "Shopify attribution issue on Facebook Ads", "subreddit": "r/facebookads"},
+            {"quote_id": "c4", "text": "Shopify conversion drop on Facebook Ads", "subreddit": "r/facebookads"},
+        ],
+        "business_signals": {
+            "high_value_pains": [
+                {"title": "ROAS 低", "metrics": {"mentions": 2, "unique_authors": 2}, "evidence_quote_ids": ["c1"]},
+                {"title": "CPC 高", "metrics": {"mentions": 2, "unique_authors": 2}, "evidence_quote_ids": ["c2"]},
+                {"title": "归因乱", "metrics": {"mentions": 2, "unique_authors": 2}, "evidence_quote_ids": ["c3"]},
+            ],
+            "brand_pain": [
+                {"brand": "Shopify", "mentions": 2, "unique_authors": 2, "evidence_quote_ids": ["c1"]},
+                {"brand": "Facebook Ads", "mentions": 2, "unique_authors": 2, "evidence_quote_ids": ["c2"]},
+                {"brand": "Meta Ads", "mentions": 2, "unique_authors": 2, "evidence_quote_ids": ["c3"]},
+            ],
+            "solutions": [
+                {"description": "Pause Facebook Ads"},
+                {"description": "Fix Shopify attribution"},
+                {"description": "Split campaign structure"},
+            ],
+        },
+    }
+    cfg = FactsV2QualityGateConfig(
+        min_on_topic_ratio=0.5,
+        min_good_pains=2,
+        pain_min_mentions=1,
+        pain_min_unique_authors=1,
+        pain_min_evidence=1,
+        min_good_brands=2,
+        brand_min_mentions=1,
+        brand_min_unique_authors=1,
+        brand_min_evidence=1,
+        min_solutions=2,
+        range_mismatch_tolerance=0.2,
+        a_full_pain_hysteresis=1,
+        a_full_brand_hysteresis=1,
+        a_full_solution_hysteresis=1,
+    )
+    result = quality_check_facts_v2(facts_v2, profile=_profile(), config=cfg)
+    assert result.tier == "A_full"
 
 
 def test_quality_gate_tier_b_trimmed_when_some_pains_exist() -> None:

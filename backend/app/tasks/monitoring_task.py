@@ -1,12 +1,11 @@
 from __future__ import annotations
 
-import asyncio
 import json
 import logging
 import os
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
-from typing import Any, Dict, Mapping, Optional, cast
+from typing import Any
 
 import redis
 from celery.utils.log import get_task_logger  # type: ignore[import-untyped]
@@ -14,16 +13,47 @@ from sqlalchemy import select, text
 
 from app.core.celery_app import celery_app
 from app.core.config import Settings, get_settings
-from app.middleware.route_metrics import DEFAULT_ROUTE_METRICS_KEY_PREFIX
 from app.models.community_cache import CommunityCache
-from app.services.infrastructure.cache_manager import CacheManager
+from app.schemas.monitoring import CacheHealthResult
 from app.services.community.community_pool_loader import CommunityPoolLoader
-from app.services.ops.contract_health import (
-    ContractHealthAlert,
-    ContractHealthAlertThresholds,
-    ContractHealthRow,
-    compute_contract_health,
-    evaluate_contract_health_alerts,
+from app.services.infrastructure.cache_manager import CacheManager
+from app.services.infrastructure.contract_health_workflow import (
+    build_contract_health_result as _build_contract_health_result,
+    finalize_contract_health_result as _finalize_contract_health_result,
+)
+from app.services.infrastructure.monitoring_support import (
+    build_contract_health_thresholds as _build_contract_health_thresholds,
+    build_monitoring_error_result as _build_monitoring_error_result,
+    load_cache_seed_names as _load_cache_seed_names,
+    load_entity_extraction_metrics as _load_entity_extraction_metrics,
+    mark_payload_degraded as _mark_payload_degraded,
+    run_cache_maintenance_tasks as _run_cache_maintenance_tasks,
+    serialize_monitoring_result as _serialize_monitoring_result,
+    utc_now as _utc_now,
+    write_contract_health_audit_events as _write_contract_health_audit_events,
+)
+from app.services.infrastructure.monitoring_task_runtime import (
+    build_monitoring_runtime_dependencies,
+    calculate_monitor_cache_health as _calculate_cache_health_runtime,
+    load_community_pool_size as _load_community_pool_size_runtime,
+    run_collect_test_logs as _run_collect_test_logs,
+    run_monitor_api_calls as _run_monitor_api_calls,
+    run_monitor_cache_health as _run_monitor_cache_health,
+    run_monitor_contract_health as _run_monitor_contract_health,
+    run_monitor_e2e_tests as _run_monitor_e2e_tests,
+    run_monitor_warmup_metrics as _run_monitor_warmup_metrics,
+    run_update_performance_dashboard as _run_update_performance_dashboard,
+)
+from app.services.infrastructure.monitoring_task_support import (
+    as_float as _as_float_support,
+    as_int as _as_int_support,
+    decode_int as _decode_int_support,
+    get_metrics_redis as _get_metrics_redis_support,
+    load_e2e_metrics as _load_e2e_metrics_support,
+    load_route_call_metrics as _load_route_call_metrics_support,
+    route_metrics_bucket as _route_metrics_bucket_support,
+    send_alert as _send_alert_support,
+    update_dashboard as _update_dashboard_support,
 )
 from app.utils.asyncio_runner import run as run_coro
 
@@ -44,85 +74,82 @@ PERFORMANCE_DASHBOARD_KEY = os.getenv(
     "PERFORMANCE_DASHBOARD_KEY", "dashboard:performance"
 )
 ROUTE_METRICS_TOP_N = int(os.getenv("ROUTE_METRICS_TOP_N", "5"))
-FACTS_AUDIT_BACKLOG_THRESHOLD = int(os.getenv("FACTS_AUDIT_BACKLOG_THRESHOLD", "5000"))
-FACTS_AUDIT_MAX_STALE_HOURS = int(os.getenv("FACTS_AUDIT_MAX_STALE_HOURS", "36"))
-TASK_STALL_THRESHOLD_MINUTES = int(os.getenv("TASK_STALL_THRESHOLD_MINUTES", "30"))
+FACTS_AUDIT_BACKLOG_THRESHOLD = int(
+    os.getenv("FACTS_AUDIT_BACKLOG_THRESHOLD", "5000")
+)
+FACTS_AUDIT_MAX_STALE_HOURS = int(
+    os.getenv("FACTS_AUDIT_MAX_STALE_HOURS", "36")
+)
+TASK_STALL_THRESHOLD_MINUTES = int(
+    os.getenv("TASK_STALL_THRESHOLD_MINUTES", "30")
+)
 TASK_STALL_MAX_BATCH = int(os.getenv("TASK_STALL_MAX_BATCH", "50"))
-CONTRACT_HEALTH_WINDOW_HOURS = int(os.getenv("CONTRACT_HEALTH_WINDOW_HOURS", "24") or 24)
+CONTRACT_HEALTH_WINDOW_HOURS = int(
+    os.getenv("CONTRACT_HEALTH_WINDOW_HOURS", "24") or 24
+)
 
 
 def _as_float(value: object, *, default: float) -> float:
-    try:
-        return float(value)
-    except (TypeError, ValueError):
-        return float(default)
+    return _as_float_support(value, default=default)
 
 
 def _as_int(value: object, *, default: int) -> int:
-    try:
-        return int(value)
-    except (TypeError, ValueError):
-        return int(default)
+    return _as_int_support(value, default=default)
 
 
 def _get_metrics_redis(settings: Settings) -> redis.Redis:  # type: ignore[type-arg]
-    target_url = METRICS_REDIS_URL or settings.reddit_cache_redis_url
-    return redis.Redis.from_url(target_url)
+    return _get_metrics_redis_support(settings, metrics_redis_url=METRICS_REDIS_URL)
 
 
 def _send_alert(level: str, message: str) -> None:
-    formatted = f"[{level.upper()}] {message}"
-    logger.warning(formatted)
-    _LOGGER.warning(formatted)
-
-
-def _load_e2e_metrics() -> Optional[Dict[str, Any]]:
-    if not TEST_METRICS_PATH.exists():
-        return None
-    try:
-        payload = json.loads(TEST_METRICS_PATH.read_text(encoding="utf-8"))
-        if not isinstance(payload, dict):
-            return None
-        return payload
-    except json.JSONDecodeError:
-        _LOGGER.warning("无法解析测试指标文件: %s", TEST_METRICS_PATH)
-        return None
-
-
-def _update_dashboard(settings: Settings, values: Dict[str, Any]) -> None:
-    client = _get_metrics_redis(settings)
-    enriched: dict[str, str] = {
-        k: json.dumps(v, ensure_ascii=False) if isinstance(v, (dict, list)) else str(v)
-        for k, v in values.items()
-    }
-    client.hset(
-        PERFORMANCE_DASHBOARD_KEY,
-        mapping=cast(Mapping[str | bytes, bytes | float | int | str], enriched),
+    _send_alert_support(
+        task_logger=logger,
+        std_logger=_LOGGER,
+        level=level,
+        message=message,
     )
-    client.hset(
-        PERFORMANCE_DASHBOARD_KEY, "updated_at", datetime.now(timezone.utc).isoformat()
+
+
+def _load_e2e_metrics() -> dict[str, Any] | None:
+    return _load_e2e_metrics_support(
+        test_metrics_path=TEST_METRICS_PATH,
+        std_logger=_LOGGER,
+    )
+
+
+def _update_dashboard(settings: Settings, values: dict[str, Any]) -> None:
+    _update_dashboard_support(
+        settings,
+        values,
+        get_metrics_redis=_get_metrics_redis,
+        performance_dashboard_key=PERFORMANCE_DASHBOARD_KEY,
+        utc_now=_utc_now,
     )
 
 
 def _route_metrics_bucket() -> int:
-    return int(datetime.now(timezone.utc).timestamp() // 60)
+    return _route_metrics_bucket_support(utc_now=_utc_now)
 
 
 def _decode_int(value: Any) -> int:
-    if value is None:
-        return 0
-    if isinstance(value, (bytes, bytearray)):
-        value = value.decode("utf-8", errors="ignore")
-    if isinstance(value, bool):
-        return int(value)
-    if isinstance(value, (int, float)):
-        return int(value)
-    if isinstance(value, str):
-        try:
-            return int(value.strip())
-        except ValueError:
-            return 0
-    return 0
+    return _decode_int_support(value)
+
+
+async def _calculate_monitor_cache_health(
+    *,
+    cache_manager: CacheManager,
+) -> CacheHealthResult:
+    return await _calculate_cache_health_runtime(
+        cache_manager=cache_manager,
+        cache_hit_threshold=CACHE_HIT_THRESHOLD,
+        utc_now=_utc_now,
+        send_alert=_send_alert,
+        logger=_LOGGER,
+        load_cache_seed_names=_load_cache_seed_names,
+        load_entity_extraction_metrics=_load_entity_extraction_metrics,
+        mark_payload_degraded=_mark_payload_degraded,
+        run_cache_maintenance_tasks=_run_cache_maintenance_tasks,
+    )
 
 
 def _load_route_call_metrics(
@@ -131,138 +158,78 @@ def _load_route_call_metrics(
     bucket: int,
     top_n: int = ROUTE_METRICS_TOP_N,
 ) -> tuple[int, int, list[dict[str, Any]]]:
-    key = f"{DEFAULT_ROUTE_METRICS_KEY_PREFIX}:{bucket}"
-    raw = client.hgetall(key) or {}
-    decoded: dict[str, int] = {}
-    for k, v in raw.items():
-        k_str = k.decode("utf-8", errors="ignore") if isinstance(k, (bytes, bytearray)) else str(k)
-        decoded[k_str] = _decode_int(v)
+    return _load_route_call_metrics_support(
+        client,
+        bucket=bucket,
+        top_n=top_n,
+    )
 
-    golden_total = decoded.get("golden|_total", 0)
-    legacy_total = decoded.get("legacy|_total", 0)
 
-    legacy_rows: list[dict[str, Any]] = []
-    for field, count in decoded.items():
-        if not field.startswith("legacy|") or field == "legacy|_total":
-            continue
-        parts = field.split("|", 2)
-        if len(parts) != 3:
-            continue
-        _, method, path = parts
-        if method == "_total":
-            continue
-        legacy_rows.append({"route": f"{method} {path}", "count": int(count)})
+async def _load_community_pool_size() -> int:
+    from app.db.session import SessionFactory
 
-    legacy_rows.sort(key=lambda item: int(item.get("count", 0)), reverse=True)
-    return golden_total, legacy_total, legacy_rows[: max(0, int(top_n))]
+    return await _load_community_pool_size_runtime(
+        session_factory=SessionFactory,
+        community_pool_loader_cls=CommunityPoolLoader,
+    )
+
+
+def _runtime_deps() -> Any:
+    return build_monitoring_runtime_dependencies(
+        get_metrics_redis=_get_metrics_redis,
+        send_alert=_send_alert,
+        load_e2e_metrics=_load_e2e_metrics,
+        update_dashboard=_update_dashboard,
+        route_metrics_bucket=_route_metrics_bucket,
+        load_route_call_metrics=_load_route_call_metrics,
+        cache_manager_factory=CacheManager,
+        run_coro=run_coro,
+        calculate_cache_health=_calculate_monitor_cache_health,
+        build_error_result=_build_monitoring_error_result,
+        serialize_result=_serialize_monitoring_result,
+        as_int=_as_int,
+        as_float=_as_float,
+        utc_now=_utc_now,
+        build_contract_health_thresholds=_build_contract_health_thresholds,
+        build_contract_health_result=_build_contract_health_result,
+        finalize_contract_health_result=_finalize_contract_health_result,
+        write_contract_health_audit_events=_write_contract_health_audit_events,
+        load_community_pool_size=_load_community_pool_size,
+    )
 
 
 @celery_app.task(name="tasks.monitoring.monitor_api_calls")  # type: ignore[misc]
-def monitor_api_calls() -> Dict[str, Any]:
+def monitor_api_calls() -> dict[str, Any]:
     settings = get_settings()
-    client = _get_metrics_redis(settings)
-    value = client.get("api_calls_per_minute")
-    calls = (
-        int(value) if value is not None and isinstance(value, (int, str, bytes)) else 0
+    deps = _runtime_deps()
+    return _run_monitor_api_calls(
+        settings=settings,
+        api_call_threshold=API_CALL_THRESHOLD,
+        get_metrics_redis=deps.get_metrics_redis,
+        send_alert=deps.send_alert,
     )
-
-    if calls > API_CALL_THRESHOLD:
-        _send_alert("warning", f"API 调用接近限制: {calls}/60")
-
-    return {"api_calls_last_minute": calls, "threshold": API_CALL_THRESHOLD}
 
 
 @celery_app.task(name="tasks.monitoring.monitor_cache_health")  # type: ignore[misc]
-def monitor_cache_health() -> Dict[str, Any]:
+def monitor_cache_health() -> dict[str, Any]:
     settings = get_settings()
-    cache_manager = CacheManager(
-        redis_url=settings.reddit_cache_redis_url,
-        cache_ttl_seconds=settings.reddit_cache_ttl_seconds,
+    deps = _runtime_deps()
+    return _run_monitor_cache_health(
+        settings=settings,
+        cache_manager_factory=deps.cache_manager_factory,
+        run_coro=deps.run_coro,
+        calculate_cache_health=deps.calculate_cache_health,
+        serialize_result=deps.serialize_result,
+        build_error_result=deps.build_error_result,
+        send_alert=deps.send_alert,
     )
-
-    async def _calculate() -> Dict[str, Any]:
-        from app.db.session import SessionFactory
-        from app.tasks.maintenance_task import (
-            cleanup_expired_posts_hot_impl,
-            collect_storage_metrics_impl,
-        )
-
-        async with SessionFactory() as db:
-            loader = CommunityPoolLoader(db)
-            communities = await loader.load_community_pool(force_refresh=False)
-        seed_names = [
-            profile.name for profile in communities if profile.tier.lower() == "seed"
-        ]
-        hit_rate = await cache_manager.calculate_cache_hit_rate(seed_names)
-
-        # 实体提取率监控：过去60分钟的实体/帖子比
-        entity_rate: float | None = None
-        recent_posts = recent_entities = 0
-        try:
-            from sqlalchemy import text as sqltext
-            cutoff_sql = "NOW() - INTERVAL '60 minutes'"
-            async with SessionFactory() as db_metrics:
-                res_posts = await db_metrics.execute(
-                    sqltext(
-                        "SELECT count(*) FROM posts_hot WHERE created_at >= "
-                        + cutoff_sql
-                    )
-                )
-                res_entities = await db_metrics.execute(
-                    sqltext(
-                        "SELECT count(*) FROM content_entities WHERE created_at >= "
-                        + cutoff_sql
-                    )
-                )
-                recent_posts = int(res_posts.scalar() or 0)
-                recent_entities = int(res_entities.scalar() or 0)
-                if recent_posts > 0:
-                    entity_rate = recent_entities / recent_posts
-                if recent_posts > 0 and entity_rate is not None and entity_rate < 0.1:
-                    _send_alert(
-                        "warning",
-                        f"实体提取率偏低: entities/posts={entity_rate:.3f} ({recent_entities}/{recent_posts})",
-                    )
-        except Exception as exc:  # pragma: no cover - defensive
-            _LOGGER.warning("实体提取率计算失败: %s", exc, exc_info=True)
-
-        if seed_names and hit_rate < CACHE_HIT_THRESHOLD:
-            percentage = round(hit_rate * 100, 2)
-            _send_alert("warning", f"缓存命中率偏低: {percentage}%")
-
-        cleanup: Dict[str, Any] | None = None
-        metrics_snapshot: Dict[str, Any] | None = None
-        try:
-            cleanup, metrics_snapshot = await asyncio.gather(
-                cleanup_expired_posts_hot_impl(),
-                collect_storage_metrics_impl(),
-            )
-        except Exception as exc:  # pragma: no cover - defensive logging
-            _LOGGER.warning("维护任务执行失败: %s", exc, exc_info=True)
-
-        payload: Dict[str, Any] = {
-            "seed_count": len(seed_names),
-            "cache_hit_rate": hit_rate,
-        }
-        if entity_rate is not None:
-            payload["entity_rate_60m"] = entity_rate
-            payload["recent_posts_60m"] = recent_posts
-            payload["recent_entities_60m"] = recent_entities
-        if cleanup is not None:
-            payload["cleanup_deleted"] = cleanup.get("deleted_count", 0)
-        if metrics_snapshot is not None:
-            payload["storage_metrics_id"] = metrics_snapshot.get("id")
-        return payload
-
-    # 统一使用全局事件循环以避免 “Future attached to a different loop”
-    return run_coro(_calculate())
 
 
 @celery_app.task(name="tasks.monitoring.monitor_crawler_health")  # type: ignore[misc]
-def monitor_crawler_health() -> Dict[str, Any]:
+def monitor_crawler_health() -> dict[str, Any]:
     get_settings()
 
-    async def _load() -> Dict[str, Any]:
+    async def _load() -> dict[str, Any]:
         cutoff = datetime.now(timezone.utc) - timedelta(minutes=CRAWL_STALE_MINUTES)
         from app.db.session import SessionFactory
 
@@ -291,13 +258,12 @@ def monitor_crawler_health() -> Dict[str, Any]:
                 "stale_communities": stale,
                 "threshold_minutes": CRAWL_STALE_MINUTES,
             }
-        return {"stale_communities": [], "threshold_minutes": CRAWL_STALE_MINUTES}
 
     return run_coro(_load())
 
 
 @celery_app.task(name="tasks.monitoring.monitor_facts_audit_cleanup")  # type: ignore[misc]
-def monitor_facts_audit_cleanup() -> Dict[str, Any]:
+def monitor_facts_audit_cleanup() -> dict[str, Any]:
     settings = get_settings()
     enabled = os.getenv("ENABLE_FACTS_AUDIT_CLEANUP", "").strip().lower() in {
         "1",
@@ -305,10 +271,10 @@ def monitor_facts_audit_cleanup() -> Dict[str, Any]:
         "yes",
     }
 
-    async def _load() -> Dict[str, Any]:
+    async def _load() -> dict[str, Any]:
         from app.db.session import SessionFactory
 
-        now = datetime.now(timezone.utc)
+        now = _utc_now()
         expired_snapshots = 0
         expired_run_logs = 0
         last_cleanup_at: datetime | None = None
@@ -333,9 +299,10 @@ def monitor_facts_audit_cleanup() -> Dict[str, Any]:
                         """
                         SELECT COUNT(*)::bigint
                         FROM facts_snapshots
-                        WHERE expires_at IS NOT NULL AND expires_at < NOW()
+                        WHERE expires_at IS NOT NULL AND expires_at < :now
                         """
-                    )
+                    ),
+                    {"now": now},
                 )
                 expired_snapshots = int(row.scalar() or 0)
 
@@ -345,9 +312,10 @@ def monitor_facts_audit_cleanup() -> Dict[str, Any]:
                         """
                         SELECT COUNT(*)::bigint
                         FROM facts_run_logs
-                        WHERE expires_at IS NOT NULL AND expires_at < NOW()
+                        WHERE expires_at IS NOT NULL AND expires_at < :now
                         """
-                    )
+                    ),
+                    {"now": now},
                 )
                 expired_run_logs = int(row.scalar() or 0)
 
@@ -424,163 +392,65 @@ def monitor_facts_audit_cleanup() -> Dict[str, Any]:
 
 
 @celery_app.task(name="tasks.monitoring.monitor_e2e_tests")  # type: ignore[misc]
-def monitor_e2e_tests() -> Dict[str, Any]:
+def monitor_e2e_tests() -> dict[str, Any]:
     settings = get_settings()
-    metrics = _load_e2e_metrics()
-    if metrics is None:
+    result = _run_monitor_e2e_tests(
+        settings=settings,
+        load_e2e_metrics=_load_e2e_metrics,
+        send_alert=_send_alert,
+        update_dashboard=_update_dashboard,
+        max_failure_rate=E2E_MAX_FAILURE_RATE,
+        max_duration=E2E_MAX_DURATION,
+    )
+    if result.get("status") == "missing":
         _LOGGER.info("未找到端到端测试指标文件: %s", TEST_METRICS_PATH)
-        return {"status": "missing"}
-
-    runs = metrics.get("runs", [])
-    total_runs = len(runs)
-    failed_runs = sum(1 for run in runs if run.get("status") != "success")
-    failure_rate = failed_runs / total_runs if total_runs else 0.0
-    max_duration = max(
-        (float(run.get("duration_seconds", 0)) for run in runs), default=0.0
-    )
-
-    if failure_rate > E2E_MAX_FAILURE_RATE:
-        _send_alert(
-            "error",
-            f"端到端测试失败率 {failure_rate:.2%} 超过阈值 {E2E_MAX_FAILURE_RATE:.2%}",
-        )
-
-    if max_duration > E2E_MAX_DURATION:
-        _send_alert(
-            "warning",
-            f"端到端测试最长耗时 {max_duration:.2f}s 超过阈值 {E2E_MAX_DURATION:.2f}s",
-        )
-
-    _update_dashboard(
-        settings,
-        {
-            "e2e_runs": total_runs,
-            "e2e_failures": failed_runs,
-            "e2e_failure_rate": failure_rate,
-            "e2e_max_duration": max_duration,
-        },
-    )
-
-    return {
-        "status": "ok",
-        "runs": total_runs,
-        "failed": failed_runs,
-        "failure_rate": failure_rate,
-        "max_duration": max_duration,
-    }
+    return result
 
 
 @celery_app.task(name="tasks.monitoring.collect_test_logs")  # type: ignore[misc]
-def collect_test_logs(max_lines: int = 200) -> Dict[str, Any]:
+def collect_test_logs(max_lines: int = 200) -> dict[str, Any]:
     settings = get_settings()
-    if not TEST_LOG_PATH.exists():
-        return {"status": "missing"}
-
-    try:
-        lines = TEST_LOG_PATH.read_text(encoding="utf-8", errors="ignore").splitlines()
-    except Exception as exc:
-        _send_alert("warning", f"读取测试日志失败: {exc}")
-        return {"status": "error", "message": str(exc)}
-
-    tail = lines[-max_lines:]
-    client = _get_metrics_redis(settings)
-    key = "logs:test_e2e"
-    if tail:
-        client.delete(key)
-        client.rpush(key, *tail)
-        client.ltrim(key, 0, max_lines - 1)
-        client.expire(key, 3600)
-    return {"status": "ok", "lines": len(tail)}
+    return _run_collect_test_logs(
+        settings=settings,
+        test_log_path=TEST_LOG_PATH,
+        max_lines=max_lines,
+        get_metrics_redis=_get_metrics_redis,
+        send_alert=_send_alert,
+    )
 
 
 @celery_app.task(name="tasks.monitoring.update_performance_dashboard")  # type: ignore[misc]
-def update_performance_dashboard() -> Dict[str, Any]:
+def update_performance_dashboard() -> dict[str, Any]:
     settings = get_settings()
-    metrics = _load_e2e_metrics() or {}
-    client = _get_metrics_redis(settings)
-    bucket = _route_metrics_bucket()
-    golden_calls, legacy_calls, legacy_top = _load_route_call_metrics(
-        client, bucket=bucket
+    deps = _runtime_deps()
+    return _run_update_performance_dashboard(
+        settings=settings,
+        load_e2e_metrics=deps.load_e2e_metrics,
+        get_metrics_redis=deps.get_metrics_redis,
+        route_metrics_bucket=deps.route_metrics_bucket,
+        load_route_call_metrics=deps.load_route_call_metrics,
+        update_dashboard=deps.update_dashboard,
+        route_metrics_top_n=ROUTE_METRICS_TOP_N,
     )
-    payload = {
-        "last_e2e_run": metrics.get("runs", [{}])[-1] if metrics.get("runs") else {},
-        "report_generated_at": datetime.now(timezone.utc).isoformat(),
-        "golden_calls_last_minute": golden_calls,
-        "legacy_calls_last_minute": legacy_calls,
-    }
-    if legacy_calls:
-        payload["legacy_top_paths_last_minute"] = legacy_top
-    _update_dashboard(settings, payload)
-    return payload
 
 
 @celery_app.task(name="tasks.monitoring.monitor_warmup_metrics")  # type: ignore[misc]
-def monitor_warmup_metrics() -> Dict[str, Any]:
-    """Monitor warmup period metrics (PRD-09 Day 13-20).
-
-    Collects and monitors:
-    - API call rate
-    - Cache hit rate
-    - Community pool size
-    - System health
-
-    Returns:
-        dict: Warmup metrics summary
-    """
+def monitor_warmup_metrics() -> dict[str, Any]:
     settings = get_settings()
-
-    # Collect API call metrics
-    api_metrics = monitor_api_calls()
-
-    # Collect cache health metrics
-    cache_metrics = monitor_cache_health()
-
-    # Collect crawler health metrics
-    crawler_metrics = monitor_crawler_health()
-
-    # Get community pool size
-    async def _get_pool_size() -> int:
-        from app.db.session import SessionFactory
-
-        async with SessionFactory() as db:
-            loader = CommunityPoolLoader(db)
-            communities = await loader.load_community_pool(force_refresh=False)
-            return len(communities)
-
-    pool_size = asyncio.run(_get_pool_size())
-
-    # Aggregate metrics
-    warmup_metrics = {
-        "timestamp": datetime.now(timezone.utc).isoformat(),
-        "api_calls_per_minute": api_metrics.get("api_calls_last_minute", 0),
-        "cache_hit_rate": cache_metrics.get("cache_hit_rate", 0.0),
-        "community_pool_size": pool_size,
-        "stale_communities_count": len(crawler_metrics.get("stale_communities", [])),
-    }
-
-    # Update dashboard
-    _update_dashboard(settings, {"warmup_metrics": warmup_metrics})
-
-    # Check warmup period goals (PRD-09)
-    if pool_size < 100:
-        _send_alert("warning", f"社区池规模 {pool_size} 低于目标 100")
-
-    if cache_metrics.get("cache_hit_rate", 0.0) < 0.85:
-        hit_rate_pct = cache_metrics.get("cache_hit_rate", 0.0) * 100
-        _send_alert("warning", f"缓存命中率 {hit_rate_pct:.1f}% 低于目标 85%")
-
-    logger.info(
-        "Warmup metrics: pool_size=%d, cache_hit_rate=%.2f%%, api_calls=%d",
-        pool_size,
-        cache_metrics.get("cache_hit_rate", 0.0) * 100,
-        api_metrics.get("api_calls_last_minute", 0),
+    return _run_monitor_warmup_metrics(
+        settings=settings,
+        monitor_api_calls=monitor_api_calls,
+        monitor_cache_health=monitor_cache_health,
+        monitor_crawler_health=monitor_crawler_health,
+        run_coro=run_coro,
+        load_community_pool_size=_load_community_pool_size,
+        update_dashboard=_update_dashboard,
+        send_alert=_send_alert,
     )
-
-    return warmup_metrics
 
 
 @celery_app.task(name="tasks.monitoring.watchdog_stalled_tasks")  # type: ignore[misc]
-def watchdog_stalled_tasks() -> Dict[str, Any]:
+def watchdog_stalled_tasks() -> dict[str, Any]:
     """
     Contract B: kill "fake dead" tasks.
 
@@ -594,7 +464,6 @@ def watchdog_stalled_tasks() -> Dict[str, Any]:
     now = datetime.now(timezone.utc)
     cutoff = now - timedelta(minutes=threshold_minutes)
 
-    # Best-effort categorization: if we can't see any worker, treat as dependency down.
     category = "worker_stalled"
     try:
         inspect = celery_app.control.inspect()
@@ -604,7 +473,7 @@ def watchdog_stalled_tasks() -> Dict[str, Any]:
     except Exception:  # pragma: no cover
         category = "system_dependency_down"
 
-    async def _run() -> Dict[str, Any]:
+    async def _run() -> dict[str, Any]:
         from app.db.session import SessionFactory
         from app.models.task import Task, TaskStatus
 
@@ -667,6 +536,29 @@ def watchdog_stalled_tasks() -> Dict[str, Any]:
     return run_coro(_run())
 
 
+@celery_app.task(name="tasks.monitoring.monitor_contract_health")  # type: ignore[misc]
+def monitor_contract_health(hours: int | None = None) -> dict[str, Any]:
+    settings = get_settings()
+    deps = _runtime_deps()
+    return _run_monitor_contract_health(
+        settings=settings,
+        hours=hours,
+        as_int=deps.as_int,
+        as_float=deps.as_float,
+        default_window_hours=CONTRACT_HEALTH_WINDOW_HOURS,
+        utc_now=deps.utc_now,
+        build_contract_health_thresholds=deps.build_contract_health_thresholds,
+        run_coro=deps.run_coro,
+        build_contract_health_result=deps.build_contract_health_result,
+        finalize_contract_health_result=deps.finalize_contract_health_result,
+        update_dashboard=deps.update_dashboard,
+        send_alert=deps.send_alert,
+        write_contract_health_audit_events=deps.write_contract_health_audit_events,
+        build_error_result=deps.build_error_result,
+        serialize_result=deps.serialize_result,
+    )
+
+
 __all__ = [
     "monitor_api_calls",
     "monitor_cache_health",
@@ -678,159 +570,3 @@ __all__ = [
     "monitor_warmup_metrics",
     "watchdog_stalled_tasks",
 ]
-
-
-@celery_app.task(name="tasks.monitoring.monitor_contract_health")  # type: ignore[misc]
-def monitor_contract_health(hours: int | None = None) -> Dict[str, Any]:
-    """
-    Phase106-2: Contract health dashboard + alerting.
-
-    Human goal:
-    - Convert Phase105 "contract fields" into a practical ops dashboard.
-    - Best-effort: metrics failure must not affect any request path.
-    """
-    settings = get_settings()
-    window_hours = max(1, _as_int(hours, default=CONTRACT_HEALTH_WINDOW_HOURS))
-    window = timedelta(hours=window_hours)
-    now = datetime.now(timezone.utc)
-    cutoff = now - window
-
-    comments_not_used_rate_warn = _as_float(
-        os.getenv("CONTRACT_HEALTH_ALERT_COMMENTS_NOT_USED_RATE_WARN", "0.10"),
-        default=0.10,
-    )
-    x_blocked_rate_warn = _as_float(
-        os.getenv("CONTRACT_HEALTH_ALERT_X_BLOCKED_RATE_WARN", "0.15"),
-        default=0.15,
-    )
-    data_validation_error_count_warn = _as_int(
-        os.getenv("CONTRACT_HEALTH_ALERT_DATA_VALIDATION_ERROR_COUNT_WARN", "1"),
-        default=1,
-    )
-    thresholds = ContractHealthAlertThresholds(
-        comments_not_used_rate_warn=comments_not_used_rate_warn,
-        x_blocked_rate_warn=x_blocked_rate_warn,
-        data_validation_error_count_warn=data_validation_error_count_warn,
-    )
-
-    async def _load() -> Dict[str, Any]:
-        from app.db.session import SessionFactory
-        from app.models.analysis import Analysis
-        from app.models.task import Task as TaskModel
-
-        async with SessionFactory() as session:
-            result = await session.execute(
-                select(
-                    TaskModel.id,
-                    TaskModel.status,
-                    TaskModel.created_at,
-                    TaskModel.started_at,
-                    TaskModel.completed_at,
-                    TaskModel.failure_category,
-                    Analysis.sources,
-                )
-                .outerjoin(Analysis, Analysis.task_id == TaskModel.id)
-                .where(TaskModel.created_at >= cutoff)
-            )
-            rows: list[ContractHealthRow] = []
-            for (
-                task_id,
-                status,
-                created_at,
-                started_at,
-                completed_at,
-                failure_category,
-                sources,
-            ) in result.all():
-                created = created_at or now
-                status_value = getattr(status, "value", status)
-                rows.append(
-                    ContractHealthRow(
-                        task_id=str(task_id),
-                        status=str(status_value),
-                        created_at=created,
-                        started_at=started_at,
-                        completed_at=completed_at,
-                        failure_category=str(failure_category) if failure_category else None,
-                        sources=dict(sources) if isinstance(sources, dict) else None,
-                    )
-                )
-
-        report = compute_contract_health(rows=rows, now=now, window=window)
-        alerts = evaluate_contract_health_alerts(report, thresholds=thresholds)
-        return {
-            "status": "ok",
-            "generated_at": now.isoformat(),
-            "window_hours": window_hours,
-            "report": report,
-            "alerts": [
-                {
-                    "level": alert.level,
-                    "code": alert.code,
-                    "message": alert.message,
-                    "details": dict(alert.details),
-                }
-                for alert in alerts
-            ],
-        }
-
-    try:
-        payload = run_coro(_load())
-    except Exception as exc:  # pragma: no cover - defensive
-        _send_alert("error", f"contract_health 聚合失败: {exc}")
-        return {"status": "error", "message": str(exc)}
-
-    # Write dashboard snapshot (best-effort).
-    _update_dashboard(settings, {"contract_health": payload})
-
-    # Alerting (best-effort): write both logs and audit events for traceability.
-    alerts_raw = payload.get("alerts") or []
-    if isinstance(alerts_raw, list) and alerts_raw:
-        for raw in alerts_raw[:20]:
-            if not isinstance(raw, dict):
-                continue
-            level = str(raw.get("level") or "warning")
-            code = str(raw.get("code") or "unknown")
-            message = str(raw.get("message") or "")
-            _send_alert(level, f"contract_health[{code}]: {message}")
-
-        async def _audit() -> None:
-            from app.db.session import SessionFactory
-
-            async with SessionFactory() as session:
-                for raw in alerts_raw[:20]:
-                    if not isinstance(raw, dict):
-                        continue
-                    code = str(raw.get("code") or "unknown")
-                    await session.execute(
-                        text(
-                            """
-                            INSERT INTO data_audit_events (
-                                event_type, target_type, target_id, reason, source_component, new_value
-                            )
-                            VALUES (
-                                'monitor', 'system', 'contract_health', :reason, 'monitor_contract_health',
-                                CAST(:payload AS JSONB)
-                            )
-                            """
-                        ),
-                        {
-                            "reason": code,
-                            "payload": json.dumps(
-                                {
-                                    "generated_at": payload.get("generated_at"),
-                                    "window_hours": payload.get("window_hours"),
-                                    "alert": raw,
-                                },
-                                ensure_ascii=False,
-                            ),
-                        },
-                    )
-                await session.commit()
-
-        try:
-            run_coro(_audit())
-        except Exception:
-            pass
-
-    return payload

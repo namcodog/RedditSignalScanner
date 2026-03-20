@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, ThumbsUp, ThumbsDown } from 'lucide-react';
 import { getDecisionUnits, submitDecisionUnitFeedback, type DecisionUnit } from '@/api/decision-units.api';
 import { useToast } from '@/components/ui/toast';
-import { ROUTES } from '@/router';
+import { ROUTES } from '@/router/routes';
 
 export default function DecisionUnitsPage() {
   const navigate = useNavigate();

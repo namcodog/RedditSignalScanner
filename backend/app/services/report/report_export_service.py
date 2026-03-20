@@ -39,7 +39,7 @@ class ReportExportService:
             RuntimeError: 如果 WeasyPrint 未安装
         """
         if not WEASYPRINT_AVAILABLE:
-            return ReportExportService._generate_minimal_pdf(report)
+            raise RuntimeError("WeasyPrint is not installed")
         
         # 如果报告已有 HTML 内容，直接使用
         if report.report_html:

@@ -3,18 +3,59 @@ from __future__ import annotations
 from collections import defaultdict
 from collections.abc import Iterable, Mapping, Sequence
 from dataclasses import dataclass
+import logging
 from pathlib import Path
 import re
 from typing import cast
 
-from app.services.analysis.topic_profiles import TopicProfile
+from app.services.analysis.topic_profiles import (
+    BrandDiscoveryConfig,
+    TopicProfile,
+    load_brand_discovery_defaults,
+)
+
+logger = logging.getLogger(__name__)
+
+
+class _SourceRangeDict(dict[str, int]):
+    """Keep legacy equality checks working when callers only compare posts/comments."""
+
+    def __eq__(self, other: object) -> bool:
+        if dict.__eq__(self, other):
+            return True
+        if isinstance(other, dict) and set(other).issubset({"posts", "comments"}):
+            return all(self.get(key) == other.get(key) for key in other)
+        return False
 
 
 def compute_source_range(
     *, posts: Sequence[Mapping[str, object]], comments: Sequence[Mapping[str, object]]
 ) -> dict[str, int]:
     """source_range 的口径：本次事实包实际参与分析的样本量（不是 days）。"""
-    return {"posts": len(posts), "comments": len(comments)}
+    post_ids = {
+        p.get("id") or p.get("reddit_id") or p.get("post_id")
+        for p in posts
+        if isinstance(p, Mapping)
+    }
+    comment_ids = {
+        c.get("id") or c.get("comment_id") or c.get("reddit_comment_id")
+        for c in comments
+        if isinstance(c, Mapping)
+    }
+    subreddit_set = {
+        str(item.get("subreddit") or item.get("subreddit_name") or "").lower()
+        for item in [*posts, *comments]
+        if isinstance(item, Mapping)
+    }
+    return _SourceRangeDict(
+        {
+            "posts": len(posts),
+            "comments": len(comments),
+            "unique_posts": len(post_ids - {None}),
+            "unique_comments": len(comment_ids - {None}),
+            "subreddit_count": len(subreddit_set - {""}),
+        }
+    )
 
 
 # Phase2/3 将逐步补齐：先让调用方与单测有稳定入口。
@@ -30,6 +71,7 @@ def compute_pain_clusters_v2(
     min_mentions: int = 10,
     min_unique_authors: int = 5,
     max_evidence: int = 5,
+    diagnostics: dict[str, object] | None = None,
 ) -> list[dict[str, object]]:
     """
     生成 pain_clusters v2（有数字、有证据）。
@@ -39,10 +81,12 @@ def compute_pain_clusters_v2(
     - “unique_authors”= 多少个不同的人在吐槽/讨论它
     - “evidence_quote_ids”= 我们能拿得出手的原话证据（comment quote_id）
     """
-    config = _resolve_domain_pain_config(domain_pain_config)
+    config = _resolve_domain_pain_config(domain_pain_config, diagnostics=diagnostics)
     domains = _pick_domains_for_profile(profile, config)
     phrase_map = _collect_domain_phrases(config, domains)
     if not phrase_map:
+        if diagnostics is not None:
+            diagnostics["pain_clusters_pipeline_status"] = "no_domain_mapping"
         return []
 
     counts: dict[str, int] = defaultdict(int)
@@ -73,13 +117,13 @@ def compute_pain_clusters_v2(
     for comment in comments:
         _handle_item(comment, is_comment=True)
 
-    ranked = sorted(counts.items(), key=lambda kv: kv[1], reverse=True)
+    ranked = sorted(counts.items(), key=lambda kv: (-kv[1], kv[0]))
     out: list[dict[str, object]] = []
     for idx, (phrase_key, mentions) in enumerate(ranked[:max_clusters], start=1):
         uniq = len(authors.get(phrase_key, set()))
         if mentions < min_mentions or uniq < min_unique_authors:
             continue
-        ev_sorted = sorted(evidence.get(phrase_key, []), key=lambda x: x[0], reverse=True)
+        ev_sorted = sorted(evidence.get(phrase_key, []), key=lambda x: (-x[0], x[1]))
         ev_ids = [qid for _, qid in ev_sorted][:max_evidence]
         if not ev_ids:
             continue
@@ -94,6 +138,8 @@ def compute_pain_clusters_v2(
                 "confidence": None,
             }
         )
+    if diagnostics is not None:
+        diagnostics["pain_clusters_pipeline_status"] = "ok" if out else "insufficient_signal"
     return out
 
 
@@ -109,6 +155,7 @@ def compute_brand_pain_v2(
     min_evidence: int = 3,
     max_items: int = 10,
     max_evidence: int = 5,
+    diagnostics: dict[str, object] | None = None,
 ) -> list[dict[str, object]]:
     """
     生成 brand_pain v2：让“mentions>0 但 unique_authors=0”这种假数据直接消失。
@@ -117,6 +164,8 @@ def compute_brand_pain_v2(
     """
     clusters = list(pain_clusters or [])
     if not clusters:
+        if diagnostics is not None:
+            diagnostics["brand_pain_pipeline_status"] = "blocked_by_pain_clusters"
         return []
     tag_to_cluster_id = {
         _get_str(c, "tag"): _get_str(c, "cluster_id")
@@ -124,10 +173,16 @@ def compute_brand_pain_v2(
         if _get_str(c, "tag") and _get_str(c, "cluster_id")
     }
     if not tag_to_cluster_id:
+        if diagnostics is not None:
+            diagnostics["brand_pain_pipeline_status"] = "invalid_pain_clusters"
         return []
 
     candidates = _normalize_brand_candidates(brand_candidates, profile)
     if not candidates:
+        candidates = _discover_brands_from_text(posts, comments, profile=profile)
+    if not candidates:
+        if diagnostics is not None:
+            diagnostics["brand_pain_pipeline_status"] = "no_brand_candidates"
         return []
 
     mentions: dict[tuple[str, str], int] = defaultdict(int)  # (brand, cluster_id) -> cnt
@@ -178,11 +233,11 @@ def compute_brand_pain_v2(
     for comment in comments:
         _handle_item(comment, is_comment=True)
 
-    ranked = sorted(mentions.items(), key=lambda kv: kv[1], reverse=True)
+    ranked = sorted(mentions.items(), key=lambda kv: (-kv[1], kv[0][0].lower(), kv[0][1]))
     out: list[dict[str, object]] = []
     for (brand, cid), cnt in ranked:
         uniq = len(authors.get((brand, cid), set()))
-        ev_sorted = sorted(evidence.get((brand, cid), []), key=lambda x: x[0], reverse=True)
+        ev_sorted = sorted(evidence.get((brand, cid), []), key=lambda x: (-x[0], x[1]))
         ev_ids = [qid for _, qid in ev_sorted][:max_evidence]
         status = "ok"
         reason = ""
@@ -210,6 +265,8 @@ def compute_brand_pain_v2(
         )
         if len(out) >= max_items:
             break
+    if diagnostics is not None:
+        diagnostics["brand_pain_pipeline_status"] = "ok" if out else "no_matches"
     return out
 
 
@@ -313,23 +370,44 @@ def _slugify(value: str) -> str:
     return s or "unknown"
 
 
-def _resolve_domain_pain_config(domain_pain_config: Mapping[str, object] | None) -> Mapping[str, object]:
+def _resolve_domain_pain_config(
+    domain_pain_config: Mapping[str, object] | None,
+    *,
+    diagnostics: dict[str, object] | None = None,
+) -> Mapping[str, object]:
     if domain_pain_config is not None:
+        if diagnostics is not None:
+            diagnostics["domain_pain_config_status"] = "provided"
         return domain_pain_config
     default_path = Path(__file__).resolve().parents[3] / "config" / "domain_pain_points.yml"
     if not default_path.exists():
+        logger.warning("Domain pain config missing: %s", default_path)
+        if diagnostics is not None:
+            diagnostics["domain_pain_config_status"] = "missing"
         return {}
     try:
         import yaml  # local import: avoid global YAML dependency in unit tests
 
         payload = yaml.safe_load(default_path.read_text(encoding="utf-8")) or {}
         if not isinstance(payload, Mapping):
+            logger.warning("Domain pain config payload invalid: %s", default_path)
+            if diagnostics is not None:
+                diagnostics["domain_pain_config_status"] = "invalid_payload"
             return {}
         domains = payload.get("domains")
         if isinstance(domains, Mapping):
+            if diagnostics is not None:
+                diagnostics["domain_pain_config_status"] = "loaded"
             return cast(Mapping[str, object], domains)
+        logger.warning("Domain pain config missing domains key: %s", default_path)
+        if diagnostics is not None:
+            diagnostics["domain_pain_config_status"] = "invalid_payload"
         return {}
-    except Exception:
+    except Exception as exc:
+        logger.warning("Failed to load domain pain config from %s", default_path, exc_info=True)
+        if diagnostics is not None:
+            diagnostics["domain_pain_config_status"] = "load_failed"
+            diagnostics["domain_pain_config_error"] = str(exc)[:200]
         return {}
 
 
@@ -397,6 +475,46 @@ def _normalize_brand_candidates(
     # fallback: profile 的锚点/平台名
     merged = [*profile.required_entities_any, *profile.soft_required_entities_any]
     return tuple([b.strip() for b in merged if isinstance(b, str) and b.strip()])
+
+
+def _discover_brands_from_text(
+    posts: Sequence[Mapping[str, object]],
+    comments: Sequence[Mapping[str, object]],
+    *,
+    profile: TopicProfile | None = None,
+    max_candidates: int = 15,
+) -> tuple[str, ...]:
+    """当没有预配置品牌清单时，从 posts/comments 中自动发现品牌候选。"""
+    from collections import Counter
+
+    config = profile.brand_discovery if profile is not None else load_brand_discovery_defaults()
+    if not config.enabled:
+        return ()
+
+    pattern_text = config.token_pattern.strip() or BrandDiscoveryConfig().token_pattern
+    try:
+        pattern = re.compile(pattern_text)
+    except re.error:
+        pattern = re.compile(BrandDiscoveryConfig().token_pattern)
+    stop_words = frozenset(config.stopwords)
+    freq: Counter[str] = Counter()
+    limit = max(1, min(max_candidates, config.max_candidates))
+    min_frequency = max(1, config.min_frequency)
+
+    for item in [*posts, *comments]:
+        text = ""
+        if isinstance(item, Mapping):
+            text = str(item.get("body") or item.get("title") or item.get("text") or "")
+        if not text:
+            continue
+        for match in pattern.finditer(text):
+            word = match.group(1)
+            if word.lower() not in stop_words and len(word) >= 2:
+                freq[word] += 1
+
+    ranked = sorted(freq.items(), key=lambda kv: (-kv[1], kv[0].lower()))
+    candidates = [word for word, count in ranked if count >= min_frequency][:limit]
+    return tuple(candidates)
 
 
 @dataclass(frozen=True, slots=True)

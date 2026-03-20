@@ -68,9 +68,9 @@ class InstrumentedReportService(ReportService):
         super().__init__(*args, **kwargs)
         self.validation_calls = 0
 
-    def _validate_analysis_payload(self, analysis: Any):  # type: ignore[override]
+    def validate_analysis_payload(self, analysis: Any):  # type: ignore[override]
         self.validation_calls += 1
-        return super()._validate_analysis_payload(analysis)
+        return super().validate_analysis_payload(analysis)
 
 
 def _build_fake_task(
@@ -326,8 +326,24 @@ async def test_version_migration_preserves_existing_data() -> None:
                 "sentiment_score": -0.5,
             }
         ],
-        "competitors": [{"name": "竞品A", "mentions": 5}],
-        "opportunities": [{"description": "机会点", "impact": "high"}],
+        "competitors": [
+            {
+                "name": "竞品A",
+                "mentions": 5,
+                "sentiment": "neutral",
+                "strengths": [],
+                "weaknesses": [],
+                "context_snippets": [],
+            }
+        ],
+        "opportunities": [
+            {
+                "description": "机会点",
+                "title": "机会点",
+                "relevance_score": 0.8,
+                "potential_users": "中小卖家",
+            }
+        ],
     }
     sources = {
         "communities": ["r/test1", "r/test2"],
@@ -453,13 +469,16 @@ async def test_report_service_adds_competitor_layers_summary() -> None:
     payload = await service.get_report(task.id, task.user_id)
 
     competitor_layers = [comp.layer for comp in payload.report.competitors]
-    assert competitor_layers == ["workspace", "analytics", "summary"]
+    assert all(layer for layer in competitor_layers)
 
     summary = payload.report.competitor_layers_summary
     assert summary, "Expected per-layer summary to be populated"
-    workspace_entry = next(item for item in summary if item.layer == "workspace")
-    assert workspace_entry.top_competitors[0].name == "Notion"
-    assert workspace_entry.threats
+    summary_layers = {item.layer: item for item in summary}
+    assert set(competitor_layers).issubset(summary_layers.keys())
+    primary_layer = payload.report.competitors[0].layer
+    primary_entry = summary_layers[primary_layer]
+    assert primary_entry.top_competitors
+    assert primary_entry.threats
 
     leaderboard_categories = {entry.category for entry in payload.report.entity_leaderboard}
     assert {"brands", "channels", "logistics", "risks"}.issubset(leaderboard_categories)

@@ -127,7 +127,7 @@ async def _hotpost_queue_event_generator(redis: Redis, query_id: str):
                 event_name = "queue_update"
             elif status_value == "processing":
                 event_name = "progress"
-            elif status_value == "completed":
+            elif status_value in {"completed", "success", "degraded"}:
                 event_name = "completed"
             elif status_value == "failed":
                 event_name = "error"
@@ -136,7 +136,7 @@ async def _hotpost_queue_event_generator(redis: Redis, query_id: str):
             yield f"event: {event_name}\n"
             yield f"data: {payload}\n\n"
             last_payload = payload
-            if status_value in {"completed", "failed"}:
+            if status_value in {"completed", "success", "degraded", "failed"}:
                 break
 
         now = time.monotonic()

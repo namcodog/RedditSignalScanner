@@ -230,6 +230,7 @@ async def test_task_warmup_auto_rerun_schedules_followup(monkeypatch: pytest.Mon
     monkeypatch.setattr(analysis_task, "_mark_processing", fake_mark_processing)
     monkeypatch.setattr(analysis_task, "_store_analysis_results", fake_store_results)
     monkeypatch.setattr(analysis_task, "run_analysis", fake_run_analysis)
+    monkeypatch.setattr(analysis_task, "_warmup_inline_dispatch_enabled", lambda: False)
 
     await analysis_task._execute_success_flow(
         uuid.uuid4(),

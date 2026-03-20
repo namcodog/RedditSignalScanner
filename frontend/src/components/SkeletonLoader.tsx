@@ -11,7 +11,7 @@ import React from 'react';
  * 骨架屏卡片组件
  */
 const SkeletonCard: React.FC<{ className?: string }> = ({ className = '' }) => (
-  <div className={`rounded-lg border border-border bg-card p-6 ${className}`}>
+  <div className={`surface-panel-muted rounded-2xl p-6 ${className}`}>
     <div className="space-y-3">
       <div className="h-4 w-3/4 animate-pulse rounded bg-muted" />
       <div className="h-4 w-1/2 animate-pulse rounded bg-muted" />
@@ -24,7 +24,7 @@ const SkeletonCard: React.FC<{ className?: string }> = ({ className = '' }) => (
  * 骨架屏指标卡片
  */
 const SkeletonMetricCard: React.FC = () => (
-  <div className="rounded-lg border border-border bg-card p-4 text-center">
+  <div className="surface-panel-muted rounded-2xl p-4 text-center">
     <div className="mx-auto mb-2 h-8 w-8 animate-pulse rounded-lg bg-muted" />
     <div className="mx-auto mb-2 h-8 w-16 animate-pulse rounded bg-muted" />
     <div className="mx-auto h-4 w-20 animate-pulse rounded bg-muted" />
@@ -35,7 +35,7 @@ const SkeletonMetricCard: React.FC = () => (
  * 骨架屏列表项
  */
 const SkeletonListItem: React.FC = () => (
-  <div className="rounded-xl border border-border bg-card p-6">
+  <div className="surface-panel-muted rounded-2xl p-6">
     <div className="flex items-start gap-4">
       <div className="h-8 w-8 shrink-0 animate-pulse rounded-lg bg-muted" />
       <div className="flex-1 space-y-3">
@@ -62,7 +62,7 @@ export const ReportPageSkeleton: React.FC = () => {
   return (
     <div className="app-shell">
       {/* Header Skeleton */}
-      <header className="border-b border-border bg-card">
+      <header className="surface-header border-b border-border">
         <div className="container flex items-center justify-between py-4">
           <div className="flex items-center space-x-3">
             <div className="h-10 w-10 animate-pulse rounded-lg bg-muted" />
@@ -77,6 +77,26 @@ export const ReportPageSkeleton: React.FC = () => {
       {/* Main Content Skeleton */}
       <main className="container flex-1 px-4 py-10">
         <div className="mx-auto max-w-6xl space-y-8">
+          <section className="surface-panel rounded-[28px] p-6">
+            <div className="space-y-3">
+              <div className="surface-section-kicker">结果正在整理</div>
+              <h2 className="text-2xl font-semibold text-foreground">正在整理这次判断</h2>
+              <p className="text-sm leading-6 text-muted-foreground">
+                先帮你把市场温度、用户抱怨和可追机会捞出来，马上就能进正式判断。
+              </p>
+            </div>
+            <div className="mt-4 flex flex-wrap gap-2">
+              {['市场温度', '用户抱怨', '可追机会'].map((step) => (
+                <span
+                  key={step}
+                  className="surface-chip inline-flex items-center rounded-full px-3 py-1 text-xs font-medium text-muted-foreground"
+                >
+                  {step}
+                </span>
+              ))}
+            </div>
+          </section>
+
           {/* Breadcrumb Skeleton */}
           <div className="flex items-center gap-2">
             <div className="h-4 w-16 animate-pulse rounded bg-muted" />
@@ -177,4 +197,3 @@ export const SimpleSkeleton: React.FC<{ count?: number }> = ({ count = 3 }) => {
 };
 
 export default ReportPageSkeleton;
-

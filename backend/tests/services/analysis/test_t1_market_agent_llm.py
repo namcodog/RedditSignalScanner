@@ -23,21 +23,59 @@ def _fake_inputs() -> ReportInputs:
         since_utc="2023-01-01T00:00:00Z",
         subreddits=["r/testa", "r/testb"],
         global_ps_ratio=0.6,
+        total_pain=55,
+        total_solution=38,
         community_stats=[
-            CommunityStat(subreddit="testa", posts=120, comments=500, ps_ratio=0.55),
-            CommunityStat(subreddit="testb", posts=80, comments=300, ps_ratio=0.4),
+            CommunityStat(
+                subreddit="testa",
+                posts=120,
+                comments=500,
+                ps_ratio=0.55,
+                pain_count=40,
+                solution_count=20,
+                recent_posts_30d=12,
+                recent_comments_30d=50,
+            ),
+            CommunityStat(
+                subreddit="testb",
+                posts=80,
+                comments=300,
+                ps_ratio=0.4,
+                pain_count=25,
+                solution_count=18,
+                recent_posts_30d=8,
+                recent_comments_30d=30,
+            ),
         ],
         aspect_breakdown=[
             AspectBreakdown(aspect="price", pain=30, total=50),
             AspectBreakdown(aspect="speed", pain=20, total=40),
         ],
         brand_pain_cooccurrence=[
-            BrandPainCooccurrence(brand="BrandA", mentions=12, aspects=["price", "speed"])
+            BrandPainCooccurrence(
+                brand="BrandA",
+                mentions=12,
+                aspects=["price", "speed"],
+                unique_authors=7,
+                evidence_comment_ids=["c1", "c2"],
+            )
         ],
     )
     clusters = [
-        PainCluster(topic="费用不透明", size=25, aspects=["price"], top_keywords=["fee", "charge"], sample_comments=["a", "b"]),
-        PainCluster(topic="到账慢", size=15, aspects=["speed"], top_keywords=["delay"], sample_comments=["c"]),
+        PainCluster(
+            topic="费用不透明",
+            size=25,
+            aspects=["price"],
+            keywords=["fee", "charge"],
+            samples=["a", "b"],
+        ),
+        PainCluster(
+            topic="到账慢",
+            size=15,
+            aspects=["speed"],
+            keywords=["delay"],
+            samples=["c"],
+        ),
     ]
     return ReportInputs(stats=stats, clusters=clusters)
 

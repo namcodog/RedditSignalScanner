@@ -10,6 +10,7 @@ Discovers new Reddit communities from product descriptions by:
 from __future__ import annotations
 
 import asyncio
+import logging
 from collections import Counter
 from datetime import datetime, timezone
 from typing import Dict, List
@@ -21,6 +22,9 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.models.discovered_community import DiscoveredCommunity
 from app.services.semantic.keyword_extractor import KeywordExtractor
 from app.services.infrastructure.reddit_client import RedditAPIClient, RedditPost
+
+
+logger = logging.getLogger(__name__)
 
 
 def _normalise_community_name(raw_name: str) -> str:
@@ -149,9 +153,12 @@ class CommunityDiscoveryService:
                 )
                 all_posts.extend(posts)
 
-            except Exception:
-                # If search fails for this keyword, continue with others
-                # In production, we'd log this error
+            except Exception as exc:
+                logger.warning(
+                    "Community discovery search failed for keyword '%s': %s",
+                    keyword,
+                    exc,
+                )
                 continue
 
         # Remove duplicates (same post might match multiple keywords)

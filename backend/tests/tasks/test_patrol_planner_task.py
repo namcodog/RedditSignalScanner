@@ -11,11 +11,27 @@ from sqlalchemy import select, text
 from app.db.session import SessionFactory
 from app.models.community_cache import CommunityCache
 from app.models.community_pool import CommunityPool
+from app.services.crawl.crawler_runs_service import ensure_crawler_run
+from app.services.infrastructure.task_outbox_service import (
+    OUTBOX_EVENT_EXECUTE_TARGET,
+    build_task_outbox_event_key,
+)
+
+
+async def _reset_patrol_tables() -> None:
+    async with SessionFactory() as session:
+        await session.execute(text("DELETE FROM task_outbox"))
+        await session.execute(text("DELETE FROM crawler_run_targets"))
+        await session.execute(text("DELETE FROM crawler_runs"))
+        await session.commit()
 
 
 @pytest.mark.asyncio
 async def test_patrol_heartbeat_planner_writes_queued_targets_and_enqueues(monkeypatch: pytest.MonkeyPatch) -> None:
     from app.tasks import crawler_task
+    from app.services.community.community_pool_loader import CommunityProfile
+
+    await _reset_patrol_tables()
 
     # Guard: planner should not build a Reddit client (execution is delegated to execute_target).
     async def _boom(*_: Any, **__: Any) -> Any:
@@ -31,49 +47,9 @@ async def test_patrol_heartbeat_planner_writes_queued_targets_and_enqueues(monke
     monkeypatch.setattr(crawler_task.celery_app, "send_task", fake_send_task)
 
     now = datetime.now(timezone.utc)
-    active = "r/test_patrol_active"
-    blocked = "r/test_patrol_blocked"
-
-    async with SessionFactory() as session:
-        session.add(
-            CommunityPool(
-                name=active,
-                tier="high",
-                priority="high",
-                categories=[],
-                description_keywords={},
-                daily_posts=10,
-                avg_comment_length=0,
-                quality_score=0.6,
-                user_feedback_count=0,
-                discovered_count=0,
-                is_active=True,
-                is_blacklisted=False,
-                blacklist_reason=None,
-                health_status="healthy",
-                auto_tier_enabled=False,
-            )
-        )
-        session.add(
-            CommunityPool(
-                name=blocked,
-                tier="high",
-                priority="high",
-                categories=[],
-                description_keywords={},
-                daily_posts=10,
-                avg_comment_length=0,
-                quality_score=0.6,
-                user_feedback_count=0,
-                discovered_count=0,
-                is_active=True,
-                is_blacklisted=True,
-                blacklist_reason="blocked",
-                health_status="critical",
-                auto_tier_enabled=False,
-            )
-        )
-        await session.commit()
+    suffix = uuid.uuid4().hex[:8]
+    active = f"r/test_patrol_active_{suffix}"
+    blocked = f"r/test_patrol_blocked_{suffix}"
 
     async with SessionFactory() as session:
         session.add(
@@ -103,9 +79,34 @@ async def test_patrol_heartbeat_planner_writes_queued_targets_and_enqueues(monke
         )
         await session.commit()
 
-    outcome = await crawler_task._crawl_seeds_incremental_impl(force_refresh=False)
-    crawl_run_id = str(outcome.get("run_id") or "")
-    assert crawl_run_id, "planner should return crawl_run_id"
+    crawl_run_id = str(uuid.uuid4())
+    outcome = await crawler_task._plan_patrol_targets(
+        crawl_run_id=crawl_run_id,
+        profiles=[
+            CommunityProfile(
+                name=active,
+                tier="high",
+                categories=[],
+                description_keywords={},
+                daily_posts=10,
+                avg_comment_length=0,
+                quality_score=0.6,
+                priority="high",
+            ),
+            CommunityProfile(
+                name=blocked,
+                tier="blocked",
+                categories=[],
+                description_keywords={},
+                daily_posts=10,
+                avg_comment_length=0,
+                quality_score=0.6,
+                priority="high",
+            ),
+        ],
+        force_refresh=False,
+    )
+    assert outcome == {"inserted": 1, "enqueued": 1}
 
     async with SessionFactory() as session:
         rows = await session.execute(
@@ -134,11 +135,30 @@ async def test_patrol_heartbeat_planner_writes_queued_targets_and_enqueues(monke
     assert meta.get("cursor_last_seen_post_id") == "p123"
     assert "cursor_backfill_floor" not in meta
 
-    # Enqueue once to patrol_queue
-    assert len(sent) == 1
-    assert sent[0]["task_name"] == "tasks.crawler.execute_target"
-    assert sent[0]["kwargs"]["kwargs"]["target_id"] == str(record["id"])
-    assert sent[0]["kwargs"]["queue"] == "patrol_queue"
+    # Planner-only: should write task_outbox instead of direct send_task
+    assert sent == []
+    async with SessionFactory() as session:
+        outbox = await session.execute(
+            text(
+                """
+                SELECT event_key, payload
+                FROM task_outbox
+                WHERE event_key = :event_key
+                """
+            ),
+            {
+                "event_key": build_task_outbox_event_key(
+                    event_type=OUTBOX_EVENT_EXECUTE_TARGET,
+                    target_id=str(record["id"]),
+                )
+            },
+        )
+        outbox_row = outbox.mappings().first()
+
+    assert outbox_row is not None
+    payload = outbox_row["payload"] if isinstance(outbox_row["payload"], dict) else {}
+    assert payload.get("target_id") == str(record["id"])
+    assert payload.get("queue") == "patrol_queue"
 
     # Planner must not mutate backfill_floor
     async with SessionFactory() as session:
@@ -154,6 +174,8 @@ async def test_patrol_planner_idempotent_enqueue_with_same_crawl_run_id(monkeypa
     from app.tasks import crawler_task
     from app.services.community.community_pool_loader import CommunityProfile
 
+    await _reset_patrol_tables()
+
     sent: list[str] = []
 
     def fake_send_task(task_name: str, *args: Any, **kwargs: Any) -> None:
@@ -164,7 +186,7 @@ async def test_patrol_planner_idempotent_enqueue_with_same_crawl_run_id(monkeypa
     crawl_run_id = str(uuid.uuid4())
     profiles = [
         CommunityProfile(
-            name="r/test_patrol_idempotent",
+            name=f"r/test_patrol_idempotent_{uuid.uuid4().hex[:8]}",
             tier="high",
             categories=[],
             description_keywords={},
@@ -188,7 +210,17 @@ async def test_patrol_planner_idempotent_enqueue_with_same_crawl_run_id(monkeypa
 
     assert inserted_first["inserted"] == 1
     assert inserted_second["inserted"] == 0
-    assert sent.count("tasks.crawler.execute_target") == 1
+    assert sent == []
+    async with SessionFactory() as session:
+        rows = await session.execute(
+            text(
+                """
+                SELECT COUNT(*)
+                FROM task_outbox
+                """
+            )
+        )
+        assert rows.scalar_one() == 1
 
 
 @pytest.mark.asyncio
@@ -197,6 +229,8 @@ async def test_patrol_planner_clamps_posts_limit_and_sets_guardrails(
 ) -> None:
     from app.tasks import crawler_task
     from app.services.community.community_pool_loader import CommunityProfile
+
+    await _reset_patrol_tables()
 
     sent: list[dict[str, Any]] = []
 
@@ -218,7 +252,7 @@ async def test_patrol_planner_clamps_posts_limit_and_sets_guardrails(
     crawl_run_id = str(uuid.uuid4())
     profiles = [
         CommunityProfile(
-            name="r/test_patrol_guardrails",
+            name=f"r/test_patrol_guardrails_{uuid.uuid4().hex[:8]}",
             tier="high",
             categories=[],
             description_keywords={},
@@ -258,8 +292,10 @@ async def test_patrol_planner_clamps_posts_limit_and_sets_guardrails(
     assert meta.get("time_filter") in {"hour", "day"}
     assert meta.get("patrol_comments_enabled") is False
 
-    assert sent[0]["task_name"] == "tasks.crawler.execute_target"
-    assert sent[0]["kwargs"]["queue"] == "patrol_queue"
+    assert sent == []
+    async with SessionFactory() as session:
+        outbox = await session.execute(text("SELECT COUNT(*) FROM task_outbox"))
+        assert outbox.scalar_one() == 1
 
 
 @pytest.mark.asyncio
@@ -269,6 +305,7 @@ async def test_patrol_planner_limits_total_targets_per_heartbeat(
     from app.tasks import crawler_task
     from app.services.community.community_pool_loader import CommunityProfile
 
+    await _reset_patrol_tables()
     monkeypatch.setattr(crawler_task, "EFFECTIVE_BATCH_SIZE", 2)
 
     sent: list[str] = []
@@ -281,7 +318,7 @@ async def test_patrol_planner_limits_total_targets_per_heartbeat(
     crawl_run_id = str(uuid.uuid4())
     profiles = [
         CommunityProfile(
-            name=f"r/test_patrol_limit_{idx}",
+            name=f"r/test_patrol_limit_{idx}_{uuid.uuid4().hex[:8]}",
             tier="high",
             categories=[],
             description_keywords={},
@@ -301,7 +338,10 @@ async def test_patrol_planner_limits_total_targets_per_heartbeat(
 
     assert outcome["inserted"] == 2
     assert outcome["enqueued"] == 2
-    assert sent.count("tasks.crawler.execute_target") == 2
+    assert sent == []
+    async with SessionFactory() as session:
+        outbox = await session.execute(text("SELECT COUNT(*) FROM task_outbox"))
+        assert outbox.scalar_one() == 2
 
 
 @pytest.mark.asyncio
@@ -309,6 +349,9 @@ async def test_patrol_planner_triggers_probe_hot_fallback_when_due_low(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     from app.tasks import crawler_task
+    from app.services.community.community_pool_loader import CommunityProfile
+
+    await _reset_patrol_tables()
 
     monkeypatch.setenv("PROBE_HOT_FALLBACK_ENABLED", "1")
     monkeypatch.setenv("PROBE_HOT_FALLBACK_MIN_DUE", "3")
@@ -321,58 +364,39 @@ async def test_patrol_planner_triggers_probe_hot_fallback_when_due_low(
 
     monkeypatch.setattr(crawler_task.celery_app, "send_task", fake_send_task)
 
-    now = datetime.now(timezone.utc)
-    active = "r/test_patrol_probe_fallback"
+    active = f"r/test_patrol_probe_fallback_{uuid.uuid4().hex[:8]}"
 
-    async with SessionFactory() as session:
-        session.add(
-            CommunityPool(
+    async def fake_get_due_communities(*_: Any, **__: Any) -> list[CommunityProfile]:
+        return [
+            CommunityProfile(
                 name=active,
                 tier="high",
-                priority="high",
                 categories=[],
                 description_keywords={},
                 daily_posts=10,
                 avg_comment_length=0,
                 quality_score=0.6,
-                user_feedback_count=0,
-                discovered_count=0,
-                is_active=True,
-                is_blacklisted=False,
-                blacklist_reason=None,
-                health_status="healthy",
-                auto_tier_enabled=False,
+                priority="high",
             )
-        )
-        await session.commit()
+        ]
 
-    async with SessionFactory() as session:
-        session.add(
-            CommunityCache(
-                community_name=active,
-                last_crawled_at=now - timedelta(days=1),
-                posts_cached=0,
-                ttl_seconds=3600,
-                quality_score=0.5,
-                hit_count=0,
-                crawl_priority=50,
-                crawl_frequency_hours=1,
-                is_active=True,
-                empty_hit=0,
-                success_hit=0,
-                failure_hit=0,
-                avg_valid_posts=0,
-                quality_tier="medium",
-                last_seen_post_id="p-probe-1",
-                last_seen_created_at=now - timedelta(hours=2),
-                backfill_floor=now - timedelta(days=90),
-                last_attempt_at=None,
-                member_count=None,
-                total_posts_fetched=0,
-                dedup_rate=None,
-            )
-        )
-        await session.commit()
+    async def fake_get_pool_stats(*_: Any, **__: Any) -> dict[str, int]:
+        return {"total_communities": 1}
+
+    monkeypatch.setattr(
+        crawler_task.CommunityPoolLoader,
+        "get_due_communities",
+        fake_get_due_communities,
+    )
+    monkeypatch.setattr(
+        crawler_task.CommunityPoolLoader,
+        "get_pool_stats",
+        fake_get_pool_stats,
+    )
+    async def fake_plan_patrol_targets(**_: Any) -> dict[str, int]:
+        return {"inserted": 1, "enqueued": 1}
+
+    monkeypatch.setattr(crawler_task, "_plan_patrol_targets", fake_plan_patrol_targets)
 
     await crawler_task._crawl_seeds_incremental_impl(force_refresh=False)
 
@@ -389,6 +413,8 @@ async def test_patrol_planner_skips_probe_hot_fallback_when_recent_probe(
 ) -> None:
     from app.tasks import crawler_task
 
+    await _reset_patrol_tables()
+
     monkeypatch.setenv("PROBE_HOT_FALLBACK_ENABLED", "1")
     monkeypatch.setenv("PROBE_HOT_FALLBACK_MIN_DUE", "3")
     monkeypatch.setenv("PROBE_HOT_FALLBACK_COOLDOWN_MINUTES", "180")
@@ -401,7 +427,7 @@ async def test_patrol_planner_skips_probe_hot_fallback_when_recent_probe(
     monkeypatch.setattr(crawler_task.celery_app, "send_task", fake_send_task)
 
     now = datetime.now(timezone.utc)
-    active = "r/test_patrol_probe_recent"
+    active = f"r/test_patrol_probe_recent_{uuid.uuid4().hex[:8]}"
 
     async with SessionFactory() as session:
         session.add(
@@ -458,6 +484,12 @@ async def test_patrol_planner_skips_probe_hot_fallback_when_recent_probe(
         "meta": {"source": "hot"},
     }
     async with SessionFactory() as session:
+        recent_probe_run_id = str(uuid.uuid4())
+        await ensure_crawler_run(
+            session,
+            crawl_run_id=recent_probe_run_id,
+            config={"mode": "probe_hot_recent_test"},
+        )
         await session.execute(
             text(
                 """
@@ -477,7 +509,7 @@ async def test_patrol_planner_skips_probe_hot_fallback_when_recent_probe(
             ),
             {
                 "id": str(uuid.uuid4()),
-                "crawl_run_id": str(uuid.uuid4()),
+                "crawl_run_id": recent_probe_run_id,
                 "subreddit": "r/probe_hot_recent",
                 "config": json.dumps(recent_probe_config),
                 "started_at": now - timedelta(minutes=10),

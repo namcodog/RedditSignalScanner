@@ -12,12 +12,13 @@
 执行方式：
     python backend/scripts/import/restore_pool_hybrid.py
 """
+import argparse
 import asyncio
 import csv
 import sys
-from pathlib import Path
 from datetime import datetime, timedelta, timezone
 from decimal import Decimal
+from pathlib import Path
 from typing import Dict, List, Any, Set
 
 # 添加项目根目录到路径
@@ -27,6 +28,7 @@ from sqlalchemy import select, func, text
 from app.db.session import SessionFactory
 from app.models.community_pool import CommunityPool
 from app.models.community_cache import CommunityCache
+from scripts.import_safety import add_execute_flag, ensure_dev_or_test_database, is_dry_run
 
 # ============================================================================
 # 配置常量 (复用之前的治理逻辑)
@@ -53,6 +55,16 @@ CSV_SEMANTIC_VALUE_PATH = Path("扩展语义社区池_基于165社区.csv")
 # ============================================================================
 # 核心逻辑
 # ============================================================================
+
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(description="Restore community_pool from CSV truth + posts_raw assets")
+    add_execute_flag(parser)
+    parser.add_argument(
+        "--allow-ghost-recovery",
+        action="store_true",
+        help="允许把 CSV 外的 ghost 社区重新拉回 pool/cache。默认关闭。",
+    )
+    return parser
 
 def read_csv_config() -> Dict[str, Dict[str, Any]]:
     """读取 CSV 配置，返回 {raw_name: config} 字典"""
@@ -129,7 +141,12 @@ async def scan_database_assets(db) -> Dict[str, Dict[str, Any]]:
     
     return assets
 
-async def restore_process(db):
+async def restore_process(
+    db,
+    *,
+    execute: bool,
+    allow_ghost_recovery: bool,
+) -> Dict[str, int]:
     # 1. 获取两份真理
     csv_configs = read_csv_config() # 期望的状态 (82个)
     db_assets = await scan_database_assets(db) # 实际的状态 (可能更多或更少)
@@ -139,6 +156,7 @@ async def restore_process(db):
     
     restored_count = 0
     recovered_count = 0
+    ghosts_blocked = 0
     
     # 2. 恢复 CSV 中的社区 (优先)
     for raw_name, config in csv_configs.items():
@@ -174,13 +192,13 @@ async def restore_process(db):
             total_posts_fetched=asset["count"] if asset else 0,
             quality_tier=config["tier"]
         )
-        
-        await upsert_pool(db, pool)
-        await upsert_cache(db, cache)
+
+        if execute:
+            await upsert_pool(db, pool)
+            await upsert_cache(db, cache)
         restored_count += 1
         
-    # 3. 抢救 DB 中有但 CSV 没有的社区 (Ghost)
-    # 条件：帖子数 > 100 且不在排除名单
+    # 3. DB 中有但 CSV 没有的社区（Ghost）默认不恢复，只做统计
     for raw_name, asset in db_assets.items():
         if raw_name in csv_configs:
             continue # 已处理
@@ -191,7 +209,11 @@ async def restore_process(db):
         if asset["count"] < 100:
             continue # 数据太少，忽略
             
-        # 这是一个“幽灵社区”，进行抢救
+        if not allow_ghost_recovery:
+            ghosts_blocked += 1
+            continue
+
+        # 这是一个“幽灵社区”，只有显式 allow 才抢救恢复
         real_name = f"r/{asset['raw_name']}" # 尽量加前缀
         
         print(f"👻 发现幽灵社区 (DB有/CSV无): {real_name} (帖子数: {asset['count']}) -> 抢救恢复为 T3")
@@ -219,13 +241,22 @@ async def restore_process(db):
             total_posts_fetched=asset["count"],
             quality_tier="semantic"
         )
-        
-        await upsert_pool(db, pool)
-        await upsert_cache(db, cache)
+
+        if execute:
+            await upsert_pool(db, pool)
+            await upsert_cache(db, cache)
         recovered_count += 1
 
-    await db.commit()
-    return restored_count, recovered_count
+    if execute:
+        await db.commit()
+    else:
+        await db.rollback()
+
+    return {
+        "restored": restored_count,
+        "recovered": recovered_count,
+        "ghosts_blocked": ghosts_blocked,
+    }
 
 async def upsert_pool(db, item: CommunityPool):
     """幂等写入 Pool"""
@@ -253,15 +284,28 @@ async def upsert_cache(db, item: CommunityCache):
         db.add(item)
 
 async def main():
+    args = build_parser().parse_args()
+    db_name = ensure_dev_or_test_database()
+    dry_run = is_dry_run(args)
+
     print("🚨 开始执行混合恢复脚本...")
+    print(f"🛡️  目标数据库: {db_name}")
+    print("🧪 当前模式: dry-run（只预览，不写库）" if dry_run else "✍️ 当前模式: execute（将实际写库）")
+    if not args.allow_ghost_recovery:
+        print("🧹 Ghost 恢复默认关闭：CSV 外社区不会被拉回 pool/cache")
     try:
         async with SessionFactory() as db:
-            restored, recovered = await restore_process(db)
+            summary = await restore_process(
+                db,
+                execute=not dry_run,
+                allow_ghost_recovery=args.allow_ghost_recovery,
+            )
             print("-" * 40)
-            print(f"✅ 恢复完成报告:")
-            print(f"   - CSV配置恢复 (Standard): {restored} 个")
-            print(f"   - DB幽灵抢救 (Ghost):    {recovered} 个")
-            print(f"   - 总计激活社区:          {restored + recovered} 个")
+            print("🧪 Dry-run 完成报告:" if dry_run else "✅ 恢复完成报告:")
+            print(f"   - CSV配置恢复 (Standard): {summary['restored']} 个")
+            print(f"   - DB幽灵抢救 (Ghost):    {summary['recovered']} 个")
+            print(f"   - Ghost默认拦截:         {summary['ghosts_blocked']} 个")
+            print(f"   - 总计激活社区:          {summary['restored'] + summary['recovered']} 个")
             print("-" * 40)
     except Exception as e:
         print(f"❌ 恢复失败: {e}")

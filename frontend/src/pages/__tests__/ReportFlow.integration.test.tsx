@@ -28,6 +28,39 @@ const buildReport = (): ReportResponse => ({
   generated_at: '2025-10-25T08:00:00Z',
   product_description: 'Test product',
   report_html: '<html />',
+  report_structured: {
+    decision_cards: [
+      {
+        title: '需求趋势',
+        conclusion: '讨论热度持续稳定',
+        details: ['样本集中在核心社区', '热度持续存在'],
+      },
+    ],
+    market_health: {
+      competition_saturation: {
+        level: '中等',
+        details: ['讨论量稳定', '社区覆盖有限'],
+        interpretation: '仍有空间但需差异化。',
+      },
+      ps_ratio: {
+        ratio: '1.2:1',
+        conclusion: '问题略多于答案',
+        interpretation: '用户仍在找可靠方案。',
+        health_assessment: '机会窗口仍在。',
+      },
+    },
+    battlefields: [],
+    pain_points: [
+      {
+        title: '页面加载速度慢',
+        user_voices: ['页面打开太久，我经常直接关掉。'],
+        data_impression: '抱怨集中在首次打开体验和等待时长。',
+        interpretation: '这说明首屏性能已经开始直接影响留存和转化。',
+      },
+    ],
+    drivers: [],
+    opportunities: [],
+  },
   report: {
     executive_summary: {
       total_communities: 3,
@@ -75,12 +108,24 @@ const buildReport = (): ReportResponse => ({
     negative_mentions: 112,
     neutral_mentions: 80,
   },
+  sources: {
+    communities: ['r/productivity', 'r/startups'],
+    posts_analyzed: 84,
+    cache_hit_rate: 0.55,
+    analysis_duration_seconds: 21,
+    reddit_api_calls: 8,
+    data_source: 'real',
+    report_tier: 'A_full',
+    structured_llm_status: 'completed',
+    structured_llm_reason: null,
+  },
 });
 
 describe('ReportPage 集成流程', () => {
-  it('应渲染归一化后的痛点并复用共享空状态', async () => {
+  it('应按当前决策首页 -> 维度选择 -> 详情页流程渲染痛点内容', async () => {
     const report = buildReport();
     vi.mocked(analyzeApi.getAnalysisReport).mockResolvedValue(report);
+    vi.mocked(analyzeApi.getTaskSources).mockResolvedValue(null as any);
 
     render(
       <TranslationProvider initialLocale="zh">
@@ -93,22 +138,19 @@ describe('ReportPage 集成流程', () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByRole('heading', { name: '市场洞察报告', level: 2 })).toBeInTheDocument();
+      expect(screen.getByText('先看结论')).toBeInTheDocument();
+      expect(screen.getByText('值得继续推进')).toBeInTheDocument();
     });
 
     const user = userEvent.setup();
-    await user.click(screen.getByRole('tab', { name: '用户痛点' }));
+    await user.click(screen.getAllByRole('button', { name: '逐维探索' })[0]!);
+    await user.click(screen.getByRole('button', { name: /用户痛点洞察/ }));
 
     expect(
-      screen.getByRole('heading', { name: /页面加载速度慢/ })
+      screen.getByRole('heading', { name: '用户痛点洞察', level: 2 })
     ).toBeInTheDocument();
-    // 正常化后应该提取描述作为用户示例
-    expect(screen.getByText(/用户示例/)).toBeInTheDocument();
-
-    // 行动建议为空时使用共享空状态组件
-    await user.click(screen.getByRole('tab', { name: '行动建议' }));
-    await waitFor(() => {
-      expect(document.body.textContent).toContain('暂无行动建议');
-    });
+    expect(document.body.textContent).toContain('页面加载速度慢');
+    expect(document.body.textContent).toContain('这说明首屏性能已经开始直接影响留存和转化');
+    expect(screen.getByRole('button', { name: '下一个维度' })).toBeInTheDocument();
   });
 });

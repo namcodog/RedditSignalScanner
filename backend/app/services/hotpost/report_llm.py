@@ -5,6 +5,7 @@ import logging
 from typing import Any, Protocol
 
 from app.services.hotpost.prompts import PROMPT_TEMPLATES
+from app.services.hotpost.result_meta import HotpostLLMReportResult
 from app.schemas.hotpost import (
     CompetitorMention,
     ExistingTool,
@@ -399,7 +400,7 @@ async def generate_hotpost_llm_report(
     llm_client: HotpostLLMClient,
     max_tokens: int,
     temperature: float,
-) -> dict[str, Any] | None:
+) -> HotpostLLMReportResult:
     prompt = render_hotpost_prompt(
         mode=mode,
         query=query,
@@ -407,20 +408,37 @@ async def generate_hotpost_llm_report(
         posts_data=posts_data,
         comments_data=comments_data,
     )
-    content = await llm_client.generate(
-        prompt,
-        response_format={"type": "json_object"},
-        temperature=temperature,
-        max_tokens=max_tokens,
-    )
+    try:
+        content = await llm_client.generate(
+            prompt,
+            response_format={"type": "json_object"},
+            temperature=temperature,
+            max_tokens=max_tokens,
+        )
+    except Exception as exc:
+        logger.warning("hotpost report llm generation failed: %s", exc)
+        return HotpostLLMReportResult(
+            report=None,
+            source="fallback",
+            degraded_reason="llm_generate_failed",
+        )
     parsed = _safe_json_loads(content or "")
     if not parsed:
-        return None
-    return sanitize_llm_report(parsed)
+        logger.warning("hotpost report llm returned invalid json")
+        return HotpostLLMReportResult(
+            report=None,
+            source="fallback",
+            degraded_reason="invalid_json",
+        )
+    return HotpostLLMReportResult(
+        report=sanitize_llm_report(parsed),
+        source="llm",
+    )
 
 
 __all__ = [
     "generate_hotpost_llm_report",
+    "HotpostLLMReportResult",
     "render_hotpost_prompt",
     "merge_hotpost_llm_report",
     "apply_hotpost_llm_annotations",

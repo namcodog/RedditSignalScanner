@@ -27,19 +27,30 @@ from typing import Any, Callable, Dict, List, Optional, Sequence, Mapping
 
 from sqlalchemy import case, select, text
 from sqlalchemy.dialects.postgresql import insert as pg_insert
-
 from app.core.config import Settings, get_settings
 from app.db.session import SessionFactory
 from app.models.posts_storage import PostHot, PostRaw
 from app.schemas.task import TaskSummary
 from app.services.analysis import sample_guard
+from app.services.analysis.analysis_rendering import (
+    StructuredReportRenderResult,
+    render_analysis_reports,
+    render_report as _render_report,
+    render_report_with_llm as _render_report_with_llm,
+    render_scouting_report as _render_scouting_report,
+    render_structured_report_with_llm as _render_structured_report_with_llm,
+)
+from app.services.analysis.analysis_side_effects import (
+    DiscoveredCommunityRecordResult,
+    record_discovered_communities_for_task,
+)
 from app.services.analysis.deduplicator import (
     DeduplicationStats,
     deduplicate_posts,
     deduplicate_posts_by_embeddings,
     get_last_stats,
 )
-from app.services.analysis.hybrid_retriever import fetch_hybrid_posts
+from app.services.analysis.hybrid_retriever import run_hybrid_retrieval
 from app.services.analysis.entity_matcher import EntityMatcher
 from app.services.analysis.entity_pipeline import EntityPipeline
 from app.services.analysis.keyword_crawler import keyword_crawl
@@ -65,19 +76,12 @@ from app.services.infrastructure.cache_manager import CacheManager
 from app.services.crawl.data_collection import CollectionResult, DataCollectionService
 from app.services.facts_v2.quality import quality_check_facts_v2
 from app.services.facts_v2.slice import build_facts_slice_for_report
-from app.services.llm.clients.openai_client import OpenAIChatClient
-from app.services.llm.report_prompts import (
-    build_complete_report_v9,
-    build_report_structured_prompt_v9,
-    format_facts_for_prompt,
-)
 from app.services.mock.demo_data_provider import generate_demo_posts
 from app.services.infrastructure.reddit_client import RedditAPIClient, RedditPost
 from app.services.report.opportunity_report import build_opportunity_reports
 from app.services.analysis.t1_stats import build_trend_analysis, fetch_topic_relevant_communities
 from app.services.semantic.embedding_service import MODEL_NAME
 from app.models.community_cache import CommunityCache
-from app.models.discovered_community import DiscoveredCommunity
 from app.models.community_pool import CommunityPool
 from app.services.community.community_roles import communities_for_role
 from app.services.analysis.topic_profiles import (
@@ -834,80 +838,21 @@ async def _extract_business_signals_from_labels(
 
 
 async def _record_discovered_communities(
-    task_id: Any,
+    task: TaskSummary,
     collected: Sequence[CollectedCommunity],
     keywords: Sequence[str],
-) -> None:
+) -> DiscoveredCommunityRecordResult:
     """
-    Persist discovered communities for a task so前端/后续环节能查到。
+    Persist discovered communities only for persisted task contexts.
 
-    - 使用 name 唯一键 upsert，叠加 mention 次数
-    - 自动触发 DiscoveredCommunity 的 before_insert 钩子以补充 community_pool
+    分析核心保留“发现社区”这件事，但真正写 discovered_communities 这层副作用
+    已经收进独立 side-effect service，避免 FK 噪音和写库动作继续缠在分析主流程里。
     """
-    if not collected:
-        return
-    now = datetime.now(timezone.utc)
-    keywords_payload = {"keywords": list(keywords)}
-
-    async with SessionFactory() as session:
-        for entry in collected:
-            mention_count = len(entry.posts)
-            if mention_count <= 0:
-                continue
-            name = _normalise_community_name(entry.profile.name)
-
-            # 先确保 community_pool 中存在对应名称，避免 FK 失败
-            pool_stmt = (
-                pg_insert(CommunityPool)
-                .values(
-                    name=name,
-                    # ⚠️ 发现出来的社区只用于“记录/待审核”，不能污染正式社区池：
-                    # - tier 固定 candidate
-                    # - 默认不激活（避免被巡航/分析当成正式输入）
-                    # - status 固定 candidate
-                    tier="candidate",
-                    categories={},
-                    description_keywords=keywords_payload,
-                    daily_posts=entry.profile.daily_posts,
-                    avg_comment_length=entry.profile.avg_comment_length,
-                    quality_score=0.50,
-                    priority="medium",
-                    user_feedback_count=0,
-                    discovered_count=mention_count,
-                    is_active=False,
-                    created_at=now,
-                    updated_at=now,
-                )
-                .on_conflict_do_nothing(index_elements=[CommunityPool.name])
-            )
-            await session.execute(pool_stmt)
-
-            stmt = (
-                pg_insert(DiscoveredCommunity)
-                .values(
-                    name=name,
-                    discovered_from_keywords=keywords_payload,
-                    discovered_count=mention_count,
-                    first_discovered_at=now,
-                    last_discovered_at=now,
-                    status="pending",
-                    discovered_from_task_id=task_id,
-                    created_at=now,
-                    updated_at=now,
-                )
-                .on_conflict_do_update(
-                    index_elements=[DiscoveredCommunity.name],
-                    set_={
-                        "discovered_count": DiscoveredCommunity.discovered_count + mention_count,
-                        "last_discovered_at": now,
-                        "discovered_from_task_id": task_id,
-                        "updated_at": now,
-                        "discovered_from_keywords": keywords_payload,
-                    },
-                )
-            )
-            await session.execute(stmt)
-        await session.commit()
+    return await record_discovered_communities_for_task(
+        task=task,
+        collected=collected,
+        keywords=keywords,
+    )
 
 
 # ── Section 3: Sample Guard & Data Readiness ───────────────────────────────
@@ -1360,6 +1305,11 @@ def _build_insufficient_sample_result(
         "data_source": "insufficient",
         "lookback_days": max(1, int(lookback_days)),
         "report_tier": "C_scouting",
+        "structured_llm_status": "skipped",
+        "structured_llm_reason": "insufficient_samples",
+        "llm_used": False,
+        "llm_model": None,
+        "llm_rounds": 0,
         "facts_v2_quality": {
             "passed": True,
             "tier": "C_scouting",
@@ -1388,6 +1338,7 @@ async def _schedule_auto_backfill_for_insufficient_samples(
     *,
     task: TaskSummary,
     topic_profile: "TopicProfile | None",
+    keywords: Sequence[str] | None = None,
 ) -> list[dict[str, Any]]:
     """
     Contract B (P1 最小闭环)：
@@ -1401,6 +1352,15 @@ async def _schedule_auto_backfill_for_insufficient_samples(
             if topic_profile is not None
             else []
         )
+        if not communities:
+            # 通用模式兜底：没有 topic_profile 时，也基于关键词挑一组社区做补量，
+            # 避免 remediation_actions 为空而直接落到 manual_intervention。
+            fallback_profiles = _select_top_communities(list(keywords or []))
+            communities = [
+                str(getattr(profile, "name", "")).strip()
+                for profile in fallback_profiles
+                if str(getattr(profile, "name", "")).strip()
+            ][:20]
         if not communities:
             return []
 
@@ -2883,24 +2843,6 @@ async def _fetch_coverage_summary(
     }
 
 
-def _format_collection_warning_lines(sources: Mapping[str, Any]) -> list[str]:
-    warnings = sources.get("collection_warnings") or []
-    if not isinstance(warnings, list):
-        return []
-    lines: list[str] = []
-    stale_cache = sources.get("stale_cache_subreddits") or []
-    stale_fallback = sources.get("stale_cache_fallback_subreddits") or []
-    if "stale_cache_detected" in warnings:
-        lines.append(f"- 发现 {len(stale_cache)} 个社区缓存过期，时效性下降。")
-    if "stale_cache_fallback" in warnings:
-        lines.append(f"- 有 {len(stale_fallback)} 个社区使用旧缓存兜底（API/限流失败）。")
-    if "reddit_rate_limited" in warnings:
-        lines.append("- Reddit API 触发限流，部分社区未能实时拉取。")
-    if "reddit_api_error" in warnings:
-        lines.append("- Reddit API 请求失败，部分社区未能实时拉取。")
-    return lines
-
-
 def _community_pool_priority_order(model: type[CommunityPool]) -> Any:
     return case(
         (model.priority == "high", 3),
@@ -3015,379 +2957,6 @@ def _backfill_cache_misses(
     return supplemented
 
 
-# ── Section 5: Report Rendering ────────────────────────────────────────────
-
-
-def _render_report(
-    task_summary: TaskSummary,
-    communities: Sequence[CollectedCommunity],
-    insights: Dict[str, Any],
-    sources: Dict[str, Any],
-) -> str:
-    """
-    Build a Markdown report following the高价值样本结构：
-    - 决策卡片
-    - 市场概览
-    - 战场推荐
-    - 痛点与机会
-    - 数据统计
-    """
-    community_names = [entry.profile.name for entry in communities]
-    pain_counts = {}
-    try:
-        pain_counts = sources.get("pain_counts_by_community", {}) or {}
-    except Exception:
-        pain_counts = {}
-    top_communities = sorted(
-        communities,
-        key=lambda c: (
-            pain_counts.get(c.profile.name, 0),
-            len(c.posts),
-        ),
-        reverse=True,
-    )[:4]
-    pain_points: list[Dict[str, Any]] = insights.get("pain_points", []) or []
-    opportunities: list[Dict[str, Any]] = insights.get("opportunities", []) or []
-    competitors: list[Dict[str, Any]] = insights.get("competitors", []) or []
-    action_items: list[Dict[str, Any]] = insights.get("action_items", []) or []
-    posts_analyzed = int(sources.get("posts_analyzed", 0) or 0)
-    cache_hit_rate = float(sources.get("cache_hit_rate", 0.0) or 0.0)
-    lookback_days = int(sources.get("lookback_days") or SAMPLE_LOOKBACK_DAYS)
-    warning_lines = _format_collection_warning_lines(sources)
-    warning_block = ""
-    if warning_lines:
-        warning_block = "\n## 数据提醒\n" + "\n".join(warning_lines)
-
-    ps_ratio_value = sources.get("ps_ratio")
-    ps_ratio = (
-        f"{ps_ratio_value:.2f}"
-        if isinstance(ps_ratio_value, (int, float))
-        else f"{len(pain_points)}:{max(len(action_items), len(opportunities), 1)}"
-    )
-
-    def _format_list(items: list[str]) -> str:
-        return "\n".join(f"- {it}" for it in items) if items else "- 暂无数据"
-
-    def _fmt_pain(p: Dict[str, Any]) -> str:
-        desc = str(p.get("description", "")).strip() or "未提取"
-        freq = p.get("frequency") or p.get("mentions") or 1
-        return f"- {desc}（频次 {freq}）"
-
-    def _fmt_opp(o: Dict[str, Any]) -> str:
-        desc = str(o.get("description", "")).strip() or "未提取"
-        rel = o.get("relevance_score", 0)
-        rel_str = f"{rel:.0%}" if isinstance(rel, (float, int)) else str(rel)
-        audience = o.get("potential_users_est") or o.get("potential_users") or ""
-        return f"- {desc}（相关度 {rel_str}，潜在用户 {audience}）"
-
-    def _fmt_comp(c: Dict[str, Any]) -> str:
-        name = c.get("name") or "未知"
-        mentions = c.get("mentions", 0)
-        sentiment = c.get("sentiment", "mixed")
-        return f"- {name}：提及 {mentions} 次，情感 {sentiment}"
-
-    top_pains = "\n".join(_fmt_pain(p) for p in pain_points[:3]) or "- 未识别到核心痛点"
-    top_opps = "\n".join(_fmt_opp(o) for o in opportunities[:3]) or "- 未识别到机会"
-    top_comps = "\n".join(_fmt_comp(c) for c in competitors[:5]) or "- 未识别到竞品/品牌"
-
-    top_drivers_list = []
-    for p in pain_points[:5]:
-        driver = derive_driver_label(p.get("description", ""))
-        item = f"- {driver} ← 来源痛点：{p.get('description','')}"
-        if item not in top_drivers_list:
-            top_drivers_list.append(item)
-    top_drivers = "\n".join(top_drivers_list) or "- 暂无驱动力结论"
-
-    # 用户之声
-    quotes: list[str] = []
-    for p in pain_points:
-        for quote in p.get("user_examples", []) or []:
-            if quote not in quotes:
-                quotes.append(quote)
-            if len(quotes) >= 5:
-                break
-        if len(quotes) >= 5:
-            break
-    quotes_block = "\n".join(f"- {q}" for q in quotes[:5]) or "- 暂无用户原声"
-
-    # 机会卡详情
-    def _format_opportunity_card(o: Dict[str, Any]) -> str:
-        desc = str(o.get("description", "")).strip() or "未提取"
-        users = o.get("potential_users") or o.get("potential_users_est") or "N/A"
-        rel = o.get("relevance_score", 0)
-        rel_str = f"{rel:.0%}" if isinstance(rel, (float, int)) else str(rel)
-        linked = o.get("linked_pain_cluster") or "通用痛点"
-        channels = o.get("top_channels") or []
-        channel_str = ", ".join(channels) if channels else "多渠道"
-        return (
-            f"- {desc}\n"
-            f"  - 目标社群：{', '.join(community_names[:3]) or '核心社区'}\n"
-            f"  - 产品定位：解决 {linked}，强调 {rel_str} 相关度\n"
-            f"  - 核心卖点：{', '.join(o.get('key_insights', [])[:3]) or '效率/稳定/合规'}\n"
-            f"  - 潜在用户：{users}；渠道：{channel_str}"
-        )
-
-    opportunity_cards = "\n".join(
-        _format_opportunity_card(o) for o in opportunities[:3]
-    ) or "- 暂无机会卡"
-
-    battlefield_blocks: list[str] = []
-    for comm in top_communities:
-        name = comm.profile.name
-        description = ", ".join(comm.profile.categories) if comm.profile.categories else "相关社区"
-        pains = ", ".join(
-            [p.get("description", "") for p in pain_points[:2] if p.get("description")]
-        ) or "关注用户运营/转化等常见问题"
-        strategy = "提供可视化、自动化和本地化能力，验证 ROI"  # 通用策略语句
-        battlefield_blocks.append(
-            dedent(
-                f"""
-                - **{name}**
-                  - 画像：{description}
-                  - 常见痛点：{pains}
-                  - 痛点热度：{pain_counts.get(name, 0)}
-                  - 策略建议：{strategy}
-                """
-            ).strip()
-        )
-
-    battlefields = "\n".join(battlefield_blocks) or "- 暂无战场数据"
-
-    report = dedent(
-        f"""
-        [Reddit Signal Scanner] 市场洞察报告
-
-        ## 已分析赛道
-        - 赛道：{task_summary.product_description.strip()}
-        - 关键词：{", ".join(sources.get("keywords", []) or [])}
-        - 数据范围：
-          - 社区：{len(communities)} 个
-          - 帖子：{posts_analyzed} 条（缓存命中率 {cache_hit_rate:.0%}）
-          - 时间窗口：近 {lookback_days} 天，围绕上述关键词采样
-        - 覆盖社区：{", ".join(community_names[:12])}
-
-        ## 决策卡片
-        1) 需求趋势：基于 {posts_analyzed} 条帖子，热度仍在（社区覆盖 {len(community_names)} 个）。
-        2) 问题/解决方案比（P/S）：约 {ps_ratio}，痛点略高，需继续挖掘方案位。
-        3) 核心战场：{", ".join(community_names[:4]) or "待补充"}。
-        4) 明确机会点：{"; ".join([o.get("description","") for o in opportunities[:3]]) or "待补充"}。
-
-        ## 概览
-        - 竞争与品牌：\n{top_comps}
-        - 痛点/解决方案比：{ps_ratio}（痛点 {len(pain_points)}，机会 {max(len(action_items), len(opportunities))}）
-
-        ## 核心战场推荐
-        {battlefields}
-
-        ## 用户痛点（Top 3）
-        {top_pains}
-
-        ## Top 购买驱动力
-        {top_drivers}
-
-        ## 潜在机会（Top 3）
-        {top_opps}
-
-        ## 机会卡（结构化）
-        {opportunity_cards}
-
-        ## 用户之声（Quotes）
-        {quotes_block}
-
-        ## 数据与技术摘要
-        - 帖子总数：{posts_analyzed}
-        - 覆盖社区：{len(community_names)}
-        - 新发现社区：{max(0, len(community_names) - len(set(community_names)))}（按名称去重估算）
-        - 缓存命中率：{cache_hit_rate:.0%}
-        {warning_block}
-        """
-    ).strip()
-
-    return report
-
-
-def _render_scouting_report(
-    task_summary: TaskSummary,
-    communities: Sequence[CollectedCommunity],
-    sources: Dict[str, Any],
-) -> str:
-    community_names = [entry.profile.name for entry in communities]
-    posts_analyzed = int(sources.get("posts_analyzed", 0) or 0)
-    comments_analyzed = int(sources.get("comments_analyzed", 0) or 0)
-    comments_status = str(sources.get("comments_pipeline_status") or "").strip() or "unknown"
-    cache_hit_rate = float(sources.get("cache_hit_rate", 0.0) or 0.0)
-    warning_lines = _format_collection_warning_lines(sources)
-    warning_block = ""
-    if warning_lines:
-        warning_block = "\n## 数据提醒\n" + "\n".join(warning_lines)
-    keywords = sources.get("keywords", []) or []
-
-    ps_ratio_value = sources.get("ps_ratio")
-    ps_ratio = (
-        f"{ps_ratio_value:.2f}"
-        if isinstance(ps_ratio_value, (int, float))
-        else "N/A"
-    )
-
-    communities_detail = sources.get("communities_detail") or []
-    top_communities: list[dict[str, Any]] = []
-    if isinstance(communities_detail, list):
-        try:
-            candidates = [
-                row
-                for row in communities_detail
-                if isinstance(row, dict) and row.get("name")
-            ]
-            candidates.sort(key=lambda x: int(x.get("mentions") or 0), reverse=True)
-            top_communities = candidates[:4]
-        except Exception:
-            top_communities = []
-
-    if not top_communities:
-        top_communities = [{"name": name} for name in community_names[:4] if name]
-
-    battlefield_lines = []
-    for row in top_communities:
-        name = str(row.get("name") or "").strip() or "unknown"
-        categories = row.get("categories") or []
-        label = ", ".join([str(x) for x in categories if x]) if isinstance(categories, list) else ""
-        mentions = int(row.get("mentions") or 0) if isinstance(row.get("mentions"), (int, float)) else 0
-        extra = []
-        if label:
-            extra.append(f"画像：{label}")
-        if mentions:
-            extra.append(f"提及：{mentions}")
-        extra_text = f"（{'；'.join(extra)}）" if extra else ""
-        battlefield_lines.append(f"- **{name}**{extra_text}")
-    battlefields = "\n".join(battlefield_lines) or "- 暂无战场数据"
-
-    remediation_actions = sources.get("remediation_actions") or []
-    remediation_note = ""
-    try:
-        if isinstance(remediation_actions, list) and remediation_actions:
-            backfill_posts = sum(
-                int(a.get("targets") or 0)
-                for a in remediation_actions
-                if isinstance(a, dict) and a.get("type") == "backfill_posts"
-            )
-            backfill_comments = sum(
-                int(a.get("targets") or 0)
-                for a in remediation_actions
-                if isinstance(a, dict) and a.get("type") == "backfill_comments"
-            )
-            parts: list[str] = []
-            if backfill_posts:
-                parts.append(f"帖子补抓下单 {backfill_posts} 个 target")
-            if backfill_comments:
-                parts.append(f"评论补抓下单 {backfill_comments} 个 target")
-            if parts:
-                remediation_note = "系统已自动补量：" + "，".join(parts) + "（稍后重试会更准）。"
-    except Exception:
-        remediation_note = ""
-
-    return dedent(
-        f"""
-        [Reddit Signal Scanner] 勘探简报（C_scouting）
-
-        ## 已分析赛道
-        - 赛道：{task_summary.product_description.strip()}
-        - 关键词：{", ".join([str(x) for x in keywords if x])}
-        - 数据范围：
-          - 社区：{len(community_names)} 个
-          - 帖子：{posts_analyzed} 条（缓存命中率 {cache_hit_rate:.0%}）
-          - 评论：{comments_analyzed} 条（状态：{comments_status}）
-
-        ## 决策卡片
-        1) 需求趋势：目前样本主要集中在 {len(community_names)} 个社区，热度需要继续观察。
-        2) 问题/解决方案比（P/S）：约 {ps_ratio}（先当“方向感”，别当结论）。
-        3) 核心战场：{", ".join(community_names[:4]) or "待补充"}。
-        4) 下一步建议：扩充样本（更多社区/更长时间窗/更明确关键词），再升级到 B/A 报告。{remediation_note}
-        {warning_block}
-
-        ## 核心战场推荐
-        {battlefields}
-
-        ## 备注
-        目前样本只够做“前期观察”，还不足以输出完整的痛点/机会结论；等样本更充分后，会自动升级为 B/A 报告。
-        """
-    ).strip()
-
-
-async def _render_report_with_llm(
-    *,
-    task: TaskSummary,
-    facts_slice: Mapping[str, Any] | None,
-    report_tier: str,
-    settings: Settings,
-) -> str | None:
-    if report_tier in {"C_scouting", "X_blocked"}:
-        return None
-    if not settings.enable_llm_summary:
-        return None
-    api_key = str(getattr(settings, "openai_api_key", "")).strip()
-    if not api_key:
-        return None
-    if not facts_slice:
-        return None
-
-    facts_text = format_facts_for_prompt(facts_slice)
-    prompt = build_complete_report_v9(task.product_description, facts_text)
-    client = OpenAIChatClient(model=settings.llm_model_name, timeout=60.0, api_key=api_key)
-    content = await client.generate(prompt, max_tokens=4000, temperature=0.25)
-    return content.strip() or None
-
-
-def _extract_json_payload(raw: str) -> dict[str, Any] | None:
-    text = (raw or "").strip()
-    if not text:
-        return None
-    if "```" in text:
-        lines = []
-        in_block = False
-        for line in text.splitlines():
-            if line.strip().startswith("```"):
-                in_block = not in_block
-                continue
-            if in_block:
-                lines.append(line)
-        text = "\n".join(lines).strip() if lines else text
-    start = text.find("{")
-    end = text.rfind("}")
-    if start == -1 or end == -1 or end <= start:
-        return None
-    candidate = text[start : end + 1]
-    try:
-        return json.loads(candidate)
-    except json.JSONDecodeError:
-        return None
-
-
-async def _render_structured_report_with_llm(
-    *,
-    task: TaskSummary,
-    facts_slice: Mapping[str, Any] | None,
-    report_tier: str,
-    settings: Settings,
-) -> dict[str, Any] | None:
-    if report_tier in {"C_scouting", "X_blocked"}:
-        return None
-    if not settings.enable_llm_summary:
-        return None
-    if str(settings.llm_model_name).strip() == "local-extractive":
-        return None
-    api_key = str(getattr(settings, "openai_api_key", "")).strip()
-    if not api_key:
-        return None
-    if not facts_slice:
-        return None
-
-    facts_text = format_facts_for_prompt(facts_slice)
-    prompt = build_report_structured_prompt_v9(task.product_description, facts_text)
-    client = OpenAIChatClient(model=settings.llm_model_name, timeout=60.0, api_key=api_key)
-    raw = await client.generate(prompt, max_tokens=4000, temperature=0.25)
-    return _extract_json_payload(raw)
-
-
 # ── Section 6: Main Entry Point ────────────────────────────────────────────
 
 
@@ -3400,9 +2969,13 @@ async def run_analysis(
     #    路径 A: topic_profile_id 存在 → 使用 profile 的关键词/社区/时间窗 (精准模式)
     #    路径 B: topic_profile_id 不存在 → 默认 NLP 提取关键词 (通用模式)
     topic_profile: TopicProfile | None = None
+    facts_diagnostics: dict[str, Any] = {}
     topic_profile_id = getattr(task, "topic_profile_id", None)
     if topic_profile_id:
-        profiles = load_topic_profiles()
+        try:
+            profiles = load_topic_profiles(diagnostics=facts_diagnostics)
+        except TypeError:
+            profiles = load_topic_profiles()
         if not profiles:
             raise ValueError("TopicProfile config missing (config/topic_profiles.yaml)")
         topic_profile = match_topic_profile(str(topic_profile_id), profiles)
@@ -3454,6 +3027,7 @@ async def run_analysis(
         remediation_actions = await _schedule_auto_backfill_for_insufficient_samples(
             task=task,
             topic_profile=topic_profile,
+            keywords=fetch_keywords,
         )
         blocked = _build_insufficient_sample_result(
             task, sample_result, lookback_days=lookback_days
@@ -3726,20 +3300,37 @@ async def run_analysis(
     semantic_counts: dict[str, int] = {}
     try:
         async with SessionFactory() as db:
-            semantic_counts = await fetch_topic_relevant_communities(
-                db,
-                topic=task.product_description,
-                topic_tokens=keywords,
-                exclusion_tokens=(
-                    topic_profile_blocklist_keywords(topic_profile)
-                    if topic_profile is not None
-                    else None
-                ),
-                days=int(lookback_days),
-                min_relevance_score=5,
-            )
+            try:
+                semantic_counts = await fetch_topic_relevant_communities(
+                    db,
+                    topic=task.product_description,
+                    topic_tokens=keywords,
+                    exclusion_tokens=(
+                        topic_profile_blocklist_keywords(topic_profile)
+                        if topic_profile is not None
+                        else None
+                    ),
+                    days=int(lookback_days),
+                    min_relevance_score=5,
+                    diagnostics=facts_diagnostics,
+                )
+            except TypeError:
+                semantic_counts = await fetch_topic_relevant_communities(
+                    db,
+                    topic=task.product_description,
+                    topic_tokens=keywords,
+                    exclusion_tokens=(
+                        topic_profile_blocklist_keywords(topic_profile)
+                        if topic_profile is not None
+                        else None
+                    ),
+                    days=int(lookback_days),
+                    min_relevance_score=5,
+                )
     except Exception as exc:  # pragma: no cover - best effort
         logger.warning("Semantic DB search skipped: %s", exc)
+        facts_diagnostics["semantic_search_status"] = "query_failed"
+        facts_diagnostics["semantic_search_error"] = str(exc)[:200]
         semantic_counts = {}
 
     if search_posts:
@@ -3951,10 +3542,13 @@ async def run_analysis(
 
     all_posts = [post for entry in collected for post in entry.posts]
     hybrid_posts: list[dict[str, Any]] = []
+    hybrid_retrieval_status: str | None = None
+    hybrid_retrieval_reason: str | None = None
+    hybrid_retrieval_query: str | None = None
     if settings.enable_hybrid_retrieval:
         try:
             async with SessionFactory() as _session:
-                hybrid_posts = await fetch_hybrid_posts(
+                hybrid_result = await run_hybrid_retrieval(
                     _session,
                     topic=task.product_description,
                     topic_tokens=fetch_keywords or keywords,
@@ -3963,6 +3557,10 @@ async def run_analysis(
                     vector_distance=float(settings.hybrid_vector_distance),
                     hybrid_weight=float(settings.hybrid_weight),
                 )
+                hybrid_posts = hybrid_result.posts
+                hybrid_retrieval_status = hybrid_result.status
+                hybrid_retrieval_reason = hybrid_result.reason
+                hybrid_retrieval_query = hybrid_result.search_query
         except Exception as exc:  # pragma: no cover - best effort
             logger.warning("Hybrid retrieval skipped: %s", exc)
 
@@ -4004,6 +3602,7 @@ async def run_analysis(
             post_remediation_actions = await _schedule_auto_backfill_for_insufficient_samples(
                 task=task,
                 topic_profile=topic_profile,
+                keywords=fetch_keywords,
             )
             analysis_blocked_reason = "insufficient_samples"
 
@@ -4032,6 +3631,14 @@ async def run_analysis(
                     "keywords": list(keywords),
                     "fetch_keywords": list(fetch_keywords),
                     "report_tier": "C_scouting",
+                    "structured_llm_status": "skipped",
+                    "structured_llm_reason": "insufficient_samples",
+                    "llm_used": False,
+                    "llm_model": None,
+                    "llm_rounds": 0,
+                    "hybrid_retrieval_status": hybrid_retrieval_status,
+                    "hybrid_retrieval_reason": hybrid_retrieval_reason,
+                    "hybrid_retrieval_query": hybrid_retrieval_query,
                     "facts_v2_quality": {
                         "passed": True,
                         "tier": "C_scouting",
@@ -4318,22 +3925,42 @@ async def run_analysis(
         from app.services.analysis.pain_cluster import cluster_pain_points_auto
 
         async with SessionFactory() as _s:
-            clusters = await cluster_pain_points_auto(
-                _s,
-                since_days=int(lookback_days),
-                subreddits=[c.replace("r/", "").lower() for c in sources.get("communities", [])] if isinstance(sources, Mapping) else None,
-                limit_per_source=_GUARD_SAMPLE_LIMIT,
-                fallback_items=pain_points_payload,
-                min_clusters=2,
-                max_clusters=5,
-            )
+            try:
+                clusters = await cluster_pain_points_auto(
+                    _s,
+                    since_days=int(lookback_days),
+                    subreddits=[c.replace("r/", "").lower() for c in sources.get("communities", [])] if isinstance(sources, Mapping) else None,
+                    limit_per_source=_GUARD_SAMPLE_LIMIT,
+                    fallback_items=pain_points_payload,
+                    min_clusters=2,
+                    max_clusters=5,
+                    diagnostics=facts_diagnostics,
+                )
+            except TypeError:
+                clusters = await cluster_pain_points_auto(
+                    _s,
+                    since_days=int(lookback_days),
+                    subreddits=[c.replace("r/", "").lower() for c in sources.get("communities", [])] if isinstance(sources, Mapping) else None,
+                    limit_per_source=_GUARD_SAMPLE_LIMIT,
+                    fallback_items=pain_points_payload,
+                    min_clusters=2,
+                    max_clusters=5,
+                )
         if not clusters:
             clusters = cluster_pain_points(pain_points_payload)
-    except Exception:
+            if clusters:
+                facts_diagnostics["pain_clusters_pipeline_status"] = "engine_tfidf_fallback"
+    except Exception as exc:
+        facts_diagnostics["pain_clusters_pipeline_status"] = "fallback_error"
+        facts_diagnostics["pain_clusters_error"] = str(exc)[:200]
         try:
             clusters = cluster_pain_points(pain_points_payload)
+            if clusters:
+                facts_diagnostics["pain_clusters_pipeline_status"] = "engine_tfidf_fallback"
         except Exception:
             clusters = insights.get("pain_clusters", []) or []
+            if clusters:
+                facts_diagnostics["pain_clusters_pipeline_status"] = "legacy_payload_fallback"
 
     channel_names: List[str] = []
     try:
@@ -4896,6 +4523,8 @@ async def run_analysis(
         "sample_posts_db": sample_posts_db,
         "sample_comments_db": sample_comments_db,
     }
+    if facts_diagnostics:
+        facts_v2_package["diagnostics"] = dict(facts_diagnostics)
     # 🔀 分支 7: Facts V2 质量门禁 (Serena 验证: _determine_report_tier in facts_v2/quality.py)
     #    → X_blocked:  topic_mismatch 或 range_mismatch (报告拦截)
     #    → C_scouting: comments_low 或 comments_not_used (侦察简报)
@@ -4906,9 +4535,9 @@ async def run_analysis(
     quality = quality_check_facts_v2(
         facts_v2_package,
         profile=topic_profile,
-        # 即便没有 topic_profile，也尝试用 meta.product_description 里的英文 token 做兜底拦截；
-        # 若没有任何可用 token，quality gate 内部会自动标记 topic_check_skipped。
-        skip_topic_check=False,
+        # 合同修正：开放提问（无 topic_profile）默认先冲 Full A，
+        # 不用 fallback 英文 token 直接做硬拦截；topic check 仅在 profile 黄金路径生效。
+        skip_topic_check=topic_profile is None,
     )
     report_tier = quality.tier
     facts_v2_quality = {
@@ -5017,6 +4646,9 @@ async def run_analysis(
         "fetch_keywords": list(fetch_keywords),
         "analysis_duration_seconds": processing_seconds,
         "hybrid_posts_used": len(hybrid_posts),
+        "hybrid_retrieval_status": hybrid_retrieval_status,
+        "hybrid_retrieval_reason": hybrid_retrieval_reason,
+        "hybrid_retrieval_query": hybrid_retrieval_query,
         "reddit_api_calls": api_call_count,
         "reddit_api_failures": api_failure_details,
         "stale_cache_subreddits": sorted(stale_cache_subreddits),
@@ -5056,6 +4688,8 @@ async def run_analysis(
         "trend_degraded": trend_degraded,
         "trend_source": trend_sources or None,
     }
+    if facts_diagnostics:
+        sources["analysis_diagnostics"] = dict(facts_diagnostics)
     if data_readiness is not None:
         sources["data_readiness"] = data_readiness
     if all_remediation_actions:
@@ -5076,7 +4710,16 @@ async def run_analysis(
 
     # 将本次分析涉及的社区写入 discovered_communities，便于后续查询/回溯
     try:
-        await _record_discovered_communities(task.id, collected, keywords)
+        discovered_record = await _record_discovered_communities(task, collected, keywords)
+        if discovered_record is not None and discovered_record.status != "completed":
+            logger.info(
+                "Skipped discovered communities persistence",
+                extra={
+                    "task_id": str(task.id),
+                    "reason": discovered_record.reason,
+                    "status": discovered_record.status,
+                },
+            )
     except Exception:
         logger.warning("Failed to record discovered communities", exc_info=True)
 
@@ -5088,42 +4731,28 @@ async def run_analysis(
             suggestion = "换一个更准的 `topic_profile_id`，或扩充样本（更多社区/更长时间窗/更明确关键词）。"
         else:
             suggestion = "先扩充样本（更多社区/更长时间窗/更明确关键词），再看是否需要建立 topic_profile。"
-    # 🔀 分支 8: 报告渲染路径
-    #    X_blocked  → 纯文本拦截页 (无渲染)
-    #    C_scouting → _render_scouting_report (侦察简报)
-    #    A/B        → _render_report (规则渲染)
-    #    + _render_structured_report_with_llm (Grok-4.1; 已内置 C/X tier 保护, 不会浪费调用)
-    if report_tier == "X_blocked":
-        report_html = dedent(
-            f"""
-            [Reddit Signal Scanner] 报告拦截（X_blocked）
-
-            这次数据不够“下结论”，所以系统把报告拦住了，避免输出误导性结论。
-
-            - 原因：{", ".join([str(x) for x in flags]) or "unknown"}
-            - 建议：{suggestion}
-            """
-        ).strip()
-    elif report_tier == "C_scouting":
-        report_html = _render_scouting_report(task, collected, sources)
-    else:
-        report_html = _render_report(task, collected, insights, sources)
-
-    structured_report = None
-    try:
-        structured_report = await _render_structured_report_with_llm(
-            task=task,
-            facts_slice=facts_slice,
-            report_tier=report_tier,
-            settings=settings,
-        )
-    except Exception:
-        structured_report = None
-    if structured_report:
-        sources["report_structured"] = structured_report
-    sources["llm_used"] = bool(structured_report)
-    sources["llm_model"] = settings.llm_model_name if structured_report else None
-    sources["llm_rounds"] = 1 if structured_report else 0
+    render_bundle = await render_analysis_reports(
+        task=task,
+        communities=collected,
+        insights=insights,
+        sources=sources,
+        facts_slice=facts_slice,
+        report_tier=report_tier,
+        settings=settings,
+        blocked_flags=flags,
+        blocked_suggestion=suggestion,
+    )
+    report_html = render_bundle.report_html
+    structured_render = render_bundle.structured_render
+    if structured_render.report:
+        sources["report_structured"] = structured_render.report
+    sources["structured_llm_status"] = structured_render.status
+    sources["structured_llm_reason"] = structured_render.reason
+    # `report_structured` may come from deterministic fallback.
+    # Track real LLM usage by model presence, not payload presence.
+    sources["llm_used"] = bool(structured_render.model)
+    sources["llm_model"] = structured_render.model
+    sources["llm_rounds"] = structured_render.rounds
 
     # 🔀 分支 9: 置信度评分 + 最终清理
     #    基于 cache_hit_rate + posts + communities + signals 六维度计算 0.0-1.0 分数

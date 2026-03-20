@@ -9,6 +9,11 @@ class _FakeLLM:
         return self._reply
 
 
+class _ErrorLLM:
+    async def generate(self, prompt, *, response_format=None, temperature=0.1, max_tokens=200):
+        raise RuntimeError("boom")
+
+
 @pytest.mark.asyncio
 async def test_resolve_query_no_cjk_returns_original():
     from app.services.hotpost.query_resolver import resolve_hotpost_query
@@ -52,3 +57,17 @@ async def test_resolve_query_llm_bad_json_fallback():
 
     assert result.search_query == "扫地机器人"
     assert result.source == "fallback"
+    assert result.degraded_reason == "llm_response_invalid"
+
+
+@pytest.mark.asyncio
+async def test_resolve_query_llm_error_marks_degraded_reason():
+    from app.services.hotpost.query_resolver import resolve_hotpost_query
+
+    result = await resolve_hotpost_query(
+        "扫地机器人", redis_client=None, llm_client=_ErrorLLM()
+    )
+
+    assert result.search_query == "扫地机器人"
+    assert result.source == "fallback"
+    assert result.degraded_reason == "llm_generate_failed"

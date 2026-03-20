@@ -1,0 +1,18 @@
+export const ROUTES = {
+  HOME: '/',
+  LOGIN: '/login',
+  REGISTER: '/register',
+  HOTPOST: '/hotpost',
+  HOTPOST_RESULT: (queryId: string) => `/hotpost/result/${queryId}`,
+  PROGRESS: (taskId: string) => `/progress/${taskId}`,
+  REPORT: (taskId: string) => `/report/${taskId}`,
+  INSIGHTS: '/insights',
+  DECISION_UNITS: '/decision-units',
+  DASHBOARD: '/dashboard',
+  ADMIN_DASHBOARD: '/admin',
+  ADMIN_CANDIDATES: '/admin/communities/discovered',
+  ADMIN_POOL: '/admin/communities/pool',
+  ADMIN_COMMUNITY_IMPORT: '/admin/communities/import',
+  ADMIN_TASK_LEDGER: '/admin/tasks/ledger',
+  INSIGHTS_TASK: (taskId: string) => `/insights/${taskId}`,
+};

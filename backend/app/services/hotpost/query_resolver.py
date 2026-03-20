@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import logging
 import os
 import re
 from dataclasses import dataclass
@@ -14,6 +15,7 @@ from app.utils.subreddit import normalize_subreddit_name
 
 
 _CJK_RE = re.compile(r"[\u3400-\u4dbf\u4e00-\u9fff]")
+logger = logging.getLogger(__name__)
 
 
 @dataclass(frozen=True)
@@ -23,6 +25,7 @@ class HotpostQueryResolution:
     keywords: list[str]
     subreddits: list[str]
     source: Literal["original", "cache", "llm", "fallback"]
+    degraded_reason: str | None = None
 
 
 def _contains_cjk(text: str) -> bool:
@@ -126,6 +129,7 @@ async def resolve_hotpost_query(
             keywords=[],
             subreddits=[],
             source="fallback",
+            degraded_reason="llm_client_unavailable",
         )
 
     system = (
@@ -148,8 +152,16 @@ async def resolve_hotpost_query(
             temperature=0.1,
             max_tokens=int(os.getenv("HOTPOST_QUERY_TRANSLATE_MAX_TOKENS", "200")),
         )
-    except Exception:
-        content = ""
+    except Exception as exc:
+        logger.warning("hotpost query translation failed: %s", exc)
+        return HotpostQueryResolution(
+            original_query=original,
+            search_query=original,
+            keywords=[],
+            subreddits=[],
+            source="fallback",
+            degraded_reason="llm_generate_failed",
+        )
 
     parsed = _safe_json_loads(content or "")
     if not parsed:
@@ -159,6 +171,7 @@ async def resolve_hotpost_query(
             keywords=[],
             subreddits=[],
             source="fallback",
+            degraded_reason="llm_response_invalid",
         )
 
     query_en = str(parsed.get("query_en") or "").strip()

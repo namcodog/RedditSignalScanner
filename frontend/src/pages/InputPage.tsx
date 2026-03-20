@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -15,7 +15,7 @@ import {
 import { createAnalyzeTask } from '@/api/analyze.api';
 import { getInputGuidance } from '@/api/guidance.api';
 import { isAuthenticated, logout } from '@/api/auth.api';
-import { ROUTES } from '@/router';
+import { ROUTES } from '@/router/routes';
 import NavigationBreadcrumb from '@/components/NavigationBreadcrumb';
 import AuthDialog from '@/components/AuthDialog';
 
@@ -42,7 +42,13 @@ type SamplePrompt = {
   title: string;
   description: string;
   tags?: string[];
-  exampleId?: string | null;
+  topicProfileId?: string;
+};
+
+type InputPrefillState = {
+  prefillProductDescription?: string;
+  prefillHint?: string;
+  prefillSource?: 'report' | 'restart-analysis' | 'hotpost-deepdive';
 };
 
 const FALLBACK_PROMPTS: SamplePrompt[] = [
@@ -59,12 +65,14 @@ const FALLBACK_PROMPTS: SamplePrompt[] = [
     description: '一个专注于可持续时尚品牌的在线市场，重视透明度和道德制造...',
   },
   {
-    title: '跨境电商',
-    description: '跨境电商卖家多平台回款与手续费管理工具，覆盖 Amazon/Etsy/Shopify/TikTok Shop，解决结算周期长、费率不透明、资金分散的问题。',
+    title: '跨境支付/收款',
+    description: '跨境电商卖家收款与结算效率分析，重点看 payout 延迟、手续费成本和风控冻结。',
+    topicProfileId: 'cross_border_payment_v1',
   },
   {
     title: '家居收纳',
     description: '面向北美租房人群的家居收纳与清洁工具推荐/比价助手，解决空间小、产品选择多、踩雷的问题。',
+    topicProfileId: 'vacuum_cleaner_v1',
   },
   {
     title: '户外/EDC',
@@ -74,12 +82,14 @@ const FALLBACK_PROMPTS: SamplePrompt[] = [
 
 const InputPage: React.FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [apiError, setApiError] = useState<string | null>(null);
   const [isAuthDialogOpen, setIsAuthDialogOpen] = useState(false);
   const [authDialogTab, setAuthDialogTab] = useState<'login' | 'register'>('login');
   const [samplePrompts, setSamplePrompts] = useState<SamplePrompt[]>(FALLBACK_PROMPTS);
-  const [selectedExampleId, setSelectedExampleId] = useState<string | null>(null);
-  const [selectedExamplePrompt, setSelectedExamplePrompt] = useState<string | null>(null);
+  const [selectedTopicProfileId, setSelectedTopicProfileId] = useState<string | undefined>(undefined);
+  const [selectedPromptSnapshot, setSelectedPromptSnapshot] = useState<string>('');
+  const hasAppliedPrefill = useRef(false);
 
   const {
     register: registerForm,
@@ -97,6 +107,20 @@ const InputPage: React.FC = () => {
 
   const productDescription = watch('productDescription');
   const trimmedLength = productDescription.trim().length;
+  const locationState = (location.state as InputPrefillState | null) ?? null;
+  const prefillDescription = locationState?.prefillProductDescription?.trim() ?? '';
+  const prefillHint = locationState?.prefillHint?.trim() ?? '';
+  const prefillSource = locationState?.prefillSource ?? null;
+  const prefillTitle =
+    prefillSource === 'hotpost-deepdive'
+      ? '已带回这次热点方向'
+      : prefillSource === 'restart-analysis'
+        ? '已带回这次待优化方向'
+      : '已带回这次分析方向';
+  const prefillFallbackHint =
+    prefillSource === 'hotpost-deepdive'
+      ? '这波信号已带回。补成完整产品描述后，直接继续深挖。'
+      : '不用从零重写，直接在这份描述上改后重跑。';
 
   const characterBadge = useMemo(() => {
     return `${trimmedLength} 字`;
@@ -110,12 +134,15 @@ const InputPage: React.FC = () => {
         const guidance = await getInputGuidance();
         if (!active) return;
         const examples = (guidance.examples ?? [])
-          .map((example) => ({
-            title: example.title || '示例',
-            description: example.prompt,
-            tags: example.tags ?? [],
-            exampleId: example.example_id ?? null,
-          }))
+          .map((example) => {
+            const normalizedProfileId = example.topic_profile_id?.trim() || '';
+            return {
+              title: example.title || '示例',
+              description: example.prompt,
+              tags: example.tags ?? [],
+              ...(normalizedProfileId ? { topicProfileId: normalizedProfileId } : {}),
+            };
+          })
           .filter((example) => example.description && example.description.trim().length > 0);
         if (examples.length > 0) {
           setSamplePrompts(examples.slice(0, 6));
@@ -132,14 +159,29 @@ const InputPage: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    if (!selectedExampleId || !selectedExamplePrompt) {
+    if (hasAppliedPrefill.current || !prefillDescription) {
       return;
     }
-    if (productDescription.trim() !== selectedExamplePrompt.trim()) {
-      setSelectedExampleId(null);
-      setSelectedExamplePrompt(null);
+
+    setValue('productDescription', prefillDescription, {
+      shouldDirty: true,
+      shouldTouch: true,
+      shouldValidate: true,
+    });
+    setSelectedTopicProfileId(undefined);
+    setSelectedPromptSnapshot('');
+    hasAppliedPrefill.current = true;
+  }, [prefillDescription, setValue]);
+
+  useEffect(() => {
+    if (!selectedTopicProfileId || !selectedPromptSnapshot) {
+      return;
     }
-  }, [productDescription, selectedExampleId, selectedExamplePrompt]);
+    if (productDescription.trim() !== selectedPromptSnapshot.trim()) {
+      setSelectedTopicProfileId(undefined);
+      setSelectedPromptSnapshot('');
+    }
+  }, [productDescription, selectedTopicProfileId, selectedPromptSnapshot]);
 
   const onSubmit = handleSubmit(async (values) => {
     const description = values.productDescription.trim();
@@ -153,12 +195,11 @@ const InputPage: React.FC = () => {
     }
 
     try {
-      const response = await createAnalyzeTask({
+      const payload = {
         product_description: description,
-        ...(selectedExampleId && description === selectedExamplePrompt?.trim()
-          ? { example_id: selectedExampleId }
-          : {}),
-      });
+        ...(selectedTopicProfileId ? { topic_profile_id: selectedTopicProfileId } : {}),
+      };
+      const response = await createAnalyzeTask(payload);
       navigate(ROUTES.PROGRESS(response.task_id), {
         state: {
           estimatedCompletion: response.estimated_completion,
@@ -179,89 +220,162 @@ const InputPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="border-b border-border bg-card">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-              <Search className="w-5 h-5 text-primary-foreground" />
+      <header className="surface-header border-b border-border/70">
+        <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-4 px-4 py-4">
+          <div className="flex min-w-0 items-center gap-3">
+            <div className="surface-brand-mark flex h-11 w-11 items-center justify-center rounded-2xl text-primary-foreground">
+              <Search className="h-5 w-5" />
             </div>
-            <h1 className="text-xl font-bold text-foreground">Reddit 商业信号扫描器</h1>
-            <button
-               onClick={() => navigate(ROUTES.HOTPOST)}
-               className="ml-6 flex items-center space-x-1 px-3 py-1.5 rounded-full bg-orange-100 text-orange-700 hover:bg-orange-200 text-sm font-medium transition-colors"
-            >
-               <span>🔥 爆帖速递</span>
-            </button>
+            <div className="min-w-0">
+              <div className="surface-section-kicker">Signal Intake</div>
+              <h1 className="truncate text-lg font-semibold text-foreground">Reddit 商业信号扫描器</h1>
+            </div>
           </div>
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => navigate(ROUTES.HOTPOST)}
+              className="surface-action-secondary inline-flex h-10 items-center justify-center rounded-xl px-4 text-sm font-medium transition-colors"
+            >
+              去爆帖速递
+            </button>
             {isAuthenticated() ? (
-              <div className="flex items-center space-x-3">
-                <span className="text-sm text-muted-foreground">欢迎回来</span>
+              <>
+                <span className="hidden text-sm text-muted-foreground md:inline">欢迎回来</span>
                 <button
                   onClick={handleLogout}
-                  className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 px-3"
+                  className="surface-action-secondary inline-flex h-10 items-center justify-center rounded-xl px-4 text-sm font-medium transition-colors"
                 >
                   退出登录
                 </button>
-              </div>
+              </>
             ) : (
-              <div className="flex items-center space-x-2">
+              <>
                 <button
-                  onClick={() => { setAuthDialogTab('login'); setIsAuthDialogOpen(true); }}
-                  className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 px-3"
+                  onClick={() => {
+                    setAuthDialogTab('login');
+                    setIsAuthDialogOpen(true);
+                  }}
+                  className="surface-action-secondary inline-flex h-10 items-center justify-center rounded-xl px-4 text-sm font-medium transition-colors"
                 >
                   登录
                 </button>
                 <button
-                  onClick={() => { setAuthDialogTab('register'); setIsAuthDialogOpen(true); }}
-                  className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-9 px-3"
+                  onClick={() => {
+                    setAuthDialogTab('register');
+                    setIsAuthDialogOpen(true);
+                  }}
+                  className="surface-action-primary inline-flex h-10 items-center justify-center rounded-xl px-4 text-sm font-medium transition-colors"
                 >
                   注册
                 </button>
-              </div>
+              </>
             )}
           </div>
         </div>
       </header>
 
-      <main className="container mx-auto px-4 py-8">
+      <main className="mx-auto w-full max-w-6xl px-4 py-8 md:py-10">
         <NavigationBreadcrumb currentStep="input" />
 
-        <div className="max-w-4xl mx-auto space-y-8">
-          {/* Header Section */}
-          <div className="text-center space-y-4">
-            <div className="flex items-center justify-center space-x-2 mb-4">
-              <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center">
-                <Lightbulb className="w-6 h-6 text-primary" />
-              </div>
+        <div className="space-y-8 animate-in fade-in slide-in-from-bottom-2 duration-500">
+          {prefillDescription ? (
+            <div className="surface-panel-muted rounded-[24px] px-5 py-4">
+              <div className="surface-section-kicker">方向带回</div>
+              <div className="mt-2 text-base font-semibold text-foreground">{prefillTitle}</div>
+              <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                {prefillHint || prefillFallbackHint}
+              </p>
             </div>
-            <h2 className="text-3xl font-bold text-foreground">描述您的产品想法</h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              详细告诉我们您的产品或服务。您描述得越具体，我们能提供的洞察就越好。
-            </p>
-          </div>
+          ) : null}
 
-          {/* Main Input Form */}
-          <div className="rounded-xl border-2 border-dashed border-border hover:border-secondary/50 transition-colors bg-card text-card-foreground shadow-sm">
-            <div className="flex flex-col space-y-1.5 p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h3 className="font-semibold leading-none tracking-tight flex items-center space-x-2">
-                    <Target className="w-5 h-5 text-primary" />
-                    <span>产品描述</span>
-                  </h3>
-                  <p className="text-sm text-muted-foreground mt-1">包括您的目标受众、核心功能以及您要解决的问题</p>
+          <section className="surface-panel relative overflow-hidden rounded-[32px] p-6 md:p-8">
+            <div className="pointer-events-none absolute right-0 top-0 h-40 w-40 rounded-full bg-primary/10 blur-3xl" />
+            <div className="pointer-events-none absolute bottom-0 left-0 h-32 w-32 rounded-full bg-secondary/10 blur-3xl" />
+            <div className="relative grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px]">
+              <div className="space-y-5">
+                <div className="space-y-3">
+                  <div className="surface-section-kicker">第一步</div>
+                  <div className="surface-rule max-w-40" />
+                  <div className="space-y-3">
+                    <h2 className="max-w-3xl text-3xl font-semibold leading-tight text-foreground md:text-[2.4rem]">
+                      描述您的产品想法
+                    </h2>
+                    <p className="max-w-2xl text-sm leading-7 text-muted-foreground md:text-base">
+                      不用写 PRD。说清谁在用、卡在哪、你怎么帮，就能拿到第一板判断。
+                    </p>
+                  </div>
                 </div>
-                <div className={clsx(
-                  "inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 ml-4",
-                  "border-transparent bg-primary text-primary-foreground hover:bg-primary/80"
-                )}>
+                <div className="grid gap-3 sm:grid-cols-3">
+                  <div className="surface-panel-muted rounded-2xl p-4">
+                    <Lightbulb className="h-5 w-5 text-primary" />
+                    <div className="mt-3 text-sm font-semibold text-foreground">1 谁在用</div>
+                    <p className="mt-2 text-sm leading-6 text-muted-foreground">用户是谁，在哪个场景会想到它。</p>
+                  </div>
+                  <div className="surface-panel-muted rounded-2xl p-4">
+                    <Target className="h-5 w-5 text-primary" />
+                    <div className="mt-3 text-sm font-semibold text-foreground">2 卡在哪</div>
+                    <p className="mt-2 text-sm leading-6 text-muted-foreground">最烦的痛点是什么，现有替代哪里不顺。</p>
+                  </div>
+                  <div className="surface-panel-muted rounded-2xl p-4">
+                    <Clock className="h-5 w-5 text-primary" />
+                    <div className="mt-3 text-sm font-semibold text-foreground">3 你怎么帮</div>
+                    <p className="mt-2 text-sm leading-6 text-muted-foreground">你准备帮他省什么时间、成本，或少什么坑。</p>
+                  </div>
+                </div>
+              </div>
+              <aside className="surface-panel-muted rounded-[28px] p-5 md:p-6">
+                <div className="surface-section-kicker">这次会发生什么</div>
+                <div className="mt-3 space-y-4">
+                  <div>
+                    <div className="text-sm font-semibold text-foreground">直接跑真实讨论</div>
+                    <p className="mt-2 text-sm leading-6 text-muted-foreground">提交后直接抓真实讨论，不会拿示例冒充。</p>
+                  </div>
+                  <div className="surface-rule" />
+                  <div>
+                    <div className="text-sm font-semibold text-foreground">先给是否继续追的第一板</div>
+                    <p className="mt-2 text-sm leading-6 text-muted-foreground">这轮先回答值不值得追；要快扫可先去爆帖速递。</p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => navigate(ROUTES.HOTPOST)}
+                    className="surface-action-secondary inline-flex h-10 w-full items-center justify-center rounded-xl px-4 text-sm font-medium transition-colors"
+                  >
+                    先看爆帖速递
+                  </button>
+                </div>
+              </aside>
+            </div>
+          </section>
+
+          <section className="grid gap-4 md:grid-cols-3">
+            <div className="surface-panel-muted rounded-2xl p-4">
+              <div className="text-sm font-semibold text-foreground">可能直接出完整结论</div>
+              <p className="mt-2 text-sm leading-6 text-muted-foreground">样本够就直接给可拍板的 A 级结果。</p>
+            </div>
+            <div className="surface-panel-muted rounded-2xl p-4">
+              <div className="text-sm font-semibold text-foreground">也可能先给方向判断</div>
+              <p className="mt-2 text-sm leading-6 text-muted-foreground">样本偏轻就先给方向判断，不会硬凑结论。</p>
+            </div>
+            <div className="surface-panel-muted rounded-2xl p-4">
+              <div className="text-sm font-semibold text-foreground">中途返回不丢方向</div>
+              <p className="mt-2 text-sm leading-6 text-muted-foreground">从报告或等待页返回时，描述会自动带回。</p>
+            </div>
+          </section>
+
+          <section className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_280px]">
+            <div className="surface-panel rounded-[32px] p-6 md:p-7">
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <div className="surface-section-kicker">产品描述</div>
+                  <h3 className="mt-3 text-2xl font-semibold text-foreground">产品描述</h3>
+                  <p className="mt-2 text-sm leading-6 text-muted-foreground">写用户、场景、问题和解法，像真实对话即可。</p>
+                </div>
+                <div className="surface-chip inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold">
                   {characterBadge}
                 </div>
               </div>
-            </div>
-            <div className="p-6 pt-0">
-              <form onSubmit={onSubmit} className="space-y-6">
+
+              <form onSubmit={onSubmit} className="mt-6 space-y-5">
                 <div className="space-y-2">
                   <label htmlFor="productDescription" className="sr-only">
                     产品描述
@@ -269,16 +383,16 @@ const InputPage: React.FC = () => {
                   <textarea
                     id="productDescription"
                     {...registerForm('productDescription')}
-                    className="flex min-h-40 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 resize-none p-4"
-                    placeholder="示例：一个帮助忙碌专业人士进行餐食准备的移动应用，根据饮食偏好、烹饪时间限制和当地杂货店供应情况生成个性化的每周餐食计划。该应用包括自动生成购物清单、分步烹饪指导以及与热门配送服务集成等功能..."
+                    className="surface-field min-h-52 w-full resize-none rounded-[24px] px-4 py-4 text-sm leading-7 ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                    placeholder="示例：帮跨境卖家统一看 Amazon/Etsy/Shopify/TikTok 回款和手续费，减少手工对账与漏算。"
                   />
-                  <div className="flex items-center justify-between text-sm text-muted-foreground">
+                  <div className="flex items-center justify-between gap-3 text-sm text-muted-foreground">
                     <span>
                       {trimmedLength < MIN_CHARACTERS
                         ? `还需要至少 ${MIN_CHARACTERS - trimmedLength} 个字`
                         : trimmedLength > MAX_CHARACTERS
                           ? `超出 ${trimmedLength - MAX_CHARACTERS} 个字`
-                          : "字数适合分析"}
+                          : '字数适合分析'}
                     </span>
                     <span>建议 10-500 字</span>
                   </div>
@@ -287,86 +401,87 @@ const InputPage: React.FC = () => {
                   )}
                 </div>
 
+                  <div className="rounded-[20px] border border-primary/15 bg-primary/5 px-4 py-3 text-sm leading-6 text-foreground">
+                  这次会直接抓真实 Reddit 讨论。示例卡只帮你起草，不会生成示例报告。
+                  </div>
+
                 <button
                   type="submit"
                   disabled={isSubmitting || !isValid}
                   className={clsx(
-                    "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 h-11 rounded-md px-8 w-full",
-                    (isSubmitting || !isValid)
-                      ? "bg-gray-500 text-white cursor-not-allowed" // Disabled: Grey
-                      : "bg-black text-white hover:bg-black/90"     // Enabled: Black
+                    'inline-flex h-12 w-full items-center justify-center rounded-xl px-5 text-sm font-medium transition-colors',
+                    isSubmitting || !isValid
+                      ? 'cursor-not-allowed bg-muted text-muted-foreground'
+                      : 'surface-action-primary'
                   )}
                 >
-                  <Zap className="w-4 h-4 mr-2" />
+                  <Zap className="mr-2 h-4 w-4" />
                   {isSubmitting ? '创建任务中...' : '开始 5 分钟分析'}
                 </button>
 
                 {apiError && (
-                  <div className="rounded-lg border border-destructive/30 bg-destructive/10 px-4 py-3 text-sm text-destructive">
+                  <div className="rounded-[20px] border border-destructive/25 bg-destructive/10 px-4 py-3 text-sm text-destructive">
                     {apiError}
                   </div>
                 )}
               </form>
             </div>
-          </div>
 
-          {/* Example Ideas */}
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-foreground text-center">需要灵感？试试这些示例：</h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <aside className="space-y-4">
+              <div className="surface-panel-muted rounded-[28px] p-5">
+                <div className="surface-section-kicker">写得更准一点</div>
+                <div className="mt-3 grid gap-3">
+                  <div className="rounded-2xl bg-background/70 px-4 py-3">
+                    <div className="text-sm font-semibold text-foreground">先写用户和场景</div>
+                    <p className="mt-1 text-sm leading-6 text-muted-foreground">谁会用，在哪个场景会想到它。</p>
+                  </div>
+                  <div className="rounded-2xl bg-background/70 px-4 py-3">
+                    <div className="text-sm font-semibold text-foreground">再写痛点和结果</div>
+                    <p className="mt-1 text-sm leading-6 text-muted-foreground">最烦的问题是什么，你准备怎么帮他省时间或省钱。</p>
+                  </div>
+                </div>
+              </div>
+              <div className="surface-panel-muted rounded-[28px] p-5">
+                <div className="surface-section-kicker">真流程</div>
+                <div className="mt-3 rounded-2xl bg-background/70 px-4 py-3">
+                  <div className="text-sm font-semibold text-foreground">先看任务状态，再看真实结果</div>
+                  <p className="mt-1 text-sm leading-6 text-muted-foreground">你会先看到任务卡点和下一步，再进入机会/抱怨/覆盖范围的结果页。</p>
+                </div>
+              </div>
+            </aside>
+          </section>
+
+          <section className="space-y-4">
+            <div className="space-y-2 text-center">
+              <div className="surface-section-kicker justify-center">快速起草</div>
+              <h3 className="text-2xl font-semibold text-foreground">拿一个最像的，改成你自己的方向</h3>
+              <p className="text-sm leading-6 text-muted-foreground">这些卡片只帮你快速起草，不会生成示例报告。</p>
+            </div>
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
               {samplePrompts.map((example, index) => (
                 <div
                   key={index}
-                  className="rounded-lg border bg-card text-card-foreground shadow-sm cursor-pointer hover:shadow-md transition-shadow border-border hover:border-primary/50"
+                  className="surface-panel-muted cursor-pointer rounded-[24px] p-5 transition-[transform,box-shadow,border-color] duration-300 hover:-translate-y-0.5 hover:border-primary/45 hover:shadow-editorial"
                   onClick={() => {
-                    setValue('productDescription', example.description, { shouldValidate: true, shouldDirty: true });
-                    setSelectedExampleId(example.exampleId ?? null);
-                    setSelectedExamplePrompt(example.description.trim());
+                    setValue('productDescription', example.description, {
+                      shouldValidate: true,
+                      shouldDirty: true,
+                    });
+                    setSelectedTopicProfileId(example.topicProfileId);
+                    setSelectedPromptSnapshot(example.description);
                   }}
                 >
-                  <div className="flex flex-col space-y-1.5 p-6 pb-2">
-                    <div className="flex flex-wrap items-center gap-2">
-                      <h3 className="text-sm font-medium text-primary leading-none tracking-tight">{example.title}</h3>
-                      {example.tags?.length ? (
-                        <span className="text-xs text-muted-foreground">{example.tags.join(' / ')}</span>
-                      ) : null}
-                    </div>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <h3 className="text-sm font-medium leading-none tracking-tight text-primary">{example.title}</h3>
+                    {example.tags?.length ? (
+                      <span className="text-xs text-muted-foreground">{example.tags.join(' / ')}</span>
+                    ) : null}
                   </div>
-                  <div className="p-6 pt-0">
-                    <p className="text-sm text-muted-foreground line-clamp-3">{example.description}</p>
-                  </div>
+                  <p className="mt-3 text-sm leading-6 text-muted-foreground line-clamp-4">{example.description}</p>
                 </div>
               ))}
             </div>
-          </div>
-
-          {/* Process Timeline */}
-          <div className="bg-card rounded-lg p-6 border border-border shadow-sm text-card-foreground">
-            <h3 className="text-lg font-semibold text-foreground mb-4 text-center">接下来会发生什么？</h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="text-center space-y-2">
-                <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto">
-                  <Clock className="w-6 h-6 text-primary" />
-                </div>
-                <h4 className="font-medium text-foreground">步骤 1：分析</h4>
-                <p className="text-sm text-muted-foreground">我们扫描相关的 Reddit 社区，寻找关于您市场的讨论</p>
-              </div>
-              <div className="text-center space-y-2">
-                <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto">
-                  <Target className="w-6 h-6 text-primary" />
-                </div>
-                <h4 className="font-medium text-foreground">步骤 2：处理</h4>
-                <p className="text-sm text-muted-foreground">AI 分析用户痛点、竞品提及和市场机会</p>
-              </div>
-              <div className="text-center space-y-2">
-                <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto">
-                  <Lightbulb className="w-6 h-6 text-primary" />
-                </div>
-                <h4 className="font-medium text-foreground">步骤 3：洞察</h4>
-                <p className="text-sm text-muted-foreground">获得包含可操作商业洞察的综合报告</p>
-              </div>
-            </div>
-          </div>
+          </section>
         </div>
       </main>
 

@@ -1,7 +1,5 @@
 import pytest
-from unittest.mock import MagicMock
 
-from app.services.report.report_service import ReportService
 from app.services.analysis.t1_clustering import PainCluster
 from app.services.analysis.t1_stats import (
     AspectBreakdown,
@@ -9,6 +7,7 @@ from app.services.analysis.t1_stats import (
     CommunityStat,
     T1StatsSnapshot,
 )
+from app.services.report.market_workflow import build_market_report_markdown
 
 
 @pytest.mark.asyncio
@@ -18,13 +17,39 @@ async def test_build_t1_market_report_md(monkeypatch):
         since_utc="2024-11-22T00:00:00Z",
         subreddits=["amazonseller", "etsy"],
         global_ps_ratio=1.2,
+        total_pain=52,
+        total_solution=33,
         community_stats=[
-            CommunityStat(subreddit="amazonseller", posts=100, comments=200, ps_ratio=1.1),
-            CommunityStat(subreddit="etsy", posts=90, comments=150, ps_ratio=1.0),
+            CommunityStat(
+                subreddit="amazonseller",
+                posts=100,
+                comments=200,
+                ps_ratio=1.1,
+                pain_count=30,
+                solution_count=18,
+                recent_posts_30d=15,
+                recent_comments_30d=45,
+            ),
+            CommunityStat(
+                subreddit="etsy",
+                posts=90,
+                comments=150,
+                ps_ratio=1.0,
+                pain_count=22,
+                solution_count=15,
+                recent_posts_30d=12,
+                recent_comments_30d=33,
+            ),
         ],
         aspect_breakdown=[AspectBreakdown(aspect="price", pain=10, total=20)],
         brand_pain_cooccurrence=[
-            BrandPainCooccurrence(brand="paypal", mentions=5, aspects=["price"]),
+            BrandPainCooccurrence(
+                brand="paypal",
+                mentions=5,
+                aspects=["price"],
+                unique_authors=3,
+                evidence_comment_ids=["e1"],
+            ),
         ],
     )
     clusters = [
@@ -32,8 +57,8 @@ async def test_build_t1_market_report_md(monkeypatch):
             topic="费用/订阅不透明",
             size=5,
             aspects=["price"],
-            top_keywords=["fee", "charge"],
-            sample_comments=["fees too high"],
+            keywords=["fee", "charge"],
+            samples=["fees too high"],
         )
     ]
 
@@ -43,15 +68,15 @@ async def test_build_t1_market_report_md(monkeypatch):
     async def fake_clusters(_session, **_kwargs):
         return clusters
 
-    monkeypatch.setattr("app.services.report.report_service.build_stats_snapshot", fake_stats)
-    monkeypatch.setattr("app.services.report.report_service.build_pain_clusters", fake_clusters)
+    monkeypatch.setattr("app.services.report.market_workflow.build_stats_snapshot", fake_stats)
+    monkeypatch.setattr("app.services.report.market_workflow.build_pain_clusters", fake_clusters)
 
-    # Force market mode on
-    monkeypatch.setattr("app.services.report.report_service.settings.enable_market_report", True)
-    monkeypatch.setattr("app.services.report.report_service.settings.report_mode", "market")
-
-    svc = ReportService(db=None, repository=MagicMock(), cache=MagicMock())
-    md, _stats, _clusters, llm_used = await svc._build_t1_market_report_md()  # type: ignore[attr-defined]
+    md, _stats, _clusters, llm_used = await build_market_report_markdown(
+        None,
+        quality_level="standard",
+        product_description="跨境电商支付解决方案",
+        analysis_payload=None,
+    )
 
     assert md is not None
     assert "跨境电商支付解决方案" in md

@@ -39,12 +39,194 @@ async def test_non_admin_forbidden_on_all_endpoints(
         resp3 = await client.post("/api/admin/communities/approve", headers=headers, json={"name": "r/x"})
         resp4 = await client.post("/api/admin/communities/reject", headers=headers, json={"name": "r/x"})
         resp5 = await client.delete("/api/admin/communities/r/x", headers=headers)
+        resp6 = await client.get("/api/admin/communities/governance/summary", headers=headers)
+        resp7 = await client.get("/api/admin/communities/governance/effective", headers=headers)
+        resp8 = await client.post(
+            "/api/admin/communities/governance/cleanup-dev",
+            headers=headers,
+            json={"dry_run": True},
+        )
 
         assert resp1.status_code == 403
         assert resp2.status_code == 403
         assert resp3.status_code == 403
         assert resp4.status_code == 403
         assert resp5.status_code == 403
+        assert resp6.status_code == 403
+        assert resp7.status_code == 403
+        assert resp8.status_code == 403
+    finally:
+        app.dependency_overrides.pop(get_settings, None)
+
+
+@pytest.mark.asyncio
+async def test_governance_summary_effective_and_cleanup(
+    client: AsyncClient,
+    token_factory,
+    db_session: AsyncSession,
+) -> None:
+    admin_email = f"admin-{uuid.uuid4().hex}@example.com"
+    overridden = _override_admin_settings(admin_email)
+    app.dependency_overrides[get_settings] = lambda: overridden
+
+    try:
+        admin_token, _ = await token_factory(email=admin_email)
+        headers = {"Authorization": f"Bearer {admin_token}"}
+        now = datetime.now(timezone.utc)
+        await db_session.execute(
+            text("TRUNCATE TABLE community_cache, discovered_communities, community_pool RESTART IDENTITY CASCADE")
+        )
+        await db_session.commit()
+
+        effective_name = f"r/effective_{uuid.uuid4().hex[:8]}"
+        garbage_name = f"r/garbage_{uuid.uuid4().hex[:8]}"
+        candidate_name = f"r/candidate_{uuid.uuid4().hex[:8]}"
+        anomaly_name = f"r/anomaly_{uuid.uuid4().hex[:8]}"
+
+        db_session.add_all(
+            [
+                CommunityPool(
+                    name=effective_name,
+                    tier="gold",
+                    categories={"topic": ["ops"]},
+                    description_keywords={"keywords": ["ops"]},
+                    daily_posts=10,
+                    avg_comment_length=50,
+                    quality_score=0.8,
+                    priority="high",
+                    user_feedback_count=0,
+                    discovered_count=0,
+                    is_active=True,
+                ),
+                CommunityPool(
+                    name=garbage_name,
+                    tier="silver",
+                    categories={"topic": ["ops"]},
+                    description_keywords={"keywords": ["ops"]},
+                    daily_posts=1,
+                    avg_comment_length=10,
+                    quality_score=0.2,
+                    priority="low",
+                    user_feedback_count=0,
+                    discovered_count=0,
+                    is_active=False,
+                ),
+                DiscoveredCommunity(
+                    name=candidate_name,
+                    discovered_from_keywords={"keywords": ["ops"]},
+                    discovered_count=1,
+                    first_discovered_at=now,
+                    last_discovered_at=now,
+                    status="pending",
+                ),
+                DiscoveredCommunity(
+                    name=effective_name,
+                    discovered_from_keywords={"keywords": ["ops"]},
+                    discovered_count=1,
+                    first_discovered_at=now,
+                    last_discovered_at=now,
+                    status="pending",
+                ),
+                DiscoveredCommunity(
+                    name=anomaly_name,
+                    discovered_from_keywords={"keywords": ["ops"]},
+                    discovered_count=1,
+                    first_discovered_at=now,
+                    last_discovered_at=now,
+                    status="approved",
+                ),
+            ]
+        )
+        await db_session.commit()
+
+        summary_resp = await client.get(
+            "/api/admin/communities/governance/summary",
+            headers=headers,
+        )
+        assert summary_resp.status_code == 200
+        summary_body = summary_resp.json()["data"]
+        assert summary_body["summary"]["effective_pool_count"] == 1
+        assert summary_body["summary"]["category_breakdown"] == {"ops": 1}
+        assert summary_body["summary"]["effective_unclassified_count"] == 0
+        assert summary_body["data_source_contract"]["category_source"] == "community_pool.categories"
+        assert summary_body["summary"]["candidate_count"] == 1
+        assert summary_body["summary"]["pool_garbage_count"] == 1
+        assert summary_body["summary"]["historical_shell_count"] == 0
+        assert summary_body["summary"]["discovered_garbage_count"] == 1
+        assert summary_body["summary"]["anomaly_count"] == 1
+
+        effective_resp = await client.get(
+            "/api/admin/communities/governance/effective",
+            headers=headers,
+        )
+        assert effective_resp.status_code == 200
+        effective_body = effective_resp.json()["data"]
+        assert effective_body["total"] == 1
+        assert effective_body["items"][0]["name"] == effective_name
+        assert effective_body["items"][0]["normalized_categories"] == ["ops"]
+        assert effective_body["items"][0]["category_source"] == "community_pool.categories"
+
+        cleanup_dry_run = await client.post(
+            "/api/admin/communities/governance/cleanup-dev",
+            headers=headers,
+            json={"dry_run": True},
+        )
+        assert cleanup_dry_run.status_code == 200
+        cleanup_dry_body = cleanup_dry_run.json()["data"]
+        assert cleanup_dry_body["deleted"]["pool"] == 1
+        assert cleanup_dry_body["deleted"]["discovered"] == 1
+        assert cleanup_dry_body["summary_before"]["historical_shell_count"] == 0
+
+        cleanup_execute = await client.post(
+            "/api/admin/communities/governance/cleanup-dev",
+            headers=headers,
+            json={"dry_run": False},
+        )
+        assert cleanup_execute.status_code == 200
+        cleanup_exec_body = cleanup_execute.json()["data"]
+        assert cleanup_exec_body["deleted"]["pool"] == 1
+        assert cleanup_exec_body["deleted"]["discovered"] == 1
+        assert cleanup_exec_body["summary_after"]["historical_shell_count"] == 0
+
+        db_session.expire_all()
+        pool_rows = (
+            await db_session.execute(select(CommunityPool).order_by(CommunityPool.name))
+        ).scalars().all()
+        discovered_rows = (
+            await db_session.execute(
+                select(DiscoveredCommunity).order_by(DiscoveredCommunity.name)
+            )
+        ).scalars().all()
+
+        assert [row.name for row in pool_rows] == [effective_name]
+        assert sorted(row.name for row in discovered_rows) == sorted([candidate_name, anomaly_name])
+    finally:
+        app.dependency_overrides.pop(get_settings, None)
+
+
+@pytest.mark.asyncio
+async def test_governance_cleanup_refuses_gold_database(
+    client: AsyncClient,
+    token_factory,
+) -> None:
+    admin_email = f"admin-{uuid.uuid4().hex}@example.com"
+    overridden = _override_admin_settings(admin_email)
+    overridden = overridden.model_copy(
+        update={"database_url": "postgresql+psycopg://localhost:5432/reddit_signal_scanner"}
+    )
+    app.dependency_overrides[get_settings] = lambda: overridden
+
+    try:
+        admin_token, _ = await token_factory(email=admin_email)
+        headers = {"Authorization": f"Bearer {admin_token}"}
+
+        resp = await client.post(
+            "/api/admin/communities/governance/cleanup-dev",
+            headers=headers,
+            json={"dry_run": True},
+        )
+        assert resp.status_code == 400
+        assert "dev/test" in resp.json()["detail"]
     finally:
         app.dependency_overrides.pop(get_settings, None)
 

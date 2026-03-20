@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useRef, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -26,6 +26,14 @@ const searchSchema = z.object({
 });
 
 type SearchFormValues = z.infer<typeof searchSchema>;
+
+type HotPostSearchPrefillState = {
+  prefillQuery?: string;
+  prefillMode?: HotPostMode;
+  prefillSubreddits?: string;
+  prefillHint?: string;
+  prefillSource?: 'retry-search';
+};
 
 const MODES: Array<{
   id: HotPostMode;
@@ -59,8 +67,10 @@ const MODES: Array<{
 
 const HotPostSearchPage: React.FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [apiError, setApiError] = useState<string | null>(null);
+  const hasAppliedPrefill = useRef(false);
 
   const {
     register,
@@ -78,6 +88,23 @@ const HotPostSearchPage: React.FC = () => {
   });
 
   const selectedMode = watch('mode');
+  const locationState = (location.state as HotPostSearchPrefillState | null) ?? null;
+  const prefillQuery = locationState?.prefillQuery?.trim() ?? '';
+  const prefillMode = locationState?.prefillMode ?? 'trending';
+  const prefillSubreddits = locationState?.prefillSubreddits ?? '';
+  const prefillHint = locationState?.prefillHint?.trim() ?? '';
+  const prefillTitle = locationState?.prefillSource === 'retry-search' ? '已带回这次搜索方向' : '已带回你刚才那次快扫';
+
+  useEffect(() => {
+    if (hasAppliedPrefill.current || !prefillQuery) {
+      return;
+    }
+
+    setValue('query', prefillQuery, { shouldDirty: true, shouldTouch: true, shouldValidate: true });
+    setValue('mode', prefillMode, { shouldDirty: true, shouldTouch: true, shouldValidate: true });
+    setValue('subreddits', prefillSubreddits, { shouldDirty: true, shouldTouch: true });
+    hasAppliedPrefill.current = true;
+  }, [prefillMode, prefillQuery, prefillSubreddits, setValue]);
 
   const onSubmit = async (values: SearchFormValues) => {
     setIsSubmitting(true);
@@ -130,6 +157,15 @@ const HotPostSearchPage: React.FC = () => {
 
       <main className="container mx-auto px-4 py-8 max-w-4xl">
          <NavigationBreadcrumb currentStep="input" /> {/* Placeholder or adjust breadcrumb logic later */}
+
+        {prefillQuery ? (
+          <div className="mb-8 rounded-2xl border border-primary/20 bg-primary/5 px-5 py-4">
+            <div className="text-sm font-semibold text-primary">{prefillTitle}</div>
+            <p className="mt-2 text-sm leading-6 text-muted-foreground">
+              {prefillHint || '这次关键词和模式都已经带回来了。你可以直接改词、补社区，然后马上重扫一轮。'}
+            </p>
+          </div>
+        ) : null}
 
         <div className="text-center space-y-4 mb-10">
           <h2 className="text-3xl font-bold text-foreground">你今天想探索什么？</h2>
