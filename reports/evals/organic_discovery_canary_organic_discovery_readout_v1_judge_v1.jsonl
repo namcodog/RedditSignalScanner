@@ -1,0 +1,2 @@
+{"eval_case_id": "signal-eval-generated-card-cand-business-growth-ops-1s9b8s5-validate", "overall_pass": true, "field_passes": {"title": true, "summary_line": true, "audience": true, "why_now": true}, "failure_tags": [], "review_notes": "卡片成功将泄露事件转化为对AI搜索排名逻辑的判断前移，没有复述原帖，且结论与证据强度匹配。"}
+{"eval_case_id": "signal-eval-generated-card-cand-business-growth-ops-1sd2za0-validate", "overall_pass": true, "field_passes": {"title": true, "summary_line": true, "audience": true, "why_now": true}, "failure_tags": [], "review_notes": "卡片准确提炼了证据中的核心矛盾转移（从产能到合规），完成了判断前移，且各字段均符合标准。"}

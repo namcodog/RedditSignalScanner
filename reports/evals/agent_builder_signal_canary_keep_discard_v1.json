@@ -1,0 +1,16 @@
+[
+  {
+    "variant_id": "human_summary_tight_why_now_v1",
+    "pass_rate": 0.0,
+    "pass_count": 0,
+    "fail_count": 3,
+    "decision": "baseline"
+  },
+  {
+    "variant_id": "agent_builder_signal_readout_v1",
+    "pass_rate": 0.6667,
+    "pass_count": 2,
+    "fail_count": 1,
+    "decision": "keep"
+  }
+]

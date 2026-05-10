@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import io
+import json
 import urllib.error
 from typing import Any
 
@@ -63,3 +64,42 @@ async def test_gemini_client_raises_on_missing_key(
 
     with pytest.raises(LLMClientError, match="missing API key"):
         await client.generate("hello")
+
+
+@pytest.mark.asyncio
+async def test_gemini_client_sends_response_schema(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    captured: dict[str, Any] = {}
+
+    class _Response:
+        def __enter__(self) -> "_Response":
+            return self
+
+        def __exit__(self, *_args: Any) -> None:
+            return None
+
+        def read(self) -> bytes:
+            return (
+                b'{"candidates":[{"content":{"parts":[{"text":"{\\"ok\\":true}"}]}}]}'
+            )
+
+    def _capture_request(req: Any, *_args: Any, **_kwargs: Any) -> _Response:
+        captured["payload"] = json.loads(req.data.decode("utf-8"))
+        return _Response()
+
+    monkeypatch.setattr("urllib.request.urlopen", _capture_request)
+    client = GeminiChatClient(model="gemini-test", api_key="test-key")
+    schema = {
+        "type": "OBJECT",
+        "properties": {"ok": {"type": "BOOLEAN"}},
+        "required": ["ok"],
+    }
+
+    await client.generate(
+        "hello", response_format={"type": "json_object", "schema": schema}
+    )
+
+    generation_config = captured["payload"]["generationConfig"]
+    assert generation_config["responseMimeType"] == "application/json"
+    assert generation_config["responseJsonSchema"] == schema

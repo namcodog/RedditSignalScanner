@@ -1,0 +1,35 @@
+{
+  "sample_count": 10,
+  "pass_count": 4,
+  "fail_count": 6,
+  "pass_rate": 0.4,
+  "fail_rate": 0.6,
+  "top_failure_tags": [
+    [
+      "reddit_restatement",
+      5
+    ],
+    [
+      "no_judgment_gain",
+      3
+    ],
+    [
+      "why_now_not_actionable",
+      2
+    ],
+    [
+      "evidence_overclaim",
+      1
+    ],
+    [
+      "audience_not_who_is_talking",
+      1
+    ]
+  ],
+  "scope_pass_counts": {
+    "business-growth-ops": 4
+  },
+  "scope_fail_counts": {
+    "business-growth-ops": 6
+  }
+}

@@ -1,0 +1,527 @@
+# phase-log 索引
+
+## 先看哪里
+
+- 当前状态：
+  - [CURRENT_STATUS.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/CURRENT_STATUS.md)
+- 未完成事项：
+  - [OPEN_ITEMS.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/OPEN_ITEMS.md)
+- Hotpost 价值社区探索飞轮 R10/R11.5 已落地：`experimental_communities` 默认隔离，显式 `probe_community_discovery.py --scope ...` 才进入小配额试采；R11.5 已补社区价值评分算法，报告输出 `Value Stage / Score`；`CursorAI` 已按 V13 validate 流程发布 1 张卡并同步小程序快照，当前为 `validated / score=56`，不是 `pool_candidate`；回流 `community_pool` 仍只有 dry-run，不写 DB、不自动晋级：
+  - [phase1106.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1106.md)
+  - [phase1105.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1105.md)
+  - [phase1104.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1104.md)
+  - [phase1103.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1103.md)
+  - [phase1102.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1102.md)
+  - [community-pool-feedback-dry-run-2026-05-08.md](/Users/hujia/Desktop/RedditSignalScanner/reports/community-governance/community-pool-feedback-dry-run-2026-05-08.md)
+  - [community-pool-feedback-dry-run-2026-05-08.json](/Users/hujia/Desktop/RedditSignalScanner/reports/community-governance/community-pool-feedback-dry-run-2026-05-08.json)
+  - [phase1101.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1101.md)
+  - [2026-05-08-hotpost-community-pool-feedback-loop-plan.md](/Users/hujia/Desktop/RedditSignalScanner/docs/superpowers/plans/2026-05-08-hotpost-community-pool-feedback-loop-plan.md)
+  - [phase1098.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1098.md)
+  - [community-discovery-audit-2026-05-08.json](/Users/hujia/Desktop/RedditSignalScanner/reports/community-governance/community-discovery-audit-2026-05-08.json)
+  - [2026-05-08-hotpost-community-discovery.md](/Users/hujia/Desktop/RedditSignalScanner/docs/superpowers/plans/2026-05-08-hotpost-community-discovery.md)
+- Hotpost 2026-05-08 已按“每日 25 张”为硬需求完成正式发卡：AI 6 / 商业增长 9 / 电商卖家 10，最新快照 `release-cf603c02169b`，首页第 1、2 张为 `hot`，同步和小程序 snapshot data 校验通过；trend audit 仍为 `watching`：
+  - [phase1096.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1096.md)
+  - [2026-05-08.md](/Users/hujia/Desktop/RedditSignalScanner/reports/ops-log/2026-05-08.md)
+- Reddit Community Intelligence 当前入口已纠偏：产品口径是“系统从已有数据和语义库生成具像化兴趣标签 -> 用户点击 -> 有证据、有理由、长尾优先的社区推荐”。Phase 0 / 1 / 2 社区治理和 Dev 写入只作为数据准备与库存校准；当前合同修正版已移除 production code 里的 `CAPABILITY_SEEDS`，9 个用户可选标签、旧业务分类目录和 Phase 2 分类推断都已改为配置真相源，R7-R9 已补齐推荐理由证据化、标签-社区审核表和语义证据密度，后端服务入口已收口，preview 为 `tags=9 / recommendations=64 / ready_count=32`，`电商平台政策与风向` 已从空状态修到 `ready / available_community_count=5`：
+  - [phase1100.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1100.md)
+  - [community-recommendation-backend-architecture-2026-05-08.md](/Users/hujia/Desktop/RedditSignalScanner/docs/reference/community-recommendation-backend-architecture-2026-05-08.md)
+  - [phase1099.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1099.md)
+  - [community-discovery-legacy-archive-2026-05-08.md](/Users/hujia/Desktop/RedditSignalScanner/docs/reference/community-discovery-legacy-archive-2026-05-08.md)
+  - [preview.md](/Users/hujia/Desktop/RedditSignalScanner/reports/community-recommendation/preview.md)
+  - [preview.json](/Users/hujia/Desktop/RedditSignalScanner/reports/community-recommendation/preview.json)
+  - [audit.md](/Users/hujia/Desktop/RedditSignalScanner/reports/community-recommendation/audit.md)
+  - [audit.json](/Users/hujia/Desktop/RedditSignalScanner/reports/community-recommendation/audit.json)
+  - [phase1098.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1098.md)
+  - [phase1097.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1097.md)
+  - [2026-05-08-community-recommendation-interest-tag-contract-design.md](/Users/hujia/Desktop/RedditSignalScanner/docs/superpowers/specs/2026-05-08-community-recommendation-interest-tag-contract-design.md)
+  - [2026-05-08-community-recommendation-r2-r5-execution-plan.md](/Users/hujia/Desktop/RedditSignalScanner/docs/superpowers/plans/2026-05-08-community-recommendation-r2-r5-execution-plan.md)
+  - [phase1095.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1095.md)
+  - [phase1094.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1094.md)
+  - [phase1093.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1093.md)
+  - [2026-05-08-community-discovery-recommendation-system-design.md](/Users/hujia/Desktop/RedditSignalScanner/docs/superpowers/specs/2026-05-08-community-discovery-recommendation-system-design.md)
+  - [community-intelligence-clean-contract-2026-05-07.md](/Users/hujia/Desktop/RedditSignalScanner/docs/reference/community-intelligence-clean-contract-2026-05-07.md)
+  - [reddit-product-direction-2026-05-06.md](/Users/hujia/Desktop/RedditSignalScanner/docs/reference/reddit-product-direction-2026-05-06.md)
+  - [phase1092.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1092.md)
+  - [phase1091.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1091.md)
+  - [phase1090.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1090.md)
+  - [phase2-dev-write.md](/Users/hujia/Desktop/RedditSignalScanner/reports/community-governance/phase2-dev-write.md)
+  - [phase2-dev-write-result.json](/Users/hujia/Desktop/RedditSignalScanner/reports/community-governance/phase2-dev-write-result.json)
+  - [phase2-dev-write-rollback.sql](/Users/hujia/Desktop/RedditSignalScanner/reports/community-governance/phase2-dev-write-rollback.sql)
+  - [phase1089.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1089.md)
+  - [phase1088.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1088.md)
+  - [phase1-dry-run.md](/Users/hujia/Desktop/RedditSignalScanner/reports/community-governance/phase1-dry-run.md)
+  - [phase1-dry-run.json](/Users/hujia/Desktop/RedditSignalScanner/reports/community-governance/phase1-dry-run.json)
+  - [2026-05-07-community-pool-phase1-dry-run-plan.md](/Users/hujia/Desktop/RedditSignalScanner/docs/superpowers/plans/2026-05-07-community-pool-phase1-dry-run-plan.md)
+  - [phase1086.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1086.md)
+  - [phase1085.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1085.md)
+  - [phase0-audit.md](/Users/hujia/Desktop/RedditSignalScanner/reports/community-governance/phase0-audit.md)
+  - [phase0-promote-review.md](/Users/hujia/Desktop/RedditSignalScanner/reports/community-governance/phase0-promote-review.md)
+  - [phase0-promote-preaudit.md](/Users/hujia/Desktop/RedditSignalScanner/reports/community-governance/phase0-promote-preaudit.md)
+  - [phase0-full-preaudit.md](/Users/hujia/Desktop/RedditSignalScanner/reports/community-governance/phase0-full-preaudit.md)
+  - [phase0-community-pool-entry-plan.md](/Users/hujia/Desktop/RedditSignalScanner/reports/community-governance/phase0-community-pool-entry-plan.md)
+- Hotpost 2026-05-03 已按用户要求完成 `AI x2 / SKU x2` 追加发布：本轮追加 `28` 张，当天累计 `53` 张，最新小程序快照 `release-33033bf53e07`，同步全绿；final gate 仍 `publish_ready=true`，trend 仍 `rebound`：
+  - [phase1084.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1084.md)
+  - [2026-05-03.md](/Users/hujia/Desktop/RedditSignalScanner/reports/ops-log/2026-05-03.md)
+- Hotpost `signal_target_window_underfilled` 根因已修：发布面会用 72h 内 signal 替换最老 signal，最新 no-collect gate 已到 `decision=publish / publish_ready=true`：
+  - [phase1083.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1083.md)
+- Hotpost 已按 05-02 内容窗口追加发布 `18` 张 SKU 卡：当日合计 `25` 张，最新小程序快照 `release-9f44a7745215`，同步全绿；后续 signal freshness gate 已修到 publish，trend 仍为 rebound：
+  - [phase1082.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1082.md)
+  - [2026-05-03.md](/Users/hujia/Desktop/RedditSignalScanner/reports/ops-log/2026-05-03.md)
+- Hotpost 2026-05-03 已按 SKU 纠偏口径完成一轮正式运营：发布 `7` 张，最新小程序快照 `release-c0a4c90f59bb`，同步全绿；final gate 仍剩人工打回项，trend 仍为 rebound：
+  - [phase1081.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1081.md)
+  - [2026-05-03.md](/Users/hujia/Desktop/RedditSignalScanner/reports/ops-log/2026-05-03.md)
+- Hotpost 出卡前审计已完成：V13 模型链路和小程序同步链通过，但 freshness gate fail，不能直接发；下一步先跑新 7d fresh 和 crossborder SKU 选品：
+  - [phase1080.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1080.md)
+- Hotpost V13 semantic 已完成出卡前增强：lane-specific readout、结构化 evidence basis、uncertainty 和 review artifact 持久化已落地：
+  - [phase1079.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1079.md)
+- Hotpost V13 semantic prompt 已增强，并确认 LLM 运行时配置真实生效；breakdown prompt 现在也会收到 semantic brief：
+  - [phase1078.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1078.md)
+- Hotpost `fast_model` 已收缩为 `deepseek/deepseek-v4-flash`；V13 语义理解 prompt 已确认存在，writer/reasoning 仍走 `deepseek/deepseek-v4-pro`：
+  - [phase1077.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1077.md)
+- Hotpost V13 正式出卡 LLM 路由已改为 `google/gemini-3-flash-preview -> deepseek/deepseek-v4-pro`，并同步 `fast_model / reasoning_model / backend/.env` 默认模型：
+  - [phase1076.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1076.md)
+- 小程序邀请奖励审计补齐手机号空值硬校验：微信未返回手机号时硬失败；云函数测试 `56 passed`，prod 构建通过：
+  - [phase1068.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1068.md)
+- 小程序邀请奖励已改成“邀请新用户绑定奖励”：老用户互相分享不加分，同一手机号不重复贡献奖励；测试和 prod 构建通过，下一步部署云函数并分新老账号验收：
+  - [phase1067.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1067.md)
+- 小程序分享奖励已收紧：好友只授权登录不发奖励，必须绑定手机号后邀请人才获得 `30` 积分；测试和 prod 构建通过，下一步部署云函数并双账号真机验收：
+  - [phase1066.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1066.md)
+- 小程序授权登录已改成连续流程：微信登录后先绑定手机号，再补头像昵称；后续手机号真机验证已在 phase1065 收口：
+  - [phase1059.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1059.md)
+- 小程序手机号绑定入口已恢复：已登录未绑手机用户会看到“绑定手机号”，已绑定用户显示脱敏手机号；后续已真机验通：
+  - [phase1058.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1058.md)
+- Hotpost 2026-05-01 补卡已按众筹/预售/选品/礼物优先完成 `29` 张；最新 snapshot 为 `release-e2fb5db69afa`，`card_count=565`，front30 已恢复 breakdown 代表位，同步全绿，但 trend 仍为 `watching`：
+  - [phase1055.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1055.md)
+- Hotpost V13 Day5 final gate 已清零：今日总发布 `99` 张；最新 snapshot 为 `release-32d82b05dbcc`，同步全绿，validate queue 为 `0`，但 trend 仍为 `rebound`：
+  - [phase1054.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1054.md)
+- 小程序首页排序已继续收口：最新 snapshot 为 `release-b5842b3ee9a8`，front30 已补出 `breakdown` 代表位，同步检查通过：
+  - [phase1053.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1053.md)
+- Hotpost V13 Day1-Day5 已按逐日目标补完：今日总发布 `98` 张；snapshot 曾为 `release-941cf2e5614f`，同步全绿，但 Day5 final gate 仍剩 `3` 个 item，trend 未 stable：
+  - [phase1052.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1052.md)
+- Hotpost V13 Day4 已补全：今日总发布 `81` 张；最新 snapshot 为 `release-f181fe025540`，同步全绿，后续进入 Day5 收口：
+  - [phase1051.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1051.md)
+- Hotpost V13 回补已改成逐日验收：Day1、Day2、Day3 已补全，今日总发布 `63` 张；最新 snapshot 为 `release-959979bea9b7`，同步全绿，Day3 final gate 已到 `actual_total=0 / yield_exhausted=true`：
+  - [phase1050.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1050.md)
+- Hotpost V13 Day2 已补全，后续进入 Day3：
+  - [phase1049.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1049.md)
+- Hotpost V13 Day2 曾卡在增长缺口，后续用窄 query + 单社区补齐：
+  - [phase1048.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1048.md)
+- Hotpost V13 5 天回补节奏曾继续执行到 `18` 张，snapshot 为 `release-8d4aa13d56fa`，同步全绿；发布侧不能硬发，但 `yield_exhausted=false`，trend 仍为 `rebound`：
+  - [phase1047.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1047.md)
+- Hotpost V13 5 天回补第一轮已发布 `6` 张，最新 snapshot 为 `release-5308aacb932c`，同步全绿；这不是 5 天完成验收，trend 仍为 `rebound`：
+  - [phase1046.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1046.md)
+- Hotpost V13 breakdown 漏点已补齐：自动升级 breakdown 与 breakdown refresh 在 production profile 下使用 `xiaomi/mimo-v2.5-pro`；hot 争议图保留 Gemini 独立链路：
+  - [phase1045.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1045.md)
+- Hotpost V13 正式出卡已完成全覆盖：新出卡默认 `hotpost_v13_title_standalone`，并把 V13 title 检测与 title-only repair 接入 `generate_card_content()` 校验前：
+  - [phase1044.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1044.md)
+- 小程序首页排序已修：同一天新发如果单一 lane，不再整体霸占首屏；最新 mini snapshot 为 `release-bf46b7384d67`，同步检查通过：
+  - [phase1043.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1043.md)
+- Hotpost V13 全量 shadow 门禁已放宽机械字数要求：长但清楚不再失败，只保留主体、质量和低密度问题门禁：
+  - [phase1037.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1037.md)
+- Hotpost V13 title 主体规则已开始全量 shadow 分批跑：batch005 失败 2 张已补跑通过，batch006/007 全过，下一批从 `offset=140` 继续：
+  - [phase1036.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1036.md)
+  - [hotpost_v13_title_subject_fullrun_batch005_20_w2.md](/Users/hujia/Desktop/RedditSignalScanner/reports/evals/hotpost_v13_title_subject_fullrun_batch005_20_w2.md)
+  - [hotpost_v13_title_subject_fullrun_batch005_failed2_rerun.md](/Users/hujia/Desktop/RedditSignalScanner/reports/evals/hotpost_v13_title_subject_fullrun_batch005_failed2_rerun.md)
+  - [hotpost_v13_title_subject_fullrun_batch006_20_w2.md](/Users/hujia/Desktop/RedditSignalScanner/reports/evals/hotpost_v13_title_subject_fullrun_batch006_20_w2.md)
+  - [hotpost_v13_title_subject_fullrun_batch007_20_w2.md](/Users/hujia/Desktop/RedditSignalScanner/reports/evals/hotpost_v13_title_subject_fullrun_batch007_20_w2.md)
+- Hotpost V13 title 追加“主体 + 业务场景”约束并完成新一批 shadow：Shopify 单卡已补主体，batch004 `20/20` 成功，等待人工审核：
+  - [phase1031.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1031.md)
+  - [hotpost_v13_title_subject_patch_shopify_sample.md](/Users/hujia/Desktop/RedditSignalScanner/reports/evals/hotpost_v13_title_subject_patch_shopify_sample.md)
+  - [hotpost_v13_title_subject_fullrun_batch004_20_w2.md](/Users/hujia/Desktop/RedditSignalScanner/reports/evals/hotpost_v13_title_subject_fullrun_batch004_20_w2.md)
+- Hotpost V13 published shadow 已修通：失败 9 张复跑全过，后续两批各 20 张也全过，可继续分批跑完整 437 张审核包：
+  - [phase1030.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1030.md)
+  - [hotpost_v13_fullrun_batch001_failed9_rerun_after_retry.md](/Users/hujia/Desktop/RedditSignalScanner/reports/evals/hotpost_v13_fullrun_batch001_failed9_rerun_after_retry.md)
+  - [hotpost_v13_fullrun_batch003_20_w2.md](/Users/hujia/Desktop/RedditSignalScanner/reports/evals/hotpost_v13_fullrun_batch003_20_w2.md)
+- Hotpost V13 已发布卡第一批效率测试完成：OpenRouter 未见 429/402，但 `20` 张中失败 `9` 张，需先修内容回潮和连接重试：
+  - [phase1029.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1029.md)
+  - [hotpost_v13_fullrun_batch001_20_w2.md](/Users/hujia/Desktop/RedditSignalScanner/reports/evals/hotpost_v13_fullrun_batch001_20_w2.md)
+- Hotpost V13 已发布卡全量重跑跑道已建好，10 张 pilot 暴露 1 个 breakdown 阻塞样本，因此未直接放大全量：
+  - [phase1028.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1028.md)
+  - [hotpost_v13_fullrun_pilot_10_rerun.md](/Users/hujia/Desktop/RedditSignalScanner/reports/evals/hotpost_v13_fullrun_pilot_10_rerun.md)
+  - [hotpost_v13_fullrun_pilot_failed4_rerun.md](/Users/hujia/Desktop/RedditSignalScanner/reports/evals/hotpost_v13_fullrun_pilot_failed4_rerun.md)
+- Hotpost V13 运营 shadow 样本包已生成，6 张样本成功，1 个 title 长度残留已补规则与超时保护，等待人工审核：
+  - [phase1027.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1027.md)
+  - [hotpost_v13_shadow_new_samples_review_packet.md](/Users/hujia/Desktop/RedditSignalScanner/reports/evals/hotpost_v13_shadow_new_samples_review_packet.md)
+- Hotpost Prompt A/B V13 的 title-standalone 规则已回灌到生产 prompt / rules，并新增默认关闭的 V13 推荐 LLM profile：
+  - [phase1026.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1026.md)
+- Hotpost V12 profile 已用非旧样本跑出 shadow 人工审核包，`signal 2 / hot 2 / breakdown 2` 全部生成成功：
+  - [phase1025.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1025.md)
+  - [hotpost_v12_shadow_new_samples_review_packet.md](/Users/hujia/Desktop/RedditSignalScanner/reports/evals/hotpost_v12_shadow_new_samples_review_packet.md)
+- Hotpost 已新增 V12 推荐 LLM route profile，记录 `deepseek/deepseek-v4-flash -> xiaomi/mimo-v2.5-pro`，默认不切生产流量：
+  - [phase1024.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1024.md)
+- Hotpost Prompt A/B V12 的高信息密度简洁规则已回灌到生产 prompt 资产和 `card_content_rules.yaml`，未改字段/schema/模型链路/生产 repair pass：
+  - [phase1023.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1023.md)
+- 小程序 Taro panic 修复 PR #3 已合并，独立仓库 `main` 已同步到 `a14c85b`：
+  - [phase1022.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1022.md)
+- 小程序 Taro panic 根因定位记录：问题来自 `@tarojs/plugin-doctor` 配置检查，项目标准构建入口改为跳过 doctor 检查并通过 dev/prod 构建：
+  - [phase1021.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1021.md)
+- 三个前台 tab 当前 prompt 已输出到根目录文档，覆盖 `潜力快帖 / 近期爆帖 / 跨区热议` 的真实拼装规则和 prompt 资产：
+  - [phase1020.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1020.md)
+  - [HOTPOST_TAB_PROMPTS.md](/Users/hujia/Desktop/RedditSignalScanner/HOTPOST_TAB_PROMPTS.md)
+- 小程序修复后的功能链路已完成验收：授权登录、头像保存、首页点卡片、详情查看、READ 03 原帖链接均已确认正常：
+  - [phase1019.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1019.md)
+- `2026-04-24` 追加 all-scope 7d 停机确认：新一轮采集有 SociaVault discover assist 命中，但发布面 6 个候选全被判为重复 / 拼接不稳 / 弱证据，清理后 `publish_ready=false`：
+  - [phase1018.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1018.md)
+- 小程序快照数据治理已合并到 GitHub `main`，新增一致性检查并修掉 manifest 指向缺失 release 文件的问题：
+  - [phase1017.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1017.md)
+- 小程序独立 GitHub 仓库 PR #1 已合并到 `main`，本地也同步到 `main@98adf2f`；快照数据差异未混入代码 PR，仍需单独治理：
+  - [phase1016.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1016.md)
+- 小程序独立 GitHub 仓库已创建，修复分支已推送并创建 draft PR：
+  - [phase1015.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1015.md)
+- 小程序独立仓库已完成本地提交，GitHub push 当前被认证 / 仓库可见性阻塞：
+  - [phase1014.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1014.md)
+- 小程序详情页 READ 03 已把“复制”和“展示原帖链接”解耦；即使微信剪贴板拦截，也会显示原帖链接供手动复制：
+  - [phase1013.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1013.md)
+- `2026-04-24` 今日出卡已接手到当前轮停机：SociaVault 后备链路已补进评论补采和 hot 争议图，今天已发布 18 张，最新 mini snapshot 同步通过，但 trend 仍是 rebound：
+  - [phase1012.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1012.md)
+  - [2026-04-24.md](/Users/hujia/Desktop/RedditSignalScanner/reports/ops-log/2026-04-24.md)
+- 小程序详情页 READ 03 原帖链接复制流程已改为直接复制并展开链接，不再误报剪贴板权限未配置：
+  - [phase1011.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1011.md)
+- 小程序详情页 `Re(a.card_id) is undefined` 已定位为加载期 helper 初始化顺序问题，源码和当前 dist 已修：
+  - [phase1010.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1010.md)
+- 小程序详情页白名单免积分已从异常兜底中拆出：三个白名单 id 现在作为独立 access decision，非白名单不再因积分系统异常被默认放行：
+  - [phase1009.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1009.md)
+- 小程序授权登录后点击卡片详情的 `加载失败 re is not function` 已完成源码和当前 dist 产物修复；还缺开发者工具 / 真机复验：
+  - [phase1008.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1008.md)
+- `2026-04-24` 今日出卡已重新接管：SociaVault 后备评论链路已修掉批超时误取消，但 all-scope safe gate 仍因 `signal_target_window_underfilled` 保持 `rewrite`，下一步要定向补 fresh signal：
+  - [phase1007.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1007.md)
+- 小程序 Taro 构建已加防卡死守门入口，TypeScript 历史错误已清零；Taro 底层 panic 仍需用微信开发者工具或非沙箱终端继续验证：
+  - [phase1006.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1006.md)
+- 小程序授权后反复要求补头像昵称的问题已完成源码修复：资料完整时直接继续，新选头像保存前先上传为稳定云文件；开发者工具 / 真机二轮验收仍是下一步：
+  - [phase1005.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1005.md)
+- `2026-04-24` 的第三轮 AI 深挖已把 `r/claude / r/Anthropic` 正式接进发现链，并新增两张 Claude/Anthropic 立场卡：
+  - [phase1003.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1003.md)
+- `2026-04-24` 的第二轮 AI 深挖已确认今天不只是模型发布卡，还能补“用户态度卡”；新增 `1str2pj`，并坐实 `Mythos destroys GPT 5.5` 这张因弱证据被门禁拦下：
+  - [phase1002.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1002.md)
+- 小程序界面优化后的 `share_click` 事件合同已补齐并通过目标测试；微信开发者工具 / 真机验收仍是下一步：
+  - [phase1004.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1004.md)
+- `2026-04-24` 的第一轮 AI 出卡池已经收出：`GPT-5.5 / Mythos / DeepSeek V4` 都已进入今天待审面，其中 `DeepSeek V4` 两张 fresh 稿来自 `r/DeepSeek / r/LocalLLaMA`：
+  - [phase1000.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1000.md)
+- `2026-04-23` 的第二层补卡继续按 `7D` 往前推，又新增 `ProductManagement / EtsySellers / ecommerce` 三张新稿；同时确认剩余 `7D` 主要已是近邻重题，接近高收益边界：
+  - [phase984.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase984.md)
+- `2026-04-23` 这轮已经正式发布 `12` 张，结构是 `hot 3 / signal 4 / breakdown 5`；最新 mini snapshot 已更新到 `release-60ba137f7dd5`，运营日志也已补齐：
+  - [phase983.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase983.md)
+  - [2026-04-23.md](/Users/hujia/Desktop/RedditSignalScanner/reports/ops-log/2026-04-23.md)
+- 今天待发池已按三条主线重收：小商品需求、商业增长非投放、Shopify/Etsy/独立站；排掉旧题重复后，当前是主池 `8` 张、备选 `2` 张：
+  - [phase960.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase960.md)
+- “先吃干净 `7D`，再开 `15D` 扩容” 已正式固化进仓库主规则和三个 ops skill，不再只是对话约定：
+  - [phase959.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase959.md)
+- `2026-04-22` 的补卡策略已切成“新社区优先”；`7D` 新社区基本吃完后，正式扩到 `15D` 盘点出 `SaaS / smallbusiness / AmazonSeller / vibecoding / comfyui / OpenWebUI / StableDiffusion / backpacking / Ultralight` 这批库存：
+  - [phase958.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase958.md)
+- `2026-04-22` 的 `7D` 深挖又新增 `1` 张商业增长和 `2` 张电商 draft，并确认今天部分候选必须走 `seed --snapshot-id` 才能正常落稿：
+  - [phase957.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase957.md)
+- `2026-04-22` 的第 2 轮定向补薄已经跑到 `yield exhaustion`；`business-growth-ops` 新导入 `2` 个、`ai-automation` 新导入 `1` 个，但都没有再带来新的 publishable gain，今天主池已稳定：
+  - [phase956.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase956.md)
+- 当前仓库里的 `key-os` 协议已改成“外部 OS + 只通过 `keyos` CLI 使用”的强约束，不再把自己当成 `key-os` 仓库维护者：
+  - [phase952.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase952.md)
+- 运营日志日清单已补上 `主社区` 列；现在每天回看发卡时，能直接看到每张卡主要来自哪个社区：
+  - [phase951.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase951.md)
+- 运营日志目录已经建好；最近 `5` 个有发布动作的日期都能直接按天回看每日发卡清单、结构分布和类别分布：
+  - [phase950.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase950.md)
+  - [ops-log/INDEX.md](/Users/hujia/Desktop/RedditSignalScanner/reports/ops-log/INDEX.md)
+- `2026-04-21` 这轮 `40` 个独立题材已全部正式发布；`12` 张 hot 争议图在发布时补齐后通过，最新 mini snapshot 已更新到 `release-28f7e52ecfa7`：
+  - [phase949.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase949.md)
+- 已确认 `hot` 争议图不是 workflow 漏跑，而是故意放在发布前闸门：SOP、publish 构卡和 mini snapshot 三层都要求 `controversy_chart / controversy_meta` 齐全后才能放行：
+  - [phase948.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase948.md)
+- `2026-04-21` 这轮当前共有 `40` 个独立题材 draft，但按现流程只有 `28` 个非 hot 题材能直接进发布链；`12` 张 hot 全都还缺争议图，因此今天主发应收在约 `15` 张：
+  - [phase947.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase947.md)
+- `7D` 的礼物+文具线继续向 `planner / hobonichi` 结构件集中；新落成 `1spxw5o / 1smuh7o` 两张 draft，Gift 侧新增开始明显放缓：
+  - [phase946.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase946.md)
+- `7D` 的情绪价值礼物 + 文具审美小物已继续补出 `1sndt42 / 1sqlc21 / 1sl4csl / 1smv3ao` 四张 draft，并确认 `hobonichi` 已成为新的稳定供给社区：
+  - [phase945.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase945.md)
+- `7D` 的小商品需求挖掘已继续扩到 `平价刚需 / 文具审美小物`；新落成 `1smbp5m / 1sldese / 1spn4in / 1sqfrrr / 1so3he0` 五张 draft，并确认 `成人/私密品` 在当前 `7D` 下仍是 `0` 命中：
+  - [phase944.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase944.md)
+- `7D` 的“选品”口径已纠正成 `小商品需求挖掘`；这一轮新增 `5` 张更贴近 `small-goods / gifting / crowdfunding` 的 draft，其中更硬的是 `1sq2l4a / 1sn5fex / 1so2i0r`：
+  - [phase943.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase943.md)
+- `7D` 的 `AI+电商` 已继续补出 `3` 张新 draft；当前收口成 `6` 张硬面 `+ 3` 张边缘位，新增已明显放缓：
+  - [phase942.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase942.md)
+- `7D` 的 `AI+work` 已继续深挖到接近 exhaustion，这轮新增 `11` 张 draft，其中 `8` 张可算硬面，工作场景已扩到 `PM / analytics / BI / sales / consulting`：
+  - [phase941.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase941.md)
+- `7D` 的 `AI+电商` 已继续补到 `5` 张主池，当前基本接近 exhaustion；众筹线仍只有 `1` 张弱备选：
+  - [phase940.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase940.md)
+- `7D` 定向深挖 `AI+电商` 已补出 `2` 张新硬面、`1` 张众筹备选，并确认众筹供给薄的主因是弱证据和 grouped 串题：
+  - [phase939.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase939.md)
+- `2026-04-21` 的第一轮可发池已经拉出：当前主发 `4` 张、备选 `2` 张，并排掉了和昨天撞题的旧面：
+  - [phase938.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase938.md)
+- 首页排序已继续收口：当天新卡仍优先，但同一天内部不再让 `hot` 整段占满首页；前 `15` 位当前为 `8 hot / 7 signal`：
+  - [phase937.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase937.md)
+- `近期爆帖` 已从 `11` 张补到 `19` 张，但这轮补量后 `trend audit` 打到了 `rebound`：
+  - [phase936.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase936.md)
+- `近期爆帖` 目前只有 `11` 张，已经确认不是前端漏算，而是当前 latest snapshot 的真实 hot 库存：
+  - [phase935.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase935.md)
+- AI 线这轮又新增 `15` 张 draft，今天总盘已到 `38` 张，但 `AI+电商` 供给仍薄于工具线：
+  - [phase929.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase929.md)
+- 三个 ops skill 和仓库 `AGENTS.md` 已同步到这轮真实运营节奏，默认改成 `all-scope -> 定向补薄 -> 必要时 live seed`：
+  - [phase928.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase928.md)
+- AI 商业场景落地线已继续补出 `5` 张新 draft，覆盖投放、SEO/GEO、CRM 和内容自动化：
+  - [phase927.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase927.md)
+- 这轮发卡运营里新发现的社区已全量接入发现链，覆盖 `business-growth-ops / ecommerce-sellers / ai-automation`，并补掉了 segment 级搜索预算配置未生效的运行时漏口：
+  - [phase926.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase926.md)
+- `2026-04-20` 的今天卡已从昨天补库里剥出来；当前 gate=`publish_ready`，fresh 面已准备出 `3` 张 validate + `1` 张 breakdown 待审草稿：
+  - [phase924.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase924.md)
+- 当前进度主线已明确提醒为“小程序优先”，避免后续又把范围扩散回大工作区：
+  - [phase923.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase923.md)
+- 仓库 `AGENTS.md` 已同步到新的 `key-os` 治理协议，旧 `--delta` 与旧入口口径已收口：
+  - [phase922.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase922.md)
+- 补充面已退回后台分桶，前端不再新增 `15天补充` 标签；本地 `422` 已修：
+  - [phase921.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase921.md)
+- 情绪礼物已经进一步压成具体商品：新增 `1s4dp64 / 1s37jfw` 两张产品化 gift 卡：
+  - [phase920.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase920.md)
+- “情绪价值商品”已拆成独立补卡 profile，并真实补发 `1sejtkv`：
+  - [phase919.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase919.md)
+- `gift` 线又补进 1 张正式卡 `1s36awc`，并把“正式资产”和“前台可见面”重新拆清：
+  - [phase918.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase918.md)
+- `gift` 线已单独拆成跨境礼品 profile，并真实补发 3 张 gift 卡；当前 gift 可见面已有 3 张：
+  - [phase917.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase917.md)
+- `30d` 去 EDC 化补卡已推进到第二轮：累计 `8` 张相关卡，其中 `5` 张已进当前小程序可见面：
+  - [phase916.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase916.md)
+- `30d` 选品补卡已继续去 EDC 化，并新增 `pet / outdoor / home / gifts / brand / crowdfunding` 两档独立 profile：
+  - [phase915.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase915.md)
+- `15天补充` 展示面已落地到小程序快照、云函数 bundle 与前端标签页；主 freshness 不变，trend audit 也已改成只看主面：
+  - [phase914.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase914.md)
+- `ai-7d-llm-agent` 这轮已继续补到底，新增发布 6 张 AI 卡，并确认当前 7d Hermes 仍无真高密度信号：
+  - [phase913.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase913.md)
+- 小程序本地/手机双轨已重新确认：本地继续走 `dist-dev + 本地 API`，手机继续走 `dist-prod + cloud db`：
+  - [phase912.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase912.md)
+- `AI / LLM / Agent / Harness` 的 `7d` 补卡入口已落成配置，并真实发布 4 张 AI 卡：
+  - [phase911.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase911.md)
+- `small-goods` 已按新 profile 真实补发 3 张，并验证“只改配置也能落地出卡”：
+  - [phase910.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase910.md)
+- 审计结论已落地成实现：默认 named-topic 策略和 gate 残留窗口硬编码已清掉：
+  - [phase909.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase909.md)
+- 补卡合同与配置边界已完成结构化审计：
+  - [phase908.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase908.md)
+- 当前补卡合同：
+  - [hotpost-card-supplement-contract.md](/Users/hujia/Desktop/RedditSignalScanner/docs/reference/hotpost-card-supplement-contract.md)
+- `selection-30d-core` 已继续补出 3 张真实上线卡：
+  - [phase907.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase907.md)
+- “补上线卡”已拆成独立可配置入口，不再继续混进日运营主链：
+  - [phase906.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase906.md)
+- `30d` 选品窗口已打通，并新增发布 2 张月窗卡：
+  - [phase905.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase905.md)
+- 近 `7d` fresh 选品挖掘已补出 2 张新卡：
+  - [phase904.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase904.md)
+- “选品 / 好物推荐”已补出首轮 3 张卡：
+  - [phase903.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase903.md)
+- `2026-04-14 ~ 2026-04-18` 历史漏卡首轮已补发 5 张，并同步到最新 release：
+  - [phase902.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase902.md)
+- 今天的日常运营已正式跑到 exhaustion，但结果层仍是低供给日：
+  - [phase901.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase901.md)
+- 每天运营的停机回报口径已明确拆开两种 `yield_exhausted`：
+  - [phase899.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase899.md)
+- `small-goods` 已从空白 cluster 打通到 publish surface：
+  - [phase898.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase898.md)
+- 里程碑总览：
+  - [MILESTONES.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/MILESTONES.md)
+- 当前统一口径更新：
+  - [phase850.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase850.md)
+- SOP 文档同步：
+  - [phase851.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase851.md)
+- 当前边界补充：
+  - [phase852.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase852.md)
+- 小程序范围已重新收口，且首页收藏回归已修回：
+  - [phase895.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase895.md)
+- 当前主目标切到小程序上线：
+  - [phase853.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase853.md)
+- quota-aware winner 已落实现：
+  - [phase854.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase854.md)
+- 真实 collect 运行验证：
+  - [phase855.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase855.md)
+- 运行层空转已修掉：
+  - [phase856.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase856.md)
+- SociaVault 运行环境已接通：
+  - [phase857.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase857.md)
+- 今日已出卡并修通 snapshot 同步：
+  - [phase859.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase859.md)
+- 核心目标验证已补上 pacing 与 backfill 收缩：
+  - [phase861.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase861.md)
+- trigger 4 已在真实运行里触发：
+  - [phase862.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase862.md)
+- freshness gate 已回到 publish，并恢复出卡：
+  - [phase863.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase863.md)
+- publish-until-exhausted 已固定成默认发卡准则：
+  - [phase864.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase864.md)
+- hot 争议图已压成发布和同步双硬门槛：
+  - [phase865.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase865.md)
+- 今日继续补出 2 张 signal，但当前 gate 仍被 hot freshness 卡住：
+  - [phase866.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase866.md)
+- 题材树四层治理已压进项目侧默认审计：
+  - [phase867.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase867.md)
+- 题材树治理保险审计已修掉真实漏口：
+  - [phase868.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase868.md)
+- 当前发卡循环已跑到真实 yield exhaustion：
+  - [phase870.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase870.md)
+- 产品默认范围已正式切到 all-scope：
+  - [phase871.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase871.md)
+- all-scope 保险审计已补掉 watchlist / governance collect / audit 输出漏口：
+  - [phase872.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase872.md)
+- all-scope 默认工作流已真实发到 exhaustion，本轮新增 24 张且 mini 同步全绿：
+  - [phase873.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase873.md)
+- 题材树治理已继续压到最终可见卡面，latest snapshot front30 已明显缓解老社区和强 pack 过重：
+  - [phase874.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase874.md)
+- 题材树治理结论已继续收紧：front30 已改善，但 `publish-until-exhausted` 仍是纪律/SOP，总库存结构还没完全健康：
+  - [phase875.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase875.md)
+- 发布面与来源健康收紧已前移到 plan-time，治理不再只停在 front30：
+  - [phase876.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase876.md)
+- latest inventory 已切到 governed rolling inventory，full inventory 开始真正去历史偏斜：
+  - [phase877.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase877.md)
+- 最近 5 个 release 的趋势审计已落地，当前可程序化判断是否反弹：
+  - [phase878.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase878.md)
+- rolling inventory stability 已接进默认发布后动作，后续 5 个新 release 会自动继续审：
+  - [phase879.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase879.md)
+- 首个 post-baseline release 已压到库存阈值内，稳定窗口进入 `1 / 5`：
+  - [phase880.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase880.md)
+- rolling inventory stability 已连续跑满 `5 / 5`，latest status 升到 `stable`：
+  - [phase881.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase881.md)
+- 正式停机规则已收进 SOP，并按双重停机条件真实停下：
+  - [phase882.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase882.md)
+- 供给厚度与证据强度已前移到 publish surface，但 live collect 增厚证据仍待补跑：
+  - [phase883.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase883.md)
+- 统一口径已继续压成默认计划输出，当前薄 pack / 空白 cluster / stable 状态已可机器读出：
+  - [phase884.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase884.md)
+- live collect 证据已补到发布面，薄 pack / 空白 cluster 开始真实进发布面：
+  - [phase885.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase885.md)
+- 本轮已在“供给开始变厚”后继续出卡到正式停机，最新 release 更新到 `release-5e91837e625e`：
+  - [phase886.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase886.md)
+- 两个空白 cluster 已真进 release，并补齐正式停机字段：
+  - [phase887.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase887.md)
+- 今天这轮已按 3 轮日节奏完整跑完，并确认是异常低供给日：
+  - [phase888.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase888.md)
+- publish surface gate 已按分层 winner 回灌进默认发布链：
+  - [phase889.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase889.md)
+- 字段完整性已继续前移，脏 draft 不再占 gate / queue 名额：
+  - [phase890.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase890.md)
+- 当前主问题已重新收口到“供给薄根因”，下一步专门拆 recall 与证据强度：
+  - [phase891.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase891.md)
+- 已代码级确认“检索面偏窄 + raw candidate 证据形成偏弱”是双重主因：
+  - [phase892.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase892.md)
+- 默认协作主链已固定成 `gstack 想 -> superpowers 做`：
+  - [phase893.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase893.md)
+- 已进一步确认：重点 cluster 主要卡在 pack 共享 quota + raw evidence 结构，而不只是 query 太少：
+  - [phase894.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase894.md)
+- hotpost recall 第一刀已落地并验证有效，但 evidence 仍是下一主阻断：
+  - [phase896.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase896.md)
+- `hotpost` 系统性出卡问题已打通，当前只剩 `small-goods` 专项：
+  - [phase897.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase897.md)
+- 本轮整理计划：
+  - [PHASE_LOG_REORGANIZATION_PLAN_2026-04-16.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/PHASE_LOG_REORGANIZATION_PLAN_2026-04-16.md)
+- 根目录保留的最近 phase：
+  - `phase825.md ~ phase851.md`
+
+## 如果你只想快速接手
+
+按这个顺序读：
+
+1. [CURRENT_STATUS.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/CURRENT_STATUS.md)
+2. [OPEN_ITEMS.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/OPEN_ITEMS.md)
+3. [MILESTONES.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/MILESTONES.md)
+4. [phase914.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase914.md)
+5. [phase917.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase917.md)
+6. [phase916.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase916.md)
+7. [phase915.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase915.md)
+8. [phase913.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase913.md)
+9. [phase912.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase912.md)
+10. [phase911.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase911.md)
+11. [phase910.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase910.md)
+12. [phase907.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase907.md)
+13. [phase906.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase906.md)
+14. [phase905.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase905.md)
+15. [phase904.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase904.md)
+16. [phase903.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase903.md)
+17. [phase902.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase902.md)
+18. [phase901.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase901.md)
+19. [phase900.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase900.md)
+20. [phase899.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase899.md)
+42. 需要追这轮实现背景时，再看：
+  - [phase852.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase852.md)
+42. 如果当前只接手小程序：
+  - [phase834.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase834.md)
+   - [phase833.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase833.md)
+   - [phase832.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase832.md)
+   - [phase831.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase831.md)
+
+## 阶段摘要
+
+- [PHASE_SUMMARY_000_199.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/PHASE_SUMMARY_000_199.md)
+- [PHASE_SUMMARY_200_399.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/PHASE_SUMMARY_200_399.md)
+- [PHASE_SUMMARY_400_599.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/PHASE_SUMMARY_400_599.md)
+- [PHASE_SUMMARY_600_799.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/PHASE_SUMMARY_600_799.md)
+- [PHASE_SUMMARY_800_NOW.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/PHASE_SUMMARY_800_NOW.md)
+
+## 历史资料去哪里
+
+- 非标准报告、验收文档、专题分析：
+  - `archive/non-phase-reports/`
+- txt/json/csv/log 等产物：
+  - `archive/non-markdown-artifacts/`
+- 老标准 phase：
+  - `archive/phase-history/`
+- archive 说明：
+  - [archive/README.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/archive/README.md)
+  - [archive/phase-history/README.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/archive/phase-history/README.md)
+
+## 目录边界
+
+- 根目录只保留：
+  - 规则
+  - 当前状态
+  - 未完成事项
+  - 里程碑总览
+  - 索引
+  - 阶段摘要
+  - 最近 phase
+- 其他一律不再留在根目录
+# 最新阶段
+
+- [phase1079](./phase1079.md): Hotpost V13 semantic 已完成出卡前增强：lane-specific readout、结构化 evidence basis、uncertainty 和 review artifact 持久化已落地。
+- [phase1078](./phase1078.md): Hotpost V13 semantic prompt 已增强，并确认 LLM 运行时配置真实生效；breakdown prompt 现在也会收到 semantic brief。
+- [phase1077](./phase1077.md): Hotpost `fast_model` 已收缩为 `deepseek/deepseek-v4-flash`；V13 语义理解 prompt 已确认存在，writer/reasoning 仍走 `deepseek/deepseek-v4-pro`。
+- [phase1076](./phase1076.md): Hotpost V13 正式出卡 LLM 路由已改为 `google/gemini-3-flash-preview -> deepseek/deepseek-v4-pro`，并同步 `fast_model / reasoning_model / backend/.env` 默认模型。
+- [phase1067](./phase1067.md): 小程序邀请奖励已改成“邀请新用户绑定奖励”；只有新用户通过邀请链接首次授权并绑定手机号才发 30 分，老用户互相分享和同一手机号重复绑定不发奖，云函数测试 55 项和 prod 构建通过。
+- [phase1066](./phase1066.md): 小程序分享奖励已收紧到“好友完成授权并绑定手机号”后结算；登录不发奖，`bindPhone` 成功后才发 30 分，前端文案已同步，云函数测试 52 项和 prod 构建通过。
+- [phase1065](./phase1065.md): 小程序手机号绑定已完成真机验收；微信隐私声明、合并按钮和 `miniAuth.bindPhone` 链路已打通，下一步收紧分享奖励结算点。
+- [phase1064](./phase1064.md): 手机号授权失败根因已按微信官方口径修正：手机号按钮改成 `getPhoneNumber|agreePrivacyAuthorization` 合并授权形态。
+- [phase1063](./phase1063.md): 真机手机号绑定失败根因已确认：微信返回 `api scope is not declared in the privacy agreement`，需要在微信公众平台用户隐私保护指引里补声明“手机号”隐私类型。
+- [phase1062](./phase1062.md): 真机手机号绑定失败已补诊断版；下次 `getPhoneNumber` 没返回 `code` 时会显示微信原始 `errMsg`，当前 node 测试 46 项通过、生产构建通过。
+- [phase1061](./phase1061.md): 小程序分享奖励已从 60 积分恢复为 30 积分；云函数规则、积分不足提示和前端分享文案已同步，后续上传体验版并部署 `miniPoints / miniAuth`。
+- [phase1060](./phase1060.md): 小程序上线前手机号/积分链路审计完成；连续登录、手机号入口、300/30/60 和生产构建已到位，但分享奖励仍按首次授权登录结算，需在手机号真机验通后收紧到绑定后结算。
+- [phase1056](./phase1056.md): 跨境 SKU 选品口径已纠偏：新增 `crossborder-sku-selection-7d`，`small-goods-broad` 不再默认跑 `GiftIdeas`，礼品线改成显式任务才用。
+- [phase1041](./phase1041.md): V13 full review 结果已正式替换 current published 全量 `448` 张，并刷新到 mini snapshot `release-8a33c32836ea`；同步检查全绿，下一步导入 cloud_db 到微信云开发。
+- [phase1040](./phase1040.md): V13 人工审核表已补齐到当前 published 全量 `448` 张；补跑 offset `0-59`、尾部 `437-447`，并定向补齐 offset `60-70` 的 `11` 张漏项，完整 `csv / xlsx` 已生成。
+- [phase1039](./phase1039.md): V13 shadow 结果已进入人工审核表阶段；新增审核表导出/导入工具，首版 `csv / xlsx` 审核表已生成，共 `377` 张，下一步等用户改表后生成最终 apply plan。
+- [phase1038](./phase1038.md): V13 全量 shadow refresh 已推进到尾部；batch012 到 batch022 覆盖 offset `220-436`，tail check offset `437` 为 `selected=0`。失败项均已单卡补跑闭环，最终标题问题 `0`、密度问题 `0`，下一步进入人工审核与替换决策。
+- [phase985](./phase985.md): `2026-04-23` 在 `7D` 吃到边界后，`15D` 扩容池又正式补发 `8` 张，并补通 `1smz7by` 的 hot 争议图闸门；最新 mini snapshot 已到 `release-832083884122`，当前小程序总卡数 `419`，当天运营日志更新为 `27` 张。
+- [phase965](./phase965.md): `2026-04-22` 小程序展示层已改回“全部已发布卡可见”；`mini_snapshot` 不再按 freshness / supplement 裁掉旧卡，后续只保留排序，不再做前台缩水。
+- [phase964](./phase964.md): `2026-04-22` 今天全盘正式发布 `17` 张，并完成 `mini snapshot`、同步检查和运营日志刷新；当前唯一未发出的是 `1sn0pxn`，因 draft 缺 `evidence_quotes` 被发布硬门槛挡住。
+- [phase963](./phase963.md): `2026-04-22` 继续深挖到新的收益边界后，又新增 `1ss70jc / 1spf1oi` 两张 draft；当前三条线的 `7D` 已基本吃空，`15D` 新社区扩容位里 `kickstarter / stationery / ManyBaggers` 等仍被弱证据门槛挡住。
+- [phase962](./phase962.md): `2026-04-22` 继续按三条线深挖后，`7D` 又新增 `1ss0drr / 66c5bba7b9 / 307a8f00af / a2cc2d4b93 / abc138d79b` 五张 draft；当前 `7D` 没完全见底，`15D` 扩容池也已重新收口。
+- [phase961](./phase961.md): `2026-04-22` 继续深挖后，真实新社区已正式接线：`stationery / planners / Journaling / hobonichi / fountainpens / GiftIdeas / consulting / sales`；runtime spec 回归通过，并新落成 `66c5bba7b9 / 307a8f00af / 1ss0drr` 三张 draft。
+- [phase955](./phase955.md): `2026-04-22` 第一轮产卡主池已收出；当前 gate 为 `publish_ready=true`，但整体仍是偏薄日，第一轮主池收成 `3 张 validate + 2 张 breakdown`。
+- [phase954](./phase954.md): hotpost 小程序项目说明已成功通过 `keyos wiki ingest` 进入知识库，当前 compiled 落点为 `05-knowledge/compiled/inbox/hotpost-mini-project-guide.md`。
+- [phase953](./phase953.md): hotpost 小程序的产品、发布、同步、运营和配置全貌已收成稳定项目说明文档；当前可以从单一入口快速看清“小程序是什么、怎么运作、现在到哪了”。
+- [phase946](./phase946.md): 礼物+文具线这轮新增已继续向 `planner / hobonichi` 结构件集中，新落成 `1spxw5o / 1smuh7o` 两张 draft；Gift 侧在当前 `7D` 下新增开始放缓。
+- [phase945](./phase945.md): 继续只压情绪礼物和文具审美小物后，新落成 `1sndt42 / 1sqlc21 / 1sl4csl / 1smv3ao` 四张 draft；其中更硬的是偏头痛阅读灯、手帐分册/插页、钢笔日本直购。
+- [phase944](./phase944.md): 小商品需求线已继续扩到平价刚需和文具审美小物，新落成 `1smbp5m / 1sldese / 1spn4in / 1sqfrrr / 1so3he0` 五张 draft；当前 `成人/私密品` 在 `7D` 下仍无硬命中。
+- [phase943](./phase943.md): “选品”这轮已切回小商品需求挖掘，新落成 `1sq2l4a / 1sn5fex / 1snna02 / 1so2i0r / 1smgclg` 五张更贴题 draft；当前更硬的是日用品二手替代、众筹原型信任和故事型产品基础价值。
+- [phase934](./phase934.md): 首页排序已改成“同一发布日的新卡优先”；最新 snapshot 已到 `release-433ac35919ac`，今天新发 `12` 张现在都在主面前 `12` 位，hot 卡前端天数时间也已隐藏。
+- [phase933](./phase933.md): 已确认今天新发卡没有丢，问题出在 mini snapshot 的首页混排和 supplement 下沉策略；当前新发 `12` 张里只有 `3` 张进首页首屏前 `30` 位，另有 `4` 张被下沉到 `15天补充`。
+- [phase932](./phase932.md): 今天主发池已正式发布 `12` 张，新发布总量增到 `327`；最新 mini snapshot 已到 `release-e5b7de02cdb2`，同步检查全绿，但真机云端仍需微信开发者工具导入两份 cloud_db 文件。
+- [phase931](./phase931.md): 今天出卡结果已做完整审计；底层规则没漂，但统计口径出现了漂移，对外说的 `40` 张和 `drafts/` 桶里今天被写到的 `52` 个文件不是一个分母。后续要固定拆开“工作区总草稿”和“今天主发池”。
+- [phase930](./phase930.md): `AI+卖货 / AI+投放 / AI+内容增长` 又继续补出 `1sqoema / 1sql7g1` 两张更贴题 draft；今天这轮累计 draft 盘增到 `40` 张，同时坐实 `AI+卖货` 供给仍薄，当前更能连续出货的是 `AI+投放 / AI+内容增长`。
+- [phase925](./phase925.md): 今天按配置层补卡又补出 `1souw90 / 1splyr9 / 1snzmwi` 三张新选品 draft；同时确认 `1skepok` 是历史已发重复，`1spntp0` 在生成阶段撞了禁词校验，今天不算硬发面。
+- [phase921](./phase921.md): 前端已移除 `15天补充` 标签，补充卡改回原列表展示；本地 `422` 根因已修，`build:weapp / build:weapp:prod` 都已重建通过。
+- [phase920](./phase920.md): 情绪礼物已进一步压成具体商品；新增 `1s4dp64 / 1s37jfw` 两张礼物卡，当前 gift 正式发布累计到 `7` 张，前台 gift 可见面增到 `4` 张。
+- [phase919](./phase919.md): “情绪价值商品”已拆成独立补卡 profile，并真实补发 `1sejtkv`；当前 gift 正式发布累计到 `5` 张，但前台 gift 可见面仍是 `3` 张。
+- [phase918](./phase918.md): `gift` 线继续补进 `1s36awc` 这张正式卡，并确认“正式资产增加”不等于“前台 gift 可见面增加”；当前 gift 前台仍是 `3` 张。
+- [phase917](./phase917.md): `gift` 线已从 broad 里单独拆成跨境礼品 profile，并真实补发 `1se1gc0 / 1spqj1u / 1smulbv` 三张；当前 gift 可见面已有 `3` 张。
+- [phase916](./phase916.md): `30d` 去 EDC 化补卡已推进到第二轮；在 phase915 基础上又补发 `1sixo6a / 1soc5l5 / 1slqcxb` 三张，当前相关补卡累计 `8` 张，其中 `5` 张已进当前小程序可见面。
+- [phase915](./phase915.md): `30d` 选品补卡已继续去 EDC 化；`small-goods-demand / tail` 的 EDC cap 再下调，并新增 `selection-30d-small-goods-broad / selection-30d-brand-opinion` 两档独立 profile。第一轮已真实补发 `5` 张相关卡，其中 `1so22u3` 进主面、`1sm5wkz` 进 `15天补充`。
+- [phase914](./phase914.md): `15天补充` 展示面已正式落到小程序：主 freshness 不动，补充面承接 15 天内仍有价值的已发布卡；当前 `main=64 / supplement=12`，trend audit 也已改成只看主面。
+- [phase913](./phase913.md): `ai-7d-llm-agent` 这轮已继续补到底，新增发布 6 张 AI 卡，并确认当前 7d `Hermes` 仍无真高密度直连信号；新发卡里已有 2 张进入当前 mini snapshot。
+- [phase912](./phase912.md): 小程序本地/手机双轨已重新确认；本地继续走 `dist-dev + 127.0.0.1:8006`，手机继续走 `dist-prod + cloud db`，不再把 `build:weapp:prod` 当成本地调试入口。
+- [phase911](./phase911.md): AI / LLM / Agent / Harness 的 7 天补卡入口已落成配置，并真实发布 4 张 AI 卡；`Hermes` 这轮 7d 没有足够硬的直连信号，没有为了补量硬发。
+- [phase904](./phase904.md): 近 7 天 fresh 选品挖掘已补出 2 张新卡，分别覆盖社区配置数据拆解和宠物出行配件替代；同时确认 queue 会吞掉部分 fresh selection 候选，必要时要用 `--live seed`。
+- [phase903](./phase903.md): “选品 / 好物推荐”首轮补出 3 张卡，分别覆盖详细清单、平替单价和批次缩水风险；当前选品信号从偏少补到开始可见。
+- [phase902](./phase902.md): 历史 `2026-04-14 ~ 2026-04-18` 首轮漏卡补发已收口，补发 5 张真漏卡；剩余未补项大多是噪音、撞题或信息密度不足，主线回到正式 `all-scope` 日运营。
+- [phase901](./phase901.md): 今天的 all-scope 日常运营已正式跑到 `yield_exhaustion`；累计真实发布 7 张，但结果层仍是低供给日，下一轮继续补 `small-goods / funnel-conversion / category-winds`。
+- [phase900](./phase900.md): 今天的日常运营已正式启动；第一轮真实发出 4 张，并修掉 seed 坏 JSON 与 signal validate 字段链阻断；当前还没满足停机条件，第二轮标准链已启动。

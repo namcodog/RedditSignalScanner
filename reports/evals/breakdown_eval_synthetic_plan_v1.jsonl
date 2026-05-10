@@ -1,0 +1,6 @@
+{"synthetic_case_id": "breakdown-synth-plan-01", "topic_pack_id": "agent-builder", "target_failure_tag": "weak_thesis", "status": "planned"}
+{"synthetic_case_id": "breakdown-synth-plan-02", "topic_pack_id": "selection-signals", "target_failure_tag": "quote_pack_not_supporting_claim", "status": "planned"}
+{"synthetic_case_id": "breakdown-synth-plan-03", "topic_pack_id": "agent-builder", "target_failure_tag": "no_judgment_gain", "status": "planned"}
+{"synthetic_case_id": "breakdown-synth-plan-04", "topic_pack_id": "selection-signals", "target_failure_tag": "reddit_restatement", "status": "planned"}
+{"synthetic_case_id": "breakdown-synth-plan-05", "topic_pack_id": "agent-builder", "target_failure_tag": "why_now_not_actionable", "status": "planned"}
+{"synthetic_case_id": "breakdown-synth-plan-06", "topic_pack_id": "selection-signals", "target_failure_tag": "audience_not_who_is_talking", "status": "planned"}

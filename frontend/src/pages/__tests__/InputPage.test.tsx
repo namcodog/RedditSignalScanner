@@ -87,20 +87,15 @@ describe('InputPage', () => {
     });
   });
 
-  it('allows quick fill from sample prompts', async () => {
+  it('opens standard report directly when clicking homepage standard cards', async () => {
     await renderInputPage();
-    const sampleCardTitle = screen.getByText('跨境支付/收款');
+    const sampleCardTitle = screen.getByText('跨境电商/PayPal');
 
     await act(async () => {
       await userEvent.click(sampleCardTitle);
     });
 
-    const textarea = screen.getByRole('textbox', { name: /产品描述/i }) as HTMLTextAreaElement;
-
-    // 等待状态更新 - 更新为新的示例提示词
-    await waitFor(() => {
-      expect(textarea.value).toMatch(/跨境电商卖家收款与结算效率分析/);
-    });
+    expect(mockNavigate).toHaveBeenCalledWith('/standard-report/cross-border-paypal');
   });
 
   it('submits product description and navigates to progress page', async () => {
@@ -193,7 +188,7 @@ describe('InputPage', () => {
     mockGetInputGuidance.mockResolvedValueOnce({
       examples: [
         {
-          title: '跨境支付/收款',
+          title: '官方黄金示例',
           prompt: '跨境卖家支付与收款效率分析，重点看 payout 延迟、手续费和风控冻结。',
           tags: ['跨境', '支付'],
           topic_profile_id: 'cross_border_payment_v1',
@@ -211,7 +206,7 @@ describe('InputPage', () => {
     await renderInputPage();
 
     await act(async () => {
-      await userEvent.click(await screen.findByText('跨境支付/收款'));
+      await userEvent.click(await screen.findByText('官方黄金示例'));
     });
 
     await act(async () => {
@@ -266,6 +261,46 @@ describe('InputPage', () => {
     const textarea = screen.getByRole('textbox', { name: /产品描述/i }) as HTMLTextAreaElement;
     await waitFor(() => {
       expect(textarea.value).toContain('跨境卖家多平台利润追踪工具');
+    });
+  });
+
+  it('keeps input blank when returning from a standard report and lets users type a fresh question', async () => {
+    mockCreateAnalyzeTask.mockResolvedValue({
+      task_id: '123e4567-e89b-12d3-a456-426614174888',
+      status: 'pending',
+      created_at: '2025-10-11T10:00:00Z',
+      estimated_completion: '2025-10-11T10:05:00Z',
+      sse_endpoint: '/api/analyze/stream/123',
+    });
+
+    await renderInputPage([
+      {
+        pathname: '/',
+        state: {
+          prefillSource: 'standard-report',
+          prefillHint: '刚看完这份标准样板。输入框已经清空，直接按你的真实问题重写就行。',
+          prefillStandardTitle: '跨境电商/PayPal',
+          prefillPromptSuggestion: '跨境卖家支付与收款效率分析，重点看 payout 延迟、手续费和风控冻结。',
+        },
+      },
+    ]);
+
+    expect(screen.getByText('刚看过这份标准样板')).toBeInTheDocument();
+    expect(screen.getByText('刚看的是：跨境电商/PayPal')).toBeInTheDocument();
+    expect(screen.getByText(/问题描述参考：跨境卖家支付与收款效率分析/)).toBeInTheDocument();
+
+    const textarea = screen.getByRole('textbox', { name: /产品描述/i }) as HTMLTextAreaElement;
+    expect(textarea.value).toBe('');
+
+    await act(async () => {
+      await userEvent.type(textarea, '一个帮跨境卖家提前看清 payout 延迟和手续费波动的预警工具。');
+      await userEvent.click(screen.getByRole('button', { name: '开始 5 分钟分析' }));
+    });
+
+    await waitFor(() => {
+      expect(mockCreateAnalyzeTask).toHaveBeenCalledWith({
+        product_description: '一个帮跨境卖家提前看清 payout 延迟和手续费波动的预警工具。',
+      });
     });
   });
 });

@@ -1,0 +1,18 @@
+{"eval_case_id":"breakdown-eval-suggestion-suggestion-ai-automation-94bfe667d1","overall_pass":false,"failure_tags":["weak_thesis","stitched_not_coherent"],"review_notes":"hypothesis 和 thesis 对不上，两条 candidate 不是同一个话题，OpenAI quote 与 SQL 主题无关。"}
+{"eval_case_id":"breakdown-eval-published-clue-ai-coding-constraint-drop","overall_pass":true,"failure_tags":[],"review_notes":"‘约束衰减’判断成立，三社区独立验证同一现象。"}
+{"eval_case_id":"breakdown-eval-published-clue-ai-coding-large-repo","overall_pass":true,"failure_tags":[],"review_notes":"乱动未授权区域→拆碎任务→流程成本，推进链清晰。"}
+{"eval_case_id":"breakdown-eval-published-clue-ai-coding-review-layer","overall_pass":true,"failure_tags":[],"review_notes":"从会不会写推进到解释链和信任链断掉，quote 支撑充分。"}
+{"eval_case_id":"breakdown-eval-published-clue-ai-search-source-trust","overall_pass":true,"failure_tags":[],"review_notes":"答案越顺核对成本越高，反直觉判断成立。"}
+{"eval_case_id":"breakdown-eval-published-clue-creator-ai-voice-loss","overall_pass":true,"failure_tags":[],"review_notes":"流失的是判断和个人味道，不只是文风。"}
+{"eval_case_id":"breakdown-eval-published-clue-meeting-post-meeting-ownership","overall_pass":true,"failure_tags":[],"review_notes":"责任扩散导致第一步悬空，增量清晰。"}
+{"eval_case_id":"breakdown-eval-published-clue-meeting-speaker-trust-gap","overall_pass":true,"failure_tags":[],"review_notes":"标错人导致信任瓦解，切得很准。"}
+{"eval_case_id":"breakdown-eval-published-clue-meeting-summary-action-gap","overall_pass":true,"failure_tags":[],"review_notes":"整齐但不可执行，thesis 站得住。"}
+{"eval_case_id":"breakdown-eval-published-clue-note-preserve-original","overall_pass":true,"failure_tags":[],"review_notes":"怕的不是不完整，而是原意被洗掉。"}
+{"eval_case_id":"breakdown-eval-published-clue-note-source-link-retention","overall_pass":true,"failure_tags":[],"review_notes":"整理破坏溯源，是独立判断。"}
+{"eval_case_id":"breakdown-eval-published-clue-crm-data-entry-drag","overall_pass":true,"failure_tags":[],"review_notes":"不认这一步的价值，觉得在替系统补作业。"}
+{"eval_case_id":"breakdown-eval-published-clue-linear-jira-switch","overall_pass":true,"failure_tags":[],"review_notes":"真正拉开差距的是谁还愿意每天打开它。"}
+{"eval_case_id":"breakdown-eval-published-clue-project-tracking-workaround","overall_pass":true,"failure_tags":[],"review_notes":"任务板装不下真实协作，靠板外补丁接住。"}
+{"eval_case_id":"breakdown-eval-published-clue-roadmap-lightweight-alignment","overall_pass":false,"failure_tags":["stitched_not_coherent","no_judgment_gain"],"review_notes":"和其他工具 workaround 卡高度重叠，没有新的判断增量。"}
+{"eval_case_id":"breakdown-eval-published-clue-sales-followup-slip","overall_pass":false,"failure_tags":["stitched_not_coherent","reporty_title"],"review_notes":"和 CRM/会后行动项卡重复，标题像白皮书。"}
+{"eval_case_id":"breakdown-eval-suggestion-suggestion-ecommerce-sellers-258155f585","overall_pass":false,"failure_tags":["stitched_not_coherent","weak_thesis"],"review_notes":"园艺喷嘴和露营冰箱硬拼，thesis 太泛。"}
+{"eval_case_id":"breakdown-eval-published-card-group-ecommerce-sellers-43ea64a8a5","overall_pass":true,"failure_tags":[],"review_notes":"ROAS 幻觉有数字算术支撑，反直觉判断很硬。"}

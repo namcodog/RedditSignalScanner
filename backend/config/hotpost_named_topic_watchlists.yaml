@@ -1,0 +1,205 @@
+defaults:
+  preset: daily-watchlist
+
+topics:
+  karpathy-llm-wiki:
+    scope_id: ai-automation
+    topic_pack_id: upstream-winds
+    topic_cluster_ids: [key-people-and-route]
+    queries:
+      - karpathy llm wiki
+      - '"llm wiki" karpathy'
+      - '"llm wiki"'
+    subreddits: [LLM, ClaudeCode, OpenAI, LocalLLaMA]
+
+  claude-mythos:
+    scope_id: ai-automation
+    topic_pack_id: upstream-winds
+    topic_cluster_ids: [flagship-project-tracks]
+    queries:
+      - claude mythos
+      - '"mythos preview" anthropic'
+    subreddits: [claude, ClaudeAI, Anthropic, openclaw]
+
+  claude-platform:
+    scope_id: ai-automation
+    topic_pack_id: upstream-winds
+    topic_cluster_ids: [platform-policy-shifts]
+    queries:
+      - claude platform advisor
+      - '"claude platform"'
+      - '"claude has gotten worse"'
+    subreddits: [ClaudeCode, ClaudeAI, Anthropic]
+
+  ai-route-shifts:
+    scope_id: ai-automation
+    topic_pack_id: upstream-winds
+    topic_cluster_ids: [key-people-and-route]
+    candidate_cap: 4
+    queries:
+      - '"Andrej Karpathy" agentic engineering'
+      - '"Simon Willison" llm strategy'
+      - '"Hamel Husain" eval workflow'
+    subreddits: [OpenAI, MachineLearning, LocalLLaMA]
+
+  platform-policy-watch:
+    scope_id: ai-automation
+    topic_pack_id: upstream-winds
+    topic_cluster_ids: [platform-policy-shifts]
+    candidate_cap: 4
+    queries:
+      - '"OpenAI" api pricing'
+      - '"Anthropic" api pricing'
+      - '"rate limit" openai api'
+    subreddits: [OpenAI, ClaudeAI, MachineLearning]
+
+  prompt-engineering:
+    scope_id: ai-automation
+    topic_pack_id: agent-builder
+    topic_cluster_ids: [agent-incidents]
+    queries:
+      - prompt engineering
+      - '"prompt engineering" workflow'
+      - '"prompt engineering" dead'
+    subreddits: [PromptEngineering, LLM, ChatGPT, OpenAI]
+
+  harness-models:
+    scope_id: ai-automation
+    topic_pack_id: agent-builder
+    topic_cluster_ids: [agent-incidents]
+    candidate_cap: 3
+    queries:
+      - harness model
+      - harness ai model
+      - '"harness" llm'
+    subreddits: [LLM, MachineLearning, OpenAI, ClaudeAI]
+
+  happyhorse-model:
+    scope_id: ai-automation
+    topic_pack_id: upstream-winds
+    topic_cluster_ids: [flagship-project-tracks]
+    candidate_cap: 3
+    queries:
+      - happyhorse model
+      - '"happyhorse" llm'
+      - '"happy horse" ai model'
+    subreddits: [LLM, MachineLearning, OpenAI, LocalLLaMA]
+
+  mcp-workflows:
+    scope_id: ai-automation
+    topic_pack_id: agent-builder
+    topic_cluster_ids: [agent-incidents]
+    candidate_cap: 4
+    queries:
+      - model context protocol
+      - '"mcp server"'
+      - '"tool calling" agent'
+      - '"agent eval" workflow'
+    subreddits: [ClaudeCode, ChatGPTCoding, AI_Agents, LLM, OpenAI]
+
+  ai-product-adoption:
+    scope_id: ai-automation
+    topic_pack_id: tools-efficiency
+    topic_cluster_ids: [ai-product-and-adoption]
+    candidate_cap: 4
+    queries:
+      - ai product adoption
+      - '"ai feature nobody uses"'
+      - '"product team moved to ai workflow"'
+      - '"notebooklm" workflow'
+    subreddits: [ProductManagement, SaaS, ExperiencedDevs, OpenAI, ClaudeAI]
+
+  checkout-conversion:
+    scope_id: business-growth-ops
+    topic_pack_id: funnel-conversion
+    topic_cluster_ids: [funnel]
+    candidate_cap: 4
+    queries:
+      - checkout conversion
+      - '"landing page" conversion'
+      - '"checkout" drop off'
+      - '"form friction" conversion'
+    subreddits: [CRO, shopify, ecommerce, PPC, marketing]
+
+  form-friction-conversion:
+    scope_id: business-growth-ops
+    topic_pack_id: funnel-conversion
+    topic_cluster_ids: [funnel]
+    candidate_cap: 4
+    queries:
+      - booking vs form conversion
+      - '"pricing page" conversion'
+      - '"lead form" friction'
+      - '"appointment booking" conversion'
+    subreddits: [CRO, SaaSMarketing, analytics, smallbusiness, marketing]
+
+  category-demand-shift:
+    scope_id: ecommerce-sellers
+    topic_pack_id: category-winds
+    topic_cluster_ids: [seller-category-direction]
+    candidate_cap: 4
+    queries:
+      - amazon niche trend
+      - '"what category is growing"'
+      - '"what category are you avoiding"'
+      - '"demand shift" ecommerce'
+    subreddits: [AmazonSeller, FulfillmentByAmazon, EtsySellers, ecommerce, shopify]
+
+  small-goods-watch:
+    scope_id: ecommerce-sellers
+    topic_pack_id: selection-signals
+    topic_cluster_ids: [small-goods]
+    candidate_cap: 4
+    queries:
+      - small product niche
+      - '"cheap useful accessory"'
+      - '"giftable item" ecommerce'
+      - '"replacement part" niche'
+    subreddits: [AmazonSeller, EtsySellers, FulfillmentByAmazon, ecommerce, sidehustle]
+
+  flashlight-selection:
+    scope_id: ecommerce-sellers
+    topic_pack_id: selection-signals
+    topic_cluster_ids: [outdoor, edc]
+    queries:
+      - best flashlight
+      - edc flashlight
+      - '"buy it for life" flashlight'
+    subreddits: [BuyItForLife, flashlight, EDC, CampingGear]
+
+  pet-supplies:
+    scope_id: ecommerce-sellers
+    topic_pack_id: selection-signals
+    topic_cluster_ids: [pet]
+    queries:
+      - best pet hair remover
+      - dog travel accessory
+      - cat litter accessory
+    subreddits: [dogs, pets, BuyItForLife, homeowners]
+
+presets:
+  daily-watchlist:
+    - karpathy-llm-wiki
+    - claude-mythos
+    - claude-platform
+    - ai-route-shifts
+    - platform-policy-watch
+    - prompt-engineering
+    - harness-models
+    - happyhorse-model
+    - ai-product-adoption
+    - checkout-conversion
+    - form-friction-conversion
+    - small-goods-watch
+    - flashlight-selection
+    - pet-supplies
+
+  supply-repair-v1:
+    - mcp-workflows
+    - ai-route-shifts
+    - platform-policy-watch
+    - ai-product-adoption
+    - checkout-conversion
+    - form-friction-conversion
+    - category-demand-shift
+    - small-goods-watch

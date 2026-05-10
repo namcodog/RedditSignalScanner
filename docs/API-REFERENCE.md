@@ -1,41 +1,41 @@
 # Reddit Signal Scanner - API 接口文档（给前端/产品）
 
-**更新日期**：2026-01-19  
-**主门牌**：`/api`（前端统一用这个）  
-**影子门牌**：`/api/v1`（只覆盖 v1 模块：analysis/stream/tasks/reports/export/decision-units；auth/admin/metrics/insights/guidance/diag 仅 `/api`）  
+**更新日期**：2026-01-19
+**主门牌**：`/api`（前端统一用这个）
+**影子门牌**：`/api/v1`（只覆盖 v1 模块：analysis/stream/tasks/reports/export/decision-units；auth/admin/metrics/insights/guidance/diag 仅 `/api`）
 **真相源**：运行中的 `GET /openapi.json`（字段细节以它为准）
 
-> 这份文档说人话：告诉前端“怎么接最稳、哪些情况别当 bug”。  
+> 这份文档说人话：告诉前端“怎么接最稳、哪些情况别当 bug”。
 > 如果你发现这份文档和 `openapi.json` 不一致，以 `openapi.json` 为准。
 
 ---
 
 ## 0) 前端必看（注意事项，别踩坑）
 
-1. **报告不是永远“满配”**  
+1. **报告不是永远“满配”**
    有些话题天生料少，系统会给你 `C_scouting`（勘探版）或者直接 `blocked`。这不是报错，是“诚实输出”。
 
-2. **报告正文默认由 LLM 生成**  
+2. **报告正文默认由 LLM 生成**
    LLM 读取 **insights 主线 + facts_v2 证据切片** 生成报告；若门禁为 C/X，只返回解释与下一步动作。开发环境未配置 LLM 时会回退模板（仅调试用）。
 
-3. **别只盯 `/api/report/{task_id}`，一定要配套看 sources 账本**  
+3. **别只盯 `/api/report/{task_id}`，一定要配套看 sources 账本**
    `GET /api/tasks/{task_id}/sources` 才是“为什么是这个结果”的说明书（tier、缺口、下一步动作都在里面）。
 
-4. **SSE 需要带 Token**  
+4. **SSE 需要带 Token**
    原生 `EventSource` 不能带 header，前端请用 `fetch-event-source`（仓库前端已使用）或其它支持 header 的方案。
 
-5. **返回格式有两套，前端要兼容**  
-   - 多数业务接口：直接返回对象（比如 `/api/analyze`、`/api/report/...`、`/api/decision-units`）。  
-   - 多数 admin 接口：返回包裹型 `{ "code": 0, "data": {...}, "trace_id": "..." }`。  
+5. **返回格式有两套，前端要兼容**
+   - 多数业务接口：直接返回对象（比如 `/api/analyze`、`/api/report/...`、`/api/decision-units`）。
+   - 多数 admin 接口：返回包裹型 `{ "code": 0, "data": {...}, "trace_id": "..." }`。
    - 例外（admin 直返）：`/api/admin/tasks/{task_id}/ledger`、`/api/admin/metrics/*`、`/api/admin/facts/*`。
 
-6. **主业务链路的“合同”**  
-   - 不允许 500（尤其是 RLS/GUC 相关）。  
-   - 料不够要能解释（`blocked_reason` / `next_action` / `sources` 账本）。  
+6. **主业务链路的“合同”**
+   - 不允许 500（尤其是 RLS/GUC 相关）。
+   - 料不够要能解释（`blocked_reason` / `next_action` / `sources` 账本）。
    - 前端把 `blocked_reason` 当“状态”，别当“报错弹窗”。
 
-7. **前端 baseURL 建议**  
-   - 本地默认：`http://localhost:8006/api`（前端已用 `VITE_API_BASE_URL` 支持配置）  
+7. **前端 baseURL 建议**
+   - 本地默认：`http://localhost:8006/api`（前端已用 `VITE_API_BASE_URL` 支持配置）
    - 接口路径统一写相对 `/api/...`，不要硬编码 `/api/v1/...`
 
 ---
@@ -44,14 +44,14 @@
 
 1. 登录拿 token：`POST /api/auth/login`
 2. 创建任务：`POST /api/analyze` → 拿到 `task_id` + `sse_endpoint`
-3. 进度：  
-   - SSE：`GET /api/analyze/stream/{task_id}`（推荐）  
+3. 进度：
+   - SSE：`GET /api/analyze/stream/{task_id}`（推荐）
    - 轮询兜底：`GET /api/status/{task_id}`
 4. 报告：`GET /api/report/{task_id}`
 5. 解释“为什么”：`GET /api/tasks/{task_id}/sources`（拿 tier + 缺口 + 建议动作）
-6.（可选）DecisionUnit：  
-   - 列表：`GET /api/decision-units`  
-   - 详情：`GET /api/decision-units/{decision_unit_id}`  
+6.（可选）DecisionUnit：
+   - 列表：`GET /api/decision-units`
+   - 详情：`GET /api/decision-units/{decision_unit_id}`
    - 反馈：`POST /api/decision-units/{decision_unit_id}/feedback`
 
 ---
@@ -61,14 +61,14 @@
 这些信息主要来自 `GET /api/tasks/{task_id}/sources`（都在返回的 `sources` 字段里）：
 
 - `sources.report_tier`：
-  - `A_full`：完整版  
-  - `B_trimmed`：缩水版（痛点/方案少，但不乱编）  
-  - `C_scouting`：勘探版（只说明“目前看到的结构”，不下定论）  
+  - `A_full`：完整版
+  - `B_trimmed`：缩水版（痛点/方案少，但不乱编）
+  - `C_scouting`：勘探版（只说明“目前看到的结构”，不下定论）
   - `X_blocked`：直接拦截（不生成报告）
 - `sources.facts_v2_quality.flags`：为什么降级/拦截（比如 `pains_low` / `solutions_low` / `topic_mismatch` 等）
 - `GET /api/status/{task_id}` 里的 `blocked_reason / next_action`：给用户看的“一句话解释”
 
-**前端最稳的做法**：  
+**前端最稳的做法**：
 报告页顶部固定展示：`tier + flags + next_action`，让用户一眼明白“这份报告能不能当结论用”。
 
 ---
@@ -222,7 +222,7 @@
 
 | 方法 | 路径 | 认证 | 说明 |
 |---|---|---|---|
-| `GET` | `/api/healthz` | 无 | Health Check Alias |
+| `GET` | `/api/v1/health` | 无 | Preferred health check |
 
 ### insights（2）
 
@@ -289,8 +289,8 @@
 ```
 
 说明（大白话）：
-- `mode`：`market_insight`（偏买家声音） / `operations`（偏卖家/运营声音）。不传也行，系统会尽量自动选。  
-- `audit_level`：通常不用前端写死，调试才会用到。  
+- `mode`：`market_insight`（偏买家声音） / `operations`（偏卖家/运营声音）。不传也行，系统会尽量自动选。
+- `audit_level`：通常不用前端写死，调试才会用到。
 - `topic_profile_id`：你要“锁死赛道”才传，不传就是走默认策略。
 
 ### 5.2 获取 sources 账本（`GET /api/tasks/{task_id}/sources`）
@@ -322,16 +322,17 @@
 }
 ```
 
-`label` 只能是：`correct` / `incorrect` / `mismatch` / `valuable` / `worthless`。  
+`label` 只能是：`correct` / `incorrect` / `mismatch` / `valuable` / `worthless`。
 你不传 `evidence_id` 也可以，后端会自动绑定一条 top evidence（但前端建议优先传，复盘更清晰）。
 
 ---
 
 ## 6) 健康检查 / 诊断（本地联调用）
 
-- `GET /api/healthz`：健康检查（200 就算活着）
+- `GET /api/v1/health`：首选健康检查（200 就算活着）
+- `GET /api/healthz`：兼容别名
 - `GET /api/tasks/diag`：运行时配置诊断（偏运维）
 - `GET /api/diag/runtime`：运行时诊断信息（需要 Admin JWT）
-**注意**：admin 并非全包裹  
-- 直返：`/api/admin/tasks/{task_id}/ledger`、`/api/admin/metrics/*`、`/api/admin/facts/*`  
+**注意**：admin 并非全包裹
+- 直返：`/api/admin/tasks/{task_id}/ledger`、`/api/admin/metrics/*`、`/api/admin/facts/*`
 - 包裹：`/api/admin/communities/*`、`/api/admin/dashboard/stats`、`/api/admin/tasks/recent`、`/api/admin/users/active`、`/api/admin/beta/feedback`、`/api/admin/semantic-candidates*`

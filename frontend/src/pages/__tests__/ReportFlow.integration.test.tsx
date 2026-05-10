@@ -28,7 +28,7 @@ const buildReport = (): ReportResponse => ({
   generated_at: '2025-10-25T08:00:00Z',
   product_description: 'Test product',
   report_html: '<html />',
-  report_structured: {
+  canonical_report_json: {
     decision_cards: [
       {
         title: '需求趋势',
@@ -61,6 +61,7 @@ const buildReport = (): ReportResponse => ({
     drivers: [],
     opportunities: [],
   },
+  report_structured: null,
   report: {
     executive_summary: {
       total_communities: 3,
@@ -138,8 +139,8 @@ describe('ReportPage 集成流程', () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByText('先看结论')).toBeInTheDocument();
-      expect(screen.getByText('值得继续推进')).toBeInTheDocument();
+      expect(screen.getByRole('heading', { name: '这次已经值得继续做', level: 2 })).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: '逐维探索' })).toBeInTheDocument();
     });
 
     const user = userEvent.setup();

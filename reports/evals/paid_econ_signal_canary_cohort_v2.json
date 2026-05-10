@@ -1,0 +1,162 @@
+{
+  "source_scope_id": "business-growth-ops",
+  "topic_pack_id": "paid-economics",
+  "case_count": 3,
+  "generation_failure_count": 0,
+  "cases": [
+    {
+      "eval_case_id": "signal-eval-generated-card-cand-business-growth-ops-1saryha-validate",
+      "sample_origin": "candidate_generated",
+      "input_bundle": {
+        "source_scope_id": "business-growth-ops",
+        "source_scope_name": "商业增长与运营",
+        "topic_pack_id": "paid-economics",
+        "signal_level": "sustained",
+        "why_now_reason": "switch_signal_7d",
+        "intent_tags": [
+          "替换",
+          "求推荐"
+        ],
+        "thread_count": 1,
+        "community_count": 1,
+        "quote_count": 2,
+        "source_communities": [
+          "r/FacebookAds"
+        ],
+        "evidence_quotes": [
+          {
+            "text": "A one-day spike of fake conversions can absolutely throw Meta off when your normal volume is 1-2 bookings a day. The bigger fix is making sure imported contacts and live booking events never hit the same conversion path again.",
+            "community": "r/FacebookAds",
+            "permalink": "https://www.reddit.com/r/FacebookAds/comments/1saryha/accidentally_triggered_meta_conversion_api_for/odyh2ll/"
+          },
+          {
+            "text": "It made your Pixel worse than it was before, but I don't think you're cooked forever. The good news is they were real people so it's still a decent signal. All on one day is of course not great.\n\nHow many days has it been since the 66 conversions day?",
+            "community": "r/FacebookAds",
+            "permalink": "https://www.reddit.com/r/FacebookAds/comments/1saryha/accidentally_triggered_meta_conversion_api_for/odyhrqt/"
+          }
+        ]
+      },
+      "baseline_output": {
+        "title": "假转化一冲进回传路径，低量账户的算法学习先被带偏。",
+        "summary_line": "投手需重新判断像素质量，因为一日的假转化spike绝对会让Meta算法失准，尤其正常量只有1-2单时。",
+        "audience": "用GoHighLevel导入联系人跑FB广告的投放运营",
+        "why_now": "讨论已经不在问报错本身，而是在追问该怎么修回传路径，说明像素质量和自动出价已经受影响。",
+        "detail": {
+          "pain_point": "意外触发Conversion API造成一天66假转化，干扰像素信号",
+          "target_user_and_scene": "检查投放数据时发现像素异常的广告手",
+          "why_test_now": "讨论已经不在问报错本身，而是在追问该怎么修回传路径，说明像素质量和自动出价已经受影响。",
+          "min_test_action": "去看原始讨论",
+          "continue_signal": "如果接下来在更多社区里还出现同样抱怨，而且继续有人直接问推荐，就继续盯。",
+          "stop_signal": "如果后面只剩零散吐槽，没有新的具体场景或后续追问，就先放过。"
+        }
+      },
+      "metadata": {
+        "candidate_id": "cand-business-growth-ops-1saryha",
+        "case_polarity": "pending_review"
+      }
+    },
+    {
+      "eval_case_id": "signal-eval-generated-card-cand-business-growth-ops-1sa15we-validate",
+      "sample_origin": "candidate_generated",
+      "input_bundle": {
+        "source_scope_id": "business-growth-ops",
+        "source_scope_name": "商业增长与运营",
+        "topic_pack_id": "paid-economics",
+        "signal_level": "sustained",
+        "why_now_reason": "switch_signal_7d",
+        "intent_tags": [
+          "替换",
+          "求推荐"
+        ],
+        "thread_count": 1,
+        "community_count": 1,
+        "quote_count": 2,
+        "source_communities": [
+          "r/PPC"
+        ],
+        "evidence_quotes": [
+          {
+            "text": "IMO you threw the algorithm into learning mode twice in a row... first when you added CallRail as primary then again by keeping your best converters secondary... I run service accounts for clients at $100k+ monthly spend mostly and when someone makes this exact move performance tanks for 14-21 days minimum... make offline conversions primary immediately and let CallRail sit as secondary for observation... your 21 booked conversions is barely enough data but the algorithm will recalibrate faster optimizing toward actual revenue instead of phone rings... forms convert better so why are you optimizing bids toward calls.",
+            "community": "r/PPC",
+            "permalink": "https://www.reddit.com/r/PPC/comments/1sa15we/lead_quality_primary_goal_changes/oduek9i/"
+          },
+          {
+            "text": "A ROAS drop from 7x to 2x after switching offline conversions to primary is a specific signal. The question worth asking before anything else is whether the algorithm is now optimizing for a lower-quality conversion event or whether the volume of 21 imported conversions is too thin for the model to trust.",
+            "community": "r/PPC",
+            "permalink": "https://www.reddit.com/r/PPC/comments/1sa15we/lead_quality_primary_goal_changes/odsr3a0/"
+          }
+        ]
+      },
+      "baseline_output": {
+        "title": "电话成交回不到广告后台，小预算账户的 CPC 开始乱跳。",
+        "summary_line": "投手需重新判断算法优化方向，因为21个导入转化数据太薄模型不信任。",
+        "audience": "管理月花费10万刀以上服务账户的PPC专家",
+        "why_now": "讨论已经从报错排查走到‘电话成交怎么回传广告后台’，说明智能出价和 CPC 判断都会被带偏。",
+        "detail": {
+          "pain_point": "连续切换CallRail离线转化为主目标，算法两次进入学习期性能至少下滑14-21天",
+          "target_user_and_scene": "优化Google Ads lead质量和ROAS的投放手",
+          "why_test_now": "讨论已经从报错排查走到‘电话成交怎么回传广告后台’，说明智能出价和 CPC 判断都会被带偏。",
+          "min_test_action": "去看原始讨论",
+          "continue_signal": "如果接下来在更多社区里还出现同样抱怨，而且继续有人直接问推荐，就继续盯。",
+          "stop_signal": "如果后面只剩零散吐槽，没有新的具体场景或后续追问，就先放过。"
+        }
+      },
+      "metadata": {
+        "candidate_id": "cand-business-growth-ops-1sa15we",
+        "case_polarity": "pending_review"
+      }
+    },
+    {
+      "eval_case_id": "signal-eval-generated-card-cand-business-growth-ops-1sbnkdt-validate",
+      "sample_origin": "candidate_generated",
+      "input_bundle": {
+        "source_scope_id": "business-growth-ops",
+        "source_scope_name": "商业增长与运营",
+        "topic_pack_id": "paid-economics",
+        "signal_level": "sustained",
+        "why_now_reason": "switch_signal_7d",
+        "intent_tags": [
+          "求推荐",
+          "避坑"
+        ],
+        "thread_count": 1,
+        "community_count": 1,
+        "quote_count": 2,
+        "source_communities": [
+          "r/googleads"
+        ],
+        "evidence_quotes": [
+          {
+            "text": "the gclid decode error usually means the gclid isn't being stored properly before the call happens. store the gclid in a cookie or hidden form field the moment someone lands on your site, then log it alongside the phone order in a simple google sheet. from there you upload that sheet to google ads under conversions as an enhanced offline conversion upload, match on gclid, and set conversion time to the date of the call. at low volume, around 20 conversions a month, this manual sheet method works fine and takes maybe 20 minutes a week to maintain. zapier can automate the sheet logging if calls come through a tool like callrail that captures gclid. without feeding those offline signals back, google's smart bidding is basically flying blind and yes that explains the cpc spike.",
+            "community": "r/googleads",
+            "permalink": "https://www.reddit.com/r/googleads/comments/1sbnkdt/tracking_offline_conversions_for_small_biz_need/oe51pem/"
+          },
+          {
+            "text": "Had the same issue. GCLID errors usually mean the ID expired before upload. fix is simple, store the GCLID in a hidden form field on landing, attach it to the customer when they call, then upload manually via CSV. At your volume that's totally manageable",
+            "community": "r/googleads",
+            "permalink": "https://www.reddit.com/r/googleads/comments/1sbnkdt/tracking_offline_conversions_for_small_biz_need/oe4qplv/"
+          }
+        ]
+      },
+      "baseline_output": {
+        "title": "电话成交回不到广告后台，小预算账户的 CPC 开始乱跳。",
+        "summary_line": "投手需重判 gclid 存储设置，因为 gclid decode error 通常意味着在通话前未正确存储，否则 smart bidding 缺少信号 CPC 飙升。",
+        "audience": "小企业主追踪电话订单转化的 Google Ads 运营者",
+        "why_now": "讨论已经从报错排查走到‘电话成交怎么回传广告后台’，说明智能出价和 CPC 判断都会被带偏。",
+        "detail": {
+          "pain_point": "gclid decode error 导致线下转化上传失败，出价算法飞盲",
+          "target_user_and_scene": "小企业低量电话订单投放场景",
+          "why_test_now": "讨论已经从报错排查走到‘电话成交怎么回传广告后台’，说明智能出价和 CPC 判断都会被带偏。",
+          "min_test_action": "去看原始讨论",
+          "continue_signal": "如果接下来在更多社区里还出现同样抱怨，而且继续有人直接问推荐，就继续盯。",
+          "stop_signal": "如果后面只剩零散吐槽，没有新的具体场景或后续追问，就先放过。"
+        }
+      },
+      "metadata": {
+        "candidate_id": "cand-business-growth-ops-1sbnkdt",
+        "case_polarity": "pending_review"
+      }
+    }
+  ],
+  "generation_failures": []
+}

@@ -1,0 +1,19 @@
+{
+  "schema_version": "community-value-scoring/v1",
+  "weights": {
+    "candidate": 8,
+    "draft": 12,
+    "published": 35,
+    "tag_mapping": 10,
+    "new_topic": 5
+  },
+  "penalties": {
+    "duplicate": 10,
+    "reject": 40,
+    "missing_tag": 8
+  },
+  "thresholds": {
+    "validated_min": 35,
+    "pool_candidate_min": 70
+  }
+}

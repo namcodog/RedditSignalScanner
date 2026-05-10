@@ -1,0 +1,16 @@
+{
+  "target_real": 36,
+  "target_synthetic": 12,
+  "real_count": 31,
+  "synthetic_plan_count": 12,
+  "generation_failure_count": 8,
+  "source_scope_counts": {
+    "ai-automation": 10,
+    "ecommerce-sellers": 11,
+    "business-growth-ops": 10
+  },
+  "origin_counts": {
+    "published_validate": 16,
+    "candidate_generated": 15
+  }
+}

@@ -140,6 +140,9 @@ class Settings(BaseModel):
     reddit_max_concurrency: int = Field(default=2)  # 降低并发避免突发流量  # 降低并发以避免多 Worker 场景下超限
     reddit_cache_redis_url: str = Field(default_factory=_default_redis_cache_url)
     reddit_cache_ttl_seconds: int = Field(default=24 * 60 * 60)
+    sociavault_api_key: str = Field(default="")
+    sociavault_base_url: str = Field(default="https://api.sociavault.com/v1")
+    sociavault_reddit_fallback_enabled: bool = Field(default=False)
     # Deprecated: only kept for backward compatibility; preview uses incremental_comments_preview_enabled.
     enable_comments_sync: bool = Field(default=True)
     incremental_comments_preview_enabled: bool = Field(default=True)
@@ -208,6 +211,8 @@ class Settings(BaseModel):
     # 报告质量等级：basic | standard | premium
     report_quality_level: str = Field(default="standard")
     openai_api_key: str = Field(default="")
+    wx_mini_appid: str = Field(default="")
+    wx_mini_secret: str = Field(default="")
 
     @property
     def cors_origins(self) -> List[str]:
@@ -324,6 +329,23 @@ def get_settings() -> Settings:
                 Settings.model_fields["reddit_cache_ttl_seconds"].default,
             )
         ),
+        sociavault_api_key=os.getenv(
+            "SOCIAVAULT_API_KEY",
+            Settings.model_fields["sociavault_api_key"].default,
+        ),
+        sociavault_base_url=os.getenv(
+            "SOCIAVAULT_BASE_URL",
+            Settings.model_fields["sociavault_base_url"].default,
+        ),
+        sociavault_reddit_fallback_enabled=str(
+            os.getenv(
+                "SOCIAVAULT_REDDIT_FALLBACK_ENABLED",
+                str(Settings.model_fields["sociavault_reddit_fallback_enabled"].default),
+            )
+        )
+        .strip()
+        .lower()
+        in {"1", "true", "yes"},
         enable_comments_sync=os.getenv("ENABLE_COMMENTS_SYNC", "true").strip().lower()
         in {"1", "true", "yes"},
         incremental_comments_preview_enabled=(
@@ -580,6 +602,14 @@ def get_settings() -> Settings:
             os.getenv("OPENAI_API_KEY")
             or os.getenv("OPENROUTER_API_KEY")
             or Settings.model_fields["openai_api_key"].default
+        ),
+        wx_mini_appid=os.getenv(
+            "WX_MINI_APPID",
+            Settings.model_fields["wx_mini_appid"].default,
+        ),
+        wx_mini_secret=os.getenv(
+            "WX_MINI_SECRET",
+            Settings.model_fields["wx_mini_secret"].default,
         ),
     )
 

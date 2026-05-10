@@ -4,6 +4,8 @@ import RegisterPage from '@/pages/RegisterPage';
 import InputPage from '@/pages/InputPage';
 import ProgressPage from '@/pages/ProgressPage';
 import ReportPage from '@/pages/ReportPage';
+import StandardCasePage from '@/pages/StandardCasePage';
+import StandardReportPage from '@/pages/StandardReportPage';
 import NotFoundPage from '@/pages/NotFoundPage';
 import InsightPage from '@/pages/InsightsPage';
 import DecisionUnitPage from '@/pages/DecisionUnitsPage';
@@ -19,6 +21,9 @@ import CommunityImportPage from '@/pages/admin/CommunityImport';
 
 // Other Pages
 import DashboardPage from '@/pages/DashboardPage';
+import HotPostClueBoxPage from '@/pages/hotpost/HotPostClueBoxPage';
+import HotPostClueDetailPage from '@/pages/hotpost/HotPostClueDetailPage';
+import HotPostCluesPage from '@/pages/hotpost/HotPostCluesPage';
 import HotPostSearchPage from '@/pages/hotpost/HotPostSearchPage';
 import HotPostResultPage from '@/pages/hotpost/HotPostResultPage';
 
@@ -37,6 +42,18 @@ const router = createBrowserRouter([
   },
   {
     path: '/hotpost',
+    element: <HotPostCluesPage />,
+  },
+  {
+    path: '/hotpost/clues/:clueId',
+    element: <HotPostClueDetailPage />,
+  },
+  {
+    path: '/hotpost/box',
+    element: <HotPostClueBoxPage />,
+  },
+  {
+    path: '/hotpost/lab/search',
     element: <HotPostSearchPage />,
   },
   {
@@ -50,6 +67,14 @@ const router = createBrowserRouter([
   {
     path: '/report/:taskId',
     element: <ReportPage />,
+  },
+  {
+    path: '/standard-case/:slug',
+    element: <StandardCasePage />,
+  },
+  {
+    path: '/standard-report/:slug',
+    element: <StandardReportPage />,
   },
   {
     path: '/insights',

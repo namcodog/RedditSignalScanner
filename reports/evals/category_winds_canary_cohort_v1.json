@@ -1,0 +1,97 @@
+{
+  "case_count": 2,
+  "candidates": [
+    {
+      "candidate_id": "cand-ecommerce-sellers-1sacwhr",
+      "signal_id": "sig-1sacwhr",
+      "source_scope_id": "ecommerce-sellers",
+      "source_scope_name": "电商与卖家",
+      "topic_pack_id": "category-winds",
+      "query": "saturated niche amazon",
+      "matched_subreddit": "EntrepreneurRideAlong",
+      "post_id": "1sacwhr",
+      "title": "I've built in both a niche market (chess) and a brutally crowded one (SEO tools). Here's what I learned and what I'd do differently.",
+      "score": 33,
+      "num_comments": 23,
+      "created_at": "2026-04-02T09:47:15Z",
+      "collected_at": "2026-04-08T03:27:58.740476Z",
+      "collect_batch_id": "category-winds-canary",
+      "time_window": "7d",
+      "signal_level": "sustained",
+      "why_now_reason": "switch_signal_7d",
+      "listing_source": "search:relevance:week",
+      "primary_reason": "category-winds:problem_keyword",
+      "matched_keywords": [
+        "saturated niche amazon"
+      ],
+      "top_communities": [
+        "r/EntrepreneurRideAlong"
+      ],
+      "thread_count": 1,
+      "community_count": 1,
+      "quote_count": 5,
+      "intent_tags": [
+        "替换",
+        "求推荐",
+        "避坑"
+      ],
+      "evidence_quotes": [
+        {
+          "text": "the John Bartholomew co-founder move is what most people gloss over as \"found a great partner\", it was actually your entire distribution strategy for year one. an IM with a YouTube following plugging a product he helped build isn't just credibility, it's conversion at near-zero CAC. SEO tool buyers are the exact opposite: they've seen 50 AI content platforms, they're cynical, and they comparison-shop on G2 before they even look at pricing. the community trust shortcut that worked in chess doesn't exist at the same density in SEO.",
+          "community": "r/EntrepreneurRideAlong",
+          "permalink": "https://www.reddit.com/r/EntrepreneurRideAlong/comments/1sacwhr/ive_built_in_both_a_niche_market_chess_and_a/odut23o/"
+        },
+        {
+          "text": "The forgiveness margin concept is fascinating and probably explains why niche SaaS has higher NRR too. Did you find that Chessable users had meaningfully higher LTV per user than SEOZilla even at lower volume?",
+          "community": "r/EntrepreneurRideAlong",
+          "permalink": "https://www.reddit.com/r/EntrepreneurRideAlong/comments/1sacwhr/ive_built_in_both_a_niche_market_chess_and_a/odve9di/"
+        }
+      ]
+    },
+    {
+      "candidate_id": "cand-ecommerce-sellers-1sbqw0m",
+      "signal_id": "sig-1sbqw0m",
+      "source_scope_id": "ecommerce-sellers",
+      "source_scope_name": "电商与卖家",
+      "topic_pack_id": "category-winds",
+      "query": "saturated niche amazon",
+      "matched_subreddit": "sidehustle",
+      "post_id": "1sbqw0m",
+      "title": "Is retail arbitrage a viable way of making money in 2026?",
+      "score": 6,
+      "num_comments": 11,
+      "created_at": "2026-04-03T21:47:28Z",
+      "collected_at": "2026-04-08T03:27:58.740476Z",
+      "collect_batch_id": "category-winds-canary",
+      "time_window": "7d",
+      "signal_level": "sustained",
+      "why_now_reason": "recurring_7d",
+      "listing_source": "search:relevance:week",
+      "primary_reason": "category-winds:problem_keyword",
+      "matched_keywords": [
+        "saturated niche amazon"
+      ],
+      "top_communities": [
+        "r/sidehustle"
+      ],
+      "thread_count": 1,
+      "community_count": 1,
+      "quote_count": 3,
+      "intent_tags": [
+        "趋势变化"
+      ],
+      "evidence_quotes": [
+        {
+          "text": "Ive been doing it in a dropshipping way, but by stacking many different discount options, it still works but youre gonna still have to find popular products to list!",
+          "community": "r/sidehustle",
+          "permalink": "https://www.reddit.com/r/sidehustle/comments/1sbqw0m/is_retail_arbitrage_a_viable_way_of_making_money/oe5gsl5/"
+        },
+        {
+          "text": "Not sure about retail arbitrage but I just got this idea from no budget hustler on Substack. It’s called local services arbitrage. Where you subcontract local cleaning service to fill jobs for you. Doesn’t have to be cleaning service it could be moving service etc. I’m going to try the cleaning service because I know of two small offices that require cleaning.",
+          "community": "r/sidehustle",
+          "permalink": "https://www.reddit.com/r/sidehustle/comments/1sbqw0m/is_retail_arbitrage_a_viable_way_of_making_money/oebj7eq/"
+        }
+      ]
+    }
+  ]
+}

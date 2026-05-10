@@ -1,0 +1,1866 @@
+{
+  "kind": "hotpost_v13_published_shadow_refresh",
+  "plan_version": 1,
+  "profile_id": "hotpost_v13_title_standalone",
+  "created_at": "2026-04-29T06:09:41.224600Z",
+  "selected": 9,
+  "generated": 9,
+  "failed": 0,
+  "cards": [
+    {
+      "card_id": "card-cand-ai-automation-1stqlnh-validate",
+      "lane": "hot",
+      "card_type": "validate",
+      "profile_id": "hotpost_v13_title_standalone",
+      "semantic_model": "deepseek/deepseek-v4-flash",
+      "writer_model": "xiaomi/mimo-v2.5-pro",
+      "original_card": {
+        "card_id": "card-cand-ai-automation-1stqlnh-validate",
+        "signal_id": "sig-1stqlnh",
+        "card_type": "validate",
+        "lane": "hot",
+        "category_id": "validate",
+        "source_scope_id": "ai-automation",
+        "source_scope_name": "AI 与自动化",
+        "topic_pack_id": "upstream-winds",
+        "topic_cluster_id": "key-people-and-route",
+        "topic_cluster_ids": [
+          "key-people-and-route",
+          "platform-policy-shifts"
+        ],
+        "named_topic_ids": [],
+        "source_domain_id": "ai-automation",
+        "source_domain_name": "AI 与自动化",
+        "source_event_at": "2026-04-23T18:09:12Z",
+        "title": "GPT-5.5 发布这帖火了，大家没在夸性能，全在吐槽那个“最强安全护栏”",
+        "summary_line": "评论区吵得最凶的是：OpenAI 到底是在发新模型，还是在给模型加更多让用户束手束脚的 guardrails。",
+        "audience": "盯着 OpenAI 更新、怕模型被安全限制搞废的开发者和重度用户",
+        "why_now": "这帖现在火，是因为大家对“安全”这个词已经 PTSD 了，一听“最强护栏”就觉得模型又要变笨。",
+        "why_now_reason": "new_threads_24h",
+        "signal_level": "hot",
+        "intent_tags": [
+          "趋势变化"
+        ],
+        "top_community": "r/OpenAI",
+        "thread_count": 1,
+        "community_count": 1,
+        "source_module": {
+          "primary_communities": [
+            "r/OpenAI"
+          ],
+          "top_community": "r/OpenAI",
+          "tone_tags": [],
+          "thread_count": 1,
+          "community_count": 1,
+          "last_active_text": "近24小时"
+        },
+        "preview_quote": {
+          "text": "Laughed a little to this \"We are releasing GPT‑5.5 with our strongest set of safeguards to date [...]\" yay MORE guardrails",
+          "community": "r/OpenAI",
+          "permalink": "https://www.reddit.com/r/OpenAI/comments/1stqlnh/introducing_gpt55_openai/ohv80zq/"
+        },
+        "published_at": "2026-04-24T05:18:18.732263Z",
+        "controversy_chart": {
+          "support_ratio": 0.04,
+          "oppose_ratio": 0.42,
+          "neutral_ratio": 0.54,
+          "support_point": "这个模型真的太棒了，我参与了它的预训练。",
+          "oppose_point": "又加了更多限制，这套工具越来越不好用了。",
+          "neutral_point": "先看本地机器能不能跑得动。",
+          "debate_focus": "这套工具到底是在发新模型还是在加限制？",
+          "dominant_side": "neutral",
+          "confidence": "high"
+        },
+        "controversy_meta": {
+          "post_id": "1stqlnh",
+          "sample_size": 40,
+          "sampled_at": "2026-04-24T05:18:18.771991Z",
+          "fetch_status": "ok",
+          "llm_summary_version": "cn_human_point_slots_v8",
+          "sample_quality": "high",
+          "summary_status": "ok",
+          "confidence_reason": "评论样本中，对新模型发布持负面或质疑态度的占比较高，主要集中在对安全护栏的增加和使用限制的抱怨，正面评价样本极少，中立观点则关注实际可用性和性能表现。"
+        },
+        "quotes": [
+          {
+            "text": "Laughed a little to this \"We are releasing GPT‑5.5 with our strongest set of safeguards to date [...]\" yay MORE guardrails",
+            "community": "r/OpenAI",
+            "permalink": "https://www.reddit.com/r/OpenAI/comments/1stqlnh/introducing_gpt55_openai/ohv80zq/"
+          },
+          {
+            "text": "I'm not seeing it anywhere, not in API, not in Codex, not on the web. Anyone actually have it?\n\nEdit: Got it on web.",
+            "community": "r/OpenAI",
+            "permalink": "https://www.reddit.com/r/OpenAI/comments/1stqlnh/introducing_gpt55_openai/ohv989u/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/OpenAI/comments/1stqlnh",
+        "detail": {
+          "flashpoint": "官方公告里那句“有史以来最强安全护栏”直接捅了马蜂窝，让本来期待性能的用户瞬间下头。",
+          "fight_line": "官方觉得安全护栏是产品升级，用户觉得这又是给模型戴枷锁。",
+          "why_test_now": "关键证据是“Laughed a little to this \"We are releasing GPT‑5.5 with our strongest set of safeguards to d”。评论区那句 yay MORE guardrails 阴阳怪气拉满了。大家关心的不是 API 什么时候上，而是这模型还能不能说人话。",
+          "continue_signal": "继续看 GPT-5.5 的实际评测，尤其是它在处理复杂指令时会不会因为“安全”理由拒答。",
+          "stop_signal": "如果讨论变成单纯的性能跑分对比，或者大家已经习惯了这套护栏，这帖的热度就没价值了。"
+        }
+      },
+      "v12_shadow": {
+        "title": "GPT-5.5 发布，用户没夸性能，先吐槽‘最强安全护栏’",
+        "summary_line": "评论区吵得最凶的是：官方说‘最强护栏’是升级，用户觉得这是给模型上枷锁，怕它变笨。",
+        "audience": "用 OpenAI 模型做开发、又怕安全限制影响效果的开发者",
+        "why_now": "用户对‘安全’一词已敏感，一听‘最强护栏’就条件反射觉得模型要变笨，讨论直接跳到站队。",
+        "flashpoint": "官方公告里‘最强安全护栏’这句话，成了引爆点。用户没等看性能，先对这句话阴阳怪气。",
+        "fight_line": "一派认为安全是必要升级，另一派觉得这是限制模型能力的借口，吵的是‘安全’和‘能力’到底能不能兼得。",
+        "why_test_now": "关键证据是 Reddit 评论的嘲讽语气，如‘yay MORE guardrails’。用户关心的是模型还能不能说人话、干实事，而非 API 上线时间。",
+        "continue_signal": "继续看后续实测：GPT-5.5 在复杂任务上的表现，会不会因为安全护栏真的变笨。",
+        "stop_signal": "如果只剩情绪发泄，没有用户拿出具体任务对比新旧模型，就不用再追。"
+      },
+      "refreshed_card": {
+        "card_id": "card-cand-ai-automation-1stqlnh-validate",
+        "signal_id": "sig-1stqlnh",
+        "card_type": "validate",
+        "lane": "hot",
+        "category_id": "validate",
+        "source_scope_id": "ai-automation",
+        "source_scope_name": "AI 与自动化",
+        "topic_pack_id": "upstream-winds",
+        "topic_cluster_id": "key-people-and-route",
+        "topic_cluster_ids": [
+          "key-people-and-route",
+          "platform-policy-shifts"
+        ],
+        "named_topic_ids": [],
+        "source_domain_id": "ai-automation",
+        "source_domain_name": "AI 与自动化",
+        "source_event_at": "2026-04-23T18:09:12Z",
+        "title": "GPT-5.5 发布，用户先吐槽‘最强安全护栏’怕模型变笨",
+        "summary_line": "评论区吵得最凶的是：官方说‘最强护栏’是升级，用户觉得这是给模型上枷锁，怕它变笨。",
+        "audience": "用 OpenAI 模型做开发、又怕安全限制影响效果的开发者",
+        "why_now": "用户对‘安全’一词已敏感，一听‘最强护栏’就条件反射觉得模型要变笨，讨论直接跳到站队。",
+        "why_now_reason": "new_threads_24h",
+        "signal_level": "hot",
+        "intent_tags": [
+          "趋势变化"
+        ],
+        "top_community": "r/OpenAI",
+        "thread_count": 1,
+        "community_count": 1,
+        "source_module": {
+          "primary_communities": [
+            "r/OpenAI"
+          ],
+          "top_community": "r/OpenAI",
+          "tone_tags": [],
+          "thread_count": 1,
+          "community_count": 1,
+          "last_active_text": "近24小时"
+        },
+        "preview_quote": {
+          "text": "Laughed a little to this \"We are releasing GPT‑5.5 with our strongest set of safeguards to date [...]\" yay MORE guardrails",
+          "community": "r/OpenAI",
+          "permalink": "https://www.reddit.com/r/OpenAI/comments/1stqlnh/introducing_gpt55_openai/ohv80zq/"
+        },
+        "published_at": "2026-04-24T05:18:18.732263Z",
+        "controversy_chart": {
+          "support_ratio": 0.04,
+          "oppose_ratio": 0.42,
+          "neutral_ratio": 0.54,
+          "support_point": "这个模型真的太棒了，我参与了它的预训练。",
+          "oppose_point": "又加了更多限制，这套工具越来越不好用了。",
+          "neutral_point": "先看本地机器能不能跑得动。",
+          "debate_focus": "这套工具到底是在发新模型还是在加限制？",
+          "dominant_side": "neutral",
+          "confidence": "high"
+        },
+        "controversy_meta": {
+          "post_id": "1stqlnh",
+          "sample_size": 40,
+          "sampled_at": "2026-04-24T05:18:18.771991Z",
+          "fetch_status": "ok",
+          "llm_summary_version": "cn_human_point_slots_v8",
+          "sample_quality": "high",
+          "summary_status": "ok",
+          "confidence_reason": "评论样本中，对新模型发布持负面或质疑态度的占比较高，主要集中在对安全护栏的增加和使用限制的抱怨，正面评价样本极少，中立观点则关注实际可用性和性能表现。"
+        },
+        "quotes": [
+          {
+            "text": "Laughed a little to this \"We are releasing GPT‑5.5 with our strongest set of safeguards to date [...]\" yay MORE guardrails",
+            "community": "r/OpenAI",
+            "permalink": "https://www.reddit.com/r/OpenAI/comments/1stqlnh/introducing_gpt55_openai/ohv80zq/"
+          },
+          {
+            "text": "I'm not seeing it anywhere, not in API, not in Codex, not on the web. Anyone actually have it?\n\nEdit: Got it on web.",
+            "community": "r/OpenAI",
+            "permalink": "https://www.reddit.com/r/OpenAI/comments/1stqlnh/introducing_gpt55_openai/ohv989u/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/OpenAI/comments/1stqlnh",
+        "detail": {
+          "flashpoint": "官方公告里那句“有史以来最强安全护栏”直接捅了马蜂窝，让本来期待性能的用户瞬间下头。",
+          "fight_line": "官方觉得安全护栏是产品升级，用户觉得这又是给模型戴枷锁。",
+          "why_test_now": "关键证据是“Laughed a little to this \"We are releasing GPT‑5.5 with our strongest set of safeguards to d”。评论区那句 yay MORE guardrails 阴阳怪气拉满了。大家关心的不是 API 什么时候上，而是这模型还能不能说人话。",
+          "continue_signal": "继续看 GPT-5.5 的实际评测，尤其是它在处理复杂指令时会不会因为“安全”理由拒答。",
+          "stop_signal": "如果讨论变成单纯的性能跑分对比，或者大家已经习惯了这套护栏，这帖的热度就没价值了。"
+        }
+      },
+      "changed": {
+        "title": {
+          "before": "GPT-5.5 发布这帖火了，大家没在夸性能，全在吐槽那个“最强安全护栏”",
+          "after": "GPT-5.5 发布，用户先吐槽‘最强安全护栏’怕模型变笨"
+        },
+        "summary_line": {
+          "before": "评论区吵得最凶的是：OpenAI 到底是在发新模型，还是在给模型加更多让用户束手束脚的 guardrails。",
+          "after": "评论区吵得最凶的是：官方说‘最强护栏’是升级，用户觉得这是给模型上枷锁，怕它变笨。"
+        },
+        "audience": {
+          "before": "盯着 OpenAI 更新、怕模型被安全限制搞废的开发者和重度用户",
+          "after": "用 OpenAI 模型做开发、又怕安全限制影响效果的开发者"
+        },
+        "why_now": {
+          "before": "这帖现在火，是因为大家对“安全”这个词已经 PTSD 了，一听“最强护栏”就觉得模型又要变笨。",
+          "after": "用户对‘安全’一词已敏感，一听‘最强护栏’就条件反射觉得模型要变笨，讨论直接跳到站队。"
+        }
+      },
+      "fluency_repair_issue_count": 0,
+      "remaining_density_issues": [],
+      "v13_title_issues_before": [],
+      "v13_title_issues_after": [],
+      "error": ""
+    },
+    {
+      "card_id": "card-group-ai-automation-4bd5d9c843",
+      "lane": "breakdown",
+      "card_type": "write",
+      "profile_id": "hotpost_v13_title_standalone",
+      "semantic_model": "deepseek/deepseek-v4-flash",
+      "writer_model": "xiaomi/mimo-v2.5-pro",
+      "original_card": {
+        "card_id": "card-group-ai-automation-4bd5d9c843",
+        "signal_id": "sig-group-ai-automation-4bd5d9c843",
+        "card_type": "write",
+        "lane": "breakdown",
+        "category_id": "write",
+        "source_scope_id": "ai-automation",
+        "source_scope_name": "AI 与自动化",
+        "topic_pack_id": "tools-efficiency",
+        "topic_cluster_id": "ai-product-and-adoption",
+        "topic_cluster_ids": [
+          "ai-product-and-adoption"
+        ],
+        "named_topic_ids": [],
+        "source_domain_id": "ai-automation",
+        "source_domain_name": "AI 与自动化",
+        "source_event_at": "2026-04-23T09:00:24Z",
+        "title": "兼职产品岗的第一反应，从‘值不值得做’变成了‘是不是在拿我训练 AI’",
+        "summary_line": "产品经理们开始怀疑，一些听起来不错的兼职机会，本质上可能只是在为AI代理收集训练数据。",
+        "audience": "看到‘兼职产品负责人’这类招聘帖的产品经理",
+        "why_now": "当一个人在质疑岗位真实性，另一个人在感叹‘兼职产品负责人’本身就像个矛盾概念时，说明怀疑已经从个案变成了对这类岗位存在逻辑的根本性质疑。",
+        "why_now_reason": "new_threads_24h",
+        "signal_level": "sustained",
+        "intent_tags": [
+          "趋势变化"
+        ],
+        "top_community": "r/ProductManagement",
+        "thread_count": 3,
+        "community_count": 2,
+        "source_module": {
+          "primary_communities": [
+            "r/ProductManagement",
+            "r/SaaS"
+          ],
+          "top_community": "r/ProductManagement",
+          "tone_tags": [],
+          "thread_count": 3,
+          "community_count": 2,
+          "last_active_text": "近24小时"
+        },
+        "preview_quote": {
+          "text": "If this is even real\n\n\nIt doesn't sound like an actual product owner position, it sounds like they're hiring a bunch of people to train a product owner AI agent",
+          "community": "r/ProductManagement",
+          "permalink": "https://www.reddit.com/r/ProductManagement/comments/1st8bap/has_anyone_tried_one_of_these_freelance_parttime/ohrhrpt/"
+        },
+        "published_at": "2026-04-24T05:14:17.935126Z",
+        "controversy_chart": null,
+        "controversy_meta": null,
+        "quotes": [
+          {
+            "text": "If this is even real\n\n\nIt doesn't sound like an actual product owner position, it sounds like they're hiring a bunch of people to train a product owner AI agent",
+            "community": "r/ProductManagement",
+            "permalink": "https://www.reddit.com/r/ProductManagement/comments/1st8bap/has_anyone_tried_one_of_these_freelance_parttime/ohrhrpt/"
+          },
+          {
+            "text": "Even if these recaptcha occurs on daily basis at random time is worth it. I am gonna loose my mind if I see another “I built this so you don’t have to” post",
+            "community": "r/SaaS",
+            "permalink": "https://www.reddit.com/r/SaaS/comments/1sndwq7/end_of_ai_slop/ogl33mg/"
+          },
+          {
+            "text": "Dead internet theory is so real.\n\nLook at this example it's literally all bots talking to each other.  \n\n  \n[https://www.reddit.com/r/AI\\_Agents/comments/1sn2w7y/](https://www.reddit.com/r/AI_Agents/comments/1sn2w7y/)",
+            "community": "r/SaaS",
+            "permalink": "https://www.reddit.com/r/SaaS/comments/1sndwq7/end_of_ai_slop/ogl9xlu/"
+          },
+          {
+            "text": "I feel the same way - it feels like an oxymoron. Even as a PM it takes years to fully grasp the product you're working on. \n\nHowever I do know people personally who are PMs who do consulting on the side. It generally works well  if you're an expert in a specific industry with many years of experience",
+            "community": "r/ProductManagement",
+            "permalink": "https://www.reddit.com/r/ProductManagement/comments/1st8bap/has_anyone_tried_one_of_these_freelance_parttime/ohrfnhl/"
+          },
+          {
+            "text": "My UX designer is having an existential crisis because we’ve started moving faster than he can keep up by using Claude Design. At this point, waiting for a designer to manually create figma prototypes is causing a massive bottleneck between product and engineering  as engineering are also now using AI. I feel so horrible for him as he’s a lovely guy, and it’s genuinely heartbreaking to see someone’s passion and potentially their livelihood taken away seemingly overnight.",
+            "community": "r/ProductManagement",
+            "permalink": "https://www.reddit.com/r/ProductManagement/comments/1stdbl3/weekly_rant_thread/ohtzgax/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/SaaS/comments/1sndwq7",
+        "detail": {
+          "thesis": "产品经理对‘兼职产品负责人’这类岗位的怀疑，已经从评估工作好坏，升级到了质疑其存在目的——它可能根本不是为真人设计的职位，而是为了训练AI代理。",
+          "writing_angle_or_perspective": "从‘岗位真实性’这个切口进去，看怀疑如何从‘这工作好不好’转向‘这工作是不是给人做的’。",
+          "tension_point_or_why_it_matters": "如果连‘产品负责人’这种核心决策角色都开始被怀疑是AI训练的幌子，那么未来任何高价值的兼职或咨询岗位，都可能面临同样的信任危机。",
+          "title_hooks": [
+            "兼职产品岗？先别急着看JD，先想想这是不是给AI准备的训练数据",
+            "当‘兼职’和‘产品负责人’放在一起，产品经理的第一反应是：这听起来像人干的活吗？"
+          ],
+          "quote_pack": [
+            "If this is even real\n\n\nIt doesn't sound like an actual product owner position, it sounds like they're hiring a bunch of people to train a product owner AI agent｜这到底是不是真的？听起来不像一个真正的产品负责人职位，更像是在招一群人来训练一个产品负责人AI代理。｜r/ProductManagement",
+            "I feel the same way - it feels like an oxymoron. Even as a PM it takes years to fully grasp the product you're working on.｜我有同感——这感觉像个矛盾体。即使作为一名产品经理，也需要数年时间才能完全掌握你负责的产品。｜r/ProductManagement"
+          ]
+        }
+      },
+      "v12_shadow": {
+        "title": "兼职产品负责人？先别想薪资，先想这是不是给 AI 准备的训练场",
+        "summary_line": "产品经理开始怀疑，一些兼职产品岗可能根本不是为真人设计的，而是为了收集数据训练 AI 代理。",
+        "audience": "看到‘兼职产品负责人’这类招聘帖的产品经理",
+        "why_now": "一个人在质疑岗位真实性，另一个人在感叹‘兼职产品负责人’本身就像个矛盾概念。合起来看，怀疑从‘这个岗位好不好’升级为‘这个岗位是不是真的’。",
+        "thesis": "产品经理对兼职产品岗的怀疑，从‘值不值得做’升级为‘这岗位是不是在拿我训练 AI’。",
+        "writing_angle_or_perspective": "别从机会好坏讲，直接讲产品经理为什么开始怀疑岗位的真实性。",
+        "tension_point_or_why_it_matters": "如果连‘产品负责人’这种核心决策角色都被怀疑是 AI 训练的幌子，那么未来任何高价值的兼职或咨询岗位都可能面临同样的信任危机。",
+        "title_hooks": [
+          "不是兼职产品岗值不值得做，而是它到底是不是真的",
+          "当‘兼职产品负责人’听起来像个矛盾体，怀疑就开始了"
+        ],
+        "quote_pack": [
+          "If this is even real\n\n\nIt doesn't sound like an actual product owner position, it sounds like they're hiring a bunch of people to train a product owner AI agent｜这到底是不是真的？听起来不像真正的产品负责人岗位，更像是在招一堆人来训练一个产品负责人 AI 代理。｜r/ProductManagement",
+          "I feel the same way - it feels like an oxymoron. Even as a PM it takes years to fully grasp the product you're working on.｜我也有同感——这听起来像个矛盾体。就算是产品经理，也需要好几年才能完全理解你负责的产品。｜r/ProductManagement"
+        ]
+      },
+      "refreshed_card": {
+        "card_id": "card-group-ai-automation-4bd5d9c843",
+        "signal_id": "sig-group-ai-automation-4bd5d9c843",
+        "card_type": "write",
+        "lane": "breakdown",
+        "category_id": "write",
+        "source_scope_id": "ai-automation",
+        "source_scope_name": "AI 与自动化",
+        "topic_pack_id": "tools-efficiency",
+        "topic_cluster_id": "ai-product-and-adoption",
+        "topic_cluster_ids": [
+          "ai-product-and-adoption"
+        ],
+        "named_topic_ids": [],
+        "source_domain_id": "ai-automation",
+        "source_domain_name": "AI 与自动化",
+        "source_event_at": "2026-04-23T09:00:24Z",
+        "title": "兼职产品负责人岗位，被怀疑是训练 AI 代理的幌子",
+        "summary_line": "产品经理开始怀疑，一些兼职产品岗可能根本不是为真人设计的，而是为了收集数据训练 AI 代理。",
+        "audience": "看到‘兼职产品负责人’这类招聘帖的产品经理",
+        "why_now": "一个人在质疑岗位真实性，另一个人在感叹‘兼职产品负责人’本身就像个矛盾概念。合起来看，怀疑从‘这个岗位好不好’升级为‘这个岗位是不是真的’。",
+        "why_now_reason": "new_threads_24h",
+        "signal_level": "sustained",
+        "intent_tags": [
+          "趋势变化"
+        ],
+        "top_community": "r/ProductManagement",
+        "thread_count": 3,
+        "community_count": 2,
+        "source_module": {
+          "primary_communities": [
+            "r/ProductManagement",
+            "r/SaaS"
+          ],
+          "top_community": "r/ProductManagement",
+          "tone_tags": [],
+          "thread_count": 3,
+          "community_count": 2,
+          "last_active_text": "近24小时"
+        },
+        "preview_quote": {
+          "text": "If this is even real\n\n\nIt doesn't sound like an actual product owner position, it sounds like they're hiring a bunch of people to train a product owner AI agent",
+          "community": "r/ProductManagement",
+          "permalink": "https://www.reddit.com/r/ProductManagement/comments/1st8bap/has_anyone_tried_one_of_these_freelance_parttime/ohrhrpt/"
+        },
+        "published_at": "2026-04-24T05:14:17.935126Z",
+        "controversy_chart": null,
+        "controversy_meta": null,
+        "quotes": [
+          {
+            "text": "If this is even real\n\n\nIt doesn't sound like an actual product owner position, it sounds like they're hiring a bunch of people to train a product owner AI agent",
+            "community": "r/ProductManagement",
+            "permalink": "https://www.reddit.com/r/ProductManagement/comments/1st8bap/has_anyone_tried_one_of_these_freelance_parttime/ohrhrpt/"
+          },
+          {
+            "text": "Even if these recaptcha occurs on daily basis at random time is worth it. I am gonna loose my mind if I see another “I built this so you don’t have to” post",
+            "community": "r/SaaS",
+            "permalink": "https://www.reddit.com/r/SaaS/comments/1sndwq7/end_of_ai_slop/ogl33mg/"
+          },
+          {
+            "text": "Dead internet theory is so real.\n\nLook at this example it's literally all bots talking to each other.  \n\n  \n[https://www.reddit.com/r/AI\\_Agents/comments/1sn2w7y/](https://www.reddit.com/r/AI_Agents/comments/1sn2w7y/)",
+            "community": "r/SaaS",
+            "permalink": "https://www.reddit.com/r/SaaS/comments/1sndwq7/end_of_ai_slop/ogl9xlu/"
+          },
+          {
+            "text": "I feel the same way - it feels like an oxymoron. Even as a PM it takes years to fully grasp the product you're working on. \n\nHowever I do know people personally who are PMs who do consulting on the side. It generally works well  if you're an expert in a specific industry with many years of experience",
+            "community": "r/ProductManagement",
+            "permalink": "https://www.reddit.com/r/ProductManagement/comments/1st8bap/has_anyone_tried_one_of_these_freelance_parttime/ohrfnhl/"
+          },
+          {
+            "text": "My UX designer is having an existential crisis because we’ve started moving faster than he can keep up by using Claude Design. At this point, waiting for a designer to manually create figma prototypes is causing a massive bottleneck between product and engineering  as engineering are also now using AI. I feel so horrible for him as he’s a lovely guy, and it’s genuinely heartbreaking to see someone’s passion and potentially their livelihood taken away seemingly overnight.",
+            "community": "r/ProductManagement",
+            "permalink": "https://www.reddit.com/r/ProductManagement/comments/1stdbl3/weekly_rant_thread/ohtzgax/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/SaaS/comments/1sndwq7",
+        "detail": {
+          "thesis": "产品经理对‘兼职产品负责人’这类岗位的怀疑，已经从评估工作好坏，升级到了质疑其存在目的——它可能根本不是为真人设计的职位，而是为了训练AI代理。",
+          "writing_angle_or_perspective": "从‘岗位真实性’这个切口进去，看怀疑如何从‘这工作好不好’转向‘这工作是不是给人做的’。",
+          "tension_point_or_why_it_matters": "如果连‘产品负责人’这种核心决策角色都开始被怀疑是AI训练的幌子，那么未来任何高价值的兼职或咨询岗位，都可能面临同样的信任危机。",
+          "title_hooks": [
+            "兼职产品岗？先别急着看JD，先想想这是不是给AI准备的训练数据",
+            "当‘兼职’和‘产品负责人’放在一起，产品经理的第一反应是：这听起来像人干的活吗？"
+          ],
+          "quote_pack": [
+            "If this is even real\n\n\nIt doesn't sound like an actual product owner position, it sounds like they're hiring a bunch of people to train a product owner AI agent｜这到底是不是真的？听起来不像一个真正的产品负责人职位，更像是在招一群人来训练一个产品负责人AI代理。｜r/ProductManagement",
+            "I feel the same way - it feels like an oxymoron. Even as a PM it takes years to fully grasp the product you're working on.｜我有同感——这感觉像个矛盾体。即使作为一名产品经理，也需要数年时间才能完全掌握你负责的产品。｜r/ProductManagement"
+          ]
+        }
+      },
+      "changed": {
+        "title": {
+          "before": "兼职产品岗的第一反应，从‘值不值得做’变成了‘是不是在拿我训练 AI’",
+          "after": "兼职产品负责人岗位，被怀疑是训练 AI 代理的幌子"
+        },
+        "summary_line": {
+          "before": "产品经理们开始怀疑，一些听起来不错的兼职机会，本质上可能只是在为AI代理收集训练数据。",
+          "after": "产品经理开始怀疑，一些兼职产品岗可能根本不是为真人设计的，而是为了收集数据训练 AI 代理。"
+        },
+        "why_now": {
+          "before": "当一个人在质疑岗位真实性，另一个人在感叹‘兼职产品负责人’本身就像个矛盾概念时，说明怀疑已经从个案变成了对这类岗位存在逻辑的根本性质疑。",
+          "after": "一个人在质疑岗位真实性，另一个人在感叹‘兼职产品负责人’本身就像个矛盾概念。合起来看，怀疑从‘这个岗位好不好’升级为‘这个岗位是不是真的’。"
+        }
+      },
+      "fluency_repair_issue_count": 0,
+      "remaining_density_issues": [],
+      "v13_title_issues_before": [],
+      "v13_title_issues_after": [],
+      "error": ""
+    },
+    {
+      "card_id": "card-cand-business-growth-ops-1stfurr-validate",
+      "lane": "signal",
+      "card_type": "validate",
+      "profile_id": "hotpost_v13_title_standalone",
+      "semantic_model": "deepseek/deepseek-v4-flash",
+      "writer_model": "xiaomi/mimo-v2.5-pro",
+      "original_card": {
+        "card_id": "card-cand-business-growth-ops-1stfurr-validate",
+        "signal_id": "sig-1stfurr",
+        "card_type": "validate",
+        "lane": "signal",
+        "category_id": "validate",
+        "source_scope_id": "business-growth-ops",
+        "source_scope_name": "商业增长与运营",
+        "topic_pack_id": "funnel-conversion",
+        "topic_cluster_id": "funnel",
+        "topic_cluster_ids": [
+          "funnel"
+        ],
+        "named_topic_ids": [
+          "checkout-conversion"
+        ],
+        "source_domain_id": "business-growth-ops",
+        "source_domain_name": "商业增长与运营",
+        "source_event_at": "2026-04-23T11:20:50Z",
+        "title": "卖家现在先看会话回放，不再先猜是哪个环节出错",
+        "summary_line": "判断顺序从先猜是哪个环节出错，转成先看20-30个真实会话回放，因为2.1%的转化率意味着问题藏在分析工具看不到的地方。",
+        "audience": "Shopify卖家，特别是移动端转化率卡在2%左右的",
+        "why_now": "有用户发现，所有常规优化都做完后，移动端转化率还是只有2.1%。这说明问题不在表面数据，而在用户实际操作中的误点、缩放失灵等细节。所以，下一步先看的不是调整哪个按钮，而是先看20-30个真实用户的会话回放。",
+        "why_now_reason": "new_threads_24h",
+        "signal_level": "sustained",
+        "intent_tags": [
+          "趋势变化"
+        ],
+        "top_community": "r/ecommerce",
+        "thread_count": 1,
+        "community_count": 1,
+        "source_module": {
+          "primary_communities": [
+            "r/ecommerce"
+          ],
+          "top_community": "r/ecommerce",
+          "tone_tags": [],
+          "thread_count": 1,
+          "community_count": 1,
+          "last_active_text": "近7天"
+        },
+        "preview_quote": {
+          "text": "2.1% with all the obvious fixes done means the problem is something you canot see from analytics alone. session replays on mobile specifically watch 20-30 real sessions and you'll spot things invisible in dashboards. mis-taps, broken zoom, rage clicks on elements that look fine on your phone but not on others.\n\nbeen building a shopify tool around exactly this mobile behavior tracking with AI suggestions on what to fix. still pre-launch but mobile gap is kind of the core problem it targets.\n\nwhat's your iOS vs Android split?",
+          "community": "r/ecommerce",
+          "permalink": "https://www.reddit.com/r/ecommerce/comments/1stfurr/mobile_conversion_rate_optimization_tools_anyone/oht0cz7/"
+        },
+        "published_at": "2026-04-24T05:14:09.181685Z",
+        "controversy_chart": null,
+        "controversy_meta": null,
+        "quotes": [
+          {
+            "text": "2.1% with all the obvious fixes done means the problem is something you canot see from analytics alone. session replays on mobile specifically watch 20-30 real sessions and you'll spot things invisible in dashboards. mis-taps, broken zoom, rage clicks on elements that look fine on your phone but not on others.\n\nbeen building a shopify tool around exactly this mobile behavior tracking with AI suggestions on what to fix. still pre-launch but mobile gap is kind of the core problem it targets.\n\nwhat's your iOS vs Android split?",
+            "community": "r/ecommerce",
+            "permalink": "https://www.reddit.com/r/ecommerce/comments/1stfurr/mobile_conversion_rate_optimization_tools_anyone/oht0cz7/"
+          },
+          {
+            "text": "What's add to cart rate mobile vs desktop? if similar rates but lower conversion it's definitely checkout friction",
+            "community": "r/ecommerce",
+            "permalink": "https://www.reddit.com/r/ecommerce/comments/1stfurr/mobile_conversion_rate_optimization_tools_anyone/ohx20e1/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/ecommerce/comments/1stfurr",
+        "detail": {
+          "pain_point": "移动端转化率死活上不去，但分析工具里看不出具体原因，只能干着急。",
+          "target_user_and_scene": "做Shopify的卖家，在优化完所有已知问题后，发现移动端转化率依然远低于桌面端时。",
+          "why_test_now": "原话里有个关键句：“What's add to cart rate mobile vs desktop? if similar rates but lower conversion it's defini”。最硬的证据是‘2.1% with all the obvious fixes done’和‘session replays on mobile specifically watch 20-30 real sessions’。这直接说明，当常规方法失效时，唯一的办法是去看用户到底怎么操作的，而不是继续猜。",
+          "min_test_action": "去看原始讨论",
+          "continue_signal": "继续看有没有更多卖家开始分享具体的会话回放发现，比如‘rage clicks’或‘broken zoom’的具体案例。",
+          "stop_signal": "如果讨论又回到调整按钮颜色、简化表单这些老生常谈，而没人再提会话回放的具体发现，这条线就失去价值了。"
+        }
+      },
+      "v12_shadow": {
+        "title": "移动端转化率卡在2.1%：先看20-30个会话回放，别再猜",
+        "summary_line": "判断顺序从猜哪里出错，转成先看真实用户的会话回放。",
+        "audience": "Shopify 卖家，移动端转化率停滞，常规优化做完后没效果",
+        "why_now": "转化率卡在2.1%且常规优化做完，分析工具看不到问题，必须换方法。证据建议直接看20-30个真实回放，定位误点、缩放失灵等细节。",
+        "pain_point": "移动端转化率停在 2.1%，常规优化没用，继续猜可能浪费时间，但看回放又需要投入精力，不确定能不能找到问题。",
+        "target_user_and_scene": "Shopify 卖家在优化移动端结账流程时，发现加购率和桌面端差不多，但转化率低，问题可能出在结账环节。",
+        "why_test_now": "证据显示：加购率相似但转化率低，问题在结账环节。2.1%这个数字和看20-30个回放的建议，是当前最硬的行动依据。",
+        "min_test_action": "去看原始讨论",
+        "continue_signal": "继续看卖家在会话回放里具体发现了什么问题，比如误点、缩放失灵、滚动卡顿。",
+        "stop_signal": "如果卖家看完回放后转化率还是没提升，或者发现回放里看不出明显问题，这条线就失去价值。"
+      },
+      "refreshed_card": {
+        "card_id": "card-cand-business-growth-ops-1stfurr-validate",
+        "signal_id": "sig-1stfurr",
+        "card_type": "validate",
+        "lane": "signal",
+        "category_id": "validate",
+        "source_scope_id": "business-growth-ops",
+        "source_scope_name": "商业增长与运营",
+        "topic_pack_id": "funnel-conversion",
+        "topic_cluster_id": "funnel",
+        "topic_cluster_ids": [
+          "funnel"
+        ],
+        "named_topic_ids": [
+          "checkout-conversion"
+        ],
+        "source_domain_id": "business-growth-ops",
+        "source_domain_name": "商业增长与运营",
+        "source_event_at": "2026-04-23T11:20:50Z",
+        "title": "移动端转化率卡在2.1%，先看20-30个用户会话回放定位问题",
+        "summary_line": "判断顺序从猜哪里出错，转成先看真实用户的会话回放。",
+        "audience": "Shopify 卖家，移动端转化率停滞，常规优化做完后没效果",
+        "why_now": "转化率卡在2.1%且常规优化做完，分析工具看不到问题，必须换方法。证据建议直接看20-30个真实回放，定位误点、缩放失灵等细节。",
+        "why_now_reason": "new_threads_24h",
+        "signal_level": "sustained",
+        "intent_tags": [
+          "趋势变化"
+        ],
+        "top_community": "r/ecommerce",
+        "thread_count": 1,
+        "community_count": 1,
+        "source_module": {
+          "primary_communities": [
+            "r/ecommerce"
+          ],
+          "top_community": "r/ecommerce",
+          "tone_tags": [],
+          "thread_count": 1,
+          "community_count": 1,
+          "last_active_text": "近7天"
+        },
+        "preview_quote": {
+          "text": "2.1% with all the obvious fixes done means the problem is something you canot see from analytics alone. session replays on mobile specifically watch 20-30 real sessions and you'll spot things invisible in dashboards. mis-taps, broken zoom, rage clicks on elements that look fine on your phone but not on others.\n\nbeen building a shopify tool around exactly this mobile behavior tracking with AI suggestions on what to fix. still pre-launch but mobile gap is kind of the core problem it targets.\n\nwhat's your iOS vs Android split?",
+          "community": "r/ecommerce",
+          "permalink": "https://www.reddit.com/r/ecommerce/comments/1stfurr/mobile_conversion_rate_optimization_tools_anyone/oht0cz7/"
+        },
+        "published_at": "2026-04-24T05:14:09.181685Z",
+        "controversy_chart": null,
+        "controversy_meta": null,
+        "quotes": [
+          {
+            "text": "2.1% with all the obvious fixes done means the problem is something you canot see from analytics alone. session replays on mobile specifically watch 20-30 real sessions and you'll spot things invisible in dashboards. mis-taps, broken zoom, rage clicks on elements that look fine on your phone but not on others.\n\nbeen building a shopify tool around exactly this mobile behavior tracking with AI suggestions on what to fix. still pre-launch but mobile gap is kind of the core problem it targets.\n\nwhat's your iOS vs Android split?",
+            "community": "r/ecommerce",
+            "permalink": "https://www.reddit.com/r/ecommerce/comments/1stfurr/mobile_conversion_rate_optimization_tools_anyone/oht0cz7/"
+          },
+          {
+            "text": "What's add to cart rate mobile vs desktop? if similar rates but lower conversion it's definitely checkout friction",
+            "community": "r/ecommerce",
+            "permalink": "https://www.reddit.com/r/ecommerce/comments/1stfurr/mobile_conversion_rate_optimization_tools_anyone/ohx20e1/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/ecommerce/comments/1stfurr",
+        "detail": {
+          "pain_point": "移动端转化率死活上不去，但分析工具里看不出具体原因，只能干着急。",
+          "target_user_and_scene": "做Shopify的卖家，在优化完所有已知问题后，发现移动端转化率依然远低于桌面端时。",
+          "why_test_now": "原话里有个关键句：“What's add to cart rate mobile vs desktop? if similar rates but lower conversion it's defini”。最硬的证据是‘2.1% with all the obvious fixes done’和‘session replays on mobile specifically watch 20-30 real sessions’。这直接说明，当常规方法失效时，唯一的办法是去看用户到底怎么操作的，而不是继续猜。",
+          "min_test_action": "去看原始讨论",
+          "continue_signal": "继续看有没有更多卖家开始分享具体的会话回放发现，比如‘rage clicks’或‘broken zoom’的具体案例。",
+          "stop_signal": "如果讨论又回到调整按钮颜色、简化表单这些老生常谈，而没人再提会话回放的具体发现，这条线就失去价值了。"
+        }
+      },
+      "changed": {
+        "title": {
+          "before": "卖家现在先看会话回放，不再先猜是哪个环节出错",
+          "after": "移动端转化率卡在2.1%，先看20-30个用户会话回放定位问题"
+        },
+        "summary_line": {
+          "before": "判断顺序从先猜是哪个环节出错，转成先看20-30个真实会话回放，因为2.1%的转化率意味着问题藏在分析工具看不到的地方。",
+          "after": "判断顺序从猜哪里出错，转成先看真实用户的会话回放。"
+        },
+        "audience": {
+          "before": "Shopify卖家，特别是移动端转化率卡在2%左右的",
+          "after": "Shopify 卖家，移动端转化率停滞，常规优化做完后没效果"
+        },
+        "why_now": {
+          "before": "有用户发现，所有常规优化都做完后，移动端转化率还是只有2.1%。这说明问题不在表面数据，而在用户实际操作中的误点、缩放失灵等细节。所以，下一步先看的不是调整哪个按钮，而是先看20-30个真实用户的会话回放。",
+          "after": "转化率卡在2.1%且常规优化做完，分析工具看不到问题，必须换方法。证据建议直接看20-30个真实回放，定位误点、缩放失灵等细节。"
+        }
+      },
+      "fluency_repair_issue_count": 0,
+      "remaining_density_issues": [],
+      "v13_title_issues_before": [],
+      "v13_title_issues_after": [],
+      "error": ""
+    },
+    {
+      "card_id": "card-group-ecommerce-sellers-105eb66217",
+      "lane": "breakdown",
+      "card_type": "write",
+      "profile_id": "hotpost_v13_title_standalone",
+      "semantic_model": "deepseek/deepseek-v4-flash",
+      "writer_model": "xiaomi/mimo-v2.5-pro",
+      "original_card": {
+        "card_id": "card-group-ecommerce-sellers-105eb66217",
+        "signal_id": "sig-group-ecommerce-sellers-105eb66217",
+        "card_type": "write",
+        "lane": "breakdown",
+        "category_id": "write",
+        "source_scope_id": "ecommerce-sellers",
+        "source_scope_name": "电商与卖家",
+        "topic_pack_id": "selection-signals",
+        "topic_cluster_id": "small-goods",
+        "topic_cluster_ids": [
+          "small-goods",
+          "parenting-travel"
+        ],
+        "named_topic_ids": [
+          "small-goods-watch"
+        ],
+        "source_domain_id": "ecommerce-sellers",
+        "source_domain_name": "电商与卖家",
+        "source_event_at": "2026-04-19T01:14:28Z",
+        "title": "省钱的隐形代价，是维持它所需的社交和空间成本",
+        "summary_line": "讨论从鞋子寿命延伸到职场着装和囤积杂物，说明真正的成本不在标价，而在维持它所需的额外付出。",
+        "audience": "精打细算的省钱用户",
+        "why_now": "有用户把话题从鞋子寿命，拉到了职场着装和囤积杂物的真实开销上，说明判断标准已经从‘耐用性’转向了‘维持成本’。",
+        "why_now_reason": "switch_signal_7d",
+        "signal_level": "hot",
+        "intent_tags": [
+          "避坑",
+          "求推荐"
+        ],
+        "top_community": "r/Frugal",
+        "thread_count": 2,
+        "community_count": 2,
+        "source_module": {
+          "primary_communities": [
+            "r/Frugal",
+            "r/beyondthebump"
+          ],
+          "top_community": "r/Frugal",
+          "tone_tags": [],
+          "thread_count": 2,
+          "community_count": 2,
+          "last_active_text": "近7天"
+        },
+        "preview_quote": {
+          "text": "It essentially becomes a snowball effect, and touches upon many socioeconomic facets beyond just material goods.\n\nTake banking for example - if you're wealthy, a bank will offer you much better terms on loans or financial products even though you need those benefits less than an impoverished person.\n\nAnd on the point of clothing, beyond the durability or lifespan of the item, there's also the status aspect of more expensive items. I don't specifically mean brand, but for example my workplace changed to an open office environment just before covid. With the change, HR formally relaxed the dress code from business suits for men and sheath dresses/pant suits for women to smart casual. But those who continued with the formal attire are generally treated with more respect and authority, and have better promotion opportunities than someone who goes in casual clothes. It does hit on the economic side because there are costs to upkeeping the extra wardrobe. A few of my coworkers who had expressed relief with not having to spend \\~$500-1,000 extra per year for the suiting & dry cleaning, converted over to casual wear for work but were recently demoted even.",
+          "community": "r/Frugal",
+          "permalink": "https://www.reddit.com/r/Frugal/comments/1spexln/what_people_get_wrong_about_the_boots_theory/oh037ee/"
+        },
+        "published_at": "2026-04-24T04:50:21.758258Z",
+        "controversy_chart": null,
+        "controversy_meta": null,
+        "quotes": [
+          {
+            "text": "It essentially becomes a snowball effect, and touches upon many socioeconomic facets beyond just material goods.\n\nTake banking for example - if you're wealthy, a bank will offer you much better terms on loans or financial products even though you need those benefits less than an impoverished person.\n\nAnd on the point of clothing, beyond the durability or lifespan of the item, there's also the status aspect of more expensive items. I don't specifically mean brand, but for example my workplace changed to an open office environment just before covid. With the change, HR formally relaxed the dress code from business suits for men and sheath dresses/pant suits for women to smart casual. But those who continued with the formal attire are generally treated with more respect and authority, and have better promotion opportunities than someone who goes in casual clothes. It does hit on the economic side because there are costs to upkeeping the extra wardrobe. A few of my coworkers who had expressed relief with not having to spend \\~$500-1,000 extra per year for the suiting & dry cleaning, converted over to casual wear for work but were recently demoted even.",
+            "community": "r/Frugal",
+            "permalink": "https://www.reddit.com/r/Frugal/comments/1spexln/what_people_get_wrong_about_the_boots_theory/oh037ee/"
+          },
+          {
+            "text": "There is more to wealth than money. Holding on to things that no longer serve you in case they might be worth something someday is how we ended up sending 2 dump trucks worth of “pretties” from my grandma’s house to the landfill via an estate sale company. There is a non-monetary wealth in having what you need, a bit to spare in an emergency, and nothing that you don’t want.\n\nStorage space isn’t free. It’s a bedroom your family can’t stay in when they visit or need a leg up for a month or two. Listing your vintage 90s jeans is a hair pulling exercise is frustration with selling platforms. If you aren’t already selling vintage clothing, you’re not going to be doing so in 20 years when it’s back in style either. Alter nice quality clothing to fit modern silhouettes, sell on consignment, or trade them out for things you will actually wear at a clothing swap.",
+            "community": "r/Frugal",
+            "permalink": "https://www.reddit.com/r/Frugal/comments/1spexln/what_people_get_wrong_about_the_boots_theory/oh01wqr/"
+          },
+          {
+            "text": "Move when pregnant for sure",
+            "community": "r/beyondthebump",
+            "permalink": "https://www.reddit.com/r/beyondthebump/comments/1spf1oi/would_you_move_at_35_weeks_pregnant_or_wait_until/ogzybwj/"
+          },
+          {
+            "text": "Pregnant 10000x.\n\n\nI can think of very few things that would be worse than moving with an unpredictable newborn. You can also use your nesting for organizing the new place.",
+            "community": "r/beyondthebump",
+            "permalink": "https://www.reddit.com/r/beyondthebump/comments/1spf1oi/would_you_move_at_35_weeks_pregnant_or_wait_until/ogzyib4/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/Frugal/comments/1spexln",
+        "detail": {
+          "thesis": "省钱的真正成本不在商品本身，而在维持它所需的社交地位和物理空间。",
+          "writing_angle_or_perspective": "从‘买贵的更省钱’这个常见说法切入，但重点不是反驳它，而是揭示它背后被忽略的代价。",
+          "tension_point_or_why_it_matters": "如果只算商品寿命，会忽略为了‘用好它’而付出的隐性成本，比如为了维持职场形象而持续投入的置装费，或者为了囤积‘可能有用’的物品而牺牲的生活空间。",
+          "title_hooks": [
+            "省钱的代价，可能比你想象的更贵",
+            "买贵的真能省钱？先算算你还要额外付出什么"
+          ],
+          "quote_pack": [
+            "There are costs to upkeeping the extra wardrobe. A few of my coworkers who had expressed relief with not having to spend ~$500-1,000 extra per year for the suiting & dry cleaning, converted over to casual wear for work but were recently demoted even.｜维持额外衣橱是有成本的。我有几个同事，之前还庆幸每年能省下500到1000美元的西装和干洗费，换成了休闲装上班，但最近却被降职了。｜r/Frugal",
+            "Storage space isn’t free. It’s a bedroom your family can’t stay in when they visit or need a leg up for a month or two.｜存储空间不是免费的。它可能是一间卧室，你的家人来访或需要暂住一两个月时就没地方住了。｜r/Frugal"
+          ]
+        }
+      },
+      "v12_shadow": {
+        "title": "省钱省到降职、省到没地方住，才明白账不是这么算的",
+        "summary_line": "一个同事省了干洗费却丢了职位，一个囤货挤占了家人住的卧室。省钱的代价，往往藏在维持它所需的社交和空间里。",
+        "audience": "精打细算、想省钱的普通人",
+        "why_now": "讨论从鞋子能穿多久，跳到了职场着装影响升职、囤货挤占生活空间。省钱的计算维度，正从商品本身扩大到整个生活系统。",
+        "thesis": "省钱的代价，不是商品价格，而是维持‘省钱后状态’所需的社交地位和物理空间。",
+        "writing_angle_or_perspective": "别从‘买什么更划算’讲，直接讲‘省了之后，你还得额外付出什么’。",
+        "tension_point_or_why_it_matters": "很多人只算省下的钱，却没算维持这个‘省’需要付出的隐性成本，最后可能得不偿失。",
+        "title_hooks": [
+          "省下的干洗费，可能值一次升职加薪",
+          "囤货省的钱，最后挤占的是家人住的卧室"
+        ],
+        "quote_pack": [
+          "A few of my coworkers who had expressed relief with not having to spend ~$500-1,000 extra per year for the suiting & dry cleaning, converted over to casual wear for work but were recently demoted even.｜几个同事很高兴每年能省下500到1000美元的西装和干洗费，改穿休闲装上班，但最近却被降职了。｜r/Frugal",
+          "Storage space isn’t free. It’s a bedroom your family can’t stay in when they visit or need a leg up for a month or two.｜储物空间不是免费的。它可能是一间卧室，你的家人来访或需要暂住一两个月时，就没地方住了。｜r/Frugal"
+        ]
+      },
+      "refreshed_card": {
+        "card_id": "card-group-ecommerce-sellers-105eb66217",
+        "signal_id": "sig-group-ecommerce-sellers-105eb66217",
+        "card_type": "write",
+        "lane": "breakdown",
+        "category_id": "write",
+        "source_scope_id": "ecommerce-sellers",
+        "source_scope_name": "电商与卖家",
+        "topic_pack_id": "selection-signals",
+        "topic_cluster_id": "small-goods",
+        "topic_cluster_ids": [
+          "small-goods",
+          "parenting-travel"
+        ],
+        "named_topic_ids": [
+          "small-goods-watch"
+        ],
+        "source_domain_id": "ecommerce-sellers",
+        "source_domain_name": "电商与卖家",
+        "source_event_at": "2026-04-19T01:14:28Z",
+        "title": "省了干洗费却丢了职位，囤货挤占卧室没地方住",
+        "summary_line": "一个同事省了干洗费却丢了职位，一个囤货挤占了家人住的卧室。省钱的代价，往往藏在维持它所需的社交和空间里。",
+        "audience": "精打细算、想省钱的普通人",
+        "why_now": "讨论从鞋子能穿多久，跳到了职场着装影响升职、囤货挤占生活空间。省钱的计算维度，正从商品本身扩大到整个生活系统。",
+        "why_now_reason": "switch_signal_7d",
+        "signal_level": "hot",
+        "intent_tags": [
+          "避坑",
+          "求推荐"
+        ],
+        "top_community": "r/Frugal",
+        "thread_count": 2,
+        "community_count": 2,
+        "source_module": {
+          "primary_communities": [
+            "r/Frugal",
+            "r/beyondthebump"
+          ],
+          "top_community": "r/Frugal",
+          "tone_tags": [],
+          "thread_count": 2,
+          "community_count": 2,
+          "last_active_text": "近7天"
+        },
+        "preview_quote": {
+          "text": "It essentially becomes a snowball effect, and touches upon many socioeconomic facets beyond just material goods.\n\nTake banking for example - if you're wealthy, a bank will offer you much better terms on loans or financial products even though you need those benefits less than an impoverished person.\n\nAnd on the point of clothing, beyond the durability or lifespan of the item, there's also the status aspect of more expensive items. I don't specifically mean brand, but for example my workplace changed to an open office environment just before covid. With the change, HR formally relaxed the dress code from business suits for men and sheath dresses/pant suits for women to smart casual. But those who continued with the formal attire are generally treated with more respect and authority, and have better promotion opportunities than someone who goes in casual clothes. It does hit on the economic side because there are costs to upkeeping the extra wardrobe. A few of my coworkers who had expressed relief with not having to spend \\~$500-1,000 extra per year for the suiting & dry cleaning, converted over to casual wear for work but were recently demoted even.",
+          "community": "r/Frugal",
+          "permalink": "https://www.reddit.com/r/Frugal/comments/1spexln/what_people_get_wrong_about_the_boots_theory/oh037ee/"
+        },
+        "published_at": "2026-04-24T04:50:21.758258Z",
+        "controversy_chart": null,
+        "controversy_meta": null,
+        "quotes": [
+          {
+            "text": "It essentially becomes a snowball effect, and touches upon many socioeconomic facets beyond just material goods.\n\nTake banking for example - if you're wealthy, a bank will offer you much better terms on loans or financial products even though you need those benefits less than an impoverished person.\n\nAnd on the point of clothing, beyond the durability or lifespan of the item, there's also the status aspect of more expensive items. I don't specifically mean brand, but for example my workplace changed to an open office environment just before covid. With the change, HR formally relaxed the dress code from business suits for men and sheath dresses/pant suits for women to smart casual. But those who continued with the formal attire are generally treated with more respect and authority, and have better promotion opportunities than someone who goes in casual clothes. It does hit on the economic side because there are costs to upkeeping the extra wardrobe. A few of my coworkers who had expressed relief with not having to spend \\~$500-1,000 extra per year for the suiting & dry cleaning, converted over to casual wear for work but were recently demoted even.",
+            "community": "r/Frugal",
+            "permalink": "https://www.reddit.com/r/Frugal/comments/1spexln/what_people_get_wrong_about_the_boots_theory/oh037ee/"
+          },
+          {
+            "text": "There is more to wealth than money. Holding on to things that no longer serve you in case they might be worth something someday is how we ended up sending 2 dump trucks worth of “pretties” from my grandma’s house to the landfill via an estate sale company. There is a non-monetary wealth in having what you need, a bit to spare in an emergency, and nothing that you don’t want.\n\nStorage space isn’t free. It’s a bedroom your family can’t stay in when they visit or need a leg up for a month or two. Listing your vintage 90s jeans is a hair pulling exercise is frustration with selling platforms. If you aren’t already selling vintage clothing, you’re not going to be doing so in 20 years when it’s back in style either. Alter nice quality clothing to fit modern silhouettes, sell on consignment, or trade them out for things you will actually wear at a clothing swap.",
+            "community": "r/Frugal",
+            "permalink": "https://www.reddit.com/r/Frugal/comments/1spexln/what_people_get_wrong_about_the_boots_theory/oh01wqr/"
+          },
+          {
+            "text": "Move when pregnant for sure",
+            "community": "r/beyondthebump",
+            "permalink": "https://www.reddit.com/r/beyondthebump/comments/1spf1oi/would_you_move_at_35_weeks_pregnant_or_wait_until/ogzybwj/"
+          },
+          {
+            "text": "Pregnant 10000x.\n\n\nI can think of very few things that would be worse than moving with an unpredictable newborn. You can also use your nesting for organizing the new place.",
+            "community": "r/beyondthebump",
+            "permalink": "https://www.reddit.com/r/beyondthebump/comments/1spf1oi/would_you_move_at_35_weeks_pregnant_or_wait_until/ogzyib4/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/Frugal/comments/1spexln",
+        "detail": {
+          "thesis": "省钱的真正成本不在商品本身，而在维持它所需的社交地位和物理空间。",
+          "writing_angle_or_perspective": "从‘买贵的更省钱’这个常见说法切入，但重点不是反驳它，而是揭示它背后被忽略的代价。",
+          "tension_point_or_why_it_matters": "如果只算商品寿命，会忽略为了‘用好它’而付出的隐性成本，比如为了维持职场形象而持续投入的置装费，或者为了囤积‘可能有用’的物品而牺牲的生活空间。",
+          "title_hooks": [
+            "省钱的代价，可能比你想象的更贵",
+            "买贵的真能省钱？先算算你还要额外付出什么"
+          ],
+          "quote_pack": [
+            "There are costs to upkeeping the extra wardrobe. A few of my coworkers who had expressed relief with not having to spend ~$500-1,000 extra per year for the suiting & dry cleaning, converted over to casual wear for work but were recently demoted even.｜维持额外衣橱是有成本的。我有几个同事，之前还庆幸每年能省下500到1000美元的西装和干洗费，换成了休闲装上班，但最近却被降职了。｜r/Frugal",
+            "Storage space isn’t free. It’s a bedroom your family can’t stay in when they visit or need a leg up for a month or two.｜存储空间不是免费的。它可能是一间卧室，你的家人来访或需要暂住一两个月时就没地方住了。｜r/Frugal"
+          ]
+        }
+      },
+      "changed": {
+        "title": {
+          "before": "省钱的隐形代价，是维持它所需的社交和空间成本",
+          "after": "省了干洗费却丢了职位，囤货挤占卧室没地方住"
+        },
+        "summary_line": {
+          "before": "讨论从鞋子寿命延伸到职场着装和囤积杂物，说明真正的成本不在标价，而在维持它所需的额外付出。",
+          "after": "一个同事省了干洗费却丢了职位，一个囤货挤占了家人住的卧室。省钱的代价，往往藏在维持它所需的社交和空间里。"
+        },
+        "audience": {
+          "before": "精打细算的省钱用户",
+          "after": "精打细算、想省钱的普通人"
+        },
+        "why_now": {
+          "before": "有用户把话题从鞋子寿命，拉到了职场着装和囤积杂物的真实开销上，说明判断标准已经从‘耐用性’转向了‘维持成本’。",
+          "after": "讨论从鞋子能穿多久，跳到了职场着装影响升职、囤货挤占生活空间。省钱的计算维度，正从商品本身扩大到整个生活系统。"
+        }
+      },
+      "fluency_repair_issue_count": 0,
+      "remaining_density_issues": [],
+      "v13_title_issues_before": [],
+      "v13_title_issues_after": [],
+      "error": ""
+    },
+    {
+      "card_id": "card-group-business-growth-ops-daaf09a76d",
+      "lane": "breakdown",
+      "card_type": "write",
+      "profile_id": "hotpost_v13_title_standalone",
+      "semantic_model": "deepseek/deepseek-v4-flash",
+      "writer_model": "xiaomi/mimo-v2.5-pro",
+      "original_card": {
+        "card_id": "card-group-business-growth-ops-daaf09a76d",
+        "signal_id": "sig-group-business-growth-ops-daaf09a76d",
+        "card_type": "write",
+        "lane": "breakdown",
+        "category_id": "write",
+        "source_scope_id": "business-growth-ops",
+        "source_scope_name": "商业增长与运营",
+        "topic_pack_id": "paid-economics",
+        "topic_cluster_id": "attribution",
+        "topic_cluster_ids": [
+          "attribution",
+          "ads"
+        ],
+        "named_topic_ids": [],
+        "source_domain_id": "business-growth-ops",
+        "source_domain_name": "商业增长与运营",
+        "source_event_at": "2026-04-20T20:29:56Z",
+        "title": "Ad Strength 分数高不等于赚钱，投手现在只信转化数据",
+        "summary_line": "投手们发现 Ad Strength 分数只衡量素材多样性，和实际转化无关，所以优化目标已经从分数转向了 CTR、CVR 这些硬指标。",
+        "audience": "在 Google Ads 上花钱的投手和优化师",
+        "why_now": "一个人明确指出分数和转化无关，另一个人直接说‘和转化没关系’，这说明大家已经不把分数当优化目标，而是看实际效果了。",
+        "why_now_reason": "new_threads_24h",
+        "signal_level": "sustained",
+        "intent_tags": [
+          "趋势变化",
+          "求推荐"
+        ],
+        "top_community": "r/PPC",
+        "thread_count": 2,
+        "community_count": 2,
+        "source_module": {
+          "primary_communities": [
+            "r/PPC",
+            "r/ecommerce"
+          ],
+          "top_community": "r/PPC",
+          "tone_tags": [],
+          "thread_count": 2,
+          "community_count": 2,
+          "last_active_text": "近24小时"
+        },
+        "preview_quote": {
+          "text": "Indeed. Google Ads “Ad Strength” just measures asset variety, not whether your ads actually drive conversions or revenue. You can have “Excellent” strength and still lose money, or “Average” and crush it.\n\nOptimize for CTR, CVR, and actual conversion data, not a cosmetic score.",
+          "community": "r/PPC",
+          "permalink": "https://www.reddit.com/r/PPC/comments/1sqvpf5/googles_ad_strength_score_is_not_a_performance/ohbde42/"
+        },
+        "published_at": "2026-04-24T04:50:11.520878Z",
+        "controversy_chart": null,
+        "controversy_meta": null,
+        "quotes": [
+          {
+            "text": "Indeed. Google Ads “Ad Strength” just measures asset variety, not whether your ads actually drive conversions or revenue. You can have “Excellent” strength and still lose money, or “Average” and crush it.\n\nOptimize for CTR, CVR, and actual conversion data, not a cosmetic score.",
+            "community": "r/PPC",
+            "permalink": "https://www.reddit.com/r/PPC/comments/1sqvpf5/googles_ad_strength_score_is_not_a_performance/ohbde42/"
+          },
+          {
+            "text": "Has nothing to do with conversions",
+            "community": "r/PPC",
+            "permalink": "https://www.reddit.com/r/PPC/comments/1sqvpf5/googles_ad_strength_score_is_not_a_performance/ohb7rno/"
+          },
+          {
+            "text": "The only experience I’ve had that stopped most of the hallucinations was a copilot agent sitting on pdf documentation, and its prompt explicitly told it to never make things up, and it must tell the user if it does not know, and also provide a linked source for every single thing it said.",
+            "community": "r/ecommerce",
+            "permalink": "https://www.reddit.com/r/ecommerce/comments/1sr1zk5/ai_for_customer_questions_on_ecomm/ohbu0st/"
+          },
+          {
+            "text": "I'm working on this exact problem. Pretty much in the same boat, we have a Shopify store and want to respond to customers as  automatically as possible with guards in place to turn to a human (human in the loop). But it's still a bit out.",
+            "community": "r/ecommerce",
+            "permalink": "https://www.reddit.com/r/ecommerce/comments/1sr1zk5/ai_for_customer_questions_on_ecomm/ohbujh5/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/PPC/comments/1sqvpf5",
+        "detail": {
+          "thesis": "投手们已经放弃优化 Ad Strength 分数，因为它只衡量素材多样性，与广告能否赚钱无关，真正的优化目标变成了 CTR、CVR 和实际转化数据。",
+          "writing_angle_or_perspective": "从‘分数无用’这个共识切入，讲清楚大家现在到底在看什么。",
+          "tension_point_or_why_it_matters": "如果还盯着分数优化，可能白费功夫还亏钱；转向看转化数据，才是把钱花在刀刃上。",
+          "title_hooks": [
+            "分数再高也可能亏钱，分数低反而能赚钱",
+            "优化目标已经从‘好看’的分数变成了‘好用’的转化"
+          ],
+          "quote_pack": [
+            "Indeed. Google Ads “Ad Strength” just measures asset variety, not whether your ads actually drive conversions or revenue. You can have “Excellent” strength and still lose money, or “Average” and crush it. Optimize for CTR, CVR, and actual conversion data, not a cosmetic score.｜确实。Google Ads 的“Ad Strength”只衡量素材多样性，不衡量你的广告是否真的能带来转化或收入。你可以有“优秀”的分数但仍然亏钱，或者“一般”的分数却能大赚。优化目标应该是 CTR、CVR 和实际转化数据，而不是一个装饰性的分数。｜r/PPC",
+            "Has nothing to do with conversions｜和转化没关系。｜r/PPC"
+          ]
+        }
+      },
+      "v12_shadow": {
+        "title": "Ad Strength 分数高不等于赚钱，投手现在只信转化数据",
+        "summary_line": "Ad Strength 分数只衡量素材多样性，与转化无关；投手已转向优化 CTR、CVR 等硬指标。",
+        "audience": "在 Google Ads 上花钱的投手和优化师",
+        "why_now": "用户原声明确指出分数与转化无关，且获得附和，圈内认知已从优化分数转向优化转化。",
+        "thesis": "投手们对 Ad Strength 的共识是：它只衡量素材花样，和赚钱无关，所以优化重心从追求高分转向了看 CTR、CVR 等转化数据。",
+        "writing_angle_or_perspective": "别从平台功能讲，直接讲投手为什么不信这个分数了。",
+        "tension_point_or_why_it_matters": "如果继续按分数优化，可能白费功夫甚至亏钱；转向转化数据，才能直接提升广告回报。",
+        "title_hooks": [
+          "分数再高也可能亏钱，分数低反而能赚钱",
+          "别再优化 Ad Strength 了，看点击率和转化率"
+        ],
+        "quote_pack": [
+          "Indeed. Google Ads “Ad Strength” just measures asset variety, not whether your ads actually drive conversions or revenue. You can have “Excellent” strength and still lose money, or “Average” and crush it. Optimize for CTR, CVR, and actual conversion data, not a cosmetic score.｜没错。Google Ads 的“Ad Strength”只衡量素材多样性，不管你的广告是否真的带来转化或收入。你可能分数“优秀”但亏钱，也可能“一般”但大赚。优化要看点击率、转化率和实际转化数据，别看这个装饰性分数。｜r/PPC",
+          "Has nothing to do with conversions｜和转化没关系。｜r/PPC"
+        ]
+      },
+      "refreshed_card": {
+        "card_id": "card-group-business-growth-ops-daaf09a76d",
+        "signal_id": "sig-group-business-growth-ops-daaf09a76d",
+        "card_type": "write",
+        "lane": "breakdown",
+        "category_id": "write",
+        "source_scope_id": "business-growth-ops",
+        "source_scope_name": "商业增长与运营",
+        "topic_pack_id": "paid-economics",
+        "topic_cluster_id": "attribution",
+        "topic_cluster_ids": [
+          "attribution",
+          "ads"
+        ],
+        "named_topic_ids": [],
+        "source_domain_id": "business-growth-ops",
+        "source_domain_name": "商业增长与运营",
+        "source_event_at": "2026-04-20T20:29:56Z",
+        "title": "Ad Strength 分数高可能亏钱，投手现在只信 CTR、CVR 等转化数据",
+        "summary_line": "Ad Strength 分数只衡量素材多样性，与转化无关；投手已转向优化 CTR、CVR 等硬指标。",
+        "audience": "在 Google Ads 上花钱的投手和优化师",
+        "why_now": "用户原声明确指出分数与转化无关，且获得附和，圈内认知已从优化分数转向优化转化。",
+        "why_now_reason": "new_threads_24h",
+        "signal_level": "sustained",
+        "intent_tags": [
+          "趋势变化",
+          "求推荐"
+        ],
+        "top_community": "r/PPC",
+        "thread_count": 2,
+        "community_count": 2,
+        "source_module": {
+          "primary_communities": [
+            "r/PPC",
+            "r/ecommerce"
+          ],
+          "top_community": "r/PPC",
+          "tone_tags": [],
+          "thread_count": 2,
+          "community_count": 2,
+          "last_active_text": "近24小时"
+        },
+        "preview_quote": {
+          "text": "Indeed. Google Ads “Ad Strength” just measures asset variety, not whether your ads actually drive conversions or revenue. You can have “Excellent” strength and still lose money, or “Average” and crush it.\n\nOptimize for CTR, CVR, and actual conversion data, not a cosmetic score.",
+          "community": "r/PPC",
+          "permalink": "https://www.reddit.com/r/PPC/comments/1sqvpf5/googles_ad_strength_score_is_not_a_performance/ohbde42/"
+        },
+        "published_at": "2026-04-24T04:50:11.520878Z",
+        "controversy_chart": null,
+        "controversy_meta": null,
+        "quotes": [
+          {
+            "text": "Indeed. Google Ads “Ad Strength” just measures asset variety, not whether your ads actually drive conversions or revenue. You can have “Excellent” strength and still lose money, or “Average” and crush it.\n\nOptimize for CTR, CVR, and actual conversion data, not a cosmetic score.",
+            "community": "r/PPC",
+            "permalink": "https://www.reddit.com/r/PPC/comments/1sqvpf5/googles_ad_strength_score_is_not_a_performance/ohbde42/"
+          },
+          {
+            "text": "Has nothing to do with conversions",
+            "community": "r/PPC",
+            "permalink": "https://www.reddit.com/r/PPC/comments/1sqvpf5/googles_ad_strength_score_is_not_a_performance/ohb7rno/"
+          },
+          {
+            "text": "The only experience I’ve had that stopped most of the hallucinations was a copilot agent sitting on pdf documentation, and its prompt explicitly told it to never make things up, and it must tell the user if it does not know, and also provide a linked source for every single thing it said.",
+            "community": "r/ecommerce",
+            "permalink": "https://www.reddit.com/r/ecommerce/comments/1sr1zk5/ai_for_customer_questions_on_ecomm/ohbu0st/"
+          },
+          {
+            "text": "I'm working on this exact problem. Pretty much in the same boat, we have a Shopify store and want to respond to customers as  automatically as possible with guards in place to turn to a human (human in the loop). But it's still a bit out.",
+            "community": "r/ecommerce",
+            "permalink": "https://www.reddit.com/r/ecommerce/comments/1sr1zk5/ai_for_customer_questions_on_ecomm/ohbujh5/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/PPC/comments/1sqvpf5",
+        "detail": {
+          "thesis": "投手们已经放弃优化 Ad Strength 分数，因为它只衡量素材多样性，与广告能否赚钱无关，真正的优化目标变成了 CTR、CVR 和实际转化数据。",
+          "writing_angle_or_perspective": "从‘分数无用’这个共识切入，讲清楚大家现在到底在看什么。",
+          "tension_point_or_why_it_matters": "如果还盯着分数优化，可能白费功夫还亏钱；转向看转化数据，才是把钱花在刀刃上。",
+          "title_hooks": [
+            "分数再高也可能亏钱，分数低反而能赚钱",
+            "优化目标已经从‘好看’的分数变成了‘好用’的转化"
+          ],
+          "quote_pack": [
+            "Indeed. Google Ads “Ad Strength” just measures asset variety, not whether your ads actually drive conversions or revenue. You can have “Excellent” strength and still lose money, or “Average” and crush it. Optimize for CTR, CVR, and actual conversion data, not a cosmetic score.｜确实。Google Ads 的“Ad Strength”只衡量素材多样性，不衡量你的广告是否真的能带来转化或收入。你可以有“优秀”的分数但仍然亏钱，或者“一般”的分数却能大赚。优化目标应该是 CTR、CVR 和实际转化数据，而不是一个装饰性的分数。｜r/PPC",
+            "Has nothing to do with conversions｜和转化没关系。｜r/PPC"
+          ]
+        }
+      },
+      "changed": {
+        "title": {
+          "before": "Ad Strength 分数高不等于赚钱，投手现在只信转化数据",
+          "after": "Ad Strength 分数高可能亏钱，投手现在只信 CTR、CVR 等转化数据"
+        },
+        "summary_line": {
+          "before": "投手们发现 Ad Strength 分数只衡量素材多样性，和实际转化无关，所以优化目标已经从分数转向了 CTR、CVR 这些硬指标。",
+          "after": "Ad Strength 分数只衡量素材多样性，与转化无关；投手已转向优化 CTR、CVR 等硬指标。"
+        },
+        "why_now": {
+          "before": "一个人明确指出分数和转化无关，另一个人直接说‘和转化没关系’，这说明大家已经不把分数当优化目标，而是看实际效果了。",
+          "after": "用户原声明确指出分数与转化无关，且获得附和，圈内认知已从优化分数转向优化转化。"
+        }
+      },
+      "fluency_repair_issue_count": 0,
+      "remaining_density_issues": [],
+      "v13_title_issues_before": [],
+      "v13_title_issues_after": [],
+      "error": ""
+    },
+    {
+      "card_id": "card-cand-ai-automation-1s6pkg3-validate",
+      "lane": "signal",
+      "card_type": "validate",
+      "profile_id": "hotpost_v13_title_standalone",
+      "semantic_model": "deepseek/deepseek-v4-flash",
+      "writer_model": "xiaomi/mimo-v2.5-pro",
+      "original_card": {
+        "card_id": "card-cand-ai-automation-1s6pkg3-validate",
+        "signal_id": "sig-1s6pkg3",
+        "card_type": "validate",
+        "lane": "signal",
+        "category_id": "validate",
+        "source_scope_id": "ai-automation",
+        "source_scope_name": "AI 与自动化",
+        "topic_pack_id": "tools-efficiency",
+        "topic_cluster_id": "open-source-projects",
+        "topic_cluster_ids": [
+          "open-source-projects"
+        ],
+        "named_topic_ids": [
+          "custom-topic"
+        ],
+        "source_domain_id": "ai-automation",
+        "source_domain_name": "AI 与自动化",
+        "source_event_at": "2026-03-29T08:23:14Z",
+        "title": "AI SEO 从业者开始先看真实代码和数据，不再先迷信通用提示词",
+        "summary_line": "判断顺序从先看工具演示，转成先看它能不能接入真实代码库和90天搜索数据。",
+        "audience": "在 Reddit 上寻找 AI SEO 工作流的开发者或营销人员",
+        "why_now": "有用户分享了一个把 Google Search Console 数据和代码库直接喂给 Claude 的方案。评论里立刻有用户指出，这才是关键，因为很多 AI SEO 工具只是‘打磨过的猜测’。所以下一步先问的不再是‘这工具酷不酷’，而是‘它能不能看到我的真实代码和数据’。",
+        "why_now_reason": "recurring_7d",
+        "signal_level": "sustained",
+        "intent_tags": [
+          "趋势变化"
+        ],
+        "top_community": "r/claudeskills",
+        "thread_count": 1,
+        "community_count": 1,
+        "source_module": {
+          "primary_communities": [
+            "r/claudeskills"
+          ],
+          "top_community": "r/claudeskills",
+          "tone_tags": [],
+          "thread_count": 1,
+          "community_count": 1,
+          "last_active_text": "近7天"
+        },
+        "preview_quote": {
+          "text": "This is sick. The “inside the repo + real data” combo is the important part.\n\nA lot of AI SEO stuff is basically just polished guesswork, but if Claude can see the actual codebase and 90 days of Search Console data, it can make way more grounded suggestions.\n\nI’ve found that’s kind of the magic with skills in general — when they stop being just a fancy prompt and start acting more like a reusable workflow with real context. That’s when they go from “cool demo” to actually useful.\n\nThe Google Cloud part is definitely the annoying bit, but the overall idea makes a ton of sense.",
+          "community": "r/claudeskills",
+          "permalink": "https://www.reddit.com/r/claudeskills/comments/1s6pkg3/google_search_console_claude_code/od9jman/"
+        },
+        "published_at": "2026-04-24T04:50:03.593971Z",
+        "controversy_chart": null,
+        "controversy_meta": null,
+        "quotes": [
+          {
+            "text": "This is sick. The “inside the repo + real data” combo is the important part.\n\nA lot of AI SEO stuff is basically just polished guesswork, but if Claude can see the actual codebase and 90 days of Search Console data, it can make way more grounded suggestions.\n\nI’ve found that’s kind of the magic with skills in general — when they stop being just a fancy prompt and start acting more like a reusable workflow with real context. That’s when they go from “cool demo” to actually useful.\n\nThe Google Cloud part is definitely the annoying bit, but the overall idea makes a ton of sense.",
+            "community": "r/claudeskills",
+            "permalink": "https://www.reddit.com/r/claudeskills/comments/1s6pkg3/google_search_console_claude_code/od9jman/"
+          },
+          {
+            "text": "Thanks for this. Very helpful. Can you share some examples or dataset of analysis this has done. Would be beneficial. Will also check it out.",
+            "community": "r/claudeskills",
+            "permalink": "https://www.reddit.com/r/claudeskills/comments/1s6pkg3/google_search_console_claude_code/od9hdab/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/claudeskills/comments/1s6pkg3",
+        "detail": {
+          "pain_point": "用了很多 AI SEO 工具，发现它们的建议脱离实际，像在猜，浪费时间和预算。",
+          "target_user_and_scene": "需要为网站做 SEO 优化，但厌倦了通用工具给出模糊建议的开发者或运营人员。",
+          "why_test_now": "最硬的证据是评论里那句 ‘inside the repo + real data’ combo is the important part。它直接点明了判断标准的变化：价值不在于提示词多花哨，而在于能否接入真实工作流。",
+          "min_test_action": "去看原始讨论",
+          "continue_signal": "继续看有没有更多工具或技能被要求展示‘接入真实数据源’的能力。",
+          "stop_signal": "如果讨论又回到只分享提示词模板，而不再提数据接入，这条线的价值就降低了。"
+        }
+      },
+      "v12_shadow": {
+        "title": "AI SEO 从业者开始先看真实代码和数据，不再先迷信通用提示词",
+        "summary_line": "判断顺序从先看工具演示酷不酷，转为先看它能不能接入真实代码库和搜索数据。",
+        "audience": "用 AI 做 SEO 的开发者或营销人员，正在评估工具或设计工作流",
+        "why_now": "有用户把 Google Search Console 数据和代码库直接喂给 Claude，评论立刻指出这才是关键，因为很多 AI SEO 工具只是“打磨过的猜测”。",
+        "pain_point": "用通用提示词或演示漂亮的工具，结果可能不精准，但集成真实数据需要技术投入和等待，要在效率和准确性之间权衡。",
+        "target_user_and_scene": "想用 AI 提升 SEO 效果，但不确定该选哪种工具或工作流的开发者和营销人员。",
+        "why_test_now": "评论里那句“inside the repo + real data” combo 直接点明了新标准：工具的价值在于能否接入真实代码和数据，而非提示词花哨程度。",
+        "min_test_action": "去看原始讨论",
+        "continue_signal": "继续看有没有更多工具或方案强调“接入真实数据源”作为核心卖点。",
+        "stop_signal": "如果讨论又回到只比拼提示词技巧或演示效果，这条线就弱了。"
+      },
+      "refreshed_card": {
+        "card_id": "card-cand-ai-automation-1s6pkg3-validate",
+        "signal_id": "sig-1s6pkg3",
+        "card_type": "validate",
+        "lane": "signal",
+        "category_id": "validate",
+        "source_scope_id": "ai-automation",
+        "source_scope_name": "AI 与自动化",
+        "topic_pack_id": "tools-efficiency",
+        "topic_cluster_id": "open-source-projects",
+        "topic_cluster_ids": [
+          "open-source-projects"
+        ],
+        "named_topic_ids": [
+          "custom-topic"
+        ],
+        "source_domain_id": "ai-automation",
+        "source_domain_name": "AI 与自动化",
+        "source_event_at": "2026-03-29T08:23:14Z",
+        "title": "AI SEO 工具评估标准转变：从看演示酷不酷，到先看能否接入真实代码和数据",
+        "summary_line": "判断顺序从先看工具演示酷不酷，转为先看它能不能接入真实代码库和搜索数据。",
+        "audience": "用 AI 做 SEO 的开发者或营销人员，正在评估工具或设计工作流",
+        "why_now": "有用户把 Google Search Console 数据和代码库直接喂给 Claude，评论立刻指出这才是关键，因为很多 AI SEO 工具只是“打磨过的猜测”。",
+        "why_now_reason": "recurring_7d",
+        "signal_level": "sustained",
+        "intent_tags": [
+          "趋势变化"
+        ],
+        "top_community": "r/claudeskills",
+        "thread_count": 1,
+        "community_count": 1,
+        "source_module": {
+          "primary_communities": [
+            "r/claudeskills"
+          ],
+          "top_community": "r/claudeskills",
+          "tone_tags": [],
+          "thread_count": 1,
+          "community_count": 1,
+          "last_active_text": "近7天"
+        },
+        "preview_quote": {
+          "text": "This is sick. The “inside the repo + real data” combo is the important part.\n\nA lot of AI SEO stuff is basically just polished guesswork, but if Claude can see the actual codebase and 90 days of Search Console data, it can make way more grounded suggestions.\n\nI’ve found that’s kind of the magic with skills in general — when they stop being just a fancy prompt and start acting more like a reusable workflow with real context. That’s when they go from “cool demo” to actually useful.\n\nThe Google Cloud part is definitely the annoying bit, but the overall idea makes a ton of sense.",
+          "community": "r/claudeskills",
+          "permalink": "https://www.reddit.com/r/claudeskills/comments/1s6pkg3/google_search_console_claude_code/od9jman/"
+        },
+        "published_at": "2026-04-24T04:50:03.593971Z",
+        "controversy_chart": null,
+        "controversy_meta": null,
+        "quotes": [
+          {
+            "text": "This is sick. The “inside the repo + real data” combo is the important part.\n\nA lot of AI SEO stuff is basically just polished guesswork, but if Claude can see the actual codebase and 90 days of Search Console data, it can make way more grounded suggestions.\n\nI’ve found that’s kind of the magic with skills in general — when they stop being just a fancy prompt and start acting more like a reusable workflow with real context. That’s when they go from “cool demo” to actually useful.\n\nThe Google Cloud part is definitely the annoying bit, but the overall idea makes a ton of sense.",
+            "community": "r/claudeskills",
+            "permalink": "https://www.reddit.com/r/claudeskills/comments/1s6pkg3/google_search_console_claude_code/od9jman/"
+          },
+          {
+            "text": "Thanks for this. Very helpful. Can you share some examples or dataset of analysis this has done. Would be beneficial. Will also check it out.",
+            "community": "r/claudeskills",
+            "permalink": "https://www.reddit.com/r/claudeskills/comments/1s6pkg3/google_search_console_claude_code/od9hdab/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/claudeskills/comments/1s6pkg3",
+        "detail": {
+          "pain_point": "用了很多 AI SEO 工具，发现它们的建议脱离实际，像在猜，浪费时间和预算。",
+          "target_user_and_scene": "需要为网站做 SEO 优化，但厌倦了通用工具给出模糊建议的开发者或运营人员。",
+          "why_test_now": "最硬的证据是评论里那句 ‘inside the repo + real data’ combo is the important part。它直接点明了判断标准的变化：价值不在于提示词多花哨，而在于能否接入真实工作流。",
+          "min_test_action": "去看原始讨论",
+          "continue_signal": "继续看有没有更多工具或技能被要求展示‘接入真实数据源’的能力。",
+          "stop_signal": "如果讨论又回到只分享提示词模板，而不再提数据接入，这条线的价值就降低了。"
+        }
+      },
+      "changed": {
+        "title": {
+          "before": "AI SEO 从业者开始先看真实代码和数据，不再先迷信通用提示词",
+          "after": "AI SEO 工具评估标准转变：从看演示酷不酷，到先看能否接入真实代码和数据"
+        },
+        "summary_line": {
+          "before": "判断顺序从先看工具演示，转成先看它能不能接入真实代码库和90天搜索数据。",
+          "after": "判断顺序从先看工具演示酷不酷，转为先看它能不能接入真实代码库和搜索数据。"
+        },
+        "audience": {
+          "before": "在 Reddit 上寻找 AI SEO 工作流的开发者或营销人员",
+          "after": "用 AI 做 SEO 的开发者或营销人员，正在评估工具或设计工作流"
+        },
+        "why_now": {
+          "before": "有用户分享了一个把 Google Search Console 数据和代码库直接喂给 Claude 的方案。评论里立刻有用户指出，这才是关键，因为很多 AI SEO 工具只是‘打磨过的猜测’。所以下一步先问的不再是‘这工具酷不酷’，而是‘它能不能看到我的真实代码和数据’。",
+          "after": "有用户把 Google Search Console 数据和代码库直接喂给 Claude，评论立刻指出这才是关键，因为很多 AI SEO 工具只是“打磨过的猜测”。"
+        }
+      },
+      "fluency_repair_issue_count": 0,
+      "remaining_density_issues": [
+        "why_test_now: 重点字段 79 字，超过建议 78 字，阅读负担高。"
+      ],
+      "v13_title_issues_before": [],
+      "v13_title_issues_after": [],
+      "error": ""
+    },
+    {
+      "card_id": "card-cand-ai-automation-1su3fle-validate",
+      "lane": "signal",
+      "card_type": "validate",
+      "profile_id": "hotpost_v13_title_standalone",
+      "semantic_model": "deepseek/deepseek-v4-flash",
+      "writer_model": "xiaomi/mimo-v2.5-pro",
+      "original_card": {
+        "card_id": "card-cand-ai-automation-1su3fle-validate",
+        "signal_id": "sig-1su3fle",
+        "card_type": "validate",
+        "lane": "signal",
+        "category_id": "validate",
+        "source_scope_id": "ai-automation",
+        "source_scope_name": "AI 与自动化",
+        "topic_pack_id": "tools-efficiency",
+        "topic_cluster_id": "open-source-projects",
+        "topic_cluster_ids": [
+          "open-source-projects",
+          "workflow-friction"
+        ],
+        "named_topic_ids": [
+          "deepseek-v4"
+        ],
+        "source_domain_id": "ai-automation",
+        "source_domain_name": "AI 与自动化",
+        "source_event_at": "2026-04-24T02:52:43Z",
+        "title": "开发者现在先看长输出能力，不再先盯着价格",
+        "summary_line": "判断重点从‘这模型便宜吗’，转成先看‘它能一次吐多少字’。384k 的输出长度成了新的硬指标。",
+        "audience": "正在评估新模型API 的开发者",
+        "why_now": "DeepSeek V4 Pro 的 API 刚发布，有用户立刻注意到它支持 384k 的输出长度。这改变了评估顺序：以前可能先比价，现在得先问‘我的任务需要这么长的输出吗？’。下一步得先确认自己的应用场景是否需要这种级别的长文本生成。",
+        "why_now_reason": "new_threads_24h",
+        "signal_level": "sustained",
+        "intent_tags": [
+          "趋势变化"
+        ],
+        "top_community": "r/LocalLLaMA",
+        "thread_count": 1,
+        "community_count": 1,
+        "source_module": {
+          "primary_communities": [
+            "r/LocalLLaMA"
+          ],
+          "top_community": "r/LocalLLaMA",
+          "tone_tags": [],
+          "thread_count": 1,
+          "community_count": 1,
+          "last_active_text": "近24小时"
+        },
+        "preview_quote": {
+          "text": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro\n\n\n384k output what?! At least it's cheap enough but lol",
+          "community": "r/LocalLLaMA",
+          "permalink": "https://www.reddit.com/r/LocalLLaMA/comments/1su3fle/deepseek_v4_flash_pro_now_out_on_api/ohy0sfc/"
+        },
+        "published_at": "2026-04-24T04:49:59.074238Z",
+        "controversy_chart": null,
+        "controversy_meta": null,
+        "quotes": [
+          {
+            "text": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro\n\n\n384k output what?! At least it's cheap enough but lol",
+            "community": "r/LocalLLaMA",
+            "permalink": "https://www.reddit.com/r/LocalLLaMA/comments/1su3fle/deepseek_v4_flash_pro_now_out_on_api/ohy0sfc/"
+          },
+          {
+            "text": "For anyone doubting that the image was generated by `gpt-image-2`, here’s the URL:\n\nhttps://api-docs.deepseek.com/zh-cn/quick_start/pricing",
+            "community": "r/LocalLLaMA",
+            "permalink": "https://www.reddit.com/r/LocalLLaMA/comments/1su3fle/deepseek_v4_flash_pro_now_out_on_api/ohxz7ao/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/LocalLLaMA/comments/1su3fle",
+        "detail": {
+          "pain_point": "担心模型能力跟不上复杂任务需求，比如生成超长报告或代码。",
+          "target_user_and_scene": "需要一次性生成大量文本（如长文档、详细分析）的开发者或内容创作者。",
+          "why_test_now": "最硬的证据是评论里直接点出了‘384k output’这个具体数字，并伴随着惊讶（‘what?!’）。这说明社区里已经有用户把‘输出长度’这个特性，从众多参数中拎出来，当成了首要的观察点。",
+          "min_test_action": "去看原始讨论",
+          "continue_signal": "继续看其他开发者对384k输出长度的实际测试反馈，以及它在不同任务（如写小说、生成代码库）中的稳定性。",
+          "stop_signal": "如果后续讨论都集中在价格或输入长度，而没人再提超长输出的实际应用案例，这条线就弱了。"
+        }
+      },
+      "v12_shadow": {
+        "title": "开发者现在先看长输出能力，不再先盯着价格",
+        "summary_line": "判断重点从价格转向输出长度，384k 成了新的筛选指标。",
+        "audience": "正在评估 DeepSeek V4 Pro API 的开发者",
+        "why_now": "DeepSeek V4 Pro API 刚发布，有开发者在讨论里直接喊出“384k输出？！”，评估顺序从“这模型便宜吗”转到“它能一次吐多少字”。",
+        "pain_point": "开发者担心模型能力不足，尤其超长文本生成，需要更长输出来一次完成任务；但更长输出意味着更高成本和潜在延迟，且实际场景是否需要384k尚未验证。",
+        "target_user_and_scene": "需要处理长文本生成任务（如写小说、生成代码库）的开发者，在评估新API时会遇到这个选择。",
+        "why_test_now": "评论里直接点出384k这个数字并表达惊讶，这是评估顺序即时变化的硬证据，但仅此一条，需要更多社区测试反馈来验证实际效果。",
+        "min_test_action": "去看原始讨论",
+        "continue_signal": "后续看其他开发者对384k输出长度的实际测试案例和稳定性反馈。",
+        "stop_signal": "如果后续讨论不再提输出长度，或者实际测试证明384k在真实任务中无用，信号就消散了。"
+      },
+      "refreshed_card": {
+        "card_id": "card-cand-ai-automation-1su3fle-validate",
+        "signal_id": "sig-1su3fle",
+        "card_type": "validate",
+        "lane": "signal",
+        "category_id": "validate",
+        "source_scope_id": "ai-automation",
+        "source_scope_name": "AI 与自动化",
+        "topic_pack_id": "tools-efficiency",
+        "topic_cluster_id": "open-source-projects",
+        "topic_cluster_ids": [
+          "open-source-projects",
+          "workflow-friction"
+        ],
+        "named_topic_ids": [
+          "deepseek-v4"
+        ],
+        "source_domain_id": "ai-automation",
+        "source_domain_name": "AI 与自动化",
+        "source_event_at": "2026-04-24T02:52:43Z",
+        "title": "开发者评估 DeepSeek V4 Pro API 时，先看 384k 输出长度，不再先比价格",
+        "summary_line": "判断重点从价格转向输出长度，384k 成了新的筛选指标。",
+        "audience": "正在评估 DeepSeek V4 Pro API 的开发者",
+        "why_now": "DeepSeek V4 Pro API 刚发布，有开发者在讨论里直接喊出“384k输出？！”，评估顺序从“这模型便宜吗”转到“它能一次吐多少字”。",
+        "why_now_reason": "new_threads_24h",
+        "signal_level": "sustained",
+        "intent_tags": [
+          "趋势变化"
+        ],
+        "top_community": "r/LocalLLaMA",
+        "thread_count": 1,
+        "community_count": 1,
+        "source_module": {
+          "primary_communities": [
+            "r/LocalLLaMA"
+          ],
+          "top_community": "r/LocalLLaMA",
+          "tone_tags": [],
+          "thread_count": 1,
+          "community_count": 1,
+          "last_active_text": "近24小时"
+        },
+        "preview_quote": {
+          "text": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro\n\n\n384k output what?! At least it's cheap enough but lol",
+          "community": "r/LocalLLaMA",
+          "permalink": "https://www.reddit.com/r/LocalLLaMA/comments/1su3fle/deepseek_v4_flash_pro_now_out_on_api/ohy0sfc/"
+        },
+        "published_at": "2026-04-24T04:49:59.074238Z",
+        "controversy_chart": null,
+        "controversy_meta": null,
+        "quotes": [
+          {
+            "text": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro\n\n\n384k output what?! At least it's cheap enough but lol",
+            "community": "r/LocalLLaMA",
+            "permalink": "https://www.reddit.com/r/LocalLLaMA/comments/1su3fle/deepseek_v4_flash_pro_now_out_on_api/ohy0sfc/"
+          },
+          {
+            "text": "For anyone doubting that the image was generated by `gpt-image-2`, here’s the URL:\n\nhttps://api-docs.deepseek.com/zh-cn/quick_start/pricing",
+            "community": "r/LocalLLaMA",
+            "permalink": "https://www.reddit.com/r/LocalLLaMA/comments/1su3fle/deepseek_v4_flash_pro_now_out_on_api/ohxz7ao/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/LocalLLaMA/comments/1su3fle",
+        "detail": {
+          "pain_point": "担心模型能力跟不上复杂任务需求，比如生成超长报告或代码。",
+          "target_user_and_scene": "需要一次性生成大量文本（如长文档、详细分析）的开发者或内容创作者。",
+          "why_test_now": "最硬的证据是评论里直接点出了‘384k output’这个具体数字，并伴随着惊讶（‘what?!’）。这说明社区里已经有用户把‘输出长度’这个特性，从众多参数中拎出来，当成了首要的观察点。",
+          "min_test_action": "去看原始讨论",
+          "continue_signal": "继续看其他开发者对384k输出长度的实际测试反馈，以及它在不同任务（如写小说、生成代码库）中的稳定性。",
+          "stop_signal": "如果后续讨论都集中在价格或输入长度，而没人再提超长输出的实际应用案例，这条线就弱了。"
+        }
+      },
+      "changed": {
+        "title": {
+          "before": "开发者现在先看长输出能力，不再先盯着价格",
+          "after": "开发者评估 DeepSeek V4 Pro API 时，先看 384k 输出长度，不再先比价格"
+        },
+        "summary_line": {
+          "before": "判断重点从‘这模型便宜吗’，转成先看‘它能一次吐多少字’。384k 的输出长度成了新的硬指标。",
+          "after": "判断重点从价格转向输出长度，384k 成了新的筛选指标。"
+        },
+        "audience": {
+          "before": "正在评估新模型API 的开发者",
+          "after": "正在评估 DeepSeek V4 Pro API 的开发者"
+        },
+        "why_now": {
+          "before": "DeepSeek V4 Pro 的 API 刚发布，有用户立刻注意到它支持 384k 的输出长度。这改变了评估顺序：以前可能先比价，现在得先问‘我的任务需要这么长的输出吗？’。下一步得先确认自己的应用场景是否需要这种级别的长文本生成。",
+          "after": "DeepSeek V4 Pro API 刚发布，有开发者在讨论里直接喊出“384k输出？！”，评估顺序从“这模型便宜吗”转到“它能一次吐多少字”。"
+        }
+      },
+      "fluency_repair_issue_count": 0,
+      "remaining_density_issues": [],
+      "v13_title_issues_before": [],
+      "v13_title_issues_after": [
+        "title: 标题 47 字，太长，不利于一眼读懂。"
+      ],
+      "error": ""
+    },
+    {
+      "card_id": "card-cand-ai-automation-1spysr9-validate",
+      "lane": "signal",
+      "card_type": "validate",
+      "profile_id": "hotpost_v13_title_standalone",
+      "semantic_model": "deepseek/deepseek-v4-flash",
+      "writer_model": "xiaomi/mimo-v2.5-pro",
+      "original_card": {
+        "card_id": "card-cand-ai-automation-1spysr9-validate",
+        "signal_id": "sig-1spysr9",
+        "card_type": "validate",
+        "lane": "signal",
+        "category_id": "validate",
+        "source_scope_id": "ai-automation",
+        "source_scope_name": "AI 与自动化",
+        "topic_pack_id": "upstream-winds",
+        "topic_cluster_id": "key-people-and-route",
+        "topic_cluster_ids": [
+          "key-people-and-route",
+          "platform-policy-shifts"
+        ],
+        "named_topic_ids": [],
+        "source_domain_id": "ai-automation",
+        "source_domain_name": "AI 与自动化",
+        "source_event_at": "2026-04-19T17:11:33Z",
+        "title": "用户开始先对比两个模型输出，不再先猜新版本代号",
+        "summary_line": "判断顺序从先猜版本代号，转成先对比两个输出的实际质量差距。",
+        "audience": "在 社区里讨论新模型版本的用户",
+        "why_now": "有用户被要求对比两个输出，发现其中一个质量明显更好。这让他们不再先关注版本代号，而是先问哪个输出质量更好。以后遇到新版本消息，先看实际输出对比，而不是先猜代号。",
+        "why_now_reason": "new_threads_24h",
+        "signal_level": "rising",
+        "intent_tags": [
+          "趋势变化"
+        ],
+        "top_community": "r/OpenAI",
+        "thread_count": 1,
+        "community_count": 1,
+        "source_module": {
+          "primary_communities": [
+            "r/OpenAI"
+          ],
+          "top_community": "r/OpenAI",
+          "tone_tags": [],
+          "thread_count": 1,
+          "community_count": 1,
+          "last_active_text": "近24小时"
+        },
+        "preview_quote": {
+          "text": "I was asked to compare two outputs today. One of them was significantly better than the other one. Way way better.",
+          "community": "r/OpenAI",
+          "permalink": "https://www.reddit.com/r/OpenAI/comments/1spysr9/gpt_55_spud_incoming/oh4q7vu/"
+        },
+        "published_at": "2026-04-24T04:49:55.212259Z",
+        "controversy_chart": null,
+        "controversy_meta": null,
+        "quotes": [
+          {
+            "text": "I was asked to compare two outputs today. One of them was significantly better than the other one. Way way better.",
+            "community": "r/OpenAI",
+            "permalink": "https://www.reddit.com/r/OpenAI/comments/1spysr9/gpt_55_spud_incoming/oh4q7vu/"
+          },
+          {
+            "text": "Can we talk about the cats having handles though? 😂",
+            "community": "r/OpenAI",
+            "permalink": "https://www.reddit.com/r/OpenAI/comments/1spysr9/gpt_55_spud_incoming/oh4l31h/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/OpenAI/comments/1spysr9",
+        "detail": {
+          "pain_point": "用户被新版本代号吸引，但实际使用中发现不同输出质量差异巨大，导致对版本代号的猜测变得次要。",
+          "target_user_and_scene": "在 r/OpenAI 社区里，当有新模型版本消息时，那些关心实际输出质量的用户。",
+          "why_test_now": "原话里有个关键句：“Can we talk about the cats having handles though? 😂”。最硬的证据是用户被要求对比两个输出，并发现其中一个“显著更好”。这直接改变了判断顺序，从猜代号转到比质量。",
+          "min_test_action": "去看原始讨论",
+          "continue_signal": "继续看社区里是否出现更多关于实际输出质量对比的讨论，而不是版本代号猜测。",
+          "stop_signal": "如果讨论重新聚焦在版本代号、发布时间等猜测上，而不再提输出质量对比，这条线就失去价值。"
+        }
+      },
+      "v12_shadow": {
+        "title": "用户被要求对比输出后，不再先猜版本代号",
+        "summary_line": "判断顺序从先猜版本代号，转为先对比输出质量。",
+        "audience": "在 社区参与新版本猜测和讨论的用户",
+        "why_now": "用户被要求对比两个模型输出，发现一个明显更好，注意力直接转向质量差距，而非版本代号。",
+        "pain_point": "用户被新版本代号吸引，但实际对比输出时，发现质量差异才是更直接、更需要关注的问题。",
+        "target_user_and_scene": "在 AI 社区参与模型版本讨论和测试的用户，当被要求做 A/B 输出对比时。",
+        "why_test_now": "关键句“Can we talk about the cats having handles though?”表明用户已绕过代号，直接聚焦输出细节（如猫有手柄），这支撑了判断顺序的转移。",
+        "min_test_action": "去看原始讨论",
+        "continue_signal": "观察用户对比输出时，是否更频繁讨论具体质量差异（如准确性、创意性），而非版本代号。",
+        "stop_signal": "如果社区讨论又迅速回到猜测代号或发布日期，而忽略输出质量对比，信号就弱了。"
+      },
+      "refreshed_card": {
+        "card_id": "card-cand-ai-automation-1spysr9-validate",
+        "signal_id": "sig-1spysr9",
+        "card_type": "validate",
+        "lane": "signal",
+        "category_id": "validate",
+        "source_scope_id": "ai-automation",
+        "source_scope_name": "AI 与自动化",
+        "topic_pack_id": "upstream-winds",
+        "topic_cluster_id": "key-people-and-route",
+        "topic_cluster_ids": [
+          "key-people-and-route",
+          "platform-policy-shifts"
+        ],
+        "named_topic_ids": [],
+        "source_domain_id": "ai-automation",
+        "source_domain_name": "AI 与自动化",
+        "source_event_at": "2026-04-19T17:11:33Z",
+        "title": "用户对比输出后，不再先猜版本代号",
+        "summary_line": "判断顺序从先猜版本代号，转为先对比输出质量。",
+        "audience": "在 社区参与新版本猜测和讨论的用户",
+        "why_now": "用户被要求对比两个模型输出，发现一个明显更好，注意力直接转向质量差距，而非版本代号。",
+        "why_now_reason": "new_threads_24h",
+        "signal_level": "rising",
+        "intent_tags": [
+          "趋势变化"
+        ],
+        "top_community": "r/OpenAI",
+        "thread_count": 1,
+        "community_count": 1,
+        "source_module": {
+          "primary_communities": [
+            "r/OpenAI"
+          ],
+          "top_community": "r/OpenAI",
+          "tone_tags": [],
+          "thread_count": 1,
+          "community_count": 1,
+          "last_active_text": "近24小时"
+        },
+        "preview_quote": {
+          "text": "I was asked to compare two outputs today. One of them was significantly better than the other one. Way way better.",
+          "community": "r/OpenAI",
+          "permalink": "https://www.reddit.com/r/OpenAI/comments/1spysr9/gpt_55_spud_incoming/oh4q7vu/"
+        },
+        "published_at": "2026-04-24T04:49:55.212259Z",
+        "controversy_chart": null,
+        "controversy_meta": null,
+        "quotes": [
+          {
+            "text": "I was asked to compare two outputs today. One of them was significantly better than the other one. Way way better.",
+            "community": "r/OpenAI",
+            "permalink": "https://www.reddit.com/r/OpenAI/comments/1spysr9/gpt_55_spud_incoming/oh4q7vu/"
+          },
+          {
+            "text": "Can we talk about the cats having handles though? 😂",
+            "community": "r/OpenAI",
+            "permalink": "https://www.reddit.com/r/OpenAI/comments/1spysr9/gpt_55_spud_incoming/oh4l31h/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/OpenAI/comments/1spysr9",
+        "detail": {
+          "pain_point": "用户被新版本代号吸引，但实际使用中发现不同输出质量差异巨大，导致对版本代号的猜测变得次要。",
+          "target_user_and_scene": "在 r/OpenAI 社区里，当有新模型版本消息时，那些关心实际输出质量的用户。",
+          "why_test_now": "原话里有个关键句：“Can we talk about the cats having handles though? 😂”。最硬的证据是用户被要求对比两个输出，并发现其中一个“显著更好”。这直接改变了判断顺序，从猜代号转到比质量。",
+          "min_test_action": "去看原始讨论",
+          "continue_signal": "继续看社区里是否出现更多关于实际输出质量对比的讨论，而不是版本代号猜测。",
+          "stop_signal": "如果讨论重新聚焦在版本代号、发布时间等猜测上，而不再提输出质量对比，这条线就失去价值。"
+        }
+      },
+      "changed": {
+        "title": {
+          "before": "用户开始先对比两个模型输出，不再先猜新版本代号",
+          "after": "用户对比输出后，不再先猜版本代号"
+        },
+        "summary_line": {
+          "before": "判断顺序从先猜版本代号，转成先对比两个输出的实际质量差距。",
+          "after": "判断顺序从先猜版本代号，转为先对比输出质量。"
+        },
+        "audience": {
+          "before": "在 社区里讨论新模型版本的用户",
+          "after": "在 社区参与新版本猜测和讨论的用户"
+        },
+        "why_now": {
+          "before": "有用户被要求对比两个输出，发现其中一个质量明显更好。这让他们不再先关注版本代号，而是先问哪个输出质量更好。以后遇到新版本消息，先看实际输出对比，而不是先猜代号。",
+          "after": "用户被要求对比两个模型输出，发现一个明显更好，注意力直接转向质量差距，而非版本代号。"
+        }
+      },
+      "fluency_repair_issue_count": 0,
+      "remaining_density_issues": [
+        "why_test_now: 重点字段 92 字，超过建议 78 字，阅读负担高。"
+      ],
+      "v13_title_issues_before": [],
+      "v13_title_issues_after": [],
+      "error": ""
+    },
+    {
+      "card_id": "card-group-ecommerce-sellers-1f0bf36127",
+      "lane": "breakdown",
+      "card_type": "write",
+      "profile_id": "hotpost_v13_title_standalone",
+      "semantic_model": "deepseek/deepseek-v4-flash",
+      "writer_model": "xiaomi/mimo-v2.5-pro",
+      "original_card": {
+        "card_id": "card-group-ecommerce-sellers-1f0bf36127",
+        "signal_id": "sig-group-ecommerce-sellers-1f0bf36127",
+        "card_type": "write",
+        "lane": "breakdown",
+        "category_id": "write",
+        "source_scope_id": "ecommerce-sellers",
+        "source_scope_name": "电商与卖家",
+        "topic_pack_id": "selection-signals",
+        "topic_cluster_id": "edc",
+        "topic_cluster_ids": [
+          "edc",
+          "small-goods",
+          "outdoor"
+        ],
+        "named_topic_ids": [
+          "small-goods-watch"
+        ],
+        "source_domain_id": "ecommerce-sellers",
+        "source_domain_name": "电商与卖家",
+        "source_event_at": "2026-04-17T13:54:13Z",
+        "title": "选水调味剂，先算单包成本，牌子排后面",
+        "summary_line": "有用户嫌 Propel 十包近五美元太贵，评论里立刻有用户推荐亚马逊上百包七美元的 True Lemon 和沃尔玛自有品牌，说明筛选标准已经从认牌子变成了算单价。",
+        "audience": "想给水加味但预算紧的消费者",
+        "why_now": "一个人晒出 Propel 的价格觉得贵，另一个人马上给出更便宜的替代品和具体价格，说明大家已经不先看牌子，而是先算单包成本能不能降到一毛钱以下。",
+        "why_now_reason": "switch_signal_7d",
+        "signal_level": "rising",
+        "intent_tags": [
+          "趋势变化",
+          "求推荐"
+        ],
+        "top_community": "r/BuyItForLife",
+        "thread_count": 2,
+        "community_count": 2,
+        "source_module": {
+          "primary_communities": [
+            "r/BuyItForLife",
+            "r/Frugal"
+          ],
+          "top_community": "r/BuyItForLife",
+          "tone_tags": [],
+          "thread_count": 2,
+          "community_count": 2,
+          "last_active_text": "近7天"
+        },
+        "preview_quote": {
+          "text": "Crystallized lemon packets.\n\n\"True lemon\" on Amazon, 100 packets for 7 bucks. \n\nIt's just lemon. Tastes great.",
+          "community": "r/Frugal",
+          "permalink": "https://www.reddit.com/r/Frugal/comments/1so1ohw/best_cheap_water_flavorings_i_love_propel_but/ogpqtvj/"
+        },
+        "published_at": "2026-04-23T07:20:54.109492Z",
+        "controversy_chart": null,
+        "controversy_meta": null,
+        "quotes": [
+          {
+            "text": "Crystallized lemon packets.\n\n\"True lemon\" on Amazon, 100 packets for 7 bucks. \n\nIt's just lemon. Tastes great.",
+            "community": "r/Frugal",
+            "permalink": "https://www.reddit.com/r/Frugal/comments/1so1ohw/best_cheap_water_flavorings_i_love_propel_but/ogpqtvj/"
+          },
+          {
+            "text": "Years ago, I picked up a locally knitted Irish wool sweater when I was in the Aran islands.  It was thick, heavy, with beautiful cable patterns.  These last for decades and are insanely warm.\n\nThe bad news is that I could only wear it outside, in winter.  You would melt if you tried to wear it indoors.",
+            "community": "r/BuyItForLife",
+            "permalink": "https://www.reddit.com/r/BuyItForLife/comments/1sny422/has_anyone_tried_real_irish_knitwear_for_atlantic/ogp0y80/"
+          },
+          {
+            "text": "I knit for a living and repair knits as part of my business. \n\nA lot of Irish or Scottish sweaters are really heavy. Seriously not meant for wearing in the city. I’m talking staying outside all day working heavy. But many of those brands do make mid weight ones now. So definitely do your research. \n\nVintage is also a really good choice. Less expensive usually as well. Harder to find depending on your area and your local resellers. \n\nAlso don’t discount brands like Dale of Norway or other heritage Nordic brands. They are a completely different look but one of the few brands that I’m not muttering snide comments about while doing repairs.",
+            "community": "r/BuyItForLife",
+            "permalink": "https://www.reddit.com/r/BuyItForLife/comments/1sny422/has_anyone_tried_real_irish_knitwear_for_atlantic/ogqunai/"
+          },
+          {
+            "text": "Wal-mart's Great Value brand flavorings. They also have caffeinated or electrolyte versions for the cheapest price I've seen.",
+            "community": "r/Frugal",
+            "permalink": "https://www.reddit.com/r/Frugal/comments/1so1ohw/best_cheap_water_flavorings_i_love_propel_but/ogpql93/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/BuyItForLife/comments/1sny422",
+        "detail": {
+          "thesis": "消费者对水调味剂的筛选标准，已经从品牌认知转向了单包成本计算。",
+          "writing_angle_or_perspective": "别讲品牌忠诚度，直接讲消费者怎么用计算器选产品。",
+          "tension_point_or_why_it_matters": "当大家开始用单价而不是牌子来筛选，大品牌的溢价空间就被压缩了。",
+          "title_hooks": [
+            "消费者不先问‘哪个牌子好’，先问‘一包多少钱’"
+          ],
+          "quote_pack": [
+            "\"True lemon\" on Amazon, 100 packets for 7 bucks.｜亚马逊上的“True Lemon”，100包只要7美元。｜r/Frugal",
+            "Wal-mart's Great Value brand flavorings. They also have caffeinated or electrolyte versions for the cheapest price I've seen.｜沃尔玛的Great Value品牌调味剂。它们还有含咖啡因或电解质的版本，是我见过最便宜的。｜r/Frugal"
+          ]
+        }
+      },
+      "v12_shadow": {
+        "title": "选水调味剂，先算单包成本，牌子排后面",
+        "summary_line": "有用户嫌 Propel 十包近五美元太贵，评论里立刻有人推荐百包七美元的 True Lemon 和沃尔玛自有品牌，单价差距超七倍。",
+        "audience": "想给水加味但预算紧的消费者",
+        "why_now": "一个人晒出 Propel 的价格觉得贵，另一个人马上给出更便宜的替代品和具体价格。筛选标准从认牌子变成了算单价。",
+        "thesis": "在预算压力下，消费者对水调味剂的决策逻辑从品牌信任转向了单价计算，直接比较每包成本成为首要筛选标准。",
+        "writing_angle_or_perspective": "从价格对比的具体场景切入，展示消费者如何用计算器替代品牌认知。",
+        "tension_point_or_why_it_matters": "这种‘单价优先’的行为，正在压缩品牌溢价的空间。",
+        "title_hooks": [
+          "不是品牌不重要，是单价差距大到让人没法忽视"
+        ],
+        "quote_pack": [
+          "\"True lemon\" on Amazon, 100 packets for 7 bucks.｜亚马逊上“True Lemon”百包七美元。｜r/Frugal",
+          "Wal-mart's Great Value brand flavorings. They also have caffeinated or electrolyte versions for the cheapest price I've seen.｜沃尔玛的 Great Value 品牌调味剂，还有咖啡因或电解质版本，是我见过最便宜的。｜r/Frugal"
+        ]
+      },
+      "refreshed_card": {
+        "card_id": "card-group-ecommerce-sellers-1f0bf36127",
+        "signal_id": "sig-group-ecommerce-sellers-1f0bf36127",
+        "card_type": "write",
+        "lane": "breakdown",
+        "category_id": "write",
+        "source_scope_id": "ecommerce-sellers",
+        "source_scope_name": "电商与卖家",
+        "topic_pack_id": "selection-signals",
+        "topic_cluster_id": "edc",
+        "topic_cluster_ids": [
+          "edc",
+          "small-goods",
+          "outdoor"
+        ],
+        "named_topic_ids": [
+          "small-goods-watch"
+        ],
+        "source_domain_id": "ecommerce-sellers",
+        "source_domain_name": "电商与卖家",
+        "source_event_at": "2026-04-17T13:54:13Z",
+        "title": "水调味剂用户先算单包成本，Propel 一包 50 美分，替代品低至 7 美分",
+        "summary_line": "有用户嫌 Propel 十包近五美元太贵，评论里立刻有人推荐百包七美元的 True Lemon 和沃尔玛自有品牌，单价差距超七倍。",
+        "audience": "想给水加味但预算紧的消费者",
+        "why_now": "一个人晒出 Propel 的价格觉得贵，另一个人马上给出更便宜的替代品和具体价格。筛选标准从认牌子变成了算单价。",
+        "why_now_reason": "switch_signal_7d",
+        "signal_level": "rising",
+        "intent_tags": [
+          "趋势变化",
+          "求推荐"
+        ],
+        "top_community": "r/BuyItForLife",
+        "thread_count": 2,
+        "community_count": 2,
+        "source_module": {
+          "primary_communities": [
+            "r/BuyItForLife",
+            "r/Frugal"
+          ],
+          "top_community": "r/BuyItForLife",
+          "tone_tags": [],
+          "thread_count": 2,
+          "community_count": 2,
+          "last_active_text": "近7天"
+        },
+        "preview_quote": {
+          "text": "Crystallized lemon packets.\n\n\"True lemon\" on Amazon, 100 packets for 7 bucks. \n\nIt's just lemon. Tastes great.",
+          "community": "r/Frugal",
+          "permalink": "https://www.reddit.com/r/Frugal/comments/1so1ohw/best_cheap_water_flavorings_i_love_propel_but/ogpqtvj/"
+        },
+        "published_at": "2026-04-23T07:20:54.109492Z",
+        "controversy_chart": null,
+        "controversy_meta": null,
+        "quotes": [
+          {
+            "text": "Crystallized lemon packets.\n\n\"True lemon\" on Amazon, 100 packets for 7 bucks. \n\nIt's just lemon. Tastes great.",
+            "community": "r/Frugal",
+            "permalink": "https://www.reddit.com/r/Frugal/comments/1so1ohw/best_cheap_water_flavorings_i_love_propel_but/ogpqtvj/"
+          },
+          {
+            "text": "Years ago, I picked up a locally knitted Irish wool sweater when I was in the Aran islands.  It was thick, heavy, with beautiful cable patterns.  These last for decades and are insanely warm.\n\nThe bad news is that I could only wear it outside, in winter.  You would melt if you tried to wear it indoors.",
+            "community": "r/BuyItForLife",
+            "permalink": "https://www.reddit.com/r/BuyItForLife/comments/1sny422/has_anyone_tried_real_irish_knitwear_for_atlantic/ogp0y80/"
+          },
+          {
+            "text": "I knit for a living and repair knits as part of my business. \n\nA lot of Irish or Scottish sweaters are really heavy. Seriously not meant for wearing in the city. I’m talking staying outside all day working heavy. But many of those brands do make mid weight ones now. So definitely do your research. \n\nVintage is also a really good choice. Less expensive usually as well. Harder to find depending on your area and your local resellers. \n\nAlso don’t discount brands like Dale of Norway or other heritage Nordic brands. They are a completely different look but one of the few brands that I’m not muttering snide comments about while doing repairs.",
+            "community": "r/BuyItForLife",
+            "permalink": "https://www.reddit.com/r/BuyItForLife/comments/1sny422/has_anyone_tried_real_irish_knitwear_for_atlantic/ogqunai/"
+          },
+          {
+            "text": "Wal-mart's Great Value brand flavorings. They also have caffeinated or electrolyte versions for the cheapest price I've seen.",
+            "community": "r/Frugal",
+            "permalink": "https://www.reddit.com/r/Frugal/comments/1so1ohw/best_cheap_water_flavorings_i_love_propel_but/ogpql93/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/BuyItForLife/comments/1sny422",
+        "detail": {
+          "thesis": "消费者对水调味剂的筛选标准，已经从品牌认知转向了单包成本计算。",
+          "writing_angle_or_perspective": "别讲品牌忠诚度，直接讲消费者怎么用计算器选产品。",
+          "tension_point_or_why_it_matters": "当大家开始用单价而不是牌子来筛选，大品牌的溢价空间就被压缩了。",
+          "title_hooks": [
+            "消费者不先问‘哪个牌子好’，先问‘一包多少钱’"
+          ],
+          "quote_pack": [
+            "\"True lemon\" on Amazon, 100 packets for 7 bucks.｜亚马逊上的“True Lemon”，100包只要7美元。｜r/Frugal",
+            "Wal-mart's Great Value brand flavorings. They also have caffeinated or electrolyte versions for the cheapest price I've seen.｜沃尔玛的Great Value品牌调味剂。它们还有含咖啡因或电解质的版本，是我见过最便宜的。｜r/Frugal"
+          ]
+        }
+      },
+      "changed": {
+        "title": {
+          "before": "选水调味剂，先算单包成本，牌子排后面",
+          "after": "水调味剂用户先算单包成本，Propel 一包 50 美分，替代品低至 7 美分"
+        },
+        "summary_line": {
+          "before": "有用户嫌 Propel 十包近五美元太贵，评论里立刻有用户推荐亚马逊上百包七美元的 True Lemon 和沃尔玛自有品牌，说明筛选标准已经从认牌子变成了算单价。",
+          "after": "有用户嫌 Propel 十包近五美元太贵，评论里立刻有人推荐百包七美元的 True Lemon 和沃尔玛自有品牌，单价差距超七倍。"
+        },
+        "why_now": {
+          "before": "一个人晒出 Propel 的价格觉得贵，另一个人马上给出更便宜的替代品和具体价格，说明大家已经不先看牌子，而是先算单包成本能不能降到一毛钱以下。",
+          "after": "一个人晒出 Propel 的价格觉得贵，另一个人马上给出更便宜的替代品和具体价格。筛选标准从认牌子变成了算单价。"
+        }
+      },
+      "fluency_repair_issue_count": 0,
+      "remaining_density_issues": [
+        "summary_line: 重点字段 65 字，超过建议 62 字，阅读负担高。"
+      ],
+      "v13_title_issues_before": [],
+      "v13_title_issues_after": [],
+      "error": ""
+    }
+  ]
+}

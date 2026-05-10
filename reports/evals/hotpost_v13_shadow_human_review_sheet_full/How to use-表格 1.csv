@@ -1,0 +1,7 @@
+Hotpost V13 人工审核表（完整 448 张）,,,,
+,,,,
+只改黄色/绿色列：review_status、review_notes、edit_title、edit_summary_line、edit_audience、edit_why_now。,,,,
+review_status 默认 approved；需要修改时填 edit；不想替换某张卡填 reject 或 skip。,,,,
+edit_* 留空表示沿用 V13 候选新版；填写后会覆盖对应字段。,,,,
+不要改 source_plan、row_index、card_id，这三列用于安全回写。,,,,
+你改完后，把文件交给我；我会转成 CSV，生成 human-approved plan，并重新跑质量检查。,,,,

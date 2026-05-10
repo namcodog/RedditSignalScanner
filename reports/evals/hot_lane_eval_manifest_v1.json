@@ -1,0 +1,12 @@
+{
+  "target_real": 18,
+  "real_count": 9,
+  "origin_counts": {
+    "published_hot": 1,
+    "candidate_listing_unpublished": 8
+  },
+  "source_scope_counts": {
+    "ai-automation": 4,
+    "business-growth-ops": 5
+  }
+}

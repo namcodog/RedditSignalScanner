@@ -43,42 +43,70 @@ type SamplePrompt = {
   description: string;
   tags?: string[];
   topicProfileId?: string;
+  standardReportSlug?: string;
 };
 
 type InputPrefillState = {
   prefillProductDescription?: string;
   prefillHint?: string;
-  prefillSource?: 'report' | 'restart-analysis' | 'hotpost-deepdive';
+  prefillSource?: 'report' | 'restart-analysis' | 'hotpost-deepdive' | 'standard-report';
+  prefillStandardTitle?: string;
+  prefillPromptSuggestion?: string;
 };
 
 const FALLBACK_PROMPTS: SamplePrompt[] = [
   {
-    title: 'SaaS 工具',
-    description: '一个面向远程团队的项目管理工具，集成 Slack 并自动跟踪任务时间...',
-  },
-  {
-    title: '移动应用',
-    description: '一个健身应用，根据可用设备和时间限制创建个性化锻炼计划...',
-  },
-  {
-    title: '电商平台',
-    description: '一个专注于可持续时尚品牌的在线市场，重视透明度和道德制造...',
-  },
-  {
-    title: '跨境支付/收款',
-    description: '跨境电商卖家收款与结算效率分析，重点看 payout 延迟、手续费成本和风控冻结。',
+    title: '跨境电商/PayPal',
+    description: '帮跨境电商卖家看清 PayPal 的手续费、风控冻结和回款拖延，判断有没有值得切入的替代收款工具机会。',
+    tags: ['跨境电商', '支付'],
     topicProfileId: 'cross_border_payment_v1',
+    standardReportSlug: 'cross-border-paypal',
   },
   {
-    title: '家居收纳',
+    title: '跨境电商/现金流',
+    description: '跨境电商卖家多平台回款管理工具，自动预测现金流与结算风险，覆盖 Amazon/Etsy/Shopify。',
+    tags: ['跨境电商'],
+    topicProfileId: 'cross_border_payment_v1',
+    standardReportSlug: 'cross-border-cashflow',
+  },
+  {
+    title: '跨境电商/回款费率',
+    description: '跨境电商卖家多平台回款与手续费管理工具，覆盖 Amazon/Etsy/Shopify/TikTok Shop，解决结算周期长、费率不透明、资金分散的问题。',
+    tags: ['跨境电商', '支付'],
+    topicProfileId: 'cross_border_payment_v1',
+    standardReportSlug: 'cross-border-fee-rate',
+  },
+  {
+    title: 'SaaS协作',
+    description: '远程团队项目管理与协作工具，解决跨时区沟通、任务拆解与进度跟踪问题，关注 Notion/Asana/Trello 的使用痛点与替代机会。',
+    tags: ['SaaS'],
+    topicProfileId: 'saas_collaboration_v1',
+    standardReportSlug: 'saas-collaboration',
+  },
+  {
+    title: '家居',
     description: '面向北美租房人群的家居收纳与清洁工具推荐/比价助手，解决空间小、产品选择多、踩雷的问题。',
+    tags: ['家居'],
     topicProfileId: 'vacuum_cleaner_v1',
+    standardReportSlug: 'home-cleaning',
   },
   {
-    title: '户外/EDC',
-    description: '户外露营与日常随身工具（EDC）选购与评测助手，帮助新手挑选高性价比装备，减少踩坑。',
+    title: '户外',
+    description: '我想挖 EDC（everyday carry）里 keychain / pocket organizer 方向的真实需求，重点看用户如何整理钥匙、门禁卡、小刀、手电、耳机，哪些场景会乱、会硌、会丢、不好拿，判断是否适合做小配件或收纳产品。',
+    tags: ['户外'],
+    topicProfileId: 'edc_everyday_carry_v1',
+    standardReportSlug: 'edc-pocket-organizer',
   },
 ];
+
+const STANDARD_REPORT_SLUGS: Record<string, string> = {
+  '跨境电商/PayPal': 'cross-border-paypal',
+  '跨境电商/现金流': 'cross-border-cashflow',
+  '跨境电商/回款费率': 'cross-border-fee-rate',
+  SaaS协作: 'saas-collaboration',
+  家居: 'home-cleaning',
+  户外: 'edc-pocket-organizer',
+};
 
 const InputPage: React.FC = () => {
   const navigate = useNavigate();
@@ -111,14 +139,21 @@ const InputPage: React.FC = () => {
   const prefillDescription = locationState?.prefillProductDescription?.trim() ?? '';
   const prefillHint = locationState?.prefillHint?.trim() ?? '';
   const prefillSource = locationState?.prefillSource ?? null;
+  const prefillStandardTitle = locationState?.prefillStandardTitle?.trim() ?? '';
+  const prefillPromptSuggestion = locationState?.prefillPromptSuggestion?.trim() ?? '';
+  const shouldShowPrefillBanner = Boolean(prefillDescription) || prefillSource === 'standard-report';
   const prefillTitle =
-    prefillSource === 'hotpost-deepdive'
+    prefillSource === 'standard-report'
+      ? '刚看过这份标准样板'
+      : prefillSource === 'hotpost-deepdive'
       ? '已带回这次热点方向'
       : prefillSource === 'restart-analysis'
         ? '已带回这次待优化方向'
-      : '已带回这次分析方向';
+        : '已带回这次分析方向';
   const prefillFallbackHint =
-    prefillSource === 'hotpost-deepdive'
+    prefillSource === 'standard-report'
+      ? '输入框不会自动沿用标准题。你直接按自己的真实问题描述写就行。'
+      : prefillSource === 'hotpost-deepdive'
       ? '这波信号已带回。补成完整产品描述后，直接继续深挖。'
       : '不用从零重写，直接在这份描述上改后重跑。';
 
@@ -141,6 +176,9 @@ const InputPage: React.FC = () => {
               description: example.prompt,
               tags: example.tags ?? [],
               ...(normalizedProfileId ? { topicProfileId: normalizedProfileId } : {}),
+              ...(STANDARD_REPORT_SLUGS[example.title || '']
+                ? { standardReportSlug: STANDARD_REPORT_SLUGS[example.title || ''] }
+                : {}),
             };
           })
           .filter((example) => example.description && example.description.trim().length > 0);
@@ -278,13 +316,25 @@ const InputPage: React.FC = () => {
         <NavigationBreadcrumb currentStep="input" />
 
         <div className="space-y-8 animate-in fade-in slide-in-from-bottom-2 duration-500">
-          {prefillDescription ? (
+          {shouldShowPrefillBanner ? (
             <div className="surface-panel-muted rounded-[24px] px-5 py-4">
               <div className="surface-section-kicker">方向带回</div>
               <div className="mt-2 text-base font-semibold text-foreground">{prefillTitle}</div>
               <p className="mt-2 text-sm leading-6 text-muted-foreground">
                 {prefillHint || prefillFallbackHint}
               </p>
+              {prefillSource === 'standard-report' && prefillStandardTitle ? (
+                <div className="mt-3 space-y-3">
+                  <div className="inline-flex items-center rounded-full border border-primary/15 bg-primary/5 px-3 py-1 text-xs font-semibold text-primary">
+                    刚看的是：{prefillStandardTitle}
+                  </div>
+                  {prefillPromptSuggestion ? (
+                    <div className="rounded-2xl border border-border/70 bg-background/72 px-4 py-3 text-sm leading-6 text-muted-foreground">
+                      问题描述参考：{prefillPromptSuggestion}
+                    </div>
+                  ) : null}
+                </div>
+              ) : null}
             </div>
           ) : null}
 
@@ -401,9 +451,9 @@ const InputPage: React.FC = () => {
                   )}
                 </div>
 
-                  <div className="rounded-[20px] border border-primary/15 bg-primary/5 px-4 py-3 text-sm leading-6 text-foreground">
-                  这次会直接抓真实 Reddit 讨论。示例卡只帮你起草，不会生成示例报告。
-                  </div>
+                <div className="rounded-[20px] border border-primary/15 bg-primary/5 px-4 py-3 text-sm leading-6 text-foreground">
+                  这次会直接抓真实 Reddit 讨论。下面 6 张是固定标准样板，先带你看结果长什么样，再决定要不要改成你的方向。
+                </div>
 
                 <button
                   type="submit"
@@ -455,14 +505,19 @@ const InputPage: React.FC = () => {
             <div className="space-y-2 text-center">
               <div className="surface-section-kicker justify-center">快速起草</div>
               <h3 className="text-2xl font-semibold text-foreground">拿一个最像的，改成你自己的方向</h3>
-              <p className="text-sm leading-6 text-muted-foreground">这些卡片只帮你快速起草，不会生成示例报告。</p>
+              <p className="text-sm leading-6 text-muted-foreground">先看固定标准报告；如果方向接近，再把这题改成你自己的真实问题。</p>
             </div>
             <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
               {samplePrompts.map((example, index) => (
-                <div
+                <button
                   key={index}
-                  className="surface-panel-muted cursor-pointer rounded-[24px] p-5 transition-[transform,box-shadow,border-color] duration-300 hover:-translate-y-0.5 hover:border-primary/45 hover:shadow-editorial"
+                  type="button"
+                  className="surface-panel-muted rounded-[24px] p-5 text-left transition-[transform,box-shadow,border-color] duration-300 hover:-translate-y-0.5 hover:border-primary/45 hover:shadow-editorial"
                   onClick={() => {
+                    if (example.standardReportSlug) {
+                      navigate(ROUTES.STANDARD_REPORT(example.standardReportSlug));
+                      return;
+                    }
                     setValue('productDescription', example.description, {
                       shouldValidate: true,
                       shouldDirty: true,
@@ -478,7 +533,11 @@ const InputPage: React.FC = () => {
                     ) : null}
                   </div>
                   <p className="mt-3 text-sm leading-6 text-muted-foreground line-clamp-4">{example.description}</p>
-                </div>
+                  <div className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-foreground">
+                    先看标准报告
+                    <Zap aria-hidden="true" className="h-4 w-4 text-primary" />
+                  </div>
+                </button>
               ))}
             </div>
           </section>

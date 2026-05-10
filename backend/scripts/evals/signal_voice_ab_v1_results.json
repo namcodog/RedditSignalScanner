@@ -1,0 +1,101 @@
+[
+  {
+    "card_id": "card-cand-ai-automation-1saabgz-validate",
+    "published": {
+      "title": "AI agent 到底值不值得上，讨论开始先算维护成本和模型账单。",
+      "summary_line": "这波讨论真正变了的，不是大家不想上 agent 了，而是越来越多人先把提示词维护、持续运行费用和能不能直接用脚本替代一起算进去，再决定值不值得接入。",
+      "audience": "准备把 AI agent 接进业务流程的开发者和小团队",
+      "pain_point": "不少团队发现，agent 能跑 demo 不等于能长期省事，后面的维护成本和模型费用很容易把收益吃掉。",
+      "target_user_and_scene": "准备把 AI agent 接进真实工作流的开发者和小团队，开始把持续运行成本、维护负担和替代方案放到一张表里比较。",
+      "why_test_now": "讨论已经不只比 demo 能不能跑，而是在算连续运行的成本和维护负担，说明判断标准开始从炫技转向投入产出。",
+      "continue_signal": "如果接下来更多社区继续把算账和替代方案摆到台面上，就继续盯。",
+      "stop_signal": "如果后面只剩泛泛吐槽，没有新的成本结构和真实取舍，就先放过。"
+    },
+    "baseline": {
+      "title": "AI Agent 到底值不值，大家开始掰着指头算账了",
+      "summary_line": "AI Agent 到底值不值，大家开始掰着指头算账了——快是快，但不少用户宁愿用回慢版本。",
+      "audience": "会后总要追行动项归属的经理和项目负责人",
+      "pain_point": "付钱为速度，还是为效果？很多人已经算不过来了。",
+      "target_user_and_scene": "写代码天天靠 AI、月底要比价的开发者。",
+      "why_test_now": "r/automation里已经连续出现了1个帖子，近 7 天里还在继续冒头，已经有用户开始找替代。",
+      "continue_signal": "用户开始在具体场景下权衡 AI Agent 的成本和收益。",
+      "stop_signal": "如果讨论只剩下对 AI Agent 技术的吹捧，而忽略了实际成本和效果。"
+    },
+    "candidate": {
+      "title": "AI Agent 到底值不值得上，大家开始掰着指头算账了",
+      "summary_line": "大家已经掰着指头算 Cursor 每月值不值了——快是快，但不少用户宁愿用回慢版本。",
+      "audience": "会后总要追行动项归属的经理和项目负责人",
+      "pain_point": "付钱为速度，还是为效果？很多人已经算不过来了。",
+      "target_user_and_scene": "写代码天天靠 AI、月底要比价的开发者。",
+      "why_test_now": "r/automation里已经连续出现了1个帖子，近 7 天里还在继续冒头，已经有用户开始找替代。",
+      "continue_signal": "AI Agent 的成本和效果对比，会是接下来讨论的焦点。",
+      "stop_signal": "如果大家只剩下对 AI Agent 的纯粹吹捧或吐槽，就没啥可看的了。"
+    }
+  },
+  {
+    "card_id": "card-cand-ai-automation-1saf5hi-validate",
+    "published": {
+      "title": "Cursor 用户开始算账了：只卖“更快”，不一定值这个钱。",
+      "summary_line": "这帖吵的不是 Cursor 好不好用，而是 Composer 2 Fast 这个档位到底值不值。有人宁愿用更慢更便宜的版本，也有人说如果要花这个钱，不如直接上更大的模型。",
+      "audience": "每天用 Cursor、Claude Code 或其他 AI 编程工具写代码的人",
+      "pain_point": "很多开发者愿意为模型效果付钱，但不一定愿意只为速度溢价买单。",
+      "target_user_and_scene": "高频使用 AI 编程工具、每月要在不同套餐之间做取舍的开发者和小团队。",
+      "why_test_now": "评论区已经出现“我宁愿更慢但更便宜”的声音，说明 AI coding 工具的定价卖点开始从功能新鲜感回到实际账单。",
+      "continue_signal": "如果接下来在更多社区里还出现同样抱怨，就继续盯。",
+      "stop_signal": "如果后面只剩零散吐槽，没有新的具体场景或后续追问，就先放过。"
+    },
+    "baseline": {
+      "title": "Cursor 用户开始算账：付费只为“更快”不一定值",
+      "summary_line": "大家已经掰着指头算 Cursor 每月值不值了——快是快，但不少用户宁愿用回慢版本。",
+      "audience": "开发者",
+      "pain_point": "付钱为速度，还是为效果？很多人已经算不过来了。",
+      "target_user_and_scene": "写代码天天靠 AI、月底要比价的开发者。",
+      "why_test_now": "r/cursor里已经连续出现了1个帖子，近 7 天里反复出现，大家开始反复把它当成一个新变化提出来。",
+      "continue_signal": "如果用户开始普遍讨论不同速度版本的性价比，说明 AI 工具的定价策略需要调整。",
+      "stop_signal": "如果用户只剩下对具体 bug 的抱怨，而不是对定价和价值的讨论，这条线索就冷了。"
+    },
+    "candidate": {
+      "title": "Cursor 用户开始算账了：只卖“更快”，不一定值这个钱",
+      "summary_line": "大家已经掰着指头算 Cursor 每月值不值了——快是快，但不少用户宁愿用回慢版本。",
+      "audience": "开发者",
+      "pain_point": "付钱为速度，还是为效果？很多人已经算不过来了。",
+      "target_user_and_scene": "写代码天天靠 AI、月底要比价的开发者。",
+      "why_test_now": "r/cursor里已经连续出现了1个帖子，近 7 天里反复出现，大家开始反复把它当成一个新变化提出来。",
+      "continue_signal": "如果用户开始普遍讨论“速度”和“成本”的权衡，说明 AI 工具的定价策略需要重新审视。",
+      "stop_signal": "如果讨论只剩下对具体功能 bug 的抱怨，而不是对定价和价值的质疑，就可以停止关注。"
+    }
+  },
+  {
+    "card_id": "card-cand-ai-automation-1sb5616-validate",
+    "published": {
+      "title": "想用 Claude 处理敏感业务时，小团队先卡住的不是能力，而是隐私方案只卖 5 个席位。",
+      "summary_line": "在 ClaudeAI 的讨论里，大家开始把问题说得很直白：不是 Claude 不好用，而是单干者和两三人团队一旦碰到敏感数据，就要在没隐私保障的个人版和被迫多买空席位的团队版之间做难看选择。",
+      "audience": "会拿 AI 处理客户资料、合同或内部业务数据的小团队和独立从业者",
+      "pain_point": "Claude 真正卡住小团队的，不是回答质量，而是个人版不能给隐私承诺，团队版又把最小购买量卡在 5 个席位。",
+      "target_user_and_scene": "独立咨询师、自由职业者或小团队，已经想把 Claude 用进真实业务，但又不敢拿敏感数据直接喂个人版。",
+      "why_test_now": "讨论已经开始出现真实迁移和补位动作，有人直接多买空席位，有人转去竞品，说明这个缺口已经在吞用户。",
+      "continue_signal": "如果接下来在更多社区里还出现同样抱怨，而且继续有用户直接问推荐，就继续盯。",
+      "stop_signal": "如果后面只剩零散吐槽，没有新的具体场景或后续追问，就先放过。"
+    },
+    "baseline": {
+      "title": "Claude 隐私方案只卖 5 个席位，小团队卡在付费门槛",
+      "summary_line": "大家已经掰着指头算 Claude 每月值不值了——快是快，但不少用户宁愿用回慢版本。",
+      "audience": "需要处理敏感业务的咨询顾问和独立开发者",
+      "pain_point": "付钱为速度，还是为效果？很多人已经算不过来了。",
+      "target_user_and_scene": "写代码天天靠 AI、月底要比价的开发者。",
+      "why_test_now": "r/ClaudeAI里已经连续出现了1个帖子，近 7 天里还在继续冒头，已经有用户直接问推荐和方案，避坑情绪也很重。",
+      "continue_signal": "如果 Claude 推出单人付费隐私方案，会立刻吸引这批用户。",
+      "stop_signal": "如果大家只是泛泛抱怨速度慢，而不是卡在隐私付费门槛上，这条线就凉了。"
+    },
+    "candidate": {
+      "title": "Claude 隐私方案只卖 5 个席位，小团队用户卡住了",
+      "summary_line": "大家都在算 Claude 的隐私方案值不值——5 个席位起步的定价，让单打独斗的创业者宁愿去用竞品。",
+      "audience": "单打独斗的创业者和咨询顾问",
+      "pain_point": "付钱为隐私，还是为不用的席位？单人用户发现 Claude 的隐私方案门槛太高。",
+      "target_user_and_scene": "用 AI 处理敏感业务、但团队只有一两个人的咨询顾问。",
+      "why_test_now": "r/ClaudeAI里已经连续出现了1个帖子，近 7 天里还在继续冒头，已经有用户直接问推荐和方案，避坑情绪也很重。",
+      "continue_signal": "用户发现 Claude 的定价策略正在把他们推向竞品。",
+      "stop_signal": "如果 Claude 推出单人商业计划，或者用户不再抱怨 5 个席位的门槛。"
+    }
+  }
+]

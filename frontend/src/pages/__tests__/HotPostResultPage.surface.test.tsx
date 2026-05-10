@@ -1,5 +1,5 @@
 import { describe, expect, it, vi, beforeEach } from 'vitest';
-import { render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 
 import HotPostResultPage from '../hotpost/HotPostResultPage';
@@ -187,5 +187,222 @@ describe('HotPostResultPage Surface', () => {
     expect(await screen.findByText('已带回这次热点方向')).toBeInTheDocument();
     expect(screen.getByText('已带回这次热点方向。补成完整产品描述后，直接继续深挖。')).toBeInTheDocument();
     expect((screen.getByRole('textbox', { name: /产品描述/i }) as HTMLTextAreaElement).value).toBe('robot vacuum');
+  });
+
+  it('应该按新口径展示模式、信号强度、时间趋势，并在 top_quotes 为空时回退到证据原话', async () => {
+    vi.mocked(hotpostService.getHotPostResult).mockResolvedValue({
+      query_id: 'query-2',
+      query: 'creator marketplace',
+      mode: 'trending',
+      search_time: '2026-03-17T10:00:00Z',
+      from_cache: false,
+      status: 'completed',
+      summary: '创作者市场这波讨论明显在升温。',
+      confidence: 'high',
+      evidence_count: 18,
+      community_distribution: {
+        'r/Entrepreneur': 10,
+        'r/sidehustle': 8,
+      },
+      top_posts: [],
+      top_quotes: [],
+      topics: [
+        {
+          rank: 1,
+          topic: '创作者撮合平台',
+          heat_score: 88,
+          time_trend: 'explosive',
+          key_takeaway: '品牌和创作者都在找更直接的撮合方式。',
+          evidence: [
+            {
+              title: 'Creators keep asking for direct brand deals',
+              score: 56,
+              subreddit: 'r/Entrepreneur',
+              url: 'https://reddit.com/r/Entrepreneur/1',
+              key_quote: 'First buyers keep saying checkout is smoother now.',
+            },
+          ],
+        },
+      ],
+      communities: ['r/Entrepreneur', 'r/sidehustle'],
+      next_steps: {
+        deepdive_available: true,
+        deepdive_token: 'deep-2',
+      },
+      debug_info: {
+        response_source: 'live',
+      },
+    } as any);
+
+    render(
+      <MemoryRouter initialEntries={['/hotpost/result/query-2']}>
+        <Routes>
+          <Route path="/hotpost/result/:queryId" element={<HotPostResultPage />} />
+        </Routes>
+      </MemoryRouter>,
+    );
+
+    await waitFor(() => {
+      expect(screen.getAllByText('热点追踪').length).toBeGreaterThan(0);
+    });
+
+    expect(screen.getAllByText(/✔ 信号可靠/).length).toBeGreaterThan(0);
+    expect(screen.getByText('爆发中 NEW')).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: '代表原话', level: 3 })).toBeInTheDocument();
+    expect(screen.getByText(/First buyers keep saying checkout is smoother now\./)).toBeInTheDocument();
+  });
+
+  it('应该在用户声音证据模式里先展示真实原话，再展示骂点和帖子', async () => {
+    vi.mocked(hotpostService.getHotPostResult).mockResolvedValue({
+      query_id: 'query-3',
+      query: 'refund flow',
+      mode: 'rant',
+      search_time: '2026-03-17T10:00:00Z',
+      from_cache: false,
+      status: 'completed',
+      summary: '退款流程的吐槽正在集中。',
+      confidence: 'low',
+      evidence_count: 6,
+      reliability_note: '这轮不是总样本少，更像前排命中还不够准。',
+      community_distribution: {
+        'r/shopify': 6,
+      },
+      top_posts: [],
+      top_quotes: [
+        {
+          quote: '退款流程真的太绕了，我每次都要找半天。',
+          subreddit: 'r/shopify',
+          url: 'https://reddit.com/r/shopify/1',
+          created_utc: 1710660000,
+        },
+      ],
+      query_parse: {
+        query_kind: 'object',
+        subject: 'Shopify',
+        focus: '退款流程太绕',
+      },
+      pain_points: [
+        {
+          category: '退款流程',
+          severity: 'high',
+          description: '用户觉得退款环节太绕。',
+          sample_quotes: [],
+          evidence: [
+            {
+              title: 'Refund steps are too long',
+              score: 24,
+              url: 'https://reddit.com/r/shopify/1',
+              key_quote: '退款流程真的太绕了，我每次都要找半天。',
+            },
+          ],
+          evidence_posts: [
+            {
+              rank: 1,
+              id: 'post-1',
+              title: 'Refund policy made me leave',
+              body_preview: 'I was fine until the refund flow buried the actual button.',
+              score: 45,
+              num_comments: 12,
+              subreddit: 'shopify',
+              author: 'seller_01',
+              reddit_url: 'https://reddit.com/r/shopify/1',
+              created_utc: 1710660000,
+              signals: ['refund friction'],
+              signal_score: 0.92,
+              top_comments: [],
+            },
+          ],
+        },
+      ],
+      competitor_mentions: [
+        {
+          name: 'Stripe',
+          mentions: 4,
+          sentiment: 'positive',
+          sample_quote: 'Switched to Stripe because refunds there are at least predictable.',
+        },
+      ],
+      migration_intent: {
+        considering: '24%',
+        total_mentions: 3,
+        destinations: [
+          {
+            name: 'Stripe',
+            mentions: 3,
+          },
+        ],
+        key_quote: 'At this point I would rather move the whole checkout to Stripe.',
+      },
+      communities: ['r/shopify'],
+      next_steps: {
+        deepdive_available: false,
+        deepdive_token: null,
+        recommended_actions: ['先把退款入口直接放到订单详情首屏。'],
+        suggested_keywords: ['refund button'],
+      },
+      debug_info: {
+        response_source: 'live',
+      },
+    } as any);
+
+    render(
+      <MemoryRouter initialEntries={['/hotpost/result/query-3']}>
+        <Routes>
+          <Route path="/hotpost/result/:queryId" element={<HotPostResultPage />} />
+        </Routes>
+      </MemoryRouter>,
+    );
+
+    await waitFor(() => {
+      expect(screen.getAllByText('用户声音证据').length).toBeGreaterThan(0);
+    });
+
+    expect((await screen.findAllByText(/退款流程真的太绕了/)).length).toBeGreaterThan(0);
+    expect(screen.queryByRole('button', { name: '展开补充细节' })).not.toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: '真实原话', level: 3 })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: '用户到底在骂什么', level: 3 })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: '代表帖子', level: 3 })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: '大家顺手会提到哪些竞品', level: 3 })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: '范围说明与下一步', level: 3 })).toBeInTheDocument();
+    expect(screen.getByText(/时间：/)).toBeInTheDocument();
+    expect(screen.getByText('查看原帖')).toBeInTheDocument();
+    expect(screen.getByText('这次系统理解成了什么')).toBeInTheDocument();
+    expect(screen.getByText('Refund policy made me leave')).toBeInTheDocument();
+    expect(screen.getByText('Stripe')).toBeInTheDocument();
+    expect(screen.getByText(/这轮不是总样本少/)).toBeInTheDocument();
+    expect(screen.getAllByText(/△ 信号有限/).length).toBeGreaterThan(0);
+
+    const quoteHeading = screen.getByRole('heading', { name: '真实原话', level: 3 });
+    const painHeading = screen.getByRole('heading', { name: '用户到底在骂什么', level: 3 });
+    const postHeading = screen.getByRole('heading', { name: '代表帖子', level: 3 });
+    const compareHeading = screen.getByRole('heading', { name: '大家顺手会提到哪些竞品', level: 3 });
+    const rangeHeading = screen.getByRole('heading', { name: '范围说明与下一步', level: 3 });
+
+    expect(quoteHeading.compareDocumentPosition(painHeading) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    expect(painHeading.compareDocumentPosition(postHeading) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    expect(postHeading.compareDocumentPosition(compareHeading) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    expect(compareHeading.compareDocumentPosition(rangeHeading) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+  });
+
+  it('应该在用户声音证据搜索页根据输入先自动识别标签', async () => {
+    render(
+      <MemoryRouter initialEntries={['/hotpost']}>
+        <Routes>
+          <Route path="/hotpost" element={<HotPostSearchPage />} />
+        </Routes>
+      </MemoryRouter>,
+    );
+
+    fireEvent.click(screen.getByText('用户声音证据'));
+    fireEvent.change(screen.getByRole('textbox', { name: /关键词 \/ 话题/i }), {
+      target: { value: '为什么 Notion AI 老把我的笔记改写成一堆空话？' },
+    });
+
+    await waitFor(() => {
+      expect(screen.getByDisplayValue('Notion AI')).toBeInTheDocument();
+    });
+
+    expect(screen.getByDisplayValue('老把我的笔记改写成一堆空话')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: '按输入重新识别' })).toBeInTheDocument();
   });
 });

@@ -1,0 +1,3082 @@
+{
+  "kind": "hotpost_v13_published_shadow_refresh",
+  "plan_version": 1,
+  "profile_id": "hotpost_v13_title_standalone",
+  "created_at": "2026-04-29T05:28:30.255384Z",
+  "selected": 20,
+  "generated": 11,
+  "failed": 9,
+  "cards": [
+    {
+      "card_id": "card-cand-ecommerce-sellers-1sshicn-validate",
+      "lane": "signal",
+      "card_type": "validate",
+      "profile_id": "hotpost_v13_title_standalone",
+      "semantic_model": "deepseek/deepseek-v4-flash",
+      "writer_model": "xiaomi/mimo-v2.5-pro",
+      "original_card": {
+        "card_id": "card-cand-ecommerce-sellers-1sshicn-validate",
+        "signal_id": "sig-1sshicn",
+        "card_type": "validate",
+        "lane": "signal",
+        "category_id": "validate",
+        "source_scope_id": "ecommerce-sellers",
+        "source_scope_name": "电商与卖家",
+        "topic_pack_id": "selection-signals",
+        "topic_cluster_id": "small-goods",
+        "topic_cluster_ids": [
+          "small-goods"
+        ],
+        "named_topic_ids": [
+          "small-goods-watch"
+        ],
+        "source_domain_id": "ecommerce-sellers",
+        "source_domain_name": "电商与卖家",
+        "source_event_at": "2026-04-22T10:28:02Z",
+        "title": "新手卖家选供应商，现在先看学习速度和灵活性，不再先追求平台认证",
+        "summary_line": "判断顺序从先找最可靠的平台，转成先找能快速试错、低门槛接触大量供应商的渠道。最硬的锚点是7年经验卖家说Alibaba能让你‘learn faster’。",
+        "audience": "刚入行、想做亚马逊自有品牌（PL）的新手卖家，尤其是做电子工具这类对质量一致性要求高的品类",
+        "why_now": "有经验的卖家开始给出一个反直觉的建议：别一上来就追求Global Sources那种更干净、更经过验证的平台，因为对新手来说，快速学习和灵活试错比初期平台的‘可靠性’更重要。下一步新手应该先问‘哪个平台能让我用最低成本、最快速度接触到最多供应商并拿到样品’，而不是先问‘哪个平台最正规’。",
+        "why_now_reason": "switch_signal_7d",
+        "signal_level": "sustained",
+        "intent_tags": [
+          "替换",
+          "求推荐"
+        ],
+        "top_community": "r/FulfillmentByAmazon",
+        "thread_count": 1,
+        "community_count": 1,
+        "source_module": {
+          "primary_communities": [
+            "r/FulfillmentByAmazon"
+          ],
+          "top_community": "r/FulfillmentByAmazon",
+          "tone_tags": [],
+          "thread_count": 1,
+          "community_count": 1,
+          "last_active_text": "近7天"
+        },
+        "preview_quote": {
+          "text": "I’ve been doing Amazon PL for 7+ years, and honestly for beginners I’d say start with **Alibaba**.  \nNot because it’s better, but because you get way more options, lower MOQs, and you’ll learn faster by talking to multiple suppliers.  \nJust don’t trust anything blindly always sample from 2–3 suppliers and verify quality yourself.  \nGlobal Sources is cleaner and more verified, but usually higher MOQ and less flexibility, I use it more once I already know what I’m scaling.  \nIn your niche (electronics tools), quality consistency matters a lot, so testing is everything.  \nBiggest mistake I see: people choosing supplier on price only later they pay for it in returns and bad reviews.",
+          "community": "r/FulfillmentByAmazon",
+          "permalink": "https://www.reddit.com/r/FulfillmentByAmazon/comments/1sshicn/global_sources_vs_alibaba_which_is_better_for/ohob1sp/"
+        },
+        "published_at": "2026-04-24T05:21:16.365307Z",
+        "controversy_chart": null,
+        "controversy_meta": null,
+        "quotes": [
+          {
+            "text": "I’ve been doing Amazon PL for 7+ years, and honestly for beginners I’d say start with **Alibaba**.  \nNot because it’s better, but because you get way more options, lower MOQs, and you’ll learn faster by talking to multiple suppliers.  \nJust don’t trust anything blindly always sample from 2–3 suppliers and verify quality yourself.  \nGlobal Sources is cleaner and more verified, but usually higher MOQ and less flexibility, I use it more once I already know what I’m scaling.  \nIn your niche (electronics tools), quality consistency matters a lot, so testing is everything.  \nBiggest mistake I see: people choosing supplier on price only later they pay for it in returns and bad reviews.",
+            "community": "r/FulfillmentByAmazon",
+            "permalink": "https://www.reddit.com/r/FulfillmentByAmazon/comments/1sshicn/global_sources_vs_alibaba_which_is_better_for/ohob1sp/"
+          },
+          {
+            "text": "Alibaba is designed for beginners",
+            "community": "r/FulfillmentByAmazon",
+            "permalink": "https://www.reddit.com/r/FulfillmentByAmazon/comments/1sshicn/global_sources_vs_alibaba_which_is_better_for/ohmutsx/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/FulfillmentByAmazon/comments/1sshicn",
+        "detail": {
+          "pain_point": "新手容易陷入两个困境：一是被高门槛平台（高MOQ、不灵活）卡住，无法快速启动和测试；二是只看价格选供应商，结果后期因质量问题导致退货和差评，损失更大。",
+          "target_user_and_scene": "亚马逊新手卖家，在选品和寻找供应链的初始阶段，面对多个B2B平台不知如何选择时。",
+          "why_test_now": "证据直接来自一个有7年经验的亚马逊PL卖家。他明确指出Alibaba不是‘更好’，而是对新手更实用，因为它提供了更多选项、更低的最小起订量（MOQ），并且通过和大量供应商沟通能学得更快。这直接支撑了‘先看学习速度’的判断顺序变化。",
+          "min_test_action": "去看原始讨论",
+          "continue_signal": "继续观察其他经验卖家是否重复强调‘低MOQ’、‘快速样品’和‘多供应商比较’作为新手首要筛选标准。",
+          "stop_signal": "如果讨论开始普遍转向比较两个平台的供应商质量认证体系、纠纷处理效率等后期运营指标，而不是新手启动和试错的便利性，这条信号线就弱了。"
+        }
+      },
+      "v12_shadow": {
+        "title": "新手卖家选供应商，现在先看学习速度和灵活性，不再先追求平台认证",
+        "summary_line": "7年经验卖家建议新手先选Alibaba，因为能接触更多供应商、更快学到东西，而不是先找最可靠的平台。",
+        "audience": "刚开始做亚马逊自有品牌、正在选供应商平台的新手卖家",
+        "why_now": "有经验的卖家给出了反直觉建议：新手阶段，学习速度和试错成本比平台认证更重要。判断重点从‘先找可靠平台’转向‘先找能快速学习的渠道’。",
+        "pain_point": "新手卖家怕选错供应商导致后期退货差评，但又需要快速启动和测试产品，在‘求稳’和‘求快’之间纠结。",
+        "target_user_and_scene": "刚开始做亚马逊自有品牌、正在对比Alibaba和Global Sources等供应商平台的新手卖家。",
+        "why_test_now": "一位7年经验卖家直接说Alibaba能‘learn faster’，理由是低MOQ、选项多、能同时联系多个供应商。",
+        "min_test_action": "去看原始讨论",
+        "continue_signal": "更多经验卖家是否也建议新手先看学习速度；新手在Alibaba试错后的实际反馈。",
+        "stop_signal": "如果新手卖家普遍反映在Alibaba上因质量问题损失过大，或者平台认证被证明是新手阶段的硬门槛。"
+      },
+      "refreshed_card": {
+        "card_id": "card-cand-ecommerce-sellers-1sshicn-validate",
+        "signal_id": "sig-1sshicn",
+        "card_type": "validate",
+        "lane": "signal",
+        "category_id": "validate",
+        "source_scope_id": "ecommerce-sellers",
+        "source_scope_name": "电商与卖家",
+        "topic_pack_id": "selection-signals",
+        "topic_cluster_id": "small-goods",
+        "topic_cluster_ids": [
+          "small-goods"
+        ],
+        "named_topic_ids": [
+          "small-goods-watch"
+        ],
+        "source_domain_id": "ecommerce-sellers",
+        "source_domain_name": "电商与卖家",
+        "source_event_at": "2026-04-22T10:28:02Z",
+        "title": "新手卖家选供应商平台，应先看学习速度和灵活性，而非一开始就追求认证",
+        "summary_line": "7年经验卖家建议新手先选Alibaba，因为能接触更多供应商、更快学到东西，而不是先找最可靠的平台。",
+        "audience": "刚开始做亚马逊自有品牌、正在选供应商平台的新手卖家",
+        "why_now": "有经验的卖家给出了反直觉建议：新手阶段，学习速度和试错成本比平台认证更重要。判断重点从‘先找可靠平台’转向‘先找能快速学习的渠道’。",
+        "why_now_reason": "switch_signal_7d",
+        "signal_level": "sustained",
+        "intent_tags": [
+          "替换",
+          "求推荐"
+        ],
+        "top_community": "r/FulfillmentByAmazon",
+        "thread_count": 1,
+        "community_count": 1,
+        "source_module": {
+          "primary_communities": [
+            "r/FulfillmentByAmazon"
+          ],
+          "top_community": "r/FulfillmentByAmazon",
+          "tone_tags": [],
+          "thread_count": 1,
+          "community_count": 1,
+          "last_active_text": "近7天"
+        },
+        "preview_quote": {
+          "text": "I’ve been doing Amazon PL for 7+ years, and honestly for beginners I’d say start with **Alibaba**.  \nNot because it’s better, but because you get way more options, lower MOQs, and you’ll learn faster by talking to multiple suppliers.  \nJust don’t trust anything blindly always sample from 2–3 suppliers and verify quality yourself.  \nGlobal Sources is cleaner and more verified, but usually higher MOQ and less flexibility, I use it more once I already know what I’m scaling.  \nIn your niche (electronics tools), quality consistency matters a lot, so testing is everything.  \nBiggest mistake I see: people choosing supplier on price only later they pay for it in returns and bad reviews.",
+          "community": "r/FulfillmentByAmazon",
+          "permalink": "https://www.reddit.com/r/FulfillmentByAmazon/comments/1sshicn/global_sources_vs_alibaba_which_is_better_for/ohob1sp/"
+        },
+        "published_at": "2026-04-24T05:21:16.365307Z",
+        "controversy_chart": null,
+        "controversy_meta": null,
+        "quotes": [
+          {
+            "text": "I’ve been doing Amazon PL for 7+ years, and honestly for beginners I’d say start with **Alibaba**.  \nNot because it’s better, but because you get way more options, lower MOQs, and you’ll learn faster by talking to multiple suppliers.  \nJust don’t trust anything blindly always sample from 2–3 suppliers and verify quality yourself.  \nGlobal Sources is cleaner and more verified, but usually higher MOQ and less flexibility, I use it more once I already know what I’m scaling.  \nIn your niche (electronics tools), quality consistency matters a lot, so testing is everything.  \nBiggest mistake I see: people choosing supplier on price only later they pay for it in returns and bad reviews.",
+            "community": "r/FulfillmentByAmazon",
+            "permalink": "https://www.reddit.com/r/FulfillmentByAmazon/comments/1sshicn/global_sources_vs_alibaba_which_is_better_for/ohob1sp/"
+          },
+          {
+            "text": "Alibaba is designed for beginners",
+            "community": "r/FulfillmentByAmazon",
+            "permalink": "https://www.reddit.com/r/FulfillmentByAmazon/comments/1sshicn/global_sources_vs_alibaba_which_is_better_for/ohmutsx/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/FulfillmentByAmazon/comments/1sshicn",
+        "detail": {
+          "pain_point": "新手容易陷入两个困境：一是被高门槛平台（高MOQ、不灵活）卡住，无法快速启动和测试；二是只看价格选供应商，结果后期因质量问题导致退货和差评，损失更大。",
+          "target_user_and_scene": "亚马逊新手卖家，在选品和寻找供应链的初始阶段，面对多个B2B平台不知如何选择时。",
+          "why_test_now": "证据直接来自一个有7年经验的亚马逊PL卖家。他明确指出Alibaba不是‘更好’，而是对新手更实用，因为它提供了更多选项、更低的最小起订量（MOQ），并且通过和大量供应商沟通能学得更快。这直接支撑了‘先看学习速度’的判断顺序变化。",
+          "min_test_action": "去看原始讨论",
+          "continue_signal": "继续观察其他经验卖家是否重复强调‘低MOQ’、‘快速样品’和‘多供应商比较’作为新手首要筛选标准。",
+          "stop_signal": "如果讨论开始普遍转向比较两个平台的供应商质量认证体系、纠纷处理效率等后期运营指标，而不是新手启动和试错的便利性，这条信号线就弱了。"
+        }
+      },
+      "changed": {
+        "title": {
+          "before": "新手卖家选供应商，现在先看学习速度和灵活性，不再先追求平台认证",
+          "after": "新手卖家选供应商平台，应先看学习速度和灵活性，而非一开始就追求认证"
+        },
+        "summary_line": {
+          "before": "判断顺序从先找最可靠的平台，转成先找能快速试错、低门槛接触大量供应商的渠道。最硬的锚点是7年经验卖家说Alibaba能让你‘learn faster’。",
+          "after": "7年经验卖家建议新手先选Alibaba，因为能接触更多供应商、更快学到东西，而不是先找最可靠的平台。"
+        },
+        "audience": {
+          "before": "刚入行、想做亚马逊自有品牌（PL）的新手卖家，尤其是做电子工具这类对质量一致性要求高的品类",
+          "after": "刚开始做亚马逊自有品牌、正在选供应商平台的新手卖家"
+        },
+        "why_now": {
+          "before": "有经验的卖家开始给出一个反直觉的建议：别一上来就追求Global Sources那种更干净、更经过验证的平台，因为对新手来说，快速学习和灵活试错比初期平台的‘可靠性’更重要。下一步新手应该先问‘哪个平台能让我用最低成本、最快速度接触到最多供应商并拿到样品’，而不是先问‘哪个平台最正规’。",
+          "after": "有经验的卖家给出了反直觉建议：新手阶段，学习速度和试错成本比平台认证更重要。判断重点从‘先找可靠平台’转向‘先找能快速学习的渠道’。"
+        }
+      },
+      "fluency_repair_issue_count": 0,
+      "remaining_density_issues": [],
+      "v13_title_issues_before": [],
+      "v13_title_issues_after": [],
+      "error": ""
+    },
+    {
+      "card_id": "card-cand-ai-automation-1sts36l-validate",
+      "lane": "hot",
+      "card_type": "validate",
+      "profile_id": "hotpost_v13_title_standalone",
+      "semantic_model": "deepseek/deepseek-v4-flash",
+      "writer_model": "xiaomi/mimo-v2.5-pro",
+      "original_card": {
+        "card_id": "card-cand-ai-automation-1sts36l-validate",
+        "signal_id": "sig-1sts36l",
+        "card_type": "validate",
+        "lane": "hot",
+        "category_id": "validate",
+        "source_scope_id": "ai-automation",
+        "source_scope_name": "AI 与自动化",
+        "topic_pack_id": "upstream-winds",
+        "topic_cluster_id": "platform-policy-shifts",
+        "topic_cluster_ids": [
+          "platform-policy-shifts"
+        ],
+        "named_topic_ids": [
+          "platform-policy-watch"
+        ],
+        "source_domain_id": "ai-automation",
+        "source_domain_name": "AI 与自动化",
+        "source_event_at": "2026-04-23T19:02:07Z",
+        "title": "GPT-5.5 价格翻倍这帖火了，因为大家开始吵“按 Token 算钱”是不是过时了",
+        "summary_line": "争议焦点在于：是该盯着 API 标价喊贵，还是看完成任务的实际成本（actual cost to perform a task）。",
+        "audience": "算着 API 账单过日子的开发者和 AI 产品负责人",
+        "why_now": "讨论已经从单纯吐槽 OpenAI 涨价，变成了对计费逻辑的质疑，尤其是 Canva 这种大厂下场说“贵得有理”之后。",
+        "why_now_reason": "new_threads_24h",
+        "signal_level": "rising",
+        "intent_tags": [
+          "趋势变化"
+        ],
+        "top_community": "r/OpenAI",
+        "thread_count": 1,
+        "community_count": 1,
+        "source_module": {
+          "primary_communities": [
+            "r/OpenAI"
+          ],
+          "top_community": "r/OpenAI",
+          "tone_tags": [],
+          "thread_count": 1,
+          "community_count": 1,
+          "last_active_text": "近7天"
+        },
+        "preview_quote": {
+          "text": "During our testing of GPT-5.5 at Canva, we've found it to be significantly more token efficient for a wide variety of tasks, especially coding and agentic work. Our internal evals show about the same to their published claims.\n\nNot all tokens are the same, the actual cost to perform a task successfully is what matters. Per-token pricing isn't a meaningful metric anymore.",
+          "community": "r/OpenAI",
+          "permalink": "https://www.reddit.com/r/OpenAI/comments/1sts36l/gpt55_api_pricing_twice_as_expensive_as_gpt54/ohvnhc0/"
+        },
+        "published_at": "2026-04-24T05:21:05.655453Z",
+        "controversy_chart": {
+          "support_ratio": 0.29,
+          "oppose_ratio": 0.36,
+          "neutral_ratio": 0.35,
+          "support_point": "实际任务成本才重要，按词计费已过时。",
+          "oppose_point": "价格翻倍就是不行，尤其对非营利起家的。",
+          "neutral_point": "还得看新模型的价格表现。",
+          "debate_focus": "按词计费是不是已经过时了",
+          "dominant_side": "oppose",
+          "confidence": "medium"
+        },
+        "controversy_meta": {
+          "post_id": "1sts36l",
+          "sample_size": 14,
+          "sampled_at": "2026-04-24T05:21:05.696495Z",
+          "fetch_status": "ok",
+          "llm_summary_version": "cn_human_point_slots_v8",
+          "sample_quality": "low",
+          "summary_status": "ok",
+          "confidence_reason": "评论样本中，支持和反对按词计费的观点数量接近，中立观点主要关注竞争对手的新模型表现，整体争议点集中在计费方式是否过时以及价格的合理性上。"
+        },
+        "quotes": [
+          {
+            "text": "During our testing of GPT-5.5 at Canva, we've found it to be significantly more token efficient for a wide variety of tasks, especially coding and agentic work. Our internal evals show about the same to their published claims.\n\nNot all tokens are the same, the actual cost to perform a task successfully is what matters. Per-token pricing isn't a meaningful metric anymore.",
+            "community": "r/OpenAI",
+            "permalink": "https://www.reddit.com/r/OpenAI/comments/1sts36l/gpt55_api_pricing_twice_as_expensive_as_gpt54/ohvnhc0/"
+          },
+          {
+            "text": "Way too pricey. The next Gemini flash model should come out in May and set a new standard for price performance ratio",
+            "community": "r/OpenAI",
+            "permalink": "https://www.reddit.com/r/OpenAI/comments/1sts36l/gpt55_api_pricing_twice_as_expensive_as_gpt54/ohvnq08/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/OpenAI/comments/1sts36l",
+        "detail": {
+          "flashpoint": "GPT-5.5 价格直接翻倍，但 Canva 员工回帖说这模型效率极高，算下来完成任务反而更省钱。",
+          "fight_line": "坚守“单价论”觉得 OpenAI 涨价太离谱，对比“效率论”认为任务成功成本才是唯一指标。",
+          "why_test_now": "关键证据是“During our testing of GPT-5.5 at Canva, we've found it to be significantly more token effici”。关键点在于 per-token pricing isn't a meaningful metric。大家不再只看标价，而是在算模型变聪明后能不能少花钱。",
+          "continue_signal": "继续看其他大厂的 internal evals 报告，以及 5 月 Gemini Flash 出来后的价格对线。",
+          "stop_signal": "如果讨论只剩对 OpenAI 的情绪宣泄，或者没有更多实际测试数据流出，就不必再追。"
+        }
+      },
+      "v12_shadow": {
+        "title": "GPT-5.5 单价翻倍，但 Canva 称按任务算总成本反降",
+        "summary_line": "争论焦点：该盯 API 单价，还是算任务总成本。Canva 内部测试是转折点。",
+        "audience": "用 OpenAI API 做产品、关心账单的开发者和 AI 产品负责人",
+        "why_now": "讨论从吐槽涨价，转向质疑‘按 Token 计费’是否合理。",
+        "flashpoint": "Canva 员工用内部测试数据反驳涨价论，称 GPT-5.5 的 token 效率更高，完成相同任务的总成本可能更低。",
+        "fight_line": "一派盯着翻倍的 API 单价说太贵，另一派拿 Canva 数据说该看任务总成本，模型更聪明反而省钱。",
+        "why_test_now": "Canva 的 token 效率数据是关键证据，将讨论从‘标价’拉到‘完成一件事要花多少钱’。",
+        "continue_signal": "看其他公司是否公布类似任务成本测试，以及 Gemini Flash 等竞品的价格性能对比。",
+        "stop_signal": "如果只剩情绪化吐槽，没有更多公司用实际任务成本数据验证或反驳，讨论就会停在原地。"
+      },
+      "refreshed_card": {
+        "card_id": "card-cand-ai-automation-1sts36l-validate",
+        "signal_id": "sig-1sts36l",
+        "card_type": "validate",
+        "lane": "hot",
+        "category_id": "validate",
+        "source_scope_id": "ai-automation",
+        "source_scope_name": "AI 与自动化",
+        "topic_pack_id": "upstream-winds",
+        "topic_cluster_id": "platform-policy-shifts",
+        "topic_cluster_ids": [
+          "platform-policy-shifts"
+        ],
+        "named_topic_ids": [
+          "platform-policy-watch"
+        ],
+        "source_domain_id": "ai-automation",
+        "source_domain_name": "AI 与自动化",
+        "source_event_at": "2026-04-23T19:02:07Z",
+        "title": "GPT-5.5 单价翻倍，但 Canva 称按任务算总成本反降",
+        "summary_line": "争论焦点：该盯 API 单价，还是算任务总成本。Canva 内部测试是转折点。",
+        "audience": "用 OpenAI API 做产品、关心账单的开发者和 AI 产品负责人",
+        "why_now": "讨论从吐槽涨价，转向质疑‘按 Token 计费’是否合理。",
+        "why_now_reason": "new_threads_24h",
+        "signal_level": "rising",
+        "intent_tags": [
+          "趋势变化"
+        ],
+        "top_community": "r/OpenAI",
+        "thread_count": 1,
+        "community_count": 1,
+        "source_module": {
+          "primary_communities": [
+            "r/OpenAI"
+          ],
+          "top_community": "r/OpenAI",
+          "tone_tags": [],
+          "thread_count": 1,
+          "community_count": 1,
+          "last_active_text": "近7天"
+        },
+        "preview_quote": {
+          "text": "During our testing of GPT-5.5 at Canva, we've found it to be significantly more token efficient for a wide variety of tasks, especially coding and agentic work. Our internal evals show about the same to their published claims.\n\nNot all tokens are the same, the actual cost to perform a task successfully is what matters. Per-token pricing isn't a meaningful metric anymore.",
+          "community": "r/OpenAI",
+          "permalink": "https://www.reddit.com/r/OpenAI/comments/1sts36l/gpt55_api_pricing_twice_as_expensive_as_gpt54/ohvnhc0/"
+        },
+        "published_at": "2026-04-24T05:21:05.655453Z",
+        "controversy_chart": {
+          "support_ratio": 0.29,
+          "oppose_ratio": 0.36,
+          "neutral_ratio": 0.35,
+          "support_point": "实际任务成本才重要，按词计费已过时。",
+          "oppose_point": "价格翻倍就是不行，尤其对非营利起家的。",
+          "neutral_point": "还得看新模型的价格表现。",
+          "debate_focus": "按词计费是不是已经过时了",
+          "dominant_side": "oppose",
+          "confidence": "medium"
+        },
+        "controversy_meta": {
+          "post_id": "1sts36l",
+          "sample_size": 14,
+          "sampled_at": "2026-04-24T05:21:05.696495Z",
+          "fetch_status": "ok",
+          "llm_summary_version": "cn_human_point_slots_v8",
+          "sample_quality": "low",
+          "summary_status": "ok",
+          "confidence_reason": "评论样本中，支持和反对按词计费的观点数量接近，中立观点主要关注竞争对手的新模型表现，整体争议点集中在计费方式是否过时以及价格的合理性上。"
+        },
+        "quotes": [
+          {
+            "text": "During our testing of GPT-5.5 at Canva, we've found it to be significantly more token efficient for a wide variety of tasks, especially coding and agentic work. Our internal evals show about the same to their published claims.\n\nNot all tokens are the same, the actual cost to perform a task successfully is what matters. Per-token pricing isn't a meaningful metric anymore.",
+            "community": "r/OpenAI",
+            "permalink": "https://www.reddit.com/r/OpenAI/comments/1sts36l/gpt55_api_pricing_twice_as_expensive_as_gpt54/ohvnhc0/"
+          },
+          {
+            "text": "Way too pricey. The next Gemini flash model should come out in May and set a new standard for price performance ratio",
+            "community": "r/OpenAI",
+            "permalink": "https://www.reddit.com/r/OpenAI/comments/1sts36l/gpt55_api_pricing_twice_as_expensive_as_gpt54/ohvnq08/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/OpenAI/comments/1sts36l",
+        "detail": {
+          "flashpoint": "GPT-5.5 价格直接翻倍，但 Canva 员工回帖说这模型效率极高，算下来完成任务反而更省钱。",
+          "fight_line": "坚守“单价论”觉得 OpenAI 涨价太离谱，对比“效率论”认为任务成功成本才是唯一指标。",
+          "why_test_now": "关键证据是“During our testing of GPT-5.5 at Canva, we've found it to be significantly more token effici”。关键点在于 per-token pricing isn't a meaningful metric。大家不再只看标价，而是在算模型变聪明后能不能少花钱。",
+          "continue_signal": "继续看其他大厂的 internal evals 报告，以及 5 月 Gemini Flash 出来后的价格对线。",
+          "stop_signal": "如果讨论只剩对 OpenAI 的情绪宣泄，或者没有更多实际测试数据流出，就不必再追。"
+        }
+      },
+      "changed": {
+        "title": {
+          "before": "GPT-5.5 价格翻倍这帖火了，因为大家开始吵“按 Token 算钱”是不是过时了",
+          "after": "GPT-5.5 单价翻倍，但 Canva 称按任务算总成本反降"
+        },
+        "summary_line": {
+          "before": "争议焦点在于：是该盯着 API 标价喊贵，还是看完成任务的实际成本（actual cost to perform a task）。",
+          "after": "争论焦点：该盯 API 单价，还是算任务总成本。Canva 内部测试是转折点。"
+        },
+        "audience": {
+          "before": "算着 API 账单过日子的开发者和 AI 产品负责人",
+          "after": "用 OpenAI API 做产品、关心账单的开发者和 AI 产品负责人"
+        },
+        "why_now": {
+          "before": "讨论已经从单纯吐槽 OpenAI 涨价，变成了对计费逻辑的质疑，尤其是 Canva 这种大厂下场说“贵得有理”之后。",
+          "after": "讨论从吐槽涨价，转向质疑‘按 Token 计费’是否合理。"
+        }
+      },
+      "fluency_repair_issue_count": 0,
+      "remaining_density_issues": [],
+      "v13_title_issues_before": [],
+      "v13_title_issues_after": [],
+      "error": ""
+    },
+    {
+      "card_id": "card-cand-ai-automation-1stqlnh-validate",
+      "lane": "hot",
+      "card_type": "validate",
+      "profile_id": "hotpost_v13_title_standalone",
+      "semantic_model": "deepseek/deepseek-v4-flash",
+      "writer_model": "xiaomi/mimo-v2.5-pro",
+      "original_card": {
+        "card_id": "card-cand-ai-automation-1stqlnh-validate",
+        "signal_id": "sig-1stqlnh",
+        "card_type": "validate",
+        "lane": "hot",
+        "category_id": "validate",
+        "source_scope_id": "ai-automation",
+        "source_scope_name": "AI 与自动化",
+        "topic_pack_id": "upstream-winds",
+        "topic_cluster_id": "key-people-and-route",
+        "topic_cluster_ids": [
+          "key-people-and-route",
+          "platform-policy-shifts"
+        ],
+        "named_topic_ids": [],
+        "source_domain_id": "ai-automation",
+        "source_domain_name": "AI 与自动化",
+        "source_event_at": "2026-04-23T18:09:12Z",
+        "title": "GPT-5.5 发布这帖火了，大家没在夸性能，全在吐槽那个“最强安全护栏”",
+        "summary_line": "评论区吵得最凶的是：OpenAI 到底是在发新模型，还是在给模型加更多让用户束手束脚的 guardrails。",
+        "audience": "盯着 OpenAI 更新、怕模型被安全限制搞废的开发者和重度用户",
+        "why_now": "这帖现在火，是因为大家对“安全”这个词已经 PTSD 了，一听“最强护栏”就觉得模型又要变笨。",
+        "why_now_reason": "new_threads_24h",
+        "signal_level": "hot",
+        "intent_tags": [
+          "趋势变化"
+        ],
+        "top_community": "r/OpenAI",
+        "thread_count": 1,
+        "community_count": 1,
+        "source_module": {
+          "primary_communities": [
+            "r/OpenAI"
+          ],
+          "top_community": "r/OpenAI",
+          "tone_tags": [],
+          "thread_count": 1,
+          "community_count": 1,
+          "last_active_text": "近24小时"
+        },
+        "preview_quote": {
+          "text": "Laughed a little to this \"We are releasing GPT‑5.5 with our strongest set of safeguards to date [...]\" yay MORE guardrails",
+          "community": "r/OpenAI",
+          "permalink": "https://www.reddit.com/r/OpenAI/comments/1stqlnh/introducing_gpt55_openai/ohv80zq/"
+        },
+        "published_at": "2026-04-24T05:18:18.732263Z",
+        "controversy_chart": {
+          "support_ratio": 0.04,
+          "oppose_ratio": 0.42,
+          "neutral_ratio": 0.54,
+          "support_point": "这个模型真的太棒了，我参与了它的预训练。",
+          "oppose_point": "又加了更多限制，这套工具越来越不好用了。",
+          "neutral_point": "先看本地机器能不能跑得动。",
+          "debate_focus": "这套工具到底是在发新模型还是在加限制？",
+          "dominant_side": "neutral",
+          "confidence": "high"
+        },
+        "controversy_meta": {
+          "post_id": "1stqlnh",
+          "sample_size": 40,
+          "sampled_at": "2026-04-24T05:18:18.771991Z",
+          "fetch_status": "ok",
+          "llm_summary_version": "cn_human_point_slots_v8",
+          "sample_quality": "high",
+          "summary_status": "ok",
+          "confidence_reason": "评论样本中，对新模型发布持负面或质疑态度的占比较高，主要集中在对安全护栏的增加和使用限制的抱怨，正面评价样本极少，中立观点则关注实际可用性和性能表现。"
+        },
+        "quotes": [
+          {
+            "text": "Laughed a little to this \"We are releasing GPT‑5.5 with our strongest set of safeguards to date [...]\" yay MORE guardrails",
+            "community": "r/OpenAI",
+            "permalink": "https://www.reddit.com/r/OpenAI/comments/1stqlnh/introducing_gpt55_openai/ohv80zq/"
+          },
+          {
+            "text": "I'm not seeing it anywhere, not in API, not in Codex, not on the web. Anyone actually have it?\n\nEdit: Got it on web.",
+            "community": "r/OpenAI",
+            "permalink": "https://www.reddit.com/r/OpenAI/comments/1stqlnh/introducing_gpt55_openai/ohv989u/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/OpenAI/comments/1stqlnh",
+        "detail": {
+          "flashpoint": "官方公告里那句“有史以来最强安全护栏”直接捅了马蜂窝，让本来期待性能的用户瞬间下头。",
+          "fight_line": "官方觉得安全护栏是产品升级，用户觉得这又是给模型戴枷锁。",
+          "why_test_now": "关键证据是“Laughed a little to this \"We are releasing GPT‑5.5 with our strongest set of safeguards to d”。评论区那句 yay MORE guardrails 阴阳怪气拉满了。大家关心的不是 API 什么时候上，而是这模型还能不能说人话。",
+          "continue_signal": "继续看 GPT-5.5 的实际评测，尤其是它在处理复杂指令时会不会因为“安全”理由拒答。",
+          "stop_signal": "如果讨论变成单纯的性能跑分对比，或者大家已经习惯了这套护栏，这帖的热度就没价值了。"
+        }
+      },
+      "v12_shadow": {},
+      "refreshed_card": {},
+      "changed": {},
+      "fluency_repair_issue_count": 0,
+      "remaining_density_issues": [],
+      "v13_title_issues_before": [],
+      "v13_title_issues_after": [],
+      "error": "LLMClientError: openai: <urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1016)>"
+    },
+    {
+      "card_id": "card-cand-business-growth-ops-1ss4u73-validate",
+      "lane": "signal",
+      "card_type": "validate",
+      "profile_id": "hotpost_v13_title_standalone",
+      "semantic_model": "deepseek/deepseek-v4-flash",
+      "writer_model": "xiaomi/mimo-v2.5-pro",
+      "original_card": {
+        "card_id": "card-cand-business-growth-ops-1ss4u73-validate",
+        "signal_id": "sig-1ss4u73",
+        "card_type": "validate",
+        "lane": "signal",
+        "category_id": "validate",
+        "source_scope_id": "business-growth-ops",
+        "source_scope_name": "商业增长与运营",
+        "topic_pack_id": "funnel-conversion",
+        "topic_cluster_id": "funnel",
+        "topic_cluster_ids": [
+          "funnel"
+        ],
+        "named_topic_ids": [
+          "checkout-conversion"
+        ],
+        "source_domain_id": "business-growth-ops",
+        "source_domain_name": "商业增长与运营",
+        "source_event_at": "2026-04-21T23:45:07Z",
+        "title": "大品牌电商顾问开始劝退无脑上 Headless，先看 Shopify Plus 的隐藏条款",
+        "summary_line": "判断顺序从‘先考虑 Headless 架构’，转成‘先问 Shopify Plus 能给多大牌的隐藏优惠’。",
+        "audience": "年销售额在 1000 万到 1 亿美元之间的电商品牌顾问和负责人",
+        "why_now": "有顾问直接点出，大多数企业级 Shopify 搭建都用了 Headless，但其中大多数其实不该用，因为麻烦、成本高、机会成本大。所以下一步先问的不是技术架构多先进，而是 Shopify Plus 能为大客户私下谈下什么条件。",
+        "why_now_reason": "switch_signal_7d",
+        "signal_level": "sustained",
+        "intent_tags": [
+          "替换"
+        ],
+        "top_community": "r/shopify",
+        "thread_count": 1,
+        "community_count": 1,
+        "source_module": {
+          "primary_communities": [
+            "r/shopify"
+          ],
+          "top_community": "r/shopify",
+          "tone_tags": [],
+          "thread_count": 1,
+          "community_count": 1,
+          "last_active_text": "近7天"
+        },
+        "preview_quote": {
+          "text": "What’s the intent behind this post, /u/AriaMoon286?\n\nI’ve been close to short of convo, yes, as someone that advises e-commerce businesses in the $10M-100M band, and as someone that has les e-commerce and digital functions for brands and retailers of that size. \n\nShopify Plus isn’t perfect but indeed their offering book is much more than it appears on the website if you’re of sufficient size and importance. A key part of the convo I’ve been involved in is the upside of headless. Most enterprise level Shopify builds are headless. Most shouldn’t be—this is where most grief, cost, and opportunity cost sits.",
+          "community": "r/shopify",
+          "permalink": "https://www.reddit.com/r/shopify/comments/1ss4u73/why_do_brands_like_gymshark_and_fashion_nova_stay/ohjexzv/"
+        },
+        "published_at": "2026-04-24T05:15:41.789670Z",
+        "controversy_chart": null,
+        "controversy_meta": null,
+        "quotes": [
+          {
+            "text": "What’s the intent behind this post, /u/AriaMoon286?\n\nI’ve been close to short of convo, yes, as someone that advises e-commerce businesses in the $10M-100M band, and as someone that has les e-commerce and digital functions for brands and retailers of that size. \n\nShopify Plus isn’t perfect but indeed their offering book is much more than it appears on the website if you’re of sufficient size and importance. A key part of the convo I’ve been involved in is the upside of headless. Most enterprise level Shopify builds are headless. Most shouldn’t be—this is where most grief, cost, and opportunity cost sits.",
+            "community": "r/shopify",
+            "permalink": "https://www.reddit.com/r/shopify/comments/1ss4u73/why_do_brands_like_gymshark_and_fashion_nova_stay/ohjexzv/"
+          },
+          {
+            "text": "Almost certainly have negotiated rates for Shopify payments for brands of that size, and yes, they likely can’t get a better deal elsewhere",
+            "community": "r/shopify",
+            "permalink": "https://www.reddit.com/r/shopify/comments/1ss4u73/why_do_brands_like_gymshark_and_fashion_nova_stay/ohjgtc5/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/shopify/comments/1ss4u73",
+        "detail": {
+          "pain_point": "花了大价钱和精力上了 Headless，结果发现大部分麻烦、成本和错失的机会都源于此，得不偿失。",
+          "target_user_and_scene": "年销售额在千万美元级别，正在考虑更换或升级电商平台的品牌，在评估技术方案时会遇到。",
+          "why_test_now": "原话直接说‘Most shouldn’t be—this is where most grief，cost，and opportunity cost sits’，这是来自实战顾问的明确警告，证据很硬。",
+          "min_test_action": "去看原始讨论",
+          "continue_signal": "继续看其他顾问或大品牌运营者是否跟进，分享 Shopify Plus 的隐藏条款或 Headless 的具体坑。",
+          "stop_signal": "如果后续讨论只停留在技术优劣对比，而没有更多关于大客户谈判条款或具体成本案例的分享，这条线的价值就有限。"
+        }
+      },
+      "v12_shadow": {
+        "title": "顾问劝退无脑上 Headless，先查 Shopify Plus 隐藏条款",
+        "summary_line": "判断顺序从‘先选技术架构’变成‘先谈商务条件’，因为顾问发现大部分 Headless 项目不该做。",
+        "audience": "年销售额 1000 万到 1 亿美元的电商品牌负责人和顾问",
+        "why_now": "实战顾问指出，大部分企业级 Shopify 搭建用了 Headless，但多数不该用，因麻烦和成本高。判断重点从技术先进性转向先确认 Shopify Plus 隐藏优惠。",
+        "pain_point": "被市场鼓吹 Headless 是高端必备，但实际投入后可能陷入高维护成本、低回报的困境，需要在技术先进性和务实控制成本之间权衡。",
+        "target_user_and_scene": "年销售额 1000 万到 1 亿美元的电商品牌，在考虑是否采用 Headless 架构时，面临技术选型和商务谈判的先后顺序问题。",
+        "why_test_now": "原话‘Most shouldn’t be—this is where most grief，cost，and opportunity cost sits’直接点出问题核心，来自有实战经验的顾问。",
+        "min_test_action": "去看原始讨论",
+        "continue_signal": "继续看 Shopify Plus 对大客户是否真有隐藏条款（如免交易费），以及能否抵消 Headless 成本。",
+        "stop_signal": "如果更多案例证明 Headless 利大于弊，或 Shopify Plus 隐藏条款无法覆盖成本，此顺序调整就失效。"
+      },
+      "refreshed_card": {
+        "card_id": "card-cand-business-growth-ops-1ss4u73-validate",
+        "signal_id": "sig-1ss4u73",
+        "card_type": "validate",
+        "lane": "signal",
+        "category_id": "validate",
+        "source_scope_id": "business-growth-ops",
+        "source_scope_name": "商业增长与运营",
+        "topic_pack_id": "funnel-conversion",
+        "topic_cluster_id": "funnel",
+        "topic_cluster_ids": [
+          "funnel"
+        ],
+        "named_topic_ids": [
+          "checkout-conversion"
+        ],
+        "source_domain_id": "business-growth-ops",
+        "source_domain_name": "商业增长与运营",
+        "source_event_at": "2026-04-21T23:45:07Z",
+        "title": "多数 Shopify 大店不该先上 Headless，要先问 Plus 隐藏条款",
+        "summary_line": "判断顺序从‘先选技术架构’变成‘先谈商务条件’，因为顾问发现大部分 Headless 项目不该做。",
+        "audience": "年销售额 1000 万到 1 亿美元的电商品牌负责人和顾问",
+        "why_now": "实战顾问指出，大部分企业级 Shopify 搭建用了 Headless，但多数不该用，因麻烦和成本高。判断重点从技术先进性转向先确认 Shopify Plus 隐藏优惠。",
+        "why_now_reason": "switch_signal_7d",
+        "signal_level": "sustained",
+        "intent_tags": [
+          "替换"
+        ],
+        "top_community": "r/shopify",
+        "thread_count": 1,
+        "community_count": 1,
+        "source_module": {
+          "primary_communities": [
+            "r/shopify"
+          ],
+          "top_community": "r/shopify",
+          "tone_tags": [],
+          "thread_count": 1,
+          "community_count": 1,
+          "last_active_text": "近7天"
+        },
+        "preview_quote": {
+          "text": "What’s the intent behind this post, /u/AriaMoon286?\n\nI’ve been close to short of convo, yes, as someone that advises e-commerce businesses in the $10M-100M band, and as someone that has les e-commerce and digital functions for brands and retailers of that size. \n\nShopify Plus isn’t perfect but indeed their offering book is much more than it appears on the website if you’re of sufficient size and importance. A key part of the convo I’ve been involved in is the upside of headless. Most enterprise level Shopify builds are headless. Most shouldn’t be—this is where most grief, cost, and opportunity cost sits.",
+          "community": "r/shopify",
+          "permalink": "https://www.reddit.com/r/shopify/comments/1ss4u73/why_do_brands_like_gymshark_and_fashion_nova_stay/ohjexzv/"
+        },
+        "published_at": "2026-04-24T05:15:41.789670Z",
+        "controversy_chart": null,
+        "controversy_meta": null,
+        "quotes": [
+          {
+            "text": "What’s the intent behind this post, /u/AriaMoon286?\n\nI’ve been close to short of convo, yes, as someone that advises e-commerce businesses in the $10M-100M band, and as someone that has les e-commerce and digital functions for brands and retailers of that size. \n\nShopify Plus isn’t perfect but indeed their offering book is much more than it appears on the website if you’re of sufficient size and importance. A key part of the convo I’ve been involved in is the upside of headless. Most enterprise level Shopify builds are headless. Most shouldn’t be—this is where most grief, cost, and opportunity cost sits.",
+            "community": "r/shopify",
+            "permalink": "https://www.reddit.com/r/shopify/comments/1ss4u73/why_do_brands_like_gymshark_and_fashion_nova_stay/ohjexzv/"
+          },
+          {
+            "text": "Almost certainly have negotiated rates for Shopify payments for brands of that size, and yes, they likely can’t get a better deal elsewhere",
+            "community": "r/shopify",
+            "permalink": "https://www.reddit.com/r/shopify/comments/1ss4u73/why_do_brands_like_gymshark_and_fashion_nova_stay/ohjgtc5/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/shopify/comments/1ss4u73",
+        "detail": {
+          "pain_point": "花了大价钱和精力上了 Headless，结果发现大部分麻烦、成本和错失的机会都源于此，得不偿失。",
+          "target_user_and_scene": "年销售额在千万美元级别，正在考虑更换或升级电商平台的品牌，在评估技术方案时会遇到。",
+          "why_test_now": "原话直接说‘Most shouldn’t be—this is where most grief，cost，and opportunity cost sits’，这是来自实战顾问的明确警告，证据很硬。",
+          "min_test_action": "去看原始讨论",
+          "continue_signal": "继续看其他顾问或大品牌运营者是否跟进，分享 Shopify Plus 的隐藏条款或 Headless 的具体坑。",
+          "stop_signal": "如果后续讨论只停留在技术优劣对比，而没有更多关于大客户谈判条款或具体成本案例的分享，这条线的价值就有限。"
+        }
+      },
+      "changed": {
+        "title": {
+          "before": "大品牌电商顾问开始劝退无脑上 Headless，先看 Shopify Plus 的隐藏条款",
+          "after": "多数 Shopify 大店不该先上 Headless，要先问 Plus 隐藏条款"
+        },
+        "summary_line": {
+          "before": "判断顺序从‘先考虑 Headless 架构’，转成‘先问 Shopify Plus 能给多大牌的隐藏优惠’。",
+          "after": "判断顺序从‘先选技术架构’变成‘先谈商务条件’，因为顾问发现大部分 Headless 项目不该做。"
+        },
+        "audience": {
+          "before": "年销售额在 1000 万到 1 亿美元之间的电商品牌顾问和负责人",
+          "after": "年销售额 1000 万到 1 亿美元的电商品牌负责人和顾问"
+        },
+        "why_now": {
+          "before": "有顾问直接点出，大多数企业级 Shopify 搭建都用了 Headless，但其中大多数其实不该用，因为麻烦、成本高、机会成本大。所以下一步先问的不是技术架构多先进，而是 Shopify Plus 能为大客户私下谈下什么条件。",
+          "after": "实战顾问指出，大部分企业级 Shopify 搭建用了 Headless，但多数不该用，因麻烦和成本高。判断重点从技术先进性转向先确认 Shopify Plus 隐藏优惠。"
+        }
+      },
+      "fluency_repair_issue_count": 0,
+      "remaining_density_issues": [
+        "title: 重点字段 37 字，超过建议 34 字，阅读负担高。",
+        "why_test_now: 重点字段 97 字，超过建议 78 字，阅读负担高。"
+      ],
+      "v13_title_issues_before": [],
+      "v13_title_issues_after": [],
+      "error": ""
+    },
+    {
+      "card_id": "card-group-ai-automation-4bd5d9c843",
+      "lane": "breakdown",
+      "card_type": "write",
+      "profile_id": "hotpost_v13_title_standalone",
+      "semantic_model": "deepseek/deepseek-v4-flash",
+      "writer_model": "xiaomi/mimo-v2.5-pro",
+      "original_card": {
+        "card_id": "card-group-ai-automation-4bd5d9c843",
+        "signal_id": "sig-group-ai-automation-4bd5d9c843",
+        "card_type": "write",
+        "lane": "breakdown",
+        "category_id": "write",
+        "source_scope_id": "ai-automation",
+        "source_scope_name": "AI 与自动化",
+        "topic_pack_id": "tools-efficiency",
+        "topic_cluster_id": "ai-product-and-adoption",
+        "topic_cluster_ids": [
+          "ai-product-and-adoption"
+        ],
+        "named_topic_ids": [],
+        "source_domain_id": "ai-automation",
+        "source_domain_name": "AI 与自动化",
+        "source_event_at": "2026-04-23T09:00:24Z",
+        "title": "兼职产品岗的第一反应，从‘值不值得做’变成了‘是不是在拿我训练 AI’",
+        "summary_line": "产品经理们开始怀疑，一些听起来不错的兼职机会，本质上可能只是在为AI代理收集训练数据。",
+        "audience": "看到‘兼职产品负责人’这类招聘帖的产品经理",
+        "why_now": "当一个人在质疑岗位真实性，另一个人在感叹‘兼职产品负责人’本身就像个矛盾概念时，说明怀疑已经从个案变成了对这类岗位存在逻辑的根本性质疑。",
+        "why_now_reason": "new_threads_24h",
+        "signal_level": "sustained",
+        "intent_tags": [
+          "趋势变化"
+        ],
+        "top_community": "r/ProductManagement",
+        "thread_count": 3,
+        "community_count": 2,
+        "source_module": {
+          "primary_communities": [
+            "r/ProductManagement",
+            "r/SaaS"
+          ],
+          "top_community": "r/ProductManagement",
+          "tone_tags": [],
+          "thread_count": 3,
+          "community_count": 2,
+          "last_active_text": "近24小时"
+        },
+        "preview_quote": {
+          "text": "If this is even real\n\n\nIt doesn't sound like an actual product owner position, it sounds like they're hiring a bunch of people to train a product owner AI agent",
+          "community": "r/ProductManagement",
+          "permalink": "https://www.reddit.com/r/ProductManagement/comments/1st8bap/has_anyone_tried_one_of_these_freelance_parttime/ohrhrpt/"
+        },
+        "published_at": "2026-04-24T05:14:17.935126Z",
+        "controversy_chart": null,
+        "controversy_meta": null,
+        "quotes": [
+          {
+            "text": "If this is even real\n\n\nIt doesn't sound like an actual product owner position, it sounds like they're hiring a bunch of people to train a product owner AI agent",
+            "community": "r/ProductManagement",
+            "permalink": "https://www.reddit.com/r/ProductManagement/comments/1st8bap/has_anyone_tried_one_of_these_freelance_parttime/ohrhrpt/"
+          },
+          {
+            "text": "Even if these recaptcha occurs on daily basis at random time is worth it. I am gonna loose my mind if I see another “I built this so you don’t have to” post",
+            "community": "r/SaaS",
+            "permalink": "https://www.reddit.com/r/SaaS/comments/1sndwq7/end_of_ai_slop/ogl33mg/"
+          },
+          {
+            "text": "Dead internet theory is so real.\n\nLook at this example it's literally all bots talking to each other.  \n\n  \n[https://www.reddit.com/r/AI\\_Agents/comments/1sn2w7y/](https://www.reddit.com/r/AI_Agents/comments/1sn2w7y/)",
+            "community": "r/SaaS",
+            "permalink": "https://www.reddit.com/r/SaaS/comments/1sndwq7/end_of_ai_slop/ogl9xlu/"
+          },
+          {
+            "text": "I feel the same way - it feels like an oxymoron. Even as a PM it takes years to fully grasp the product you're working on. \n\nHowever I do know people personally who are PMs who do consulting on the side. It generally works well  if you're an expert in a specific industry with many years of experience",
+            "community": "r/ProductManagement",
+            "permalink": "https://www.reddit.com/r/ProductManagement/comments/1st8bap/has_anyone_tried_one_of_these_freelance_parttime/ohrfnhl/"
+          },
+          {
+            "text": "My UX designer is having an existential crisis because we’ve started moving faster than he can keep up by using Claude Design. At this point, waiting for a designer to manually create figma prototypes is causing a massive bottleneck between product and engineering  as engineering are also now using AI. I feel so horrible for him as he’s a lovely guy, and it’s genuinely heartbreaking to see someone’s passion and potentially their livelihood taken away seemingly overnight.",
+            "community": "r/ProductManagement",
+            "permalink": "https://www.reddit.com/r/ProductManagement/comments/1stdbl3/weekly_rant_thread/ohtzgax/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/SaaS/comments/1sndwq7",
+        "detail": {
+          "thesis": "产品经理对‘兼职产品负责人’这类岗位的怀疑，已经从评估工作好坏，升级到了质疑其存在目的——它可能根本不是为真人设计的职位，而是为了训练AI代理。",
+          "writing_angle_or_perspective": "从‘岗位真实性’这个切口进去，看怀疑如何从‘这工作好不好’转向‘这工作是不是给人做的’。",
+          "tension_point_or_why_it_matters": "如果连‘产品负责人’这种核心决策角色都开始被怀疑是AI训练的幌子，那么未来任何高价值的兼职或咨询岗位，都可能面临同样的信任危机。",
+          "title_hooks": [
+            "兼职产品岗？先别急着看JD，先想想这是不是给AI准备的训练数据",
+            "当‘兼职’和‘产品负责人’放在一起，产品经理的第一反应是：这听起来像人干的活吗？"
+          ],
+          "quote_pack": [
+            "If this is even real\n\n\nIt doesn't sound like an actual product owner position, it sounds like they're hiring a bunch of people to train a product owner AI agent｜这到底是不是真的？听起来不像一个真正的产品负责人职位，更像是在招一群人来训练一个产品负责人AI代理。｜r/ProductManagement",
+            "I feel the same way - it feels like an oxymoron. Even as a PM it takes years to fully grasp the product you're working on.｜我有同感——这感觉像个矛盾体。即使作为一名产品经理，也需要数年时间才能完全掌握你负责的产品。｜r/ProductManagement"
+          ]
+        }
+      },
+      "v12_shadow": {},
+      "refreshed_card": {},
+      "changed": {},
+      "fluency_repair_issue_count": 0,
+      "remaining_density_issues": [],
+      "v13_title_issues_before": [],
+      "v13_title_issues_after": [],
+      "error": "ValueError: why_now contains banned pattern: 已经从"
+    },
+    {
+      "card_id": "card-cand-business-growth-ops-1stfurr-validate",
+      "lane": "signal",
+      "card_type": "validate",
+      "profile_id": "hotpost_v13_title_standalone",
+      "semantic_model": "deepseek/deepseek-v4-flash",
+      "writer_model": "xiaomi/mimo-v2.5-pro",
+      "original_card": {
+        "card_id": "card-cand-business-growth-ops-1stfurr-validate",
+        "signal_id": "sig-1stfurr",
+        "card_type": "validate",
+        "lane": "signal",
+        "category_id": "validate",
+        "source_scope_id": "business-growth-ops",
+        "source_scope_name": "商业增长与运营",
+        "topic_pack_id": "funnel-conversion",
+        "topic_cluster_id": "funnel",
+        "topic_cluster_ids": [
+          "funnel"
+        ],
+        "named_topic_ids": [
+          "checkout-conversion"
+        ],
+        "source_domain_id": "business-growth-ops",
+        "source_domain_name": "商业增长与运营",
+        "source_event_at": "2026-04-23T11:20:50Z",
+        "title": "卖家现在先看会话回放，不再先猜是哪个环节出错",
+        "summary_line": "判断顺序从先猜是哪个环节出错，转成先看20-30个真实会话回放，因为2.1%的转化率意味着问题藏在分析工具看不到的地方。",
+        "audience": "Shopify卖家，特别是移动端转化率卡在2%左右的",
+        "why_now": "有用户发现，所有常规优化都做完后，移动端转化率还是只有2.1%。这说明问题不在表面数据，而在用户实际操作中的误点、缩放失灵等细节。所以，下一步先看的不是调整哪个按钮，而是先看20-30个真实用户的会话回放。",
+        "why_now_reason": "new_threads_24h",
+        "signal_level": "sustained",
+        "intent_tags": [
+          "趋势变化"
+        ],
+        "top_community": "r/ecommerce",
+        "thread_count": 1,
+        "community_count": 1,
+        "source_module": {
+          "primary_communities": [
+            "r/ecommerce"
+          ],
+          "top_community": "r/ecommerce",
+          "tone_tags": [],
+          "thread_count": 1,
+          "community_count": 1,
+          "last_active_text": "近7天"
+        },
+        "preview_quote": {
+          "text": "2.1% with all the obvious fixes done means the problem is something you canot see from analytics alone. session replays on mobile specifically watch 20-30 real sessions and you'll spot things invisible in dashboards. mis-taps, broken zoom, rage clicks on elements that look fine on your phone but not on others.\n\nbeen building a shopify tool around exactly this mobile behavior tracking with AI suggestions on what to fix. still pre-launch but mobile gap is kind of the core problem it targets.\n\nwhat's your iOS vs Android split?",
+          "community": "r/ecommerce",
+          "permalink": "https://www.reddit.com/r/ecommerce/comments/1stfurr/mobile_conversion_rate_optimization_tools_anyone/oht0cz7/"
+        },
+        "published_at": "2026-04-24T05:14:09.181685Z",
+        "controversy_chart": null,
+        "controversy_meta": null,
+        "quotes": [
+          {
+            "text": "2.1% with all the obvious fixes done means the problem is something you canot see from analytics alone. session replays on mobile specifically watch 20-30 real sessions and you'll spot things invisible in dashboards. mis-taps, broken zoom, rage clicks on elements that look fine on your phone but not on others.\n\nbeen building a shopify tool around exactly this mobile behavior tracking with AI suggestions on what to fix. still pre-launch but mobile gap is kind of the core problem it targets.\n\nwhat's your iOS vs Android split?",
+            "community": "r/ecommerce",
+            "permalink": "https://www.reddit.com/r/ecommerce/comments/1stfurr/mobile_conversion_rate_optimization_tools_anyone/oht0cz7/"
+          },
+          {
+            "text": "What's add to cart rate mobile vs desktop? if similar rates but lower conversion it's definitely checkout friction",
+            "community": "r/ecommerce",
+            "permalink": "https://www.reddit.com/r/ecommerce/comments/1stfurr/mobile_conversion_rate_optimization_tools_anyone/ohx20e1/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/ecommerce/comments/1stfurr",
+        "detail": {
+          "pain_point": "移动端转化率死活上不去，但分析工具里看不出具体原因，只能干着急。",
+          "target_user_and_scene": "做Shopify的卖家，在优化完所有已知问题后，发现移动端转化率依然远低于桌面端时。",
+          "why_test_now": "原话里有个关键句：“What's add to cart rate mobile vs desktop? if similar rates but lower conversion it's defini”。最硬的证据是‘2.1% with all the obvious fixes done’和‘session replays on mobile specifically watch 20-30 real sessions’。这直接说明，当常规方法失效时，唯一的办法是去看用户到底怎么操作的，而不是继续猜。",
+          "min_test_action": "去看原始讨论",
+          "continue_signal": "继续看有没有更多卖家开始分享具体的会话回放发现，比如‘rage clicks’或‘broken zoom’的具体案例。",
+          "stop_signal": "如果讨论又回到调整按钮颜色、简化表单这些老生常谈，而没人再提会话回放的具体发现，这条线就失去价值了。"
+        }
+      },
+      "v12_shadow": {},
+      "refreshed_card": {},
+      "changed": {},
+      "fluency_repair_issue_count": 0,
+      "remaining_density_issues": [],
+      "v13_title_issues_before": [],
+      "v13_title_issues_after": [],
+      "error": "ValueError: why_now contains banned pattern: 这说明"
+    },
+    {
+      "card_id": "card-cand-ai-automation-1sspwz2-validate",
+      "lane": "hot",
+      "card_type": "validate",
+      "profile_id": "hotpost_v13_title_standalone",
+      "semantic_model": "deepseek/deepseek-v4-flash",
+      "writer_model": "xiaomi/mimo-v2.5-pro",
+      "original_card": {
+        "card_id": "card-cand-ai-automation-1sspwz2-validate",
+        "signal_id": "sig-1sspwz2",
+        "card_type": "validate",
+        "lane": "hot",
+        "category_id": "validate",
+        "source_scope_id": "ai-automation",
+        "source_scope_name": "AI 与自动化",
+        "topic_pack_id": "upstream-winds",
+        "topic_cluster_id": "platform-policy-shifts",
+        "topic_cluster_ids": [
+          "platform-policy-shifts"
+        ],
+        "named_topic_ids": [
+          "claude-platform"
+        ],
+        "source_domain_id": "ai-automation",
+        "source_domain_name": "AI 与自动化",
+        "source_event_at": "2026-04-22T16:07:22Z",
+        "title": "Anthropic 毫无预警封掉整个公司账号，这帖火在大家发现“最强模型”成了最大的供应链风险",
+        "summary_line": "争议焦点在于：Anthropic 这种不给解释、不退费、没人工客服的封号逻辑，到底是算力不够在暴力赶客，还是安全过滤杀疯了。",
+        "audience": "业务全挂在 Claude 上的开发者和企业负责人",
+        "why_now": "这帖火是因为它戳破了“模型好用就行”的幻觉，评论区已经从吐槽难用变成了教大家怎么搞多模型备份保命。",
+        "why_now_reason": "recurring_7d",
+        "signal_level": "hot",
+        "intent_tags": [
+          "避坑"
+        ],
+        "top_community": "r/ClaudeAI",
+        "thread_count": 1,
+        "community_count": 1,
+        "source_module": {
+          "primary_communities": [
+            "r/ClaudeAI"
+          ],
+          "top_community": "r/ClaudeAI",
+          "tone_tags": [],
+          "thread_count": 1,
+          "community_count": 1,
+          "last_active_text": "近7天"
+        },
+        "preview_quote": {
+          "text": "**TL;DR of the discussion generated automatically after 200 comments.**\n\nThe thread is overwhelmingly on OP's side, and the consensus is that **banning an entire organization without warning, explanation, or a human to talk to is a massive red flag for any business.** Everyone's pointing out the supreme irony of Anthropic becoming the very 'supply chain risk' they warned about, especially since OP's API account is still getting billed while admins are locked out.\n\nThe leading theory is that **Anthropic is simply out of compute** and is aggressively shedding heavy users, though overzealous safety filters (did \"fertilizer\" get flagged as \"bombs\"?) are also a popular guess. Several users report similar sudden bans with zero recourse, even on Enterprise plans.\n\nThe community's advice is unanimous: **diversify your models.** Use API routers, have backup providers, and look into open-source alternatives so you don't get rugged. The general vibe is that while Claude is great, relying on a single provider with opaque, automated enforcement is a recipe for disaster.",
+          "community": "r/ClaudeAI",
+          "permalink": "https://www.reddit.com/r/ClaudeAI/comments/1sspwz2/psa_anthropic_bans_organizations_without_warning/oho4kbp/"
+        },
+        "published_at": "2026-04-24T05:13:57.577145Z",
+        "controversy_chart": {
+          "support_ratio": 0.42,
+          "oppose_ratio": 0.12,
+          "neutral_ratio": 0.46,
+          "support_point": "这种不给解释、不退费的封号逻辑，是最大的供应链风险。",
+          "oppose_point": "其他头部模型也一样不响应，这是行业通病。",
+          "neutral_point": "先看算力够不够用，还得看安全过滤是不是太严。",
+          "debate_focus": "这种封号逻辑到底是不是供应链风险？",
+          "dominant_side": "neutral",
+          "confidence": "high"
+        },
+        "controversy_meta": {
+          "post_id": "1sspwz2",
+          "sample_size": 40,
+          "sampled_at": "2026-04-24T05:13:57.617881Z",
+          "fetch_status": "ok",
+          "llm_summary_version": "cn_human_point_slots_v8",
+          "sample_quality": "high",
+          "summary_status": "ok",
+          "confidence_reason": "绝大多数评论都认为这种封号行为是不可接受的供应链风险，但也有部分评论指出其他头部模型也存在类似问题，还有一部分评论在猜测封号原因，认为可能是算力不足或安全过滤过于严格。"
+        },
+        "quotes": [
+          {
+            "text": "**TL;DR of the discussion generated automatically after 200 comments.**\n\nThe thread is overwhelmingly on OP's side, and the consensus is that **banning an entire organization without warning, explanation, or a human to talk to is a massive red flag for any business.** Everyone's pointing out the supreme irony of Anthropic becoming the very 'supply chain risk' they warned about, especially since OP's API account is still getting billed while admins are locked out.\n\nThe leading theory is that **Anthropic is simply out of compute** and is aggressively shedding heavy users, though overzealous safety filters (did \"fertilizer\" get flagged as \"bombs\"?) are also a popular guess. Several users report similar sudden bans with zero recourse, even on Enterprise plans.\n\nThe community's advice is unanimous: **diversify your models.** Use API routers, have backup providers, and look into open-source alternatives so you don't get rugged. The general vibe is that while Claude is great, relying on a single provider with opaque, automated enforcement is a recipe for disaster.",
+            "community": "r/ClaudeAI",
+            "permalink": "https://www.reddit.com/r/ClaudeAI/comments/1sspwz2/psa_anthropic_bans_organizations_without_warning/oho4kbp/"
+          },
+          {
+            "text": "this is exactly why single provider dependency is dangerous for any business. doesn’t matter how good the tool is if they can cut you off with zero notice and zero explanation",
+            "community": "r/ClaudeAI",
+            "permalink": "https://www.reddit.com/r/ClaudeAI/comments/1sspwz2/psa_anthropic_bans_organizations_without_warning/ohnoyvq/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/ClaudeAI/comments/1sspwz2",
+        "detail": {
+          "flashpoint": "楼主爆料公司账号被封后，后台还在持续扣费，且完全找不到人工申诉渠道，这种“只管收钱不管活人”的行为直接引爆了评论区。",
+          "fight_line": "这到底是 Anthropic 算力吃紧在暴力“甩客”，还是它的自动化安全审核逻辑太蠢，把正常业务词当成了违禁词。",
+          "why_test_now": "关键证据是“supply chain risk”。大家发现最信任的工具，随时能因为一个黑盒算法让整个业务一夜归零。",
+          "continue_signal": "继续看 API routers、backup providers 相关的讨论，看大家是否真的开始大规模转向多模型架构或开源替代方案。",
+          "stop_signal": "如果讨论变成单纯的“封号申诉指南”，或者 Anthropic 官方出来道歉并恢复账号，这波热度就到头了。"
+        }
+      },
+      "v12_shadow": {
+        "title": "Anthropic 一封号，整个公司停摆——‘最强模型’成了最大雷",
+        "summary_line": "这帖火起来的焦点很清楚：封号逻辑是算力赶客还是安全误杀？大家突然发现，最好的AI可能是最危险的供应商。",
+        "audience": "重度依赖 Claude API 的开发者和企业技术负责人",
+        "why_now": "评论区从吐槽个案，转向讨论多模型备份和开源替代方案，说明供应链风险感知正在从‘个别事件’变成‘行业共识’。",
+        "flashpoint": "一个公司账号被无预警封停，后台还在扣费，却找不到任何人问原因。这种‘收钱不服务’的荒诞感，加上业务命脉被算法捏住的恐惧，让帖子迅速引爆。",
+        "fight_line": "评论区主要在吵：Anthropic 到底是算力不够在赶客，还是安全过滤器误伤？但无论哪种，共识是单一供应商依赖太危险。",
+        "why_test_now": "这个案例是‘供应链风险’的活证据：最好的模型配上最黑盒的封号机制，企业运营风险瞬间归零。",
+        "continue_signal": "继续看有没有用户分享申诉成功的案例，或者多模型备份的具体方案。",
+        "stop_signal": "如果只剩情绪宣泄，没有团队讲怎么实际切换或备份模型，就不用放大。"
+      },
+      "refreshed_card": {
+        "card_id": "card-cand-ai-automation-1sspwz2-validate",
+        "signal_id": "sig-1sspwz2",
+        "card_type": "validate",
+        "lane": "hot",
+        "category_id": "validate",
+        "source_scope_id": "ai-automation",
+        "source_scope_name": "AI 与自动化",
+        "topic_pack_id": "upstream-winds",
+        "topic_cluster_id": "platform-policy-shifts",
+        "topic_cluster_ids": [
+          "platform-policy-shifts"
+        ],
+        "named_topic_ids": [
+          "claude-platform"
+        ],
+        "source_domain_id": "ai-automation",
+        "source_domain_name": "AI 与自动化",
+        "source_event_at": "2026-04-22T16:07:22Z",
+        "title": "Anthropic 无预警封停企业账号，后台扣费却无人工客服",
+        "summary_line": "这帖火起来的焦点很清楚：封号逻辑是算力赶客还是安全误杀？大家突然发现，最好的AI可能是最危险的供应商。",
+        "audience": "重度依赖 Claude API 的开发者和企业技术负责人",
+        "why_now": "评论区从吐槽个案，转向讨论多模型备份和开源替代方案，说明供应链风险感知正在从‘个别事件’变成‘行业共识’。",
+        "why_now_reason": "recurring_7d",
+        "signal_level": "hot",
+        "intent_tags": [
+          "避坑"
+        ],
+        "top_community": "r/ClaudeAI",
+        "thread_count": 1,
+        "community_count": 1,
+        "source_module": {
+          "primary_communities": [
+            "r/ClaudeAI"
+          ],
+          "top_community": "r/ClaudeAI",
+          "tone_tags": [],
+          "thread_count": 1,
+          "community_count": 1,
+          "last_active_text": "近7天"
+        },
+        "preview_quote": {
+          "text": "**TL;DR of the discussion generated automatically after 200 comments.**\n\nThe thread is overwhelmingly on OP's side, and the consensus is that **banning an entire organization without warning, explanation, or a human to talk to is a massive red flag for any business.** Everyone's pointing out the supreme irony of Anthropic becoming the very 'supply chain risk' they warned about, especially since OP's API account is still getting billed while admins are locked out.\n\nThe leading theory is that **Anthropic is simply out of compute** and is aggressively shedding heavy users, though overzealous safety filters (did \"fertilizer\" get flagged as \"bombs\"?) are also a popular guess. Several users report similar sudden bans with zero recourse, even on Enterprise plans.\n\nThe community's advice is unanimous: **diversify your models.** Use API routers, have backup providers, and look into open-source alternatives so you don't get rugged. The general vibe is that while Claude is great, relying on a single provider with opaque, automated enforcement is a recipe for disaster.",
+          "community": "r/ClaudeAI",
+          "permalink": "https://www.reddit.com/r/ClaudeAI/comments/1sspwz2/psa_anthropic_bans_organizations_without_warning/oho4kbp/"
+        },
+        "published_at": "2026-04-24T05:13:57.577145Z",
+        "controversy_chart": {
+          "support_ratio": 0.42,
+          "oppose_ratio": 0.12,
+          "neutral_ratio": 0.46,
+          "support_point": "这种不给解释、不退费的封号逻辑，是最大的供应链风险。",
+          "oppose_point": "其他头部模型也一样不响应，这是行业通病。",
+          "neutral_point": "先看算力够不够用，还得看安全过滤是不是太严。",
+          "debate_focus": "这种封号逻辑到底是不是供应链风险？",
+          "dominant_side": "neutral",
+          "confidence": "high"
+        },
+        "controversy_meta": {
+          "post_id": "1sspwz2",
+          "sample_size": 40,
+          "sampled_at": "2026-04-24T05:13:57.617881Z",
+          "fetch_status": "ok",
+          "llm_summary_version": "cn_human_point_slots_v8",
+          "sample_quality": "high",
+          "summary_status": "ok",
+          "confidence_reason": "绝大多数评论都认为这种封号行为是不可接受的供应链风险，但也有部分评论指出其他头部模型也存在类似问题，还有一部分评论在猜测封号原因，认为可能是算力不足或安全过滤过于严格。"
+        },
+        "quotes": [
+          {
+            "text": "**TL;DR of the discussion generated automatically after 200 comments.**\n\nThe thread is overwhelmingly on OP's side, and the consensus is that **banning an entire organization without warning, explanation, or a human to talk to is a massive red flag for any business.** Everyone's pointing out the supreme irony of Anthropic becoming the very 'supply chain risk' they warned about, especially since OP's API account is still getting billed while admins are locked out.\n\nThe leading theory is that **Anthropic is simply out of compute** and is aggressively shedding heavy users, though overzealous safety filters (did \"fertilizer\" get flagged as \"bombs\"?) are also a popular guess. Several users report similar sudden bans with zero recourse, even on Enterprise plans.\n\nThe community's advice is unanimous: **diversify your models.** Use API routers, have backup providers, and look into open-source alternatives so you don't get rugged. The general vibe is that while Claude is great, relying on a single provider with opaque, automated enforcement is a recipe for disaster.",
+            "community": "r/ClaudeAI",
+            "permalink": "https://www.reddit.com/r/ClaudeAI/comments/1sspwz2/psa_anthropic_bans_organizations_without_warning/oho4kbp/"
+          },
+          {
+            "text": "this is exactly why single provider dependency is dangerous for any business. doesn’t matter how good the tool is if they can cut you off with zero notice and zero explanation",
+            "community": "r/ClaudeAI",
+            "permalink": "https://www.reddit.com/r/ClaudeAI/comments/1sspwz2/psa_anthropic_bans_organizations_without_warning/ohnoyvq/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/ClaudeAI/comments/1sspwz2",
+        "detail": {
+          "flashpoint": "楼主爆料公司账号被封后，后台还在持续扣费，且完全找不到人工申诉渠道，这种“只管收钱不管活人”的行为直接引爆了评论区。",
+          "fight_line": "这到底是 Anthropic 算力吃紧在暴力“甩客”，还是它的自动化安全审核逻辑太蠢，把正常业务词当成了违禁词。",
+          "why_test_now": "关键证据是“supply chain risk”。大家发现最信任的工具，随时能因为一个黑盒算法让整个业务一夜归零。",
+          "continue_signal": "继续看 API routers、backup providers 相关的讨论，看大家是否真的开始大规模转向多模型架构或开源替代方案。",
+          "stop_signal": "如果讨论变成单纯的“封号申诉指南”，或者 Anthropic 官方出来道歉并恢复账号，这波热度就到头了。"
+        }
+      },
+      "changed": {
+        "title": {
+          "before": "Anthropic 毫无预警封掉整个公司账号，这帖火在大家发现“最强模型”成了最大的供应链风险",
+          "after": "Anthropic 无预警封停企业账号，后台扣费却无人工客服"
+        },
+        "summary_line": {
+          "before": "争议焦点在于：Anthropic 这种不给解释、不退费、没人工客服的封号逻辑，到底是算力不够在暴力赶客，还是安全过滤杀疯了。",
+          "after": "这帖火起来的焦点很清楚：封号逻辑是算力赶客还是安全误杀？大家突然发现，最好的AI可能是最危险的供应商。"
+        },
+        "audience": {
+          "before": "业务全挂在 Claude 上的开发者和企业负责人",
+          "after": "重度依赖 Claude API 的开发者和企业技术负责人"
+        },
+        "why_now": {
+          "before": "这帖火是因为它戳破了“模型好用就行”的幻觉，评论区已经从吐槽难用变成了教大家怎么搞多模型备份保命。",
+          "after": "评论区从吐槽个案，转向讨论多模型备份和开源替代方案，说明供应链风险感知正在从‘个别事件’变成‘行业共识’。"
+        }
+      },
+      "fluency_repair_issue_count": 0,
+      "remaining_density_issues": [],
+      "v13_title_issues_before": [],
+      "v13_title_issues_after": [],
+      "error": ""
+    },
+    {
+      "card_id": "card-group-business-growth-ops-783a95dfb7",
+      "lane": "breakdown",
+      "card_type": "write",
+      "profile_id": "hotpost_v13_title_standalone",
+      "semantic_model": "deepseek/deepseek-v4-flash",
+      "writer_model": "xiaomi/mimo-v2.5-pro",
+      "original_card": {
+        "card_id": "card-group-business-growth-ops-783a95dfb7",
+        "signal_id": "sig-group-business-growth-ops-783a95dfb7",
+        "card_type": "write",
+        "lane": "breakdown",
+        "category_id": "write",
+        "source_scope_id": "business-growth-ops",
+        "source_scope_name": "商业增长与运营",
+        "topic_pack_id": "paid-economics",
+        "topic_cluster_id": "attribution",
+        "topic_cluster_ids": [
+          "attribution",
+          "ads"
+        ],
+        "named_topic_ids": [],
+        "source_domain_id": "business-growth-ops",
+        "source_domain_name": "商业增长与运营",
+        "source_event_at": "2026-04-20T21:46:39Z",
+        "title": "Meta 后台的 ROAS 再高，也得先去 GA4 验一下有没有真人付钱",
+        "summary_line": "投手们开始把 GA4 当成检验 Meta 广告效果的‘测谎仪’，因为后台的转化数字可能是模型算出来的，不是真金白银。",
+        "audience": "在 Meta 上投广告的电商卖家和优化师",
+        "why_now": "一个人发现后台显示 9 倍 ROAS 但 GA4 没订单，另一个人直接说‘Meta 总在撒谎’，这说明怀疑已经从个案变成了共识，大家开始主动寻找 Meta 之外的真相来源。",
+        "why_now_reason": "new_threads_24h",
+        "signal_level": "rising",
+        "intent_tags": [
+          "趋势变化"
+        ],
+        "top_community": "r/PPC",
+        "thread_count": 2,
+        "community_count": 2,
+        "source_module": {
+          "primary_communities": [
+            "r/PPC",
+            "r/SEO"
+          ],
+          "top_community": "r/PPC",
+          "tone_tags": [],
+          "thread_count": 2,
+          "community_count": 2,
+          "last_active_text": "近24小时"
+        },
+        "preview_quote": {
+          "text": "Meta uses modeled conversion data to begin with. Not a very good source of truth. Unless you are doing at least $2 million per year in revenue, you should not be wasting money on Triple Whale.\n\nIf you don't see any purchases in GA4 then maybe what you are doing on Meta is not actually converting into paying customers. At least 20% of conversions from Meta should make it into GA4 we find with work we do with our ecom brands. If we don't see anything in GA4 then we know Meta is just using bad modeled conversion data and none of those purchases are real.",
+          "community": "r/PPC",
+          "permalink": "https://www.reddit.com/r/PPC/comments/1sr44si/meta_telling_me_9x_roas_ga4_shows_next_to_no/ohcd5vy/"
+        },
+        "published_at": "2026-04-24T04:50:26.742162Z",
+        "controversy_chart": null,
+        "controversy_meta": null,
+        "quotes": [
+          {
+            "text": "Meta uses modeled conversion data to begin with. Not a very good source of truth. Unless you are doing at least $2 million per year in revenue, you should not be wasting money on Triple Whale.\n\nIf you don't see any purchases in GA4 then maybe what you are doing on Meta is not actually converting into paying customers. At least 20% of conversions from Meta should make it into GA4 we find with work we do with our ecom brands. If we don't see anything in GA4 then we know Meta is just using bad modeled conversion data and none of those purchases are real.",
+            "community": "r/PPC",
+            "permalink": "https://www.reddit.com/r/PPC/comments/1sr44si/meta_telling_me_9x_roas_ga4_shows_next_to_no/ohcd5vy/"
+          },
+          {
+            "text": "60 is a display limit not a content limit. Google reads the whole title for ranking, they just truncate what shows in the SERP. So the question is whether you want your keyword visible to the human clicking or invisible but still ranked. Front-load the product term and intent modifier, let the rest trail off.\n\n  \nMeta description same story. 160 chars for display, but Google rewrites it 70% of the time anyway based on the query. Write it for click-through on your primary intent, not for \"completeness.\"",
+            "community": "r/SEO",
+            "permalink": "https://www.reddit.com/r/SEO/comments/1sqptan/should_the_meta_title_be_60_characters_or_should/oh9vzh9/"
+          },
+          {
+            "text": "There is no limit for the Page Title.\n\nYou need to craft your page title based on your pages targeting and your domains floor topical authority, not a character count\n\n>  \nIntent based keywords should be added or keywords around the product?\n\nDepends on your domains topical authority",
+            "community": "r/SEO",
+            "permalink": "https://www.reddit.com/r/SEO/comments/1sqptan/should_the_meta_title_be_60_characters_or_should/oh9d6bz/"
+          },
+          {
+            "text": "Meta always lies. Their pixel likes to take credit for everything. You need to decide what your source of truth is. Either GA4, or Triplewhale, and use it for all channel reporting. Otherwise your going to contantly be confues on what's real and what isn't.",
+            "community": "r/PPC",
+            "permalink": "https://www.reddit.com/r/PPC/comments/1sr44si/meta_telling_me_9x_roas_ga4_shows_next_to_no/ohc97v9/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/SEO/comments/1sqptan",
+        "detail": {
+          "thesis": "投手们不再相信 Meta 后台的转化数据是真实的，他们开始把 GA4 里有没有对应的购买记录，作为判断广告是否有效的硬门槛。",
+          "writing_angle_or_perspective": "从‘信谁’的角度切入，讲清楚为什么 GA4 突然成了比 Meta 后台更可信的裁判。",
+          "tension_point_or_why_it_matters": "如果 Meta 的转化数据是‘模型’算出来的，那基于这些数据做的所有优化和预算决策，都可能是在为虚假的繁荣买单。",
+          "title_hooks": [
+            "别被 Meta 后台的 ROAS 骗了，先去 GA4 查查有没有真人付款",
+            "Meta 的转化数据可能是‘模型’，GA4 的订单才是‘真人’"
+          ],
+          "quote_pack": [
+            "Meta uses modeled conversion data to begin with. Not a very good source of truth. ... If you don't see any purchases in GA4 then maybe what you are doing on Meta is not actually converting into paying customers.｜Meta 一开始用的就是模型转化数据，不是很好的真相来源。……如果你在 GA4 里看不到任何购买，那你在 Meta 上做的事可能根本没转化成付费客户。｜r/PPC",
+            "Meta always lies. Their pixel likes to take credit for everything. You need to decide what your source of truth is. Either GA4, or Triplewhale, and use it for all channel reporting.｜Meta 总在撒谎。它的像素喜欢把所有功劳都揽过去。你得决定你的真相来源是 GA4 还是 Triplewhale，然后所有渠道报告都用它。｜r/PPC"
+          ]
+        }
+      },
+      "v12_shadow": {
+        "title": "Meta 后台说 ROAS 9 倍，GA4 说一单没有",
+        "summary_line": "投手们开始用 GA4 当测谎仪，因为 Meta 后台的转化可能是模型算出来的，不是真实购买。",
+        "audience": "在 Meta 上投广告的电商卖家和优化师",
+        "why_now": "一个人发现后台 9 倍 ROAS 但 GA4 零单，另一个人直接说‘Meta 总在撒谎’。怀疑从个案变成公开共识，大家开始主动寻找 Meta 之外的真相来源。",
+        "thesis": "投手们对 Meta 广告效果的评估标准，正在从‘信任后台数字’转向‘用 GA4 验证真实付款’。",
+        "writing_angle_or_perspective": "别从 Meta 广告系统讲起，直接讲投手怎么用 GA4 当照妖镜，以及为什么这一步现在非做不可。",
+        "tension_point_or_why_it_matters": "如果只看 Meta 后台，投手可能一直在为虚假 ROAS 加预算，却得不到真实转化。",
+        "title_hooks": [
+          "不是 Meta 广告没用，是后台的 ROAS 可能是模型算出来的",
+          "别被后台的漂亮数字骗了，先去 GA4 看看有没有真人付钱"
+        ],
+        "quote_pack": [
+          "Meta uses modeled conversion data to begin with. Not a very good source of truth. Unless you are doing at least $2 million per year in revenue, you should not be wasting money on Triple Whale.\n\nIf you don't see any purchases in GA4 then maybe what you are doing on Meta is not actually converting into paying customers. At least 20% of conversions from Meta should make it into GA4 we find with work we do with our ecom brands. If we don't see anything in GA4 then we know Meta is just using bad modeled conversion data and none of those purchases are real.｜Meta 用的就是模型转化数据，本来就不是很好的真相来源。除非你年营收至少 200 万美元，否则别浪费钱买 Triple Whale。如果在 GA4 里看不到任何购买，那你在 Meta 上的投放可能根本没转化成真实付费客户。我们服务的电商品牌发现，Meta 至少 20% 的转化应该能在 GA4 里看到。如果 GA4 里啥都没有，那 Meta 就是在用糟糕的模型数据，那些购买都不是真的。｜r/PPC",
+          "Meta always lies. Their pixel likes to take credit for everything. You need to decide what your source of truth is. Either GA4, or Triplewhale, and use it for all channel reporting. Otherwise your going to contantly be confues on what's real and what isn't.｜Meta 总在撒谎。它的像素喜欢把功劳都揽过来。你得自己决定哪个是真相来源，要么 GA4，要么 Triplewhale，然后所有渠道都用它来报告。否则你永远搞不清什么是真的什么是假的。｜r/PPC"
+        ]
+      },
+      "refreshed_card": {
+        "card_id": "card-group-business-growth-ops-783a95dfb7",
+        "signal_id": "sig-group-business-growth-ops-783a95dfb7",
+        "card_type": "write",
+        "lane": "breakdown",
+        "category_id": "write",
+        "source_scope_id": "business-growth-ops",
+        "source_scope_name": "商业增长与运营",
+        "topic_pack_id": "paid-economics",
+        "topic_cluster_id": "attribution",
+        "topic_cluster_ids": [
+          "attribution",
+          "ads"
+        ],
+        "named_topic_ids": [],
+        "source_domain_id": "business-growth-ops",
+        "source_domain_name": "商业增长与运营",
+        "source_event_at": "2026-04-20T21:46:39Z",
+        "title": "Meta 后台显示 ROAS 9 倍，GA4 验证却无真实订单",
+        "summary_line": "投手们开始用 GA4 当测谎仪，因为 Meta 后台的转化可能是模型算出来的，不是真实购买。",
+        "audience": "在 Meta 上投广告的电商卖家和优化师",
+        "why_now": "一个人发现后台 9 倍 ROAS 但 GA4 零单，另一个人直接说‘Meta 总在撒谎’。怀疑从个案变成公开共识，大家开始主动寻找 Meta 之外的真相来源。",
+        "why_now_reason": "new_threads_24h",
+        "signal_level": "rising",
+        "intent_tags": [
+          "趋势变化"
+        ],
+        "top_community": "r/PPC",
+        "thread_count": 2,
+        "community_count": 2,
+        "source_module": {
+          "primary_communities": [
+            "r/PPC",
+            "r/SEO"
+          ],
+          "top_community": "r/PPC",
+          "tone_tags": [],
+          "thread_count": 2,
+          "community_count": 2,
+          "last_active_text": "近24小时"
+        },
+        "preview_quote": {
+          "text": "Meta uses modeled conversion data to begin with. Not a very good source of truth. Unless you are doing at least $2 million per year in revenue, you should not be wasting money on Triple Whale.\n\nIf you don't see any purchases in GA4 then maybe what you are doing on Meta is not actually converting into paying customers. At least 20% of conversions from Meta should make it into GA4 we find with work we do with our ecom brands. If we don't see anything in GA4 then we know Meta is just using bad modeled conversion data and none of those purchases are real.",
+          "community": "r/PPC",
+          "permalink": "https://www.reddit.com/r/PPC/comments/1sr44si/meta_telling_me_9x_roas_ga4_shows_next_to_no/ohcd5vy/"
+        },
+        "published_at": "2026-04-24T04:50:26.742162Z",
+        "controversy_chart": null,
+        "controversy_meta": null,
+        "quotes": [
+          {
+            "text": "Meta uses modeled conversion data to begin with. Not a very good source of truth. Unless you are doing at least $2 million per year in revenue, you should not be wasting money on Triple Whale.\n\nIf you don't see any purchases in GA4 then maybe what you are doing on Meta is not actually converting into paying customers. At least 20% of conversions from Meta should make it into GA4 we find with work we do with our ecom brands. If we don't see anything in GA4 then we know Meta is just using bad modeled conversion data and none of those purchases are real.",
+            "community": "r/PPC",
+            "permalink": "https://www.reddit.com/r/PPC/comments/1sr44si/meta_telling_me_9x_roas_ga4_shows_next_to_no/ohcd5vy/"
+          },
+          {
+            "text": "60 is a display limit not a content limit. Google reads the whole title for ranking, they just truncate what shows in the SERP. So the question is whether you want your keyword visible to the human clicking or invisible but still ranked. Front-load the product term and intent modifier, let the rest trail off.\n\n  \nMeta description same story. 160 chars for display, but Google rewrites it 70% of the time anyway based on the query. Write it for click-through on your primary intent, not for \"completeness.\"",
+            "community": "r/SEO",
+            "permalink": "https://www.reddit.com/r/SEO/comments/1sqptan/should_the_meta_title_be_60_characters_or_should/oh9vzh9/"
+          },
+          {
+            "text": "There is no limit for the Page Title.\n\nYou need to craft your page title based on your pages targeting and your domains floor topical authority, not a character count\n\n>  \nIntent based keywords should be added or keywords around the product?\n\nDepends on your domains topical authority",
+            "community": "r/SEO",
+            "permalink": "https://www.reddit.com/r/SEO/comments/1sqptan/should_the_meta_title_be_60_characters_or_should/oh9d6bz/"
+          },
+          {
+            "text": "Meta always lies. Their pixel likes to take credit for everything. You need to decide what your source of truth is. Either GA4, or Triplewhale, and use it for all channel reporting. Otherwise your going to contantly be confues on what's real and what isn't.",
+            "community": "r/PPC",
+            "permalink": "https://www.reddit.com/r/PPC/comments/1sr44si/meta_telling_me_9x_roas_ga4_shows_next_to_no/ohc97v9/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/SEO/comments/1sqptan",
+        "detail": {
+          "thesis": "投手们不再相信 Meta 后台的转化数据是真实的，他们开始把 GA4 里有没有对应的购买记录，作为判断广告是否有效的硬门槛。",
+          "writing_angle_or_perspective": "从‘信谁’的角度切入，讲清楚为什么 GA4 突然成了比 Meta 后台更可信的裁判。",
+          "tension_point_or_why_it_matters": "如果 Meta 的转化数据是‘模型’算出来的，那基于这些数据做的所有优化和预算决策，都可能是在为虚假的繁荣买单。",
+          "title_hooks": [
+            "别被 Meta 后台的 ROAS 骗了，先去 GA4 查查有没有真人付款",
+            "Meta 的转化数据可能是‘模型’，GA4 的订单才是‘真人’"
+          ],
+          "quote_pack": [
+            "Meta uses modeled conversion data to begin with. Not a very good source of truth. ... If you don't see any purchases in GA4 then maybe what you are doing on Meta is not actually converting into paying customers.｜Meta 一开始用的就是模型转化数据，不是很好的真相来源。……如果你在 GA4 里看不到任何购买，那你在 Meta 上做的事可能根本没转化成付费客户。｜r/PPC",
+            "Meta always lies. Their pixel likes to take credit for everything. You need to decide what your source of truth is. Either GA4, or Triplewhale, and use it for all channel reporting.｜Meta 总在撒谎。它的像素喜欢把所有功劳都揽过去。你得决定你的真相来源是 GA4 还是 Triplewhale，然后所有渠道报告都用它。｜r/PPC"
+          ]
+        }
+      },
+      "changed": {
+        "title": {
+          "before": "Meta 后台的 ROAS 再高，也得先去 GA4 验一下有没有真人付钱",
+          "after": "Meta 后台显示 ROAS 9 倍，GA4 验证却无真实订单"
+        },
+        "summary_line": {
+          "before": "投手们开始把 GA4 当成检验 Meta 广告效果的‘测谎仪’，因为后台的转化数字可能是模型算出来的，不是真金白银。",
+          "after": "投手们开始用 GA4 当测谎仪，因为 Meta 后台的转化可能是模型算出来的，不是真实购买。"
+        },
+        "why_now": {
+          "before": "一个人发现后台显示 9 倍 ROAS 但 GA4 没订单，另一个人直接说‘Meta 总在撒谎’，这说明怀疑已经从个案变成了共识，大家开始主动寻找 Meta 之外的真相来源。",
+          "after": "一个人发现后台 9 倍 ROAS 但 GA4 零单，另一个人直接说‘Meta 总在撒谎’。怀疑从个案变成公开共识，大家开始主动寻找 Meta 之外的真相来源。"
+        }
+      },
+      "fluency_repair_issue_count": 0,
+      "remaining_density_issues": [],
+      "v13_title_issues_before": [],
+      "v13_title_issues_after": [],
+      "error": ""
+    },
+    {
+      "card_id": "card-group-ecommerce-sellers-105eb66217",
+      "lane": "breakdown",
+      "card_type": "write",
+      "profile_id": "hotpost_v13_title_standalone",
+      "semantic_model": "deepseek/deepseek-v4-flash",
+      "writer_model": "xiaomi/mimo-v2.5-pro",
+      "original_card": {
+        "card_id": "card-group-ecommerce-sellers-105eb66217",
+        "signal_id": "sig-group-ecommerce-sellers-105eb66217",
+        "card_type": "write",
+        "lane": "breakdown",
+        "category_id": "write",
+        "source_scope_id": "ecommerce-sellers",
+        "source_scope_name": "电商与卖家",
+        "topic_pack_id": "selection-signals",
+        "topic_cluster_id": "small-goods",
+        "topic_cluster_ids": [
+          "small-goods",
+          "parenting-travel"
+        ],
+        "named_topic_ids": [
+          "small-goods-watch"
+        ],
+        "source_domain_id": "ecommerce-sellers",
+        "source_domain_name": "电商与卖家",
+        "source_event_at": "2026-04-19T01:14:28Z",
+        "title": "省钱的隐形代价，是维持它所需的社交和空间成本",
+        "summary_line": "讨论从鞋子寿命延伸到职场着装和囤积杂物，说明真正的成本不在标价，而在维持它所需的额外付出。",
+        "audience": "精打细算的省钱用户",
+        "why_now": "有用户把话题从鞋子寿命，拉到了职场着装和囤积杂物的真实开销上，说明判断标准已经从‘耐用性’转向了‘维持成本’。",
+        "why_now_reason": "switch_signal_7d",
+        "signal_level": "hot",
+        "intent_tags": [
+          "避坑",
+          "求推荐"
+        ],
+        "top_community": "r/Frugal",
+        "thread_count": 2,
+        "community_count": 2,
+        "source_module": {
+          "primary_communities": [
+            "r/Frugal",
+            "r/beyondthebump"
+          ],
+          "top_community": "r/Frugal",
+          "tone_tags": [],
+          "thread_count": 2,
+          "community_count": 2,
+          "last_active_text": "近7天"
+        },
+        "preview_quote": {
+          "text": "It essentially becomes a snowball effect, and touches upon many socioeconomic facets beyond just material goods.\n\nTake banking for example - if you're wealthy, a bank will offer you much better terms on loans or financial products even though you need those benefits less than an impoverished person.\n\nAnd on the point of clothing, beyond the durability or lifespan of the item, there's also the status aspect of more expensive items. I don't specifically mean brand, but for example my workplace changed to an open office environment just before covid. With the change, HR formally relaxed the dress code from business suits for men and sheath dresses/pant suits for women to smart casual. But those who continued with the formal attire are generally treated with more respect and authority, and have better promotion opportunities than someone who goes in casual clothes. It does hit on the economic side because there are costs to upkeeping the extra wardrobe. A few of my coworkers who had expressed relief with not having to spend \\~$500-1,000 extra per year for the suiting & dry cleaning, converted over to casual wear for work but were recently demoted even.",
+          "community": "r/Frugal",
+          "permalink": "https://www.reddit.com/r/Frugal/comments/1spexln/what_people_get_wrong_about_the_boots_theory/oh037ee/"
+        },
+        "published_at": "2026-04-24T04:50:21.758258Z",
+        "controversy_chart": null,
+        "controversy_meta": null,
+        "quotes": [
+          {
+            "text": "It essentially becomes a snowball effect, and touches upon many socioeconomic facets beyond just material goods.\n\nTake banking for example - if you're wealthy, a bank will offer you much better terms on loans or financial products even though you need those benefits less than an impoverished person.\n\nAnd on the point of clothing, beyond the durability or lifespan of the item, there's also the status aspect of more expensive items. I don't specifically mean brand, but for example my workplace changed to an open office environment just before covid. With the change, HR formally relaxed the dress code from business suits for men and sheath dresses/pant suits for women to smart casual. But those who continued with the formal attire are generally treated with more respect and authority, and have better promotion opportunities than someone who goes in casual clothes. It does hit on the economic side because there are costs to upkeeping the extra wardrobe. A few of my coworkers who had expressed relief with not having to spend \\~$500-1,000 extra per year for the suiting & dry cleaning, converted over to casual wear for work but were recently demoted even.",
+            "community": "r/Frugal",
+            "permalink": "https://www.reddit.com/r/Frugal/comments/1spexln/what_people_get_wrong_about_the_boots_theory/oh037ee/"
+          },
+          {
+            "text": "There is more to wealth than money. Holding on to things that no longer serve you in case they might be worth something someday is how we ended up sending 2 dump trucks worth of “pretties” from my grandma’s house to the landfill via an estate sale company. There is a non-monetary wealth in having what you need, a bit to spare in an emergency, and nothing that you don’t want.\n\nStorage space isn’t free. It’s a bedroom your family can’t stay in when they visit or need a leg up for a month or two. Listing your vintage 90s jeans is a hair pulling exercise is frustration with selling platforms. If you aren’t already selling vintage clothing, you’re not going to be doing so in 20 years when it’s back in style either. Alter nice quality clothing to fit modern silhouettes, sell on consignment, or trade them out for things you will actually wear at a clothing swap.",
+            "community": "r/Frugal",
+            "permalink": "https://www.reddit.com/r/Frugal/comments/1spexln/what_people_get_wrong_about_the_boots_theory/oh01wqr/"
+          },
+          {
+            "text": "Move when pregnant for sure",
+            "community": "r/beyondthebump",
+            "permalink": "https://www.reddit.com/r/beyondthebump/comments/1spf1oi/would_you_move_at_35_weeks_pregnant_or_wait_until/ogzybwj/"
+          },
+          {
+            "text": "Pregnant 10000x.\n\n\nI can think of very few things that would be worse than moving with an unpredictable newborn. You can also use your nesting for organizing the new place.",
+            "community": "r/beyondthebump",
+            "permalink": "https://www.reddit.com/r/beyondthebump/comments/1spf1oi/would_you_move_at_35_weeks_pregnant_or_wait_until/ogzyib4/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/Frugal/comments/1spexln",
+        "detail": {
+          "thesis": "省钱的真正成本不在商品本身，而在维持它所需的社交地位和物理空间。",
+          "writing_angle_or_perspective": "从‘买贵的更省钱’这个常见说法切入，但重点不是反驳它，而是揭示它背后被忽略的代价。",
+          "tension_point_or_why_it_matters": "如果只算商品寿命，会忽略为了‘用好它’而付出的隐性成本，比如为了维持职场形象而持续投入的置装费，或者为了囤积‘可能有用’的物品而牺牲的生活空间。",
+          "title_hooks": [
+            "省钱的代价，可能比你想象的更贵",
+            "买贵的真能省钱？先算算你还要额外付出什么"
+          ],
+          "quote_pack": [
+            "There are costs to upkeeping the extra wardrobe. A few of my coworkers who had expressed relief with not having to spend ~$500-1,000 extra per year for the suiting & dry cleaning, converted over to casual wear for work but were recently demoted even.｜维持额外衣橱是有成本的。我有几个同事，之前还庆幸每年能省下500到1000美元的西装和干洗费，换成了休闲装上班，但最近却被降职了。｜r/Frugal",
+            "Storage space isn’t free. It’s a bedroom your family can’t stay in when they visit or need a leg up for a month or two.｜存储空间不是免费的。它可能是一间卧室，你的家人来访或需要暂住一两个月时就没地方住了。｜r/Frugal"
+          ]
+        }
+      },
+      "v12_shadow": {},
+      "refreshed_card": {},
+      "changed": {},
+      "fluency_repair_issue_count": 0,
+      "remaining_density_issues": [],
+      "v13_title_issues_before": [],
+      "v13_title_issues_after": [],
+      "error": "LLMClientError: openai: IncompleteRead(209 bytes read)"
+    },
+    {
+      "card_id": "card-group-business-growth-ops-0ceb182e45",
+      "lane": "breakdown",
+      "card_type": "write",
+      "profile_id": "hotpost_v13_title_standalone",
+      "semantic_model": "deepseek/deepseek-v4-flash",
+      "writer_model": "xiaomi/mimo-v2.5-pro",
+      "original_card": {
+        "card_id": "card-group-business-growth-ops-0ceb182e45",
+        "signal_id": "sig-group-business-growth-ops-0ceb182e45",
+        "card_type": "write",
+        "lane": "breakdown",
+        "category_id": "write",
+        "source_scope_id": "business-growth-ops",
+        "source_scope_name": "商业增长与运营",
+        "topic_pack_id": "paid-economics",
+        "topic_cluster_id": "ads",
+        "topic_cluster_ids": [
+          "ads",
+          "attribution"
+        ],
+        "named_topic_ids": [],
+        "source_domain_id": "business-growth-ops",
+        "source_domain_name": "商业增长与运营",
+        "source_event_at": "2026-04-19T19:53:37Z",
+        "title": "Meta 投手开始用 AI 自建数据看台，因为不再信平台给的数字",
+        "summary_line": "有用户发现广告突然全崩，被迫归零重启；另一边，投手们开始用 Claude 自己搭看板、直接查 API 数据，绕开平台报表。",
+        "audience": "在 Meta 上花大钱、但对平台数据失去信任的投手",
+        "why_now": "一个人在说广告突然全死、被迫从零开始，另一个人在教怎么用 AI 自己搭数据管道。这说明问题已经从‘效果波动’升级到‘信任崩塌’，投手开始用技术手段绕开平台。",
+        "why_now_reason": "new_threads_24h",
+        "signal_level": "rising",
+        "intent_tags": [
+          "避坑",
+          "求推荐"
+        ],
+        "top_community": "r/FacebookAds",
+        "thread_count": 2,
+        "community_count": 2,
+        "source_module": {
+          "primary_communities": [
+            "r/FacebookAds",
+            "r/PPC"
+          ],
+          "top_community": "r/FacebookAds",
+          "tone_tags": [],
+          "thread_count": 2,
+          "community_count": 2,
+          "last_active_text": "近24小时"
+        },
+        "preview_quote": {
+          "text": "I totally agree with this. I was spending  5k/day and around 28 of March out of nowhere my ads ALL completely died from one day to the other.\n\nI was basically forced to go back to 0 and now I'm  starting over trying to get things to work. Not a lot of success so far",
+          "community": "r/FacebookAds",
+          "permalink": "https://www.reddit.com/r/FacebookAds/comments/1spuuvf/its_meta_not_you/oh38ryu/"
+        },
+        "published_at": "2026-04-24T04:50:15.606151Z",
+        "controversy_chart": null,
+        "controversy_meta": null,
+        "quotes": [
+          {
+            "text": "I totally agree with this. I was spending  5k/day and around 28 of March out of nowhere my ads ALL completely died from one day to the other.\n\nI was basically forced to go back to 0 and now I'm  starting over trying to get things to work. Not a lot of success so far",
+            "community": "r/FacebookAds",
+            "permalink": "https://www.reddit.com/r/FacebookAds/comments/1spuuvf/its_meta_not_you/oh38ryu/"
+          },
+          {
+            "text": "You are spot on. What's happening on meta drives you crazy and like you said you start to doubt yourself. Can you share you YT strategy, how did you start?",
+            "community": "r/FacebookAds",
+            "permalink": "https://www.reddit.com/r/FacebookAds/comments/1spuuvf/its_meta_not_you/oh33dkd/"
+          },
+          {
+            "text": "I’d use Claude more as an analyst than a media buyer: reviewing search terms, summarizing performance, spotting tracking issues, and helping turn messy exports or notes into clear insights. It’s useful for speed and QA, but I wouldn’t let it make strategy or live account decisions without a human checking the context first.",
+            "community": "r/PPC",
+            "permalink": "https://www.reddit.com/r/PPC/comments/1sq3805/how_are_you_using_claude_cowork_in_performance/oh58oka/"
+          },
+          {
+            "text": "I used Claude Code to build dashboards that connect to the Meta/Google APIs and work with the data in my own warehouse\n\nThen I run all my strategy and analysis questions directly against that data",
+            "community": "r/PPC",
+            "permalink": "https://www.reddit.com/r/PPC/comments/1sq3805/how_are_you_using_claude_cowork_in_performance/oh540fd/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/FacebookAds/comments/1spuuvf",
+        "detail": {
+          "thesis": "投手对 Meta 平台的信任正在崩塌，这迫使他们从‘优化广告’转向‘自建数据基础设施’来获取真实情况。",
+          "writing_angle_or_perspective": "别讲优化技巧，讲投手为什么开始自己造轮子。",
+          "tension_point_or_why_it_matters": "当投手不再信平台数据，所有基于平台报表的优化都可能是在错误的方向上努力。",
+          "title_hooks": [
+            "广告崩了先怀疑平台，然后自己造个数据看台",
+            "从‘优化广告’到‘自建数据管道’，Meta 投手在自救"
+          ],
+          "quote_pack": [
+            "I was spending 5k/day and around 28 of March out of nowhere my ads ALL completely died from one day to the other. I was basically forced to go back to 0.｜我每天花 5k 美元，3 月 28 号左右广告突然全死了，一天之内。我基本被迫归零。｜r/FacebookAds",
+            "I used Claude Code to build dashboards that connect to the Meta/Google APIs and work with the data in my own warehouse. Then I run all my strategy and analysis questions directly against that data.｜我用 Claude Code 搭了看板，直接连 Meta/Google 的 API，在我自己的数据仓库里处理数据。然后我所有策略和分析问题都直接对着这些数据跑。｜r/PPC"
+          ]
+        }
+      },
+      "v12_shadow": {
+        "title": "Meta 投手开始用 AI 自建数据看台，因为不再信平台给的数字",
+        "summary_line": "有用户发现广告突然全崩，被迫归零重启；另一边，投手们开始用 Claude 自己搭看板、直接查 API 数据，绕开平台报表。",
+        "audience": "在 Meta 上花大钱、但对平台数据失去信任的投手",
+        "why_now": "一个人在说广告突然全死、被迫从零开始，另一个人在教怎么用 AI 自己搭数据管道。合起来看，问题从‘效果波动’升级到‘信任崩塌’，投手开始用技术手段绕开平台。",
+        "thesis": "投手对 Meta 平台数据的信任正在瓦解，从抱怨效果波动转向用 AI 工具自建数据管道，以夺回数据控制权。",
+        "writing_angle_or_perspective": "别从技术教程角度讲，直接讲投手为什么宁可自己造轮子，也不再信平台给的数字。",
+        "tension_point_or_why_it_matters": "平台数据不再是唯一可信来源，投手的行为模式正在发生结构性变化。",
+        "title_hooks": [
+          "广告崩了先怀疑平台，然后自己造个数据看台"
+        ],
+        "quote_pack": [
+          "I totally agree with this. I was spending 5k/day and around 28 of March out of nowhere my ads ALL completely died from one day to the other. I was basically forced to go back to 0 and now I'm starting over trying to get things to work. Not a lot of success so far｜我完全同意。我每天花 5000 美元，3 月 28 日左右，我的广告突然从一天到另一天全部死掉了。我基本上被迫归零，现在正在重新开始，试图让事情运转起来。目前没什么成功。｜r/FacebookAds",
+          "I used Claude Code to build dashboards that connect to the Meta/Google APIs and work with the data in my own warehouse. Then I run all my strategy and analysis questions directly against that data｜我用 Claude Code 搭建了连接 Meta/Google API 的看板，并在我自己的数据仓库里处理数据。然后我所有的策略和分析问题都直接针对这些数据。｜r/PPC"
+        ]
+      },
+      "refreshed_card": {
+        "card_id": "card-group-business-growth-ops-0ceb182e45",
+        "signal_id": "sig-group-business-growth-ops-0ceb182e45",
+        "card_type": "write",
+        "lane": "breakdown",
+        "category_id": "write",
+        "source_scope_id": "business-growth-ops",
+        "source_scope_name": "商业增长与运营",
+        "topic_pack_id": "paid-economics",
+        "topic_cluster_id": "ads",
+        "topic_cluster_ids": [
+          "ads",
+          "attribution"
+        ],
+        "named_topic_ids": [],
+        "source_domain_id": "business-growth-ops",
+        "source_domain_name": "商业增长与运营",
+        "source_event_at": "2026-04-19T19:53:37Z",
+        "title": "Meta 广告数据不可信，投手开始用 AI 自己搭看板查原始数据",
+        "summary_line": "有用户发现广告突然全崩，被迫归零重启；另一边，投手们开始用 Claude 自己搭看板、直接查 API 数据，绕开平台报表。",
+        "audience": "在 Meta 上花大钱、但对平台数据失去信任的投手",
+        "why_now": "一个人在说广告突然全死、被迫从零开始，另一个人在教怎么用 AI 自己搭数据管道。合起来看，问题从‘效果波动’升级到‘信任崩塌’，投手开始用技术手段绕开平台。",
+        "why_now_reason": "new_threads_24h",
+        "signal_level": "rising",
+        "intent_tags": [
+          "避坑",
+          "求推荐"
+        ],
+        "top_community": "r/FacebookAds",
+        "thread_count": 2,
+        "community_count": 2,
+        "source_module": {
+          "primary_communities": [
+            "r/FacebookAds",
+            "r/PPC"
+          ],
+          "top_community": "r/FacebookAds",
+          "tone_tags": [],
+          "thread_count": 2,
+          "community_count": 2,
+          "last_active_text": "近24小时"
+        },
+        "preview_quote": {
+          "text": "I totally agree with this. I was spending  5k/day and around 28 of March out of nowhere my ads ALL completely died from one day to the other.\n\nI was basically forced to go back to 0 and now I'm  starting over trying to get things to work. Not a lot of success so far",
+          "community": "r/FacebookAds",
+          "permalink": "https://www.reddit.com/r/FacebookAds/comments/1spuuvf/its_meta_not_you/oh38ryu/"
+        },
+        "published_at": "2026-04-24T04:50:15.606151Z",
+        "controversy_chart": null,
+        "controversy_meta": null,
+        "quotes": [
+          {
+            "text": "I totally agree with this. I was spending  5k/day and around 28 of March out of nowhere my ads ALL completely died from one day to the other.\n\nI was basically forced to go back to 0 and now I'm  starting over trying to get things to work. Not a lot of success so far",
+            "community": "r/FacebookAds",
+            "permalink": "https://www.reddit.com/r/FacebookAds/comments/1spuuvf/its_meta_not_you/oh38ryu/"
+          },
+          {
+            "text": "You are spot on. What's happening on meta drives you crazy and like you said you start to doubt yourself. Can you share you YT strategy, how did you start?",
+            "community": "r/FacebookAds",
+            "permalink": "https://www.reddit.com/r/FacebookAds/comments/1spuuvf/its_meta_not_you/oh33dkd/"
+          },
+          {
+            "text": "I’d use Claude more as an analyst than a media buyer: reviewing search terms, summarizing performance, spotting tracking issues, and helping turn messy exports or notes into clear insights. It’s useful for speed and QA, but I wouldn’t let it make strategy or live account decisions without a human checking the context first.",
+            "community": "r/PPC",
+            "permalink": "https://www.reddit.com/r/PPC/comments/1sq3805/how_are_you_using_claude_cowork_in_performance/oh58oka/"
+          },
+          {
+            "text": "I used Claude Code to build dashboards that connect to the Meta/Google APIs and work with the data in my own warehouse\n\nThen I run all my strategy and analysis questions directly against that data",
+            "community": "r/PPC",
+            "permalink": "https://www.reddit.com/r/PPC/comments/1sq3805/how_are_you_using_claude_cowork_in_performance/oh540fd/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/FacebookAds/comments/1spuuvf",
+        "detail": {
+          "thesis": "投手对 Meta 平台的信任正在崩塌，这迫使他们从‘优化广告’转向‘自建数据基础设施’来获取真实情况。",
+          "writing_angle_or_perspective": "别讲优化技巧，讲投手为什么开始自己造轮子。",
+          "tension_point_or_why_it_matters": "当投手不再信平台数据，所有基于平台报表的优化都可能是在错误的方向上努力。",
+          "title_hooks": [
+            "广告崩了先怀疑平台，然后自己造个数据看台",
+            "从‘优化广告’到‘自建数据管道’，Meta 投手在自救"
+          ],
+          "quote_pack": [
+            "I was spending 5k/day and around 28 of March out of nowhere my ads ALL completely died from one day to the other. I was basically forced to go back to 0.｜我每天花 5k 美元，3 月 28 号左右广告突然全死了，一天之内。我基本被迫归零。｜r/FacebookAds",
+            "I used Claude Code to build dashboards that connect to the Meta/Google APIs and work with the data in my own warehouse. Then I run all my strategy and analysis questions directly against that data.｜我用 Claude Code 搭了看板，直接连 Meta/Google 的 API，在我自己的数据仓库里处理数据。然后我所有策略和分析问题都直接对着这些数据跑。｜r/PPC"
+          ]
+        }
+      },
+      "changed": {
+        "title": {
+          "before": "Meta 投手开始用 AI 自建数据看台，因为不再信平台给的数字",
+          "after": "Meta 广告数据不可信，投手开始用 AI 自己搭看板查原始数据"
+        },
+        "why_now": {
+          "before": "一个人在说广告突然全死、被迫从零开始，另一个人在教怎么用 AI 自己搭数据管道。这说明问题已经从‘效果波动’升级到‘信任崩塌’，投手开始用技术手段绕开平台。",
+          "after": "一个人在说广告突然全死、被迫从零开始，另一个人在教怎么用 AI 自己搭数据管道。合起来看，问题从‘效果波动’升级到‘信任崩塌’，投手开始用技术手段绕开平台。"
+        }
+      },
+      "fluency_repair_issue_count": 0,
+      "remaining_density_issues": [],
+      "v13_title_issues_before": [],
+      "v13_title_issues_after": [],
+      "error": ""
+    },
+    {
+      "card_id": "card-group-business-growth-ops-daaf09a76d",
+      "lane": "breakdown",
+      "card_type": "write",
+      "profile_id": "hotpost_v13_title_standalone",
+      "semantic_model": "deepseek/deepseek-v4-flash",
+      "writer_model": "xiaomi/mimo-v2.5-pro",
+      "original_card": {
+        "card_id": "card-group-business-growth-ops-daaf09a76d",
+        "signal_id": "sig-group-business-growth-ops-daaf09a76d",
+        "card_type": "write",
+        "lane": "breakdown",
+        "category_id": "write",
+        "source_scope_id": "business-growth-ops",
+        "source_scope_name": "商业增长与运营",
+        "topic_pack_id": "paid-economics",
+        "topic_cluster_id": "attribution",
+        "topic_cluster_ids": [
+          "attribution",
+          "ads"
+        ],
+        "named_topic_ids": [],
+        "source_domain_id": "business-growth-ops",
+        "source_domain_name": "商业增长与运营",
+        "source_event_at": "2026-04-20T20:29:56Z",
+        "title": "Ad Strength 分数高不等于赚钱，投手现在只信转化数据",
+        "summary_line": "投手们发现 Ad Strength 分数只衡量素材多样性，和实际转化无关，所以优化目标已经从分数转向了 CTR、CVR 这些硬指标。",
+        "audience": "在 Google Ads 上花钱的投手和优化师",
+        "why_now": "一个人明确指出分数和转化无关，另一个人直接说‘和转化没关系’，这说明大家已经不把分数当优化目标，而是看实际效果了。",
+        "why_now_reason": "new_threads_24h",
+        "signal_level": "sustained",
+        "intent_tags": [
+          "趋势变化",
+          "求推荐"
+        ],
+        "top_community": "r/PPC",
+        "thread_count": 2,
+        "community_count": 2,
+        "source_module": {
+          "primary_communities": [
+            "r/PPC",
+            "r/ecommerce"
+          ],
+          "top_community": "r/PPC",
+          "tone_tags": [],
+          "thread_count": 2,
+          "community_count": 2,
+          "last_active_text": "近24小时"
+        },
+        "preview_quote": {
+          "text": "Indeed. Google Ads “Ad Strength” just measures asset variety, not whether your ads actually drive conversions or revenue. You can have “Excellent” strength and still lose money, or “Average” and crush it.\n\nOptimize for CTR, CVR, and actual conversion data, not a cosmetic score.",
+          "community": "r/PPC",
+          "permalink": "https://www.reddit.com/r/PPC/comments/1sqvpf5/googles_ad_strength_score_is_not_a_performance/ohbde42/"
+        },
+        "published_at": "2026-04-24T04:50:11.520878Z",
+        "controversy_chart": null,
+        "controversy_meta": null,
+        "quotes": [
+          {
+            "text": "Indeed. Google Ads “Ad Strength” just measures asset variety, not whether your ads actually drive conversions or revenue. You can have “Excellent” strength and still lose money, or “Average” and crush it.\n\nOptimize for CTR, CVR, and actual conversion data, not a cosmetic score.",
+            "community": "r/PPC",
+            "permalink": "https://www.reddit.com/r/PPC/comments/1sqvpf5/googles_ad_strength_score_is_not_a_performance/ohbde42/"
+          },
+          {
+            "text": "Has nothing to do with conversions",
+            "community": "r/PPC",
+            "permalink": "https://www.reddit.com/r/PPC/comments/1sqvpf5/googles_ad_strength_score_is_not_a_performance/ohb7rno/"
+          },
+          {
+            "text": "The only experience I’ve had that stopped most of the hallucinations was a copilot agent sitting on pdf documentation, and its prompt explicitly told it to never make things up, and it must tell the user if it does not know, and also provide a linked source for every single thing it said.",
+            "community": "r/ecommerce",
+            "permalink": "https://www.reddit.com/r/ecommerce/comments/1sr1zk5/ai_for_customer_questions_on_ecomm/ohbu0st/"
+          },
+          {
+            "text": "I'm working on this exact problem. Pretty much in the same boat, we have a Shopify store and want to respond to customers as  automatically as possible with guards in place to turn to a human (human in the loop). But it's still a bit out.",
+            "community": "r/ecommerce",
+            "permalink": "https://www.reddit.com/r/ecommerce/comments/1sr1zk5/ai_for_customer_questions_on_ecomm/ohbujh5/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/PPC/comments/1sqvpf5",
+        "detail": {
+          "thesis": "投手们已经放弃优化 Ad Strength 分数，因为它只衡量素材多样性，与广告能否赚钱无关，真正的优化目标变成了 CTR、CVR 和实际转化数据。",
+          "writing_angle_or_perspective": "从‘分数无用’这个共识切入，讲清楚大家现在到底在看什么。",
+          "tension_point_or_why_it_matters": "如果还盯着分数优化，可能白费功夫还亏钱；转向看转化数据，才是把钱花在刀刃上。",
+          "title_hooks": [
+            "分数再高也可能亏钱，分数低反而能赚钱",
+            "优化目标已经从‘好看’的分数变成了‘好用’的转化"
+          ],
+          "quote_pack": [
+            "Indeed. Google Ads “Ad Strength” just measures asset variety, not whether your ads actually drive conversions or revenue. You can have “Excellent” strength and still lose money, or “Average” and crush it. Optimize for CTR, CVR, and actual conversion data, not a cosmetic score.｜确实。Google Ads 的“Ad Strength”只衡量素材多样性，不衡量你的广告是否真的能带来转化或收入。你可以有“优秀”的分数但仍然亏钱，或者“一般”的分数却能大赚。优化目标应该是 CTR、CVR 和实际转化数据，而不是一个装饰性的分数。｜r/PPC",
+            "Has nothing to do with conversions｜和转化没关系。｜r/PPC"
+          ]
+        }
+      },
+      "v12_shadow": {},
+      "refreshed_card": {},
+      "changed": {},
+      "fluency_repair_issue_count": 0,
+      "remaining_density_issues": [],
+      "v13_title_issues_before": [],
+      "v13_title_issues_after": [],
+      "error": "ValueError: writing_angle_or_perspective contains banned pattern: 真正"
+    },
+    {
+      "card_id": "card-cand-ecommerce-sellers-1sd11mp-validate",
+      "lane": "signal",
+      "card_type": "validate",
+      "profile_id": "hotpost_v13_title_standalone",
+      "semantic_model": "deepseek/deepseek-v4-flash",
+      "writer_model": "xiaomi/mimo-v2.5-pro",
+      "original_card": {
+        "card_id": "card-cand-ecommerce-sellers-1sd11mp-validate",
+        "signal_id": "sig-1sd11mp",
+        "card_type": "validate",
+        "lane": "signal",
+        "category_id": "validate",
+        "source_scope_id": "ecommerce-sellers",
+        "source_scope_name": "电商与卖家",
+        "topic_pack_id": "selection-signals",
+        "topic_cluster_id": "small-goods",
+        "topic_cluster_ids": [
+          "small-goods",
+          "brand-trust-and-alt"
+        ],
+        "named_topic_ids": [
+          "gift-crossborder-30d-utility"
+        ],
+        "source_domain_id": "ecommerce-sellers",
+        "source_domain_name": "电商与卖家",
+        "source_event_at": "2026-04-05T11:17:31Z",
+        "title": "毕业礼物筛选标准从‘贵重’转向‘情感锚点’",
+        "summary_line": "送礼人不再先看价格或品牌，而是先看礼物能否成为对方新生活里的情感连接物。",
+        "audience": "正在为大学毕业生挑选礼物的家人或朋友",
+        "why_now": "有用户晒出自己保留十年的不是贵重物品，而是一封手写信。这改变了下一步的挑选动作：先问‘这东西能不能让她在新家里想起家’，而不是先问‘这东西贵不贵’。",
+        "why_now_reason": "switch_signal_7d",
+        "signal_level": "sustained",
+        "intent_tags": [
+          "求推荐"
+        ],
+        "top_community": "r/GiftIdeas",
+        "thread_count": 1,
+        "community_count": 1,
+        "source_module": {
+          "primary_communities": [
+            "r/GiftIdeas"
+          ],
+          "top_community": "r/GiftIdeas",
+          "tone_tags": [],
+          "thread_count": 1,
+          "community_count": 1,
+          "last_active_text": "近7天"
+        },
+        "preview_quote": {
+          "text": "handwritten letter from you honestly. when i moved out after college the thing i kept from my parents wasnt the expensive stuff - it was a letter my mom wrote me about memories we shared and how proud she was. still have it like 10 years later. maybe pair it with a small photo album or framed pic of the two of you. something she can put in her new place that reminds her of home",
+          "community": "r/GiftIdeas",
+          "permalink": "https://www.reddit.com/r/GiftIdeas/comments/1sd11mp/best_personalized_gift_for_a_college_graduation/oef4ca4/"
+        },
+        "published_at": "2026-04-24T04:50:07.562741Z",
+        "controversy_chart": null,
+        "controversy_meta": null,
+        "quotes": [
+          {
+            "text": "handwritten letter from you honestly. when i moved out after college the thing i kept from my parents wasnt the expensive stuff - it was a letter my mom wrote me about memories we shared and how proud she was. still have it like 10 years later. maybe pair it with a small photo album or framed pic of the two of you. something she can put in her new place that reminds her of home",
+            "community": "r/GiftIdeas",
+            "permalink": "https://www.reddit.com/r/GiftIdeas/comments/1sd11mp/best_personalized_gift_for_a_college_graduation/oef4ca4/"
+          },
+          {
+            "text": "I have a son but I got him a Le Creuset pot in his college colors and a note that said it came with the best wishes for a happy future - be healthy, try new things, remember family get togethers and meals, etc.",
+            "community": "r/GiftIdeas",
+            "permalink": "https://www.reddit.com/r/GiftIdeas/comments/1sd11mp/best_personalized_gift_for_a_college_graduation/oef8d0s/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/GiftIdeas/comments/1sd11mp",
+        "detail": {
+          "pain_point": "花大价钱买的礼物，对方可能转头就忘或闲置，自己觉得心意没传达到。",
+          "target_user_and_scene": "家人或密友在毕业生离家独立、布置新住所时，需要挑选一份能长久留存的纪念品。",
+          "why_test_now": "原话里有个关键句：“handwritten letter from you honestly. when i moved out after college the thing i kept from m”。最硬的证据是‘still have it like 10 years later’。时间长度直接证明，情感价值比物品价格更能决定礼物是否被保留。",
+          "min_test_action": "去看原始讨论",
+          "continue_signal": "继续看推荐里会不会继续出现‘handwritten’、‘photo’、‘memory’这类强调个人化和回忆的词。",
+          "stop_signal": "如果推荐又回到以品牌、价格或科技新品为主导，这条情感筛选线就弱了。"
+        }
+      },
+      "v12_shadow": {
+        "title": "毕业礼物筛选标准：先看能不能当情感连接物，再看贵不贵",
+        "summary_line": "送礼筛选逻辑从‘看价格/品牌’转向‘看礼物能否成为对方新生活里的情感连接物’。",
+        "audience": "正在为毕业生挑选礼物的亲友，尤其是预算有限但希望送出心意的人",
+        "why_now": "有用户分享，搬家十年后保留最久的礼物是一封手写信。这直接改变了挑选动作：先想情感，再想价格。",
+        "pain_point": "送礼人怕花了钱，礼物却被闲置，心意没传达到。陷入价格攀比或品牌焦虑，但结果可能不如预期。",
+        "target_user_and_scene": "为大学毕业生挑选礼物的亲友，在预算和心意之间权衡的场景。",
+        "why_test_now": "证据中‘十年后仍保留’是产品能否被长期留存的试金石。若电商推荐能关联‘长期记忆’（如手写信、照片），这条筛选线就值得投入。但证据仅覆盖‘保留’，不涉及使用频率或开心程度。",
+        "min_test_action": "去看原始讨论",
+        "continue_signal": "观察电商平台是否将‘长期留存’或‘情感连接’作为礼物筛选标签。",
+        "stop_signal": "若更多案例显示毕业生更看重实用品或现金，则情感连接筛选逻辑可能只是小众偏好。"
+      },
+      "refreshed_card": {
+        "card_id": "card-cand-ecommerce-sellers-1sd11mp-validate",
+        "signal_id": "sig-1sd11mp",
+        "card_type": "validate",
+        "lane": "signal",
+        "category_id": "validate",
+        "source_scope_id": "ecommerce-sellers",
+        "source_scope_name": "电商与卖家",
+        "topic_pack_id": "selection-signals",
+        "topic_cluster_id": "small-goods",
+        "topic_cluster_ids": [
+          "small-goods",
+          "brand-trust-and-alt"
+        ],
+        "named_topic_ids": [
+          "gift-crossborder-30d-utility"
+        ],
+        "source_domain_id": "ecommerce-sellers",
+        "source_domain_name": "电商与卖家",
+        "source_event_at": "2026-04-05T11:17:31Z",
+        "title": "毕业礼物筛选：先看它能否成为情感连接物，再看价格",
+        "summary_line": "送礼筛选逻辑从‘看价格/品牌’转向‘看礼物能否成为对方新生活里的情感连接物’。",
+        "audience": "正在为毕业生挑选礼物的亲友，尤其是预算有限但希望送出心意的人",
+        "why_now": "有用户分享，搬家十年后保留最久的礼物是一封手写信。这直接改变了挑选动作：先想情感，再想价格。",
+        "why_now_reason": "switch_signal_7d",
+        "signal_level": "sustained",
+        "intent_tags": [
+          "求推荐"
+        ],
+        "top_community": "r/GiftIdeas",
+        "thread_count": 1,
+        "community_count": 1,
+        "source_module": {
+          "primary_communities": [
+            "r/GiftIdeas"
+          ],
+          "top_community": "r/GiftIdeas",
+          "tone_tags": [],
+          "thread_count": 1,
+          "community_count": 1,
+          "last_active_text": "近7天"
+        },
+        "preview_quote": {
+          "text": "handwritten letter from you honestly. when i moved out after college the thing i kept from my parents wasnt the expensive stuff - it was a letter my mom wrote me about memories we shared and how proud she was. still have it like 10 years later. maybe pair it with a small photo album or framed pic of the two of you. something she can put in her new place that reminds her of home",
+          "community": "r/GiftIdeas",
+          "permalink": "https://www.reddit.com/r/GiftIdeas/comments/1sd11mp/best_personalized_gift_for_a_college_graduation/oef4ca4/"
+        },
+        "published_at": "2026-04-24T04:50:07.562741Z",
+        "controversy_chart": null,
+        "controversy_meta": null,
+        "quotes": [
+          {
+            "text": "handwritten letter from you honestly. when i moved out after college the thing i kept from my parents wasnt the expensive stuff - it was a letter my mom wrote me about memories we shared and how proud she was. still have it like 10 years later. maybe pair it with a small photo album or framed pic of the two of you. something she can put in her new place that reminds her of home",
+            "community": "r/GiftIdeas",
+            "permalink": "https://www.reddit.com/r/GiftIdeas/comments/1sd11mp/best_personalized_gift_for_a_college_graduation/oef4ca4/"
+          },
+          {
+            "text": "I have a son but I got him a Le Creuset pot in his college colors and a note that said it came with the best wishes for a happy future - be healthy, try new things, remember family get togethers and meals, etc.",
+            "community": "r/GiftIdeas",
+            "permalink": "https://www.reddit.com/r/GiftIdeas/comments/1sd11mp/best_personalized_gift_for_a_college_graduation/oef8d0s/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/GiftIdeas/comments/1sd11mp",
+        "detail": {
+          "pain_point": "花大价钱买的礼物，对方可能转头就忘或闲置，自己觉得心意没传达到。",
+          "target_user_and_scene": "家人或密友在毕业生离家独立、布置新住所时，需要挑选一份能长久留存的纪念品。",
+          "why_test_now": "原话里有个关键句：“handwritten letter from you honestly. when i moved out after college the thing i kept from m”。最硬的证据是‘still have it like 10 years later’。时间长度直接证明，情感价值比物品价格更能决定礼物是否被保留。",
+          "min_test_action": "去看原始讨论",
+          "continue_signal": "继续看推荐里会不会继续出现‘handwritten’、‘photo’、‘memory’这类强调个人化和回忆的词。",
+          "stop_signal": "如果推荐又回到以品牌、价格或科技新品为主导，这条情感筛选线就弱了。"
+        }
+      },
+      "changed": {
+        "title": {
+          "before": "毕业礼物筛选标准从‘贵重’转向‘情感锚点’",
+          "after": "毕业礼物筛选：先看它能否成为情感连接物，再看价格"
+        },
+        "summary_line": {
+          "before": "送礼人不再先看价格或品牌，而是先看礼物能否成为对方新生活里的情感连接物。",
+          "after": "送礼筛选逻辑从‘看价格/品牌’转向‘看礼物能否成为对方新生活里的情感连接物’。"
+        },
+        "audience": {
+          "before": "正在为大学毕业生挑选礼物的家人或朋友",
+          "after": "正在为毕业生挑选礼物的亲友，尤其是预算有限但希望送出心意的人"
+        },
+        "why_now": {
+          "before": "有用户晒出自己保留十年的不是贵重物品，而是一封手写信。这改变了下一步的挑选动作：先问‘这东西能不能让她在新家里想起家’，而不是先问‘这东西贵不贵’。",
+          "after": "有用户分享，搬家十年后保留最久的礼物是一封手写信。这直接改变了挑选动作：先想情感，再想价格。"
+        }
+      },
+      "fluency_repair_issue_count": 0,
+      "remaining_density_issues": [
+        "why_test_now: 重点字段 85 字，超过建议 78 字，阅读负担高。"
+      ],
+      "v13_title_issues_before": [],
+      "v13_title_issues_after": [],
+      "error": ""
+    },
+    {
+      "card_id": "card-cand-ai-automation-1s6pkg3-validate",
+      "lane": "signal",
+      "card_type": "validate",
+      "profile_id": "hotpost_v13_title_standalone",
+      "semantic_model": "deepseek/deepseek-v4-flash",
+      "writer_model": "xiaomi/mimo-v2.5-pro",
+      "original_card": {
+        "card_id": "card-cand-ai-automation-1s6pkg3-validate",
+        "signal_id": "sig-1s6pkg3",
+        "card_type": "validate",
+        "lane": "signal",
+        "category_id": "validate",
+        "source_scope_id": "ai-automation",
+        "source_scope_name": "AI 与自动化",
+        "topic_pack_id": "tools-efficiency",
+        "topic_cluster_id": "open-source-projects",
+        "topic_cluster_ids": [
+          "open-source-projects"
+        ],
+        "named_topic_ids": [
+          "custom-topic"
+        ],
+        "source_domain_id": "ai-automation",
+        "source_domain_name": "AI 与自动化",
+        "source_event_at": "2026-03-29T08:23:14Z",
+        "title": "AI SEO 从业者开始先看真实代码和数据，不再先迷信通用提示词",
+        "summary_line": "判断顺序从先看工具演示，转成先看它能不能接入真实代码库和90天搜索数据。",
+        "audience": "在 Reddit 上寻找 AI SEO 工作流的开发者或营销人员",
+        "why_now": "有用户分享了一个把 Google Search Console 数据和代码库直接喂给 Claude 的方案。评论里立刻有用户指出，这才是关键，因为很多 AI SEO 工具只是‘打磨过的猜测’。所以下一步先问的不再是‘这工具酷不酷’，而是‘它能不能看到我的真实代码和数据’。",
+        "why_now_reason": "recurring_7d",
+        "signal_level": "sustained",
+        "intent_tags": [
+          "趋势变化"
+        ],
+        "top_community": "r/claudeskills",
+        "thread_count": 1,
+        "community_count": 1,
+        "source_module": {
+          "primary_communities": [
+            "r/claudeskills"
+          ],
+          "top_community": "r/claudeskills",
+          "tone_tags": [],
+          "thread_count": 1,
+          "community_count": 1,
+          "last_active_text": "近7天"
+        },
+        "preview_quote": {
+          "text": "This is sick. The “inside the repo + real data” combo is the important part.\n\nA lot of AI SEO stuff is basically just polished guesswork, but if Claude can see the actual codebase and 90 days of Search Console data, it can make way more grounded suggestions.\n\nI’ve found that’s kind of the magic with skills in general — when they stop being just a fancy prompt and start acting more like a reusable workflow with real context. That’s when they go from “cool demo” to actually useful.\n\nThe Google Cloud part is definitely the annoying bit, but the overall idea makes a ton of sense.",
+          "community": "r/claudeskills",
+          "permalink": "https://www.reddit.com/r/claudeskills/comments/1s6pkg3/google_search_console_claude_code/od9jman/"
+        },
+        "published_at": "2026-04-24T04:50:03.593971Z",
+        "controversy_chart": null,
+        "controversy_meta": null,
+        "quotes": [
+          {
+            "text": "This is sick. The “inside the repo + real data” combo is the important part.\n\nA lot of AI SEO stuff is basically just polished guesswork, but if Claude can see the actual codebase and 90 days of Search Console data, it can make way more grounded suggestions.\n\nI’ve found that’s kind of the magic with skills in general — when they stop being just a fancy prompt and start acting more like a reusable workflow with real context. That’s when they go from “cool demo” to actually useful.\n\nThe Google Cloud part is definitely the annoying bit, but the overall idea makes a ton of sense.",
+            "community": "r/claudeskills",
+            "permalink": "https://www.reddit.com/r/claudeskills/comments/1s6pkg3/google_search_console_claude_code/od9jman/"
+          },
+          {
+            "text": "Thanks for this. Very helpful. Can you share some examples or dataset of analysis this has done. Would be beneficial. Will also check it out.",
+            "community": "r/claudeskills",
+            "permalink": "https://www.reddit.com/r/claudeskills/comments/1s6pkg3/google_search_console_claude_code/od9hdab/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/claudeskills/comments/1s6pkg3",
+        "detail": {
+          "pain_point": "用了很多 AI SEO 工具，发现它们的建议脱离实际，像在猜，浪费时间和预算。",
+          "target_user_and_scene": "需要为网站做 SEO 优化，但厌倦了通用工具给出模糊建议的开发者或运营人员。",
+          "why_test_now": "最硬的证据是评论里那句 ‘inside the repo + real data’ combo is the important part。它直接点明了判断标准的变化：价值不在于提示词多花哨，而在于能否接入真实工作流。",
+          "min_test_action": "去看原始讨论",
+          "continue_signal": "继续看有没有更多工具或技能被要求展示‘接入真实数据源’的能力。",
+          "stop_signal": "如果讨论又回到只分享提示词模板，而不再提数据接入，这条线的价值就降低了。"
+        }
+      },
+      "v12_shadow": {},
+      "refreshed_card": {},
+      "changed": {},
+      "fluency_repair_issue_count": 0,
+      "remaining_density_issues": [],
+      "v13_title_issues_before": [],
+      "v13_title_issues_after": [],
+      "error": "TypeError: the JSON object must be str, bytes or bytearray, not NoneType"
+    },
+    {
+      "card_id": "card-cand-ai-automation-1su3fle-validate",
+      "lane": "signal",
+      "card_type": "validate",
+      "profile_id": "hotpost_v13_title_standalone",
+      "semantic_model": "deepseek/deepseek-v4-flash",
+      "writer_model": "xiaomi/mimo-v2.5-pro",
+      "original_card": {
+        "card_id": "card-cand-ai-automation-1su3fle-validate",
+        "signal_id": "sig-1su3fle",
+        "card_type": "validate",
+        "lane": "signal",
+        "category_id": "validate",
+        "source_scope_id": "ai-automation",
+        "source_scope_name": "AI 与自动化",
+        "topic_pack_id": "tools-efficiency",
+        "topic_cluster_id": "open-source-projects",
+        "topic_cluster_ids": [
+          "open-source-projects",
+          "workflow-friction"
+        ],
+        "named_topic_ids": [
+          "deepseek-v4"
+        ],
+        "source_domain_id": "ai-automation",
+        "source_domain_name": "AI 与自动化",
+        "source_event_at": "2026-04-24T02:52:43Z",
+        "title": "开发者现在先看长输出能力，不再先盯着价格",
+        "summary_line": "判断重点从‘这模型便宜吗’，转成先看‘它能一次吐多少字’。384k 的输出长度成了新的硬指标。",
+        "audience": "正在评估新模型API 的开发者",
+        "why_now": "DeepSeek V4 Pro 的 API 刚发布，有用户立刻注意到它支持 384k 的输出长度。这改变了评估顺序：以前可能先比价，现在得先问‘我的任务需要这么长的输出吗？’。下一步得先确认自己的应用场景是否需要这种级别的长文本生成。",
+        "why_now_reason": "new_threads_24h",
+        "signal_level": "sustained",
+        "intent_tags": [
+          "趋势变化"
+        ],
+        "top_community": "r/LocalLLaMA",
+        "thread_count": 1,
+        "community_count": 1,
+        "source_module": {
+          "primary_communities": [
+            "r/LocalLLaMA"
+          ],
+          "top_community": "r/LocalLLaMA",
+          "tone_tags": [],
+          "thread_count": 1,
+          "community_count": 1,
+          "last_active_text": "近24小时"
+        },
+        "preview_quote": {
+          "text": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro\n\n\n384k output what?! At least it's cheap enough but lol",
+          "community": "r/LocalLLaMA",
+          "permalink": "https://www.reddit.com/r/LocalLLaMA/comments/1su3fle/deepseek_v4_flash_pro_now_out_on_api/ohy0sfc/"
+        },
+        "published_at": "2026-04-24T04:49:59.074238Z",
+        "controversy_chart": null,
+        "controversy_meta": null,
+        "quotes": [
+          {
+            "text": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro\n\n\n384k output what?! At least it's cheap enough but lol",
+            "community": "r/LocalLLaMA",
+            "permalink": "https://www.reddit.com/r/LocalLLaMA/comments/1su3fle/deepseek_v4_flash_pro_now_out_on_api/ohy0sfc/"
+          },
+          {
+            "text": "For anyone doubting that the image was generated by `gpt-image-2`, here’s the URL:\n\nhttps://api-docs.deepseek.com/zh-cn/quick_start/pricing",
+            "community": "r/LocalLLaMA",
+            "permalink": "https://www.reddit.com/r/LocalLLaMA/comments/1su3fle/deepseek_v4_flash_pro_now_out_on_api/ohxz7ao/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/LocalLLaMA/comments/1su3fle",
+        "detail": {
+          "pain_point": "担心模型能力跟不上复杂任务需求，比如生成超长报告或代码。",
+          "target_user_and_scene": "需要一次性生成大量文本（如长文档、详细分析）的开发者或内容创作者。",
+          "why_test_now": "最硬的证据是评论里直接点出了‘384k output’这个具体数字，并伴随着惊讶（‘what?!’）。这说明社区里已经有用户把‘输出长度’这个特性，从众多参数中拎出来，当成了首要的观察点。",
+          "min_test_action": "去看原始讨论",
+          "continue_signal": "继续看其他开发者对384k输出长度的实际测试反馈，以及它在不同任务（如写小说、生成代码库）中的稳定性。",
+          "stop_signal": "如果后续讨论都集中在价格或输入长度，而没人再提超长输出的实际应用案例，这条线就弱了。"
+        }
+      },
+      "v12_shadow": {},
+      "refreshed_card": {},
+      "changed": {},
+      "fluency_repair_issue_count": 0,
+      "remaining_density_issues": [],
+      "v13_title_issues_before": [],
+      "v13_title_issues_after": [],
+      "error": "ValueError: why_now contains banned pattern: 这改变了"
+    },
+    {
+      "card_id": "card-cand-ai-automation-1spysr9-validate",
+      "lane": "signal",
+      "card_type": "validate",
+      "profile_id": "hotpost_v13_title_standalone",
+      "semantic_model": "deepseek/deepseek-v4-flash",
+      "writer_model": "xiaomi/mimo-v2.5-pro",
+      "original_card": {
+        "card_id": "card-cand-ai-automation-1spysr9-validate",
+        "signal_id": "sig-1spysr9",
+        "card_type": "validate",
+        "lane": "signal",
+        "category_id": "validate",
+        "source_scope_id": "ai-automation",
+        "source_scope_name": "AI 与自动化",
+        "topic_pack_id": "upstream-winds",
+        "topic_cluster_id": "key-people-and-route",
+        "topic_cluster_ids": [
+          "key-people-and-route",
+          "platform-policy-shifts"
+        ],
+        "named_topic_ids": [],
+        "source_domain_id": "ai-automation",
+        "source_domain_name": "AI 与自动化",
+        "source_event_at": "2026-04-19T17:11:33Z",
+        "title": "用户开始先对比两个模型输出，不再先猜新版本代号",
+        "summary_line": "判断顺序从先猜版本代号，转成先对比两个输出的实际质量差距。",
+        "audience": "在 社区里讨论新模型版本的用户",
+        "why_now": "有用户被要求对比两个输出，发现其中一个质量明显更好。这让他们不再先关注版本代号，而是先问哪个输出质量更好。以后遇到新版本消息，先看实际输出对比，而不是先猜代号。",
+        "why_now_reason": "new_threads_24h",
+        "signal_level": "rising",
+        "intent_tags": [
+          "趋势变化"
+        ],
+        "top_community": "r/OpenAI",
+        "thread_count": 1,
+        "community_count": 1,
+        "source_module": {
+          "primary_communities": [
+            "r/OpenAI"
+          ],
+          "top_community": "r/OpenAI",
+          "tone_tags": [],
+          "thread_count": 1,
+          "community_count": 1,
+          "last_active_text": "近24小时"
+        },
+        "preview_quote": {
+          "text": "I was asked to compare two outputs today. One of them was significantly better than the other one. Way way better.",
+          "community": "r/OpenAI",
+          "permalink": "https://www.reddit.com/r/OpenAI/comments/1spysr9/gpt_55_spud_incoming/oh4q7vu/"
+        },
+        "published_at": "2026-04-24T04:49:55.212259Z",
+        "controversy_chart": null,
+        "controversy_meta": null,
+        "quotes": [
+          {
+            "text": "I was asked to compare two outputs today. One of them was significantly better than the other one. Way way better.",
+            "community": "r/OpenAI",
+            "permalink": "https://www.reddit.com/r/OpenAI/comments/1spysr9/gpt_55_spud_incoming/oh4q7vu/"
+          },
+          {
+            "text": "Can we talk about the cats having handles though? 😂",
+            "community": "r/OpenAI",
+            "permalink": "https://www.reddit.com/r/OpenAI/comments/1spysr9/gpt_55_spud_incoming/oh4l31h/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/OpenAI/comments/1spysr9",
+        "detail": {
+          "pain_point": "用户被新版本代号吸引，但实际使用中发现不同输出质量差异巨大，导致对版本代号的猜测变得次要。",
+          "target_user_and_scene": "在 r/OpenAI 社区里，当有新模型版本消息时，那些关心实际输出质量的用户。",
+          "why_test_now": "原话里有个关键句：“Can we talk about the cats having handles though? 😂”。最硬的证据是用户被要求对比两个输出，并发现其中一个“显著更好”。这直接改变了判断顺序，从猜代号转到比质量。",
+          "min_test_action": "去看原始讨论",
+          "continue_signal": "继续看社区里是否出现更多关于实际输出质量对比的讨论，而不是版本代号猜测。",
+          "stop_signal": "如果讨论重新聚焦在版本代号、发布时间等猜测上，而不再提输出质量对比，这条线就失去价值。"
+        }
+      },
+      "v12_shadow": {},
+      "refreshed_card": {},
+      "changed": {},
+      "fluency_repair_issue_count": 0,
+      "remaining_density_issues": [],
+      "v13_title_issues_before": [],
+      "v13_title_issues_after": [],
+      "error": "ValueError: why_now contains banned pattern: 转移到了"
+    },
+    {
+      "card_id": "card-cand-business-growth-ops-1stc8hc-validate",
+      "lane": "signal",
+      "card_type": "validate",
+      "profile_id": "hotpost_v13_title_standalone",
+      "semantic_model": "deepseek/deepseek-v4-flash",
+      "writer_model": "xiaomi/mimo-v2.5-pro",
+      "original_card": {
+        "card_id": "card-cand-business-growth-ops-1stc8hc-validate",
+        "signal_id": "sig-1stc8hc",
+        "card_type": "validate",
+        "lane": "signal",
+        "category_id": "validate",
+        "source_scope_id": "business-growth-ops",
+        "source_scope_name": "商业增长与运营",
+        "topic_pack_id": "funnel-conversion",
+        "topic_cluster_id": "funnel",
+        "topic_cluster_ids": [
+          "funnel"
+        ],
+        "named_topic_ids": [],
+        "source_domain_id": "business-growth-ops",
+        "source_domain_name": "商业增长与运营",
+        "source_event_at": "2026-04-23T07:55:29Z",
+        "title": "GA4 用户现在先查跨域配置，不再先怀疑是子域需要单独建属性",
+        "summary_line": "判断顺序从‘子域是不是要单独建GA4属性’，转成‘先查跨域跟踪和引荐排除有没有配好’。",
+        "audience": "用GA4跟踪主站和子域（比如app子域）的网站分析师或运营",
+        "why_now": "有用户发现子域流量在GA4里断掉，以前第一反应是子域得单独建属性。现在评论里有用户直接指出，问题根源是跨域跟踪没配对，导致GA4把子域当成新会话。所以下一步先做的不是新建属性，而是去GA4的‘域设置’里把主域和子域都加进去，并检查GTM里的linker和引荐排除列表。",
+        "why_now_reason": "new_threads_24h",
+        "signal_level": "sustained",
+        "intent_tags": [
+          "求推荐"
+        ],
+        "top_community": "r/analytics",
+        "thread_count": 1,
+        "community_count": 1,
+        "source_module": {
+          "primary_communities": [
+            "r/analytics"
+          ],
+          "top_community": "r/analytics",
+          "tone_tags": [],
+          "thread_count": 1,
+          "community_count": 1,
+          "last_active_text": "近24小时"
+        },
+        "preview_quote": {
+          "text": "Yeah this is a super common GA4 headache. The drop-off usually happens because GA4 treats the subdomain as a separate session if it’s not configured properly.\n\n\n\nYou don’t need a separate property. Same GA4 property and even the same GTM container can work across both, as long as it’s installed on both the main domain and the subdomain.\n\n\n\nThe key piece is cross-domain measurement. In GA4, make sure your domain settings include both the root domain and subdomain so the client ID carries over. Also check that your GA4 config tag in GTM has the linker enabled if you’re using it there.\n\n\n\nAnother thing people miss is referral exclusions. If your subdomain is showing up as a referral source, GA4 is basically restarting the session, which breaks the journey.\n\n\n\nOnce it’s set up right, it should feel seamless in reports. You’ll see users move from main site to app without that artificial drop.",
+          "community": "r/analytics",
+          "permalink": "https://www.reddit.com/r/analytics/comments/1stc8hc/ga4_not_tracking_subdomain_whats_the_best_setup/ohswxtd/"
+        },
+        "published_at": "2026-04-24T04:49:51.339428Z",
+        "controversy_chart": null,
+        "controversy_meta": null,
+        "quotes": [
+          {
+            "text": "Yeah this is a super common GA4 headache. The drop-off usually happens because GA4 treats the subdomain as a separate session if it’s not configured properly.\n\n\n\nYou don’t need a separate property. Same GA4 property and even the same GTM container can work across both, as long as it’s installed on both the main domain and the subdomain.\n\n\n\nThe key piece is cross-domain measurement. In GA4, make sure your domain settings include both the root domain and subdomain so the client ID carries over. Also check that your GA4 config tag in GTM has the linker enabled if you’re using it there.\n\n\n\nAnother thing people miss is referral exclusions. If your subdomain is showing up as a referral source, GA4 is basically restarting the session, which breaks the journey.\n\n\n\nOnce it’s set up right, it should feel seamless in reports. You’ll see users move from main site to app without that artificial drop.",
+            "community": "r/analytics",
+            "permalink": "https://www.reddit.com/r/analytics/comments/1stc8hc/ga4_not_tracking_subdomain_whats_the_best_setup/ohswxtd/"
+          },
+          {
+            "text": "this is a cross domain tracking setup issue. you can use the same Google Tag Manager container on both the main domain and subdomain. enable cross domain measurement and make sure the client id is shared. once that is set, GA4 should treat it as one continuous session instead of dropping users.",
+            "community": "r/analytics",
+            "permalink": "https://www.reddit.com/r/analytics/comments/1stc8hc/ga4_not_tracking_subdomain_whats_the_best_setup/ohti30e/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/analytics/comments/1stc8hc",
+        "detail": {
+          "pain_point": "用户从主站跳转到子域（比如app）时，GA4里会话中断，看起来像用户流失了，导致转化路径分析出错。",
+          "target_user_and_scene": "运营着带子域（如登录页、应用页）的网站，并使用GA4分析用户完整旅程的人。",
+          "why_test_now": "最硬的证据是原话明确指出‘drop-off usually happens because GA4 treats the subdomain as a separate session’，并给出了‘cross-domain measurement’和‘referral exclusions’这两个具体配置动作。这直接把问题从‘要不要建新属性’的猜测，拉到了‘检查现有配置’的操作层面。",
+          "min_test_action": "去看原始讨论",
+          "continue_signal": "继续看有没有用户分享具体的GTM配置截图或GA4域设置步骤，以及配置后数据连续性的验证方法。",
+          "stop_signal": "如果后续讨论开始纠结于GA4的底层会话计算逻辑，而不是具体的配置检查清单，这条线的操作指导价值就会下降。"
+        }
+      },
+      "v12_shadow": {
+        "title": "GA4 子域数据断流，先查跨域配置，别急着新建属性",
+        "summary_line": "判断顺序从‘子域需单独建属性’转为‘先检查现有GA4跨域配置和引荐排除’。",
+        "audience": "在GA4里发现主站到子域（如app子域）用户数据中断的网站分析师或运营",
+        "why_now": "GA4将未配置跨域的子域视为独立会话，导致用户旅程中断。根源是跨域配置缺失或引荐排除未设，而非属性不足。",
+        "pain_point": "你发现从主站跳到app子域时用户数据断了，以为要新建GA4属性，结果费时费力还可能造成数据割裂。",
+        "target_user_and_scene": "使用GA4跟踪主站和子域（如app.example.com）的网站分析师或运营，在排查用户旅程中断问题时。",
+        "why_test_now": "证据直接给出三个配置动作：GA4‘域设置’加域名、GTM启用linker、GA4引荐排除列表加子域。将猜测拉到操作层面。",
+        "min_test_action": "去看原始讨论",
+        "continue_signal": "检查GA4的‘域设置’、GTM的linker配置和引荐排除列表是否包含子域。",
+        "stop_signal": "若这些配置正确后数据仍中断，问题可能在Cookie或GTM触发器，排查应转向。"
+      },
+      "refreshed_card": {
+        "card_id": "card-cand-business-growth-ops-1stc8hc-validate",
+        "signal_id": "sig-1stc8hc",
+        "card_type": "validate",
+        "lane": "signal",
+        "category_id": "validate",
+        "source_scope_id": "business-growth-ops",
+        "source_scope_name": "商业增长与运营",
+        "topic_pack_id": "funnel-conversion",
+        "topic_cluster_id": "funnel",
+        "topic_cluster_ids": [
+          "funnel"
+        ],
+        "named_topic_ids": [],
+        "source_domain_id": "business-growth-ops",
+        "source_domain_name": "商业增长与运营",
+        "source_event_at": "2026-04-23T07:55:29Z",
+        "title": "GA4 子域数据断流，先查跨域配置，别急着新建属性",
+        "summary_line": "判断顺序从‘子域需单独建属性’转为‘先检查现有GA4跨域配置和引荐排除’。",
+        "audience": "在GA4里发现主站到子域（如app子域）用户数据中断的网站分析师或运营",
+        "why_now": "GA4将未配置跨域的子域视为独立会话，导致用户旅程中断。根源是跨域配置缺失或引荐排除未设，而非属性不足。",
+        "why_now_reason": "new_threads_24h",
+        "signal_level": "sustained",
+        "intent_tags": [
+          "求推荐"
+        ],
+        "top_community": "r/analytics",
+        "thread_count": 1,
+        "community_count": 1,
+        "source_module": {
+          "primary_communities": [
+            "r/analytics"
+          ],
+          "top_community": "r/analytics",
+          "tone_tags": [],
+          "thread_count": 1,
+          "community_count": 1,
+          "last_active_text": "近24小时"
+        },
+        "preview_quote": {
+          "text": "Yeah this is a super common GA4 headache. The drop-off usually happens because GA4 treats the subdomain as a separate session if it’s not configured properly.\n\n\n\nYou don’t need a separate property. Same GA4 property and even the same GTM container can work across both, as long as it’s installed on both the main domain and the subdomain.\n\n\n\nThe key piece is cross-domain measurement. In GA4, make sure your domain settings include both the root domain and subdomain so the client ID carries over. Also check that your GA4 config tag in GTM has the linker enabled if you’re using it there.\n\n\n\nAnother thing people miss is referral exclusions. If your subdomain is showing up as a referral source, GA4 is basically restarting the session, which breaks the journey.\n\n\n\nOnce it’s set up right, it should feel seamless in reports. You’ll see users move from main site to app without that artificial drop.",
+          "community": "r/analytics",
+          "permalink": "https://www.reddit.com/r/analytics/comments/1stc8hc/ga4_not_tracking_subdomain_whats_the_best_setup/ohswxtd/"
+        },
+        "published_at": "2026-04-24T04:49:51.339428Z",
+        "controversy_chart": null,
+        "controversy_meta": null,
+        "quotes": [
+          {
+            "text": "Yeah this is a super common GA4 headache. The drop-off usually happens because GA4 treats the subdomain as a separate session if it’s not configured properly.\n\n\n\nYou don’t need a separate property. Same GA4 property and even the same GTM container can work across both, as long as it’s installed on both the main domain and the subdomain.\n\n\n\nThe key piece is cross-domain measurement. In GA4, make sure your domain settings include both the root domain and subdomain so the client ID carries over. Also check that your GA4 config tag in GTM has the linker enabled if you’re using it there.\n\n\n\nAnother thing people miss is referral exclusions. If your subdomain is showing up as a referral source, GA4 is basically restarting the session, which breaks the journey.\n\n\n\nOnce it’s set up right, it should feel seamless in reports. You’ll see users move from main site to app without that artificial drop.",
+            "community": "r/analytics",
+            "permalink": "https://www.reddit.com/r/analytics/comments/1stc8hc/ga4_not_tracking_subdomain_whats_the_best_setup/ohswxtd/"
+          },
+          {
+            "text": "this is a cross domain tracking setup issue. you can use the same Google Tag Manager container on both the main domain and subdomain. enable cross domain measurement and make sure the client id is shared. once that is set, GA4 should treat it as one continuous session instead of dropping users.",
+            "community": "r/analytics",
+            "permalink": "https://www.reddit.com/r/analytics/comments/1stc8hc/ga4_not_tracking_subdomain_whats_the_best_setup/ohti30e/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/analytics/comments/1stc8hc",
+        "detail": {
+          "pain_point": "用户从主站跳转到子域（比如app）时，GA4里会话中断，看起来像用户流失了，导致转化路径分析出错。",
+          "target_user_and_scene": "运营着带子域（如登录页、应用页）的网站，并使用GA4分析用户完整旅程的人。",
+          "why_test_now": "最硬的证据是原话明确指出‘drop-off usually happens because GA4 treats the subdomain as a separate session’，并给出了‘cross-domain measurement’和‘referral exclusions’这两个具体配置动作。这直接把问题从‘要不要建新属性’的猜测，拉到了‘检查现有配置’的操作层面。",
+          "min_test_action": "去看原始讨论",
+          "continue_signal": "继续看有没有用户分享具体的GTM配置截图或GA4域设置步骤，以及配置后数据连续性的验证方法。",
+          "stop_signal": "如果后续讨论开始纠结于GA4的底层会话计算逻辑，而不是具体的配置检查清单，这条线的操作指导价值就会下降。"
+        }
+      },
+      "changed": {
+        "title": {
+          "before": "GA4 用户现在先查跨域配置，不再先怀疑是子域需要单独建属性",
+          "after": "GA4 子域数据断流，先查跨域配置，别急着新建属性"
+        },
+        "summary_line": {
+          "before": "判断顺序从‘子域是不是要单独建GA4属性’，转成‘先查跨域跟踪和引荐排除有没有配好’。",
+          "after": "判断顺序从‘子域需单独建属性’转为‘先检查现有GA4跨域配置和引荐排除’。"
+        },
+        "audience": {
+          "before": "用GA4跟踪主站和子域（比如app子域）的网站分析师或运营",
+          "after": "在GA4里发现主站到子域（如app子域）用户数据中断的网站分析师或运营"
+        },
+        "why_now": {
+          "before": "有用户发现子域流量在GA4里断掉，以前第一反应是子域得单独建属性。现在评论里有用户直接指出，问题根源是跨域跟踪没配对，导致GA4把子域当成新会话。所以下一步先做的不是新建属性，而是去GA4的‘域设置’里把主域和子域都加进去，并检查GTM里的linker和引荐排除列表。",
+          "after": "GA4将未配置跨域的子域视为独立会话，导致用户旅程中断。根源是跨域配置缺失或引荐排除未设，而非属性不足。"
+        }
+      },
+      "fluency_repair_issue_count": 0,
+      "remaining_density_issues": [],
+      "v13_title_issues_before": [],
+      "v13_title_issues_after": [],
+      "error": ""
+    },
+    {
+      "card_id": "card-cand-business-growth-ops-1su1gmb-validate",
+      "lane": "signal",
+      "card_type": "validate",
+      "profile_id": "hotpost_v13_title_standalone",
+      "semantic_model": "deepseek/deepseek-v4-flash",
+      "writer_model": "xiaomi/mimo-v2.5-pro",
+      "original_card": {
+        "card_id": "card-cand-business-growth-ops-1su1gmb-validate",
+        "signal_id": "sig-1su1gmb",
+        "card_type": "validate",
+        "lane": "signal",
+        "category_id": "validate",
+        "source_scope_id": "business-growth-ops",
+        "source_scope_name": "商业增长与运营",
+        "topic_pack_id": "paid-economics",
+        "topic_cluster_id": "ads",
+        "topic_cluster_ids": [
+          "ads"
+        ],
+        "named_topic_ids": [],
+        "source_domain_id": "business-growth-ops",
+        "source_domain_name": "商业增长与运营",
+        "source_event_at": "2026-04-24T01:21:06Z",
+        "title": "Google Ads 老手现在先看落地页和整体体验，不再先纠结 点击成本 和 CTR 这些投放指标",
+        "summary_line": "判断顺序从先优化广告后台的投放数据，转成先检查你到底在给用户‘送’什么东西。",
+        "audience": "刚接触 Google Ads、想降低 CPC 并提高转化的投手",
+        "why_now": "有经验的投手直接指出，新手太沉迷于 点击成本、CTR 这些‘游戏化’的指标，而忽略了广告只是‘送货系统’，真正决定转化的是落地页、优惠信息和用户体验。所以下一步先问的不是‘点击成本 为什么高’，而是‘我的落地页和整体体验到底行不行’。",
+        "why_now_reason": "new_threads_24h",
+        "signal_level": "sustained",
+        "intent_tags": [
+          "趋势变化"
+        ],
+        "top_community": "r/googleads",
+        "thread_count": 1,
+        "community_count": 1,
+        "source_module": {
+          "primary_communities": [
+            "r/googleads"
+          ],
+          "top_community": "r/googleads",
+          "tone_tags": [],
+          "thread_count": 1,
+          "community_count": 1,
+          "last_active_text": "近24小时"
+        },
+        "preview_quote": {
+          "text": "Hey so no one would have enough data here to really help you in any way. I could list the questions but honestly they would be alot. \n\nYou need to look at this holistically - not only the ad elements: (where, when, what device, what keywords), the bid strategy, and the ad creative etc. but also - the landing page, the offer communicated and how closely it relates to your search terms, how easy is it for a user to convert etc. \n\nJust too many factors to give any meaningful advice from what you’ve given. I don’t even know what industry and ideal customer you’re going for - or the value of a lead to your business. \n\nOne piece of advice I’ll give you is this: so many first time users (and even some professional users) of digital marketing platforms get incredibly caught up in the delivery system. AKA - the little stats and kpis of your google ad campaigns. CPC, CTR, the “percentage” score google gives you know. It’s so gamefied. And sure these do help the success of your campaigns. But at the end of the day google ads are the delivery system. The ad, the offer and ui/ux of your landing page is the “what” you’re delivering. Focus on that instead. The fact you haven’t mentioned creative or landing page or overall experience once here makes me think you’re not focused on it. I may be wrong, but again I have no details based on what you typed here. \n\nAs I read this back it sounds sassy lol but I’m not trying to be. Hope you achieve success in your campaigns and good luck!",
+          "community": "r/googleads",
+          "permalink": "https://www.reddit.com/r/googleads/comments/1su1gmb/google_ads_advise_i_would_like_to_decrease_my_cpc/ohxnkfn/"
+        },
+        "published_at": "2026-04-24T04:49:45.307007Z",
+        "controversy_chart": null,
+        "controversy_meta": null,
+        "quotes": [
+          {
+            "text": "Hey so no one would have enough data here to really help you in any way. I could list the questions but honestly they would be alot. \n\nYou need to look at this holistically - not only the ad elements: (where, when, what device, what keywords), the bid strategy, and the ad creative etc. but also - the landing page, the offer communicated and how closely it relates to your search terms, how easy is it for a user to convert etc. \n\nJust too many factors to give any meaningful advice from what you’ve given. I don’t even know what industry and ideal customer you’re going for - or the value of a lead to your business. \n\nOne piece of advice I’ll give you is this: so many first time users (and even some professional users) of digital marketing platforms get incredibly caught up in the delivery system. AKA - the little stats and kpis of your google ad campaigns. CPC, CTR, the “percentage” score google gives you know. It’s so gamefied. And sure these do help the success of your campaigns. But at the end of the day google ads are the delivery system. The ad, the offer and ui/ux of your landing page is the “what” you’re delivering. Focus on that instead. The fact you haven’t mentioned creative or landing page or overall experience once here makes me think you’re not focused on it. I may be wrong, but again I have no details based on what you typed here. \n\nAs I read this back it sounds sassy lol but I’m not trying to be. Hope you achieve success in your campaigns and good luck!",
+            "community": "r/googleads",
+            "permalink": "https://www.reddit.com/r/googleads/comments/1su1gmb/google_ads_advise_i_would_like_to_decrease_my_cpc/ohxnkfn/"
+          },
+          {
+            "text": "You're going to likely need more conversion data but I'm always a fan of tCPA with bid ceilings/floors in place.",
+            "community": "r/googleads",
+            "permalink": "https://www.reddit.com/r/googleads/comments/1su1gmb/google_ads_advise_i_would_like_to_decrease_my_cpc/ohxjong/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/googleads/comments/1su1gmb",
+        "detail": {
+          "pain_point": "投手花大量时间调整出价、关键词和广告文案，但转化依然很差，因为根本没搞清楚问题出在‘送’出去的东西（落地页和体验）上。",
+          "target_user_and_scene": "在 Google Ads 后台盯着 CPC、CTR 等指标，试图通过调整广告设置来提升效果的投手。",
+          "why_test_now": "原话直接点明，很多新手（甚至一些专业用户）都‘get incredibly caught up in the delivery system’，而忽略了‘The ad，the offer and ui/ux of your landing page is the “what” you’re delivering’。这明确指出了判断顺序的迁移。",
+          "min_test_action": "去看原始讨论",
+          "continue_signal": "继续看其他有经验的投手是否也建议先检查落地页和整体体验，而不是先动广告设置。",
+          "stop_signal": "如果讨论又回到只调整出价策略、关键词匹配等纯后台操作，而没人再提落地页和用户体验，这条线就失去价值了。"
+        }
+      },
+      "v12_shadow": {
+        "title": "Google Ads 老手先看落地页体验，不再先纠结点击成本和 CTR",
+        "summary_line": "优化顺序从调整投放数据，转为先检查送出去的东西。",
+        "audience": "刚接触Google Ads、习惯盯着CPC和CTR调设置的投手",
+        "why_now": "老手指出，新手沉迷于点击成本、CTR等‘游戏化指标’，把广告系统当成优化终点；而广告本质是‘送货’，落地页、优惠和用户体验才是转化关键。判断重点从‘怎么送’转向‘送的是什么’。",
+        "pain_point": "花大量时间调出价、改关键词，但转化率没明显提升，感觉在无效工作。",
+        "target_user_and_scene": "刚接触Google Ads的投手，在优化广告效果时，习惯性先看CPC、CTR等投放数据。",
+        "why_test_now": "老手用‘delivery system’和‘what you're delivering’的比喻，直接点明因果链错误方向，让投手反思自己是否陷入同样误区。",
+        "min_test_action": "去看原始讨论",
+        "continue_signal": "继续观察投手在转化差时，第一反应是检查落地页体验，还是调整广告设置。",
+        "stop_signal": "如果讨论又回到如何精细调整出价和关键词，而不再提落地页和体验，这条线就失去价值。"
+      },
+      "refreshed_card": {
+        "card_id": "card-cand-business-growth-ops-1su1gmb-validate",
+        "signal_id": "sig-1su1gmb",
+        "card_type": "validate",
+        "lane": "signal",
+        "category_id": "validate",
+        "source_scope_id": "business-growth-ops",
+        "source_scope_name": "商业增长与运营",
+        "topic_pack_id": "paid-economics",
+        "topic_cluster_id": "ads",
+        "topic_cluster_ids": [
+          "ads"
+        ],
+        "named_topic_ids": [],
+        "source_domain_id": "business-growth-ops",
+        "source_domain_name": "商业增长与运营",
+        "source_event_at": "2026-04-24T01:21:06Z",
+        "title": "Google Ads 转化差时，老手先查落地页体验，不再先调点击成本和 CTR",
+        "summary_line": "优化顺序从调整投放数据，转为先检查送出去的东西。",
+        "audience": "刚接触Google Ads、习惯盯着CPC和CTR调设置的投手",
+        "why_now": "老手指出，新手沉迷于点击成本、CTR等‘游戏化指标’，把广告系统当成优化终点；而广告本质是‘送货’，落地页、优惠和用户体验才是转化关键。判断重点从‘怎么送’转向‘送的是什么’。",
+        "why_now_reason": "new_threads_24h",
+        "signal_level": "sustained",
+        "intent_tags": [
+          "趋势变化"
+        ],
+        "top_community": "r/googleads",
+        "thread_count": 1,
+        "community_count": 1,
+        "source_module": {
+          "primary_communities": [
+            "r/googleads"
+          ],
+          "top_community": "r/googleads",
+          "tone_tags": [],
+          "thread_count": 1,
+          "community_count": 1,
+          "last_active_text": "近24小时"
+        },
+        "preview_quote": {
+          "text": "Hey so no one would have enough data here to really help you in any way. I could list the questions but honestly they would be alot. \n\nYou need to look at this holistically - not only the ad elements: (where, when, what device, what keywords), the bid strategy, and the ad creative etc. but also - the landing page, the offer communicated and how closely it relates to your search terms, how easy is it for a user to convert etc. \n\nJust too many factors to give any meaningful advice from what you’ve given. I don’t even know what industry and ideal customer you’re going for - or the value of a lead to your business. \n\nOne piece of advice I’ll give you is this: so many first time users (and even some professional users) of digital marketing platforms get incredibly caught up in the delivery system. AKA - the little stats and kpis of your google ad campaigns. CPC, CTR, the “percentage” score google gives you know. It’s so gamefied. And sure these do help the success of your campaigns. But at the end of the day google ads are the delivery system. The ad, the offer and ui/ux of your landing page is the “what” you’re delivering. Focus on that instead. The fact you haven’t mentioned creative or landing page or overall experience once here makes me think you’re not focused on it. I may be wrong, but again I have no details based on what you typed here. \n\nAs I read this back it sounds sassy lol but I’m not trying to be. Hope you achieve success in your campaigns and good luck!",
+          "community": "r/googleads",
+          "permalink": "https://www.reddit.com/r/googleads/comments/1su1gmb/google_ads_advise_i_would_like_to_decrease_my_cpc/ohxnkfn/"
+        },
+        "published_at": "2026-04-24T04:49:45.307007Z",
+        "controversy_chart": null,
+        "controversy_meta": null,
+        "quotes": [
+          {
+            "text": "Hey so no one would have enough data here to really help you in any way. I could list the questions but honestly they would be alot. \n\nYou need to look at this holistically - not only the ad elements: (where, when, what device, what keywords), the bid strategy, and the ad creative etc. but also - the landing page, the offer communicated and how closely it relates to your search terms, how easy is it for a user to convert etc. \n\nJust too many factors to give any meaningful advice from what you’ve given. I don’t even know what industry and ideal customer you’re going for - or the value of a lead to your business. \n\nOne piece of advice I’ll give you is this: so many first time users (and even some professional users) of digital marketing platforms get incredibly caught up in the delivery system. AKA - the little stats and kpis of your google ad campaigns. CPC, CTR, the “percentage” score google gives you know. It’s so gamefied. And sure these do help the success of your campaigns. But at the end of the day google ads are the delivery system. The ad, the offer and ui/ux of your landing page is the “what” you’re delivering. Focus on that instead. The fact you haven’t mentioned creative or landing page or overall experience once here makes me think you’re not focused on it. I may be wrong, but again I have no details based on what you typed here. \n\nAs I read this back it sounds sassy lol but I’m not trying to be. Hope you achieve success in your campaigns and good luck!",
+            "community": "r/googleads",
+            "permalink": "https://www.reddit.com/r/googleads/comments/1su1gmb/google_ads_advise_i_would_like_to_decrease_my_cpc/ohxnkfn/"
+          },
+          {
+            "text": "You're going to likely need more conversion data but I'm always a fan of tCPA with bid ceilings/floors in place.",
+            "community": "r/googleads",
+            "permalink": "https://www.reddit.com/r/googleads/comments/1su1gmb/google_ads_advise_i_would_like_to_decrease_my_cpc/ohxjong/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/googleads/comments/1su1gmb",
+        "detail": {
+          "pain_point": "投手花大量时间调整出价、关键词和广告文案，但转化依然很差，因为根本没搞清楚问题出在‘送’出去的东西（落地页和体验）上。",
+          "target_user_and_scene": "在 Google Ads 后台盯着 CPC、CTR 等指标，试图通过调整广告设置来提升效果的投手。",
+          "why_test_now": "原话直接点明，很多新手（甚至一些专业用户）都‘get incredibly caught up in the delivery system’，而忽略了‘The ad，the offer and ui/ux of your landing page is the “what” you’re delivering’。这明确指出了判断顺序的迁移。",
+          "min_test_action": "去看原始讨论",
+          "continue_signal": "继续看其他有经验的投手是否也建议先检查落地页和整体体验，而不是先动广告设置。",
+          "stop_signal": "如果讨论又回到只调整出价策略、关键词匹配等纯后台操作，而没人再提落地页和用户体验，这条线就失去价值了。"
+        }
+      },
+      "changed": {
+        "title": {
+          "before": "Google Ads 老手现在先看落地页和整体体验，不再先纠结 点击成本 和 CTR 这些投放指标",
+          "after": "Google Ads 转化差时，老手先查落地页体验，不再先调点击成本和 CTR"
+        },
+        "summary_line": {
+          "before": "判断顺序从先优化广告后台的投放数据，转成先检查你到底在给用户‘送’什么东西。",
+          "after": "优化顺序从调整投放数据，转为先检查送出去的东西。"
+        },
+        "audience": {
+          "before": "刚接触 Google Ads、想降低 CPC 并提高转化的投手",
+          "after": "刚接触Google Ads、习惯盯着CPC和CTR调设置的投手"
+        },
+        "why_now": {
+          "before": "有经验的投手直接指出，新手太沉迷于 点击成本、CTR 这些‘游戏化’的指标，而忽略了广告只是‘送货系统’，真正决定转化的是落地页、优惠信息和用户体验。所以下一步先问的不是‘点击成本 为什么高’，而是‘我的落地页和整体体验到底行不行’。",
+          "after": "老手指出，新手沉迷于点击成本、CTR等‘游戏化指标’，把广告系统当成优化终点；而广告本质是‘送货’，落地页、优惠和用户体验才是转化关键。判断重点从‘怎么送’转向‘送的是什么’。"
+        }
+      },
+      "fluency_repair_issue_count": 0,
+      "remaining_density_issues": [
+        "title: 重点字段 35 字，超过建议 34 字，阅读负担高。",
+        "why_now: 重点字段 88 字，超过建议 86 字，阅读负担高。"
+      ],
+      "v13_title_issues_before": [],
+      "v13_title_issues_after": [],
+      "error": ""
+    },
+    {
+      "card_id": "card-cand-business-growth-ops-1stzt83-validate",
+      "lane": "signal",
+      "card_type": "validate",
+      "profile_id": "hotpost_v13_title_standalone",
+      "semantic_model": "deepseek/deepseek-v4-flash",
+      "writer_model": "xiaomi/mimo-v2.5-pro",
+      "original_card": {
+        "card_id": "card-cand-business-growth-ops-1stzt83-validate",
+        "signal_id": "sig-1stzt83",
+        "card_type": "validate",
+        "lane": "signal",
+        "category_id": "validate",
+        "source_scope_id": "business-growth-ops",
+        "source_scope_name": "商业增长与运营",
+        "topic_pack_id": "paid-economics",
+        "topic_cluster_id": "ads",
+        "topic_cluster_ids": [
+          "ads",
+          "attribution"
+        ],
+        "named_topic_ids": [],
+        "source_domain_id": "business-growth-ops",
+        "source_domain_name": "商业增长与运营",
+        "source_event_at": "2026-04-24T00:05:56Z",
+        "title": "多渠道投手现在先搭统一数据层，不再让每个平台各算各的",
+        "summary_line": "判断顺序从先把 Claude 接进各个平台，转成先把多渠道数据整理成统一底表，让 AI 能跨渠道看问题。",
+        "audience": "同时管理 Google Ads、Meta 等多个渠道的投手和代理商",
+        "why_now": "这帖真正的新信号不是 AI 能不能自动改账户，而是多账户运营者把关键解法指向统一数据层。没有统一数据，AI 只能在单个平台里做碎片分析。",
+        "why_now_reason": "new_threads_24h",
+        "signal_level": "sustained",
+        "intent_tags": [
+          "趋势变化"
+        ],
+        "top_community": "r/PPC",
+        "thread_count": 1,
+        "community_count": 1,
+        "source_module": {
+          "primary_communities": [
+            "r/PPC"
+          ],
+          "top_community": "r/PPC",
+          "tone_tags": [],
+          "thread_count": 1,
+          "community_count": 1,
+          "last_active_text": "近24小时"
+        },
+        "preview_quote": {
+          "text": "For multi-channel specifically: While I mostly deal in the Google Ads platform, I would think the key unlock is having a unified data layer you pull from for Claude Code Analysis.",
+          "community": "r/PPC",
+          "permalink": "https://www.reddit.com/r/PPC/comments/1stzt83/claudeai_system_for_multichannel_client/ohx8i1x/"
+        },
+        "published_at": "2026-04-24T04:49:39.685907Z",
+        "controversy_chart": null,
+        "controversy_meta": null,
+        "quotes": [
+          {
+            "text": "For multi-channel specifically: While I mostly deal in the Google Ads platform, I would think the key unlock is having a unified data layer you pull from for Claude Code Analysis.",
+            "community": "r/PPC",
+            "permalink": "https://www.reddit.com/r/PPC/comments/1stzt83/claudeai_system_for_multichannel_client/ohx8i1x/"
+          },
+          {
+            "text": "If you're pulling data from 6 different platforms via their APIs into a single normalized format, Claude can reason across channels in a way it can't when each platform lives in its own silo.",
+            "community": "r/PPC",
+            "permalink": "https://www.reddit.com/r/PPC/comments/1stzt83/claudeai_system_for_multichannel_client/ohx8i1x/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/PPC/comments/1stzt83",
+        "detail": {
+          "pain_point": "多渠道广告数据分散在不同平台，AI 只能在单个平台内做局部分析，很难判断预算、归因和转化质量的整体关系。",
+          "target_user_and_scene": "投手需要同时看多个渠道表现，并用 AI 做日常分析、预算判断或账户排查时。",
+          "why_test_now": "原帖直接把 multi-channel 的 key unlock 指向 unified data layer，说明瓶颈正在从“接不接 AI”转成“数据能不能先统一”。",
+          "min_test_action": "先看原帖里的统一数据层做法",
+          "continue_signal": "继续看评论里有没有更多人把 Google Ads、Meta、CRM 或表格数据合并后再交给 AI 分析。",
+          "stop_signal": "如果讨论只剩 AI 能不能直接改账户，而没有数据层和跨渠道分析的具体做法，这条线就停止追。"
+        }
+      },
+      "v12_shadow": {
+        "title": "多渠道投手：先统一数据层，再让 AI 跨平台分析",
+        "summary_line": "判断顺序从‘先把AI接进各个平台’转成‘先把多渠道数据整理成统一底表’，因为AI需要跨渠道数据才能做有价值的分析。",
+        "audience": "管理多个广告平台账户的投手或代理商",
+        "why_now": "有用户把关键解法指向统一数据层，认为没有统一数据，AI只能在单个平台里做碎片分析，无法解决预算、归因、转化质量的整体问题。",
+        "pain_point": "在每个平台分别用AI功能，但跨渠道策略无法协调，AI看不到全貌。",
+        "target_user_and_scene": "管理多个广告平台账户的投手或代理商，在制定跨渠道预算和归因策略时。",
+        "why_test_now": "原帖直接把multi-channel的key unlock指向unified data layer，说明瓶颈正在从‘接不接AI’转成‘数据能不能先统一’。",
+        "min_test_action": "去看原始讨论",
+        "continue_signal": "关注是否有更多人提出类似做法，以及具体的数据层搭建方法（如用BigQuery或Sheets合并多个平台的广告数据）。",
+        "stop_signal": "如果出现成熟的、能直接在各平台内部分析跨渠道数据的AI工具，这个判断顺序可能被再次改变。"
+      },
+      "refreshed_card": {
+        "card_id": "card-cand-business-growth-ops-1stzt83-validate",
+        "signal_id": "sig-1stzt83",
+        "card_type": "validate",
+        "lane": "signal",
+        "category_id": "validate",
+        "source_scope_id": "business-growth-ops",
+        "source_scope_name": "商业增长与运营",
+        "topic_pack_id": "paid-economics",
+        "topic_cluster_id": "ads",
+        "topic_cluster_ids": [
+          "ads",
+          "attribution"
+        ],
+        "named_topic_ids": [],
+        "source_domain_id": "business-growth-ops",
+        "source_domain_name": "商业增长与运营",
+        "source_event_at": "2026-04-24T00:05:56Z",
+        "title": "多渠道投手：先统一数据层，再让 AI 跨平台分析",
+        "summary_line": "判断顺序从‘先把AI接进各个平台’转成‘先把多渠道数据整理成统一底表’，因为AI需要跨渠道数据才能做有价值的分析。",
+        "audience": "管理多个广告平台账户的投手或代理商",
+        "why_now": "有用户把关键解法指向统一数据层，认为没有统一数据，AI只能在单个平台里做碎片分析，无法解决预算、归因、转化质量的整体问题。",
+        "why_now_reason": "new_threads_24h",
+        "signal_level": "sustained",
+        "intent_tags": [
+          "趋势变化"
+        ],
+        "top_community": "r/PPC",
+        "thread_count": 1,
+        "community_count": 1,
+        "source_module": {
+          "primary_communities": [
+            "r/PPC"
+          ],
+          "top_community": "r/PPC",
+          "tone_tags": [],
+          "thread_count": 1,
+          "community_count": 1,
+          "last_active_text": "近24小时"
+        },
+        "preview_quote": {
+          "text": "For multi-channel specifically: While I mostly deal in the Google Ads platform, I would think the key unlock is having a unified data layer you pull from for Claude Code Analysis.",
+          "community": "r/PPC",
+          "permalink": "https://www.reddit.com/r/PPC/comments/1stzt83/claudeai_system_for_multichannel_client/ohx8i1x/"
+        },
+        "published_at": "2026-04-24T04:49:39.685907Z",
+        "controversy_chart": null,
+        "controversy_meta": null,
+        "quotes": [
+          {
+            "text": "For multi-channel specifically: While I mostly deal in the Google Ads platform, I would think the key unlock is having a unified data layer you pull from for Claude Code Analysis.",
+            "community": "r/PPC",
+            "permalink": "https://www.reddit.com/r/PPC/comments/1stzt83/claudeai_system_for_multichannel_client/ohx8i1x/"
+          },
+          {
+            "text": "If you're pulling data from 6 different platforms via their APIs into a single normalized format, Claude can reason across channels in a way it can't when each platform lives in its own silo.",
+            "community": "r/PPC",
+            "permalink": "https://www.reddit.com/r/PPC/comments/1stzt83/claudeai_system_for_multichannel_client/ohx8i1x/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/PPC/comments/1stzt83",
+        "detail": {
+          "pain_point": "多渠道广告数据分散在不同平台，AI 只能在单个平台内做局部分析，很难判断预算、归因和转化质量的整体关系。",
+          "target_user_and_scene": "投手需要同时看多个渠道表现，并用 AI 做日常分析、预算判断或账户排查时。",
+          "why_test_now": "原帖直接把 multi-channel 的 key unlock 指向 unified data layer，说明瓶颈正在从“接不接 AI”转成“数据能不能先统一”。",
+          "min_test_action": "先看原帖里的统一数据层做法",
+          "continue_signal": "继续看评论里有没有更多人把 Google Ads、Meta、CRM 或表格数据合并后再交给 AI 分析。",
+          "stop_signal": "如果讨论只剩 AI 能不能直接改账户，而没有数据层和跨渠道分析的具体做法，这条线就停止追。"
+        }
+      },
+      "changed": {
+        "title": {
+          "before": "多渠道投手现在先搭统一数据层，不再让每个平台各算各的",
+          "after": "多渠道投手：先统一数据层，再让 AI 跨平台分析"
+        },
+        "summary_line": {
+          "before": "判断顺序从先把 Claude 接进各个平台，转成先把多渠道数据整理成统一底表，让 AI 能跨渠道看问题。",
+          "after": "判断顺序从‘先把AI接进各个平台’转成‘先把多渠道数据整理成统一底表’，因为AI需要跨渠道数据才能做有价值的分析。"
+        },
+        "audience": {
+          "before": "同时管理 Google Ads、Meta 等多个渠道的投手和代理商",
+          "after": "管理多个广告平台账户的投手或代理商"
+        },
+        "why_now": {
+          "before": "这帖真正的新信号不是 AI 能不能自动改账户，而是多账户运营者把关键解法指向统一数据层。没有统一数据，AI 只能在单个平台里做碎片分析。",
+          "after": "有用户把关键解法指向统一数据层，认为没有统一数据，AI只能在单个平台里做碎片分析，无法解决预算、归因、转化质量的整体问题。"
+        }
+      },
+      "fluency_repair_issue_count": 0,
+      "remaining_density_issues": [],
+      "v13_title_issues_before": [],
+      "v13_title_issues_after": [],
+      "error": ""
+    },
+    {
+      "card_id": "card-group-ecommerce-sellers-b7e47ec2fd",
+      "lane": "breakdown",
+      "card_type": "write",
+      "profile_id": "hotpost_v13_title_standalone",
+      "semantic_model": "deepseek/deepseek-v4-flash",
+      "writer_model": "xiaomi/mimo-v2.5-pro",
+      "original_card": {
+        "card_id": "card-group-ecommerce-sellers-b7e47ec2fd",
+        "signal_id": "sig-group-ecommerce-sellers-b7e47ec2fd",
+        "card_type": "write",
+        "lane": "breakdown",
+        "category_id": "write",
+        "source_scope_id": "ecommerce-sellers",
+        "source_scope_name": "电商与卖家",
+        "topic_pack_id": "selection-signals",
+        "topic_cluster_id": "edc",
+        "topic_cluster_ids": [
+          "edc",
+          "brand-launch-and-crowdfunding",
+          "outdoor"
+        ],
+        "named_topic_ids": [],
+        "source_domain_id": "ecommerce-sellers",
+        "source_domain_name": "电商与卖家",
+        "source_event_at": "2026-04-17T15:22:29Z",
+        "title": "传统羊毛衫的“耐用”标签，在城市室内场景下反而成了负担",
+        "summary_line": "讨论从‘这毛衣能穿几十年’转向了‘我穿上会不会热到中暑’，耐用性不再是唯一标准。",
+        "audience": "想买经典耐用羊毛衫，但主要生活在城市、室内时间长的人",
+        "why_now": "一个人分享了在爱尔兰买的毛衣因为太厚只能冬天室外穿，另一个人直接指出很多传统毛衣‘根本不是为城市生活设计的’，这说明问题已经从‘买不买得到真货’变成了‘买回来能不能穿’。",
+        "why_now_reason": "recurring_7d",
+        "signal_level": "sustained",
+        "intent_tags": [
+          "趋势变化",
+          "避坑"
+        ],
+        "top_community": "r/BuyItForLife",
+        "thread_count": 2,
+        "community_count": 2,
+        "source_module": {
+          "primary_communities": [
+            "r/BuyItForLife",
+            "r/EntrepreneurRideAlong"
+          ],
+          "top_community": "r/BuyItForLife",
+          "tone_tags": [],
+          "thread_count": 2,
+          "community_count": 2,
+          "last_active_text": "近7天"
+        },
+        "preview_quote": {
+          "text": "Years ago, I picked up a locally knitted Irish wool sweater when I was in the Aran islands.  It was thick, heavy, with beautiful cable patterns.  These last for decades and are insanely warm.\n\nThe bad news is that I could only wear it outside, in winter.  You would melt if you tried to wear it indoors.",
+          "community": "r/BuyItForLife",
+          "permalink": "https://www.reddit.com/r/BuyItForLife/comments/1sny422/has_anyone_tried_real_irish_knitwear_for_atlantic/ogp0y80/"
+        },
+        "published_at": "2026-04-23T07:20:54.899732Z",
+        "controversy_chart": null,
+        "controversy_meta": null,
+        "quotes": [
+          {
+            "text": "Years ago, I picked up a locally knitted Irish wool sweater when I was in the Aran islands.  It was thick, heavy, with beautiful cable patterns.  These last for decades and are insanely warm.\n\nThe bad news is that I could only wear it outside, in winter.  You would melt if you tried to wear it indoors.",
+            "community": "r/BuyItForLife",
+            "permalink": "https://www.reddit.com/r/BuyItForLife/comments/1sny422/has_anyone_tried_real_irish_knitwear_for_atlantic/ogp0y80/"
+          },
+          {
+            "text": "I knit for a living and repair knits as part of my business. \n\nA lot of Irish or Scottish sweaters are really heavy. Seriously not meant for wearing in the city. I’m talking staying outside all day working heavy. But many of those brands do make mid weight ones now. So definitely do your research. \n\nVintage is also a really good choice. Less expensive usually as well. Harder to find depending on your area and your local resellers. \n\nAlso don’t discount brands like Dale of Norway or other heritage Nordic brands. They are a completely different look but one of the few brands that I’m not muttering snide comments about while doing repairs.",
+            "community": "r/BuyItForLife",
+            "permalink": "https://www.reddit.com/r/BuyItForLife/comments/1sny422/has_anyone_tried_real_irish_knitwear_for_atlantic/ogqunai/"
+          },
+          {
+            "text": "we run exactly the hybrid setup you mentioned. Happay for our 20 office staff, CotoPay for 35 field guys. Works well. Tried forcing one tool for everyone and it never fit. Different teams have different needs.",
+            "community": "r/EntrepreneurRideAlong",
+            "permalink": "https://www.reddit.com/r/EntrepreneurRideAlong/comments/1so4428/upi_vouchers_cotopay_vs_prepaid_cards_happay/ogqbl0c/"
+          },
+          {
+            "text": "honest question. What happens in 2-3 years when every prepaid card provider also starts offering UPI based payments? The infrastructure advantage CotoPay has right now might not last. First mover or temporary gap?",
+            "community": "r/EntrepreneurRideAlong",
+            "permalink": "https://www.reddit.com/r/EntrepreneurRideAlong/comments/1so4428/upi_vouchers_cotopay_vs_prepaid_cards_happay/ogqgjea/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/BuyItForLife/comments/1sny422",
+        "detail": {
+          "thesis": "传统羊毛衫的核心矛盾，已经从‘是否耐用’转移到了‘是否适应现代城市以室内为主的生活场景’。",
+          "writing_angle_or_perspective": "别讲工艺传承，直接讲一件‘传家宝’级别的毛衣为什么会在衣柜里吃灰。",
+          "tension_point_or_why_it_matters": "一件东西如果因为‘太好’而变得不实用，它的价值就只能停留在情怀和收藏层面，无法融入日常生活。",
+          "title_hooks": [
+            "能穿一辈子的毛衣，可能一辈子都穿不上几次",
+            "当‘耐用’变成‘用不上’，选购标准就该换了"
+          ],
+          "quote_pack": [
+            "The bad news is that I could only wear it outside, in winter. You would melt if you tried to wear it indoors.｜坏消息是，我只能冬天在室外穿它。你要是想在室内穿，会热到融化。｜r/BuyItForLife",
+            "A lot of Irish or Scottish sweaters are really heavy. Seriously not meant for wearing in the city. I’m talking staying outside all day working heavy.｜很多爱尔兰或苏格兰毛衣非常厚重。真的不适合在城市里穿。我说的是那种需要整天待在户外干重活的厚度。｜r/BuyItForLife"
+          ]
+        }
+      },
+      "v12_shadow": {
+        "title": "能穿一辈子的毛衣，却穿不了一个冬天",
+        "summary_line": "用户发现，传统羊毛衫的‘耐用’在城市室内场景下成了‘用不上’，保暖过强反而成了负担。",
+        "audience": "想买经典耐用羊毛衫，但主要生活在城市、室内时间长的人",
+        "why_now": "两条Reddit评论揭示：用户买的爱尔兰毛衣因太厚只能冬天室外穿；另一人指出这类毛衣‘根本不是为城市生活设计’。问题从‘买不买得到真货’升级为‘买回来到底能不能穿’。",
+        "thesis": "传统羊毛衫的耐用性，建立在‘户外全天穿着’的场景上。当这个场景变成‘城市室内’时，过强的保暖性就从优点变成了缺点，导致‘耐用’但‘用不上’。",
+        "writing_angle_or_perspective": "别从工艺和材质讲，直接讲‘买回来发现穿不上’的尴尬。",
+        "tension_point_or_why_it_matters": "高价买回的‘传家宝’，可能因为太热而常年躺在衣柜里，耐用性失去了意义。",
+        "title_hooks": [
+          "不是它不结实，是你根本没机会穿"
+        ],
+        "quote_pack": [
+          "Years ago, I picked up a locally knitted Irish wool sweater when I was in the Aran islands. It was thick, heavy, with beautiful cable patterns. These last for decades and are insanely warm. The bad news is that I could only wear it outside, in winter. You would melt if you tried to wear it indoors.｜多年前在阿兰群岛买了一件本地编织的爱尔兰毛衣，又厚又重，图案漂亮。这种毛衣能穿几十年，保暖性极强。但坏消息是，我只能在冬天的户外穿它。在室内穿会热到融化。｜r/BuyItForLife",
+          "A lot of Irish or Scottish sweaters are really heavy. Seriously not meant for wearing in the city. I’m talking staying outside all day working heavy.｜很多爱尔兰或苏格兰毛衣非常厚重。真的不适合在城市里穿。我说的是那种全天在户外干活穿的厚度。｜r/BuyItForLife"
+        ]
+      },
+      "refreshed_card": {
+        "card_id": "card-group-ecommerce-sellers-b7e47ec2fd",
+        "signal_id": "sig-group-ecommerce-sellers-b7e47ec2fd",
+        "card_type": "write",
+        "lane": "breakdown",
+        "category_id": "write",
+        "source_scope_id": "ecommerce-sellers",
+        "source_scope_name": "电商与卖家",
+        "topic_pack_id": "selection-signals",
+        "topic_cluster_id": "edc",
+        "topic_cluster_ids": [
+          "edc",
+          "brand-launch-and-crowdfunding",
+          "outdoor"
+        ],
+        "named_topic_ids": [],
+        "source_domain_id": "ecommerce-sellers",
+        "source_domain_name": "电商与卖家",
+        "source_event_at": "2026-04-17T15:22:29Z",
+        "title": "传统羊毛衫太厚穿不上，城市室内成了摆设",
+        "summary_line": "用户发现，传统羊毛衫的‘耐用’在城市室内场景下成了‘用不上’，保暖过强反而成了负担。",
+        "audience": "想买经典耐用羊毛衫，但主要生活在城市、室内时间长的人",
+        "why_now": "两条Reddit评论揭示：用户买的爱尔兰毛衣因太厚只能冬天室外穿；另一人指出这类毛衣‘根本不是为城市生活设计’。问题从‘买不买得到真货’升级为‘买回来到底能不能穿’。",
+        "why_now_reason": "recurring_7d",
+        "signal_level": "sustained",
+        "intent_tags": [
+          "趋势变化",
+          "避坑"
+        ],
+        "top_community": "r/BuyItForLife",
+        "thread_count": 2,
+        "community_count": 2,
+        "source_module": {
+          "primary_communities": [
+            "r/BuyItForLife",
+            "r/EntrepreneurRideAlong"
+          ],
+          "top_community": "r/BuyItForLife",
+          "tone_tags": [],
+          "thread_count": 2,
+          "community_count": 2,
+          "last_active_text": "近7天"
+        },
+        "preview_quote": {
+          "text": "Years ago, I picked up a locally knitted Irish wool sweater when I was in the Aran islands.  It was thick, heavy, with beautiful cable patterns.  These last for decades and are insanely warm.\n\nThe bad news is that I could only wear it outside, in winter.  You would melt if you tried to wear it indoors.",
+          "community": "r/BuyItForLife",
+          "permalink": "https://www.reddit.com/r/BuyItForLife/comments/1sny422/has_anyone_tried_real_irish_knitwear_for_atlantic/ogp0y80/"
+        },
+        "published_at": "2026-04-23T07:20:54.899732Z",
+        "controversy_chart": null,
+        "controversy_meta": null,
+        "quotes": [
+          {
+            "text": "Years ago, I picked up a locally knitted Irish wool sweater when I was in the Aran islands.  It was thick, heavy, with beautiful cable patterns.  These last for decades and are insanely warm.\n\nThe bad news is that I could only wear it outside, in winter.  You would melt if you tried to wear it indoors.",
+            "community": "r/BuyItForLife",
+            "permalink": "https://www.reddit.com/r/BuyItForLife/comments/1sny422/has_anyone_tried_real_irish_knitwear_for_atlantic/ogp0y80/"
+          },
+          {
+            "text": "I knit for a living and repair knits as part of my business. \n\nA lot of Irish or Scottish sweaters are really heavy. Seriously not meant for wearing in the city. I’m talking staying outside all day working heavy. But many of those brands do make mid weight ones now. So definitely do your research. \n\nVintage is also a really good choice. Less expensive usually as well. Harder to find depending on your area and your local resellers. \n\nAlso don’t discount brands like Dale of Norway or other heritage Nordic brands. They are a completely different look but one of the few brands that I’m not muttering snide comments about while doing repairs.",
+            "community": "r/BuyItForLife",
+            "permalink": "https://www.reddit.com/r/BuyItForLife/comments/1sny422/has_anyone_tried_real_irish_knitwear_for_atlantic/ogqunai/"
+          },
+          {
+            "text": "we run exactly the hybrid setup you mentioned. Happay for our 20 office staff, CotoPay for 35 field guys. Works well. Tried forcing one tool for everyone and it never fit. Different teams have different needs.",
+            "community": "r/EntrepreneurRideAlong",
+            "permalink": "https://www.reddit.com/r/EntrepreneurRideAlong/comments/1so4428/upi_vouchers_cotopay_vs_prepaid_cards_happay/ogqbl0c/"
+          },
+          {
+            "text": "honest question. What happens in 2-3 years when every prepaid card provider also starts offering UPI based payments? The infrastructure advantage CotoPay has right now might not last. First mover or temporary gap?",
+            "community": "r/EntrepreneurRideAlong",
+            "permalink": "https://www.reddit.com/r/EntrepreneurRideAlong/comments/1so4428/upi_vouchers_cotopay_vs_prepaid_cards_happay/ogqgjea/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/BuyItForLife/comments/1sny422",
+        "detail": {
+          "thesis": "传统羊毛衫的核心矛盾，已经从‘是否耐用’转移到了‘是否适应现代城市以室内为主的生活场景’。",
+          "writing_angle_or_perspective": "别讲工艺传承，直接讲一件‘传家宝’级别的毛衣为什么会在衣柜里吃灰。",
+          "tension_point_or_why_it_matters": "一件东西如果因为‘太好’而变得不实用，它的价值就只能停留在情怀和收藏层面，无法融入日常生活。",
+          "title_hooks": [
+            "能穿一辈子的毛衣，可能一辈子都穿不上几次",
+            "当‘耐用’变成‘用不上’，选购标准就该换了"
+          ],
+          "quote_pack": [
+            "The bad news is that I could only wear it outside, in winter. You would melt if you tried to wear it indoors.｜坏消息是，我只能冬天在室外穿它。你要是想在室内穿，会热到融化。｜r/BuyItForLife",
+            "A lot of Irish or Scottish sweaters are really heavy. Seriously not meant for wearing in the city. I’m talking staying outside all day working heavy.｜很多爱尔兰或苏格兰毛衣非常厚重。真的不适合在城市里穿。我说的是那种需要整天待在户外干重活的厚度。｜r/BuyItForLife"
+          ]
+        }
+      },
+      "changed": {
+        "title": {
+          "before": "传统羊毛衫的“耐用”标签，在城市室内场景下反而成了负担",
+          "after": "传统羊毛衫太厚穿不上，城市室内成了摆设"
+        },
+        "summary_line": {
+          "before": "讨论从‘这毛衣能穿几十年’转向了‘我穿上会不会热到中暑’，耐用性不再是唯一标准。",
+          "after": "用户发现，传统羊毛衫的‘耐用’在城市室内场景下成了‘用不上’，保暖过强反而成了负担。"
+        },
+        "why_now": {
+          "before": "一个人分享了在爱尔兰买的毛衣因为太厚只能冬天室外穿，另一个人直接指出很多传统毛衣‘根本不是为城市生活设计的’，这说明问题已经从‘买不买得到真货’变成了‘买回来能不能穿’。",
+          "after": "两条Reddit评论揭示：用户买的爱尔兰毛衣因太厚只能冬天室外穿；另一人指出这类毛衣‘根本不是为城市生活设计’。问题从‘买不买得到真货’升级为‘买回来到底能不能穿’。"
+        }
+      },
+      "fluency_repair_issue_count": 0,
+      "remaining_density_issues": [],
+      "v13_title_issues_before": [],
+      "v13_title_issues_after": [],
+      "error": ""
+    },
+    {
+      "card_id": "card-group-ecommerce-sellers-1f0bf36127",
+      "lane": "breakdown",
+      "card_type": "write",
+      "profile_id": "hotpost_v13_title_standalone",
+      "semantic_model": "deepseek/deepseek-v4-flash",
+      "writer_model": "xiaomi/mimo-v2.5-pro",
+      "original_card": {
+        "card_id": "card-group-ecommerce-sellers-1f0bf36127",
+        "signal_id": "sig-group-ecommerce-sellers-1f0bf36127",
+        "card_type": "write",
+        "lane": "breakdown",
+        "category_id": "write",
+        "source_scope_id": "ecommerce-sellers",
+        "source_scope_name": "电商与卖家",
+        "topic_pack_id": "selection-signals",
+        "topic_cluster_id": "edc",
+        "topic_cluster_ids": [
+          "edc",
+          "small-goods",
+          "outdoor"
+        ],
+        "named_topic_ids": [
+          "small-goods-watch"
+        ],
+        "source_domain_id": "ecommerce-sellers",
+        "source_domain_name": "电商与卖家",
+        "source_event_at": "2026-04-17T13:54:13Z",
+        "title": "选水调味剂，先算单包成本，牌子排后面",
+        "summary_line": "有用户嫌 Propel 十包近五美元太贵，评论里立刻有用户推荐亚马逊上百包七美元的 True Lemon 和沃尔玛自有品牌，说明筛选标准已经从认牌子变成了算单价。",
+        "audience": "想给水加味但预算紧的消费者",
+        "why_now": "一个人晒出 Propel 的价格觉得贵，另一个人马上给出更便宜的替代品和具体价格，说明大家已经不先看牌子，而是先算单包成本能不能降到一毛钱以下。",
+        "why_now_reason": "switch_signal_7d",
+        "signal_level": "rising",
+        "intent_tags": [
+          "趋势变化",
+          "求推荐"
+        ],
+        "top_community": "r/BuyItForLife",
+        "thread_count": 2,
+        "community_count": 2,
+        "source_module": {
+          "primary_communities": [
+            "r/BuyItForLife",
+            "r/Frugal"
+          ],
+          "top_community": "r/BuyItForLife",
+          "tone_tags": [],
+          "thread_count": 2,
+          "community_count": 2,
+          "last_active_text": "近7天"
+        },
+        "preview_quote": {
+          "text": "Crystallized lemon packets.\n\n\"True lemon\" on Amazon, 100 packets for 7 bucks. \n\nIt's just lemon. Tastes great.",
+          "community": "r/Frugal",
+          "permalink": "https://www.reddit.com/r/Frugal/comments/1so1ohw/best_cheap_water_flavorings_i_love_propel_but/ogpqtvj/"
+        },
+        "published_at": "2026-04-23T07:20:54.109492Z",
+        "controversy_chart": null,
+        "controversy_meta": null,
+        "quotes": [
+          {
+            "text": "Crystallized lemon packets.\n\n\"True lemon\" on Amazon, 100 packets for 7 bucks. \n\nIt's just lemon. Tastes great.",
+            "community": "r/Frugal",
+            "permalink": "https://www.reddit.com/r/Frugal/comments/1so1ohw/best_cheap_water_flavorings_i_love_propel_but/ogpqtvj/"
+          },
+          {
+            "text": "Years ago, I picked up a locally knitted Irish wool sweater when I was in the Aran islands.  It was thick, heavy, with beautiful cable patterns.  These last for decades and are insanely warm.\n\nThe bad news is that I could only wear it outside, in winter.  You would melt if you tried to wear it indoors.",
+            "community": "r/BuyItForLife",
+            "permalink": "https://www.reddit.com/r/BuyItForLife/comments/1sny422/has_anyone_tried_real_irish_knitwear_for_atlantic/ogp0y80/"
+          },
+          {
+            "text": "I knit for a living and repair knits as part of my business. \n\nA lot of Irish or Scottish sweaters are really heavy. Seriously not meant for wearing in the city. I’m talking staying outside all day working heavy. But many of those brands do make mid weight ones now. So definitely do your research. \n\nVintage is also a really good choice. Less expensive usually as well. Harder to find depending on your area and your local resellers. \n\nAlso don’t discount brands like Dale of Norway or other heritage Nordic brands. They are a completely different look but one of the few brands that I’m not muttering snide comments about while doing repairs.",
+            "community": "r/BuyItForLife",
+            "permalink": "https://www.reddit.com/r/BuyItForLife/comments/1sny422/has_anyone_tried_real_irish_knitwear_for_atlantic/ogqunai/"
+          },
+          {
+            "text": "Wal-mart's Great Value brand flavorings. They also have caffeinated or electrolyte versions for the cheapest price I've seen.",
+            "community": "r/Frugal",
+            "permalink": "https://www.reddit.com/r/Frugal/comments/1so1ohw/best_cheap_water_flavorings_i_love_propel_but/ogpql93/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/BuyItForLife/comments/1sny422",
+        "detail": {
+          "thesis": "消费者对水调味剂的筛选标准，已经从品牌认知转向了单包成本计算。",
+          "writing_angle_or_perspective": "别讲品牌忠诚度，直接讲消费者怎么用计算器选产品。",
+          "tension_point_or_why_it_matters": "当大家开始用单价而不是牌子来筛选，大品牌的溢价空间就被压缩了。",
+          "title_hooks": [
+            "消费者不先问‘哪个牌子好’，先问‘一包多少钱’"
+          ],
+          "quote_pack": [
+            "\"True lemon\" on Amazon, 100 packets for 7 bucks.｜亚马逊上的“True Lemon”，100包只要7美元。｜r/Frugal",
+            "Wal-mart's Great Value brand flavorings. They also have caffeinated or electrolyte versions for the cheapest price I've seen.｜沃尔玛的Great Value品牌调味剂。它们还有含咖啡因或电解质的版本，是我见过最便宜的。｜r/Frugal"
+          ]
+        }
+      },
+      "v12_shadow": {},
+      "refreshed_card": {},
+      "changed": {},
+      "fluency_repair_issue_count": 0,
+      "remaining_density_issues": [],
+      "v13_title_issues_before": [],
+      "v13_title_issues_after": [],
+      "error": "ValueError: summary_line contains banned pattern: 已经从"
+    }
+  ]
+}

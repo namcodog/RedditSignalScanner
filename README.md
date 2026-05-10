@@ -66,6 +66,7 @@ make quickstart
 make dev-backend
 # 访问: http://localhost:8006
 # API 文档: http://localhost:8006/docs
+# 健康检查: http://localhost:8006/api/v1/health
 
 # 启动前端服务器（终端 2）
 make dev-frontend
@@ -79,6 +80,9 @@ make test-e2e
 
 # 验证Admin端到端流程（需设置ADMIN_EMAILS）
 make test-admin-e2e
+
+# 验证 hotpost 正常态 smoke（后端启动后可直接跑）
+make acceptance-hotpost-smoke
 
 # 启动 Celery Worker（可选，终端 3）
 make celery-start
@@ -140,7 +144,7 @@ python scripts/start_celery_worker.py
 - 拓展新命令时，优先在公共脚本中补函数，然后在对应模块的新目标里引用，避免重复脚本逻辑。
 
 #### Admin Dashboard 端到端验证指南
-1. **配置管理员邮箱**：确保后端启动前已设置 `ADMIN_EMAILS`，例如  
+1. **配置管理员邮箱**：确保后端启动前已设置 `ADMIN_EMAILS`，例如
    ```bash
    export ADMIN_EMAILS=admin-e2e@example.com
    export ADMIN_E2E_PASSWORD=TestAdmin123   # 如需复用现有管理员密码

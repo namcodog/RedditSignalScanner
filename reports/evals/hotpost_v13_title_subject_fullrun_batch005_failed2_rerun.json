@@ -1,0 +1,420 @@
+{
+  "kind": "hotpost_v13_published_shadow_refresh",
+  "plan_version": 1,
+  "profile_id": "hotpost_v13_title_standalone",
+  "created_at": "2026-04-29T07:36:31.005013Z",
+  "selected": 2,
+  "generated": 2,
+  "failed": 0,
+  "cards": [
+    {
+      "card_id": "card-cand-business-growth-ops-1sqm2c5-validate",
+      "lane": "hot",
+      "card_type": "validate",
+      "profile_id": "hotpost_v13_title_standalone",
+      "semantic_model": "deepseek/deepseek-v4-flash",
+      "writer_model": "xiaomi/mimo-v2.5-pro",
+      "original_card": {
+        "card_id": "card-cand-business-growth-ops-1sqm2c5-validate",
+        "signal_id": "sig-1sqm2c5",
+        "card_type": "validate",
+        "lane": "hot",
+        "category_id": "validate",
+        "source_scope_id": "business-growth-ops",
+        "source_scope_name": "商业增长与运营",
+        "topic_pack_id": "paid-economics",
+        "topic_cluster_id": "content-production",
+        "topic_cluster_ids": [
+          "content-production"
+        ],
+        "named_topic_ids": [
+          "custom-topic"
+        ],
+        "source_domain_id": "business-growth-ops",
+        "source_domain_name": "商业增长与运营",
+        "source_event_at": "2026-04-20T11:04:36Z",
+        "title": "这帖火在戳穿了 AI Agent 的幻觉：客户嘴里喊着智能体，其实只是想要干净的数据流",
+        "summary_line": "争议点在于：AI 到底是在做业务转型，还是在给烂成筛子的 CRM 数据“打补丁”。",
+        "audience": "正在被老板催着上 AI、但手里数据一团乱的运营和咨询顾问",
+        "why_now": "讨论已经从“AI 能做什么”变成了“数据这么烂，上 AI 就是自杀”，大家开始在评论区互倒苦水。",
+        "why_now_reason": "new_threads_24h",
+        "signal_level": "rising",
+        "intent_tags": [
+          "趋势变化"
+        ],
+        "top_community": "r/consulting",
+        "thread_count": 1,
+        "community_count": 1,
+        "source_module": {
+          "primary_communities": [
+            "r/consulting"
+          ],
+          "top_community": "r/consulting",
+          "tone_tags": [],
+          "thread_count": 1,
+          "community_count": 1,
+          "last_active_text": "近7天"
+        },
+        "preview_quote": {
+          "text": "most clients say agentic but mean better data triggers and cleaner workflows, the real risk is layering ai on top of broken crm data and calling it transformation",
+          "community": "r/consulting",
+          "permalink": "https://www.reddit.com/r/consulting/comments/1sqm2c5/mbb_big4_co_transformation_and_operations/oh8wb95/"
+        },
+        "published_at": "2026-04-21T08:53:03.507504Z",
+        "controversy_chart": {
+          "support_ratio": 0.16,
+          "oppose_ratio": 0.42,
+          "neutral_ratio": 0.42,
+          "support_point": "客户嘴上说智能体，其实只是想要干净的数据流。",
+          "oppose_point": "客户期望过高，以为智能体能解决一切问题。",
+          "neutral_point": "先看客户能不能把数据清理干净。",
+          "debate_focus": "智能体转型还是数据打补丁，到底该怎么看？",
+          "dominant_side": "oppose",
+          "confidence": "medium"
+        },
+        "controversy_meta": {
+          "post_id": "1sqm2c5",
+          "sample_size": 19,
+          "sampled_at": "2026-04-21T08:53:03.507726Z",
+          "fetch_status": "ok",
+          "llm_summary_version": "cn_human_point_slots_v8",
+          "sample_quality": "low",
+          "summary_status": "ok",
+          "confidence_reason": "评论样本中，支持方观点认为客户实际需求是数据清理和流程优化，而非真正的智能体转型，这与卡片摘要的争议点一致。反对方则认为客户对智能体的期望过高，要求不切实际。中立观点则聚焦于数据质量和流程梳理是实现智能体的基础，但样本中明确指出客户往往忽视这一点，因此将中立点聚焦于数据清理的挑战。"
+        },
+        "quotes": [
+          {
+            "text": "most clients say agentic but mean better data triggers and cleaner workflows, the real risk is layering ai on top of broken crm data and calling it transformation",
+            "community": "r/consulting",
+            "permalink": "https://www.reddit.com/r/consulting/comments/1sqm2c5/mbb_big4_co_transformation_and_operations/oh8wb95/"
+          },
+          {
+            "text": "That sounds like a lot of work for an independent and takes a decent sized team for that to happen unless they are a startup. They want a tech roll in between most likely as well and hope you bring that not just the process work which is critical. \n\nI’m working on the start of what will be a large transformation in this area. Frankly it’s getting your processes in order (most don’t have near the level\nOf detail needed for even humans), having available data, and having leadership aligned on what this all actually means. I find most right now just want cost dump and shift FTE to ai without looking how how to further allocate current workforce… that’s generally short sighted unless their process to begin with were truly that inefficient.",
+            "community": "r/consulting",
+            "permalink": "https://www.reddit.com/r/consulting/comments/1sqm2c5/mbb_big4_co_transformation_and_operations/oh8spiw/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/consulting/comments/1sqm2c5",
+        "detail": {
+          "flashpoint": "帖子里直接点破：很多公司想靠 AI 裁员省钱，却连最基础的业务流程都没理顺，甚至不如人类员工懂行。",
+          "fight_line": "甲方想直接用 AI 替换人力（cost dump） vs 乙方认为不先理顺流程和数据，AI 根本跑不通。",
+          "why_test_now": "关键证据是“most clients say agentic but mean better data triggers and cleaner workflows, the real risk”。关键点在于 broken crm data。大家发现所谓的转型，其实是把 AI 盖在垃圾堆上，这种“伪转型”正在成为行业常态。",
+          "continue_signal": "继续看 cost dump、shift FTE 这些词，看有没有用户分享在烂数据上强行跑 AI 的翻车案例。",
+          "stop_signal": "如果讨论回到 AI 模型对比，或者只剩对甲方的单纯吐槽，没有具体的业务流程拆解，就没必要追了。"
+        }
+      },
+      "v12_shadow": {
+        "title": "戳穿 AI Agent 幻觉：客户要的是干净数据流，不是智能体",
+        "summary_line": "争议点：AI 是在做业务转型，还是在给烂数据打补丁？",
+        "audience": "被甲方催着上AI、但内部数据一团乱的运营和咨询顾问",
+        "why_now": "讨论重心从模型能力转向数据质量，底层数据成了真正的拦路虎。",
+        "flashpoint": "评论点破：客户要 AI Agent，实际要更好的数据触发器和流程。风险是在破碎的 CRM 数据上强行套 AI，伪称转型。",
+        "fight_line": "一方想用 AI 直接省人力，另一方认为不先清理数据、理顺流程，AI 只是给烂数据打补丁。",
+        "why_test_now": "关键证据揭示普遍错觉：客户说要 Agent，实际要的是数据触发器和流程。这给了运营人员向老板证明‘先搞数据’的依据。",
+        "continue_signal": "看评论区有没有用户分享清理数据、理顺流程的具体案例。",
+        "stop_signal": "如果只剩情绪吐槽，没有团队讲清数据治理和流程梳理的具体方法，就不用放大。"
+      },
+      "refreshed_card": {
+        "card_id": "card-cand-business-growth-ops-1sqm2c5-validate",
+        "signal_id": "sig-1sqm2c5",
+        "card_type": "validate",
+        "lane": "hot",
+        "category_id": "validate",
+        "source_scope_id": "business-growth-ops",
+        "source_scope_name": "商业增长与运营",
+        "topic_pack_id": "paid-economics",
+        "topic_cluster_id": "content-production",
+        "topic_cluster_ids": [
+          "content-production"
+        ],
+        "named_topic_ids": [
+          "custom-topic"
+        ],
+        "source_domain_id": "business-growth-ops",
+        "source_domain_name": "商业增长与运营",
+        "source_event_at": "2026-04-20T11:04:36Z",
+        "title": "客户嘴上要 AI Agent，实际要干净数据流，硬上 AI 给烂数据打补丁是伪转型",
+        "summary_line": "争议点：AI 是在做业务转型，还是在给烂数据打补丁？",
+        "audience": "被甲方催着上AI、但内部数据一团乱的运营和咨询顾问",
+        "why_now": "讨论重心从模型能力转向数据质量，底层数据成了的拦路虎。",
+        "why_now_reason": "new_threads_24h",
+        "signal_level": "rising",
+        "intent_tags": [
+          "趋势变化"
+        ],
+        "top_community": "r/consulting",
+        "thread_count": 1,
+        "community_count": 1,
+        "source_module": {
+          "primary_communities": [
+            "r/consulting"
+          ],
+          "top_community": "r/consulting",
+          "tone_tags": [],
+          "thread_count": 1,
+          "community_count": 1,
+          "last_active_text": "近7天"
+        },
+        "preview_quote": {
+          "text": "most clients say agentic but mean better data triggers and cleaner workflows, the real risk is layering ai on top of broken crm data and calling it transformation",
+          "community": "r/consulting",
+          "permalink": "https://www.reddit.com/r/consulting/comments/1sqm2c5/mbb_big4_co_transformation_and_operations/oh8wb95/"
+        },
+        "published_at": "2026-04-21T08:53:03.507504Z",
+        "controversy_chart": {
+          "support_ratio": 0.16,
+          "oppose_ratio": 0.42,
+          "neutral_ratio": 0.42,
+          "support_point": "客户嘴上说智能体，其实只是想要干净的数据流。",
+          "oppose_point": "客户期望过高，以为智能体能解决一切问题。",
+          "neutral_point": "先看客户能不能把数据清理干净。",
+          "debate_focus": "智能体转型还是数据打补丁，到底该怎么看？",
+          "dominant_side": "oppose",
+          "confidence": "medium"
+        },
+        "controversy_meta": {
+          "post_id": "1sqm2c5",
+          "sample_size": 19,
+          "sampled_at": "2026-04-21T08:53:03.507726Z",
+          "fetch_status": "ok",
+          "llm_summary_version": "cn_human_point_slots_v8",
+          "sample_quality": "low",
+          "summary_status": "ok",
+          "confidence_reason": "评论样本中，支持方观点认为客户实际需求是数据清理和流程优化，而非真正的智能体转型，这与卡片摘要的争议点一致。反对方则认为客户对智能体的期望过高，要求不切实际。中立观点则聚焦于数据质量和流程梳理是实现智能体的基础，但样本中明确指出客户往往忽视这一点，因此将中立点聚焦于数据清理的挑战。"
+        },
+        "quotes": [
+          {
+            "text": "most clients say agentic but mean better data triggers and cleaner workflows, the real risk is layering ai on top of broken crm data and calling it transformation",
+            "community": "r/consulting",
+            "permalink": "https://www.reddit.com/r/consulting/comments/1sqm2c5/mbb_big4_co_transformation_and_operations/oh8wb95/"
+          },
+          {
+            "text": "That sounds like a lot of work for an independent and takes a decent sized team for that to happen unless they are a startup. They want a tech roll in between most likely as well and hope you bring that not just the process work which is critical. \n\nI’m working on the start of what will be a large transformation in this area. Frankly it’s getting your processes in order (most don’t have near the level\nOf detail needed for even humans), having available data, and having leadership aligned on what this all actually means. I find most right now just want cost dump and shift FTE to ai without looking how how to further allocate current workforce… that’s generally short sighted unless their process to begin with were truly that inefficient.",
+            "community": "r/consulting",
+            "permalink": "https://www.reddit.com/r/consulting/comments/1sqm2c5/mbb_big4_co_transformation_and_operations/oh8spiw/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/consulting/comments/1sqm2c5",
+        "detail": {
+          "flashpoint": "帖子里直接点破：很多公司想靠 AI 裁员省钱，却连最基础的业务流程都没理顺，甚至不如人类员工懂行。",
+          "fight_line": "甲方想直接用 AI 替换人力（cost dump） vs 乙方认为不先理顺流程和数据，AI 根本跑不通。",
+          "why_test_now": "关键证据是“most clients say agentic but mean better data triggers and cleaner workflows, the real risk”。关键点在于 broken crm data。大家发现所谓的转型，其实是把 AI 盖在垃圾堆上，这种“伪转型”正在成为行业常态。",
+          "continue_signal": "继续看 cost dump、shift FTE 这些词，看有没有用户分享在烂数据上强行跑 AI 的翻车案例。",
+          "stop_signal": "如果讨论回到 AI 模型对比，或者只剩对甲方的单纯吐槽，没有具体的业务流程拆解，就没必要追了。"
+        }
+      },
+      "changed": {
+        "title": {
+          "before": "这帖火在戳穿了 AI Agent 的幻觉：客户嘴里喊着智能体，其实只是想要干净的数据流",
+          "after": "客户嘴上要 AI Agent，实际要干净数据流，硬上 AI 给烂数据打补丁是伪转型"
+        },
+        "summary_line": {
+          "before": "争议点在于：AI 到底是在做业务转型，还是在给烂成筛子的 CRM 数据“打补丁”。",
+          "after": "争议点：AI 是在做业务转型，还是在给烂数据打补丁？"
+        },
+        "audience": {
+          "before": "正在被老板催着上 AI、但手里数据一团乱的运营和咨询顾问",
+          "after": "被甲方催着上AI、但内部数据一团乱的运营和咨询顾问"
+        },
+        "why_now": {
+          "before": "讨论已经从“AI 能做什么”变成了“数据这么烂，上 AI 就是自杀”，大家开始在评论区互倒苦水。",
+          "after": "讨论重心从模型能力转向数据质量，底层数据成了的拦路虎。"
+        }
+      },
+      "fluency_repair_issue_count": 0,
+      "remaining_density_issues": [
+        "title: 重点字段 41 字，超过建议 34 字，阅读负担高。"
+      ],
+      "v13_title_issues_before": [],
+      "v13_title_issues_after": [],
+      "error": ""
+    },
+    {
+      "card_id": "card-cand-ecommerce-sellers-1sma963-validate",
+      "lane": "signal",
+      "card_type": "validate",
+      "profile_id": "hotpost_v13_title_standalone",
+      "semantic_model": "deepseek/deepseek-v4-flash",
+      "writer_model": "xiaomi/mimo-v2.5-pro",
+      "original_card": {
+        "card_id": "card-cand-ecommerce-sellers-1sma963-validate",
+        "signal_id": "sig-1sma963",
+        "card_type": "validate",
+        "lane": "signal",
+        "category_id": "validate",
+        "source_scope_id": "ecommerce-sellers",
+        "source_scope_name": "电商与卖家",
+        "topic_pack_id": "category-winds",
+        "topic_cluster_id": "seller-category-direction",
+        "topic_cluster_ids": [
+          "seller-category-direction"
+        ],
+        "named_topic_ids": [
+          "custom-topic"
+        ],
+        "source_domain_id": "ecommerce-sellers",
+        "source_domain_name": "电商与卖家",
+        "source_event_at": "2026-04-15T15:59:41Z",
+        "title": "电商卖家用 AI 不再先问“怎么写”，而是先让 AI 当“毒舌顾问”评估项目可行性",
+        "summary_line": "从先让AI生成内容，转成先让AI评估商业逻辑和风险，用报告替代冲动决策。",
+        "audience": "有新点子但怕踩坑的独立站卖家或小品牌创始人",
+        "why_now": "有用户把完整的商业计划喂给AI，要求它扮演严厉的顾问，分析竞争对手、利润率和成功关键。这改变了下一步动作：不再先兴奋地执行，而是先拿到一份冷静的评估报告，用来判断想法是否值得投入。所以，以后遇到新点子，先问AI“这事在经济上合理吗？”，而不是先问“文案怎么写？”。",
+        "why_now_reason": "recurring_7d",
+        "signal_level": "sustained",
+        "intent_tags": [
+          "趋势变化"
+        ],
+        "top_community": "r/ecommerce",
+        "thread_count": 1,
+        "community_count": 1,
+        "source_module": {
+          "primary_communities": [
+            "r/ecommerce"
+          ],
+          "top_community": "r/ecommerce",
+          "tone_tags": [],
+          "thread_count": 1,
+          "community_count": 1,
+          "last_active_text": "近7天"
+        },
+        "preview_quote": {
+          "text": "Be a harsh e-commerce/business advisor, assess my latest crazy scheme, tell me about competitor landscape, margins, key requirements to make it successful against things I do and don’t like doing.\n\nI have a huge prompt and it outputs a report I can read or send to my friends when they have equally crazy ideas.\n\nStopped me doing all sorts of things that don’t make economic sense, or don’t suit my skills.\n\nAlso finding Claude much better than ChatGPT.  Actually canceled the subscription to Chattygpt.",
+          "community": "r/ecommerce",
+          "permalink": "https://www.reddit.com/r/ecommerce/comments/1sma963/whats_been_the_most_useful_prompt_youve_given_an/ogdsbw8/"
+        },
+        "published_at": "2026-04-21T08:52:50.298386Z",
+        "controversy_chart": null,
+        "controversy_meta": null,
+        "quotes": [
+          {
+            "text": "Be a harsh e-commerce/business advisor, assess my latest crazy scheme, tell me about competitor landscape, margins, key requirements to make it successful against things I do and don’t like doing.\n\nI have a huge prompt and it outputs a report I can read or send to my friends when they have equally crazy ideas.\n\nStopped me doing all sorts of things that don’t make economic sense, or don’t suit my skills.\n\nAlso finding Claude much better than ChatGPT.  Actually canceled the subscription to Chattygpt.",
+            "community": "r/ecommerce",
+            "permalink": "https://www.reddit.com/r/ecommerce/comments/1sma963/whats_been_the_most_useful_prompt_youve_given_an/ogdsbw8/"
+          },
+          {
+            "text": "Product page copy audits are probably my most-used prompt, tbh. I feed it the page copy, target audience, and main objections I'm seeing in user recordings and ask it to rewrite value props to hit specific psychological triggers.\n\nAlso, use it to analyze heatmap patterns. Upload screenshots and ask it to identify friction points by comparing where people are clicking with where they should be clicking. It spots things I sometimes miss. One thing I'll point out, though, is that it's important for you to know your stuff and what exactly good means beforehand, because it can also often deliver sub-par content. You can't always rely on it, and you do need to push back, even when you're working with installed skills. \n\nThe SEO/CRO audit combo you mentioned is solid. Most people don't realize how much overlap there is between what makes Google happy and what converts visitors. But again, the manual audit, intervention, QC, and QA really make or break the actual final result.",
+            "community": "r/ecommerce",
+            "permalink": "https://www.reddit.com/r/ecommerce/comments/1sma963/whats_been_the_most_useful_prompt_youve_given_an/oghmbya/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/ecommerce/comments/1sma963",
+        "detail": {
+          "pain_point": "卖家容易被自己的“疯狂点子”冲昏头脑，投入时间金钱后才发现不赚钱或不适合自己，导致资源浪费。",
+          "target_user_and_scene": "在产生新业务想法（比如新产品线、新营销渠道）时，需要快速、客观评估其可行性的电商运营者。",
+          "why_test_now": "原话明确说这个prompt“阻止了我做各种没有经济意义或不适合我技能的事情”。这证明判断顺序真的变了：AI的首要作用从内容生成器变成了决策过滤器。",
+          "min_test_action": "去看原始讨论",
+          "continue_signal": "观察更多卖家是否开始分享用于“商业可行性评估”或“风险分析”的复杂prompt模板。",
+          "stop_signal": "如果讨论重新集中在如何用AI快速生成产品描述或广告文案，而不再提及前期评估，说明这个优先级变化没有持续。"
+        }
+      },
+      "v12_shadow": {
+        "title": "独立站卖家让 AI 先当“毒舌顾问”评估项目，不再先兴奋地写文案",
+        "summary_line": "从先让 AI 帮我写，转成先让 AI 帮我判断这事值不值得写。",
+        "audience": "有新点子但资源有限的独立站卖家或小品牌创始人",
+        "why_now": "有卖家分享新 prompt，让 AI 扮演严厉顾问，对商业计划做竞争分析和利润评估。他说这“阻止了我做各种没有经济意义的事情”。判断重点从执行内容转向先过滤想法。",
+        "pain_point": "点子多，资源少，怕冲动投入后血本无归。花时间让 AI 评估会延迟行动，但能避免更大的试错成本。",
+        "target_user_and_scene": "独立站卖家或小品牌创始人，在有新商业想法、准备投入资源前，需要快速评估可行性。",
+        "why_test_now": "用户原话“Stopped me doing all sorts of things that don’t make economic sense”是直接证据，证明 prompt 改变了行为。测试点：其他卖家是否也会分享类似评估 prompt？分享增多则趋势成立。",
+        "min_test_action": "去看原始讨论",
+        "continue_signal": "看 r/ecommerce 等卖家社区，是否出现更多“商业计划评估”或“可行性分析”类 prompt 分享。",
+        "stop_signal": "如果后续讨论仍集中在文案生成、图片优化等执行层面，没有更多人跟进评估类用法，这条线就弱了。"
+      },
+      "refreshed_card": {
+        "card_id": "card-cand-ecommerce-sellers-1sma963-validate",
+        "signal_id": "sig-1sma963",
+        "card_type": "validate",
+        "lane": "signal",
+        "category_id": "validate",
+        "source_scope_id": "ecommerce-sellers",
+        "source_scope_name": "电商与卖家",
+        "topic_pack_id": "category-winds",
+        "topic_cluster_id": "seller-category-direction",
+        "topic_cluster_ids": [
+          "seller-category-direction"
+        ],
+        "named_topic_ids": [
+          "custom-topic"
+        ],
+        "source_domain_id": "ecommerce-sellers",
+        "source_domain_name": "电商与卖家",
+        "source_event_at": "2026-04-15T15:59:41Z",
+        "title": "独立站卖家用 AI 毒舌顾问先评估商业计划，避免冲动投入",
+        "summary_line": "从先让 AI 帮我写，转成先让 AI 帮我判断这事值不值得写。",
+        "audience": "有新点子但资源有限的独立站卖家或小品牌创始人",
+        "why_now": "有卖家分享新 prompt，让 AI 扮演严厉顾问，对商业计划做竞争分析和利润评估。他说这“阻止了我做各种没有经济意义的事情”。判断重点从执行内容转向先过滤想法。",
+        "why_now_reason": "recurring_7d",
+        "signal_level": "sustained",
+        "intent_tags": [
+          "趋势变化"
+        ],
+        "top_community": "r/ecommerce",
+        "thread_count": 1,
+        "community_count": 1,
+        "source_module": {
+          "primary_communities": [
+            "r/ecommerce"
+          ],
+          "top_community": "r/ecommerce",
+          "tone_tags": [],
+          "thread_count": 1,
+          "community_count": 1,
+          "last_active_text": "近7天"
+        },
+        "preview_quote": {
+          "text": "Be a harsh e-commerce/business advisor, assess my latest crazy scheme, tell me about competitor landscape, margins, key requirements to make it successful against things I do and don’t like doing.\n\nI have a huge prompt and it outputs a report I can read or send to my friends when they have equally crazy ideas.\n\nStopped me doing all sorts of things that don’t make economic sense, or don’t suit my skills.\n\nAlso finding Claude much better than ChatGPT.  Actually canceled the subscription to Chattygpt.",
+          "community": "r/ecommerce",
+          "permalink": "https://www.reddit.com/r/ecommerce/comments/1sma963/whats_been_the_most_useful_prompt_youve_given_an/ogdsbw8/"
+        },
+        "published_at": "2026-04-21T08:52:50.298386Z",
+        "controversy_chart": null,
+        "controversy_meta": null,
+        "quotes": [
+          {
+            "text": "Be a harsh e-commerce/business advisor, assess my latest crazy scheme, tell me about competitor landscape, margins, key requirements to make it successful against things I do and don’t like doing.\n\nI have a huge prompt and it outputs a report I can read or send to my friends when they have equally crazy ideas.\n\nStopped me doing all sorts of things that don’t make economic sense, or don’t suit my skills.\n\nAlso finding Claude much better than ChatGPT.  Actually canceled the subscription to Chattygpt.",
+            "community": "r/ecommerce",
+            "permalink": "https://www.reddit.com/r/ecommerce/comments/1sma963/whats_been_the_most_useful_prompt_youve_given_an/ogdsbw8/"
+          },
+          {
+            "text": "Product page copy audits are probably my most-used prompt, tbh. I feed it the page copy, target audience, and main objections I'm seeing in user recordings and ask it to rewrite value props to hit specific psychological triggers.\n\nAlso, use it to analyze heatmap patterns. Upload screenshots and ask it to identify friction points by comparing where people are clicking with where they should be clicking. It spots things I sometimes miss. One thing I'll point out, though, is that it's important for you to know your stuff and what exactly good means beforehand, because it can also often deliver sub-par content. You can't always rely on it, and you do need to push back, even when you're working with installed skills. \n\nThe SEO/CRO audit combo you mentioned is solid. Most people don't realize how much overlap there is between what makes Google happy and what converts visitors. But again, the manual audit, intervention, QC, and QA really make or break the actual final result.",
+            "community": "r/ecommerce",
+            "permalink": "https://www.reddit.com/r/ecommerce/comments/1sma963/whats_been_the_most_useful_prompt_youve_given_an/oghmbya/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/ecommerce/comments/1sma963",
+        "detail": {
+          "pain_point": "卖家容易被自己的“疯狂点子”冲昏头脑，投入时间金钱后才发现不赚钱或不适合自己，导致资源浪费。",
+          "target_user_and_scene": "在产生新业务想法（比如新产品线、新营销渠道）时，需要快速、客观评估其可行性的电商运营者。",
+          "why_test_now": "原话明确说这个prompt“阻止了我做各种没有经济意义或不适合我技能的事情”。这证明判断顺序真的变了：AI的首要作用从内容生成器变成了决策过滤器。",
+          "min_test_action": "去看原始讨论",
+          "continue_signal": "观察更多卖家是否开始分享用于“商业可行性评估”或“风险分析”的复杂prompt模板。",
+          "stop_signal": "如果讨论重新集中在如何用AI快速生成产品描述或广告文案，而不再提及前期评估，说明这个优先级变化没有持续。"
+        }
+      },
+      "changed": {
+        "title": {
+          "before": "电商卖家用 AI 不再先问“怎么写”，而是先让 AI 当“毒舌顾问”评估项目可行性",
+          "after": "独立站卖家用 AI 毒舌顾问先评估商业计划，避免冲动投入"
+        },
+        "summary_line": {
+          "before": "从先让AI生成内容，转成先让AI评估商业逻辑和风险，用报告替代冲动决策。",
+          "after": "从先让 AI 帮我写，转成先让 AI 帮我判断这事值不值得写。"
+        },
+        "audience": {
+          "before": "有新点子但怕踩坑的独立站卖家或小品牌创始人",
+          "after": "有新点子但资源有限的独立站卖家或小品牌创始人"
+        },
+        "why_now": {
+          "before": "有用户把完整的商业计划喂给AI，要求它扮演严厉的顾问，分析竞争对手、利润率和成功关键。这改变了下一步动作：不再先兴奋地执行，而是先拿到一份冷静的评估报告，用来判断想法是否值得投入。所以，以后遇到新点子，先问AI“这事在经济上合理吗？”，而不是先问“文案怎么写？”。",
+          "after": "有卖家分享新 prompt，让 AI 扮演严厉顾问，对商业计划做竞争分析和利润评估。他说这“阻止了我做各种没有经济意义的事情”。判断重点从执行内容转向先过滤想法。"
+        }
+      },
+      "fluency_repair_issue_count": 0,
+      "remaining_density_issues": [
+        "why_test_now: 重点字段 131 字，超过建议 78 字，阅读负担高。"
+      ],
+      "v13_title_issues_before": [],
+      "v13_title_issues_after": [],
+      "error": ""
+    }
+  ]
+}

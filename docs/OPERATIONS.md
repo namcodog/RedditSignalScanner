@@ -1,7 +1,7 @@
 # Reddit Signal Scanner – 运维手册 (Day 11)
 
-> 适用对象：Backend B / DevOps / 值班工程师  
-> 上游文档：`docs/PRD/PRD-07-Admin后台.md`、`docs/PRD/PRD-04-任务系统.md`、`docs/2025-10-10-质量标准与门禁规范.md`  
+> 适用对象：Backend B / DevOps / 值班工程师
+> 上游文档：`docs/PRD/PRD-07-Admin后台.md`、`docs/PRD/PRD-04-任务系统.md`、`docs/2025-10-10-质量标准与门禁规范.md`
 > 验收依据：Day 11 任务「文档完善 + 部署准备」(`reports/phase-log/DAY10-12-EXECUTION-CHECKLIST.md`)
 
 ---
@@ -31,7 +31,7 @@
 ### 2.1 必备监控指标
 | 服务 | 指标 | 目标阈值 | 监控工具建议 |
 | --- | --- | --- | --- |
-| Backend | HTTP 5xx < 1%, P95 < 500ms | Prometheus + Grafana / CloudWatch | 
+| Backend | HTTP 5xx < 1%, P95 < 500ms | Prometheus + Grafana / CloudWatch |
 | Celery | active_tasks, failed_tasks | 活跃 <= 20, 失败=0 | Celery Flower / custom exporter |
 | Redis | used_memory_mb, hit_rate | 内存<80%, 命中率>70% | Redis INFO / Prometheus redis_exporter |
 | PostgreSQL | connections, slow_queries | 连接<100, 慢查询=0 | pg_stat_activity / pmm |
@@ -40,7 +40,10 @@
 ### 2.2 健康检查脚本
 ```bash
 # Backend
-curl -f http://localhost:8006/api/healthz
+curl -f http://localhost:8006/api/v1/health
+
+# Hotpost 正常态 smoke
+make acceptance-hotpost-smoke
 
 # Celery queue size
 redis-cli -n 0 llen celery

@@ -29,7 +29,10 @@ RESET  := $(shell tput -Txterm sgr0)
 	plan-backfill plan-seed dispatch-outbox dev-backend-start dev-backend-stop \
 	dev-backend-restart dev-backend-logs crawl-min crawl-start crawl-status \
 	start-worker-analysis crawl-stop data-clean data-score llm-label data-pipeline \
-	db-sync-noise-labels semantic-llm-sync test-quality-gate check-determinism
+	db-sync-noise-labels semantic-llm-sync test-quality-gate check-determinism \
+	hotpost-breakdown-materialize hotpost-breakdown-overlap hotpost-workflow-dry-run \
+	hotpost-intake-freshness-gate hotpost-publish-until-exhausted hotpost-topic-tree-audit \
+	hotpost-release-trend-audit boundary-status
 
 # --- Default Goal ---
 help:
@@ -50,11 +53,25 @@ help:
 	@echo "  ${YELLOW}dev-backend-stop${RESET}   : Stop backend on port 8006."
 	@echo "  ${YELLOW}dev-backend-restart${RESET}: Restart backend on port 8006."
 	@echo "  ${YELLOW}dev-backend-logs${RESET}   : Tail backend logs."
+	@echo "  ${YELLOW}hotpost-collect-daily${RESET} : Run hotpost daily collect once (all-scope by default)."
+	@echo "  ${YELLOW}hotpost-publish-until-exhausted${RESET} : Run one all-scope collect -> sync -> plan -> gate cycle. It is one daily operating round, not an overnight shell orchestrator."
+	@echo "  ${YELLOW}hotpost-intake-freshness-gate${RESET} : Legacy alias of one publish-until-exhausted cycle."
+	@echo "  ${YELLOW}hotpost-topic-tree-audit${RESET} : Audit current plan with 4-layer topic tree governance (all-scope by default)."
+	@echo "  ${YELLOW}hotpost-release-trend-audit${RESET} : Persist rolling-inventory stability audit for the latest 5 releases."
+	@echo "  ${YELLOW}hotpost-review-queue${RESET} : Show hotpost review queue."
+	@echo "  ${YELLOW}hotpost-breakdown-materialize${RESET} : Materialize coherent breakdown drafts once."
+	@echo "  ${YELLOW}hotpost-breakdown-overlap${RESET} : Run breakdown overlap audit once."
+	@echo "  ${YELLOW}hotpost-workflow-dry-run${RESET} : Run collect -> queue -> materialize -> overlap dry-run summary."
+	@echo "  ${YELLOW}boundary-status${RESET} : Check root repo vs hotpost mini repo boundary status."
 	@echo "  ${YELLOW}test-core${RESET}      : Run core unit tests."
 	@echo "  ${YELLOW}test-e2e${RESET}       : Run current frontend formal E2E suite (Playwright)."
 	@echo "  ${YELLOW}test-e2e-smoke${RESET} : Run product polish smoke E2E."
 	@echo "  ${YELLOW}test-e2e-backend${RESET} : Run legacy backend critical-path E2E."
 	@echo "  ${YELLOW}test-e2e-live-report${RESET} : Run live report full-chain acceptance."
+	@echo "  ${YELLOW}test-file-length-gate${RESET} : Enforce <=300 lines per changed code file."
+	@echo "  ${YELLOW}acceptance-hotpost-quality-smoke${RESET} : Run low-cost live Hotpost quality smoke."
+	@echo "  ${YELLOW}test-e2e-warzone-live-matrix${RESET} : Run 8-warzone live matrix + strict A/C gate."
+	@echo "  ${YELLOW}test-e2e-warzone-live-matrix-2x${RESET} : Run warzone matrix twice for stability verification."
 	@echo "  ${YELLOW}test-admin-e2e${RESET} : Run current Admin dashboard E2E."
 	@echo "  ${YELLOW}crawl-min${RESET}      : Run minimal crawl once (dev/test DB only)."
 	@echo "  ${YELLOW}crawl-start${RESET}    : Start crawler system safely (beat + patrol + bulk [+probe])."
@@ -87,17 +104,49 @@ check-health:
 dev-backend-start:
 	@echo "${GREEN}[*] Starting Backend (port 8006)...${RESET}"
 	@mkdir -p logs
-	@/bin/sh -c 'set -a; [ -f "$(ENV_FILE)" ] && . "$(ENV_FILE)"; set +a; cd "$(BACKEND_DIR)" && nohup uvicorn app.main:app --reload --port 8006 > ../logs/backend.log 2>&1 &'
+	@tmux has-session -t rss_backend_8006 2>/dev/null && tmux kill-session -t rss_backend_8006 || true
+	@tmux new-session -d -s rss_backend_8006 '/bin/sh backend/scripts/infra/run_backend_8006.sh > logs/backend.log 2>&1'
+	@/bin/sh -c 'for i in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20; do curl -fsS http://127.0.0.1:8006/openapi.json >/dev/null 2>&1 && exit 0; sleep 1; done; echo "backend startup failed"; exit 1'
 	@echo "    Logs: logs/backend.log"
 
 dev-backend-stop:
 	@echo "${YELLOW}[*] Stopping Backend (port 8006)...${RESET}"
+	@tmux has-session -t rss_backend_8006 2>/dev/null && tmux kill-session -t rss_backend_8006 || true
 	@/bin/sh -c 'pids=$$(lsof -ti :8006 || true); if [ -n "$$pids" ]; then echo "    PIDs: $$pids"; kill $$pids; sleep 1; else echo "    (no process)"; fi'
 
 dev-backend-restart: dev-backend-stop dev-backend-start
 
 dev-backend-logs:
 	@tail -n 100 -f logs/backend.log
+
+hotpost-collect-daily:
+	@/bin/sh -c 'set -a; [ -f "$(ENV_FILE)" ] && . "$(ENV_FILE)"; set +a; cd "$(BACKEND_DIR)" && "$(PYTHON)" scripts/hotpost/daily_collect.py'
+
+hotpost-intake-freshness-gate:
+	@/bin/sh -c 'set -a; [ -f "$(ENV_FILE)" ] && . "$(ENV_FILE)"; set +a; cd "$(BACKEND_DIR)" && "$(PYTHON)" scripts/hotpost/run_intake_freshness_gate.py'
+
+hotpost-publish-until-exhausted: hotpost-intake-freshness-gate
+
+hotpost-topic-tree-audit:
+	@/bin/sh -c 'set -a; [ -f "$(ENV_FILE)" ] && . "$(ENV_FILE)"; set +a; cd "$(BACKEND_DIR)" && "$(PYTHON)" scripts/hotpost/audit_topic_tree_governance.py'
+
+hotpost-release-trend-audit:
+	@/bin/sh -c 'set -a; [ -f "$(ENV_FILE)" ] && . "$(ENV_FILE)"; set +a; cd "$(BACKEND_DIR)" && "$(PYTHON)" scripts/hotpost/audit_recent_mini_releases.py --limit 5'
+
+hotpost-review-queue:
+	@cd $(BACKEND_DIR) && $(PYTHON) scripts/hotpost/review_cards.py queue
+
+hotpost-breakdown-materialize:
+	@/bin/sh -c 'set -a; [ -f "$(ENV_FILE)" ] && . "$(ENV_FILE)"; set +a; cd "$(BACKEND_DIR)" && "$(PYTHON)" scripts/hotpost/materialize_breakdown_drafts.py'
+
+hotpost-breakdown-overlap:
+	@/bin/sh -c 'set -a; [ -f "$(ENV_FILE)" ] && . "$(ENV_FILE)"; set +a; cd "$(ROOT_DIR)" && "$(PYTHON)" backend/scripts/evals/run_breakdown_overlap_audit_v1.py'
+
+hotpost-workflow-dry-run:
+	@/bin/sh -c 'set -a; [ -f "$(ENV_FILE)" ] && . "$(ENV_FILE)"; set +a; cd "$(BACKEND_DIR)" && "$(PYTHON)" scripts/hotpost/workflow_dry_run.py'
+
+boundary-status:
+	@./scripts/check-boundary-status.sh
 
 ## 2. T1 Data Audit (Wrapper)
 audit-t1:

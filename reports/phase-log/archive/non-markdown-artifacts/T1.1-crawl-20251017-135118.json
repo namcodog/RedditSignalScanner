@@ -1,0 +1,1217 @@
+{
+  "status": "completed",
+  "mode": "incremental",
+  "total": 200,
+  "succeeded": 65,
+  "failed": 135,
+  "total_new_posts": 622,
+  "total_updated_posts": 0,
+  "total_duplicates": 0,
+  "communities": [
+    {
+      "community": "startups",
+      "status": "failed",
+      "error": "This session is in 'prepared' state; no further SQL can be emitted within this transaction."
+    },
+    {
+      "community": "smallbusiness",
+      "new_posts": 10,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.665561
+    },
+    {
+      "community": "SaaS",
+      "status": "failed",
+      "error": "(sqlalchemy.dialects.postgresql.asyncpg.InterfaceError) <class 'asyncpg.exceptions._base.InterfaceError'>: cannot perform operation: another operation is in progress\n[SQL: INSERT INTO posts_hot (source, source_post_id, created_at, cached_at, expires_at, title, body, subreddit, score, num_comments, extra_data) VALUES ($1::VARCHAR, $2::VARCHAR, $3::TIMESTAMP WITH TIME ZONE, $4::TIMESTAMP WITH TIME ZONE, $5::TIMESTAMP WITH TIME ZONE, $6::VARCHAR, $7::VARCHAR, $8::VARCHAR, $9::INTEGER, $10::INTEGER, $11::JSONB) ON CONFLICT (source, source_post_id) DO UPDATE SET cached_at = excluded.cached_at, expires_at = excluded.expires_at, title = excluded.title, body = excluded.body, score = excluded.score, num_comments = excluded.num_comments, extra_data = excluded.extra_data]\n[parameters: ('reddit', '1o8t1yv', datetime.datetime(2025, 10, 17, 5, 34, 30, tzinfo=datetime.timezone.utc), datetime.datetime(2025, 10, 17, 5, 50, 11, 274766, tzinfo=datetime.timezone.utc), datetime.datetime(2025, 10, 18, 5, 50, 11, 274749, tzinfo=datetime.timezone.utc), 'Email marketing', 'I’ve been through the usual list — Mailchimp, Brevo, ActiveCampaign, you name it.\\nEach time I felt like I was spending more time setting things up t ... (663 characters truncated) ... n\\nHopefully this saves someone the same frustration I went through 😅 happy to answer questions if you’re still figuring out email automation setups.', 'SaaS', 1, 0, '{\"permalink\": \"https://reddit.com/r/SaaS/comments/1o8t1yv/email_marketing/\"}')]\n(Background on this error at: https://sqlalche.me/e/20/rvf5)"
+    },
+    {
+      "community": "marketing",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "sales",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "ecommerce",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "freelance",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "consulting",
+      "new_posts": 10,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.598327
+    },
+    {
+      "community": "venturecapital",
+      "status": "failed",
+      "error": "(sqlalchemy.dialects.postgresql.asyncpg.InterfaceError) <class 'asyncpg.exceptions._base.InterfaceError'>: cannot perform operation: another operation is in progress\n[SQL: INSERT INTO posts_hot (source, source_post_id, created_at, cached_at, expires_at, title, body, subreddit, score, num_comments, extra_data) VALUES ($1::VARCHAR, $2::VARCHAR, $3::TIMESTAMP WITH TIME ZONE, $4::TIMESTAMP WITH TIME ZONE, $5::TIMESTAMP WITH TIME ZONE, $6::VARCHAR, $7::VARCHAR, $8::VARCHAR, $9::INTEGER, $10::INTEGER, $11::JSONB) ON CONFLICT (source, source_post_id) DO UPDATE SET cached_at = excluded.cached_at, expires_at = excluded.expires_at, title = excluded.title, body = excluded.body, score = excluded.score, num_comments = excluded.num_comments, extra_data = excluded.extra_data]\n[parameters: ('reddit', '1o8nrof', datetime.datetime(2025, 10, 17, 1, 4, 41, tzinfo=datetime.timezone.utc), datetime.datetime(2025, 10, 17, 5, 50, 12, 452085, tzinfo=datetime.timezone.utc), datetime.datetime(2025, 10, 18, 5, 50, 12, 452076, tzinfo=datetime.timezone.utc), 'Finally some real talk on state of health tech VCs', 'Many, many VC firms are not raising (can’t) a next fund and it’s looking pretty bleak. Finally came across someone’s post on my LI feed that breaks down the not great state of health tech VCs - in public. Felt nice to finally hear people talk about this in a public forum…', 'venturecapital', 53, 20, '{\"permalink\": \"https://reddit.com/r/venturecapital/comments/1o8nrof/finally_some_real_talk_on_state_of_health_tech_vcs/\"}')]\n(Background on this error at: https://sqlalche.me/e/20/rvf5)"
+    },
+    {
+      "community": "growthacking",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "ProductManagement",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "UXDesign",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "UI_Design",
+      "new_posts": 10,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.649902
+    },
+    {
+      "community": "webdesign",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "Frontend",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "Backend",
+      "new_posts": 10,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.645858
+    },
+    {
+      "community": "devops",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "kubernetes",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "docker",
+      "new_posts": 10,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.558576
+    },
+    {
+      "community": "aws",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "azure",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "googlecloud",
+      "new_posts": 10,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.682996
+    },
+    {
+      "community": "MachineLearning",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "artificial",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "deeplearning",
+      "new_posts": 10,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.616588
+    },
+    {
+      "community": "datascience",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "dataengineering",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "BigData",
+      "new_posts": 10,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.747193
+    },
+    {
+      "community": "Python",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "javascript",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "golang",
+      "new_posts": 10,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.596011
+    },
+    {
+      "community": "rust",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "java",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "csharp",
+      "new_posts": 10,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.631817
+    },
+    {
+      "community": "typescript",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "reactjs",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "vuejs",
+      "new_posts": 10,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.578019
+    },
+    {
+      "community": "angular",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "node",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "django",
+      "new_posts": 10,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.579965
+    },
+    {
+      "community": "flask",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "rails",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "laravel",
+      "new_posts": 10,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.609094
+    },
+    {
+      "community": "dotnet",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "Database",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "PostgreSQL",
+      "new_posts": 10,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.660389
+    },
+    {
+      "community": "mysql",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "mongodb",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "redis",
+      "new_posts": 10,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.624688
+    },
+    {
+      "community": "investing",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "stocks",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "CryptoCurrency",
+      "new_posts": 10,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.553746
+    },
+    {
+      "community": "Bitcoin",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "ethereum",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "defi",
+      "new_posts": 10,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.5919
+    },
+    {
+      "community": "wallstreetbets",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "options",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "realestate",
+      "new_posts": 2,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.520716
+    },
+    {
+      "community": "RealEstateInvesting",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "FIRE",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "financialindependence",
+      "new_posts": 10,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.59744
+    },
+    {
+      "community": "leanfire",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "fatFIRE",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "Frugal",
+      "new_posts": 10,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.673573
+    },
+    {
+      "community": "povertyfinance",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "budgetfood",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "EatCheapAndHealthy",
+      "new_posts": 10,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.576358
+    },
+    {
+      "community": "MealPrepSunday",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "Cooking",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "AskCulinary",
+      "new_posts": 10,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.574697
+    },
+    {
+      "community": "fitness",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "bodyweightfitness",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "running",
+      "new_posts": 4,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.54375
+    },
+    {
+      "community": "cycling",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "yoga",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "loseit",
+      "new_posts": 10,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.588032
+    },
+    {
+      "community": "progresspics",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "keto",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "intermittentfasting",
+      "new_posts": 10,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.679795
+    },
+    {
+      "community": "nutrition",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "mentalhealth",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "Anxiety",
+      "new_posts": 10,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.538051
+    },
+    {
+      "community": "depression",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "selfimprovement",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "getdisciplined",
+      "new_posts": 10,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.63647
+    },
+    {
+      "community": "productivity",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "DecidingToBeBetter",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "GetMotivated",
+      "new_posts": 10,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.587776
+    },
+    {
+      "community": "ZenHabits",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "simpleliving",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "declutter",
+      "new_posts": 10,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.606882
+    },
+    {
+      "community": "organization",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "BuyItForLife",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "GoodValue",
+      "new_posts": 10,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.598407
+    },
+    {
+      "community": "travel",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "solotravel",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "digitalnomad",
+      "new_posts": 10,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.592049
+    },
+    {
+      "community": "remotework",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "cscareerquestions",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "ITCareerQuestions",
+      "new_posts": 10,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.603864
+    },
+    {
+      "community": "jobs",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "resumes",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "interviews",
+      "new_posts": 10,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.593305
+    },
+    {
+      "community": "GetEmployed",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "careerguidance",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "careerchange",
+      "new_posts": 10,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.676917
+    },
+    {
+      "community": "AskHR",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "managers",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "leadership",
+      "new_posts": 10,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.611701
+    },
+    {
+      "community": "AskEngineers",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "EngineeringStudents",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "learnprogramming",
+      "new_posts": 10,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.53259
+    },
+    {
+      "community": "learnpython",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "learnjava",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "learnjavascript",
+      "new_posts": 10,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.544501
+    },
+    {
+      "community": "learnmachinelearning",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "AskProgramming",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "coding",
+      "new_posts": 10,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.621239
+    },
+    {
+      "community": "programming",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "softwaredevelopment",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "SoftwareEngineering",
+      "new_posts": 10,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.64941
+    },
+    {
+      "community": "ExperiencedDevs",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "sysadmin",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "networking",
+      "new_posts": 10,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.591659
+    },
+    {
+      "community": "homelab",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "selfhosted",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "privacy",
+      "new_posts": 2,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.529859
+    },
+    {
+      "community": "netsec",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "AskNetsec",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "hacking",
+      "new_posts": 10,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.952235
+    },
+    {
+      "community": "AskTechnology",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "gadgets",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "hardware",
+      "new_posts": 10,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.585241
+    },
+    {
+      "community": "buildapc",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "pcmasterrace",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "gaming",
+      "new_posts": 4,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.596858
+    },
+    {
+      "community": "gamedev",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "IndieGaming",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "Unity3D",
+      "new_posts": 10,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.144691
+    },
+    {
+      "community": "unrealengine",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "gamedesign",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "truegaming",
+      "new_posts": 10,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.641133
+    },
+    {
+      "community": "writing",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "WritingPrompts",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "selfpublish",
+      "new_posts": 10,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.522264
+    },
+    {
+      "community": "photography",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "AskPhotography",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "videography",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "VideoEditing",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "youtubers",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "NewTubers",
+      "new_posts": 10,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.603999
+    },
+    {
+      "community": "PartneredYoutube",
+      "new_posts": 10,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.089634
+    },
+    {
+      "community": "Twitch",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "Streaming",
+      "new_posts": 10,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.612404
+    },
+    {
+      "community": "ContentCreation",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "socialmedia",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "Instagram",
+      "new_posts": 10,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.581437
+    },
+    {
+      "community": "Tiktokhelp",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "SEO",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "PPC",
+      "new_posts": 10,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.580711
+    },
+    {
+      "community": "Affiliatemarketing",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "Emailmarketing",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "copywriting",
+      "new_posts": 10,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 25.620618
+    },
+    {
+      "community": "branding",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "logodesign",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "graphic_design",
+      "new_posts": 10,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.623617
+    },
+    {
+      "community": "AskMarketing",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "Accounting",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "taxpros",
+      "new_posts": 10,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.566783
+    },
+    {
+      "community": "tax",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "Insurance",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "HealthInsurance",
+      "new_posts": 10,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.647163
+    },
+    {
+      "community": "StudentLoans",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "CRedit",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "CreditCards",
+      "new_posts": 10,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.585334
+    },
+    {
+      "community": "churning",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "awardtravel",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "Mortgages",
+      "new_posts": 10,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.523656
+    },
+    {
+      "community": "FirstTimeHomeBuyer",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "RealEstate",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "Landlord",
+      "new_posts": 10,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.582919
+    },
+    {
+      "community": "passive_income",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "sidehustle",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "beermoney",
+      "new_posts": 10,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.495722
+    },
+    {
+      "community": "Flipping",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "Resell",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "FulfillmentByAmazon",
+      "new_posts": 10,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.599296
+    },
+    {
+      "community": "AmazonSeller",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "dropship",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "shopify",
+      "new_posts": 10,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.541841
+    },
+    {
+      "community": "Etsy",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "EtsySellers",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "printOnDemand",
+      "new_posts": 10,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.53917
+    },
+    {
+      "community": "merch",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "AmazonMerch",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "Blogging",
+      "new_posts": 10,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.59261
+    },
+    {
+      "community": "juststart",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "WorkOnline",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    },
+    {
+      "community": "forhire",
+      "new_posts": 10,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.751314
+    },
+    {
+      "community": "slavelabour",
+      "status": "failed",
+      "error": "This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)"
+    }
+  ],
+  "empty_count": 4,
+  "error_count": 131
+}

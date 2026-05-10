@@ -37,9 +37,9 @@ import { buildHotpostActionPlan, buildHotpostDecisionSummary, buildHotpostSurfac
 
 const ConfidenceBadge: React.FC<{ level: ConfidenceLevel; count: number }> = ({ level, count }) => {
   const config = {
-    high: { color: 'bg-green-100 text-green-800 border-green-200', icon: CheckCircle2, label: '信号扎实' },
-    medium: { color: 'bg-yellow-100 text-yellow-800 border-yellow-200', icon: AlertTriangle, label: '方向已浮现' },
-    low: { color: 'bg-red-100 text-red-800 border-red-200', icon: AlertTriangle, label: '先看线索' },
+    high: { color: 'bg-amber-100 text-amber-900 border-amber-200', icon: CheckCircle2, label: '✔ 信号可靠' },
+    medium: { color: 'bg-slate-100 text-slate-700 border-slate-200', icon: AlertTriangle, label: '⚠ 信号一般' },
+    low: { color: 'bg-gray-50 text-gray-600 border-gray-200', icon: HelpCircle, label: '△ 信号有限' },
     none: { color: 'bg-gray-100 text-gray-800 border-gray-200', icon: HelpCircle, label: '正在补证据' },
   };
 
@@ -65,7 +65,20 @@ const summarizeSentiment = (value: string | undefined): string => {
 
 const normalizeTrendLabel = (value: string | undefined): string => {
   if (!value) return '持续关注';
-  return value.replace('🆕', '').replace('↓', '').trim();
+  const normalized = value.trim().toLowerCase();
+  if (['explosive', 'exploding', '新兴🆕', '新兴', '爆发中', '爆发中 new'].includes(normalized)) {
+    return '爆发中 NEW';
+  }
+  if (['rising', '上升中', '上升中↑', '上升'].includes(normalized)) {
+    return '上升中 ↑';
+  }
+  if (['stable', 'sustained', '持续热门', '持续热度', '持续热度↗'].includes(normalized)) {
+    return '持续热度 ↗';
+  }
+  if (['declining', '下降中', '下降中↓', '下降'].includes(normalized)) {
+    return '下降中 ↓';
+  }
+  return value.trim();
 };
 
 const hasCjk = (value: string): boolean => /[\u3400-\u9FFF]/.test(value);
@@ -129,6 +142,178 @@ const toPostPreviewText = (value: string | undefined): string => {
     return '该证据原文为英文，建议点击原帖查看完整上下文。';
   }
   return cleaned;
+};
+
+const toHotpostQuoteText = (value: string | undefined, maxLength = 160): string => {
+  const raw = String(value ?? '').trim();
+  if (!raw) {
+    return '';
+  }
+
+  const cleaned = stripMarkdownNoise(raw).replace(/^["“”]+|["“”]+$/g, '').trim();
+  if (!cleaned || /^\[(removed|deleted)\]$/i.test(cleaned)) {
+    return '';
+  }
+
+  return cleaned.length > maxLength ? `${cleaned.slice(0, maxLength).trimEnd()}…` : cleaned;
+};
+
+const pickHotpostQuote = (...values: Array<string | undefined | null>): string | null => {
+  for (const value of values) {
+    const quote = toHotpostQuoteText(String(value ?? ''));
+    if (quote) {
+      return quote;
+    }
+  }
+  return null;
+};
+
+type HotpostEvidenceQuote = {
+  quote: string;
+  subreddit: string | undefined;
+  url: string | undefined;
+  createdUtc: number | undefined;
+};
+
+const collectHotpostEvidenceQuotes = (
+  payload: HotPostResponse | null
+): HotpostEvidenceQuote[] => {
+  if (!payload) {
+    return [];
+  }
+
+  const timeLookup = new Map<string, number>();
+  const registerPostTime = (post?: HotPost | null) => {
+    if (!post?.reddit_url || !post.created_utc) {
+      return;
+    }
+    timeLookup.set(post.reddit_url, post.created_utc);
+  };
+
+  for (const post of payload.top_posts ?? []) {
+    registerPostTime(post);
+  }
+  for (const painPoint of payload.pain_points ?? []) {
+    for (const post of painPoint.evidence_posts ?? []) {
+      registerPostTime(post);
+    }
+  }
+
+  const directQuotes =
+    payload.top_quotes
+      ?.map((item) => ({
+        quote: toHotpostQuoteText(item.quote),
+        subreddit: item.subreddit,
+        url: item.url,
+        createdUtc: item.created_utc ?? (item.url ? timeLookup.get(item.url) : undefined),
+      }))
+      .filter((item) => item.quote) ?? [];
+
+  if (directQuotes.length > 0) {
+    return directQuotes.slice(0, 3);
+  }
+
+  const unmetNeeds = payload.unmet_needs?.length ? payload.unmet_needs : payload.opportunities || [];
+  const fallbackCandidates = [
+    ...(payload.topics ?? []).flatMap((topic) =>
+      (topic.evidence ?? []).map((evidence) => ({
+        quote: toHotpostQuoteText(evidence.key_quote),
+        subreddit: evidence.subreddit,
+        url: evidence.url,
+        createdUtc: evidence.url ? timeLookup.get(evidence.url) : undefined,
+      })),
+    ),
+    ...(payload.pain_points ?? []).flatMap((painPoint) =>
+      (painPoint.evidence ?? []).map((evidence) => ({
+        quote: toHotpostQuoteText(evidence.key_quote),
+        subreddit: undefined,
+        url: evidence.url,
+        createdUtc: evidence.url ? timeLookup.get(evidence.url) : undefined,
+      })),
+    ),
+    ...unmetNeeds.flatMap((need) =>
+      (need.evidence ?? []).map((evidence) => ({
+        quote: toHotpostQuoteText(evidence.key_quote),
+        subreddit: evidence.subreddit,
+        url: evidence.url,
+        createdUtc: evidence.url ? timeLookup.get(evidence.url) : undefined,
+      })),
+    ),
+    ...(payload.competitor_mentions ?? []).map((competitor) => ({
+      quote: pickHotpostQuote(competitor.sample_quote, competitor.evidence_quote) ?? '',
+      subreddit: undefined,
+      url: undefined,
+      createdUtc: undefined,
+    })),
+    payload.migration_intent?.key_quote
+      ? {
+          quote: toHotpostQuoteText(payload.migration_intent.key_quote),
+          subreddit: undefined,
+          url: undefined,
+          createdUtc: undefined,
+        }
+      : null,
+  ];
+
+  const normalizedCandidates = fallbackCandidates.filter((item): item is HotpostEvidenceQuote => Boolean(item?.quote));
+
+  return normalizedCandidates
+    .filter((item, index, source) => source.findIndex((candidate) => candidate.quote === item.quote) === index)
+    .slice(0, 3);
+};
+
+const formatHotpostEvidenceTime = (value?: number): string | null => {
+  if (!value) {
+    return null;
+  }
+  return new Date(value * 1000).toLocaleDateString();
+};
+
+const collectRantRepresentativePosts = (payload: HotPostResponse | null): HotPost[] => {
+  if (!payload) {
+    return [];
+  }
+
+  const selected: HotPost[] = [];
+  const seen = new Set<string>();
+
+  for (const painPoint of payload.pain_points ?? []) {
+    for (const post of painPoint.evidence_posts ?? []) {
+      if (!post?.id || seen.has(post.id)) {
+        continue;
+      }
+      seen.add(post.id);
+      selected.push(post);
+    }
+  }
+
+  for (const post of payload.top_posts ?? []) {
+    if (!post?.id || seen.has(post.id)) {
+      continue;
+    }
+    seen.add(post.id);
+    selected.push(post);
+  }
+
+  return selected;
+};
+
+const pickHotpostRangeNote = (payload: HotPostResponse | null): string | null => {
+  if (!payload) {
+    return null;
+  }
+
+  const reliabilityNote = payload.reliability_note?.trim();
+  if (reliabilityNote) {
+    return reliabilityNote;
+  }
+
+  const nextNote = payload.notes?.find((item) => {
+    const cleaned = String(item ?? '').trim();
+    return cleaned && !cleaned.includes('关键词过长') && !cleaned.includes('已拆分为');
+  });
+
+  return nextNote?.trim() || null;
 };
 
 const pickHotpostSummary = (payload: HotPostResponse | null): string => {
@@ -214,7 +399,7 @@ const QueueOverlay: React.FC<{ position?: number | undefined; estimatedWait?: nu
                 <h3 className="text-2xl font-semibold text-foreground">正在排队中…</h3>
                 <p className="text-muted-foreground mt-2">系统正忙，您的请求已加入优先队列</p>
             </div>
-            
+
             <div className="grid grid-cols-2 gap-4 bg-muted/50 rounded-lg p-4">
                 <div className="text-center">
                     <div className="text-sm text-muted-foreground">当前排位</div>
@@ -225,7 +410,7 @@ const QueueOverlay: React.FC<{ position?: number | undefined; estimatedWait?: nu
                     <div className="text-2xl font-bold text-primary">{estimatedWait ? `${estimatedWait}s` : '-'}</div>
                 </div>
             </div>
-            
+
             <div className="w-full bg-secondary h-2 rounded-full overflow-hidden">
                 <div className="bg-primary h-full w-1/3 animate-[loading_2s_ease-in-out_infinite]" />
             </div>
@@ -242,7 +427,7 @@ const HotPostResultPage: React.FC = () => {
   const [data, setData] = useState<HotPostResponse | null>(null);
   const [status, setStatus] = useState<'loading' | 'success' | 'error' | 'queued'>('loading');
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
-  
+
   // Queue State
   const [queuePosition, setQueuePosition] = useState<number | undefined>(undefined);
   const [estimatedWait, setEstimatedWait] = useState<number | undefined>(undefined);
@@ -272,20 +457,48 @@ const HotPostResultPage: React.FC = () => {
   const decisionSummary = data ? buildHotpostDecisionSummary(data) : null;
   const actionPlan = data ? buildHotpostActionPlan(data) : null;
   const modeLabel = hero?.eyebrow ?? data?.mode ?? '快反结果';
-  const midReviewSteps = ['先看摘要', '再扫证据', '最后看社区'];
+  const midReviewSteps =
+    data?.mode === 'rant' ? ['先看原话', '再看骂点', '最后再决定要不要下结论'] : ['先看摘要', '再扫证据', '最后看社区'];
   const loadingSteps = ['先抓摘要', '再抓证据', '最后看社区'];
   const summaryText = pickHotpostSummary(data);
+  const evidenceQuotes = collectHotpostEvidenceQuotes(data);
+  const complaintFacets = data?.complaint_facets ?? [];
+  const rantRepresentativePosts = data?.mode === 'rant' ? collectRantRepresentativePosts(data) : [];
+  const evidencePosts = data?.mode === 'rant' ? rantRepresentativePosts : data?.top_posts ?? [];
+  const rangeNote = pickHotpostRangeNote(data);
+  const recommendedActions = data?.next_steps?.recommended_actions?.filter(Boolean).slice(0, 3) ?? [];
+  const suggestedKeywords = data?.next_steps?.suggested_keywords?.filter(Boolean).slice(0, 4) ?? [];
   const visibleTopics = data?.topics ? (showAllTopics ? data.topics : data.topics.slice(0, 3)) : [];
-  const visibleTopPosts = data?.top_posts ? (showAllEvidence ? data.top_posts : data.top_posts.slice(0, 3)) : [];
-  const hasAdvancedInsights =
-    (data?.mode === 'rant' &&
-      ((data.pain_points?.length ?? 0) > 0 ||
-        (data.competitor_mentions?.length ?? 0) > 0 ||
-        Boolean(data.migration_intent))) ||
-    (data?.mode === 'opportunity' &&
-      ((unmetNeeds?.length ?? 0) > 0 ||
-        (data.user_segments?.length ?? 0) > 0 ||
-        (data.existing_tools?.length ?? 0) > 0));
+  const visibleEvidencePosts = showAllEvidence ? evidencePosts : evidencePosts.slice(0, 3);
+  const queryParseEntries = data?.query_parse
+    ? [
+        data.query_parse.subject ? { label: '对象', value: data.query_parse.subject } : null,
+        data.query_parse.compare_target ? { label: '对比方', value: data.query_parse.compare_target } : null,
+        data.query_parse.focus ? { label: '关注点', value: data.query_parse.focus } : null,
+        data.query_parse.scenario ? { label: '场景', value: data.query_parse.scenario } : null,
+      ].filter((item): item is { label: string; value: string } => Boolean(item?.value))
+    : [];
+  const hasRantInsights =
+    data?.mode === 'rant' &&
+    (complaintFacets.length > 0 ||
+      (data.pain_points?.length ?? 0) > 0 ||
+      (data.competitor_mentions?.length ?? 0) > 0 ||
+      Boolean(data.migration_intent));
+  const compareFacetTargets = Array.from(
+    new Set(complaintFacets.map((facet) => facet.target).filter((target): target is string => Boolean(target))),
+  );
+  const compareGroups =
+    data?.mode === 'rant' && data.render_mode === 'compare' && compareFacetTargets.length >= 2
+      ? [
+          { title: `为什么更偏向 ${compareFacetTargets[0]}`, facets: complaintFacets.filter((facet) => facet.target === compareFacetTargets[0]) },
+          { title: `为什么会嫌弃 ${compareFacetTargets[1]}`, facets: complaintFacets.filter((facet) => facet.target === compareFacetTargets[1]) },
+        ]
+      : [];
+  const hasExpandableInsights =
+    data?.mode === 'opportunity' &&
+    ((unmetNeeds?.length ?? 0) > 0 ||
+      (data.user_segments?.length ?? 0) > 0 ||
+      (data.existing_tools?.length ?? 0) > 0);
 
   const handleSSEEvent = useCallback((event: SSEEvent) => {
     if (event.event === 'queue_update') {
@@ -318,12 +531,12 @@ const HotPostResultPage: React.FC = () => {
 
     console.log("Starting SSE stream for", queryId);
     sseClientRef.current = subscribeToHotPostStream(
-        queryId, 
-        handleSSEEvent, 
+        queryId,
+        handleSSEEvent,
         (status) => {
             console.log("SSE Status:", status);
             if (status === 'failed' || status === 'closed') {
-                 // Maybe fallback to polling if SSE fails hard? 
+                 // Maybe fallback to polling if SSE fails hard?
                  // For now, let's rely on the internal reconnect of SSEClient
             }
         }
@@ -401,10 +614,10 @@ const HotPostResultPage: React.FC = () => {
         const seed_subreddits = data.communities?.map(c => typeof c === 'string' ? c : c.name) || [];
         await generateDeepDiveToken({
             query_id: data.query_id,
-            product_desc: data.query, 
+            product_desc: data.query,
             seed_subreddits
         });
-        
+
         navigate('/', {
           state: {
             prefillProductDescription: data.query,
@@ -429,6 +642,7 @@ const HotPostResultPage: React.FC = () => {
       state: {
         prefillQuery: data.query,
         prefillMode: data.mode,
+        prefillQueryParse: data.query_parse,
         prefillSource: 'retry-search',
         prefillHint: '已带回这次搜索方向。改关键词或补社区后，直接重扫。',
       },
@@ -442,9 +656,9 @@ const HotPostResultPage: React.FC = () => {
   // --- Render ---
 
   if (status === 'queued') {
-      return <QueueOverlay 
-        position={queuePosition !== undefined ? queuePosition : undefined} 
-        estimatedWait={estimatedWait !== undefined ? estimatedWait : undefined} 
+      return <QueueOverlay
+        position={queuePosition !== undefined ? queuePosition : undefined}
+        estimatedWait={estimatedWait !== undefined ? estimatedWait : undefined}
       />;
   }
 
@@ -561,9 +775,54 @@ const HotPostResultPage: React.FC = () => {
       </header>
 
       <main className="container mx-auto px-4 py-6 max-w-5xl space-y-6 animate-in fade-in slide-in-from-bottom-2 duration-500">
+        {data.mode === 'rant' && evidenceQuotes.length > 0 && (
+          <section className="space-y-4">
+            <h3 className="text-lg font-semibold flex items-center text-foreground">
+              <MessageSquare className="w-5 h-5 mr-2 text-primary" />
+              真实原话
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {evidenceQuotes.map((item, index) => {
+                const quoteTime = formatHotpostEvidenceTime(item.createdUtc);
+                const content = (
+                  <div className="surface-panel-muted rounded-2xl p-4 transition-shadow hover:shadow-editorial">
+                    <p className="text-sm leading-7 text-foreground italic">“{item.quote}”</p>
+                    <div className="mt-3 flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
+                      <span>{item.subreddit ? `来源：${item.subreddit}` : '来源：证据帖原话'}</span>
+                      {quoteTime ? <span>时间：{quoteTime}</span> : null}
+                      {item.url ? (
+                        <span className="inline-flex items-center gap-1 text-primary">
+                          <ExternalLink className="h-3.5 w-3.5" />
+                          查看原帖
+                        </span>
+                      ) : null}
+                    </div>
+                  </div>
+                );
+
+                if (item.url) {
+                  return (
+                    <a
+                      key={`${item.quote}-${index}`}
+                      href={item.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block"
+                    >
+                      {content}
+                    </a>
+                  );
+                }
+
+                return <div key={`${item.quote}-${index}`}>{content}</div>;
+              })}
+            </div>
+          </section>
+        )}
+
         {hero ? <SurfaceHero {...hero} /> : null}
 
-        {decisionSummary ? (
+        {decisionSummary && data.mode !== 'rant' ? (
           <DecisionSummaryPanel
             title="先定追不追"
             verdictTitle={decisionSummary.verdictTitle}
@@ -593,6 +852,7 @@ const HotPostResultPage: React.FC = () => {
         ) : null}
 
         {/* Summary Card */}
+        {data.mode !== 'rant' ? (
         <section className="surface-panel rounded-[28px] p-6">
            <div className="flex flex-col sm:flex-row justify-between items-start gap-4 mb-4">
               <div>
@@ -614,7 +874,7 @@ const HotPostResultPage: React.FC = () => {
                </span>
              ))}
            </div>
-           
+
            {/* Market Opportunity Highlight (For Opportunity Mode) */}
            {data.mode === 'opportunity' && marketOpportunityText && (
                <div className="mb-4 rounded-2xl border border-primary/15 bg-primary/10 p-4">
@@ -636,6 +896,46 @@ const HotPostResultPage: React.FC = () => {
               {summaryText}
            </p>
         </section>
+        ) : null}
+
+        {data.mode !== 'rant' && evidenceQuotes.length > 0 && (
+          <section className="space-y-4">
+            <h3 className="text-lg font-semibold flex items-center text-foreground">
+              <MessageSquare className="w-5 h-5 mr-2 text-primary" />
+              代表原话
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {evidenceQuotes.map((item, index) => {
+                const quoteTime = formatHotpostEvidenceTime(item.createdUtc);
+                const content = (
+                  <div className="surface-panel-muted rounded-2xl p-4 transition-shadow hover:shadow-editorial">
+                    <p className="text-sm leading-7 text-foreground italic">“{item.quote}”</p>
+                    <div className="mt-3 flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
+                      <span>{item.subreddit ? `来源：${item.subreddit}` : '来源：证据帖原话'}</span>
+                      {quoteTime ? <span>时间：{quoteTime}</span> : null}
+                    </div>
+                  </div>
+                );
+
+                if (item.url) {
+                  return (
+                    <a
+                      key={`${item.quote}-${index}`}
+                      href={item.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block"
+                    >
+                      {content}
+                    </a>
+                  );
+                }
+
+                return <div key={`${item.quote}-${index}`}>{content}</div>;
+              })}
+            </div>
+          </section>
+        )}
 
         {/* --- Trending Mode: Topics --- */}
         {data.mode === 'trending' && data.topics && data.topics.length > 0 && (
@@ -660,7 +960,7 @@ const HotPostResultPage: React.FC = () => {
                                 '这个话题正在升温，建议先看证据再判断要不要继续追。'
                               )}
                             </p>
-                            
+
                             {/* Evidence Links */}
                             <div className="space-y-2 border-t pt-2 border-dashed border-border">
                                 {topic.evidence.slice(0, 2).map((ev, i) => (
@@ -684,7 +984,7 @@ const HotPostResultPage: React.FC = () => {
             </section>
         )}
 
-        {hasAdvancedInsights ? (
+        {hasExpandableInsights ? (
           <section className="surface-panel-muted rounded-2xl p-4">
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               <div>
@@ -702,36 +1002,232 @@ const HotPostResultPage: React.FC = () => {
           </section>
         ) : null}
 
-        {/* --- Rant Mode: Pain Points & Competitors & Migration --- */}
-        {data.mode === 'rant' && showAdvancedInsights && (
-            <>
-                {data.pain_points && data.pain_points.length > 0 && (
-                     <section className="space-y-4">
-                        <h3 className="text-lg font-semibold flex items-center text-red-700">
-                            <Frown className="w-5 h-5 mr-2" />
-                            用户到底在骂什么
-                        </h3>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            {data.pain_points.map((pp, idx) => (
-                                <div key={idx} className="surface-panel-muted rounded-2xl p-4 transition-shadow hover:shadow-editorial">
-                                    <div className="flex justify-between items-start">
-                                        <h4 className="font-semibold text-red-900">{pp.category}</h4>
-                                        <span className={clsx("px-2 py-0.5 rounded text-xs font-bold uppercase",
-                                            pp.severity === 'high' ? 'bg-red-100 text-red-700' :
-                                            pp.severity === 'medium' ? 'bg-yellow-100 text-yellow-800' :
-                                            'bg-blue-100 text-blue-800'
-                                        )}>{pp.severity || 'low'}</span>
-                                    </div>
-                                    <p className="text-sm text-foreground mt-2">{pp.description || pp.user_voice || '先把这类用户声音当成一个方向判断，系统会继续补一句更完整的概括。'}</p>
-                                    <div className="mt-3 text-xs text-muted-foreground bg-muted/50 p-2 rounded italic">
-                                        "{(pp.sample_quotes && pp.sample_quotes[0]) || pp.user_voice || '这类原话会在继续深挖时自动补齐。'}"
-                                    </div>
-                                </div>
-                            ))}
+        {/* --- Rant Mode: Voice Facets --- */}
+        {hasRantInsights && data.mode === 'rant' && complaintFacets.length > 0 && (
+          <section className="space-y-4">
+            <h3 className="text-lg font-semibold flex items-center text-red-700">
+              <Frown className="w-5 h-5 mr-2" />
+              {data.render_mode === 'compare' ? '大家为什么偏向一边、嫌弃另一边' : '原话里反复出现的具体骂点'}
+            </h3>
+            {compareGroups.length > 0 ? (
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                {compareGroups.map((group) => (
+                  <div key={group.title} className="surface-panel-muted rounded-2xl p-4 space-y-3">
+                    <h4 className="font-semibold text-foreground">{group.title}</h4>
+                    <div className="space-y-3">
+                      {group.facets.map((facet, idx) => (
+                        <div key={`${group.title}-${facet.label}-${idx}`} className="rounded-xl border border-border bg-background/80 p-3">
+                          <div className="flex items-center justify-between gap-3">
+                            <div className="font-medium text-red-900">{facet.label}</div>
+                            <span className="text-xs text-muted-foreground">{facet.evidence_count ?? 0} 条证据</span>
+                          </div>
+                          {facet.representative_quote ? (
+                            <p className="mt-2 text-sm leading-6 text-foreground italic">“{facet.representative_quote}”</p>
+                          ) : null}
                         </div>
-                     </section>
-                )}
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {complaintFacets.map((facet, idx) => (
+                  <div key={`${facet.label}-${idx}`} className="surface-panel-muted rounded-2xl p-4 transition-shadow hover:shadow-editorial">
+                    <div className="flex justify-between items-start gap-3">
+                      <h4 className="font-semibold text-red-900">{facet.label}</h4>
+                      <span className="rounded-full bg-red-100 px-2 py-0.5 text-xs font-medium text-red-700">
+                        {facet.evidence_count ?? 0} 条证据
+                      </span>
+                    </div>
+                    {facet.target ? (
+                      <div className="mt-2 text-xs text-muted-foreground">对象：{facet.target}</div>
+                    ) : null}
+                    <div className="mt-3 text-sm text-foreground bg-muted/50 p-3 rounded-xl italic">
+                      “{facet.representative_quote || '这轮原话还不够密，先继续看下面的代表帖子。'}”
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </section>
+        )}
 
+        {hasRantInsights && data.mode === 'rant' && complaintFacets.length === 0 && data.pain_points && data.pain_points.length > 0 && (
+          <section className="space-y-4">
+            <h3 className="text-lg font-semibold flex items-center text-red-700">
+              <Frown className="w-5 h-5 mr-2" />
+              用户到底在骂什么
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {data.pain_points.map((pp, idx) => (
+                <div key={idx} className="surface-panel-muted rounded-2xl p-4 transition-shadow hover:shadow-editorial">
+                  <div className="flex justify-between items-start">
+                    <h4 className="font-semibold text-red-900">{pp.category}</h4>
+                    <span
+                      className={clsx(
+                        'px-2 py-0.5 rounded text-xs font-bold uppercase',
+                        pp.severity === 'high'
+                          ? 'bg-red-100 text-red-700'
+                          : pp.severity === 'medium'
+                            ? 'bg-yellow-100 text-yellow-800'
+                            : 'bg-blue-100 text-blue-800',
+                      )}
+                    >
+                      {pp.severity || 'low'}
+                    </span>
+                  </div>
+                  <p className="text-sm text-foreground mt-2">
+                    {pp.description || pp.user_voice || '先把这类用户声音当成一个方向判断，系统会继续补一句更完整的概括。'}
+                  </p>
+                  <div className="mt-3 text-xs text-muted-foreground bg-muted/50 p-2 rounded italic">
+                    "{pickHotpostQuote(pp.sample_quotes?.[0], pp.user_voice, ...(pp.evidence ?? []).map((evidence) => evidence.key_quote)) || '这类原话会在继续深挖时自动补齐。'}"
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {data.mode === 'rant' && queryParseEntries.length > 0 ? (
+          <section className="surface-panel-muted rounded-2xl p-4">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <h3 className="text-base font-semibold text-foreground">这次系统理解成了什么</h3>
+                <p className="mt-1 text-sm text-muted-foreground">这些标签会直接影响检索方向；不对就回搜索页改。</p>
+              </div>
+              <button
+                type="button"
+                onClick={handleRetrySearch}
+                className="surface-action-secondary inline-flex h-10 items-center justify-center rounded-xl px-4 text-sm font-medium transition-colors"
+              >
+                调整搜索标签
+              </button>
+            </div>
+            <div className="mt-4 flex flex-wrap gap-2">
+              {queryParseEntries.map((entry) => (
+                <span
+                  key={`${entry.label}-${entry.value}`}
+                  className="surface-chip inline-flex items-center rounded-full px-3 py-1 text-xs font-medium text-muted-foreground"
+                >
+                  {entry.label}：{entry.value}
+                </span>
+              ))}
+            </div>
+          </section>
+        ) : null}
+
+        {decisionSummary && data.mode === 'rant' ? (
+          <DecisionSummaryPanel
+            title="再决定要不要继续追"
+            verdictTitle={decisionSummary.verdictTitle}
+            verdictDescription={decisionSummary.verdictDescription}
+            reasons={decisionSummary.reasons}
+            signals={decisionSummary.signals}
+            nextStepDescription={decisionSummary.nextStepDescription}
+            actions={
+              actionPlan
+                ? [
+                    {
+                      label: actionPlan.primaryLabel,
+                      onClick: actionPlan.primaryIntent === 'generate-deep-dive' ? handleDeepDive : handleReviewEvidence,
+                      tone: 'primary',
+                    },
+                    {
+                      label: actionPlan.secondaryLabel,
+                      onClick: actionPlan.secondaryIntent === 'review-evidence' ? handleReviewEvidence : handleRetrySearch,
+                    },
+                    ...(actionPlan.tertiaryLabel
+                      ? [{ label: actionPlan.tertiaryLabel, onClick: handleRetrySearch }]
+                      : []),
+                  ]
+                : []
+            }
+          />
+        ) : null}
+
+        {data.mode === 'rant' ? (
+          <section className="surface-panel rounded-[28px] p-6">
+            <div className="flex flex-col sm:flex-row justify-between items-start gap-4 mb-4">
+              <div>
+                <div className="surface-section-kicker mb-2">轻梳理</div>
+                <h2 className="text-xl font-semibold flex items-center">
+                  <BarChart2 className="w-5 h-5 mr-2 text-primary" aria-hidden="true" />
+                  {data.render_mode === 'quote_only' ? '这轮先不给重结论' : '这轮可以先记住这句'}
+                </h2>
+              </div>
+              <ConfidenceBadge level={data.confidence} count={data.evidence_count} />
+            </div>
+            <div className="mb-4 flex flex-wrap gap-2">
+              {midReviewSteps.map((step) => (
+                <span
+                  key={step}
+                  className="surface-chip inline-flex items-center rounded-full px-3 py-1 text-xs font-medium text-muted-foreground"
+                >
+                  {step}
+                </span>
+              ))}
+            </div>
+            <p className="text-base leading-7 text-foreground md:text-lg">{summaryText}</p>
+          </section>
+        ) : null}
+
+        {/* Top Posts Section */}
+        <section ref={evidenceSectionRef} className="space-y-4 pt-6 border-t border-dashed">
+             <h3 className="font-bold text-lg flex items-center">
+                <FileText className="w-5 h-5 mr-2" />
+                {data.mode === 'rant'
+                  ? showAllEvidence || evidencePosts.length <= 3
+                    ? '代表帖子'
+                    : '先看前 3 条代表帖子'
+                  : showAllEvidence || evidencePosts.length <= 3
+                    ? '关键证据帖'
+                    : '先看前 3 条关键证据'}
+             </h3>
+             {data.mode === 'rant' ? (
+               <p className="text-sm text-muted-foreground">这些帖子直接支撑上面的骂点，不再混进泛讨论。</p>
+             ) : null}
+             <div className="grid grid-cols-1 gap-4">
+                 {visibleEvidencePosts.length > 0 ? (
+                    visibleEvidencePosts.map((post) => (
+                        <PostCard key={post.id} post={post} />
+                    ))
+                 ) : (
+                    <ProductStatePanel
+                      tone="empty"
+                      compact
+                      title="先顺着上面的判断继续走"
+                      description="这轮快扫已经够你先判断值不值得追。"
+                      nextStep={
+                        data.next_steps?.deepdive_available
+                          ? '觉得有价值就继续深挖。'
+                          : '先换个更具体的关键词，或补几个贴近的社区。'
+                      }
+                      actions={
+                        data.next_steps?.deepdive_available
+                          ? [
+                              { label: '继续深挖', onClick: handleDeepDive, tone: 'primary' },
+                              { label: '回搜索页重扫', onClick: handleRetrySearch },
+                            ]
+                          : [{ label: '回搜索页重扫', onClick: handleRetrySearch, tone: 'primary' }]
+                      }
+                    />
+                 )}
+             </div>
+             {evidencePosts.length > 3 ? (
+               <button
+                 type="button"
+                 onClick={() => setShowAllEvidence((prev) => !prev)}
+                 className="surface-action-secondary inline-flex h-10 items-center justify-center rounded-xl px-4 text-sm font-medium transition-colors"
+               >
+                 {showAllEvidence ? '收起证据' : `查看更多证据（${evidencePosts.length - 3}）`}
+               </button>
+             ) : null}
+        </section>
+
+        {/* --- Rant Mode: Competitors & Migration & Range --- */}
+        {data.mode === 'rant' && hasRantInsights && (
+            <>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {data.competitor_mentions && data.competitor_mentions.length > 0 && (
                         <section className="space-y-3">
@@ -745,8 +1241,8 @@ const HotPostResultPage: React.FC = () => {
                                         <span className="font-medium">{comp.name}</span>
                                         <div className="flex items-center gap-2">
                                             <span className="text-xs text-muted-foreground">{comp.mentions ?? '-'} 次提及</span>
-                                            <span className={clsx("w-2 h-2 rounded-full", 
-                                                comp.sentiment === 'positive' ? 'bg-green-500' : 
+                                            <span className={clsx("w-2 h-2 rounded-full",
+                                                comp.sentiment === 'positive' ? 'bg-green-500' :
                                                 comp.sentiment === 'negative' ? 'bg-red-500' : 'bg-gray-400'
                                             )} />
                                         </div>
@@ -779,6 +1275,47 @@ const HotPostResultPage: React.FC = () => {
                         </section>
                     )}
                 </div>
+
+                {(rangeNote || recommendedActions.length > 0 || suggestedKeywords.length > 0) && (
+                  <section className="space-y-4">
+                    <h3 className="text-lg font-semibold flex items-center text-foreground">
+                      <AlertTriangle className="w-5 h-5 mr-2 text-primary" />
+                      范围说明与下一步
+                    </h3>
+                    <div className="surface-panel-muted rounded-2xl p-4 space-y-4">
+                      {rangeNote ? (
+                        <p className="text-sm leading-7 text-foreground">{rangeNote}</p>
+                      ) : null}
+                      {recommendedActions.length > 0 ? (
+                        <div className="space-y-2">
+                          <div className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">建议先做这几步</div>
+                          <div className="space-y-2">
+                            {recommendedActions.map((item, index) => (
+                              <div key={item} className="rounded-xl border border-border bg-background px-3 py-2 text-sm text-foreground">
+                                {index + 1}. {item}
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      ) : null}
+                      {suggestedKeywords.length > 0 ? (
+                        <div className="space-y-2">
+                          <div className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">继续追问可以先看这些词</div>
+                          <div className="flex flex-wrap gap-2">
+                            {suggestedKeywords.map((keyword) => (
+                              <span
+                                key={keyword}
+                                className="inline-flex items-center rounded-full border border-border bg-background px-3 py-1 text-xs font-medium text-muted-foreground"
+                              >
+                                {keyword}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      ) : null}
+                    </div>
+                  </section>
+                )}
             </>
         )}
 
@@ -889,50 +1426,6 @@ const HotPostResultPage: React.FC = () => {
                 </div>
              </>
         )}
-
-        {/* Top Posts Section */}
-        <section ref={evidenceSectionRef} className="space-y-4 pt-6 border-t border-dashed">
-             <h3 className="font-bold text-lg flex items-center">
-                <FileText className="w-5 h-5 mr-2" />
-                {showAllEvidence || (data.top_posts?.length ?? 0) <= 3 ? '关键证据帖' : '先看前 3 条关键证据'}
-             </h3>
-             <div className="grid grid-cols-1 gap-4">
-                 {visibleTopPosts.length > 0 ? (
-                    visibleTopPosts.map((post) => (
-                        <PostCard key={post.id} post={post} />
-                    ))
-                 ) : (
-                    <ProductStatePanel
-                      tone="empty"
-                      compact
-                      title="先顺着上面的判断继续走"
-                      description="这轮快扫已经够你先判断值不值得追。"
-                      nextStep={
-                        data.next_steps?.deepdive_available
-                          ? '觉得有价值就继续深挖。'
-                          : '先换个更具体的关键词，或补几个贴近的社区。'
-                      }
-                      actions={
-                        data.next_steps?.deepdive_available
-                          ? [
-                              { label: '继续深挖', onClick: handleDeepDive, tone: 'primary' },
-                              { label: '回搜索页重扫', onClick: handleRetrySearch },
-                            ]
-                          : [{ label: '回搜索页重扫', onClick: handleRetrySearch, tone: 'primary' }]
-                      }
-                    />
-                 )}
-             </div>
-             {(data.top_posts?.length ?? 0) > 3 ? (
-               <button
-                 type="button"
-                 onClick={() => setShowAllEvidence((prev) => !prev)}
-                 className="surface-action-secondary inline-flex h-10 items-center justify-center rounded-xl px-4 text-sm font-medium transition-colors"
-               >
-                 {showAllEvidence ? '收起证据' : `查看更多证据（${data.top_posts.length - 3}）`}
-               </button>
-             ) : null}
-        </section>
 
         {/* Communities */}
         {data.communities && data.communities.length > 0 ? (

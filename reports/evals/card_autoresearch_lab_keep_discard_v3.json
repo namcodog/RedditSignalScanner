@@ -1,0 +1,16 @@
+[
+  {
+    "variant_id": "clean_summary_polish_v1",
+    "pass_rate": 0.3,
+    "pass_count": 3,
+    "fail_count": 7,
+    "decision": "baseline"
+  },
+  {
+    "variant_id": "clean_summary_growth_pack_polish_v3",
+    "pass_rate": 0.4,
+    "pass_count": 4,
+    "fail_count": 6,
+    "decision": "keep"
+  }
+]

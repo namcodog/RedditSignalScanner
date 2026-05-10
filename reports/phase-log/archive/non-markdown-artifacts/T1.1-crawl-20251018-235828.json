@@ -1,0 +1,1226 @@
+{
+  "status": "completed",
+  "mode": "incremental",
+  "total": 200,
+  "succeeded": 0,
+  "failed": 200,
+  "total_new_posts": 0,
+  "total_updated_posts": 0,
+  "total_duplicates": 0,
+  "communities": [
+    {
+      "community": "r/marketing",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/freelance",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/consulting",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/growthacking",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "r/UI_Design",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/docker",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/azure",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/googlecloud",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/BigData",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/java",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/csharp",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/AskEngineers",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/learnprogramming",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/learnpython",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/rust",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/typescript",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/reactjs",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/vuejs",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/node",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/django",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/rails",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/PostgreSQL",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/mysql",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/stocks",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/CryptoCurrency",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/Bitcoin",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/angular",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/flask",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/laravel",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/dotnet",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/Database",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/mongodb",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/redis",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/investing",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/ethereum",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/defi",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/wallstreetbets",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/leanfire",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/fatFIRE",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/povertyfinance",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/EatCheapAndHealthy",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/AskCulinary",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/fitness",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/running",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/cycling",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/loseit",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/intermittentfasting",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/nutrition",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/mentalhealth",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/selfimprovement",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/productivity",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/ZenHabits",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/BuyItForLife",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/solotravel",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/cscareerquestions",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/ITCareerQuestions",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/resumes",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/interviews",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/careerguidance",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/careerchange",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/managers",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/leadership",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/learnjavascript",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/programming",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/softwaredevelopment",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/sysadmin",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/networking",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/homelab",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/privacy",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/AskNetsec",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/buildapc",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/Unity3D",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/unrealengine",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/gamedesign",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/truegaming",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/selfpublish",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/options",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/realestate",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/RealEstateInvesting",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/FIRE",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/financialindependence",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/Frugal",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/budgetfood",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/MealPrepSunday",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/Cooking",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/bodyweightfitness",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/PartneredYoutube",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/ContentCreation",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/SEO",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/PPC",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/copywriting",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/branding",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/Accounting",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/taxpros",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/StudentLoans",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/awardtravel",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/Mortgages",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/FirstTimeHomeBuyer",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/RealEstate",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/Landlord",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/FulfillmentByAmazon",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/AmazonSeller",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/yoga",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/progresspics",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/keto",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/Anxiety",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/depression",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/shopify",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/juststart",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/startups",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/smallbusiness",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/SaaS",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/sales",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/ecommerce",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/venturecapital",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/ProductManagement",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/UXDesign",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/getdisciplined",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/DecidingToBeBetter",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/GetMotivated",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/simpleliving",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/declutter",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/organization",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/GoodValue",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/travel",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/digitalnomad",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/remotework",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/jobs",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/GetEmployed",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/AskHR",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/EngineeringStudents",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/learnjava",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/learnmachinelearning",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/AskProgramming",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/coding",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/SoftwareEngineering",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/ExperiencedDevs",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/selfhosted",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/netsec",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/hacking",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/AskTechnology",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/gadgets",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/hardware",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/pcmasterrace",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/gaming",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/gamedev",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/IndieGaming",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/writing",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/WritingPrompts",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/photography",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/AskPhotography",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/videography",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/VideoEditing",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/youtubers",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/NewTubers",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/Twitch",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/Streaming",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/socialmedia",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/Instagram",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/Tiktokhelp",
+      "status": "failed",
+      "error": "Reddit API error (status=404): {\"reason\": \"banned\", \"message\": \"Not Found\", \"error\": 404}"
+    },
+    {
+      "community": "r/Affiliatemarketing",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/Emailmarketing",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/logodesign",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/graphic_design",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/AskMarketing",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/tax",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/Insurance",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/HealthInsurance",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/CRedit",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/CreditCards",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/churning",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/passive_income",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/sidehustle",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/beermoney",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/Flipping",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/Resell",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/webdesign",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/Frontend",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/Backend",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/devops",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/kubernetes",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/aws",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/MachineLearning",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/artificial",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/deeplearning",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/datascience",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/dataengineering",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/Python",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/javascript",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/golang",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/dropship",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/Etsy",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/EtsySellers",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/printOnDemand",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/merch",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "r/AmazonMerch",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/Blogging",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/WorkOnline",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/forhire",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    },
+    {
+      "community": "r/slavelabour",
+      "status": "failed",
+      "error": "'MetaData' object has no attribute '_bulk_update_tuples'"
+    }
+  ],
+  "tier_assignments": {
+    "tier1": [],
+    "tier2": [],
+    "tier3": [],
+    "no_data": [
+      "r/marketing",
+      "r/freelance",
+      "r/consulting",
+      "r/growthacking",
+      "r/UI_Design",
+      "r/docker",
+      "r/azure",
+      "r/googlecloud",
+      "r/BigData",
+      "r/java",
+      "r/csharp",
+      "r/AskEngineers",
+      "r/learnprogramming",
+      "r/learnpython",
+      "r/rust",
+      "r/typescript",
+      "r/reactjs",
+      "r/vuejs",
+      "r/node",
+      "r/django",
+      "r/rails",
+      "r/PostgreSQL",
+      "r/mysql",
+      "r/stocks",
+      "r/CryptoCurrency",
+      "r/Bitcoin",
+      "r/angular",
+      "r/flask",
+      "r/laravel",
+      "r/dotnet",
+      "r/Database",
+      "r/mongodb",
+      "r/redis",
+      "r/investing",
+      "r/ethereum",
+      "r/defi",
+      "r/wallstreetbets",
+      "r/leanfire",
+      "r/fatFIRE",
+      "r/povertyfinance",
+      "r/EatCheapAndHealthy",
+      "r/AskCulinary",
+      "r/fitness",
+      "r/running",
+      "r/cycling",
+      "r/loseit",
+      "r/intermittentfasting",
+      "r/nutrition",
+      "r/mentalhealth",
+      "r/selfimprovement",
+      "r/productivity",
+      "r/ZenHabits",
+      "r/BuyItForLife",
+      "r/solotravel",
+      "r/cscareerquestions",
+      "r/ITCareerQuestions",
+      "r/resumes",
+      "r/interviews",
+      "r/careerguidance",
+      "r/careerchange",
+      "r/managers",
+      "r/leadership",
+      "r/learnjavascript",
+      "r/programming",
+      "r/softwaredevelopment",
+      "r/sysadmin",
+      "r/networking",
+      "r/homelab",
+      "r/privacy",
+      "r/AskNetsec",
+      "r/buildapc",
+      "r/Unity3D",
+      "r/unrealengine",
+      "r/gamedesign",
+      "r/truegaming",
+      "r/selfpublish",
+      "r/options",
+      "r/realestate",
+      "r/RealEstateInvesting",
+      "r/FIRE",
+      "r/financialindependence",
+      "r/Frugal",
+      "r/budgetfood",
+      "r/MealPrepSunday",
+      "r/Cooking",
+      "r/bodyweightfitness",
+      "r/PartneredYoutube",
+      "r/ContentCreation",
+      "r/SEO",
+      "r/PPC",
+      "r/copywriting",
+      "r/branding",
+      "r/Accounting",
+      "r/taxpros",
+      "r/StudentLoans",
+      "r/awardtravel",
+      "r/Mortgages",
+      "r/FirstTimeHomeBuyer",
+      "r/RealEstate",
+      "r/Landlord",
+      "r/FulfillmentByAmazon",
+      "r/AmazonSeller",
+      "r/yoga",
+      "r/progresspics",
+      "r/keto",
+      "r/Anxiety",
+      "r/depression",
+      "r/shopify",
+      "r/juststart",
+      "r/startups",
+      "r/smallbusiness",
+      "r/SaaS",
+      "r/sales",
+      "r/ecommerce",
+      "r/venturecapital",
+      "r/ProductManagement",
+      "r/UXDesign",
+      "r/getdisciplined",
+      "r/DecidingToBeBetter",
+      "r/GetMotivated",
+      "r/simpleliving",
+      "r/declutter",
+      "r/organization",
+      "r/GoodValue",
+      "r/travel",
+      "r/digitalnomad",
+      "r/remotework",
+      "r/jobs",
+      "r/GetEmployed",
+      "r/AskHR",
+      "r/EngineeringStudents",
+      "r/learnjava",
+      "r/learnmachinelearning",
+      "r/AskProgramming",
+      "r/coding",
+      "r/SoftwareEngineering",
+      "r/ExperiencedDevs",
+      "r/selfhosted",
+      "r/netsec",
+      "r/hacking",
+      "r/AskTechnology",
+      "r/gadgets",
+      "r/hardware",
+      "r/pcmasterrace",
+      "r/gaming",
+      "r/gamedev",
+      "r/IndieGaming",
+      "r/writing",
+      "r/WritingPrompts",
+      "r/photography",
+      "r/AskPhotography",
+      "r/videography",
+      "r/VideoEditing",
+      "r/youtubers",
+      "r/NewTubers",
+      "r/Twitch",
+      "r/Streaming",
+      "r/socialmedia",
+      "r/Instagram",
+      "r/Tiktokhelp",
+      "r/Affiliatemarketing",
+      "r/Emailmarketing",
+      "r/logodesign",
+      "r/graphic_design",
+      "r/AskMarketing",
+      "r/tax",
+      "r/Insurance",
+      "r/HealthInsurance",
+      "r/CRedit",
+      "r/CreditCards",
+      "r/churning",
+      "r/passive_income",
+      "r/sidehustle",
+      "r/beermoney",
+      "r/Flipping",
+      "r/Resell",
+      "r/webdesign",
+      "r/Frontend",
+      "r/Backend",
+      "r/devops",
+      "r/kubernetes",
+      "r/aws",
+      "r/MachineLearning",
+      "r/artificial",
+      "r/deeplearning",
+      "r/datascience",
+      "r/dataengineering",
+      "r/Python",
+      "r/javascript",
+      "r/golang",
+      "r/dropship",
+      "r/Etsy",
+      "r/EtsySellers",
+      "r/printOnDemand",
+      "r/merch",
+      "r/AmazonMerch",
+      "r/Blogging",
+      "r/WorkOnline",
+      "r/forhire",
+      "r/slavelabour"
+    ],
+    "blacklisted": []
+  },
+  "empty_count": 2,
+  "error_count": 198
+}

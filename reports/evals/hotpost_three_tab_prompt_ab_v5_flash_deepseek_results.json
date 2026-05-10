@@ -1,0 +1,331 @@
+[
+  {
+    "lane": "signal",
+    "card_id": "card-cand-ai-automation-1s6pkg3-validate",
+    "model": "google/gemini-3-flash-preview -> deepseek/deepseek-v4-pro",
+    "published": {
+      "title": "AI SEO 从业者开始先看真实代码和数据，不再先迷信通用提示词",
+      "summary_line": "判断顺序从先看工具演示，转成先看它能不能接入真实代码库和90天搜索数据。",
+      "audience": "在 Reddit 上寻找 AI SEO 工作流的开发者或营销人员",
+      "why_now": "有用户分享了一个把 Google Search Console 数据和代码库直接喂给 Claude 的方案。评论里立刻有用户指出，这才是关键，因为很多 AI SEO 工具只是‘打磨过的猜测’。所以下一步先问的不再是‘这工具酷不酷’，而是‘它能不能看到我的真实代码和数据’。",
+      "pain_point": "用了很多 AI SEO 工具，发现它们的建议脱离实际，像在猜，浪费时间和预算。",
+      "target_user_and_scene": "需要为网站做 SEO 优化，但厌倦了通用工具给出模糊建议的开发者或运营人员。",
+      "why_test_now": "最硬的证据是评论里那句 ‘inside the repo + real data’ combo is the important part。它直接点明了判断标准的变化：价值不在于提示词多花哨，而在于能否接入真实工作流。",
+      "min_test_action": "去看原始讨论",
+      "continue_signal": "继续看有没有更多工具或技能被要求展示‘接入真实数据源’的能力。",
+      "stop_signal": "如果讨论又回到只分享提示词模板，而不再提数据接入，这条线的价值就降低了。"
+    },
+    "semantic_brief": {
+      "core_interpretation": "AI SEO 的价值重心正在发生底层迁移：从研究“如何写出完美的提示词”转向“如何构建真实的数据闭环”。Reddit 上的讨论表明，资深从业者已经意识到，没有网站代码库（技术约束）和 Google Search Console 真实数据（业务表现）支撑的 AI 建议只是“精美的猜测”。真正的突破点在于将 AI 深度嵌入到私有上下文（Context）中，而不是依赖通用的 SEO 模板。",
+      "evidence_boundary": "此证据并不代表提示词工程（Prompt Engineering）已经失效，也不代表 SEO 已经实现了全自动闭环。它仅证明了用户对“通用型 AI SEO 工具”的信任度下降，且判断一个 AI 方案是否专业的标准已经演变为：它是否能“看见”并“理解”我的具体代码和历史数据。",
+      "user_tension": "从业者正处于“通用工具的便捷性”与“定制化方案的落地性”之间的博弈。使用现成的 AI SEO 工具虽然快，但给出的建议往往因脱离代码实际而无法执行；而自建“代码+数据”的接入方案虽然门槛高，但能解决“建议无法落地”的痛点。",
+      "why_it_matters_now": "这标志着 AI SEO 进入了“去魅期”。用户开始识破那些只会在 LLM 表面套壳的工具，转而追求“Grounding”（接地气/数据对齐）。如果一个工具或方案不能接入私有数据，它在专业用户眼中就失去了竞争力。这种从“看演示”到“看接口”的转变，是市场成熟的信号。",
+      "chinese_writing_guidance": "避免使用过度商业化的报告辞令。使用更具实感和技术圈色彩的词汇，如“喂数据”、“纸上谈兵”、“精美的猜测”、“落地”。要突出“提示词”与“真实上下文”之间的对立感，强调“代码库+搜索数据”这个组合的不可替代性。",
+      "field_guidance": {
+        "title": "应聚焦于 AI SEO 评价标准的转向：从“会写提示词”到“敢看真代码”。",
+        "summary_line": "核心对比：通用 AI 建议被视为“瞎猜”，接入真实代码和 90 天搜索数据正成为 AI SEO 的及格线。",
+        "why_now": "重点引用 Reddit 用户对现有工具“Polished guesswork（精美的猜测）”的犀利评价，说明用户对虚假繁荣的 AI 演示已产生审美疲劳。",
+        "why_test_now": "强调“Repo + Real Data”这个组合是目前最硬的专业分水岭，它决定了 AI 给出的是“通用废话”还是“改 Bug 级别的建议”。",
+        "detail": "应详细解释为什么“代码”代表了技术边界，而“数据”代表了用户反馈，两者结合才能让 AI 从“写手”变成“诊断专家”。"
+      }
+    },
+    "baseline": {
+      "title": "AI 做 SEO，光写提示词不够；还得看网站代码和搜索数据",
+      "summary_line": "有用户开始把 AI SEO 的重点，从打磨通用提示词，转成先喂它看真实代码和 90 天搜索数据。",
+      "audience": "想用 AI 工具做 SEO 优化的人",
+      "why_now": "以前很多用户觉得 AI SEO 就是写个好提示词，现在有用户发现，让 Claude 直接看代码库和 Search Console 数据，它给出的建议才真正落地。下一步，先问的不是‘提示词怎么写’，而是‘我的代码和数据怎么喂给它’。",
+      "pain_point": "花时间调教出的 AI 建议，落地时发现是纸上谈兵，因为工具根本不了解你的网站实际情况。",
+      "target_user_and_scene": "用 AI 工具做网站 SEO 优化，但发现建议总是隔靴搔痒的运营或开发者。",
+      "why_test_now": "原话直接点出，很多 AI SEO 只是‘polished guesswork’，而‘inside the repo + real data’的组合才是关键。当技能从‘fancy prompt’变成带真实上下文的可复用流程，才从‘酷演示’变成真正有用。",
+      "min_test_action": "去看原始讨论",
+      "continue_signal": "观察更多人是否开始分享‘喂代码和数据’的具体方法或工具，而不仅仅是提示词模板。",
+      "stop_signal": "如果讨论又回到主要争论哪种提示词框架更好，而不是如何获取和接入真实数据，这条线的价值就弱了。"
+    },
+    "variant": {
+      "title": "做 AI SEO，光写提示词不够；还得看网站代码和搜索数据",
+      "summary_line": "通用 AI 的 SEO 建议正被视作“精美的猜测”，让 AI 接入真实代码库和 90 天搜索数据，才是给出可落地建议的及格线。",
+      "audience": "在用 AI 工具做 SEO 优化的站长和从业者",
+      "why_now": "社区里开始有用户直接点破：那些不接私有数据的 AI SEO 只是一堆看起来很漂亮的空话。原来大家还在比谁的提示词写得好，现在先问“能不能读到我的代码和 Search Console”。这意味着对工具的专业性评判标准变了，从看演示变成了看接口。",
+      "pain_point": "用现成 AI 工具做 SEO 时，得到的建议听起来专业，但一落到自己的网站上就执行不下去，因为工具不了解代码结构和历史流量表现，建议和实际脱节。",
+      "target_user_and_scene": "用 Claude 或其他 AI 优化网站搜索表现的 SEO 从业者，在需要技术层面的诊断和改造建议时。",
+      "why_test_now": "最硬的证据就是那句“polished guesswork”，同时有用户把“repo + real data”组合挑出来作为关键。这说明已经有用户用这个标准来区分 AI 是“写手”还是“诊断专家”，而不再是看提示词是否精巧。",
+      "min_test_action": "去看原始讨论",
+      "continue_signal": "接下来看是否有更多工具或教程开始强调“先接入 Search Console 数据和代码仓库”作为工作流标配。",
+      "stop_signal": "如果市面上冒出大量宣称能接入数据，但建议仍然泛泛的套壳方案，或者这类讨论不再更新，这条线就失去了区分度。"
+    },
+    "baseline_error": "",
+    "variant_error": ""
+  },
+  {
+    "lane": "signal",
+    "card_id": "card-cand-ai-automation-1saabgz-validate",
+    "model": "google/gemini-3-flash-preview -> deepseek/deepseek-v4-pro",
+    "published": {
+      "title": "AI Agent 用户开始先算调教成本，不再先看省了多少时间",
+      "summary_line": "判断顺序从先看时间节省，转成先看调教成本和模型账单是否划算。",
+      "audience": "想用AI Agent自动化工作流的个人开发者或小团队",
+      "why_now": "有用户把调教小模型的精力和前沿模型全天跑的账单摊开，发现成本可能比省下的时间更贵。所以下一步先问的不是‘能省多少时间’，而是‘调教和运行成本我付不付得起’。",
+      "pain_point": "花大量时间精力调教小模型，或者为前沿模型支付高额账单，结果发现还不如自己手动或用脚本搞定。",
+      "target_user_and_scene": "试图用AI Agent实现工作流自动化的个人开发者或小团队，在评估是否值得投入时。",
+      "why_test_now": "原话明确提到了‘A LOT of 提示词维护’和‘costs can be significant’，直接把调教成本和模型账单摆到了‘时间节省’前面。",
+      "continue_signal": "看更多用户分享具体的调教时长、模型账单金额与最终节省时间的对比案例。继续看 Agent、completely agree、and 这些词会不会继续出现。",
+      "stop_signal": "如果讨论转向只关注模型能力上限或新功能，而不再提成本和实际投入产出比。"
+    },
+    "semantic_brief": {},
+    "baseline": {},
+    "variant": {},
+    "baseline_error": "",
+    "variant_error": "ValueError: LLM returned invalid JSON: "
+  },
+  {
+    "lane": "hot",
+    "card_id": "card-cand-ai-automation-1rweoq5-validate",
+    "model": "google/gemini-3-flash-preview -> deepseek/deepseek-v4-pro",
+    "published": {
+      "title": "“人类编程时代结束”这帖火了，是因为大家看穿了 AI 拿开发者喂招的讽刺感",
+      "summary_line": "争议点在于：开发者在 StackOverflow 和 GitHub 攒下的数据，现在成了 AI 砸掉他们饭碗的免费养料。关键原话是：感谢你们提供的免费训练数据。",
+      "audience": "担心被 AI 替代、对开源社区被白嫖感到愤怒的程序员",
+      "why_now": "这帖火不是因为技术突破，而是评论区开始清算 AI 公司如何利用人类留下的“免费遗产”来终结人类的工作。",
+      "flashpoint": "帖子断言人类编程时代终结，直接引爆了开发者对 AI 公司过河拆桥的集体自嘲。",
+      "fight_line": "一派认为这是技术演进的必然，另一派则在讽刺 AI 只是靠偷吃人类留下的奶酪才显得强大。",
+      "why_test_now": "关键在于 free training data 这个词。大家不再讨论 AI 写的代码好不好，而是在算被白嫖数据的旧账。",
+      "continue_signal": "继续看评论区有没有用户讨论如何通过协议或技术手段防止代码被 AI 抓取。",
+      "stop_signal": "如果讨论只剩下复读程序员要失业了这种情绪，没有关于数据所有权的博弈，热度就没价值了。"
+    },
+    "semantic_brief": {
+      "core_interpretation": "这不仅仅是对失业的恐惧，更是一场关于“开源精神被背叛”的集体清算。程序员们意识到，他们过去在 StackOverflow 和 GitHub 上出于互助精神无偿分享的知识，现在被 AI 公司打包成了商业产品，反过来消灭他们的岗位。这是一种“我亲手打磨了砍向自己的斧头”的极度荒诞感。",
+      "evidence_boundary": "证据并不支持“AI 编程水平已经超越人类”这一技术结论，它证明的是开发者群体对 AI 训练合法性的“认知觉醒”。讨论的重点不是 AI 写的代码好不好，而是 AI 拿走数据却不给贡献者留活路的“过河拆桥”行为。",
+      "user_tension": "开发者正处于“分享精神”与“职业自保”的剧烈冲突中。如果不分享，技术社区会枯竭；如果分享，就是在给未来的竞争对手（AI）免费喂招。这种“贡献即自杀”的悖论让开发者感到被平台和 AI 公司双重剥削。",
+      "why_it_matters_now": "舆论风向发生了质变：从讨论 AI 的“工具属性”转向了讨论 AI 的“寄生属性”。这预示着开发者对开源协议和代码托管平台的信任崩塌，未来可能会引发大规模的数据封锁或版权诉讼。",
+      "chinese_writing_guidance": "避免使用平铺直叙的技术报告口吻，要捕捉到评论区那种“冷嘲热讽”的底色。关键词应围绕“白嫖”、“喂招”、“回旋镖”和“过河拆桥”。要写出那种“我把你当社区，你把我当矿渣”的幻灭感。",
+      "field_guidance": {
+        "title": "应聚焦于“亲手喂大的 AI 正在砸饭碗”的讽刺感，而非单纯的失业预警。",
+        "summary_line": "点出核心矛盾：程序员过去积累的“数字遗产”，成了 AI 终结人类编程时代的免费燃料。",
+        "why_now": "强调这帖火爆是因为它戳破了 AI 进步的温情面纱，露出了底层“白嫖”人类劳动成果的残酷逻辑。",
+        "why_test_now": "重点解读“Thanks for the free training data”这句话背后的杀伤力，它是开发者对 AI 商业模式的集体抗议。",
+        "detail": "应描述开发者如何从“知识分享者”被迫降级为“数据矿工”的心态转变，以及这种情绪对开源生态的潜在破坏力。"
+      }
+    },
+    "baseline": {
+      "title": "程序员自嘲：AI 学会写代码，靠的是我们免费贡献的数据",
+      "summary_line": "这帖的讽刺点很直接：AI 编程工具的进步，建立在程序员们过去在 Stack Overflow 和 GitHub 上无偿分享的代码和问答之上。",
+      "audience": "关心 AI 对编程工作影响的开发者",
+      "why_now": "当 AI 编程能力被大肆宣传时，这句自嘲点破了技术进步背后一个被忽视的代价：贡献者成了训练数据。",
+      "flashpoint": "帖子标题宣称“人类编码时代结束”，而高赞评论用一句反讽感谢，把宏大的技术叙事拉回到了具体的、个人的贡献与回报问题上。",
+      "fight_line": "一方认为这是技术进步的必然，另一方则感到被利用，认为自己的知识贡献在无形中训练了可能取代自己的工具。",
+      "why_test_now": "原话“thanks for the free training data”是核心。它把抽象的“AI进步”变成了具体的“我的代码被用了”，引发了开发者对自身价值与未来角色的重新审视。",
+      "continue_signal": "继续看开发者社区如何讨论开源贡献、知识共享与 AI 训练数据的伦理边界。",
+      "stop_signal": "如果讨论只停留在情绪宣泄，没有深入到数据许可、贡献者回报机制等具体解决方案，热度就会消散。"
+    },
+    "variant": {
+      "title": "亲手喂大的 AI，现在拿你免费贡献的代码来抢你饭碗",
+      "summary_line": "这帖真正刺痛人的一句话是：感谢你在 StackOverflow 和 GitHub 上留下的免费训练数据。开发者过去为社区互助写下的每一行代码，如今成了 AI 取代他们的燃料。",
+      "audience": "曾为开源社区贡献过代码、现在发现自己被 AI 生产力工具反噬的开发者",
+      "why_now": "这帖现在引爆，不再是讨论 AI 能不能写代码，而是直接捅破了那层纸：这些模型是踩着人类知识库长起来的，却不对贡献者留任何活路。",
+      "flashpoint": "一句“Thanks for the free training data”像一把刀子，把程序员从“AI 是工具”的想象拽进“我是数据矿工”的现实。",
+      "fight_line": "一方认定这叫过河拆桥，是商业公司对开源精神的背叛；另一方觉得既然代码公开，就别怪别人拿来用，进步总要有人付出代价。",
+      "why_test_now": "那句“Thanks for the free training data”被顶到最高，说明开发者已经不是在看笑话，而是在集体清算自己到底为这场取代提供了多少弹药。",
+      "continue_signal": "继续看开源社区会不会出现大规模删库、换协议，或者针对性起诉 AI 公司的动作。",
+      "stop_signal": "如果后面只剩下这句台词的段子式重复，没有用户真的动手锁数据、改许可，说明情绪还停留在发泄层面。"
+    },
+    "baseline_error": "",
+    "variant_error": ""
+  },
+  {
+    "lane": "hot",
+    "card_id": "card-cand-ai-automation-1saaqfv-validate",
+    "model": "google/gemini-3-flash-preview -> deepseek/deepseek-v4-pro",
+    "published": {
+      "title": "这帖火在大家终于承认了：Autonomous 只是看着爽，真干活还得靠工具",
+      "summary_line": "争议点在于：是继续死磕“全自动智能体”，还是老老实实把 LLM 当成一个需要明确指令的“聪明助手”来出货。",
+      "audience": "正在纠结 AI Agent 落地效果的开发者",
+      "why_now": "讨论已经从“怎么做 Agent”变成了“Agent 到底是不是个伪命题”，大家开始公开吐槽全自动方案在实际产品里就是个坑。",
+      "flashpoint": "有开发者发帖承认花了几个月搞全自动机器人却一事无成，瞬间引爆了那些被 Edge Cases 折磨疯了的同行。",
+      "fight_line": "追求“全自动”是未来的必然路径，还是一个只会吞掉所有开发时间、最后让用户失去信任的 Demo 陷阱。",
+      "why_test_now": "关键点在于 rarely works in practice。大家不再讨论技术上限，而是在算账：为了那点“自动化”去修补没完没了的边界情况，到底值不值。",
+      "continue_signal": "继续看 smart assistant、clear specs 这种强调“人控”的关键词，看有没有更高效的半自动工作流出来。",
+      "stop_signal": "如果讨论开始复读“AI 还在早期”这种废话，或者变成纯粹的情绪发泄，就可以撤了。"
+    },
+    "semantic_brief": {
+      "core_interpretation": "核心在于开发者对“全自动（Autonomous）”这一概念的集体幻灭。这不仅是技术瓶颈，更是产品逻辑的根本转变：从追求让 AI 像人一样自主决策，转向让 AI 作为一个输入输出明确、极度听话的“高级编译器”或“智能工具”。大家意识到，为了追求那点虚无缥缈的“自主性”，所投入的调试成本（处理边缘案例）远超其商业价值。",
+      "evidence_boundary": "证据并不代表 AI 失去了处理复杂任务的能力，也不代表 Agent 赛道彻底终结。它反对的是“无约束、无规格说明（Spec）的自主性”。不要将其解读为 LLM 模型的失败，而应解读为“全自动产品形态”在现阶段的工程性失败。它不否定未来，但否定了现在的投入产出比。",
+      "user_tension": "开发者正处于“噱头 vs 交付”的夹缝中：市场和投资人想要“全自动”的魔法感，但实际交付压力要求系统必须可预测。开发者面临的权衡是：是继续投入 90% 的精力去修补那永远修不完的 10% 自动化漏洞，还是承认 AI 的局限性，通过限制自由度来换取一个真正能用的产品。",
+      "why_it_matters_now": "讨论已经从“Agent 怎么实现”转向了“Agent 到底值不值得做”。这标志着 AI 应用开发进入了“去魅期”。这种从“追求魔法”到“追求工程落地”的集体转向，预示着下一波 AI 产品将更强调指令集、规格说明（Specs）和人机协作，而非“丢一个目标让它自己跑”。",
+      "chinese_writing_guidance": "语气要务实、带一点“过来人”的清醒。避开“范式转移”、“赋能”等虚词。多用“死磕”、“坑”、“露馅”、“算账”等接地气的词汇。要写出那种“大家终于不装了，承认全自动就是个研发黑洞”的共鸣感。",
+      "field_guidance": {
+        "title": "应聚焦于“全自动”光环的破碎，以及向“工具/助手”属性的务实回归。",
+        "summary_line": "对比“看着爽的 Demo”与“能干活的产品”，强调全自动方案如何吞噬开发时间却无法交付。",
+        "why_now": "强调开发者开始公开吐槽并分享失败教训，这种“集体认怂”是行业转向务实的信号。",
+        "why_test_now": "抓住“rarely works in practice”和“eating all your dev time”这两个核心痛点，说明这是从实验室走向战场的真实反馈。",
+        "detail": "解释为什么全自动在 Demo 阶段极具欺骗性，但在实际产品中会因为无穷无尽的边缘情况（Edge Cases）导致崩溃。"
+      }
+    },
+    "baseline": {
+      "title": "全自动 AI 代理难落地，开发者转向“智能助手”模式",
+      "summary_line": "这帖的核心争论是：AI 应该追求全自动代理，还是老老实实当个按指令干活的智能助手。原话点破了关键：‘fully autonomous’ 的宣传听着好，但实践中很少行得通。",
+      "audience": "想用 AI 自动化复杂任务、但被可靠性问题卡住的开发者和产品团队",
+      "why_now": "讨论已经从‘能不能做’转向‘该怎么做’，越来越多开发者发现，追求全自动反而拖慢进度，不如先定义好输入输出。",
+      "flashpoint": "一个开发者分享了花几个月做全自动机器人却失败的经历，直接戳破了“全自动代理”的幻想。",
+      "fight_line": "一方认为 AI 就该当工具用，明确指令出结果；另一方则认为全自动是未来，只是当前模型能力还不够。",
+      "why_test_now": "原话里 ‘terrible for a product’ 和 ‘eating all your dev time’ 这种具体后果，比任何理论都更能说明问题。",
+      "continue_signal": "继续看那些尝试过全自动方案的团队，他们转向“助手模式”后，具体是怎么定义任务边界和评估标准的。",
+      "stop_signal": "如果后续讨论只剩对‘全自动’概念的重复吐槽，而没有团队分享具体的任务拆解和可靠性提升方法，热度就失去了价值。"
+    },
+    "variant": {
+      "title": "开发者集体“认怂”：死磕了几个月全自动机器人，最后发现还是当工具用靠谱",
+      "summary_line": "讨论炸开是因为开发者从技术探讨转向“算总账”：全自动 Agent 在 Demo 里看着很唬人，但在真实产品中，为了处理无穷无尽的边缘情况，会把研发时间全部吞噬殆尽。",
+      "audience": "正在被“全自动”概念折磨、想把 AI 真正做成产品的开发者和技术决策者",
+      "why_now": "风向变了。大家不再痴迷于“AI 自己思考和干活”的魔法感，而是开始公开分享失败经验，承认给模型清晰的指令和规范，比让它瞎猜更划算。这种集体“去魅”，意味着 AI 产品开发进入了更务实的落地期。",
+      "flashpoint": "帖子直指核心痛点：原帖用一句“true autonomy is nice for demos，but terrible for a product”直接戳破了全自动概念的泡沫，瞬间引爆了那些被无尽调试折磨的开发者的共同怨气。",
+      "fight_line": "不是吵好不好用，而是吵在哪儿用：一派坚持让 AI 做可预测的工具人或高级编译器；另一派则认为只要能搞定边缘情况，全自动依然是产品大杀器，问题只是现有模型本身有盲点。",
+      "why_test_now": "关键在于那句“rarely works in practice”和“eating all your dev time”。大家已经不是从技术潜力出发去讨论，而是从做产品的信任成本出发，发现为了修复那 10% 的自动化漏洞，要投入 90% 的额外精力，这账根本算不过来。",
+      "continue_signal": "继续看有没有团队披露具体的人机协作落地方案，或者把 AI 从决策者降级为“听指令的编译器”后的实际提效数据。",
+      "stop_signal": "如果后续讨论只剩对“全自动”的情绪宣泄，或者又冒出新的炫酷 Demo 把大家的注意力拉回魔法展示，却没人聊落地成本，这波反思热度就只是过眼云烟。"
+    },
+    "baseline_error": "",
+    "variant_error": ""
+  },
+  {
+    "lane": "breakdown",
+    "card_id": "card-group-ai-automation-1de9c05516",
+    "model": "google/gemini-3-flash-preview -> deepseek/deepseek-v4-pro",
+    "published": {
+      "title": "800行提示词？先别急着惊叹，先问它到底解决了什么问题",
+      "summary_line": "有用户展示800行提示词工程，但评论区第一反应是质疑这到底是什么，以及它和微调有什么区别。",
+      "audience": "关注AI agent或提示词工程的开发者、技术爱好者",
+      "why_now": "一个人在问800行到底是什么，另一个人直接说“so what”，说明围观者不再被行数唬住，下一步会先追问实际效用。",
+      "thesis": "开发者对“提示词工程”的崇拜正在消退，他们开始用“解决了什么问题”和“和微调有什么区别”来替代“行数”作为评估标准。",
+      "writing_angle_or_perspective": "从围观者的质疑切入，看他们如何重新定义“好”的标准。",
+      "tension_point_or_why_it_matters": "如果评估标准从“工程量”转向“实际效用”，那么很多靠行数唬人的项目会立刻露馅。",
+      "title_hooks": [
+        "别再数行数了，先问它到底解决了什么问题",
+        "800行提示词？评论区第一反应是‘so what’"
+      ],
+      "quote_pack": [
+        "Interested to understand what does 800+ lines of prompt engineering mean? An 800 line prompt? Isn't prompt engineering a term for fine tuning prompts?｜我想知道800多行提示词工程到底是什么意思？一个800行的提示词？提示词工程不是指微调提示词吗？｜r/vibecoding",
+        "looks like a GSAP carousel animation... so what?｜看起来就是个GSAP轮播动画……所以呢？｜r/vibecoding"
+      ]
+    },
+    "semantic_brief": {
+      "core_interpretation": "开发者群体对“提示词工程”的盲目崇拜正在终结。当有人试图用“800行提示词”这种量化指标来彰显技术深度时，专业社区的反应不再是惊叹，而是极度务实的质疑：一是质疑定义的严谨性（这到底算提示词还是微调？），二是质疑产出的实际价值（如果只是实现一个普通动画，那又怎样？）。这标志着评价标准从“工程量”转向了“必要性”和“产出比”。",
+      "evidence_boundary": "此证据并不代表长提示词在所有场景下都无效，也不代表提示词工程本身已死。它仅仅证明了在专业开发者社区（如 r/vibecoding），“行数”已经失去了作为技术实力的背书作用，且围观者对“为了用AI而用AI”导致的过度工程化非常敏感。",
+      "user_tension": "展示者（试图通过庞大的提示词行数来建立技术壁垒或成就感）与围观者（坚持实用主义，要求清晰的定义和不可替代的产出价值）之间的张力。展示者面临的尴尬是：当他以为在展示“肌肉”时，围观者看到的是“臃肿”。",
+      "why_it_matters_now": "随着AI工具的普及，编写长提示词的门槛在降低，导致“提示词通胀”。现在是一个转折点：如果一个复杂的AI方案不能证明它比传统代码更简洁、或比简单提示词更有效，它就会被视为一种“无效的炫技”。",
+      "chinese_writing_guidance": "文案应捕捉那种“祛魅”和“拆穿”的语气。避免使用中规中矩的报道腔，要体现出社区评论中那种“so what”的冷淡和犀利。重点放在“行数”与“实际效用”之间的巨大落差上。",
+      "field_guidance": {
+        "title": "应聚焦于“行数”不再是勋章，而是质疑的起点。例如：别拿800行提示词吓人，大家只关心它解决了什么。",
+        "summary_line": "强调评论区的核心逻辑：如果说不清定义、拿不出惊艳效果，再长的提示词也只是“过度工程”。",
+        "why_now": "指出评价体系的剧变：从看“过程有多玄学”转向看“结果有多平庸”。",
+        "why_test_now": "测试当前开发者对“提示词工程”这一概念的容忍度和定义边界，看他们是否已经开始反思AI开发的效率问题。",
+        "detail": "应详细描述评论区如何拆解展示者的逻辑——从对“提示词工程”定义的纠正，到对最终动画效果（GSAP）的平淡反应，展现出一种“回归常识”的趋势。"
+      }
+    },
+    "baseline": {
+      "title": "800行提示词，评论区先问的不是‘牛不牛’，而是‘这到底是什么’",
+      "summary_line": "有用户展示800行提示词工程，但围观者的第一反应是困惑和质疑，这说明大家不再被行数唬住，开始追问它到底解决了什么问题。",
+      "audience": "关注AI agent或提示词工程的开发者、技术爱好者",
+      "why_now": "当有用户展示一个看似复杂的成果时，评论区的第一反应不再是惊叹，而是追问定义和实际效用，这说明围观者的判断标准已经从‘看起来厉害’转向了‘到底有什么用’。",
+      "thesis": "围观者对复杂提示词工程的第一反应，已经从惊叹行数转向了质疑其定义和实际效用。",
+      "writing_angle_or_perspective": "从评论区的第一反应切入，看围观者如何拆解一个看似复杂的AI成果。",
+      "tension_point_or_why_it_matters": "如果展示者无法清晰定义自己的工作并证明其价值，那么再复杂的工程也会被迅速消解为‘so what’。",
+      "title_hooks": [
+        "评论区不问‘怎么做到的’，先问‘这到底是什么’",
+        "800行提示词，先别急着惊叹，先回答‘so what’"
+      ],
+      "quote_pack": [
+        "Interested to understand what does 800+ lines of prompt engineering mean? An 800 line prompt? Isn't prompt engineering a term for fine tuning prompts?｜很想知道800多行提示词工程是什么意思？一个800行的提示词？提示词工程不是指微调提示词吗？｜r/vibecoding",
+        "looks like a GSAP carousel animation... so what?｜看起来像个GSAP轮播动画……所以呢？｜r/vibecoding"
+      ]
+    },
+    "variant": {
+      "title": "800行提示词？不要问我行数，先告诉我它是不是比三行代码更管用",
+      "summary_line": "展示者以为在秀肌肉，围观者只看到臃肿。当实现效果只是一个普通动画时，庞大的行数立刻从技术勋章变成了被质疑的把柄。",
+      "audience": "想用长提示词展示AI开发深度的人，以及在评估这类方案的技术决策者",
+      "why_now": "这两条评论放在一起，撕开了评价标准的断层：一个人还在追问定义，另一个人已经直接跳过它去审视最终价值了。这说明“行数”作为能力背书的作用正在失灵，市场开始要求用“产出比”来重新标价。",
+      "thesis": "开发者社区对提示词工程的评估标准，正从计算“过程工程量”转向审视“最终产出的不可替代性”。",
+      "writing_angle_or_perspective": "不要纠缠于800行里到底写了什么，重点看围观者如何拆解这种“炫技”——先用定义问题消解其神秘感，再用“so what”质疑其存在价值。",
+      "tension_point_or_why_it_matters": "如果一个复杂的AI方案无法证明它比几行传统代码更简洁或效果显著更好，它就不再是技术深度的象征，而是过度工程化的实锤。这会直接劝退那些只为用AI而用AI的投入。",
+      "title_hooks": [
+        "当“行数”从一个勋章变成了一个包袱",
+        "提示词的工程深度和它的实际效用正在打架"
+      ],
+      "quote_pack": [
+        "什么是800多行的提示词工程？一个800行的提示词？提示词工程不是指微调提示词吗？｜What does 800+ lines of prompt engineering mean? An 800 line prompt? Isn't prompt engineering a term for fine tuning prompts?｜r/vibecoding",
+        "看起来就像一个GSAP轮播动画……所以呢？｜looks like a GSAP carousel animation... so what?｜r/vibecoding"
+      ]
+    },
+    "baseline_error": "",
+    "variant_error": ""
+  },
+  {
+    "lane": "breakdown",
+    "card_id": "card-group-ai-automation-3a7f66c166",
+    "model": "google/gemini-3-flash-preview -> deepseek/deepseek-v4-pro",
+    "published": {
+      "title": "开源模型跑分再高，也可能被服务商‘降智’",
+      "summary_line": "开发者发现，很多高分模型因为被量化而变笨，所以现在第一步是先问‘有没有被量化’，而不是看分数。",
+      "audience": "想用开源模型写代码的开发者",
+      "why_now": "一个人在抱怨服务商把模型量化‘降智’，另一个人直接点破高分是‘刷’出来的，说明大家已经不信跑分了，转而关心模型在实际部署时会不会变‘笨’。",
+      "thesis": "开发者对开源模型的信任标准，正从跑分榜上的数字，转移到模型在实际部署时是否被服务商量化‘降智’。",
+      "writing_angle_or_perspective": "别讲模型能力本身，讲开发者现在怎么‘防坑’。",
+      "tension_point_or_why_it_matters": "如果第一步不确认量化情况，开发者可能花大力气集成一个‘笨’模型，白费功夫。",
+      "title_hooks": [
+        "跑分榜失效了，开发者现在先问‘你量化了吗？’",
+        "高分模型可能是‘刷’出来的，用起来却变‘笨’了"
+      ],
+      "quote_pack": [
+        "Now only to find a provider who offers it in a coding plan without lobotimizing it by quantisizing.｜现在只希望能找到一个服务商，提供编程计划时，别用量化把模型‘脑叶切除’了。｜r/LLM",
+        "They're just benchmaxed :)｜它们只是刷分刷出来的 :)｜r/LLM"
+      ]
+    },
+    "semantic_brief": {
+      "core_interpretation": "开发者发现开源模型的“纸面跑分”与“实际部署表现”之间存在巨大的鸿沟。核心问题在于服务商为了节省计算资源，对模型进行了过度的量化（Quantization）处理，导致模型在处理编程等高难度任务时智力大幅缩水（被形容为“脑叶切除”）。同时，模型厂商为了榜单排名而过度优化跑分（Benchmaxed），使得分数失去了参考价值。",
+      "evidence_boundary": "证据并不代表量化技术本身是错误的，也不意味着所有服务商都在作假。它揭示的是一种特定情绪：开发者对“高分低能”现象的愤怒，以及对服务商为了成本牺牲模型质量的警惕。不要将其上升为对开源模型整体架构的否定。",
+      "user_tension": "开发者处于“性能需求”与“成本陷阱”的博弈中。他们被高跑分吸引，投入精力集成，却在实际使用中发现模型被服务商“降智”了。他们现在的压力在于如何穿透营销噱头，找到真正保留了完整实力的部署版本。",
+      "why_it_matters_now": "这标志着大模型评价体系的公信力危机。当“跑分”不再能代表“能力”，开发者对模型的信任标准正在从厂商的榜单数据转向对服务商部署细节（如量化位数）的审查。这会改变开发者选择模型和服务商的决策逻辑。",
+      "chinese_writing_guidance": "文案要体现出开发者的“幻灭感”和“防坑意识”。避免使用中规中矩的“性能损耗”，建议使用更具冲击力的词汇如“降智”、“脑叶切除”、“刷分机器”。语气要像是在开发者社区里的经验分享，直白且带有一定的批判性。",
+      "field_guidance": {
+        "title": "应聚焦于“跑分失效”和“服务商降智”的对比，制造冲突感。",
+        "summary_line": "一句话点破现状：分数是刷出来的，模型是阉割过的，开发者现在得先看量化参数再看分。",
+        "why_now": "解释信任链的断裂：从迷信榜单到开始怀疑服务商的部署诚意。",
+        "why_test_now": "强调在实际业务集成前，必须增加一道“验证模型是否被过度量化”的工序，否则就是白费功夫。",
+        "detail": "深入解释服务商如何通过量化省钱，以及这种省钱行为是如何精准踩中开发者痛点（尤其是编程场景）的。"
+      }
+    },
+    "baseline": {
+      "title": "开源模型跑分高，不代表你拿到手就好用",
+      "summary_line": "开发者发现，服务商为了省资源会把模型量化‘降智’，所以现在第一步是先问‘有没有被量化’，而不是看分数。",
+      "audience": "想用开源模型写代码的开发者",
+      "why_now": "一个人在抱怨服务商把模型量化‘降智’，另一个人直接点破高分是‘刷’出来的，说明大家已经不信跑分了，转而关心模型在实际部署时会不会变‘笨’。",
+      "thesis": "开发者对开源模型的信任，正从跑分榜单转向对服务商部署质量的怀疑。",
+      "writing_angle_or_perspective": "别从模型本身的技术进步讲，直接讲开发者为什么开始怀疑服务商。",
+      "tension_point_or_why_it_matters": "如果服务商普遍‘降智’，开发者就会浪费大量时间在错误的模型选择上，项目效果也达不到预期。",
+      "title_hooks": [
+        "跑分是刷的，模型是量化的，开发者还能信谁？"
+      ],
+      "quote_pack": [
+        "Now only to find a provider who offers it in a coding plan without lobotimizing it by quantisizing.｜现在只想找一个服务商，能提供这个模型用于编程，并且没有通过量化把它‘脑切除’。｜r/LLM",
+        "They're just benchmaxed :)｜它们只是刷分刷出来的 :)｜r/LLM"
+      ]
+    },
+    "variant": {
+      "title": "开源模型跑分失效了：服务商为了省钱，把模型“脑叶切除”了",
+      "summary_line": "开发者发现，高分模型被服务商过度量化后，写代码能力大幅缩水，现在选模型得先查部署参数，再看跑分。",
+      "audience": "被开源模型跑分吸引，但被实际部署效果坑过的开发者",
+      "why_now": "一个人抱怨服务商为了省钱把模型“降智”，另一个人直接点破高分是“刷”出来的，说明信任标准已经从厂商的榜单，转向了对服务商部署细节的审查。",
+      "thesis": "开发者对模型的信任标准正在迁移：从迷信跑分，转向审查服务商是否为了节省成本而过度量化模型，导致其实际能力受损。",
+      "writing_angle_or_perspective": "别讲技术原理，直接讲开发者的“幻灭感”和新的“防坑”决策逻辑。",
+      "tension_point_or_why_it_matters": "如果跑分不再代表真实能力，开发者选模型和服务商的决策成本会急剧上升，整个评价体系面临公信力危机。",
+      "title_hooks": [
+        "高分低能：当开源模型被服务商“降智”",
+        "别只看跑分了，先问问模型有没有被“脑叶切除”"
+      ],
+      "quote_pack": [
+        "Now only to find a provider who offers it in a coding plan without lobotimizing it by quantisizing.｜现在只想找个服务商，能在编程方案里提供它，而不是用量化把它给“脑叶切除”了。｜r/LLM",
+        "They're just benchmaxed :)｜它们只是刷分刷满了而已 :)｜r/LLM"
+      ]
+    },
+    "baseline_error": "",
+    "variant_error": ""
+  }
+]

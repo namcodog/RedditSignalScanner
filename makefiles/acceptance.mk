@@ -68,7 +68,7 @@ week2-acceptance: ## 🎯 Week 2 (P1) 完整验收：Precision@50 + 实体识别
 	@$(MAKE) week2-acceptance-prepare
 	@echo ""
 	@echo "步骤 2/3: 确认服务运行..."
-	@curl -s http://localhost:$(BACKEND_PORT)/api/healthz > /dev/null || (echo "❌ 后端未运行，请先执行 make dev-golden-path" && exit 1)
+	@curl -s http://localhost:$(BACKEND_PORT)/api/v1/health > /dev/null || (echo "❌ 后端未运行，请先执行 make dev-golden-path" && exit 1)
 	@echo "✅ 后端服务正常"
 	@echo ""
 	@echo "步骤 3/3: 运行验收测试..."
@@ -101,7 +101,7 @@ final-acceptance: ## 🎯 最终验收：产品经理独立使用完整流程（
 	@echo " 10. 访问质量看板查看指标"
 	@echo ""
 	@echo "步骤 1/2: 确认服务运行..."
-	@curl -s http://localhost:$(BACKEND_PORT)/api/healthz > /dev/null || (echo "❌ 后端未运行，请先执行 make dev-golden-path" && exit 1)
+	@curl -s http://localhost:$(BACKEND_PORT)/api/v1/health > /dev/null || (echo "❌ 后端未运行，请先执行 make dev-golden-path" && exit 1)
 	@curl -s http://localhost:$(FRONTEND_PORT) > /dev/null || (echo "❌ 前端未运行，请先执行 make dev-golden-path" && exit 1)
 	@echo "✅ 所有服务正常"
 	@echo ""

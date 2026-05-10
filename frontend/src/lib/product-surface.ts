@@ -46,9 +46,9 @@ const REPORT_TIER_LABELS: Record<string, string> = {
 };
 
 const HOTPOST_MODE_LABELS: Record<HotPostMode, string> = {
-  trending: '热点快报',
-  rant: '痛点快扫',
-  opportunity: '机会快扫',
+  trending: '热点追踪',
+  rant: '用户声音证据',
+  opportunity: '机会发现',
 };
 
 const formatPercent = (value: number | null | undefined): string => {
@@ -196,8 +196,8 @@ const selectSurfaceLabel = (
 const resolveReportTopOpportunity = (report: ReportResponse): string =>
   selectSurfaceLabel(
     '讨论里已经出现可追机会，建议先看完整报告确认优先级。',
-    report.report_structured?.opportunities?.[0]?.product_positioning,
-    report.report_structured?.opportunities?.[0]?.title,
+    report.canonical_report_json?.opportunities?.[0]?.product_positioning,
+    report.canonical_report_json?.opportunities?.[0]?.title,
     report.report.opportunities?.[0]?.description,
     report.report.opportunities?.[0]?.text,
     report.report.opportunities?.[0]?.title,
@@ -207,7 +207,7 @@ const resolveReportTopOpportunity = (report: ReportResponse): string =>
 const resolveReportTopPain = (report: ReportResponse): string =>
   selectSurfaceLabel(
     '讨论里有反复出现的抱怨，建议先看完整报告定位原因。',
-    report.report_structured?.pain_points?.[0]?.title,
+    report.canonical_report_json?.pain_points?.[0]?.title,
     report.report.pain_points?.[0]?.text,
     report.report.pain_points?.[0]?.description,
   );
@@ -379,7 +379,7 @@ export const buildReportDecisionSummary = (report: ReportResponse): ProductDecis
   const readiness = resolveReportReadiness(report);
   const blockedReason = resolveReportBlockedReason(report);
   const reasons =
-    report.report_structured?.decision_cards?.slice(0, 2).map((card) => ({
+    report.canonical_report_json?.decision_cards?.slice(0, 2).map((card) => ({
       title: card.title,
       description: card.details[0] || card.conclusion,
     })) ?? [];
@@ -479,11 +479,11 @@ const hotpostSourceLabel = (payload: HotPostResponse): SurfaceHeroBadge => {
 const hotpostConfidenceBadge = (payload: HotPostResponse): SurfaceHeroBadge => {
   switch (payload.confidence) {
     case 'high':
-      return { label: `信号扎实 ${payload.evidence_count} 条`, tone: 'success' };
+      return { label: `✔ 信号可靠 ${payload.evidence_count} 条`, tone: 'warning' };
     case 'medium':
-      return { label: `方向已浮现 ${payload.evidence_count} 条`, tone: 'info' };
+      return { label: `⚠ 信号一般 ${payload.evidence_count} 条`, tone: 'neutral' };
     case 'low':
-      return { label: `先看线索 ${payload.evidence_count} 条`, tone: 'warning' };
+      return { label: `△ 信号有限 ${payload.evidence_count} 条`, tone: 'neutral' };
     default:
       return { label: '系统正在补证据', tone: 'warning' };
   }
@@ -502,10 +502,12 @@ const resolveHotpostPrimaryAngle = (payload: HotPostResponse): string => {
   }
   if (payload.mode === 'rant') {
     return toUserFacingSnippet(
+      payload.complaint_facets?.[0]?.label ||
+      payload.complaint_facets?.[0]?.representative_quote ||
       payload.pain_points?.[0]?.category ||
       payload.pain_points?.[0]?.description ||
       payload.summary,
-      '这波抱怨正在集中，先看证据再判断是不是稳定痛点。'
+      '先看真实原话，再判断这是不是稳定抱怨。'
     );
   }
   return toUserFacingSnippet(
@@ -571,7 +573,7 @@ export const buildHotpostSurfaceHero = (payload: HotPostResponse): SurfaceHeroPr
           payload.mode === 'opportunity'
             ? '先看最明显的未满足需求。'
             : payload.mode === 'rant'
-              ? '先看最集中的抱怨。'
+              ? '先看最扎实的原话。'
               : '先看摘要，再翻前几条证据帖。',
           payload.next_steps?.deepdive_available
             ? '觉得有戏，就直接转深度报告。'
@@ -628,7 +630,7 @@ export const buildHotpostSurfaceHero = (payload: HotPostResponse): SurfaceHeroPr
     ],
     metrics: [
       {
-        label: payload.mode === 'opportunity' ? '最值得追的机会' : payload.mode === 'rant' ? '最明显的抱怨' : '最热的话题',
+        label: payload.mode === 'opportunity' ? '最值得追的机会' : payload.mode === 'rant' ? '最明显的用户声音' : '最热的话题',
         value: primaryAngle,
       },
       {
@@ -661,6 +663,8 @@ export const buildHotpostDecisionSummary = (payload: HotPostResponse): ProductDe
     payload.opportunities?.[0]?.need ||
     payload.opportunities?.[0]?.summary;
   const topPain =
+    payload.complaint_facets?.[0]?.label ||
+    payload.complaint_facets?.[0]?.representative_quote ||
     payload.pain_points?.[0]?.category ||
     payload.pain_points?.[0]?.description;
   const topTopic = payload.topics?.[0]?.topic;
@@ -668,7 +672,7 @@ export const buildHotpostDecisionSummary = (payload: HotPostResponse): ProductDe
     payload.mode === 'opportunity'
       ? toUserFacingSnippet(topOpportunity || payload.summary, '用户需求开始重复出现，值得继续验证。')
       : payload.mode === 'rant'
-        ? toUserFacingSnippet(topPain || payload.summary, '用户抱怨开始聚焦，值得继续验证。')
+        ? toUserFacingSnippet(topPain || payload.summary, '用户原话已经开始聚焦，值得继续验证。')
         : toUserFacingSnippet(
             payload.topics?.[0]?.key_takeaway || topTopic || payload.summary,
             '核心话题开始集中，值得继续验证。',
@@ -677,7 +681,7 @@ export const buildHotpostDecisionSummary = (payload: HotPostResponse): ProductDe
     payload.mode === 'opportunity'
       ? '同一需求在重复出现，值得继续追。'
       : payload.mode === 'rant'
-        ? '抱怨已经开始聚焦，值得判断是不是稳定痛点。'
+        ? '原话已经开始重复，值得判断是不是稳定问题。'
         : '话题已经开始集中，值得判断是真热还是短噪音。';
 
   return {

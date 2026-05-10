@@ -1,0 +1,347 @@
+{
+  "pair_count": 19,
+  "pairs": [
+    {
+      "left_card_id": "card-group-business-growth-ops-daaf09a76d",
+      "right_card_id": "card-group-business-growth-ops-aa63bfcabd",
+      "source_scope_id": "business-growth-ops",
+      "score": 0.5882,
+      "shared_terms": [
+        "ads",
+        "google",
+        "strength",
+        "与广",
+        "为它",
+        "优化",
+        "分数",
+        "化数"
+      ],
+      "left_title": "Google Ads 投手发现 Ad Strength 分数高不代表赚钱，优化应转向转化数据",
+      "right_title": "Google Ads 投手发现 Ad Strength 分数只看素材花样，高分照样亏钱，低分也能跑赢"
+    },
+    {
+      "left_card_id": "card-group-ai-automation-8df91f6575",
+      "right_card_id": "card-group-ai-automation-9804fe8899",
+      "source_scope_id": "ai-automation",
+      "score": 0.494,
+      "shared_terms": [
+        "不知",
+        "么时",
+        "了按",
+        "享了",
+        "什么",
+        "但评",
+        "使用",
+        "候用"
+      ],
+      "left_title": "分享提示词库后，评论区不问好不好，而是直接要“什么时候用”和输入示例",
+      "right_title": "用户分享200+提示词库，评论区指出光分类不够，每条必须加‘什么时候用’和输入示例"
+    },
+    {
+      "left_card_id": "card-group-business-growth-ops-d2d62644cb",
+      "right_card_id": "card-group-business-growth-ops-1d02bb884b",
+      "source_scope_id": "business-growth-ops",
+      "score": 0.35,
+      "shared_terms": [
+        "api",
+        "gemini",
+        "传统",
+        "关键",
+        "内容",
+        "分析",
+        "意图",
+        "户用"
+      ],
+      "left_title": "用 Gemini 和 Claude 5 分钟生成关键词简报，但拿不到搜索量和难度分数",
+      "right_title": "中小企业主用 Gemini API 替代 Semrush 做关键词研究，核心从查搜索量数据转向让 AI 直接分析用户意图并生成内容策略"
+    },
+    {
+      "left_card_id": "card-group-ai-automation-3a7f66c166",
+      "right_card_id": "card-group-ai-automation-ff9c0ba0fb",
+      "source_scope_id": "ai-automation",
+      "score": 0.3382,
+      "shared_terms": [
+        "一步",
+        "信任",
+        "先问",
+        "发现",
+        "发者",
+        "可能",
+        "型时",
+        "型的"
+      ],
+      "left_title": "开源模型跑分高可能是刷的，开发者选型时要先问服务商有没有量化",
+      "right_title": "开发者选开源模型不再只看跑分，开始担心拿到的是量化阉割版"
+    },
+    {
+      "left_card_id": "card-group-business-growth-ops-ec1e5bc8a5",
+      "right_card_id": "card-group-business-growth-ops-4ea80c02f3",
+      "source_scope_id": "business-growth-ops",
+      "score": 0.3378,
+      "shared_terms": [
+        "上下",
+        "上自",
+        "下文",
+        "不上",
+        "他们",
+        "代表",
+        "写应",
+        "始自"
+      ],
+      "left_title": "投手自建工具盯盘：不是炫技，是现成方案跟不上自己的分析节奏",
+      "right_title": "投手嫌现成工具不顺手，开始自己写应用或用 AI 做定制工具"
+    },
+    {
+      "left_card_id": "card-group-business-growth-ops-ecee9cde2c",
+      "right_card_id": "card-group-business-growth-ops-1d02bb884b",
+      "source_scope_id": "business-growth-ops",
+      "score": 0.3375,
+      "shared_terms": [
+        "api",
+        "gemini",
+        "semrush",
+        "不再",
+        "业主",
+        "主用",
+        "他们",
+        "们不"
+      ],
+      "left_title": "小企业主用 Gemini API 做关键词研究，不再迷信搜索量，转而用 AI 判断搜索意图能否带来生意",
+      "right_title": "中小企业主用 Gemini API 替代 Semrush 做关键词研究，核心从查搜索量数据转向让 AI 直接分析用户意图并生成内容策略"
+    },
+    {
+      "left_card_id": "card-group-business-growth-ops-d2d62644cb",
+      "right_card_id": "card-group-business-growth-ops-45181e9d27",
+      "source_scope_id": "business-growth-ops",
+      "score": 0.3333,
+      "shared_terms": [
+        "claude",
+        "gemini",
+        "关键",
+        "内容",
+        "分数",
+        "分钟",
+        "和难",
+        "度分"
+      ],
+      "left_title": "用 Gemini 和 Claude 5 分钟生成关键词简报，但拿不到搜索量和难度分数",
+      "right_title": "小团队用 Gemini 和 Claude 自己搭关键词流程，赢在拿回意图判断权"
+    },
+    {
+      "left_card_id": "card-group-business-growth-ops-1d02bb884b",
+      "right_card_id": "card-group-business-growth-ops-45181e9d27",
+      "source_scope_id": "business-growth-ops",
+      "score": 0.275,
+      "shared_terms": [
+        "gemini",
+        "semrush",
+        "不再",
+        "关键",
+        "内容",
+        "意图",
+        "户用",
+        "搜索"
+      ],
+      "left_title": "中小企业主用 Gemini API 替代 Semrush 做关键词研究，核心从查搜索量数据转向让 AI 直接分析用户意图并生成内容策略",
+      "right_title": "小团队用 Gemini 和 Claude 自己搭关键词流程，赢在拿回意图判断权"
+    },
+    {
+      "left_card_id": "card-group-business-growth-ops-f60aa74da3",
+      "right_card_id": "card-group-business-growth-ops-473243edb7",
+      "source_scope_id": "business-growth-ops",
+      "score": 0.2717,
+      "shared_terms": [
+        "不讨",
+        "为了",
+        "了收",
+        "从不",
+        "信任",
+        "入目",
+        "内部",
+        "击欺"
+      ],
+      "left_title": "谷歌广告投手面临信任危机：内部爆料称团队为保收入目标，从不讨论点击欺诈",
+      "right_title": "内部人爆料：Google Ads 团队为完成收入目标，从不讨论点击欺诈"
+    },
+    {
+      "left_card_id": "card-group-ecommerce-sellers-b7e47ec2fd",
+      "right_card_id": "card-group-ecommerce-sellers-68198f551f",
+      "source_scope_id": "ecommerce-sellers",
+      "score": 0.2429,
+      "shared_terms": [
+        "向了",
+        "场景",
+        "城市",
+        "室内",
+        "市室",
+        "成了",
+        "标准",
+        "核心"
+      ],
+      "left_title": "传统羊毛衫太厚太重，城市室内穿会热到融化，耐用反而成了负担",
+      "right_title": "买家吐槽羊毛衫只能冬天室外穿，品牌开始出中厚款应对室内场景"
+    },
+    {
+      "left_card_id": "card-group-business-growth-ops-d2d62644cb",
+      "right_card_id": "card-group-business-growth-ops-ecee9cde2c",
+      "source_scope_id": "business-growth-ops",
+      "score": 0.2333,
+      "shared_terms": [
+        "api",
+        "claude",
+        "gemini",
+        "seo",
+        "传统",
+        "关键",
+        "内容",
+        "意图"
+      ],
+      "left_title": "用 Gemini 和 Claude 5 分钟生成关键词简报，但拿不到搜索量和难度分数",
+      "right_title": "小企业主用 Gemini API 做关键词研究，不再迷信搜索量，转而用 AI 判断搜索意图能否带来生意"
+    },
+    {
+      "left_card_id": "card-group-ai-automation-f85a453428-write",
+      "right_card_id": "card-group-ai-automation-f7ad487d5e-write",
+      "source_scope_id": "ai-automation",
+      "score": 0.2308,
+      "shared_terms": [
+        "了执",
+        "产品",
+        "品经",
+        "垃圾",
+        "小时",
+        "成的",
+        "执行",
+        "技术"
+      ],
+      "left_title": "管理层用 AI 30 秒生成的‘灵感’，让产品经理和工程师每周多干 30 小时去解释和灭火",
+      "right_title": "老板用 AI 30 秒出的方案，产品经理得花 30 小时去擦屁股"
+    },
+    {
+      "left_card_id": "card-group-business-growth-ops-3f8b6ab3f2",
+      "right_card_id": "card-group-business-growth-ops-4ea80c02f3",
+      "source_scope_id": "business-growth-ops",
+      "score": 0.2131,
+      "shared_terms": [
+        "做定",
+        "具不",
+        "始自",
+        "定制",
+        "己写",
+        "成工",
+        "手开",
+        "投手"
+      ],
+      "left_title": "Google Ads 投手用 AI 自己写定制脚本，现成工具不再是唯一选择",
+      "right_title": "投手嫌现成工具不顺手，开始自己写应用或用 AI 做定制工具"
+    },
+    {
+      "left_card_id": "card-group-ecommerce-sellers-efed4bfd15",
+      "right_card_id": "card-group-ecommerce-sellers-bc30d08c0f",
+      "source_scope_id": "ecommerce-sellers",
+      "score": 0.1967,
+      "shared_terms": [
+        "判断",
+        "山扣",
+        "是否",
+        "标准",
+        "派上",
+        "用了",
+        "用场",
+        "用户"
+      ],
+      "left_title": "刀友和钥匙扣用户共识：判断一个东西该不该带，别听厂商的，看它有没有在意外场景里救过急",
+      "right_title": "一个天天挂钥匙的登山扣，最后竟然被用来拉车"
+    },
+    {
+      "left_card_id": "card-group-business-growth-ops-ecee9cde2c",
+      "right_card_id": "card-group-business-growth-ops-45181e9d27",
+      "source_scope_id": "business-growth-ops",
+      "score": 0.1848,
+      "shared_terms": [
+        "claude",
+        "gemini",
+        "semrush",
+        "不再",
+        "关键",
+        "内容",
+        "判断",
+        "意图"
+      ],
+      "left_title": "小企业主用 Gemini API 做关键词研究，不再迷信搜索量，转而用 AI 判断搜索意图能否带来生意",
+      "right_title": "小团队用 Gemini 和 Claude 自己搭关键词流程，赢在拿回意图判断权"
+    },
+    {
+      "left_card_id": "card-group-business-growth-ops-ecee9cde2c",
+      "right_card_id": "card-group-business-growth-ops-d4648eff1b",
+      "source_scope_id": "business-growth-ops",
+      "score": 0.1754,
+      "shared_terms": [
+        "seo",
+        "传统",
+        "内容",
+        "化的",
+        "发现",
+        "搜索",
+        "更有",
+        "核心"
+      ],
+      "left_title": "小企业主用 Gemini API 做关键词研究，不再迷信搜索量，转而用 AI 判断搜索意图能否带来生意",
+      "right_title": "SEO 老手发现，AI 搜索时代优化目标从排名第一变成被 AI 直接引用"
+    },
+    {
+      "left_card_id": "card-group-business-growth-ops-cfa0578628",
+      "right_card_id": "card-group-business-growth-ops-760eeb696e",
+      "source_scope_id": "business-growth-ops",
+      "score": 0.1705,
+      "shared_terms": [
+        "adsense",
+        "advergic",
+        "ezoic",
+        "一条",
+        "也骗",
+        "告网",
+        "广告",
+        "拒后"
+      ],
+      "left_title": "AdSense 被拒后想绕道 Ezoic？Reddit 老站长告诉你：大广告网络风控相通，此路不通",
+      "right_title": "被 Google AdSense 拒绝的个人站长，靠 Advergic.ai 跑通了广告变现，但 Ezoic 等小网络审核可能同样严格"
+    },
+    {
+      "left_card_id": "card-group-ecommerce-sellers-3b81b37c3e-write",
+      "right_card_id": "card-group-ecommerce-sellers-b3f2ca1c31",
+      "source_scope_id": "ecommerce-sellers",
+      "score": 0.1667,
+      "shared_terms": [
+        "fba",
+        "亚马",
+        "卖家",
+        "平台",
+        "应对",
+        "成了",
+        "成本",
+        "经从"
+      ],
+      "left_title": "亚马逊卖家不再等平台取消 FBA 附加费，开始提价或把订单引向自己的独立站",
+      "right_title": "FBA 卖家同时面临亚马逊涨价、仲裁结果看仲裁员个人、以及熟人推荐的开店骗局"
+    },
+    {
+      "left_card_id": "card-group-business-growth-ops-3f8b6ab3f2",
+      "right_card_id": "card-group-business-growth-ops-45181e9d27",
+      "source_scope_id": "business-growth-ops",
+      "score": 0.1639,
+      "shared_terms": [
+        "不再",
+        "依赖",
+        "定制",
+        "接说",
+        "有用",
+        "现在",
+        "用户",
+        "直接"
+      ],
+      "left_title": "Google Ads 投手用 AI 自己写定制脚本，现成工具不再是唯一选择",
+      "right_title": "小团队用 Gemini 和 Claude 自己搭关键词流程，赢在拿回意图判断权"
+    }
+  ]
+}

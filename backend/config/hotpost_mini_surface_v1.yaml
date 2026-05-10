@@ -1,0 +1,10 @@
+version: v1
+
+supplement_surface:
+  enabled: true
+  title: 15天补充
+  description: 15 天内仍有价值，但不进入主前台新鲜面的补充卡。
+  max_event_age_days: 15
+  max_cards: 12
+  initial_page_size: 12
+  max_page_size: 12

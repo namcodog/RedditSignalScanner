@@ -125,7 +125,7 @@ check_redis() {
 }
 
 check_backend_health() {
-  curl -sf "http://localhost:${BACKEND_PORT}/api/healthz" >/dev/null
+  curl -sf "http://localhost:${BACKEND_PORT}/api/v1/health" >/dev/null
 }
 
 check_frontend_health() {

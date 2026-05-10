@@ -1,0 +1,4381 @@
+{
+  "slug": "edc-pocket-organizer",
+  "title": "户外",
+  "prompt": "我想挖 EDC（everyday carry）里 keychain / pocket organizer 方向的真实需求，重点看用户如何整理钥匙、门禁卡、小刀、手电、耳机，哪些场景会乱、会硌、会丢、不好拿，判断是否适合做小配件或收纳产品。",
+  "topic_profile_id": "edc_everyday_carry_v1",
+  "task_id": "fe26c9bb-90ad-4e5c-9e39-2a6ba2920cf6",
+  "validated_at": "2026-03-20T16:49:55.096303+00:00",
+  "summary": {
+    "decision_cards": 4,
+    "battlefields": 4,
+    "pain_points": 3,
+    "drivers": 3,
+    "opportunities": 2,
+    "report_markdown_len": 3095,
+    "llm_used": true
+  },
+  "report": {
+    "task_id": "fe26c9bb-90ad-4e5c-9e39-2a6ba2920cf6",
+    "status": "completed",
+    "generated_at": "2026-03-20T12:04:17.906892Z",
+    "product_description": "我想挖 EDC（everyday carry）里 keychain / pocket organizer 方向的真实需求，重点看用户如何整理钥匙、门禁卡、小刀、手电、耳机，哪些场景会乱、会硌、会丢、不好拿，判断是否适合做小配件或收纳产品。",
+    "data_source": null,
+    "report_markdown": "# 我想挖 EDC（everyday carry）里 keychain / pocket organizer 方向的真实需求，重点看用户如何整理钥匙、门禁卡、小刀、手电、耳机，哪些场景会乱、会硌、会丢、不好拿，判断是否适合做小配件或收纳产品。 · 市场洞察报告\n\n## 1. 开篇概览\nEDC keychain和pocket organizer赛道讨论活跃，用户常秀钥匙、小刀、手电等日常携带，但痛点多在卡片收纳和配件升级，方案少见，适合推小配件。  \n关键社区：r/EDC、r/Knife_Swap、r/edc、r/EDCexchange、r/flashlight。  \n过去 12 个月，帖子总数 33 + 评论总数 0。\n\n## 2. 决策风向标\n**需求趋势**  \n过去周期内已覆盖 33 帖 / 0 评论，趋势可用于继续决策。覆盖社区 12 个，这是系统生成的统一结构报告，不依赖前端拼装。  \n\n**难题与攻略比**  \nP/S 比约 0.00，痛点与方案已形成可读结构。P/S 比 0.00，结论力度会随证据强度自动升级或保守。  \n\n**核心社群**  \n当前最活跃社区集中在 r/EDC, r/Knife_Swap, r/edc。优先看高活跃且重复抱怨出现的社区，社区名单由本轮分析真实数据生成。  \n\n**落地机会**  \n已出现机会线索：Suggestions to complete my Matte Black EDC。机会卡与痛点卡使用同一条证据链，B/C 是 Full A 同骨架简化，不走独立页面结构。  \n- 推黑色EDC配件套装，为什么值得：r/EDC用户求全黑升级，潜在1302团队，直接对标Matte Black需求。  \n- 针对keychain卡夹优化，为什么值得：r/EDCexchange吐槽硬质卡c，潜在1502团队，补上班卡收纳空白。  \n- 验证刀具keychain捆绑，为什么值得：r/Knife_Swap交易热，结合小刀携带痛点，转化二手转新品流量。\n\n## 3. 概览（市场健康度诊断）\n竞争可见，但仍有结构性机会，已分析 33 帖 / 0 评论，核心社区 r/EDC, r/Knife_Swap, r/edc，当前结论可用于继续推进。  \nP/S 比约 0.00，痛点与方案已形成可读结构，该比例用于判断市场是在抱怨积压还是方案成熟阶段，健康评估为可继续推进。\n\n## 4. 核心战场推荐（画像分级）\n**lv1 r/EDC**  \n上班族带工作门禁卡，求酷炫keychain不硌兜。核心吐槽：Badge Holder Retractable Clip Heavy Duty Carabiner Badge Reel Keychain with Lanyard ID。先在该社区验证问题复现频率，再决定是否深挖。  \n\n**lv2 r/Knife_Swap**  \n刀具爱好者，二手交易多，钥匙小刀混搭乱。先在该社区验证问题复现频率，再决定是否深挖。核心吐槽：It's once again time for u/BigMetalHoobajoob's sometimes poorly formatted, always fantastically priced Big, Metal XXXtravaganza, Round IV, with new blades and even newer prices。  \n\n**lv3 r/edc**  \n日常携带分享党，手电等小件不好拿。讨论量和抱怨强度都已达到可执行判断门槛。先在该社区验证问题复现频率，再决定是否深挖。核心吐槽：I waited 5 months to review this light。  \n\n**lv4 r/EDCexchange**  \n交换党，卡片keychain需求强。讨论量和抱怨强度都已达到可执行判断门槛。先在该社区验证问题复现频率，再决定是否深挖。核心吐槽：I'd like a carabiner still with a hard, clear card c。  \n\n## 5. 用户痛点拆解\n**Badge Holder Retractable Clip Heavy Duty Carabiner Badge Reel Keychain with Lanyard ID**  \n用户原声：我有EDC工作/门禁卡，用公司carabiner，想换酷点的，有硬质透明卡c想法吗。  \n数据印象：覆盖 12 个社区，已出现可追踪信号。  \n深层原因：（数据不足）。  \n证据链接：https://www.reddit.com/r/EDC/comments/1obo4um/badge_holder_retractable_clip_heavy_duty/。  \n\n**It's once again time for u/BigMetalHoobajoob's sometimes poorly formatted, always fantastically priced Big, Metal XXXtravaganza, Round IV, with new blades and even newer prices**  \n用户原声：https://imgur.com/a/ICTM6Nw 大家好，我承诺不啰嗦，终于证明可靠，超级偏好Z...。  \n数据印象：覆盖 12 个社区，已出现可追踪信号。  \n深层原因：（数据不足）。  \n证据链接：https://www.reddit.com/r/Knife_Swap/comments/1k57h2f/wts_uh_oh_its_once_again_time_for/。  \n\n**I waited 5 months to review this light**  \n用户原声：这会啰嗦，我等5个月审这灯，它超棒。小灯行但大灯太笨重。  \n数据印象：覆盖 12 个社区，已出现可追踪信号。  \n深层原因：（数据不足）。  \n证据链接：https://www.reddit.com/r/flashlight/comments/c9qyow/the_flashlight_that_you_can_carry_it_on/。  \n\n## 6. 关键决策驱动力\n- 效率提升与省时省心：用户求减少掏兜重复，钥匙卡手电一键拿，高频痛点Badge Holder和等灯审。  \n- 透明定价与成本可控：交易党嫌定价乱，求fantastically priced刀keychain捆绑。  \n- 用户持续强调效率、透明和可控解决体验。\n\n## 7. 商业机会\n**机会卡1：Suggestions to complete my Matte Black EDC**  \n对应痛点：Badge Holder Retractable。目标社群：r/EDC, r/Knife_Swap, r/edc。产品定位：约1302个潜在团队。卖点建议：at, att, black。  \n\n**机会卡2：would love EDC Suggestions of quality items in black**  \n对应痛点：Badge Holder Retractable。目标社群：r/EDC, r/Knife_Swap, r/edc。产品定位：约1502个潜在团队。卖点建议：ali, black, edc。",
+    "report_html": "<pre># 我想挖 EDC（everyday carry）里 keychain / pocket organizer 方向的真实需求，重点看用户如何整理钥匙、门禁卡、小刀、手电、耳机，哪些场景会乱、会硌、会丢、不好拿，判断是否适合做小配件或收纳产品。 · 市场洞察报告\n\n## 1. 开篇概览\nEDC keychain和pocket organizer赛道讨论活跃，用户常秀钥匙、小刀、手电等日常携带，但痛点多在卡片收纳和配件升级，方案少见，适合推小配件。  \n关键社区：r/EDC、r/Knife_Swap、r/edc、r/EDCexchange、r/flashlight。  \n过去 12 个月，帖子总数 33 + 评论总数 0。\n\n## 2. 决策风向标\n**需求趋势**  \n过去周期内已覆盖 33 帖 / 0 评论，趋势可用于继续决策。覆盖社区 12 个，这是系统生成的统一结构报告，不依赖前端拼装。  \n\n**难题与攻略比**  \nP/S 比约 0.00，痛点与方案已形成可读结构。P/S 比 0.00，结论力度会随证据强度自动升级或保守。  \n\n**核心社群**  \n当前最活跃社区集中在 r/EDC, r/Knife_Swap, r/edc。优先看高活跃且重复抱怨出现的社区，社区名单由本轮分析真实数据生成。  \n\n**落地机会**  \n已出现机会线索：Suggestions to complete my Matte Black EDC。机会卡与痛点卡使用同一条证据链，B/C 是 Full A 同骨架简化，不走独立页面结构。  \n- 推黑色EDC配件套装，为什么值得：r/EDC用户求全黑升级，潜在1302团队，直接对标Matte Black需求。  \n- 针对keychain卡夹优化，为什么值得：r/EDCexchange吐槽硬质卡c，潜在1502团队，补上班卡收纳空白。  \n- 验证刀具keychain捆绑，为什么值得：r/Knife_Swap交易热，结合小刀携带痛点，转化二手转新品流量。\n\n## 3. 概览（市场健康度诊断）\n竞争可见，但仍有结构性机会，已分析 33 帖 / 0 评论，核心社区 r/EDC, r/Knife_Swap, r/edc，当前结论可用于继续推进。  \nP/S 比约 0.00，痛点与方案已形成可读结构，该比例用于判断市场是在抱怨积压还是方案成熟阶段，健康评估为可继续推进。\n\n## 4. 核心战场推荐（画像分级）\n**lv1 r/EDC**  \n上班族带工作门禁卡，求酷炫keychain不硌兜。核心吐槽：Badge Holder Retractable Clip Heavy Duty Carabiner Badge Reel Keychain with Lanyard ID。先在该社区验证问题复现频率，再决定是否深挖。  \n\n**lv2 r/Knife_Swap**  \n刀具爱好者，二手交易多，钥匙小刀混搭乱。先在该社区验证问题复现频率，再决定是否深挖。核心吐槽：It&#x27;s once again time for u/BigMetalHoobajoob&#x27;s sometimes poorly formatted, always fantastically priced Big, Metal XXXtravaganza, Round IV, with new blades and even newer prices。  \n\n**lv3 r/edc**  \n日常携带分享党，手电等小件不好拿。讨论量和抱怨强度都已达到可执行判断门槛。先在该社区验证问题复现频率，再决定是否深挖。核心吐槽：I waited 5 months to review this light。  \n\n**lv4 r/EDCexchange**  \n交换党，卡片keychain需求强。讨论量和抱怨强度都已达到可执行判断门槛。先在该社区验证问题复现频率，再决定是否深挖。核心吐槽：I&#x27;d like a carabiner still with a hard, clear card c。  \n\n## 5. 用户痛点拆解\n**Badge Holder Retractable Clip Heavy Duty Carabiner Badge Reel Keychain with Lanyard ID**  \n用户原声：我有EDC工作/门禁卡，用公司carabiner，想换酷点的，有硬质透明卡c想法吗。  \n数据印象：覆盖 12 个社区，已出现可追踪信号。  \n深层原因：（数据不足）。  \n证据链接：https://www.reddit.com/r/EDC/comments/1obo4um/badge_holder_retractable_clip_heavy_duty/。  \n\n**It&#x27;s once again time for u/BigMetalHoobajoob&#x27;s sometimes poorly formatted, always fantastically priced Big, Metal XXXtravaganza, Round IV, with new blades and even newer prices**  \n用户原声：https://imgur.com/a/ICTM6Nw 大家好，我承诺不啰嗦，终于证明可靠，超级偏好Z...。  \n数据印象：覆盖 12 个社区，已出现可追踪信号。  \n深层原因：（数据不足）。  \n证据链接：https://www.reddit.com/r/Knife_Swap/comments/1k57h2f/wts_uh_oh_its_once_again_time_for/。  \n\n**I waited 5 months to review this light**  \n用户原声：这会啰嗦，我等5个月审这灯，它超棒。小灯行但大灯太笨重。  \n数据印象：覆盖 12 个社区，已出现可追踪信号。  \n深层原因：（数据不足）。  \n证据链接：https://www.reddit.com/r/flashlight/comments/c9qyow/the_flashlight_that_you_can_carry_it_on/。  \n\n## 6. 关键决策驱动力\n- 效率提升与省时省心：用户求减少掏兜重复，钥匙卡手电一键拿，高频痛点Badge Holder和等灯审。  \n- 透明定价与成本可控：交易党嫌定价乱，求fantastically priced刀keychain捆绑。  \n- 用户持续强调效率、透明和可控解决体验。\n\n## 7. 商业机会\n**机会卡1：Suggestions to complete my Matte Black EDC**  \n对应痛点：Badge Holder Retractable。目标社群：r/EDC, r/Knife_Swap, r/edc。产品定位：约1302个潜在团队。卖点建议：at, att, black。  \n\n**机会卡2：would love EDC Suggestions of quality items in black**  \n对应痛点：Badge Holder Retractable。目标社群：r/EDC, r/Knife_Swap, r/edc。产品定位：约1502个潜在团队。卖点建议：ali, black, edc。</pre>",
+    "canonical_report_json": {
+      "decision_cards": [
+        {
+          "title": "需求趋势",
+          "conclusion": "过去周期内已覆盖 33 帖 / 0 评论，趋势可用于继续决策。",
+          "details": [
+            "覆盖社区：12 个",
+            "这是系统生成的统一结构报告，不依赖前端拼装。"
+          ]
+        },
+        {
+          "title": "问题/解决方案比",
+          "conclusion": "P/S 比约 0.00，痛点与方案已形成可读结构。",
+          "details": [
+            "P/S 比：0.00",
+            "结论力度会随证据强度自动升级或保守。"
+          ]
+        },
+        {
+          "title": "核心社群",
+          "conclusion": "当前最活跃社区集中在 r/EDC, r/Knife_Swap, r/edc。",
+          "details": [
+            "优先看高活跃且重复抱怨出现的社区。",
+            "社区名单由本轮分析真实数据生成。"
+          ]
+        },
+        {
+          "title": "明确机会点",
+          "conclusion": "已出现机会线索：Suggestions to complete my Matte Black EDC",
+          "details": [
+            "机会卡与痛点卡使用同一条证据链。",
+            "B/C 是 Full A 同骨架简化，不走独立页面结构。"
+          ]
+        }
+      ],
+      "market_health": {
+        "competition_saturation": {
+          "level": "竞争可见，但仍有结构性机会",
+          "details": [
+            "已分析 33 帖 / 0 评论。",
+            "核心社区：r/EDC, r/Knife_Swap, r/edc"
+          ],
+          "interpretation": "当前结论可用于继续推进。"
+        },
+        "ps_ratio": {
+          "ratio": "0.00",
+          "conclusion": "P/S 比约 0.00，痛点与方案已形成可读结构。",
+          "interpretation": "该比例用于判断市场是在抱怨积压还是方案成熟阶段。",
+          "health_assessment": "可继续推进"
+        }
+      },
+      "battlefields": [
+        {
+          "name": "r/EDC",
+          "subreddits": [
+            "r/EDC"
+          ],
+          "profile": "讨论量和抱怨强度都已达到可执行判断门槛。",
+          "pain_points": [
+            "Badge Holder Retractable Clip Heavy Duty Carabiner Badge Reel Keychain with Lanyard ID"
+          ],
+          "strategy_advice": "先在该社区验证问题复现频率，再决定是否深挖。"
+        },
+        {
+          "name": "r/Knife_Swap",
+          "subreddits": [
+            "r/Knife_Swap"
+          ],
+          "profile": "讨论量和抱怨强度都已达到可执行判断门槛。",
+          "pain_points": [
+            "It's once again time for u/BigMetalHoobajoob's sometimes poorly formatted, always fantastically priced Big, Metal XXXtravaganza, Round IV, with new blades and even newer prices"
+          ],
+          "strategy_advice": "先在该社区验证问题复现频率，再决定是否深挖。"
+        },
+        {
+          "name": "r/edc",
+          "subreddits": [
+            "r/edc"
+          ],
+          "profile": "讨论量和抱怨强度都已达到可执行判断门槛。",
+          "pain_points": [
+            "I waited 5 months to review this light"
+          ],
+          "strategy_advice": "先在该社区验证问题复现频率，再决定是否深挖。"
+        },
+        {
+          "name": "r/EDCexchange",
+          "subreddits": [
+            "r/EDCexchange"
+          ],
+          "profile": "讨论量和抱怨强度都已达到可执行判断门槛。",
+          "pain_points": [
+            "I'd like a carabiner still with a hard, clear card c"
+          ],
+          "strategy_advice": "先在该社区验证问题复现频率，再决定是否深挖。"
+        }
+      ],
+      "pain_points": [
+        {
+          "title": "Badge Holder Retractable Clip Heavy Duty Carabiner Badge Reel Keychain with Lanyard ID",
+          "user_voices": [
+            "I have an EDC work/access card that has a corporate carabiner and I'd like something cooler and thought I'd see if anyone here has some ideas. \n\nI'd like a carabiner still with a hard, clear card c..."
+          ],
+          "data_impression": "覆盖 12 个社区，已出现可追踪信号。",
+          "interpretation": "该痛点可直接进入解决方案验证。"
+        },
+        {
+          "title": "It's once again time for u/BigMetalHoobajoob's sometimes poorly formatted, always fantastically priced Big, Metal XXXtravaganza, Round IV, with new blades and even newer prices",
+          "user_voices": [
+            "https://imgur.com/a/ICTM6Nw\n\n\nAlrighty folks, keeping with my commitment to try and not ramble with needless verbosity, finally I've proven my reliability and thus will say I  dramatically prefer Z..."
+          ],
+          "data_impression": "覆盖 12 个社区，已出现可追踪信号。",
+          "interpretation": "该痛点可直接进入解决方案验证。"
+        },
+        {
+          "title": "I waited 5 months to review this light",
+          "user_voices": [
+            "This will be long winded.  \nI waited 5 months to review this light. It has been an awesome light and I couldnt be happier.  \n\n\nI've carried tiny lights that are ok for some things and I keep a larg..."
+          ],
+          "data_impression": "覆盖 12 个社区，已出现可追踪信号。",
+          "interpretation": "该痛点可直接进入解决方案验证。"
+        }
+      ],
+      "drivers": [
+        {
+          "title": "效率提升与省时省心",
+          "description": "高频痛点集中在：Badge Holder Retractable Clip Heavy Duty Carabiner Badge Reel Keychain with Lanyard ID / I waited 5 months to review this light"
+        },
+        {
+          "title": "透明定价与成本可控",
+          "description": "高频痛点集中在：It's once again time for u/BigMetalHoobajoob's sometimes poorly formatted, always fantastically priced Big, Metal XXXtravaganza, Round IV, with new blades and even newer prices"
+        },
+        {
+          "title": "驱动力 3",
+          "description": "用户持续强调效率、透明和可控的解决体验。"
+        }
+      ],
+      "opportunities": [
+        {
+          "title": "Suggestions to complete my Matte Black EDC",
+          "target_pain_points": [
+            "at",
+            "att",
+            "black"
+          ],
+          "target_communities": [
+            "r/EDC",
+            "r/Knife_Swap",
+            "r/edc"
+          ],
+          "product_positioning": "约1302个潜在团队",
+          "core_selling_points": [
+            "at",
+            "att",
+            "black"
+          ]
+        },
+        {
+          "title": "would love EDC Suggestions of quality items in black",
+          "target_pain_points": [
+            "ali",
+            "black",
+            "edc"
+          ],
+          "target_communities": [
+            "r/EDC",
+            "r/Knife_Swap",
+            "r/edc"
+          ],
+          "product_positioning": "约1502个潜在团队",
+          "core_selling_points": [
+            "ali",
+            "black",
+            "edc"
+          ]
+        }
+      ]
+    },
+    "report_structured": {
+      "decision_cards": [
+        {
+          "title": "需求趋势",
+          "conclusion": "过去周期内已覆盖 33 帖 / 0 评论，趋势可用于继续决策。",
+          "details": [
+            "覆盖社区：12 个",
+            "这是系统生成的统一结构报告，不依赖前端拼装。"
+          ]
+        },
+        {
+          "title": "问题/解决方案比",
+          "conclusion": "P/S 比约 0.00，痛点与方案已形成可读结构。",
+          "details": [
+            "P/S 比：0.00",
+            "结论力度会随证据强度自动升级或保守。"
+          ]
+        },
+        {
+          "title": "核心社群",
+          "conclusion": "当前最活跃社区集中在 r/EDC, r/Knife_Swap, r/edc。",
+          "details": [
+            "优先看高活跃且重复抱怨出现的社区。",
+            "社区名单由本轮分析真实数据生成。"
+          ]
+        },
+        {
+          "title": "明确机会点",
+          "conclusion": "已出现机会线索：Suggestions to complete my Matte Black EDC",
+          "details": [
+            "机会卡与痛点卡使用同一条证据链。",
+            "B/C 是 Full A 同骨架简化，不走独立页面结构。"
+          ]
+        }
+      ],
+      "market_health": {
+        "competition_saturation": {
+          "level": "竞争可见，但仍有结构性机会",
+          "details": [
+            "已分析 33 帖 / 0 评论。",
+            "核心社区：r/EDC, r/Knife_Swap, r/edc"
+          ],
+          "interpretation": "当前结论可用于继续推进。"
+        },
+        "ps_ratio": {
+          "ratio": "0.00",
+          "conclusion": "P/S 比约 0.00，痛点与方案已形成可读结构。",
+          "interpretation": "该比例用于判断市场是在抱怨积压还是方案成熟阶段。",
+          "health_assessment": "可继续推进"
+        }
+      },
+      "battlefields": [
+        {
+          "name": "r/EDC",
+          "subreddits": [
+            "r/EDC"
+          ],
+          "profile": "讨论量和抱怨强度都已达到可执行判断门槛。",
+          "pain_points": [
+            "Badge Holder Retractable Clip Heavy Duty Carabiner Badge Reel Keychain with Lanyard ID"
+          ],
+          "strategy_advice": "先在该社区验证问题复现频率，再决定是否深挖。"
+        },
+        {
+          "name": "r/Knife_Swap",
+          "subreddits": [
+            "r/Knife_Swap"
+          ],
+          "profile": "讨论量和抱怨强度都已达到可执行判断门槛。",
+          "pain_points": [
+            "It's once again time for u/BigMetalHoobajoob's sometimes poorly formatted, always fantastically priced Big, Metal XXXtravaganza, Round IV, with new blades and even newer prices"
+          ],
+          "strategy_advice": "先在该社区验证问题复现频率，再决定是否深挖。"
+        },
+        {
+          "name": "r/edc",
+          "subreddits": [
+            "r/edc"
+          ],
+          "profile": "讨论量和抱怨强度都已达到可执行判断门槛。",
+          "pain_points": [
+            "I waited 5 months to review this light"
+          ],
+          "strategy_advice": "先在该社区验证问题复现频率，再决定是否深挖。"
+        },
+        {
+          "name": "r/EDCexchange",
+          "subreddits": [
+            "r/EDCexchange"
+          ],
+          "profile": "讨论量和抱怨强度都已达到可执行判断门槛。",
+          "pain_points": [
+            "I'd like a carabiner still with a hard, clear card c"
+          ],
+          "strategy_advice": "先在该社区验证问题复现频率，再决定是否深挖。"
+        }
+      ],
+      "pain_points": [
+        {
+          "title": "Badge Holder Retractable Clip Heavy Duty Carabiner Badge Reel Keychain with Lanyard ID",
+          "user_voices": [
+            "I have an EDC work/access card that has a corporate carabiner and I'd like something cooler and thought I'd see if anyone here has some ideas. \n\nI'd like a carabiner still with a hard, clear card c..."
+          ],
+          "data_impression": "覆盖 12 个社区，已出现可追踪信号。",
+          "interpretation": "该痛点可直接进入解决方案验证。"
+        },
+        {
+          "title": "It's once again time for u/BigMetalHoobajoob's sometimes poorly formatted, always fantastically priced Big, Metal XXXtravaganza, Round IV, with new blades and even newer prices",
+          "user_voices": [
+            "https://imgur.com/a/ICTM6Nw\n\n\nAlrighty folks, keeping with my commitment to try and not ramble with needless verbosity, finally I've proven my reliability and thus will say I  dramatically prefer Z..."
+          ],
+          "data_impression": "覆盖 12 个社区，已出现可追踪信号。",
+          "interpretation": "该痛点可直接进入解决方案验证。"
+        },
+        {
+          "title": "I waited 5 months to review this light",
+          "user_voices": [
+            "This will be long winded.  \nI waited 5 months to review this light. It has been an awesome light and I couldnt be happier.  \n\n\nI've carried tiny lights that are ok for some things and I keep a larg..."
+          ],
+          "data_impression": "覆盖 12 个社区，已出现可追踪信号。",
+          "interpretation": "该痛点可直接进入解决方案验证。"
+        }
+      ],
+      "drivers": [
+        {
+          "title": "效率提升与省时省心",
+          "description": "高频痛点集中在：Badge Holder Retractable Clip Heavy Duty Carabiner Badge Reel Keychain with Lanyard ID / I waited 5 months to review this light"
+        },
+        {
+          "title": "透明定价与成本可控",
+          "description": "高频痛点集中在：It's once again time for u/BigMetalHoobajoob's sometimes poorly formatted, always fantastically priced Big, Metal XXXtravaganza, Round IV, with new blades and even newer prices"
+        },
+        {
+          "title": "驱动力 3",
+          "description": "用户持续强调效率、透明和可控的解决体验。"
+        }
+      ],
+      "opportunities": [
+        {
+          "title": "Suggestions to complete my Matte Black EDC",
+          "target_pain_points": [
+            "at",
+            "att",
+            "black"
+          ],
+          "target_communities": [
+            "r/EDC",
+            "r/Knife_Swap",
+            "r/edc"
+          ],
+          "product_positioning": "约1302个潜在团队",
+          "core_selling_points": [
+            "at",
+            "att",
+            "black"
+          ]
+        },
+        {
+          "title": "would love EDC Suggestions of quality items in black",
+          "target_pain_points": [
+            "ali",
+            "black",
+            "edc"
+          ],
+          "target_communities": [
+            "r/EDC",
+            "r/Knife_Swap",
+            "r/edc"
+          ],
+          "product_positioning": "约1502个潜在团队",
+          "core_selling_points": [
+            "ali",
+            "black",
+            "edc"
+          ]
+        }
+      ]
+    },
+    "report": {
+      "executive_summary": {
+        "total_communities": 12,
+        "key_insights": 21,
+        "top_opportunity": "Suggestions to complete my Matte Black EDC"
+      },
+      "pain_points": [
+        {
+          "description": "Badge Holder Retractable Clip Heavy Duty Carabiner Badge Reel Keychain with Lanyard ID",
+          "title": "Badge Holder Retra",
+          "text": "Badge Holder Retractable Clip Heavy Duty Carabiner Badge Reel Keychain with Lanyard ID",
+          "frequency": 1,
+          "sentiment_score": -0.45,
+          "severity": "medium",
+          "example_posts": [
+            {
+              "community": "r/EDC",
+              "content": "I have an EDC work/access card that has a corporate carabiner and I'd like something cooler and thought I'd see if anyone here has some ideas. \n\nI'd like a carabiner still with a hard, clear card c...",
+              "upvotes": 1,
+              "url": "https://www.reddit.com/r/EDC/comments/1obo4um/badge_holder_retractable_clip_heavy_duty/",
+              "author": "r_ldl23",
+              "permalink": "https://reddit.com/r/EDC/comments/1obo4um/badge_holder_retractable_clip_heavy_duty/",
+              "duplicate_ids": [
+                "1obo4um"
+              ],
+              "evidence_count": 2
+            },
+            {
+              "community": "r/flashlight",
+              "content": "The HD03 packs MONSTER-level brightness (680 lumens), dual beam modes (spotlight &amp; floodlight), and 20+ RGB lighting modes into a pocket-sized clip-on light with 180m throw.\n\n \n\nIt offers 3 com...",
+              "upvotes": 38,
+              "url": "https://reddit.com/r/flashlight/comments/1lr837g/presale_of_the_hd03_is_in_full_swing_limited/",
+              "author": "TerryLee1010",
+              "permalink": "https://reddit.com/r/flashlight/comments/1lr837g/presale_of_the_hd03_is_in_full_swing_limited/",
+              "duplicate_ids": [],
+              "evidence_count": 1
+            }
+          ],
+          "user_examples": [
+            "I have an EDC work/access card that has a corporate carabiner and I'd like something cooler and thought I'd see if anyone here has some ideas. \n\nI'd like a carabiner still with a hard, clear card c..."
+          ]
+        },
+        {
+          "description": "It's once again time for u/BigMetalHoobajoob's sometimes poorly formatted, always fantastically priced Big, Metal XXXtravaganza, Round IV, with new blades and even newer prices",
+          "title": "It's once again ti",
+          "text": "It's once again time for u/BigMetalHoobajoob's sometimes poorly formatted, always fantastically priced Big, Metal XXXtravaganza, Round IV, with new blades and even newer prices",
+          "frequency": 1,
+          "sentiment_score": -0.45,
+          "severity": "medium",
+          "example_posts": [
+            {
+              "community": "r/Knife_Swap",
+              "content": "https://imgur.com/a/ICTM6Nw\n\n\nAlrighty folks, keeping with my commitment to try and not ramble with needless verbosity, finally I've proven my reliability and thus will say I  dramatically prefer Z...",
+              "upvotes": 25,
+              "url": "https://www.reddit.com/r/Knife_Swap/comments/1k57h2f/wts_uh_oh_its_once_again_time_for/",
+              "author": "BigMetalHoobajoob",
+              "permalink": "https://reddit.com/r/Knife_Swap/comments/1k57h2f/wts_uh_oh_its_once_again_time_for/",
+              "duplicate_ids": [],
+              "evidence_count": 1
+            },
+            {
+              "community": "r/EDC",
+              "content": "Ferragamo keychain, antique gold cufflinks, NAA .22mag, US Revolver Co Topbreak .22, 22k gold bracelet, 1950’s Rolex Oysterdate Precision, 22k gold Ganesha chain, vintage Dior mini-clutch, 22k gold...",
+              "upvotes": 404,
+              "url": "https://www.reddit.com/gallery/1di7m26",
+              "author": "eaglezfan10",
+              "permalink": "https://reddit.com/r/EDC/comments/1di7m26/26m_everyday_carry/",
+              "duplicate_ids": [
+                "1di7m26"
+              ],
+              "evidence_count": 2
+            }
+          ],
+          "user_examples": [
+            "https://imgur.com/a/ICTM6Nw\n\n\nAlrighty folks, keeping with my commitment to try and not ramble with needless verbosity, finally I've proven my reliability and thus will say I  dramatically prefer Z..."
+          ]
+        },
+        {
+          "description": "I waited 5 months to review this light",
+          "title": "I waited 5 months ",
+          "text": "I waited 5 months to review this light",
+          "frequency": 1,
+          "sentiment_score": -0.45,
+          "severity": "medium",
+          "example_posts": [
+            {
+              "community": "r/flashlight",
+              "content": "This will be long winded.  \nI waited 5 months to review this light. It has been an awesome light and I couldnt be happier.  \n\n\nI've carried tiny lights that are ok for some things and I keep a larg...",
+              "upvotes": 1,
+              "url": "https://www.reddit.com/r/flashlight/comments/c9qyow/the_flashlight_that_you_can_carry_it_on/",
+              "author": "yangqi8930",
+              "permalink": "https://reddit.com/r/flashlight/comments/c9qyow/the_flashlight_that_you_can_carry_it_on/",
+              "duplicate_ids": [],
+              "evidence_count": 1
+            },
+            {
+              "community": "r/EDC",
+              "content": "Ferragamo keychain, antique gold cufflinks, NAA .22mag, US Revolver Co Topbreak .22, 22k gold bracelet, 1950’s Rolex Oysterdate Precision, 22k gold Ganesha chain, vintage Dior mini-clutch, 22k gold...",
+              "upvotes": 404,
+              "url": "https://www.reddit.com/gallery/1di7m26",
+              "author": "eaglezfan10",
+              "permalink": "https://reddit.com/r/EDC/comments/1di7m26/26m_everyday_carry/",
+              "duplicate_ids": [
+                "1di7m26"
+              ],
+              "evidence_count": 2
+            }
+          ],
+          "user_examples": [
+            "This will be long winded.  \nI waited 5 months to review this light. It has been an awesome light and I couldnt be happier.  \n\n\nI've carried tiny lights that are ok for some things and I keep a larg..."
+          ]
+        },
+        {
+          "description": "I'd like a carabiner still with a hard, clear card c",
+          "title": "I'd like a carabin",
+          "text": "I'd like a carabiner still with a hard, clear card c",
+          "frequency": 1,
+          "sentiment_score": -0.45,
+          "severity": "medium",
+          "example_posts": [
+            {
+              "community": "r/EDC",
+              "content": "I have an EDC work/access card that has a corporate carabiner and I'd like something cooler and thought I'd see if anyone here has some ideas. \n\nI'd like a carabiner still with a hard, clear card c...",
+              "upvotes": 1,
+              "url": "https://www.reddit.com/r/EDC/comments/1obo4um/badge_holder_retractable_clip_heavy_duty/",
+              "author": "r_ldl23",
+              "permalink": "https://reddit.com/r/EDC/comments/1obo4um/badge_holder_retractable_clip_heavy_duty/",
+              "duplicate_ids": [
+                "1obo4um"
+              ],
+              "evidence_count": 2
+            },
+            {
+              "community": "r/flashlight",
+              "content": "The HD03 packs MONSTER-level brightness (680 lumens), dual beam modes (spotlight &amp; floodlight), and 20+ RGB lighting modes into a pocket-sized clip-on light with 180m throw.\n\n \n\nIt offers 3 com...",
+              "upvotes": 38,
+              "url": "https://reddit.com/r/flashlight/comments/1lr837g/presale_of_the_hd03_is_in_full_swing_limited/",
+              "author": "TerryLee1010",
+              "permalink": "https://reddit.com/r/flashlight/comments/1lr837g/presale_of_the_hd03_is_in_full_swing_limited/",
+              "duplicate_ids": [],
+              "evidence_count": 1
+            }
+          ],
+          "user_examples": [
+            "I have an EDC work/access card that has a corporate carabiner and I'd like something cooler and thought I'd see if anyone here has some ideas. \n\nI'd like a carabiner still with a hard, clear card c..."
+          ]
+        }
+      ],
+      "pain_clusters": [
+        {
+          "topic": "Badge Holder Retractable",
+          "negative_mean": -0.45,
+          "communities_count": 2,
+          "top_communities": [
+            "r/EDC",
+            "r/flashlight"
+          ],
+          "samples": [
+            "I have an EDC work/access card that has a corporate carabiner and I'd like something cooler and thought I'd see if anyone here has some ideas. \n\nI'd like a carabiner still with a hard, clear card c...",
+            "The HD03 packs MONSTER-level brightness (680 lumens), dual beam modes (spotlight &amp; floodlight), and 20+ RGB lighting modes into a pocket-sized clip-on light with 180m throw.\n\n \n\nIt offers 3 com...",
+            "Badge Holder Retractable Clip Heavy Duty Carabiner Badge Reel Keychain with Lanyard ID"
+          ]
+        },
+        {
+          "topic": "It's time u/BigMetalHoobajoob's",
+          "negative_mean": -0.45,
+          "communities_count": 2,
+          "top_communities": [
+            "r/Knife_Swap",
+            "r/EDC"
+          ],
+          "samples": [
+            "https://imgur.com/a/ICTM6Nw\n\n\nAlrighty folks, keeping with my commitment to try and not ramble with needless verbosity, finally I've proven my reliability and thus will say I  dramatically prefer Z...",
+            "Ferragamo keychain, antique gold cufflinks, NAA .22mag, US Revolver Co Topbreak .22, 22k gold bracelet, 1950’s Rolex Oysterdate Precision, 22k gold Ganesha chain, vintage Dior mini-clutch, 22k gold...",
+            "It's once again time for u/BigMetalHoobajoob's sometimes poorly formatted, always fantastically priced Big, Metal XXXtravaganza, Round IV, with new blades and even newer prices"
+          ]
+        },
+        {
+          "topic": "waited 5 months",
+          "negative_mean": -0.45,
+          "communities_count": 2,
+          "top_communities": [
+            "r/flashlight",
+            "r/EDC"
+          ],
+          "samples": [
+            "This will be long winded.  \nI waited 5 months to review this light. It has been an awesome light and I couldnt be happier.  \n\n\nI've carried tiny lights that are ok for some things and I keep a larg...",
+            "Ferragamo keychain, antique gold cufflinks, NAA .22mag, US Revolver Co Topbreak .22, 22k gold bracelet, 1950’s Rolex Oysterdate Precision, 22k gold Ganesha chain, vintage Dior mini-clutch, 22k gold...",
+            "I waited 5 months to review this light"
+          ]
+        }
+      ],
+      "competitors": [
+        {
+          "name": "Kershaw",
+          "mentions": 3,
+          "sentiment": "mixed",
+          "strengths": [
+            "社区讨论热度高"
+          ],
+          "weaknesses": [
+            "等待更多反馈细节"
+          ],
+          "market_share": 11.0,
+          "context_snippets": [
+            "Benchmades, Civivi, CJRB, Kershaw, Kizer, Kubey, Sencut, Spyderco, WE, Worksharp, and a freebie",
+            "Benchmades, Civivi, CJRB, Hogue, Kershaw, Kubey, Sencut, Spyderco, Orient Watch",
+            "Easter Sale Benchmade, Urban EDC, Kershaw, Kizer"
+          ],
+          "layer": "brands"
+        },
+        {
+          "name": "Timestamp",
+          "mentions": 3,
+          "sentiment": "mixed",
+          "strengths": [
+            "社区讨论热度高"
+          ],
+          "weaknesses": [
+            "等待更多反馈细节"
+          ],
+          "market_share": 11.0,
+          "context_snippets": [
+            "[WTS/WTT] Benchmade Saddle Mountain Skinner • Urban EDC Copita • Kershaw Iridium • Kershaw Leek • Kizer Deckhand • Lander 2 Copper Scales — USA **Timestamp &amp; album:**",
+            "[Timestamp]( [Video]( Up for grabs are a few pieces from LNW",
+            "[Timestamp]( [Data Crew Snacktime Sling](https:/"
+          ],
+          "layer": "attributes"
+        },
+        {
+          "name": "Review",
+          "mentions": 3,
+          "sentiment": "mixed",
+          "strengths": [
+            "社区讨论热度高"
+          ],
+          "weaknesses": [
+            "等待更多反馈细节"
+          ],
+          "market_share": 11.0,
+          "context_snippets": [
+            "Review: Klarus XT12S (1x18650, XHP35 HI, magnetic charging)",
+            "Wurkkos TS11 Review – Compact 18350 Thrower with Andúril 2",
+            "[Review] Convoy S21E : High Quality Custom EDC Flashlight"
+          ],
+          "layer": "attributes"
+        },
+        {
+          "name": "Gen",
+          "mentions": 2,
+          "sentiment": "mixed",
+          "strengths": [
+            "社区讨论热度高"
+          ],
+          "weaknesses": [
+            "等待更多反馈细节"
+          ],
+          "market_share": 7.0,
+          "context_snippets": [
+            "* Open Sea Topsider Wallet * Helbros Watch * Lamy 2000 Rollerball Pen * Ring from Digby &amp; Iona * Apple Airpods Pro 2 * Case Pocket Knife * Apple Watch Ultra 2 in * Gen",
+            "Headphones - AirPods Pro 1st Gen (Case - KOKOKA Case Cover) Watch - Garmin Instinct 2 graphite Torch - Flintronic Mini Torch, 3"
+          ],
+          "layer": "brands"
+        },
+        {
+          "name": "Wallet",
+          "mentions": 2,
+          "sentiment": "mixed",
+          "strengths": [
+            "社区讨论热度高"
+          ],
+          "weaknesses": [
+            "等待更多反馈细节"
+          ],
+          "market_share": 7.0,
+          "context_snippets": [
+            "Wallet contains a Band-Aid tucked between the folded cash",
+            "[WTS] Lynch Pry bars &amp; Wallet"
+          ],
+          "layer": "attributes"
+        },
+        {
+          "name": "Aerum Special",
+          "mentions": 2,
+          "sentiment": "mixed",
+          "strengths": [
+            "社区讨论热度高"
+          ],
+          "weaknesses": [
+            "等待更多反馈细节"
+          ],
+          "market_share": 7.0,
+          "context_snippets": [
+            "Jason Guthrie Scout, Herman Ishtar, CRK Sebenza Armor Black Cerakoted, Shirogorov 111 Aerum Special Edition, Curtis Cruze Flipper CF/ Damasteel, Full Dress We Zizzit, MetonBoss Timascus Para 3 Scales,",
+            "Rockstead Higo II DLC, CRK Sebenza Cerakoted Spydie Mod, Shirogorov 111 Aerum Special Edition, Curtis Cruze Flipper CF/ Damasteel, Kunwu Giga Padre Mirror DLC, Full Dress We Zizzit, MetonBoss Timascus"
+          ],
+          "layer": "brands"
+        },
+        {
+          "name": "Blade",
+          "mentions": 2,
+          "sentiment": "mixed",
+          "strengths": [
+            "社区讨论热度高"
+          ],
+          "weaknesses": [
+            "等待更多反馈细节"
+          ],
+          "market_share": 7.0,
+          "context_snippets": [
+            "Jason Guthrie Scout, Herman Ishtar, CRK Sebenza Armor Black Cerakoted, Shirogorov 111 Aerum Special Edition, Curtis Cruze Flipper CF/ Damasteel, Full Dress We Zizzit, MetonBoss Timascus Para 3 Scales,",
+            "**First is the A rated Benchmade Auto Presidio II 5700SBK:** Blade steel is CPM-S30V"
+          ],
+          "layer": "attributes"
+        },
+        {
+          "name": "CRK Sebenza",
+          "mentions": 2,
+          "sentiment": "mixed",
+          "strengths": [
+            "社区讨论热度高"
+          ],
+          "weaknesses": [
+            "等待更多反馈细节"
+          ],
+          "market_share": 7.0,
+          "context_snippets": [
+            "Jason Guthrie Scout, Herman Ishtar, CRK Sebenza Armor Black Cerakoted, Shirogorov 111 Aerum Special Edition, Curtis Cruze Flipper CF/ Damasteel, Full Dress We Zizzit, MetonBoss Timascus Para 3 Scales,",
+            "Rockstead Higo II DLC, CRK Sebenza Cerakoted Spydie Mod, Shirogorov 111 Aerum Special Edition, Curtis Cruze Flipper CF/ Damasteel, Kunwu Giga Padre Mirror DLC, Full Dress We Zizzit, MetonBoss Timascus"
+          ],
+          "layer": "attributes"
+        },
+        {
+          "name": "Curtis Cruze",
+          "mentions": 2,
+          "sentiment": "mixed",
+          "strengths": [
+            "社区讨论热度高"
+          ],
+          "weaknesses": [
+            "等待更多反馈细节"
+          ],
+          "market_share": 7.0,
+          "context_snippets": [
+            "Jason Guthrie Scout, Herman Ishtar, CRK Sebenza Armor Black Cerakoted, Shirogorov 111 Aerum Special Edition, Curtis Cruze Flipper CF/ Damasteel, Full Dress We Zizzit, MetonBoss Timascus Para 3 Scales,",
+            "Rockstead Higo II DLC, CRK Sebenza Cerakoted Spydie Mod, Shirogorov 111 Aerum Special Edition, Curtis Cruze Flipper CF/ Damasteel, Kunwu Giga Padre Mirror DLC, Full Dress We Zizzit, MetonBoss Timascus"
+          ],
+          "layer": "brands"
+        },
+        {
+          "name": "Damasteel",
+          "mentions": 2,
+          "sentiment": "mixed",
+          "strengths": [
+            "社区讨论热度高"
+          ],
+          "weaknesses": [
+            "等待更多反馈细节"
+          ],
+          "market_share": 7.0,
+          "context_snippets": [
+            "Jason Guthrie Scout, Herman Ishtar, CRK Sebenza Armor Black Cerakoted, Shirogorov 111 Aerum Special Edition, Curtis Cruze Flipper CF/ Damasteel, Full Dress We Zizzit, MetonBoss Timascus Para 3 Scales,",
+            "Rockstead Higo II DLC, CRK Sebenza Cerakoted Spydie Mod, Shirogorov 111 Aerum Special Edition, Curtis Cruze Flipper CF/ Damasteel, Kunwu Giga Padre Mirror DLC, Full Dress We Zizzit, MetonBoss Timascus"
+          ],
+          "layer": "attributes"
+        },
+        {
+          "name": "Edition",
+          "mentions": 2,
+          "sentiment": "mixed",
+          "strengths": [
+            "社区讨论热度高"
+          ],
+          "weaknesses": [
+            "等待更多反馈细节"
+          ],
+          "market_share": 7.0,
+          "context_snippets": [
+            "Jason Guthrie Scout, Herman Ishtar, CRK Sebenza Armor Black Cerakoted, Shirogorov 111 Aerum Special Edition, Curtis Cruze Flipper CF/ Damasteel, Full Dress We Zizzit, MetonBoss Timascus Para 3 Scales,",
+            "Rockstead Higo II DLC, CRK Sebenza Cerakoted Spydie Mod, Shirogorov 111 Aerum Special Edition, Curtis Cruze Flipper CF/ Damasteel, Kunwu Giga Padre Mirror DLC, Full Dress We Zizzit, MetonBoss Timascus"
+          ],
+          "layer": "attributes"
+        },
+        {
+          "name": "Flipper CF",
+          "mentions": 2,
+          "sentiment": "mixed",
+          "strengths": [
+            "社区讨论热度高"
+          ],
+          "weaknesses": [
+            "等待更多反馈细节"
+          ],
+          "market_share": 7.0,
+          "context_snippets": [
+            "Jason Guthrie Scout, Herman Ishtar, CRK Sebenza Armor Black Cerakoted, Shirogorov 111 Aerum Special Edition, Curtis Cruze Flipper CF/ Damasteel, Full Dress We Zizzit, MetonBoss Timascus Para 3 Scales,",
+            "Rockstead Higo II DLC, CRK Sebenza Cerakoted Spydie Mod, Shirogorov 111 Aerum Special Edition, Curtis Cruze Flipper CF/ Damasteel, Kunwu Giga Padre Mirror DLC, Full Dress We Zizzit, MetonBoss Timascus"
+          ],
+          "layer": "brands"
+        }
+      ],
+      "opportunities": [
+        {
+          "description": "Suggestions to complete my Matte Black EDC",
+          "title": "Suggestions to com",
+          "text": "Suggestions to complete my Matte Black EDC",
+          "relevance_score": 1.0,
+          "potential_users": "约1462个潜在团队",
+          "potential_users_est": 1462,
+          "linked_pain_cluster": "Badge Holder Retractable",
+          "top_channels": [],
+          "key_insights": [
+            "at",
+            "att",
+            "black",
+            "co"
+          ],
+          "source_examples": [
+            {
+              "url": "https://www.reddit.com/r/EDC/comments/68tnay/suggestions_to_complete_my_matte_black_edc/",
+              "author": "EDCGuy",
+              "content": "Hello,\n\n**TLDR: I would love EDC Suggestions of quality items in black.**\n\nI am looking to go all out on EDC items. \n\nRight now my EDC is pretty generic. I have a basic pocket knife, a \"Rite in the...",
+              "upvotes": 1,
+              "community": "r/EDC",
+              "permalink": "https://reddit.com/r/EDC/comments/68tnay/suggestions_to_complete_my_matte_black_edc/",
+              "duplicate_ids": [
+                "68tnay"
+              ],
+              "evidence_count": 2
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=jPcH_n5fcjg",
+              "author": "TerryLee1010",
+              "content": "The HD03 packs MONSTER-level brightness (680 lumens), dual beam modes (spotlight &amp; floodlight), and 20+ RGB lighting modes into a pocket-sized clip-on light with 180m throw.\n\n \n\nIt offers 3 com...",
+              "upvotes": 38,
+              "community": "r/flashlight",
+              "permalink": "https://reddit.com/r/flashlight/comments/1lr837g/presale_of_the_hd03_is_in_full_swing_limited/",
+              "duplicate_ids": [],
+              "evidence_count": 1
+            }
+          ]
+        },
+        {
+          "description": "would love EDC Suggestions of quality items in black",
+          "title": "would love EDC Sug",
+          "text": "would love EDC Suggestions of quality items in black",
+          "relevance_score": 1.0,
+          "potential_users": "约1686个潜在团队",
+          "potential_users_est": 1686,
+          "linked_pain_cluster": "Badge Holder Retractable",
+          "top_channels": [],
+          "key_insights": [
+            "ali",
+            "black",
+            "edc",
+            "em"
+          ],
+          "source_examples": [
+            {
+              "url": "https://www.reddit.com/r/EDC/comments/68tnay/suggestions_to_complete_my_matte_black_edc/",
+              "author": "EDCGuy",
+              "content": "Hello,\n\n**TLDR: I would love EDC Suggestions of quality items in black.**\n\nI am looking to go all out on EDC items. \n\nRight now my EDC is pretty generic. I have a basic pocket knife, a \"Rite in the...",
+              "upvotes": 1,
+              "community": "r/EDC",
+              "permalink": "https://reddit.com/r/EDC/comments/68tnay/suggestions_to_complete_my_matte_black_edc/",
+              "duplicate_ids": [
+                "68tnay"
+              ],
+              "evidence_count": 2
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=jPcH_n5fcjg",
+              "author": "TerryLee1010",
+              "content": "The HD03 packs MONSTER-level brightness (680 lumens), dual beam modes (spotlight &amp; floodlight), and 20+ RGB lighting modes into a pocket-sized clip-on light with 180m throw.\n\n \n\nIt offers 3 com...",
+              "upvotes": 38,
+              "community": "r/flashlight",
+              "permalink": "https://reddit.com/r/flashlight/comments/1lr837g/presale_of_the_hd03_is_in_full_swing_limited/",
+              "duplicate_ids": [],
+              "evidence_count": 1
+            }
+          ]
+        },
+        {
+          "description": "Does anybody have any suggestions",
+          "title": "Does anybody have ",
+          "text": "Does anybody have any suggestions",
+          "relevance_score": 1.0,
+          "potential_users": "约1022个潜在团队",
+          "potential_users_est": 1022,
+          "linked_pain_cluster": "Badge Holder Retractable",
+          "top_channels": [],
+          "key_insights": [
+            "an",
+            "any",
+            "anybody",
+            "ave"
+          ],
+          "source_examples": [
+            {
+              "url": "https://www.reddit.com/r/EDC/comments/iincja/college_keycard_dilemma/",
+              "author": "FrenchFry1601",
+              "content": "I have a keycard I have to swipe for meals and building access. I would like to get it on my keychain so I don’t have to keep getting my wallet out constantly. Does anybody have any suggestions?",
+              "upvotes": 3,
+              "community": "r/EDC",
+              "permalink": "https://reddit.com/r/EDC/comments/iincja/college_keycard_dilemma/",
+              "duplicate_ids": [
+                "iincja"
+              ],
+              "evidence_count": 2
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=jPcH_n5fcjg",
+              "author": "TerryLee1010",
+              "content": "The HD03 packs MONSTER-level brightness (680 lumens), dual beam modes (spotlight &amp; floodlight), and 20+ RGB lighting modes into a pocket-sized clip-on light with 180m throw.\n\n \n\nIt offers 3 com...",
+              "upvotes": 38,
+              "community": "r/flashlight",
+              "permalink": "https://reddit.com/r/flashlight/comments/1lr837g/presale_of_the_hd03_is_in_full_swing_limited/",
+              "duplicate_ids": [],
+              "evidence_count": 1
+            }
+          ]
+        },
+        {
+          "description": "looking for a new model",
+          "title": "looking for a new ",
+          "text": "looking for a new model",
+          "relevance_score": 1.0,
+          "potential_users": "约1190个潜在团队",
+          "potential_users_est": 1190,
+          "linked_pain_cluster": "Badge Holder Retractable",
+          "top_channels": [],
+          "key_insights": [
+            "kin",
+            "king",
+            "lo",
+            "look"
+          ],
+          "source_examples": [
+            {
+              "url": "https://i.redd.it/i3ya0ygg3pne1.jpeg",
+              "author": "Immediate_Record_946",
+              "content": "Headphones - AirPods Pro 1st Gen (Case - KOKOKA Case Cover)\nWatch - Garmin Instinct 2 graphite\nTorch - Flintronic Mini Torch, 3.5\" Pocket LED Torch\nWallet - Unsure of model (looking for a new model...",
+              "upvotes": 56,
+              "community": "r/EDC",
+              "permalink": "https://reddit.com/r/EDC/comments/1j7c166/my_everyday_carry/",
+              "duplicate_ids": [
+                "1j7c166"
+              ],
+              "evidence_count": 2
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=jPcH_n5fcjg",
+              "author": "TerryLee1010",
+              "content": "The HD03 packs MONSTER-level brightness (680 lumens), dual beam modes (spotlight &amp; floodlight), and 20+ RGB lighting modes into a pocket-sized clip-on light with 180m throw.\n\n \n\nIt offers 3 com...",
+              "upvotes": 38,
+              "community": "r/flashlight",
+              "permalink": "https://reddit.com/r/flashlight/comments/1lr837g/presale_of_the_hd03_is_in_full_swing_limited/",
+              "duplicate_ids": [],
+              "evidence_count": 1
+            }
+          ]
+        },
+        {
+          "description": "looking for cash only, however I would definitely consider a trade for a large CKF",
+          "title": "looking for cash o",
+          "text": "looking for cash only, however I would definitely consider a trade for a large CKF",
+          "relevance_score": 1.0,
+          "potential_users": "约1886个潜在团队",
+          "potential_users_est": 1886,
+          "linked_pain_cluster": "Badge Holder Retractable",
+          "top_channels": [],
+          "key_insights": [
+            "ad",
+            "ash",
+            "cas",
+            "cash"
+          ],
+          "source_examples": [
+            {
+              "url": "https://www.reddit.com/r/Knife_Swap/comments/1knh6q1/ubigmetalhoobajoobs_slightly_less_big_but_still/",
+              "author": "BigMetalHoobajoob",
+              "content": "https://imgur.com/a/1vTaFk9\r\n\r\n\nHeya folks, it’s time for round 5 of my multi- knife deal-a-palooza! I’m primarily looking for cash only, however I would definitely consider a trade for a large CKF...",
+              "upvotes": 6,
+              "community": "r/Knife_Swap",
+              "permalink": "https://reddit.com/r/Knife_Swap/comments/1knh6q1/ubigmetalhoobajoobs_slightly_less_big_but_still/",
+              "duplicate_ids": [],
+              "evidence_count": 1
+            },
+            {
+              "url": "https://www.reddit.com/gallery/1di7m26",
+              "author": "eaglezfan10",
+              "content": "Ferragamo keychain, antique gold cufflinks, NAA .22mag, US Revolver Co Topbreak .22, 22k gold bracelet, 1950’s Rolex Oysterdate Precision, 22k gold Ganesha chain, vintage Dior mini-clutch, 22k gold...",
+              "upvotes": 404,
+              "community": "r/EDC",
+              "permalink": "https://reddit.com/r/EDC/comments/1di7m26/26m_everyday_carry/",
+              "duplicate_ids": [
+                "1di7m26"
+              ],
+              "evidence_count": 2
+            }
+          ]
+        }
+      ],
+      "action_items": [
+        {
+          "title": "Suggestions to com",
+          "category": "strategy",
+          "problem_definition": "Suggestions to complete my Matte Black EDC",
+          "evidence_chain": [
+            {
+              "title": "Hello,\n\n**TLDR: I would love EDC Suggestions of quality items in black.**\n\nI am looking to go all out on EDC items. \n\nRi",
+              "url": "https://www.reddit.com/r/EDC/comments/68tnay/suggestions_to_complete_my_matte_black_edc/",
+              "note": "社区: r/EDC | 赞数 1"
+            },
+            {
+              "title": "The HD03 packs MONSTER-level brightness (680 lumens), dual beam modes (spotlight &amp; floodlight), and 20+ RGB lighting",
+              "url": "https://www.youtube.com/watch?v=jPcH_n5fcjg",
+              "note": "社区: r/flashlight | 赞数 38"
+            },
+            {
+              "title": "I have an EDC work/access card that has a corporate carabiner and I'd like something cooler and thought I'd see if anyon",
+              "url": "https://www.reddit.com/r/EDC/comments/1obo4um/badge_holder_retractable_clip_heavy_duty/",
+              "note": "社区: r/EDC | 赞数 1"
+            }
+          ],
+          "suggested_actions": [
+            "Focus on `Suggestions to complete my Matte Black EDC`, interview core users to validate priority.",
+            "Reference opportunity `Suggestions to complete my Matte Black EDC` to design next product experiment.",
+            "Track community `r/EDC` for follow-up discussions and iteration feedback."
+          ],
+          "confidence": 0.95,
+          "urgency": 0.75,
+          "product_fit": 0.9,
+          "priority": 0.6412
+        },
+        {
+          "title": "would love EDC Sug",
+          "category": "strategy",
+          "problem_definition": "would love EDC Suggestions of quality items in black",
+          "evidence_chain": [
+            {
+              "title": "Hello,\n\n**TLDR: I would love EDC Suggestions of quality items in black.**\n\nI am looking to go all out on EDC items. \n\nRi",
+              "url": "https://www.reddit.com/r/EDC/comments/68tnay/suggestions_to_complete_my_matte_black_edc/",
+              "note": "社区: r/EDC | 赞数 1"
+            },
+            {
+              "title": "The HD03 packs MONSTER-level brightness (680 lumens), dual beam modes (spotlight &amp; floodlight), and 20+ RGB lighting",
+              "url": "https://www.youtube.com/watch?v=jPcH_n5fcjg",
+              "note": "社区: r/flashlight | 赞数 38"
+            },
+            {
+              "title": "https://imgur.com/a/ICTM6Nw\n\n\nAlrighty folks, keeping with my commitment to try and not ramble with needless verbosity, ",
+              "url": "https://www.reddit.com/r/Knife_Swap/comments/1k57h2f/wts_uh_oh_its_once_again_time_for/",
+              "note": "社区: r/Knife_Swap | 赞数 25"
+            }
+          ],
+          "suggested_actions": [
+            "Focus on `would love EDC Suggestions of quality items in black`, interview core users to validate priority.",
+            "Reference opportunity `would love EDC Suggestions of quality items in black` to design next product experiment.",
+            "Track community `r/Knife_Swap` for follow-up discussions and iteration feedback."
+          ],
+          "confidence": 0.95,
+          "urgency": 0.75,
+          "product_fit": 0.9,
+          "priority": 0.6412
+        },
+        {
+          "title": "Does anybody have ",
+          "category": "strategy",
+          "problem_definition": "Does anybody have any suggestions",
+          "evidence_chain": [
+            {
+              "title": "I have a keycard I have to swipe for meals and building access. I would like to get it on my keychain so I don’t have to",
+              "url": "https://www.reddit.com/r/EDC/comments/iincja/college_keycard_dilemma/",
+              "note": "社区: r/EDC | 赞数 3"
+            },
+            {
+              "title": "The HD03 packs MONSTER-level brightness (680 lumens), dual beam modes (spotlight &amp; floodlight), and 20+ RGB lighting",
+              "url": "https://www.youtube.com/watch?v=jPcH_n5fcjg",
+              "note": "社区: r/flashlight | 赞数 38"
+            },
+            {
+              "title": "This will be long winded.  \nI waited 5 months to review this light. It has been an awesome light and I couldnt be happie",
+              "url": "https://www.reddit.com/r/flashlight/comments/c9qyow/the_flashlight_that_you_can_carry_it_on/",
+              "note": "社区: r/flashlight | 赞数 1"
+            }
+          ],
+          "suggested_actions": [
+            "Focus on `Does anybody have any suggestions`, interview core users to validate priority.",
+            "Reference opportunity `Does anybody have any suggestions` to design next product experiment.",
+            "Track community `r/flashlight` for follow-up discussions and iteration feedback."
+          ],
+          "confidence": 0.95,
+          "urgency": 0.75,
+          "product_fit": 0.9,
+          "priority": 0.6412
+        }
+      ],
+      "purchase_drivers": [
+        {
+          "title": "效率提升与省时省心",
+          "description": "高频痛点集中在：Badge Holder Retractable Clip Heavy Duty Carabiner Badge Reel Keychain with Lanyard ID / I waited 5 months to review this light",
+          "rationale": "高频痛点集中在：Badge Holder Retractable Clip Heavy Duty Carabiner Badge Reel Keychain with Lanyard ID / I waited 5 months to review this light",
+          "actions": [
+            "减少重复操作",
+            "提升日常效率"
+          ],
+          "source_pains": [
+            "Badge Holder Retractable Clip Heavy Duty Carabiner Badge Reel Keychain with Lanyard ID",
+            "I waited 5 months to review this light",
+            "I'd like a carabiner still with a hard, clear card c"
+          ]
+        },
+        {
+          "title": "透明定价与成本可控",
+          "description": "高频痛点集中在：It's once again time for u/BigMetalHoobajoob's sometimes poorly formatted, always fantastically priced Big, Metal XXXtravaganza, Round IV, with new blades and even newer prices",
+          "rationale": "高频痛点集中在：It's once again time for u/BigMetalHoobajoob's sometimes poorly formatted, always fantastically priced Big, Metal XXXtravaganza, Round IV, with new blades and even newer prices",
+          "actions": [
+            "费用结构透明化",
+            "成本可预测与可对比"
+          ],
+          "source_pains": [
+            "It's once again time for u/BigMetalHoobajoob's sometimes poorly formatted, always fantastically priced Big, Metal XXXtravaganza, Round IV, with new blades and even newer prices"
+          ]
+        }
+      ],
+      "market_health": {
+        "saturation_level": "low",
+        "saturation_score": 0.0,
+        "ps_ratio": 0.0,
+        "ps_ratio_assessment": "imbalanced"
+      },
+      "entity_summary": {
+        "brands": [],
+        "features": [
+          {
+            "name": "https",
+            "mentions": 50
+          },
+          {
+            "name": "reddit",
+            "mentions": 35
+          },
+          {
+            "name": "edc",
+            "mentions": 27
+          },
+          {
+            "name": "black",
+            "mentions": 27
+          },
+          {
+            "name": "www",
+            "mentions": 26
+          }
+        ],
+        "pain_points": [],
+        "channels": [],
+        "logistics": [],
+        "risks": []
+      },
+      "entity_leaderboard": [
+        {
+          "name": "https",
+          "category": "features",
+          "mentions": 50
+        },
+        {
+          "name": "reddit",
+          "category": "features",
+          "mentions": 35
+        },
+        {
+          "name": "edc",
+          "category": "features",
+          "mentions": 27
+        },
+        {
+          "name": "black",
+          "category": "features",
+          "mentions": 27
+        },
+        {
+          "name": "www",
+          "category": "features",
+          "mentions": 26
+        }
+      ],
+      "competitor_layers_summary": [
+        {
+          "layer": "attributes",
+          "label": "产品属性/噪音 (Attributes)",
+          "top_competitors": [
+            {
+              "name": "Timestamp",
+              "mentions": 3,
+              "sentiment": "mixed"
+            },
+            {
+              "name": "Review",
+              "mentions": 3,
+              "sentiment": "mixed"
+            },
+            {
+              "name": "Wallet",
+              "mentions": 2,
+              "sentiment": "mixed"
+            }
+          ],
+          "threats": "社区讨论热度高"
+        },
+        {
+          "layer": "brands",
+          "label": "Brands",
+          "top_competitors": [
+            {
+              "name": "Kershaw",
+              "mentions": 3,
+              "sentiment": "mixed"
+            },
+            {
+              "name": "Gen",
+              "mentions": 2,
+              "sentiment": "mixed"
+            },
+            {
+              "name": "Aerum Special",
+              "mentions": 2,
+              "sentiment": "mixed"
+            }
+          ],
+          "threats": "社区讨论热度高"
+        }
+      ],
+      "channel_breakdown": []
+    },
+    "metadata": {
+      "analysis_version": "1.0",
+      "confidence_score": 0.44,
+      "processing_time_seconds": 208.0,
+      "cache_hit_rate": 0.0,
+      "total_mentions": 33,
+      "recovery_applied": null,
+      "fallback_quality": null,
+      "llm_used": true,
+      "llm_model": "x-ai/grok-4.1-fast",
+      "llm_rounds": 0,
+      "lexicon_version": "v2.0",
+      "market_enhancements": {
+        "mode": "community_market",
+        "personas": [
+          {
+            "community": "r/EDC",
+            "persona_label": "探索者",
+            "traits": [
+              "乐于尝试",
+              "关注性价比"
+            ],
+            "strategy": "从共情与价值入手",
+            "confidence": 0.65,
+            "method": "rules"
+          },
+          {
+            "community": "r/Knife_Swap",
+            "persona_label": "探索者",
+            "traits": [
+              "乐于尝试",
+              "关注性价比"
+            ],
+            "strategy": "从共情与价值入手",
+            "confidence": 0.65,
+            "method": "rules"
+          },
+          {
+            "community": "r/EDCexchange",
+            "persona_label": "探索者",
+            "traits": [
+              "乐于尝试",
+              "关注性价比"
+            ],
+            "strategy": "从共情与价值入手",
+            "confidence": 0.65,
+            "method": "rules"
+          },
+          {
+            "community": "r/flashlight",
+            "persona_label": "探索者",
+            "traits": [
+              "乐于尝试",
+              "关注性价比"
+            ],
+            "strategy": "从共情与价值入手",
+            "confidence": 0.65,
+            "method": "rules"
+          },
+          {
+            "community": "r/FlashlightIndia",
+            "persona_label": "探索者",
+            "traits": [
+              "乐于尝试",
+              "关注性价比"
+            ],
+            "strategy": "从共情与价值入手",
+            "confidence": 0.65,
+            "method": "rules"
+          },
+          {
+            "community": "r/keychain",
+            "persona_label": "探索者",
+            "traits": [
+              "乐于尝试",
+              "关注性价比"
+            ],
+            "strategy": "从共情与价值入手",
+            "confidence": 0.65,
+            "method": "rules"
+          },
+          {
+            "community": "r/edc",
+            "persona_label": "探索者",
+            "traits": [
+              "乐于尝试",
+              "关注性价比"
+            ],
+            "strategy": "从共情与价值入手",
+            "confidence": 0.65,
+            "method": "rules"
+          },
+          {
+            "community": "r/knifeclub",
+            "persona_label": "探索者",
+            "traits": [
+              "乐于尝试",
+              "关注性价比"
+            ],
+            "strategy": "从共情与价值入手",
+            "confidence": 0.65,
+            "method": "rules"
+          },
+          {
+            "community": "r/multitools",
+            "persona_label": "探索者",
+            "traits": [
+              "乐于尝试",
+              "关注性价比"
+            ],
+            "strategy": "从共情与价值入手",
+            "confidence": 0.65,
+            "method": "rules"
+          },
+          {
+            "community": "r/ultralight",
+            "persona_label": "探索者",
+            "traits": [
+              "乐于尝试",
+              "关注性价比"
+            ],
+            "strategy": "从共情与价值入手",
+            "confidence": 0.65,
+            "method": "rules"
+          },
+          {
+            "community": "r/campinggear",
+            "persona_label": "探索者",
+            "traits": [
+              "乐于尝试",
+              "关注性价比"
+            ],
+            "strategy": "从共情与价值入手",
+            "confidence": 0.65,
+            "method": "rules"
+          },
+          {
+            "community": "r/buyitforlife",
+            "persona_label": "探索者",
+            "traits": [
+              "乐于尝试",
+              "关注性价比"
+            ],
+            "strategy": "从共情与价值入手",
+            "confidence": 0.65,
+            "method": "rules"
+          }
+        ],
+        "quotes": [
+          {
+            "description": "Badge Holder Retractable Clip Heavy Duty Carabiner Badge Reel Keychain with Lanyard ID",
+            "quotes": [
+              {
+                "text": "Badge Holder Retractable Clip Heavy Duty Carabiner Badge Reel Keychain with Lanyard ID",
+                "score": 0.533,
+                "sentiment": 0.333,
+                "relevance": 1.0,
+                "length": 86,
+                "source": "description"
+              },
+              {
+                "text": "I'd like a carabiner still with a hard, clear card c...",
+                "score": 0.206,
+                "sentiment": 0.333,
+                "relevance": 0.182,
+                "length": 55,
+                "source": "user_examples"
+              }
+            ]
+          },
+          {
+            "description": "It's once again time for u/BigMetalHoobajoob's sometimes poorly formatted, always fantastically priced Big, Metal XXXtravaganza, Round IV, with new blades and even newer prices",
+            "quotes": []
+          },
+          {
+            "description": "I waited 5 months to review this light",
+            "quotes": [
+              {
+                "text": "I've carried tiny lights that are ok for some things and I keep a larg...",
+                "score": 0.08,
+                "sentiment": 0.0,
+                "relevance": 0.2,
+                "length": 73,
+                "source": "user_examples"
+              },
+              {
+                "text": "It has been an awesome light and I couldnt be happier.",
+                "score": 0.08,
+                "sentiment": 0.0,
+                "relevance": 0.2,
+                "length": 54,
+                "source": "user_examples"
+              }
+            ]
+          },
+          {
+            "description": "I'd like a carabiner still with a hard, clear card c",
+            "quotes": [
+              {
+                "text": "I'd like a carabiner still with a hard, clear card c...",
+                "score": 0.533,
+                "sentiment": 0.333,
+                "relevance": 1.0,
+                "length": 55,
+                "source": "user_examples"
+              },
+              {
+                "text": "I'd like a carabiner still with a hard, clear card c",
+                "score": 0.533,
+                "sentiment": 0.333,
+                "relevance": 1.0,
+                "length": 52,
+                "source": "description"
+              }
+            ]
+          }
+        ],
+        "saturation": [
+          {
+            "community": "r/EDC",
+            "brands": [
+              {
+                "brand": "Kershaw",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Timestamp",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Review",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Gen",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Wallet",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Aerum Special",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Blade",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "CRK Sebenza",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Curtis Cruze",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Damasteel",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Edition",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Flipper CF",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              }
+            ],
+            "overall_saturation": 0.0
+          },
+          {
+            "community": "r/Knife_Swap",
+            "brands": [
+              {
+                "brand": "Kershaw",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Timestamp",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Review",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Gen",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Wallet",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Aerum Special",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Blade",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "CRK Sebenza",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Curtis Cruze",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Damasteel",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Edition",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Flipper CF",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              }
+            ],
+            "overall_saturation": 0.0
+          },
+          {
+            "community": "r/EDCexchange",
+            "brands": [
+              {
+                "brand": "Kershaw",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Timestamp",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Review",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Gen",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Wallet",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Aerum Special",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Blade",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "CRK Sebenza",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Curtis Cruze",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Damasteel",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Edition",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Flipper CF",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              }
+            ],
+            "overall_saturation": 0.0
+          },
+          {
+            "community": "r/flashlight",
+            "brands": [
+              {
+                "brand": "Kershaw",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Timestamp",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Review",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Gen",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Wallet",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Aerum Special",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Blade",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "CRK Sebenza",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Curtis Cruze",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Damasteel",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Edition",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Flipper CF",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              }
+            ],
+            "overall_saturation": 0.0
+          },
+          {
+            "community": "r/FlashlightIndia",
+            "brands": [
+              {
+                "brand": "Kershaw",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Timestamp",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Review",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Gen",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Wallet",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Aerum Special",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Blade",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "CRK Sebenza",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Curtis Cruze",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Damasteel",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Edition",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Flipper CF",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              }
+            ],
+            "overall_saturation": 0.0
+          },
+          {
+            "community": "r/keychain",
+            "brands": [
+              {
+                "brand": "Kershaw",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Timestamp",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Review",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Gen",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Wallet",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Aerum Special",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Blade",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "CRK Sebenza",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Curtis Cruze",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Damasteel",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Edition",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Flipper CF",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              }
+            ],
+            "overall_saturation": 0.0
+          },
+          {
+            "community": "r/edc",
+            "brands": [
+              {
+                "brand": "Kershaw",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Timestamp",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Review",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Gen",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Wallet",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Aerum Special",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Blade",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "CRK Sebenza",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Curtis Cruze",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Damasteel",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Edition",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Flipper CF",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              }
+            ],
+            "overall_saturation": 0.0
+          },
+          {
+            "community": "r/knifeclub",
+            "brands": [
+              {
+                "brand": "Kershaw",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Timestamp",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Review",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Gen",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Wallet",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Aerum Special",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Blade",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "CRK Sebenza",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Curtis Cruze",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Damasteel",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Edition",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Flipper CF",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              }
+            ],
+            "overall_saturation": 0.0
+          },
+          {
+            "community": "r/multitools",
+            "brands": [
+              {
+                "brand": "Kershaw",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Timestamp",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Review",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Gen",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Wallet",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Aerum Special",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Blade",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "CRK Sebenza",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Curtis Cruze",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Damasteel",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Edition",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Flipper CF",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              }
+            ],
+            "overall_saturation": 0.0
+          },
+          {
+            "community": "r/ultralight",
+            "brands": [
+              {
+                "brand": "Kershaw",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Timestamp",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Review",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Gen",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Wallet",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Aerum Special",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Blade",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "CRK Sebenza",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Curtis Cruze",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Damasteel",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Edition",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Flipper CF",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              }
+            ],
+            "overall_saturation": 0.0
+          },
+          {
+            "community": "r/campinggear",
+            "brands": [
+              {
+                "brand": "Kershaw",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Timestamp",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Review",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Gen",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Wallet",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Aerum Special",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Blade",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "CRK Sebenza",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Curtis Cruze",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Damasteel",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Edition",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Flipper CF",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              }
+            ],
+            "overall_saturation": 0.0
+          },
+          {
+            "community": "r/buyitforlife",
+            "brands": [
+              {
+                "brand": "Kershaw",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Timestamp",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Review",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Gen",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Wallet",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Aerum Special",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Blade",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "CRK Sebenza",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Curtis Cruze",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Damasteel",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Edition",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Flipper CF",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              }
+            ],
+            "overall_saturation": 0.0
+          }
+        ],
+        "gtm_plans": {
+          "oppty-1": {
+            "opportunity_id": "oppty-1",
+            "target_community": "r/EDC",
+            "actions": [
+              {
+                "day": "周一",
+                "phase": "W1 - 潜伏",
+                "action": "在 r/r/EDC 3个抱怨'Suggestions to complete my Matte Black EDC'的帖子下回复，表达共情与求证（强调性价比）",
+                "goal": "建立可信度"
+              },
+              {
+                "day": "周二",
+                "phase": "W1 - 价值",
+                "action": "发布帖子：[讨论] 我受够了Suggestions to complete my Matte Black EDC，所以我整理了一份可执行的改进清单（强调性价比）",
+                "goal": "成为话题引领者"
+              },
+              {
+                "day": "周四",
+                "phase": "W1 - 讨论",
+                "action": "在 r/r/EDC 发起征询：大家如何看待Suggestions to complete my Matte Black EDC？我收集到一份可执行的改进清单（强调性价比）",
+                "goal": "扩大样本、验证共识"
+              },
+              {
+                "day": "周一",
+                "phase": "W2 - 复盘",
+                "action": "复盘上周讨论要点，并补充3条新的证据源（不带外链）（强调性价比）",
+                "goal": "沉淀可信的知识"
+              },
+              {
+                "day": "周三",
+                "phase": "W2 - 软植入",
+                "action": "在自己的帖子里自然提及解决思路：一份可执行的改进清单（强调性价比）",
+                "goal": "测试市场反馈"
+              },
+              {
+                "day": "周五",
+                "phase": "W2 - 反馈",
+                "action": "发起投票或征集用例：你们如何规避Suggestions to complete my Matte Black EDC？（强调性价比）",
+                "goal": "收集可操作反馈"
+              }
+            ],
+            "compliance_warning": null
+          }
+        }
+      }
+    },
+    "overview": {
+      "sentiment": {
+        "positive": 0,
+        "negative": 12,
+        "neutral": 88
+      },
+      "top_communities": [
+        {
+          "name": "r/EDC",
+          "mentions": 11,
+          "relevance": 0,
+          "category": "discovered",
+          "daily_posts": 80,
+          "avg_comment_length": 70,
+          "from_cache": false,
+          "members": 100000
+        },
+        {
+          "name": "r/Knife_Swap",
+          "mentions": 11,
+          "relevance": 0,
+          "category": "discovered",
+          "daily_posts": 80,
+          "avg_comment_length": 70,
+          "from_cache": false,
+          "members": 100000
+        },
+        {
+          "name": "r/edc",
+          "mentions": 11,
+          "relevance": 0,
+          "category": "profile_seed",
+          "daily_posts": 80,
+          "avg_comment_length": 70,
+          "from_cache": false,
+          "members": 100000
+        },
+        {
+          "name": "r/EDCexchange",
+          "mentions": 7,
+          "relevance": 0,
+          "category": "discovered",
+          "daily_posts": 80,
+          "avg_comment_length": 70,
+          "from_cache": false,
+          "members": 100000
+        },
+        {
+          "name": "r/flashlight",
+          "mentions": 6,
+          "relevance": 0,
+          "category": "profile_seed",
+          "daily_posts": 80,
+          "avg_comment_length": 70,
+          "from_cache": false,
+          "members": 100000
+        }
+      ],
+      "total_communities": 12,
+      "top_n": 5,
+      "seed_source": "pool+discovery"
+    },
+    "stats": {
+      "total_mentions": 33,
+      "positive_mentions": 0,
+      "negative_mentions": 4,
+      "neutral_mentions": 29
+    },
+    "sources": {
+      "communities": [
+        "r/EDC",
+        "r/Knife_Swap",
+        "r/EDCexchange",
+        "r/flashlight",
+        "r/FlashlightIndia",
+        "r/keychain",
+        "r/edc",
+        "r/knifeclub",
+        "r/multitools",
+        "r/ultralight",
+        "r/campinggear",
+        "r/buyitforlife"
+      ],
+      "posts_analyzed": 33,
+      "cache_hit_rate": 0.0,
+      "ps_ratio": 0.0,
+      "analysis_duration_seconds": 208,
+      "hybrid_posts_used": null,
+      "reddit_api_calls": 0,
+      "collection_warnings": [],
+      "product_description": "我想挖 EDC（everyday carry）里 keychain / pocket organizer 方向的真实需求，重点看用户如何整理钥匙、门禁卡、小刀、手电、耳机，哪些场景会乱、会硌、会丢、不好拿，判断是否适合做小配件或收纳产品。",
+      "communities_detail": [
+        {
+          "name": "r/EDC",
+          "categories": [
+            "discovered"
+          ],
+          "mentions": 11,
+          "daily_posts": 80,
+          "avg_comment_length": 70,
+          "cache_hit_rate": 0.0,
+          "from_cache": false
+        },
+        {
+          "name": "r/Knife_Swap",
+          "categories": [
+            "discovered"
+          ],
+          "mentions": 11,
+          "daily_posts": 80,
+          "avg_comment_length": 70,
+          "cache_hit_rate": 0.0,
+          "from_cache": false
+        },
+        {
+          "name": "r/EDCexchange",
+          "categories": [
+            "discovered"
+          ],
+          "mentions": 7,
+          "daily_posts": 80,
+          "avg_comment_length": 70,
+          "cache_hit_rate": 0.0,
+          "from_cache": false
+        },
+        {
+          "name": "r/flashlight",
+          "categories": [
+            "profile_seed"
+          ],
+          "mentions": 6,
+          "daily_posts": 80,
+          "avg_comment_length": 70,
+          "cache_hit_rate": 0.0,
+          "from_cache": false
+        },
+        {
+          "name": "r/FlashlightIndia",
+          "categories": [
+            "discovered"
+          ],
+          "mentions": 3,
+          "daily_posts": 80,
+          "avg_comment_length": 70,
+          "cache_hit_rate": 0.0,
+          "from_cache": false
+        },
+        {
+          "name": "r/keychain",
+          "categories": [
+            "discovered"
+          ],
+          "mentions": 2,
+          "daily_posts": 80,
+          "avg_comment_length": 70,
+          "cache_hit_rate": 0.0,
+          "from_cache": false
+        },
+        {
+          "name": "r/edc",
+          "categories": [
+            "profile_seed"
+          ],
+          "mentions": 11,
+          "daily_posts": 80,
+          "avg_comment_length": 70,
+          "cache_hit_rate": 0.0,
+          "from_cache": false
+        },
+        {
+          "name": "r/knifeclub",
+          "categories": [
+            "profile_seed"
+          ],
+          "mentions": 1,
+          "daily_posts": 80,
+          "avg_comment_length": 70,
+          "cache_hit_rate": 0.0,
+          "from_cache": false
+        },
+        {
+          "name": "r/multitools",
+          "categories": [
+            "profile_seed"
+          ],
+          "mentions": 0,
+          "daily_posts": 80,
+          "avg_comment_length": 70,
+          "cache_hit_rate": 0.0,
+          "from_cache": false
+        },
+        {
+          "name": "r/ultralight",
+          "categories": [
+            "profile_seed"
+          ],
+          "mentions": 1,
+          "daily_posts": 80,
+          "avg_comment_length": 70,
+          "cache_hit_rate": 0.0,
+          "from_cache": false
+        },
+        {
+          "name": "r/campinggear",
+          "categories": [
+            "profile_seed"
+          ],
+          "mentions": 0,
+          "daily_posts": 80,
+          "avg_comment_length": 70,
+          "cache_hit_rate": 0.0,
+          "from_cache": false
+        },
+        {
+          "name": "r/buyitforlife",
+          "categories": [
+            "profile_seed"
+          ],
+          "mentions": 0,
+          "daily_posts": 80,
+          "avg_comment_length": 70,
+          "cache_hit_rate": 0.0,
+          "from_cache": false
+        }
+      ],
+      "recovery_strategy": null,
+      "fallback_quality": null,
+      "dedup_stats": {
+        "total_posts": 46,
+        "fallback_pairs": 900,
+        "candidate_pairs": 926,
+        "similarity_checks": 926
+      },
+      "duplicates_summary": [
+        {
+          "post_id": "68tnay",
+          "duplicate_ids": [
+            "68tnay"
+          ],
+          "evidence_count": 2
+        },
+        {
+          "post_id": "1di7m26",
+          "duplicate_ids": [
+            "1di7m26"
+          ],
+          "evidence_count": 2
+        },
+        {
+          "post_id": "1r8akbj",
+          "duplicate_ids": [
+            "1r8akbj"
+          ],
+          "evidence_count": 2
+        },
+        {
+          "post_id": "1oxrcu5",
+          "duplicate_ids": [
+            "1oxrcu5"
+          ],
+          "evidence_count": 2
+        },
+        {
+          "post_id": "1oyd8yc",
+          "duplicate_ids": [
+            "1oyd8yc"
+          ],
+          "evidence_count": 2
+        },
+        {
+          "post_id": "1kz9bhi",
+          "duplicate_ids": [
+            "1kz9bhi"
+          ],
+          "evidence_count": 2
+        },
+        {
+          "post_id": "1phngqo",
+          "duplicate_ids": [
+            "1phngqo"
+          ],
+          "evidence_count": 2
+        },
+        {
+          "post_id": "1obo4um",
+          "duplicate_ids": [
+            "1obo4um"
+          ],
+          "evidence_count": 2
+        },
+        {
+          "post_id": "iincja",
+          "duplicate_ids": [
+            "iincja"
+          ],
+          "evidence_count": 2
+        },
+        {
+          "post_id": "1j7c166",
+          "duplicate_ids": [
+            "1j7c166"
+          ],
+          "evidence_count": 2
+        },
+        {
+          "post_id": "18vk841",
+          "duplicate_ids": [
+            "18vk841"
+          ],
+          "evidence_count": 2
+        },
+        {
+          "post_id": "12uie80",
+          "duplicate_ids": [
+            "12r6fhc"
+          ],
+          "evidence_count": 2
+        },
+        {
+          "post_id": "35tyn7",
+          "duplicate_ids": [
+            "35tyn7"
+          ],
+          "evidence_count": 2
+        }
+      ],
+      "seed_source": "pool+discovery",
+      "data_source": "real",
+      "report_tier": "A_full",
+      "analysis_blocked": null,
+      "facts_v2_quality": {
+        "tier": "A_full",
+        "flags": [],
+        "passed": true,
+        "metrics": {
+          "agg_posts": 33,
+          "solutions": 8,
+          "good_pains": 2,
+          "good_brands": 3,
+          "agg_comments": 0,
+          "source_posts": 33,
+          "coverage_tier": "unknown",
+          "coverage_total": 0,
+          "on_topic_ratio": 0.818,
+          "sample_checked": 33,
+          "source_comments": 0,
+          "db_comments_total": 0,
+          "topic_terms_count": 31,
+          "topic_terms_source": "profile",
+          "coverage_months_avg": 0.0,
+          "coverage_months_max": 0,
+          "coverage_months_min": 0,
+          "min_sample_comments": 0,
+          "db_comments_eligible": 0,
+          "coverage_capped_count": 0,
+          "topic_profiles_status": "loaded",
+          "coverage_status_counts": {},
+          "semantic_search_status": "semantic+keyword",
+          "comments_pipeline_status": "disabled",
+          "pain_clusters_pipeline_status": "engine_tfidf_fallback"
+        }
+      },
+      "trend_source": [
+        "coverage_unknown"
+      ],
+      "trend_degraded": true,
+      "facts_slice": {
+        "meta": {
+          "topic": "EDC Key & Pocket Organizer",
+          "topic_profile_id": "edc_everyday_carry_v1",
+          "product_description": "我想挖 EDC（everyday carry）里 keychain / pocket organizer 方向的真实需求，重点看用户如何整理钥匙、门禁卡、小刀、手电、耳机，哪些场景会乱、会硌、会丢、不好拿，判断是否适合做小配件或收纳产品。"
+        },
+        "ps_ratio": 0.0,
+        "aggregates": {
+          "communities": [
+            {
+              "name": "r/edc",
+              "posts": 10,
+              "comments": 0
+            },
+            {
+              "name": "r/knife_swap",
+              "posts": 8,
+              "comments": 0
+            },
+            {
+              "name": "r/flashlight",
+              "posts": 6,
+              "comments": 0
+            },
+            {
+              "name": "r/edcexchange",
+              "posts": 5,
+              "comments": 0
+            },
+            {
+              "name": "r/flashlightindia",
+              "posts": 2,
+              "comments": 0
+            },
+            {
+              "name": "r/keychain",
+              "posts": 1,
+              "comments": 0
+            },
+            {
+              "name": "r/ultralight",
+              "posts": 1,
+              "comments": 0
+            }
+          ]
+        },
+        "diagnostics": {
+          "pain_clusters_error": "cannot access local variable 'sources' where it is not associated with a value",
+          "topic_profiles_path": "/Users/hujia/Desktop/RedditSignalScanner/backend/config/topic_profiles.yaml",
+          "topic_profiles_status": "loaded",
+          "semantic_search_status": "semantic+keyword",
+          "pain_clusters_pipeline_status": "engine_tfidf_fallback"
+        },
+        "top_drivers": [
+          {
+            "title": "效率提升与省时省心",
+            "actions": [
+              "减少重复操作",
+              "提升日常效率"
+            ],
+            "rationale": "高频痛点集中在：Badge Holder Retractable Clip Heavy Duty Carabiner Badge Reel Keychain with Lanyard ID / I waited 5 months to review this light",
+            "description": "高频痛点集中在：Badge Holder Retractable Clip Heavy Duty Carabiner Badge Reel Keychain with Lanyard ID / I waited 5 months to review this light",
+            "source_pains": [
+              "Badge Holder Retractable Clip Heavy Duty Carabiner Badge Reel Keychain with Lanyard ID",
+              "I waited 5 months to review this light",
+              "I'd like a carabiner still with a hard, clear card c"
+            ]
+          },
+          {
+            "title": "透明定价与成本可控",
+            "actions": [
+              "费用结构透明化",
+              "成本可预测与可对比"
+            ],
+            "rationale": "高频痛点集中在：It's once again time for u/BigMetalHoobajoob's sometimes poorly formatted, always fantastically priced Big, Metal XXXtravaganza, Round IV, with new blades and even newer prices",
+            "description": "高频痛点集中在：It's once again time for u/BigMetalHoobajoob's sometimes poorly formatted, always fantastically priced Big, Metal XXXtravaganza, Round IV, with new blades and even newer prices",
+            "source_pains": [
+              "It's once again time for u/BigMetalHoobajoob's sometimes poorly formatted, always fantastically priced Big, Metal XXXtravaganza, Round IV, with new blades and even newer prices"
+            ]
+          }
+        ],
+        "data_lineage": {
+          "coverage": {
+            "capped_count": 0,
+            "status_counts": {},
+            "community_statuses": [],
+            "coverage_months_avg": 0,
+            "coverage_months_max": 0,
+            "coverage_months_min": 0,
+            "missing_communities": [
+              "r/buyitforlife",
+              "r/campinggear",
+              "r/edc",
+              "r/edcexchange",
+              "r/flashlight",
+              "r/flashlightindia",
+              "r/keychain",
+              "r/knife_swap",
+              "r/knifeclub",
+              "r/multitools",
+              "r/ultralight"
+            ]
+          },
+          "counts_db": {
+            "posts_current": 0,
+            "comments_total": 0,
+            "comments_eligible": 0
+          },
+          "target_ids": [
+            "f4475ef7-36a0-5839-92b1-50b74c33d694",
+            "c329d854-7311-506f-a5f6-8e3c3ae7f715",
+            "b4737fb3-a0fb-5628-9eff-1a27e755e7c7",
+            "cc7de3af-0349-5d91-8dd0-d0390183065e",
+            "1bc86c19-b84a-53a3-8687-bfebb9e6939f"
+          ],
+          "source_range": {
+            "posts": 33,
+            "comments": 0
+          },
+          "crawler_run_ids": [
+            "bafcb599-3f46-5be9-a936-05e9b223d268"
+          ],
+          "target_ids_total": 5,
+          "target_ids_truncated": false,
+          "comments_pipeline_status": "disabled"
+        },
+        "trend_summary": {
+          "label": "爆发式增长",
+          "reason": "近一月讨论量 284，环比 193%，近三月速度系数 2.24；趋势数据不完整（coverage_unknown）",
+          "series": [
+            {
+              "count": 0,
+              "month": "2025-04",
+              "trend": "➡️ STABLE",
+              "growth_rate": null
+            },
+            {
+              "count": 0,
+              "month": "2025-05",
+              "trend": "📈 RISING",
+              "growth_rate": 0.0
+            },
+            {
+              "count": 0,
+              "month": "2025-06",
+              "trend": "📈 RISING",
+              "growth_rate": 0.0
+            },
+            {
+              "count": 0,
+              "month": "2025-07",
+              "trend": "📈 RISING",
+              "growth_rate": 0.0
+            },
+            {
+              "count": 0,
+              "month": "2025-08",
+              "trend": "📈 RISING",
+              "growth_rate": 0.0
+            },
+            {
+              "count": 0,
+              "month": "2025-09",
+              "trend": "📈 RISING",
+              "growth_rate": 0.0
+            },
+            {
+              "count": 0,
+              "month": "2025-10",
+              "trend": "📈 RISING",
+              "growth_rate": 0.0
+            },
+            {
+              "count": 0,
+              "month": "2025-11",
+              "trend": "📈 RISING",
+              "growth_rate": 0.0
+            },
+            {
+              "count": 0,
+              "month": "2025-12",
+              "trend": "📈 RISING",
+              "growth_rate": 0.0
+            },
+            {
+              "count": 0,
+              "month": "2026-01",
+              "trend": "📈 RISING",
+              "growth_rate": 0.0
+            },
+            {
+              "count": 97,
+              "month": "2026-02",
+              "trend": "🔥 EXPLODING",
+              "growth_rate": 97.0
+            },
+            {
+              "count": 284,
+              "month": "2026-03",
+              "trend": "🔥 EXPLODING",
+              "growth_rate": 1.9278,
+              "recent_velocity": 2.24
+            }
+          ]
+        },
+        "knowledge_graph": {
+          "drivers": [
+            {
+              "title": "效率提升与省时省心",
+              "actions": [
+                "减少重复操作",
+                "提升日常效率"
+              ],
+              "description": "高频痛点集中在：Badge Holder Retractable Clip Heavy Duty Carabiner Badge Reel Keychain with Lanyard ID / I waited 5 months to review this light",
+              "source_pains": [
+                "Badge Holder Retractable Clip Heavy Duty Carabiner Badge Reel Keychain with Lanyard ID",
+                "I waited 5 months to review this light",
+                "I'd like a carabiner still with a hard, clear card c"
+              ]
+            },
+            {
+              "title": "透明定价与成本可控",
+              "actions": [
+                "费用结构透明化",
+                "成本可预测与可对比"
+              ],
+              "description": "高频痛点集中在：It's once again time for u/BigMetalHoobajoob's sometimes poorly formatted, always fantastically priced Big, Metal XXXtravaganza, Round IV, with new blades and even newer prices",
+              "source_pains": [
+                "It's once again time for u/BigMetalHoobajoob's sometimes poorly formatted, always fantastically priced Big, Metal XXXtravaganza, Round IV, with new blades and even newer prices"
+              ]
+            }
+          ],
+          "evidence": [],
+          "communities": [
+            {
+              "name": "r/edc",
+              "posts": 10,
+              "comments": 0
+            },
+            {
+              "name": "r/knife_swap",
+              "posts": 8,
+              "comments": 0
+            },
+            {
+              "name": "r/flashlight",
+              "posts": 6,
+              "comments": 0
+            },
+            {
+              "name": "r/edcexchange",
+              "posts": 5,
+              "comments": 0
+            },
+            {
+              "name": "r/flashlightindia",
+              "posts": 2,
+              "comments": 0
+            },
+            {
+              "name": "r/keychain",
+              "posts": 1,
+              "comments": 0
+            },
+            {
+              "name": "r/ultralight",
+              "posts": 1,
+              "comments": 0
+            }
+          ],
+          "pain_points": [
+            {
+              "name": "",
+              "evidence": [],
+              "mentions": 0,
+              "evidence_ids": [
+                "1obo4um",
+                "1k57h2f",
+                "c9qyow"
+              ],
+              "unique_authors": 0
+            },
+            {
+              "name": "",
+              "evidence": [],
+              "mentions": 0,
+              "evidence_ids": [
+                "1obo4um",
+                "1k57h2f",
+                "c9qyow"
+              ],
+              "unique_authors": 0
+            }
+          ]
+        },
+        "sample_posts_db": [
+          {
+            "body": "Ferragamo keychain, antique gold cufflinks, NAA .22mag, US Revolver Co Topbreak .22, 22k gold bracelet, 1950’s Rolex Oysterdate Precision, 22k gold Ganesha chain, vintage Dior mini-clutch, 22k gold...",
+            "text": "[26M] everyday carry Ferragamo keychain, antique gold cufflinks, NAA .22mag, US Revolver Co Topbreak .22, 22k gold bracelet, 1950’s Rolex Oysterdate Precision, 22k gold Ganesha chain, vintage Dior mini-clutch, 22k gold...",
+            "title": "[26M] everyday carry Ferragamo keychain, antique gold cufflinks, NAA .22mag, US Revolver Co Topbreak .22, 22k gold bracelet, 1950’s Rolex Oysterdate Precision, 22k gold Ganesha chain, vintage Dior mini-clutch, 22k gold...",
+            "subreddit": "r/edc"
+          },
+          {
+            "body": "From left to right...\n\n* Open Sea Topsider Wallet\n* Helbros Watch\n* Lamy 2000 Rollerball Pen\n* Ring from Digby &amp; Iona\n* Apple Airpods Pro 2\n* Case Pocket Knife\n* Apple Watch Ultra 2 in\n   * Gen...",
+            "text": "My everyday work carry. 49m. From left to right...\n\n* Open Sea Topsider Wallet\n* Helbros Watch\n* Lamy 2000 Rollerball Pen\n* Ring from Digby &amp; Iona\n* Apple Airpods Pro 2\n* Case Pocket Knife\n* Apple Watch Ultra 2 in\n   * Gen...",
+            "title": "My everyday work carry. 49m. From left to right...\n\n* Open Sea Topsider Wallet\n* Helbros Watch\n* Lamy 2000 Rollerball Pen\n* Ring from Digby &amp; Iona\n* Apple Airpods Pro 2\n* Case Pocket Knife\n* Apple Watch Ultra 2 in\n   * Gen...",
+            "subreddit": "r/edc"
+          },
+          {
+            "body": "This is what I carry every day in my pocket.\n\n1. Spigen RFID Blocking Wallet\n2. Wallet contains a Band-Aid tucked between the folded cash.\n3. House Keys with:\n   1. Victorinox Swiss Army Knife - 7 ...",
+            "text": "My actual everyday carry This is what I carry every day in my pocket.\n\n1. Spigen RFID Blocking Wallet\n2. Wallet contains a Band-Aid tucked between the folded cash.\n3. House Keys with:\n   1. Victorinox Swiss Army Knife - 7 ...",
+            "title": "My actual everyday carry This is what I carry every day in my pocket.\n\n1. Spigen RFID Blocking Wallet\n2. Wallet contains a Band-Aid tucked between the folded cash.\n3. House Keys with:\n   1. Victorinox Swiss Army Knife - 7 ...",
+            "subreddit": "r/edc"
+          },
+          {
+            "body": "* **Zippo** – in my signature leather case by *Blackmorn*\n* **SAK** – Spartan Wood\n* **Pen** – no-name, but reliable\n* **Keychain** – handmade by *Blackmorn*\n* **Notebook** – Field Notes",
+            "text": "If I were to show what I always carry in my pocket—my true everyday essentials—it would be these items. They’re with me 100% of the time. What about you? * **Zippo** – in my signature leather case by *Blackmorn*\n* **SAK** – Spartan Wood\n* **Pen** – no-name, but reliable\n* **Keychain** – handmade by *Blackmorn*\n* **Notebook** – Field Notes",
+            "title": "If I were to show what I always carry in my pocket—my true everyday essentials—it would be these items. They’re with me 100% of the time. What about you? * **Zippo** – in my signature leather case by *Blackmorn*\n* **SAK** – Spartan Wood\n* **Pen** – no-name, but reliable\n* **Keychain** – handmade by *Blackmorn*\n* **Notebook** – Field Notes",
+            "subreddit": "r/edc"
+          },
+          {
+            "body": "Headphones - AirPods Pro 1st Gen (Case - KOKOKA Case Cover)\nWatch - Garmin Instinct 2 graphite\nTorch - Flintronic Mini Torch, 3.5\" Pocket LED Torch\nWallet - Unsure of model (looking for a new model...",
+            "text": "My everyday carry Headphones - AirPods Pro 1st Gen (Case - KOKOKA Case Cover)\nWatch - Garmin Instinct 2 graphite\nTorch - Flintronic Mini Torch, 3.5\" Pocket LED Torch\nWallet - Unsure of model (looking for a new model...",
+            "title": "My everyday carry Headphones - AirPods Pro 1st Gen (Case - KOKOKA Case Cover)\nWatch - Garmin Instinct 2 graphite\nTorch - Flintronic Mini Torch, 3.5\" Pocket LED Torch\nWallet - Unsure of model (looking for a new model...",
+            "subreddit": "r/edc"
+          },
+          {
+            "body": "The HD03 packs MONSTER-level brightness (680 lumens), dual beam modes (spotlight &amp; floodlight), and 20+ RGB lighting modes into a pocket-sized clip-on light with 180m throw.\n\n \n\nIt offers 3 com...",
+            "text": "Pre-sale of the HD03 is in full swing! Limited offer! From July 2nd to July 7th The HD03 packs MONSTER-level brightness (680 lumens), dual beam modes (spotlight &amp; floodlight), and 20+ RGB lighting modes into a pocket-sized clip-on light with 180m throw.\n\n \n\nIt offers 3 com...",
+            "title": "Pre-sale of the HD03 is in full swing! Limited offer! From July 2nd to July 7th The HD03 packs MONSTER-level brightness (680 lumens), dual beam modes (spotlight &amp; floodlight), and 20+ RGB lighting modes into a pocket-sized clip-on light with 180m throw.\n\n \n\nIt offers 3 com...",
+            "subreddit": "r/flashlight"
+          },
+          {
+            "body": "What can I add to make it more efficient,",
+            "text": "Simple everyday carry What can I add to make it more efficient,",
+            "title": "Simple everyday carry What can I add to make it more efficient,",
+            "subreddit": "r/edc"
+          },
+          {
+            "body": "https://imgur.com/a/ICTM6Nw\n\n\nAlrighty folks, keeping with my commitment to try and not ramble with needless verbosity, finally I've proven my reliability and thus will say I  dramatically prefer Z...",
+            "text": "[WTS] Uh- Oh! It's once again time for u/BigMetalHoobajoob's sometimes poorly formatted, always fantastically priced Big, Metal XXXtravaganza, Round IV, with new blades and even newer prices! https://imgur.com/a/ICTM6Nw\n\n\nAlrighty folks, keeping with my commitment to try and not ramble with needless verbosity, finally I've proven my reliability and thus will say I  dramatically prefer Z...",
+            "title": "[WTS] Uh- Oh! It's once again time for u/BigMetalHoobajoob's sometimes poorly formatted, always fantastically priced Big, Metal XXXtravaganza, Round IV, with new blades and even newer prices! https://imgur.com/a/ICTM6Nw\n\n\nAlrighty folks, keeping with my commitment to try and not ramble with needless verbosity, finally I've proven my reliability and thus will say I  dramatically prefer Z...",
+            "subreddit": "r/knife_swap"
+          },
+          {
+            "body": "It's a two-fer this Wednesday night, in aid of my inventory realignment goals. It's a BOGO.\n\nCan I get a YOLO?\n\n**First is the A rated Benchmade Auto Presidio II 5700SBK:**\n\nBlade steel is CPM-S30V...",
+            "text": "[WTS] Buy the Benchmade Auto Presidio II, Get the CKRT Razel GT For FREE [A] It's a two-fer this Wednesday night, in aid of my inventory realignment goals. It's a BOGO.\n\nCan I get a YOLO?\n\n**First is the A rated Benchmade Auto Presidio II 5700SBK:**\n\nBlade steel is CPM-S30V...",
+            "title": "[WTS] Buy the Benchmade Auto Presidio II, Get the CKRT Razel GT For FREE [A] It's a two-fer this Wednesday night, in aid of my inventory realignment goals. It's a BOGO.\n\nCan I get a YOLO?\n\n**First is the A rated Benchmade Auto Presidio II 5700SBK:**\n\nBlade steel is CPM-S30V...",
+            "subreddit": "r/edcexchange"
+          },
+          {
+            "body": "I needed a smaller 10k power bank for everyday carry and grabbed the INIU P50 a few weeks ago. Here's where things stand after regular use.Stats:\n\n* Capacity: 10,000mAh (37Wh)\n* Output: Up to 45W t...",
+            "text": "Gear Review: Using the INIU Pocket Rocket P50 Power Bank I needed a smaller 10k power bank for everyday carry and grabbed the INIU P50 a few weeks ago. Here's where things stand after regular use.Stats:\n\n* Capacity: 10,000mAh (37Wh)\n* Output: Up to 45W t...",
+            "title": "Gear Review: Using the INIU Pocket Rocket P50 Power Bank I needed a smaller 10k power bank for everyday carry and grabbed the INIU P50 a few weeks ago. Here's where things stand after regular use.Stats:\n\n* Capacity: 10,000mAh (37Wh)\n* Output: Up to 45W t...",
+            "subreddit": "r/ultralight"
+          },
+          {
+            "body": "I’ve been carrying the Wurkkos TS12 with the SFT-25R emitter for a while now and wanted to share some impressions, because it’s a surprisingly capable light considering the very compact 14500 form ...",
+            "text": "Wurkkos TS12 (SFT-25R) - surprisingly capable pocket thrower I’ve been carrying the Wurkkos TS12 with the SFT-25R emitter for a while now and wanted to share some impressions, because it’s a surprisingly capable light considering the very compact 14500 form ...",
+            "title": "Wurkkos TS12 (SFT-25R) - surprisingly capable pocket thrower I’ve been carrying the Wurkkos TS12 with the SFT-25R emitter for a while now and wanted to share some impressions, because it’s a surprisingly capable light considering the very compact 14500 form ...",
+            "subreddit": "r/flashlight"
+          },
+          {
+            "body": "**UPDATED TIMESTAMP 2:20pm MST 2/1(?)**:\nhttps://imgur.com/a/h5qR5t7\n\n\n~~Original timestamp:\nhttps://imgur.com/a/Bll4CQF~~\n\n/Ask me about deals for multiple!\n\n/Please add $5 for shipping for orders...",
+            "text": "[WTS] Huge EDC Blowout! **UPDATED TIMESTAMP 2:20pm MST 2/1(?)**:\nhttps://imgur.com/a/h5qR5t7\n\n\n~~Original timestamp:\nhttps://imgur.com/a/Bll4CQF~~\n\n/Ask me about deals for multiple!\n\n/Please add $5 for shipping for orders...",
+            "title": "[WTS] Huge EDC Blowout! **UPDATED TIMESTAMP 2:20pm MST 2/1(?)**:\nhttps://imgur.com/a/h5qR5t7\n\n\n~~Original timestamp:\nhttps://imgur.com/a/Bll4CQF~~\n\n/Ask me about deals for multiple!\n\n/Please add $5 for shipping for orders...",
+            "subreddit": "r/edcexchange"
+          },
+          {
+            "body": "**1. Introduction**\n\nThe Convoy S21E (LHP531 5000K) is a compact 21700-powered flashlight designed around high efficiency, modularity, and practical real-world performance rather than premium prese...",
+            "text": "[Review] Convoy S21E : High Quality Custom EDC Flashlight **1. Introduction**\n\nThe Convoy S21E (LHP531 5000K) is a compact 21700-powered flashlight designed around high efficiency, modularity, and practical real-world performance rather than premium prese...",
+            "title": "[Review] Convoy S21E : High Quality Custom EDC Flashlight **1. Introduction**\n\nThe Convoy S21E (LHP531 5000K) is a compact 21700-powered flashlight designed around high efficiency, modularity, and practical real-world performance rather than premium prese...",
+            "subreddit": "r/flashlightindia"
+          },
+          {
+            "body": "**1. Introduction**\n\nThe Philips SFL2142/56 is a zoomable, rechargeable flashlight positioned as a high-output general-purpose light for household and casual outdoor use. It uses a side-switch inte...",
+            "text": "[REVIEW] : Philips SFL2142/56 . A zoomie with 700+ m range. **1. Introduction**\n\nThe Philips SFL2142/56 is a zoomable, rechargeable flashlight positioned as a high-output general-purpose light for household and casual outdoor use. It uses a side-switch inte...",
+            "title": "[REVIEW] : Philips SFL2142/56 . A zoomie with 700+ m range. **1. Introduction**\n\nThe Philips SFL2142/56 is a zoomable, rechargeable flashlight positioned as a high-output general-purpose light for household and casual outdoor use. It uses a side-switch inte...",
+            "subreddit": "r/flashlightindia"
+          },
+          {
+            "body": "I’ve been carrying the Wurkkos TS11 with the SFT40 emitter for a while now and wanted to share some impressions. For a compact 18350 light, it’s surprisingly capable, combining strong throw, versat...",
+            "text": "Wurkkos TS11 Review – Compact 18350 Thrower with Andúril 2 I’ve been carrying the Wurkkos TS11 with the SFT40 emitter for a while now and wanted to share some impressions. For a compact 18350 light, it’s surprisingly capable, combining strong throw, versat...",
+            "title": "Wurkkos TS11 Review – Compact 18350 Thrower with Andúril 2 I’ve been carrying the Wurkkos TS11 with the SFT40 emitter for a while now and wanted to share some impressions. For a compact 18350 light, it’s surprisingly capable, combining strong throw, versat...",
+            "subreddit": "r/flashlight"
+          },
+          {
+            "body": "Disclosure: I bought the items myself. This is a personal review. Not paid to write all this (wish I was!). Text below fully formatted using Reddit Markdown with help from Google Gemini 2.5 for eas...",
+            "text": "[A Layman Review: Not Sponsored] Nitecore and Fenix - My First Impressions Disclosure: I bought the items myself. This is a personal review. Not paid to write all this (wish I was!). Text below fully formatted using Reddit Markdown with help from Google Gemini 2.5 for eas...",
+            "title": "[A Layman Review: Not Sponsored] Nitecore and Fenix - My First Impressions Disclosure: I bought the items myself. This is a personal review. Not paid to write all this (wish I was!). Text below fully formatted using Reddit Markdown with help from Google Gemini 2.5 for eas...",
+            "subreddit": "r/flashlight"
+          },
+          {
+            "body": "YOLO &gt; Chat.  **PayPal F&amp;F**.  Will do G&amp;S, but buyer needs to pay the 3.5% fee.  **NO NOTES!!!!**  Also, no E-checks.\n\nThese knives have all been *LIGHTLY* carried and used unless other...",
+            "text": "WTS:  Luft, Divo, Kansept and More!  Plus EDC items, flashlights, watch, etc. YOLO &gt; Chat.  **PayPal F&amp;F**.  Will do G&amp;S, but buyer needs to pay the 3.5% fee.  **NO NOTES!!!!**  Also, no E-checks.\n\nThese knives have all been *LIGHTLY* carried and used unless other...",
+            "title": "WTS:  Luft, Divo, Kansept and More!  Plus EDC items, flashlights, watch, etc. YOLO &gt; Chat.  **PayPal F&amp;F**.  Will do G&amp;S, but buyer needs to pay the 3.5% fee.  **NO NOTES!!!!**  Also, no E-checks.\n\nThese knives have all been *LIGHTLY* carried and used unless other...",
+            "subreddit": "r/knife_swap"
+          },
+          {
+            "body": "This [Klarus XT12S](http://www.flashlightz.com/klarus-xt11s-1100-lumens) was provided by Flashlightz.com for review. This review originally appeared [on BLF](http://budgetlightforum.com/node/59611)...",
+            "text": "Review: Klarus XT12S (1x18650, XHP35 HI, magnetic charging) This [Klarus XT12S](http://www.flashlightz.com/klarus-xt11s-1100-lumens) was provided by Flashlightz.com for review. This review originally appeared [on BLF](http://budgetlightforum.com/node/59611)...",
+            "title": "Review: Klarus XT12S (1x18650, XHP35 HI, magnetic charging) This [Klarus XT12S](http://www.flashlightz.com/klarus-xt11s-1100-lumens) was provided by Flashlightz.com for review. This review originally appeared [on BLF](http://budgetlightforum.com/node/59611)...",
+            "subreddit": "r/flashlight"
+          },
+          {
+            "body": "Hi Swappers, I have six banging knives and one set of fire scales for you today. I accept Zelle, ApplePay, CashApp, or Venmo for payment.\n\n\\*\\*Kindly be ready to send payment within 15 minutes afte...",
+            "text": "Rockstead Higo II DLC, CRK Sebenza Cerakoted Spydie Mod, Shirogorov 111 Aerum Special Edition, Curtis Cruze Flipper CF/ Damasteel, Kunwu Giga Padre Mirror DLC, Full Dress We Zizzit, MetonBoss Timascus Para 3 Scales, Quiet Carry Drift Ti Polished Hi Swappers, I have six banging knives and one set of fire scales for you today. I accept Zelle, ApplePay, CashApp, or Venmo for payment.\n\n\\*\\*Kindly be ready to send payment within 15 minutes afte...",
+            "title": "Rockstead Higo II DLC, CRK Sebenza Cerakoted Spydie Mod, Shirogorov 111 Aerum Special Edition, Curtis Cruze Flipper CF/ Damasteel, Kunwu Giga Padre Mirror DLC, Full Dress We Zizzit, MetonBoss Timascus Para 3 Scales, Quiet Carry Drift Ti Polished Hi Swappers, I have six banging knives and one set of fire scales for you today. I accept Zelle, ApplePay, CashApp, or Venmo for payment.\n\n\\*\\*Kindly be ready to send payment within 15 minutes afte...",
+            "subreddit": "r/knife_swap"
+          },
+          {
+            "body": "[It all looks so organized!](https://preview.redd.it/bf4vu87ki16g1.jpg?width=1467&amp;format=pjpg&amp;auto=webp&amp;s=f9e74c5c4f02c7617813a0cb551c177cdb6c9583)\n\nQuick EDC. Nothing fancy but absolut...",
+            "text": "Short little Everyday carry December 8, 2025. [It all looks so organized!](https://preview.redd.it/bf4vu87ki16g1.jpg?width=1467&amp;format=pjpg&amp;auto=webp&amp;s=f9e74c5c4f02c7617813a0cb551c177cdb6c9583)\n\nQuick EDC. Nothing fancy but absolut...",
+            "title": "Short little Everyday carry December 8, 2025. [It all looks so organized!](https://preview.redd.it/bf4vu87ki16g1.jpg?width=1467&amp;format=pjpg&amp;auto=webp&amp;s=f9e74c5c4f02c7617813a0cb551c177cdb6c9583)\n\nQuick EDC. Nothing fancy but absolut...",
+            "subreddit": "r/edc"
+          }
+        ],
+        "business_signals": {
+          "ps_ratio": 0.0,
+          "solutions": [
+            {
+              "frequency": 2,
+              "description": "[WTS/WTT] TRICK OR TREAT YO SELF",
+              "evidence_quote_ids": [
+                "1oltn9c"
+              ]
+            },
+            {
+              "frequency": 1,
+              "description": "I’ve been carrying the Wurkkos TS12 with the SFT-25R emitter for a while now and wanted to share some impressions, because it’s a surprisingly capable light considering the very compact 14500 form",
+              "evidence_quote_ids": [
+                "1rtongd"
+              ]
+            },
+            {
+              "frequency": 2,
+              "description": "The flashlight that you can carry it on everyday--olight s1r ii",
+              "evidence_quote_ids": [
+                "c9qyow"
+              ]
+            },
+            {
+              "frequency": 1,
+              "description": "Text below fully formatted using Reddit Markdown with help from Google Gemini 2",
+              "evidence_quote_ids": [
+                "1o41yso"
+              ]
+            },
+            {
+              "frequency": 1,
+              "description": "Benchmades, Civivi, CJRB, Kershaw, Kizer, Kubey, Sencut, Spyderco, WE, Worksharp, and a freebie",
+              "evidence_quote_ids": [
+                "1q44xnt"
+              ]
+            },
+            {
+              "frequency": 1,
+              "description": "Introduction** The Philips SFL2142/56 is a zoomable, rechargeable flashlight positioned as a high-output general-purpose light for household and casual outdoor use",
+              "evidence_quote_ids": [
+                "1qr47vl"
+              ]
+            },
+            {
+              "frequency": 1,
+              "description": "**UPDATED TIMESTAMP 2:20pm MST 2/1(",
+              "evidence_quote_ids": [
+                "1if0r0k"
+              ]
+            },
+            {
+              "frequency": 1,
+              "description": "House Keys with: 1",
+              "evidence_quote_ids": [
+                "1oxrcu5"
+              ]
+            }
+          ],
+          "brand_pain": [
+            {
+              "name": "Kershaw",
+              "mentions": 3,
+              "unique_authors": 2,
+              "evidence_quote_ids": [
+                "1k3yhvp",
+                "1oltn9c",
+                "1q44xnt"
+              ]
+            },
+            {
+              "name": "Timestamp",
+              "mentions": 3,
+              "unique_authors": 3,
+              "evidence_quote_ids": [
+                "18vk841",
+                "1k3yhvp",
+                "1qkzcw2"
+              ]
+            },
+            {
+              "name": "Review",
+              "mentions": 3,
+              "unique_authors": 3,
+              "evidence_quote_ids": [
+                "1rtow9f",
+                "1rwt4ij",
+                "86bysi"
+              ]
+            },
+            {
+              "name": "Gen",
+              "mentions": 2,
+              "unique_authors": 2,
+              "evidence_quote_ids": [
+                "1j7c166",
+                "1r8akbj"
+              ]
+            },
+            {
+              "name": "Wallet",
+              "mentions": 2,
+              "unique_authors": 2,
+              "evidence_quote_ids": [
+                "18vk841",
+                "1oxrcu5"
+              ]
+            },
+            {
+              "name": "Aerum Special",
+              "mentions": 2,
+              "unique_authors": 1,
+              "evidence_quote_ids": [
+                "1oaadws",
+                "1ojgn2s"
+              ]
+            },
+            {
+              "name": "Blade",
+              "mentions": 2,
+              "unique_authors": 2,
+              "evidence_quote_ids": [
+                "1ojgn2s",
+                "ofwa3r"
+              ]
+            },
+            {
+              "name": "CRK Sebenza",
+              "mentions": 2,
+              "unique_authors": 1,
+              "evidence_quote_ids": [
+                "1oaadws",
+                "1ojgn2s"
+              ]
+            },
+            {
+              "name": "Curtis Cruze",
+              "mentions": 2,
+              "unique_authors": 1,
+              "evidence_quote_ids": [
+                "1oaadws",
+                "1ojgn2s"
+              ]
+            },
+            {
+              "name": "Damasteel",
+              "mentions": 2,
+              "unique_authors": 1,
+              "evidence_quote_ids": [
+                "1oaadws",
+                "1ojgn2s"
+              ]
+            },
+            {
+              "name": "Edition",
+              "mentions": 2,
+              "unique_authors": 1,
+              "evidence_quote_ids": [
+                "1oaadws",
+                "1ojgn2s"
+              ]
+            },
+            {
+              "name": "Flipper CF",
+              "mentions": 2,
+              "unique_authors": 1,
+              "evidence_quote_ids": [
+                "1oaadws",
+                "1ojgn2s"
+              ]
+            }
+          ],
+          "high_value_pains": [
+            {
+              "title": "主要抱怨（汇总）",
+              "metrics": {
+                "mentions": 4,
+                "unique_authors": 3
+              },
+              "evidence_quote_ids": [
+                "1obo4um",
+                "1k57h2f",
+                "c9qyow"
+              ]
+            },
+            {
+              "title": "其他抱怨",
+              "metrics": {
+                "mentions": 4,
+                "unique_authors": 3
+              },
+              "evidence_quote_ids": [
+                "1obo4um",
+                "1k57h2f",
+                "c9qyow"
+              ]
+            }
+          ],
+          "competitor_insights": [
+            {
+              "name": "Kershaw",
+              "layer": "brands",
+              "mentions": 3,
+              "sentiment": "mixed",
+              "strengths": [
+                "社区讨论热度高"
+              ],
+              "weaknesses": [
+                "等待更多反馈细节"
+              ],
+              "market_share": 11,
+              "context_snippets": [
+                "Benchmades, Civivi, CJRB, Kershaw, Kizer, Kubey, Sencut, Spyderco, WE, Worksharp, and a freebie",
+                "Benchmades, Civivi, CJRB, Hogue, Kershaw, Kubey, Sencut, Spyderco, Orient Watch",
+                "Easter Sale Benchmade, Urban EDC, Kershaw, Kizer"
+              ]
+            },
+            {
+              "name": "Timestamp",
+              "layer": "attributes",
+              "mentions": 3,
+              "sentiment": "mixed",
+              "strengths": [
+                "社区讨论热度高"
+              ],
+              "weaknesses": [
+                "等待更多反馈细节"
+              ],
+              "market_share": 11,
+              "context_snippets": [
+                "[WTS/WTT] Benchmade Saddle Mountain Skinner • Urban EDC Copita • Kershaw Iridium • Kershaw Leek • Kizer Deckhand • Lander 2 Copper Scales — USA **Timestamp &amp; album:**",
+                "[Timestamp]( [Video]( Up for grabs are a few pieces from LNW",
+                "[Timestamp]( [Data Crew Snacktime Sling](https:/"
+              ]
+            },
+            {
+              "name": "Review",
+              "layer": "attributes",
+              "mentions": 3,
+              "sentiment": "mixed",
+              "strengths": [
+                "社区讨论热度高"
+              ],
+              "weaknesses": [
+                "等待更多反馈细节"
+              ],
+              "market_share": 11,
+              "context_snippets": [
+                "Review: Klarus XT12S (1x18650, XHP35 HI, magnetic charging)",
+                "Wurkkos TS11 Review – Compact 18350 Thrower with Andúril 2",
+                "[Review] Convoy S21E : High Quality Custom EDC Flashlight"
+              ]
+            },
+            {
+              "name": "Gen",
+              "layer": "brands",
+              "mentions": 2,
+              "sentiment": "mixed",
+              "strengths": [
+                "社区讨论热度高"
+              ],
+              "weaknesses": [
+                "等待更多反馈细节"
+              ],
+              "market_share": 7,
+              "context_snippets": [
+                "* Open Sea Topsider Wallet * Helbros Watch * Lamy 2000 Rollerball Pen * Ring from Digby &amp; Iona * Apple Airpods Pro 2 * Case Pocket Knife * Apple Watch Ultra 2 in * Gen",
+                "Headphones - AirPods Pro 1st Gen (Case - KOKOKA Case Cover) Watch - Garmin Instinct 2 graphite Torch - Flintronic Mini Torch, 3"
+              ]
+            },
+            {
+              "name": "Wallet",
+              "layer": "attributes",
+              "mentions": 2,
+              "sentiment": "mixed",
+              "strengths": [
+                "社区讨论热度高"
+              ],
+              "weaknesses": [
+                "等待更多反馈细节"
+              ],
+              "market_share": 7,
+              "context_snippets": [
+                "Wallet contains a Band-Aid tucked between the folded cash",
+                "[WTS] Lynch Pry bars &amp; Wallet"
+              ]
+            },
+            {
+              "name": "Aerum Special",
+              "layer": "brands",
+              "mentions": 2,
+              "sentiment": "mixed",
+              "strengths": [
+                "社区讨论热度高"
+              ],
+              "weaknesses": [
+                "等待更多反馈细节"
+              ],
+              "market_share": 7,
+              "context_snippets": [
+                "Jason Guthrie Scout, Herman Ishtar, CRK Sebenza Armor Black Cerakoted, Shirogorov 111 Aerum Special Edition, Curtis Cruze Flipper CF/ Damasteel, Full Dress We Zizzit, MetonBoss Timascus Para 3 Scales,",
+                "Rockstead Higo II DLC, CRK Sebenza Cerakoted Spydie Mod, Shirogorov 111 Aerum Special Edition, Curtis Cruze Flipper CF/ Damasteel, Kunwu Giga Padre Mirror DLC, Full Dress We Zizzit, MetonBoss Timascus"
+              ]
+            },
+            {
+              "name": "Blade",
+              "layer": "attributes",
+              "mentions": 2,
+              "sentiment": "mixed",
+              "strengths": [
+                "社区讨论热度高"
+              ],
+              "weaknesses": [
+                "等待更多反馈细节"
+              ],
+              "market_share": 7,
+              "context_snippets": [
+                "Jason Guthrie Scout, Herman Ishtar, CRK Sebenza Armor Black Cerakoted, Shirogorov 111 Aerum Special Edition, Curtis Cruze Flipper CF/ Damasteel, Full Dress We Zizzit, MetonBoss Timascus Para 3 Scales,",
+                "**First is the A rated Benchmade Auto Presidio II 5700SBK:** Blade steel is CPM-S30V"
+              ]
+            },
+            {
+              "name": "CRK Sebenza",
+              "layer": "attributes",
+              "mentions": 2,
+              "sentiment": "mixed",
+              "strengths": [
+                "社区讨论热度高"
+              ],
+              "weaknesses": [
+                "等待更多反馈细节"
+              ],
+              "market_share": 7,
+              "context_snippets": [
+                "Jason Guthrie Scout, Herman Ishtar, CRK Sebenza Armor Black Cerakoted, Shirogorov 111 Aerum Special Edition, Curtis Cruze Flipper CF/ Damasteel, Full Dress We Zizzit, MetonBoss Timascus Para 3 Scales,",
+                "Rockstead Higo II DLC, CRK Sebenza Cerakoted Spydie Mod, Shirogorov 111 Aerum Special Edition, Curtis Cruze Flipper CF/ Damasteel, Kunwu Giga Padre Mirror DLC, Full Dress We Zizzit, MetonBoss Timascus"
+              ]
+            },
+            {
+              "name": "Curtis Cruze",
+              "layer": "brands",
+              "mentions": 2,
+              "sentiment": "mixed",
+              "strengths": [
+                "社区讨论热度高"
+              ],
+              "weaknesses": [
+                "等待更多反馈细节"
+              ],
+              "market_share": 7,
+              "context_snippets": [
+                "Jason Guthrie Scout, Herman Ishtar, CRK Sebenza Armor Black Cerakoted, Shirogorov 111 Aerum Special Edition, Curtis Cruze Flipper CF/ Damasteel, Full Dress We Zizzit, MetonBoss Timascus Para 3 Scales,",
+                "Rockstead Higo II DLC, CRK Sebenza Cerakoted Spydie Mod, Shirogorov 111 Aerum Special Edition, Curtis Cruze Flipper CF/ Damasteel, Kunwu Giga Padre Mirror DLC, Full Dress We Zizzit, MetonBoss Timascus"
+              ]
+            },
+            {
+              "name": "Damasteel",
+              "layer": "attributes",
+              "mentions": 2,
+              "sentiment": "mixed",
+              "strengths": [
+                "社区讨论热度高"
+              ],
+              "weaknesses": [
+                "等待更多反馈细节"
+              ],
+              "market_share": 7,
+              "context_snippets": [
+                "Jason Guthrie Scout, Herman Ishtar, CRK Sebenza Armor Black Cerakoted, Shirogorov 111 Aerum Special Edition, Curtis Cruze Flipper CF/ Damasteel, Full Dress We Zizzit, MetonBoss Timascus Para 3 Scales,",
+                "Rockstead Higo II DLC, CRK Sebenza Cerakoted Spydie Mod, Shirogorov 111 Aerum Special Edition, Curtis Cruze Flipper CF/ Damasteel, Kunwu Giga Padre Mirror DLC, Full Dress We Zizzit, MetonBoss Timascus"
+              ]
+            },
+            {
+              "name": "Edition",
+              "layer": "attributes",
+              "mentions": 2,
+              "sentiment": "mixed",
+              "strengths": [
+                "社区讨论热度高"
+              ],
+              "weaknesses": [
+                "等待更多反馈细节"
+              ],
+              "market_share": 7,
+              "context_snippets": [
+                "Jason Guthrie Scout, Herman Ishtar, CRK Sebenza Armor Black Cerakoted, Shirogorov 111 Aerum Special Edition, Curtis Cruze Flipper CF/ Damasteel, Full Dress We Zizzit, MetonBoss Timascus Para 3 Scales,",
+                "Rockstead Higo II DLC, CRK Sebenza Cerakoted Spydie Mod, Shirogorov 111 Aerum Special Edition, Curtis Cruze Flipper CF/ Damasteel, Kunwu Giga Padre Mirror DLC, Full Dress We Zizzit, MetonBoss Timascus"
+              ]
+            },
+            {
+              "name": "Flipper CF",
+              "layer": "brands",
+              "mentions": 2,
+              "sentiment": "mixed",
+              "strengths": [
+                "社区讨论热度高"
+              ],
+              "weaknesses": [
+                "等待更多反馈细节"
+              ],
+              "market_share": 7,
+              "context_snippets": [
+                "Jason Guthrie Scout, Herman Ishtar, CRK Sebenza Armor Black Cerakoted, Shirogorov 111 Aerum Special Edition, Curtis Cruze Flipper CF/ Damasteel, Full Dress We Zizzit, MetonBoss Timascus Para 3 Scales,",
+                "Rockstead Higo II DLC, CRK Sebenza Cerakoted Spydie Mod, Shirogorov 111 Aerum Special Edition, Curtis Cruze Flipper CF/ Damasteel, Kunwu Giga Padre Mirror DLC, Full Dress We Zizzit, MetonBoss Timascus"
+              ]
+            }
+          ],
+          "buying_opportunities": [
+            {
+              "description": "Suggestions to complete my Matte Black EDC",
+              "key_insights": [
+                "at",
+                "att",
+                "black",
+                "co"
+              ],
+              "top_channels": [],
+              "potential_users": "约1302个潜在团队",
+              "relevance_score": 1.0,
+              "source_examples": [
+                {
+                  "url": "https://www.reddit.com/r/EDC/comments/68tnay/suggestions_to_complete_my_matte_black_edc/",
+                  "author": "EDCGuy",
+                  "content": "Hello,\n\n**TLDR: I would love EDC Suggestions of quality items in black.**\n\nI am looking to go all out on EDC items. \n\nRight now my EDC is pretty generic. I have a basic pocket knife, a \"Rite in the...",
+                  "upvotes": 1,
+                  "community": "r/EDC",
+                  "permalink": "https://reddit.com/r/EDC/comments/68tnay/suggestions_to_complete_my_matte_black_edc/",
+                  "duplicate_ids": [
+                    "68tnay"
+                  ],
+                  "evidence_count": 2
+                },
+                {
+                  "url": "https://www.youtube.com/watch?v=jPcH_n5fcjg",
+                  "author": "TerryLee1010",
+                  "content": "The HD03 packs MONSTER-level brightness (680 lumens), dual beam modes (spotlight &amp; floodlight), and 20+ RGB lighting modes into a pocket-sized clip-on light with 180m throw.\n\n \n\nIt offers 3 com...",
+                  "upvotes": 38,
+                  "community": "r/flashlight",
+                  "permalink": "https://reddit.com/r/flashlight/comments/1lr837g/presale_of_the_hd03_is_in_full_swing_limited/",
+                  "duplicate_ids": [],
+                  "evidence_count": 1
+                }
+              ],
+              "linked_pain_cluster": "Badge Holder Retractable",
+              "potential_users_est": 1302
+            },
+            {
+              "description": "would love EDC Suggestions of quality items in black",
+              "key_insights": [
+                "ali",
+                "black",
+                "edc",
+                "em"
+              ],
+              "top_channels": [],
+              "potential_users": "约1502个潜在团队",
+              "relevance_score": 1.0,
+              "source_examples": [
+                {
+                  "url": "https://www.reddit.com/r/EDC/comments/68tnay/suggestions_to_complete_my_matte_black_edc/",
+                  "author": "EDCGuy",
+                  "content": "Hello,\n\n**TLDR: I would love EDC Suggestions of quality items in black.**\n\nI am looking to go all out on EDC items. \n\nRight now my EDC is pretty generic. I have a basic pocket knife, a \"Rite in the...",
+                  "upvotes": 1,
+                  "community": "r/EDC",
+                  "permalink": "https://reddit.com/r/EDC/comments/68tnay/suggestions_to_complete_my_matte_black_edc/",
+                  "duplicate_ids": [
+                    "68tnay"
+                  ],
+                  "evidence_count": 2
+                },
+                {
+                  "url": "https://www.youtube.com/watch?v=jPcH_n5fcjg",
+                  "author": "TerryLee1010",
+                  "content": "The HD03 packs MONSTER-level brightness (680 lumens), dual beam modes (spotlight &amp; floodlight), and 20+ RGB lighting modes into a pocket-sized clip-on light with 180m throw.\n\n \n\nIt offers 3 com...",
+                  "upvotes": 38,
+                  "community": "r/flashlight",
+                  "permalink": "https://reddit.com/r/flashlight/comments/1lr837g/presale_of_the_hd03_is_in_full_swing_limited/",
+                  "duplicate_ids": [],
+                  "evidence_count": 1
+                }
+              ],
+              "linked_pain_cluster": "Badge Holder Retractable",
+              "potential_users_est": 1502
+            },
+            {
+              "description": "Does anybody have any suggestions",
+              "key_insights": [
+                "an",
+                "any",
+                "anybody",
+                "ave"
+              ],
+              "top_channels": [],
+              "potential_users": "约910个潜在团队",
+              "relevance_score": 1.0,
+              "source_examples": [
+                {
+                  "url": "https://www.reddit.com/r/EDC/comments/iincja/college_keycard_dilemma/",
+                  "author": "FrenchFry1601",
+                  "content": "I have a keycard I have to swipe for meals and building access. I would like to get it on my keychain so I don’t have to keep getting my wallet out constantly. Does anybody have any suggestions?",
+                  "upvotes": 3,
+                  "community": "r/EDC",
+                  "permalink": "https://reddit.com/r/EDC/comments/iincja/college_keycard_dilemma/",
+                  "duplicate_ids": [
+                    "iincja"
+                  ],
+                  "evidence_count": 2
+                },
+                {
+                  "url": "https://www.youtube.com/watch?v=jPcH_n5fcjg",
+                  "author": "TerryLee1010",
+                  "content": "The HD03 packs MONSTER-level brightness (680 lumens), dual beam modes (spotlight &amp; floodlight), and 20+ RGB lighting modes into a pocket-sized clip-on light with 180m throw.\n\n \n\nIt offers 3 com...",
+                  "upvotes": 38,
+                  "community": "r/flashlight",
+                  "permalink": "https://reddit.com/r/flashlight/comments/1lr837g/presale_of_the_hd03_is_in_full_swing_limited/",
+                  "duplicate_ids": [],
+                  "evidence_count": 1
+                }
+              ],
+              "linked_pain_cluster": "Badge Holder Retractable",
+              "potential_users_est": 910
+            },
+            {
+              "description": "looking for a new model",
+              "key_insights": [
+                "kin",
+                "king",
+                "lo",
+                "look"
+              ],
+              "top_channels": [],
+              "potential_users": "约1060个潜在团队",
+              "relevance_score": 1.0,
+              "source_examples": [
+                {
+                  "url": "https://i.redd.it/i3ya0ygg3pne1.jpeg",
+                  "author": "Immediate_Record_946",
+                  "content": "Headphones - AirPods Pro 1st Gen (Case - KOKOKA Case Cover)\nWatch - Garmin Instinct 2 graphite\nTorch - Flintronic Mini Torch, 3.5\" Pocket LED Torch\nWallet - Unsure of model (looking for a new model...",
+                  "upvotes": 56,
+                  "community": "r/EDC",
+                  "permalink": "https://reddit.com/r/EDC/comments/1j7c166/my_everyday_carry/",
+                  "duplicate_ids": [
+                    "1j7c166"
+                  ],
+                  "evidence_count": 2
+                },
+                {
+                  "url": "https://www.youtube.com/watch?v=jPcH_n5fcjg",
+                  "author": "TerryLee1010",
+                  "content": "The HD03 packs MONSTER-level brightness (680 lumens), dual beam modes (spotlight &amp; floodlight), and 20+ RGB lighting modes into a pocket-sized clip-on light with 180m throw.\n\n \n\nIt offers 3 com...",
+                  "upvotes": 38,
+                  "community": "r/flashlight",
+                  "permalink": "https://reddit.com/r/flashlight/comments/1lr837g/presale_of_the_hd03_is_in_full_swing_limited/",
+                  "duplicate_ids": [],
+                  "evidence_count": 1
+                }
+              ],
+              "linked_pain_cluster": "Badge Holder Retractable",
+              "potential_users_est": 1060
+            },
+            {
+              "description": "looking for cash only, however I would definitely consider a trade for a large CKF",
+              "key_insights": [
+                "ad",
+                "ash",
+                "cas",
+                "cash"
+              ],
+              "top_channels": [],
+              "potential_users": "约1680个潜在团队",
+              "relevance_score": 1.0,
+              "source_examples": [
+                {
+                  "url": "https://www.reddit.com/r/Knife_Swap/comments/1knh6q1/ubigmetalhoobajoobs_slightly_less_big_but_still/",
+                  "author": "BigMetalHoobajoob",
+                  "content": "https://imgur.com/a/1vTaFk9\r\n\r\n\nHeya folks, it’s time for round 5 of my multi- knife deal-a-palooza! I’m primarily looking for cash only, however I would definitely consider a trade for a large CKF...",
+                  "upvotes": 6,
+                  "community": "r/Knife_Swap",
+                  "permalink": "https://reddit.com/r/Knife_Swap/comments/1knh6q1/ubigmetalhoobajoobs_slightly_less_big_but_still/",
+                  "duplicate_ids": [],
+                  "evidence_count": 1
+                },
+                {
+                  "url": "https://www.reddit.com/gallery/1di7m26",
+                  "author": "eaglezfan10",
+                  "content": "Ferragamo keychain, antique gold cufflinks, NAA .22mag, US Revolver Co Topbreak .22, 22k gold bracelet, 1950’s Rolex Oysterdate Precision, 22k gold Ganesha chain, vintage Dior mini-clutch, 22k gold...",
+                  "upvotes": 404,
+                  "community": "r/EDC",
+                  "permalink": "https://reddit.com/r/EDC/comments/1di7m26/26m_everyday_carry/",
+                  "duplicate_ids": [
+                    "1di7m26"
+                  ],
+                  "evidence_count": 2
+                }
+              ],
+              "linked_pain_cluster": "Badge Holder Retractable",
+              "potential_users_est": 1680
+            }
+          ]
+        },
+        "facts_v2_quality": {
+          "tier": "A_full",
+          "flags": [],
+          "passed": true,
+          "metrics": {
+            "agg_posts": 33,
+            "solutions": 8,
+            "good_pains": 2,
+            "good_brands": 3,
+            "agg_comments": 0,
+            "source_posts": 33,
+            "coverage_tier": "unknown",
+            "coverage_total": 0,
+            "on_topic_ratio": 0.818,
+            "sample_checked": 33,
+            "source_comments": 0,
+            "db_comments_total": 0,
+            "topic_terms_count": 31,
+            "topic_terms_source": "profile",
+            "coverage_months_avg": 0.0,
+            "coverage_months_max": 0,
+            "coverage_months_min": 0,
+            "min_sample_comments": 0,
+            "db_comments_eligible": 0,
+            "coverage_capped_count": 0,
+            "topic_profiles_status": "loaded",
+            "coverage_status_counts": {},
+            "semantic_search_status": "semantic+keyword",
+            "comments_pipeline_status": "disabled",
+            "pain_clusters_pipeline_status": "engine_tfidf_fallback"
+          }
+        },
+        "market_saturation": [
+          {
+            "status": "机会窗口",
+            "community": "r/EDC",
+            "top_brands": [
+              {
+                "brand": "Kershaw",
+                "status": "机会窗口",
+                "saturation": 0.0
+              },
+              {
+                "brand": "Timestamp",
+                "status": "机会窗口",
+                "saturation": 0.0
+              },
+              {
+                "brand": "Review",
+                "status": "机会窗口",
+                "saturation": 0.0
+              }
+            ],
+            "overall_saturation": 0.0
+          },
+          {
+            "status": "机会窗口",
+            "community": "r/Knife_Swap",
+            "top_brands": [
+              {
+                "brand": "Kershaw",
+                "status": "机会窗口",
+                "saturation": 0.0
+              },
+              {
+                "brand": "Timestamp",
+                "status": "机会窗口",
+                "saturation": 0.0
+              },
+              {
+                "brand": "Review",
+                "status": "机会窗口",
+                "saturation": 0.0
+              }
+            ],
+            "overall_saturation": 0.0
+          },
+          {
+            "status": "机会窗口",
+            "community": "r/EDCexchange",
+            "top_brands": [
+              {
+                "brand": "Kershaw",
+                "status": "机会窗口",
+                "saturation": 0.0
+              },
+              {
+                "brand": "Timestamp",
+                "status": "机会窗口",
+                "saturation": 0.0
+              },
+              {
+                "brand": "Review",
+                "status": "机会窗口",
+                "saturation": 0.0
+              }
+            ],
+            "overall_saturation": 0.0
+          },
+          {
+            "status": "机会窗口",
+            "community": "r/flashlight",
+            "top_brands": [
+              {
+                "brand": "Kershaw",
+                "status": "机会窗口",
+                "saturation": 0.0
+              },
+              {
+                "brand": "Timestamp",
+                "status": "机会窗口",
+                "saturation": 0.0
+              },
+              {
+                "brand": "Review",
+                "status": "机会窗口",
+                "saturation": 0.0
+              }
+            ],
+            "overall_saturation": 0.0
+          },
+          {
+            "status": "机会窗口",
+            "community": "r/FlashlightIndia",
+            "top_brands": [
+              {
+                "brand": "Kershaw",
+                "status": "机会窗口",
+                "saturation": 0.0
+              },
+              {
+                "brand": "Timestamp",
+                "status": "机会窗口",
+                "saturation": 0.0
+              },
+              {
+                "brand": "Review",
+                "status": "机会窗口",
+                "saturation": 0.0
+              }
+            ],
+            "overall_saturation": 0.0
+          },
+          {
+            "status": "机会窗口",
+            "community": "r/keychain",
+            "top_brands": [
+              {
+                "brand": "Kershaw",
+                "status": "机会窗口",
+                "saturation": 0.0
+              },
+              {
+                "brand": "Timestamp",
+                "status": "机会窗口",
+                "saturation": 0.0
+              },
+              {
+                "brand": "Review",
+                "status": "机会窗口",
+                "saturation": 0.0
+              }
+            ],
+            "overall_saturation": 0.0
+          },
+          {
+            "status": "机会窗口",
+            "community": "r/edc",
+            "top_brands": [
+              {
+                "brand": "Kershaw",
+                "status": "机会窗口",
+                "saturation": 0.0
+              },
+              {
+                "brand": "Timestamp",
+                "status": "机会窗口",
+                "saturation": 0.0
+              },
+              {
+                "brand": "Review",
+                "status": "机会窗口",
+                "saturation": 0.0
+              }
+            ],
+            "overall_saturation": 0.0
+          },
+          {
+            "status": "机会窗口",
+            "community": "r/knifeclub",
+            "top_brands": [
+              {
+                "brand": "Kershaw",
+                "status": "机会窗口",
+                "saturation": 0.0
+              },
+              {
+                "brand": "Timestamp",
+                "status": "机会窗口",
+                "saturation": 0.0
+              },
+              {
+                "brand": "Review",
+                "status": "机会窗口",
+                "saturation": 0.0
+              }
+            ],
+            "overall_saturation": 0.0
+          },
+          {
+            "status": "机会窗口",
+            "community": "r/multitools",
+            "top_brands": [
+              {
+                "brand": "Kershaw",
+                "status": "机会窗口",
+                "saturation": 0.0
+              },
+              {
+                "brand": "Timestamp",
+                "status": "机会窗口",
+                "saturation": 0.0
+              },
+              {
+                "brand": "Review",
+                "status": "机会窗口",
+                "saturation": 0.0
+              }
+            ],
+            "overall_saturation": 0.0
+          },
+          {
+            "status": "机会窗口",
+            "community": "r/ultralight",
+            "top_brands": [
+              {
+                "brand": "Kershaw",
+                "status": "机会窗口",
+                "saturation": 0.0
+              },
+              {
+                "brand": "Timestamp",
+                "status": "机会窗口",
+                "saturation": 0.0
+              },
+              {
+                "brand": "Review",
+                "status": "机会窗口",
+                "saturation": 0.0
+              }
+            ],
+            "overall_saturation": 0.0
+          },
+          {
+            "status": "机会窗口",
+            "community": "r/campinggear",
+            "top_brands": [
+              {
+                "brand": "Kershaw",
+                "status": "机会窗口",
+                "saturation": 0.0
+              },
+              {
+                "brand": "Timestamp",
+                "status": "机会窗口",
+                "saturation": 0.0
+              },
+              {
+                "brand": "Review",
+                "status": "机会窗口",
+                "saturation": 0.0
+              }
+            ],
+            "overall_saturation": 0.0
+          },
+          {
+            "status": "机会窗口",
+            "community": "r/buyitforlife",
+            "top_brands": [
+              {
+                "brand": "Kershaw",
+                "status": "机会窗口",
+                "saturation": 0.0
+              },
+              {
+                "brand": "Timestamp",
+                "status": "机会窗口",
+                "saturation": 0.0
+              },
+              {
+                "brand": "Review",
+                "status": "机会窗口",
+                "saturation": 0.0
+              }
+            ],
+            "overall_saturation": 0.0
+          }
+        ],
+        "sample_comments_db": [],
+        "battlefield_profiles": [
+          {
+            "persona": "用户需求/消费党",
+            "strategy": [
+              "减少重复操作",
+              "提升日常效率"
+            ],
+            "pain_focus": [
+              "Badge Holder Retractable Clip Heavy Duty Carabiner Badge Reel Keychain with Lanyard ID",
+              "I waited 5 months to review this light",
+              "I'd like a carabiner still with a hard, clear card c"
+            ],
+            "communities": [
+              "r/EDC"
+            ],
+            "evidence_posts": [
+              {
+                "url": "https://www.reddit.com/r/EDC/comments/1obo4um/badge_holder_retractable_clip_heavy_duty/",
+                "author": "r_ldl23",
+                "content": "I have an EDC work/access card that has a corporate carabiner and I'd like something cooler and thought I'd see if anyone here has some ideas. \n\nI'd like a carabiner still with a hard, clear card c...",
+                "upvotes": 1,
+                "community": "r/EDC",
+                "permalink": "https://reddit.com/r/EDC/comments/1obo4um/badge_holder_retractable_clip_heavy_duty/",
+                "duplicate_ids": [
+                  "1obo4um"
+                ],
+                "evidence_count": 2
+              },
+              {
+                "url": "https://www.reddit.com/gallery/1di7m26",
+                "author": "eaglezfan10",
+                "content": "Ferragamo keychain, antique gold cufflinks, NAA .22mag, US Revolver Co Topbreak .22, 22k gold bracelet, 1950’s Rolex Oysterdate Precision, 22k gold Ganesha chain, vintage Dior mini-clutch, 22k gold...",
+                "upvotes": 404,
+                "community": "r/EDC",
+                "permalink": "https://reddit.com/r/EDC/comments/1di7m26/26m_everyday_carry/",
+                "duplicate_ids": [
+                  "1di7m26"
+                ],
+                "evidence_count": 2
+              }
+            ]
+          },
+          {
+            "persona": "用户需求/消费党",
+            "strategy": [
+              "费用结构透明化",
+              "成本可预测与可对比"
+            ],
+            "pain_focus": [
+              "It's once again time for u/BigMetalHoobajoob's sometimes poorly formatted, always fantastically priced Big, Metal XXXtravaganza, Round IV, with new blades and even newer prices"
+            ],
+            "communities": [
+              "r/Knife_Swap"
+            ],
+            "evidence_posts": [
+              {
+                "url": "https://www.reddit.com/r/Knife_Swap/comments/1k57h2f/wts_uh_oh_its_once_again_time_for/",
+                "author": "BigMetalHoobajoob",
+                "content": "https://imgur.com/a/ICTM6Nw\n\n\nAlrighty folks, keeping with my commitment to try and not ramble with needless verbosity, finally I've proven my reliability and thus will say I  dramatically prefer Z...",
+                "upvotes": 25,
+                "community": "r/Knife_Swap",
+                "permalink": "https://reddit.com/r/Knife_Swap/comments/1k57h2f/wts_uh_oh_its_once_again_time_for/",
+                "duplicate_ids": [],
+                "evidence_count": 1
+              }
+            ]
+          },
+          {
+            "persona": "用户需求/消费党",
+            "strategy": [
+              "减少重复操作",
+              "提升日常效率"
+            ],
+            "pain_focus": [
+              "Badge Holder Retractable Clip Heavy Duty Carabiner Badge Reel Keychain with Lanyard ID",
+              "I waited 5 months to review this light",
+              "I'd like a carabiner still with a hard, clear card c"
+            ],
+            "communities": [
+              "r/flashlight"
+            ],
+            "evidence_posts": [
+              {
+                "url": "https://www.youtube.com/watch?v=jPcH_n5fcjg",
+                "author": "TerryLee1010",
+                "content": "The HD03 packs MONSTER-level brightness (680 lumens), dual beam modes (spotlight &amp; floodlight), and 20+ RGB lighting modes into a pocket-sized clip-on light with 180m throw.\n\n \n\nIt offers 3 com...",
+                "upvotes": 38,
+                "community": "r/flashlight",
+                "permalink": "https://reddit.com/r/flashlight/comments/1lr837g/presale_of_the_hd03_is_in_full_swing_limited/",
+                "duplicate_ids": [],
+                "evidence_count": 1
+              },
+              {
+                "url": "https://www.reddit.com/r/flashlight/comments/c9qyow/the_flashlight_that_you_can_carry_it_on/",
+                "author": "yangqi8930",
+                "content": "This will be long winded.  \nI waited 5 months to review this light. It has been an awesome light and I couldnt be happier.  \n\n\nI've carried tiny lights that are ok for some things and I keep a larg...",
+                "upvotes": 1,
+                "community": "r/flashlight",
+                "permalink": "https://reddit.com/r/flashlight/comments/c9qyow/the_flashlight_that_you_can_carry_it_on/",
+                "duplicate_ids": [],
+                "evidence_count": 1
+              }
+            ]
+          },
+          {
+            "persona": "用户需求/消费党",
+            "strategy": [
+              "减少重复操作",
+              "提升日常效率"
+            ],
+            "pain_focus": [
+              "Badge Holder Retractable Clip Heavy Duty Carabiner Badge Reel Keychain with Lanyard ID",
+              "I waited 5 months to review this light",
+              "I'd like a carabiner still with a hard, clear card c"
+            ],
+            "communities": [
+              "r/edc"
+            ],
+            "evidence_posts": [
+              {
+                "url": "https://www.reddit.com/r/EDC/comments/1obo4um/badge_holder_retractable_clip_heavy_duty/",
+                "author": "r_ldl23",
+                "content": "I have an EDC work/access card that has a corporate carabiner and I'd like something cooler and thought I'd see if anyone here has some ideas. \n\nI'd like a carabiner still with a hard, clear card c...",
+                "upvotes": 1,
+                "community": "r/EDC",
+                "permalink": "https://reddit.com/r/EDC/comments/1obo4um/badge_holder_retractable_clip_heavy_duty/",
+                "duplicate_ids": [
+                  "1obo4um"
+                ],
+                "evidence_count": 2
+              },
+              {
+                "url": "https://www.reddit.com/gallery/1di7m26",
+                "author": "eaglezfan10",
+                "content": "Ferragamo keychain, antique gold cufflinks, NAA .22mag, US Revolver Co Topbreak .22, 22k gold bracelet, 1950’s Rolex Oysterdate Precision, 22k gold Ganesha chain, vintage Dior mini-clutch, 22k gold...",
+                "upvotes": 404,
+                "community": "r/EDC",
+                "permalink": "https://reddit.com/r/EDC/comments/1di7m26/26m_everyday_carry/",
+                "duplicate_ids": [
+                  "1di7m26"
+                ],
+                "evidence_count": 2
+              }
+            ]
+          }
+        ]
+      },
+      "report_structured": {
+        "decision_cards": [
+          {
+            "title": "需求趋势",
+            "conclusion": "过去周期内已覆盖 33 帖 / 0 评论，趋势可用于继续决策。",
+            "details": [
+              "覆盖社区：12 个",
+              "这是系统生成的统一结构报告，不依赖前端拼装。"
+            ]
+          },
+          {
+            "title": "问题/解决方案比",
+            "conclusion": "P/S 比约 0.00，痛点与方案已形成可读结构。",
+            "details": [
+              "P/S 比：0.00",
+              "结论力度会随证据强度自动升级或保守。"
+            ]
+          },
+          {
+            "title": "核心社群",
+            "conclusion": "当前最活跃社区集中在 r/EDC, r/Knife_Swap, r/edc。",
+            "details": [
+              "优先看高活跃且重复抱怨出现的社区。",
+              "社区名单由本轮分析真实数据生成。"
+            ]
+          },
+          {
+            "title": "明确机会点",
+            "conclusion": "已出现机会线索：Suggestions to complete my Matte Black EDC",
+            "details": [
+              "机会卡与痛点卡使用同一条证据链。",
+              "B/C 是 Full A 同骨架简化，不走独立页面结构。"
+            ]
+          }
+        ],
+        "market_health": {
+          "competition_saturation": {
+            "level": "竞争可见，但仍有结构性机会",
+            "details": [
+              "已分析 33 帖 / 0 评论。",
+              "核心社区：r/EDC, r/Knife_Swap, r/edc"
+            ],
+            "interpretation": "当前结论可用于继续推进。"
+          },
+          "ps_ratio": {
+            "ratio": "0.00",
+            "conclusion": "P/S 比约 0.00，痛点与方案已形成可读结构。",
+            "interpretation": "该比例用于判断市场是在抱怨积压还是方案成熟阶段。",
+            "health_assessment": "可继续推进"
+          }
+        },
+        "battlefields": [
+          {
+            "name": "r/EDC",
+            "subreddits": [
+              "r/EDC"
+            ],
+            "profile": "讨论量和抱怨强度都已达到可执行判断门槛。",
+            "pain_points": [
+              "Badge Holder Retractable Clip Heavy Duty Carabiner Badge Reel Keychain with Lanyard ID"
+            ],
+            "strategy_advice": "先在该社区验证问题复现频率，再决定是否深挖。"
+          },
+          {
+            "name": "r/Knife_Swap",
+            "subreddits": [
+              "r/Knife_Swap"
+            ],
+            "profile": "讨论量和抱怨强度都已达到可执行判断门槛。",
+            "pain_points": [
+              "It's once again time for u/BigMetalHoobajoob's sometimes poorly formatted, always fantastically priced Big, Metal XXXtravaganza, Round IV, with new blades and even newer prices"
+            ],
+            "strategy_advice": "先在该社区验证问题复现频率，再决定是否深挖。"
+          },
+          {
+            "name": "r/edc",
+            "subreddits": [
+              "r/edc"
+            ],
+            "profile": "讨论量和抱怨强度都已达到可执行判断门槛。",
+            "pain_points": [
+              "I waited 5 months to review this light"
+            ],
+            "strategy_advice": "先在该社区验证问题复现频率，再决定是否深挖。"
+          },
+          {
+            "name": "r/EDCexchange",
+            "subreddits": [
+              "r/EDCexchange"
+            ],
+            "profile": "讨论量和抱怨强度都已达到可执行判断门槛。",
+            "pain_points": [
+              "I'd like a carabiner still with a hard, clear card c"
+            ],
+            "strategy_advice": "先在该社区验证问题复现频率，再决定是否深挖。"
+          }
+        ],
+        "pain_points": [
+          {
+            "title": "Badge Holder Retractable Clip Heavy Duty Carabiner Badge Reel Keychain with Lanyard ID",
+            "user_voices": [
+              "I have an EDC work/access card that has a corporate carabiner and I'd like something cooler and thought I'd see if anyone here has some ideas. \n\nI'd like a carabiner still with a hard, clear card c..."
+            ],
+            "data_impression": "覆盖 12 个社区，已出现可追踪信号。",
+            "interpretation": "该痛点可直接进入解决方案验证。"
+          },
+          {
+            "title": "It's once again time for u/BigMetalHoobajoob's sometimes poorly formatted, always fantastically priced Big, Metal XXXtravaganza, Round IV, with new blades and even newer prices",
+            "user_voices": [
+              "https://imgur.com/a/ICTM6Nw\n\n\nAlrighty folks, keeping with my commitment to try and not ramble with needless verbosity, finally I've proven my reliability and thus will say I  dramatically prefer Z..."
+            ],
+            "data_impression": "覆盖 12 个社区，已出现可追踪信号。",
+            "interpretation": "该痛点可直接进入解决方案验证。"
+          },
+          {
+            "title": "I waited 5 months to review this light",
+            "user_voices": [
+              "This will be long winded.  \nI waited 5 months to review this light. It has been an awesome light and I couldnt be happier.  \n\n\nI've carried tiny lights that are ok for some things and I keep a larg..."
+            ],
+            "data_impression": "覆盖 12 个社区，已出现可追踪信号。",
+            "interpretation": "该痛点可直接进入解决方案验证。"
+          }
+        ],
+        "drivers": [
+          {
+            "title": "效率提升与省时省心",
+            "description": "高频痛点集中在：Badge Holder Retractable Clip Heavy Duty Carabiner Badge Reel Keychain with Lanyard ID / I waited 5 months to review this light"
+          },
+          {
+            "title": "透明定价与成本可控",
+            "description": "高频痛点集中在：It's once again time for u/BigMetalHoobajoob's sometimes poorly formatted, always fantastically priced Big, Metal XXXtravaganza, Round IV, with new blades and even newer prices"
+          },
+          {
+            "title": "驱动力 3",
+            "description": "用户持续强调效率、透明和可控的解决体验。"
+          }
+        ],
+        "opportunities": [
+          {
+            "title": "Suggestions to complete my Matte Black EDC",
+            "target_pain_points": [
+              "at",
+              "att",
+              "black"
+            ],
+            "target_communities": [
+              "r/EDC",
+              "r/Knife_Swap",
+              "r/edc"
+            ],
+            "product_positioning": "约1302个潜在团队",
+            "core_selling_points": [
+              "at",
+              "att",
+              "black"
+            ]
+          },
+          {
+            "title": "would love EDC Suggestions of quality items in black",
+            "target_pain_points": [
+              "ali",
+              "black",
+              "edc"
+            ],
+            "target_communities": [
+              "r/EDC",
+              "r/Knife_Swap",
+              "r/edc"
+            ],
+            "product_positioning": "约1502个潜在团队",
+            "core_selling_points": [
+              "ali",
+              "black",
+              "edc"
+            ]
+          }
+        ]
+      },
+      "structured_llm_status": "completed",
+      "structured_llm_reason": "deterministic_fallback",
+      "knowledge_graph": {
+        "drivers": [
+          {
+            "title": "效率提升与省时省心",
+            "actions": [
+              "减少重复操作",
+              "提升日常效率"
+            ],
+            "description": "高频痛点集中在：Badge Holder Retractable Clip Heavy Duty Carabiner Badge Reel Keychain with Lanyard ID / I waited 5 months to review this light",
+            "source_pains": [
+              "Badge Holder Retractable Clip Heavy Duty Carabiner Badge Reel Keychain with Lanyard ID",
+              "I waited 5 months to review this light",
+              "I'd like a carabiner still with a hard, clear card c"
+            ]
+          },
+          {
+            "title": "透明定价与成本可控",
+            "actions": [
+              "费用结构透明化",
+              "成本可预测与可对比"
+            ],
+            "description": "高频痛点集中在：It's once again time for u/BigMetalHoobajoob's sometimes poorly formatted, always fantastically priced Big, Metal XXXtravaganza, Round IV, with new blades and even newer prices",
+            "source_pains": [
+              "It's once again time for u/BigMetalHoobajoob's sometimes poorly formatted, always fantastically priced Big, Metal XXXtravaganza, Round IV, with new blades and even newer prices"
+            ]
+          }
+        ],
+        "evidence": [],
+        "communities": [
+          {
+            "name": "r/edc",
+            "posts": 10,
+            "comments": 0
+          },
+          {
+            "name": "r/knife_swap",
+            "posts": 8,
+            "comments": 0
+          },
+          {
+            "name": "r/flashlight",
+            "posts": 6,
+            "comments": 0
+          },
+          {
+            "name": "r/edcexchange",
+            "posts": 5,
+            "comments": 0
+          },
+          {
+            "name": "r/flashlightindia",
+            "posts": 2,
+            "comments": 0
+          },
+          {
+            "name": "r/keychain",
+            "posts": 1,
+            "comments": 0
+          },
+          {
+            "name": "r/ultralight",
+            "posts": 1,
+            "comments": 0
+          }
+        ],
+        "pain_points": [
+          {
+            "name": "",
+            "evidence": [],
+            "mentions": 0,
+            "evidence_ids": [
+              "1obo4um",
+              "1k57h2f",
+              "c9qyow"
+            ],
+            "unique_authors": 0
+          },
+          {
+            "name": "",
+            "evidence": [],
+            "mentions": 0,
+            "evidence_ids": [
+              "1obo4um",
+              "1k57h2f",
+              "c9qyow"
+            ],
+            "unique_authors": 0
+          }
+        ]
+      },
+      "llm_used": false,
+      "llm_model": null,
+      "llm_rounds": 0
+    },
+    "metrics_summary": null
+  }
+}

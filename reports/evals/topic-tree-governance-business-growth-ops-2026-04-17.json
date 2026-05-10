@@ -1,0 +1,143 @@
+{
+  "generated_at": "2026-04-16T16:17:06.176755Z",
+  "scope": "business-growth-ops",
+  "overall_decision": "rewrite",
+  "topic_tree_governance": {
+    "overall_decision": "rewrite",
+    "scopes": {
+      "business-growth-ops": {
+        "scope_id": "business-growth-ops",
+        "overall_decision": "rewrite",
+        "allocation": {
+          "decision": "publish",
+          "window_days": 3,
+          "visible_pack_counts": {
+            "paid-economics": 21,
+            "organic-discovery": 8,
+            "funnel-conversion": 3
+          },
+          "visible_cluster_counts": {
+            "ads": 19,
+            "attribution": 2,
+            "seo-geo": 6,
+            "content-production-and-editorial": 2,
+            "funnel": 3
+          },
+          "candidate_pack_counts": {
+            "funnel-conversion": 1,
+            "paid-economics": 1
+          },
+          "candidate_cluster_counts": {
+            "funnel": 1,
+            "attribution": 1
+          },
+          "missing_pack_ids": [],
+          "top_pack_share": 0.6562,
+          "new_source_visible_count": 7
+        },
+        "rotation": {
+          "decision": "rewrite",
+          "window_days": 7,
+          "flagged_items": [
+            {
+              "item_id": "candidate:cand-business-growth-ops-1sn0g8x",
+              "title": "Seeking Honest Recommendations for Strong Paid Ads Specialists or Agencies",
+              "event_hit": false,
+              "angle_hit": false,
+              "community_hit": true,
+              "named_topic_hit": false
+            },
+            {
+              "item_id": "suggestion:suggestion-business-growth-ops-23992cfc56",
+              "title": "这些讨论表面在聊不同投放问题，背后可能都卡在同一种投放经济账：for。",
+              "event_hit": false,
+              "angle_hit": false,
+              "community_hit": true,
+              "named_topic_hit": false
+            }
+          ],
+          "cooldown_override_count": 0,
+          "same_community_recent_counts": {
+            "facebookads": 8,
+            "ecommerce": 2,
+            "ppc": 4,
+            "digitalmarketing": 5,
+            "adops": 1,
+            "blogging": 1,
+            "google_ads": 4,
+            "emailmarketing": 1,
+            "seo": 1
+          }
+        },
+        "supply": {
+          "decision": "publish",
+          "window_days": 7,
+          "publish_pack_counts": {
+            "paid-economics": 36,
+            "organic-discovery": 21,
+            "funnel-conversion": 3
+          },
+          "publish_cluster_counts": {
+            "ads": 35,
+            "attribution": 1,
+            "seo-geo": 17,
+            "content-production-and-editorial": 4,
+            "funnel": 3
+          },
+          "pool_pack_counts": {
+            "funnel-conversion": 2,
+            "paid-economics": 4,
+            "organic-discovery": 1
+          },
+          "pool_cluster_counts": {
+            "funnel": 2,
+            "attribution": 2,
+            "ads": 2,
+            "seo-geo": 1
+          },
+          "blocked_supply_packs": [],
+          "blocked_supply_clusters": [],
+          "missing_supply_packs": [],
+          "half_healthy_packs": []
+        },
+        "source_health": {
+          "decision": "rewrite",
+          "window_days": 7,
+          "pack_health": {
+            "paid-economics": {
+              "record_count": 40,
+              "unique_source_count": 7,
+              "top1_source_share": 0.4103,
+              "top3_source_share": 0.7949,
+              "new_source_hits": 1,
+              "old_source_hits": 38,
+              "decision": "publish"
+            },
+            "organic-discovery": {
+              "record_count": 22,
+              "unique_source_count": 7,
+              "top1_source_share": 0.381,
+              "top3_source_share": 0.7619,
+              "new_source_hits": 11,
+              "old_source_hits": 10,
+              "decision": "publish"
+            },
+            "funnel-conversion": {
+              "record_count": 5,
+              "unique_source_count": 3,
+              "top1_source_share": 0.4,
+              "top3_source_share": 1.0,
+              "new_source_hits": 1,
+              "old_source_hits": 4,
+              "decision": "rewrite"
+            }
+          },
+          "risky_pack_ids": [
+            "funnel-conversion"
+          ],
+          "new_source_credit_count": 13
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "sample_count": 5,
+  "pass_count": 4,
+  "fail_count": 1,
+  "pass_rate": 0.8,
+  "fail_rate": 0.2,
+  "top_failure_tags": [
+    [
+      "reddit_restatement",
+      1
+    ],
+    [
+      "no_judgment_gain",
+      1
+    ]
+  ],
+  "scope_pass_counts": {
+    "ecommerce-sellers": 4
+  },
+  "scope_fail_counts": {
+    "ecommerce-sellers": 1
+  }
+}

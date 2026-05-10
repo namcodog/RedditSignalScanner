@@ -1,0 +1,1801 @@
+{
+  "status": "completed",
+  "mode": "incremental",
+  "total": 199,
+  "succeeded": 197,
+  "failed": 1,
+  "total_new_posts": 985,
+  "total_updated_posts": 0,
+  "total_duplicates": 0,
+  "communities": [
+    {
+      "community": "startups",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.586097,
+      "status": "success"
+    },
+    {
+      "community": "smallbusiness",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.521757,
+      "status": "success"
+    },
+    {
+      "community": "SaaS",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.505414,
+      "status": "success"
+    },
+    {
+      "community": "marketing",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.512908,
+      "status": "success"
+    },
+    {
+      "community": "sales",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.60393,
+      "status": "success"
+    },
+    {
+      "community": "ecommerce",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.49221,
+      "status": "success"
+    },
+    {
+      "community": "freelance",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.536503,
+      "status": "success"
+    },
+    {
+      "community": "consulting",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.467512,
+      "status": "success"
+    },
+    {
+      "community": "venturecapital",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.546128,
+      "status": "success"
+    },
+    {
+      "community": "growthacking",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false,
+      "status": "empty",
+      "duration_seconds": 0.599929
+    },
+    {
+      "community": "ProductManagement",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.505768,
+      "status": "success"
+    },
+    {
+      "community": "UXDesign",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.531825,
+      "status": "success"
+    },
+    {
+      "community": "UI_Design",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.72595,
+      "status": "success"
+    },
+    {
+      "community": "webdesign",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.827157,
+      "status": "success"
+    },
+    {
+      "community": "Frontend",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.497853,
+      "status": "success"
+    },
+    {
+      "community": "Backend",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.574573,
+      "status": "success"
+    },
+    {
+      "community": "devops",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.451604,
+      "status": "success"
+    },
+    {
+      "community": "kubernetes",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.531221,
+      "status": "success"
+    },
+    {
+      "community": "docker",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.502239,
+      "status": "success"
+    },
+    {
+      "community": "aws",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.512179,
+      "status": "success"
+    },
+    {
+      "community": "azure",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.466014,
+      "status": "success"
+    },
+    {
+      "community": "googlecloud",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.626813,
+      "status": "success"
+    },
+    {
+      "community": "MachineLearning",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.504329,
+      "status": "success"
+    },
+    {
+      "community": "artificial",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.554358,
+      "status": "success"
+    },
+    {
+      "community": "deeplearning",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.492733,
+      "status": "success"
+    },
+    {
+      "community": "datascience",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.469928,
+      "status": "success"
+    },
+    {
+      "community": "dataengineering",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.553582,
+      "status": "success"
+    },
+    {
+      "community": "BigData",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.515367,
+      "status": "success"
+    },
+    {
+      "community": "Python",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.484248,
+      "status": "success"
+    },
+    {
+      "community": "javascript",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.497938,
+      "status": "success"
+    },
+    {
+      "community": "golang",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.554613,
+      "status": "success"
+    },
+    {
+      "community": "rust",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.514975,
+      "status": "success"
+    },
+    {
+      "community": "java",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.570831,
+      "status": "success"
+    },
+    {
+      "community": "csharp",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.569027,
+      "status": "success"
+    },
+    {
+      "community": "typescript",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.503601,
+      "status": "success"
+    },
+    {
+      "community": "reactjs",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.525934,
+      "status": "success"
+    },
+    {
+      "community": "vuejs",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.506952,
+      "status": "success"
+    },
+    {
+      "community": "angular",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.600772,
+      "status": "success"
+    },
+    {
+      "community": "node",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.523023,
+      "status": "success"
+    },
+    {
+      "community": "django",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.488174,
+      "status": "success"
+    },
+    {
+      "community": "flask",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.560423,
+      "status": "success"
+    },
+    {
+      "community": "rails",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.579339,
+      "status": "success"
+    },
+    {
+      "community": "laravel",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.504411,
+      "status": "success"
+    },
+    {
+      "community": "dotnet",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.518795,
+      "status": "success"
+    },
+    {
+      "community": "Database",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.513346,
+      "status": "success"
+    },
+    {
+      "community": "PostgreSQL",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.506504,
+      "status": "success"
+    },
+    {
+      "community": "mysql",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.518468,
+      "status": "success"
+    },
+    {
+      "community": "mongodb",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.611299,
+      "status": "success"
+    },
+    {
+      "community": "redis",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.464146,
+      "status": "success"
+    },
+    {
+      "community": "investing",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.459,
+      "status": "success"
+    },
+    {
+      "community": "stocks",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.450657,
+      "status": "success"
+    },
+    {
+      "community": "CryptoCurrency",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.476663,
+      "status": "success"
+    },
+    {
+      "community": "Bitcoin",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.484804,
+      "status": "success"
+    },
+    {
+      "community": "ethereum",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.880976,
+      "status": "success"
+    },
+    {
+      "community": "defi",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.487738,
+      "status": "success"
+    },
+    {
+      "community": "options",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.518242,
+      "status": "success"
+    },
+    {
+      "community": "realestate",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.498706,
+      "status": "success"
+    },
+    {
+      "community": "RealEstateInvesting",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.503166,
+      "status": "success"
+    },
+    {
+      "community": "FIRE",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.532141,
+      "status": "success"
+    },
+    {
+      "community": "financialindependence",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.598965,
+      "status": "success"
+    },
+    {
+      "community": "leanfire",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 28.72868,
+      "status": "success"
+    },
+    {
+      "community": "fatFIRE",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.551576,
+      "status": "success"
+    },
+    {
+      "community": "Frugal",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.637901,
+      "status": "success"
+    },
+    {
+      "community": "povertyfinance",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.590933,
+      "status": "success"
+    },
+    {
+      "community": "budgetfood",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.600194,
+      "status": "success"
+    },
+    {
+      "community": "EatCheapAndHealthy",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.480312,
+      "status": "success"
+    },
+    {
+      "community": "MealPrepSunday",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.572978,
+      "status": "success"
+    },
+    {
+      "community": "Cooking",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.448686,
+      "status": "success"
+    },
+    {
+      "community": "AskCulinary",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.49442,
+      "status": "success"
+    },
+    {
+      "community": "fitness",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.469456,
+      "status": "success"
+    },
+    {
+      "community": "bodyweightfitness",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.451633,
+      "status": "success"
+    },
+    {
+      "community": "running",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.607771,
+      "status": "success"
+    },
+    {
+      "community": "cycling",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.472358,
+      "status": "success"
+    },
+    {
+      "community": "yoga",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.541953,
+      "status": "success"
+    },
+    {
+      "community": "loseit",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.591733,
+      "status": "success"
+    },
+    {
+      "community": "progresspics",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.505245,
+      "status": "success"
+    },
+    {
+      "community": "keto",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.565763,
+      "status": "success"
+    },
+    {
+      "community": "intermittentfasting",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.603915,
+      "status": "success"
+    },
+    {
+      "community": "nutrition",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.494632,
+      "status": "success"
+    },
+    {
+      "community": "mentalhealth",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.512033,
+      "status": "success"
+    },
+    {
+      "community": "Anxiety",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.488459,
+      "status": "success"
+    },
+    {
+      "community": "depression",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.497127,
+      "status": "success"
+    },
+    {
+      "community": "selfimprovement",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.517279,
+      "status": "success"
+    },
+    {
+      "community": "getdisciplined",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.528778,
+      "status": "success"
+    },
+    {
+      "community": "productivity",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.595442,
+      "status": "success"
+    },
+    {
+      "community": "DecidingToBeBetter",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.495192,
+      "status": "success"
+    },
+    {
+      "community": "GetMotivated",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.513353,
+      "status": "success"
+    },
+    {
+      "community": "ZenHabits",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.65225,
+      "status": "success"
+    },
+    {
+      "community": "simpleliving",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.509339,
+      "status": "success"
+    },
+    {
+      "community": "declutter",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.507483,
+      "status": "success"
+    },
+    {
+      "community": "organization",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.514512,
+      "status": "success"
+    },
+    {
+      "community": "BuyItForLife",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.498472,
+      "status": "success"
+    },
+    {
+      "community": "GoodValue",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.477229,
+      "status": "success"
+    },
+    {
+      "community": "travel",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.559828,
+      "status": "success"
+    },
+    {
+      "community": "solotravel",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.540592,
+      "status": "success"
+    },
+    {
+      "community": "digitalnomad",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.593239,
+      "status": "success"
+    },
+    {
+      "community": "remotework",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.554052,
+      "status": "success"
+    },
+    {
+      "community": "cscareerquestions",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.558378,
+      "status": "success"
+    },
+    {
+      "community": "ITCareerQuestions",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.502002,
+      "status": "success"
+    },
+    {
+      "community": "jobs",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.519823,
+      "status": "success"
+    },
+    {
+      "community": "resumes",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.520816,
+      "status": "success"
+    },
+    {
+      "community": "interviews",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.466593,
+      "status": "success"
+    },
+    {
+      "community": "GetEmployed",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.485289,
+      "status": "success"
+    },
+    {
+      "community": "careerguidance",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.575155,
+      "status": "success"
+    },
+    {
+      "community": "careerchange",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.529507,
+      "status": "success"
+    },
+    {
+      "community": "AskHR",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.492878,
+      "status": "success"
+    },
+    {
+      "community": "managers",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.50815,
+      "status": "success"
+    },
+    {
+      "community": "leadership",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.497433,
+      "status": "success"
+    },
+    {
+      "community": "AskEngineers",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.503716,
+      "status": "success"
+    },
+    {
+      "community": "EngineeringStudents",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.521398,
+      "status": "success"
+    },
+    {
+      "community": "learnprogramming",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.463757,
+      "status": "success"
+    },
+    {
+      "community": "learnpython",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.60564,
+      "status": "success"
+    },
+    {
+      "community": "learnjava",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.490036,
+      "status": "success"
+    },
+    {
+      "community": "learnjavascript",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.452288,
+      "status": "success"
+    },
+    {
+      "community": "learnmachinelearning",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.706972,
+      "status": "success"
+    },
+    {
+      "community": "AskProgramming",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.498982,
+      "status": "success"
+    },
+    {
+      "community": "coding",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.531104,
+      "status": "success"
+    },
+    {
+      "community": "programming",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.569383,
+      "status": "success"
+    },
+    {
+      "community": "softwaredevelopment",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.498599,
+      "status": "success"
+    },
+    {
+      "community": "SoftwareEngineering",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.494809,
+      "status": "success"
+    },
+    {
+      "community": "ExperiencedDevs",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 28.502347,
+      "status": "success"
+    },
+    {
+      "community": "sysadmin",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.804087,
+      "status": "success"
+    },
+    {
+      "community": "networking",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.482453,
+      "status": "success"
+    },
+    {
+      "community": "homelab",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.821949,
+      "status": "success"
+    },
+    {
+      "community": "selfhosted",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.539825,
+      "status": "success"
+    },
+    {
+      "community": "privacy",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.524306,
+      "status": "success"
+    },
+    {
+      "community": "netsec",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.502781,
+      "status": "success"
+    },
+    {
+      "community": "AskNetsec",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.514695,
+      "status": "success"
+    },
+    {
+      "community": "hacking",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.533346,
+      "status": "success"
+    },
+    {
+      "community": "AskTechnology",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.546825,
+      "status": "success"
+    },
+    {
+      "community": "gadgets",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.524884,
+      "status": "success"
+    },
+    {
+      "community": "hardware",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.501684,
+      "status": "success"
+    },
+    {
+      "community": "buildapc",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.548355,
+      "status": "success"
+    },
+    {
+      "community": "pcmasterrace",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.485997,
+      "status": "success"
+    },
+    {
+      "community": "gaming",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.549078,
+      "status": "success"
+    },
+    {
+      "community": "gamedev",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.475418,
+      "status": "success"
+    },
+    {
+      "community": "IndieGaming",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.510036,
+      "status": "success"
+    },
+    {
+      "community": "Unity3D",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.522852,
+      "status": "success"
+    },
+    {
+      "community": "unrealengine",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.623453,
+      "status": "success"
+    },
+    {
+      "community": "gamedesign",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.50106,
+      "status": "success"
+    },
+    {
+      "community": "truegaming",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.645151,
+      "status": "success"
+    },
+    {
+      "community": "writing",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.485917,
+      "status": "success"
+    },
+    {
+      "community": "WritingPrompts",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.494903,
+      "status": "success"
+    },
+    {
+      "community": "selfpublish",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.515209,
+      "status": "success"
+    },
+    {
+      "community": "photography",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.503181,
+      "status": "success"
+    },
+    {
+      "community": "AskPhotography",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.560448,
+      "status": "success"
+    },
+    {
+      "community": "videography",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.526752,
+      "status": "success"
+    },
+    {
+      "community": "VideoEditing",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.513872,
+      "status": "success"
+    },
+    {
+      "community": "youtubers",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.677708,
+      "status": "success"
+    },
+    {
+      "community": "NewTubers",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.529111,
+      "status": "success"
+    },
+    {
+      "community": "PartneredYoutube",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.495472,
+      "status": "success"
+    },
+    {
+      "community": "Twitch",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.605195,
+      "status": "success"
+    },
+    {
+      "community": "Streaming",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.720418,
+      "status": "success"
+    },
+    {
+      "community": "ContentCreation",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.613314,
+      "status": "success"
+    },
+    {
+      "community": "socialmedia",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.527006,
+      "status": "success"
+    },
+    {
+      "community": "Instagram",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.502734,
+      "status": "success"
+    },
+    {
+      "community": "Tiktokhelp",
+      "status": "failed",
+      "error": "Reddit API error (status=404): {\"reason\": \"banned\", \"message\": \"Not Found\", \"error\": 404}"
+    },
+    {
+      "community": "SEO",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.601964,
+      "status": "success"
+    },
+    {
+      "community": "PPC",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.512416,
+      "status": "success"
+    },
+    {
+      "community": "Affiliatemarketing",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.547148,
+      "status": "success"
+    },
+    {
+      "community": "Emailmarketing",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.517463,
+      "status": "success"
+    },
+    {
+      "community": "copywriting",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.489751,
+      "status": "success"
+    },
+    {
+      "community": "branding",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.606776,
+      "status": "success"
+    },
+    {
+      "community": "logodesign",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.497129,
+      "status": "success"
+    },
+    {
+      "community": "graphic_design",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.522527,
+      "status": "success"
+    },
+    {
+      "community": "AskMarketing",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.477402,
+      "status": "success"
+    },
+    {
+      "community": "Accounting",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.522847,
+      "status": "success"
+    },
+    {
+      "community": "taxpros",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.506229,
+      "status": "success"
+    },
+    {
+      "community": "tax",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.462542,
+      "status": "success"
+    },
+    {
+      "community": "Insurance",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.433085,
+      "status": "success"
+    },
+    {
+      "community": "HealthInsurance",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.52732,
+      "status": "success"
+    },
+    {
+      "community": "StudentLoans",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.468568,
+      "status": "success"
+    },
+    {
+      "community": "CRedit",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.508889,
+      "status": "success"
+    },
+    {
+      "community": "CreditCards",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.490732,
+      "status": "success"
+    },
+    {
+      "community": "churning",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.496119,
+      "status": "success"
+    },
+    {
+      "community": "awardtravel",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.433302,
+      "status": "success"
+    },
+    {
+      "community": "Mortgages",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.495073,
+      "status": "success"
+    },
+    {
+      "community": "FirstTimeHomeBuyer",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.569046,
+      "status": "success"
+    },
+    {
+      "community": "RealEstate",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.547389,
+      "status": "success"
+    },
+    {
+      "community": "Landlord",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.52439,
+      "status": "success"
+    },
+    {
+      "community": "passive_income",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 28.307755,
+      "status": "success"
+    },
+    {
+      "community": "sidehustle",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.043252,
+      "status": "success"
+    },
+    {
+      "community": "beermoney",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.482771,
+      "status": "success"
+    },
+    {
+      "community": "Flipping",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.591428,
+      "status": "success"
+    },
+    {
+      "community": "Resell",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.626131,
+      "status": "success"
+    },
+    {
+      "community": "FulfillmentByAmazon",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.625263,
+      "status": "success"
+    },
+    {
+      "community": "AmazonSeller",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.510055,
+      "status": "success"
+    },
+    {
+      "community": "dropship",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.488658,
+      "status": "success"
+    },
+    {
+      "community": "shopify",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.473828,
+      "status": "success"
+    },
+    {
+      "community": "Etsy",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.590092,
+      "status": "success"
+    },
+    {
+      "community": "EtsySellers",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.562554,
+      "status": "success"
+    },
+    {
+      "community": "printOnDemand",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.49593,
+      "status": "success"
+    },
+    {
+      "community": "merch",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.483114,
+      "status": "success"
+    },
+    {
+      "community": "AmazonMerch",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.518554,
+      "status": "success"
+    },
+    {
+      "community": "Blogging",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.573459,
+      "status": "success"
+    },
+    {
+      "community": "juststart",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.541796,
+      "status": "success"
+    },
+    {
+      "community": "WorkOnline",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.475869,
+      "status": "success"
+    },
+    {
+      "community": "forhire",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.477879,
+      "status": "success"
+    },
+    {
+      "community": "slavelabour",
+      "new_posts": 5,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.746289,
+      "status": "success"
+    }
+  ],
+  "empty_count": 1,
+  "error_count": 1
+}

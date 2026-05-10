@@ -1,0 +1,110 @@
+[
+  {
+    "slug": "cross-border-paypal",
+    "title": "跨境电商/PayPal",
+    "prompt": "帮跨境电商卖家看清 PayPal 的手续费、风控冻结和回款拖延，判断有没有值得切入的替代收款工具机会。",
+    "topic_profile_id": "cross_border_payment_v1",
+    "task_id": "86087efe-8651-415f-a0ba-1b748fe6fb5f",
+    "validated_at": "2026-03-24T01:19:57.274351+00:00",
+    "summary": {
+      "decision_cards": 4,
+      "battlefields": 4,
+      "pain_points": 3,
+      "drivers": 3,
+      "opportunities": 3,
+      "report_markdown_len": 2673,
+      "llm_used": true
+    },
+    "snapshot_url": "/topic-profile-reports/cross-border-paypal.json"
+  },
+  {
+    "slug": "cross-border-cashflow",
+    "title": "跨境电商/现金流",
+    "prompt": "跨境电商卖家多平台回款管理工具，自动预测现金流与结算风险，覆盖 Amazon/Etsy/Shopify。",
+    "topic_profile_id": "cross_border_payment_v1",
+    "task_id": "26b7c699-f3f7-4964-bb8d-ceb83879369b",
+    "validated_at": "2026-03-20T16:48:11.749099+00:00",
+    "summary": {
+      "decision_cards": 4,
+      "battlefields": 4,
+      "pain_points": 3,
+      "drivers": 3,
+      "opportunities": 2,
+      "report_markdown_len": 2805,
+      "llm_used": true
+    },
+    "snapshot_url": "/topic-profile-reports/cross-border-cashflow.json"
+  },
+  {
+    "slug": "cross-border-fee-rate",
+    "title": "跨境电商/回款费率",
+    "prompt": "跨境电商卖家多平台回款与手续费管理工具，覆盖 Amazon/Etsy/Shopify/TikTok Shop，解决结算周期长、费率不透明、资金分散的问题。",
+    "topic_profile_id": "cross_border_payment_v1",
+    "task_id": "c38b8393-2b16-4984-af32-33273089eb5a",
+    "validated_at": "2026-03-20T16:48:37.059692+00:00",
+    "summary": {
+      "decision_cards": 4,
+      "battlefields": 4,
+      "pain_points": 3,
+      "drivers": 3,
+      "opportunities": 2,
+      "report_markdown_len": 3878,
+      "llm_used": true
+    },
+    "snapshot_url": "/topic-profile-reports/cross-border-fee-rate.json"
+  },
+  {
+    "slug": "saas-collaboration",
+    "title": "SaaS协作",
+    "prompt": "远程团队项目管理与协作工具，解决跨时区沟通、任务拆解与进度跟踪问题，关注 Notion/Asana/Trello 的使用痛点与替代机会。",
+    "topic_profile_id": "saas_collaboration_v1",
+    "task_id": "63fb1653-aea9-463a-abd5-202460f010e2",
+    "validated_at": "2026-03-20T16:49:03.179119+00:00",
+    "summary": {
+      "decision_cards": 4,
+      "battlefields": 4,
+      "pain_points": 3,
+      "drivers": 3,
+      "opportunities": 2,
+      "report_markdown_len": 3191,
+      "llm_used": true
+    },
+    "snapshot_url": "/topic-profile-reports/saas-collaboration.json"
+  },
+  {
+    "slug": "home-cleaning",
+    "title": "家居",
+    "prompt": "面向北美租房人群的家居收纳与清洁工具推荐/比价助手，解决空间小、产品选择多、踩雷的问题。",
+    "topic_profile_id": "vacuum_cleaner_v1",
+    "task_id": "dd7e6282-805f-493a-b006-bc77d9bab54a",
+    "validated_at": "2026-03-20T16:49:27.430768+00:00",
+    "summary": {
+      "decision_cards": 4,
+      "battlefields": 4,
+      "pain_points": 3,
+      "drivers": 3,
+      "opportunities": 2,
+      "report_markdown_len": 2704,
+      "llm_used": true
+    },
+    "snapshot_url": "/topic-profile-reports/home-cleaning.json"
+  },
+  {
+    "slug": "edc-pocket-organizer",
+    "title": "户外",
+    "prompt": "我想挖 EDC（everyday carry）里 keychain / pocket organizer 方向的真实需求，重点看用户如何整理钥匙、门禁卡、小刀、手电、耳机，哪些场景会乱、会硌、会丢、不好拿，判断是否适合做小配件或收纳产品。",
+    "topic_profile_id": "edc_everyday_carry_v1",
+    "task_id": "fe26c9bb-90ad-4e5c-9e39-2a6ba2920cf6",
+    "validated_at": "2026-03-20T16:49:55.096303+00:00",
+    "summary": {
+      "decision_cards": 4,
+      "battlefields": 4,
+      "pain_points": 3,
+      "drivers": 3,
+      "opportunities": 2,
+      "report_markdown_len": 3095,
+      "llm_used": true
+    },
+    "snapshot_url": "/topic-profile-reports/edc-pocket-organizer.json"
+  }
+]

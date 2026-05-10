@@ -85,7 +85,12 @@ class GeminiChatClient:
             },
         }
         if response_format and response_format.get("type") == "json_object":
-            payload["generationConfig"]["response_mime_type"] = "application/json"
+            generation_config = payload["generationConfig"]
+            if isinstance(generation_config, dict):
+                generation_config["responseMimeType"] = "application/json"
+                schema = response_format.get("schema")
+                if schema:
+                    generation_config["responseJsonSchema"] = schema
 
         headers = {"Content-Type": "application/json"}
         try:
@@ -109,7 +114,9 @@ class GeminiChatClient:
                 exc.code,
                 err_body[:300],
             )
-            raise LLMClientError("gemini", err_body or "HTTP request failed", status_code=exc.code) from exc
+            raise LLMClientError(
+                "gemini", err_body or "HTTP request failed", status_code=exc.code
+            ) from exc
         except Exception as exc:
             logger.error(
                 "Gemini connection failed model=%s",

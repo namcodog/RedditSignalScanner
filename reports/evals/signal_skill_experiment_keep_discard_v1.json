@@ -1,0 +1,23 @@
+[
+  {
+    "variant_id": "baseline_v1",
+    "pass_rate": 0.1389,
+    "pass_count": 5,
+    "fail_count": 31,
+    "decision": "discard"
+  },
+  {
+    "variant_id": "human_summary_v1",
+    "pass_rate": 0.1111,
+    "pass_count": 4,
+    "fail_count": 32,
+    "decision": "discard"
+  },
+  {
+    "variant_id": "human_summary_tight_why_now_v1",
+    "pass_rate": 0.2778,
+    "pass_count": 10,
+    "fail_count": 26,
+    "decision": "keep"
+  }
+]

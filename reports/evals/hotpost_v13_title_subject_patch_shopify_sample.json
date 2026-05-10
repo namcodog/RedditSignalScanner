@@ -1,0 +1,201 @@
+{
+  "kind": "hotpost_v13_published_shadow_refresh",
+  "plan_version": 1,
+  "profile_id": "hotpost_v13_title_standalone",
+  "created_at": "2026-04-29T07:01:06.700113Z",
+  "selected": 1,
+  "generated": 1,
+  "failed": 0,
+  "cards": [
+    {
+      "card_id": "card-cand-business-growth-ops-1stfurr-validate",
+      "lane": "signal",
+      "card_type": "validate",
+      "profile_id": "hotpost_v13_title_standalone",
+      "semantic_model": "deepseek/deepseek-v4-flash",
+      "writer_model": "xiaomi/mimo-v2.5-pro",
+      "original_card": {
+        "card_id": "card-cand-business-growth-ops-1stfurr-validate",
+        "signal_id": "sig-1stfurr",
+        "card_type": "validate",
+        "lane": "signal",
+        "category_id": "validate",
+        "source_scope_id": "business-growth-ops",
+        "source_scope_name": "商业增长与运营",
+        "topic_pack_id": "funnel-conversion",
+        "topic_cluster_id": "funnel",
+        "topic_cluster_ids": [
+          "funnel"
+        ],
+        "named_topic_ids": [
+          "checkout-conversion"
+        ],
+        "source_domain_id": "business-growth-ops",
+        "source_domain_name": "商业增长与运营",
+        "source_event_at": "2026-04-23T11:20:50Z",
+        "title": "卖家现在先看会话回放，不再先猜是哪个环节出错",
+        "summary_line": "判断顺序从先猜是哪个环节出错，转成先看20-30个真实会话回放，因为2.1%的转化率意味着问题藏在分析工具看不到的地方。",
+        "audience": "Shopify卖家，特别是移动端转化率卡在2%左右的",
+        "why_now": "有用户发现，所有常规优化都做完后，移动端转化率还是只有2.1%。这说明问题不在表面数据，而在用户实际操作中的误点、缩放失灵等细节。所以，下一步先看的不是调整哪个按钮，而是先看20-30个真实用户的会话回放。",
+        "why_now_reason": "new_threads_24h",
+        "signal_level": "sustained",
+        "intent_tags": [
+          "趋势变化"
+        ],
+        "top_community": "r/ecommerce",
+        "thread_count": 1,
+        "community_count": 1,
+        "source_module": {
+          "primary_communities": [
+            "r/ecommerce"
+          ],
+          "top_community": "r/ecommerce",
+          "tone_tags": [],
+          "thread_count": 1,
+          "community_count": 1,
+          "last_active_text": "近7天"
+        },
+        "preview_quote": {
+          "text": "2.1% with all the obvious fixes done means the problem is something you canot see from analytics alone. session replays on mobile specifically watch 20-30 real sessions and you'll spot things invisible in dashboards. mis-taps, broken zoom, rage clicks on elements that look fine on your phone but not on others.\n\nbeen building a shopify tool around exactly this mobile behavior tracking with AI suggestions on what to fix. still pre-launch but mobile gap is kind of the core problem it targets.\n\nwhat's your iOS vs Android split?",
+          "community": "r/ecommerce",
+          "permalink": "https://www.reddit.com/r/ecommerce/comments/1stfurr/mobile_conversion_rate_optimization_tools_anyone/oht0cz7/"
+        },
+        "published_at": "2026-04-24T05:14:09.181685Z",
+        "controversy_chart": null,
+        "controversy_meta": null,
+        "quotes": [
+          {
+            "text": "2.1% with all the obvious fixes done means the problem is something you canot see from analytics alone. session replays on mobile specifically watch 20-30 real sessions and you'll spot things invisible in dashboards. mis-taps, broken zoom, rage clicks on elements that look fine on your phone but not on others.\n\nbeen building a shopify tool around exactly this mobile behavior tracking with AI suggestions on what to fix. still pre-launch but mobile gap is kind of the core problem it targets.\n\nwhat's your iOS vs Android split?",
+            "community": "r/ecommerce",
+            "permalink": "https://www.reddit.com/r/ecommerce/comments/1stfurr/mobile_conversion_rate_optimization_tools_anyone/oht0cz7/"
+          },
+          {
+            "text": "What's add to cart rate mobile vs desktop? if similar rates but lower conversion it's definitely checkout friction",
+            "community": "r/ecommerce",
+            "permalink": "https://www.reddit.com/r/ecommerce/comments/1stfurr/mobile_conversion_rate_optimization_tools_anyone/ohx20e1/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/ecommerce/comments/1stfurr",
+        "detail": {
+          "pain_point": "移动端转化率死活上不去，但分析工具里看不出具体原因，只能干着急。",
+          "target_user_and_scene": "做Shopify的卖家，在优化完所有已知问题后，发现移动端转化率依然远低于桌面端时。",
+          "why_test_now": "原话里有个关键句：“What's add to cart rate mobile vs desktop? if similar rates but lower conversion it's defini”。最硬的证据是‘2.1% with all the obvious fixes done’和‘session replays on mobile specifically watch 20-30 real sessions’。这直接说明，当常规方法失效时，唯一的办法是去看用户到底怎么操作的，而不是继续猜。",
+          "min_test_action": "去看原始讨论",
+          "continue_signal": "继续看有没有更多卖家开始分享具体的会话回放发现，比如‘rage clicks’或‘broken zoom’的具体案例。",
+          "stop_signal": "如果讨论又回到调整按钮颜色、简化表单这些老生常谈，而没人再提会话回放的具体发现，这条线就失去价值了。"
+        }
+      },
+      "v12_shadow": {
+        "title": "移动端转化率卡在2.1%？卖家放弃猜测，先看20-30个用户录屏",
+        "summary_line": "判断顺序从‘先猜哪个环节出错’，转成‘先看20-30个真实会话回放’。",
+        "audience": "已经做完所有常规优化（如简化表单、调按钮颜色）但移动端转化率仍低的Shopify卖家",
+        "why_now": "有卖家遇到2.1%转化率瓶颈，常规优化无效。他发现移动端加购率与桌面端相近，问题可能在结账交互细节。",
+        "pain_point": "所有能改的都改了，转化率还是上不去。继续猜（调颜色、改文案）可能白费功夫，但看回放需要额外工具和时间。",
+        "target_user_and_scene": "Shopify卖家在优化移动端结账流程时，遇到转化率瓶颈，常规分析工具看不到问题。",
+        "why_test_now": "加购率相似但转化率低，说明问题在结账摩擦。证据是‘2.1% with all obvious fixes done’和‘看20-30个真实会话回放’。这是卖家验证过的方法。",
+        "min_test_action": "去看原始讨论",
+        "continue_signal": "看卖家是否用Hotjar、FullStory看回放，以及发现的误点、缩放失灵等具体问题。",
+        "stop_signal": "如果加购率本身也低，问题可能在流量或产品，而非UX细节。"
+      },
+      "refreshed_card": {
+        "card_id": "card-cand-business-growth-ops-1stfurr-validate",
+        "signal_id": "sig-1stfurr",
+        "card_type": "validate",
+        "lane": "signal",
+        "category_id": "validate",
+        "source_scope_id": "business-growth-ops",
+        "source_scope_name": "商业增长与运营",
+        "topic_pack_id": "funnel-conversion",
+        "topic_cluster_id": "funnel",
+        "topic_cluster_ids": [
+          "funnel"
+        ],
+        "named_topic_ids": [
+          "checkout-conversion"
+        ],
+        "source_domain_id": "business-growth-ops",
+        "source_domain_name": "商业增长与运营",
+        "source_event_at": "2026-04-23T11:20:50Z",
+        "title": "Shopify 卖家移动端转化率卡在 2.1%，放弃猜测，先看 20-30 个用户录屏",
+        "summary_line": "判断顺序从‘先猜哪个环节出错’，转成‘先看20-30个真实会话回放’。",
+        "audience": "已经做完所有常规优化（如简化表单、调按钮颜色）但移动端转化率仍低的Shopify卖家",
+        "why_now": "有卖家遇到2.1%转化率瓶颈，常规优化无效。他发现移动端加购率与桌面端相近，问题可能在结账交互细节。",
+        "why_now_reason": "new_threads_24h",
+        "signal_level": "sustained",
+        "intent_tags": [
+          "趋势变化"
+        ],
+        "top_community": "r/ecommerce",
+        "thread_count": 1,
+        "community_count": 1,
+        "source_module": {
+          "primary_communities": [
+            "r/ecommerce"
+          ],
+          "top_community": "r/ecommerce",
+          "tone_tags": [],
+          "thread_count": 1,
+          "community_count": 1,
+          "last_active_text": "近7天"
+        },
+        "preview_quote": {
+          "text": "2.1% with all the obvious fixes done means the problem is something you canot see from analytics alone. session replays on mobile specifically watch 20-30 real sessions and you'll spot things invisible in dashboards. mis-taps, broken zoom, rage clicks on elements that look fine on your phone but not on others.\n\nbeen building a shopify tool around exactly this mobile behavior tracking with AI suggestions on what to fix. still pre-launch but mobile gap is kind of the core problem it targets.\n\nwhat's your iOS vs Android split?",
+          "community": "r/ecommerce",
+          "permalink": "https://www.reddit.com/r/ecommerce/comments/1stfurr/mobile_conversion_rate_optimization_tools_anyone/oht0cz7/"
+        },
+        "published_at": "2026-04-24T05:14:09.181685Z",
+        "controversy_chart": null,
+        "controversy_meta": null,
+        "quotes": [
+          {
+            "text": "2.1% with all the obvious fixes done means the problem is something you canot see from analytics alone. session replays on mobile specifically watch 20-30 real sessions and you'll spot things invisible in dashboards. mis-taps, broken zoom, rage clicks on elements that look fine on your phone but not on others.\n\nbeen building a shopify tool around exactly this mobile behavior tracking with AI suggestions on what to fix. still pre-launch but mobile gap is kind of the core problem it targets.\n\nwhat's your iOS vs Android split?",
+            "community": "r/ecommerce",
+            "permalink": "https://www.reddit.com/r/ecommerce/comments/1stfurr/mobile_conversion_rate_optimization_tools_anyone/oht0cz7/"
+          },
+          {
+            "text": "What's add to cart rate mobile vs desktop? if similar rates but lower conversion it's definitely checkout friction",
+            "community": "r/ecommerce",
+            "permalink": "https://www.reddit.com/r/ecommerce/comments/1stfurr/mobile_conversion_rate_optimization_tools_anyone/ohx20e1/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/ecommerce/comments/1stfurr",
+        "detail": {
+          "pain_point": "移动端转化率死活上不去，但分析工具里看不出具体原因，只能干着急。",
+          "target_user_and_scene": "做Shopify的卖家，在优化完所有已知问题后，发现移动端转化率依然远低于桌面端时。",
+          "why_test_now": "原话里有个关键句：“What's add to cart rate mobile vs desktop? if similar rates but lower conversion it's defini”。最硬的证据是‘2.1% with all the obvious fixes done’和‘session replays on mobile specifically watch 20-30 real sessions’。这直接说明，当常规方法失效时，唯一的办法是去看用户到底怎么操作的，而不是继续猜。",
+          "min_test_action": "去看原始讨论",
+          "continue_signal": "继续看有没有更多卖家开始分享具体的会话回放发现，比如‘rage clicks’或‘broken zoom’的具体案例。",
+          "stop_signal": "如果讨论又回到调整按钮颜色、简化表单这些老生常谈，而没人再提会话回放的具体发现，这条线就失去价值了。"
+        }
+      },
+      "changed": {
+        "title": {
+          "before": "卖家现在先看会话回放，不再先猜是哪个环节出错",
+          "after": "Shopify 卖家移动端转化率卡在 2.1%，放弃猜测，先看 20-30 个用户录屏"
+        },
+        "summary_line": {
+          "before": "判断顺序从先猜是哪个环节出错，转成先看20-30个真实会话回放，因为2.1%的转化率意味着问题藏在分析工具看不到的地方。",
+          "after": "判断顺序从‘先猜哪个环节出错’，转成‘先看20-30个真实会话回放’。"
+        },
+        "audience": {
+          "before": "Shopify卖家，特别是移动端转化率卡在2%左右的",
+          "after": "已经做完所有常规优化（如简化表单、调按钮颜色）但移动端转化率仍低的Shopify卖家"
+        },
+        "why_now": {
+          "before": "有用户发现，所有常规优化都做完后，移动端转化率还是只有2.1%。这说明问题不在表面数据，而在用户实际操作中的误点、缩放失灵等细节。所以，下一步先看的不是调整哪个按钮，而是先看20-30个真实用户的会话回放。",
+          "after": "有卖家遇到2.1%转化率瓶颈，常规优化无效。他发现移动端加购率与桌面端相近，问题可能在结账交互细节。"
+        }
+      },
+      "fluency_repair_issue_count": 0,
+      "remaining_density_issues": [
+        "title: 重点字段 43 字，超过建议 34 字，阅读负担高。",
+        "why_test_now: 重点字段 86 字，超过建议 78 字，阅读负担高。"
+      ],
+      "v13_title_issues_before": [],
+      "v13_title_issues_after": [
+        "title: 标题 43 字，太长，不利于一眼读懂。"
+      ],
+      "error": ""
+    }
+  ]
+}

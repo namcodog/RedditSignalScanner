@@ -1,5 +1,11 @@
 from __future__ import annotations
 
+PROMPT_MODULE_STATUS = "legacy_search_report"
+PROMPT_MODULE_SCOPE = (
+    "Legacy HotpostService.search/report_llm prompts. Daily card generation uses "
+    "card_content_generator + hotpost_v13_title_standalone instead."
+)
+
 BASE_RULES = """
 ## 通用规则（所有模式必须遵守）
 
@@ -39,7 +45,7 @@ TRENDING_PROMPT = BASE_RULES + """
 # 输入数据
 - 查询主题: {query}
 - 时间范围: {time_filter}
-- 帖子数据: 
+- 帖子数据:
 ```json
 {posts_json}
 ```
@@ -305,4 +311,6 @@ __all__ = [
     "RANT_PROMPT",
     "OPPORTUNITY_PROMPT",
     "PROMPT_TEMPLATES",
+    "PROMPT_MODULE_STATUS",
+    "PROMPT_MODULE_SCOPE",
 ]

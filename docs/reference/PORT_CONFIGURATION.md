@@ -80,8 +80,11 @@ uvicorn app.main:app --host 0.0.0.0 --port 8006 --reload
 
 **验证后端运行**:
 ```bash
-curl http://localhost:8006/api/healthz
+curl http://localhost:8006/api/v1/health
 # 应返回: {"status":"ok"}
+
+# 验证 hotpost 正常态
+make acceptance-hotpost-smoke
 ```
 
 ---
@@ -152,7 +155,7 @@ app.add_middleware(
 ### 1. 测试后端 API
 ```bash
 # 健康检查
-curl http://localhost:8006/api/healthz
+curl http://localhost:8006/api/v1/health
 
 # 注册用户
 curl -X POST http://localhost:8006/api/auth/register \
@@ -169,7 +172,7 @@ open http://localhost:3006
 ### 3. 测试前端调用后端
 ```bash
 # 在浏览器控制台
-fetch('http://localhost:8006/api/healthz')
+fetch('http://localhost:8006/api/v1/health')
   .then(r => r.json())
   .then(console.log)
 ```
@@ -195,4 +198,3 @@ fetch('http://localhost:8006/api/healthz')
 
 **最后更新**: 2025-10-10 21:30
 **维护者**: Frontend Agent
-

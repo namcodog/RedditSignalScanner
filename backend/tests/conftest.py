@@ -15,6 +15,7 @@ from alembic import command
 from alembic.config import Config
 
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy import text
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -100,7 +101,7 @@ def reset_database() -> None:
     # Use synchronous connection to avoid event loop conflicts
     # Prefer DATABASE_URL so this matches the async engine's target DB
     dsn_env = os.getenv('DATABASE_URL')
-    
+
     # ========== CRITICAL SAFETY GUARD ==========
     # This guard MUST NOT be inside a try/except to prevent silent bypass!
     # Production databases WILL be cleared if this check fails.
@@ -108,7 +109,7 @@ def reset_database() -> None:
         """Hard block if database name doesn't end with _test."""
         allow_override = os.getenv('ALLOW_TEST_ON_PROD', '').strip().lower() in {'1','true','yes'}
         whitelist = {h.strip() for h in os.getenv('TEST_DB_HOST_WHITELIST', 'localhost,127.0.0.1,db,db.internal').split(',') if h.strip()}
-        
+
         # 强力保护：非 _test 库一律禁止运行
         if db_name and not db_name.endswith('_test'):
             print(f"\n{'='*60}", flush=True)
@@ -121,13 +122,13 @@ def reset_database() -> None:
             print(f"{'='*60}\n", flush=True)
             import sys as _sys
             _sys.exit(1)
-        
+
         if not allow_override and host and host not in whitelist:
             print(f"❌ Tests blocked: DATABASE_URL host '{host}' not in whitelist {whitelist}. Set ALLOW_TEST_ON_PROD=1 to override.", flush=True)
             import sys as _sys
             _sys.exit(1)
     # ========== END SAFETY GUARD ==========
-    
+
     if dsn_env:
         parsed = urlparse(dsn_env.replace('+asyncpg','').replace('+psycopg',''))
         host = (parsed.hostname or '').lower()
@@ -869,6 +870,18 @@ async def db_session() -> AsyncIterator[AsyncSession]:
             # Explicitly dispose engine to clean up all connections
             # This prevents connection pool issues across tests
             await engine.dispose()
+
+
+@pytest_asyncio.fixture(scope="function")
+async def async_truncate_test_tables(db_session: AsyncSession) -> Callable[..., Awaitable[None]]:
+    async def _truncate(*table_names: str) -> None:
+        if not table_names:
+            return
+        quoted = ", ".join(f'"{name}"' for name in table_names)
+        await db_session.execute(text(f"TRUNCATE TABLE {quoted} RESTART IDENTITY CASCADE"))
+        await db_session.commit()
+
+    return _truncate
 
 
 @pytest_asyncio.fixture(scope="function")

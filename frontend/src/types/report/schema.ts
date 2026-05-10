@@ -190,12 +190,16 @@ const structuredReportSchema = z.object({
       strategy_advice: z.string(),
     }),
   ),
+  target_communities: z.array(z.string()).optional(),
   pain_points: z.array(
     z.object({
       title: z.string(),
       user_voices: z.array(z.string()),
       data_impression: z.string().optional(),
       interpretation: z.string(),
+      evidence_chain: z
+        .array(evidenceItemSchema)
+        .optional(),
     }),
   ),
   drivers: z.array(
@@ -211,6 +215,9 @@ const structuredReportSchema = z.object({
       target_communities: z.array(z.string()),
       product_positioning: z.string(),
       core_selling_points: z.array(z.string()),
+      evidence_chain: z
+        .array(evidenceItemSchema)
+        .optional(),
     }),
   ),
 });
@@ -229,7 +236,9 @@ export const reportResponseSchema = z.object({
   status: z.string(),
   generated_at: z.string(),
   product_description: z.string().nullish(),
+  report_markdown: z.string().nullish(),
   report_html: z.string().nullish(),
+  canonical_report_json: structuredReportSchema.nullish(),
   report_structured: structuredReportSchema.nullish(),
   report: reportContentSchema,
   metadata: reportMetadataSchema,

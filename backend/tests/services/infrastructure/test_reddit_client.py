@@ -99,6 +99,20 @@ def _posts_response(subreddit: str) -> _StubResponse:
     )
 
 
+def _comments_response() -> _StubResponse:
+    return _StubResponse(
+        status=200,
+        payload=[
+            {},
+            {
+                "data": {
+                    "children": [],
+                }
+            },
+        ],
+    )
+
+
 @pytest.fixture
 def stub_session() -> _StubSession:
     return _StubSession(
@@ -220,4 +234,43 @@ async def test_fetch_post_comments_request_error_returns_empty_list() -> None:
     comments = await client.fetch_post_comments("post-1", limit=10)
     assert comments == []
 
+    await client.close()
+
+
+async def test_reddit_client_accepts_hotpost_supply_contract_kwargs() -> None:
+    client = RedditAPIClient(
+        "id",
+        "secret",
+        "testsuite",
+        search_timeout=12.0,
+        low_quota_remaining_threshold=12,
+        low_quota_cooldown_seconds=20.0,
+        stop_comment_fetch_below_remaining=18,
+        max_consecutive_rate_limit_errors=3,
+        session=_StubSession([]),
+    )
+
+    assert client.search_timeout == 12.0
+    assert client.low_quota_remaining_threshold == 12
+    assert client.low_quota_cooldown_seconds == 20.0
+    assert client.stop_comment_fetch_below_remaining == 18
+    assert client.max_consecutive_rate_limit_errors == 3
+    assert client.should_skip_comment_fetch() is False
+
+    client._ratelimit_remaining = 17
+    assert client.should_skip_comment_fetch() is True
+
+    await client.close()
+
+
+async def test_fetch_post_comments_accepts_comment_timeout_override() -> None:
+    session = _StubSession([
+        _token_response(),
+        _comments_response(),
+    ])
+    client = RedditAPIClient("id", "secret", "testsuite", session=session)
+
+    comments = await client.fetch_post_comments("post-1", limit=10, comment_timeout=15.0)
+
+    assert comments == []
     await client.close()

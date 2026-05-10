@@ -3,6 +3,15 @@
 export type HotPostMode = 'trending' | 'rant' | 'opportunity';
 export type TimeFilter = 'week' | 'month' | 'year' | 'all';
 export type ConfidenceLevel = 'high' | 'medium' | 'low' | 'none';
+export type HotPostQueryKind = 'object' | 'compare' | 'scenario';
+
+export interface HotPostQueryParse {
+  query_kind: HotPostQueryKind;
+  subject?: string | null;
+  compare_target?: string | null;
+  focus?: string | null;
+  scenario?: string | null;
+}
 
 export interface HotPostRequest {
   query: string;
@@ -10,6 +19,7 @@ export interface HotPostRequest {
   subreddits?: string[]; // Max 10
   time_filter?: TimeFilter;
   limit?: number; // 1-100, default 30
+  query_parse_override?: HotPostQueryParse;
 }
 
 export interface HotPost {
@@ -90,6 +100,26 @@ export interface MigrationIntent {
   key_quote?: string;
 }
 
+export interface TopQuote {
+  quote: string;
+  score?: number;
+  subreddit?: string;
+  url?: string;
+  thread_url?: string;
+  thread_id?: string;
+  quote_id?: string;
+  created_utc?: number;
+  why_important?: string;
+}
+
+export interface ComplaintFacet {
+  label: string;
+  target?: string | null;
+  representative_quote?: string | null;
+  evidence_count?: number | null;
+  evidence_urls?: string[];
+}
+
 // --- Opportunity Mode Structures ---
 
 export interface Opportunity {
@@ -163,7 +193,7 @@ export interface TrendingTopic {
     rank: number;
     topic: string;
     heat_score: number;
-    time_trend: '新兴🆕' | '持续热门' | '下降中↓' | string;
+    time_trend: 'explosive' | 'exploding' | 'rising' | 'stable' | 'sustained' | 'declining' | '新兴🆕' | '持续热门' | '下降中↓' | string;
     key_takeaway: string;
     evidence: Array<{
         title: string;
@@ -185,7 +215,7 @@ export interface HotPostResponse {
   search_time: string;
   from_cache: boolean;
   status?: 'queued' | 'waiting' | 'processing' | 'completed' | 'success' | 'degraded' | 'failed';
-  
+
   // Queue Info
   position?: number;
   estimated_wait_seconds?: number;
@@ -210,6 +240,10 @@ export interface HotPostResponse {
   key_comments?: any[];
   top_rants?: HotPost[];
   top_discovery_posts?: HotPost[];
+  top_quotes?: TopQuote[];
+  complaint_facets?: ComplaintFacet[];
+  render_mode?: 'quote_only' | 'compare' | 'grounded_summary' | string;
+  query_parse?: HotPostQueryParse;
 
   // Mode Specific - Rant
   pain_points?: PainPoint[];
@@ -231,6 +265,7 @@ export interface HotPostResponse {
   next_steps?: {
     deepdive_available?: boolean;
     deepdive_token?: string | null;
+    recommended_actions?: string[];
     suggested_keywords?: string[];
   };
   notes?: string[];
@@ -238,14 +273,29 @@ export interface HotPostResponse {
     query_source?: string;
     query_degraded_reason?: string;
     search_query?: string;
+    parsed_tags?: Record<string, string>;
+    object?: string;
+    compare_target?: string;
+    focus?: string;
+    scenario?: string;
     query_parts?: string[];
     keywords?: string[];
     time_filter?: string;
     sort?: string;
+    selected_subreddits?: string[];
     subreddits?: string[];
+    candidate_count?: number;
     raw_posts?: number;
     filtered_posts?: number;
     relevance_filtered?: number;
+    relevant_posts?: number;
+    voice_hits?: number;
+    valid_quote_count?: number;
+    unique_thread_count?: number;
+    mode_decision?: string;
+    insufficient_reason?: string;
+    render_mode?: string;
+    summary_claim_to_quote_ids?: Array<{ claim?: string; quote_ids?: string[] }>;
     response_source?: string;
     summary_source?: string;
     summary_degraded_reason?: string;
@@ -253,6 +303,7 @@ export interface HotPostResponse {
     report_degraded_reason?: string;
     llm_report_applied?: boolean;
     degraded_reasons?: string[];
+    latency_ms?: number;
   };
 
   // Meta

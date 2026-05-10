@@ -1,0 +1,2178 @@
+{
+  "kind": "hotpost_v13_published_shadow_refresh",
+  "plan_version": 1,
+  "profile_id": "hotpost_v13_title_standalone",
+  "created_at": "2026-04-29T14:29:00.313102Z",
+  "selected": 11,
+  "generated": 11,
+  "failed": 0,
+  "cards": [
+    {
+      "card_id": "clue-note-preserve-original",
+      "lane": "breakdown",
+      "card_type": "write",
+      "profile_id": "hotpost_v13_title_standalone",
+      "semantic_model": "deepseek/deepseek-v4-flash",
+      "writer_model": "xiaomi/mimo-v2.5-pro",
+      "original_card": {
+        "card_id": "clue-note-preserve-original",
+        "signal_id": "clue-note-preserve-original",
+        "card_type": "write",
+        "category_id": "write",
+        "source_scope_id": "ai-automation",
+        "source_scope_name": "AI 与自动化",
+        "source_domain_id": "ai-automation",
+        "source_domain_name": "AI 与自动化",
+        "source_event_at": null,
+        "title": "AI 整理笔记，用户最怕的不是乱，而是“看起来完整”的假象",
+        "summary_line": "用户对 AI 整理的恐惧，已经从‘怕乱’升级到‘怕假’，他们宁愿要半成品，也不要一个被 AI 改写得面目全非的‘完整版’。",
+        "audience": "用 AI 整理笔记，但极度在意原始想法和判断力的用户",
+        "why_now": "三个社区的讨论都指向同一个核心矛盾：AI 的整理能力越强，用户对‘原意被篡改’的警惕就越高。这不再是工具好不好用的问题，而是信任问题。",
+        "why_now_reason": "switch_signal_7d",
+        "signal_level": "rising",
+        "intent_tags": [
+          "反常识争议 / 共识变化",
+          "求推荐 / 求解法"
+        ],
+        "top_community": "r/PKMS",
+        "thread_count": 3,
+        "community_count": 2,
+        "preview_quote": {
+          "text": "我宁愿它帮我整理结构，也不要把我的判断重新写成另一种语气。",
+          "community": "r/PKMS",
+          "permalink": "https://reddit.com/r/PKMS"
+        },
+        "published_at": "2026-04-07T02:20:08.835276Z",
+        "source_module": {
+          "primary_communities": [
+            "r/PKMS",
+            "r/Notion",
+            "r/productivity"
+          ],
+          "top_community": "r/PKMS",
+          "tone_tags": [],
+          "thread_count": 3,
+          "community_count": 2,
+          "last_active_text": "近30天"
+        },
+        "quotes": [
+          {
+            "text": "我宁愿它帮我整理结构，也不要把我的判断重新写成另一种语气。",
+            "community": "r/PKMS",
+            "permalink": "https://reddit.com/r/PKMS"
+          },
+          {
+            "text": "半成品没关系，最怕的是看起来完整，但已经不是我原来要表达的意思。",
+            "community": "r/Notion",
+            "permalink": "https://reddit.com/r/Notion"
+          },
+          {
+            "text": "知识工具最大的价值不是更会写，而是别把信息密度冲没了。",
+            "community": "r/productivity",
+            "permalink": "https://reddit.com/r/productivity"
+          }
+        ],
+        "source_link": "https://reddit.com/r/PKMS",
+        "detail": {
+          "thesis": "用户对 AI 整理笔记的核心恐惧，已经从‘怕结构混乱’转移到‘怕原意被系统性替换’，他们宁愿保留粗糙的半成品，也不愿接受一个被 AI 重新‘润色’得面目全非的完整版本。",
+          "writing_angle_or_perspective": "从‘信任危机’的角度切入，讨论 AI 工具在‘理解’和‘改写’之间的模糊地带，以及用户如何捍卫自己的原始思考。",
+          "tension_point_or_why_it_matters": "如果 AI 总是‘优化’掉用户的原始判断和语气，那么笔记工具就从‘辅助思考’变成了‘替代思考’，用户会逐渐失去对自己知识库的信任。",
+          "title_hooks": [
+            "AI 笔记整理：用户宁愿要‘半成品’，也不要‘完美的赝品’",
+            "当 AI 的‘整理’变成‘改写’，用户开始捍卫自己的‘粗糙’"
+          ],
+          "quote_pack": [
+            "我宁愿它帮我整理结构，也不要把我的判断重新写成另一种语气。｜我宁愿它帮我整理结构，也不要把我的判断重新写成另一种语气。｜r/PKMS",
+            "半成品没关系，最怕的是看起来完整，但已经不是我原来要表达的意思。｜半成品没关系，最怕的是看起来完整，但已经不是我原来要表达的意思。｜r/Notion",
+            "知识工具最大的价值不是更会写，而是别把信息密度冲没了。｜知识工具最大的价值不是更会写，而是别把信息密度冲没了。｜r/productivity"
+          ]
+        },
+        "lane": "breakdown",
+        "topic_cluster_ids": [],
+        "named_topic_ids": []
+      },
+      "v12_shadow": {
+        "title": "AI 整理笔记，用户投降：宁可乱成狗，也不要 AI 替你‘整理’得不像你",
+        "summary_line": "用户对 AI 整理的恐惧，从‘怕乱’升级到‘怕假’。他们宁愿要半成品，也不要一个被 AI 改写得面目全非的‘完整版’。",
+        "audience": "用 AI 整理笔记，但极度在意原始想法和判断力的用户",
+        "why_now": "三个社区的讨论都指向同一个核心矛盾：AI 的整理能力越强，用户对‘原意被篡改’的警惕就越高。这不再是工具好不好用的问题，而是信任问题。",
+        "thesis": "用户抗拒的不是 AI 整理后的结构混乱，而是 AI 在‘润色’过程中系统性替换了自己的原始判断、语气和信息密度。",
+        "writing_angle_or_perspective": "别从工具功能讲，直接讲用户为什么宁愿要半成品，也不要 AI 替你‘整理’得不像你。",
+        "tension_point_or_why_it_matters": "AI 笔记工具的竞争焦点往往集中在‘生成更流畅的总结’，而忽视了用户对‘思想所有权’的维护。工具若继续强化‘改写式整理’，可能引发用户信任崩塌。",
+        "title_hooks": [
+          "不是怕乱，是怕 AI 把你有瑕疵但真诚的笔记，整理成一篇漂亮的空话"
+        ],
+        "quote_pack": [
+          "我宁愿它帮我整理结构，也不要把我的判断重新写成另一种语气。｜我宁愿它帮我整理结构，也不要把我的判断重新写成另一种语气。｜r/PKMS",
+          "半成品没关系，最怕的是看起来完整，但已经不是我原来要表达的意思。｜半成品没关系，最怕的是看起来完整，但已经不是我原来要表达的意思。｜r/Notion",
+          "知识工具最大的价值不是更会写，而是别把信息密度冲没了。｜知识工具最大的价值不是更会写，而是别把信息密度冲没了。｜r/productivity"
+        ]
+      },
+      "refreshed_card": {
+        "card_id": "clue-note-preserve-original",
+        "signal_id": "clue-note-preserve-original",
+        "card_type": "write",
+        "category_id": "write",
+        "source_scope_id": "ai-automation",
+        "source_scope_name": "AI 与自动化",
+        "source_domain_id": "ai-automation",
+        "source_domain_name": "AI 与自动化",
+        "source_event_at": null,
+        "title": "AI 整理笔记用户警告：宁可笔记乱，也不要 AI 把你的原意改得面目全非",
+        "summary_line": "用户对 AI 整理的恐惧，从‘怕乱’升级到‘怕假’。他们宁愿要半成品，也不要一个被 AI 改写得面目全非的‘完整版’。",
+        "audience": "用 AI 整理笔记，但极度在意原始想法和判断力的用户",
+        "why_now": "三个社区的讨论都指向同一个核心矛盾：AI 的整理能力越强，用户对‘原意被篡改’的警惕就越高。这不再是工具好不好用的问题，而是信任问题。",
+        "why_now_reason": "switch_signal_7d",
+        "signal_level": "rising",
+        "intent_tags": [
+          "反常识争议 / 共识变化",
+          "求推荐 / 求解法"
+        ],
+        "top_community": "r/PKMS",
+        "thread_count": 3,
+        "community_count": 2,
+        "preview_quote": {
+          "text": "我宁愿它帮我整理结构，也不要把我的判断重新写成另一种语气。",
+          "community": "r/PKMS",
+          "permalink": "https://reddit.com/r/PKMS"
+        },
+        "published_at": "2026-04-07T02:20:08.835276Z",
+        "source_module": {
+          "primary_communities": [
+            "r/PKMS",
+            "r/Notion",
+            "r/productivity"
+          ],
+          "top_community": "r/PKMS",
+          "tone_tags": [],
+          "thread_count": 3,
+          "community_count": 2,
+          "last_active_text": "近30天"
+        },
+        "quotes": [
+          {
+            "text": "我宁愿它帮我整理结构，也不要把我的判断重新写成另一种语气。",
+            "community": "r/PKMS",
+            "permalink": "https://reddit.com/r/PKMS"
+          },
+          {
+            "text": "半成品没关系，最怕的是看起来完整，但已经不是我原来要表达的意思。",
+            "community": "r/Notion",
+            "permalink": "https://reddit.com/r/Notion"
+          },
+          {
+            "text": "知识工具最大的价值不是更会写，而是别把信息密度冲没了。",
+            "community": "r/productivity",
+            "permalink": "https://reddit.com/r/productivity"
+          }
+        ],
+        "source_link": "https://reddit.com/r/PKMS",
+        "detail": {
+          "thesis": "用户对 AI 整理笔记的核心恐惧，已经从‘怕结构混乱’转移到‘怕原意被系统性替换’，他们宁愿保留粗糙的半成品，也不愿接受一个被 AI 重新‘润色’得面目全非的完整版本。",
+          "writing_angle_or_perspective": "从‘信任危机’的角度切入，讨论 AI 工具在‘理解’和‘改写’之间的模糊地带，以及用户如何捍卫自己的原始思考。",
+          "tension_point_or_why_it_matters": "如果 AI 总是‘优化’掉用户的原始判断和语气，那么笔记工具就从‘辅助思考’变成了‘替代思考’，用户会逐渐失去对自己知识库的信任。",
+          "title_hooks": [
+            "AI 笔记整理：用户宁愿要‘半成品’，也不要‘完美的赝品’",
+            "当 AI 的‘整理’变成‘改写’，用户开始捍卫自己的‘粗糙’"
+          ],
+          "quote_pack": [
+            "我宁愿它帮我整理结构，也不要把我的判断重新写成另一种语气。｜我宁愿它帮我整理结构，也不要把我的判断重新写成另一种语气。｜r/PKMS",
+            "半成品没关系，最怕的是看起来完整，但已经不是我原来要表达的意思。｜半成品没关系，最怕的是看起来完整，但已经不是我原来要表达的意思。｜r/Notion",
+            "知识工具最大的价值不是更会写，而是别把信息密度冲没了。｜知识工具最大的价值不是更会写，而是别把信息密度冲没了。｜r/productivity"
+          ]
+        },
+        "lane": "breakdown",
+        "topic_cluster_ids": [],
+        "named_topic_ids": []
+      },
+      "changed": {
+        "title": {
+          "before": "AI 整理笔记，用户最怕的不是乱，而是“看起来完整”的假象",
+          "after": "AI 整理笔记用户警告：宁可笔记乱，也不要 AI 把你的原意改得面目全非"
+        },
+        "summary_line": {
+          "before": "用户对 AI 整理的恐惧，已经从‘怕乱’升级到‘怕假’，他们宁愿要半成品，也不要一个被 AI 改写得面目全非的‘完整版’。",
+          "after": "用户对 AI 整理的恐惧，从‘怕乱’升级到‘怕假’。他们宁愿要半成品，也不要一个被 AI 改写得面目全非的‘完整版’。"
+        }
+      },
+      "fluency_repair_issue_count": 0,
+      "remaining_density_issues": [],
+      "v13_title_issues_before": [],
+      "v13_title_issues_after": [],
+      "error": ""
+    },
+    {
+      "card_id": "clue-project-tracking-workaround",
+      "lane": "breakdown",
+      "card_type": "write",
+      "profile_id": "hotpost_v13_title_standalone",
+      "semantic_model": "deepseek/deepseek-v4-flash",
+      "writer_model": "xiaomi/mimo-v2.5-pro",
+      "original_card": {
+        "card_id": "clue-project-tracking-workaround",
+        "signal_id": "clue-project-tracking-workaround",
+        "card_type": "write",
+        "category_id": "write",
+        "source_scope_id": "business-growth-ops",
+        "source_scope_name": "商业增长与运营",
+        "source_domain_id": "business-growth-ops",
+        "source_domain_name": "商业增长与运营",
+        "source_event_at": null,
+        "title": "项目真正往前走，靠的不是任务板，而是板子外面的补丁流程",
+        "summary_line": "三个社区的讨论都指向同一个现象：正式工具里看着都齐了，但真到推进时，大家还是会回到临时文档、群聊和手搓流程里补那一段没人接住的协作。",
+        "audience": "在项目协作里还得靠补丁流程自救的项目经理",
+        "why_now": "r/projectmanagement、r/productmanagement、r/startups里一共出现了3个帖子，近 7 天里还在继续冒头，已经有用户开始找替代，大家对这件事的分歧也在变大。",
+        "why_now_reason": "switch_signal_7d",
+        "signal_level": "rising",
+        "intent_tags": [
+          "求替代",
+          "反常识争议 / 共识变化"
+        ],
+        "top_community": "r/projectmanagement",
+        "thread_count": 3,
+        "community_count": 2,
+        "preview_quote": {
+          "text": "真正推动项目往前走的，不在 Jira 里，在群里和文档里。",
+          "community": "r/projectmanagement",
+          "permalink": "https://reddit.com/r/projectmanagement"
+        },
+        "published_at": "2026-04-07T02:19:48.480301Z",
+        "source_module": {
+          "primary_communities": [
+            "r/projectmanagement",
+            "r/productmanagement",
+            "r/startups"
+          ],
+          "top_community": "r/projectmanagement",
+          "tone_tags": [],
+          "thread_count": 3,
+          "community_count": 2,
+          "last_active_text": "近30天"
+        },
+        "quotes": [
+          {
+            "text": "真正推动项目往前走的，不在 Jira 里，在群里和文档里。",
+            "community": "r/projectmanagement",
+            "permalink": "https://reddit.com/r/projectmanagement"
+          },
+          {
+            "text": "我们不是不用工具，是重要事情最后还是回到 doc 上对齐。",
+            "community": "r/productmanagement",
+            "permalink": "https://reddit.com/r/productmanagement"
+          },
+          {
+            "text": "形式上都在任务板里，真正的判断和推进还是靠临时协作。",
+            "community": "r/startups",
+            "permalink": "https://reddit.com/r/startups"
+          }
+        ],
+        "source_link": "https://reddit.com/r/projectmanagement",
+        "detail": {
+          "thesis": "项目推进的真实引擎不是任务板本身，而是任务板之外、由团队自发形成的临时协作流程。",
+          "writing_angle_or_perspective": "别从工具功能讲，直接讲为什么正式流程总被绕过。",
+          "tension_point_or_why_it_matters": "如果这些‘补丁流程’才是真正在干活的，那正式工具的价值和定位就值得重新想了。",
+          "title_hooks": [
+            "不是工具不好用，是真正干活的流程根本不在工具里",
+            "任务板是门面，群聊和文档才是发动机"
+          ],
+          "quote_pack": [
+            "真正推动项目往前走的，不在 Jira 里，在群里和文档里。｜真正推动项目往前走的，不在 Jira 里，在群里和文档里。｜r/projectmanagement",
+            "我们不是不用工具，是重要事情最后还是回到 doc 上对齐。｜我们不是不用工具，是重要事情最后还是回到 doc 上对齐。｜r/productmanagement",
+            "形式上都在任务板里，真正的判断和推进还是靠临时协作。｜形式上都在任务板里，真正的判断和推进还是靠临时协作。｜r/startups"
+          ]
+        },
+        "lane": "breakdown",
+        "topic_pack_id": "organic-discovery",
+        "topic_cluster_id": "content-production-and-editorial",
+        "topic_cluster_ids": [
+          "content-production-and-editorial"
+        ],
+        "named_topic_ids": []
+      },
+      "v12_shadow": {
+        "title": "任务板是门面，群聊和文档才是项目推进的发动机",
+        "summary_line": "三个社区的讨论都指向同一个现象：正式工具里看着都齐了，但真到推进时，大家还是会回到临时文档、群聊和手搓流程里补那一段没人接住的协作。",
+        "audience": "在项目协作里还得靠补丁流程自救的项目经理",
+        "why_now": "r/projectmanagement、r/productmanagement、r/startups 里一共出现了 3 个帖子，近 7 天里还在继续冒头，已经有用户开始找替代，大家对这件事的分歧也在变大。",
+        "thesis": "项目经理维护正式工具的规范性，但实际协作中工具无法覆盖所有动态判断和临时对齐，导致他们不得不在工具之外额外创建补丁流程。他们必须在‘保持工具整洁’和‘让事情推进’之间做出权衡。",
+        "writing_angle_or_perspective": "别从工具功能讲，直接讲项目经理为什么必须在工具之外再建一套流程。",
+        "tension_point_or_why_it_matters": "补丁流程解决了正式工具没覆盖的衔接问题，但这也意味着项目信息分散在多个地方，工具里的记录可能越来越不准。",
+        "title_hooks": [
+          "任务板是门面，群聊和文档才是项目推进的发动机"
+        ],
+        "quote_pack": [
+          "真正推动项目往前走的，不在 Jira 里，在群里和文档里。｜真正推动项目往前走的，不在 Jira 里，在群里和文档里。｜r/projectmanagement",
+          "我们不是不用工具，是重要事情最后还是回到 doc 上对齐。｜我们不是不用工具，是重要事情最后还是回到 doc 上对齐。｜r/productmanagement",
+          "形式上都在任务板里，真正的判断和推进还是靠临时协作。｜形式上都在任务板里，真正的判断和推进还是靠临时协作。｜r/startups"
+        ]
+      },
+      "refreshed_card": {
+        "card_id": "clue-project-tracking-workaround",
+        "signal_id": "clue-project-tracking-workaround",
+        "card_type": "write",
+        "category_id": "write",
+        "source_scope_id": "business-growth-ops",
+        "source_scope_name": "商业增长与运营",
+        "source_domain_id": "business-growth-ops",
+        "source_domain_name": "商业增长与运营",
+        "source_event_at": null,
+        "title": "项目经理发现任务板只是门面，推进项目靠群聊和文档里的临时协作",
+        "summary_line": "三个社区的讨论都指向同一个现象：正式工具里看着都齐了，但真到推进时，大家还是会回到临时文档、群聊和手搓流程里补那一段没人接住的协作。",
+        "audience": "在项目协作里还得靠补丁流程自救的项目经理",
+        "why_now": "r/projectmanagement、r/productmanagement、r/startups 里一共出现了 3 个帖子，近 7 天里还在继续冒头，已经有用户开始找替代，大家对这件事的分歧也在变大。",
+        "why_now_reason": "switch_signal_7d",
+        "signal_level": "rising",
+        "intent_tags": [
+          "求替代",
+          "反常识争议 / 共识变化"
+        ],
+        "top_community": "r/projectmanagement",
+        "thread_count": 3,
+        "community_count": 2,
+        "preview_quote": {
+          "text": "真正推动项目往前走的，不在 Jira 里，在群里和文档里。",
+          "community": "r/projectmanagement",
+          "permalink": "https://reddit.com/r/projectmanagement"
+        },
+        "published_at": "2026-04-07T02:19:48.480301Z",
+        "source_module": {
+          "primary_communities": [
+            "r/projectmanagement",
+            "r/productmanagement",
+            "r/startups"
+          ],
+          "top_community": "r/projectmanagement",
+          "tone_tags": [],
+          "thread_count": 3,
+          "community_count": 2,
+          "last_active_text": "近30天"
+        },
+        "quotes": [
+          {
+            "text": "真正推动项目往前走的，不在 Jira 里，在群里和文档里。",
+            "community": "r/projectmanagement",
+            "permalink": "https://reddit.com/r/projectmanagement"
+          },
+          {
+            "text": "我们不是不用工具，是重要事情最后还是回到 doc 上对齐。",
+            "community": "r/productmanagement",
+            "permalink": "https://reddit.com/r/productmanagement"
+          },
+          {
+            "text": "形式上都在任务板里，真正的判断和推进还是靠临时协作。",
+            "community": "r/startups",
+            "permalink": "https://reddit.com/r/startups"
+          }
+        ],
+        "source_link": "https://reddit.com/r/projectmanagement",
+        "detail": {
+          "thesis": "项目推进的真实引擎不是任务板本身，而是任务板之外、由团队自发形成的临时协作流程。",
+          "writing_angle_or_perspective": "别从工具功能讲，直接讲为什么正式流程总被绕过。",
+          "tension_point_or_why_it_matters": "如果这些‘补丁流程’才是真正在干活的，那正式工具的价值和定位就值得重新想了。",
+          "title_hooks": [
+            "不是工具不好用，是真正干活的流程根本不在工具里",
+            "任务板是门面，群聊和文档才是发动机"
+          ],
+          "quote_pack": [
+            "真正推动项目往前走的，不在 Jira 里，在群里和文档里。｜真正推动项目往前走的，不在 Jira 里，在群里和文档里。｜r/projectmanagement",
+            "我们不是不用工具，是重要事情最后还是回到 doc 上对齐。｜我们不是不用工具，是重要事情最后还是回到 doc 上对齐。｜r/productmanagement",
+            "形式上都在任务板里，真正的判断和推进还是靠临时协作。｜形式上都在任务板里，真正的判断和推进还是靠临时协作。｜r/startups"
+          ]
+        },
+        "lane": "breakdown",
+        "topic_pack_id": "organic-discovery",
+        "topic_cluster_id": "content-production-and-editorial",
+        "topic_cluster_ids": [
+          "content-production-and-editorial"
+        ],
+        "named_topic_ids": []
+      },
+      "changed": {
+        "title": {
+          "before": "项目真正往前走，靠的不是任务板，而是板子外面的补丁流程",
+          "after": "项目经理发现任务板只是门面，推进项目靠群聊和文档里的临时协作"
+        },
+        "why_now": {
+          "before": "r/projectmanagement、r/productmanagement、r/startups里一共出现了3个帖子，近 7 天里还在继续冒头，已经有用户开始找替代，大家对这件事的分歧也在变大。",
+          "after": "r/projectmanagement、r/productmanagement、r/startups 里一共出现了 3 个帖子，近 7 天里还在继续冒头，已经有用户开始找替代，大家对这件事的分歧也在变大。"
+        }
+      },
+      "fluency_repair_issue_count": 0,
+      "remaining_density_issues": [],
+      "v13_title_issues_before": [],
+      "v13_title_issues_after": [],
+      "error": ""
+    },
+    {
+      "card_id": "clue-ai-coding-constraint-drop",
+      "lane": "breakdown",
+      "card_type": "write",
+      "profile_id": "hotpost_v13_title_standalone",
+      "semantic_model": "deepseek/deepseek-v4-flash",
+      "writer_model": "xiaomi/mimo-v2.5-pro",
+      "original_card": {
+        "card_id": "clue-ai-coding-constraint-drop",
+        "signal_id": "clue-ai-coding-constraint-drop",
+        "card_type": "write",
+        "category_id": "write",
+        "source_scope_id": "ai-automation",
+        "source_scope_name": "AI 与自动化",
+        "source_domain_id": "ai-automation",
+        "source_domain_name": "AI 与自动化",
+        "source_event_at": null,
+        "title": "AI 长任务协作，最怕它‘选择性失忆’",
+        "summary_line": "用户发现，AI 在长任务中并非完全遗忘，而是会‘选择性’地丢掉部分约束，导致后期跑偏。",
+        "audience": "把 AI 拉进长任务协作里的开发者",
+        "why_now": "多个社区的用户都在描述同一种崩溃：AI 前期答应，后期偏题。这不再是‘记不住’，而是‘带着一半记忆干活’，问题性质变了。",
+        "why_now_reason": "switch_signal_7d",
+        "signal_level": "rising",
+        "intent_tags": [
+          "明确阻塞 / 吐槽到影响行动",
+          "求替代"
+        ],
+        "top_community": "r/codex",
+        "thread_count": 4,
+        "community_count": 2,
+        "preview_quote": {
+          "text": "前面那些限制它都答应了，真正动手时只记住了一半。",
+          "community": "r/codex",
+          "permalink": "https://reddit.com/r/codex"
+        },
+        "published_at": "2026-04-07T02:19:28.817275Z",
+        "source_module": {
+          "primary_communities": [
+            "r/codex",
+            "r/ClaudeAI",
+            "r/ChatGPTCoding"
+          ],
+          "top_community": "r/codex",
+          "tone_tags": [],
+          "thread_count": 4,
+          "community_count": 2,
+          "last_active_text": "近30天"
+        },
+        "quotes": [
+          {
+            "text": "前面那些限制它都答应了，真正动手时只记住了一半。",
+            "community": "r/codex",
+            "permalink": "https://reddit.com/r/codex"
+          },
+          {
+            "text": "最崩的是你以为它都懂了，结果后半程开始自己偏题。",
+            "community": "r/ClaudeAI",
+            "permalink": "https://reddit.com/r/ClaudeAI"
+          },
+          {
+            "text": "长 prompt 不是问题，问题是它没把约束一直带着走。",
+            "community": "r/ChatGPTCoding",
+            "permalink": "https://reddit.com/r/ChatGPTCoding"
+          }
+        ],
+        "source_link": "https://reddit.com/r/codex",
+        "detail": {
+          "thesis": "AI 在长任务中的核心问题不是遗忘，而是它会‘选择性’地保留或丢弃约束，导致协作后期出现不可预测的跑偏。",
+          "writing_angle_or_perspective": "别讲‘AI 记性差’，要讲它‘选择性执行’带来的失控感。",
+          "tension_point_or_why_it_matters": "你无法预判它会丢掉哪条规则，这让长任务的可靠性变得像赌博。",
+          "title_hooks": [
+            "AI 不是忘了所有规则，而是只挑它‘记得住’的做",
+            "长任务协作的崩溃点，在于 AI 的‘记忆’不可靠"
+          ],
+          "quote_pack": [
+            "前面那些限制它都答应了，真正动手时只记住了一半。｜它前期答应了所有限制，但真正执行时只记住了一半。｜r/codex",
+            "最崩的是你以为它都懂了，结果后半程开始自己偏题。｜最崩溃的是你以为它都理解了，结果后半程它开始自己跑偏。｜r/ClaudeAI",
+            "长 prompt 不是问题，问题是它没把约束一直带着走。｜长 prompt 不是问题，问题是它没能一直带着约束执行。｜r/ChatGPTCoding"
+          ]
+        },
+        "lane": "breakdown",
+        "topic_pack_id": "upstream-winds",
+        "topic_cluster_id": "flagship-project-tracks",
+        "topic_cluster_ids": [
+          "flagship-project-tracks",
+          "open-source-projects"
+        ],
+        "named_topic_ids": []
+      },
+      "v12_shadow": {
+        "title": "AI 长任务协作，最怕它‘选择性失忆’（约束漂移）",
+        "summary_line": "用户发现，AI 在长任务中并非完全遗忘，而是会‘选择性’地丢掉部分约束，导致后期跑偏。",
+        "audience": "把 AI 拉进长任务协作里的开发者",
+        "why_now": "多个社区的用户都在描述同一种崩溃：AI 前期答应，后期偏题。这不再是‘记不住’，而是‘带着一半记忆干活’，问题性质变了。",
+        "thesis": "开发者对 AI 长任务协作的信任，正从‘它能不能记住’转向‘它会不会选择性执行’。问题不再是记忆容量，而是执行策略不可控。",
+        "writing_angle_or_perspective": "别从‘AI 记性差’讲，直接讲‘它为什么只执行了一半’。",
+        "tension_point_or_why_it_matters": "开发者必须反复验证 AI 是否还在遵守所有约束，这抵消了用 AI 提效的初衷。",
+        "title_hooks": [
+          "不是 AI 记不住，而是它只记住了一半",
+          "前期答应所有限制，真正动手时只执行了一半"
+        ],
+        "quote_pack": [
+          "前面那些限制它都答应了，真正动手时只记住了一半。｜前面那些限制它都答应了，真正动手时只记住了一半。｜r/codex",
+          "最崩的是你以为它都懂了，结果后半程开始自己偏题。｜最崩的是你以为它都懂了，结果后半程开始自己偏题。｜r/ClaudeAI",
+          "长 prompt 不是问题，问题是它没把约束一直带着走。｜长 prompt 不是问题，问题是它没把约束一直带着走。｜r/ChatGPTCoding"
+        ]
+      },
+      "refreshed_card": {
+        "card_id": "clue-ai-coding-constraint-drop",
+        "signal_id": "clue-ai-coding-constraint-drop",
+        "card_type": "write",
+        "category_id": "write",
+        "source_scope_id": "ai-automation",
+        "source_scope_name": "AI 与自动化",
+        "source_domain_id": "ai-automation",
+        "source_domain_name": "AI 与自动化",
+        "source_event_at": null,
+        "title": "开发者发现 AI 长任务协作中，AI 会‘选择性’丢掉部分约束，导致后期执行与前期承诺不一致",
+        "summary_line": "用户发现，AI 在长任务中并非完全遗忘，而是会‘选择性’地丢掉部分约束，导致后期跑偏。",
+        "audience": "把 AI 拉进长任务协作里的开发者",
+        "why_now": "多个社区的用户都在描述同一种崩溃：AI 前期答应，后期偏题。这不再是‘记不住’，而是‘带着一半记忆干活’，问题性质变了。",
+        "why_now_reason": "switch_signal_7d",
+        "signal_level": "rising",
+        "intent_tags": [
+          "明确阻塞 / 吐槽到影响行动",
+          "求替代"
+        ],
+        "top_community": "r/codex",
+        "thread_count": 4,
+        "community_count": 2,
+        "preview_quote": {
+          "text": "前面那些限制它都答应了，真正动手时只记住了一半。",
+          "community": "r/codex",
+          "permalink": "https://reddit.com/r/codex"
+        },
+        "published_at": "2026-04-07T02:19:28.817275Z",
+        "source_module": {
+          "primary_communities": [
+            "r/codex",
+            "r/ClaudeAI",
+            "r/ChatGPTCoding"
+          ],
+          "top_community": "r/codex",
+          "tone_tags": [],
+          "thread_count": 4,
+          "community_count": 2,
+          "last_active_text": "近30天"
+        },
+        "quotes": [
+          {
+            "text": "前面那些限制它都答应了，真正动手时只记住了一半。",
+            "community": "r/codex",
+            "permalink": "https://reddit.com/r/codex"
+          },
+          {
+            "text": "最崩的是你以为它都懂了，结果后半程开始自己偏题。",
+            "community": "r/ClaudeAI",
+            "permalink": "https://reddit.com/r/ClaudeAI"
+          },
+          {
+            "text": "长 prompt 不是问题，问题是它没把约束一直带着走。",
+            "community": "r/ChatGPTCoding",
+            "permalink": "https://reddit.com/r/ChatGPTCoding"
+          }
+        ],
+        "source_link": "https://reddit.com/r/codex",
+        "detail": {
+          "thesis": "AI 在长任务中的核心问题不是遗忘，而是它会‘选择性’地保留或丢弃约束，导致协作后期出现不可预测的跑偏。",
+          "writing_angle_or_perspective": "别讲‘AI 记性差’，要讲它‘选择性执行’带来的失控感。",
+          "tension_point_or_why_it_matters": "你无法预判它会丢掉哪条规则，这让长任务的可靠性变得像赌博。",
+          "title_hooks": [
+            "AI 不是忘了所有规则，而是只挑它‘记得住’的做",
+            "长任务协作的崩溃点，在于 AI 的‘记忆’不可靠"
+          ],
+          "quote_pack": [
+            "前面那些限制它都答应了，真正动手时只记住了一半。｜它前期答应了所有限制，但真正执行时只记住了一半。｜r/codex",
+            "最崩的是你以为它都懂了，结果后半程开始自己偏题。｜最崩溃的是你以为它都理解了，结果后半程它开始自己跑偏。｜r/ClaudeAI",
+            "长 prompt 不是问题，问题是它没把约束一直带着走。｜长 prompt 不是问题，问题是它没能一直带着约束执行。｜r/ChatGPTCoding"
+          ]
+        },
+        "lane": "breakdown",
+        "topic_pack_id": "upstream-winds",
+        "topic_cluster_id": "flagship-project-tracks",
+        "topic_cluster_ids": [
+          "flagship-project-tracks",
+          "open-source-projects"
+        ],
+        "named_topic_ids": []
+      },
+      "changed": {
+        "title": {
+          "before": "AI 长任务协作，最怕它‘选择性失忆’",
+          "after": "开发者发现 AI 长任务协作中，AI 会‘选择性’丢掉部分约束，导致后期执行与前期承诺不一致"
+        }
+      },
+      "fluency_repair_issue_count": 0,
+      "remaining_density_issues": [],
+      "v13_title_issues_before": [],
+      "v13_title_issues_after": [],
+      "error": ""
+    },
+    {
+      "card_id": "clue-meeting-summary-action-gap",
+      "lane": "breakdown",
+      "card_type": "write",
+      "profile_id": "hotpost_v13_title_standalone",
+      "semantic_model": "deepseek/deepseek-v4-flash",
+      "writer_model": "xiaomi/mimo-v2.5-pro",
+      "original_card": {
+        "card_id": "clue-meeting-summary-action-gap",
+        "signal_id": "clue-meeting-summary-action-gap",
+        "card_type": "write",
+        "category_id": "write",
+        "source_scope_id": "ai-automation",
+        "source_scope_name": "AI 与自动化",
+        "source_domain_id": "ai-automation",
+        "source_domain_name": "AI 与自动化",
+        "source_event_at": null,
+        "title": "AI 纪要排版越漂亮，会后行动越容易断档",
+        "summary_line": "三边都在说 AI 纪要好看但没用，问题已经从‘记不全’变成了‘谁先动’。",
+        "audience": "会后靠 AI 整理纪要、又怕行动项落空的项目经理和管理者",
+        "why_now": "三个人分别从‘没人知道先做什么’、‘任务没更清楚’、‘缺动作接力’吐槽同一件事，说明 AI 纪要的痛点已经不是记录质量，而是行动链条断了。",
+        "why_now_reason": "switch_signal_7d",
+        "signal_level": "rising",
+        "intent_tags": [
+          "明确阻塞 / 吐槽到影响行动",
+          "求推荐 / 求解法"
+        ],
+        "top_community": "r/productivity",
+        "thread_count": 3,
+        "community_count": 2,
+        "preview_quote": {
+          "text": "总结看着像模像样，但会后还是没人知道该先做什么。",
+          "community": "r/productivity",
+          "permalink": "https://reddit.com/r/productivity"
+        },
+        "published_at": "2026-04-07T02:19:08.250516Z",
+        "source_module": {
+          "primary_communities": [
+            "r/productivity",
+            "r/projectmanagement",
+            "r/managers"
+          ],
+          "top_community": "r/productivity",
+          "tone_tags": [],
+          "thread_count": 3,
+          "community_count": 2,
+          "last_active_text": "近30天"
+        },
+        "quotes": [
+          {
+            "text": "总结看着像模像样，但会后还是没人知道该先做什么。",
+            "community": "r/productivity",
+            "permalink": "https://reddit.com/r/productivity"
+          },
+          {
+            "text": "它把会议写得很好看，但任务并没有因此更清楚。",
+            "community": "r/projectmanagement",
+            "permalink": "https://reddit.com/r/projectmanagement"
+          },
+          {
+            "text": "我们缺的不是纪要，是会后动作接力。",
+            "community": "r/managers",
+            "permalink": "https://reddit.com/r/managers"
+          }
+        ],
+        "source_link": "https://reddit.com/r/productivity",
+        "detail": {
+          "thesis": "团队对 AI 会议纪要的失望，已经从‘记得好不好看’转移到了‘会后到底谁先动、怎么接力’。",
+          "writing_angle_or_perspective": "别讲 AI 纪要功能强不强，直接讲它为什么没让会后行动更顺。",
+          "tension_point_or_why_it_matters": "纪要越整齐，团队越容易误以为‘记下来=有人做’，结果行动项反而没人盯。",
+          "title_hooks": [
+            "AI 纪要解决了记录，却弄丢了行动接力棒",
+            "纪要排版满分，会后行动零分"
+          ],
+          "quote_pack": [
+            "总结看着像模像样，但会后还是没人知道该先做什么。｜r/productivity",
+            "它把会议写得很好看，但任务并没有因此更清楚。｜r/projectmanagement",
+            "我们缺的不是纪要，是会后动作接力。｜r/managers"
+          ]
+        },
+        "lane": "breakdown",
+        "topic_cluster_ids": [],
+        "named_topic_ids": []
+      },
+      "v12_shadow": {
+        "title": "AI 纪要排版越漂亮，会后行动越容易断档",
+        "summary_line": "三边都在说 AI 纪要好看但没用，问题从‘记不全’变成了‘谁先动’。",
+        "audience": "会后靠 AI 整理纪要、又怕行动项落空的项目经理和管理者",
+        "why_now": "三个人分别从‘没人知道先做什么’、‘任务没更清楚’、‘缺动作接力’吐槽同一件事，说明 AI 纪要的痛点已经不是记录质量，而是行动链条断了。",
+        "thesis": "AI 纪要解决了‘记下来’的问题，但‘记下来’到‘有人做’之间的接力棒，它接不住。",
+        "writing_angle_or_perspective": "别从工具功能讲，直接讲为什么‘记下来’和‘有人做’之间会断档。",
+        "tension_point_or_why_it_matters": "纪要越完整，团队越容易误以为任务已自动分配，反而没人主动推进。",
+        "title_hooks": [
+          "不是 AI 纪要没用，是它只解决了‘记’，没解决‘做’"
+        ],
+        "quote_pack": [
+          "总结看着像模像样，但会后还是没人知道该先做什么。｜总结看着像模像样，但会后还是没人知道该先做什么。｜r/productivity",
+          "它把会议写得很好看，但任务并没有因此更清楚。｜它把会议写得很好看，但任务并没有因此更清楚。｜r/projectmanagement",
+          "我们缺的不是纪要，是会后动作接力。｜我们缺的不是纪要，是会后动作接力。｜r/managers"
+        ]
+      },
+      "refreshed_card": {
+        "card_id": "clue-meeting-summary-action-gap",
+        "signal_id": "clue-meeting-summary-action-gap",
+        "card_type": "write",
+        "category_id": "write",
+        "source_scope_id": "ai-automation",
+        "source_scope_name": "AI 与自动化",
+        "source_domain_id": "ai-automation",
+        "source_domain_name": "AI 与自动化",
+        "source_event_at": null,
+        "title": "AI 会议纪要排版越漂亮，会后行动越容易断档",
+        "summary_line": "三边都在说 AI 纪要好看但没用，问题从‘记不全’变成了‘谁先动’。",
+        "audience": "会后靠 AI 整理纪要、又怕行动项落空的项目经理和管理者",
+        "why_now": "三个人分别从‘没人知道先做什么’、‘任务没更清楚’、‘缺动作接力’吐槽同一件事，说明 AI 纪要的痛点已经不是记录质量，而是行动链条断了。",
+        "why_now_reason": "switch_signal_7d",
+        "signal_level": "rising",
+        "intent_tags": [
+          "明确阻塞 / 吐槽到影响行动",
+          "求推荐 / 求解法"
+        ],
+        "top_community": "r/productivity",
+        "thread_count": 3,
+        "community_count": 2,
+        "preview_quote": {
+          "text": "总结看着像模像样，但会后还是没人知道该先做什么。",
+          "community": "r/productivity",
+          "permalink": "https://reddit.com/r/productivity"
+        },
+        "published_at": "2026-04-07T02:19:08.250516Z",
+        "source_module": {
+          "primary_communities": [
+            "r/productivity",
+            "r/projectmanagement",
+            "r/managers"
+          ],
+          "top_community": "r/productivity",
+          "tone_tags": [],
+          "thread_count": 3,
+          "community_count": 2,
+          "last_active_text": "近30天"
+        },
+        "quotes": [
+          {
+            "text": "总结看着像模像样，但会后还是没人知道该先做什么。",
+            "community": "r/productivity",
+            "permalink": "https://reddit.com/r/productivity"
+          },
+          {
+            "text": "它把会议写得很好看，但任务并没有因此更清楚。",
+            "community": "r/projectmanagement",
+            "permalink": "https://reddit.com/r/projectmanagement"
+          },
+          {
+            "text": "我们缺的不是纪要，是会后动作接力。",
+            "community": "r/managers",
+            "permalink": "https://reddit.com/r/managers"
+          }
+        ],
+        "source_link": "https://reddit.com/r/productivity",
+        "detail": {
+          "thesis": "团队对 AI 会议纪要的失望，已经从‘记得好不好看’转移到了‘会后到底谁先动、怎么接力’。",
+          "writing_angle_or_perspective": "别讲 AI 纪要功能强不强，直接讲它为什么没让会后行动更顺。",
+          "tension_point_or_why_it_matters": "纪要越整齐，团队越容易误以为‘记下来=有人做’，结果行动项反而没人盯。",
+          "title_hooks": [
+            "AI 纪要解决了记录，却弄丢了行动接力棒",
+            "纪要排版满分，会后行动零分"
+          ],
+          "quote_pack": [
+            "总结看着像模像样，但会后还是没人知道该先做什么。｜r/productivity",
+            "它把会议写得很好看，但任务并没有因此更清楚。｜r/projectmanagement",
+            "我们缺的不是纪要，是会后动作接力。｜r/managers"
+          ]
+        },
+        "lane": "breakdown",
+        "topic_cluster_ids": [],
+        "named_topic_ids": []
+      },
+      "changed": {
+        "title": {
+          "before": "AI 纪要排版越漂亮，会后行动越容易断档",
+          "after": "AI 会议纪要排版越漂亮，会后行动越容易断档"
+        },
+        "summary_line": {
+          "before": "三边都在说 AI 纪要好看但没用，问题已经从‘记不全’变成了‘谁先动’。",
+          "after": "三边都在说 AI 纪要好看但没用，问题从‘记不全’变成了‘谁先动’。"
+        }
+      },
+      "fluency_repair_issue_count": 0,
+      "remaining_density_issues": [],
+      "v13_title_issues_before": [],
+      "v13_title_issues_after": [],
+      "error": ""
+    },
+    {
+      "card_id": "clue-creator-ai-voice-loss",
+      "lane": "breakdown",
+      "card_type": "write",
+      "profile_id": "hotpost_v13_title_standalone",
+      "semantic_model": "deepseek/deepseek-v4-flash",
+      "writer_model": "xiaomi/mimo-v2.5-pro",
+      "original_card": {
+        "card_id": "clue-creator-ai-voice-loss",
+        "signal_id": "clue-creator-ai-voice-loss",
+        "card_type": "write",
+        "category_id": "write",
+        "source_scope_id": "ai-automation",
+        "source_scope_name": "AI 与自动化",
+        "source_domain_id": "ai-automation",
+        "source_domain_name": "AI 与自动化",
+        "source_event_at": null,
+        "title": "AI 改稿最怕的，不是写得差，是写得太“对”",
+        "summary_line": "创作者们发现，AI 改稿后文章更顺了，但自己的语气和判断一起被磨平了，这比写得差更让用户难受。",
+        "audience": "会拿 AI 改稿、又怕自己语气被磨平的内容创作者",
+        "why_now": "三个人分别从“味道没了”、“不像我会说的话”、“不把我磨平”三个角度吐槽同一件事，说明问题已经不是 AI 能力不够，而是它太会写“正确文章”，反而让创作者失去了自己的声音。",
+        "why_now_reason": "recurring_7d",
+        "signal_level": "rising",
+        "intent_tags": [
+          "明确阻塞 / 吐槽到影响行动",
+          "反常识争议 / 共识变化"
+        ],
+        "top_community": "r/ContentCreators",
+        "thread_count": 3,
+        "community_count": 2,
+        "preview_quote": {
+          "text": "AI 一顺手，我的味道就没了。",
+          "community": "r/ContentCreators",
+          "permalink": "https://reddit.com/r/ContentCreators"
+        },
+        "published_at": "2026-04-07T02:18:45.703949Z",
+        "source_module": {
+          "primary_communities": [
+            "r/ContentCreators",
+            "r/writing",
+            "r/Entrepreneur"
+          ],
+          "top_community": "r/ContentCreators",
+          "tone_tags": [],
+          "thread_count": 3,
+          "community_count": 2,
+          "last_active_text": "近7天"
+        },
+        "quotes": [
+          {
+            "text": "AI 一顺手，我的味道就没了。",
+            "community": "r/ContentCreators",
+            "permalink": "https://reddit.com/r/ContentCreators"
+          },
+          {
+            "text": "它改得更像“正确文章”，但不像我会说的话。",
+            "community": "r/writing",
+            "permalink": "https://reddit.com/r/writing"
+          },
+          {
+            "text": "我不是要一个更会写的助手，我要一个不把我磨平的助手。",
+            "community": "r/Entrepreneur",
+            "permalink": "https://reddit.com/r/Entrepreneur"
+          }
+        ],
+        "source_link": "https://reddit.com/r/ContentCreators",
+        "detail": {
+          "thesis": "创作者抗拒的不是 AI 改稿能力不足，而是它太会把东西写得“正确”，以至于磨平了个人语气和判断。",
+          "writing_angle_or_perspective": "别从 AI 能不能写好讲，直接讲创作者为什么觉得“写得越好，越不是自己的”。",
+          "tension_point_or_why_it_matters": "如果 AI 总把稿子磨成“标准答案”，创作者最终可能放弃使用，或者发布一堆失去个人特色的内容。",
+          "title_hooks": [
+            "不是 AI 不会写，是它太会写“正确文章”了",
+            "稿子更顺了，但自己的味道也没了"
+          ],
+          "quote_pack": [
+            "AI 一顺手，我的味道就没了。｜AI 一顺手，我的味道就没了。｜r/ContentCreators",
+            "它改得更像“正确文章”，但不像我会说的话。｜它改得更像“正确文章”，但不像我会说的话。｜r/writing",
+            "我不是要一个更会写的助手，我要一个不把我磨平的助手。｜我不是要一个更会写的助手，我要一个不把我磨平的助手。｜r/Entrepreneur"
+          ]
+        },
+        "lane": "breakdown",
+        "topic_pack_id": "tools-efficiency",
+        "topic_cluster_id": "ai-product-and-adoption",
+        "topic_cluster_ids": [
+          "ai-product-and-adoption"
+        ],
+        "named_topic_ids": []
+      },
+      "v12_shadow": {
+        "title": "AI 改稿最怕的，不是写得差，是写得太“对”",
+        "summary_line": "创作者们发现，AI 改稿后文章更顺了，但自己的语气和判断一起被磨平了，这比写得差更让用户难受。",
+        "audience": "会拿 AI 改稿、又怕自己语气被磨平的内容创作者",
+        "why_now": "三个人分别从“味道没了”、“不像我会说的话”、“不把我磨平”三个角度吐槽同一件事，说明问题已经不是 AI 能力不够，而是它太会写“正确文章”，反而让创作者失去了自己的声音。",
+        "thesis": "创作者抗拒的不是 AI 写得不好，而是它太会写“正确文章”，把个人语气和判断一起磨平了。",
+        "writing_angle_or_perspective": "别从 AI 能力讲，直接讲创作者为什么觉得“更顺”反而更难受。",
+        "tension_point_or_why_it_matters": "如果 AI 只会写“正确文章”，那创作者的个人特色就会在效率提升中被悄悄抹掉。",
+        "title_hooks": [
+          "不是 AI 写得差，是它写得太“对”，把你的味道磨没了"
+        ],
+        "quote_pack": [
+          "AI 一顺手，我的味道就没了。｜AI 一顺手，我的味道就没了。｜r/ContentCreators",
+          "它改得更像“正确文章”，但不像我会说的话。｜它改得更像“正确文章”，但不像我会说的话。｜r/writing",
+          "我不是要一个更会写的助手，我要一个不把我磨平的助手。｜我不是要一个更会写的助手，我要一个不把我磨平的助手。｜r/Entrepreneur"
+        ]
+      },
+      "refreshed_card": {
+        "card_id": "clue-creator-ai-voice-loss",
+        "signal_id": "clue-creator-ai-voice-loss",
+        "card_type": "write",
+        "category_id": "write",
+        "source_scope_id": "ai-automation",
+        "source_scope_name": "AI 与自动化",
+        "source_domain_id": "ai-automation",
+        "source_domain_name": "AI 与自动化",
+        "source_event_at": null,
+        "title": "AI 改稿后文章更顺了，但创作者的语气和判断被磨平了",
+        "summary_line": "创作者们发现，AI 改稿后文章更顺了，但自己的语气和判断一起被磨平了，这比写得差更让用户难受。",
+        "audience": "会拿 AI 改稿、又怕自己语气被磨平的内容创作者",
+        "why_now": "三个人分别从“味道没了”、“不像我会说的话”、“不把我磨平”三个角度吐槽同一件事，说明问题已经不是 AI 能力不够，而是它太会写“正确文章”，反而让创作者失去了自己的声音。",
+        "why_now_reason": "recurring_7d",
+        "signal_level": "rising",
+        "intent_tags": [
+          "明确阻塞 / 吐槽到影响行动",
+          "反常识争议 / 共识变化"
+        ],
+        "top_community": "r/ContentCreators",
+        "thread_count": 3,
+        "community_count": 2,
+        "preview_quote": {
+          "text": "AI 一顺手，我的味道就没了。",
+          "community": "r/ContentCreators",
+          "permalink": "https://reddit.com/r/ContentCreators"
+        },
+        "published_at": "2026-04-07T02:18:45.703949Z",
+        "source_module": {
+          "primary_communities": [
+            "r/ContentCreators",
+            "r/writing",
+            "r/Entrepreneur"
+          ],
+          "top_community": "r/ContentCreators",
+          "tone_tags": [],
+          "thread_count": 3,
+          "community_count": 2,
+          "last_active_text": "近7天"
+        },
+        "quotes": [
+          {
+            "text": "AI 一顺手，我的味道就没了。",
+            "community": "r/ContentCreators",
+            "permalink": "https://reddit.com/r/ContentCreators"
+          },
+          {
+            "text": "它改得更像“正确文章”，但不像我会说的话。",
+            "community": "r/writing",
+            "permalink": "https://reddit.com/r/writing"
+          },
+          {
+            "text": "我不是要一个更会写的助手，我要一个不把我磨平的助手。",
+            "community": "r/Entrepreneur",
+            "permalink": "https://reddit.com/r/Entrepreneur"
+          }
+        ],
+        "source_link": "https://reddit.com/r/ContentCreators",
+        "detail": {
+          "thesis": "创作者抗拒的不是 AI 改稿能力不足，而是它太会把东西写得“正确”，以至于磨平了个人语气和判断。",
+          "writing_angle_or_perspective": "别从 AI 能不能写好讲，直接讲创作者为什么觉得“写得越好，越不是自己的”。",
+          "tension_point_or_why_it_matters": "如果 AI 总把稿子磨成“标准答案”，创作者最终可能放弃使用，或者发布一堆失去个人特色的内容。",
+          "title_hooks": [
+            "不是 AI 不会写，是它太会写“正确文章”了",
+            "稿子更顺了，但自己的味道也没了"
+          ],
+          "quote_pack": [
+            "AI 一顺手，我的味道就没了。｜AI 一顺手，我的味道就没了。｜r/ContentCreators",
+            "它改得更像“正确文章”，但不像我会说的话。｜它改得更像“正确文章”，但不像我会说的话。｜r/writing",
+            "我不是要一个更会写的助手，我要一个不把我磨平的助手。｜我不是要一个更会写的助手，我要一个不把我磨平的助手。｜r/Entrepreneur"
+          ]
+        },
+        "lane": "breakdown",
+        "topic_pack_id": "tools-efficiency",
+        "topic_cluster_id": "ai-product-and-adoption",
+        "topic_cluster_ids": [
+          "ai-product-and-adoption"
+        ],
+        "named_topic_ids": []
+      },
+      "changed": {
+        "title": {
+          "before": "AI 改稿最怕的，不是写得差，是写得太“对”",
+          "after": "AI 改稿后文章更顺了，但创作者的语气和判断被磨平了"
+        }
+      },
+      "fluency_repair_issue_count": 0,
+      "remaining_density_issues": [],
+      "v13_title_issues_before": [],
+      "v13_title_issues_after": [],
+      "error": ""
+    },
+    {
+      "card_id": "clue-support-kb-answer-gap",
+      "lane": "breakdown",
+      "card_type": "write",
+      "profile_id": "hotpost_v13_title_standalone",
+      "semantic_model": "deepseek/deepseek-v4-flash",
+      "writer_model": "xiaomi/mimo-v2.5-pro",
+      "original_card": {
+        "card_id": "clue-support-kb-answer-gap",
+        "signal_id": "clue-support-kb-answer-gap",
+        "card_type": "write",
+        "category_id": "write",
+        "source_scope_id": "business-growth-ops",
+        "source_scope_name": "商业增长与运营",
+        "source_domain_id": "business-growth-ops",
+        "source_domain_name": "商业增长与运营",
+        "source_event_at": null,
+        "title": "知识库搜得到，但客服还得自己当编辑",
+        "summary_line": "三个人都在说，搜出来的文档不能直接用，得自己判断版本、拼接语气，才能变成一段能回复客户的话。",
+        "audience": "被知识库‘能搜到但不能直接用’卡住的客服和IT支持",
+        "why_now": "三个社区的帖子都指向同一个具体动作：从‘搜到’到‘能用’之间，客服必须手动完成一次信息重组。这说明问题已经不是‘有没有’，而是‘能不能直接用’。",
+        "why_now_reason": "switch_signal_7d",
+        "signal_level": "rising",
+        "intent_tags": [
+          "求推荐 / 求解法",
+          "明确阻塞 / 吐槽到影响行动"
+        ],
+        "top_community": "r/customersupport",
+        "thread_count": 3,
+        "community_count": 2,
+        "preview_quote": {
+          "text": "搜出来的是一堆相关文档，不是我这次工单能直接用的答案。",
+          "community": "r/customersupport",
+          "permalink": "https://reddit.com/r/customersupport"
+        },
+        "published_at": "2026-04-07T02:18:25.425219Z",
+        "source_module": {
+          "primary_communities": [
+            "r/customersupport",
+            "r/helpdesk",
+            "r/sysadmin"
+          ],
+          "top_community": "r/customersupport",
+          "tone_tags": [],
+          "thread_count": 3,
+          "community_count": 2,
+          "last_active_text": "近30天"
+        },
+        "quotes": [
+          {
+            "text": "搜出来的是一堆相关文档，不是我这次工单能直接用的答案。",
+            "community": "r/customersupport",
+            "permalink": "https://reddit.com/r/customersupport"
+          },
+          {
+            "text": "文档是有的，但你还是得自己拼成一段能发给客户的话。",
+            "community": "r/helpdesk",
+            "permalink": "https://reddit.com/r/helpdesk"
+          },
+          {
+            "text": "最浪费时间的是明明搜到了，还得再判断哪个版本能用。",
+            "community": "r/sysadmin",
+            "permalink": "https://reddit.com/r/sysadmin"
+          }
+        ],
+        "source_link": "https://reddit.com/r/customersupport",
+        "detail": {
+          "thesis": "客服的瓶颈不是找不到文档，而是必须手动完成从‘相关文档’到‘可用答案’的转换，这一步消耗了他们最多的判断和编辑时间。",
+          "writing_angle_or_perspective": "从客服的‘最后一公里’工作量切入，看知识库为什么没能省力。",
+          "tension_point_or_why_it_matters": "知识库的价值被这一步手动劳动抵消了，客服的时间还是花在了信息加工上，而不是解决问题上。",
+          "title_hooks": [
+            "知识库省了找的时间，却加了编的负担",
+            "从‘搜到’到‘能用’，中间隔着一次人工编辑"
+          ],
+          "quote_pack": [
+            "搜出来的是一堆相关文档，不是我这次工单能直接用的答案。｜搜出来的是一堆相关文档，不是我这次工单能直接用的答案。｜r/customersupport",
+            "文档是有的，但你还是得自己拼成一段能发给客户的话。｜文档是有的，但你还是得自己拼成一段能发给客户的话。｜r/helpdesk",
+            "最浪费时间的是明明搜到了，还得再判断哪个版本能用。｜最浪费时间的是明明搜到了，还得再判断哪个版本能用。｜r/sysadmin"
+          ]
+        },
+        "lane": "breakdown",
+        "topic_cluster_ids": [],
+        "named_topic_ids": []
+      },
+      "v12_shadow": {
+        "title": "知识库搜得到，但客服还得自己当编辑",
+        "summary_line": "三个人都在说，搜出来的文档不能直接用，得自己判断版本、拼接语气，才能变成一段能回复客户的话。",
+        "audience": "被知识库‘能搜到但不能直接用’卡住的客服和IT支持",
+        "why_now": "三个社区的帖子都指向同一个具体动作：从‘搜到’到‘能用’之间，客服必须手动完成一次信息重组。问题已经不是‘有没有’，而是‘能不能直接用’。",
+        "thesis": "知识库的价值瓶颈，从‘内容是否存在’转移到‘内容能否被直接使用’。客服的时间被消耗在信息加工上，而非解决问题上。",
+        "writing_angle_or_perspective": "别从知识库功能讲，直接讲客服拿到搜索结果后，还要额外做哪些事才能回复客户。",
+        "tension_point_or_why_it_matters": "知识库本应节省时间，但‘搜得到’和‘能直接用’之间的手动编辑环节，正在抵消它的效率价值。",
+        "title_hooks": [
+          "知识库搜得到，但客服还得自己当编辑"
+        ],
+        "quote_pack": [
+          "搜出来的是一堆相关文档，不是我这次工单能直接用的答案。｜搜出来的是一堆相关文档，不是我这次工单能直接用的答案。｜r/customersupport",
+          "文档是有的，但你还是得自己拼成一段能发给客户的话。｜文档是有的，但你还是得自己拼成一段能发给客户的话。｜r/helpdesk",
+          "最浪费时间的是明明搜到了，还得再判断哪个版本能用。｜最浪费时间的是明明搜到了，还得再判断哪个版本能用。｜r/sysadmin"
+        ]
+      },
+      "refreshed_card": {
+        "card_id": "clue-support-kb-answer-gap",
+        "signal_id": "clue-support-kb-answer-gap",
+        "card_type": "write",
+        "category_id": "write",
+        "source_scope_id": "business-growth-ops",
+        "source_scope_name": "商业增长与运营",
+        "source_domain_id": "business-growth-ops",
+        "source_domain_name": "商业增长与运营",
+        "source_event_at": null,
+        "title": "客服用知识库搜文档，还得自己当编辑才能回复客户",
+        "summary_line": "三个人都在说，搜出来的文档不能直接用，得自己判断版本、拼接语气，才能变成一段能回复客户的话。",
+        "audience": "被知识库‘能搜到但不能直接用’卡住的客服和IT支持",
+        "why_now": "三个社区的帖子都指向同一个具体动作：从‘搜到’到‘能用’之间，客服必须手动完成一次信息重组。问题已经不是‘有没有’，而是‘能不能直接用’。",
+        "why_now_reason": "switch_signal_7d",
+        "signal_level": "rising",
+        "intent_tags": [
+          "求推荐 / 求解法",
+          "明确阻塞 / 吐槽到影响行动"
+        ],
+        "top_community": "r/customersupport",
+        "thread_count": 3,
+        "community_count": 2,
+        "preview_quote": {
+          "text": "搜出来的是一堆相关文档，不是我这次工单能直接用的答案。",
+          "community": "r/customersupport",
+          "permalink": "https://reddit.com/r/customersupport"
+        },
+        "published_at": "2026-04-07T02:18:25.425219Z",
+        "source_module": {
+          "primary_communities": [
+            "r/customersupport",
+            "r/helpdesk",
+            "r/sysadmin"
+          ],
+          "top_community": "r/customersupport",
+          "tone_tags": [],
+          "thread_count": 3,
+          "community_count": 2,
+          "last_active_text": "近30天"
+        },
+        "quotes": [
+          {
+            "text": "搜出来的是一堆相关文档，不是我这次工单能直接用的答案。",
+            "community": "r/customersupport",
+            "permalink": "https://reddit.com/r/customersupport"
+          },
+          {
+            "text": "文档是有的，但你还是得自己拼成一段能发给客户的话。",
+            "community": "r/helpdesk",
+            "permalink": "https://reddit.com/r/helpdesk"
+          },
+          {
+            "text": "最浪费时间的是明明搜到了，还得再判断哪个版本能用。",
+            "community": "r/sysadmin",
+            "permalink": "https://reddit.com/r/sysadmin"
+          }
+        ],
+        "source_link": "https://reddit.com/r/customersupport",
+        "detail": {
+          "thesis": "客服的瓶颈不是找不到文档，而是必须手动完成从‘相关文档’到‘可用答案’的转换，这一步消耗了他们最多的判断和编辑时间。",
+          "writing_angle_or_perspective": "从客服的‘最后一公里’工作量切入，看知识库为什么没能省力。",
+          "tension_point_or_why_it_matters": "知识库的价值被这一步手动劳动抵消了，客服的时间还是花在了信息加工上，而不是解决问题上。",
+          "title_hooks": [
+            "知识库省了找的时间，却加了编的负担",
+            "从‘搜到’到‘能用’，中间隔着一次人工编辑"
+          ],
+          "quote_pack": [
+            "搜出来的是一堆相关文档，不是我这次工单能直接用的答案。｜搜出来的是一堆相关文档，不是我这次工单能直接用的答案。｜r/customersupport",
+            "文档是有的，但你还是得自己拼成一段能发给客户的话。｜文档是有的，但你还是得自己拼成一段能发给客户的话。｜r/helpdesk",
+            "最浪费时间的是明明搜到了，还得再判断哪个版本能用。｜最浪费时间的是明明搜到了，还得再判断哪个版本能用。｜r/sysadmin"
+          ]
+        },
+        "lane": "breakdown",
+        "topic_cluster_ids": [],
+        "named_topic_ids": []
+      },
+      "changed": {
+        "title": {
+          "before": "知识库搜得到，但客服还得自己当编辑",
+          "after": "客服用知识库搜文档，还得自己当编辑才能回复客户"
+        },
+        "why_now": {
+          "before": "三个社区的帖子都指向同一个具体动作：从‘搜到’到‘能用’之间，客服必须手动完成一次信息重组。这说明问题已经不是‘有没有’，而是‘能不能直接用’。",
+          "after": "三个社区的帖子都指向同一个具体动作：从‘搜到’到‘能用’之间，客服必须手动完成一次信息重组。问题已经不是‘有没有’，而是‘能不能直接用’。"
+        }
+      },
+      "fluency_repair_issue_count": 0,
+      "remaining_density_issues": [],
+      "v13_title_issues_before": [],
+      "v13_title_issues_after": [],
+      "error": ""
+    },
+    {
+      "card_id": "clue-crm-data-entry-drag",
+      "lane": "breakdown",
+      "card_type": "write",
+      "profile_id": "hotpost_v13_title_standalone",
+      "semantic_model": "deepseek/deepseek-v4-flash",
+      "writer_model": "xiaomi/mimo-v2.5-pro",
+      "original_card": {
+        "card_id": "clue-crm-data-entry-drag",
+        "signal_id": "clue-crm-data-entry-drag",
+        "card_type": "write",
+        "category_id": "write",
+        "source_scope_id": "business-growth-ops",
+        "source_scope_name": "商业增长与运营",
+        "source_domain_id": "business-growth-ops",
+        "source_domain_name": "商业增长与运营",
+        "source_event_at": null,
+        "title": "销售跳过 CRM 录入，不是因为难，是因为觉得这活儿是替系统干的",
+        "summary_line": "大家抱怨的不是操作复杂，而是这一步看起来跟成交无关，更像是在给系统打工。",
+        "audience": "每天会后还得补 CRM 的一线销售和营收运营",
+        "why_now": "一个人说是在‘补作业’，另一个人说‘最先被跳过’，第三个人点破‘没人愿意多做这一步’，说明问题已经从工具好不好用，变成了销售根本不认这一步的价值。",
+        "why_now_reason": "switch_signal_7d",
+        "signal_level": "rising",
+        "intent_tags": [
+          "求替代",
+          "明确阻塞 / 吐槽到影响行动"
+        ],
+        "top_community": "r/sales",
+        "thread_count": 3,
+        "community_count": 2,
+        "preview_quote": {
+          "text": "我不是在管理客户，我是在补 CRM 的作业。",
+          "community": "r/sales",
+          "permalink": "https://reddit.com/r/sales"
+        },
+        "published_at": "2026-04-07T02:18:05.855980Z",
+        "source_module": {
+          "primary_communities": [
+            "r/sales",
+            "r/revops",
+            "r/smallbusiness"
+          ],
+          "top_community": "r/sales",
+          "tone_tags": [],
+          "thread_count": 3,
+          "community_count": 2,
+          "last_active_text": "近30天"
+        },
+        "quotes": [
+          {
+            "text": "我不是在管理客户，我是在补 CRM 的作业。",
+            "community": "r/sales",
+            "permalink": "https://reddit.com/r/sales"
+          },
+          {
+            "text": "每次会议完都知道要回填，但最先被跳过的永远是录入。",
+            "community": "r/revops",
+            "permalink": "https://reddit.com/r/revops"
+          },
+          {
+            "text": "真正的问题不是字段少，是没有人愿意多做这一步。",
+            "community": "r/smallbusiness",
+            "permalink": "https://reddit.com/r/smallbusiness"
+          }
+        ],
+        "source_link": "https://reddit.com/r/sales",
+        "detail": {
+          "thesis": "销售抗拒 CRM 录入，核心是认为这一步是在替系统完成任务，而不是在帮自己推进销售。",
+          "writing_angle_or_perspective": "别从工具功能或培训讲起，直接讲销售为什么从心里不认这一步。",
+          "tension_point_or_why_it_matters": "如果销售不认这一步，系统里的客户数据就会越来越假，最终影响所有基于数据的决策。",
+          "title_hooks": [
+            "不是 CRM 太难，是销售觉得录入是在给系统打工",
+            "最先被跳过的永远是 CRM，因为没人觉得它在帮自己"
+          ],
+          "quote_pack": [
+            "我不是在管理客户，我是在补 CRM 的作业。｜我这不是在管理客户，我是在补 CRM 的作业。｜r/sales",
+            "每次会议完都知道要回填，但最先被跳过的永远是录入。｜每次开完会都知道要回填，但最先被跳过的永远是录入。｜r/revops",
+            "真正的问题不是字段少，是没有人愿意多做这一步。｜真正的问题不是字段少，是没有人愿意多做这一步。｜r/smallbusiness"
+          ]
+        },
+        "lane": "breakdown",
+        "topic_pack_id": "funnel-conversion",
+        "topic_cluster_id": "funnel",
+        "topic_cluster_ids": [
+          "funnel",
+          "market-intel-and-audience-research"
+        ],
+        "named_topic_ids": []
+      },
+      "v12_shadow": {
+        "title": "销售觉得 CRM 录入是‘补作业’，所以会后永远先跳过这一步",
+        "summary_line": "大家抱怨的不是操作复杂，而是这一步看起来跟成交无关，更像是在给系统打工。",
+        "audience": "每天会后还得补 CRM 的一线销售和营收运营",
+        "why_now": "一个人说是在‘补作业’，另一个人说‘最先被跳过’，第三个人点破‘没人愿意多做这一步’，说明问题从工具好不好用，变成了销售根本不认这一步的价值。",
+        "thesis": "销售跳过 CRM 录入，不是因为操作复杂或字段太多，而是他们从心里不认为这一步在帮自己推进成交，反而觉得是在替系统完成任务、补作业。这种认知使录入被定位为与销售无关的附加劳动，因此在时间紧张时最先被放弃。",
+        "writing_angle_or_perspective": "别从工具轻重讲，直接讲销售为什么不认这一步。",
+        "tension_point_or_why_it_matters": "这步总被往后拖，系统里的客户记录就会越来越假。",
+        "title_hooks": [
+          "不是 CRM 太重，是销售根本不认这一步算自己的工作"
+        ],
+        "quote_pack": [
+          "我不是在管理客户，我是在补 CRM 的作业。｜r/sales",
+          "每次会议完都知道要回填，但最先被跳过的永远是录入。｜r/revops",
+          "真正的问题不是字段少，是没有人愿意多做这一步。｜r/smallbusiness"
+        ]
+      },
+      "refreshed_card": {
+        "card_id": "clue-crm-data-entry-drag",
+        "signal_id": "clue-crm-data-entry-drag",
+        "card_type": "write",
+        "category_id": "write",
+        "source_scope_id": "business-growth-ops",
+        "source_scope_name": "商业增长与运营",
+        "source_domain_id": "business-growth-ops",
+        "source_domain_name": "商业增长与运营",
+        "source_event_at": null,
+        "title": "销售觉得 CRM 录入是‘补作业’，所以会后永远先跳过这一步",
+        "summary_line": "大家抱怨的不是操作复杂，而是这一步看起来跟成交无关，更像是在给系统打工。",
+        "audience": "每天会后还得补 CRM 的一线销售和营收运营",
+        "why_now": "一个人说是在‘补作业’，另一个人说‘最先被跳过’，第三个人点破‘没人愿意多做这一步’，说明问题从工具好不好用，变成了销售根本不认这一步的价值。",
+        "why_now_reason": "switch_signal_7d",
+        "signal_level": "rising",
+        "intent_tags": [
+          "求替代",
+          "明确阻塞 / 吐槽到影响行动"
+        ],
+        "top_community": "r/sales",
+        "thread_count": 3,
+        "community_count": 2,
+        "preview_quote": {
+          "text": "我不是在管理客户，我是在补 CRM 的作业。",
+          "community": "r/sales",
+          "permalink": "https://reddit.com/r/sales"
+        },
+        "published_at": "2026-04-07T02:18:05.855980Z",
+        "source_module": {
+          "primary_communities": [
+            "r/sales",
+            "r/revops",
+            "r/smallbusiness"
+          ],
+          "top_community": "r/sales",
+          "tone_tags": [],
+          "thread_count": 3,
+          "community_count": 2,
+          "last_active_text": "近30天"
+        },
+        "quotes": [
+          {
+            "text": "我不是在管理客户，我是在补 CRM 的作业。",
+            "community": "r/sales",
+            "permalink": "https://reddit.com/r/sales"
+          },
+          {
+            "text": "每次会议完都知道要回填，但最先被跳过的永远是录入。",
+            "community": "r/revops",
+            "permalink": "https://reddit.com/r/revops"
+          },
+          {
+            "text": "真正的问题不是字段少，是没有人愿意多做这一步。",
+            "community": "r/smallbusiness",
+            "permalink": "https://reddit.com/r/smallbusiness"
+          }
+        ],
+        "source_link": "https://reddit.com/r/sales",
+        "detail": {
+          "thesis": "销售抗拒 CRM 录入，核心是认为这一步是在替系统完成任务，而不是在帮自己推进销售。",
+          "writing_angle_or_perspective": "别从工具功能或培训讲起，直接讲销售为什么从心里不认这一步。",
+          "tension_point_or_why_it_matters": "如果销售不认这一步，系统里的客户数据就会越来越假，最终影响所有基于数据的决策。",
+          "title_hooks": [
+            "不是 CRM 太难，是销售觉得录入是在给系统打工",
+            "最先被跳过的永远是 CRM，因为没人觉得它在帮自己"
+          ],
+          "quote_pack": [
+            "我不是在管理客户，我是在补 CRM 的作业。｜我这不是在管理客户，我是在补 CRM 的作业。｜r/sales",
+            "每次会议完都知道要回填，但最先被跳过的永远是录入。｜每次开完会都知道要回填，但最先被跳过的永远是录入。｜r/revops",
+            "真正的问题不是字段少，是没有人愿意多做这一步。｜真正的问题不是字段少，是没有人愿意多做这一步。｜r/smallbusiness"
+          ]
+        },
+        "lane": "breakdown",
+        "topic_pack_id": "funnel-conversion",
+        "topic_cluster_id": "funnel",
+        "topic_cluster_ids": [
+          "funnel",
+          "market-intel-and-audience-research"
+        ],
+        "named_topic_ids": []
+      },
+      "changed": {
+        "title": {
+          "before": "销售跳过 CRM 录入，不是因为难，是因为觉得这活儿是替系统干的",
+          "after": "销售觉得 CRM 录入是‘补作业’，所以会后永远先跳过这一步"
+        },
+        "why_now": {
+          "before": "一个人说是在‘补作业’，另一个人说‘最先被跳过’，第三个人点破‘没人愿意多做这一步’，说明问题已经从工具好不好用，变成了销售根本不认这一步的价值。",
+          "after": "一个人说是在‘补作业’，另一个人说‘最先被跳过’，第三个人点破‘没人愿意多做这一步’，说明问题从工具好不好用，变成了销售根本不认这一步的价值。"
+        }
+      },
+      "fluency_repair_issue_count": 0,
+      "remaining_density_issues": [],
+      "v13_title_issues_before": [],
+      "v13_title_issues_after": [],
+      "error": ""
+    },
+    {
+      "card_id": "clue-ai-search-source-trust",
+      "lane": "breakdown",
+      "card_type": "write",
+      "profile_id": "hotpost_v13_title_standalone",
+      "semantic_model": "deepseek/deepseek-v4-flash",
+      "writer_model": "xiaomi/mimo-v2.5-pro",
+      "original_card": {
+        "card_id": "clue-ai-search-source-trust",
+        "signal_id": "clue-ai-search-source-trust",
+        "card_type": "write",
+        "category_id": "write",
+        "source_scope_id": "ai-automation",
+        "source_scope_name": "AI 与自动化",
+        "source_domain_id": "ai-automation",
+        "source_domain_name": "AI 与自动化",
+        "source_event_at": null,
+        "title": "AI 搜索的答案越顺，用户越不敢信",
+        "summary_line": "用户抱怨 AI 搜索结果看起来完整，但无法快速回溯来源，导致信任感缺失，核对成本依然存在。",
+        "audience": "依赖 AI 搜索查资料，但需要自己验证信息来源的用户",
+        "why_now": "多个社区的用户都在表达同一个痛点：AI 生成的答案越流畅，他们就越怀疑其真实性，因为无法快速验证来源。这说明问题已从‘答案质量’转移到了‘可验证性’。",
+        "why_now_reason": "switch_signal_7d",
+        "signal_level": "rising",
+        "intent_tags": [
+          "求推荐 / 求解法",
+          "反常识争议 / 共识变化"
+        ],
+        "top_community": "r/perplexity_ai",
+        "thread_count": 3,
+        "community_count": 2,
+        "preview_quote": {
+          "text": "答案看起来很完整，但我还是得回去自己找原帖确认。",
+          "community": "r/perplexity_ai",
+          "permalink": "https://reddit.com/r/perplexity_ai"
+        },
+        "published_at": "2026-04-07T02:17:44.880856Z",
+        "source_module": {
+          "primary_communities": [
+            "r/perplexity_ai",
+            "r/ChatGPT",
+            "r/research"
+          ],
+          "top_community": "r/perplexity_ai",
+          "tone_tags": [],
+          "thread_count": 3,
+          "community_count": 2,
+          "last_active_text": "近30天"
+        },
+        "quotes": [
+          {
+            "text": "答案看起来很完整，但我还是得回去自己找原帖确认。",
+            "community": "r/perplexity_ai",
+            "permalink": "https://reddit.com/r/perplexity_ai"
+          },
+          {
+            "text": "如果我不能快速回到来源，这个搜索结果就只是一段更顺的总结。",
+            "community": "r/ChatGPT",
+            "permalink": "https://reddit.com/r/ChatGPT"
+          },
+          {
+            "text": "我不是想再看一段 AI 话术，我要的是能核对的证据链。",
+            "community": "r/research",
+            "permalink": "https://reddit.com/r/research"
+          }
+        ],
+        "source_link": "https://reddit.com/r/perplexity_ai",
+        "detail": {
+          "thesis": "用户对 AI 搜索的核心不满，已经从‘答案不准确’变成了‘答案无法被快速验证’，流畅的文本反而加剧了不信任感。",
+          "writing_angle_or_perspective": "从用户信任建立的角度切入，解释为什么‘看起来好’的答案反而让人更不安。",
+          "tension_point_or_why_it_matters": "如果用户无法轻松验证来源，他们要么放弃使用，要么花费大量时间手动核对，这会让 AI 搜索的核心价值（效率提升）大打折扣。",
+          "title_hooks": [
+            "AI 搜索的答案越漂亮，用户心里越打鼓",
+            "流畅的答案成了新的信任障碍"
+          ],
+          "quote_pack": [
+            "答案看起来很完整，但我还是得回去自己找原帖确认。｜答案看起来很完整，但我还是得回去自己找原帖确认。｜r/perplexity_ai",
+            "如果我不能快速回到来源，这个搜索结果就只是一段更顺的总结。｜如果我不能快速回到来源，这个搜索结果就只是一段更顺的总结。｜r/ChatGPT",
+            "我不是想再看一段 AI 话术，我要的是能核对的证据链。｜我不是想再看一段 AI 话术，我要的是能核对的证据链。｜r/research"
+          ]
+        },
+        "lane": "breakdown",
+        "topic_pack_id": "upstream-winds",
+        "topic_cluster_id": "flagship-project-tracks",
+        "topic_cluster_ids": [
+          "flagship-project-tracks",
+          "open-source-projects"
+        ],
+        "named_topic_ids": []
+      },
+      "v12_shadow": {
+        "title": "AI 搜索答案越顺，用户越要自己翻原帖",
+        "summary_line": "用户抱怨 AI 搜索结果看起来完整，但无法快速回溯来源，导致信任感缺失，核对成本依然存在。",
+        "audience": "依赖 AI 搜索查资料，但需要自己验证信息来源的用户",
+        "why_now": "多个社区的用户都在表达同一个痛点：AI 生成的答案越流畅，他们就越怀疑其真实性，因为无法快速验证来源。问题已从‘答案质量’转向‘可验证性’。",
+        "thesis": "用户抗拒的不是 AI 搜索的准确性，而是其‘可验证性’不足。答案越流畅、越完整，反而越像一种包装过的总结，而不是可追溯的原始信息，导致用户需要额外付出核对成本。",
+        "writing_angle_or_perspective": "从用户‘不敢直接用’的行为切入，解释为什么流畅的答案反而降低了信任。",
+        "tension_point_or_why_it_matters": "如果用户每次都要手动核对来源，AI 搜索的效率优势就被抵消了，用户会退回传统搜索。",
+        "title_hooks": [
+          "答案越顺，用户越要自己翻原帖"
+        ],
+        "quote_pack": [
+          "答案看起来很完整，但我还是得回去自己找原帖确认。｜答案看起来很完整，但我还是得回去自己找原帖确认。｜r/perplexity_ai",
+          "如果我不能快速回到来源，这个搜索结果就只是一段更顺的总结。｜如果我不能快速回到来源，这个搜索结果就只是一段更顺的总结。｜r/ChatGPT",
+          "我不是想再看一段 AI 话术，我要的是能核对的证据链。｜我不是想再看一段 AI 话术，我要的是能核对的证据链。｜r/research"
+        ]
+      },
+      "refreshed_card": {
+        "card_id": "clue-ai-search-source-trust",
+        "signal_id": "clue-ai-search-source-trust",
+        "card_type": "write",
+        "category_id": "write",
+        "source_scope_id": "ai-automation",
+        "source_scope_name": "AI 与自动化",
+        "source_domain_id": "ai-automation",
+        "source_domain_name": "AI 与自动化",
+        "source_event_at": null,
+        "title": "AI 搜索答案越流畅，用户越不敢用，因为找不到来源",
+        "summary_line": "用户抱怨 AI 搜索结果看起来完整，但无法快速回溯来源，导致信任感缺失，核对成本依然存在。",
+        "audience": "依赖 AI 搜索查资料，但需要自己验证信息来源的用户",
+        "why_now": "多个社区的用户都在表达同一个痛点：AI 生成的答案越流畅，他们就越怀疑其真实性，因为无法快速验证来源。问题已从‘答案质量’转向‘可验证性’。",
+        "why_now_reason": "switch_signal_7d",
+        "signal_level": "rising",
+        "intent_tags": [
+          "求推荐 / 求解法",
+          "反常识争议 / 共识变化"
+        ],
+        "top_community": "r/perplexity_ai",
+        "thread_count": 3,
+        "community_count": 2,
+        "preview_quote": {
+          "text": "答案看起来很完整，但我还是得回去自己找原帖确认。",
+          "community": "r/perplexity_ai",
+          "permalink": "https://reddit.com/r/perplexity_ai"
+        },
+        "published_at": "2026-04-07T02:17:44.880856Z",
+        "source_module": {
+          "primary_communities": [
+            "r/perplexity_ai",
+            "r/ChatGPT",
+            "r/research"
+          ],
+          "top_community": "r/perplexity_ai",
+          "tone_tags": [],
+          "thread_count": 3,
+          "community_count": 2,
+          "last_active_text": "近30天"
+        },
+        "quotes": [
+          {
+            "text": "答案看起来很完整，但我还是得回去自己找原帖确认。",
+            "community": "r/perplexity_ai",
+            "permalink": "https://reddit.com/r/perplexity_ai"
+          },
+          {
+            "text": "如果我不能快速回到来源，这个搜索结果就只是一段更顺的总结。",
+            "community": "r/ChatGPT",
+            "permalink": "https://reddit.com/r/ChatGPT"
+          },
+          {
+            "text": "我不是想再看一段 AI 话术，我要的是能核对的证据链。",
+            "community": "r/research",
+            "permalink": "https://reddit.com/r/research"
+          }
+        ],
+        "source_link": "https://reddit.com/r/perplexity_ai",
+        "detail": {
+          "thesis": "用户对 AI 搜索的核心不满，已经从‘答案不准确’变成了‘答案无法被快速验证’，流畅的文本反而加剧了不信任感。",
+          "writing_angle_or_perspective": "从用户信任建立的角度切入，解释为什么‘看起来好’的答案反而让人更不安。",
+          "tension_point_or_why_it_matters": "如果用户无法轻松验证来源，他们要么放弃使用，要么花费大量时间手动核对，这会让 AI 搜索的核心价值（效率提升）大打折扣。",
+          "title_hooks": [
+            "AI 搜索的答案越漂亮，用户心里越打鼓",
+            "流畅的答案成了新的信任障碍"
+          ],
+          "quote_pack": [
+            "答案看起来很完整，但我还是得回去自己找原帖确认。｜答案看起来很完整，但我还是得回去自己找原帖确认。｜r/perplexity_ai",
+            "如果我不能快速回到来源，这个搜索结果就只是一段更顺的总结。｜如果我不能快速回到来源，这个搜索结果就只是一段更顺的总结。｜r/ChatGPT",
+            "我不是想再看一段 AI 话术，我要的是能核对的证据链。｜我不是想再看一段 AI 话术，我要的是能核对的证据链。｜r/research"
+          ]
+        },
+        "lane": "breakdown",
+        "topic_pack_id": "upstream-winds",
+        "topic_cluster_id": "flagship-project-tracks",
+        "topic_cluster_ids": [
+          "flagship-project-tracks",
+          "open-source-projects"
+        ],
+        "named_topic_ids": []
+      },
+      "changed": {
+        "title": {
+          "before": "AI 搜索的答案越顺，用户越不敢信",
+          "after": "AI 搜索答案越流畅，用户越不敢用，因为找不到来源"
+        },
+        "why_now": {
+          "before": "多个社区的用户都在表达同一个痛点：AI 生成的答案越流畅，他们就越怀疑其真实性，因为无法快速验证来源。这说明问题已从‘答案质量’转移到了‘可验证性’。",
+          "after": "多个社区的用户都在表达同一个痛点：AI 生成的答案越流畅，他们就越怀疑其真实性，因为无法快速验证来源。问题已从‘答案质量’转向‘可验证性’。"
+        }
+      },
+      "fluency_repair_issue_count": 0,
+      "remaining_density_issues": [],
+      "v13_title_issues_before": [],
+      "v13_title_issues_after": [],
+      "error": ""
+    },
+    {
+      "card_id": "clue-notion-ai-fluff",
+      "lane": "",
+      "card_type": "validate",
+      "profile_id": "hotpost_v13_title_standalone",
+      "semantic_model": "deepseek/deepseek-v4-flash",
+      "writer_model": "xiaomi/mimo-v2.5-pro",
+      "original_card": {
+        "card_id": "clue-notion-ai-fluff",
+        "signal_id": "clue-notion-ai-fluff",
+        "card_type": "validate",
+        "category_id": "validate",
+        "source_scope_id": "ai-automation",
+        "source_scope_name": "AI 与自动化",
+        "source_domain_id": "ai-automation",
+        "source_domain_name": "AI 与自动化",
+        "source_event_at": null,
+        "title": "Notion AI 把笔记改顺了，也把信息量一起改没了",
+        "summary_line": "有用户直说，它不是在帮忙提炼，而是把笔记磨成一层空壳。另一拨用户也在抱怨，句子是顺了，但真正有用的信息一起掉下去了。",
+        "audience": "会用 Notion AI 改写笔记、又嫌内容越来越空的人",
+        "why_now": "r/Notion、r/productivity里一共出现了2个帖子，近 7 天里反复出现，而且这事已经卡到手头工作。",
+        "why_now_reason": "recurring_7d",
+        "signal_level": "sustained",
+        "intent_tags": [
+          "明确阻塞 / 吐槽到影响行动"
+        ],
+        "top_community": "r/Notion",
+        "thread_count": 2,
+        "community_count": 1,
+        "preview_quote": {
+          "text": "它不是帮我提炼，而是把我的笔记磨成一层空壳。",
+          "community": "r/Notion",
+          "permalink": "https://reddit.com/r/Notion"
+        },
+        "published_at": "2026-04-07T02:17:27.474276Z",
+        "source_module": {
+          "primary_communities": [
+            "r/Notion",
+            "r/productivity"
+          ],
+          "top_community": "r/Notion",
+          "tone_tags": [],
+          "thread_count": 2,
+          "community_count": 1,
+          "last_active_text": "近7天"
+        },
+        "quotes": [
+          {
+            "text": "它不是帮我提炼，而是把我的笔记磨成一层空壳。",
+            "community": "r/Notion",
+            "permalink": "https://reddit.com/r/Notion"
+          },
+          {
+            "text": "最烦的是听起来更顺，但信息密度直接掉下去了。",
+            "community": "r/productivity",
+            "permalink": "https://reddit.com/r/productivity"
+          }
+        ],
+        "source_link": "https://reddit.com/r/Notion",
+        "detail": {
+          "pain_point": "Notion AI把笔记磨成空壳，信息密度掉下去，听起来顺但不提炼",
+          "target_user_and_scene": "Notion用户在r/Notion使用AI改写笔记时阻塞",
+          "why_test_now": "r/Notion、r/productivity里已经连续出现了2个帖子，近 7 天里反复出现，而且这事已经卡到手头工作。",
+          "min_test_action": "去看原始讨论",
+          "continue_signal": "继续看类似抱怨会不会反复冒出来。",
+          "stop_signal": "如果后面只剩重复情绪，没有新场景或后续动作，就暂时不用太在意。"
+        },
+        "topic_cluster_ids": [],
+        "named_topic_ids": []
+      },
+      "v12_shadow": {
+        "title": "Notion AI 让笔记变顺了，但有用的信息去哪了",
+        "summary_line": "有用户发现 AI 不是在提炼笔记，而是在把内容磨成空壳；句子顺了，信息密度却掉下去了。",
+        "audience": "用 Notion AI 改写笔记、希望提升内容质量的用户",
+        "why_now": "近7天里，r/Notion 和 r/productivity 各出现一条直接抱怨，用户说“已经卡到手头工作”，问题从抽象评价变成了工作流里的实际阻塞。",
+        "pain_point": "AI 快速生成通顺文字，但牺牲了笔记原本的信息密度和个性化痕迹，用户需要在“节省时间”与“保持内容价值”之间做选择。",
+        "target_user_and_scene": "在 Notion 里用 AI 改写笔记，希望内容更精炼、更专业的用户。",
+        "why_test_now": "原话里有个关键句：“它不是帮我提炼，而是把我的笔记磨成一层空壳。”。用户已经因为信息丢失而卡住工作，再不调整，可能就不再用 AI 改写功能了。",
+        "min_test_action": "去看原始讨论",
+        "continue_signal": "继续看 Notion AI 改写功能的默认行为有没有调整，或者用户是否开始寻找替代工具。",
+        "stop_signal": "如果后续讨论转向“AI 改写在特定场景下依然有用”，或者抱怨频率下降，这条线就失去价值。"
+      },
+      "refreshed_card": {
+        "card_id": "clue-notion-ai-fluff",
+        "signal_id": "clue-notion-ai-fluff",
+        "card_type": "validate",
+        "category_id": "validate",
+        "source_scope_id": "ai-automation",
+        "source_scope_name": "AI 与自动化",
+        "source_domain_id": "ai-automation",
+        "source_domain_name": "AI 与自动化",
+        "source_event_at": null,
+        "title": "Notion AI 改写笔记变通顺，但用户发现有用信息被磨平了",
+        "summary_line": "有用户发现 AI 不是在提炼笔记，而是在把内容磨成空壳；句子顺了，信息密度却掉下去了。",
+        "audience": "用 Notion AI 改写笔记、希望提升内容质量的用户",
+        "why_now": "近7天里，r/Notion 和 r/productivity 各出现一条直接抱怨，用户说“已经卡到手头工作”，问题从抽象评价变成了工作流里的实际阻塞。",
+        "why_now_reason": "recurring_7d",
+        "signal_level": "sustained",
+        "intent_tags": [
+          "明确阻塞 / 吐槽到影响行动"
+        ],
+        "top_community": "r/Notion",
+        "thread_count": 2,
+        "community_count": 1,
+        "preview_quote": {
+          "text": "它不是帮我提炼，而是把我的笔记磨成一层空壳。",
+          "community": "r/Notion",
+          "permalink": "https://reddit.com/r/Notion"
+        },
+        "published_at": "2026-04-07T02:17:27.474276Z",
+        "source_module": {
+          "primary_communities": [
+            "r/Notion",
+            "r/productivity"
+          ],
+          "top_community": "r/Notion",
+          "tone_tags": [],
+          "thread_count": 2,
+          "community_count": 1,
+          "last_active_text": "近7天"
+        },
+        "quotes": [
+          {
+            "text": "它不是帮我提炼，而是把我的笔记磨成一层空壳。",
+            "community": "r/Notion",
+            "permalink": "https://reddit.com/r/Notion"
+          },
+          {
+            "text": "最烦的是听起来更顺，但信息密度直接掉下去了。",
+            "community": "r/productivity",
+            "permalink": "https://reddit.com/r/productivity"
+          }
+        ],
+        "source_link": "https://reddit.com/r/Notion",
+        "detail": {
+          "pain_point": "Notion AI把笔记磨成空壳，信息密度掉下去，听起来顺但不提炼",
+          "target_user_and_scene": "Notion用户在r/Notion使用AI改写笔记时阻塞",
+          "why_test_now": "r/Notion、r/productivity里已经连续出现了2个帖子，近 7 天里反复出现，而且这事已经卡到手头工作。",
+          "min_test_action": "去看原始讨论",
+          "continue_signal": "继续看类似抱怨会不会反复冒出来。",
+          "stop_signal": "如果后面只剩重复情绪，没有新场景或后续动作，就暂时不用太在意。"
+        },
+        "topic_cluster_ids": [],
+        "named_topic_ids": []
+      },
+      "changed": {
+        "title": {
+          "before": "Notion AI 把笔记改顺了，也把信息量一起改没了",
+          "after": "Notion AI 改写笔记变通顺，但用户发现有用信息被磨平了"
+        },
+        "summary_line": {
+          "before": "有用户直说，它不是在帮忙提炼，而是把笔记磨成一层空壳。另一拨用户也在抱怨，句子是顺了，但真正有用的信息一起掉下去了。",
+          "after": "有用户发现 AI 不是在提炼笔记，而是在把内容磨成空壳；句子顺了，信息密度却掉下去了。"
+        },
+        "audience": {
+          "before": "会用 Notion AI 改写笔记、又嫌内容越来越空的人",
+          "after": "用 Notion AI 改写笔记、希望提升内容质量的用户"
+        },
+        "why_now": {
+          "before": "r/Notion、r/productivity里一共出现了2个帖子，近 7 天里反复出现，而且这事已经卡到手头工作。",
+          "after": "近7天里，r/Notion 和 r/productivity 各出现一条直接抱怨，用户说“已经卡到手头工作”，问题从抽象评价变成了工作流里的实际阻塞。"
+        }
+      },
+      "fluency_repair_issue_count": 0,
+      "remaining_density_issues": [],
+      "v13_title_issues_before": [],
+      "v13_title_issues_after": [],
+      "error": ""
+    },
+    {
+      "card_id": "clue-linear-jira-switch",
+      "lane": "breakdown",
+      "card_type": "write",
+      "profile_id": "hotpost_v13_title_standalone",
+      "semantic_model": "deepseek/deepseek-v4-flash",
+      "writer_model": "xiaomi/mimo-v2.5-pro",
+      "original_card": {
+        "card_id": "clue-linear-jira-switch",
+        "signal_id": "clue-linear-jira-switch",
+        "card_type": "write",
+        "category_id": "write",
+        "source_scope_id": "business-growth-ops",
+        "source_scope_name": "商业增长与运营",
+        "source_domain_id": "business-growth-ops",
+        "source_domain_name": "商业增长与运营",
+        "source_event_at": null,
+        "title": "换掉 Jira，图的不是功能多，是团队终于愿意每天打开",
+        "summary_line": "工具的价值不在于能做多少事，而在于团队是否愿意用它。Jira 被抱怨像在搏斗，而 Linear 被夸是因为团队愿意每天打开。",
+        "audience": "在 Jira、Linear 这类协作工具间反复切换的项目经理",
+        "why_now": "三个人分别从不同角度抱怨 Jira 的使用负担、夸赞 Linear 的易用性、并点明换工具的本质是减少协调摩擦，这说明问题已经从功能对比升级到了使用意愿层面。",
+        "why_now_reason": "switch_signal_7d",
+        "signal_level": "rising",
+        "intent_tags": [
+          "求替代",
+          "迁移 / 切换意向"
+        ],
+        "top_community": "r/projectmanagement",
+        "thread_count": 3,
+        "community_count": 2,
+        "preview_quote": {
+          "text": "Jira 能做很多事，但我们每天只是在跟它搏斗。",
+          "community": "r/projectmanagement",
+          "permalink": "https://reddit.com/r/projectmanagement"
+        },
+        "published_at": "2026-04-07T02:17:12.634965Z",
+        "source_module": {
+          "primary_communities": [
+            "r/projectmanagement",
+            "r/productmanagement",
+            "r/linear"
+          ],
+          "top_community": "r/projectmanagement",
+          "tone_tags": [],
+          "thread_count": 3,
+          "community_count": 2,
+          "last_active_text": "近30天"
+        },
+        "quotes": [
+          {
+            "text": "Jira 能做很多事，但我们每天只是在跟它搏斗。",
+            "community": "r/projectmanagement",
+            "permalink": "https://reddit.com/r/projectmanagement"
+          },
+          {
+            "text": "Linear 的价值不是功能更多，是团队终于愿意每天打开它。",
+            "community": "r/productmanagement",
+            "permalink": "https://reddit.com/r/productmanagement"
+          },
+          {
+            "text": "我们不是想换工具，是想减少协调摩擦。",
+            "community": "r/linear",
+            "permalink": "https://reddit.com/r/linear"
+          }
+        ],
+        "source_link": "https://reddit.com/r/projectmanagement",
+        "detail": {
+          "thesis": "团队换掉 Jira 的核心驱动力，是工具带来的日常使用负担和协调摩擦，而不是功能缺失。",
+          "writing_angle_or_perspective": "别从功能清单对比，直接讲工具为什么会被团队‘用脚投票’。",
+          "tension_point_or_why_it_matters": "如果团队连打开工具的意愿都没有，再强大的功能也形同虚设，项目协作的基础就会垮掉。",
+          "title_hooks": [
+            "不是 Jira 功能少，是团队根本不想打开它",
+            "换工具的终极目标：让团队愿意每天用"
+          ],
+          "quote_pack": [
+            "Jira 能做很多事，但我们每天只是在跟它搏斗。｜Jira 能做很多事，但我们每天只是在跟它搏斗。｜r/projectmanagement",
+            "Linear 的价值不是功能更多，是团队终于愿意每天打开它。｜Linear 的价值不是功能更多，是团队终于愿意每天打开它。｜r/productmanagement",
+            "我们不是想换工具，是想减少协调摩擦。｜我们不是想换工具，是想减少协调摩擦。｜r/linear"
+          ]
+        },
+        "lane": "breakdown",
+        "topic_pack_id": "organic-discovery",
+        "topic_cluster_id": "content-production-and-editorial",
+        "topic_cluster_ids": [
+          "content-production-and-editorial"
+        ],
+        "named_topic_ids": []
+      },
+      "v12_shadow": {
+        "title": "Jira 被换掉，不是功能少，是团队用脚投票不想打开",
+        "summary_line": "三个人都在说同一件事：工具的价值不在于功能列表，而在于团队是否愿意每天打开它。Jira 被抱怨像在搏斗，Linear 被夸是因为团队终于愿意用。",
+        "audience": "在 Jira、Linear 这类协作工具间反复切换的项目经理",
+        "why_now": "一个人在抱怨 Jira 的日常使用负担，另一个人在夸 Linear 的打开意愿，第三个人点明换工具的本质是减少协调摩擦。合起来看，问题从功能对比升级到了使用意愿成为选型的隐形权重。",
+        "thesis": "团队换掉 Jira 的核心驱动力，不是功能缺失，而是日常使用带来的心智负担和操作摩擦，导致团队不愿意主动打开它。",
+        "writing_angle_or_perspective": "别从功能对比表讲，直接讲团队为什么用脚投票。",
+        "tension_point_or_why_it_matters": "如果选型只看功能，项目经理会反复陷入换工具却解决不了根本问题的循环。",
+        "title_hooks": [
+          "不是功能少，是团队根本不想打开"
+        ],
+        "quote_pack": [
+          "Jira 能做很多事，但我们每天只是在跟它搏斗。｜Jira 能做很多事，但我们每天只是在跟它搏斗。｜r/projectmanagement",
+          "Linear 的价值不是功能更多，是团队终于愿意每天打开它。｜Linear 的价值不是功能更多，是团队终于愿意每天打开它。｜r/productmanagement",
+          "我们不是想换工具，是想减少协调摩擦。｜我们不是想换工具，是想减少协调摩擦。｜r/linear"
+        ]
+      },
+      "refreshed_card": {
+        "card_id": "clue-linear-jira-switch",
+        "signal_id": "clue-linear-jira-switch",
+        "card_type": "write",
+        "category_id": "write",
+        "source_scope_id": "business-growth-ops",
+        "source_scope_name": "商业增长与运营",
+        "source_domain_id": "business-growth-ops",
+        "source_domain_name": "商业增长与运营",
+        "source_event_at": null,
+        "title": "项目经理选工具：Jira 功能全但团队不愿打开，Linear 易用却可能功能不足",
+        "summary_line": "三个人都在说同一件事：工具的价值不在于功能列表，而在于团队是否愿意每天打开它。Jira 被抱怨像在搏斗，Linear 被夸是因为团队终于愿意用。",
+        "audience": "在 Jira、Linear 这类协作工具间反复切换的项目经理",
+        "why_now": "一个人在抱怨 Jira 的日常使用负担，另一个人在夸 Linear 的打开意愿，第三个人点明换工具的本质是减少协调摩擦。合起来看，问题从功能对比升级到了使用意愿成为选型的隐形权重。",
+        "why_now_reason": "switch_signal_7d",
+        "signal_level": "rising",
+        "intent_tags": [
+          "求替代",
+          "迁移 / 切换意向"
+        ],
+        "top_community": "r/projectmanagement",
+        "thread_count": 3,
+        "community_count": 2,
+        "preview_quote": {
+          "text": "Jira 能做很多事，但我们每天只是在跟它搏斗。",
+          "community": "r/projectmanagement",
+          "permalink": "https://reddit.com/r/projectmanagement"
+        },
+        "published_at": "2026-04-07T02:17:12.634965Z",
+        "source_module": {
+          "primary_communities": [
+            "r/projectmanagement",
+            "r/productmanagement",
+            "r/linear"
+          ],
+          "top_community": "r/projectmanagement",
+          "tone_tags": [],
+          "thread_count": 3,
+          "community_count": 2,
+          "last_active_text": "近30天"
+        },
+        "quotes": [
+          {
+            "text": "Jira 能做很多事，但我们每天只是在跟它搏斗。",
+            "community": "r/projectmanagement",
+            "permalink": "https://reddit.com/r/projectmanagement"
+          },
+          {
+            "text": "Linear 的价值不是功能更多，是团队终于愿意每天打开它。",
+            "community": "r/productmanagement",
+            "permalink": "https://reddit.com/r/productmanagement"
+          },
+          {
+            "text": "我们不是想换工具，是想减少协调摩擦。",
+            "community": "r/linear",
+            "permalink": "https://reddit.com/r/linear"
+          }
+        ],
+        "source_link": "https://reddit.com/r/projectmanagement",
+        "detail": {
+          "thesis": "团队换掉 Jira 的核心驱动力，是工具带来的日常使用负担和协调摩擦，而不是功能缺失。",
+          "writing_angle_or_perspective": "别从功能清单对比，直接讲工具为什么会被团队‘用脚投票’。",
+          "tension_point_or_why_it_matters": "如果团队连打开工具的意愿都没有，再强大的功能也形同虚设，项目协作的基础就会垮掉。",
+          "title_hooks": [
+            "不是 Jira 功能少，是团队根本不想打开它",
+            "换工具的终极目标：让团队愿意每天用"
+          ],
+          "quote_pack": [
+            "Jira 能做很多事，但我们每天只是在跟它搏斗。｜Jira 能做很多事，但我们每天只是在跟它搏斗。｜r/projectmanagement",
+            "Linear 的价值不是功能更多，是团队终于愿意每天打开它。｜Linear 的价值不是功能更多，是团队终于愿意每天打开它。｜r/productmanagement",
+            "我们不是想换工具，是想减少协调摩擦。｜我们不是想换工具，是想减少协调摩擦。｜r/linear"
+          ]
+        },
+        "lane": "breakdown",
+        "topic_pack_id": "organic-discovery",
+        "topic_cluster_id": "content-production-and-editorial",
+        "topic_cluster_ids": [
+          "content-production-and-editorial"
+        ],
+        "named_topic_ids": []
+      },
+      "changed": {
+        "title": {
+          "before": "换掉 Jira，图的不是功能多，是团队终于愿意每天打开",
+          "after": "项目经理选工具：Jira 功能全但团队不愿打开，Linear 易用却可能功能不足"
+        },
+        "summary_line": {
+          "before": "工具的价值不在于能做多少事，而在于团队是否愿意用它。Jira 被抱怨像在搏斗，而 Linear 被夸是因为团队愿意每天打开。",
+          "after": "三个人都在说同一件事：工具的价值不在于功能列表，而在于团队是否愿意每天打开它。Jira 被抱怨像在搏斗，Linear 被夸是因为团队终于愿意用。"
+        },
+        "why_now": {
+          "before": "三个人分别从不同角度抱怨 Jira 的使用负担、夸赞 Linear 的易用性、并点明换工具的本质是减少协调摩擦，这说明问题已经从功能对比升级到了使用意愿层面。",
+          "after": "一个人在抱怨 Jira 的日常使用负担，另一个人在夸 Linear 的打开意愿，第三个人点明换工具的本质是减少协调摩擦。合起来看，问题从功能对比升级到了使用意愿成为选型的隐形权重。"
+        }
+      },
+      "fluency_repair_issue_count": 0,
+      "remaining_density_issues": [],
+      "v13_title_issues_before": [],
+      "v13_title_issues_after": [],
+      "error": ""
+    },
+    {
+      "card_id": "clue-ai-coding-large-repo",
+      "lane": "breakdown",
+      "card_type": "write",
+      "profile_id": "hotpost_v13_title_standalone",
+      "semantic_model": "deepseek/deepseek-v4-flash",
+      "writer_model": "xiaomi/mimo-v2.5-pro",
+      "original_card": {
+        "card_id": "clue-ai-coding-large-repo",
+        "signal_id": "clue-ai-coding-large-repo",
+        "card_type": "write",
+        "category_id": "write",
+        "source_scope_id": "ai-automation",
+        "source_scope_name": "AI 与自动化",
+        "source_domain_id": "ai-automation",
+        "source_domain_name": "AI 与自动化",
+        "source_event_at": null,
+        "title": "AI 在大仓库里乱改，逼得开发者只能把任务拆碎喂",
+        "summary_line": "开发者发现 AI 在大仓库里会乱改代码，唯一的应对办法就是把任务拆得非常小，一步一步喂给它。",
+        "audience": "在大代码仓库里使用 AI 编码工具的开发者",
+        "why_now": "多个社区的帖子都指向同一个具体问题：AI 在大仓库中行为不可控。这已经不是工具好不好用的问题，而是它直接干扰了正常工作流，迫使开发者改变工作方式。",
+        "why_now_reason": "switch_signal_7d",
+        "signal_level": "rising",
+        "intent_tags": [
+          "明确阻塞",
+          "迁移 / 切换意向"
+        ],
+        "top_community": "r/codex",
+        "thread_count": 4,
+        "community_count": 2,
+        "preview_quote": {
+          "text": "它总在我没让它动的地方动手。",
+          "community": "r/codex",
+          "permalink": "https://reddit.com/r/codex"
+        },
+        "published_at": "2026-04-07T02:16:52.552704Z",
+        "source_module": {
+          "primary_communities": [
+            "r/codex",
+            "r/artificial",
+            "r/programming"
+          ],
+          "top_community": "r/codex",
+          "tone_tags": [],
+          "thread_count": 4,
+          "community_count": 2,
+          "last_active_text": "近30天"
+        },
+        "quotes": [
+          {
+            "text": "它总在我没让它动的地方动手。",
+            "community": "r/codex",
+            "permalink": "https://reddit.com/r/codex"
+          },
+          {
+            "text": "小项目还行，大仓库一上来就开始迷路。",
+            "community": "r/artificial",
+            "permalink": "https://reddit.com/r/artificial"
+          },
+          {
+            "text": "我们最后还是把改动拆成很多小步去喂它。",
+            "community": "r/programming",
+            "permalink": "https://reddit.com/r/programming"
+          }
+        ],
+        "source_link": "https://reddit.com/r/codex",
+        "detail": {
+          "thesis": "AI 在大仓库中的不可控行为，迫使开发者从‘整体任务委派’退化到‘原子化步骤投喂’，这本质上是一种工作流降级。",
+          "writing_angle_or_perspective": "从开发者被迫改变工作方式的角度切入，看 AI 工具在复杂真实场景下的局限性。",
+          "tension_point_or_why_it_matters": "当开发者不得不把任务拆碎来适应工具时，工具的效率增益就被抵消了，甚至可能变成负值。",
+          "title_hooks": [
+            "不是 AI 不会写代码，是它在大仓库里会‘迷路’和‘乱动’",
+            "为了用 AI，开发者的工作流被迫降级"
+          ],
+          "quote_pack": [
+            "它总在我没让它动的地方动手。｜它总在我没让它动的地方动手。｜r/codex",
+            "小项目还行，大仓库一上来就开始迷路。｜小项目还行，大仓库一上来就开始迷路。｜r/artificial",
+            "我们最后还是把改动拆成很多小步去喂它。｜我们最后还是把改动拆成很多小步去喂它。｜r/programming"
+          ]
+        },
+        "lane": "breakdown",
+        "topic_pack_id": "upstream-winds",
+        "topic_cluster_id": "key-people-and-route",
+        "topic_cluster_ids": [
+          "key-people-and-route",
+          "platform-policy-shifts"
+        ],
+        "named_topic_ids": []
+      },
+      "v12_shadow": {
+        "title": "AI 在大仓库里乱改，逼得开发者只能把任务拆碎喂",
+        "summary_line": "开发者发现 AI 在大仓库里会乱改代码，唯一的应对办法就是把任务拆得非常小，一步一步喂给它。",
+        "audience": "在大代码仓库里使用 AI 编码工具的开发者",
+        "why_now": "多个社区的帖子都指向同一个具体问题：AI 在大仓库中行为不可控。这已经不是工具好不好用的问题，而是它直接干扰了正常工作流，迫使开发者改变工作方式。",
+        "thesis": "AI 编码工具在大型仓库中的核心问题，不是写不出代码，而是它缺乏全局上下文理解，导致行为不可预测，迫使开发者将完整任务拆解为原子步骤来规避风险。",
+        "writing_angle_or_perspective": "从开发者被迫改变工作流的角度切入，看他们如何从“让 AI 完成任务”变成“管理 AI 的每一步”。",
+        "tension_point_or_why_it_matters": "这种“拆碎任务”的工作流，本质上抵消了 AI 带来的效率增益，工具从“帮手”变成了需要精细管理的负担。",
+        "title_hooks": [
+          "不是 AI 不会写代码，是它在大仓库里不听指挥",
+          "开发者被迫把完整功能拆成无数小指令，像喂药一样喂给 AI"
+        ],
+        "quote_pack": [
+          "它总在我没让它动的地方动手。｜它总在我没让它动的地方动手。｜r/codex",
+          "小项目还行，大仓库一上来就开始迷路。｜小项目还行，大仓库一上来就开始迷路。｜r/artificial",
+          "我们最后还是把改动拆成很多小步去喂它。｜我们最后还是把改动拆成很多小步去喂它。｜r/programming"
+        ]
+      },
+      "refreshed_card": {
+        "card_id": "clue-ai-coding-large-repo",
+        "signal_id": "clue-ai-coding-large-repo",
+        "card_type": "write",
+        "category_id": "write",
+        "source_scope_id": "ai-automation",
+        "source_scope_name": "AI 与自动化",
+        "source_domain_id": "ai-automation",
+        "source_domain_name": "AI 与自动化",
+        "source_event_at": null,
+        "title": "AI 在大仓库里乱改代码，开发者被迫把任务拆成小块喂",
+        "summary_line": "开发者发现 AI 在大仓库里会乱改代码，唯一的应对办法就是把任务拆得非常小，一步一步喂给它。",
+        "audience": "在大代码仓库里使用 AI 编码工具的开发者",
+        "why_now": "多个社区的帖子都指向同一个具体问题：AI 在大仓库中行为不可控。这已经不是工具好不好用的问题，而是它直接干扰了正常工作流，迫使开发者改变工作方式。",
+        "why_now_reason": "switch_signal_7d",
+        "signal_level": "rising",
+        "intent_tags": [
+          "明确阻塞",
+          "迁移 / 切换意向"
+        ],
+        "top_community": "r/codex",
+        "thread_count": 4,
+        "community_count": 2,
+        "preview_quote": {
+          "text": "它总在我没让它动的地方动手。",
+          "community": "r/codex",
+          "permalink": "https://reddit.com/r/codex"
+        },
+        "published_at": "2026-04-07T02:16:52.552704Z",
+        "source_module": {
+          "primary_communities": [
+            "r/codex",
+            "r/artificial",
+            "r/programming"
+          ],
+          "top_community": "r/codex",
+          "tone_tags": [],
+          "thread_count": 4,
+          "community_count": 2,
+          "last_active_text": "近30天"
+        },
+        "quotes": [
+          {
+            "text": "它总在我没让它动的地方动手。",
+            "community": "r/codex",
+            "permalink": "https://reddit.com/r/codex"
+          },
+          {
+            "text": "小项目还行，大仓库一上来就开始迷路。",
+            "community": "r/artificial",
+            "permalink": "https://reddit.com/r/artificial"
+          },
+          {
+            "text": "我们最后还是把改动拆成很多小步去喂它。",
+            "community": "r/programming",
+            "permalink": "https://reddit.com/r/programming"
+          }
+        ],
+        "source_link": "https://reddit.com/r/codex",
+        "detail": {
+          "thesis": "AI 在大仓库中的不可控行为，迫使开发者从‘整体任务委派’退化到‘原子化步骤投喂’，这本质上是一种工作流降级。",
+          "writing_angle_or_perspective": "从开发者被迫改变工作方式的角度切入，看 AI 工具在复杂真实场景下的局限性。",
+          "tension_point_or_why_it_matters": "当开发者不得不把任务拆碎来适应工具时，工具的效率增益就被抵消了，甚至可能变成负值。",
+          "title_hooks": [
+            "不是 AI 不会写代码，是它在大仓库里会‘迷路’和‘乱动’",
+            "为了用 AI，开发者的工作流被迫降级"
+          ],
+          "quote_pack": [
+            "它总在我没让它动的地方动手。｜它总在我没让它动的地方动手。｜r/codex",
+            "小项目还行，大仓库一上来就开始迷路。｜小项目还行，大仓库一上来就开始迷路。｜r/artificial",
+            "我们最后还是把改动拆成很多小步去喂它。｜我们最后还是把改动拆成很多小步去喂它。｜r/programming"
+          ]
+        },
+        "lane": "breakdown",
+        "topic_pack_id": "upstream-winds",
+        "topic_cluster_id": "key-people-and-route",
+        "topic_cluster_ids": [
+          "key-people-and-route",
+          "platform-policy-shifts"
+        ],
+        "named_topic_ids": []
+      },
+      "changed": {
+        "title": {
+          "before": "AI 在大仓库里乱改，逼得开发者只能把任务拆碎喂",
+          "after": "AI 在大仓库里乱改代码，开发者被迫把任务拆成小块喂"
+        }
+      },
+      "fluency_repair_issue_count": 0,
+      "remaining_density_issues": [],
+      "v13_title_issues_before": [],
+      "v13_title_issues_after": [],
+      "error": ""
+    }
+  ]
+}

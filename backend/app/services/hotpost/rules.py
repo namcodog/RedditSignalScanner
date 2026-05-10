@@ -76,10 +76,36 @@ def classify_pain_category(text: str, lexicon: HotpostLexicon) -> str:
     return best_category or "other"
 
 
+def classify_rant_friction_category(text: str, lexicon: HotpostLexicon) -> str:
+    best_category = None
+    best_score = 0
+    for category, terms in lexicon.rant_friction_categories.items():
+        if category == "other":
+            continue
+        score = 0
+        for term in terms:
+            if term and term in text:
+                score += text.count(term)
+        if score > best_score:
+            best_category = category
+            best_score = score
+    return best_category or "other"
+
+
 def normalize_pain_category_label(label: str, lexicon: HotpostLexicon) -> str | None:
     normalized = normalize_text(label)
     if not normalized:
         return None
+    for category in lexicon.rant_friction_categories.keys():
+        if category == "other":
+            continue
+        if category in normalized or category.replace("_", " ") in normalized:
+            return category
+    for category, terms in lexicon.rant_friction_categories.items():
+        if category == "other":
+            continue
+        if _match_terms(normalized, terms):
+            return category
     for category in lexicon.pain_categories.keys():
         if category == "other":
             continue
@@ -141,6 +167,7 @@ __all__ = [
     "compute_signal_score",
     "classify_intent_label",
     "classify_pain_category",
+    "classify_rant_friction_category",
     "normalize_pain_category_label",
     "count_resonance",
 ]

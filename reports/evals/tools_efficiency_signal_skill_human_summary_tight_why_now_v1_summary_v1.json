@@ -1,0 +1,23 @@
+{
+  "sample_count": 2,
+  "pass_count": 1,
+  "fail_count": 1,
+  "pass_rate": 0.5,
+  "fail_rate": 0.5,
+  "top_failure_tags": [
+    [
+      "reddit_restatement",
+      1
+    ],
+    [
+      "why_now_not_actionable",
+      1
+    ]
+  ],
+  "scope_pass_counts": {
+    "ai-automation": 1
+  },
+  "scope_fail_counts": {
+    "ai-automation": 1
+  }
+}

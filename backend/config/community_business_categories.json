@@ -1,0 +1,104 @@
+{
+  "categories": [
+    {
+      "key": "Ecommerce_Business",
+      "display_name": "Ecommerce Business",
+      "description": "Ecommerce operations, SaaS, sales and business systems"
+    },
+    {
+      "key": "Family_Parenting",
+      "display_name": "Family Parenting",
+      "description": "Parenting, baby, kids and household family decisions"
+    },
+    {
+      "key": "Food_Coffee_Lifestyle",
+      "display_name": "Food Coffee Lifestyle",
+      "description": "Coffee, kitchen, cooking, food tools and beverage lifestyle"
+    },
+    {
+      "key": "Frugal_Living",
+      "display_name": "Frugal Living",
+      "description": "Budgeting, deals, saving money and low-cost living"
+    },
+    {
+      "key": "Home_Lifestyle",
+      "display_name": "Home Lifestyle",
+      "description": "Home, cleaning, decor, appliances and living spaces"
+    },
+    {
+      "key": "Minimal_Outdoor",
+      "display_name": "Minimal Outdoor",
+      "description": "Outdoor, travel, hiking, camping and minimal gear lifestyle"
+    },
+    {
+      "key": "Tools_EDC",
+      "display_name": "Tools EDC",
+      "description": "Tools, knives, flashlights and everyday carry equipment"
+    },
+    {
+      "key": "AI_Workflow",
+      "display_name": "AI Workflow",
+      "description": "AI workflow, automation and model-assisted productivity"
+    }
+  ],
+  "aliases": {
+    "E-commerce_Ops": "Ecommerce_Business"
+  },
+  "phase2_inference": {
+    "role_categories": {
+      "ai_workflow": "AI_Workflow"
+    },
+    "scope_categories": {
+      "ai-automation": "AI_Workflow"
+    },
+    "community_key_categories": {
+      "agi": "AI_Workflow",
+      "ai_agents": "AI_Workflow",
+      "artificial": "AI_Workflow",
+      "chatgptcoding": "AI_Workflow",
+      "claude": "AI_Workflow",
+      "claudeai": "AI_Workflow",
+      "claudecode": "AI_Workflow",
+      "claudeskills": "AI_Workflow",
+      "codex": "AI_Workflow",
+      "comfyui": "AI_Workflow",
+      "llm": "AI_Workflow",
+      "machinelearning": "AI_Workflow",
+      "openai": "AI_Workflow",
+      "opensourceai": "AI_Workflow",
+      "openwebui": "AI_Workflow",
+      "perplexity_ai": "AI_Workflow",
+      "programming": "AI_Workflow",
+      "singularity": "AI_Workflow",
+      "vibecoding": "AI_Workflow",
+      "backpacking": "Minimal_Outdoor",
+      "bushcraft": "Minimal_Outdoor",
+      "campinggear": "Minimal_Outdoor",
+      "survival": "Minimal_Outdoor",
+      "ultralight": "Minimal_Outdoor",
+      "edc": "Tools_EDC",
+      "fountainpens": "Tools_EDC",
+      "hobonichi": "Tools_EDC",
+      "journaling": "Tools_EDC",
+      "manybaggers": "Tools_EDC",
+      "notion": "Tools_EDC",
+      "obsidianmd": "Tools_EDC",
+      "pkms": "Tools_EDC",
+      "planners": "Tools_EDC",
+      "stationery": "Tools_EDC",
+      "sysadmin": "Tools_EDC",
+      "beyondthebump": "Family_Parenting",
+      "daddit": "Family_Parenting",
+      "newparents": "Family_Parenting",
+      "coffee": "Food_Coffee_Lifestyle",
+      "espresso": "Food_Coffee_Lifestyle",
+      "apartmenthacks": "Home_Lifestyle",
+      "asianbeauty": "Home_Lifestyle",
+      "beagles": "Home_Lifestyle",
+      "cleaningtips": "Home_Lifestyle",
+      "homeoffice": "Home_Lifestyle",
+      "skincareaddiction": "Home_Lifestyle"
+    },
+    "default_category": "Ecommerce_Business"
+  }
+}

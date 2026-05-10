@@ -1,0 +1,8 @@
+{
+  "scope": "business-growth-ops",
+  "publish_ready": true,
+  "gate_decision": "publish",
+  "topic_tree_overall": "rewrite",
+  "rotation_decision": "rewrite",
+  "source_health_decision": "rewrite"
+}

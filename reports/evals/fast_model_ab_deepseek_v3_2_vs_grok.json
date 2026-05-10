@@ -1,0 +1,98 @@
+[
+  {
+    "candidate_id": "cand-ai-automation-1sfnauw",
+    "source_scope_id": "ai-automation",
+    "topic_pack_id": "upstream-winds",
+    "candidate_title": "Why would Anthropic keep a cyber model like Project Glasswing invite-only?",
+    "model": "x-ai/grok-4.1-fast",
+    "seconds": 12.76,
+    "title": "Anthropic 担心 cyber model 被用于攻击代码而保持 Project Glasswing 邀请制",
+    "summary_line": "r/artificial 用户说，'The model can find security vulnerabilites more so than prior. If released it might be used to attack code.'（模型能比之前更好地发现安全漏洞。如果发布可能被用来攻击代码。），另一用户称受限 rollout 是收集滥用数据和维持高企业定价的策略。",
+    "why_now": "r/artificial里一共出现了1个帖子，而且这 24 小时里又冒出来了，大家开始反复把它当成一个新变化提出来。",
+    "audience": "追踪 AI 公司安全模型发布策略的开发者"
+  },
+  {
+    "candidate_id": "cand-ai-automation-1sfnauw",
+    "source_scope_id": "ai-automation",
+    "topic_pack_id": "upstream-winds",
+    "candidate_title": "Why would Anthropic keep a cyber model like Project Glasswing invite-only?",
+    "model": "deepseek/deepseek-v3.2",
+    "seconds": 17.291,
+    "title": "Anthropic 将网络安全模型设为邀请制，引发对其能力和动机的猜测",
+    "summary_line": "用户在讨论 Anthropic 为何将名为 Project Glasswing 的网络安全模型保持邀请制。一位用户指出，该模型“发现安全漏洞的能力比之前的模型更强”，如果公开发布“可能被用来攻击代码”，并且“绕过安全护栏的能力似乎增强了”。另一位用户则认为，限制发布是一种策略，旨在“在广泛发布前收集关于滥用模式的观察数据”，同时“网络安全模型”的定位也有助于维持其排他性和高定价的商业形象。",
+    "why_now": "r/artificial里一共出现了1个帖子，而且这 24 小时里又冒出来了，大家开始反复把它当成一个新变化提出来。",
+    "audience": "关注前沿 AI 模型安全风险与商业策略的技术决策者和安全研究员"
+  },
+  {
+    "candidate_id": "cand-ai-automation-1sd78l0",
+    "source_scope_id": "ai-automation",
+    "topic_pack_id": "agent-builder",
+    "candidate_title": "Cursor keeps generating SQL queries like this and it's making me nervous",
+    "model": "x-ai/grok-4.1-fast",
+    "seconds": 11.074,
+    "title": "AI 一碰数据库代码，团队先把 ORM 和人审重新拉回来了。",
+    "summary_line": "真正让团队紧张的不是它会不会写 SQL，而是它一旦贴着现有风格继续写，错误也会显得很合理，最后只好把 ORM 和人工把关重新加回来。",
+    "why_now": "讨论已经不在夸生成速度，而是在追问哪些代码不能再直接放给 AI 写，说明数据库相关代码开始被重新划回人工把关区。",
+    "audience": "让 AI 参与数据库和后端代码的开发者"
+  },
+  {
+    "candidate_id": "cand-ai-automation-1sd78l0",
+    "source_scope_id": "ai-automation",
+    "topic_pack_id": "agent-builder",
+    "candidate_title": "Cursor keeps generating SQL queries like this and it's making me nervous",
+    "model": "deepseek/deepseek-v3.2",
+    "seconds": 14.838,
+    "title": "AI 一碰数据库代码，团队先把 ORM 和人审重新拉回来了。",
+    "summary_line": "真正让团队紧张的不是它会不会写 SQL，而是它一旦贴着现有风格继续写，错误也会显得很合理，最后只好把 ORM 和人工把关重新加回来。",
+    "why_now": "讨论已经不在夸生成速度，而是在追问哪些代码不能再直接放给 AI 写，说明数据库相关代码开始被重新划回人工把关区。",
+    "audience": "让 AI 参与数据库和后端代码的开发者"
+  },
+  {
+    "candidate_id": "cand-ecommerce-sellers-1s9m07l",
+    "source_scope_id": "ecommerce-sellers",
+    "topic_pack_id": "selection-signals",
+    "candidate_title": "Is a big coffee machine worth buying for home use?",
+    "model": "x-ai/grok-4.1-fast",
+    "seconds": 10.925,
+    "title": "同样卖水龙头，售后怎么接住故障，开始比参数更影响下单。",
+    "summary_line": "同样是水龙头，买家开始先看品牌出了故障后怎么接住，而不是先比五金参数和宣传词。",
+    "why_now": "讨论已经把品牌售后拿来正面对比，说明买家开始把维修响应算进购买判断。",
+    "audience": "在耐用品社区比较水龙头品牌售后的人"
+  },
+  {
+    "candidate_id": "cand-ecommerce-sellers-1s9m07l",
+    "source_scope_id": "ecommerce-sellers",
+    "topic_pack_id": "selection-signals",
+    "candidate_title": "Is a big coffee machine worth buying for home use?",
+    "model": "deepseek/deepseek-v3.2",
+    "seconds": 6.954,
+    "title": "同样卖水龙头，售后怎么接住故障，开始比参数更影响下单。",
+    "summary_line": "同样是水龙头，买家开始先看品牌出了故障后怎么接住，而不是先比五金参数和宣传词。",
+    "why_now": "讨论已经把品牌售后拿来正面对比，说明买家开始把维修响应算进购买判断。",
+    "audience": "在耐用品社区比较水龙头品牌售后的人"
+  },
+  {
+    "candidate_id": "cand-business-growth-ops-1sbnkdt",
+    "source_scope_id": "business-growth-ops",
+    "topic_pack_id": "paid-economics",
+    "candidate_title": "Tracking offline conversions for small biz - need advice",
+    "model": "x-ai/grok-4.1-fast",
+    "seconds": 16.003,
+    "title": "电话成交回不到广告后台，小预算账户的 CPC 开始乱跳。",
+    "summary_line": "投手需重新判断线下成交回传设置，因为gclid decode error通常因未在落地页存入cookie或hidden field而在通话前失效，缺少这些信号smart bidding就飞盲。",
+    "why_now": "讨论已经从报错排查走到‘电话成交怎么回传广告后台’，说明智能出价和 CPC 判断都会被带偏。",
+    "audience": "小企业投放者手动上传电话订单转化的运营场景"
+  },
+  {
+    "candidate_id": "cand-business-growth-ops-1sbnkdt",
+    "source_scope_id": "business-growth-ops",
+    "topic_pack_id": "paid-economics",
+    "candidate_title": "Tracking offline conversions for small biz - need advice",
+    "model": "deepseek/deepseek-v3.2",
+    "seconds": 13.511,
+    "title": "电话成交回不到广告后台，小预算账户的 CPC 开始乱跳。",
+    "summary_line": "投放人员发现，如果线下电话订单的点击标识符（GCLID）没有正确存储并回传，Google的智能出价系统就会缺乏关键信号，导致每次点击成本（点击成本）异常上涨。一位资深用户指出，没有这些线下信号反馈，智能出价就像在盲目飞行。",
+    "why_now": "讨论已经从报错排查走到‘电话成交怎么回传广告后台’，说明智能出价和 CPC 判断都会被带偏。",
+    "audience": "依赖线下电话转化并采用智能出价策略的广告投手"
+  }
+]

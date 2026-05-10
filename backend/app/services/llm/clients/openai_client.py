@@ -30,8 +30,10 @@ from app.services.llm.interfaces import LLMClient, LLMClientError
 logger = logging.getLogger(__name__)
 
 
-def resolve_llm_api_key(*, base_url: str | None = None, explicit_key: str | None = None) -> str:
-    if explicit_key:
+def resolve_llm_api_key(
+    *, base_url: str | None = None, explicit_key: str | None = None
+) -> str:
+    if explicit_key is not None:
         return explicit_key.strip()
     base = (base_url or os.getenv("OPENAI_BASE") or "https://api.openai.com/v1").lower()
     openrouter_key = os.getenv("OPENROUTER_API_KEY", "").strip()
@@ -40,9 +42,19 @@ def resolve_llm_api_key(*, base_url: str | None = None, explicit_key: str | None
         return openrouter_key or openai_key
     return openai_key or openrouter_key
 
+
 class OpenAIChatClient(LLMClient):
-    def __init__(self, model: str, *, timeout: float = 8.0, api_key: str | None = None) -> None:
-        self._base = os.getenv("OPENAI_BASE", "https://api.openai.com/v1").rstrip("/")
+    def __init__(
+        self,
+        model: str,
+        *,
+        timeout: float = 8.0,
+        api_key: str | None = None,
+        base_url: str | None = None,
+    ) -> None:
+        self._base = (
+            base_url or os.getenv("OPENAI_BASE", "https://api.openai.com/v1")
+        ).rstrip("/")
         # Prefer explicit key, then env var based on base URL
         self._api_key = resolve_llm_api_key(base_url=self._base, explicit_key=api_key)
         self._org = os.getenv("OPENAI_ORG_ID", "").strip() or None
@@ -60,15 +72,15 @@ class OpenAIChatClient(LLMClient):
             except Exception:
                 self._sdk = None
 
-    # --------------- Public API --------------- 
+    # --------------- Public API ---------------
 
     async def generate(
-        self, 
-        prompt: str | list[dict[str, str]], 
+        self,
+        prompt: str | list[dict[str, str]],
         *,
         response_format: dict[str, str] | None = None,
         temperature: float = 0.7,
-        max_tokens: int = 2048
+        max_tokens: int = 2048,
     ) -> str:
         """
         Async wrapper for text generation.
@@ -85,14 +97,16 @@ class OpenAIChatClient(LLMClient):
             messages=messages,
             max_tokens=max_tokens,
             temperature=temperature,
-            response_format=response_format
+            response_format=response_format,
         )
 
     def summarize(self, texts: Sequence[str], *, max_chars: int = 48) -> list[str]:
         outputs: List[str] = []
         for text in texts:
             prompt = self._build_summarize_prompt(text, max_chars=max_chars)
-            content = self._chat_completion(prompt, max_tokens=max(64, max_chars * 3), temperature=0.2)
+            content = self._chat_completion(
+                prompt, max_tokens=max(64, max_chars * 3), temperature=0.2
+            )
             outputs.append(self._post_summarize(content, max_chars))
         return outputs
 
@@ -101,13 +115,12 @@ class OpenAIChatClient(LLMClient):
         content = self._chat_completion(prompt, max_tokens=24, temperature=0.1)
         return self._post_normalize(content, candidates)
 
-    # --------------- Prompt craft --------------- 
+    # --------------- Prompt craft ---------------
 
     @staticmethod
     def _build_summarize_prompt(text: str, *, max_chars: int) -> list[dict[str, str]]:
         system = (
-            "你是严谨的编辑。只能从提供的文本抽取信息，不得编造。"
-            f"用中文输出，单句不超过{max_chars}个字，避免形容词和夸张语气，只保留事实。"
+            "你是严谨的编辑。只能从提供的文本抽取信息，不得编造。" f"用中文输出，单句不超过{max_chars}个字，避免形容词和夸张语气，只保留事实。"
         )
         user = f"请为下面的文本写一条要点句（<= {max_chars} 字）：\n\n{text.strip()}"
         return [
@@ -116,13 +129,12 @@ class OpenAIChatClient(LLMClient):
         ]
 
     @staticmethod
-    def _build_normalize_prompt(name: str, candidates: Sequence[str]) -> list[dict[str, str]]:
+    def _build_normalize_prompt(
+        name: str, candidates: Sequence[str]
+    ) -> list[dict[str, str]]:
         cand_text = "\n".join(f"- {c}" for c in candidates)
-        system = (
-            "你是实体规范化助手。只能在候选列表中选择一个最佳匹配；若无匹配，输出 NONE。"
-            "只输出候选名称或 NONE，不要额外说明。"
-        )
-        user = f"候选列表:\n{cand_text}\n\n实体名称: {name}\n\n输出:" 
+        system = "你是实体规范化助手。只能在候选列表中选择一个最佳匹配；若无匹配，输出 NONE。" "只输出候选名称或 NONE，不要额外说明。"
+        user = f"候选列表:\n{cand_text}\n\n实体名称: {name}\n\n输出:"
         return [
             {"role": "system", "content": system},
             {"role": "user", "content": user},
@@ -145,9 +157,16 @@ class OpenAIChatClient(LLMClient):
                 return c
         return None
 
-    # --------------- Transport --------------- 
+    # --------------- Transport ---------------
 
-    def _chat_completion(self, messages: list[dict[str, str]], *, max_tokens: int, temperature: float, response_format: dict[str, str] | None = None) -> str:
+    def _chat_completion(
+        self,
+        messages: list[dict[str, str]],
+        *,
+        max_tokens: int,
+        temperature: float,
+        response_format: dict[str, str] | None = None,
+    ) -> str:
         sdk_error: Exception | None = None
         if self._sdk is not None:
             try:
@@ -189,12 +208,16 @@ class OpenAIChatClient(LLMClient):
         }
         if response_format:
             payload["response_format"] = response_format
-        
+
         try:
-            req = urllib.request.Request(url, data=json.dumps(payload).encode("utf-8"), headers=headers)
+            req = urllib.request.Request(
+                url, data=json.dumps(payload).encode("utf-8"), headers=headers
+            )
             with urllib.request.urlopen(req, timeout=self._timeout) as resp:
                 data = json.loads(resp.read().decode("utf-8"))
-                return ((data.get("choices") or [{}])[0].get("message") or {}).get("content", "")
+                return ((data.get("choices") or [{}])[0].get("message") or {}).get(
+                    "content", ""
+                )
         except urllib.error.HTTPError as exc:
             err_body = exc.read().decode("utf-8", errors="replace")
             logger.error(
@@ -204,7 +227,9 @@ class OpenAIChatClient(LLMClient):
                 sdk_error is not None,
                 err_body[:300],
             )
-            raise LLMClientError("openai", err_body or "HTTP request failed", status_code=exc.code) from exc
+            raise LLMClientError(
+                "openai", err_body or "HTTP request failed", status_code=exc.code
+            ) from exc
         except Exception as exc:
             logger.error(
                 "OpenAI connection failed model=%s sdk_fallback=%s",
