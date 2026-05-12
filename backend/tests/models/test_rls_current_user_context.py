@@ -7,6 +7,7 @@ from uuid import UUID, uuid4
 
 import psycopg
 import pytest
+from psycopg import sql
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 
@@ -51,11 +52,19 @@ def _ensure_rss_app_privileges() -> None:
             password = parsed.password
             if not exists:
                 if password:
-                    cur.execute("CREATE ROLE rss_app LOGIN PASSWORD %s", (password,))
+                    cur.execute(
+                        sql.SQL("CREATE ROLE rss_app LOGIN PASSWORD {}").format(
+                            sql.Literal(password)
+                        )
+                    )
                 else:
                     cur.execute("CREATE ROLE rss_app LOGIN")
             elif password:
-                cur.execute("ALTER ROLE rss_app WITH LOGIN PASSWORD %s", (password,))
+                cur.execute(
+                    sql.SQL("ALTER ROLE rss_app WITH LOGIN PASSWORD {}").format(
+                        sql.Literal(password)
+                    )
+                )
             cur.execute("GRANT USAGE ON SCHEMA public TO rss_app")
             cur.execute("GRANT SELECT ON TABLE public.tasks TO rss_app")
             cur.execute("GRANT SELECT ON TABLE public.analyses TO rss_app")
@@ -85,6 +94,7 @@ def test_rls_policy_does_not_raise_when_context_missing() -> None:
 async def test_rls_session_injects_current_user_id_for_rss_app(
     db_session: AsyncSession,
 ) -> None:
+    completed_at = datetime.now(timezone.utc)
     user = User(
         email=f"rls-{uuid4().hex}@example.com",
         password_hash=hash_password("testpass123"),
@@ -97,7 +107,8 @@ async def test_rls_session_injects_current_user_id_for_rss_app(
         user_id=user.id,
         product_description="RLS context injection verification task",
         status=TaskStatus.COMPLETED,
-        completed_at=datetime.now(timezone.utc),
+        created_at=completed_at,
+        completed_at=completed_at,
     )
     db_session.add(task)
     await db_session.flush()
