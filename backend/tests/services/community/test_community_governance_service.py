@@ -430,6 +430,21 @@ async def test_governance_cleanup_refuses_gold_database(
         await service.cleanup_dev(dry_run=True)
 
 
+@pytest.mark.asyncio
+async def test_governance_cleanup_allows_ci_test_database(
+    db_session: AsyncSession,
+) -> None:
+    service = CommunityGovernanceService(
+        db_session,
+        database_url="postgresql+asyncpg://localhost:5432/reddit_scanner_test",
+    )
+
+    result = await service.cleanup_dev(dry_run=True)
+
+    assert result.database == "reddit_scanner_test"
+    assert result.dry_run is True
+
+
 # ── Phase B: 治理合同专项测试 ────────────────────────────────────────────────
 
 

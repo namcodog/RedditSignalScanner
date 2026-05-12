@@ -27,6 +27,13 @@ from app.schemas.community_governance import (
 from app.services.community.blacklist_loader import get_blacklist_config
 
 
+COMMUNITY_CLEANUP_ALLOWED_DATABASES = {
+    "reddit_signal_scanner_dev",
+    "reddit_signal_scanner_test",
+    "reddit_scanner_test",
+}
+
+
 def _as_float(value: Any) -> float | None:
     if value is None:
         return None
@@ -225,7 +232,7 @@ class CommunityGovernanceService:
 
     async def cleanup_dev(self, *, dry_run: bool) -> GovernanceCleanupResult:
         db_name = _extract_database_name(self._database_url)
-        if db_name not in {"reddit_signal_scanner_dev", "reddit_signal_scanner_test"}:
+        if db_name not in COMMUNITY_CLEANUP_ALLOWED_DATABASES:
             raise RuntimeError(
                 f"Community cleanup is allowed only on dev/test databases, got: {db_name or 'unknown'}"
             )
