@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from collections.abc import Awaitable, Callable
-from typing import Optional, Any
+from typing import Any
 
 from app.core.config import settings
 from app.schemas.analysis import AnalysisRead
@@ -19,8 +19,8 @@ from app.services.report.report_llm_policy import (
 def build_runtime_assembly_factory_input(
     runtime: Any,
     *,
-    coerce_report_html:Optional[ Callable[[str]Optional[], str]] = None,
-    fetch_member_count:Optional[ Callable[[str], Awaitable[int]]] = None,
+    coerce_report_html: Callable[[str | None], str] | None = None,
+    fetch_member_count: Callable[[str], Awaitable[int]] | None = None,
 ) -> ReportAssemblyDepsFactoryInput:
     resolved_fetch_member_count = fetch_member_count or runtime.fetch_community_member_count
     resolved_coerce_report_html = coerce_report_html or runtime.coerce_report_html
@@ -59,9 +59,9 @@ def build_runtime_request_factory_input(
     access_denied_error: type[Exception],
     not_ready_error: type[Exception],
     validation_error: type[Exception],
-    validate_analysis_payload:Optional[ Callable[[Any], AnalysisRead]] = None,
-    fetch_member_count:Optional[ Callable[[str], Awaitable[int]]] = None,
-    coerce_report_html:Optional[ Callable[[str]Optional[], str]] = None,
+    validate_analysis_payload: Callable[[Any], AnalysisRead] | None = None,
+    fetch_member_count: Callable[[str], Awaitable[int]] | None = None,
+    coerce_report_html: Callable[[str | None], str] | None = None,
 ) -> ReportRequestDepsFactoryInput:
     resolved_validate = validate_analysis_payload or (
         lambda analysis: runtime.validate_analysis_payload(
@@ -71,7 +71,6 @@ def build_runtime_request_factory_input(
     )
     return ReportRequestDepsFactoryInput(
         load_task_with_analysis=runtime.repository.get_task_with_analysis,
-        persist_report_structured=runtime.repository.persist_report_structured,
         is_membership_allowed=default_membership_allowed,
         make_not_found_error=not_found_error,
         make_access_denied_error=access_denied_error,

@@ -12,6 +12,14 @@ HotpostMode = Literal["trending", "rant", "opportunity"]
 HotpostTimeFilter = Literal["week", "month", "year", "all"]
 
 
+class HotpostQueryParse(ORMModel):
+    query_kind: str | None = None
+    subject: str | None = None
+    compare_target: str | None = None
+    focus: str | None = None
+    scenario: str | None = None
+
+
 class HotpostSearchRequest(ORMModel):
     """爆帖速递搜索请求"""
 
@@ -19,6 +27,7 @@ class HotpostSearchRequest(ORMModel):
     mode: HotpostMode | None = Field(default=None)
     subreddits: list[str] | None = Field(default=None)
     time_filter: HotpostTimeFilter | None = Field(default=None)
+    query_parse_override: HotpostQueryParse | None = None
     limit: int = Field(default=30, ge=1, le=100)
 
     @field_validator("query")
@@ -129,6 +138,14 @@ class PainPoint(ORMModel):
     business_implication: str | None = None
     evidence: list[HotpostTopicEvidence] = Field(default_factory=list)
     evidence_posts: list[Hotpost] = Field(default_factory=list)
+
+
+class ComplaintFacet(ORMModel):
+    label: str
+    target: str | None = None
+    representative_quote: str
+    evidence_count: int = 0
+    evidence_urls: list[str] = Field(default_factory=list)
 
 
 class CompetitorMention(ORMModel):
@@ -313,6 +330,7 @@ class HotpostDeepdiveRequest(ORMModel):
 __all__ = [
     "HotpostMode",
     "HotpostTimeFilter",
+    "HotpostQueryParse",
     "HotpostSearchRequest",
     "HotpostSearchResponse",
     "HotpostDeepdiveResponse",
@@ -322,6 +340,7 @@ __all__ = [
     "HotpostTopic",
     "HotpostTopicEvidence",
     "PainPoint",
+    "ComplaintFacet",
     "CompetitorMention",
     "MigrationIntent",
     "TopQuote",

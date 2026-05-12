@@ -4,7 +4,7 @@ from collections import Counter
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from textwrap import dedent
-from typing import Optional, Any, Awaitable, Callable, Mapping, Sequence
+from typing import Any, Callable, Mapping, Sequence
 
 from sqlalchemy import text
 from app.schemas.task import TaskSummary
@@ -76,10 +76,10 @@ async def run_sample_guard_check(
     product_description: str,
     lookback_days: int,
     min_sample_size: int,
-    hot_fetcher: Callable[...Optional[, Awaitable[list[dict[str, object]]]]],
-    cold_fetcher: Callable[...Optional[, Awaitable[list[dict[str, object]]]]],
-    supplementer: Callable[...Optional[, Awaitable[list[dict[str, object]]]]],
-) -> sample_guard.Optional[SampleCheckResult]:
+    hot_fetcher: sample_guard.SampleFetcher | None,
+    cold_fetcher: sample_guard.SampleFetcher | None,
+    supplementer: sample_guard.SupplementFetcher | None,
+) -> sample_guard.SampleCheckResult | None:
     if not keywords and not product_description.strip():
         return None
     try:

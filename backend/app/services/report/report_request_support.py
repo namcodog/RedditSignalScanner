@@ -3,7 +3,7 @@ from __future__ import annotations
 import logging
 from collections.abc import Awaitable, Callable
 from datetime import datetime
-from typing import Optional, Any
+from typing import Any
 from uuid import UUID
 
 from app.schemas.report_payload import ReportPayload
@@ -13,11 +13,11 @@ logger = logging.getLogger(__name__)
 
 async def resolve_cached_report_payload(
     *,
-    cache_get:Optional[ Callable[[str], Awaitable[ReportPayload]Optional[]]],
+    cache_get: Callable[[str], Awaitable[ReportPayload | None]] | None,
     cache_key: str,
-    generated_at:Optional[ datetime],
+    generated_at: datetime | None,
     task_id: UUID,
-) ->Optional[ ReportPayload]:
+) -> ReportPayload | None:
     if cache_get is None:
         return None
     cached = await cache_get(cache_key)
@@ -32,8 +32,8 @@ async def finalize_report_request(
     payload: ReportPayload,
     analysis: Any,
     cache_key: str,
-    cache_set:Optional[ Callable[[str, ReportPayload], Awaitable[None]]],
-    persist_report_structured:Optional[ Callable[[Any, dict[str, Any]], Awaitable[bool]]],
+    cache_set: Callable[[str, ReportPayload], Awaitable[None]] | None,
+    persist_report_structured: Callable[[Any, dict[str, Any]], Awaitable[bool]] | None,
     task_id: UUID,
     task_status: Any,
 ) -> None:

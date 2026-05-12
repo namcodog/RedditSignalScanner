@@ -22,6 +22,7 @@ class ReportRenderBundle:
     llm_used: bool
     controlled_md_source: str | None
     market_enhancements: dict[str, Any] | None
+    report_markdown: str | None = None
 
 
 def build_metrics_summary(metrics_data: Mapping[str, Any] | None) -> MetricsSummary | None:
@@ -68,6 +69,8 @@ def build_report_render_bundle(
     controlled_result: ControlledMarkdownResult,
     blocked_by_quality_gate: bool,
     market_enhancements: Mapping[str, Any] | None = None,
+    base_report_markdown: str | None = None,
+    narrative_llm_used: bool = False,
 ) -> ReportRenderBundle:
     merged_market_enhancements = (
         dict(market_enhancements)
@@ -86,13 +89,15 @@ def build_report_render_bundle(
         prefer_controlled_html or not base_report_html
     ):
         rendered_html = _render_markdown_html(controlled_result.markdown)
+    report_markdown = controlled_result.markdown or base_report_markdown
 
     return ReportRenderBundle(
         report_html=rendered_html or base_report_html,
         metrics_summary=build_metrics_summary(controlled_result.metrics_data),
-        llm_used=controlled_result.llm_used,
+        llm_used=controlled_result.llm_used or narrative_llm_used,
         controlled_md_source=controlled_result.source,
         market_enhancements=merged_market_enhancements,
+        report_markdown=report_markdown,
     )
 
 

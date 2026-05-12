@@ -4,7 +4,11 @@ from typing import Optional, Any
 
 from app.schemas.hotpost_card_drafts import ValidationCardDraft
 from app.schemas.hotpost_clues import QuotePreview, ValidationDetail
-from app.services.hotpost.card_content_generator import _apply_signal_content, _default_client_factory, _generate_json
+from app.services.hotpost.card_content_generator import (
+    _apply_validation_content,
+    _default_client_factory,
+    _generate_json,
+)
 from app.services.hotpost.legacy_signal_copy_builder import (
     _format_communities,
     _intent_clause,
@@ -117,7 +121,7 @@ async def run_signal_skill_variant(
         messages=messages,
         client_factory=client_factory or _default_client_factory,
     )
-    generated = _apply_signal_content(draft, payload, rules)
+    generated = _apply_validation_content(draft, payload, rules)
     why_now_mode = SIGNAL_SKILL_VARIANTS[variant_id]["why_now_mode"]
     if why_now_mode == "tight":
         why_now = _build_tight_why_now(generated.source_communities, generated.thread_count, generated.intent_tags, generated.why_now_reason)

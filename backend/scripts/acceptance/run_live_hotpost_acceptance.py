@@ -18,6 +18,84 @@ import socket
 from typing import Any
 
 
+REQUIRED_HOTPOST_PATHS = (
+    "/api/hotpost/search",
+    "/api/hotpost/result/{query_id}",
+    "/api/hotpost/stream/{query_id}",
+    "/api/hotpost/deepdive",
+)
+
+
+def _required_hotpost_paths_missing(openapi_payload: dict[str, Any]) -> list[str]:
+    paths = openapi_payload.get("paths")
+    if not isinstance(paths, dict):
+        return list(REQUIRED_HOTPOST_PATHS)
+    return [path for path in REQUIRED_HOTPOST_PATHS if path not in paths]
+
+
+def _validate_hotpost_payload(payload: dict[str, Any]) -> list[str]:
+    issues: list[str] = []
+
+    if not str(payload.get("query_id") or "").strip():
+        issues.append("missing query_id")
+
+    status = str(payload.get("status") or "").strip().lower()
+    if status not in {"completed", "degraded"}:
+        issues.append(f"unexpected status: {status or 'missing'}")
+
+    if not str(payload.get("summary") or "").strip():
+        issues.append("missing summary")
+
+    if "evidence_count" not in payload:
+        issues.append("missing evidence_count")
+    else:
+        try:
+            evidence_count = int(payload.get("evidence_count") or 0)
+        except (TypeError, ValueError):
+            issues.append("invalid evidence_count")
+        else:
+            if evidence_count < 0:
+                issues.append("negative evidence_count")
+
+    communities = payload.get("communities")
+    if not isinstance(communities, list):
+        issues.append("communities is not a list")
+
+    top_quotes = payload.get("top_quotes")
+    if not isinstance(top_quotes, list) or not top_quotes:
+        issues.append("missing top_quotes")
+
+    mode = str(payload.get("mode") or "").strip().lower()
+    if mode == "trending" and not payload.get("topics"):
+        issues.append("missing topics for trending mode")
+    if mode == "rant":
+        pain_points = payload.get("pain_points") or []
+        has_voice = any(point.get("sample_quotes") or point.get("evidence") for point in pain_points if isinstance(point, dict))
+        if not has_voice:
+            issues.append("missing user voice in rant pain_points")
+    if mode == "opportunity" and not payload.get("market_opportunity"):
+        issues.append("missing market_opportunity for opportunity mode")
+
+    return issues
+
+
+def _run_preflight(
+    base_url: str,
+    *,
+    request_timeout_seconds: float,
+) -> dict[str, Any]:
+    payload = _json_request(
+        f"{base_url}/openapi.json",
+        timeout_seconds=request_timeout_seconds,
+        retry_attempts=1,
+        retry_delay_seconds=0,
+    )
+    missing_paths = _required_hotpost_paths_missing(payload)
+    if missing_paths:
+        raise RuntimeError(f"Hotpost OpenAPI preflight failed, missing paths: {', '.join(missing_paths)}")
+    return {"ok": True, "missing_paths": []}
+
+
 def _json_request(
     url: str,
     payload: dict[str, Any] | None = None,

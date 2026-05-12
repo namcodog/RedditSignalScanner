@@ -63,6 +63,7 @@ class ReportAssemblyDepsFactoryInput:
     client_factory: Callable[..., Any] = OpenAIChatClient
     format_facts: Callable[..., str] = format_facts_for_prompt
     build_prompt: Callable[..., str] = build_report_structured_prompt_v9
+    reasoning_model_name: str | None = None
 
 
 @dataclass(slots=True)

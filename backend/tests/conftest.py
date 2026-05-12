@@ -19,13 +19,29 @@ from sqlalchemy import text
 
 
 ROOT = Path(__file__).resolve().parents[2]
-
-if str(ROOT) not in sys.path:
-    sys.path.insert(0, str(ROOT))
-
 BACKEND_ROOT = Path(__file__).resolve().parents[1]
-if str(BACKEND_ROOT) not in sys.path:
+_LOCAL_SCRIPTS_ROOT = BACKEND_ROOT / "scripts"
+
+
+def _ensure_backend_import_precedence() -> None:
+    for path in (ROOT, BACKEND_ROOT):
+        value = str(path)
+        while value in sys.path:
+            sys.path.remove(value)
+    sys.path.insert(0, str(ROOT))
     sys.path.insert(0, str(BACKEND_ROOT))
+
+    loaded_scripts = sys.modules.get("scripts")
+    if loaded_scripts is None:
+        return
+    loaded_scripts_file = getattr(loaded_scripts, "__file__", None)
+    loaded_scripts_path = Path(loaded_scripts_file).resolve() if loaded_scripts_file else None
+    if loaded_scripts_path is None or not loaded_scripts_path.is_relative_to(_LOCAL_SCRIPTS_ROOT):
+        for module_name in [name for name in sys.modules if name == "scripts" or name.startswith("scripts.")]:
+            del sys.modules[module_name]
+
+
+_ensure_backend_import_precedence()
 
 # Tests rely on NullPool to avoid cross-event-loop conflicts; production overrides this.
 os.environ.setdefault("SQLALCHEMY_DISABLE_POOL", "1")
@@ -37,6 +53,27 @@ os.environ.setdefault(
     "postgresql+asyncpg://postgres@localhost:5432/reddit_signal_scanner_test",
 )
 
+DEFAULT_RESET_TABLES = (
+    "storage_metrics",
+    "posts_archive",
+    "beta_feedback",
+    "tier_suggestions",
+    "tier_audit_logs",
+    "semantic_candidates",
+    "semantic_terms",
+    "crawl_metrics",
+    "quality_metrics",
+    "reports",
+    "analyses",
+    "tasks",
+)
+
+COMMUNITY_RESET_TABLES = (
+    "community_cache",
+    "community_pool",
+    "discovered_communities",
+)
+
 # Workaround for RecursionError with SQLAlchemy + Pydantic + pytest
 # See: https://github.com/pydantic/pydantic/issues/5108
 # Increase recursion limit temporarily for test environment
@@ -45,6 +82,7 @@ sys.setrecursionlimit(5000)
 
 def pytest_configure(config: pytest.Config) -> None:
     """Ensure pytest-asyncio runs in auto mode for consistent loop handling."""
+    _ensure_backend_import_precedence()
     # Default to auto mode; integration modules selectively request a session-scoped loop.
     config.option.asyncio_mode = "auto"
 
@@ -634,25 +672,7 @@ def reset_database() -> None:
             """
         )
 
-        tables_to_truncate = [
-            "community_import_history",
-            "storage_metrics",
-            "posts_archive",
-            "beta_feedback",
-            "community_cache",
-            "community_pool",
-            "discovered_communities",
-            "tier_suggestions",
-            "tier_audit_logs",
-            "semantic_candidates",
-            "semantic_terms",
-            "crawl_metrics",
-            "quality_metrics",
-            "reports",
-            "analyses",
-            "tasks",
-            "users",
-        ]
+        tables_to_truncate = [*DEFAULT_RESET_TABLES, "users"]
         existing_tables: list[str] = []
         for t in tables_to_truncate:
             cursor.execute("SELECT to_regclass(%s)", (t,))
@@ -799,7 +819,9 @@ def truncate_tables_between_tests(request: pytest.FixtureRequest) -> Iterator[No
             for i in range(attempts):
                 try:
                     cursor.execute(
-                        "TRUNCATE TABLE beta_feedback, community_cache, community_pool, discovered_communities, tier_suggestions, tier_audit_logs, semantic_candidates, semantic_terms, crawl_metrics, quality_metrics, reports, analyses, tasks, storage_metrics, posts_archive RESTART IDENTITY CASCADE"
+                        "TRUNCATE TABLE "
+                        + ", ".join(DEFAULT_RESET_TABLES)
+                        + " RESTART IDENTITY CASCADE"
                     )
                     break
                 except psycopg.errors.LockNotAvailable:
@@ -809,6 +831,16 @@ def truncate_tables_between_tests(request: pytest.FixtureRequest) -> Iterator[No
                     delay *= 1.5  # Slower exponential backoff (0.5 → 0.75 → 1.125 → 1.69 → 2.53 → 3.8 → 5.7 → 8.5 → 12.8s)
     finally:
         conn.close()
+
+
+@pytest_asyncio.fixture(scope="function")
+async def reset_community_tables(db_session: AsyncSession) -> AsyncIterator[None]:
+    quoted = ", ".join(f'"{name}"' for name in COMMUNITY_RESET_TABLES)
+    await db_session.execute(text(f"TRUNCATE TABLE {quoted} RESTART IDENTITY CASCADE"))
+    await db_session.commit()
+    yield
+    await db_session.execute(text(f"TRUNCATE TABLE {quoted} RESTART IDENTITY CASCADE"))
+    await db_session.commit()
 
 
 # For the community import tests module, reset history once at module start so tests can assert cumulative history

@@ -102,8 +102,8 @@ def create_application(settings: Settings) -> FastAPI:
 
     # Mount standard v1 endpoints (analyze, tasks, stream, reports, export)
     app.include_router(v1_api_router, prefix="/api")
-    # 影子门牌：保持 /api 作为主入口，同时提供 /api/v1 兼容路径
-    app.include_router(v1_api_router, prefix="/api/v1")
+    # 影子门牌保留运行时兼容，但不进入公开 OpenAPI 合同。
+    app.include_router(v1_api_router, prefix="/api/v1", include_in_schema=False)
 
     # Mount legacy/other routers
     legacy_router = APIRouter(prefix="/api")
@@ -130,7 +130,7 @@ def create_application(settings: Settings) -> FastAPI:
         # 黄金路径冻结为 /api；避免返回指向不存在路径的提示文案
         return {"status": "ok"}
 
-    @app.get("/api/v1/healthz", tags=["health"])
+    @app.get("/api/v1/healthz", tags=["health"], include_in_schema=False)
     def health_check_alias_v1() -> dict[str, str]:
         # 影子门牌健康检查：保持与 /api/healthz 一致
         return {"status": "ok"}
@@ -149,12 +149,10 @@ def create_application(settings: Settings) -> FastAPI:
             "openapi": "/openapi.json",
             "endpoints": [
                 "GET  /api/healthz - 健康检查",
-                "GET  /api/v1/healthz - 健康检查 (v1 影子门牌)",
                 "POST /api/auth/register - 用户注册",
                 "POST /api/auth/login - 用户登录",
                 "GET  /api/auth/me - 当前用户",
                 "POST /api/analyze - 创建分析任务",
-                "POST /api/v1/analyze - 创建分析任务 (v1 影子门牌)",
                 "GET  /api/status/{task_id} - 获取任务进度",
                 "GET  /api/analyze/stream/{task_id} - SSE 实时进度",
                 "GET  /api/report/{task_id} - 获取分析报告",

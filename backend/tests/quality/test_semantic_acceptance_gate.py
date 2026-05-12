@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from scripts.semantic.semantic_acceptance_gate import Thresholds, evaluate_gate
+from backend.scripts.semantic.semantic_acceptance_gate import Thresholds, evaluate_gate
 
 
 def test_gate_passes_with_defaults(tmp_path: Path) -> None:

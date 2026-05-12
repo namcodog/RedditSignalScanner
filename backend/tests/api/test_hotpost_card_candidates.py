@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+from datetime import datetime, timezone
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -158,25 +159,26 @@ def test_hotpost_card_candidates_replace_scope_candidates_drops_legacy_scope(mon
 @pytest.mark.asyncio
 async def test_collect_scope_candidates_dedupes_same_post(monkeypatch: pytest.MonkeyPatch) -> None:
     from app.schemas.hotpost_source_scopes import RedditSearchSpec
+    from app.services.hotpost import candidate_spec_collector
     from app.services.hotpost import source_scope_candidate_collector as collector
 
     specs = [
         RedditSearchSpec(source_scope_id="ai-automation", topic_pack_id="agent-builder", subreddit="artificial", mode="listing", sort="hot", time_filter="day", listing_source="listing:hot:day", primary_reason="agent-builder:listing_hot"),
         RedditSearchSpec(source_scope_id="ai-automation", topic_pack_id="agent-builder", subreddit="artificial", mode="search", sort="relevance", time_filter="week", query="agent", listing_source="search:relevance:week", primary_reason="agent-builder:category_keyword", matched_keywords=["agent"]),
     ]
-    post = SimpleNamespace(id="dup123", subreddit="artificial", title="Agent workflow pain", selftext="need better agent workflow", score=180, num_comments=42, created_utc=1_775_200_000, permalink="/r/artificial/comments/dup123/test")
+    post = SimpleNamespace(id="dup123", subreddit="artificial", title="Agent workflow pain", selftext="need better agent workflow", score=180, num_comments=42, created_utc=int(datetime.now(timezone.utc).timestamp()), permalink="/r/artificial/comments/dup123/test")
 
     class _FakeReddit:
         async def __aenter__(self): return self
         async def __aexit__(self, exc_type, exc, tb): return False
         async def fetch_post_comments(self, *args, **kwargs): return [{"body": "This workflow keeps breaking once we add more than one agent.", "permalink": "/r/artificial/comments/dup123/test/c1"}]
 
-    async def _fake_fetch_posts(reddit, spec):
+    async def _fake_fetch_posts(reddit, spec, **_kwargs):
         return [post]
 
     monkeypatch.setattr(collector, "build_reddit_search_specs", lambda scope_id: specs)
-    monkeypatch.setattr(collector, "_fetch_posts", _fake_fetch_posts)
-    monkeypatch.setattr(collector, "RedditAPIClient", lambda *args, **kwargs: _FakeReddit())
+    monkeypatch.setattr(candidate_spec_collector, "fetch_posts_for_spec", _fake_fetch_posts)
+    monkeypatch.setattr(collector, "build_collect_reddit_client", lambda *args, **kwargs: _FakeReddit())
     monkeypatch.setattr(collector, "replace_scope_candidates", lambda scope_id, items: items)
     items = await collector.collect_scope_candidates("ai-automation", max_candidates=8)
     assert len(items) == 1

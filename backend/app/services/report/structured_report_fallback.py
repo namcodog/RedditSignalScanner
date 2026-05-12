@@ -250,4 +250,27 @@ def build_structured_report_fallback(
     }
 
 
-__all__ = ["build_structured_report_fallback"]
+def enforce_structured_report_contract(
+    *,
+    task: TaskSummary,
+    insights: Mapping[str, Any],
+    sources: Mapping[str, Any],
+    report_tier: str,
+    candidate: Mapping[str, Any] | None,
+) -> dict[str, Any]:
+    fallback = build_structured_report_fallback(
+        task=task,
+        insights=insights,
+        sources=sources,
+        report_tier=report_tier,
+    )
+    if not isinstance(candidate, Mapping):
+        return fallback
+    structured = dict(candidate)
+    for key, value in fallback.items():
+        if key not in structured or structured[key] in (None, [], {}):
+            structured[key] = value
+    return structured
+
+
+__all__ = ["build_structured_report_fallback", "enforce_structured_report_contract"]
