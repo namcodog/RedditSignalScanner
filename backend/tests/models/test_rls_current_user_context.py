@@ -138,16 +138,22 @@ async def test_rls_session_injects_current_user_id_for_rss_app(
         unset_current_user_id()
         async with Session() as rss_session:
             result = await rss_session.execute(select(Analysis.id).limit(1))
-            assert result.scalar_one_or_none() is None
+            visible_id = result.scalar_one_or_none()
+            await rss_session.rollback()
+            assert visible_id is None
 
         set_current_user_id(user.id)
         async with Session() as rss_session:
             result = await rss_session.execute(select(Analysis.id).where(Analysis.task_id == task.id))
-            assert result.scalar_one_or_none() == analysis.id
+            visible_id = result.scalar_one_or_none()
+            await rss_session.rollback()
+            assert visible_id == analysis.id
 
         set_current_user_id(UUID("00000000-0000-0000-0000-000000000000"))
         async with Session() as rss_session:
             result = await rss_session.execute(select(Analysis.id).where(Analysis.task_id == task.id))
-            assert result.scalar_one_or_none() is None
+            visible_id = result.scalar_one_or_none()
+            await rss_session.rollback()
+            assert visible_id is None
     finally:
         await rss_engine.dispose()
