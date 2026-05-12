@@ -88,7 +88,7 @@ def upgrade() -> None:
             """
             CREATE OR REPLACE VIEW post_scores_latest_v AS
             SELECT
-                NULL::bigint AS id,
+                NULL::uuid AS id,
                 NULL::bigint AS post_id,
                 NULL::text AS llm_version,
                 NULL::text AS rule_version,
