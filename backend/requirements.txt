@@ -23,6 +23,7 @@ XlsxWriter==3.2.0
 datasketch==1.6.4
 flashtext==2.7
 textblob==0.17.1
+vaderSentiment==3.3.2
 
 # HTTP Client
 aiohttp==3.9.1
