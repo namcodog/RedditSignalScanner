@@ -10,7 +10,7 @@ from app.services.hotpost.card_payload_store import load_cards_payload
 
 
 def _sample_draft(payload: dict) -> dict:
-    card = dict(payload["published"][0])
+    card = dict(next(item for item in payload["published"] if item["card_type"] == "validate"))
     return {
         "draft_id": "draft-ai-large-repo",
         "candidate_id": "cand-ai-large-repo",
