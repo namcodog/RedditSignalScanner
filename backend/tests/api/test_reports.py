@@ -429,6 +429,7 @@ async def test_export_communities_all_only_returns_report_communities(
     db_session.add(
         CommunityCache(
             community_name=alpha_name,
+            last_crawled_at=datetime.now(timezone.utc),
             is_active=True,
             member_count=123,
             crawl_frequency_hours=8,
