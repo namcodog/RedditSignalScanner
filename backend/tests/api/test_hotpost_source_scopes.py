@@ -36,9 +36,10 @@ async def test_hotpost_source_scope_search_specs(client: AsyncClient) -> None:
     )
     assert any(
         item["mode"] == "search"
-        and item["query"] == "workflow"
+        and item["query"] == "ai workflow with fewer tools"
         and item["topic_pack_id"] == "tools-efficiency"
+        and item["topic_cluster_id"] == "workflow-friction"
         and item["primary_reason"] == "tools-efficiency:category_keyword"
-        and item["matched_keywords"] == ["workflow"]
+        and item["matched_keywords"] == ["ai workflow with fewer tools"]
         for item in items
     )
