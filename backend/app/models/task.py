@@ -55,7 +55,8 @@ class Task(TimestampMixin, Base):
         ),
         CheckConstraint(
             "((status::text = 'completed') AND completed_at IS NOT NULL) OR "
-            "((status::text <> 'completed') AND completed_at IS NULL)",
+            "((status::text = 'failed') AND completed_at IS NOT NULL) OR "
+            "((status::text NOT IN ('completed', 'failed')) AND completed_at IS NULL)",
             name="ck_tasks_completed_status_alignment",
         ),
         CheckConstraint("retry_count >= 0", name="ck_tasks_retry_count_non_negative"),

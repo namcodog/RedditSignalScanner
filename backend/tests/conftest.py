@@ -581,12 +581,10 @@ def reset_database() -> None:
             """
             DO $$
             BEGIN
-                IF EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'ck_analyses_sources_schema') THEN
-                    ALTER TABLE analyses DROP CONSTRAINT ck_analyses_sources_schema;
-                END IF;
-                IF EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'ck_analyses_insights_schema') THEN
-                    ALTER TABLE analyses DROP CONSTRAINT ck_analyses_insights_schema;
-                END IF;
+                ALTER TABLE analyses DROP CONSTRAINT IF EXISTS ck_analyses_sources_schema;
+                ALTER TABLE analyses DROP CONSTRAINT IF EXISTS ck_analyses_ck_analyses_sources_schema;
+                ALTER TABLE analyses DROP CONSTRAINT IF EXISTS ck_analyses_insights_schema;
+                ALTER TABLE analyses DROP CONSTRAINT IF EXISTS ck_analyses_ck_analyses_insights_schema;
             END;
             $$;
             """
@@ -623,12 +621,10 @@ def reset_database() -> None:
             """
             DO $$
             BEGIN
-                IF EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'ck_tasks_error_message_when_failed') THEN
-                    ALTER TABLE tasks DROP CONSTRAINT ck_tasks_error_message_when_failed;
-                END IF;
-                IF EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'ck_tasks_completed_status_alignment') THEN
-                    ALTER TABLE tasks DROP CONSTRAINT ck_tasks_completed_status_alignment;
-                END IF;
+                ALTER TABLE tasks DROP CONSTRAINT IF EXISTS ck_tasks_error_message_when_failed;
+                ALTER TABLE tasks DROP CONSTRAINT IF EXISTS ck_tasks_ck_tasks_error_message_when_failed;
+                ALTER TABLE tasks DROP CONSTRAINT IF EXISTS ck_tasks_completed_status_alignment;
+                ALTER TABLE tasks DROP CONSTRAINT IF EXISTS ck_tasks_ck_tasks_completed_status_alignment;
                 -- Recreate constraints using status::text so it works for either enum or varchar
                 ALTER TABLE tasks
                 ADD CONSTRAINT ck_tasks_error_message_when_failed
@@ -640,7 +636,8 @@ def reset_database() -> None:
                 ADD CONSTRAINT ck_tasks_completed_status_alignment
                 CHECK (
                     ((status::text = 'completed') AND completed_at IS NOT NULL) OR
-                    ((status::text <> 'completed') AND completed_at IS NULL)
+                    ((status::text = 'failed') AND completed_at IS NOT NULL) OR
+                    ((status::text NOT IN ('completed', 'failed')) AND completed_at IS NULL)
                 );
                 -- Recreate partial index without type cast (status is VARCHAR, no cast needed)
                 IF EXISTS (SELECT 1 FROM pg_indexes WHERE indexname = 'ix_tasks_processing') THEN
@@ -656,12 +653,10 @@ def reset_database() -> None:
             DO $$
             BEGIN
                 -- Relax completion time constraint to compare against started_at rather than created_at for test data seeding
-                IF EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'ck_tasks_completed_after_created') THEN
-                    ALTER TABLE tasks DROP CONSTRAINT ck_tasks_completed_after_created;
-                END IF;
-                IF EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'ck_tasks_valid_completion_time') THEN
-                    ALTER TABLE tasks DROP CONSTRAINT ck_tasks_valid_completion_time;
-                END IF;
+                ALTER TABLE tasks DROP CONSTRAINT IF EXISTS ck_tasks_completed_after_created;
+                ALTER TABLE tasks DROP CONSTRAINT IF EXISTS ck_tasks_ck_tasks_completed_after_created;
+                ALTER TABLE tasks DROP CONSTRAINT IF EXISTS ck_tasks_valid_completion_time;
+                ALTER TABLE tasks DROP CONSTRAINT IF EXISTS ck_tasks_ck_tasks_valid_completion_time;
                 ALTER TABLE tasks
                 ADD CONSTRAINT ck_tasks_valid_completion_time
                 CHECK (
