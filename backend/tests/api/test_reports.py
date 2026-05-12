@@ -426,6 +426,7 @@ async def test_export_communities_all_only_returns_report_communities(
             is_active=True,
         )
     )
+    await db_session.flush()
     db_session.add(
         CommunityCache(
             community_name=alpha_name,
