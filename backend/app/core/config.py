@@ -9,6 +9,17 @@ from typing import Dict, List
 from pydantic import BaseModel, Field
 from urllib.parse import quote_plus
 
+
+_PLACEHOLDER_API_KEYS = {"your_openai_api_key"}
+
+
+def _usable_api_key(value: str | None) -> str:
+    key = (value or "").strip()
+    if key.lower() in _PLACEHOLDER_API_KEYS:
+        return ""
+    return key
+
+
 def _load_dotenv_with_precedence(
     *,
     root_env: Path,
@@ -599,8 +610,8 @@ def get_settings() -> Settings:
             Settings.model_fields["report_quality_level"].default,
         ).strip().lower(),
         openai_api_key=(
-            os.getenv("OPENAI_API_KEY")
-            or os.getenv("OPENROUTER_API_KEY")
+            _usable_api_key(os.getenv("OPENAI_API_KEY"))
+            or _usable_api_key(os.getenv("OPENROUTER_API_KEY"))
             or Settings.model_fields["openai_api_key"].default
         ),
         wx_mini_appid=os.getenv(
