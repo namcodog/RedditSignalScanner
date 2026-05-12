@@ -310,9 +310,8 @@ clean-e2e-snapshots: ## 清理 E2E 失败快照
 test-contract: ## 运行 API 契约测试（schema 验证 + breaking changes 检测）
 	@echo "==> Running API contract tests ..."
 	@echo ""
-	@echo "📝 Step 1: 检测 Breaking Changes"
-	@# FIXME: scripts/check_breaking_changes.py does not exist (dead reference)
-	@cd $(BACKEND_DIR) && python scripts/check_breaking_changes.py
+	@echo "📝 Step 1: 检测 Golden Path API Contract"
+	@cd $(BACKEND_DIR) && python -m pytest tests/api/test_golden_path_contract.py -q
 	@echo ""
 	@echo "✅ API 契约测试完成"
 	@echo ""

@@ -4,6 +4,7 @@ export type HotPostMode = 'trending' | 'rant' | 'opportunity';
 export type TimeFilter = 'week' | 'month' | 'year' | 'all';
 export type ConfidenceLevel = 'high' | 'medium' | 'low' | 'none';
 export type HotPostQueryKind = 'object' | 'compare' | 'scenario';
+export type LooseLiteral<T extends string> = T | (string & Record<never, never>);
 
 export interface HotPostQueryParse {
   query_kind: HotPostQueryKind;
@@ -58,7 +59,7 @@ export interface PainPoint {
   category: string;
   category_en?: string;
   description?: string;
-  severity?: 'critical' | 'high' | 'medium' | 'low' | string;
+  severity?: LooseLiteral<'critical' | 'high' | 'medium' | 'low'>;
   mentions?: number;
   percentage?: number;
   key_takeaway?: string;
@@ -135,7 +136,7 @@ export interface Opportunity {
   price_range?: string;
   key_takeaway?: string;
   user_voice?: string;
-  current_workarounds?: Array<{ solution?: string; pain?: string; name?: string; satisfaction?: string }>;
+  current_workarounds?: Array<string | { solution?: string; pain?: string; name?: string; satisfaction?: string }>;
   opportunity_signal?: 'high' | 'medium' | 'low';
   evidence?: Array<{
     title?: string;
@@ -193,7 +194,7 @@ export interface TrendingTopic {
     rank: number;
     topic: string;
     heat_score: number;
-    time_trend: 'explosive' | 'exploding' | 'rising' | 'stable' | 'sustained' | 'declining' | '新兴🆕' | '持续热门' | '下降中↓' | string;
+    time_trend: LooseLiteral<'explosive' | 'exploding' | 'rising' | 'stable' | 'sustained' | 'declining' | '新兴🆕' | '持续热门' | '下降中↓'>;
     key_takeaway: string;
     evidence: Array<{
         title: string;
@@ -242,7 +243,7 @@ export interface HotPostResponse {
   top_discovery_posts?: HotPost[];
   top_quotes?: TopQuote[];
   complaint_facets?: ComplaintFacet[];
-  render_mode?: 'quote_only' | 'compare' | 'grounded_summary' | string;
+  render_mode?: LooseLiteral<'quote_only' | 'compare' | 'grounded_summary'>;
   query_parse?: HotPostQueryParse;
 
   // Mode Specific - Rant

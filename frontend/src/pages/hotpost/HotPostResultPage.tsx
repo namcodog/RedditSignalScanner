@@ -1350,7 +1350,6 @@ const HotPostResultPage: React.FC = () => {
                                             <p className="font-medium text-xs uppercase text-gray-400 mb-1">当前凑合方案</p>
                                             <ul className="list-disc list-inside">
                                                 {opp.current_workarounds.slice(0, 2).map((w, i) => {
-                                                  // @ts-ignore: Handle mixed type
                                                   const text = typeof w === 'string'
                                                     ? w
                                                     : [w.solution, w.pain].filter(Boolean).join(' - ');

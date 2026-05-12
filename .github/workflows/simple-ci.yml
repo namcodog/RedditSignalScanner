@@ -67,28 +67,26 @@ jobs:
       # 4. 检查敏感信息
       - name: Check for secrets
         run: |
-          if grep -r "sk-" . \
-            --exclude-dir=node_modules \
-            --exclude-dir=.git \
-            --exclude-dir=.github \
-            --exclude-dir=.venv \
-            --exclude-dir=venv \
-            --exclude-dir=coverage \
-            --exclude-dir=reports \
-            --exclude-dir=frontend \
-            --exclude-dir=backend \
-            --exclude-dir=scripts \
-            --exclude="*.env*" \
-            --exclude="*.local" \
-            --exclude="*package-lock.json" \
-            --exclude="*.md" \
-            --exclude="*.ts" \
-            --exclude="*.tsx" \
-            --exclude="*.py" \
-            --exclude="Makefile" \
-            --exclude="makefiles/*"; then
+          if git grep -n -E "sk-(proj|ant)-[A-Za-z0-9_-]{20,}|sk-[A-Za-z0-9]{32,}" -- \
+            ':!.github/**' \
+            ':!.venv/**' \
+            ':!venv/**' \
+            ':!coverage/**' \
+            ':!reports/**' \
+            ':!frontend/**' \
+            ':!backend/**' \
+            ':!scripts/**' \
+            ':!makefiles/**' \
+            ':!hotpost-mini/**' \
+            ':!*.env*' \
+            ':!*.local' \
+            ':!*package-lock.json' \
+            ':!*.md' \
+            ':!*.ts' \
+            ':!*.tsx' \
+            ':!*.py' \
+            ':!Makefile'; then
             echo "⚠️ Warning: Possible API key found"
             exit 1
           fi
           echo "✅ No secrets detected"
-

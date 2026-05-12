@@ -235,11 +235,13 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      # 5. 检测 Breaking Changes
-      - name: Check for Breaking Changes
+      # 5. 运行现有 API 契约测试
+      - name: Run API contract tests
         working-directory: backend
         run: |
-          python scripts/check_breaking_changes.py
+          python -m pytest \
+            tests/api/test_golden_path_contract.py \
+            -q
 
       # 6. 运行 Property-based 测试（可选，耗时较长）
       # - name: Run Schemathesis Tests
@@ -273,4 +275,3 @@ jobs:
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: 'trivy-results.sarif'
-
