@@ -1,26 +1,31 @@
 # 未完成事项
 
-最后更新：2026-05-08
+最后更新：2026-05-11
 
 ## 当前未完成的项目事项
 
 ### P0
+
+0. 2026-05-11 Hotpost 日常出卡已完成，待线上 Upsert 导入和继续观察 trend
+   已完成：今日正式发布 `25` 张，最新快照 `release-8617f1d6f8a6`，总卡数 `822`；`push_mini_snapshot.py` 和 `check_mini_release_sync.py` 已通过，首页 feed contract `30/30`。`signal / hot` prompt 已加入隐性信号规则，要求把用户讨论背后的购买理由、信任变化、成本转移、规则压力或运营风险说出来。
+   当前边界：`trend audit` 仍是 `rebound`，`remaining_new_releases=5`；个别候选因 LLM JSON、弱证据、重复发布或语义护栏未发，不能为 stable 硬发低质量卡。
+   下一步：线上导入 `backend/data/hotpost/mini_snapshots/cloud_db/mini_release_meta.wechat-import.json` 和 `mini_release_cards.wechat-import.json` 时用 Upsert；下一轮继续从 `7d fresh` 和探索社区隔离报告推进。
 
 0. Reddit Community Intelligence 社区推荐合同修正版已落地，等待用户验收
    当前产品合同：`docs/reference/community-intelligence-clean-contract-2026-05-07.md`。当前系统设计：`docs/superpowers/specs/2026-05-08-community-discovery-recommendation-system-design.md`。当前后端架构：`docs/reference/community-recommendation-backend-architecture-2026-05-08.md`。主线目标是系统根据已有数据和语义库生成可服务标签 / 赛道，用户点击后获得有证据、有理由、长尾优先的 Reddit 社区推荐；不是继续做开放检索框，也不是把 Phase 0 / 1 / 2 治理结果当成产品完成。
    旧社区发现 / 社区池治理链已归档为历史实现：`docs/reference/community-discovery-legacy-archive-2026-05-08.md`。归档含义是“不再作为当前推荐产品主链”，不是否定 DB 8 大领域，也不是删除历史数据。
    已完成事实：治理审计、Phase 1 dry-run、Phase 2 Dev 写入都已经落地；Dev `community_pool` active count 从 `300` 到 `356`，实际新增 `56` 个社区，rollback SQL 在 `reports/community-governance/phase2-dev-write-rollback.sql`。这些是数据准备和库存校准，不是推荐结果页。
    新增完成：后端应用服务入口 `backend/app/services/community/community_recommendation_service.py` 已统一生成 preview、audit 和验收摘要；CLI `backend/scripts/community/community_recommendation_preview.py` 已改为调用同一 service，后续 API / 前端只能做薄适配，不能重写推荐链。当前输出在 `reports/community-recommendation/preview.md` 和 `reports/community-recommendation/preview.json`，生成 `9` 个具像化兴趣标签、`64` 条推荐样例。CI-R2-R5 已补齐：`15D` 活跃探测合同、语义证据摘要、长尾优先 / 泛社区限额、后端验收摘要。R7-R9 已补齐：推荐理由证据化、标签-社区审核表、`content_labels / content_entities` 语义证据密度。
-   合同修复：`CAPABILITY_SEEDS` 已从 production code 移除；标签目录、泛社区名单、分数权重、用户推荐文案、审核文案和证据摘要模板改由 `backend/config/community_interest_tags.json` 承载；旧业务分类目录、别名和 Phase 2 分类推断规则改由 `backend/config/community_business_categories.json` 承载。用户可见 preview 区不再暴露 `Hotpost / community_pool / semantic_observation / semantic ledger / 语义账本 / ai_workflow / tools_edc` 等内部词。当前推荐预览 CLI 为 `acceptance_passed=true / ready_count=32 / tags=9 / recommendations=64`，`电商平台政策与风向` 已从空状态修到 `ready / available_community_count=5`，新增审核表在 `reports/community-recommendation/audit.md` 和 `audit.json`。
+   合同修复：`CAPABILITY_SEEDS` 已从 production code 移除；标签目录、泛社区名单、分数权重、用户推荐文案、审核文案和证据摘要模板改由 `backend/config/community_interest_tags.json` 承载；旧业务分类目录、别名和 Phase 2 分类推断规则改由 `backend/config/community_business_categories.json` 承载。用户可见 preview 区不再暴露 `Hotpost / community_pool / semantic_observation / semantic ledger / 语义账本 / ai_workflow / tools_edc` 等内部词。当前推荐预览 CLI 为 `acceptance_passed=true / ready_count=33 / tags=9 / recommendations=68`，`电商平台政策与风向` 已从空状态修到 `ready / available_community_count=5`，新增审核表在 `reports/community-recommendation/audit.md` 和 `audit.json`。
    新增护栏：旧 `community_pool.categories` 不能单独构成推荐证据，必须同时有标签相关关键词或语义证据命中；已验证 `r/managers` 不再进入“家居生活选品”预览。
    当前边界：`community_pool` 是社区总池，不是推荐面；Hotpost / 小程序是新社区探测器，不能用“没出卡”否定旧 DB 社区。当前 `ready` 主要来自 Hotpost 近期探测 `hotpost_recent_probe`，不是 Dev `posts_hot` 自己恢复了完整 15D 新鲜数据；深层 `semantic_observation / semantic_terms` 仍需后续继续补密度，但推荐层已开始读取 `content_labels / content_entities` 的标签和实体词。当前不做 UserTrack、Web/API、前端入口、开放搜索框、实时重抓或生产写库。
-   新增桥接计划：`docs/superpowers/plans/2026-05-08-hotpost-community-pool-feedback-loop-plan.md`。当前 Hotpost 探索社区池已实现配置隔离和只读审计；R10/R11 已落地：日常采集默认不含探索社区，显式 `probe_community_discovery.py --scope ...` 才开启探索试采；回流 dry-run 只读、不写 DB、不自动入池。R11.5 已补社区价值评分算法，规则在 `backend/config/community_value_scoring.json`，报告输出 `observe / testing / validated / pool_candidate / reject` 和分数。`ai-automation` 首轮显式 probe 已跑出 `r/CursorAI` 2 条候选证据、`r/windsurf` 1 条候选证据，均映射到 `AI工具与Agent`；`cand-ai-automation-1t5ef8s` 已按 V13 validate 流程发布为 `card-cand-ai-automation-1t5ef8s-validate`，并同步小程序快照 `release-0d88d54dd172`。最新回流 dry-run 仍为 `input_rows=16 / already_in_pool=3 / keep_testing=13 / promote_candidate=0 / reject=0`；`r/CursorAI` 当前是 `validated / score=56 / candidate_count=2 / published_count=1 / duplicate_count=1`，说明能出卡，但还没有两次独立发布证据。产物在 `reports/community-governance/community-pool-feedback-dry-run-2026-05-08.json` 和 `.md`。
+   新增桥接计划：`docs/superpowers/plans/2026-05-08-hotpost-community-pool-feedback-loop-plan.md`。当前 Hotpost 探索社区池已实现配置隔离和只读审计；R10/R11 已落地：日常采集默认不含探索社区，显式 `probe_community_discovery.py --scope ...` 才开启探索试采；回流 dry-run 只读、不写 DB、不自动入池。R11.5 已补社区价值评分算法，规则在 `backend/config/community_value_scoring.json`，报告输出 `observe / testing / validated / pool_candidate / reject` 和分数。2026-05-10 已跑出 3 个真实 `pool_candidate`：`r/aeo`、`r/ai_ugc_marketing`、`r/growthhacking`；`r/etsy` 和 `r/digital_marketing` 已在 pool，只补证据。R12 已写入 Dev `community_pool`，结果为 `active_count_before=356 / active_count_after=359 / inserted=3 / skipped_existing=0 / blocked=0`；Gold DB 和小程序派生产物未写。产物在 `reports/community-governance/community-pool-feedback-dry-run-2026-05-10.md`、`reports/community-governance/community-pool-r12-prewrite-2026-05-10.md` 和 `reports/community-governance/community-pool-r12-dev-write-2026-05-10.md`。
+   SOP 已固化：`docs/sop/2026-05-10-Hotpost社区探索回流SOP.md`。后续运营 agent 不能只汇报“探索已触发”，必须按模板汇报 probe、audit、R11.5、R12 预审和 DB writes 状态。
    下一步：
-   - 人工验收 `community-pool-feedback-dry-run-2026-05-08.md`
-   - `group-ai-automation-26b3d762e3` 与已 seed 的 Cursor 单帖同题，不能重复发
-   - 如要继续补证据，再选择具体 scope 手动跑 `probe_community_discovery.py --scope <scope_id>`
+   - 人工复核 R12 写入后的推荐质量，重点看 `r/aeo`、`r/ai_ugc_marketing`、`r/growthhacking` 的标签归属和推荐理由
+   - 后续 R12 execute 仍必须逐次人工确认，不能因为本轮通过就改成自动写入
    - 后续人工只重点看 `validated / pool_candidate`，不再逐个社区靠发布验证
-   - 只有出现真实去重后的 `pool_candidate / promote_candidate` 且用户确认后，才进入 R12 Dev 写入闸门
+   - `r/CursorAI` 继续停在 `validated`，还不是本轮写入对象
    - 用户验收 `reports/community-recommendation/preview.md`、`preview.json`、`audit.md` 和 `audit.json`
    - 先验收后端推荐质量；前端和 API 继续暂缓
    - 若后端推荐质量过关，再决定是否进入 API / 前端；未验收前不做产品界面

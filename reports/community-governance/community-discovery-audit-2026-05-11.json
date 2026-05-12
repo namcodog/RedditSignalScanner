@@ -1,6 +1,6 @@
 {
   "schema_version": "hotpost-community-discovery-audit/v1",
-  "report_date": "2026-05-10",
+  "report_date": "2026-05-11",
   "contracts": {
     "experimental_communities_are_probe_only": true,
     "default_daily_collect_includes_experimental": false,
@@ -99,27 +99,24 @@
       "scope_id": "ecommerce-sellers",
       "community": "heronebag",
       "topic_cluster_id": "outdoor",
-      "collected_candidates": 3,
+      "collected_candidates": 1,
       "draft_count": 0,
       "published_count": 0,
       "reject_count": 0,
-      "duplicate_count": 1,
+      "duplicate_count": 0,
       "new_topic_count": 1,
-      "noise_notes": "duplicate_posts, not_published_yet",
+      "noise_notes": "not_published_yet",
       "suggested_action": "keep_testing",
       "semantic_feedback": {
         "frequent_entities": [
           "how do i clean pet hair in a small apartment"
         ],
         "pain_solution_tags": [
-          "how do i clean pet hair in a small apartment",
-          "避坑",
-          "求推荐"
+          "求推荐",
+          "how do i clean pet hair in a small apartment"
         ],
         "sample_titles": [
-          "Trip(s) Report with Osprey Daylite 26+6",
-          "Car Camping in WA in late May",
-          "Trip(s) Report with Osprey Daylite 26+6"
+          "Car Camping in WA in late May"
         ],
         "product_tags": [
           "户外用品选品"
@@ -187,29 +184,24 @@
       "scope_id": "ecommerce-sellers",
       "community": "etsy",
       "topic_cluster_id": "seller-category-direction",
-      "collected_candidates": 3,
+      "collected_candidates": 1,
       "draft_count": 0,
       "published_count": 2,
       "reject_count": 0,
-      "duplicate_count": 1,
+      "duplicate_count": 0,
       "new_topic_count": 1,
-      "noise_notes": "duplicate_posts",
+      "noise_notes": "",
       "suggested_action": "promote_candidate",
       "semantic_feedback": {
         "frequent_entities": [
-          "custom-topic",
-          "ai generated product images"
+          "custom-topic"
         ],
         "pain_solution_tags": [
           "趋势变化",
-          "求推荐",
-          "避坑",
-          "ai generated product images"
+          "避坑"
         ],
         "sample_titles": [
           "Share Your Stuff - May 4th thru 10th, 2026",
-          "I got totally robbed and I need help.",
-          "I got totally robbed and I need help.",
           "Etsy 买家开始从边缘渗色和花瓣变异识别 AI 生成插画",
           "Etsy 卖家给真产品用 AI 背景，买家直接怀疑整个商品页都是假的"
         ],

@@ -144,3 +144,14 @@ def test_feedback_planner_does_not_hardcode_user_tag_names() -> None:
     catalog = load_interest_tag_catalog()
 
     assert not any(tag.display_name in source for tag in catalog.tags)
+
+
+def test_funnel_cluster_maps_to_growth_relevant_user_tags() -> None:
+    catalog = load_interest_tag_catalog()
+    tag_ids = {
+        tag.tag_id
+        for tag in catalog.tags
+        if "topic_cluster:funnel" in tag.source_refs
+    }
+
+    assert {"paid_advertising", "seller_store_ops", "content_marketing_creation"} <= tag_ids

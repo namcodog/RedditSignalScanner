@@ -109,7 +109,11 @@ def _build_experimental_specs(scope_id: SourceScopeId) -> list[RedditSearchSpec]
             if not experimental:
                 continue
             keywords = dict(payload.get("keywords") or {})
-            segment_keywords = dict(cluster.get("keyword_buckets") or {}) or keywords
+            segment_keywords = (
+                dict(cluster.get("experimental_keyword_buckets") or {})
+                or dict(cluster.get("keyword_buckets") or {})
+                or keywords
+            )
             if str(cluster.get("source_mode") or payload.get("source_mode")) == "listing-first":
                 specs.extend(
                     _build_listing_specs(

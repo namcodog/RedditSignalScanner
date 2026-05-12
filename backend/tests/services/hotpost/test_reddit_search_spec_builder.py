@@ -278,9 +278,10 @@ def test_experimental_communities_require_explicit_flag_and_small_budget() -> No
     assert len(expanded_specs) > len(default_specs)
     assert experimental
     assert {item.subreddit for item in experimental} <= {
+        "Etsy",
         "HerOneBag",
         "bikepacking",
         "trailrunning",
         "CampingandHiking",
     }
-    assert len({item.subreddit.lower() for item in experimental}) <= 4
+    assert len({item.subreddit.lower() for item in experimental}) <= 6

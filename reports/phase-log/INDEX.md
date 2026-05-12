@@ -6,7 +6,26 @@
   - [CURRENT_STATUS.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/CURRENT_STATUS.md)
 - 未完成事项：
   - [OPEN_ITEMS.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/OPEN_ITEMS.md)
-- Hotpost 价值社区探索飞轮 R10/R11.5 已落地：`experimental_communities` 默认隔离，显式 `probe_community_discovery.py --scope ...` 才进入小配额试采；R11.5 已补社区价值评分算法，报告输出 `Value Stage / Score`；`CursorAI` 已按 V13 validate 流程发布 1 张卡并同步小程序快照，当前为 `validated / score=56`，不是 `pool_candidate`；回流 `community_pool` 仍只有 dry-run，不写 DB、不自动晋级：
+- Hotpost 社区探索回流 R12 已完成 Dev 写入：用户确认的 `r/aeo`、`r/ai_ugc_marketing`、`r/growthhacking` 已写入 `reddit_signal_scanner_dev.community_pool`，未删除社区池计数 `356 -> 359`；推荐刷新后 `tags=9 / recommendations=68 / ready_count=33 / acceptance_passed=true`，rollback SQL 已生成：
+  - [phase1115.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1115.md)
+  - [community-pool-r12-dev-write-2026-05-10.md](/Users/hujia/Desktop/RedditSignalScanner/reports/community-governance/community-pool-r12-dev-write-2026-05-10.md)
+  - [community-pool-r12-dev-write-2026-05-10.json](/Users/hujia/Desktop/RedditSignalScanner/reports/community-governance/community-pool-r12-dev-write-2026-05-10.json)
+  - [community-pool-r12-dev-write-rollback-2026-05-10.sql](/Users/hujia/Desktop/RedditSignalScanner/reports/community-governance/community-pool-r12-dev-write-rollback-2026-05-10.sql)
+  - [preview.md](/Users/hujia/Desktop/RedditSignalScanner/reports/community-recommendation/preview.md)
+  - [audit.md](/Users/hujia/Desktop/RedditSignalScanner/reports/community-recommendation/audit.md)
+- Hotpost 已临时插入 MV Hondius 邮轮汉坦病毒公共健康热议：发布 `3` 张 hot + `3` 张 breakdown，展示标签已修正为 `全球公共事件`，breakdown 已补 Tavily 事实底座后的隐性解读；最新快照 `release-39e754db8ca1`，当天累计 `31` 张：
+  - [phase1114.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1114.md)
+  - [2026-05-10.md](/Users/hujia/Desktop/RedditSignalScanner/reports/ops-log/2026-05-10.md)
+- Hotpost 2026-05-10 已按新社区探索线补卡：AmazonFBA 从本轮实验社区重点移除，AI UGC / AEO / GrowthHacking / Etsy 产出转入正式 V13 发布；当天累计 `25` 张，最新快照 `release-e84117e6885a`，同步检查通过：
+  - [phase1111.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1111.md)
+  - [2026-05-10.md](/Users/hujia/Desktop/RedditSignalScanner/reports/ops-log/2026-05-10.md)
+- Hotpost 社区探索回流已完成 R12 预写入审计：`r/aeo`、`r/ai_ugc_marketing`、`r/growthhacking` 为本轮 `pool_candidate`，R12 预审结果 `candidate_rows=3 / would_insert=3 / blocked=0`，后续已按用户确认写入 Dev：
+  - [phase1113.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1113.md)
+  - [2026-05-10-Hotpost社区探索回流SOP.md](/Users/hujia/Desktop/RedditSignalScanner/docs/sop/2026-05-10-Hotpost社区探索回流SOP.md)
+  - [phase1112.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1112.md)
+  - [community-pool-r12-prewrite-2026-05-10.md](/Users/hujia/Desktop/RedditSignalScanner/reports/community-governance/community-pool-r12-prewrite-2026-05-10.md)
+  - [community-pool-feedback-dry-run-2026-05-10.md](/Users/hujia/Desktop/RedditSignalScanner/reports/community-governance/community-pool-feedback-dry-run-2026-05-10.md)
+- Hotpost 价值社区探索飞轮 R10/R11.5 已落地：`experimental_communities` 默认隔离，显式 `probe_community_discovery.py --scope ...` 才进入小配额试采；R11.5 已补社区价值评分算法，报告输出 `Value Stage / Score`；`CursorAI` 已按 V13 validate 流程发布 1 张卡并同步小程序快照，当前为 `validated / score=56`，不是 `pool_candidate`；回流 `community_pool` 仍需逐次人工确认，不自动晋级：
   - [phase1106.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1106.md)
   - [phase1105.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1105.md)
   - [phase1104.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1104.md)
@@ -22,7 +41,7 @@
 - Hotpost 2026-05-08 已按“每日 25 张”为硬需求完成正式发卡：AI 6 / 商业增长 9 / 电商卖家 10，最新快照 `release-cf603c02169b`，首页第 1、2 张为 `hot`，同步和小程序 snapshot data 校验通过；trend audit 仍为 `watching`：
   - [phase1096.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1096.md)
   - [2026-05-08.md](/Users/hujia/Desktop/RedditSignalScanner/reports/ops-log/2026-05-08.md)
-- Reddit Community Intelligence 当前入口已纠偏：产品口径是“系统从已有数据和语义库生成具像化兴趣标签 -> 用户点击 -> 有证据、有理由、长尾优先的社区推荐”。Phase 0 / 1 / 2 社区治理和 Dev 写入只作为数据准备与库存校准；当前合同修正版已移除 production code 里的 `CAPABILITY_SEEDS`，9 个用户可选标签、旧业务分类目录和 Phase 2 分类推断都已改为配置真相源，R7-R9 已补齐推荐理由证据化、标签-社区审核表和语义证据密度，后端服务入口已收口，preview 为 `tags=9 / recommendations=64 / ready_count=32`，`电商平台政策与风向` 已从空状态修到 `ready / available_community_count=5`：
+- Reddit Community Intelligence 当前入口已纠偏：产品口径是“系统从已有数据和语义库生成具像化兴趣标签 -> 用户点击 -> 有证据、有理由、长尾优先的社区推荐”。Phase 0 / 1 / 2 社区治理和 Dev 写入只作为数据准备与库存校准；当前合同修正版已移除 production code 里的 `CAPABILITY_SEEDS`，9 个用户可选标签、旧业务分类目录和 Phase 2 分类推断都已改为配置真相源，R7-R9 已补齐推荐理由证据化、标签-社区审核表和语义证据密度，后端服务入口已收口，preview 为 `tags=9 / recommendations=68 / ready_count=33`，`电商平台政策与风向` 已从空状态修到 `ready / available_community_count=5`：
   - [phase1100.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1100.md)
   - [community-recommendation-backend-architecture-2026-05-08.md](/Users/hujia/Desktop/RedditSignalScanner/docs/reference/community-recommendation-backend-architecture-2026-05-08.md)
   - [phase1099.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1099.md)

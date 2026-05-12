@@ -1,6 +1,6 @@
 # 项目里程碑
 
-最后更新：2026-05-08
+最后更新：2026-05-10
 
 ## 里程碑 1：项目骨架与工具链建立
 
@@ -59,8 +59,8 @@
   - Hotpost 新出卡默认接入 V13 生产口径；`2026-04-30` 回补节奏已改为逐日验收：Day1-Day5 已补全，累计 `99` 张，最新同步链全绿；`2026-05-01` 又按众筹 / 预售 / 选品 / 礼物优先补发 `29` 张，最新 snapshot `release-e2fb5db69afa`，`card_count=565`，front30 已恢复 breakdown 代表位，但 trend 仍未 stable，严格停机字段不能夸大
   - 小程序上线准备已补齐手机号和积分关键链路：手机号绑定真机验通；奖励口径已收紧为“邀请新用户绑定奖励”，只有新用户通过邀请链接首次授权并绑定手机号后，邀请人才获得 `30` 积分；白名单详情免扣仍保留
   - Reddit Community Intelligence 已完成一次口径纠偏：Phase 0 / 1 / 2 社区治理和 Dev 写入只算数据准备，当前产品主线改为“系统从已有数据和语义库生成标签 / 赛道 -> 用户点击 -> 有证据、有理由、长尾优先的社区推荐”
-  - 标签式社区推荐已落成合同修正版：`CAPABILITY_SEEDS` 已从 production code 移除，9 个用户可选业务标签、旧业务分类目录和 Phase 2 分类推断都改由配置真相源承载；后端应用服务入口已收口，CLI 和后续 API / 前端适配层必须共用同一 service；当前能生成 `9` 个具像化兴趣标签和 `64` 条推荐样例，后端验收为 `acceptance_passed=true / ready_count=32`
-  - Hotpost 探索社区池到 `community_pool` 的 R10/R11 已落地：显式 probe 入口和只读回流 dry-run 都已具备；R11.5 社区价值评分算法已补上，人工发布验证降级为校准样本；`r/CursorAI` 当前为 `validated / score=56`，但还不是 `pool_candidate`
+  - 标签式社区推荐已落成合同修正版：`CAPABILITY_SEEDS` 已从 production code 移除，9 个用户可选业务标签、旧业务分类目录和 Phase 2 分类推断都改由配置真相源承载；后端应用服务入口已收口，CLI 和后续 API / 前端适配层必须共用同一 service；当前能生成 `9` 个具像化兴趣标签和 `68` 条推荐样例，后端验收为 `acceptance_passed=true / ready_count=33`
+  - Hotpost 探索社区池到 `community_pool` 的 R10/R11/R12 已落地：显式 probe 入口和只读回流 dry-run 都已具备；R11.5 社区价值评分算法已补上，人工发布验证降级为校准样本；2026-05-10 首次把 3 个用户确认的 `pool_candidate` 写入 Dev `community_pool`，Gold DB 和小程序派生产物未写
 - 今天仍然有效的结论：
   - Hotpost 当前主问题是 `freshness / quota / freshest supply`；Community Intelligence 当前主问题已经从“后端能不能生成推荐”变成“用户是否认可推荐质量，以及是否需要补真实 Reddit 活跃探测和更深语义观察”
   - 当前阶段是稳态运营优化期，不是大架构重建期

@@ -1,5 +1,5 @@
 {
-  "row_count": 64,
+  "row_count": 68,
   "rows": [
     {
       "action": "可以进入当前标签的用户预览。",
@@ -26,16 +26,18 @@
       "tag": "家居生活选品"
     },
     {
-      "action": "可以进入当前标签的用户预览。",
-      "community": "r/beyondthebump",
-      "reason": "近期活跃、语义证据或历史信号能解释推荐关系。",
-      "review_status": "推荐通过",
-      "risk_flags": [],
+      "action": "先保留观察，补近期活跃、语义词或代表讨论后再进入强推荐。",
+      "community": "r/homeowners",
+      "reason": "证据不足，不能只靠社区名或配置判断。",
+      "review_status": "补证据",
+      "risk_flags": [
+        "needs_more_evidence"
+      ],
       "tag": "家居生活选品"
     },
     {
       "action": "先保留观察，补近期活跃、语义词或代表讨论后再进入强推荐。",
-      "community": "r/homeowners",
+      "community": "r/beyondthebump",
       "reason": "证据不足，不能只靠社区名或配置判断。",
       "review_status": "补证据",
       "risk_flags": [
@@ -54,18 +56,18 @@
       "tag": "家居生活选品"
     },
     {
-      "action": "人工确认标签归属，优先补语义证据。",
-      "community": "r/giftideas",
-      "reason": "缺少可解释的语义词，容易变成库存列表。",
-      "review_status": "复核匹配",
-      "risk_flags": [],
-      "tag": "好物选品"
-    },
-    {
       "action": "可以进入当前标签的用户预览。",
       "community": "r/onebag",
       "reason": "近期活跃、语义证据或历史信号能解释推荐关系。",
       "review_status": "推荐通过",
+      "risk_flags": [],
+      "tag": "好物选品"
+    },
+    {
+      "action": "人工确认标签归属，优先补语义证据。",
+      "community": "r/giftideas",
+      "reason": "缺少可解释的语义词，容易变成库存列表。",
+      "review_status": "复核匹配",
       "risk_flags": [],
       "tag": "好物选品"
     },
@@ -78,10 +80,10 @@
       "tag": "好物选品"
     },
     {
-      "action": "人工确认标签归属，优先补语义证据。",
-      "community": "r/claudeskills",
-      "reason": "缺少可解释的语义词，容易变成库存列表。",
-      "review_status": "复核匹配",
+      "action": "可以进入当前标签的用户预览。",
+      "community": "r/tools",
+      "reason": "近期活跃、语义证据或历史信号能解释推荐关系。",
+      "review_status": "推荐通过",
       "risk_flags": [],
       "tag": "好物选品"
     },
@@ -108,6 +110,16 @@
     {
       "action": "先保留观察，补近期活跃、语义词或代表讨论后再进入强推荐。",
       "community": "r/desksetup",
+      "reason": "证据不足，不能只靠社区名或配置判断。",
+      "review_status": "补证据",
+      "risk_flags": [
+        "needs_more_evidence"
+      ],
+      "tag": "好物选品"
+    },
+    {
+      "action": "先保留观察，补近期活跃、语义词或代表讨论后再进入强推荐。",
+      "community": "r/claudeskills",
       "reason": "证据不足，不能只靠社区名或配置判断。",
       "review_status": "补证据",
       "risk_flags": [
@@ -154,14 +166,6 @@
       "tag": "广告投放"
     },
     {
-      "action": "可以进入当前标签的用户预览。",
-      "community": "r/googleads",
-      "reason": "近期活跃、语义证据或历史信号能解释推荐关系。",
-      "review_status": "推荐通过",
-      "risk_flags": [],
-      "tag": "广告投放"
-    },
-    {
       "action": "可保留为热点入口，但不能挤掉长尾社区。",
       "community": "r/ppc",
       "reason": "泛社区适合看大盘热度，不适合打满推荐面。",
@@ -172,8 +176,26 @@
       "tag": "广告投放"
     },
     {
+      "action": "先保留观察，补近期活跃、语义词或代表讨论后再进入强推荐。",
+      "community": "r/googleads",
+      "reason": "证据不足，不能只靠社区名或配置判断。",
+      "review_status": "补证据",
+      "risk_flags": [
+        "needs_more_evidence"
+      ],
+      "tag": "广告投放"
+    },
+    {
       "action": "可以进入当前标签的用户预览。",
       "community": "r/content_marketing",
+      "reason": "近期活跃、语义证据或历史信号能解释推荐关系。",
+      "review_status": "推荐通过",
+      "risk_flags": [],
+      "tag": "SEO&GEO"
+    },
+    {
+      "action": "可以进入当前标签的用户预览。",
+      "community": "r/aeo",
       "reason": "近期活跃、语义证据或历史信号能解释推荐关系。",
       "review_status": "推荐通过",
       "risk_flags": [],
@@ -258,14 +280,6 @@
       "tag": "AI工具与Agent"
     },
     {
-      "action": "可以进入当前标签的用户预览。",
-      "community": "r/claudeskills",
-      "reason": "近期活跃、语义证据或历史信号能解释推荐关系。",
-      "review_status": "推荐通过",
-      "risk_flags": [],
-      "tag": "AI工具与Agent"
-    },
-    {
       "action": "先保留观察，补近期活跃、语义词或代表讨论后再进入强推荐。",
       "community": "r/automation",
       "reason": "证据不足，不能只靠社区名或配置判断。",
@@ -298,6 +312,16 @@
     {
       "action": "先保留观察，补近期活跃、语义词或代表讨论后再进入强推荐。",
       "community": "r/chatgptcoding",
+      "reason": "证据不足，不能只靠社区名或配置判断。",
+      "review_status": "补证据",
+      "risk_flags": [
+        "needs_more_evidence"
+      ],
+      "tag": "AI工具与Agent"
+    },
+    {
+      "action": "先保留观察，补近期活跃、语义词或代表讨论后再进入强推荐。",
+      "community": "r/claudeskills",
       "reason": "证据不足，不能只靠社区名或配置判断。",
       "review_status": "补证据",
       "risk_flags": [
@@ -397,6 +421,14 @@
     },
     {
       "action": "可以进入当前标签的用户预览。",
+      "community": "r/growthhacking",
+      "reason": "近期活跃、语义证据或历史信号能解释推荐关系。",
+      "review_status": "推荐通过",
+      "risk_flags": [],
+      "tag": "卖家店铺运营"
+    },
+    {
+      "action": "可以进入当前标签的用户预览。",
       "community": "r/fulfillmentbyamazon",
       "reason": "近期活跃、语义证据或历史信号能解释推荐关系。",
       "review_status": "推荐通过",
@@ -422,6 +454,22 @@
     {
       "action": "可以进入当前标签的用户预览。",
       "community": "r/amazonseller",
+      "reason": "近期活跃、语义证据或历史信号能解释推荐关系。",
+      "review_status": "推荐通过",
+      "risk_flags": [],
+      "tag": "卖家店铺运营"
+    },
+    {
+      "action": "可以进入当前标签的用户预览。",
+      "community": "r/etsy",
+      "reason": "近期活跃、语义证据或历史信号能解释推荐关系。",
+      "review_status": "推荐通过",
+      "risk_flags": [],
+      "tag": "卖家店铺运营"
+    },
+    {
+      "action": "可以进入当前标签的用户预览。",
+      "community": "r/ai_ugc_marketing",
       "reason": "近期活跃、语义证据或历史信号能解释推荐关系。",
       "review_status": "推荐通过",
       "risk_flags": [],
@@ -470,16 +518,6 @@
     {
       "action": "先保留观察，补近期活跃、语义词或代表讨论后再进入强推荐。",
       "community": "r/shopifyseo",
-      "reason": "证据不足，不能只靠社区名或配置判断。",
-      "review_status": "补证据",
-      "risk_flags": [
-        "needs_more_evidence"
-      ],
-      "tag": "卖家店铺运营"
-    },
-    {
-      "action": "先保留观察，补近期活跃、语义词或代表讨论后再进入强推荐。",
-      "community": "r/etsy",
       "reason": "证据不足，不能只靠社区名或配置判断。",
       "review_status": "补证据",
       "risk_flags": [

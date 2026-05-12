@@ -97,3 +97,33 @@ def test_render_markdown_contains_structure_and_scope() -> None:
     assert "agent-builder" in day_markdown
     assert "主社区" in day_markdown
     assert "r/Shopify" in day_markdown
+
+
+def test_scope_summary_uses_display_name_order() -> None:
+    cards = [
+        _card(
+            card_id="card-ai",
+            published_at="2026-04-21T01:00:00Z",
+            lane="signal",
+            card_type="validate",
+            title="AI 工作流",
+            scope_id="ai-automation",
+            scope_name="AI 与自动化",
+            topic_pack_id="agent-builder",
+        ),
+        _card(
+            card_id="card-growth",
+            published_at="2026-04-21T02:00:00Z",
+            lane="signal",
+            card_type="validate",
+            title="增长投放",
+            scope_id="business-growth-ops",
+            scope_name="商业增长与运营",
+            topic_pack_id="paid-economics",
+        ),
+    ]
+
+    publish_days = build_recent_publish_days(cards, days=1, timezone="Asia/Shanghai")
+    day_markdown = render_day_markdown(publish_days[0])
+
+    assert "- 类别分布：`商业增长与运营 1 / AI 与自动化 1`" in day_markdown

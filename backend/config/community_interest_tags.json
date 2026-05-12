@@ -54,12 +54,13 @@
       "source_refs": [
         "topic_cluster:ads",
         "topic_cluster:attribution",
-        "topic_cluster:market-intel-and-audience-research"
+        "topic_cluster:market-intel-and-audience-research",
+        "topic_cluster:funnel"
       ],
       "match": {
         "categories": [],
-        "keywords": ["ads", "attribution", "cac", "cpc", "facebookads", "ga4", "googleads", "market-intel", "ppc", "roas", "tracking"],
-        "semantic_terms": ["ads", "attribution", "ga4", "market research", "ppc", "roas"]
+        "keywords": ["ads", "attribution", "cac", "conversion", "cpc", "creative", "cro", "facebookads", "funnel", "ga4", "googleads", "market-intel", "ppc", "roas", "tracking"],
+        "semantic_terms": ["ads", "attribution", "conversion", "creative", "funnel", "ga4", "market research", "ppc", "roas"]
       }
     },
     {
@@ -151,12 +152,13 @@
       "source_refs": [
         "topic_cluster:content-production-and-editorial",
         "historic_tag:content-production",
-        "topic_cluster:creator-affiliate-distribution"
+        "topic_cluster:creator-affiliate-distribution",
+        "topic_cluster:funnel"
       ],
       "match": {
         "categories": [],
-        "keywords": ["affiliate", "blogging", "content-production", "content_marketing", "copywriting", "creator", "distribution", "editorial", "emailmarketing", "newsletter", "substack"],
-        "semantic_terms": ["affiliate", "content", "creator", "editorial", "newsletter"]
+        "keywords": ["affiliate", "ai ugc", "blogging", "content-production", "content_marketing", "copywriting", "creator", "distribution", "editorial", "emailmarketing", "newsletter", "product video", "substack", "ugc"],
+        "semantic_terms": ["affiliate", "content", "creator", "editorial", "newsletter", "product video", "ugc"]
       }
     }
   ],

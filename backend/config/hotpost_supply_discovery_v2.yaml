@@ -60,7 +60,7 @@ global_rules:
     dry_cycle: 3
   experimental_collect:
     include_by_default: false
-    max_communities_per_scope: 4
+    max_communities_per_scope: 6
     max_search_specs_per_cluster: 6
     max_listing_specs_per_cluster: 4
     search_subreddit_limit: 2
@@ -466,8 +466,13 @@ scopes:
         tags: [seller-side, category-direction, saturation, demand-shift, market-crowding]
         primary_communities: [AmazonSeller, FulfillmentByAmazon, EtsySellers]
         candidate_communities: [EntrepreneurRideAlong, sidehustle, ecommerce, shopify, Entrepreneur]
+        experimental_communities: [Etsy]
         source_mode: listing-first
         listing_communities: [AmazonSeller, FulfillmentByAmazon, EtsySellers, ecommerce, shopify, sidehustle]
+        experimental_keyword_buckets:
+          category: [ai product image, amazon listing photos]
+          problem: [ai generated product images, product photos not converting]
+          change: [using ai for listing images]
         keyword_buckets:
           category: [what category is growing, seasonal demand shift ecommerce, amazon niche trend, etsy category trend, what category is moving now]
           problem: [saturated niche amazon, too competitive category, niche getting crowded, inventory risk in this niche, category demand is drying up]
@@ -536,7 +541,7 @@ scopes:
         named_entities: [Google Search Console, Ahrefs, Semrush, Screaming Frog, Google Discover, AI Overviews, GenEngineOptimization, GEO__AI__SEO]
         primary_communities: [SEO, bigseo, TechSEO]
         candidate_communities: [content_marketing, DigitalMarketing, juststart, seogrowth, GenEngineOptimization]
-        experimental_communities: [AISEO, B2BGrowth, SaaSStartups, marketingautomation]
+        experimental_communities: [digital_marketing, AEO]
         source_mode: mixed
         search_subreddit_limit: 5
         listing_subreddit_limit: 5
@@ -584,9 +589,13 @@ scopes:
         named_entities: [Hotjar, FullStory, Microsoft Clarity, VWO, Optimizely, Unbounce, Typeform]
         primary_communities: [ecommerce, shopify, marketing, CRO]
         candidate_communities: [smallbusiness, Entrepreneur, analytics, PPC, FacebookAds, Google_Ads, SaaSMarketing, consulting, sales]
-        experimental_communities: [ConversionRateOptimization, growthhacking, shopifydevs, salesops]
+        experimental_communities: [AI_UGC_Marketing, GrowthHacking, MarketingAutomation, ConversionRateOptimization, shopifydevs]
         source_mode: listing-first
         listing_communities: [ecommerce, shopify, marketing, CRO, smallbusiness, analytics, SaaSMarketing, consulting, sales]
+        experimental_keyword_buckets:
+          category: [ai ugc ad, ai product video, ai agents growth stack]
+          problem: [ai ugc does not convert, product video gets clicks but no sales]
+          change: [started using ai ugc video, automated paid media with ai agents]
         keyword_buckets:
           category: [landing page, checkout, conversion rate, funnel, lead quality, cro, lead form, pricing page, booking appointments, form submission, booking event]
           problem: [drop off, bounce, form friction, abandoned cart, poor lead quality, checkout confusion, weak offer fit, low landing page intent match, offer page leaks, booking vs form, appointment booking friction]

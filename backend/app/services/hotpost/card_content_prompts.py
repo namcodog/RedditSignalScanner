@@ -16,7 +16,9 @@ def build_signal_prompt(
         build_reddit_guide_prompt_prefix(mode_name="潜力快帖")
         + "\n"
         "只用输入证据，不补背景。"
-        "后台词和英文黑话先翻成用户能感知的后果，再必要时补原词。"
+        "不要只复述表面；把行为、抱怨或选择翻成有证据的隐性信号，如信任变化、成本转移、规则压力、购买理由变化或运营风险。"
+        "summary_line 先讲隐性信号再给证据；“现在为何追”讲变化时点；detail.why_test_now 点明哪条原话支撑。"
+        "后台词和英文黑话先翻成用户能感知的后果。"
         "preview_quote_permalink 从 evidence_quotes 里选。"
         "输出必须是合法 JSON。硬禁词："
         + " / ".join(banned_patterns)
@@ -72,6 +74,10 @@ def build_hot_prompt(
         build_reddit_guide_prompt_prefix(mode_name="近期爆帖")
         + "\n"
         "只用输入里的 evidence_quotes，不补背景。"
+        "不要只写热度或争吵；写出热议背后的隐性信号，如信任击穿、风险承担改变、承诺被测试、旧经验失效或个案变系统怀疑。"
+        "隐性信号必须由 evidence_quotes 支撑，不能把猜测写成事实。"
+        "summary_line 先讲信号再补争议点；why_now 讲为何升级成路线分歧或系统压力。"
+        "detail.flashpoint 写引爆点；detail.fight_line 写争议线；detail.why_test_now 写深层问题。"
         "preview_quote_permalink 只能从 evidence_quotes 里选。"
         "输出必须是合法 JSON。硬禁词："
         + " / ".join(banned_patterns)

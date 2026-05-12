@@ -21,7 +21,7 @@ DEFAULT_OUTPUT_DIR = ROOT.parents[0] / "reports" / "ops-log"
 DEFAULT_TIMEZONE = "Asia/Shanghai"
 DEFAULT_RECENT_DAYS = 5
 LANE_ORDER = ("hot", "signal", "breakdown")
-SCOPE_ORDER = ("business-growth-ops", "ai-automation", "ecommerce-sellers")
+SCOPE_ORDER = ("商业增长与运营", "AI 与自动化", "电商与卖家")
 
 
 @dataclass(frozen=True)
@@ -100,11 +100,9 @@ def build_recent_publish_days(cards: list[dict], *, days: int, timezone: str) ->
     for day in selected_days:
         day_cards = sorted(grouped[day], key=lambda item: item["published_at"], reverse=True)
         lane_counts = Counter(str(item.get("lane") or "unknown") for item in day_cards)
-        scope_counts = Counter(str(item.get("source_scope_id") or "unknown") for item in day_cards)
+        scope_counts = Counter(_scope_display_name(item) for item in day_cards)
         scope_names = {
-            str(item.get("source_scope_id") or "unknown"): str(
-                item.get("source_scope_name") or item.get("source_scope_id") or "未知类别"
-            )
+            _scope_display_name(item): _scope_display_name(item)
             for item in day_cards
         }
         result.append(
@@ -118,6 +116,15 @@ def build_recent_publish_days(cards: list[dict], *, days: int, timezone: str) ->
             )
         )
     return result
+
+
+def _scope_display_name(card: dict) -> str:
+    return str(
+        card.get("source_domain_name")
+        or card.get("source_scope_name")
+        or card.get("source_scope_id")
+        or "未知类别"
+    )
 
 
 def render_day_markdown(publish_day: PublishDay) -> str:

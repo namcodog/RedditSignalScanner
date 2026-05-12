@@ -4,11 +4,11 @@
     "db_writes": false,
     "generic_count": 3,
     "historical_count": 0,
-    "longtail_count": 61,
+    "longtail_count": 65,
     "passed": true,
-    "ready_count": 32,
+    "ready_count": 33,
     "user_input_required": false,
-    "watching_count": 32
+    "watching_count": 35
   },
   "recommendations": {
     "ai_tools_agents": [
@@ -29,20 +29,20 @@
           "evidence_summary": [
             "近期活跃：15 天内 1 条帖子",
             "语义证据：ai_workflow, agent, automation",
-            "发布验证：已产出 17 条高价值信号",
+            "发布验证：已产出 19 条高价值信号",
             "历史数据：旧 DB 有 191 条帖子",
-            "代表讨论：PM 用 Figma Make 做概念设计，开始算这个方案省没省时间"
+            "代表讨论：产品经理发现 AI 把 5 点提纲扩成 25 页，又被工程用 AI 总结回 5 点"
           ],
           "historical_posts": 191,
-          "hotpost_cards": 17,
-          "latest_activity_at": "2026-04-30T12:53:08.807323Z",
+          "hotpost_cards": 19,
+          "latest_activity_at": "2026-05-10T03:25:03.324319Z",
           "recent_posts_15d": 1,
           "risk_flags": [],
           "role": "longtail_vertical",
           "sample_titles": [
-            "PM 用 Figma Make 做概念设计，开始算这个方案省没省时间",
-            "AI 产品经理被批只管演示不管产品，社区认为老问题没变只是速度更快",
-            "PM 衡量 AI Agent 价值时，开始看推理质量和意图准确性，不再只盯传统健康指标"
+            "产品经理发现 AI 把 5 点提纲扩成 25 页，又被工程用 AI 总结回 5 点",
+            "AI 文档陷入“废话循环”，PM 抱怨意义被稀释",
+            "PM 用 Figma Make 做概念设计，开始算这个方案省没省时间"
           ],
           "score": 145.0,
           "semantic_observations": 0,
@@ -53,8 +53,8 @@
           ],
           "status": "ready"
         },
-        "evidence_teaser": "代表讨论：PM 用 Figma Make 做概念设计，开始算这个方案省没省时间",
-        "reason": "15 天内 1 条相关讨论，说明这里现在仍有可观察的问题和需求。 / 主题证据集中在 agent、automation，和这个标签的需求匹配。 / 过去已有 17 条高价值信号从这里出来，说明讨论能持续转成可用线索。",
+        "evidence_teaser": "代表讨论：产品经理发现 AI 把 5 点提纲扩成 25 页，又被工程用 AI 总结回 5 点",
+        "reason": "15 天内 1 条相关讨论，说明这里现在仍有可观察的问题和需求。 / 主题证据集中在 agent、automation，和这个标签的需求匹配。 / 过去已有 19 条高价值信号从这里出来，说明讨论能持续转成可用线索。",
         "related_to": [
           "agent",
           "automation"
@@ -293,52 +293,6 @@
         ]
       },
       {
-        "activity_label": "近期活跃",
-        "best_for": "长尾垂直社区",
-        "community": "r/claudeskills",
-        "debug": {
-          "evidence_sources": [
-            "community_pool",
-            "source_refs",
-            "community_pool_semantic_profile",
-            "recent_activity_15d",
-            "hotpost_recent_probe",
-            "hotpost_published_cards"
-          ],
-          "evidence_summary": [
-            "近期活跃：15 天内 1 条帖子",
-            "语义证据：ai_workflow, automation, claude, workflow",
-            "发布验证：已产出 2 条高价值信号",
-            "代表讨论：选 AI SEO 工具，先问能不能接入你的代码库和 90 天数据"
-          ],
-          "historical_posts": 0,
-          "hotpost_cards": 2,
-          "latest_activity_at": "2026-04-24T04:50:03.593971Z",
-          "recent_posts_15d": 1,
-          "risk_flags": [],
-          "role": "longtail_vertical",
-          "sample_titles": [
-            "选 AI SEO 工具，先问能不能接入你的代码库和 90 天数据",
-            "开发者为验证点子建 Skill，被反问‘直接让 Claude 联网搜不就行了’"
-          ],
-          "score": 109.4,
-          "semantic_observations": 0,
-          "semantic_terms": [
-            "ai_workflow",
-            "automation",
-            "claude",
-            "workflow"
-          ],
-          "status": "ready"
-        },
-        "evidence_teaser": "代表讨论：选 AI SEO 工具，先问能不能接入你的代码库和 90 天数据",
-        "reason": "15 天内 1 条相关讨论，说明这里现在仍有可观察的问题和需求。 / 主题证据集中在 automation、claude，和这个标签的需求匹配。 / 过去已有 2 条高价值信号从这里出来，说明讨论能持续转成可用线索。",
-        "related_to": [
-          "automation",
-          "claude"
-        ]
-      },
-      {
         "activity_label": "观察中",
         "best_for": "长尾垂直社区",
         "community": "r/automation",
@@ -513,6 +467,51 @@
         "related_to": [
           "automation",
           "llm"
+        ]
+      },
+      {
+        "activity_label": "观察中",
+        "best_for": "长尾垂直社区",
+        "community": "r/claudeskills",
+        "debug": {
+          "evidence_sources": [
+            "community_pool",
+            "source_refs",
+            "community_pool_semantic_profile",
+            "hotpost_published_cards"
+          ],
+          "evidence_summary": [
+            "语义证据：ai_workflow, automation, claude, workflow",
+            "发布验证：已产出 2 条高价值信号",
+            "代表讨论：选 AI SEO 工具，先问能不能接入你的代码库和 90 天数据"
+          ],
+          "historical_posts": 0,
+          "hotpost_cards": 2,
+          "latest_activity_at": null,
+          "recent_posts_15d": 0,
+          "risk_flags": [
+            "needs_more_evidence"
+          ],
+          "role": "longtail_vertical",
+          "sample_titles": [
+            "选 AI SEO 工具，先问能不能接入你的代码库和 90 天数据",
+            "开发者为验证点子建 Skill，被反问‘直接让 Claude 联网搜不就行了’"
+          ],
+          "score": 27.4,
+          "semantic_observations": 0,
+          "semantic_terms": [
+            "ai_workflow",
+            "automation",
+            "claude",
+            "workflow"
+          ],
+          "status": "watching"
+        },
+        "evidence_teaser": "代表讨论：选 AI SEO 工具，先问能不能接入你的代码库和 90 天数据",
+        "reason": "主题证据集中在 automation、claude，和这个标签的需求匹配。 / 过去已有 2 条高价值信号从这里出来，说明讨论能持续转成可用线索。",
+        "related_to": [
+          "automation",
+          "claude"
         ]
       },
       {
@@ -909,19 +908,19 @@
           "evidence_summary": [
             "近期活跃：15 天内 1 条帖子",
             "语义证据：kickstarter",
-            "发布验证：已产出 20 条高价值信号",
-            "代表讨论：Kickstarter 硬件创业者押注预热名单和 UGC，保首发 48 小时进度过半"
+            "发布验证：已产出 22 条高价值信号",
+            "代表讨论：毛绒玩具众筹，支持者说先做实物打样，AI 渲染图不行"
           ],
           "historical_posts": 0,
-          "hotpost_cards": 20,
-          "latest_activity_at": "2026-05-08T04:35:17.293902Z",
+          "hotpost_cards": 22,
+          "latest_activity_at": "2026-05-09T03:15:17.522258Z",
           "recent_posts_15d": 1,
           "risk_flags": [],
           "role": "longtail_vertical",
           "sample_titles": [
-            "Kickstarter 硬件创业者押注预热名单和 UGC，保首发 48 小时进度过半",
-            "Kickstarter 支持者针对 Allister 和 DM-Flynn 的全 AI 页面和违背承诺发出避雷警告",
-            "Kickstarter 神谕卡项目被指 AI 生成，收藏家受不了错别字和构图错误"
+            "毛绒玩具众筹，支持者说先做实物打样，AI 渲染图不行",
+            "Kickstarter 项目方给支持者 2 天确认地址，逾期直接当捐赠",
+            "Kickstarter 硬件创业者押注预热名单和 UGC，保首发 48 小时进度过半"
           ],
           "score": 125.0,
           "semantic_observations": 0,
@@ -930,8 +929,8 @@
           ],
           "status": "ready"
         },
-        "evidence_teaser": "代表讨论：Kickstarter 硬件创业者押注预热名单和 UGC，保首发 48 小时进度过半",
-        "reason": "15 天内 1 条相关讨论，说明这里现在仍有可观察的问题和需求。 / 主题证据集中在 kickstarter，和这个标签的需求匹配。 / 过去已有 20 条高价值信号从这里出来，说明讨论能持续转成可用线索。",
+        "evidence_teaser": "代表讨论：毛绒玩具众筹，支持者说先做实物打样，AI 渲染图不行",
+        "reason": "15 天内 1 条相关讨论，说明这里现在仍有可观察的问题和需求。 / 主题证据集中在 kickstarter，和这个标签的需求匹配。 / 过去已有 22 条高价值信号从这里出来，说明讨论能持续转成可用线索。",
         "related_to": [
           "kickstarter"
         ]
@@ -954,21 +953,21 @@
           "evidence_summary": [
             "近期活跃：15 天内 1 条帖子",
             "语义证据：home_lifestyle, cleaningtips",
-            "发布验证：已产出 14 条高价值信号",
-            "代表讨论：清理长发地毯的人开始用拆线器切断吸尘器滚刷上的缠绕头发"
+            "发布验证：已产出 18 条高价值信号",
+            "代表讨论：布偶猫主人接受掉毛无法根治，转向定期梳理和减少织物"
           ],
           "historical_posts": 0,
-          "hotpost_cards": 14,
-          "latest_activity_at": "2026-05-05T11:25:32.998786Z",
+          "hotpost_cards": 18,
+          "latest_activity_at": "2026-05-09T04:05:31.996872Z",
           "recent_posts_15d": 1,
           "risk_flags": [],
           "role": "longtail_vertical",
           "sample_titles": [
-            "清理长发地毯的人开始用拆线器切断吸尘器滚刷上的缠绕头发",
-            "毛巾顽固异味常规洗涤无效，指向专业洗涤深层去垢方案",
-            "卖房前地毯尿味洗不掉，房主开始拆地毯再开放日"
+            "布偶猫主人接受掉毛无法根治，转向定期梳理和减少织物",
+            "囤积房除臭翻新者放弃表面清洁，直接拆光石膏板和隔热层",
+            "浴室清洁后尿骚味反加重，清洁者转求生物酶清洁剂"
           ],
-          "score": 128.8,
+          "score": 130.0,
           "semantic_observations": 0,
           "semantic_terms": [
             "home_lifestyle",
@@ -976,8 +975,8 @@
           ],
           "status": "ready"
         },
-        "evidence_teaser": "代表讨论：清理长发地毯的人开始用拆线器切断吸尘器滚刷上的缠绕头发",
-        "reason": "15 天内 1 条相关讨论，说明这里现在仍有可观察的问题和需求。 / 主题证据集中在 cleaningtips，和这个标签的需求匹配。 / 过去已有 14 条高价值信号从这里出来，说明讨论能持续转成可用线索。",
+        "evidence_teaser": "代表讨论：布偶猫主人接受掉毛无法根治，转向定期梳理和减少织物",
+        "reason": "15 天内 1 条相关讨论，说明这里现在仍有可观察的问题和需求。 / 主题证据集中在 cleaningtips，和这个标签的需求匹配。 / 过去已有 18 条高价值信号从这里出来，说明讨论能持续转成可用线索。",
         "related_to": [
           "cleaningtips"
         ]
@@ -997,27 +996,27 @@
           ],
           "evidence_summary": [
             "近期活跃：15 天内 1 条帖子",
-            "发布验证：已产出 10 条高价值信号",
-            "代表讨论：宠物主开始找爪部专用防护替代品，不再默认套硬塑料伊丽莎白圈"
+            "发布验证：已产出 11 条高价值信号",
+            "代表讨论：狗狗到底喜欢规律还是新鲜感？宠物主为平衡点争论"
           ],
           "historical_posts": 0,
-          "hotpost_cards": 10,
-          "latest_activity_at": "2026-05-03T12:40:26.206483Z",
+          "hotpost_cards": 11,
+          "latest_activity_at": "2026-05-09T04:19:25.619593Z",
           "recent_posts_15d": 1,
           "risk_flags": [],
           "role": "longtail_vertical",
           "sample_titles": [
+            "狗狗到底喜欢规律还是新鲜感？宠物主为平衡点争论",
             "宠物主开始找爪部专用防护替代品，不再默认套硬塑料伊丽莎白圈",
-            "养狗家庭开始把狗门当成减少室内事故的刚需，不再只是方便配件",
-            "带狗乘车的狗主人开始优先考虑事故中的物理约束，不再只看狗是否舒适"
+            "养狗家庭开始把狗门当成减少室内事故的刚需，不再只是方便配件"
           ],
-          "score": 122.5,
+          "score": 123.7,
           "semantic_observations": 0,
           "semantic_terms": [],
           "status": "ready"
         },
-        "evidence_teaser": "代表讨论：宠物主开始找爪部专用防护替代品，不再默认套硬塑料伊丽莎白圈",
-        "reason": "15 天内 1 条相关讨论，说明这里现在仍有可观察的问题和需求。 / 主题证据集中在 家居生活选品，和这个标签的需求匹配。 / 过去已有 10 条高价值信号从这里出来，说明讨论能持续转成可用线索。",
+        "evidence_teaser": "代表讨论：狗狗到底喜欢规律还是新鲜感？宠物主为平衡点争论",
+        "reason": "15 天内 1 条相关讨论，说明这里现在仍有可观察的问题和需求。 / 主题证据集中在 家居生活选品，和这个标签的需求匹配。 / 过去已有 11 条高价值信号从这里出来，说明讨论能持续转成可用线索。",
         "related_to": [
           "家居生活选品"
         ]
@@ -1066,49 +1065,6 @@
         ]
       },
       {
-        "activity_label": "近期活跃",
-        "best_for": "长尾垂直社区",
-        "community": "r/beyondthebump",
-        "debug": {
-          "evidence_sources": [
-            "community_pool",
-            "source_refs",
-            "community_pool_semantic_profile",
-            "recent_activity_15d",
-            "hotpost_recent_probe",
-            "hotpost_published_cards"
-          ],
-          "evidence_summary": [
-            "近期活跃：15 天内 1 条帖子",
-            "语义证据：beyondthebump",
-            "发布验证：已产出 3 条高价值信号",
-            "代表讨论：Reddit 用户发现，省下着装费的同事被降职，囤积的杂物占了家人的卧室"
-          ],
-          "historical_posts": 0,
-          "hotpost_cards": 3,
-          "latest_activity_at": "2026-04-24T04:50:21.758258Z",
-          "recent_posts_15d": 1,
-          "risk_flags": [],
-          "role": "longtail_vertical",
-          "sample_titles": [
-            "Reddit 用户发现，省下着装费的同事被降职，囤积的杂物占了家人的卧室",
-            "准妈妈发现孕晚期搬家比产后带新生儿搬家更可控，决策顺序从‘等生完再搬’反转",
-            "带娃飞的家长不再纠结托运贵座椅，转而买便宜座椅专门托运"
-          ],
-          "score": 110.6,
-          "semantic_observations": 0,
-          "semantic_terms": [
-            "beyondthebump"
-          ],
-          "status": "ready"
-        },
-        "evidence_teaser": "代表讨论：Reddit 用户发现，省下着装费的同事被降职，囤积的杂物占了家人的卧室",
-        "reason": "15 天内 1 条相关讨论，说明这里现在仍有可观察的问题和需求。 / 主题证据集中在 beyondthebump，和这个标签的需求匹配。 / 过去已有 3 条高价值信号从这里出来，说明讨论能持续转成可用线索。",
-        "related_to": [
-          "beyondthebump"
-        ]
-      },
-      {
         "activity_label": "观察中",
         "best_for": "长尾垂直社区",
         "community": "r/homeowners",
@@ -1148,6 +1104,48 @@
         "reason": "主题证据集中在 homeowners，和这个标签的需求匹配。 / 过去已有 2 条高价值信号从这里出来，说明讨论能持续转成可用线索。",
         "related_to": [
           "homeowners"
+        ]
+      },
+      {
+        "activity_label": "观察中",
+        "best_for": "长尾垂直社区",
+        "community": "r/beyondthebump",
+        "debug": {
+          "evidence_sources": [
+            "community_pool",
+            "source_refs",
+            "community_pool_semantic_profile",
+            "hotpost_published_cards"
+          ],
+          "evidence_summary": [
+            "语义证据：beyondthebump",
+            "发布验证：已产出 3 条高价值信号",
+            "代表讨论：Reddit 用户发现，省下着装费的同事被降职，囤积的杂物占了家人的卧室"
+          ],
+          "historical_posts": 0,
+          "hotpost_cards": 3,
+          "latest_activity_at": null,
+          "recent_posts_15d": 0,
+          "risk_flags": [
+            "needs_more_evidence"
+          ],
+          "role": "longtail_vertical",
+          "sample_titles": [
+            "Reddit 用户发现，省下着装费的同事被降职，囤积的杂物占了家人的卧室",
+            "准妈妈发现孕晚期搬家比产后带新生儿搬家更可控，决策顺序从‘等生完再搬’反转",
+            "带娃飞的家长不再纠结托运贵座椅，转而买便宜座椅专门托运"
+          ],
+          "score": 28.6,
+          "semantic_observations": 0,
+          "semantic_terms": [
+            "beyondthebump"
+          ],
+          "status": "watching"
+        },
+        "evidence_teaser": "代表讨论：Reddit 用户发现，省下着装费的同事被降职，囤积的杂物占了家人的卧室",
+        "reason": "主题证据集中在 beyondthebump，和这个标签的需求匹配。 / 过去已有 3 条高价值信号从这里出来，说明讨论能持续转成可用线索。",
+        "related_to": [
+          "beyondthebump"
         ]
       },
       {
@@ -1203,19 +1201,19 @@
           "evidence_summary": [
             "近期活跃：15 天内 1 条帖子",
             "语义证据：roas, facebookads",
-            "发布验证：已产出 34 条高价值信号",
-            "代表讨论：Meta 广告 ROAS 狂跳，投手抱怨两月来流量质量持续恶化"
+            "发布验证：已产出 38 条高价值信号",
+            "代表讨论：日耗八百投手分享 ABO 转 CBO 踩坑：获胜素材迁移后崩盘"
           ],
           "historical_posts": 0,
-          "hotpost_cards": 34,
-          "latest_activity_at": "2026-05-07T04:21:51.333423Z",
+          "hotpost_cards": 38,
+          "latest_activity_at": "2026-05-10T03:24:57.865022Z",
           "recent_posts_15d": 1,
           "risk_flags": [],
           "role": "longtail_vertical",
           "sample_titles": [
-            "Meta 广告 ROAS 狂跳，投手抱怨两月来流量质量持续恶化",
-            "Facebook 广告投放者抱怨 Meta 效果变差，问题指向广告与用户兴趣脱节",
-            "Facebook 广告主本周普遍遇到账户效果下滑，开始怀疑是 Meta 平台问题而非自身操作失误"
+            "日耗八百投手分享 ABO 转 CBO 踩坑：获胜素材迁移后崩盘",
+            "Meta 广告投手争议：新素材测试是否必须独立隔离以保护老计划",
+            "有 B2B AI SaaS 投手开始把广告先跑合规扫描再投 Meta"
           ],
           "score": 125.0,
           "semantic_observations": 0,
@@ -1225,56 +1223,11 @@
           ],
           "status": "ready"
         },
-        "evidence_teaser": "代表讨论：Meta 广告 ROAS 狂跳，投手抱怨两月来流量质量持续恶化",
-        "reason": "15 天内 1 条相关讨论，说明这里现在仍有可观察的问题和需求。 / 主题证据集中在 roas、facebookads，和这个标签的需求匹配。 / 过去已有 34 条高价值信号从这里出来，说明讨论能持续转成可用线索。",
+        "evidence_teaser": "代表讨论：日耗八百投手分享 ABO 转 CBO 踩坑：获胜素材迁移后崩盘",
+        "reason": "15 天内 1 条相关讨论，说明这里现在仍有可观察的问题和需求。 / 主题证据集中在 roas、facebookads，和这个标签的需求匹配。 / 过去已有 38 条高价值信号从这里出来，说明讨论能持续转成可用线索。",
         "related_to": [
           "roas",
           "facebookads"
-        ]
-      },
-      {
-        "activity_label": "近期活跃",
-        "best_for": "长尾垂直社区",
-        "community": "r/googleads",
-        "debug": {
-          "evidence_sources": [
-            "community_pool",
-            "source_refs",
-            "community_pool_semantic_profile",
-            "recent_activity_15d",
-            "hotpost_recent_probe",
-            "hotpost_published_cards"
-          ],
-          "evidence_summary": [
-            "近期活跃：15 天内 1 条帖子",
-            "语义证据：ads, googleads",
-            "发布验证：已产出 9 条高价值信号",
-            "代表讨论：Google Ads 新手别再死磕点击成本和 CTR，先检查落地页内容、优惠和体验能否留住用户"
-          ],
-          "historical_posts": 0,
-          "hotpost_cards": 9,
-          "latest_activity_at": "2026-04-24T04:49:45.307007Z",
-          "recent_posts_15d": 1,
-          "risk_flags": [],
-          "role": "longtail_vertical",
-          "sample_titles": [
-            "Google Ads 新手别再死磕点击成本和 CTR，先检查落地页内容、优惠和体验能否留住用户",
-            "PMAX 投手遇到低点击成本零转化，现在先查流量质量，不再默认是好事",
-            "谷歌广告投手面临信任危机：内部爆料称团队为保收入目标，从不讨论点击欺诈"
-          ],
-          "score": 117.8,
-          "semantic_observations": 0,
-          "semantic_terms": [
-            "ads",
-            "googleads"
-          ],
-          "status": "ready"
-        },
-        "evidence_teaser": "代表讨论：Google Ads 新手别再死磕点击成本和 CTR，先检查落地页内容、优惠和体验能否留住用户",
-        "reason": "15 天内 1 条相关讨论，说明这里现在仍有可观察的问题和需求。 / 主题证据集中在 ads、googleads，和这个标签的需求匹配。 / 过去已有 9 条高价值信号从这里出来，说明讨论能持续转成可用线索。",
-        "related_to": [
-          "ads",
-          "googleads"
         ]
       },
       {
@@ -1322,6 +1275,50 @@
         "related_to": [
           "ads",
           "ppc"
+        ]
+      },
+      {
+        "activity_label": "观察中",
+        "best_for": "长尾垂直社区",
+        "community": "r/googleads",
+        "debug": {
+          "evidence_sources": [
+            "community_pool",
+            "source_refs",
+            "community_pool_semantic_profile",
+            "hotpost_published_cards"
+          ],
+          "evidence_summary": [
+            "语义证据：ads, googleads",
+            "发布验证：已产出 9 条高价值信号",
+            "代表讨论：Google Ads 新手别再死磕点击成本和 CTR，先检查落地页内容、优惠和体验能否留住用户"
+          ],
+          "historical_posts": 0,
+          "hotpost_cards": 9,
+          "latest_activity_at": null,
+          "recent_posts_15d": 0,
+          "risk_flags": [
+            "needs_more_evidence"
+          ],
+          "role": "longtail_vertical",
+          "sample_titles": [
+            "Google Ads 新手别再死磕点击成本和 CTR，先检查落地页内容、优惠和体验能否留住用户",
+            "PMAX 投手遇到低点击成本零转化，现在先查流量质量，不再默认是好事",
+            "谷歌广告投手面临信任危机：内部爆料称团队为保收入目标，从不讨论点击欺诈"
+          ],
+          "score": 35.8,
+          "semantic_observations": 0,
+          "semantic_terms": [
+            "ads",
+            "googleads"
+          ],
+          "status": "watching"
+        },
+        "evidence_teaser": "代表讨论：Google Ads 新手别再死磕点击成本和 CTR，先检查落地页内容、优惠和体验能否留住用户",
+        "reason": "主题证据集中在 ads、googleads，和这个标签的需求匹配。 / 过去已有 9 条高价值信号从这里出来，说明讨论能持续转成可用线索。",
+        "related_to": [
+          "ads",
+          "googleads"
         ]
       }
     ],
@@ -1381,27 +1378,27 @@
           ],
           "evidence_summary": [
             "近期活跃：15 天内 1 条帖子",
-            "发布验证：已产出 14 条高价值信号",
-            "代表讨论：Etsy 卖家被恶意投诉下架爆款，评论区开始教人从投诉方美国地址切入反击"
+            "发布验证：已产出 16 条高价值信号",
+            "代表讨论：Etsy 卖家给 AI 店差评遭报复，社区喊必须分离买卖账号"
           ],
           "historical_posts": 0,
-          "hotpost_cards": 14,
-          "latest_activity_at": "2026-05-07T04:21:58.708363Z",
+          "hotpost_cards": 16,
+          "latest_activity_at": "2026-05-10T03:14:59.881157Z",
           "recent_posts_15d": 1,
           "risk_flags": [],
           "role": "longtail_vertical",
           "sample_titles": [
-            "Etsy 卖家被恶意投诉下架爆款，评论区开始教人从投诉方美国地址切入反击",
-            "Etsy 新手卖家开始练手艺再开店，不再只决定开店再找产品",
-            "Etsy 手作卖家展示彩色化妆包时，评论里要求先看实拍，不再默认接受样机"
+            "Etsy 卖家给 AI 店差评遭报复，社区喊必须分离买卖账号",
+            "Etsy 卖家遭遇抄袭，个人停止函形同虚设，讨论转向 CCB",
+            "Etsy 卖家被恶意投诉下架爆款，评论区开始教人从投诉方美国地址切入反击"
           ],
-          "score": 125.8,
+          "score": 127.0,
           "semantic_observations": 0,
           "semantic_terms": [],
           "status": "ready"
         },
-        "evidence_teaser": "代表讨论：Etsy 卖家被恶意投诉下架爆款，评论区开始教人从投诉方美国地址切入反击",
-        "reason": "15 天内 1 条相关讨论，说明这里现在仍有可观察的问题和需求。 / 主题证据集中在 电商平台政策与风向，和这个标签的需求匹配。 / 过去已有 14 条高价值信号从这里出来，说明讨论能持续转成可用线索。",
+        "evidence_teaser": "代表讨论：Etsy 卖家给 AI 店差评遭报复，社区喊必须分离买卖账号",
+        "reason": "15 天内 1 条相关讨论，说明这里现在仍有可观察的问题和需求。 / 主题证据集中在 电商平台政策与风向，和这个标签的需求匹配。 / 过去已有 16 条高价值信号从这里出来，说明讨论能持续转成可用线索。",
         "related_to": [
           "电商平台政策与风向"
         ]
@@ -1421,27 +1418,27 @@
           ],
           "evidence_summary": [
             "近期活跃：15 天内 1 条帖子",
-            "发布验证：已产出 13 条高价值信号",
-            "代表讨论：Shopify 卖家求推荐低价定制产品插件，WowOptions 被热议因支持文件上传和加价"
+            "发布验证：已产出 14 条高价值信号",
+            "代表讨论：Shopify 卖家靠 Claude 标准化上新，有用户质疑 15 分钟一个页面太慢吗"
           ],
           "historical_posts": 0,
-          "hotpost_cards": 13,
-          "latest_activity_at": "2026-05-08T04:35:07.540225Z",
+          "hotpost_cards": 14,
+          "latest_activity_at": "2026-05-10T03:24:44.054645Z",
           "recent_posts_15d": 1,
           "risk_flags": [],
           "role": "longtail_vertical",
           "sample_titles": [
+            "Shopify 卖家靠 Claude 标准化上新，有用户质疑 15 分钟一个页面太慢吗",
             "Shopify 卖家求推荐低价定制产品插件，WowOptions 被热议因支持文件上传和加价",
-            "Shopify 卖家开始检查 llms.txt，怀疑平台更新导致 ChatGPT 订单跳水",
-            "Shopify 卖家开始用 AI 编码替代简单 App，但先要确认自己是想做品牌还是开发者"
+            "Shopify 卖家开始检查 llms.txt，怀疑平台更新导致 ChatGPT 订单跳水"
           ],
-          "score": 125.1,
+          "score": 126.3,
           "semantic_observations": 0,
           "semantic_terms": [],
           "status": "ready"
         },
-        "evidence_teaser": "代表讨论：Shopify 卖家求推荐低价定制产品插件，WowOptions 被热议因支持文件上传和加价",
-        "reason": "15 天内 1 条相关讨论，说明这里现在仍有可观察的问题和需求。 / 主题证据集中在 电商平台政策与风向，和这个标签的需求匹配。 / 过去已有 13 条高价值信号从这里出来，说明讨论能持续转成可用线索。",
+        "evidence_teaser": "代表讨论：Shopify 卖家靠 Claude 标准化上新，有用户质疑 15 分钟一个页面太慢吗",
+        "reason": "15 天内 1 条相关讨论，说明这里现在仍有可观察的问题和需求。 / 主题证据集中在 电商平台政策与风向，和这个标签的需求匹配。 / 过去已有 14 条高价值信号从这里出来，说明讨论能持续转成可用线索。",
         "related_to": [
           "电商平台政策与风向"
         ]
@@ -1461,27 +1458,27 @@
           ],
           "evidence_summary": [
             "近期活跃：15 天内 1 条帖子",
-            "发布验证：已产出 11 条高价值信号",
-            "代表讨论：亚马逊卖家处理杀虫剂误判从申诉转向新建 ASIN，主图制作放弃手动 PS"
+            "发布验证：已产出 12 条高价值信号",
+            "代表讨论：亚马逊卖家发现：纠正品牌关联错误会被机器人流程卡住"
           ],
           "historical_posts": 0,
-          "hotpost_cards": 11,
-          "latest_activity_at": "2026-05-07T04:22:02.435867Z",
+          "hotpost_cards": 12,
+          "latest_activity_at": "2026-05-10T03:15:05.352925Z",
           "recent_posts_15d": 1,
           "risk_flags": [],
           "role": "longtail_vertical",
           "sample_titles": [
+            "亚马逊卖家发现：纠正品牌关联错误会被机器人流程卡住",
             "亚马逊卖家处理杀虫剂误判从申诉转向新建 ASIN，主图制作放弃手动 PS",
-            "亚马逊卖家发现 Listing 后台已激活但库存页仍不活跃",
-            "有卖家在商标异议期间，先让旧品牌 Listing 继续出单，再开新品牌 Listing，不再只急着迁移"
+            "亚马逊卖家发现 Listing 后台已激活但库存页仍不活跃"
           ],
-          "score": 122.7,
+          "score": 123.9,
           "semantic_observations": 0,
           "semantic_terms": [],
           "status": "ready"
         },
-        "evidence_teaser": "代表讨论：亚马逊卖家处理杀虫剂误判从申诉转向新建 ASIN，主图制作放弃手动 PS",
-        "reason": "15 天内 1 条相关讨论，说明这里现在仍有可观察的问题和需求。 / 主题证据集中在 电商平台政策与风向，和这个标签的需求匹配。 / 过去已有 11 条高价值信号从这里出来，说明讨论能持续转成可用线索。",
+        "evidence_teaser": "代表讨论：亚马逊卖家发现：纠正品牌关联错误会被机器人流程卡住",
+        "reason": "15 天内 1 条相关讨论，说明这里现在仍有可观察的问题和需求。 / 主题证据集中在 电商平台政策与风向，和这个标签的需求匹配。 / 过去已有 12 条高价值信号从这里出来，说明讨论能持续转成可用线索。",
         "related_to": [
           "电商平台政策与风向"
         ]
@@ -1501,35 +1498,78 @@
           ],
           "evidence_summary": [
             "近期活跃：15 天内 1 条帖子",
-            "发布验证：已产出 37 条高价值信号",
-            "代表讨论：Shopify 划定 B2B 营收门槛，非核心卖家被边缘化"
+            "发布验证：已产出 43 条高价值信号",
+            "代表讨论：高客单价 Shopify 卖家开始接受 Meta 与店铺数据永远不对齐，归因被当解释而不是事实"
           ],
           "historical_posts": 0,
-          "hotpost_cards": 37,
-          "latest_activity_at": "2026-05-07T04:21:44.469870Z",
+          "hotpost_cards": 43,
+          "latest_activity_at": "2026-05-10T03:24:49.509063Z",
           "recent_posts_15d": 1,
           "risk_flags": [
             "generic_hotspot"
           ],
           "role": "generic_hotspot",
           "sample_titles": [
-            "Shopify 划定 B2B 营收门槛，非核心卖家被边缘化",
-            "童装电商卖家发现 SEO 带不来订单，开始看 Google 购物广告和平台入驻",
-            "电商卖家讨论网页精致度时，开始把产品图片和品牌视觉一致性放在前面"
+            "高客单价 Shopify 卖家开始接受 Meta 与店铺数据永远不对齐，归因被当解释而不是事实",
+            "运营债务还是承重墙？电商卖家争论表格该全扔还是保留",
+            "品牌方从盯着 AI 搜索覆盖率，转向排查渲染错误带来的隐形转化损失"
           ],
           "score": 96.0,
           "semantic_observations": 0,
           "semantic_terms": [],
           "status": "ready"
         },
-        "evidence_teaser": "代表讨论：Shopify 划定 B2B 营收门槛，非核心卖家被边缘化",
-        "reason": "15 天内 1 条相关讨论，说明这里现在仍有可观察的问题和需求。 / 主题证据集中在 电商平台政策与风向，和这个标签的需求匹配。 / 过去已有 37 条高价值信号从这里出来，说明讨论能持续转成可用线索。",
+        "evidence_teaser": "代表讨论：高客单价 Shopify 卖家开始接受 Meta 与店铺数据永远不对齐，归因被当解释而不是事实",
+        "reason": "15 天内 1 条相关讨论，说明这里现在仍有可观察的问题和需求。 / 主题证据集中在 电商平台政策与风向，和这个标签的需求匹配。 / 过去已有 43 条高价值信号从这里出来，说明讨论能持续转成可用线索。",
         "related_to": [
           "电商平台政策与风向"
         ]
       }
     ],
     "product_selection": [
+      {
+        "activity_label": "近期活跃",
+        "best_for": "长尾垂直社区",
+        "community": "r/onebag",
+        "debug": {
+          "evidence_sources": [
+            "community_pool",
+            "source_refs",
+            "community_pool_semantic_profile",
+            "recent_activity_15d",
+            "hotpost_recent_probe",
+            "hotpost_published_cards"
+          ],
+          "evidence_summary": [
+            "近期活跃：15 天内 1 条帖子",
+            "语义证据：onebag",
+            "发布验证：已产出 13 条高价值信号",
+            "代表讨论：长途打包复盘引热议：行李箱拉杆槽成隐形空间杀手"
+          ],
+          "historical_posts": 0,
+          "hotpost_cards": 13,
+          "latest_activity_at": "2026-05-09T04:12:16.425053Z",
+          "recent_posts_15d": 1,
+          "risk_flags": [],
+          "role": "longtail_vertical",
+          "sample_titles": [
+            "长途打包复盘引热议：行李箱拉杆槽成隐形空间杀手",
+            "背包客转看收纳方块的组织价值，不再指望它压缩空间",
+            "极简出行撞上幼儿物资需求，家长争论带娃旅行是否只能当出差"
+          ],
+          "score": 127.6,
+          "semantic_observations": 0,
+          "semantic_terms": [
+            "onebag"
+          ],
+          "status": "ready"
+        },
+        "evidence_teaser": "代表讨论：长途打包复盘引热议：行李箱拉杆槽成隐形空间杀手",
+        "reason": "15 天内 1 条相关讨论，说明这里现在仍有可观察的问题和需求。 / 主题证据集中在 onebag，和这个标签的需求匹配。 / 过去已有 13 条高价值信号从这里出来，说明讨论能持续转成可用线索。",
+        "related_to": [
+          "onebag"
+        ]
+      },
       {
         "activity_label": "近期活跃",
         "best_for": "长尾垂直社区",
@@ -1573,49 +1613,6 @@
       {
         "activity_label": "近期活跃",
         "best_for": "长尾垂直社区",
-        "community": "r/onebag",
-        "debug": {
-          "evidence_sources": [
-            "community_pool",
-            "source_refs",
-            "community_pool_semantic_profile",
-            "recent_activity_15d",
-            "hotpost_recent_probe",
-            "hotpost_published_cards"
-          ],
-          "evidence_summary": [
-            "近期活跃：15 天内 1 条帖子",
-            "语义证据：onebag",
-            "发布验证：已产出 9 条高价值信号",
-            "代表讨论：极简旅行者争论：登机随身小包还算不算“单包”旅行"
-          ],
-          "historical_posts": 0,
-          "hotpost_cards": 9,
-          "latest_activity_at": "2026-05-05T11:25:14.409131Z",
-          "recent_posts_15d": 1,
-          "risk_flags": [],
-          "role": "longtail_vertical",
-          "sample_titles": [
-            "极简旅行者争论：登机随身小包还算不算“单包”旅行",
-            "极简旅行玩家用乐高背包完成两周日本旅行，测评帖被置顶",
-            "争议不在 9L 有多小，是有用户真拿它装笔记本跑完 6 天会议"
-          ],
-          "score": 122.8,
-          "semantic_observations": 0,
-          "semantic_terms": [
-            "onebag"
-          ],
-          "status": "ready"
-        },
-        "evidence_teaser": "代表讨论：极简旅行者争论：登机随身小包还算不算“单包”旅行",
-        "reason": "15 天内 1 条相关讨论，说明这里现在仍有可观察的问题和需求。 / 主题证据集中在 onebag，和这个标签的需求匹配。 / 过去已有 9 条高价值信号从这里出来，说明讨论能持续转成可用线索。",
-        "related_to": [
-          "onebag"
-        ]
-      },
-      {
-        "activity_label": "近期活跃",
-        "best_for": "长尾垂直社区",
         "community": "r/flashlight",
         "debug": {
           "evidence_sources": [
@@ -1629,21 +1626,21 @@
           "evidence_summary": [
             "近期活跃：15 天内 1 条帖子",
             "语义证据：tools_edc, flashlight",
-            "发布验证：已产出 9 条高价值信号",
-            "代表讨论：EDC 手电筒新手帖火了，不是缺推荐，是大家开始教买家先搞清楚自己讨厌什么"
+            "发布验证：已产出 12 条高价值信号",
+            "代表讨论：手电老兵丢失 Streamlight，社区争论经典耐用还是参数至上"
           ],
           "historical_posts": 0,
-          "hotpost_cards": 9,
-          "latest_activity_at": "2026-05-03T12:39:51.288602Z",
+          "hotpost_cards": 12,
+          "latest_activity_at": "2026-05-09T04:10:32.078569Z",
           "recent_posts_15d": 1,
           "risk_flags": [],
           "role": "longtail_vertical",
           "sample_titles": [
-            "EDC 手电筒新手帖火了，不是缺推荐，是大家开始教买家先搞清楚自己讨厌什么",
-            "丛林徒步选手电，社区开始排除大功率一体式，转而推荐两把独立 21700 手电",
-            "手电玩家找轻量 21700 补充 E75，社区推荐先看射程和持续输出，不再只比亮度"
+            "手电老兵丢失 Streamlight，社区争论经典耐用还是参数至上",
+            "家庭用户挑家用手电，判断重点转向电池兼容和色彩搭配",
+            "修理工在黑暗现场被专业手电种草，从借光转向自购"
           ],
-          "score": 117.8,
+          "score": 121.4,
           "semantic_observations": 0,
           "semantic_terms": [
             "tools_edc",
@@ -1651,8 +1648,8 @@
           ],
           "status": "ready"
         },
-        "evidence_teaser": "代表讨论：EDC 手电筒新手帖火了，不是缺推荐，是大家开始教买家先搞清楚自己讨厌什么",
-        "reason": "15 天内 1 条相关讨论，说明这里现在仍有可观察的问题和需求。 / 主题证据集中在 flashlight，和这个标签的需求匹配。 / 过去已有 9 条高价值信号从这里出来，说明讨论能持续转成可用线索。",
+        "evidence_teaser": "代表讨论：手电老兵丢失 Streamlight，社区争论经典耐用还是参数至上",
+        "reason": "15 天内 1 条相关讨论，说明这里现在仍有可观察的问题和需求。 / 主题证据集中在 flashlight，和这个标签的需求匹配。 / 过去已有 12 条高价值信号从这里出来，说明讨论能持续转成可用线索。",
         "related_to": [
           "flashlight"
         ]
@@ -1660,7 +1657,7 @@
       {
         "activity_label": "近期活跃",
         "best_for": "长尾垂直社区",
-        "community": "r/claudeskills",
+        "community": "r/tools",
         "debug": {
           "evidence_sources": [
             "community_pool",
@@ -1672,25 +1669,28 @@
           ],
           "evidence_summary": [
             "近期活跃：15 天内 1 条帖子",
+            "语义证据：tools_edc",
             "发布验证：已产出 2 条高价值信号",
-            "代表讨论：选 AI SEO 工具，先问能不能接入你的代码库和 90 天数据"
+            "代表讨论：200美元配齐工具套装引热议，廉价品牌口碑在 DIY 圈走升"
           ],
           "historical_posts": 0,
           "hotpost_cards": 2,
-          "latest_activity_at": "2026-04-24T04:50:03.593971Z",
+          "latest_activity_at": "2026-05-09T04:06:57.247989Z",
           "recent_posts_15d": 1,
           "risk_flags": [],
           "role": "longtail_vertical",
           "sample_titles": [
-            "选 AI SEO 工具，先问能不能接入你的代码库和 90 天数据",
-            "开发者为验证点子建 Skill，被反问‘直接让 Claude 联网搜不就行了’"
+            "200美元配齐工具套装引热议，廉价品牌口碑在 DIY 圈走升",
+            "12V 安装驱动器二选一，Milwaukee M12 开关设计劝退老用户"
           ],
-          "score": 109.4,
+          "score": 114.4,
           "semantic_observations": 0,
-          "semantic_terms": [],
+          "semantic_terms": [
+            "tools_edc"
+          ],
           "status": "ready"
         },
-        "evidence_teaser": "代表讨论：选 AI SEO 工具，先问能不能接入你的代码库和 90 天数据",
+        "evidence_teaser": "代表讨论：200美元配齐工具套装引热议，廉价品牌口碑在 DIY 圈走升",
         "reason": "15 天内 1 条相关讨论，说明这里现在仍有可观察的问题和需求。 / 主题证据集中在 好物选品，和这个标签的需求匹配。 / 过去已有 2 条高价值信号从这里出来，说明讨论能持续转成可用线索。",
         "related_to": [
           "好物选品"
@@ -1807,6 +1807,44 @@
         "reason": "主题证据集中在 desksetup，和这个标签的需求匹配。",
         "related_to": [
           "desksetup"
+        ]
+      },
+      {
+        "activity_label": "观察中",
+        "best_for": "长尾垂直社区",
+        "community": "r/claudeskills",
+        "debug": {
+          "evidence_sources": [
+            "community_pool",
+            "source_refs",
+            "community_pool_semantic_profile",
+            "hotpost_published_cards"
+          ],
+          "evidence_summary": [
+            "发布验证：已产出 2 条高价值信号",
+            "代表讨论：选 AI SEO 工具，先问能不能接入你的代码库和 90 天数据"
+          ],
+          "historical_posts": 0,
+          "hotpost_cards": 2,
+          "latest_activity_at": null,
+          "recent_posts_15d": 0,
+          "risk_flags": [
+            "needs_more_evidence"
+          ],
+          "role": "longtail_vertical",
+          "sample_titles": [
+            "选 AI SEO 工具，先问能不能接入你的代码库和 90 天数据",
+            "开发者为验证点子建 Skill，被反问‘直接让 Claude 联网搜不就行了’"
+          ],
+          "score": 27.4,
+          "semantic_observations": 0,
+          "semantic_terms": [],
+          "status": "watching"
+        },
+        "evidence_teaser": "代表讨论：选 AI SEO 工具，先问能不能接入你的代码库和 90 天数据",
+        "reason": "主题证据集中在 好物选品，和这个标签的需求匹配。 / 过去已有 2 条高价值信号从这里出来，说明讨论能持续转成可用线索。",
+        "related_to": [
+          "好物选品"
         ]
       },
       {
@@ -1933,6 +1971,51 @@
       {
         "activity_label": "近期活跃",
         "best_for": "长尾垂直社区",
+        "community": "r/growthhacking",
+        "debug": {
+          "evidence_sources": [
+            "community_pool",
+            "source_refs",
+            "community_pool_semantic_profile",
+            "recent_activity_15d",
+            "hotpost_recent_probe",
+            "historical_posts",
+            "hotpost_published_cards"
+          ],
+          "evidence_summary": [
+            "近期活跃：15 天内 1 条帖子",
+            "语义证据：ecommerce_business, funnel",
+            "发布验证：已产出 2 条高价值信号",
+            "历史数据：旧 DB 有 241 条帖子",
+            "代表讨论：增长黑客测试发现，直接解答对比问题的内容更易被 LLM 引用"
+          ],
+          "historical_posts": 241,
+          "hotpost_cards": 2,
+          "latest_activity_at": "2026-05-10T11:22:00.535304Z",
+          "recent_posts_15d": 1,
+          "risk_flags": [],
+          "role": "longtail_vertical",
+          "sample_titles": [
+            "增长黑客测试发现，直接解答对比问题的内容更易被 LLM 引用",
+            "一名增长黑客把 pSEO 索引症结从 Sitemap 转向内链"
+          ],
+          "score": 129.4,
+          "semantic_observations": 0,
+          "semantic_terms": [
+            "ecommerce_business",
+            "funnel"
+          ],
+          "status": "ready"
+        },
+        "evidence_teaser": "代表讨论：增长黑客测试发现，直接解答对比问题的内容更易被 LLM 引用",
+        "reason": "15 天内 1 条相关讨论，说明这里现在仍有可观察的问题和需求。 / 主题证据集中在 funnel，和这个标签的需求匹配。 / 过去已有 2 条高价值信号从这里出来，说明讨论能持续转成可用线索。",
+        "related_to": [
+          "funnel"
+        ]
+      },
+      {
+        "activity_label": "近期活跃",
+        "best_for": "长尾垂直社区",
         "community": "r/fulfillmentbyamazon",
         "debug": {
           "evidence_sources": [
@@ -1989,29 +2072,29 @@
           "evidence_summary": [
             "近期活跃：15 天内 1 条帖子",
             "语义证据：ecommerce_business",
-            "发布验证：已产出 14 条高价值信号",
-            "代表讨论：Etsy 卖家被恶意投诉下架爆款，评论区开始教人从投诉方美国地址切入反击"
+            "发布验证：已产出 16 条高价值信号",
+            "代表讨论：Etsy 卖家给 AI 店差评遭报复，社区喊必须分离买卖账号"
           ],
           "historical_posts": 0,
-          "hotpost_cards": 14,
-          "latest_activity_at": "2026-05-07T04:21:58.708363Z",
+          "hotpost_cards": 16,
+          "latest_activity_at": "2026-05-10T03:14:59.881157Z",
           "recent_posts_15d": 1,
           "risk_flags": [],
           "role": "longtail_vertical",
           "sample_titles": [
-            "Etsy 卖家被恶意投诉下架爆款，评论区开始教人从投诉方美国地址切入反击",
-            "Etsy 新手卖家开始练手艺再开店，不再只决定开店再找产品",
-            "Etsy 手作卖家展示彩色化妆包时，评论里要求先看实拍，不再默认接受样机"
+            "Etsy 卖家给 AI 店差评遭报复，社区喊必须分离买卖账号",
+            "Etsy 卖家遭遇抄袭，个人停止函形同虚设，讨论转向 CCB",
+            "Etsy 卖家被恶意投诉下架爆款，评论区开始教人从投诉方美国地址切入反击"
           ],
-          "score": 125.8,
+          "score": 127.0,
           "semantic_observations": 0,
           "semantic_terms": [
             "ecommerce_business"
           ],
           "status": "ready"
         },
-        "evidence_teaser": "代表讨论：Etsy 卖家被恶意投诉下架爆款，评论区开始教人从投诉方美国地址切入反击",
-        "reason": "15 天内 1 条相关讨论，说明这里现在仍有可观察的问题和需求。 / 主题证据集中在 卖家店铺运营，和这个标签的需求匹配。 / 过去已有 14 条高价值信号从这里出来，说明讨论能持续转成可用线索。",
+        "evidence_teaser": "代表讨论：Etsy 卖家给 AI 店差评遭报复，社区喊必须分离买卖账号",
+        "reason": "15 天内 1 条相关讨论，说明这里现在仍有可观察的问题和需求。 / 主题证据集中在 卖家店铺运营，和这个标签的需求匹配。 / 过去已有 16 条高价值信号从这里出来，说明讨论能持续转成可用线索。",
         "related_to": [
           "卖家店铺运营"
         ]
@@ -2032,21 +2115,21 @@
           "evidence_summary": [
             "近期活跃：15 天内 1 条帖子",
             "语义证据：ecommerce_business, shopify",
-            "发布验证：已产出 13 条高价值信号",
-            "代表讨论：Shopify 卖家求推荐低价定制产品插件，WowOptions 被热议因支持文件上传和加价"
+            "发布验证：已产出 14 条高价值信号",
+            "代表讨论：Shopify 卖家靠 Claude 标准化上新，有用户质疑 15 分钟一个页面太慢吗"
           ],
           "historical_posts": 0,
-          "hotpost_cards": 13,
-          "latest_activity_at": "2026-05-08T04:35:07.540225Z",
+          "hotpost_cards": 14,
+          "latest_activity_at": "2026-05-10T03:24:44.054645Z",
           "recent_posts_15d": 1,
           "risk_flags": [],
           "role": "longtail_vertical",
           "sample_titles": [
+            "Shopify 卖家靠 Claude 标准化上新，有用户质疑 15 分钟一个页面太慢吗",
             "Shopify 卖家求推荐低价定制产品插件，WowOptions 被热议因支持文件上传和加价",
-            "Shopify 卖家开始检查 llms.txt，怀疑平台更新导致 ChatGPT 订单跳水",
-            "Shopify 卖家开始用 AI 编码替代简单 App，但先要确认自己是想做品牌还是开发者"
+            "Shopify 卖家开始检查 llms.txt，怀疑平台更新导致 ChatGPT 订单跳水"
           ],
-          "score": 125.1,
+          "score": 126.3,
           "semantic_observations": 0,
           "semantic_terms": [
             "ecommerce_business",
@@ -2054,8 +2137,8 @@
           ],
           "status": "ready"
         },
-        "evidence_teaser": "代表讨论：Shopify 卖家求推荐低价定制产品插件，WowOptions 被热议因支持文件上传和加价",
-        "reason": "15 天内 1 条相关讨论，说明这里现在仍有可观察的问题和需求。 / 主题证据集中在 shopify，和这个标签的需求匹配。 / 过去已有 13 条高价值信号从这里出来，说明讨论能持续转成可用线索。",
+        "evidence_teaser": "代表讨论：Shopify 卖家靠 Claude 标准化上新，有用户质疑 15 分钟一个页面太慢吗",
+        "reason": "15 天内 1 条相关讨论，说明这里现在仍有可观察的问题和需求。 / 主题证据集中在 shopify，和这个标签的需求匹配。 / 过去已有 14 条高价值信号从这里出来，说明讨论能持续转成可用线索。",
         "related_to": [
           "shopify"
         ]
@@ -2076,21 +2159,21 @@
           "evidence_summary": [
             "近期活跃：15 天内 1 条帖子",
             "语义证据：ecommerce_business, amazonseller",
-            "发布验证：已产出 11 条高价值信号",
-            "代表讨论：亚马逊卖家处理杀虫剂误判从申诉转向新建 ASIN，主图制作放弃手动 PS"
+            "发布验证：已产出 12 条高价值信号",
+            "代表讨论：亚马逊卖家发现：纠正品牌关联错误会被机器人流程卡住"
           ],
           "historical_posts": 0,
-          "hotpost_cards": 11,
-          "latest_activity_at": "2026-05-07T04:22:02.435867Z",
+          "hotpost_cards": 12,
+          "latest_activity_at": "2026-05-10T03:15:05.352925Z",
           "recent_posts_15d": 1,
           "risk_flags": [],
           "role": "longtail_vertical",
           "sample_titles": [
+            "亚马逊卖家发现：纠正品牌关联错误会被机器人流程卡住",
             "亚马逊卖家处理杀虫剂误判从申诉转向新建 ASIN，主图制作放弃手动 PS",
-            "亚马逊卖家发现 Listing 后台已激活但库存页仍不活跃",
-            "有卖家在商标异议期间，先让旧品牌 Listing 继续出单，再开新品牌 Listing，不再只急着迁移"
+            "亚马逊卖家发现 Listing 后台已激活但库存页仍不活跃"
           ],
-          "score": 122.7,
+          "score": 123.9,
           "semantic_observations": 0,
           "semantic_terms": [
             "ecommerce_business",
@@ -2098,10 +2181,97 @@
           ],
           "status": "ready"
         },
-        "evidence_teaser": "代表讨论：亚马逊卖家处理杀虫剂误判从申诉转向新建 ASIN，主图制作放弃手动 PS",
-        "reason": "15 天内 1 条相关讨论，说明这里现在仍有可观察的问题和需求。 / 主题证据集中在 amazonseller，和这个标签的需求匹配。 / 过去已有 11 条高价值信号从这里出来，说明讨论能持续转成可用线索。",
+        "evidence_teaser": "代表讨论：亚马逊卖家发现：纠正品牌关联错误会被机器人流程卡住",
+        "reason": "15 天内 1 条相关讨论，说明这里现在仍有可观察的问题和需求。 / 主题证据集中在 amazonseller，和这个标签的需求匹配。 / 过去已有 12 条高价值信号从这里出来，说明讨论能持续转成可用线索。",
         "related_to": [
           "amazonseller"
+        ]
+      },
+      {
+        "activity_label": "近期活跃",
+        "best_for": "长尾垂直社区",
+        "community": "r/etsy",
+        "debug": {
+          "evidence_sources": [
+            "community_pool",
+            "source_refs",
+            "community_pool_semantic_profile",
+            "recent_activity_15d",
+            "hotpost_recent_probe",
+            "hotpost_published_cards"
+          ],
+          "evidence_summary": [
+            "近期活跃：15 天内 1 条帖子",
+            "语义证据：ecommerce_business, etsy",
+            "发布验证：已产出 2 条高价值信号",
+            "代表讨论：Etsy 买家开始从边缘渗色和花瓣变异识别 AI 生成插画"
+          ],
+          "historical_posts": 0,
+          "hotpost_cards": 2,
+          "latest_activity_at": "2026-05-10T11:22:09.229926Z",
+          "recent_posts_15d": 1,
+          "risk_flags": [],
+          "role": "longtail_vertical",
+          "sample_titles": [
+            "Etsy 买家开始从边缘渗色和花瓣变异识别 AI 生成插画",
+            "Etsy 卖家给真产品用 AI 背景，买家直接怀疑整个商品页都是假的"
+          ],
+          "score": 111.4,
+          "semantic_observations": 0,
+          "semantic_terms": [
+            "ecommerce_business",
+            "etsy"
+          ],
+          "status": "ready"
+        },
+        "evidence_teaser": "代表讨论：Etsy 买家开始从边缘渗色和花瓣变异识别 AI 生成插画",
+        "reason": "15 天内 1 条相关讨论，说明这里现在仍有可观察的问题和需求。 / 主题证据集中在 etsy，和这个标签的需求匹配。 / 过去已有 2 条高价值信号从这里出来，说明讨论能持续转成可用线索。",
+        "related_to": [
+          "etsy"
+        ]
+      },
+      {
+        "activity_label": "近期活跃",
+        "best_for": "长尾垂直社区",
+        "community": "r/ai_ugc_marketing",
+        "debug": {
+          "evidence_sources": [
+            "community_pool",
+            "source_refs",
+            "community_pool_semantic_profile",
+            "recent_activity_15d",
+            "hotpost_recent_probe",
+            "hotpost_published_cards"
+          ],
+          "evidence_summary": [
+            "近期活跃：15 天内 1 条帖子",
+            "语义证据：ecommerce_business, funnel",
+            "发布验证：已产出 3 条高价值信号",
+            "代表讨论：AI 生成的手袋开箱视频，评价焦点从画质转向开箱仪式感与动作逻辑"
+          ],
+          "historical_posts": 0,
+          "hotpost_cards": 3,
+          "latest_activity_at": "2026-05-10T11:21:58.711782Z",
+          "recent_posts_15d": 1,
+          "risk_flags": [],
+          "role": "longtail_vertical",
+          "sample_titles": [
+            "AI 生成的手袋开箱视频，评价焦点从画质转向开箱仪式感与动作逻辑",
+            "AI 广告创作者发现，每拍12词是跨镜头角色一致的关键参数",
+            "静态照片秒变 UGC 视频，评论区反问“客户凭什么付钱给你？”"
+          ],
+          "score": 110.6,
+          "semantic_observations": 0,
+          "semantic_terms": [
+            "ecommerce_business",
+            "funnel"
+          ],
+          "status": "ready"
+        },
+        "evidence_teaser": "代表讨论：AI 生成的手袋开箱视频，评价焦点从画质转向开箱仪式感与动作逻辑",
+        "reason": "15 天内 1 条相关讨论，说明这里现在仍有可观察的问题和需求。 / 主题证据集中在 funnel，和这个标签的需求匹配。 / 过去已有 3 条高价值信号从这里出来，说明讨论能持续转成可用线索。",
+        "related_to": [
+          "funnel"
         ]
       },
       {
@@ -2274,41 +2444,6 @@
         "reason": "主题证据集中在 shopify，和这个标签的需求匹配。",
         "related_to": [
           "shopify"
-        ]
-      },
-      {
-        "activity_label": "观察中",
-        "best_for": "长尾垂直社区",
-        "community": "r/etsy",
-        "debug": {
-          "evidence_sources": [
-            "community_pool",
-            "community_pool_semantic_profile"
-          ],
-          "evidence_summary": [
-            "语义证据：ecommerce_business, etsy"
-          ],
-          "historical_posts": 0,
-          "hotpost_cards": 0,
-          "latest_activity_at": null,
-          "recent_posts_15d": 0,
-          "risk_flags": [
-            "needs_more_evidence"
-          ],
-          "role": "longtail_vertical",
-          "sample_titles": [],
-          "score": 27.0,
-          "semantic_observations": 0,
-          "semantic_terms": [
-            "ecommerce_business",
-            "etsy"
-          ],
-          "status": "watching"
-        },
-        "evidence_teaser": "",
-        "reason": "主题证据集中在 etsy，和这个标签的需求匹配。",
-        "related_to": [
-          "etsy"
         ]
       },
       {
@@ -2535,6 +2670,51 @@
       },
       {
         "activity_label": "近期活跃",
+        "best_for": "长尾垂直社区",
+        "community": "r/aeo",
+        "debug": {
+          "evidence_sources": [
+            "community_pool",
+            "source_refs",
+            "community_pool_semantic_profile",
+            "recent_activity_15d",
+            "hotpost_recent_probe",
+            "hotpost_published_cards"
+          ],
+          "evidence_summary": [
+            "近期活跃：15 天内 1 条帖子",
+            "语义证据：geo, seo",
+            "发布验证：已产出 3 条高价值信号",
+            "代表讨论：内容营销人员：LLM 推荐看重原创数据，汇总式 SEO 失效"
+          ],
+          "historical_posts": 0,
+          "hotpost_cards": 3,
+          "latest_activity_at": "2026-05-10T11:22:03.273662Z",
+          "recent_posts_15d": 1,
+          "risk_flags": [],
+          "role": "longtail_vertical",
+          "sample_titles": [
+            "内容营销人员：LLM 推荐看重原创数据，汇总式 SEO 失效",
+            "有 AEO 从业者开始只认转化率，不再信任 AI 可见度等组合指标",
+            "品牌方将 AI 可见性视为核心指标，却因缺乏原生报告只能手动追踪"
+          ],
+          "score": 110.6,
+          "semantic_observations": 0,
+          "semantic_terms": [
+            "geo",
+            "seo"
+          ],
+          "status": "ready"
+        },
+        "evidence_teaser": "代表讨论：内容营销人员：LLM 推荐看重原创数据，汇总式 SEO 失效",
+        "reason": "15 天内 1 条相关讨论，说明这里现在仍有可观察的问题和需求。 / 主题证据集中在 geo、seo，和这个标签的需求匹配。 / 过去已有 3 条高价值信号从这里出来，说明讨论能持续转成可用线索。",
+        "related_to": [
+          "geo",
+          "seo"
+        ]
+      },
+      {
+        "activity_label": "近期活跃",
         "best_for": "泛热点社区",
         "community": "r/seo",
         "debug": {
@@ -2662,7 +2842,7 @@
   },
   "tags": [
     {
-      "available_community_count": 4,
+      "available_community_count": 3,
       "debug": {
         "community_count": 6,
         "evidence_sources": [
@@ -2692,7 +2872,7 @@
           "pet",
           "stroller"
         ],
-        "ready_community_count": 4,
+        "ready_community_count": 3,
         "source_refs": [
           "topic_cluster:pet",
           "topic_cluster:home",
@@ -2700,7 +2880,7 @@
           "topic_cluster:parenting-travel"
         ],
         "user_input_required": false,
-        "watching_community_count": 2
+        "watching_community_count": 3
       },
       "display_name": "家居生活选品",
       "group": "生活与品类",
@@ -2711,7 +2891,7 @@
     {
       "available_community_count": 4,
       "debug": {
-        "community_count": 10,
+        "community_count": 11,
         "evidence_sources": [
           "community_pool",
           "community_pool_semantic_profile",
@@ -2722,7 +2902,7 @@
         ],
         "generic_community_count": 0,
         "historical_community_count": 0,
-        "longtail_community_count": 10,
+        "longtail_community_count": 11,
         "match_terms": [
           "accessory",
           "battlestations",
@@ -2752,7 +2932,7 @@
           "historic_tag:sku-new-community-demand"
         ],
         "user_input_required": false,
-        "watching_community_count": 6
+        "watching_community_count": 7
       },
       "display_name": "好物选品",
       "group": "生活与品类",
@@ -2761,7 +2941,7 @@
       "status": "ready"
     },
     {
-      "available_community_count": 3,
+      "available_community_count": 2,
       "debug": {
         "community_count": 3,
         "evidence_sources": [
@@ -2779,8 +2959,12 @@
           "ads",
           "attribution",
           "cac",
+          "conversion",
           "cpc",
+          "creative",
+          "cro",
           "facebookads",
+          "funnel",
           "ga4",
           "googleads",
           "market-intel",
@@ -2788,14 +2972,15 @@
           "roas",
           "tracking"
         ],
-        "ready_community_count": 3,
+        "ready_community_count": 2,
         "source_refs": [
           "topic_cluster:ads",
           "topic_cluster:attribution",
-          "topic_cluster:market-intel-and-audience-research"
+          "topic_cluster:market-intel-and-audience-research",
+          "topic_cluster:funnel"
         ],
         "user_input_required": false,
-        "watching_community_count": 0
+        "watching_community_count": 1
       },
       "display_name": "广告投放",
       "group": "增长与运营",
@@ -2804,9 +2989,9 @@
       "status": "ready"
     },
     {
-      "available_community_count": 2,
+      "available_community_count": 3,
       "debug": {
-        "community_count": 4,
+        "community_count": 5,
         "evidence_sources": [
           "community_pool",
           "community_pool_semantic_profile",
@@ -2817,7 +3002,7 @@
         ],
         "generic_community_count": 1,
         "historical_community_count": 0,
-        "longtail_community_count": 3,
+        "longtail_community_count": 4,
         "match_terms": [
           "ai overview",
           "ai search",
@@ -2830,7 +3015,7 @@
           "search",
           "seo"
         ],
-        "ready_community_count": 2,
+        "ready_community_count": 3,
         "source_refs": [
           "topic_cluster:seo-geo",
           "historic_tag:geo-ai-search-citation",
@@ -2846,7 +3031,7 @@
       "status": "ready"
     },
     {
-      "available_community_count": 7,
+      "available_community_count": 6,
       "debug": {
         "community_count": 15,
         "evidence_sources": [
@@ -2876,7 +3061,7 @@
           "tool-calling",
           "workflow"
         ],
-        "ready_community_count": 7,
+        "ready_community_count": 6,
         "source_refs": [
           "topic_cluster:agent-incidents",
           "topic_cluster:ai-product-and-adoption",
@@ -2884,7 +3069,7 @@
           "historic_tag:tool-stack-shifts"
         ],
         "user_input_required": false,
-        "watching_community_count": 8
+        "watching_community_count": 9
       },
       "display_name": "AI工具与Agent",
       "group": "AI 与自动化",
@@ -2974,12 +3159,13 @@
       "status": "ready"
     },
     {
-      "available_community_count": 4,
+      "available_community_count": 7,
       "debug": {
-        "community_count": 15,
+        "community_count": 17,
         "evidence_sources": [
           "community_pool",
           "community_pool_semantic_profile",
+          "historical_posts",
           "hotpost_published_cards",
           "hotpost_recent_probe",
           "recent_activity_15d",
@@ -2987,7 +3173,7 @@
         ],
         "generic_community_count": 0,
         "historical_community_count": 0,
-        "longtail_community_count": 15,
+        "longtail_community_count": 17,
         "match_terms": [
           "amazon",
           "amazonseller",
@@ -3003,14 +3189,14 @@
           "shopify",
           "unit-economics"
         ],
-        "ready_community_count": 4,
+        "ready_community_count": 7,
         "source_refs": [
           "topic_cluster:seller-category-direction",
           "topic_cluster:unit-economics-and-platform-risk",
           "topic_cluster:funnel"
         ],
         "user_input_required": false,
-        "watching_community_count": 11
+        "watching_community_count": 10
       },
       "display_name": "卖家店铺运营",
       "group": "电商与品牌",
@@ -3035,6 +3221,7 @@
         "longtail_community_count": 5,
         "match_terms": [
           "affiliate",
+          "ai ugc",
           "blogging",
           "content-production",
           "content_marketing",
@@ -3044,13 +3231,16 @@
           "editorial",
           "emailmarketing",
           "newsletter",
-          "substack"
+          "product video",
+          "substack",
+          "ugc"
         ],
         "ready_community_count": 2,
         "source_refs": [
           "topic_cluster:content-production-and-editorial",
           "historic_tag:content-production",
-          "topic_cluster:creator-affiliate-distribution"
+          "topic_cluster:creator-affiliate-distribution",
+          "topic_cluster:funnel"
         ],
         "user_input_required": false,
         "watching_community_count": 3
