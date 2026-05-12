@@ -46,8 +46,8 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y build-essential postgresql-server-dev-16
           git clone --depth 1 --branch v0.8.1 https://github.com/pgvector/pgvector.git /tmp/pgvector
-          make -C /tmp/pgvector
-          sudo make -C /tmp/pgvector install
+          make -C /tmp/pgvector with_llvm=no OPTFLAGS=""
+          sudo make -C /tmp/pgvector with_llvm=no install
 
       # 4. 设置 Python 环境
       - name: Set up Python
@@ -247,6 +247,8 @@ jobs:
       # 5. 运行现有 API 契约测试
       - name: Run API contract tests
         working-directory: backend
+        env:
+          SKIP_DB_RESET: "1"
         run: |
           python -m pytest \
             tests/api/test_golden_path_contract.py \
