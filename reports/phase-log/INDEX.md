@@ -6,6 +6,10 @@
   - [CURRENT_STATUS.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/CURRENT_STATUS.md)
 - 未完成事项：
   - [OPEN_ITEMS.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/OPEN_ITEMS.md)
+- Hotpost 社区探索回流 2026-05-12 复跑已确认 R12 后暂无新增 `pool_candidate`：`input_rows=16 / already_in_pool=8 / keep_testing=8 / promote_candidate=0`，dry-run 仍为 `writes_db=false / auto_promote=false`：
+  - [community-pool-feedback-dry-run-2026-05-12.md](/Users/hujia/Desktop/RedditSignalScanner/reports/community-governance/community-pool-feedback-dry-run-2026-05-12.md)
+  - [community-pool-feedback-dry-run-2026-05-12.json](/Users/hujia/Desktop/RedditSignalScanner/reports/community-governance/community-pool-feedback-dry-run-2026-05-12.json)
+  - [community-discovery-audit-2026-05-12.json](/Users/hujia/Desktop/RedditSignalScanner/reports/community-governance/community-discovery-audit-2026-05-12.json)
 - Hotpost 社区探索回流 R12 已完成 Dev 写入：用户确认的 `r/aeo`、`r/ai_ugc_marketing`、`r/growthhacking` 已写入 `reddit_signal_scanner_dev.community_pool`，未删除社区池计数 `356 -> 359`；推荐刷新后 `tags=9 / recommendations=68 / ready_count=33 / acceptance_passed=true`，rollback SQL 已生成：
   - [phase1115.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1115.md)
   - [community-pool-r12-dev-write-2026-05-10.md](/Users/hujia/Desktop/RedditSignalScanner/reports/community-governance/community-pool-r12-dev-write-2026-05-10.md)
