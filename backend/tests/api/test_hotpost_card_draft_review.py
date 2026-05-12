@@ -26,6 +26,7 @@ async def test_hotpost_draft_update_and_publish(client: AsyncClient, monkeypatch
         "signal_id": "sig-ai-review-001",
         "source_scope_id": "ai-automation",
         "source_scope_name": "AI 与自动化",
+        "topic_pack_id": "agent-builder",
         "query": "workflow",
         "matched_subreddit": "artificial",
         "post_id": "abc123",
