@@ -295,21 +295,43 @@ class CommunityGovernanceService:
         if not community_ids:
             return {}
 
-        rows = (
+        table_presence = (
             await self._session.execute(
                 text(
                     """
                     SELECT
+                        to_regclass('public.posts_raw') IS NOT NULL AS has_posts_raw_table,
+                        to_regclass('public.community_audit') IS NOT NULL AS has_community_audit_table,
+                        to_regclass('public.community_category_map') IS NOT NULL AS has_category_map_table
+                    """
+                )
+            )
+        ).one()
+        posts_raw_expr = (
+            "EXISTS(SELECT 1 FROM posts_raw WHERE community_id = p.id)"
+            if table_presence.has_posts_raw_table
+            else "FALSE"
+        )
+        community_audit_expr = (
+            "EXISTS(SELECT 1 FROM community_audit WHERE community_id = p.id)"
+            if table_presence.has_community_audit_table
+            else "FALSE"
+        )
+        category_map_expr = (
+            "EXISTS(SELECT 1 FROM community_category_map WHERE community_id = p.id)"
+            if table_presence.has_category_map_table
+            else "FALSE"
+        )
+
+        rows = (
+            await self._session.execute(
+                text(
+                    f"""
+                    SELECT
                         p.id AS community_id,
-                        EXISTS(
-                            SELECT 1 FROM posts_raw WHERE community_id = p.id
-                        ) AS has_posts_raw,
-                        EXISTS(
-                            SELECT 1 FROM community_audit WHERE community_id = p.id
-                        ) AS has_community_audit,
-                        EXISTS(
-                            SELECT 1 FROM community_category_map WHERE community_id = p.id
-                        ) AS has_category_map
+                        {posts_raw_expr} AS has_posts_raw,
+                        {community_audit_expr} AS has_community_audit,
+                        {category_map_expr} AS has_category_map
                     FROM community_pool p
                     WHERE p.id = ANY(:community_ids)
                     """
