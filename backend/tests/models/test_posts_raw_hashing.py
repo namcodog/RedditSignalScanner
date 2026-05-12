@@ -14,6 +14,7 @@ from sqlalchemy import select
 from sqlalchemy.dialects.postgresql import insert as pg_insert
 
 from app.db.session import SessionFactory
+from app.models.community_pool import CommunityPool
 from app.models.posts_storage import PostRaw
 
 
@@ -41,6 +42,20 @@ class TestPostsRawHashing:
         created_at = datetime.now(timezone.utc)
 
         source_post_id = f"unit-test-hash-{uuid.uuid4().hex[:8]}"
+        subreddit = f"r/unittest_{uuid.uuid4().hex[:8]}"
+        community = CommunityPool(
+            name=subreddit,
+            tier="core",
+            categories={"source": "test"},
+            description_keywords={"keywords": ["test"]},
+            daily_posts=1,
+            avg_comment_length=120,
+            quality_score=0.75,
+            priority="medium",
+            is_active=True,
+        )
+        db_session.add(community)
+        await db_session.flush()
 
         stmt = pg_insert(PostRaw).values(
             source="reddit",
@@ -49,7 +64,8 @@ class TestPostsRawHashing:
             created_at=created_at,
             fetched_at=created_at,
             valid_from=created_at,
-            subreddit="r/unittest",
+            subreddit=subreddit,
+            community_id=community.id,
             title=title,
             body=body,
         )
