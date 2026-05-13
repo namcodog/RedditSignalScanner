@@ -36,8 +36,11 @@ async def _ensure_truth_source_tables(db_session) -> None:
         await conn.run_sync(CommunityRuntimeState.__table__.create, checkfirst=True)
         await conn.run_sync(SemanticObservation.__table__.create, checkfirst=True)
 
+
 @pytest.mark.asyncio
-async def test_sync_legacy_truth_for_community_creates_new_truth_rows(db_session) -> None:
+async def test_sync_legacy_truth_for_community_creates_new_truth_rows(
+    db_session,
+) -> None:
     await _ensure_truth_source_tables(db_session)
     community_name = _unique_subreddit("parenting")
     await db_session.execute(
@@ -75,7 +78,9 @@ async def test_sync_legacy_truth_for_community_creates_new_truth_rows(db_session
         sample_comments=18,
     )
     cache.last_seen_created_at = datetime(2026, 3, 26, tzinfo=timezone.utc)
-    db_session.add_all([pool, cache])
+    db_session.add(pool)
+    await db_session.flush()
+    db_session.add(cache)
     await db_session.flush()
 
     result = await sync_legacy_truth_for_community(
@@ -98,7 +103,9 @@ async def test_sync_legacy_truth_for_community_creates_new_truth_rows(db_session
 
 
 @pytest.mark.asyncio
-async def test_sync_legacy_truth_for_community_updates_existing_rows(db_session) -> None:
+async def test_sync_legacy_truth_for_community_updates_existing_rows(
+    db_session,
+) -> None:
     await _ensure_truth_source_tables(db_session)
     community_name = _unique_subreddit("daddit")
     await db_session.execute(
@@ -135,7 +142,9 @@ async def test_sync_legacy_truth_for_community_updates_existing_rows(db_session)
         sample_posts=4,
         sample_comments=3,
     )
-    db_session.add_all([pool, cache])
+    db_session.add(pool)
+    await db_session.flush()
+    db_session.add(cache)
     await db_session.flush()
 
     first = await sync_legacy_truth_for_community(db_session, pool=pool, cache=cache)
