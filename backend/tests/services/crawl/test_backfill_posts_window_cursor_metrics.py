@@ -3,11 +3,13 @@ from __future__ import annotations
 from datetime import datetime, timedelta, timezone
 from decimal import Decimal
 from typing import Any
+import uuid
 
 import pytest
 
 from app.db.session import SessionFactory
 from app.models.community_cache import CommunityCache
+from app.models.community_pool import CommunityPool
 from app.services.crawl.incremental_crawler import IncrementalCrawler
 from app.services.infrastructure.reddit_client import RedditPost
 
@@ -21,6 +23,7 @@ async def test_backfill_posts_window_sets_cursor_created_before_after_from_batch
     until = now
     newer = (since + timedelta(hours=5)).timestamp()
     older = (since + timedelta(hours=1)).timestamp()
+    community_name = f"r/test_backfill_cursor_metrics_{uuid.uuid4().hex[:8]}"
 
     class DummyReddit:
         async def fetch_subreddit_posts(
@@ -67,8 +70,19 @@ async def test_backfill_posts_window_sets_cursor_created_before_after_from_batch
     monkeypatch.setattr(IncrementalCrawler, "_dual_write", fake_dual_write)
 
     async with SessionFactory() as session:
+        session.add(
+            CommunityPool(
+                name=community_name,
+                tier="medium",
+                categories={"topic": ["test"]},
+                description_keywords={"test": 1},
+                daily_posts=10,
+                priority="medium",
+            )
+        )
+        await session.flush()
         cache_row = CommunityCache(
-            community_name="r/test_backfill_cursor_metrics",
+            community_name=community_name,
             last_crawled_at=now,
             posts_cached=0,
             ttl_seconds=3600,
@@ -86,7 +100,7 @@ async def test_backfill_posts_window_sets_cursor_created_before_after_from_batch
             refresh_posts_latest_after_write=False,
         )
         result = await crawler.backfill_posts_window(
-            "r/test_backfill_cursor_metrics",
+            community_name,
             since=since,
             until=until,
             max_posts=10,
