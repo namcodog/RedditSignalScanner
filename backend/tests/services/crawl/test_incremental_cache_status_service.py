@@ -6,18 +6,10 @@ from decimal import Decimal
 import pytest
 from sqlalchemy import select, text
 
+import app.services.crawl.incremental_cache_status_service as incremental_status
 from app.db.session import SessionFactory
 from app.models.community_cache import CommunityCache
 from app.models.community_pool import CommunityPool
-from app.services.crawl.incremental_cache_status_service import (
-    EmptyAttemptInput,
-    FailureAttemptInput,
-    IncrementalCacheStatusDeps,
-    WatermarkUpdateInput,
-    record_incremental_empty_attempt,
-    record_incremental_failure_attempt,
-    update_incremental_watermark,
-)
 
 
 async def _reset_tables() -> None:
@@ -30,15 +22,38 @@ async def _reset_tables() -> None:
         await db.commit()
 
 
+async def _seed_pool(db, name: str, *, tier: str, quality_score: Decimal) -> None:
+    db.add(
+        CommunityPool(
+            name=name,
+            tier=tier,
+            categories={"topic": ["test"]},
+            description_keywords={"test": 1},
+            daily_posts=3,
+            quality_score=quality_score,
+            priority=tier,
+        )
+    )
+    await db.flush()
+
+
 @pytest.mark.asyncio
 async def test_record_incremental_failure_attempt_upserts_cache_row() -> None:
     await _reset_tables()
     now = datetime(2026, 3, 17, 12, 0, tzinfo=timezone.utc)
 
     async with SessionFactory() as db:
-        await record_incremental_failure_attempt(
-            FailureAttemptInput(community_name="r/testfailurex", now=now),
-            IncrementalCacheStatusDeps(db=db),
+        await _seed_pool(
+            db,
+            "r/testfailurex",
+            tier="medium",
+            quality_score=Decimal("0.50"),
+        )
+        await incremental_status.record_incremental_failure_attempt(
+            incremental_status.FailureAttemptInput(
+                community_name="r/testfailurex", now=now
+            ),
+            incremental_status.IncrementalCacheStatusDeps(db=db),
         )
         result = await db.execute(
             select(CommunityCache).where(
@@ -56,16 +71,11 @@ async def test_record_incremental_empty_attempt_increments_empty_hit() -> None:
     now = datetime(2026, 3, 17, 13, 0, tzinfo=timezone.utc)
 
     async with SessionFactory() as db:
-        db.add(
-            CommunityPool(
-                name="r/testemptyx",
-                tier="medium",
-                categories={"topic": ["test"]},
-                description_keywords={"test": 1},
-                daily_posts=3,
-                quality_score=Decimal("0.40"),
-                priority="medium",
-            )
+        await _seed_pool(
+            db,
+            "r/testemptyx",
+            tier="medium",
+            quality_score=Decimal("0.40"),
         )
         db.add(
             CommunityCache(
@@ -85,9 +95,11 @@ async def test_record_incremental_empty_attempt_increments_empty_hit() -> None:
         )
         await db.commit()
 
-        await record_incremental_empty_attempt(
-            EmptyAttemptInput(community_name="r/testemptyx", now=now),
-            IncrementalCacheStatusDeps(db=db),
+        await incremental_status.record_incremental_empty_attempt(
+            incremental_status.EmptyAttemptInput(
+                community_name="r/testemptyx", now=now
+            ),
+            incremental_status.IncrementalCacheStatusDeps(db=db),
         )
         result = await db.execute(
             select(CommunityCache).where(
@@ -105,16 +117,11 @@ async def test_update_incremental_watermark_updates_cursor_and_counts() -> None:
     now = datetime(2026, 3, 17, 14, 0, tzinfo=timezone.utc)
 
     async with SessionFactory() as db:
-        db.add(
-            CommunityPool(
-                name="r/testwatermarkx",
-                tier="high",
-                categories={"topic": ["test"]},
-                description_keywords={"test": 1},
-                daily_posts=15,
-                quality_score=Decimal("0.90"),
-                priority="high",
-            )
+        await _seed_pool(
+            db,
+            "r/testwatermarkx",
+            tier="high",
+            quality_score=Decimal("0.90"),
         )
         db.add(
             CommunityCache(
@@ -136,8 +143,8 @@ async def test_update_incremental_watermark_updates_cursor_and_counts() -> None:
         await db.commit()
 
         seen_at = datetime(2026, 3, 17, 13, 30, tzinfo=timezone.utc)
-        await update_incremental_watermark(
-            WatermarkUpdateInput(
+        await incremental_status.update_incremental_watermark(
+            incremental_status.WatermarkUpdateInput(
                 community_name="r/testwatermarkx",
                 last_seen_post_id="p_new",
                 last_seen_created_at=seen_at,
@@ -145,7 +152,9 @@ async def test_update_incremental_watermark_updates_cursor_and_counts() -> None:
                 new_valid_posts=4,
                 dedup_rate=25.0,
             ),
-            IncrementalCacheStatusDeps(db=db, now_factory=lambda: now),
+            incremental_status.IncrementalCacheStatusDeps(
+                db=db, now_factory=lambda: now
+            ),
         )
         result = await db.execute(
             select(CommunityCache).where(
@@ -159,4 +168,3 @@ async def test_update_incremental_watermark_updates_cursor_and_counts() -> None:
         assert float(row.dedup_rate) == pytest.approx(25.0)
         assert row.success_hit == 2
         assert row.avg_valid_posts == 4
-
