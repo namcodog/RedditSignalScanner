@@ -6,16 +6,16 @@ Quality Metrics Collector
 """
 from __future__ import annotations
 
-import logging
 import json
+import logging
 from datetime import date, datetime, timedelta, timezone
 from decimal import Decimal
 from pathlib import Path
 from typing import Optional
 
 from sqlalchemy import func, select
-from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.exc import IntegrityError
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.crawl_metrics import CrawlMetrics
 from app.models.metrics import QualityMetrics
@@ -29,21 +29,21 @@ async def collect_metrics(
     target_date: Optional[date] = None,
 ) -> QualityMetrics:
     """从数据库统计质量指标
-    
+
     Args:
         db: 数据库会话
         target_date: 目标日期（默认为昨天）
-    
+
     Returns:
         QualityMetrics: 质量指标对象
-    
+
     Raises:
         ValueError: 如果没有找到数据
     """
     # 默认统计昨天的数据
     if target_date is None:
         target_date = (datetime.now(timezone.utc) - timedelta(days=1)).date()
-    
+
     # 1. 从 CrawlMetrics 获取采集成功率和重复率
     crawl_query = select(
         func.sum(CrawlMetrics.successful_crawls).label("successful"),
@@ -51,13 +51,13 @@ async def collect_metrics(
         func.sum(CrawlMetrics.total_duplicates).label("duplicates"),
         func.sum(CrawlMetrics.total_new_posts).label("new_posts"),
     ).where(CrawlMetrics.metric_date == target_date)
-    
+
     crawl_result = await db.execute(crawl_query)
     crawl_row = crawl_result.first()
-    
+
     if not crawl_row or crawl_row.successful is None:
         raise ValueError(f"No crawl metrics found for date {target_date}")
-    
+
     # 计算采集成功率
     total_crawls = (crawl_row.successful or 0) + (crawl_row.failed or 0)
     collection_success_rate = (
@@ -65,7 +65,7 @@ async def collect_metrics(
         if total_crawls > 0
         else Decimal("0.0000")
     )
-    
+
     # 计算重复率
     total_posts = (crawl_row.new_posts or 0) + (crawl_row.duplicates or 0)
     deduplication_rate = (
@@ -73,21 +73,21 @@ async def collect_metrics(
         if total_posts > 0
         else Decimal("0.0000")
     )
-    
+
     # 2. 从 Task 获取处理耗时 P50/P95
     # 查询当天完成的任务
     day_start = datetime.combine(target_date, datetime.min.time()).replace(
         tzinfo=timezone.utc
     )
     day_end = day_start + timedelta(days=1)
-    
+
     processing_query = select(
-        func.percentile_cont(0.5).within_group(
-            func.extract("epoch", Task.completed_at - Task.started_at)
-        ).label("p50"),
-        func.percentile_cont(0.95).within_group(
-            func.extract("epoch", Task.completed_at - Task.started_at)
-        ).label("p95"),
+        func.percentile_cont(0.5)
+        .within_group(func.extract("epoch", Task.completed_at - Task.started_at))
+        .label("p50"),
+        func.percentile_cont(0.95)
+        .within_group(func.extract("epoch", Task.completed_at - Task.started_at))
+        .label("p95"),
     ).where(
         Task.status == TaskStatus.COMPLETED,
         Task.completed_at.is_not(None),
@@ -95,10 +95,10 @@ async def collect_metrics(
         Task.completed_at >= day_start,
         Task.completed_at < day_end,
     )
-    
+
     processing_result = await db.execute(processing_query)
     processing_row = processing_result.first()
-    
+
     # 如果当天没有完成的任务，使用默认值 0
     processing_time_p50 = (
         Decimal(str(round(float(processing_row.p50 or 0.0), 2)))
@@ -110,7 +110,7 @@ async def collect_metrics(
         if processing_row and processing_row.p95
         else Decimal("0.00")
     )
-    
+
     # 3. 创建 QualityMetrics 对象
     metrics = QualityMetrics(
         date=target_date,
@@ -119,7 +119,7 @@ async def collect_metrics(
         processing_time_p50=processing_time_p50,
         processing_time_p95=processing_time_p95,
     )
-    
+
     return metrics
 
 
@@ -162,6 +162,14 @@ async def save_metrics(
 
     try:
         await db.commit()
+        # 确保新插入记录拥有 created_at（由数据库默认值/ORM 默认填充）
+        try:
+            await db.refresh(persisted)
+        except IntegrityError:
+            raise
+        except Exception:
+            # 在部分后端驱动下 refresh 不是必须的，忽略刷新失败
+            pass
     except IntegrityError as exc:
         await db.rollback()
         logger.error(
@@ -170,13 +178,6 @@ async def save_metrics(
             exc,
         )
         raise
-
-    # 确保新插入记录拥有 created_at（由数据库默认值/ORM 默认填充）
-    try:
-        await db.refresh(persisted)
-    except Exception:
-        # 在部分后端驱动下 refresh 不是必须的，忽略刷新失败
-        pass
 
     # 2. 保存到 JSONL 文件
     output_dir.mkdir(parents=True, exist_ok=True)

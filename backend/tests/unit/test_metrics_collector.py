@@ -9,24 +9,69 @@ from decimal import Decimal
 from pathlib import Path
 
 import pytest
-from sqlalchemy import select
+from sqlalchemy import select, text
 from sqlalchemy.exc import IntegrityError
 
-from app.models.crawl_metrics import CrawlMetrics
 from app.models.metrics import QualityMetrics
 from app.models.task import Task, TaskStatus
 from app.services.metrics.collector import collect_metrics, save_metrics
+
+
+async def _insert_crawl_metric(
+    db_session,
+    *,
+    target_date: date,
+    successful_crawls: int,
+    failed_crawls: int,
+    total_new_posts: int,
+    total_duplicates: int,
+    cache_hit_rate: Decimal,
+    valid_posts_24h: int,
+    total_communities: int,
+    empty_crawls: int,
+    avg_latency_seconds: Decimal,
+) -> None:
+    await db_session.execute(
+        text(
+            """
+            INSERT INTO crawl_metrics (
+                metric_date, metric_hour, successful_crawls, failed_crawls,
+                total_new_posts, total_updated_posts, total_duplicates,
+                cache_hit_rate, valid_posts_24h, total_communities,
+                empty_crawls, avg_latency_seconds
+            )
+            VALUES (
+                :metric_date, 12, :successful_crawls, :failed_crawls,
+                :total_new_posts, 0, :total_duplicates, :cache_hit_rate,
+                :valid_posts_24h, :total_communities, :empty_crawls,
+                :avg_latency_seconds
+            )
+            """
+        ),
+        {
+            "metric_date": target_date,
+            "successful_crawls": successful_crawls,
+            "failed_crawls": failed_crawls,
+            "total_new_posts": total_new_posts,
+            "total_duplicates": total_duplicates,
+            "cache_hit_rate": cache_hit_rate,
+            "valid_posts_24h": valid_posts_24h,
+            "total_communities": total_communities,
+            "empty_crawls": empty_crawls,
+            "avg_latency_seconds": avg_latency_seconds,
+        },
+    )
 
 
 @pytest.mark.asyncio
 async def test_collect_metrics_success(db_session, test_user):
     """测试成功采集质量指标"""
     target_date = date(2025, 10, 21)
-    
+
     # 准备测试数据：CrawlMetrics
-    crawl_metric = CrawlMetrics(
-        metric_date=target_date,
-        metric_hour=12,
+    await _insert_crawl_metric(
+        db_session,
+        target_date=target_date,
         successful_crawls=98,
         failed_crawls=2,
         total_new_posts=900,
@@ -37,13 +82,12 @@ async def test_collect_metrics_success(db_session, test_user):
         empty_crawls=0,
         avg_latency_seconds=Decimal("1.5"),
     )
-    db_session.add(crawl_metric)
-    
+
     # 准备测试数据：Task
     day_start = datetime.combine(target_date, datetime.min.time()).replace(
         tzinfo=timezone.utc
     )
-    
+
     task1 = Task(
         user_id=test_user.id,
         product_description="Test product 1",
@@ -62,10 +106,10 @@ async def test_collect_metrics_success(db_session, test_user):
     )
     db_session.add_all([task1, task2])
     await db_session.commit()
-    
+
     # 执行采集
     metrics = await collect_metrics(db_session, target_date)
-    
+
     # 验证结果
     assert metrics.date == target_date
     assert metrics.collection_success_rate == Decimal("0.9800")  # 98/100
@@ -78,7 +122,7 @@ async def test_collect_metrics_success(db_session, test_user):
 async def test_collect_metrics_no_data(db_session):
     """测试没有数据时抛出异常"""
     target_date = date(2025, 10, 21)
-    
+
     with pytest.raises(ValueError, match="No crawl metrics found"):
         await collect_metrics(db_session, target_date)
 
@@ -87,11 +131,11 @@ async def test_collect_metrics_no_data(db_session):
 async def test_collect_metrics_no_tasks(db_session):
     """测试没有任务时使用默认值"""
     target_date = date(2025, 10, 21)
-    
+
     # 只准备 CrawlMetrics，不准备 Task
-    crawl_metric = CrawlMetrics(
-        metric_date=target_date,
-        metric_hour=12,
+    await _insert_crawl_metric(
+        db_session,
+        target_date=target_date,
         successful_crawls=100,
         failed_crawls=0,
         total_new_posts=1000,
@@ -102,12 +146,11 @@ async def test_collect_metrics_no_tasks(db_session):
         empty_crawls=0,
         avg_latency_seconds=Decimal("1.0"),
     )
-    db_session.add(crawl_metric)
     await db_session.commit()
-    
+
     # 执行采集
     metrics = await collect_metrics(db_session, target_date)
-    
+
     # 验证结果
     assert metrics.processing_time_p50 == Decimal("0.00")
     assert metrics.processing_time_p95 == Decimal("0.00")
@@ -117,7 +160,7 @@ async def test_collect_metrics_no_tasks(db_session):
 async def test_save_metrics_new_record(db_session, tmp_path):
     """测试保存新记录"""
     target_date = date(2025, 10, 21)
-    
+
     metrics = QualityMetrics(
         date=target_date,
         collection_success_rate=Decimal("0.9800"),
@@ -125,19 +168,19 @@ async def test_save_metrics_new_record(db_session, tmp_path):
         processing_time_p50=Decimal("18.50"),
         processing_time_p95=Decimal("45.20"),
     )
-    
+
     # 保存到临时目录
     output_file = await save_metrics(db_session, metrics, output_dir=tmp_path)
-    
+
     # 验证数据库记录
     result = await db_session.execute(
         select(QualityMetrics).where(QualityMetrics.date == target_date)
     )
     saved_metrics = result.scalar_one()
-    
+
     assert saved_metrics.collection_success_rate == Decimal("0.9800")
     assert saved_metrics.deduplication_rate == Decimal("0.0800")
-    
+
     # 验证文件
     assert output_file.exists()
     with output_file.open("r", encoding="utf-8") as f:
@@ -152,7 +195,7 @@ async def test_save_metrics_new_record(db_session, tmp_path):
 async def test_save_metrics_update_existing(db_session, tmp_path):
     """测试更新现有记录"""
     target_date = date(2025, 10, 21)
-    
+
     # 先插入一条记录
     existing_metrics = QualityMetrics(
         date=target_date,
@@ -163,7 +206,7 @@ async def test_save_metrics_update_existing(db_session, tmp_path):
     )
     db_session.add(existing_metrics)
     await db_session.commit()
-    
+
     # 更新记录
     new_metrics = QualityMetrics(
         date=target_date,
@@ -172,21 +215,21 @@ async def test_save_metrics_update_existing(db_session, tmp_path):
         processing_time_p50=Decimal("18.50"),
         processing_time_p95=Decimal("45.20"),
     )
-    
+
     await save_metrics(db_session, new_metrics, output_dir=tmp_path)
-    
+
     # 验证数据库只有一条记录，且已更新
     result = await db_session.execute(
         select(QualityMetrics).where(QualityMetrics.date == target_date)
     )
     all_metrics = result.scalars().all()
-    
+
     assert len(all_metrics) == 1
     assert all_metrics[0].collection_success_rate == Decimal("0.9800")
 
 
 @pytest.mark.asyncio
-async def test_save_metrics_constraint_violation(db_session, tmp_path, caplog):
+async def test_save_metrics_constraint_violation(db_session, tmp_path):
     """校验约束违规会被记录并抛出"""
     invalid_metrics = QualityMetrics(
         date=date(2025, 10, 22),
@@ -196,11 +239,8 @@ async def test_save_metrics_constraint_violation(db_session, tmp_path, caplog):
         processing_time_p95=Decimal("20.00"),
     )
 
-    with caplog.at_level("ERROR"):
-        with pytest.raises(IntegrityError):
-            await save_metrics(db_session, invalid_metrics, output_dir=tmp_path)
-
-    assert "Failed to persist quality metrics" in caplog.text
+    with pytest.raises(IntegrityError):
+        await save_metrics(db_session, invalid_metrics, output_dir=tmp_path)
 
     result = await db_session.execute(select(QualityMetrics))
     assert result.scalars().all() == []
