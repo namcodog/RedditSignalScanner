@@ -8,22 +8,14 @@ from typing import Any
 import pytest
 from sqlalchemy import text
 
+import app.services.crawl.crawler_run_targets_service as run_targets_service
+import app.services.crawl.crawler_runs_service as runs_service
+import app.services.crawl.planner_workflow as planner_workflow
+import app.services.infrastructure.task_outbox_service as outbox_service
 from app.db.session import SessionFactory
 from app.models.community_cache import CommunityCache
 from app.models.community_pool import CommunityPool
-from app.services.crawl.crawler_runs_service import ensure_crawler_run
-from app.services.crawl.crawler_run_targets_service import ensure_crawler_run_target
-from app.services.crawl.planner_workflow import (
-    BackfillBootstrapPlannerInput,
-    LowQualityPlannerInput,
-    PlannerWorkflowDeps,
-    SeedSamplingPlannerInput,
-    plan_backfill_bootstrap_workflow,
-    plan_low_quality_communities_workflow,
-    plan_seed_sampling_workflow,
-)
 from app.services.crawl.target_planner import QueuePlannedTargetsDeps
-from app.services.infrastructure.task_outbox_service import enqueue_execute_target_outbox
 
 
 async def _commit_session(session: Any, *, context: str) -> bool:
@@ -32,14 +24,14 @@ async def _commit_session(session: Any, *, context: str) -> bool:
     return True
 
 
-def _planner_workflow_deps() -> PlannerWorkflowDeps:
-    return PlannerWorkflowDeps(
+def _planner_workflow_deps() -> planner_workflow.PlannerWorkflowDeps:
+    return planner_workflow.PlannerWorkflowDeps(
         session_factory=SessionFactory,
-        ensure_crawler_run=ensure_crawler_run,
+        ensure_crawler_run=runs_service.ensure_crawler_run,
         commit_session=_commit_session,
         queue_deps=QueuePlannedTargetsDeps(
             session_factory=SessionFactory,
-            enqueue_target_outbox=enqueue_execute_target_outbox,
+            enqueue_target_outbox=outbox_service.enqueue_execute_target_outbox,
             commit_session=_commit_session,
         ),
         log_swallowed_exception=lambda *_: None,
@@ -84,6 +76,7 @@ async def test_plan_backfill_bootstrap_workflow_enqueues_targets() -> None:
                 ),
             ]
         )
+        await session.flush()
         session.add_all(
             [
                 CommunityCache(
@@ -107,8 +100,8 @@ async def test_plan_backfill_bootstrap_workflow_enqueues_targets() -> None:
         )
         await session.commit()
 
-    result = await plan_backfill_bootstrap_workflow(
-        BackfillBootstrapPlannerInput(
+    result = await planner_workflow.plan_backfill_bootstrap_workflow(
+        planner_workflow.BackfillBootstrapPlannerInput(
             now=now,
             max_targets=50000,
             posts_limit=123,
@@ -185,6 +178,7 @@ async def test_plan_seed_sampling_workflow_enqueues_capped_only() -> None:
                 ),
             ]
         )
+        await session.flush()
         session.add_all(
             [
                 CommunityCache(
@@ -214,8 +208,8 @@ async def test_plan_seed_sampling_workflow_enqueues_capped_only() -> None:
     recent_run_id = str(uuid.uuid4())
     recent_target_id = str(uuid.uuid4())
     async with SessionFactory() as session:
-        await ensure_crawler_run(session, crawl_run_id=recent_run_id)
-        await ensure_crawler_run_target(
+        await runs_service.ensure_crawler_run(session, crawl_run_id=recent_run_id)
+        await run_targets_service.ensure_crawler_run_target(
             session,
             community_run_id=recent_target_id,
             crawl_run_id=recent_run_id,
@@ -228,8 +222,8 @@ async def test_plan_seed_sampling_workflow_enqueues_capped_only() -> None:
         )
         await session.commit()
 
-    result = await plan_seed_sampling_workflow(
-        SeedSamplingPlannerInput(
+    result = await planner_workflow.plan_seed_sampling_workflow(
+        planner_workflow.SeedSamplingPlannerInput(
             now=now,
             cooldown_days=30,
             max_targets=10,
@@ -285,6 +279,35 @@ async def test_plan_low_quality_communities_workflow_enqueues_stale_low_quality_
     async with SessionFactory() as session:
         session.add_all(
             [
+                CommunityPool(
+                    name=target_name,
+                    tier="low",
+                    categories={},
+                    description_keywords={},
+                    is_active=True,
+                    is_blacklisted=False,
+                ),
+                CommunityPool(
+                    name=fresh_name,
+                    tier="low",
+                    categories={},
+                    description_keywords={},
+                    is_active=True,
+                    is_blacklisted=False,
+                ),
+                CommunityPool(
+                    name=strong_name,
+                    tier="high",
+                    categories={},
+                    description_keywords={},
+                    is_active=True,
+                    is_blacklisted=False,
+                ),
+            ]
+        )
+        await session.flush()
+        session.add_all(
+            [
                 CommunityCache(
                     community_name=target_name,
                     last_crawled_at=now - timedelta(hours=12),
@@ -316,8 +339,8 @@ async def test_plan_low_quality_communities_workflow_enqueues_stale_low_quality_
         )
         await session.commit()
 
-    result = await plan_low_quality_communities_workflow(
-        LowQualityPlannerInput(
+    result = await planner_workflow.plan_low_quality_communities_workflow(
+        planner_workflow.LowQualityPlannerInput(
             now=now,
             stale_hours=8,
             max_targets=50,
