@@ -7,15 +7,40 @@ from sqlalchemy import text
 from app.services.analysis.community_ranker import compute_ranking_scores
 
 
+async def _comments_has_legacy_post_id(db_session) -> bool:
+    result = await db_session.execute(
+        text(
+            """
+            SELECT EXISTS (
+                SELECT 1
+                FROM information_schema.columns
+                WHERE table_name = 'comments'
+                  AND column_name = 'post_id'
+            )
+            """
+        )
+    )
+    return bool(result.scalar())
+
+
 @pytest.mark.asyncio
 async def test_compute_ranking_scores_prefers_higher_pain_brand_and_growth(db_session):
     now = datetime.now(timezone.utc)
 
     # ensure clean slate for id/unique constraints
-    for tbl in ("content_entities", "content_labels", "comments", "posts_raw", "posts_hot", "subreddit_snapshots"):
+    for tbl in (
+        "content_entities",
+        "content_labels",
+        "comments",
+        "posts_raw",
+        "posts_hot",
+        "subreddit_snapshots",
+    ):
         await db_session.execute(text(f"DELETE FROM {tbl}"))
     await db_session.execute(
-        text("DELETE FROM community_pool WHERE name IN ('r/communitya', 'r/communityb')")
+        text(
+            "DELETE FROM community_pool WHERE name IN ('r/communitya', 'r/communityb')"
+        )
     )
 
     # Community A: more pain comments, brand mentions, better growth
@@ -46,18 +71,32 @@ async def test_compute_ranking_scores_prefers_higher_pain_brand_and_growth(db_se
         ),
         {"t7": now - timedelta(days=3)},
     )
+    comments_has_legacy_post_id = await _comments_has_legacy_post_id(db_session)
     try:
-        await db_session.execute(
-            text(
-                """
-                INSERT INTO comments (id, reddit_comment_id, source, source_post_id, post_id, subreddit, body, created_utc, score, permalink)
-                VALUES
-                  (3301, 't1_A1', 'reddit', 'p_A1', 3001, 'r/communitya', 'Hate the subscription fee, really bad', :t7, 20, '/r/communitya/comments/p_A1/c1'),
-                  (3302, 't1_A2', 'reddit', 'p_A2', 3002, 'r/communitya', 'BrandX is too expensive', :t7, 10, '/r/communitya/comments/p_A2/c2')
-                """
-            ),
-            {"t7": now - timedelta(days=3)},
-        )
+        if comments_has_legacy_post_id:
+            await db_session.execute(
+                text(
+                    """
+                    INSERT INTO comments (id, reddit_comment_id, source, source_post_id, post_id, subreddit, body, created_utc, score, permalink)
+                    VALUES
+                      (3301, 't1_A1', 'reddit', 'p_A1', 3001, 'r/communitya', 'Hate the subscription fee, really bad', :t7, 20, '/r/communitya/comments/p_A1/c1'),
+                      (3302, 't1_A2', 'reddit', 'p_A2', 3002, 'r/communitya', 'BrandX is too expensive', :t7, 10, '/r/communitya/comments/p_A2/c2')
+                    """
+                ),
+                {"t7": now - timedelta(days=3)},
+            )
+        else:
+            await db_session.execute(
+                text(
+                    """
+                    INSERT INTO comments (id, reddit_comment_id, source, source_post_id, subreddit, body, created_utc, score, permalink)
+                    VALUES
+                      (3301, 't1_A1', 'reddit', 'p_A1', 'r/communitya', 'Hate the subscription fee, really bad', :t7, 20, '/r/communitya/comments/p_A1/c1'),
+                      (3302, 't1_A2', 'reddit', 'p_A2', 'r/communitya', 'BrandX is too expensive', :t7, 10, '/r/communitya/comments/p_A2/c2')
+                    """
+                ),
+                {"t7": now - timedelta(days=3)},
+            )
     except Exception as e:  # pragma: no cover - debug aid
         assert False, f"failed to insert comments: {e}"
     await db_session.execute(
@@ -111,15 +150,26 @@ async def test_compute_ranking_scores_prefers_higher_pain_brand_and_growth(db_se
         )
 
     # Community B: fewer pain and no brand
-    await db_session.execute(
+    if comments_has_legacy_post_id:
+        await db_session.execute(
             text(
                 """
                 INSERT INTO comments (id, reddit_comment_id, source, source_post_id, post_id, subreddit, body, created_utc, score, permalink)
                 VALUES (4301, 't1_B1', 'reddit', 'p_B1', 4001, 'r/communityb', 'Nice workaround, recommend trying', :t7, 5, '/r/communityb/comments/p_B1/c1')
                 """
-        ),
-        {"t7": now - timedelta(days=5)},
-    )
+            ),
+            {"t7": now - timedelta(days=5)},
+        )
+    else:
+        await db_session.execute(
+            text(
+                """
+                INSERT INTO comments (id, reddit_comment_id, source, source_post_id, subreddit, body, created_utc, score, permalink)
+                VALUES (4301, 't1_B1', 'reddit', 'p_B1', 'r/communityb', 'Nice workaround, recommend trying', :t7, 5, '/r/communityb/comments/p_B1/c1')
+                """
+            ),
+            {"t7": now - timedelta(days=5)},
+        )
     await db_session.execute(
         text(
             """
@@ -131,7 +181,9 @@ async def test_compute_ranking_scores_prefers_higher_pain_brand_and_growth(db_se
 
     await db_session.commit()
 
-    scores = await compute_ranking_scores(db_session, ["r/communitya", "r/communityb"], since_days_7=7, since_days_30=30)
+    scores = await compute_ranking_scores(
+        db_session, ["r/communitya", "r/communityb"], since_days_7=7, since_days_30=30
+    )
     print("RANKING SCORES:", scores)
     assert set(scores.keys()) == {"r/communitya", "r/communityb"}
     assert scores["r/communitya"] > scores["r/communityb"]
