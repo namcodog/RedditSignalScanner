@@ -93,6 +93,10 @@ async def test_compact_dev_truth_source_deletes_only_safe_rows(
               (
                 'r/delete_pool', 'silver', '[]'::jsonb, '{}'::jsonb,
                 0, 0, 0.50, 'medium', 0, 0, false, false, 'unknown', true
+              ),
+              (
+                'r/delete_cache', 'silver', '[]'::jsonb, '{}'::jsonb,
+                0, 0, 0.50, 'medium', 0, 0, true, false, 'unknown', true
               )
             """
         )
@@ -176,6 +180,11 @@ async def test_compact_dev_truth_source_deletes_only_safe_rows(
         ),
         {"ts": datetime.now(timezone.utc)},
     )
+    await _seed_registry(
+        db_session,
+        name="r/delete_cache",
+        enabled=True,
+    )
     disabled_registry = await _seed_registry(
         db_session,
         name="r/disabled_registry",
@@ -215,7 +224,7 @@ async def test_compact_dev_truth_source_deletes_only_safe_rows(
         .scalars()
         .all()
     )
-    assert remaining_pool_names == ["r/keep_posts"]
+    assert remaining_pool_names == ["r/delete_cache", "r/keep_posts"]
 
 
 @pytest.mark.asyncio
