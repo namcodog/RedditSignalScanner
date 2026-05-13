@@ -41,6 +41,15 @@ async def _count_scalar(session: AsyncSession, sql: str) -> int:
     return int((await session.execute(text(sql))).scalar_one() or 0)
 
 
+async def _table_exists(session: AsyncSession, table_name: str) -> bool:
+    return (
+        await session.execute(
+            text("SELECT to_regclass(:table_name)"),
+            {"table_name": f"public.{table_name}"},
+        )
+    ).scalar_one() is not None
+
+
 INACTIVE_POOL_SQL = """
 SELECT id
 FROM community_pool
@@ -67,7 +76,19 @@ LEFT JOIN referenced_cache r USING (community_name)
 WHERE r.community_name IS NULL
 """
 
-FINAL_DELETABLE_POOL_IDS_SQL = f"""
+
+def _final_deletable_pool_ids_sql(*, include_community_audit: bool) -> str:
+    community_audit_ref = (
+        """
+    UNION
+    SELECT DISTINCT community_id AS pool_id
+    FROM community_audit
+    WHERE community_id IS NOT NULL
+"""
+        if include_community_audit
+        else ""
+    )
+    return f"""
 WITH inactive_pool AS (
     {INACTIVE_POOL_SQL}
 ),
@@ -75,10 +96,7 @@ referenced_pool AS (
     SELECT DISTINCT community_id AS pool_id
     FROM posts_raw
     WHERE community_id IS NOT NULL
-    UNION
-    SELECT DISTINCT community_id AS pool_id
-    FROM community_audit
-    WHERE community_id IS NOT NULL
+    {community_audit_ref}
     UNION
     SELECT DISTINCT legacy_pool_id AS pool_id
     FROM community_registry
@@ -91,10 +109,6 @@ LEFT JOIN referenced_pool r ON r.pool_id = p.id
 WHERE r.pool_id IS NULL
 """
 
-FINAL_DELETABLE_POOL_COUNT_SQL = (
-    "SELECT count(*) FROM (" + FINAL_DELETABLE_POOL_IDS_SQL + ") AS deletable_pool"
-)
-
 
 async def compact_dev_truth_source(
     session: AsyncSession,
@@ -103,6 +117,13 @@ async def compact_dev_truth_source(
     dry_run: bool,
 ) -> DevTruthSourceCompactionResult:
     database = _assert_dev_database(database_url)
+    include_community_audit = await _table_exists(session, "community_audit")
+    final_deletable_pool_ids_sql = _final_deletable_pool_ids_sql(
+        include_community_audit=include_community_audit
+    )
+    final_deletable_pool_count_sql = (
+        "SELECT count(*) FROM (" + final_deletable_pool_ids_sql + ") AS deletable_pool"
+    )
     pre_snapshot = await read_truth_source_health_snapshot(session)
     if not dry_run:
         # 旧投影层还有 active 社区但 truth-source 已归零时，压缩只会把坏状态固化。
@@ -146,7 +167,7 @@ async def compact_dev_truth_source(
     )
     deleted_inactive_pool = await _count_scalar(
         session,
-        FINAL_DELETABLE_POOL_COUNT_SQL,
+        final_deletable_pool_count_sql,
     )
     archived_pool_with_posts = await _count_scalar(
         session,
@@ -198,7 +219,7 @@ async def compact_dev_truth_source(
         await session.execute(
             text(
                 "DELETE FROM community_pool WHERE id IN ("
-                + FINAL_DELETABLE_POOL_IDS_SQL
+                + final_deletable_pool_ids_sql
                 + ")"
             )
         )

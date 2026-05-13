@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from collections.abc import Awaitable, Callable
 from datetime import datetime, timezone
 
 import pytest
@@ -31,12 +32,30 @@ async def _seed_registry(session: AsyncSession, *, name: str, enabled: bool) -> 
     )
 
 
+async def _truncate_existing_tables(
+    session: AsyncSession,
+    truncate_tables: Callable[..., Awaitable[None]],
+    *table_names: str,
+) -> None:
+    existing: list[str] = []
+    for table_name in table_names:
+        result = await session.execute(
+            text("SELECT to_regclass(:table_name)"),
+            {"table_name": f"public.{table_name}"},
+        )
+        if result.scalar_one() is not None:
+            existing.append(table_name)
+    await truncate_tables(*existing)
+
+
 @pytest.mark.asyncio
 async def test_compact_dev_truth_source_deletes_only_safe_rows(
     db_session: AsyncSession,
     async_truncate_test_tables,
 ) -> None:
-    await async_truncate_test_tables(
+    await _truncate_existing_tables(
+        db_session,
+        async_truncate_test_tables,
         "community_governance_decision",
         "community_domain_membership",
         "community_runtime_state",
@@ -188,8 +207,14 @@ async def test_compact_dev_truth_source_deletes_only_safe_rows(
     assert result.deleted_inactive_cache == 1
     assert result.deleted_inactive_pool == 1
     remaining_pool_names = (
-        await db_session.execute(text("SELECT name FROM community_pool ORDER BY name"))
-    ).scalars().all()
+        (
+            await db_session.execute(
+                text("SELECT name FROM community_pool ORDER BY name")
+            )
+        )
+        .scalars()
+        .all()
+    )
     assert remaining_pool_names == ["r/keep_posts"]
 
 
