@@ -4,13 +4,12 @@ from datetime import datetime, timedelta, timezone
 from decimal import Decimal
 
 import pytest
-from sqlalchemy import select, text
+from sqlalchemy import text
 
 import app.services.crawl.crawl_metrics_service as metrics_service
 from app.db.session import SessionFactory
 from app.models.community_cache import CommunityCache
 from app.models.community_pool import CommunityPool
-from app.models.crawl_metrics import CrawlMetrics
 from app.models.posts_storage import PostHot
 
 
@@ -134,19 +133,29 @@ async def test_record_crawl_metrics_creates_hourly_row() -> None:
             deps=metrics_service.CrawlMetricsDeps(db=db, now_factory=lambda: now),
         )
 
-        result = await db.execute(select(CrawlMetrics))
-        row = result.scalar_one()
-        assert row.metric_date == now.date()
-        assert row.metric_hour == now.hour
-        assert row.valid_posts_24h == 1
-        assert row.total_communities == 2
-        assert row.successful_crawls == 2
-        assert row.empty_crawls == 1
-        assert row.failed_crawls == 0
-        assert row.total_new_posts == 8
-        assert row.total_updated_posts == 2
-        assert row.total_duplicates == 5
-        assert float(row.cache_hit_rate) == pytest.approx(5 / 15 * 100, rel=1e-3)
+        result = await db.execute(
+            text(
+                """
+                SELECT metric_date, metric_hour, valid_posts_24h,
+                       total_communities, successful_crawls, empty_crawls,
+                       failed_crawls, total_new_posts, total_updated_posts,
+                       total_duplicates, cache_hit_rate
+                FROM crawl_metrics
+                """
+            )
+        )
+        row = result.mappings().one()
+        assert row["metric_date"] == now.date()
+        assert row["metric_hour"] == now.hour
+        assert row["valid_posts_24h"] == 1
+        assert row["total_communities"] == 2
+        assert row["successful_crawls"] == 2
+        assert row["empty_crawls"] == 1
+        assert row["failed_crawls"] == 0
+        assert row["total_new_posts"] == 8
+        assert row["total_updated_posts"] == 2
+        assert row["total_duplicates"] == 5
+        assert float(row["cache_hit_rate"]) == pytest.approx(5 / 15 * 100, rel=1e-3)
 
 
 @pytest.mark.asyncio
@@ -183,21 +192,37 @@ async def test_record_crawl_metrics_accumulates_existing_hourly_row() -> None:
                 avg_valid_posts=Decimal("0.00"),
             )
         )
-        db.add(
-            CrawlMetrics(
-                metric_date=now.date(),
-                metric_hour=now.hour,
-                cache_hit_rate=10.0,
-                valid_posts_24h=4,
-                total_communities=1,
-                successful_crawls=1,
-                empty_crawls=0,
-                failed_crawls=1,
-                avg_latency_seconds=2.0,
-                total_new_posts=3,
-                total_updated_posts=1,
-                total_duplicates=2,
-            )
+        await db.execute(
+            text(
+                """
+                INSERT INTO crawl_metrics (
+                    metric_date, metric_hour, cache_hit_rate, valid_posts_24h,
+                    total_communities, successful_crawls, empty_crawls,
+                    failed_crawls, avg_latency_seconds, total_new_posts,
+                    total_updated_posts, total_duplicates
+                )
+                VALUES (
+                    :metric_date, :metric_hour, :cache_hit_rate, :valid_posts_24h,
+                    :total_communities, :successful_crawls, :empty_crawls,
+                    :failed_crawls, :avg_latency_seconds, :total_new_posts,
+                    :total_updated_posts, :total_duplicates
+                )
+                """
+            ),
+            {
+                "metric_date": now.date(),
+                "metric_hour": now.hour,
+                "cache_hit_rate": 10.0,
+                "valid_posts_24h": 4,
+                "total_communities": 1,
+                "successful_crawls": 1,
+                "empty_crawls": 0,
+                "failed_crawls": 1,
+                "avg_latency_seconds": 2.0,
+                "total_new_posts": 3,
+                "total_updated_posts": 1,
+                "total_duplicates": 2,
+            },
         )
         await db.commit()
 
@@ -214,12 +239,21 @@ async def test_record_crawl_metrics_accumulates_existing_hourly_row() -> None:
             deps=metrics_service.CrawlMetricsDeps(db=db, now_factory=lambda: now),
         )
 
-        result = await db.execute(select(CrawlMetrics))
-        row = result.scalar_one()
-        assert row.successful_crawls == 3
-        assert row.empty_crawls == 1
-        assert row.failed_crawls == 1
-        assert row.total_new_posts == 8
-        assert row.total_updated_posts == 5
-        assert row.total_duplicates == 3
-        assert float(row.avg_latency_seconds) == pytest.approx(0.8)
+        result = await db.execute(
+            text(
+                """
+                SELECT successful_crawls, empty_crawls, failed_crawls,
+                       total_new_posts, total_updated_posts, total_duplicates,
+                       avg_latency_seconds
+                FROM crawl_metrics
+                """
+            )
+        )
+        row = result.mappings().one()
+        assert row["successful_crawls"] == 3
+        assert row["empty_crawls"] == 1
+        assert row["failed_crawls"] == 1
+        assert row["total_new_posts"] == 8
+        assert row["total_updated_posts"] == 5
+        assert row["total_duplicates"] == 3
+        assert float(row["avg_latency_seconds"]) == pytest.approx(0.8)
