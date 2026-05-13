@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "default_profile": "consumer_safe",
+  "profiles": {
+    "consumer_safe": {
+      "review_statuses": ["verified"],
+      "include_internal_fields": false,
+      "exclude_risk_flags": false,
+      "field_contract_version": "brand-consumer-v1"
+    },
+    "system_evidence": {
+      "review_statuses": ["verified"],
+      "include_internal_fields": false,
+      "exclude_risk_flags": true,
+      "field_contract_version": "brand-system-evidence-v1"
+    },
+    "internal_registry": {
+      "review_statuses": [],
+      "include_internal_fields": true,
+      "exclude_risk_flags": false,
+      "field_contract_version": "brand-internal-v1"
+    }
+  },
+  "display_statuses": {
+    "accepted": "已收录",
+    "verified": "已验证"
+  }
+}

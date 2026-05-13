@@ -1,0 +1,38 @@
+{
+  "version": 1,
+  "source_of_truth": "backend/config/brand_quality_rules.json",
+  "verified_thresholds": {
+    "approved": {"min_mentions": 1, "min_communities": 1},
+    "seed": {"min_mentions": 2, "min_communities": 2},
+    "candidate": {"min_mentions": 999, "min_communities": 999}
+  },
+  "generic_terms": [
+    "action",
+    "article",
+    "campaign",
+    "case",
+    "cross",
+    "downstream",
+    "engineer",
+    "flow",
+    "heart",
+    "kind",
+    "material",
+    "primary",
+    "ratio",
+    "route",
+    "sharp",
+    "spot"
+  ],
+  "person_name_surnames": [
+    "brown",
+    "davis",
+    "johnson",
+    "jones",
+    "miller",
+    "smith",
+    "taylor",
+    "williams",
+    "wilson"
+  ]
+}

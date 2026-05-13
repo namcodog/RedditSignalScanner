@@ -26,6 +26,7 @@ from app.models.comment import (
     EntityType,
 )
 from app.models.author import Author, SubredditSnapshot
+from app.models.brand_registry import BrandMention, BrandRegistry
 from app.models.semantic_term import SemanticTerm
 from app.models.semantic_concept import SemanticConcept
 from app.models.semantic_candidate import SemanticCandidate
@@ -68,6 +69,8 @@ __all__ = [
     "EntityType",
     "Author",
     "SubredditSnapshot",
+    "BrandRegistry",
+    "BrandMention",
     "SemanticTerm",
     "SemanticConcept",
     "SemanticCandidate",
