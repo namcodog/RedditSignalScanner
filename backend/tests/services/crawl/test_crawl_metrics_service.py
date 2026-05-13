@@ -6,16 +6,12 @@ from decimal import Decimal
 import pytest
 from sqlalchemy import select, text
 
+import app.services.crawl.crawl_metrics_service as metrics_service
 from app.db.session import SessionFactory
 from app.models.community_cache import CommunityCache
 from app.models.community_pool import CommunityPool
 from app.models.crawl_metrics import CrawlMetrics
 from app.models.posts_storage import PostHot
-from app.services.crawl.crawl_metrics_service import (
-    CrawlMetricsDeps,
-    CrawlMetricsInput,
-    record_crawl_metrics,
-)
 
 
 async def _reset_tables() -> None:
@@ -56,6 +52,7 @@ async def test_record_crawl_metrics_creates_hourly_row() -> None:
                 ),
             ]
         )
+        await db.flush()
         db.add_all(
             [
                 CommunityCache(
@@ -124,8 +121,8 @@ async def test_record_crawl_metrics_creates_hourly_row() -> None:
         )
         await db.commit()
 
-        await record_crawl_metrics(
-            metrics_input=CrawlMetricsInput(
+        await metrics_service.record_crawl_metrics(
+            metrics_input=metrics_service.CrawlMetricsInput(
                 successful_crawls=2,
                 empty_crawls=1,
                 failed_crawls=0,
@@ -134,7 +131,7 @@ async def test_record_crawl_metrics_creates_hourly_row() -> None:
                 total_duplicates=5,
                 avg_latency_seconds=1.25,
             ),
-            deps=CrawlMetricsDeps(db=db, now_factory=lambda: now),
+            deps=metrics_service.CrawlMetricsDeps(db=db, now_factory=lambda: now),
         )
 
         result = await db.execute(select(CrawlMetrics))
@@ -169,6 +166,7 @@ async def test_record_crawl_metrics_accumulates_existing_hourly_row() -> None:
                 priority="high",
             )
         )
+        await db.flush()
         db.add(
             CommunityCache(
                 community_name="r/metrics_c",
@@ -203,8 +201,8 @@ async def test_record_crawl_metrics_accumulates_existing_hourly_row() -> None:
         )
         await db.commit()
 
-        await record_crawl_metrics(
-            metrics_input=CrawlMetricsInput(
+        await metrics_service.record_crawl_metrics(
+            metrics_input=metrics_service.CrawlMetricsInput(
                 successful_crawls=2,
                 empty_crawls=1,
                 failed_crawls=0,
@@ -213,7 +211,7 @@ async def test_record_crawl_metrics_accumulates_existing_hourly_row() -> None:
                 total_duplicates=1,
                 avg_latency_seconds=0.8,
             ),
-            deps=CrawlMetricsDeps(db=db, now_factory=lambda: now),
+            deps=metrics_service.CrawlMetricsDeps(db=db, now_factory=lambda: now),
         )
 
         result = await db.execute(select(CrawlMetrics))
