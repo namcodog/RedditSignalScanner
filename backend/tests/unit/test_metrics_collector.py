@@ -121,7 +121,7 @@ async def test_collect_metrics_success(db_session, test_user):
 @pytest.mark.asyncio
 async def test_collect_metrics_no_data(db_session):
     """测试没有数据时抛出异常"""
-    target_date = date(2025, 10, 21)
+    target_date = date(1999, 1, 1)
 
     with pytest.raises(ValueError, match="No crawl metrics found"):
         await collect_metrics(db_session, target_date)
