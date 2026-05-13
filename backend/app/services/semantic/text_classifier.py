@@ -16,11 +16,16 @@ from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
 _vader = SentimentIntensityAnalyzer()
 logger = logging.getLogger(__name__)
+_BACKEND_ROOT = Path(__file__).resolve().parents[3]
+
+
+def _config_path(*parts: str) -> Path:
+    return _BACKEND_ROOT / "config" / Path(*parts)
 
 
 def _load_classifier_keywords() -> dict[str, list[str]]:
     """Load classifier keyword lists from config file."""
-    cfg_path = Path("backend/config/text_classifier_keywords.yml")
+    cfg_path = _config_path("text_classifier_keywords.yml")
     if not cfg_path.exists():
         return {}
     try:
@@ -50,6 +55,7 @@ _ASPECT_KEYWORD_PATS: dict[str, list[re.Pattern[str]]] = {}
 from sqlalchemy import create_engine, text
 from app.core.config import get_settings
 
+
 def _load_aspect_keywords() -> None:
     """从配置文件和数据库加载 Aspect 关键词。"""
     global _ASPECT_KEYWORDS, _ASPECT_KEYWORD_PATS
@@ -57,11 +63,11 @@ def _load_aspect_keywords() -> None:
         return
     try:
         # 1. Load from YAML
-        cfg_path = Path("backend/config/aspect_keywords.yml")
+        cfg_path = _config_path("aspect_keywords.yml")
         if cfg_path.exists():
             data = yaml.safe_load(cfg_path.read_text(encoding="utf-8")) or {}
             _ASPECT_KEYWORDS = data.get("aspect_mapping", {}) or {}
-        
+
         # 2. Load from DB (Domain Pain Rules)
         try:
             settings = get_settings()
@@ -69,13 +75,17 @@ def _load_aspect_keywords() -> None:
             db_url = settings.database_url.replace("asyncpg", "psycopg")
             engine = create_engine(db_url)
             with engine.connect() as conn:
-                rows = conn.execute(text("""
+                rows = conn.execute(
+                    text(
+                        """
                     SELECT term, aspect 
                     FROM semantic_rules 
                     WHERE rule_type IN ('domain_pain', 'vertical_pain', 'vertical_spec', 'vertical_slang')
                       AND is_active = true
-                """)).fetchall()
-                
+                """
+                    )
+                ).fetchall()
+
             db_count = 0
             for term, aspect in rows:
                 if aspect and term:
@@ -84,7 +94,7 @@ def _load_aspect_keywords() -> None:
                     _ASPECT_KEYWORDS[aspect].append(str(term))
                     db_count += 1
             logger.info("Loaded %s domain pain rules from DB", db_count)
-            
+
         except Exception as e:
             logger.warning("Failed to load rules from DB: %s", e)
 
@@ -111,7 +121,7 @@ def _load_aspect_keywords() -> None:
             "Loaded total %s aspect keywords",
             sum(len(v) for v in _ASPECT_KEYWORDS.values()),
         )
-        
+
     except Exception as e:  # pragma: no cover - safe fallback
         logger.warning("Failed to load aspect keywords: %s", e)
         _ASPECT_KEYWORDS, _ASPECT_KEYWORD_PATS = {}, {}
@@ -126,6 +136,7 @@ RETURN_KWS = tuple(_CLASSIFIER_KEYWORDS.get("return_kws", []))
 
 _LEX_FEATURE_PATS: List[Tuple[str, re.Pattern[str]]] | None = None
 _LEX_PAIN_PATS: List[Tuple[str, re.Pattern[str]]] | None = None
+_LEXICON_PATH: str | None = None
 _EXPANDED_PAIN_PATS: List[Tuple[Aspect, re.Pattern[str]]] | None = None
 _DEFAULT_PROVIDER = RobustSemanticLoader(strategy=SemanticLoadStrategy.YAML_ONLY)
 _ASPECT_MAP = {
@@ -139,21 +150,27 @@ _ASPECT_MAP = {
 
 def _load_unified_lexicon() -> None:
     """从配置路径加载词库用于可选匹配，不依赖数据库。"""
-    global _LEX_FEATURE_PATS, _LEX_PAIN_PATS
-    if _LEX_FEATURE_PATS is not None and _LEX_PAIN_PATS is not None:
+    global _LEX_FEATURE_PATS, _LEX_PAIN_PATS, _LEXICON_PATH
+    cfg_path = os.getenv(
+        "SEMANTIC_LEXICON_PATH",
+        str(_config_path("semantic_sets", "unified_lexicon.yml")),
+    )
+    if (
+        _LEXICON_PATH == cfg_path
+        and _LEX_FEATURE_PATS is not None
+        and _LEX_PAIN_PATS is not None
+    ):
         return
     try:
-        cfg_path = os.getenv(
-            "SEMANTIC_LEXICON_PATH",
-            "backend/config/semantic_sets/unified_lexicon.yml",
-        )
         lex = UnifiedLexicon(Path(cfg_path))
         feats = lex.get_features()
         pains = lex.get_pain_points()
         _LEX_FEATURE_PATS = lex.get_patterns_for_matching(feats)
         _LEX_PAIN_PATS = lex.get_patterns_for_matching(pains)
+        _LEXICON_PATH = cfg_path
     except Exception:
         _LEX_FEATURE_PATS, _LEX_PAIN_PATS = [], []
+        _LEXICON_PATH = cfg_path
 
 
 def _load_expanded_pain_lexicon() -> None:
@@ -164,7 +181,7 @@ def _load_expanded_pain_lexicon() -> None:
     try:
         cfg_path = os.getenv(
             "EXPANDED_PAIN_LEXICON_PATH",
-            "backend/config/semantic_sets/expanded_pain.yml",
+            str(_config_path("semantic_sets", "expanded_pain.yml")),
         )
         p = Path(cfg_path)
         if not p.exists():
@@ -237,7 +254,11 @@ def classify_category_aspect(text: str) -> Classification:
         ("parcel",),
     )
     if any(all(token in t for token in combo) for combo in shipping_triggers) and (
-        "lost" in t or "delayed" in t or "damage" in t or "stuck" in t or "tracking" in t
+        "lost" in t
+        or "delayed" in t
+        or "damage" in t
+        or "stuck" in t
+        or "tracking" in t
     ):
         matched_aspect = Aspect.SHIPPING
     # 优先：配置文件映射（优先级顺序，避免 service 抢占 shipping）
@@ -266,11 +287,14 @@ def classify_category_aspect(text: str) -> Classification:
                 matched_aspect = asp
                 break
 
+    if matched_aspect is None and any(k in t for k in SUBS_KWS):
+        matched_aspect = Aspect.SUBSCRIPTION
+
     # 扩展痛点词典（仅在未匹配时使用）
     if matched_aspect is None:
         try:
             _load_expanded_pain_lexicon()
-            for asp, pat in (_EXPANDED_PAIN_PATS or []):
+            for asp, pat in _EXPANDED_PAIN_PATS or []:
                 if pat.search(t):
                     matched_aspect = asp
                     break
@@ -283,7 +307,7 @@ def classify_category_aspect(text: str) -> Classification:
         # If aspect detected, trust it as Pain (or relevant context)
         category = Category.PAIN
     elif any(k in t for k in STRONG_PAIN_KWS):
-         # Strong sentiment w/o aspect -> Generic Pain
+        # Strong sentiment w/o aspect -> Generic Pain
         category = Category.PAIN
     elif any(k in t for k in SUBS_KWS):
         category = Category.PAIN
@@ -296,11 +320,21 @@ def classify_category_aspect(text: str) -> Classification:
     # 可选：统一词表辅助
     try:
         _load_unified_lexicon()
+        feature_match = next(
+            (name for name, pat in (_LEX_FEATURE_PATS or []) if pat.search(t)),
+            None,
+        )
         if category == Category.OTHER:
-             if any(pat.search(t) for _, pat in (_LEX_PAIN_PATS or [])):
-                 category = Category.PAIN
-             elif any(pat.search(t) for _, pat in (_LEX_FEATURE_PATS or [])):
-                 category = Category.SOLUTION
+            if any(pat.search(t) for _, pat in (_LEX_PAIN_PATS or [])):
+                category = Category.PAIN
+            elif feature_match is not None:
+                category = Category.SOLUTION
+        if (
+            matched_aspect is None
+            and feature_match is not None
+            and re.search(r"pric(e|ing)", feature_match, re.IGNORECASE)
+        ):
+            matched_aspect = Aspect.PRICE
     except Exception:
         pass
 
@@ -359,7 +393,7 @@ def classify_category_aspect(text: str) -> Classification:
     # Sentiment Analysis
     vs = _vader.polarity_scores(t)
     compound = vs.get("compound", 0.0)
-    
+
     label = "neutral"
     if compound >= 0.05:
         label = "positive"
@@ -367,10 +401,10 @@ def classify_category_aspect(text: str) -> Classification:
         label = "negative"
 
     return Classification(
-        category=category, 
+        category=category,
         aspect=aspect,
         sentiment_score=compound,
-        sentiment_label=label
+        sentiment_label=label,
     )
 
 
