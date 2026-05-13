@@ -90,6 +90,22 @@ async def _insert_test_post(
     return int(row.scalar_one())
 
 
+async def _comments_has_legacy_post_id(session: AsyncSession) -> bool:
+    result = await session.execute(
+        text(
+            """
+            SELECT EXISTS (
+                SELECT 1
+                FROM information_schema.columns
+                WHERE table_name = 'comments'
+                  AND column_name = 'post_id'
+            )
+            """
+        )
+    )
+    return bool(result.scalar())
+
+
 @pytest.mark.asyncio
 async def test_execute_crawl_plan_backfill_comments_fetches_and_persists(
     monkeypatch: pytest.MonkeyPatch,
@@ -480,14 +496,25 @@ async def test_execute_crawl_plan_backfill_comments_skips_when_up_to_date() -> N
             score=10,
             num_comments=2,
         )
+        post_id_column = ""
+        post_id_value = ""
+        params: dict[str, Any] = {
+            "ts": now,
+            "pid": post_id,
+            "cid1": uuid.uuid4().hex[:32],
+            "cid2": uuid.uuid4().hex[:32],
+        }
+        if await _comments_has_legacy_post_id(session):
+            post_id_column = ", post_id"
+            post_id_value = ", :post_id"
+            params["post_id"] = internal_post_id
         await session.execute(
             text(
-                """
+                f"""
                 INSERT INTO comments (
                     reddit_comment_id,
                     source,
-                    source_post_id,
-                    post_id,
+                    source_post_id{post_id_column},
                     subreddit,
                     depth,
                     body,
@@ -499,17 +526,11 @@ async def test_execute_crawl_plan_backfill_comments_skips_when_up_to_date() -> N
                     captured_at
                 )
                 VALUES
-                    (:cid1, 'reddit', :pid, :post_id, 'r/testsub', 0, 'a', :ts, 0, false, false, 0, :ts),
-                    (:cid2, 'reddit', :pid, :post_id, 'r/testsub', 0, 'b', :ts, 0, false, false, 0, :ts)
+                    (:cid1, 'reddit', :pid{post_id_value}, 'r/testsub', 0, 'a', :ts, 0, false, false, 0, :ts),
+                    (:cid2, 'reddit', :pid{post_id_value}, 'r/testsub', 0, 'b', :ts, 0, false, false, 0, :ts)
                 """
             ),
-            {
-                "ts": now,
-                "pid": post_id,
-                "post_id": internal_post_id,
-                "cid1": uuid.uuid4().hex[:32],
-                "cid2": uuid.uuid4().hex[:32],
-            },
+            params,
         )
         await session.commit()
 
