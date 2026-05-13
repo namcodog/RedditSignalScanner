@@ -21,7 +21,6 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.db.session import SessionFactory
 from app.models.community_cache import CommunityCache
 from app.models.community_pool import CommunityPool
-from app.models.crawl_metrics import CrawlMetrics
 from app.services.crawl.incremental_crawler import IncrementalCrawler
 
 
@@ -283,12 +282,19 @@ async def test_crawler_writes_crawl_metrics() -> None:
 
     # Verify: crawl_metrics 表有记录
     async with SessionFactory() as db:
-        stmt = select(CrawlMetrics)
-        result = await db.execute(stmt)
-        metrics = result.scalars().all()
+        result = await db.execute(
+            text(
+                """
+                SELECT metric_date, total_communities, successful_crawls
+                FROM crawl_metrics
+                ORDER BY id
+                """
+            )
+        )
+        metrics = result.mappings().all()
 
         assert len(metrics) > 0, "crawl_metrics should have records"
         metric = metrics[0]
-        assert metric.total_communities == 5, "total_communities should be 5"
-        assert metric.successful_crawls > 0, "successful_crawls should be > 0"
-        assert metric.metric_date == datetime.now(timezone.utc).date()
+        assert metric["total_communities"] == 5, "total_communities should be 5"
+        assert metric["successful_crawls"] > 0, "successful_crawls should be > 0"
+        assert metric["metric_date"] == datetime.now(timezone.utc).date()
