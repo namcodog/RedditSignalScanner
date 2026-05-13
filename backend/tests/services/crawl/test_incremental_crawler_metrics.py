@@ -16,12 +16,53 @@ from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
 from sqlalchemy import select, text
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.db.session import SessionFactory
 from app.models.community_cache import CommunityCache
 from app.models.community_pool import CommunityPool
 from app.models.crawl_metrics import CrawlMetrics
 from app.services.crawl.incremental_crawler import IncrementalCrawler
+
+
+async def _seed_pool_and_cache(
+    db: AsyncSession,
+    *,
+    name: str,
+    tier: str,
+    daily_posts: int,
+    quality_score: Decimal,
+    crawl_priority: int,
+    crawl_frequency_hours: int,
+) -> None:
+    db.add(
+        CommunityPool(
+            name=name,
+            tier=tier,
+            categories={"topic": ["test"]},
+            description_keywords={"test": 1},
+            daily_posts=daily_posts,
+            quality_score=quality_score,
+            priority=tier,
+        )
+    )
+    await db.flush()
+    db.add(
+        CommunityCache(
+            community_name=name,
+            last_crawled_at=datetime.now(timezone.utc),
+            posts_cached=0,
+            ttl_seconds=3600,
+            quality_score=quality_score,
+            crawl_priority=crawl_priority,
+            crawl_frequency_hours=crawl_frequency_hours,
+            is_active=True,
+            success_hit=0,
+            empty_hit=0,
+            failure_hit=0,
+            avg_valid_posts=Decimal("0.00"),
+        )
+    )
 
 
 @pytest.mark.asyncio
@@ -36,32 +77,15 @@ async def test_crawler_records_success_metrics() -> None:
         )
         await db.commit()
 
-        pool = CommunityPool(
+        await _seed_pool_and_cache(
+            db,
             name="r/testsuccess",
             tier="high",
-            categories={"topic": ["test"]},
-            description_keywords={"test": 1},
             daily_posts=50,
-            quality_score=Decimal("0.80"),
-            priority="high",
-        )
-        from datetime import datetime, timezone
-
-        cache = CommunityCache(
-            community_name="r/testsuccess",
-            last_crawled_at=datetime.now(timezone.utc),
-            posts_cached=0,
-            ttl_seconds=3600,
             quality_score=Decimal("0.80"),
             crawl_priority=80,
             crawl_frequency_hours=2,
-            is_active=True,
-            success_hit=0,
-            empty_hit=0,
-            failure_hit=0,
-            avg_valid_posts=Decimal("0.00"),
         )
-        db.add_all([pool, cache])
         await db.commit()
 
     # Mock Reddit API to return 10 posts
@@ -83,7 +107,9 @@ async def test_crawler_records_success_metrics() -> None:
         for i in range(10)
     ]
 
-    with patch("app.services.infrastructure.reddit_client.RedditAPIClient") as MockRedditClient:
+    with patch(
+        "app.services.infrastructure.reddit_client.RedditAPIClient"
+    ) as MockRedditClient:
         mock_client = AsyncMock()
         mock_client.fetch_subreddit_posts.return_value = mock_posts
         MockRedditClient.return_value = mock_client
@@ -118,34 +144,21 @@ async def test_crawler_records_empty_metrics() -> None:
         )
         await db.commit()
 
-        pool = CommunityPool(
+        await _seed_pool_and_cache(
+            db,
             name="r/testempty",
             tier="low",
-            categories={"topic": ["test"]},
-            description_keywords={"test": 1},
             daily_posts=1,
-            quality_score=Decimal("0.30"),
-            priority="low",
-        )
-        cache = CommunityCache(
-            community_name="r/testempty",
-            last_crawled_at=datetime.now(timezone.utc),
-            posts_cached=0,
-            ttl_seconds=3600,
             quality_score=Decimal("0.30"),
             crawl_priority=30,
             crawl_frequency_hours=24,
-            is_active=True,
-            success_hit=0,
-            empty_hit=0,
-            failure_hit=0,
-            avg_valid_posts=Decimal("0.00"),
         )
-        db.add_all([pool, cache])
         await db.commit()
 
     # Mock Reddit API to return empty list
-    with patch("app.services.infrastructure.reddit_client.RedditAPIClient") as MockRedditClient:
+    with patch(
+        "app.services.infrastructure.reddit_client.RedditAPIClient"
+    ) as MockRedditClient:
         mock_client = AsyncMock()
         mock_client.fetch_subreddit_posts.return_value = []
         MockRedditClient.return_value = mock_client
@@ -180,34 +193,21 @@ async def test_crawler_records_failure_metrics() -> None:
         )
         await db.commit()
 
-        pool = CommunityPool(
+        await _seed_pool_and_cache(
+            db,
             name="r/testfailure",
             tier="medium",
-            categories={"topic": ["test"]},
-            description_keywords={"test": 1},
             daily_posts=20,
-            quality_score=Decimal("0.60"),
-            priority="medium",
-        )
-        cache = CommunityCache(
-            community_name="r/testfailure",
-            last_crawled_at=datetime.now(timezone.utc),
-            posts_cached=0,
-            ttl_seconds=3600,
             quality_score=Decimal("0.60"),
             crawl_priority=60,
             crawl_frequency_hours=6,
-            is_active=True,
-            success_hit=0,
-            empty_hit=0,
-            failure_hit=0,
-            avg_valid_posts=Decimal("0.00"),
         )
-        db.add_all([pool, cache])
         await db.commit()
 
     # Mock Reddit API to raise exception
-    with patch("app.services.infrastructure.reddit_client.RedditAPIClient") as MockRedditClient:
+    with patch(
+        "app.services.infrastructure.reddit_client.RedditAPIClient"
+    ) as MockRedditClient:
         mock_client = AsyncMock()
         mock_client.fetch_subreddit_posts.side_effect = Exception("API Error")
         MockRedditClient.return_value = mock_client
@@ -243,36 +243,23 @@ async def test_crawler_writes_crawl_metrics() -> None:
         await db.commit()
 
         for i in range(5):
-            pool = CommunityPool(
+            await _seed_pool_and_cache(
+                db,
                 name=f"r/test{i}",
                 tier="high",
-                categories={"topic": ["test"]},
-                description_keywords={"test": 1},
                 daily_posts=50,
-                quality_score=Decimal("0.80"),
-                priority="high",
-            )
-            cache = CommunityCache(
-                community_name=f"r/test{i}",
-                last_crawled_at=datetime.now(timezone.utc),
-                posts_cached=0,
-                ttl_seconds=3600,
                 quality_score=Decimal("0.80"),
                 crawl_priority=80,
                 crawl_frequency_hours=2,
-                is_active=True,
-                success_hit=0,
-                empty_hit=0,
-                failure_hit=0,
-                avg_valid_posts=Decimal("0.00"),
             )
-            db.add_all([pool, cache])
         await db.commit()
 
     # Mock Reddit API
     from app.services.infrastructure.reddit_client import RedditPost
 
-    with patch("app.services.infrastructure.reddit_client.RedditAPIClient") as MockRedditClient:
+    with patch(
+        "app.services.infrastructure.reddit_client.RedditAPIClient"
+    ) as MockRedditClient:
         mock_client = AsyncMock()
         mock_client.fetch_subreddit_posts.return_value = [
             RedditPost(
