@@ -1,129 +1,178 @@
 {
-  "candidate_total": 20,
-  "listing_total": 20,
-  "runtime_hot_total": 9,
-  "runtime_hot_unpublished_total": 8,
-  "runtime_hot_published_total": 1,
-  "runtime_hot_listing_total": 9,
-  "runtime_hot_search_total": 0,
+  "candidate_total": 38,
+  "listing_total": 21,
+  "runtime_hot_total": 17,
+  "runtime_hot_unpublished_total": 12,
+  "runtime_hot_published_total": 5,
+  "runtime_hot_listing_total": 10,
+  "runtime_hot_search_total": 7,
   "runtime_signal_listing_total": 11,
-  "published_hot_total": 258,
+  "published_hot_total": 280,
   "runtime_hot_by_scope": {
-    "ai-automation": 5,
-    "business-growth-ops": 2,
-    "ecommerce-sellers": 2
+    "ai-automation": 10,
+    "business-growth-ops": 4,
+    "ecommerce-sellers": 3
   },
   "runtime_hot_unpublished_by_scope": {
-    "ai-automation": 4,
-    "business-growth-ops": 2,
-    "ecommerce-sellers": 2
+    "ai-automation": 6,
+    "business-growth-ops": 3,
+    "ecommerce-sellers": 3
   },
   "runtime_hot_by_pack": {
-    "upstream-winds": 3,
-    "tools-efficiency": 2,
-    "paid-economics": 2,
-    "category-winds": 2
+    "tools-efficiency": 3,
+    "agent-builder": 3,
+    "upstream-winds": 4,
+    "paid-economics": 4,
+    "category-winds": 1,
+    "kill-signals": 2
   },
   "runtime_hot_by_subreddit": {
-    "OpenAI": 2,
+    "LocalLLaMA": 1,
+    "ClaudeAI": 3,
+    "OpenAI": 3,
     "singularity": 1,
     "SaaS": 2,
     "PPC": 2,
-    "EtsySellers": 2
+    "ecommerce": 4,
+    "EntrepreneurRideAlong": 1
   },
   "published_hot_by_scope": {
-    "ai-automation": 106,
-    "ecommerce-sellers": 96,
-    "business-growth-ops": 56
+    "ai-automation": 119,
+    "ecommerce-sellers": 102,
+    "business-growth-ops": 59
   },
   "runtime_hot_candidates": [
     {
-      "candidate_id": "cand-ai-automation-1t9iteh",
+      "candidate_id": "cand-ai-automation-1tb7r0d",
       "scope_id": "ai-automation",
       "topic_pack_id": "upstream-winds",
       "subreddit": "OpenAI",
-      "score": 191,
-      "num_comments": 53,
-      "signal_level": "rising",
+      "score": 860,
+      "num_comments": 110,
+      "signal_level": "hot",
       "listing_source": "listing:hot:day",
-      "title": "Openclaw ia trending down and will disappear soon"
+      "title": "Sam Altman testimony: Musk wanted 'total control' of OpenAI to pass to his children"
     },
     {
-      "candidate_id": "group-ai-automation-068d68347f",
+      "candidate_id": "group-ai-automation-fcb36c9733",
       "scope_id": "ai-automation",
       "topic_pack_id": "upstream-winds",
       "subreddit": "OpenAI",
-      "score": 191,
-      "num_comments": 53,
-      "signal_level": "rising",
+      "score": 860,
+      "num_comments": 110,
+      "signal_level": "hot",
       "listing_source": "listing:hot:day",
-      "title": "Openclaw ia trending down and will disappear soon"
+      "title": "Sam Altman testimony: Musk wanted 'total control' of OpenAI to pass to his children"
     },
     {
-      "candidate_id": "cand-ecommerce-sellers-1t4tvd4",
+      "candidate_id": "cand-business-growth-ops-1taro12",
+      "scope_id": "business-growth-ops",
+      "topic_pack_id": "paid-economics",
+      "subreddit": "ecommerce",
+      "score": 97,
+      "num_comments": 44,
+      "signal_level": "rising",
+      "listing_source": "listing:hot:day",
+      "title": "I've been using Claude Code for the past month to build stuff I'd otherwise have to pay a monthly fee for"
+    },
+    {
+      "candidate_id": "group-business-growth-ops-7197c79865",
+      "scope_id": "business-growth-ops",
+      "topic_pack_id": "paid-economics",
+      "subreddit": "ecommerce",
+      "score": 97,
+      "num_comments": 44,
+      "signal_level": "rising",
+      "listing_source": "listing:hot:day",
+      "title": "I've been using Claude Code for the past month to build stuff I'd otherwise have to pay a monthly fee for"
+    },
+    {
+      "candidate_id": "cand-ecommerce-sellers-1taro12",
       "scope_id": "ecommerce-sellers",
-      "topic_pack_id": "category-winds",
-      "subreddit": "EtsySellers",
-      "score": 11,
-      "num_comments": 51,
+      "topic_pack_id": "kill-signals",
+      "subreddit": "ecommerce",
+      "score": 97,
+      "num_comments": 44,
       "signal_level": "rising",
       "listing_source": "listing:hot:day",
-      "title": "How are your sales? Monthly Sales Post for May 2026"
+      "title": "I've been using Claude Code for the past month to build stuff I'd otherwise have to pay a monthly fee for"
     },
     {
-      "candidate_id": "group-ecommerce-sellers-e5bfb51276",
+      "candidate_id": "group-ecommerce-sellers-0642304143",
       "scope_id": "ecommerce-sellers",
-      "topic_pack_id": "category-winds",
-      "subreddit": "EtsySellers",
-      "score": 11,
-      "num_comments": 51,
+      "topic_pack_id": "kill-signals",
+      "subreddit": "ecommerce",
+      "score": 97,
+      "num_comments": 44,
       "signal_level": "rising",
       "listing_source": "listing:hot:day",
-      "title": "How are your sales? Monthly Sales Post for May 2026"
+      "title": "I've been using Claude Code for the past month to build stuff I'd otherwise have to pay a monthly fee for"
     },
     {
-      "candidate_id": "cand-ai-automation-1t9bhls",
-      "scope_id": "ai-automation",
-      "topic_pack_id": "tools-efficiency",
-      "subreddit": "SaaS",
-      "score": 104,
-      "num_comments": 32,
-      "signal_level": "rising",
-      "listing_source": "listing:hot:day",
-      "title": "I just made my first internet money ever and I couldn't be happier"
-    },
-    {
-      "candidate_id": "group-ai-automation-f58b035193",
-      "scope_id": "ai-automation",
-      "topic_pack_id": "tools-efficiency",
-      "subreddit": "SaaS",
-      "score": 104,
-      "num_comments": 32,
-      "signal_level": "rising",
-      "listing_source": "listing:hot:day",
-      "title": "I just made my first internet money ever and I couldn't be happier"
-    },
-    {
-      "candidate_id": "cand-business-growth-ops-1t92byz",
+      "candidate_id": "cand-business-growth-ops-1t7bscc",
       "scope_id": "business-growth-ops",
       "topic_pack_id": "paid-economics",
       "subreddit": "PPC",
-      "score": 8,
-      "num_comments": 31,
+      "score": 24,
+      "num_comments": 42,
       "signal_level": "rising",
-      "listing_source": "listing:new:day",
-      "title": "Is Jumping Straight Into Automated Bidding the New Standard for Lead Gen?"
+      "listing_source": "named-topic-search:relevance:week",
+      "title": "CPCs and Google Manipulation"
     },
     {
-      "candidate_id": "group-business-growth-ops-6fd2b6ebc1",
-      "scope_id": "business-growth-ops",
-      "topic_pack_id": "paid-economics",
-      "subreddit": "PPC",
-      "score": 8,
-      "num_comments": 31,
+      "candidate_id": "cand-ai-automation-1tbp112",
+      "scope_id": "ai-automation",
+      "topic_pack_id": "tools-efficiency",
+      "subreddit": "SaaS",
+      "score": 36,
+      "num_comments": 40,
       "signal_level": "rising",
-      "listing_source": "listing:new:day",
-      "title": "Is Jumping Straight Into Automated Bidding the New Standard for Lead Gen?"
+      "listing_source": "listing:hot:day",
+      "title": "2,000 visits, 0 signups: How Magic Links almost killed my launch."
+    },
+    {
+      "candidate_id": "group-ai-automation-3c6c5ef3f7",
+      "scope_id": "ai-automation",
+      "topic_pack_id": "tools-efficiency",
+      "subreddit": "SaaS",
+      "score": 36,
+      "num_comments": 40,
+      "signal_level": "rising",
+      "listing_source": "listing:hot:day",
+      "title": "2,000 visits, 0 signups: How Magic Links almost killed my launch."
+    },
+    {
+      "candidate_id": "cand-ai-automation-1tbgklg",
+      "scope_id": "ai-automation",
+      "topic_pack_id": "upstream-winds",
+      "subreddit": "OpenAI",
+      "score": 575,
+      "num_comments": 34,
+      "signal_level": "hot",
+      "listing_source": "listing:hot:day",
+      "title": "Coders in 2030 be like:"
+    },
+    {
+      "candidate_id": "cand-ai-automation-1tb3sja",
+      "scope_id": "ai-automation",
+      "topic_pack_id": "tools-efficiency",
+      "subreddit": "LocalLLaMA",
+      "score": 85,
+      "num_comments": 28,
+      "signal_level": "sustained",
+      "listing_source": "named-topic-search:relevance:day",
+      "title": "MagicQuant (v2.0) - Hybrid Mixed GGUF Models + Unsloth Dynamic Learned Quant Configurations + Benchmark table with collapsed winners and more"
+    },
+    {
+      "candidate_id": "cand-ecommerce-sellers-1tbo2dw",
+      "scope_id": "ecommerce-sellers",
+      "topic_pack_id": "category-winds",
+      "subreddit": "EntrepreneurRideAlong",
+      "score": 12,
+      "num_comments": 26,
+      "signal_level": "sustained",
+      "listing_source": "named-topic-search:relevance:day",
+      "title": "Shut down my AI chatbot SaaS after 12 months."
     }
   ],
   "runtime_hot_published_candidates": [
@@ -132,134 +181,178 @@
       "scope_id": "ai-automation",
       "topic_pack_id": "upstream-winds",
       "subreddit": "singularity",
-      "score": 896,
-      "num_comments": 115,
+      "score": 900,
+      "num_comments": 118,
       "signal_level": "sustained",
       "listing_source": "listing:hot:day",
       "title": "Mozilla Used Anthropic’s Mythos to Find and Fix 271 Bugs in Firefox"
+    },
+    {
+      "candidate_id": "cand-business-growth-ops-1t5eyqy",
+      "scope_id": "business-growth-ops",
+      "topic_pack_id": "paid-economics",
+      "subreddit": "PPC",
+      "score": 7,
+      "num_comments": 48,
+      "signal_level": "rising",
+      "listing_source": "named-topic-search:relevance:week",
+      "title": "Google Ads agency claims they can target hotel guests and nearby residents for my beauty salon. Legit or overhyped?"
+    },
+    {
+      "candidate_id": "cand-ai-automation-1t588fw",
+      "scope_id": "ai-automation",
+      "topic_pack_id": "agent-builder",
+      "subreddit": "ClaudeAI",
+      "score": 0,
+      "num_comments": 45,
+      "signal_level": "sustained",
+      "listing_source": "named-topic-search:relevance:week",
+      "title": "Built an AI-native multiplayer game with Claude Code — spent $2k+ on credits in a few weeks"
+    },
+    {
+      "candidate_id": "cand-ai-automation-1t8cn9y",
+      "scope_id": "ai-automation",
+      "topic_pack_id": "agent-builder",
+      "subreddit": "ClaudeAI",
+      "score": 211,
+      "num_comments": 40,
+      "signal_level": "rising",
+      "listing_source": "named-topic-search:relevance:week",
+      "title": "Claude improved my agent harness by 40.7% overnight"
+    },
+    {
+      "candidate_id": "cand-ai-automation-1t7m3j3",
+      "scope_id": "ai-automation",
+      "topic_pack_id": "agent-builder",
+      "subreddit": "ClaudeAI",
+      "score": 182,
+      "num_comments": 32,
+      "signal_level": "rising",
+      "listing_source": "named-topic-search:relevance:week",
+      "title": "I built a Pokémon-styled multi-agent dashboard to manage all Claude Code sessions"
     }
   ],
   "top_listing_signal_candidates": [
     {
-      "candidate_id": "cand-ecommerce-sellers-1t9kj4b",
-      "scope_id": "ecommerce-sellers",
-      "topic_pack_id": "kill-signals",
-      "subreddit": "shopify",
-      "score": 4,
-      "num_comments": 21,
-      "signal_level": "sustained",
-      "listing_source": "listing:hot:day",
-      "title": "getting views but no sales"
-    },
-    {
-      "candidate_id": "group-ecommerce-sellers-40e5f76e10",
-      "scope_id": "ecommerce-sellers",
-      "topic_pack_id": "kill-signals",
-      "subreddit": "shopify",
-      "score": 4,
-      "num_comments": 21,
-      "signal_level": "sustained",
-      "listing_source": "listing:hot:day",
-      "title": "getting views but no sales"
-    },
-    {
-      "candidate_id": "cand-ecommerce-sellers-1t8iatc",
-      "scope_id": "ecommerce-sellers",
-      "topic_pack_id": "category-winds",
-      "subreddit": "AmazonSeller",
-      "score": 3,
-      "num_comments": 21,
-      "signal_level": "sustained",
-      "listing_source": "listing:hot:day",
-      "title": "amazon fba in 2026 still worth it"
-    },
-    {
-      "candidate_id": "cand-business-growth-ops-1t9cv0x",
-      "scope_id": "business-growth-ops",
-      "topic_pack_id": "paid-economics",
-      "subreddit": "ecommerce",
-      "score": 5,
-      "num_comments": 18,
-      "signal_level": "sustained",
-      "listing_source": "listing:hot:day",
-      "title": "Premium bedding return question: customer shoved the logistics bag inside the duvet cover. What would you do?"
-    },
-    {
-      "candidate_id": "cand-ecommerce-sellers-1t9cv0x",
-      "scope_id": "ecommerce-sellers",
-      "topic_pack_id": "kill-signals",
-      "subreddit": "ecommerce",
-      "score": 3,
-      "num_comments": 18,
-      "signal_level": "sustained",
-      "listing_source": "listing:hot:day",
-      "title": "Premium bedding return question: customer shoved the logistics bag inside the duvet cover. What would you do?"
-    },
-    {
-      "candidate_id": "cand-business-growth-ops-1t9dby4",
+      "candidate_id": "cand-business-growth-ops-1tbnnm2",
       "scope_id": "business-growth-ops",
       "topic_pack_id": "paid-economics",
       "subreddit": "FacebookAds",
-      "score": 10,
+      "score": 8,
       "num_comments": 17,
       "signal_level": "sustained",
       "listing_source": "listing:hot:day",
-      "title": "Anyone else having a WTF day?"
+      "title": "Meta finally broke?"
+    },
+    {
+      "candidate_id": "cand-ecommerce-sellers-1tb75kz",
+      "scope_id": "ecommerce-sellers",
+      "topic_pack_id": "selection-signals",
+      "subreddit": "FulfillmentByAmazon",
+      "score": 9,
+      "num_comments": 16,
+      "signal_level": "sustained",
+      "listing_source": "listing:hot:day",
+      "title": "Former Failed Seller Looking for FBA Mentor/Advisor"
+    },
+    {
+      "candidate_id": "group-ecommerce-sellers-98bcbfd95e",
+      "scope_id": "ecommerce-sellers",
+      "topic_pack_id": "category-winds",
+      "subreddit": "FulfillmentByAmazon",
+      "score": 9,
+      "num_comments": 16,
+      "signal_level": "sustained",
+      "listing_source": "listing:hot:day",
+      "title": "Former Failed Seller Looking for FBA Mentor/Advisor"
     },
     {
       "candidate_id": "cand-ai-automation-1szqmoa",
       "scope_id": "ai-automation",
       "topic_pack_id": "tools-efficiency",
       "subreddit": "ProductManagement",
-      "score": 5,
-      "num_comments": 14,
+      "score": 4,
+      "num_comments": 15,
       "signal_level": "sustained",
       "listing_source": "listing:hot:day",
       "title": "Weekly rant thread"
     },
     {
-      "candidate_id": "cand-business-growth-ops-1t9ayv4",
+      "candidate_id": "cand-business-growth-ops-1tbas3o",
       "scope_id": "business-growth-ops",
       "topic_pack_id": "paid-economics",
-      "subreddit": "PPC",
-      "score": 5,
-      "num_comments": 14,
+      "subreddit": "ecommerce",
+      "score": 7,
+      "num_comments": 13,
       "signal_level": "sustained",
       "listing_source": "listing:new:day",
-      "title": "Good idea to run google ads when i don't even have one paying customer and no traffic? (I will not promote)"
+      "title": "Woocommerce to Shopify?"
     },
     {
-      "candidate_id": "cand-ecommerce-sellers-1t9exmv",
+      "candidate_id": "cand-ecommerce-sellers-1taj8ee",
       "scope_id": "ecommerce-sellers",
-      "topic_pack_id": "selection-signals",
-      "subreddit": "FulfillmentByAmazon",
+      "topic_pack_id": "category-winds",
+      "subreddit": "AmazonSeller",
       "score": 3,
       "num_comments": 13,
       "signal_level": "sustained",
       "listing_source": "listing:hot:day",
-      "title": "How are you guys handling competitors who drop prices by $0.01 every hour?"
+      "title": "GS1 barcode need to match brand or is it ok to match company name?"
     },
     {
-      "candidate_id": "cand-ai-automation-1t9igfl",
+      "candidate_id": "cand-business-growth-ops-1tbkh66",
+      "scope_id": "business-growth-ops",
+      "topic_pack_id": "paid-economics",
+      "subreddit": "FacebookAds",
+      "score": 11,
+      "num_comments": 12,
+      "signal_level": "sustained",
+      "listing_source": "listing:rising:day",
+      "title": "Zuck and his AI robots need to get a room and leave my ad account alone."
+    },
+    {
+      "candidate_id": "group-business-growth-ops-74799fd92c",
+      "scope_id": "business-growth-ops",
+      "topic_pack_id": "paid-economics",
+      "subreddit": "FacebookAds",
+      "score": 11,
+      "num_comments": 12,
+      "signal_level": "sustained",
+      "listing_source": "listing:rising:day",
+      "title": "Zuck and his AI robots need to get a room and leave my ad account alone."
+    },
+    {
+      "candidate_id": "cand-ecommerce-sellers-1tblr24",
+      "scope_id": "ecommerce-sellers",
+      "topic_pack_id": "kill-signals",
+      "subreddit": "shopify",
+      "score": 6,
+      "num_comments": 12,
+      "signal_level": "sustained",
+      "listing_source": "listing:hot:day",
+      "title": "Chargeback for sizing issues !?!"
+    },
+    {
+      "candidate_id": "cand-ai-automation-1tbr1m8",
       "scope_id": "ai-automation",
       "topic_pack_id": "tools-efficiency",
       "subreddit": "ProductManagement",
-      "score": 12,
+      "score": 4,
       "num_comments": 10,
       "signal_level": "sustained",
       "listing_source": "listing:hot:day",
-      "title": "Managing a difficult team member"
+      "title": "How do you handle competitive analysis at your company?"
     },
     {
-      "candidate_id": "cand-ai-automation-1t9pd1m",
-      "scope_id": "ai-automation",
-      "topic_pack_id": "upstream-winds",
-      "subreddit": "OpenAI",
-      "score": 30,
-      "num_comments": 8,
+      "candidate_id": "cand-ecommerce-sellers-1taujqb",
+      "scope_id": "ecommerce-sellers",
+      "topic_pack_id": "category-winds",
+      "subreddit": "AmazonSeller",
+      "score": 0,
+      "num_comments": 10,
       "signal_level": "sustained",
       "listing_source": "listing:hot:day",
-      "title": "GPT5.5s CoT keeps leaking in the new codex update. Looks like we know how they got token efficency, they cavemanmaxxed"
+      "title": "Question about profits from Amazon"
     }
   ]
 }

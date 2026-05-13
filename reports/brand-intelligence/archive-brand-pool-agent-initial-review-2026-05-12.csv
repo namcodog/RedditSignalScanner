@@ -1,0 +1,1645 @@
+canonical_name,initial_decision,domains,raw_count,flags,reason
+1688.com,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+1stDibs,approve,省钱消费与零售,1,,未发现明显清洗问题
+1Zpresso,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+2Checkout,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+3 Sprouts,approve,家庭与亲子,1,,未发现明显清洗问题
+3dcart,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+3M,approve,家居生活,1,,未发现明显清洗问题
+4moms,approve,家庭与亲子,1,,未发现明显清洗问题
+5.11 Tactical,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+66 North,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+7-Eleven,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+99 Ranch,approve,省钱消费与零售,1,,未发现明显清洗问题
+A Dozen Cousins,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+A101,approve,省钱消费与零售,1,,未发现明显清洗问题
+ABBY&FINN,approve,家庭与亲子,1,,未发现明显清洗问题
+Acaia,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Acebeam,approve,工具与EDC,1,,未发现明显清洗问题
+ACR Bivy,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Action,approve_with_ambiguous_name_guard,省钱消费与零售,1,,品牌名也是常见英文词；建议保留品牌，但后续文本匹配必须加上下文约束
+AdBadger,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Adidas Terrex,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Adobe Commerce,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Adorama Used,approve,省钱消费与零售,1,,未发现明显清洗问题
+AdRoll,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Adtomic,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Adyen,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Aeon,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Aer,approve,工具与EDC; 户外旅行与轻装备,2,,跨多个领域出现；建议保留多领域归属
+Aeropress,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Affirm,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Afterpay,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+AfterShip,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Age of Innocence,approve,家庭与亲子,1,,未发现明显清洗问题
+Agility,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Ahold Delhaize,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+AiHello,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Airwallex,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Alani Nu,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Albany Park,approve,家居生活,1,,未发现明显清洗问题
+Albert Heijn,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Aldi,approve,省钱消费与零售; 食品咖啡与生活方式,2,,跨多个领域出现；建议保留多领域归属
+Alibaba,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+AliExpress,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+All-Clad,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+AllModern,approve,家居生活,1,,未发现明显清洗问题
+Alma Coffee,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Almond Breeze,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Alpaka,approve,工具与EDC,1,,未发现明显清洗问题
+Alps Mountaineering,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Alter Eco,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Altra,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Amana,approve,家居生活,1,,未发现明显清洗问题
+Amara,approve,家庭与亲子,1,,未发现明显清洗问题
+AmazeOwl,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Amazon Fresh,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Amazon Marketing Services,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Amazon Warehouse,approve,省钱消费与零售,1,,未发现明显清洗问题
+AmazonBasics,approve,省钱消费与零售,1,,未发现明显清洗问题
+AMZBase,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+AMZRefund,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+AMZScout,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Anchor Hocking,approve,省钱消费与零售,1,,未发现明显清洗问题
+And Wander,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Andy Pandy,approve,家庭与亲子,1,,未发现明显清洗问题
+Angel Dear,approve,家庭与亲子,1,,未发现明显清洗问题
+Anker,approve,户外旅行与轻装备; 省钱消费与零售,2,,跨多个领域出现；建议保留多领域归属
+Annie Selke,approve,家居生活,1,,未发现明显清洗问题
+Anthropologie Home,approve,家居生活,1,,未发现明显清洗问题
+Apple Refurbished,approve,省钱消费与零售,1,,未发现明显清洗问题
+April Coffee,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Apt2B,approve,家居生活,1,,未发现明显清洗问题
+Aptamil,approve,家庭与亲子,1,,未发现明显清洗问题
+AptDeco,approve,省钱消费与零售,1,,未发现明显清洗问题
+Aquaphor,approve,家庭与亲子,1,,未发现明显清洗问题
+Aramex,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Arc'teryx,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Arc'teryx ReGEAR,approve,省钱消费与零售,1,,未发现明显清洗问题
+ArcBest,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Arhaus,approve,家居生活,1,,未发现明显清洗问题
+Armadillo,approve,家居生活,1,,未发现明显清洗问题
+Armytek,approve,工具与EDC,1,,未发现明显清洗问题
+Article,approve_with_ambiguous_name_guard,家居生活,1,,品牌名也是常见英文词；建议保留品牌，但后续文本匹配必须加上下文约束
+Artipoppe,approve,家庭与亲子,1,,未发现明显清洗问题
+Artisan Cutlery,approve,工具与EDC,1,,未发现明显清洗问题
+Asda,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Ashley Furniture,approve,家居生活,1,,未发现明显清洗问题
+ASINspector,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Asolo,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Astral,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Attentive,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Auchan,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Aura,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Australia Post,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Authorize.Net,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Avalara,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Aveeno Baby,approve,家庭与亲子,1,,未发现明显清洗问题
+Avocado Green,approve,家居生活,1,,未发现明显清洗问题
+Avocado Green Mattress,approve,家庭与亲子,1,,未发现明显清洗问题
+Awara,approve,家居生活,1,,未发现明显清洗问题
+B&B Italia,approve,家居生活,1,,未发现明显清洗问题
+B&H Used,approve,省钱消费与零售,1,,未发现明显清洗问题
+B&M,approve,省钱消费与零售,1,,未发现明显清洗问题
+Babo Botanicals,approve,家庭与亲子,1,,未发现明显清洗问题
+Baby Bjorn,approve,家庭与亲子,1,,未发现明显清洗问题
+Baby Brezza,approve,家庭与亲子,1,,未发现明显清洗问题
+Baby Einstein,approve,家庭与亲子,1,,未发现明显清洗问题
+Baby Jogger,approve,家庭与亲子,1,,未发现明显清洗问题
+Babyganics,approve,家庭与亲子,1,,未发现明显清洗问题
+Babyletto,approve,家庭与亲子,1,,未发现明显清洗问题
+Bachan's,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Back Market,approve,省钱消费与零售,1,,未发现明显清洗问题
+Baffin,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Bahco,approve,工具与EDC,1,,未发现明显清洗问题
+Baier,approve,工具与EDC,1,,未发现明显清洗问题
+Baker,approve,家居生活,1,,未发现明显清洗问题
+Balmuda,approve,家居生活,1,,未发现明显清洗问题
+Bambo Nature,approve,家庭与亲子,1,,未发现明显清洗问题
+Banking Circle,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Banza,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Baratza,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Barebones Living,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Bark River,approve,工具与EDC,1,,未发现明显清洗问题
+Bassett,approve,家居生活,1,,未发现明显清洗问题
+Beaba,approve,家庭与亲子,1,,未发现明显清洗问题
+Beacon,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Beautyrest,approve,家居生活,1,,未发现明显清洗问题
+Bedrock Sandals,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Bellroy,approve,工具与EDC; 户外旅行与轻装备,2,,跨多个领域出现；建议保留多领域归属
+Benchmade,approve,工具与EDC,1,,未发现明显清洗问题
+BenchMade Modern,approve,家居生活,1,,未发现明显清洗问题
+Beni Rugs,approve,家居生活,1,,未发现明显清洗问题
+Bentley Home,approve,家居生活,1,,未发现明显清洗问题
+Bernhardt,approve,家居生活,1,,未发现明显清洗问题
+Best Buy Outlet,approve,省钱消费与零售,1,,未发现明显清洗问题
+Beta,approve,工具与EDC,1,,未发现明显清洗问题
+Bevi,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Bialetti,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+BidX,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Biedronka,approve,省钱消费与零售,1,,未发现明显清洗问题
+Big Agnes,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Big Green Egg,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Big Idea Design,approve,工具与EDC,1,,未发现明显清洗问题
+Big Lots,approve,省钱消费与零售,1,,未发现明显清洗问题
+BigCommerce,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Billa,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Bim,approve,省钱消费与零售,1,,未发现明显清洗问题
+Bindwise,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Bing Ads,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+BioGaia,approve,家庭与亲子,1,,未发现明显清洗问题
+BioLite,approve,工具与EDC; 户外旅行与轻装备,2,,跨多个领域出现；建议保留多领域归属
+Birch,approve,家居生活,1,,未发现明显清洗问题
+Bird Rock,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Birdie Bean,approve,家庭与亲子,1,,未发现明显清洗问题
+Birkenstock,approve,户外旅行与轻装备; 省钱消费与零售,2,,跨多个领域出现；建议保留多领域归属
+Bissell,approve,家居生活,1,,未发现明显清洗问题
+Bizrate,approve,省钱消费与零售,1,,未发现明显清洗问题
+BJ's Wholesale,approve,省钱消费与零售,1,,未发现明显清洗问题
+Black & Decker,approve,工具与EDC,1,,未发现明显清洗问题
+Black & White,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Black Diamond,approve,工具与EDC; 户外旅行与轻装备,2,,跨多个领域出现；建议保留多领域归属
+Blackstone,approve,户外旅行与轻装备; 食品咖啡与生活方式,2,,跨多个领域出现；建议保留多领域归属
+Blendtec,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Blinkit,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Blomus,approve,家居生活,1,,未发现明显清洗问题
+Blu Dot,approve,家居生活,1,,未发现明显清洗问题
+Blue Apron,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Blue Bottle,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Blueair,approve,家居生活,1,,未发现明显清洗问题
+Bluetti,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+BlueVine,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Blundstone,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+BOB Gear,approve,家庭与亲子,1,,未发现明显清洗问题
+Bobbie,approve,家庭与亲子,1,,未发现明显清洗问题
+Bobo Choses,approve,家庭与亲子,1,,未发现明显清洗问题
+Boden,approve,家庭与亲子,1,,未发现明显清洗问题
+Bodum,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+BodyArmor,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Boll & Branch,approve,家居生活,1,,未发现明显清洗问题
+Bolloré Logistics,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Boni,approve,省钱消费与零售,1,,未发现明显清洗问题
+Boogie Wipes,approve,家庭与亲子,1,,未发现明显清洗问题
+Boon,approve,家庭与亲子,1,,未发现明显清洗问题
+Bosch,approve,家居生活; 工具与EDC,2,,跨多个领域出现；建议保留多领域归属
+Boudreaux's Butt Paste,approve,家庭与亲子,1,,未发现明显清洗问题
+Boxed Water,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Bqool,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Brabantia,approve,家居生活,1,,未发现明显清洗问题
+Brad's Deals,approve,省钱消费与零售,1,,未发现明显清洗问题
+Bradford Knives,approve,工具与EDC,1,,未发现明显清洗问题
+Braintree,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Brami,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Braun,approve,家庭与亲子,1,,未发现明显清洗问题
+Breville,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Brex,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Bridge City Tool Works,approve,工具与EDC,1,,未发现明显清洗问题
+Brio,approve,家庭与亲子,1,,未发现明显清洗问题
+Britax,approve,家庭与亲子,1,,未发现明显清洗问题
+Brooklinen,approve,家居生活,1,,未发现明显清洗问题
+Brooks,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Brother,review_noise_config_keep_likely,省钱消费与零售,1,noise_overlap,和旧噪音词表冲突；按品牌池口径建议保留，但需要修正噪音配置
+Brunton,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Bubly,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Buck Knives,approve,工具与EDC,1,,未发现明显清洗问题
+Buff,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Buffy,approve,家居生活,1,,未发现明显清洗问题
+Bugaboo,approve,家庭与亲子,1,,未发现明显清洗问题
+Bumbleride,approve,家庭与亲子,1,,未发现明显清洗问题
+BumGenius,approve,家庭与亲子,1,,未发现明显清洗问题
+Bunnpris,approve,省钱消费与零售,1,,未发现明显清洗问题
+Burlington,approve,省钱消费与零售,1,,未发现明显清洗问题
+Burrow,approve,家居生活,1,,未发现明显清洗问题
+Burt's Bees,approve,家庭与亲子,1,,未发现明显清洗问题
+Burt's Bees Baby,approve,家庭与亲子,1,,未发现明显清洗问题
+Buy Nothing Project,approve,省钱消费与零售,1,,未发现明显清洗问题
+ByHeart,approve,家庭与亲子,1,,未发现明显清洗问题
+C.H. Robinson,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+C4,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Cafelat Robot,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Califia Farms,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+California Baby,approve,家庭与亲子,1,,未发现明显清洗问题
+California Closets,approve,家居生活,1,,未发现明显清洗问题
+Calphalon,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+CamelBak,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+CamelCamelCamel,approve,电商平台与卖家工具; 省钱消费与零售,2,,跨多个领域出现；建议保留多领域归属
+Camp Chef,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Campaign,approve_with_ambiguous_name_guard,家居生活,1,,品牌名也是常见英文词；建议保留品牌，但后续文本匹配必须加上下文约束
+Can Do,approve,省钱消费与零售,1,,未发现明显清洗问题
+Canada Goose,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Canada Post,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Capital One Shopping,approve,省钱消费与零售,1,,未发现明显清洗问题
+Caracole,approve,家居生活,1,,未发现明显清洗问题
+Caraway,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Carhartt,approve,省钱消费与零售,1,,未发现明显清洗问题
+Caribou Coffee,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Carnivore Snax,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Carrefour,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Carter's,approve,家庭与亲子,1,,未发现明显清洗问题
+Case,approve_with_ambiguous_name_guard,工具与EDC,1,,品牌名也是常见英文词；建议保留品牌，但后续文本匹配必须加上下文约束
+Cash Converters,approve,省钱消费与零售,1,,未发现明显清洗问题
+Casio,approve,省钱消费与零售,1,,未发现明显清洗问题
+Casio Pro Trek,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Casper,approve,家居生活,1,,未发现明显清洗问题
+Cassina,approve,家居生活,1,,未发现明显清洗问题
+Castlery,approve,家居生活,1,,未发现明显清洗问题
+Catalina Crunch,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+CB2,approve,家居生活,1,,未发现明显清洗问题
+Celsius,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Century,approve,家庭与亲子,1,,未发现明显清洗问题
+Century Furniture,approve,家居生活,1,,未发现明显清洗问题
+Cereal School,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Cerebelly,approve,家庭与亲子,1,,未发现明显清洗问题
+Cetaphil Baby,approve,家庭与亲子,1,,未发现明显清洗问题
+CEVA Logistics,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+CEX,approve,省钱消费与零售,1,,未发现明显清洗问题
+Chaco,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Chairish,approve,省钱消费与零售,1,,未发现明显清洗问题
+ChannelAdvisor,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Channellock,approve,工具与EDC,1,,未发现明显清洗问题
+Charlie Banana,approve,家庭与亲子,1,,未发现明显清洗问题
+Checkout.com,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Chemex,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Chicago Pneumatic,approve,工具与EDC,1,,未发现明显清洗问题
+Chicco,approve,家庭与亲子,1,,未发现明显清洗问题
+Childhoods Clothing,approve,家庭与亲子,1,,未发现明显清洗问题
+Chilewich,approve,家居生活,1,,未发现明显清洗问题
+Chobani,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Chomps,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Chris Reeve,approve,工具与EDC,1,,未发现明显清洗问题
+Christopher Guy,approve,家居生活,1,,未发现明显清洗问题
+Chrome Industries,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Civivi,approve,工具与EDC,1,,未发现明显清洗问题
+CJRB,approve,工具与EDC,1,,未发现明显清洗问题
+Clearco,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Clek,approve,家庭与亲子,1,,未发现明显清洗问题
+ClickBank,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+ClickFunnels,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Clif Bar,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+ClosetMaid,approve,家居生活,1,,未发现明显清洗问题
+Closets by Design,approve,家居生活,1,,未发现明显清洗问题
+Cloud Defensive,approve,工具与EDC,1,,未发现明显清洗问题
+CNET Shopping,approve,省钱消费与零售,1,,未发现明显清洗问题
+Cnoc Outdoors,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Coast,approve,工具与EDC,1,,未发现明显清洗问题
+Codeofbell,approve,工具与EDC,1,,未发现明显清洗问题
+Coffee Bros,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Cold Steel,approve,工具与EDC,1,,未发现明显清洗问题
+Colectivo,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Coleman,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Coles,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Colgate Mattress,approve,家庭与亲子,1,,未发现明显清洗问题
+Colonna,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Colruyt,approve,省钱消费与零售,1,,未发现明显清洗问题
+Colugo,approve,家庭与亲子,1,,未发现明显清洗问题
+Columbia,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Columbia Kids,approve,家庭与亲子,1,,未发现明显清洗问题
+Cometeer,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Command,approve,家居生活,1,,未发现明显清洗问题
+Commandante,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Comotomo,approve,家庭与亲子,1,,未发现明显清洗问题
+Conad,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Convoy,approve,工具与EDC; 电商平台与卖家工具,2,,跨多个领域出现；建议保留多领域归属
+CookUnity,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Coop,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Corelle,approve,省钱消费与零售,1,,未发现明显清洗问题
+Corkcicle,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Cornwell,approve,工具与EDC,1,,未发现明显清洗问题
+Coros,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Cosco,approve,家庭与亲子,1,,未发现明显清洗问题
+Costa Coffee,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Costco,approve,省钱消费与零售; 食品咖啡与生活方式,2,,跨多个领域出现；建议保留多领域归属
+Coterie,approve,家庭与亲子,1,,未发现明显清洗问题
+Cotopaxi,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Counter Culture,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Country Archer,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Coupons.com,approve,省钱消费与零售,1,,未发现明显清洗问题
+Cow & Gate,approve,家庭与亲子,1,,未发现明显清洗问题
+Coway,approve,家居生活,1,,未发现明显清洗问题
+Coyote Logistics,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Coyuchi,approve,家居生活,1,,未发现明显清洗问题
+Craftsman,approve,工具与EDC,1,,未发现明显清洗问题
+Craigslist,approve,省钱消费与零售,1,,未发现明显清洗问题
+Crane,approve,家庭与亲子,1,,未发现明显清洗问题
+Crate & Barrel,approve,家居生活,1,,未发现明显清洗问题
+Crate & Kids,approve,家庭与亲子,1,,未发现明显清洗问题
+Credit Karma,approve,省钱消费与零售,1,,未发现明显清洗问题
+Crescent,approve,工具与EDC,1,,未发现明显清洗问题
+Criteo,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+CRKT,approve,工具与EDC,1,,未发现明显清洗问题
+Crocs,approve,省钱消费与零售,1,,未发现明显清洗问题
+Cross,approve_with_ambiguous_name_guard,工具与EDC,1,,品牌名也是常见英文词；建议保留品牌，但后续文本匹配必须加上下文约束
+Cubo Ai,approve,家庭与亲子,1,,未发现明显清洗问题
+Cuisinart,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Culture Pop,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Culturelle,approve,家庭与亲子,1,,未发现明显清洗问题
+Currencies Direct,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Curtsy,approve,省钱消费与零售,1,,未发现明显清洗问题
+CustomCat,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Cuvee Coffee,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Cybex,approve,家庭与亲子,1,,未发现明显清洗问题
+Daily Harvest,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Daiso,approve,省钱消费与零售,1,,未发现明显清洗问题
+Daka,approve,工具与EDC,1,,未发现明显清洗问题
+Dango Products,approve,工具与EDC,1,,未发现明显清洗问题
+Danner,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Darn Tough,approve,户外旅行与轻装备; 省钱消费与零售,2,,跨多个领域出现；建议保留多领域归属
+Dash & Albert,approve,家居生活,1,,未发现明显清洗问题
+DataHawk,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Davinci,approve,家庭与亲子,1,,未发现明显清洗问题
+Db Journey,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+DB Schenker,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+De'Longhi,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Dealz,approve,省钱消费与零售,1,,未发现明显清洗问题
+Decluttr,approve,省钱消费与零售,1,,未发现明显清洗问题
+Delhaize,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Deliverr,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Dell Outlet,approve,省钱消费与零售,1,,未发现明显清洗问题
+Delta,approve,工具与EDC,1,,未发现明显清洗问题
+Delta Children,approve,家庭与亲子,1,,未发现明显清洗问题
+Denner,approve,省钱消费与零售,1,,未发现明显清洗问题
+Depop,approve,省钱消费与零售,1,,未发现明显清洗问题
+Design Within Reach,approve,家居生活,1,,未发现明显清洗问题
+Desitin,approve,家庭与亲子,1,,未发现明显清洗问题
+Deuter,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+DeWalt,approve,工具与EDC,1,,未发现明显清洗问题
+DHL,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Dia,approve,省钱消费与零售,1,,未发现明显清洗问题
+Diaper Dekor,approve,家庭与亲子,1,,未发现明显清洗问题
+Dickies,approve,省钱消费与零售,1,,未发现明显清洗问题
+Dinnerly,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Diono,approve,家庭与亲子,1,,未发现明显清洗问题
+Dirt Devil,approve,家居生活,1,,未发现明显清洗问题
+Divvy,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Doba,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+DockATot,approve,家庭与亲子,1,,未发现明显清洗问题
+Dollar General,approve,省钱消费与零售,1,,未发现明显清洗问题
+Dollar Tree,approve,省钱消费与零售,1,,未发现明显清洗问题
+Don Quijote,approve,省钱消费与零售,1,,未发现明显清洗问题
+Done by Deer,approve,家庭与亲子,1,,未发现明显清洗问题
+Doona,approve,家庭与亲子,1,,未发现明显清洗问题
+DoorDash,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Downlite,approve,家居生活,1,,未发现明显清洗问题
+Downstream,approve_with_ambiguous_name_guard,电商平台与卖家工具,1,,品牌名也是常见英文词；建议保留品牌，但后续文本匹配必须加上下文约束
+Doyle,approve,工具与EDC,1,,未发现明显清洗问题
+DPiù,approve,省钱消费与零售,1,,未发现明显清洗问题
+Dr. Brown's,approve,家庭与亲子,1,,未发现明显清洗问题
+Dr. Martens,approve,省钱消费与零售,1,,未发现明显清洗问题
+Dragonfly,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Dream On Me,approve,家庭与亲子,1,,未发现明显清洗问题
+Dreame,approve,家居生活,1,,未发现明显清洗问题
+Dremel,approve,工具与EDC,1,,未发现明显清洗问题
+Drexel Heritage,approve,家居生活,1,,未发现明显清洗问题
+Drink Coffee Do Stuff,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Dropified,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+DS Amazon Quick View,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+DSV,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Dunkin',approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Durston Gear,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Dutchware,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Duxiana,approve,家居生活,1,,未发现明显清洗问题
+DWR,approve,家居生活,1,,未发现明显清洗问题
+Dynafit,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Dyper,approve,家庭与亲子,1,,未发现明显清洗问题
+Dyson,approve,家居生活,1,,未发现明显清洗问题
+Dyson Outlet,approve,省钱消费与零售,1,,未发现明显清洗问题
+E.Leclerc,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Eagles Nest Outfitters,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Earth Mama,approve,家庭与亲子,1,,未发现明显清洗问题
+Earth's Best,approve,家庭与亲子,1,,未发现明显清洗问题
+Eastpak,approve,省钱消费与零售,1,,未发现明显清洗问题
+Easy Track,approve,家居生活,1,,未发现明显清洗问题
+Easyship,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+eBay,approve,省钱消费与零售,1,,未发现明显清洗问题
+eBay Refurbished,approve,省钱消费与零售,1,,未发现明显清洗问题
+ECM,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Eco by Naty,approve,家庭与亲子,1,,未发现明显清洗问题
+EcoFlow,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Ecovacs,approve,家居生活,1,,未发现明显清洗问题
+Ecwid,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Eddie Bauer,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Edeka,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Ego Power+,approve,工具与EDC,1,,未发现明显清洗问题
+Egrow,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Eileen Fisher Renew,approve,省钱消费与零售,1,,未发现明显清洗问题
+Eisenblaetter,approve,工具与EDC,1,,未发现明显清洗问题
+EJ Victor,approve,家居生活,1,,未发现明显清洗问题
+Ekster,approve,工具与EDC,1,,未发现明显清洗问题
+Elastic Path,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Electrolit,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Electrolux,approve,家居生活,1,,未发现明显清洗问题
+Elfa,approve,家居生活,1,,未发现明显清洗问题
+Elmhurst,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Else Nutrition,approve,家庭与亲子,1,,未发现明显清洗问题
+Elvie,approve,家庭与亲子,1,,未发现明显清洗问题
+Emisar,approve,工具与EDC,1,,未发现明显清洗问题
+Empire Level,approve,工具与EDC,1,,未发现明显清洗问题
+Endangered Species,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Enfamil,approve,家庭与亲子,1,,未发现明显清洗问题
+Engineer,approve_with_ambiguous_name_guard,工具与EDC,1,,品牌名也是常见英文词；建议保留品牌，但后续文本匹配必须加上下文约束
+Enlightened Equipment,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Eno,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Epic Provisions,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Equator,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Ergobaby,approve,家庭与亲子,1,,未发现明显清洗问题
+ESEE,approve,工具与EDC,1,,未发现明显清洗问题
+Esembly,approve,家庭与亲子,1,,未发现明显清洗问题
+Espro,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Estes,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Estwing,approve,工具与EDC,1,,未发现明显清洗问题
+Ethan Allen,approve,家居生活,1,,未发现明显清洗问题
+Etsy,approve,家居生活,1,,未发现明显清洗问题
+Eufy,approve,家居生活; 家庭与亲子,2,,跨多个领域出现；建议保留多领域归属
+Eureka,approve,家居生活,1,,未发现明显清洗问题
+Europris,approve,省钱消费与零售,1,,未发现明显清洗问题
+Eurospin,approve,省钱消费与零售,1,,未发现明显清洗问题
+Evenflo,approve,家庭与亲子,1,,未发现明显清洗问题
+Evergoods,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+EveryDollar,approve,省钱消费与零售,1,,未发现明显清洗问题
+EveryPlate,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Exergen,approve,家庭与亲子,1,,未发现明显清洗问题
+Exped,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Expeditors,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Ezpz,approve,家庭与亲子,1,,未发现明显清洗问题
+Facebook Ads,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Facebook Marketplace,approve,省钱消费与零售,1,,未发现明显清洗问题
+Facom,approve,工具与EDC,1,,未发现明显清洗问题
+Factor,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Fallkniven,approve,工具与EDC,1,,未发现明显清洗问题
+Family Dollar,approve,省钱消费与零售,1,,未发现明显清洗问题
+FamilyMart,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Farm to Feet,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Fashionphile,approve,省钱消费与零售,1,,未发现明显清洗问题
+FastCap,approve,工具与EDC,1,,未发现明显清洗问题
+Fat Brain Toys,approve,家庭与亲子,1,,未发现明显清洗问题
+FBAtoolkit,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Feathered Friends,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+FedEx,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+FeedbackFive,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+FeedbackWhiz,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Feedvisor,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Fein,approve,工具与EDC,1,,未发现明显清洗问题
+Fellow,approve,户外旅行与轻装备; 食品咖啡与生活方式,2,,跨多个领域出现；建议保留多领域归属
+Fendi Casa,approve,家居生活,1,,未发现明显清洗问题
+Fenix,approve,工具与EDC,1,,未发现明显清洗问题
+Ferm Living,approve,家居生活,1,,未发现明显清洗问题
+Festool,approve,工具与EDC,1,,未发现明显清洗问题
+Fetch Rewards,approve,省钱消费与零售,1,,未发现明显清洗问题
+Fetcher,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Field Company,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Field Notes,approve,工具与EDC,1,,未发现明显清洗问题
+Fieldpiece,approve,工具与EDC,1,,未发现明显清洗问题
+Filson,approve,工具与EDC,1,,未发现明显清洗问题
+Finex,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Finisterre,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Fisher Space Pen,approve,工具与EDC,1,,未发现明显清洗问题
+Fisher-Price,approve,家庭与亲子,2,,未发现明显清洗问题
+Five Below,approve,省钱消费与零售,1,,未发现明显清洗问题
+Fjallraven,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Flair Espresso,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+FlavorCloud,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Flex,approve,工具与EDC,1,,未发现明显清洗问题
+Flexform,approve,家居生活,1,,未发现明显清洗问题
+Flexport,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Flipp,approve,省钱消费与零售,1,,未发现明显清洗问题
+Flock Freight,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Flow,approve_with_ambiguous_name_guard,食品咖啡与生活方式,1,,品牌名也是常见英文词；建议保留品牌，但后续文本匹配必须加上下文约束
+Flowfold,approve,工具与EDC,1,,未发现明显清洗问题
+Floyd,approve,家居生活,1,,未发现明显清洗问题
+Fluke,approve,工具与EDC,1,,未发现明显清洗问题
+Fly By Jing,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Flying Tiger,approve,省钱消费与零售,1,,未发现明显清洗问题
+Flytanium,approve,工具与EDC,1,,未发现明显清洗问题
+Food 4 Less,approve,省钱消费与零售,1,,未发现明显清洗问题
+Forecastly,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Fornasetti,approve,家居生活,1,,未发现明显清洗问题
+Forto,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Foursevens,approve,工具与EDC,1,,未发现明显清洗问题
+Freecycle,approve,省钱消费与零售,1,,未发现明显清洗问题
+FreshDirect,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Freshly,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Frette,approve,家居生活,1,,未发现明显清洗问题
+FridaBaby,approve,家庭与亲子,1,,未发现明显清洗问题
+Frigidaire,approve,家居生活,1,,未发现明显清洗问题
+Fundbox,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Gaggia,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+GameStop,approve,省钱消费与零售,1,,未发现明显清洗问题
+Gap Kids,approve,家庭与亲子,1,,未发现明显清洗问题
+Gardelli,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Garmin,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Garmont,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+GasBuddy,approve,省钱消费与零售,1,,未发现明显清洗问题
+Gatorade,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Gazelle,approve,省钱消费与零售,1,,未发现明显清洗问题
+GE,approve,家居生活,1,,未发现明显清洗问题
+Gearwrench,approve,工具与EDC,1,,未发现明显清洗问题
+Gedore,approve,工具与EDC,1,,未发现明显清洗问题
+Gelato,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+GemPages,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Geodis,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Georg Jensen,approve,家居生活,1,,未发现明显清洗问题
+George Howell,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Gerber,approve,家庭与亲子; 工具与EDC,2,,跨多个领域出现；建议保留多领域归属
+GETIDA,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+GiantMouse,approve,工具与EDC,1,,未发现明显清洗问题
+Global,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Global Sources,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Goal Zero,approve,工具与EDC; 户外旅行与轻装备,2,,跨多个领域出现；建议保留多领域归属
+GOAT,approve,省钱消费与零售,1,,未发现明显清洗问题
+Gobble,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+GoBolt,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+GoCardless,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Goldbelly,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Goldwin,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+GoMacro,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Goodee,approve,家居生活,1,,未发现明显清洗问题
+Goodles,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Goodwill,approve,省钱消费与零售,1,,未发现明显清洗问题
+Google Ads,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Google Shopping,approve,省钱消费与零售,1,,未发现明显清洗问题
+Gooten,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Gopuff,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Gorgias,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Goruck,approve,工具与EDC; 户外旅行与轻装备,2,,跨多个领域出现；建议保留多领域归属
+Gossamer Gear,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Goumi,approve,家庭与亲子,1,,未发现明显清洗问题
+Gozney,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Graco,approve,家庭与亲子,1,,未发现明显清洗问题
+Grailed,approve,省钱消费与零售,1,,未发现明显清洗问题
+Gramicci,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Granite Gear,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Grapat,approve,家庭与亲子,1,,未发现明显清洗问题
+Grayl,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Great Jones,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Greater Goods,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Green Chef,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Green Toys,approve,家庭与亲子,1,,未发现明显清洗问题
+Gregory,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Grimm's,approve,家庭与亲子,1,,未发现明显清洗问题
+Grizzly,approve,工具与EDC,1,,未发现明显清洗问题
+Grocery Outlet,approve,省钱消费与零售,1,,未发现明显清洗问题
+Groupon,approve,省钱消费与零售,1,,未发现明显清洗问题
+GroVia,approve,家庭与亲子,1,,未发现明显清洗问题
+Grubhub,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+GSI Outdoors,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+GT's Kombucha,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Guava Family,approve,家庭与亲子,1,,未发现明显清洗问题
+Gubi,approve,家居生活,1,,未发现明显清洗问题
+Gumroad,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Gund,approve,家庭与亲子,1,,未发现明显清洗问题
+Gus Modern,approve,家居生活,1,,未发现明显清洗问题
+H Mart,approve,省钱消费与零售,1,,未发现明显清洗问题
+H&M Home,approve,家居生活,1,,未发现明显清洗问题
+H&M Kids,approve,家庭与亲子,1,,未发现明显清洗问题
+H-E-B,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Haakaa,approve,家庭与亲子,1,,未发现明显清洗问题
+Haier,approve,家居生活,1,,未发现明显清洗问题
+Halo,approve,家庭与亲子,1,,未发现明显清洗问题
+Hammock Gear,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Hancock & Moore,approve,家居生活,1,,未发现明显清洗问题
+Hank Lights,approve,工具与EDC,1,,未发现明显清洗问题
+Hanna Andersson,approve,家庭与亲子,1,,未发现明显清洗问题
+Hanwag,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Hape,approve,家庭与亲子,1,,未发现明显清洗问题
+Happiest Baby,approve,家庭与亲子,1,,未发现明显清洗问题
+Happy Baby,approve,家庭与亲子,1,,未发现明显清洗问题
+Harbor Freight,approve,工具与EDC,1,,未发现明显清洗问题
+Hario,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Harmless Harvest,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Hatch,approve,家庭与亲子,1,,未发现明显清洗问题
+Hatch Baby,approve,家庭与亲子,1,,未发现明显清洗问题
+Hatley,approve,家庭与亲子,1,,未发现明显清洗问题
+Havertys,approve,家居生活,1,,未发现明显清洗问题
+Hay,approve,家居生活,1,,未发现明显清洗问题
+Hazet,approve,工具与EDC,1,,未发现明显清洗问题
+Health-Ade,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Healthybaby,approve,家庭与亲子,1,,未发现明显清洗问题
+Heart,approve_with_ambiguous_name_guard,食品咖啡与生活方式,1,,品牌名也是常见英文词；建议保留品牌，但后续文本匹配必须加上下文约束
+Heimplanet,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Helium 10,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Helix,approve,家居生活,1,,未发现明显清洗问题
+Helle,approve,工具与EDC,1,,未发现明显清洗问题
+Hellmann,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Hello Bello,approve,家庭与亲子,1,,未发现明显清洗问题
+HelloFresh,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+HelloProfit,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Helly Hansen,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Hem,approve,家居生活,1,,未发现明显清洗问题
+Hema,approve,省钱消费与零售,1,,未发现明显清洗问题
+Hennessy Hammock,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Henredon,approve,家居生活,1,,未发现明显清洗问题
+Henry,approve,家居生活,1,,未发现明显清洗问题
+Herman Miller,approve,家居生活,1,,未发现明显清洗问题
+Herschel Supply,approve,工具与EDC; 户外旅行与轻装备,2,,跨多个领域出现；建议保留多领域归属
+HEST,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+HexClad,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Hickory Chair,approve,家居生活,1,,未发现明显清洗问题
+Hill People Gear,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Hilleberg,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Hilti,approve,工具与EDC,1,,未发现明显清洗问题
+Hinderer,approve,工具与EDC,1,,未发现明显清洗问题
+Hint,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+HiPP,approve,家庭与亲子,1,,未发现明显清洗问题
+Hisense,approve,家居生活,1,,未发现明显清洗问题
+Hitachi,approve,工具与EDC,1,,未发现明显清洗问题
+Hofer,approve,省钱消费与零售,1,,未发现明显清洗问题
+Hoka,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Holle,approve,家庭与亲子,1,,未发现明显清洗问题
+Home Bargains,approve,省钱消费与零售,1,,未发现明显清洗问题
+Home Chef,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+HomeGoods,approve,省钱消费与零售,1,,未发现明显清洗问题
+Honda,approve,省钱消费与零售,1,,未发现明显清洗问题
+Honest Company,approve,家庭与亲子,1,,未发现明显清洗问题
+Honey,approve,省钱消费与零售,1,,未发现明显清洗问题
+Honey-Can-Do,approve,家居生活,1,,未发现明显清洗问题
+Honeywell,approve,家居生活,1,,未发现明显清洗问题
+Hooker Furniture,approve,家居生活,1,,未发现明显清洗问题
+Hoover,approve,家居生活,1,,未发现明显清洗问题
+Houdini,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Hu Kitchen,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+HubSpot,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Huggies,approve,家庭与亲子,1,,未发现明显清洗问题
+Hungryroot,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Hunter,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Husky,approve,工具与EDC,1,,未发现明显清洗问题
+HydraPak,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Hydro Flask,approve,户外旅行与轻装备; 食品咖啡与生活方式,2,,跨多个领域出现；建议保留多领域归属
+Hyland's,approve,家庭与亲子,1,,未发现明显清洗问题
+Hyperlite Mountain Gear,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Hästens,approve,家居生活,1,,未发现明显清洗问题
+Ibotta,approve,省钱消费与零售,1,,未发现明显清洗问题
+Icebreaker,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Icon,approve,工具与EDC,1,,未发现明显清洗问题
+Idealo,approve,省钱消费与零售,1,,未发现明显清洗问题
+iDesign,approve,家居生活,1,,未发现明显清洗问题
+Iittala,approve,家居生活,1,,未发现明显清洗问题
+iKamper,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Ikea,approve,家居生活,1,,未发现明显清洗问题
+Ikea As-Is,approve,省钱消费与零售,1,,未发现明显清洗问题
+Illy,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Imperfect Foods,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+iN's Mercato,approve,省钱消费与零售,1,,未发现明显清洗问题
+Incra,approve,工具与EDC,1,,未发现明显清洗问题
+Infant Optics,approve,家庭与亲子,1,,未发现明显清洗问题
+Informed.co,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Ingersoll Rand,approve,工具与EDC,1,,未发现明显清洗问题
+Inglesina,approve,家庭与亲子,1,,未发现明显清洗问题
+Inov-8,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Instacart,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Instant Pot,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Intelligentsia,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Intentwise,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Intercom,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Interior Define,approve,家居生活,1,,未发现明显清洗问题
+Intermarché,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+InventoryLab,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+InvisibleHand,approve,省钱消费与零售,1,,未发现明显清洗问题
+Iris,approve,家居生活,1,,未发现明显清洗问题
+iRobot,approve,家居生活,1,,未发现明显清洗问题
+Irwin,approve,工具与EDC,1,,未发现明显清洗问题
+J.B. Hunt,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Jack Wolfskin,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Jackery,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Jaipur Living,approve,家居生活,1,,未发现明显清洗问题
+James Brand,approve,工具与EDC,1,,未发现明显清洗问题
+Jamie Kay,approve,家庭与亲子,1,,未发现明显清洗问题
+Janie and Jack,approve,家庭与亲子,1,,未发现明显清洗问题
+JanSport,approve,省钱消费与零售,1,,未发现明显清洗问题
+JBC Coffee Roasters,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Jeeves,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Jellycat,approve,家庭与亲子,1,,未发现明显清洗问题
+Jet,approve,工具与EDC,1,,未发现明显清洗问题
+Jetboil,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Joe Coffee,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Johnson & Johnson,approve,家庭与亲子,1,,未发现明显清洗问题
+Johnson Level,approve,工具与EDC,1,,未发现明显清洗问题
+Jonathan Adler,approve,家居生活,1,,未发现明显清洗问题
+Jonathan Charles,approve,家居生活,1,,未发现明显清洗问题
+Joseph Joseph,approve,家居生活,1,,未发现明显清洗问题
+Joss & Main,approve,家居生活,1,,未发现明显清洗问题
+Joules,approve,家庭与亲子,1,,未发现明显清洗问题
+Joybird,approve,家居生活,1,,未发现明显清洗问题
+Julius Meinl,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Jungle Scout,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Jura,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Justin's,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Ka-Bar,approve,工具与EDC,1,,未发现明显清洗问题
+Kabbage,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Kabrita,approve,家庭与亲子,1,,未发现明显清洗问题
+Kaiyo,approve,省钱消费与零售,1,,未发现明显清洗问题
+Kajabi,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Kalita,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Kalon Studios,approve,家庭与亲子,1,,未发现明显清洗问题
+Kamado Joe,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Kamik,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Kammok,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Kardiel,approve,家居生活,1,,未发现明显清洗问题
+Kartell,approve,家居生活,1,,未发现明显清洗问题
+Kartra,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Katabatic Gear,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Katadyn,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Kate Quinn,approve,家庭与亲子,1,,未发现明显清洗问题
+Katkin,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Kaufland,approve,省钱消费与零售; 食品咖啡与生活方式,2,,跨多个领域出现；建议保留多领域归属
+Kaweco,approve,工具与EDC,1,,未发现明显清洗问题
+Keekaroo,approve,家庭与亲子,1,,未发现明显清洗问题
+Keen,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Keenz,approve,家庭与亲子,1,,未发现明显清洗问题
+Keepa,approve,电商平台与卖家工具; 省钱消费与零售,2,,跨多个领域出现；建议保留多领域归属
+KEH Camera,approve,省钱消费与零售,1,,未发现明显清洗问题
+Kelkoo,approve,省钱消费与零售,1,,未发现明显清洗问题
+Kelty,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Kendamil,approve,家庭与亲子,1,,未发现明显清洗问题
+Kenmore,approve,家居生活,1,,未发现明显清洗问题
+Kerry Logistics,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Kershaw,approve,工具与EDC,1,,未发现明显清洗问题
+Keson,approve,工具与EDC,1,,未发现明显清洗问题
+Keurig,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Kevita,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+KeyBar,approve,工具与EDC,1,,未发现明显清洗问题
+KeySmart,approve,工具与EDC,1,,未发现明显清洗问题
+Keyword Tool Dominator,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Kibly,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Kickee Pants,approve,家庭与亲子,1,,未发现明显清洗问题
+Kidizen,approve,省钱消费与零售,1,,未发现明显清洗问题
+Kik,approve,省钱消费与零售,1,,未发现明显清洗问题
+Kincaid,approve,家居生活,1,,未发现明显清洗问题
+Kind,approve_with_ambiguous_name_guard,食品咖啡与生活方式,1,,品牌名也是常见英文词；建议保留品牌，但后续文本匹配必须加上下文约束
+Kinsa,approve,家庭与亲子,1,,未发现明显清洗问题
+Kintetsu World Express,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Kinu,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Kirkland Signature,approve,家庭与亲子; 省钱消费与零售,2,,跨多个领域出现；建议保留多领域归属
+KitchenAid,approve,家居生活; 食品咖啡与生活方式,2,,跨多个领域出现；建议保留多领域归属
+KitchenAid Refurbished,approve,省钱消费与零售,1,,未发现明显清洗问题
+Kiwi,approve,省钱消费与零售,1,,未发现明显清洗问题
+KiwiCo,approve,家庭与亲子,1,,未发现明显清洗问题
+Kizer,approve,工具与EDC,1,,未发现明显清洗问题
+Klarna,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Klatch,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Klattermusen,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Klaviyo,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Klean Kanteen,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Klein Tools,approve,工具与EDC,1,,未发现明显清洗问题
+Klymit,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Knipex,approve,工具与EDC,1,,未发现明显清洗问题
+Knoll,approve,家居生活,1,,未发现明显清洗问题
+Ko-ken,approve,工具与EDC,1,,未发现明显清洗问题
+Kobalt,approve,工具与EDC,1,,未发现明显清洗问题
+KonMari,approve,家居生活,1,,未发现明显清洗问题
+Kroger,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Krups,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Kudos,approve,家庭与亲子,1,,未发现明显清洗问题
+Kuehne + Nagel,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Kuhl,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Kyte Baby,approve,家庭与亲子,1,,未发现明显清洗问题
+L'ovedbaby,approve,家庭与亲子,1,,未发现明显清洗问题
+La Cabra,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+La Croix,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+La Marzocco,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+La Sportiva,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+La-Z-Boy,approve,家居生活,1,,未发现明显清洗问题
+Laguna,approve,工具与EDC,1,,未发现明显清洗问题
+Lalabu,approve,家庭与亲子,1,,未发现明显清洗问题
+Lallie London,approve,家庭与亲子,1,,未发现明显清洗问题
+Lalo,approve,家庭与亲子,1,,未发现明显清洗问题
+Lamaze,approve,家庭与亲子,1,,未发现明显清洗问题
+Lamello,approve,工具与EDC,1,,未发现明显清洗问题
+Lamy,approve,工具与EDC,1,,未发现明显清洗问题
+Lansinoh,approve,家庭与亲子,1,,未发现明显清洗问题
+Larabar,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Lavazza,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Lawson,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Le Creuset,approve,省钱消费与零售; 食品咖啡与生活方式,2,,跨多个领域出现；建议保留多领域归属
+Leader Price,approve,省钱消费与零售,1,,未发现明显清洗问题
+Leadpages,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+LeapFrog,approve,家庭与亲子,1,,未发现明显清洗问题
+Leatherman,approve,工具与EDC; 省钱消费与零售,2,,跨多个领域出现；建议保留多领域归属
+Ledlenser,approve,工具与EDC; 户外旅行与轻装备,2,,跨多个领域出现；建议保留多领域归属
+Lee Industries,approve,家居生活,1,,未发现明显清洗问题
+Leesa,approve,家居生活,1,,未发现明显清洗问题
+Lego Duplo,approve,家庭与亲子,1,,未发现明显清洗问题
+Lelit,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Lenox,approve,工具与EDC,1,,未发现明显清洗问题
+Levi's SecondHand,approve,省钱消费与零售,1,,未发现明显清洗问题
+Levoit,approve,家居生活,1,,未发现明显清洗问题
+Lexington,approve,家居生活,1,,未发现明显清洗问题
+LG,approve,家居生活,1,,未发现明显清洗问题
+Lidl,approve,省钱消费与零售; 食品咖啡与生活方式,2,,跨多个领域出现；建议保留多领域归属
+Lie-Nielsen,approve,工具与EDC,1,,未发现明显清洗问题
+Liewood,approve,家庭与亲子,1,,未发现明显清洗问题
+Lifestaver,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+LifeStraw,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Light My Fire,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Ligne Roset,approve,家居生活,1,,未发现明显清洗问题
+Lillebaby,approve,家庭与亲子,1,,未发现明显清洗问题
+LionSteel,approve,工具与EDC,1,,未发现明显清洗问题
+Liquid Death,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Liquid IV,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+LiteAF,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Little Remedies,approve,家庭与亲子,1,,未发现明显清洗问题
+Little Sleepies,approve,家庭与亲子,1,,未发现明显清洗问题
+Little Spoon,approve,家庭与亲子,1,,未发现明显清洗问题
+LMNT,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Loblaw,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Lobtex,approve,工具与EDC,1,,未发现明显清洗问题
+Lodge,approve,户外旅行与轻装备; 省钱消费与零售; 食品咖啡与生活方式,3,,跨多个领域出现；建议保留多领域归属
+Lollipop,approve,家庭与亲子,1,,未发现明显清洗问题
+Loloi,approve,家居生活,1,,未发现明显清洗问题
+Loomy,approve,家居生活,1,,未发现明显清洗问题
+Lorena Canals,approve,家居生活,1,,未发现明显清洗问题
+Lovevery,approve,家庭与亲子,1,,未发现明显清洗问题
+Lowa,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Lowe Pro,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Lucky Sweater,approve,省钱消费与零售,1,,未发现明显清洗问题
+Lufkin,approve,工具与EDC,1,,未发现明显清洗问题
+Lulu and Georgia,approve,家居生活,1,,未发现明显清洗问题
+Lululemon Like New,approve,省钱消费与零售,1,,未发现明显清洗问题
+Lumintop,approve,工具与EDC,1,,未发现明显清洗问题
+Luna Sandals,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Luvs,approve,家庭与亲子,1,,未发现明显清洗问题
+Mac Tools,approve,工具与EDC,1,,未发现明显清洗问题
+Made In,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Madewell Forever,approve,省钱消费与零售,1,,未发现明显清洗问题
+Maersk,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Mafell,approve,工具与EDC,1,,未发现明显清洗问题
+Magento,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Magic Spoon,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Maglite,approve,工具与EDC,1,,未发现明显清洗问题
+Magna-Tiles,approve,家庭与亲子,1,,未发现明显清洗问题
+Magnetic Me,approve,家庭与亲子,1,,未发现明显清洗问题
+Magnit,approve,省钱消费与零售,1,,未发现明显清洗问题
+Magpul,approve,工具与EDC,1,,未发现明显清洗问题
+Mahlkonig,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Maiden Home,approve,家居生活,1,,未发现明显清洗问题
+Mailchimp,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Makita,approve,工具与EDC,1,,未发现明显清洗问题
+Malk,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Malkoff,approve,工具与EDC,1,,未发现明显清洗问题
+Mam,approve,家庭与亲子,1,,未发现明显清洗问题
+Mama Bear,approve,家庭与亲子,1,,未发现明显清洗问题
+MamaRoo,approve,家庭与亲子,1,,未发现明显清洗问题
+Mammut,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+ManageByStats,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Manhattan Toy,approve,家庭与亲子,1,,未发现明显清洗问题
+Manker,approve,工具与EDC,1,,未发现明显清洗问题
+Marge Carson,approve,家居生活,1,,未发现明显清洗问题
+Marie Kondo,approve,家居生活,1,,未发现明显清洗问题
+Marimekko,approve,家居生活,1,,未发现明显清洗问题
+Market Basket,approve,省钱消费与零售,1,,未发现明显清洗问题
+Marley Spoon,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Marmot,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Marshalls,approve,省钱消费与零售,1,,未发现明显清洗问题
+Martinez Tools,approve,工具与EDC,1,,未发现明显清洗问题
+Matador,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Matco,approve,工具与EDC,1,,未发现明显清洗问题
+Material,approve_with_ambiguous_name_guard,食品咖啡与生活方式,1,,品牌名也是常见英文词；建议保留品牌，但后续文本匹配必须加上下文约束
+Matouk,approve,家居生活,1,,未发现明显清洗问题
+Maty's,approve,家庭与亲子,1,,未发现明显清洗问题
+Maxi-Cosi,approve,家庭与亲子,1,,未发现明显清洗问题
+Maytag,approve,家居生活,1,,未发现明显清洗问题
+McCafe,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+McGee & Co,approve,家居生活,1,,未发现明显清洗问题
+MD,approve,省钱消费与零售,1,,未发现明显清洗问题
+mDesign,approve,家居生活,1,,未发现明显清洗问题
+Meati,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Medela,approve,家庭与亲子,1,,未发现明显清洗问题
+MediaMath,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Meh,approve,省钱消费与零售,1,,未发现明显清洗问题
+Meindl,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Melissa & Doug,approve,家庭与亲子,1,,未发现明显清洗问题
+Member's Mark,approve,省钱消费与零售,1,,未发现明显清洗问题
+Menswear Market,approve,省钱消费与零售,1,,未发现明显清洗问题
+Menu,approve,家居生活,1,,未发现明显清洗问题
+Mercadona,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Mercari,approve,省钱消费与零售,1,,未发现明显清洗问题
+MerchantWords,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Mercury,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Mere,approve,省钱消费与零售,1,,未发现明显清洗问题
+Merrell,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Metabo HPT,approve,工具与EDC,1,,未发现明显清洗问题
+Metro,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Microtech,approve,工具与EDC,1,,未发现明显清洗问题
+Miele,approve,家居生活; 省钱消费与零售; 食品咖啡与生活方式,3,,跨多个领域出现；建议保留多领域归属
+Miir,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Millie Moon,approve,家庭与亲子,1,,未发现明显清洗问题
+Million Dollar Baby,approve,家庭与亲子,1,,未发现明显清洗问题
+Milupa,approve,家庭与亲子,1,,未发现明显清洗问题
+Milwaukee,approve,工具与EDC,1,,未发现明显清洗问题
+Mini Rodini,approve,家庭与亲子,1,,未发现明显清洗问题
+Miniso,approve,省钱消费与零售,1,,未发现明显清洗问题
+Minna,approve,家居生活,1,,未发现明显清洗问题
+Minor Figures,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Minotti,approve,家居生活,1,,未发现明显清洗问题
+Mint,approve,省钱消费与零售,1,,未发现明显清洗问题
+Minted,approve,家居生活,1,,未发现明显清洗问题
+Mirka,approve,工具与EDC,1,,未发现明显清洗问题
+Misen,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Misfits Market,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Mission Workshop,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Mitutoyo,approve,工具与EDC,1,,未发现明显清洗问题
+Miyabi,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Moby Wrap,approve,家庭与亲子,1,,未发现明显清洗问题
+Mockingbird,approve,家庭与亲子,1,,未发现明显清洗问题
+Modalyst,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Modlite,approve,工具与EDC,1,,未发现明显清洗问题
+Modloft,approve,家居生活,1,,未发现明显清洗问题
+Mollie,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Mommy's Bliss,approve,家庭与亲子,1,,未发现明显清洗问题
+Momofuku,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Moncler,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Monica + Andy,approve,家庭与亲子,1,,未发现明显清洗问题
+Monoprice,approve,省钱消费与零售,1,,未发现明显清洗问题
+Monster,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Montbell,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Montblanc,approve,工具与EDC,1,,未发现明显清洗问题
+Monte Design,approve,家庭与亲子,1,,未发现明显清洗问题
+Monzo Business,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Moonlight Slumber,approve,家庭与亲子,1,,未发现明显清洗问题
+Mora,approve,工具与EDC,1,,未发现明显清洗问题
+Morakniv,approve,工具与EDC,1,,未发现明显清洗问题
+Morrisons,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Mother Tongue,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Motorola Baby,approve,家庭与亲子,1,,未发现明显清洗问题
+Mountain Buggy,approve,家庭与亲子,1,,未发现明显清洗问题
+Mountain Hardwear,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Mountain Laurel Designs,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+MPB,approve,省钱消费与零售,1,,未发现明显清洗问题
+MSR,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Muji,approve,家居生活,1,,未发现明显清洗问题
+Munchkin,approve,家庭与亲子,1,,未发现明显清洗问题
+Mushie,approve,家庭与亲子,1,,未发现明显清洗问题
+Music Go Round,approve,省钱消费与零售,1,,未发现明显清洗问题
+Mustela,approve,家庭与亲子,1,,未发现明显清洗问题
+Muuto,approve,家居生活,1,,未发现明显清洗问题
+Muyshondt,approve,工具与EDC,1,,未发现明显清洗问题
+MyCartSavings,approve,省钱消费与零售,1,,未发现明显清洗问题
+Mystery Ranch,approve,工具与EDC; 户外旅行与轻装备,2,,跨多个领域出现；建议保留多领域归属
+Nalgene,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Nanit,approve,家庭与亲子,1,,未发现明显清洗问题
+Nanny Care,approve,家庭与亲子,1,,未发现明显清洗问题
+Narvar,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Narwal,approve,家居生活,1,,未发现明显清洗问题
+Naturepedic,approve,家庭与亲子,1,,未发现明显清洗问题
+Neatfreak,approve,家居生活,1,,未发现明显清洗问题
+Neato,approve,家居生活,1,,未发现明显清洗问题
+Nebo,approve,工具与EDC,1,,未发现明显清洗问题
+Nectar,approve,家居生活,1,,未发现明显清洗问题
+Neji-Saurus,approve,工具与EDC,1,,未发现明显清洗问题
+Nemo,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Nepros,approve,工具与EDC,1,,未发现明显清洗问题
+Nespresso,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Nest Bedding,approve,家居生活,1,,未发现明显清洗问题
+Nest Diapers,approve,家庭与亲子,1,,未发现明显清洗问题
+Netto,approve,省钱消费与零售,1,,未发现明显清洗问题
+Newton Baby,approve,家庭与亲子,1,,未发现明显清洗问题
+Nextdoor,approve,省钱消费与零售,1,,未发现明显清洗问题
+Nike ACG,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Ninja,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Nintendo Refurbished,approve,省钱消费与零售,1,,未发现明显清洗问题
+Nippon Express,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Nitecore,approve,工具与EDC; 户外旅行与轻装备,2,,跨多个领域出现；建议保留多领域归属
+Noctigon,approve,工具与EDC,1,,未发现明显清洗问题
+Noihsaf Bazaar,approve,省钱消费与零售,1,,未发现明显清洗问题
+Nordic Naturals,approve,家庭与亲子,1,,未发现明显清洗问题
+Nordisk,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Norma,approve,省钱消费与零售,1,,未发现明显清洗问题
+Normann Copenhagen,approve,家居生活,1,,未发现明显清洗问题
+Norrona,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+NoseFrida,approve,家庭与亲子,1,,未发现明显清洗问题
+NotCo,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Nourison,approve,家居生活,1,,未发现明显清洗问题
+Novo,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Nuggs,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Nuk,approve,家庭与亲子,1,,未发现明显清洗问题
+Numatic,approve,家居生活,1,,未发现明显清洗问题
+Nuna,approve,家庭与亲子,1,,未发现明显清洗问题
+Nunatak,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Nuova Simonelli,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Nurture&,approve,家庭与亲子,1,,未发现明显清洗问题
+Nutribullet Baby,approve,家庭与亲子,1,,未发现明显清洗问题
+Nuun,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Oatly,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+OAXray,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Oberlo,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Oboz,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Oeuf,approve,家庭与亲子,1,,未发现明显清洗问题
+OfferUp,approve,省钱消费与零售,1,,未发现明显清洗问题
+OffLimits,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+OFX,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Old Dominion,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Old Navy,approve,家庭与亲子,1,,未发现明显清洗问题
+Olight,approve,工具与EDC,1,,未发现明显清洗问题
+Olipop,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Ollie's Bargain Outlet,approve,省钱消费与零售,1,,未发现明显清洗问题
+Omnisend,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Omsom,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+On Running,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Once Upon A Farm,approve,家庭与亲子,1,,未发现明显清洗问题
+OnDeck,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Onyx Coffee Lab,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Oogiebear,approve,家庭与亲子,1,,未发现明显清洗问题
+Ooni,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Open Spaces,approve,家居生活,1,,未发现明显清洗问题
+OpenCart,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Opinel,approve,工具与EDC,1,,未发现明显清洗问题
+Optimus,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Orbit Baby,approve,家庭与亲子,1,,未发现明显清洗问题
+Orbitkey,approve,工具与EDC,1,,未发现明显清洗问题
+Orderhive,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Ortlieb,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+OshKosh B'gosh,approve,家庭与亲子,1,,未发现明显清洗问题
+Osmo,approve,家庭与亲子,1,,未发现明显清洗问题
+Osprey,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Our Place,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Outbrain,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Outdoor Research,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Owala,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Owlet,approve,家庭与亲子,1,,未发现明显清洗问题
+Oxo,approve,家居生活,1,,未发现明显清洗问题
+Oxo Tot,approve,家庭与亲子,1,,未发现明显清洗问题
+Pa'lante,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Pacific Coast Feather,approve,家居生活,1,,未发现明显清洗问题
+Packlink,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Pacvue,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+PageFly,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Pampa,approve,家居生活,1,,未发现明显清洗问题
+Pampers,approve,家庭与亲子,1,,未发现明显清洗问题
+Panalpina,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Panasonic,approve,家居生活; 工具与EDC,2,,跨多个领域出现；建议保留多领域归属
+Parachute,approve,家居生活,1,,未发现明显清洗问题
+Parasol,approve,家庭与亲子,1,,未发现明显清洗问题
+Parker,approve,工具与EDC,1,,未发现明显清洗问题
+Patagonia,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Patagonia Kids,approve,家庭与亲子,1,,未发现明显清洗问题
+Patagonia Worn Wear,approve,省钱消费与零售,1,,未发现明显清洗问题
+Patel Brothers,approve,省钱消费与零售,1,,未发现明显清洗问题
+PatPat,approve,家庭与亲子,1,,未发现明显清洗问题
+Payability,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Payoneer,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+PayPal,review_noise_config_keep_likely,电商平台与卖家工具,1,noise_overlap,和旧噪音词表冲突；按品牌池口径建议保留，但需要修正噪音配置
+PB Swiss,approve,工具与EDC,1,,未发现明显清洗问题
+Peacock Alley,approve,家居生活,1,,未发现明显清洗问题
+Peak Design,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Peak Performance,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Peet's,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Peg Perego,approve,家庭与亲子,1,,未发现明显清洗问题
+Pehr,approve,家庭与亲子,1,,未发现明显清洗问题
+Pelican,approve,工具与EDC,1,,未发现明显清洗问题
+Pelikan,approve,工具与EDC,1,,未发现明显清洗问题
+Penny,approve,省钱消费与零售,1,,未发现明显清洗问题
+Pepco,approve,省钱消费与零售,1,,未发现明显清洗问题
+Perc Coffee,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Perfect Bar,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Perpetua,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Perrier,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Petzl,approve,工具与EDC; 户外旅行与轻装备,2,,跨多个领域出现；建议保留多领域归属
+Philips,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Philips Avent,approve,家庭与亲子,1,,未发现明显清洗问题
+Philz Coffee,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Pica Marker,approve,工具与EDC,1,,未发现明显清洗问题
+Piccalio,approve,家庭与亲子,1,,未发现明显清洗问题
+Pilot,approve,工具与EDC,1,,未发现明显清洗问题
+PingPong,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Pinterest Ads,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Pioneer Carry,approve,工具与EDC,1,,未发现明显清洗问题
+Pipette,approve,家庭与亲子,1,,未发现明显清洗问题
+Pirate Ship,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Pittsburgh,approve,工具与EDC,1,,未发现明显清洗问题
+PlanToys,approve,家庭与亲子,1,,未发现明显清洗问题
+Platypus,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Playmobil,approve,家庭与亲子,1,,未发现明显清洗问题
+Plum Organics,approve,家庭与亲子,1,,未发现明显清洗问题
+Podia,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Poliform,approve,家居生活,1,,未发现明显清洗问题
+Poly & Bark,approve,家居生活,1,,未发现明显清洗问题
+Poppi,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Porter-Cable,approve,工具与EDC,1,,未发现明显清洗问题
+Posh Peanut,approve,家庭与亲子,1,,未发现明显清洗问题
+Poshmark,approve,省钱消费与零售,1,,未发现明显清洗问题
+Postmates,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Pottery Barn,approve,家居生活,1,,未发现明显清洗问题
+Pottery Barn Kids,approve,家庭与亲子,1,,未发现明显清洗问题
+Poundland,approve,省钱消费与零售,1,,未发现明显清洗问题
+Powerade,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Powermatic,approve,工具与EDC,1,,未发现明显清洗问题
+PPC Entourage,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+PPRO,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Prana,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+PrestaShop,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Prestozon,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Price Rite,approve,省钱消费与零售,1,,未发现明显清洗问题
+PriceBlink,approve,省钱消费与零售,1,,未发现明显清洗问题
+PriceGrabber,approve,省钱消费与零售,1,,未发现明显清洗问题
+PriceRunner,approve,省钱消费与零售,1,,未发现明显清洗问题
+Primark,approve,省钱消费与零售,1,,未发现明显清洗问题
+Primary,approve_with_ambiguous_name_guard,家庭与亲子,1,,品牌名也是常见英文词；建议保留品牌，但后续文本匹配必须加上下文约束
+Primus,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Prince Lionheart,approve,家庭与亲子,1,,未发现明显清洗问题
+Princeton Tec,approve,工具与EDC; 户外旅行与轻装备,2,,跨多个领域出现；建议保留多领域归属
+Printful,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Printify,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Privy,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Profit Bandit,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Profitec,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+ProfitGuru,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Prometheus Lights,approve,工具与EDC,1,,未发现明显清洗问题
+Protech,approve,工具与EDC,1,,未发现明显清洗问题
+Proud Mary,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Proxxon,approve,工具与EDC,1,,未发现明显清洗问题
+PT's,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Publix,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Purple,approve,家居生活,1,,未发现明显清洗问题
+Purple Carrot,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Pyaterochka,approve,省钱消费与零售,1,,未发现明显清洗问题
+Pyrex,approve,省钱消费与零售,1,,未发现明显清洗问题
+Quartile,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+QuickBooks,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Quiet Carry,approve,工具与EDC,1,,未发现明显清洗问题
+Quince,approve,家居生活,1,,未发现明显清洗问题
+Quincy Mae,approve,家庭与亲子,1,,未发现明显清洗问题
+Quinn,approve,工具与EDC,1,,未发现明显清洗问题
+Raaka,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Rab,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Raduga Grez,approve,家庭与亲子,1,,未发现明显清洗问题
+Rags,approve,家庭与亲子,1,,未发现明显清洗问题
+Rakuten,approve,省钱消费与零售,1,,未发现明显清洗问题
+Ramp,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Rancilio,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Rascal + Friends,approve,家庭与亲子,1,,未发现明显清洗问题
+Ratio,approve_with_ambiguous_name_guard,食品咖啡与生活方式,1,,品牌名也是常见英文词；建议保留品牌，但后续文本匹配必须加上下文约束
+Raymour & Flanigan,approve,家居生活,1,,未发现明显清洗问题
+Reate,approve,工具与EDC,1,,未发现明显清洗问题
+Rebag,approve,省钱消费与零售,1,,未发现明显清洗问题
+Recycled Firefighter,approve,工具与EDC,1,,未发现明显清洗问题
+Red Bull,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Red Cross,approve,家庭与亲子,1,,未发现明显清洗问题
+Red Land Cotton,approve,家居生活,1,,未发现明显清洗问题
+Red Rooster,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Red Stag Fulfillment,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Red Wing,approve,户外旅行与轻装备; 省钱消费与零售,2,,跨多个领域出现；建议保留多领域归属
+Redbubble,approve,家居生活,1,,未发现明显清洗问题
+Refund Sniper,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Refunds Manager,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Regalia,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+REI Co-op,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+REI Re/Supply,approve,省钱消费与零售,1,,未发现明显清洗问题
+Reima,approve,家庭与亲子,1,,未发现明显清洗问题
+Rejuvenation,approve,家居生活,1,,未发现明显清洗问题
+Rema 1000,approve,省钱消费与零售,1,,未发现明显清洗问题
+Remedy Organics,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+RepricerExpress,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+RestockPro,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Restoration Hardware,approve,家居生活,1,,未发现明显清洗问题
+RetailMeNot,approve,省钱消费与零售,1,,未发现明显清洗问题
+Rev-A-Shelf,approve,家居生活,1,,未发现明显清洗问题
+Revival Rugs,approve,家居生活,1,,未发现明显清洗问题
+Revolut Business,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+RevSeller,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Rewe,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+ReyLight,approve,工具与EDC,1,,未发现明显清洗问题
+RH,approve,家居生活,1,,未发现明显清洗问题
+Rheal,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Rhenus,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Rhino Coffee Gear,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Ridge Wallet,approve,工具与EDC,1,,未发现明显清洗问题
+Ridgid,approve,工具与EDC,1,,未发现明显清洗问题
+Rifle Paper Co,approve,家居生活,1,,未发现明显清洗问题
+RightRice,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Rikon,approve,工具与EDC,1,,未发现明显清洗问题
+Riley Home,approve,家居生活,1,,未发现明显清洗问题
+Ripple,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Rite in the Rain,approve,工具与EDC,1,,未发现明显清洗问题
+Roborock,approve,家居生活,1,,未发现明显清洗问题
+Roche Bobois,approve,家居生活,1,,未发现明显清洗问题
+Rocket Espresso,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Roofnest,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Room & Board,approve,家居生活,1,,未发现明显清洗问题
+Roomba,approve,家居生活,1,,未发现明显清洗问题
+Ross Dress for Less,approve,省钱消费与零售,1,,未发现明显清洗问题
+Rotring,approve,工具与EDC,1,,未发现明显清洗问题
+Route,approve_with_ambiguous_name_guard,电商平台与卖家工具,1,,品牌名也是常见英文词；建议保留品牌，但后续文本匹配必须加上下文约束
+Rove Concepts,approve,家居生活,1,,未发现明显清洗问题
+RovyVon,approve,工具与EDC,1,,未发现明显清洗问题
+Royal Mail,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Rubbermaid,approve,家居生活,1,,未发现明显清洗问题
+Ruggable,approve,家居生活,1,,未发现明显清洗问题
+Rupes,approve,工具与EDC,1,,未发现明显清洗问题
+Rustae,approve,省钱消费与零售,1,,未发现明显清洗问题
+RX Nut Butter,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+RXBAR,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Ryder,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Ryobi,approve,工具与EDC,1,,未发现明显清洗问题
+Ryze Superfoods,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Saatva,approve,家居生活,1,,未发现明显清洗问题
+Sabai,approve,家居生活,1,,未发现明显清洗问题
+Saddleback Leather,approve,工具与EDC,1,,未发现明显清洗问题
+Saeco,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Safavieh,approve,家居生活,1,,未发现明显清洗问题
+Safety 1st,approve,家庭与亲子,1,,未发现明显清洗问题
+Safeway,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+SageMailer,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Sago Mini,approve,家庭与亲子,1,,未发现明显清洗问题
+Sainsbury's,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Sakara Life,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+SaleHoo,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Salesforce Commerce Cloud,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Salewa,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Salomon,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Saltbox,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Salvation Army,approve,省钱消费与零售,1,,未发现明显清洗问题
+Sam's Club,approve,省钱消费与零售,1,,未发现明显清洗问题
+Samaya,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+SamCart,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Samsung,approve,家居生活,1,,未发现明显清洗问题
+San Pellegrino,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Sana Commerce,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Sassy,approve,家庭与亲子,1,,未发现明显清洗问题
+Sata,approve,工具与EDC,1,,未发现明显清洗问题
+Saucony,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Save-A-Lot,approve,省钱消费与零售,1,,未发现明显清洗问题
+Savoir,approve,家居生活,1,,未发现明显清洗问题
+Savotta,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+SawStop,approve,工具与EDC,1,,未发现明显清洗问题
+Sawyer,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Say Weee,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Scandia Home,approve,家居生活,1,,未发现明显清洗问题
+ScanPower,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Scarpa,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Schneider,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Schoolhouse,approve,家居生活,1,,未发现明显清洗问题
+Scientific Seller,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+ScoutIQ,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Sea to Summit,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Sealy,approve,家居生活,1,,未发现明显清洗问题
+Sebo,approve,家居生活,1,,未发现明显清洗问题
+Secrid,approve,工具与EDC,1,,未发现明显清洗问题
+Segafredo,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Seiko,approve,省钱消费与零售,1,,未发现明显清洗问题
+Sellbrite,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Seller Snap,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+SellerApp,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+SellerBench,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Sellerboard,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+SellersFunding,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+SellerSprite,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Sellics,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Sellics Advertising,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Sellozo,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+SendCloud,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Serena & Lily,approve,家居生活,1,,未发现明显清洗问题
+Serenity Kids,approve,家庭与亲子,1,,未发现明显清洗问题
+Seria,approve,省钱消费与零售,1,,未发现明显清洗问题
+Serta,approve,家居生活,1,,未发现明显清洗问题
+Seventh Generation,approve,家庭与亲子,1,,未发现明显清洗问题
+Sey Coffee,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Sezzle,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Sferra,approve,家居生活,1,,未发现明显清洗问题
+Shark,approve,家居生活,1,,未发现明显清洗问题
+Sharp,approve_with_ambiguous_name_guard,家居生活,1,,品牌名也是常见英文词；建议保留品牌，但后续文本匹配必须加上下文约束
+Sharpie,approve,工具与EDC,1,,未发现明显清洗问题
+SheaMoisture,approve,家庭与亲子,1,,未发现明显清洗问题
+Sherrill,approve,家居生活,1,,未发现明显清洗问题
+Shift4Shop,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Shimoda,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Shinwa,approve,工具与EDC,1,,未发现明显清洗问题
+ShipBob,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+ShipHero,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+ShipMonk,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+ShippingEasy,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Shippo,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+ShipRush,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+ShipStation,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Shock,approve,省钱消费与零售,1,,未发现明显清洗问题
+Shogun,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+ShopGoodwill.com,approve,省钱消费与零售,1,,未发现明显清洗问题
+Shopify,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Shopkeeper,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+ShopSavvy,approve,省钱消费与零售,1,,未发现明显清洗问题
+ShopTomorrows,approve,省钱消费与零售,1,,未发现明显清洗问题
+Shopzilla,approve,省钱消费与零售,1,,未发现明显清洗问题
+Shun,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Sierra,approve,省钱消费与零售,1,,未发现明显清洗问题
+Sierra Designs,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Siete,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Silk,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Silva,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Silver Cross,approve,家庭与亲子,1,,未发现明显清洗问题
+Similac,approve,家庭与亲子,1,,未发现明显清洗问题
+Simmons,approve,家居生活,1,,未发现明显清洗问题
+Simplehuman,approve,家居生活,1,,未发现明显清洗问题
+SimplyVAT,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Sinotrans,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Six Moon Designs,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Sixpenny,approve,家居生活,1,,未发现明显清洗问题
+Skai,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Skil,approve,工具与EDC,1,,未发现明显清洗问题
+Skilhunt,approve,工具与EDC,1,,未发现明显清洗问题
+Skinflint,approve,省钱消费与零售,1,,未发现明显清洗问题
+Skip Hop,approve,家庭与亲子,1,,未发现明显清洗问题
+Skubana,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Slayer,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Sleep Number,approve,家居生活,1,,未发现明显清洗问题
+Slickdeals,approve,省钱消费与零售,1,,未发现明显清洗问题
+SlingFin,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Slumberkins,approve,家庭与亲子,1,,未发现明显清洗问题
+SMA,approve,家庭与亲子,1,,未发现明显清洗问题
+Smart & Final,approve,省钱消费与零售,1,,未发现明显清洗问题
+SmartNoggin,approve,家庭与亲子,1,,未发现明显清洗问题
+SmartScout,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Smartwool,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Smeg,approve,家居生活,1,,未发现明显清洗问题
+Smithey,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Snap-on,approve,工具与EDC,1,,未发现明显清洗问题
+Snoo,approve,家庭与亲子,1,,未发现明显清洗问题
+Snow Peak,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Snuggle Me Organic,approve,家庭与亲子,1,,未发现明显清洗问题
+Sobeys,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Society6,approve,家居生活,1,,未发现明显清洗问题
+Sofirn,approve,工具与EDC,1,,未发现明显清洗问题
+SOG,approve,工具与EDC,1,,未发现明显清洗问题
+Solly Baby,approve,家庭与亲子,1,,未发现明显清洗问题
+Solo Stove,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Somewear,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Sonar,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Sonos Refurbished,approve,省钱消费与零售,1,,未发现明显清洗问题
+Sorel,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+SoStocked,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Soto,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+SourceMogul,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Spar,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Spectra,approve,家庭与亲子,1,,未发现明显清洗问题
+Speed Queen,approve,省钱消费与零售,1,,未发现明显清洗问题
+Spindrift,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Spinn,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Splendid Spoon,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Splitit,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Spocket,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Spot,approve_with_ambiguous_name_guard,户外旅行与轻装备,1,,品牌名也是常见英文词；建议保留品牌，但后续文本匹配必须加上下文约束
+Spyderco,approve,工具与EDC,1,,未发现明显清洗问题
+Square,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Square Mile,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Squarespace,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Stabila,approve,工具与EDC,1,,未发现明显清洗问题
+StackAdapt,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Stahlwille,approve,工具与EDC,1,,未发现明显清洗问题
+Stamps.com,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Stanley,approve,工具与EDC; 户外旅行与轻装备; 省钱消费与零售,3,,跨多个领域出现；建议保留多领域归属
+Starbucks,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Stargazer,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Starrett,approve,工具与EDC,1,,未发现明显清洗问题
+Staub,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Stearns & Foster,approve,家居生活,1,,未发现明显清洗问题
+Sterilite,approve,家居生活,1,,未发现明显清洗问题
+SteriPen,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Stickley,approve,家居生活,1,,未发现明显清洗问题
+Stiletto,approve,工具与EDC,1,,未发现明显清洗问题
+StockX,approve,省钱消费与零售,1,,未发现明显清洗问题
+Stokke,approve,家庭与亲子,1,,未发现明显清洗问题
+Storkcraft,approve,家庭与亲子,1,,未发现明显清洗问题
+Streamlight,approve,工具与EDC,1,,未发现明显清洗问题
+Strider,approve,工具与EDC,1,,未发现明显清洗问题
+Stripe,review_noise_config_keep_likely,电商平台与卖家工具,1,noise_overlap,和旧噪音词表冲突；按品牌池口径建议保留，但需要修正噪音配置
+Stumptown,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Sub-Zero,approve,家居生活,1,,未发现明显清洗问题
+Subbly,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Sunbasket,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Sunrise Wholesale,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Supeco,approve,省钱消费与零售,1,,未发现明显清洗问题
+Superior Wilderness Designs,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+SureFire,approve,工具与EDC,1,,未发现明显清洗问题
+Surya,approve,家居生活,1,,未发现明显清洗问题
+Suunto,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Swanson,approve,工具与EDC,1,,未发现明显清洗问题
+Swap.com,approve,省钱消费与零售,1,,未发现明显清洗问题
+Swappa,approve,省钱消费与零售,1,,未发现明显清洗问题
+Sweet Bloom,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+T Market,approve,省钱消费与零售,1,,未发现明显清洗问题
+Taboola,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Tactical Arbitrage,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Tactile Knife Co,approve,工具与EDC,1,,未发现明显清洗问题
+Tactile Turn,approve,工具与EDC,1,,未发现明显清洗问题
+Tajima,approve,工具与EDC,1,,未发现明显清洗问题
+Takko,approve,省钱消费与零售,1,,未发现明显清洗问题
+Tanner Goods,approve,工具与EDC,1,,未发现明显清洗问题
+Target,approve,省钱消费与零售; 食品咖啡与生活方式,2,,跨多个领域出现；建议保留多领域归属
+Tarptent,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Tasmanian Tiger,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+TaxJar,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Taza Chocolate,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Tchibo,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Tea Collection,approve,家庭与亲子,1,,未发现明显清洗问题
+Teachable,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Technivorm Moccamaster,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Tecnica,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Teelaunch,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Tegu,approve,家庭与亲子,1,,未发现明显清洗问题
+Teikametrics,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Tekton,approve,工具与EDC,1,,未发现明显清洗问题
+Tempur-Pedic,approve,家居生活,1,,未发现明显清洗问题
+Ten Thousand Villages,approve,家居生活,1,,未发现明显清洗问题
+TentBox,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Tepui,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Terra Kaffe,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Terra Nova,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Tesco,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Testo,approve,工具与EDC,1,,未发现明显清洗问题
+Teva,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+The Barn,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+The Children's Place,approve,家庭与亲子,1,,未发现明显清洗问题
+The Citizenry,approve,家居生活,1,,未发现明显清洗问题
+The Container Store,approve,家居生活,1,,未发现明显清洗问题
+The Inside,approve,家居生活,1,,未发现明显清洗问题
+The New Primal,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+The North Face,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+The North Face Renewed,approve,省钱消费与零售,1,,未发现明显清洗问题
+The Range,approve,省钱消费与零售,1,,未发现明显清洗问题
+The RealReal,approve,省钱消费与零售,1,,未发现明显清洗问题
+The Trade Desk,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Theo,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Theodore Alexander,approve,家居生活,1,,未发现明显清洗问题
+Therm-a-Rest,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Thermador,approve,家居生活,1,,未发现明显清洗问题
+Thinkific,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Thirsties,approve,家庭与亲子,1,,未发现明显清洗问题
+Thistle,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Thomasnet,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+ThredUp,approve,省钱消费与零售,1,,未发现明显清洗问题
+Three Wishes,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+ThriveCart,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+ThruNite,approve,工具与EDC,1,,未发现明显清洗问题
+Thule,approve,家庭与亲子; 户外旅行与轻装备,2,,跨多个领域出现；建议保留多领域归属
+TikTok Ads,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Tim Hortons,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Tim Wendelboe,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Timbuk2,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Timemore,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Timex,approve,省钱消费与零售,1,,未发现明显清洗问题
+Tineco,approve,家居生活,1,,未发现明显清洗问题
+Tinuiti,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Tiny Love,approve,家庭与亲子,1,,未发现明显清洗问题
+Tinycottons,approve,家庭与亲子,1,,未发现明显清洗问题
+TJ Maxx,approve,省钱消费与零售,1,,未发现明显清洗问题
+Toaks,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Toby's Estate,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Toca Boca,approve,家庭与亲子,1,,未发现明显清洗问题
+Todis,approve,省钱消费与零售,1,,未发现明显清洗问题
+Tokmanni,approve,省钱消费与零售,1,,未发现明显清洗问题
+Tommee Tippee,approve,家庭与亲子,1,,未发现明显清洗问题
+Tone,approve,工具与EDC,1,,未发现明显清洗问题
+Tonies,approve,家庭与亲子,1,,未发现明显清洗问题
+Tony's Chocolonely,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Toothbrush Toys,approve,家庭与亲子,1,,未发现明显清洗问题
+Topo Athletic,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Topo Chico,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Topo Designs,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Tops Knives,approve,工具与EDC,1,,未发现明显清洗问题
+Tormek,approve,工具与EDC,1,,未发现明显清洗问题
+Toshiba,approve,家居生活,1,,未发现明显清洗问题
+Tovala,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Toynk,approve,家庭与亲子,1,,未发现明显清洗问题
+Toyota,approve,省钱消费与零售,1,,未发现明显清洗问题
+TQL,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Trader Joe's,approve,省钱消费与零售; 食品咖啡与生活方式,2,,跨多个领域出现；建议保留多领域归属
+Traeger,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Trayvax,approve,工具与EDC,1,,未发现明显清洗问题
+Tru Fru,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Tsunoda,approve,工具与EDC,1,,未发现明显清洗问题
+Tubby Todd,approve,家庭与亲子,1,,未发现明显清洗问题
+Tuesday Morning,approve,省钱消费与零售,1,,未发现明显清洗问题
+Tuft & Needle,approve,家居生活,1,,未发现明显清洗问题
+Tula,approve,家庭与亲子,1,,未发现明显清洗问题
+Tulerie,approve,省钱消费与零售,1,,未发现明显清洗问题
+Twsbi,approve,工具与EDC,1,,未发现明显清洗问题
+Ubbi,approve,家庭与亲子,1,,未发现明显清洗问题
+Uber Eats,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Uber Freight,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+UCO,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+ULA Equipment,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Umami Cart,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Umbra,approve,家居生活,1,,未发现明显清洗问题
+Unbounce,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Uncommon Goods,approve,家居生活,1,,未发现明显清洗问题
+Unicorn Smasher,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Universal Furniture,approve,家居生活,1,,未发现明显清洗问题
+Up & Up,approve,家庭与亲子,1,,未发现明显清洗问题
+Uppababy,approve,家庭与亲子,1,,未发现明显清洗问题
+UPS,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Upside,approve,省钱消费与零售,1,,未发现明显清洗问题
+Urban Outfitters Home,approve,家居生活,1,,未发现明显清洗问题
+USPS,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Vanguard,approve,家居生活,1,,未发现明显清洗问题
+Vapur,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Vargo,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Vasque,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Vaughan,approve,工具与EDC,1,,未发现明显清洗问题
+Veem,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Veeqo,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Veer,approve,家庭与亲子,1,,未发现明显清洗问题
+Veilance,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Verifone,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Veritas,approve,工具与EDC,1,,未发现明显清洗问题
+Verve,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Vessel,approve,工具与EDC,1,,未发现明显清洗问题
+Vestiaire Collective,approve,省钱消费与零售,1,,未发现明显清洗问题
+Vicks,approve,家庭与亲子,1,,未发现明显清洗问题
+Victoria Arduino,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Victorinox,approve,工具与EDC; 省钱消费与零售; 食品咖啡与生活方式,3,,跨多个领域出现；建议保留多领域归属
+Viking,approve,家居生活,1,,未发现明显清洗问题
+Vinted,approve,省钱消费与零售,1,,未发现明显清洗问题
+Viral Launch,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Vispring,approve,家居生活,1,,未发现明显清洗问题
+Vita Coco,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Vitaminwater,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Vitamix,approve,省钱消费与零售; 食品咖啡与生活方式,2,,跨多个领域出现；建议保留多领域归属
+Vitamix Certified Reconditioned,approve,省钱消费与零售,1,,未发现明显清洗问题
+Vitra,approve,家居生活,1,,未发现明显清洗问题
+Vivobarefoot,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Volusion,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Voyage Foods,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+VTech,approve,家庭与亲子,1,,未发现明显清洗问题
+Vuori,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Wacaco,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Walmart,approve,省钱消费与零售; 食品咖啡与生活方式,2,,跨多个领域出现；建议保留多领域归属
+Wandrd,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Warbonnet,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Waterloo,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+WaterWipes,approve,家庭与亲子,1,,未发现明显清洗问题
+Wayfair,approve,家居生活,1,,未发现明显清洗问题
+Wayflyer,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Waymark,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+WE Knife,approve,工具与EDC,1,,未发现明显清洗问题
+Weber,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Weee!,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Wegmans,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Wellements,approve,家庭与亲子,1,,未发现明显清洗问题
+Weltool,approve,工具与EDC,1,,未发现明显清洗问题
+Wen,approve,工具与EDC,1,,未发现明显清洗问题
+Wera,approve,工具与EDC,1,,未发现明显清洗问题
+WESN,approve,工具与EDC,1,,未发现明显清洗问题
+West Elm,approve,家居生活,1,,未发现明显清洗问题
+West Elm Kids,approve,家庭与亲子,1,,未发现明显清洗问题
+Western Mountaineering,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Whirlpool,approve,家居生活,1,,未发现明显清洗问题
+White River,approve,工具与EDC,1,,未发现明显清洗问题
+Whitmor,approve,家居生活,1,,未发现明显清洗问题
+Whole Foods,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Wholesale Central,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Wiha,approve,工具与EDC,1,,未发现明显清洗问题
+Wildbird,approve,家庭与亲子,1,,未发现明显清洗问题
+Willow,approve,家庭与亲子,1,,未发现明显清洗问题
+WinCo Foods,approve,省钱消费与零售,1,,未发现明显清洗问题
+Windi,approve,家庭与亲子,1,,未发现明显清洗问题
+Wise,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Wix eCommerce,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Wolf,approve,家居生活,1,,未发现明显清洗问题
+Wonderfold,approve,家庭与亲子,1,,未发现明显清洗问题
+WooCommerce,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Woodpeckers,approve,工具与EDC,1,,未发现明显清洗问题
+Woolworths,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Woot!,approve,省钱消费与零售,1,,未发现明显清洗问题
+WorldFirst,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Worldpay,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Worldwide Brands,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Worthy Threads,approve,家庭与亲子,1,,未发现明显清洗问题
+Worx,approve,工具与EDC,1,,未发现明显清洗问题
+Wurkkos,approve,工具与EDC,1,,未发现明显清洗问题
+Wusthof,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+X-Cart,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+xBloom,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Xero,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Xero Shoes,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+XPO Logistics,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Yahoo Shopping,approve,省钱消费与零售,1,,未发现明显清洗问题
+Yamazaki Home,approve,家居生活,1,,未发现明显清洗问题
+Yami Buy,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Yardline,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Yeti,approve,户外旅行与轻装备; 食品咖啡与生活方式,2,,跨多个领域出现；建议保留多领域归属
+YNAB,approve,省钱消费与零售,1,,未发现明显清洗问题
+Yoto,approve,家庭与亲子,1,,未发现明显清洗问题
+Yotpo,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+You Need A Budget,approve,省钱消费与零售,1,,未发现明显清洗问题
+YRC Freight,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Yumi,approve,家庭与亲子,1,,未发现明显清洗问题
+Yves Delorme,approve,家居生活,1,,未发现明显清洗问题
+Zamberlan,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Zara Home,approve,家居生活,1,,未发现明显清洗问题
+Zara Kids,approve,家庭与亲子,1,,未发现明显清洗问题
+Zarbee's,approve,家庭与亲子,1,,未发现明显清洗问题
+Zebra,approve,工具与EDC,1,,未发现明显清洗问题
+Zebralight,approve,工具与EDC,1,,未发现明显清洗问题
+Zeeman,approve,省钱消费与零售,1,,未发现明显清洗问题
+Zen Cart,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Zencargo,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Zendesk,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Zepto,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Zero Tolerance,approve,工具与EDC,1,,未发现明显清洗问题
+Zevia,approve,食品咖啡与生活方式,1,,未发现明显清洗问题
+Zip,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Zipify,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Zippo,approve,省钱消费与零售,1,,未发现明显清洗问题
+Zoe Strollers,approve,家庭与亲子,1,,未发现明显清洗问题
+Zojirushi,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Zoleo,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+ZonGuru,approve,电商平台与卖家工具,1,,未发现明显清洗问题
+Zpacks,approve,户外旅行与轻装备,1,,未发现明显清洗问题
+Zwilling J.A. Henckels,approve,食品咖啡与生活方式,1,,未发现明显清洗问题

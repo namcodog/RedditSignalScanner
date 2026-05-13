@@ -2,6 +2,7 @@ from fastapi import APIRouter
 
 from app.api.v1.endpoints import (
     analyze,
+    brand_intelligence,
     decision_units,
     tasks,
     stream,
@@ -21,6 +22,7 @@ from app.api.v1.endpoints import (
 api_router = APIRouter()
 
 api_router.include_router(analyze.router, tags=["analysis"])
+api_router.include_router(brand_intelligence.router)
 api_router.include_router(decision_units.router, tags=["decision-units"])
 api_router.include_router(tasks.router, tags=["tasks", "status"])
 api_router.include_router(stream.router, tags=["stream"])

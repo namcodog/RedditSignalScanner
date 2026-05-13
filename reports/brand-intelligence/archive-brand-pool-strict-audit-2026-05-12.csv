@@ -1,0 +1,1645 @@
+canonical_name,strict_priority,domains,raw_count,strict_flags,recommendation,reason
+1688.com,P2_canonical_form_review,电商平台与卖家工具,1,contains_digit; punctuation_or_url,保留品牌，入库前确认 canonical 形式和 brand_type,含数字，建议保留原始 canonical 并人工看格式；含标点、网址或符号，建议确认 canonical 形式
+1stDibs,P2_canonical_form_review,省钱消费与零售,1,contains_digit,保留品牌，入库前确认 canonical 形式和 brand_type,含数字，建议保留原始 canonical 并人工看格式
+1Zpresso,P2_canonical_form_review,食品咖啡与生活方式,1,contains_digit,保留品牌，入库前确认 canonical 形式和 brand_type,含数字，建议保留原始 canonical 并人工看格式
+2Checkout,P2_canonical_form_review,电商平台与卖家工具,1,contains_digit,保留品牌，入库前确认 canonical 形式和 brand_type,含数字，建议保留原始 canonical 并人工看格式
+3 Sprouts,P2_canonical_form_review,家庭与亲子,1,contains_digit,保留品牌，入库前确认 canonical 形式和 brand_type,含数字，建议保留原始 canonical 并人工看格式
+3dcart,P2_canonical_form_review,电商平台与卖家工具,1,contains_digit,保留品牌，入库前确认 canonical 形式和 brand_type,含数字，建议保留原始 canonical 并人工看格式
+3M,P1_text_match_risk,家居生活,1,short_token; contains_digit,保留品牌，但禁止裸词自动匹配；需 exact + 上下文/领域约束,短词/缩写，自动文本匹配需要强上下文；含数字，建议保留原始 canonical 并人工看格式
+4moms,P2_canonical_form_review,家庭与亲子,1,contains_digit,保留品牌，入库前确认 canonical 形式和 brand_type,含数字，建议保留原始 canonical 并人工看格式
+5.11 Tactical,P2_canonical_form_review,户外旅行与轻装备,1,contains_digit; punctuation_or_url,保留品牌，入库前确认 canonical 形式和 brand_type,含数字，建议保留原始 canonical 并人工看格式；含标点、网址或符号，建议确认 canonical 形式
+66 North,P2_canonical_form_review,户外旅行与轻装备,1,contains_digit,保留品牌，入库前确认 canonical 形式和 brand_type,含数字，建议保留原始 canonical 并人工看格式
+7-Eleven,P2_canonical_form_review,食品咖啡与生活方式,1,contains_digit,保留品牌，入库前确认 canonical 形式和 brand_type,含数字，建议保留原始 canonical 并人工看格式
+99 Ranch,P2_canonical_form_review,省钱消费与零售,1,contains_digit,保留品牌，入库前确认 canonical 形式和 brand_type,含数字，建议保留原始 canonical 并人工看格式
+A Dozen Cousins,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+A101,P2_canonical_form_review,省钱消费与零售,1,contains_digit,保留品牌，入库前确认 canonical 形式和 brand_type,含数字，建议保留原始 canonical 并人工看格式
+ABBY&FINN,P2_canonical_form_review,家庭与亲子,1,punctuation_or_url,保留品牌，入库前确认 canonical 形式和 brand_type,含标点、网址或符号，建议确认 canonical 形式
+Acaia,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Acebeam,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+ACR Bivy,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Action,P1_text_match_risk,省钱消费与零售,1,common_word_collision,保留品牌，但禁止裸词自动匹配；需 exact + 上下文/领域约束,品牌名也是普通词，自动文本匹配误报风险高
+AdBadger,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Adidas Terrex,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Adobe Commerce,P2_canonical_form_review,电商平台与卖家工具,1,service_channel_phrase,保留品牌，入库前确认 canonical 形式和 brand_type,更像渠道/服务/子产品名，建议入库时标注 brand_type
+Adorama Used,P2_canonical_form_review,省钱消费与零售,1,service_channel_phrase,保留品牌，入库前确认 canonical 形式和 brand_type,更像渠道/服务/子产品名，建议入库时标注 brand_type
+AdRoll,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Adtomic,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Adyen,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Aeon,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Aer,P1_text_match_risk,工具与EDC; 户外旅行与轻装备,2,short_token; multi_domain; duplicate_merged,保留品牌，但禁止裸词自动匹配；需 exact + 上下文/领域约束,短词/缩写，自动文本匹配需要强上下文；跨领域出现，建议保留多领域归属；多来源重复已合并
+Aeropress,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Affirm,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Afterpay,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+AfterShip,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Age of Innocence,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Agility,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Ahold Delhaize,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+AiHello,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Airwallex,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Alani Nu,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Albany Park,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Albert Heijn,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Aldi,P3_metadata_review,省钱消费与零售; 食品咖啡与生活方式,2,multi_domain; duplicate_merged,保留品牌，保留多领域/重复来源元数据,跨领域出现，建议保留多领域归属；多来源重复已合并
+Alibaba,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+AliExpress,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+All-Clad,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+AllModern,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Alma Coffee,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Almond Breeze,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Alpaka,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Alps Mountaineering,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Alter Eco,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Altra,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Amana,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Amara,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+AmazeOwl,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Amazon Fresh,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Amazon Marketing Services,P2_canonical_form_review,电商平台与卖家工具,1,service_channel_phrase,保留品牌，入库前确认 canonical 形式和 brand_type,更像渠道/服务/子产品名，建议入库时标注 brand_type
+Amazon Warehouse,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+AmazonBasics,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+AMZBase,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+AMZRefund,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+AMZScout,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Anchor Hocking,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+And Wander,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Andy Pandy,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Angel Dear,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Anker,P3_metadata_review,户外旅行与轻装备; 省钱消费与零售,2,multi_domain; duplicate_merged,保留品牌，保留多领域/重复来源元数据,跨领域出现，建议保留多领域归属；多来源重复已合并
+Annie Selke,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Anthropologie Home,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Apple Refurbished,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+April Coffee,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Apt2B,P2_canonical_form_review,家居生活,1,contains_digit,保留品牌，入库前确认 canonical 形式和 brand_type,含数字，建议保留原始 canonical 并人工看格式
+Aptamil,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+AptDeco,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Aquaphor,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Aramex,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Arc'teryx,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Arc'teryx ReGEAR,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+ArcBest,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Arhaus,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Armadillo,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Armytek,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Article,P1_text_match_risk,家居生活,1,common_word_collision,保留品牌，但禁止裸词自动匹配；需 exact + 上下文/领域约束,品牌名也是普通词，自动文本匹配误报风险高
+Artipoppe,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Artisan Cutlery,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Asda,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Ashley Furniture,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+ASINspector,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Asolo,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Astral,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Attentive,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Auchan,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Aura,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Australia Post,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Authorize.Net,P2_canonical_form_review,电商平台与卖家工具,1,punctuation_or_url,保留品牌，入库前确认 canonical 形式和 brand_type,含标点、网址或符号，建议确认 canonical 形式
+Avalara,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Aveeno Baby,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Avocado Green,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Avocado Green Mattress,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Awara,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+B&B Italia,P2_canonical_form_review,家居生活,1,punctuation_or_url,保留品牌，入库前确认 canonical 形式和 brand_type,含标点、网址或符号，建议确认 canonical 形式
+B&H Used,P2_canonical_form_review,省钱消费与零售,1,punctuation_or_url; service_channel_phrase,保留品牌，入库前确认 canonical 形式和 brand_type,含标点、网址或符号，建议确认 canonical 形式；更像渠道/服务/子产品名，建议入库时标注 brand_type
+B&M,P1_text_match_risk,省钱消费与零售,1,short_token; punctuation_or_url,保留品牌，但禁止裸词自动匹配；需 exact + 上下文/领域约束,短词/缩写，自动文本匹配需要强上下文；含标点、网址或符号，建议确认 canonical 形式
+Babo Botanicals,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Baby Bjorn,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Baby Brezza,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Baby Einstein,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Baby Jogger,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Babyganics,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Babyletto,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Bachan's,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Back Market,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Baffin,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Bahco,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Baier,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Baker,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Balmuda,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Bambo Nature,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Banking Circle,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Banza,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Baratza,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Barebones Living,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Bark River,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Bassett,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Beaba,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Beacon,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Beautyrest,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Bedrock Sandals,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Bellroy,P3_metadata_review,工具与EDC; 户外旅行与轻装备,2,multi_domain; duplicate_merged,保留品牌，保留多领域/重复来源元数据,跨领域出现，建议保留多领域归属；多来源重复已合并
+Benchmade,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+BenchMade Modern,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Beni Rugs,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Bentley Home,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Bernhardt,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Best Buy Outlet,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Beta,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Bevi,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Bialetti,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+BidX,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Biedronka,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Big Agnes,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Big Green Egg,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Big Idea Design,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Big Lots,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+BigCommerce,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Billa,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Bim,P1_text_match_risk,省钱消费与零售,1,short_token,保留品牌，但禁止裸词自动匹配；需 exact + 上下文/领域约束,短词/缩写，自动文本匹配需要强上下文
+Bindwise,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Bing Ads,P2_canonical_form_review,电商平台与卖家工具,1,service_channel_phrase,保留品牌，入库前确认 canonical 形式和 brand_type,更像渠道/服务/子产品名，建议入库时标注 brand_type
+BioGaia,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+BioLite,P3_metadata_review,工具与EDC; 户外旅行与轻装备,2,multi_domain; duplicate_merged,保留品牌，保留多领域/重复来源元数据,跨领域出现，建议保留多领域归属；多来源重复已合并
+Birch,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Bird Rock,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Birdie Bean,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Birkenstock,P3_metadata_review,户外旅行与轻装备; 省钱消费与零售,2,multi_domain; duplicate_merged,保留品牌，保留多领域/重复来源元数据,跨领域出现，建议保留多领域归属；多来源重复已合并
+Bissell,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Bizrate,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+BJ's Wholesale,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Black & Decker,P2_canonical_form_review,工具与EDC,1,punctuation_or_url,保留品牌，入库前确认 canonical 形式和 brand_type,含标点、网址或符号，建议确认 canonical 形式
+Black & White,P2_canonical_form_review,食品咖啡与生活方式,1,punctuation_or_url,保留品牌，入库前确认 canonical 形式和 brand_type,含标点、网址或符号，建议确认 canonical 形式
+Black Diamond,P3_metadata_review,工具与EDC; 户外旅行与轻装备,2,multi_domain; duplicate_merged,保留品牌，保留多领域/重复来源元数据,跨领域出现，建议保留多领域归属；多来源重复已合并
+Blackstone,P3_metadata_review,户外旅行与轻装备; 食品咖啡与生活方式,2,multi_domain; duplicate_merged,保留品牌，保留多领域/重复来源元数据,跨领域出现，建议保留多领域归属；多来源重复已合并
+Blendtec,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Blinkit,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Blomus,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Blu Dot,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Blue Apron,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Blue Bottle,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Blueair,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Bluetti,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+BlueVine,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Blundstone,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+BOB Gear,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Bobbie,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Bobo Choses,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Boden,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Bodum,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+BodyArmor,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Boll & Branch,P2_canonical_form_review,家居生活,1,punctuation_or_url,保留品牌，入库前确认 canonical 形式和 brand_type,含标点、网址或符号，建议确认 canonical 形式
+Bolloré Logistics,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Boni,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Boogie Wipes,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Boon,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Bosch,P3_metadata_review,家居生活; 工具与EDC,2,multi_domain; duplicate_merged,保留品牌，保留多领域/重复来源元数据,跨领域出现，建议保留多领域归属；多来源重复已合并
+Boudreaux's Butt Paste,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Boxed Water,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Bqool,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Brabantia,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Brad's Deals,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Bradford Knives,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Braintree,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Brami,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Braun,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Breville,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Brex,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Bridge City Tool Works,P2_canonical_form_review,工具与EDC,1,long_phrase,保留品牌，入库前确认 canonical 形式和 brand_type,长短语品牌/服务名，建议确认是否作为单一品牌入库
+Brio,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Britax,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Brooklinen,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Brooks,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Brother,P1_text_match_risk,省钱消费与零售,1,noise_overlap,保留品牌，但禁止裸词自动匹配；需 exact + 上下文/领域约束,和旧噪音词表冲突，需修正噪音配置后再自动匹配
+Brunton,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Bubly,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Buck Knives,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Buff,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Buffy,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Bugaboo,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Bumbleride,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+BumGenius,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Bunnpris,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Burlington,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Burrow,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Burt's Bees,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Burt's Bees Baby,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Buy Nothing Project,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+ByHeart,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+C.H. Robinson,P2_canonical_form_review,电商平台与卖家工具,1,punctuation_or_url,保留品牌，入库前确认 canonical 形式和 brand_type,含标点、网址或符号，建议确认 canonical 形式
+C4,P1_text_match_risk,食品咖啡与生活方式,1,short_token; contains_digit,保留品牌，但禁止裸词自动匹配；需 exact + 上下文/领域约束,短词/缩写，自动文本匹配需要强上下文；含数字，建议保留原始 canonical 并人工看格式
+Cafelat Robot,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Califia Farms,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+California Baby,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+California Closets,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Calphalon,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+CamelBak,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+CamelCamelCamel,P3_metadata_review,电商平台与卖家工具; 省钱消费与零售,2,multi_domain; duplicate_merged,保留品牌，保留多领域/重复来源元数据,跨领域出现，建议保留多领域归属；多来源重复已合并
+Camp Chef,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Campaign,P1_text_match_risk,家居生活,1,common_word_collision,保留品牌，但禁止裸词自动匹配；需 exact + 上下文/领域约束,品牌名也是普通词，自动文本匹配误报风险高
+Can Do,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Canada Goose,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Canada Post,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Capital One Shopping,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Caracole,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Caraway,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Carhartt,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Caribou Coffee,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Carnivore Snax,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Carrefour,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Carter's,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Case,P1_text_match_risk,工具与EDC,1,common_word_collision,保留品牌，但禁止裸词自动匹配；需 exact + 上下文/领域约束,品牌名也是普通词，自动文本匹配误报风险高
+Cash Converters,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Casio,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Casio Pro Trek,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Casper,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Cassina,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Castlery,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Catalina Crunch,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+CB2,P1_text_match_risk,家居生活,1,short_token; contains_digit,保留品牌，但禁止裸词自动匹配；需 exact + 上下文/领域约束,短词/缩写，自动文本匹配需要强上下文；含数字，建议保留原始 canonical 并人工看格式
+Celsius,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Century,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Century Furniture,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Cereal School,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Cerebelly,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Cetaphil Baby,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+CEVA Logistics,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+CEX,P1_text_match_risk,省钱消费与零售,1,short_token,保留品牌，但禁止裸词自动匹配；需 exact + 上下文/领域约束,短词/缩写，自动文本匹配需要强上下文
+Chaco,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Chairish,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+ChannelAdvisor,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Channellock,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Charlie Banana,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Checkout.com,P2_canonical_form_review,电商平台与卖家工具,1,punctuation_or_url,保留品牌，入库前确认 canonical 形式和 brand_type,含标点、网址或符号，建议确认 canonical 形式
+Chemex,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Chicago Pneumatic,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Chicco,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Childhoods Clothing,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Chilewich,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Chobani,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Chomps,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Chris Reeve,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Christopher Guy,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Chrome Industries,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Civivi,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+CJRB,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Clearco,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Clek,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+ClickBank,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+ClickFunnels,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Clif Bar,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+ClosetMaid,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Closets by Design,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Cloud Defensive,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+CNET Shopping,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Cnoc Outdoors,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Coast,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Codeofbell,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Coffee Bros,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Cold Steel,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Colectivo,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Coleman,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Coles,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Colgate Mattress,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Colonna,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Colruyt,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Colugo,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Columbia,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Columbia Kids,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Cometeer,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Command,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Commandante,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Comotomo,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Conad,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Convoy,P3_metadata_review,工具与EDC; 电商平台与卖家工具,2,multi_domain; duplicate_merged,保留品牌，保留多领域/重复来源元数据,跨领域出现，建议保留多领域归属；多来源重复已合并
+CookUnity,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Coop,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Corelle,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Corkcicle,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Cornwell,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Coros,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Cosco,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Costa Coffee,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Costco,P3_metadata_review,省钱消费与零售; 食品咖啡与生活方式,2,multi_domain; duplicate_merged,保留品牌，保留多领域/重复来源元数据,跨领域出现，建议保留多领域归属；多来源重复已合并
+Coterie,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Cotopaxi,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Counter Culture,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Country Archer,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Coupons.com,P2_canonical_form_review,省钱消费与零售,1,punctuation_or_url,保留品牌，入库前确认 canonical 形式和 brand_type,含标点、网址或符号，建议确认 canonical 形式
+Cow & Gate,P2_canonical_form_review,家庭与亲子,1,punctuation_or_url,保留品牌，入库前确认 canonical 形式和 brand_type,含标点、网址或符号，建议确认 canonical 形式
+Coway,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Coyote Logistics,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Coyuchi,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Craftsman,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Craigslist,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Crane,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Crate & Barrel,P2_canonical_form_review,家居生活,1,punctuation_or_url,保留品牌，入库前确认 canonical 形式和 brand_type,含标点、网址或符号，建议确认 canonical 形式
+Crate & Kids,P2_canonical_form_review,家庭与亲子,1,punctuation_or_url,保留品牌，入库前确认 canonical 形式和 brand_type,含标点、网址或符号，建议确认 canonical 形式
+Credit Karma,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Crescent,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Criteo,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+CRKT,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Crocs,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Cross,P1_text_match_risk,工具与EDC,1,common_word_collision,保留品牌，但禁止裸词自动匹配；需 exact + 上下文/领域约束,品牌名也是普通词，自动文本匹配误报风险高
+Cubo Ai,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Cuisinart,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Culture Pop,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Culturelle,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Currencies Direct,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Curtsy,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+CustomCat,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Cuvee Coffee,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Cybex,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Daily Harvest,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Daiso,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Daka,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Dango Products,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Danner,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Darn Tough,P3_metadata_review,户外旅行与轻装备; 省钱消费与零售,2,multi_domain; duplicate_merged,保留品牌，保留多领域/重复来源元数据,跨领域出现，建议保留多领域归属；多来源重复已合并
+Dash & Albert,P2_canonical_form_review,家居生活,1,punctuation_or_url,保留品牌，入库前确认 canonical 形式和 brand_type,含标点、网址或符号，建议确认 canonical 形式
+DataHawk,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Davinci,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Db Journey,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+DB Schenker,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+De'Longhi,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Dealz,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Decluttr,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Delhaize,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Deliverr,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Dell Outlet,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Delta,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Delta Children,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Denner,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Depop,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Design Within Reach,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Desitin,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Deuter,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+DeWalt,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+DHL,P1_text_match_risk,电商平台与卖家工具,1,short_token,保留品牌，但禁止裸词自动匹配；需 exact + 上下文/领域约束,短词/缩写，自动文本匹配需要强上下文
+Dia,P1_text_match_risk,省钱消费与零售,1,short_token,保留品牌，但禁止裸词自动匹配；需 exact + 上下文/领域约束,短词/缩写，自动文本匹配需要强上下文
+Diaper Dekor,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Dickies,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Dinnerly,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Diono,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Dirt Devil,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Divvy,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Doba,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+DockATot,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Dollar General,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Dollar Tree,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Don Quijote,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Done by Deer,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Doona,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+DoorDash,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Downlite,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Downstream,P1_text_match_risk,电商平台与卖家工具,1,common_word_collision,保留品牌，但禁止裸词自动匹配；需 exact + 上下文/领域约束,品牌名也是普通词，自动文本匹配误报风险高
+Doyle,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+DPiù,P1_text_match_risk,省钱消费与零售,1,short_token,保留品牌，但禁止裸词自动匹配；需 exact + 上下文/领域约束,短词/缩写，自动文本匹配需要强上下文
+Dr. Brown's,P2_canonical_form_review,家庭与亲子,1,punctuation_or_url,保留品牌，入库前确认 canonical 形式和 brand_type,含标点、网址或符号，建议确认 canonical 形式
+Dr. Martens,P2_canonical_form_review,省钱消费与零售,1,punctuation_or_url,保留品牌，入库前确认 canonical 形式和 brand_type,含标点、网址或符号，建议确认 canonical 形式
+Dragonfly,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Dream On Me,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Dreame,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Dremel,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Drexel Heritage,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Drink Coffee Do Stuff,P2_canonical_form_review,食品咖啡与生活方式,1,long_phrase,保留品牌，入库前确认 canonical 形式和 brand_type,长短语品牌/服务名，建议确认是否作为单一品牌入库
+Dropified,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+DS Amazon Quick View,P2_canonical_form_review,电商平台与卖家工具,1,long_phrase; service_channel_phrase,保留品牌，入库前确认 canonical 形式和 brand_type,长短语品牌/服务名，建议确认是否作为单一品牌入库；更像渠道/服务/子产品名，建议入库时标注 brand_type
+DSV,P1_text_match_risk,电商平台与卖家工具,1,short_token,保留品牌，但禁止裸词自动匹配；需 exact + 上下文/领域约束,短词/缩写，自动文本匹配需要强上下文
+Dunkin',P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Durston Gear,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Dutchware,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Duxiana,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+DWR,P1_text_match_risk,家居生活,1,short_token,保留品牌，但禁止裸词自动匹配；需 exact + 上下文/领域约束,短词/缩写，自动文本匹配需要强上下文
+Dynafit,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Dyper,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Dyson,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Dyson Outlet,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+E.Leclerc,P2_canonical_form_review,食品咖啡与生活方式,1,punctuation_or_url,保留品牌，入库前确认 canonical 形式和 brand_type,含标点、网址或符号，建议确认 canonical 形式
+Eagles Nest Outfitters,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Earth Mama,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Earth's Best,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Eastpak,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Easy Track,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Easyship,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+eBay,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+eBay Refurbished,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+ECM,P1_text_match_risk,食品咖啡与生活方式,1,short_token,保留品牌，但禁止裸词自动匹配；需 exact + 上下文/领域约束,短词/缩写，自动文本匹配需要强上下文
+Eco by Naty,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+EcoFlow,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Ecovacs,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Ecwid,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Eddie Bauer,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Edeka,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Ego Power+,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Egrow,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Eileen Fisher Renew,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Eisenblaetter,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+EJ Victor,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Ekster,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Elastic Path,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Electrolit,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Electrolux,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Elfa,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Elmhurst,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Else Nutrition,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Elvie,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Emisar,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Empire Level,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Endangered Species,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Enfamil,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Engineer,P1_text_match_risk,工具与EDC,1,common_word_collision,保留品牌，但禁止裸词自动匹配；需 exact + 上下文/领域约束,品牌名也是普通词，自动文本匹配误报风险高
+Enlightened Equipment,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Eno,P1_text_match_risk,户外旅行与轻装备,1,short_token,保留品牌，但禁止裸词自动匹配；需 exact + 上下文/领域约束,短词/缩写，自动文本匹配需要强上下文
+Epic Provisions,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Equator,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Ergobaby,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+ESEE,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Esembly,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Espro,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Estes,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Estwing,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Ethan Allen,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Etsy,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Eufy,P3_metadata_review,家居生活; 家庭与亲子,2,multi_domain; duplicate_merged,保留品牌，保留多领域/重复来源元数据,跨领域出现，建议保留多领域归属；多来源重复已合并
+Eureka,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Europris,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Eurospin,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Evenflo,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Evergoods,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+EveryDollar,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+EveryPlate,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Exergen,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Exped,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Expeditors,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Ezpz,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Facebook Ads,P2_canonical_form_review,电商平台与卖家工具,1,service_channel_phrase,保留品牌，入库前确认 canonical 形式和 brand_type,更像渠道/服务/子产品名，建议入库时标注 brand_type
+Facebook Marketplace,P2_canonical_form_review,省钱消费与零售,1,service_channel_phrase,保留品牌，入库前确认 canonical 形式和 brand_type,更像渠道/服务/子产品名，建议入库时标注 brand_type
+Facom,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Factor,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Fallkniven,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Family Dollar,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+FamilyMart,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Farm to Feet,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Fashionphile,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+FastCap,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Fat Brain Toys,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+FBAtoolkit,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Feathered Friends,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+FedEx,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+FeedbackFive,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+FeedbackWhiz,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Feedvisor,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Fein,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Fellow,P3_metadata_review,户外旅行与轻装备; 食品咖啡与生活方式,2,multi_domain; duplicate_merged,保留品牌，保留多领域/重复来源元数据,跨领域出现，建议保留多领域归属；多来源重复已合并
+Fendi Casa,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Fenix,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Ferm Living,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Festool,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Fetch Rewards,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Fetcher,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Field Company,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Field Notes,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Fieldpiece,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Filson,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Finex,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Finisterre,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Fisher Space Pen,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Fisher-Price,P3_metadata_review,家庭与亲子,2,duplicate_merged,保留品牌，保留多领域/重复来源元数据,多来源重复已合并
+Five Below,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Fjallraven,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Flair Espresso,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+FlavorCloud,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Flex,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Flexform,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Flexport,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Flipp,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Flock Freight,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Flow,P1_text_match_risk,食品咖啡与生活方式,1,common_word_collision,保留品牌，但禁止裸词自动匹配；需 exact + 上下文/领域约束,品牌名也是普通词，自动文本匹配误报风险高
+Flowfold,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Floyd,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Fluke,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Fly By Jing,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Flying Tiger,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Flytanium,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Food 4 Less,P2_canonical_form_review,省钱消费与零售,1,contains_digit,保留品牌，入库前确认 canonical 形式和 brand_type,含数字，建议保留原始 canonical 并人工看格式
+Forecastly,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Fornasetti,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Forto,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Foursevens,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Freecycle,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+FreshDirect,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Freshly,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Frette,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+FridaBaby,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Frigidaire,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Fundbox,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Gaggia,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+GameStop,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Gap Kids,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Gardelli,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Garmin,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Garmont,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+GasBuddy,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Gatorade,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Gazelle,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+GE,P1_text_match_risk,家居生活,1,short_token,保留品牌，但禁止裸词自动匹配；需 exact + 上下文/领域约束,短词/缩写，自动文本匹配需要强上下文
+Gearwrench,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Gedore,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Gelato,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+GemPages,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Geodis,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Georg Jensen,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+George Howell,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Gerber,P3_metadata_review,家庭与亲子; 工具与EDC,2,multi_domain; duplicate_merged,保留品牌，保留多领域/重复来源元数据,跨领域出现，建议保留多领域归属；多来源重复已合并
+GETIDA,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+GiantMouse,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Global,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Global Sources,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Goal Zero,P3_metadata_review,工具与EDC; 户外旅行与轻装备,2,multi_domain; duplicate_merged,保留品牌，保留多领域/重复来源元数据,跨领域出现，建议保留多领域归属；多来源重复已合并
+GOAT,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Gobble,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+GoBolt,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+GoCardless,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Goldbelly,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Goldwin,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+GoMacro,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Goodee,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Goodles,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Goodwill,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Google Ads,P2_canonical_form_review,电商平台与卖家工具,1,service_channel_phrase,保留品牌，入库前确认 canonical 形式和 brand_type,更像渠道/服务/子产品名，建议入库时标注 brand_type
+Google Shopping,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Gooten,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Gopuff,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Gorgias,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Goruck,P3_metadata_review,工具与EDC; 户外旅行与轻装备,2,multi_domain; duplicate_merged,保留品牌，保留多领域/重复来源元数据,跨领域出现，建议保留多领域归属；多来源重复已合并
+Gossamer Gear,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Goumi,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Gozney,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Graco,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Grailed,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Gramicci,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Granite Gear,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Grapat,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Grayl,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Great Jones,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Greater Goods,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Green Chef,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Green Toys,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Gregory,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Grimm's,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Grizzly,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Grocery Outlet,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Groupon,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+GroVia,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Grubhub,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+GSI Outdoors,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+GT's Kombucha,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Guava Family,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Gubi,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Gumroad,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Gund,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Gus Modern,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+H Mart,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+H&M Home,P2_canonical_form_review,家居生活,1,punctuation_or_url,保留品牌，入库前确认 canonical 形式和 brand_type,含标点、网址或符号，建议确认 canonical 形式
+H&M Kids,P2_canonical_form_review,家庭与亲子,1,punctuation_or_url,保留品牌，入库前确认 canonical 形式和 brand_type,含标点、网址或符号，建议确认 canonical 形式
+H-E-B,P1_text_match_risk,食品咖啡与生活方式,1,short_token,保留品牌，但禁止裸词自动匹配；需 exact + 上下文/领域约束,短词/缩写，自动文本匹配需要强上下文
+Haakaa,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Haier,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Halo,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Hammock Gear,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Hancock & Moore,P2_canonical_form_review,家居生活,1,punctuation_or_url,保留品牌，入库前确认 canonical 形式和 brand_type,含标点、网址或符号，建议确认 canonical 形式
+Hank Lights,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Hanna Andersson,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Hanwag,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Hape,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Happiest Baby,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Happy Baby,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Harbor Freight,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Hario,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Harmless Harvest,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Hatch,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Hatch Baby,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Hatley,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Havertys,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Hay,P1_text_match_risk,家居生活,1,short_token,保留品牌，但禁止裸词自动匹配；需 exact + 上下文/领域约束,短词/缩写，自动文本匹配需要强上下文
+Hazet,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Health-Ade,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Healthybaby,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Heart,P1_text_match_risk,食品咖啡与生活方式,1,common_word_collision,保留品牌，但禁止裸词自动匹配；需 exact + 上下文/领域约束,品牌名也是普通词，自动文本匹配误报风险高
+Heimplanet,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Helium 10,P2_canonical_form_review,电商平台与卖家工具,1,contains_digit,保留品牌，入库前确认 canonical 形式和 brand_type,含数字，建议保留原始 canonical 并人工看格式
+Helix,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Helle,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Hellmann,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Hello Bello,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+HelloFresh,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+HelloProfit,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Helly Hansen,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Hem,P1_text_match_risk,家居生活,1,short_token,保留品牌，但禁止裸词自动匹配；需 exact + 上下文/领域约束,短词/缩写，自动文本匹配需要强上下文
+Hema,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Hennessy Hammock,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Henredon,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Henry,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Herman Miller,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Herschel Supply,P3_metadata_review,工具与EDC; 户外旅行与轻装备,2,multi_domain; duplicate_merged,保留品牌，保留多领域/重复来源元数据,跨领域出现，建议保留多领域归属；多来源重复已合并
+HEST,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+HexClad,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Hickory Chair,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Hill People Gear,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Hilleberg,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Hilti,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Hinderer,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Hint,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+HiPP,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Hisense,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Hitachi,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Hofer,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Hoka,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Holle,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Home Bargains,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Home Chef,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+HomeGoods,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Honda,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Honest Company,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Honey,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Honey-Can-Do,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Honeywell,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Hooker Furniture,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Hoover,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Houdini,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Hu Kitchen,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+HubSpot,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Huggies,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Hungryroot,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Hunter,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Husky,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+HydraPak,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Hydro Flask,P3_metadata_review,户外旅行与轻装备; 食品咖啡与生活方式,2,multi_domain; duplicate_merged,保留品牌，保留多领域/重复来源元数据,跨领域出现，建议保留多领域归属；多来源重复已合并
+Hyland's,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Hyperlite Mountain Gear,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Hästens,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Ibotta,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Icebreaker,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Icon,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Idealo,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+iDesign,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Iittala,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+iKamper,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Ikea,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Ikea As-Is,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Illy,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Imperfect Foods,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+iN's Mercato,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Incra,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Infant Optics,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Informed.co,P2_canonical_form_review,电商平台与卖家工具,1,punctuation_or_url,保留品牌，入库前确认 canonical 形式和 brand_type,含标点、网址或符号，建议确认 canonical 形式
+Ingersoll Rand,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Inglesina,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Inov-8,P2_canonical_form_review,户外旅行与轻装备,1,contains_digit,保留品牌，入库前确认 canonical 形式和 brand_type,含数字，建议保留原始 canonical 并人工看格式
+Instacart,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Instant Pot,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Intelligentsia,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Intentwise,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Intercom,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Interior Define,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Intermarché,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+InventoryLab,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+InvisibleHand,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Iris,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+iRobot,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Irwin,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+J.B. Hunt,P2_canonical_form_review,电商平台与卖家工具,1,punctuation_or_url,保留品牌，入库前确认 canonical 形式和 brand_type,含标点、网址或符号，建议确认 canonical 形式
+Jack Wolfskin,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Jackery,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Jaipur Living,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+James Brand,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Jamie Kay,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Janie and Jack,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+JanSport,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+JBC Coffee Roasters,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Jeeves,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Jellycat,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Jet,P1_text_match_risk,工具与EDC,1,short_token,保留品牌，但禁止裸词自动匹配；需 exact + 上下文/领域约束,短词/缩写，自动文本匹配需要强上下文
+Jetboil,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Joe Coffee,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Johnson & Johnson,P2_canonical_form_review,家庭与亲子,1,punctuation_or_url,保留品牌，入库前确认 canonical 形式和 brand_type,含标点、网址或符号，建议确认 canonical 形式
+Johnson Level,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Jonathan Adler,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Jonathan Charles,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Joseph Joseph,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Joss & Main,P2_canonical_form_review,家居生活,1,punctuation_or_url,保留品牌，入库前确认 canonical 形式和 brand_type,含标点、网址或符号，建议确认 canonical 形式
+Joules,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Joybird,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Julius Meinl,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Jungle Scout,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Jura,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Justin's,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Ka-Bar,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Kabbage,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Kabrita,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Kaiyo,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Kajabi,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Kalita,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Kalon Studios,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Kamado Joe,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Kamik,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Kammok,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Kardiel,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Kartell,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Kartra,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Katabatic Gear,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Katadyn,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Kate Quinn,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Katkin,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Kaufland,P3_metadata_review,省钱消费与零售; 食品咖啡与生活方式,2,multi_domain; duplicate_merged,保留品牌，保留多领域/重复来源元数据,跨领域出现，建议保留多领域归属；多来源重复已合并
+Kaweco,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Keekaroo,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Keen,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Keenz,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Keepa,P3_metadata_review,电商平台与卖家工具; 省钱消费与零售,2,multi_domain; duplicate_merged,保留品牌，保留多领域/重复来源元数据,跨领域出现，建议保留多领域归属；多来源重复已合并
+KEH Camera,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Kelkoo,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Kelty,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Kendamil,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Kenmore,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Kerry Logistics,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Kershaw,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Keson,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Keurig,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Kevita,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+KeyBar,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+KeySmart,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Keyword Tool Dominator,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Kibly,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Kickee Pants,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Kidizen,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Kik,P1_text_match_risk,省钱消费与零售,1,short_token,保留品牌，但禁止裸词自动匹配；需 exact + 上下文/领域约束,短词/缩写，自动文本匹配需要强上下文
+Kincaid,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Kind,P1_text_match_risk,食品咖啡与生活方式,1,common_word_collision,保留品牌，但禁止裸词自动匹配；需 exact + 上下文/领域约束,品牌名也是普通词，自动文本匹配误报风险高
+Kinsa,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Kintetsu World Express,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Kinu,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Kirkland Signature,P3_metadata_review,家庭与亲子; 省钱消费与零售,2,multi_domain; duplicate_merged,保留品牌，保留多领域/重复来源元数据,跨领域出现，建议保留多领域归属；多来源重复已合并
+KitchenAid,P3_metadata_review,家居生活; 食品咖啡与生活方式,2,multi_domain; duplicate_merged,保留品牌，保留多领域/重复来源元数据,跨领域出现，建议保留多领域归属；多来源重复已合并
+KitchenAid Refurbished,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Kiwi,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+KiwiCo,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Kizer,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Klarna,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Klatch,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Klattermusen,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Klaviyo,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Klean Kanteen,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Klein Tools,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Klymit,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Knipex,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Knoll,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Ko-ken,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Kobalt,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+KonMari,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Kroger,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Krups,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Kudos,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Kuehne + Nagel,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Kuhl,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Kyte Baby,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+L'ovedbaby,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+La Cabra,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+La Croix,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+La Marzocco,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+La Sportiva,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+La-Z-Boy,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Laguna,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Lalabu,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Lallie London,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Lalo,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Lamaze,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Lamello,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Lamy,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Lansinoh,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Larabar,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Lavazza,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Lawson,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Le Creuset,P3_metadata_review,省钱消费与零售; 食品咖啡与生活方式,2,multi_domain; duplicate_merged,保留品牌，保留多领域/重复来源元数据,跨领域出现，建议保留多领域归属；多来源重复已合并
+Leader Price,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Leadpages,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+LeapFrog,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Leatherman,P3_metadata_review,工具与EDC; 省钱消费与零售,2,multi_domain; duplicate_merged,保留品牌，保留多领域/重复来源元数据,跨领域出现，建议保留多领域归属；多来源重复已合并
+Ledlenser,P3_metadata_review,工具与EDC; 户外旅行与轻装备,2,multi_domain; duplicate_merged,保留品牌，保留多领域/重复来源元数据,跨领域出现，建议保留多领域归属；多来源重复已合并
+Lee Industries,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Leesa,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Lego Duplo,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Lelit,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Lenox,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Levi's SecondHand,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Levoit,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Lexington,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+LG,P1_text_match_risk,家居生活,1,short_token,保留品牌，但禁止裸词自动匹配；需 exact + 上下文/领域约束,短词/缩写，自动文本匹配需要强上下文
+Lidl,P3_metadata_review,省钱消费与零售; 食品咖啡与生活方式,2,multi_domain; duplicate_merged,保留品牌，保留多领域/重复来源元数据,跨领域出现，建议保留多领域归属；多来源重复已合并
+Lie-Nielsen,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Liewood,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Lifestaver,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+LifeStraw,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Light My Fire,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Ligne Roset,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Lillebaby,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+LionSteel,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Liquid Death,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Liquid IV,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+LiteAF,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Little Remedies,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Little Sleepies,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Little Spoon,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+LMNT,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Loblaw,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Lobtex,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Lodge,P3_metadata_review,户外旅行与轻装备; 省钱消费与零售; 食品咖啡与生活方式,3,multi_domain; duplicate_merged,保留品牌，保留多领域/重复来源元数据,跨领域出现，建议保留多领域归属；多来源重复已合并
+Lollipop,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Loloi,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Loomy,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Lorena Canals,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Lovevery,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Lowa,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Lowe Pro,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Lucky Sweater,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Lufkin,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Lulu and Georgia,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Lululemon Like New,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Lumintop,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Luna Sandals,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Luvs,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Mac Tools,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Made In,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Madewell Forever,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Maersk,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Mafell,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Magento,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Magic Spoon,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Maglite,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Magna-Tiles,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Magnetic Me,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Magnit,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Magpul,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Mahlkonig,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Maiden Home,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Mailchimp,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Makita,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Malk,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Malkoff,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Mam,P1_text_match_risk,家庭与亲子,1,short_token,保留品牌，但禁止裸词自动匹配；需 exact + 上下文/领域约束,短词/缩写，自动文本匹配需要强上下文
+Mama Bear,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+MamaRoo,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Mammut,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+ManageByStats,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Manhattan Toy,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Manker,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Marge Carson,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Marie Kondo,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Marimekko,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Market Basket,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Marley Spoon,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Marmot,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Marshalls,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Martinez Tools,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Matador,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Matco,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Material,P1_text_match_risk,食品咖啡与生活方式,1,common_word_collision,保留品牌，但禁止裸词自动匹配；需 exact + 上下文/领域约束,品牌名也是普通词，自动文本匹配误报风险高
+Matouk,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Maty's,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Maxi-Cosi,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Maytag,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+McCafe,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+McGee & Co,P2_canonical_form_review,家居生活,1,punctuation_or_url,保留品牌，入库前确认 canonical 形式和 brand_type,含标点、网址或符号，建议确认 canonical 形式
+MD,P1_text_match_risk,省钱消费与零售,1,short_token,保留品牌，但禁止裸词自动匹配；需 exact + 上下文/领域约束,短词/缩写，自动文本匹配需要强上下文
+mDesign,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Meati,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Medela,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+MediaMath,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Meh,P1_text_match_risk,省钱消费与零售,1,short_token,保留品牌，但禁止裸词自动匹配；需 exact + 上下文/领域约束,短词/缩写，自动文本匹配需要强上下文
+Meindl,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Melissa & Doug,P2_canonical_form_review,家庭与亲子,1,punctuation_or_url,保留品牌，入库前确认 canonical 形式和 brand_type,含标点、网址或符号，建议确认 canonical 形式
+Member's Mark,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Menswear Market,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Menu,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Mercadona,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Mercari,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+MerchantWords,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Mercury,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Mere,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Merrell,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Metabo HPT,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Metro,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Microtech,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Miele,P3_metadata_review,家居生活; 省钱消费与零售; 食品咖啡与生活方式,3,multi_domain; duplicate_merged,保留品牌，保留多领域/重复来源元数据,跨领域出现，建议保留多领域归属；多来源重复已合并
+Miir,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Millie Moon,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Million Dollar Baby,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Milupa,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Milwaukee,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Mini Rodini,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Miniso,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Minna,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Minor Figures,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Minotti,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Mint,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Minted,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Mirka,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Misen,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Misfits Market,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Mission Workshop,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Mitutoyo,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Miyabi,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Moby Wrap,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Mockingbird,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Modalyst,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Modlite,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Modloft,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Mollie,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Mommy's Bliss,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Momofuku,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Moncler,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Monica + Andy,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Monoprice,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Monster,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Montbell,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Montblanc,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Monte Design,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Monzo Business,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Moonlight Slumber,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Mora,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Morakniv,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Morrisons,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Mother Tongue,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Motorola Baby,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Mountain Buggy,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Mountain Hardwear,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Mountain Laurel Designs,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+MPB,P1_text_match_risk,省钱消费与零售,1,short_token,保留品牌，但禁止裸词自动匹配；需 exact + 上下文/领域约束,短词/缩写，自动文本匹配需要强上下文
+MSR,P1_text_match_risk,户外旅行与轻装备,1,short_token,保留品牌，但禁止裸词自动匹配；需 exact + 上下文/领域约束,短词/缩写，自动文本匹配需要强上下文
+Muji,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Munchkin,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Mushie,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Music Go Round,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Mustela,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Muuto,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Muyshondt,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+MyCartSavings,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Mystery Ranch,P3_metadata_review,工具与EDC; 户外旅行与轻装备,2,multi_domain; duplicate_merged,保留品牌，保留多领域/重复来源元数据,跨领域出现，建议保留多领域归属；多来源重复已合并
+Nalgene,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Nanit,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Nanny Care,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Narvar,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Narwal,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Naturepedic,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Neatfreak,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Neato,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Nebo,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Nectar,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Neji-Saurus,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Nemo,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Nepros,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Nespresso,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Nest Bedding,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Nest Diapers,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Netto,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Newton Baby,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Nextdoor,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Nike ACG,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Ninja,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Nintendo Refurbished,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Nippon Express,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Nitecore,P3_metadata_review,工具与EDC; 户外旅行与轻装备,2,multi_domain; duplicate_merged,保留品牌，保留多领域/重复来源元数据,跨领域出现，建议保留多领域归属；多来源重复已合并
+Noctigon,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Noihsaf Bazaar,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Nordic Naturals,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Nordisk,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Norma,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Normann Copenhagen,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Norrona,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+NoseFrida,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+NotCo,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Nourison,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Novo,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Nuggs,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Nuk,P1_text_match_risk,家庭与亲子,1,short_token,保留品牌，但禁止裸词自动匹配；需 exact + 上下文/领域约束,短词/缩写，自动文本匹配需要强上下文
+Numatic,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Nuna,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Nunatak,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Nuova Simonelli,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Nurture&,P2_canonical_form_review,家庭与亲子,1,punctuation_or_url,保留品牌，入库前确认 canonical 形式和 brand_type,含标点、网址或符号，建议确认 canonical 形式
+Nutribullet Baby,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Nuun,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Oatly,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+OAXray,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Oberlo,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Oboz,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Oeuf,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+OfferUp,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+OffLimits,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+OFX,P1_text_match_risk,电商平台与卖家工具,1,short_token,保留品牌，但禁止裸词自动匹配；需 exact + 上下文/领域约束,短词/缩写，自动文本匹配需要强上下文
+Old Dominion,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Old Navy,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Olight,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Olipop,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Ollie's Bargain Outlet,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Omnisend,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Omsom,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+On Running,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Once Upon A Farm,P2_canonical_form_review,家庭与亲子,1,long_phrase,保留品牌，入库前确认 canonical 形式和 brand_type,长短语品牌/服务名，建议确认是否作为单一品牌入库
+OnDeck,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Onyx Coffee Lab,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Oogiebear,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Ooni,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Open Spaces,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+OpenCart,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Opinel,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Optimus,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Orbit Baby,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Orbitkey,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Orderhive,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Ortlieb,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+OshKosh B'gosh,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Osmo,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Osprey,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Our Place,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Outbrain,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Outdoor Research,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Owala,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Owlet,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Oxo,P1_text_match_risk,家居生活,1,short_token,保留品牌，但禁止裸词自动匹配；需 exact + 上下文/领域约束,短词/缩写，自动文本匹配需要强上下文
+Oxo Tot,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Pa'lante,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Pacific Coast Feather,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Packlink,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Pacvue,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+PageFly,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Pampa,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Pampers,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Panalpina,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Panasonic,P3_metadata_review,家居生活; 工具与EDC,2,multi_domain; duplicate_merged,保留品牌，保留多领域/重复来源元数据,跨领域出现，建议保留多领域归属；多来源重复已合并
+Parachute,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Parasol,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Parker,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Patagonia,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Patagonia Kids,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Patagonia Worn Wear,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Patel Brothers,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+PatPat,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Payability,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Payoneer,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+PayPal,P1_text_match_risk,电商平台与卖家工具,1,noise_overlap,保留品牌，但禁止裸词自动匹配；需 exact + 上下文/领域约束,和旧噪音词表冲突，需修正噪音配置后再自动匹配
+PB Swiss,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Peacock Alley,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Peak Design,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Peak Performance,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Peet's,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Peg Perego,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Pehr,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Pelican,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Pelikan,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Penny,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Pepco,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Perc Coffee,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Perfect Bar,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Perpetua,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Perrier,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Petzl,P3_metadata_review,工具与EDC; 户外旅行与轻装备,2,multi_domain; duplicate_merged,保留品牌，保留多领域/重复来源元数据,跨领域出现，建议保留多领域归属；多来源重复已合并
+Philips,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Philips Avent,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Philz Coffee,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Pica Marker,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Piccalio,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Pilot,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+PingPong,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Pinterest Ads,P2_canonical_form_review,电商平台与卖家工具,1,service_channel_phrase,保留品牌，入库前确认 canonical 形式和 brand_type,更像渠道/服务/子产品名，建议入库时标注 brand_type
+Pioneer Carry,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Pipette,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Pirate Ship,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Pittsburgh,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+PlanToys,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Platypus,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Playmobil,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Plum Organics,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Podia,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Poliform,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Poly & Bark,P2_canonical_form_review,家居生活,1,punctuation_or_url,保留品牌，入库前确认 canonical 形式和 brand_type,含标点、网址或符号，建议确认 canonical 形式
+Poppi,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Porter-Cable,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Posh Peanut,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Poshmark,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Postmates,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Pottery Barn,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Pottery Barn Kids,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Poundland,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Powerade,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Powermatic,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+PPC Entourage,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+PPRO,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Prana,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+PrestaShop,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Prestozon,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Price Rite,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+PriceBlink,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+PriceGrabber,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+PriceRunner,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Primark,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Primary,P1_text_match_risk,家庭与亲子,1,common_word_collision,保留品牌，但禁止裸词自动匹配；需 exact + 上下文/领域约束,品牌名也是普通词，自动文本匹配误报风险高
+Primus,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Prince Lionheart,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Princeton Tec,P3_metadata_review,工具与EDC; 户外旅行与轻装备,2,multi_domain; duplicate_merged,保留品牌，保留多领域/重复来源元数据,跨领域出现，建议保留多领域归属；多来源重复已合并
+Printful,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Printify,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Privy,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Profit Bandit,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Profitec,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+ProfitGuru,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Prometheus Lights,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Protech,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Proud Mary,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Proxxon,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+PT's,P1_text_match_risk,食品咖啡与生活方式,1,short_token,保留品牌，但禁止裸词自动匹配；需 exact + 上下文/领域约束,短词/缩写，自动文本匹配需要强上下文
+Publix,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Purple,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Purple Carrot,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Pyaterochka,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Pyrex,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Quartile,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+QuickBooks,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Quiet Carry,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Quince,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Quincy Mae,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Quinn,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Raaka,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Rab,P1_text_match_risk,户外旅行与轻装备,1,short_token,保留品牌，但禁止裸词自动匹配；需 exact + 上下文/领域约束,短词/缩写，自动文本匹配需要强上下文
+Raduga Grez,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Rags,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Rakuten,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Ramp,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Rancilio,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Rascal + Friends,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Ratio,P1_text_match_risk,食品咖啡与生活方式,1,common_word_collision,保留品牌，但禁止裸词自动匹配；需 exact + 上下文/领域约束,品牌名也是普通词，自动文本匹配误报风险高
+Raymour & Flanigan,P2_canonical_form_review,家居生活,1,punctuation_or_url,保留品牌，入库前确认 canonical 形式和 brand_type,含标点、网址或符号，建议确认 canonical 形式
+Reate,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Rebag,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Recycled Firefighter,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Red Bull,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Red Cross,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Red Land Cotton,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Red Rooster,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Red Stag Fulfillment,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Red Wing,P3_metadata_review,户外旅行与轻装备; 省钱消费与零售,2,multi_domain; duplicate_merged,保留品牌，保留多领域/重复来源元数据,跨领域出现，建议保留多领域归属；多来源重复已合并
+Redbubble,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Refund Sniper,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Refunds Manager,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Regalia,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+REI Co-op,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+REI Re/Supply,P2_canonical_form_review,省钱消费与零售,1,punctuation_or_url,保留品牌，入库前确认 canonical 形式和 brand_type,含标点、网址或符号，建议确认 canonical 形式
+Reima,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Rejuvenation,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Rema 1000,P2_canonical_form_review,省钱消费与零售,1,contains_digit,保留品牌，入库前确认 canonical 形式和 brand_type,含数字，建议保留原始 canonical 并人工看格式
+Remedy Organics,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+RepricerExpress,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+RestockPro,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Restoration Hardware,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+RetailMeNot,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Rev-A-Shelf,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Revival Rugs,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Revolut Business,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+RevSeller,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Rewe,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+ReyLight,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+RH,P1_text_match_risk,家居生活,1,short_token,保留品牌，但禁止裸词自动匹配；需 exact + 上下文/领域约束,短词/缩写，自动文本匹配需要强上下文
+Rheal,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Rhenus,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Rhino Coffee Gear,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Ridge Wallet,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Ridgid,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Rifle Paper Co,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+RightRice,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Rikon,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Riley Home,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Ripple,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Rite in the Rain,P2_canonical_form_review,工具与EDC,1,long_phrase,保留品牌，入库前确认 canonical 形式和 brand_type,长短语品牌/服务名，建议确认是否作为单一品牌入库
+Roborock,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Roche Bobois,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Rocket Espresso,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Roofnest,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Room & Board,P2_canonical_form_review,家居生活,1,punctuation_or_url,保留品牌，入库前确认 canonical 形式和 brand_type,含标点、网址或符号，建议确认 canonical 形式
+Roomba,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Ross Dress for Less,P2_canonical_form_review,省钱消费与零售,1,long_phrase,保留品牌，入库前确认 canonical 形式和 brand_type,长短语品牌/服务名，建议确认是否作为单一品牌入库
+Rotring,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Route,P1_text_match_risk,电商平台与卖家工具,1,common_word_collision,保留品牌，但禁止裸词自动匹配；需 exact + 上下文/领域约束,品牌名也是普通词，自动文本匹配误报风险高
+Rove Concepts,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+RovyVon,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Royal Mail,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Rubbermaid,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Ruggable,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Rupes,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Rustae,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+RX Nut Butter,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+RXBAR,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Ryder,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Ryobi,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Ryze Superfoods,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Saatva,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Sabai,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Saddleback Leather,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Saeco,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Safavieh,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Safety 1st,P2_canonical_form_review,家庭与亲子,1,contains_digit,保留品牌，入库前确认 canonical 形式和 brand_type,含数字，建议保留原始 canonical 并人工看格式
+Safeway,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+SageMailer,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Sago Mini,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Sainsbury's,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Sakara Life,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+SaleHoo,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Salesforce Commerce Cloud,P2_canonical_form_review,电商平台与卖家工具,1,service_channel_phrase,保留品牌，入库前确认 canonical 形式和 brand_type,更像渠道/服务/子产品名，建议入库时标注 brand_type
+Salewa,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Salomon,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Saltbox,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Salvation Army,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Sam's Club,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Samaya,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+SamCart,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Samsung,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+San Pellegrino,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Sana Commerce,P2_canonical_form_review,电商平台与卖家工具,1,service_channel_phrase,保留品牌，入库前确认 canonical 形式和 brand_type,更像渠道/服务/子产品名，建议入库时标注 brand_type
+Sassy,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Sata,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Saucony,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Save-A-Lot,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Savoir,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Savotta,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+SawStop,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Sawyer,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Say Weee,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Scandia Home,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+ScanPower,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Scarpa,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Schneider,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Schoolhouse,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Scientific Seller,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+ScoutIQ,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Sea to Summit,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Sealy,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Sebo,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Secrid,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Segafredo,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Seiko,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Sellbrite,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Seller Snap,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+SellerApp,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+SellerBench,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Sellerboard,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+SellersFunding,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+SellerSprite,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Sellics,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Sellics Advertising,P2_canonical_form_review,电商平台与卖家工具,1,service_channel_phrase,保留品牌，入库前确认 canonical 形式和 brand_type,更像渠道/服务/子产品名，建议入库时标注 brand_type
+Sellozo,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+SendCloud,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Serena & Lily,P2_canonical_form_review,家居生活,1,punctuation_or_url,保留品牌，入库前确认 canonical 形式和 brand_type,含标点、网址或符号，建议确认 canonical 形式
+Serenity Kids,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Seria,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Serta,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Seventh Generation,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Sey Coffee,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Sezzle,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Sferra,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Shark,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Sharp,P1_text_match_risk,家居生活,1,common_word_collision,保留品牌，但禁止裸词自动匹配；需 exact + 上下文/领域约束,品牌名也是普通词，自动文本匹配误报风险高
+Sharpie,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+SheaMoisture,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Sherrill,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Shift4Shop,P2_canonical_form_review,电商平台与卖家工具,1,contains_digit,保留品牌，入库前确认 canonical 形式和 brand_type,含数字，建议保留原始 canonical 并人工看格式
+Shimoda,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Shinwa,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+ShipBob,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+ShipHero,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+ShipMonk,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+ShippingEasy,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Shippo,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+ShipRush,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+ShipStation,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Shock,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Shogun,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+ShopGoodwill.com,P2_canonical_form_review,省钱消费与零售,1,punctuation_or_url,保留品牌，入库前确认 canonical 形式和 brand_type,含标点、网址或符号，建议确认 canonical 形式
+Shopify,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Shopkeeper,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+ShopSavvy,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+ShopTomorrows,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Shopzilla,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Shun,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Sierra,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Sierra Designs,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Siete,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Silk,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Silva,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Silver Cross,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Similac,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Simmons,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Simplehuman,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+SimplyVAT,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Sinotrans,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Six Moon Designs,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Sixpenny,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Skai,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Skil,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Skilhunt,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Skinflint,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Skip Hop,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Skubana,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Slayer,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Sleep Number,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Slickdeals,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+SlingFin,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Slumberkins,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+SMA,P1_text_match_risk,家庭与亲子,1,short_token,保留品牌，但禁止裸词自动匹配；需 exact + 上下文/领域约束,短词/缩写，自动文本匹配需要强上下文
+Smart & Final,P2_canonical_form_review,省钱消费与零售,1,punctuation_or_url,保留品牌，入库前确认 canonical 形式和 brand_type,含标点、网址或符号，建议确认 canonical 形式
+SmartNoggin,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+SmartScout,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Smartwool,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Smeg,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Smithey,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Snap-on,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Snoo,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Snow Peak,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Snuggle Me Organic,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Sobeys,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Society6,P2_canonical_form_review,家居生活,1,contains_digit,保留品牌，入库前确认 canonical 形式和 brand_type,含数字，建议保留原始 canonical 并人工看格式
+Sofirn,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+SOG,P1_text_match_risk,工具与EDC,1,short_token,保留品牌，但禁止裸词自动匹配；需 exact + 上下文/领域约束,短词/缩写，自动文本匹配需要强上下文
+Solly Baby,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Solo Stove,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Somewear,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Sonar,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Sonos Refurbished,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Sorel,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+SoStocked,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Soto,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+SourceMogul,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Spar,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Spectra,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Speed Queen,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Spindrift,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Spinn,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Splendid Spoon,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Splitit,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Spocket,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Spot,P1_text_match_risk,户外旅行与轻装备,1,common_word_collision,保留品牌，但禁止裸词自动匹配；需 exact + 上下文/领域约束,品牌名也是普通词，自动文本匹配误报风险高
+Spyderco,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Square,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Square Mile,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Squarespace,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Stabila,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+StackAdapt,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Stahlwille,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Stamps.com,P2_canonical_form_review,电商平台与卖家工具,1,punctuation_or_url,保留品牌，入库前确认 canonical 形式和 brand_type,含标点、网址或符号，建议确认 canonical 形式
+Stanley,P3_metadata_review,工具与EDC; 户外旅行与轻装备; 省钱消费与零售,3,multi_domain; duplicate_merged,保留品牌，保留多领域/重复来源元数据,跨领域出现，建议保留多领域归属；多来源重复已合并
+Starbucks,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Stargazer,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Starrett,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Staub,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Stearns & Foster,P2_canonical_form_review,家居生活,1,punctuation_or_url,保留品牌，入库前确认 canonical 形式和 brand_type,含标点、网址或符号，建议确认 canonical 形式
+Sterilite,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+SteriPen,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Stickley,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Stiletto,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+StockX,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Stokke,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Storkcraft,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Streamlight,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Strider,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Stripe,P1_text_match_risk,电商平台与卖家工具,1,noise_overlap,保留品牌，但禁止裸词自动匹配；需 exact + 上下文/领域约束,和旧噪音词表冲突，需修正噪音配置后再自动匹配
+Stumptown,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Sub-Zero,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Subbly,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Sunbasket,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Sunrise Wholesale,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Supeco,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Superior Wilderness Designs,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+SureFire,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Surya,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Suunto,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Swanson,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Swap.com,P2_canonical_form_review,省钱消费与零售,1,punctuation_or_url,保留品牌，入库前确认 canonical 形式和 brand_type,含标点、网址或符号，建议确认 canonical 形式
+Swappa,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Sweet Bloom,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+T Market,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Taboola,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Tactical Arbitrage,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Tactile Knife Co,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Tactile Turn,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Tajima,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Takko,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Tanner Goods,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Target,P3_metadata_review,省钱消费与零售; 食品咖啡与生活方式,2,multi_domain; duplicate_merged,保留品牌，保留多领域/重复来源元数据,跨领域出现，建议保留多领域归属；多来源重复已合并
+Tarptent,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Tasmanian Tiger,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+TaxJar,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Taza Chocolate,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Tchibo,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Tea Collection,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Teachable,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Technivorm Moccamaster,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Tecnica,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Teelaunch,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Tegu,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Teikametrics,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Tekton,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Tempur-Pedic,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Ten Thousand Villages,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+TentBox,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Tepui,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Terra Kaffe,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Terra Nova,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Tesco,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Testo,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Teva,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+The Barn,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+The Children's Place,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+The Citizenry,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+The Container Store,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+The Inside,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+The New Primal,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+The North Face,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+The North Face Renewed,P2_canonical_form_review,省钱消费与零售,1,long_phrase,保留品牌，入库前确认 canonical 形式和 brand_type,长短语品牌/服务名，建议确认是否作为单一品牌入库
+The Range,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+The RealReal,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+The Trade Desk,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Theo,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Theodore Alexander,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Therm-a-Rest,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Thermador,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Thinkific,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Thirsties,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Thistle,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Thomasnet,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+ThredUp,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Three Wishes,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+ThriveCart,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+ThruNite,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Thule,P3_metadata_review,家庭与亲子; 户外旅行与轻装备,2,multi_domain; duplicate_merged,保留品牌，保留多领域/重复来源元数据,跨领域出现，建议保留多领域归属；多来源重复已合并
+TikTok Ads,P2_canonical_form_review,电商平台与卖家工具,1,service_channel_phrase,保留品牌，入库前确认 canonical 形式和 brand_type,更像渠道/服务/子产品名，建议入库时标注 brand_type
+Tim Hortons,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Tim Wendelboe,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Timbuk2,P2_canonical_form_review,户外旅行与轻装备,1,contains_digit,保留品牌，入库前确认 canonical 形式和 brand_type,含数字，建议保留原始 canonical 并人工看格式
+Timemore,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Timex,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Tineco,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Tinuiti,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Tiny Love,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Tinycottons,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+TJ Maxx,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Toaks,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Toby's Estate,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Toca Boca,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Todis,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Tokmanni,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Tommee Tippee,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Tone,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Tonies,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Tony's Chocolonely,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Toothbrush Toys,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Topo Athletic,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Topo Chico,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Topo Designs,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Tops Knives,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Tormek,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Toshiba,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Tovala,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Toynk,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Toyota,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+TQL,P1_text_match_risk,电商平台与卖家工具,1,short_token,保留品牌，但禁止裸词自动匹配；需 exact + 上下文/领域约束,短词/缩写，自动文本匹配需要强上下文
+Trader Joe's,P3_metadata_review,省钱消费与零售; 食品咖啡与生活方式,2,multi_domain; duplicate_merged,保留品牌，保留多领域/重复来源元数据,跨领域出现，建议保留多领域归属；多来源重复已合并
+Traeger,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Trayvax,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Tru Fru,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Tsunoda,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Tubby Todd,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Tuesday Morning,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Tuft & Needle,P2_canonical_form_review,家居生活,1,punctuation_or_url,保留品牌，入库前确认 canonical 形式和 brand_type,含标点、网址或符号，建议确认 canonical 形式
+Tula,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Tulerie,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Twsbi,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Ubbi,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Uber Eats,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Uber Freight,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+UCO,P1_text_match_risk,户外旅行与轻装备,1,short_token,保留品牌，但禁止裸词自动匹配；需 exact + 上下文/领域约束,短词/缩写，自动文本匹配需要强上下文
+ULA Equipment,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Umami Cart,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Umbra,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Unbounce,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Uncommon Goods,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Unicorn Smasher,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Universal Furniture,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Up & Up,P2_canonical_form_review,家庭与亲子,1,punctuation_or_url,保留品牌，入库前确认 canonical 形式和 brand_type,含标点、网址或符号，建议确认 canonical 形式
+Uppababy,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+UPS,P1_text_match_risk,电商平台与卖家工具,1,short_token,保留品牌，但禁止裸词自动匹配；需 exact + 上下文/领域约束,短词/缩写，自动文本匹配需要强上下文
+Upside,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Urban Outfitters Home,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+USPS,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Vanguard,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Vapur,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Vargo,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Vasque,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Vaughan,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Veem,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Veeqo,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Veer,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Veilance,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Verifone,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Veritas,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Verve,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Vessel,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Vestiaire Collective,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Vicks,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Victoria Arduino,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Victorinox,P3_metadata_review,工具与EDC; 省钱消费与零售; 食品咖啡与生活方式,3,multi_domain; duplicate_merged,保留品牌，保留多领域/重复来源元数据,跨领域出现，建议保留多领域归属；多来源重复已合并
+Viking,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Vinted,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Viral Launch,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Vispring,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Vita Coco,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Vitaminwater,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Vitamix,P3_metadata_review,省钱消费与零售; 食品咖啡与生活方式,2,multi_domain; duplicate_merged,保留品牌，保留多领域/重复来源元数据,跨领域出现，建议保留多领域归属；多来源重复已合并
+Vitamix Certified Reconditioned,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Vitra,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Vivobarefoot,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Volusion,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Voyage Foods,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+VTech,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Vuori,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Wacaco,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Walmart,P3_metadata_review,省钱消费与零售; 食品咖啡与生活方式,2,multi_domain; duplicate_merged,保留品牌，保留多领域/重复来源元数据,跨领域出现，建议保留多领域归属；多来源重复已合并
+Wandrd,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Warbonnet,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Waterloo,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+WaterWipes,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Wayfair,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Wayflyer,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Waymark,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+WE Knife,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Weber,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Weee!,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Wegmans,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Wellements,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Weltool,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Wen,P1_text_match_risk,工具与EDC,1,short_token,保留品牌，但禁止裸词自动匹配；需 exact + 上下文/领域约束,短词/缩写，自动文本匹配需要强上下文
+Wera,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+WESN,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+West Elm,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+West Elm Kids,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Western Mountaineering,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Whirlpool,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+White River,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Whitmor,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Whole Foods,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Wholesale Central,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Wiha,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Wildbird,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Willow,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+WinCo Foods,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Windi,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Wise,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Wix eCommerce,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Wolf,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Wonderfold,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+WooCommerce,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Woodpeckers,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Woolworths,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Woot!,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+WorldFirst,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Worldpay,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Worldwide Brands,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Worthy Threads,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Worx,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Wurkkos,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Wusthof,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+X-Cart,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+xBloom,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Xero,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Xero Shoes,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+XPO Logistics,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Yahoo Shopping,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Yamazaki Home,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Yami Buy,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Yardline,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Yeti,P3_metadata_review,户外旅行与轻装备; 食品咖啡与生活方式,2,multi_domain; duplicate_merged,保留品牌，保留多领域/重复来源元数据,跨领域出现，建议保留多领域归属；多来源重复已合并
+YNAB,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Yoto,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Yotpo,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+You Need A Budget,P2_canonical_form_review,省钱消费与零售,1,long_phrase,保留品牌，入库前确认 canonical 形式和 brand_type,长短语品牌/服务名，建议确认是否作为单一品牌入库
+YRC Freight,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Yumi,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Yves Delorme,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Zamberlan,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Zara Home,P0_clean_accept,家居生活,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Zara Kids,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Zarbee's,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Zebra,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Zebralight,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Zeeman,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Zen Cart,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Zencargo,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Zendesk,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Zepto,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Zero Tolerance,P0_clean_accept,工具与EDC,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Zevia,P0_clean_accept,食品咖啡与生活方式,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Zip,P1_text_match_risk,电商平台与卖家工具,1,short_token,保留品牌，但禁止裸词自动匹配；需 exact + 上下文/领域约束,短词/缩写，自动文本匹配需要强上下文
+Zipify,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Zippo,P0_clean_accept,省钱消费与零售,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Zoe Strollers,P0_clean_accept,家庭与亲子,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Zojirushi,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Zoleo,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+ZonGuru,P0_clean_accept,电商平台与卖家工具,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Zpacks,P0_clean_accept,户外旅行与轻装备,1,,可作为干净品牌进入细审/入池候选,未发现严格审计风险
+Zwilling J.A. Henckels,P2_canonical_form_review,食品咖啡与生活方式,1,punctuation_or_url,保留品牌，入库前确认 canonical 形式和 brand_type,含标点、网址或符号，建议确认 canonical 形式

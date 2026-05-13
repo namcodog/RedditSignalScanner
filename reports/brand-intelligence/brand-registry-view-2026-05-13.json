@@ -1,0 +1,201 @@
+{
+  "brands": [
+    {
+      "brand_key": "alibaba",
+      "business_domains": [
+        "电商平台与卖家工具"
+      ],
+      "display_name": "Alibaba",
+      "display_status": "已验证",
+      "evidence_status": "verified",
+      "interest_tags": [
+        "AI工具与Agent",
+        "卖家店铺运营"
+      ],
+      "mention_count": 3
+    },
+    {
+      "brand_key": "amazon",
+      "business_domains": [],
+      "display_name": "Amazon",
+      "display_status": "已验证",
+      "evidence_status": "verified",
+      "interest_tags": [
+        "家居生活选品",
+        "好物选品",
+        "AI工具与Agent",
+        "电商平台政策与风向",
+        "卖家店铺运营"
+      ],
+      "mention_count": 78
+    },
+    {
+      "brand_key": "bigcommerce",
+      "business_domains": [
+        "电商平台与卖家工具"
+      ],
+      "display_name": "BigCommerce",
+      "display_status": "已验证",
+      "evidence_status": "verified",
+      "interest_tags": [
+        "卖家店铺运营"
+      ],
+      "mention_count": 3
+    },
+    {
+      "brand_key": "etsy",
+      "business_domains": [
+        "家居生活"
+      ],
+      "display_name": "Etsy",
+      "display_status": "已验证",
+      "evidence_status": "verified",
+      "interest_tags": [
+        "好物选品",
+        "卖家店铺运营"
+      ],
+      "mention_count": 68
+    },
+    {
+      "brand_key": "shopify",
+      "business_domains": [
+        "电商平台与卖家工具"
+      ],
+      "display_name": "Shopify",
+      "display_status": "已验证",
+      "evidence_status": "verified",
+      "interest_tags": [
+        "广告投放",
+        "SEO&GEO",
+        "AI工具与Agent",
+        "卖家店铺运营"
+      ],
+      "mention_count": 110
+    },
+    {
+      "brand_key": "temu",
+      "business_domains": [],
+      "display_name": "Temu",
+      "display_status": "已验证",
+      "evidence_status": "verified",
+      "interest_tags": [
+        "好物选品"
+      ],
+      "mention_count": 6
+    },
+    {
+      "brand_key": "tiktok shop",
+      "business_domains": [],
+      "display_name": "TikTok Shop",
+      "display_status": "已验证",
+      "evidence_status": "verified",
+      "interest_tags": [
+        "广告投放",
+        "众筹与品牌启动",
+        "卖家店铺运营"
+      ],
+      "mention_count": 9
+    },
+    {
+      "brand_key": "facebook",
+      "business_domains": [],
+      "display_name": "facebook",
+      "display_status": "已验证",
+      "evidence_status": "verified",
+      "interest_tags": [
+        "广告投放",
+        "SEO&GEO",
+        "众筹与品牌启动"
+      ],
+      "mention_count": 46
+    },
+    {
+      "brand_key": "fba",
+      "business_domains": [],
+      "display_name": "fba",
+      "display_status": "已验证",
+      "evidence_status": "verified",
+      "interest_tags": [
+        "AI工具与Agent",
+        "卖家店铺运营"
+      ],
+      "mention_count": 51
+    },
+    {
+      "brand_key": "google",
+      "business_domains": [],
+      "display_name": "google",
+      "display_status": "已验证",
+      "evidence_status": "verified",
+      "interest_tags": [
+        "家居生活选品",
+        "好物选品",
+        "广告投放",
+        "SEO&GEO",
+        "AI工具与Agent",
+        "卖家店铺运营",
+        "内容营销创作"
+      ],
+      "mention_count": 305
+    },
+    {
+      "brand_key": "instagram",
+      "business_domains": [],
+      "display_name": "instagram",
+      "display_status": "已验证",
+      "evidence_status": "verified",
+      "interest_tags": [
+        "广告投放",
+        "SEO&GEO"
+      ],
+      "mention_count": 7
+    },
+    {
+      "brand_key": "tiktok",
+      "business_domains": [],
+      "display_name": "tiktok",
+      "display_status": "已验证",
+      "evidence_status": "verified",
+      "interest_tags": [
+        "广告投放",
+        "众筹与品牌启动",
+        "卖家店铺运营"
+      ],
+      "mention_count": 9
+    },
+    {
+      "brand_key": "youtube",
+      "business_domains": [],
+      "display_name": "youtube",
+      "display_status": "已验证",
+      "evidence_status": "verified",
+      "interest_tags": [
+        "家居生活选品",
+        "广告投放",
+        "SEO&GEO",
+        "AI工具与Agent"
+      ],
+      "mention_count": 15
+    }
+  ],
+  "consumer_contract": {
+    "api_frontend_miniapp_can_share": true,
+    "include_internal_fields": false,
+    "main_system": true,
+    "miniapp_product_review_required": true,
+    "miniapp_snapshot_fields": false,
+    "read_only_service": "brand_registry_reader",
+    "shared_backend_source": "brand_registry"
+  },
+  "consumer_profile": "consumer_safe",
+  "db_writes": false,
+  "field_contract_version": "brand-consumer-v1",
+  "phase": "brand-intelligence-r15-4-read-only-service",
+  "source": "brand_registry",
+  "summary": {
+    "interest_tag_filter": "",
+    "mention_count": 710,
+    "returned_brands": 13,
+    "status_filter": "verified"
+  }
+}

@@ -1,47 +1,55 @@
 # hot lane audit v1
 
-- candidate_total: `20`
-- listing_total: `20`
-- runtime_hot_total: `9`
-- runtime_hot_unpublished_total: `8`
-- runtime_hot_published_total: `1`
-- runtime_hot_listing_total: `9`
-- runtime_hot_search_total: `0`
+- candidate_total: `38`
+- listing_total: `21`
+- runtime_hot_total: `17`
+- runtime_hot_unpublished_total: `12`
+- runtime_hot_published_total: `5`
+- runtime_hot_listing_total: `10`
+- runtime_hot_search_total: `7`
 - runtime_signal_listing_total: `11`
-- published_hot_total: `258`
+- published_hot_total: `280`
 
 ## runtime hot by scope
-- `ai-automation`: `5`
-- `business-growth-ops`: `2`
-- `ecommerce-sellers`: `2`
+- `ai-automation`: `10`
+- `business-growth-ops`: `4`
+- `ecommerce-sellers`: `3`
 
 ## runtime hot unpublished by scope
-- `ai-automation`: `4`
-- `business-growth-ops`: `2`
-- `ecommerce-sellers`: `2`
+- `ai-automation`: `6`
+- `business-growth-ops`: `3`
+- `ecommerce-sellers`: `3`
 
 ## runtime hot unpublished candidates
-- `cand-ai-automation-1t9iteh` | `ai-automation` | `OpenAI` | `191/53` | Openclaw ia trending down and will disappear soon
-- `group-ai-automation-068d68347f` | `ai-automation` | `OpenAI` | `191/53` | Openclaw ia trending down and will disappear soon
-- `cand-ecommerce-sellers-1t4tvd4` | `ecommerce-sellers` | `EtsySellers` | `11/51` | How are your sales? Monthly Sales Post for May 2026
-- `group-ecommerce-sellers-e5bfb51276` | `ecommerce-sellers` | `EtsySellers` | `11/51` | How are your sales? Monthly Sales Post for May 2026
-- `cand-ai-automation-1t9bhls` | `ai-automation` | `SaaS` | `104/32` | I just made my first internet money ever and I couldn't be happier
-- `group-ai-automation-f58b035193` | `ai-automation` | `SaaS` | `104/32` | I just made my first internet money ever and I couldn't be happier
-- `cand-business-growth-ops-1t92byz` | `business-growth-ops` | `PPC` | `8/31` | Is Jumping Straight Into Automated Bidding the New Standard for Lead Gen?
-- `group-business-growth-ops-6fd2b6ebc1` | `business-growth-ops` | `PPC` | `8/31` | Is Jumping Straight Into Automated Bidding the New Standard for Lead Gen?
+- `cand-ai-automation-1tb7r0d` | `ai-automation` | `OpenAI` | `860/110` | Sam Altman testimony: Musk wanted 'total control' of OpenAI to pass to his children
+- `group-ai-automation-fcb36c9733` | `ai-automation` | `OpenAI` | `860/110` | Sam Altman testimony: Musk wanted 'total control' of OpenAI to pass to his children
+- `cand-business-growth-ops-1taro12` | `business-growth-ops` | `ecommerce` | `97/44` | I've been using Claude Code for the past month to build stuff I'd otherwise have to pay a monthly fee for
+- `group-business-growth-ops-7197c79865` | `business-growth-ops` | `ecommerce` | `97/44` | I've been using Claude Code for the past month to build stuff I'd otherwise have to pay a monthly fee for
+- `cand-ecommerce-sellers-1taro12` | `ecommerce-sellers` | `ecommerce` | `97/44` | I've been using Claude Code for the past month to build stuff I'd otherwise have to pay a monthly fee for
+- `group-ecommerce-sellers-0642304143` | `ecommerce-sellers` | `ecommerce` | `97/44` | I've been using Claude Code for the past month to build stuff I'd otherwise have to pay a monthly fee for
+- `cand-business-growth-ops-1t7bscc` | `business-growth-ops` | `PPC` | `24/42` | CPCs and Google Manipulation
+- `cand-ai-automation-1tbp112` | `ai-automation` | `SaaS` | `36/40` | 2,000 visits, 0 signups: How Magic Links almost killed my launch.
+- `group-ai-automation-3c6c5ef3f7` | `ai-automation` | `SaaS` | `36/40` | 2,000 visits, 0 signups: How Magic Links almost killed my launch.
+- `cand-ai-automation-1tbgklg` | `ai-automation` | `OpenAI` | `575/34` | Coders in 2030 be like:
+- `cand-ai-automation-1tb3sja` | `ai-automation` | `LocalLLaMA` | `85/28` | MagicQuant (v2.0) - Hybrid Mixed GGUF Models + Unsloth Dynamic Learned Quant Configurations + Benchmark table with collapsed winners and more
+- `cand-ecommerce-sellers-1tbo2dw` | `ecommerce-sellers` | `EntrepreneurRideAlong` | `12/26` | Shut down my AI chatbot SaaS after 12 months.
 
 ## runtime hot already published candidates
-- `cand-ai-automation-1ssc2cv` | `ai-automation` | `singularity` | `896/115` | Mozilla Used Anthropic’s Mythos to Find and Fix 271 Bugs in Firefox
+- `cand-ai-automation-1ssc2cv` | `ai-automation` | `singularity` | `900/118` | Mozilla Used Anthropic’s Mythos to Find and Fix 271 Bugs in Firefox
+- `cand-business-growth-ops-1t5eyqy` | `business-growth-ops` | `PPC` | `7/48` | Google Ads agency claims they can target hotel guests and nearby residents for my beauty salon. Legit or overhyped?
+- `cand-ai-automation-1t588fw` | `ai-automation` | `ClaudeAI` | `0/45` | Built an AI-native multiplayer game with Claude Code — spent $2k+ on credits in a few weeks
+- `cand-ai-automation-1t8cn9y` | `ai-automation` | `ClaudeAI` | `211/40` | Claude improved my agent harness by 40.7% overnight
+- `cand-ai-automation-1t7m3j3` | `ai-automation` | `ClaudeAI` | `182/32` | I built a Pokémon-styled multi-agent dashboard to manage all Claude Code sessions
 
 ## top listing signal candidates
-- `cand-ecommerce-sellers-1t9kj4b` | `ecommerce-sellers` | `shopify` | `4/21` | getting views but no sales
-- `group-ecommerce-sellers-40e5f76e10` | `ecommerce-sellers` | `shopify` | `4/21` | getting views but no sales
-- `cand-ecommerce-sellers-1t8iatc` | `ecommerce-sellers` | `AmazonSeller` | `3/21` | amazon fba in 2026 still worth it
-- `cand-business-growth-ops-1t9cv0x` | `business-growth-ops` | `ecommerce` | `5/18` | Premium bedding return question: customer shoved the logistics bag inside the duvet cover. What would you do?
-- `cand-ecommerce-sellers-1t9cv0x` | `ecommerce-sellers` | `ecommerce` | `3/18` | Premium bedding return question: customer shoved the logistics bag inside the duvet cover. What would you do?
-- `cand-business-growth-ops-1t9dby4` | `business-growth-ops` | `FacebookAds` | `10/17` | Anyone else having a WTF day?
-- `cand-ai-automation-1szqmoa` | `ai-automation` | `ProductManagement` | `5/14` | Weekly rant thread
-- `cand-business-growth-ops-1t9ayv4` | `business-growth-ops` | `PPC` | `5/14` | Good idea to run google ads when i don't even have one paying customer and no traffic? (I will not promote)
-- `cand-ecommerce-sellers-1t9exmv` | `ecommerce-sellers` | `FulfillmentByAmazon` | `3/13` | How are you guys handling competitors who drop prices by $0.01 every hour?
-- `cand-ai-automation-1t9igfl` | `ai-automation` | `ProductManagement` | `12/10` | Managing a difficult team member
-- `cand-ai-automation-1t9pd1m` | `ai-automation` | `OpenAI` | `30/8` | GPT5.5s CoT keeps leaking in the new codex update. Looks like we know how they got token efficency, they cavemanmaxxed
+- `cand-business-growth-ops-1tbnnm2` | `business-growth-ops` | `FacebookAds` | `8/17` | Meta finally broke?
+- `cand-ecommerce-sellers-1tb75kz` | `ecommerce-sellers` | `FulfillmentByAmazon` | `9/16` | Former Failed Seller Looking for FBA Mentor/Advisor
+- `group-ecommerce-sellers-98bcbfd95e` | `ecommerce-sellers` | `FulfillmentByAmazon` | `9/16` | Former Failed Seller Looking for FBA Mentor/Advisor
+- `cand-ai-automation-1szqmoa` | `ai-automation` | `ProductManagement` | `4/15` | Weekly rant thread
+- `cand-business-growth-ops-1tbas3o` | `business-growth-ops` | `ecommerce` | `7/13` | Woocommerce to Shopify?
+- `cand-ecommerce-sellers-1taj8ee` | `ecommerce-sellers` | `AmazonSeller` | `3/13` | GS1 barcode need to match brand or is it ok to match company name?
+- `cand-business-growth-ops-1tbkh66` | `business-growth-ops` | `FacebookAds` | `11/12` | Zuck and his AI robots need to get a room and leave my ad account alone.
+- `group-business-growth-ops-74799fd92c` | `business-growth-ops` | `FacebookAds` | `11/12` | Zuck and his AI robots need to get a room and leave my ad account alone.
+- `cand-ecommerce-sellers-1tblr24` | `ecommerce-sellers` | `shopify` | `6/12` | Chargeback for sizing issues !?!
+- `cand-ai-automation-1tbr1m8` | `ai-automation` | `ProductManagement` | `4/10` | How do you handle competitive analysis at your company?
+- `cand-ecommerce-sellers-1taujqb` | `ecommerce-sellers` | `AmazonSeller` | `0/10` | Question about profits from Amazon

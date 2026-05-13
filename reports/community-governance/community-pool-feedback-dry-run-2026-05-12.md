@@ -18,11 +18,11 @@
 | r/bikepacking | ecommerce-sellers | outdoor | already_in_pool | already_in_pool | 0 | 家居生活选品 | 0 | no_signal_yet |
 | r/trailrunning | ecommerce-sellers | outdoor | already_in_pool | already_in_pool | 0 | 家居生活选品 | 0 | no_signal_yet |
 | r/campingandhiking | ecommerce-sellers | outdoor | already_in_pool | already_in_pool | 0 | 家居生活选品 | 0 | no_signal_yet |
-| r/etsy | ecommerce-sellers | seller-category-direction | already_in_pool | already_in_pool | 99 | 卖家店铺运营 | 5 | duplicate_posts |
+| r/etsy | ecommerce-sellers | seller-category-direction | already_in_pool | already_in_pool | 100 | 卖家店铺运营 | 7 | duplicate_posts |
 | r/digital_marketing | business-growth-ops | seo-geo | already_in_pool | already_in_pool | 23 | SEO&GEO | 1 | not_published_yet |
 | r/aeo | business-growth-ops | seo-geo | already_in_pool | already_in_pool | 100 | SEO&GEO | 5 | duplicate_posts |
-| r/ai_ugc_marketing | business-growth-ops | funnel | already_in_pool | already_in_pool | 100 | 广告投放, 卖家店铺运营, 内容营销创作 | 5 | duplicate_posts |
-| r/growthhacking | business-growth-ops | funnel | already_in_pool | already_in_pool | 93 | 广告投放, 卖家店铺运营, 内容营销创作 | 3 |  |
+| r/ai_ugc_marketing | business-growth-ops | funnel | already_in_pool | already_in_pool | 100 | 广告投放, 卖家店铺运营, 内容营销创作 | 6 | duplicate_posts |
+| r/growthhacking | business-growth-ops | funnel | already_in_pool | already_in_pool | 100 | 广告投放, 卖家店铺运营, 内容营销创作 | 4 |  |
 | r/marketingautomation | business-growth-ops | funnel | keep_testing | observe | 0 | 广告投放, 卖家店铺运营, 内容营销创作 | 0 | no_signal_yet |
 | r/conversionrateoptimization | business-growth-ops | funnel | keep_testing | observe | 0 | 广告投放, 卖家店铺运营, 内容营销创作 | 0 | no_signal_yet |
 | r/shopifydevs | business-growth-ops | funnel | keep_testing | observe | 0 | 广告投放, 卖家店铺运营, 内容营销创作 | 0 | no_signal_yet |

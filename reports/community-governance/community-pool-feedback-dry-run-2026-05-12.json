@@ -315,12 +315,12 @@
         "candidate_count": 3,
         "draft_count": 0,
         "duplicate_count": 1,
-        "published_count": 2,
+        "published_count": 4,
         "reject_count": 0,
-        "total_evidence": 5
+        "total_evidence": 7
       },
       "feedback_action": "already_in_pool",
-      "published_count": 2,
+      "published_count": 4,
       "reasons": [
         "already tracked in community_pool"
       ],
@@ -343,7 +343,7 @@
         "risks": [
           "duplicate_posts"
         ],
-        "score": 99,
+        "score": 100,
         "stage": "already_in_pool"
       }
     },
@@ -438,12 +438,12 @@
         "candidate_count": 2,
         "draft_count": 0,
         "duplicate_count": 1,
-        "published_count": 3,
+        "published_count": 4,
         "reject_count": 0,
-        "total_evidence": 5
+        "total_evidence": 6
       },
       "feedback_action": "already_in_pool",
-      "published_count": 3,
+      "published_count": 4,
       "reasons": [
         "already tracked in community_pool"
       ],
@@ -482,12 +482,12 @@
         "candidate_count": 1,
         "draft_count": 0,
         "duplicate_count": 0,
-        "published_count": 2,
+        "published_count": 3,
         "reject_count": 0,
-        "total_evidence": 3
+        "total_evidence": 4
       },
       "feedback_action": "already_in_pool",
-      "published_count": 2,
+      "published_count": 3,
       "reasons": [
         "already tracked in community_pool"
       ],
@@ -508,7 +508,7 @@
           "new_topic_coverage"
         ],
         "risks": [],
-        "score": 93,
+        "score": 100,
         "stage": "already_in_pool"
       }
     },
