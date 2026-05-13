@@ -194,7 +194,7 @@ async def test_save_metrics_new_record(db_session, tmp_path):
 @pytest.mark.asyncio
 async def test_save_metrics_update_existing(db_session, tmp_path):
     """测试更新现有记录"""
-    target_date = date(2025, 10, 21)
+    target_date = date(2025, 10, 23)
 
     # 先插入一条记录
     existing_metrics = QualityMetrics(
@@ -232,7 +232,7 @@ async def test_save_metrics_update_existing(db_session, tmp_path):
 async def test_save_metrics_constraint_violation(db_session, tmp_path):
     """校验约束违规会被记录并抛出"""
     invalid_metrics = QualityMetrics(
-        date=date(2025, 10, 22),
+        date=date(2025, 10, 24),
         collection_success_rate=Decimal("1.5000"),  # 超出 0-1 范围
         deduplication_rate=Decimal("0.1000"),
         processing_time_p50=Decimal("10.00"),
@@ -242,6 +242,8 @@ async def test_save_metrics_constraint_violation(db_session, tmp_path):
     with pytest.raises(IntegrityError):
         await save_metrics(db_session, invalid_metrics, output_dir=tmp_path)
 
-    result = await db_session.execute(select(QualityMetrics))
+    result = await db_session.execute(
+        select(QualityMetrics).where(QualityMetrics.date == invalid_metrics.date)
+    )
     assert result.scalars().all() == []
     assert not (tmp_path / "daily_metrics.jsonl").exists()
