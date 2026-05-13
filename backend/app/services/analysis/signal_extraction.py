@@ -26,6 +26,8 @@ class PainPointSignal:
             "description": self.description,
             "frequency": self.frequency,
             "sentiment_score": round(self.sentiment, 2),
+            "relevance": round(self.relevance, 3),
+            "keywords": self.keywords,
             "example_posts": self.source_posts[:3],
         }
 
@@ -97,6 +99,7 @@ class SolutionSignal:
             "description": self.description,
             "frequency": self.frequency,
             "sentiment_score": round(self.sentiment, 2),
+            "relevance": round(self.relevance, 3),
             "example_posts": self.source_posts[:3],
         }
 
@@ -341,13 +344,53 @@ class SignalExtractor:
                 snippet = sentence.strip()[:200]
 
                 for name in product_names:
-                    # 过滤常见的非产品词
+                    # 过滤常见的非产品词、句首大写词、代词、连词等
                     if name.lower() in {
-                        "reddit",
-                        "google",
-                        "facebook",
-                        "twitter",
-                        "youtube",
+                        "reddit", "google", "facebook", "twitter", "youtube",
+                        "amazon", "ebay", "walmart", "target", "costco",
+                        # Common sentence starters / pronouns / conjunctions
+                        "the", "this", "that", "these", "those", "what", "why",
+                        "how", "who", "when", "where", "which", "and", "but",
+                        "for", "not", "you", "your", "they", "them", "their",
+                        "any", "all", "some", "most", "many", "much", "more",
+                        "just", "also", "even", "still", "only", "been",
+                        "have", "has", "had", "was", "were", "are", "its",
+                        "here", "there", "now", "then", "after", "before",
+                        "our", "his", "her", "she", "one", "two", "new",
+                        "can", "will", "may", "should", "could", "would",
+                        "with", "from", "into", "over", "under", "about",
+                        "first", "last", "next", "every", "each", "other",
+                        "same", "both", "either", "neither", "never", "always",
+                        # Common generic nouns
+                        "people", "thing", "stuff", "way", "lot", "time",
+                        "day", "week", "month", "year", "money", "price",
+                        "best", "worst", "good", "bad", "great", "nice",
+                        "coffee", "machine", "home", "water", "food",
+                        # Nationalities / languages (often from coffee styles)
+                        "french", "turkish", "italian", "german", "japanese",
+                        "chinese", "american", "british", "european", "asian",
+                        # Greetings / politeness
+                        "hey", "hello", "sorry", "thanks", "please", "yes",
+                        "update", "edit", "question", "answer", "response",
+                        # Adverbs / AI tools / country names
+                        "thank", "ultra", "ironically", "colombia", "claude", "chatgpt",
+                        "surprisingly", "actually", "personally", "basically", "probably",
+                        "definitely", "honestly", "recently", "especially", "generally",
+                        "apparently", "unfortunately", "literally", "obviously", "essentially",
+                        "typically", "absolutely", "exactly",
+                        # AI tool names
+                        "openai", "gemini", "copilot", "cursor", "anthropic",
+                        # Country / continent / region
+                        "brazil", "ethiopia", "vietnam", "india", "mexico", "peru",
+                        "africa", "south", "north", "east", "west", "central",
+                        # More false positive nouns
+                        "finally", "maybe", "perhaps", "however", "although",
+                        "certain", "everything", "nothing", "something", "anything",
+                        "someone", "everyone", "nobody", "today", "tomorrow", "yesterday",
+                        # Verbs, state, context
+                        "don", "okay", "looking", "also", "just", "like",
+                        "know", "think", "really", "much", "well", "even",
+                        "want", "need", "make", "take", "used", "using",
                     }:
                         continue
 
@@ -746,7 +789,7 @@ class SignalExtractor:
         cleaned = sentence.strip()
         for term in matched_terms:
             cleaned = cleaned.replace(term, term)
-        return cleaned[:180]
+        return cleaned[:400]
 
     def _extract_product_names(self, sentence: str) -> List[str]:
         candidates = {
@@ -773,11 +816,11 @@ class SignalExtractor:
         lower = sentence.lower()
         start = lower.find(cue)
         if start == -1:
-            return sentence.strip()[:180]
+            return sentence.strip()[:400]
         description = sentence[start:].strip()
         if len(description) < 12:
-            return sentence.strip()[:180]
-        return description[:200]
+            return sentence.strip()[:400]
+        return description[:400]
 
 
 __all__ = [

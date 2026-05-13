@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import json
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Any, Dict
 
 import pytest
@@ -16,6 +16,7 @@ pytestmark = pytest.mark.asyncio
 class _StubResponse:
     status: int
     payload: Dict[str, Any]
+    headers: Dict[str, str] = field(default_factory=dict)
 
     async def __aenter__(self) -> "_StubResponse":
         return self
@@ -50,7 +51,7 @@ class _StubSession:
 
 async def test_fetch_subreddit_posts_403_treated_as_empty() -> None:
     client = RedditAPIClient("id", "secret", "testsuite", session=_StubSession())
-    posts = await client.fetch_subreddit_posts("private_sub", limit=10)
+    posts, after = await client.fetch_subreddit_posts("private_sub", limit=10)
     assert posts == []
+    assert after is None
     await client.close()
-

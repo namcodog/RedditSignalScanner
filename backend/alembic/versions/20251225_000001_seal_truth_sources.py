@@ -14,7 +14,36 @@ branch_labels: Sequence[str] | None = None
 depends_on: Sequence[str] | None = None
 
 
+def _ensure_category_tables() -> None:
+    op.execute(
+        """
+        CREATE TABLE IF NOT EXISTS business_categories (
+            key VARCHAR(50) PRIMARY KEY,
+            display_name VARCHAR(100),
+            description TEXT,
+            is_active BOOLEAN NOT NULL DEFAULT TRUE,
+            created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
+            updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now()
+        )
+        """
+    )
+    op.execute(
+        """
+        CREATE TABLE IF NOT EXISTS community_category_map (
+            community_id INTEGER NOT NULL REFERENCES community_pool(id) ON DELETE CASCADE,
+            category_key VARCHAR(50) NOT NULL REFERENCES business_categories(key) ON DELETE RESTRICT,
+            is_primary BOOLEAN NOT NULL DEFAULT FALSE,
+            created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
+            updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
+            PRIMARY KEY (community_id, category_key)
+        )
+        """
+    )
+
+
 def upgrade() -> None:
+    _ensure_category_tables()
+
     op.execute(
         sa.text(
             """

@@ -32,6 +32,16 @@ const createMockReport = (taskId: string): ReportResponse => ({
     negative_mentions: 0,
     neutral_mentions: 0,
   },
+  sources: {
+    communities: ['r/startups'],
+    posts_analyzed: 10,
+    cache_hit_rate: 0.1,
+    analysis_duration_seconds: 12,
+    reddit_api_calls: 2,
+    data_source: 'real',
+    report_tier: 'C_scouting',
+    structured_llm_status: 'completed',
+  },
   report: {
     executive_summary: {
       total_communities: 0,
@@ -59,7 +69,8 @@ describe('analyze.api', () => {
       
       expect(client.apiClient.post).toHaveBeenCalledWith(
         '/analyze',
-        { product_description: 'desc' }
+        { product_description: 'desc' },
+        { timeout: 20000 }
       );
     });
   });

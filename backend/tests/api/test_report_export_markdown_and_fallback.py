@@ -22,6 +22,7 @@ from app.models.analysis import Analysis
 from app.models.report import Report
 from app.models.task import Task, TaskStatus
 from app.models.user import MembershipLevel, User
+from app.services.report.report_export_service import ReportExportService
 
 
 settings = get_settings()
@@ -91,17 +92,53 @@ async def test_download_report_markdown_success(client: AsyncClient, db_session:
 
 
 @pytest.mark.asyncio
-async def test_download_report_pdf_fallback_to_json(client: AsyncClient, db_session: AsyncSession) -> None:
+async def test_download_report_pdf_fallback_to_json(
+    client: AsyncClient,
+    db_session: AsyncSession,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
     user, task = await _create_completed_task(db_session)
     token = _issue_token(str(user.id))
+
+    def _boom(_: object) -> bytes:
+        raise RuntimeError("pdf-renderer-missing")
+
+    monkeypatch.setattr(ReportExportService, "generate_pdf", _boom)
+
     resp = await client.get(
         f"/api/report/{task.id}/download",
         params={"format": "pdf"},
         headers={"Authorization": f"Bearer {token}"},
     )
-    # 现在即使未安装 WeasyPrint，也会生成极简 PDF 而不是降级为 JSON
     assert resp.status_code == 200
-    assert resp.headers["content-type"].startswith("application/pdf")
-    # 验证返回的是有效的 PDF（以 %PDF 开头）
-    assert resp.content.startswith(b"%PDF")
+    assert resp.headers["content-type"].startswith("application/json")
+    assert resp.headers["x-export-fallback"] == "json"
+    assert resp.headers["x-export-error"] == "export_generation_failed"
+    assert "pdf-renderer-missing" not in resp.headers["x-export-error"]
 
+
+@pytest.mark.asyncio
+async def test_download_report_markdown_fallback_hides_internal_error(
+    client: AsyncClient,
+    db_session: AsyncSession,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    user, task = await _create_completed_task(db_session)
+    token = _issue_token(str(user.id))
+
+    def _boom(_: object) -> bytes:
+        raise RuntimeError("sensitive-markdown-error")
+
+    monkeypatch.setattr(ReportExportService, "generate_markdown", _boom)
+
+    resp = await client.get(
+        f"/api/report/{task.id}/download",
+        params={"format": "md"},
+        headers={"Authorization": f"Bearer {token}"},
+    )
+
+    assert resp.status_code == 200
+    assert resp.headers["content-type"].startswith("application/json")
+    assert resp.headers["x-export-fallback"] == "json"
+    assert resp.headers["x-export-error"] == "export_generation_failed"
+    assert "sensitive-markdown-error" not in resp.headers["x-export-error"]

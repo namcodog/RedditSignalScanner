@@ -1,3 +1,18 @@
+brand_discovery:
+  # 全局默认：给 ad-hoc topic 和没有单独覆盖的 profile 使用
+  enabled: true
+  min_frequency: 3
+  max_candidates: 15
+  token_pattern: "\\b([A-Z][a-zA-Z]{1,20})\\b"
+  # 这里的 stopwords 会在代码内默认噪音词基础上继续追加
+  stopwords:
+    - "ebay"
+    - "etsy"
+    - "shopify"
+    - "facebook"
+    - "google"
+    - "tiktok"
+
 topic_profiles:
   - id: shopify_ads_conversion_v1
     topic_name: "Shopify Traffic Ads Conversion"
@@ -103,6 +118,10 @@ topic_profiles:
       - "conversion rate"
       - "retargeting"
       - "creative"
+    # 这个题比较窄，品牌候选允许更早进入，避免把广告平台相关品牌全漏掉
+    brand_discovery:
+      min_frequency: 2
+      max_candidates: 20
 
   # Phase106 演练专用：强制 topic_mismatch → X_blocked（验证“系统宁可拦截，也不胡说”）
   - id: mismatch_demo_v1
@@ -128,3 +147,281 @@ topic_profiles:
 
     # 让演练“尽量不走 warmup”，避免 auto_rerun 把矩阵跑很久
     pain_min_mentions: 5
+
+  # 中文题目：用现有配置字段承接英文 anchor，避免 CJK 话题直接拿中文去匹配英文 Reddit 文本。
+  - id: vacuum_cleaner_v1
+    topic_name: "家用吸尘器 清洁工具"
+    product_desc: "家用吸尘器和清洁工具"
+    vertical: "home_kitchen"
+    mode: "market_insight"
+
+    allowed_communities:
+      - r/cleaningtips
+      - r/homeimprovement
+      - r/buyitforlife
+      - r/frugal
+      - r/appliances
+      - r/homeautomation
+
+    community_patterns:
+      - "clean"
+      - "home"
+      - "appliance"
+      - "vacuum"
+
+    required_entities_any:
+      - "vacuum"
+      - "cleaner"
+      - "cordless"
+
+    soft_required_entities_any:
+      - "robot vacuum"
+      - "carpet cleaner"
+
+    include_keywords_any:
+      - "vacuum"
+      - "cleaner"
+      - "cordless"
+      - "robot"
+      - "carpet"
+      - "dust"
+      - "suction"
+
+    exclude_keywords_any:
+      - "lawn"
+      - "outdoor"
+      - "leaf blower"
+
+    context_keywords_any:
+      - "vacuum"
+      - "cleaner"
+      - "cordless"
+      - "robot"
+      - "carpet"
+      - "dust"
+      - "suction"
+    pain_min_mentions: 1
+    pain_min_unique_authors: 1
+    min_good_brands: 0
+    brand_min_mentions: 1
+    brand_min_unique_authors: 1
+    min_solutions: 3
+
+  - id: saas_collaboration_v1
+    topic_name: "Remote Team SaaS Collaboration"
+    product_desc: "远程团队协作与项目管理工具"
+    vertical: "AI_Workflow"
+    mode: "market_insight"
+
+    allowed_communities:
+      - r/SaaS
+      - r/startups
+      - r/Entrepreneur
+      - r/projectmanagement
+      - r/notion
+      - r/asana
+      - r/trello
+      - r/productivity
+      - r/remotework
+
+    community_patterns:
+      - "saas"
+      - "projectmanagement"
+      - "productivity"
+      - "notion"
+      - "asana"
+      - "trello"
+      - "remotework"
+
+    required_entities_any:
+      - "project management"
+      - "collaboration"
+      - "task"
+
+    soft_required_entities_any:
+      - "Notion"
+      - "Asana"
+      - "Trello"
+      - "ClickUp"
+      - "Jira"
+      - "Monday"
+
+    include_keywords_any:
+      - "project management"
+      - "collaboration"
+      - "remote team"
+      - "async"
+      - "task tracking"
+      - "kanban"
+      - "sprint"
+      - "backlog"
+      - "handoff"
+      - "status update"
+      - "notion"
+      - "asana"
+      - "trello"
+      - "clickup"
+      - "jira"
+      - "workflow"
+
+    exclude_keywords_any:
+      - "dating"
+      - "relationship"
+      - "recipe"
+      - "meal"
+      - "baby name"
+
+    context_keywords_any:
+      - "project management"
+      - "collaboration"
+      - "remote"
+      - "notion"
+      - "asana"
+      - "trello"
+      - "workflow"
+      - "task"
+
+    preferred_days: 730
+    pain_min_mentions: 1
+    pain_min_unique_authors: 1
+    min_good_brands: 0
+    brand_min_mentions: 1
+    brand_min_unique_authors: 1
+    min_solutions: 3
+    min_sample_comments: 0
+    brand_discovery:
+      min_frequency: 1
+      max_candidates: 20
+
+  - id: edc_everyday_carry_v1
+    topic_name: "EDC Key & Pocket Organizer"
+    product_desc: "钥匙与口袋收纳相关的日常随身工具（EDC）"
+    vertical: "Tools_EDC"
+    mode: "market_insight"
+
+    allowed_communities:
+      - r/EDC
+      - r/knifeclub
+      - r/multitools
+      - r/flashlight
+      - r/Ultralight
+      - r/CampingGear
+      - r/BuyItForLife
+      - r/onebag
+
+    community_patterns:
+      - "edc"
+      - "keychain"
+      - "pocket"
+      - "multitool"
+      - "flashlight"
+      - "knife"
+      - "camping"
+
+    required_entities_any:
+      - "edc"
+      - "keychain"
+      - "pocket"
+
+    soft_required_entities_any:
+      - "knife"
+      - "multitool"
+      - "flashlight"
+      - "organizer"
+      - "lanyard"
+
+    include_keywords_any:
+      - "edc"
+      - "everyday carry"
+      - "keychain"
+      - "keys"
+      - "pocket"
+      - "organizer"
+      - "card holder"
+      - "clip"
+      - "lanyard"
+      - "multitool"
+      - "flashlight"
+      - "knife"
+      - "wallet"
+      - "access card"
+      - "lost keys"
+
+    exclude_keywords_any:
+      - "video game"
+      - "keyboard"
+      - "mouse"
+      - "dating"
+      - "recipe"
+
+    context_keywords_any:
+      - "edc"
+      - "keychain"
+      - "keys"
+      - "pocket"
+      - "organizer"
+      - "carry"
+      - "flashlight"
+      - "multitool"
+
+    preferred_days: 730
+    pain_min_mentions: 4
+    pain_min_unique_authors: 2
+    brand_min_mentions: 1
+    brand_min_unique_authors: 1
+    min_solutions: 3
+    min_sample_comments: 0
+    brand_discovery:
+      min_frequency: 1
+      max_candidates: 20
+
+  - id: cross_border_payment_v1
+    topic_name: "跨境电商支付/收款解决方案"
+    product_desc: "跨境电商卖家收款工具"
+    vertical: "Ecommerce_Business"
+    mode: "operations"
+
+    allowed_communities:
+      - r/ecommerce
+      - r/entrepreneur
+      - r/smallbusiness
+      - r/stripe
+
+    community_patterns:
+      - "ecommerce"
+      - "payments"
+      - "stripe"
+      - "smallbusiness"
+
+    required_entities_any:
+      - "payment"
+      - "payout"
+      - "stripe"
+      - "payoneer"
+
+    soft_required_entities_any:
+      - "wise"
+      - "gateway"
+      - "merchant of record"
+
+    include_keywords_any:
+      - "payment"
+      - "payout"
+      - "stripe"
+      - "payoneer"
+      - "wise"
+      - "transfer"
+      - "cross-border"
+      - "gateway"
+
+    exclude_keywords_any: []
+
+    context_keywords_any:
+      - "payment"
+      - "payout"
+      - "stripe"
+      - "payoneer"
+      - "wise"
+      - "transfer"
+      - "cross-border"
+      - "gateway"

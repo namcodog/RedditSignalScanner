@@ -28,6 +28,6 @@ def test_hotpost_search_request_limit_bounds() -> None:
 
 
 def test_hotpost_search_request_subreddit_limit() -> None:
-    subs = [f"r/test{i}" for i in range(6)]
+    subs = [f"r/test{i}" for i in range(11)]
     with pytest.raises(ValueError):
         HotpostSearchRequest(query="test", subreddits=subs)

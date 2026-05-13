@@ -103,6 +103,27 @@ class TestBlacklistLoader:
             
         Path(f.name).unlink()
 
+    def test_loads_backend_blacklisted_communities_compat_key(self):
+        """兼容 backend/config/community_blacklist.yaml 的 blacklisted_communities 键"""
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.yaml', delete=False) as f:
+            config = {
+                'blacklisted_communities': [
+                    {'name': 'r/noise', 'reason': 'noise'},
+                    'r/relationship_advice',
+                ],
+                'filter_patterns': [],
+                'filter_keywords': [],
+            }
+            yaml.dump(config, f)
+            f.flush()
+
+            loader = BlacklistConfig(f.name)
+
+            assert loader.is_community_blacklisted('r/noise') is True
+            assert loader.is_community_blacklisted('r/relationship_advice') is True
+
+        Path(f.name).unlink()
+
 
 if __name__ == '__main__':
     pytest.main([__file__, '-v'])

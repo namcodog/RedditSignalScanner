@@ -1,0 +1,1787 @@
+{
+  "status": "completed",
+  "mode": "incremental",
+  "total": 200,
+  "succeeded": 186,
+  "failed": 14,
+  "total_new_posts": 16676,
+  "total_updated_posts": 256,
+  "total_duplicates": 27,
+  "communities": [
+    {
+      "community": "r/marketing",
+      "new_posts": 1,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.735603
+    },
+    {
+      "community": "r/freelance",
+      "new_posts": 15,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.191309
+    },
+    {
+      "community": "r/consulting",
+      "new_posts": 92,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.94057
+    },
+    {
+      "community": "r/growthacking",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "r/UI_Design",
+      "new_posts": 99,
+      "updated_posts": 0,
+      "duplicates": 1,
+      "watermark_updated": true,
+      "duration_seconds": 2.4901
+    },
+    {
+      "community": "r/docker",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.676875
+    },
+    {
+      "community": "r/azure",
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "community": "r/googlecloud",
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "community": "r/BigData",
+      "new_posts": 63,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.127975
+    },
+    {
+      "community": "r/java",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.119953
+    },
+    {
+      "community": "r/csharp",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.849321
+    },
+    {
+      "community": "r/AskEngineers",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.818417
+    },
+    {
+      "community": "r/learnprogramming",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.024111
+    },
+    {
+      "community": "r/learnpython",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.968442
+    },
+    {
+      "community": "r/rust",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.49142
+    },
+    {
+      "community": "r/typescript",
+      "new_posts": 58,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.198797
+    },
+    {
+      "community": "r/reactjs",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.915887
+    },
+    {
+      "community": "r/vuejs",
+      "new_posts": 82,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.892091
+    },
+    {
+      "community": "r/node",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.514674
+    },
+    {
+      "community": "r/django",
+      "new_posts": 99,
+      "updated_posts": 0,
+      "duplicates": 1,
+      "watermark_updated": true,
+      "duration_seconds": 2.915277
+    },
+    {
+      "community": "r/rails",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.839432
+    },
+    {
+      "community": "r/PostgreSQL",
+      "new_posts": 69,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.176956
+    },
+    {
+      "community": "r/mysql",
+      "new_posts": 28,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.933946
+    },
+    {
+      "community": "r/stocks",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.825208
+    },
+    {
+      "community": "r/CryptoCurrency",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.082108
+    },
+    {
+      "community": "r/Bitcoin",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.511956
+    },
+    {
+      "community": "r/angular",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 595.071075
+    },
+    {
+      "community": "r/flask",
+      "status": "failed",
+      "error": "Server disconnected"
+    },
+    {
+      "community": "r/laravel",
+      "new_posts": 55,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.987014
+    },
+    {
+      "community": "r/dotnet",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.694287
+    },
+    {
+      "community": "r/Database",
+      "new_posts": 74,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.999487
+    },
+    {
+      "community": "r/mongodb",
+      "new_posts": 78,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.695012
+    },
+    {
+      "community": "r/redis",
+      "new_posts": 11,
+      "updated_posts": 0,
+      "duplicates": 1,
+      "watermark_updated": true,
+      "duration_seconds": 0.51776
+    },
+    {
+      "community": "r/investing",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.674914
+    },
+    {
+      "community": "r/ethereum",
+      "new_posts": 97,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.764294
+    },
+    {
+      "community": "r/defi",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.46181
+    },
+    {
+      "community": "r/wallstreetbets",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.264715
+    },
+    {
+      "community": "r/leanfire",
+      "new_posts": 82,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.593574
+    },
+    {
+      "community": "r/fatFIRE",
+      "new_posts": 85,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.179796
+    },
+    {
+      "community": "r/povertyfinance",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.957548
+    },
+    {
+      "community": "r/EatCheapAndHealthy",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.805886
+    },
+    {
+      "community": "r/AskCulinary",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.790488
+    },
+    {
+      "community": "r/fitness",
+      "new_posts": 50,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.308754
+    },
+    {
+      "community": "r/running",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.814995
+    },
+    {
+      "community": "r/cycling",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.310165
+    },
+    {
+      "community": "r/loseit",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.249355
+    },
+    {
+      "community": "r/intermittentfasting",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 4.118413
+    },
+    {
+      "community": "r/nutrition",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.929825
+    },
+    {
+      "community": "r/mentalhealth",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.425813
+    },
+    {
+      "community": "r/selfimprovement",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.360936
+    },
+    {
+      "community": "r/productivity",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.712838
+    },
+    {
+      "community": "r/ZenHabits",
+      "new_posts": 20,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.712084
+    },
+    {
+      "community": "r/BuyItForLife",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.726009
+    },
+    {
+      "community": "r/solotravel",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 3.676741
+    },
+    {
+      "community": "r/cscareerquestions",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.02861
+    },
+    {
+      "community": "r/ITCareerQuestions",
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "community": "r/resumes",
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "community": "r/interviews",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 3.044906
+    },
+    {
+      "community": "r/careerguidance",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 5.213158
+    },
+    {
+      "community": "r/careerchange",
+      "new_posts": 75,
+      "updated_posts": 0,
+      "duplicates": 1,
+      "watermark_updated": true,
+      "duration_seconds": 1.504131
+    },
+    {
+      "community": "r/managers",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.58651
+    },
+    {
+      "community": "r/leadership",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.046372
+    },
+    {
+      "community": "r/learnjavascript",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.802856
+    },
+    {
+      "community": "r/programming",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.198735
+    },
+    {
+      "community": "r/softwaredevelopment",
+      "new_posts": 46,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.021132
+    },
+    {
+      "community": "r/sysadmin",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.016509
+    },
+    {
+      "community": "r/networking",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.926659
+    },
+    {
+      "community": "r/homelab",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 3.301801
+    },
+    {
+      "community": "r/privacy",
+      "new_posts": 99,
+      "updated_posts": 0,
+      "duplicates": 1,
+      "watermark_updated": true,
+      "duration_seconds": 1.980642
+    },
+    {
+      "community": "r/AskNetsec",
+      "new_posts": 43,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.070493
+    },
+    {
+      "community": "r/buildapc",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.774398
+    },
+    {
+      "community": "r/Unity3D",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.202779
+    },
+    {
+      "community": "r/unrealengine",
+      "new_posts": 99,
+      "updated_posts": 0,
+      "duplicates": 1,
+      "watermark_updated": true,
+      "duration_seconds": 1.822281
+    },
+    {
+      "community": "r/gamedesign",
+      "new_posts": 99,
+      "updated_posts": 0,
+      "duplicates": 1,
+      "watermark_updated": true,
+      "duration_seconds": 2.086231
+    },
+    {
+      "community": "r/truegaming",
+      "new_posts": 31,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.841628
+    },
+    {
+      "community": "r/selfpublish",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.145441
+    },
+    {
+      "community": "r/options",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.216674
+    },
+    {
+      "community": "r/realestate",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.963241
+    },
+    {
+      "community": "r/RealEstateInvesting",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.713209
+    },
+    {
+      "community": "r/FIRE",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.907457
+    },
+    {
+      "community": "r/financialindependence",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.242779
+    },
+    {
+      "community": "r/Frugal",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.245469
+    },
+    {
+      "community": "r/budgetfood",
+      "new_posts": 91,
+      "updated_posts": 0,
+      "duplicates": 1,
+      "watermark_updated": true,
+      "duration_seconds": 1.757805
+    },
+    {
+      "community": "r/MealPrepSunday",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.867174
+    },
+    {
+      "community": "r/Cooking",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.625629
+    },
+    {
+      "community": "r/bodyweightfitness",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.85149
+    },
+    {
+      "community": "r/PartneredYoutube",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.048735
+    },
+    {
+      "community": "r/ContentCreation",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.377814
+    },
+    {
+      "community": "r/SEO",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.707175
+    },
+    {
+      "community": "r/PPC",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.005978
+    },
+    {
+      "community": "r/copywriting",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.809283
+    },
+    {
+      "community": "r/branding",
+      "new_posts": 99,
+      "updated_posts": 0,
+      "duplicates": 1,
+      "watermark_updated": true,
+      "duration_seconds": 2.236195
+    },
+    {
+      "community": "r/Accounting",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.035108
+    },
+    {
+      "community": "r/taxpros",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.834938
+    },
+    {
+      "community": "r/StudentLoans",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.861372
+    },
+    {
+      "community": "r/awardtravel",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.550778
+    },
+    {
+      "community": "r/Mortgages",
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "community": "r/FirstTimeHomeBuyer",
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "community": "r/RealEstate",
+      "new_posts": 0,
+      "updated_posts": 90,
+      "duplicates": 10,
+      "watermark_updated": true,
+      "duration_seconds": 2.682102
+    },
+    {
+      "community": "r/Landlord",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 3.073648
+    },
+    {
+      "community": "r/FulfillmentByAmazon",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.222439
+    },
+    {
+      "community": "r/AmazonSeller",
+      "new_posts": 78,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.238165
+    },
+    {
+      "community": "r/yoga",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.705421
+    },
+    {
+      "community": "r/progresspics",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.441406
+    },
+    {
+      "community": "r/keto",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.842833
+    },
+    {
+      "community": "r/Anxiety",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.244502
+    },
+    {
+      "community": "r/depression",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.917517
+    },
+    {
+      "community": "r/shopify",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.802429
+    },
+    {
+      "community": "r/juststart",
+      "new_posts": 10,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.615579
+    },
+    {
+      "community": "r/startups",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.999156
+    },
+    {
+      "community": "r/smallbusiness",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.921362
+    },
+    {
+      "community": "r/SaaS",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.164895
+    },
+    {
+      "community": "r/sales",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.278101
+    },
+    {
+      "community": "r/ecommerce",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.074787
+    },
+    {
+      "community": "r/venturecapital",
+      "new_posts": 41,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.110774
+    },
+    {
+      "community": "r/ProductManagement",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.250979
+    },
+    {
+      "community": "r/UXDesign",
+      "new_posts": 99,
+      "updated_posts": 0,
+      "duplicates": 1,
+      "watermark_updated": true,
+      "duration_seconds": 2.390143
+    },
+    {
+      "community": "r/getdisciplined",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.392484
+    },
+    {
+      "community": "r/DecidingToBeBetter",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.359353
+    },
+    {
+      "community": "r/GetMotivated",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.773625
+    },
+    {
+      "community": "r/simpleliving",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.954639
+    },
+    {
+      "community": "r/declutter",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.002267
+    },
+    {
+      "community": "r/organization",
+      "new_posts": 0,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.369802
+    },
+    {
+      "community": "r/GoodValue",
+      "new_posts": 51,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.113283
+    },
+    {
+      "community": "r/travel",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 5.364353
+    },
+    {
+      "community": "r/digitalnomad",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.444335
+    },
+    {
+      "community": "r/remotework",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.996666
+    },
+    {
+      "community": "r/jobs",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.929649
+    },
+    {
+      "community": "r/GetEmployed",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.9227
+    },
+    {
+      "community": "r/AskHR",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.166146
+    },
+    {
+      "community": "r/EngineeringStudents",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.499611
+    },
+    {
+      "community": "r/learnjava",
+      "new_posts": 99,
+      "updated_posts": 0,
+      "duplicates": 1,
+      "watermark_updated": true,
+      "duration_seconds": 2.105101
+    },
+    {
+      "community": "r/learnmachinelearning",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.661195
+    },
+    {
+      "community": "r/AskProgramming",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.767111
+    },
+    {
+      "community": "r/coding",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.908151
+    },
+    {
+      "community": "r/SoftwareEngineering",
+      "new_posts": 5,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.450786
+    },
+    {
+      "community": "r/ExperiencedDevs",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.771226
+    },
+    {
+      "community": "r/selfhosted",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.516583
+    },
+    {
+      "community": "r/netsec",
+      "new_posts": 61,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.968984
+    },
+    {
+      "community": "r/hacking",
+      "new_posts": 77,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.524249
+    },
+    {
+      "community": "r/AskTechnology",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.104349
+    },
+    {
+      "community": "r/gadgets",
+      "new_posts": 96,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.511645
+    },
+    {
+      "community": "r/hardware",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.603876
+    },
+    {
+      "community": "r/pcmasterrace",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.186174
+    },
+    {
+      "community": "r/gaming",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.988651
+    },
+    {
+      "community": "r/gamedev",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 6.466591
+    },
+    {
+      "community": "r/IndieGaming",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.054587
+    },
+    {
+      "community": "r/writing",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.823644
+    },
+    {
+      "community": "r/WritingPrompts",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.509264
+    },
+    {
+      "community": "r/photography",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 3.245828
+    },
+    {
+      "community": "r/AskPhotography",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.451335
+    },
+    {
+      "community": "r/videography",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.311649
+    },
+    {
+      "community": "r/VideoEditing",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.847134
+    },
+    {
+      "community": "r/youtubers",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.576916
+    },
+    {
+      "community": "r/NewTubers",
+      "new_posts": 99,
+      "updated_posts": 0,
+      "duplicates": 1,
+      "watermark_updated": true,
+      "duration_seconds": 2.285555
+    },
+    {
+      "community": "r/Twitch",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.061629
+    },
+    {
+      "community": "r/Streaming",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.832119
+    },
+    {
+      "community": "r/socialmedia",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.82742
+    },
+    {
+      "community": "r/Instagram",
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "community": "r/Tiktokhelp",
+      "status": "failed",
+      "error": "Reddit API error (status=404): {\"reason\": \"banned\", \"message\": \"Not Found\", \"error\": 404}"
+    },
+    {
+      "community": "r/Affiliatemarketing",
+      "new_posts": 99,
+      "updated_posts": 0,
+      "duplicates": 1,
+      "watermark_updated": true,
+      "duration_seconds": 948.494578
+    },
+    {
+      "community": "r/Emailmarketing",
+      "status": "failed",
+      "error": "Server disconnected"
+    },
+    {
+      "community": "r/logodesign",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 3.021626
+    },
+    {
+      "community": "r/graphic_design",
+      "new_posts": 99,
+      "updated_posts": 0,
+      "duplicates": 1,
+      "watermark_updated": true,
+      "duration_seconds": 2.993558
+    },
+    {
+      "community": "r/AskMarketing",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.046391
+    },
+    {
+      "community": "r/tax",
+      "new_posts": 99,
+      "updated_posts": 0,
+      "duplicates": 1,
+      "watermark_updated": true,
+      "duration_seconds": 1.874575
+    },
+    {
+      "community": "r/Insurance",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.469901
+    },
+    {
+      "community": "r/HealthInsurance",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.935892
+    },
+    {
+      "community": "r/CRedit",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.774426
+    },
+    {
+      "community": "r/CreditCards",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.789816
+    },
+    {
+      "community": "r/churning",
+      "new_posts": 89,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.573825
+    },
+    {
+      "community": "r/passive_income",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.344571
+    },
+    {
+      "community": "r/sidehustle",
+      "new_posts": 99,
+      "updated_posts": 0,
+      "duplicates": 1,
+      "watermark_updated": true,
+      "duration_seconds": 1.91968
+    },
+    {
+      "community": "r/beermoney",
+      "new_posts": 60,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.082878
+    },
+    {
+      "community": "r/Flipping",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.948707
+    },
+    {
+      "community": "r/Resell",
+      "new_posts": 96,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.258923
+    },
+    {
+      "community": "r/webdesign",
+      "new_posts": 99,
+      "updated_posts": 0,
+      "duplicates": 1,
+      "watermark_updated": true,
+      "duration_seconds": 2.260851
+    },
+    {
+      "community": "r/Frontend",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.598654
+    },
+    {
+      "community": "r/Backend",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.686317
+    },
+    {
+      "community": "r/devops",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.934312
+    },
+    {
+      "community": "r/kubernetes",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.876773
+    },
+    {
+      "community": "r/aws",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.829617
+    },
+    {
+      "community": "r/MachineLearning",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.90801
+    },
+    {
+      "community": "r/artificial",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.714557
+    },
+    {
+      "community": "r/deeplearning",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.878617
+    },
+    {
+      "community": "r/datascience",
+      "new_posts": 62,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.91679
+    },
+    {
+      "community": "r/dataengineering",
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "community": "r/Python",
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "community": "r/javascript",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.069239
+    },
+    {
+      "community": "r/golang",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.367904
+    },
+    {
+      "community": "r/dropship",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.796383
+    },
+    {
+      "community": "r/Etsy",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.013715
+    },
+    {
+      "community": "r/EtsySellers",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.857961
+    },
+    {
+      "community": "r/printOnDemand",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.855304
+    },
+    {
+      "community": "r/merch",
+      "new_posts": 0,
+      "updated_posts": 0,
+      "duplicates": 0,
+      "watermark_updated": false
+    },
+    {
+      "community": "r/AmazonMerch",
+      "new_posts": 28,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.687264
+    },
+    {
+      "community": "r/Blogging",
+      "new_posts": 79,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 1.53351
+    },
+    {
+      "community": "r/WorkOnline",
+      "new_posts": 44,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 0.862367
+    },
+    {
+      "community": "r/forhire",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.11591
+    },
+    {
+      "community": "r/slavelabour",
+      "new_posts": 99,
+      "updated_posts": 1,
+      "duplicates": 0,
+      "watermark_updated": true,
+      "duration_seconds": 2.728814
+    }
+  ],
+  "tier_assignments": {
+    "tier1": [
+      "r/consulting",
+      "r/UI_Design",
+      "r/docker",
+      "r/BigData",
+      "r/java",
+      "r/csharp",
+      "r/AskEngineers",
+      "r/learnprogramming",
+      "r/learnpython",
+      "r/rust",
+      "r/typescript",
+      "r/reactjs",
+      "r/vuejs",
+      "r/node",
+      "r/django",
+      "r/rails",
+      "r/PostgreSQL",
+      "r/mysql",
+      "r/stocks",
+      "r/CryptoCurrency",
+      "r/Bitcoin",
+      "r/angular",
+      "r/laravel",
+      "r/dotnet",
+      "r/Database",
+      "r/mongodb",
+      "r/investing",
+      "r/ethereum",
+      "r/defi",
+      "r/wallstreetbets",
+      "r/leanfire",
+      "r/fatFIRE",
+      "r/povertyfinance",
+      "r/EatCheapAndHealthy",
+      "r/AskCulinary",
+      "r/fitness",
+      "r/running",
+      "r/cycling",
+      "r/loseit",
+      "r/intermittentfasting",
+      "r/nutrition",
+      "r/mentalhealth",
+      "r/selfimprovement",
+      "r/productivity",
+      "r/BuyItForLife",
+      "r/solotravel",
+      "r/cscareerquestions",
+      "r/interviews",
+      "r/careerguidance",
+      "r/careerchange",
+      "r/managers",
+      "r/leadership",
+      "r/learnjavascript",
+      "r/programming",
+      "r/softwaredevelopment",
+      "r/sysadmin",
+      "r/networking",
+      "r/homelab",
+      "r/privacy",
+      "r/AskNetsec",
+      "r/buildapc",
+      "r/Unity3D",
+      "r/unrealengine",
+      "r/gamedesign",
+      "r/truegaming",
+      "r/selfpublish",
+      "r/options",
+      "r/realestate",
+      "r/RealEstateInvesting",
+      "r/FIRE",
+      "r/financialindependence",
+      "r/Frugal",
+      "r/budgetfood",
+      "r/MealPrepSunday",
+      "r/Cooking",
+      "r/bodyweightfitness",
+      "r/PartneredYoutube",
+      "r/ContentCreation",
+      "r/SEO",
+      "r/PPC",
+      "r/copywriting",
+      "r/branding",
+      "r/Accounting",
+      "r/taxpros",
+      "r/StudentLoans",
+      "r/awardtravel",
+      "r/Landlord",
+      "r/FulfillmentByAmazon",
+      "r/AmazonSeller",
+      "r/yoga",
+      "r/progresspics",
+      "r/keto",
+      "r/Anxiety",
+      "r/depression",
+      "r/shopify",
+      "r/startups",
+      "r/smallbusiness",
+      "r/SaaS",
+      "r/sales",
+      "r/ecommerce",
+      "r/venturecapital",
+      "r/ProductManagement",
+      "r/UXDesign",
+      "r/getdisciplined",
+      "r/DecidingToBeBetter",
+      "r/GetMotivated",
+      "r/simpleliving",
+      "r/declutter",
+      "r/GoodValue",
+      "r/travel",
+      "r/digitalnomad",
+      "r/remotework",
+      "r/jobs",
+      "r/GetEmployed",
+      "r/AskHR",
+      "r/EngineeringStudents",
+      "r/learnjava",
+      "r/learnmachinelearning",
+      "r/AskProgramming",
+      "r/coding",
+      "r/ExperiencedDevs",
+      "r/selfhosted",
+      "r/netsec",
+      "r/hacking",
+      "r/AskTechnology",
+      "r/gadgets",
+      "r/hardware",
+      "r/pcmasterrace",
+      "r/gaming",
+      "r/gamedev",
+      "r/IndieGaming",
+      "r/writing",
+      "r/WritingPrompts",
+      "r/photography",
+      "r/AskPhotography",
+      "r/videography",
+      "r/VideoEditing",
+      "r/youtubers",
+      "r/NewTubers",
+      "r/Twitch",
+      "r/Streaming",
+      "r/socialmedia",
+      "r/Affiliatemarketing",
+      "r/logodesign",
+      "r/graphic_design",
+      "r/AskMarketing",
+      "r/tax",
+      "r/Insurance",
+      "r/HealthInsurance",
+      "r/CRedit",
+      "r/CreditCards",
+      "r/churning",
+      "r/passive_income",
+      "r/sidehustle",
+      "r/beermoney",
+      "r/Flipping",
+      "r/Resell",
+      "r/webdesign",
+      "r/Frontend",
+      "r/Backend",
+      "r/devops",
+      "r/kubernetes",
+      "r/aws",
+      "r/MachineLearning",
+      "r/artificial",
+      "r/deeplearning",
+      "r/datascience",
+      "r/javascript",
+      "r/golang",
+      "r/dropship",
+      "r/Etsy",
+      "r/EtsySellers",
+      "r/printOnDemand",
+      "r/AmazonMerch",
+      "r/Blogging",
+      "r/WorkOnline",
+      "r/forhire",
+      "r/slavelabour"
+    ],
+    "tier2": [
+      "r/freelance",
+      "r/redis",
+      "r/ZenHabits"
+    ],
+    "tier3": [
+      "r/marketing",
+      "r/juststart",
+      "r/SoftwareEngineering"
+    ],
+    "no_data": [
+      "r/growthacking",
+      "r/azure",
+      "r/googlecloud",
+      "r/flask",
+      "r/ITCareerQuestions",
+      "r/resumes",
+      "r/Mortgages",
+      "r/FirstTimeHomeBuyer",
+      "r/RealEstate",
+      "r/organization",
+      "r/Instagram",
+      "r/Tiktokhelp",
+      "r/Emailmarketing",
+      "r/dataengineering",
+      "r/Python",
+      "r/merch"
+    ],
+    "blacklisted": []
+  },
+  "empty_count": 2,
+  "error_count": 12
+}

@@ -95,6 +95,10 @@ async def get_task_status(
             message = _MESSAGE_MAP.get(status_value, "")
             error = task.error_message
             updated_at = task.updated_at or datetime.now(timezone.utc)
+            stage = getattr(cached, "stage", None)
+            blocked_reason = getattr(cached, "blocked_reason", None)
+            next_action = getattr(cached, "next_action", None)
+            details = getattr(cached, "details", None)
             # 异步地回填缓存（不阻塞请求）
             try:
                 await STATUS_CACHE.set_status(
@@ -104,10 +108,10 @@ async def get_task_status(
                         progress=progress,
                         message=message,
                         error=error,
-                        stage=getattr(cached, "stage", None),
-                        blocked_reason=getattr(cached, "blocked_reason", None),
-                        next_action=getattr(cached, "next_action", None),
-                        details=getattr(cached, "details", None),
+                        stage=stage,
+                        blocked_reason=blocked_reason,
+                        next_action=next_action,
+                        details=details,
                         updated_at=updated_at.isoformat(),
                     )
                 )

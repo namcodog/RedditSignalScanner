@@ -1,0 +1,623 @@
+{
+  "kind": "hotpost_v13_published_shadow_refresh",
+  "plan_version": 1,
+  "profile_id": "hotpost_v13_title_standalone",
+  "created_at": "2026-04-29T09:02:12.457062Z",
+  "selected": 3,
+  "generated": 3,
+  "failed": 0,
+  "cards": [
+    {
+      "card_id": "card-group-business-growth-ops-aba3ace147",
+      "lane": "breakdown",
+      "card_type": "write",
+      "profile_id": "hotpost_v13_title_standalone",
+      "semantic_model": "deepseek/deepseek-v4-flash",
+      "writer_model": "xiaomi/mimo-v2.5-pro",
+      "original_card": {
+        "card_id": "card-group-business-growth-ops-aba3ace147",
+        "signal_id": "sig-group-business-growth-ops-aba3ace147",
+        "card_type": "write",
+        "lane": "breakdown",
+        "category_id": "write",
+        "source_scope_id": "business-growth-ops",
+        "source_scope_name": "商业增长与运营",
+        "topic_pack_id": "organic-discovery",
+        "topic_cluster_id": "seo-geo",
+        "topic_cluster_ids": [
+          "seo-geo"
+        ],
+        "named_topic_ids": [],
+        "source_domain_id": "business-growth-ops",
+        "source_domain_name": "商业增长与运营",
+        "source_event_at": "2026-04-10T05:24:19Z",
+        "title": "老炮儿们不信 GEO，他们信的是‘别当个难搞的公司’",
+        "summary_line": "当行业又在抛新缩写时，最老的玩家反而在说：别追了，回去把生意做好。",
+        "audience": "长期关注搜索流量、对 SEO 行业术语感到疲惫的数字营销人员和网站主",
+        "why_now": "因为又一个新缩写 GEO 被抛出来，让一些老手觉得行业在重复“制造问题-推销解药”的循环，而不是回归本质。",
+        "why_now_reason": "switch_signal_7d",
+        "signal_level": "rising",
+        "intent_tags": [
+          "避坑",
+          "求推荐"
+        ],
+        "top_community": "r/DigitalMarketing",
+        "thread_count": 2,
+        "community_count": 2,
+        "source_module": {
+          "primary_communities": [
+            "r/DigitalMarketing",
+            "r/TechSEO"
+          ],
+          "top_community": "r/DigitalMarketing",
+          "tone_tags": [],
+          "thread_count": 2,
+          "community_count": 2,
+          "last_active_text": "近24小时"
+        },
+        "preview_quote": {
+          "text": "I have been around for a long time. I first started tinkering with SEO in 1998, and between then and now, only one thing has remained true: you must ensure your clients do interesting, meaningful work that connects genuinely with their audience.\n\nIf you do that, you don't need to sweat the algorithm updates or any of the other nonsense. We always align ourselves with that principle.\nI genuinely believe that all search engines – and even the new AI tools – are simply trying to figure out which people are the bad actors to be avoided, and who the 'golden gods' are.\n\nIf you view SEO (or whatever new acronym the industry throws at us) through the lens of amplifying excellent companies, the world becomes a lot easier to navigate.\nThere will always be someone telling you to chase the latest technical development, but it all comes back to a simple rule: don't be a nightmare to deal with. Just focus on being a quality business.",
+          "community": "r/DigitalMarketing",
+          "permalink": "https://www.reddit.com/r/DigitalMarketing/comments/1sepe9p/seo_was_not_enough_now_we_have_geo/oerjvwe/"
+        },
+        "published_at": "2026-04-16T00:55:09.886133Z",
+        "controversy_chart": null,
+        "controversy_meta": null,
+        "quotes": [
+          {
+            "text": "I have been around for a long time. I first started tinkering with SEO in 1998, and between then and now, only one thing has remained true: you must ensure your clients do interesting, meaningful work that connects genuinely with their audience.\n\nIf you do that, you don't need to sweat the algorithm updates or any of the other nonsense. We always align ourselves with that principle.\nI genuinely believe that all search engines – and even the new AI tools – are simply trying to figure out which people are the bad actors to be avoided, and who the 'golden gods' are.\n\nIf you view SEO (or whatever new acronym the industry throws at us) through the lens of amplifying excellent companies, the world becomes a lot easier to navigate.\nThere will always be someone telling you to chase the latest technical development, but it all comes back to a simple rule: don't be a nightmare to deal with. Just focus on being a quality business.",
+            "community": "r/DigitalMarketing",
+            "permalink": "https://www.reddit.com/r/DigitalMarketing/comments/1sepe9p/seo_was_not_enough_now_we_have_geo/oerjvwe/"
+          },
+          {
+            "text": "Lol... Fully agree. Everybody is just guessing and few are guessing wildly and loudly and being called gurus. What a Sucky sham.",
+            "community": "r/DigitalMarketing",
+            "permalink": "https://www.reddit.com/r/DigitalMarketing/comments/1sepe9p/seo_was_not_enough_now_we_have_geo/oernnn4/"
+          },
+          {
+            "text": "yes loads pretty fast. tech stack?",
+            "community": "r/TechSEO",
+            "permalink": "https://www.reddit.com/r/TechSEO/comments/1shdghi/claude_helped_me_achieve_a_score_of_100_for/ofc4x9p/"
+          },
+          {
+            "text": "Console > Pages (under Indexing) and check what status Google is showing for your other pages. Most common culprits for new sites: your pages might be marked “Discovered - currently not indexed” which means Google found them but hasn’t prioritized crawling yet, or “Crawled - currently not indexed” which usually means thin content or Google doesn’t see enough unique value. Quick fixes to try: submit your sitemap directly in GSC if you haven’t, use the URL Inspection tool to manually request indexing for your most important pages (you get about 10-15 per day), and make sure your internal linking actually connects your homepage to your other pages so Googlebot can find them. For a new site like yours, it can take 2-4 weeks for pages beyond the homepage to get indexed, so some patience is normal, but checking GSC will tell you exactly what’s blocking each page.​​​​​​​​​​​​​​​​",
+            "community": "r/TechSEO",
+            "permalink": "https://www.reddit.com/r/TechSEO/comments/1shdghi/claude_helped_me_achieve_a_score_of_100_for/ofda4jb/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/DigitalMarketing/comments/1sepe9p",
+        "detail": {
+          "thesis": "资深从业者对 GEO 的怀疑，本质上是把 SEO 的价值锚点从‘技术合规’拉回到‘商业质量’——他们认为搜索引擎和 AI 最终筛选的不是谁更懂算法，而是谁是‘好公司’。",
+          "writing_angle_or_perspective": "从一位 1998 年入行的老手视角切入，看他对行业噪音的免疫反应。",
+          "tension_point_or_why_it_matters": "这不只是对 GEO 一个词的怀疑，而是对整个‘追逐技术更新’模式的否定。如果最老的玩家都认为核心是商业质量而非技术细节，那很多围绕算法更新的焦虑和工具投入可能都跑偏了。",
+          "title_hooks": [
+            "1998年的SEO老手说：新缩写？回去当个好公司再说",
+            "别追 GEO 了，老手们在追的是‘别当个难搞的公司’"
+          ],
+          "quote_pack": [
+            "I have been around for a long time... only one thing has remained true: you must ensure your clients do interesting, meaningful work that connects genuinely with their audience.｜我在这行很久了...唯一不变的是：你必须确保你的客户做的是有趣、有意义、能真正连接受众的工作。｜r/DigitalMarketing",
+            "If you view SEO (or whatever new acronym the industry throws at us) through the lens of amplifying excellent companies, the world becomes a lot easier to navigate.｜如果你透过‘放大优秀公司’这个视角来看 SEO（或行业抛给我们的任何新缩写），世界会变得好走很多。｜r/DigitalMarketing",
+            "Everybody is just guessing and few are guessing wildly and loudly and being called gurus. What a Sucky sham.｜每个人都在猜，只有少数人猜得又大声又狂野，就被叫做大师了。真是个糟糕的骗局。｜r/DigitalMarketing"
+          ]
+        }
+      },
+      "v12_shadow": {
+        "title": "老手不信 GEO，他们信的是‘别当个难搞的公司’",
+        "summary_line": "当行业抛新缩写时，最老的玩家在说：别追了，回去把生意做好。",
+        "audience": "长期关注搜索流量、对 SEO 行业术语感到疲惫的数字营销人员和网站主",
+        "why_now": "GEO 刚被提出，行业热议，老手的质疑提供了一个及时的反视角：如果最老的玩家都认为核心是商业质量而非技术细节，那么围绕 GEO 的焦虑和工具投入可能都是多余的。",
+        "thesis": "资深从业者对 GEO 等新缩写的怀疑，核心不是否定技术本身，而是认为行业在重复‘制造问题-推销解药’的循环。他们坚持：决定搜索和 AI 排名的，是公司是否做有趣、有意义、能连接受众的工作，而不是谁更懂算法。",
+        "writing_angle_or_perspective": "从一个 1998 年入行的老手视角切入，用他的原话和经历来讲述，避免报告腔。",
+        "tension_point_or_why_it_matters": "这层判断最有价值的地方在于，它直接挑战了当前围绕 GEO 的焦虑和工具投入，把问题拉回到‘公司本身是否优秀’这个更根本的层面。",
+        "title_hooks": [
+          "不是 GEO 有没有用，而是行业总在重复‘制造问题-推销解药’的循环",
+          "老手把 SEO 重新定义为‘放大优秀公司’的工具，而不是技术合规的竞赛"
+        ],
+        "quote_pack": [
+          "I have been around for a long time. I first started tinkering with SEO in 1998, and between then and now, only one thing has remained true: you must ensure your clients do interesting, meaningful work that connects genuinely with their audience.｜我在这行干了很久，1998 年就开始折腾 SEO。从那时到现在，只有一件事始终不变：你必须确保你的客户做的是有趣、有意义、能真正连接受众的工作。｜r/DigitalMarketing",
+          "If you view SEO (or whatever new acronym the industry throws at us) through the lens of amplifying excellent companies, the world becomes a lot easier to navigate.｜如果你把 SEO（或者行业抛给我们的任何新缩写）看作是放大优秀公司的工具，世界就会变得好走很多。｜r/DigitalMarketing",
+          "Everybody is just guessing and few are guessing wildly and loudly and being called gurus. What a Sucky sham.｜大家都在瞎猜，只有少数人猜得大声、猜得张扬，就被捧成了大师。真是个糟糕的骗局。｜r/DigitalMarketing"
+        ]
+      },
+      "refreshed_card": {
+        "card_id": "card-group-business-growth-ops-aba3ace147",
+        "signal_id": "sig-group-business-growth-ops-aba3ace147",
+        "card_type": "write",
+        "lane": "breakdown",
+        "category_id": "write",
+        "source_scope_id": "business-growth-ops",
+        "source_scope_name": "商业增长与运营",
+        "topic_pack_id": "organic-discovery",
+        "topic_cluster_id": "seo-geo",
+        "topic_cluster_ids": [
+          "seo-geo"
+        ],
+        "named_topic_ids": [],
+        "source_domain_id": "business-growth-ops",
+        "source_domain_name": "商业增长与运营",
+        "source_event_at": "2026-04-10T05:24:19Z",
+        "title": "数字营销人员和网站主面临两难：是投入资源学习 GEO 等新术语，还是回归本质，专注做好内容和服务？",
+        "summary_line": "当行业抛新缩写时，最老的玩家在说：别追了，回去把生意做好。",
+        "audience": "长期关注搜索流量、对 SEO 行业术语感到疲惫的数字营销人员和网站主",
+        "why_now": "GEO 刚被提出，行业热议，老手的质疑提供了一个及时的反视角：如果最老的玩家都认为核心是商业质量而非技术细节，那么围绕 GEO 的焦虑和工具投入可能都是多余的。",
+        "why_now_reason": "switch_signal_7d",
+        "signal_level": "rising",
+        "intent_tags": [
+          "避坑",
+          "求推荐"
+        ],
+        "top_community": "r/DigitalMarketing",
+        "thread_count": 2,
+        "community_count": 2,
+        "source_module": {
+          "primary_communities": [
+            "r/DigitalMarketing",
+            "r/TechSEO"
+          ],
+          "top_community": "r/DigitalMarketing",
+          "tone_tags": [],
+          "thread_count": 2,
+          "community_count": 2,
+          "last_active_text": "近24小时"
+        },
+        "preview_quote": {
+          "text": "I have been around for a long time. I first started tinkering with SEO in 1998, and between then and now, only one thing has remained true: you must ensure your clients do interesting, meaningful work that connects genuinely with their audience.\n\nIf you do that, you don't need to sweat the algorithm updates or any of the other nonsense. We always align ourselves with that principle.\nI genuinely believe that all search engines – and even the new AI tools – are simply trying to figure out which people are the bad actors to be avoided, and who the 'golden gods' are.\n\nIf you view SEO (or whatever new acronym the industry throws at us) through the lens of amplifying excellent companies, the world becomes a lot easier to navigate.\nThere will always be someone telling you to chase the latest technical development, but it all comes back to a simple rule: don't be a nightmare to deal with. Just focus on being a quality business.",
+          "community": "r/DigitalMarketing",
+          "permalink": "https://www.reddit.com/r/DigitalMarketing/comments/1sepe9p/seo_was_not_enough_now_we_have_geo/oerjvwe/"
+        },
+        "published_at": "2026-04-16T00:55:09.886133Z",
+        "controversy_chart": null,
+        "controversy_meta": null,
+        "quotes": [
+          {
+            "text": "I have been around for a long time. I first started tinkering with SEO in 1998, and between then and now, only one thing has remained true: you must ensure your clients do interesting, meaningful work that connects genuinely with their audience.\n\nIf you do that, you don't need to sweat the algorithm updates or any of the other nonsense. We always align ourselves with that principle.\nI genuinely believe that all search engines – and even the new AI tools – are simply trying to figure out which people are the bad actors to be avoided, and who the 'golden gods' are.\n\nIf you view SEO (or whatever new acronym the industry throws at us) through the lens of amplifying excellent companies, the world becomes a lot easier to navigate.\nThere will always be someone telling you to chase the latest technical development, but it all comes back to a simple rule: don't be a nightmare to deal with. Just focus on being a quality business.",
+            "community": "r/DigitalMarketing",
+            "permalink": "https://www.reddit.com/r/DigitalMarketing/comments/1sepe9p/seo_was_not_enough_now_we_have_geo/oerjvwe/"
+          },
+          {
+            "text": "Lol... Fully agree. Everybody is just guessing and few are guessing wildly and loudly and being called gurus. What a Sucky sham.",
+            "community": "r/DigitalMarketing",
+            "permalink": "https://www.reddit.com/r/DigitalMarketing/comments/1sepe9p/seo_was_not_enough_now_we_have_geo/oernnn4/"
+          },
+          {
+            "text": "yes loads pretty fast. tech stack?",
+            "community": "r/TechSEO",
+            "permalink": "https://www.reddit.com/r/TechSEO/comments/1shdghi/claude_helped_me_achieve_a_score_of_100_for/ofc4x9p/"
+          },
+          {
+            "text": "Console > Pages (under Indexing) and check what status Google is showing for your other pages. Most common culprits for new sites: your pages might be marked “Discovered - currently not indexed” which means Google found them but hasn’t prioritized crawling yet, or “Crawled - currently not indexed” which usually means thin content or Google doesn’t see enough unique value. Quick fixes to try: submit your sitemap directly in GSC if you haven’t, use the URL Inspection tool to manually request indexing for your most important pages (you get about 10-15 per day), and make sure your internal linking actually connects your homepage to your other pages so Googlebot can find them. For a new site like yours, it can take 2-4 weeks for pages beyond the homepage to get indexed, so some patience is normal, but checking GSC will tell you exactly what’s blocking each page.​​​​​​​​​​​​​​​​",
+            "community": "r/TechSEO",
+            "permalink": "https://www.reddit.com/r/TechSEO/comments/1shdghi/claude_helped_me_achieve_a_score_of_100_for/ofda4jb/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/DigitalMarketing/comments/1sepe9p",
+        "detail": {
+          "thesis": "资深从业者对 GEO 的怀疑，本质上是把 SEO 的价值锚点从‘技术合规’拉回到‘商业质量’——他们认为搜索引擎和 AI 最终筛选的不是谁更懂算法，而是谁是‘好公司’。",
+          "writing_angle_or_perspective": "从一位 1998 年入行的老手视角切入，看他对行业噪音的免疫反应。",
+          "tension_point_or_why_it_matters": "这不只是对 GEO 一个词的怀疑，而是对整个‘追逐技术更新’模式的否定。如果最老的玩家都认为核心是商业质量而非技术细节，那很多围绕算法更新的焦虑和工具投入可能都跑偏了。",
+          "title_hooks": [
+            "1998年的SEO老手说：新缩写？回去当个好公司再说",
+            "别追 GEO 了，老手们在追的是‘别当个难搞的公司’"
+          ],
+          "quote_pack": [
+            "I have been around for a long time... only one thing has remained true: you must ensure your clients do interesting, meaningful work that connects genuinely with their audience.｜我在这行很久了...唯一不变的是：你必须确保你的客户做的是有趣、有意义、能真正连接受众的工作。｜r/DigitalMarketing",
+            "If you view SEO (or whatever new acronym the industry throws at us) through the lens of amplifying excellent companies, the world becomes a lot easier to navigate.｜如果你透过‘放大优秀公司’这个视角来看 SEO（或行业抛给我们的任何新缩写），世界会变得好走很多。｜r/DigitalMarketing",
+            "Everybody is just guessing and few are guessing wildly and loudly and being called gurus. What a Sucky sham.｜每个人都在猜，只有少数人猜得又大声又狂野，就被叫做大师了。真是个糟糕的骗局。｜r/DigitalMarketing"
+          ]
+        }
+      },
+      "changed": {
+        "title": {
+          "before": "老炮儿们不信 GEO，他们信的是‘别当个难搞的公司’",
+          "after": "数字营销人员和网站主面临两难：是投入资源学习 GEO 等新术语，还是回归本质，专注做好内容和服务？"
+        },
+        "summary_line": {
+          "before": "当行业又在抛新缩写时，最老的玩家反而在说：别追了，回去把生意做好。",
+          "after": "当行业抛新缩写时，最老的玩家在说：别追了，回去把生意做好。"
+        },
+        "why_now": {
+          "before": "因为又一个新缩写 GEO 被抛出来，让一些老手觉得行业在重复“制造问题-推销解药”的循环，而不是回归本质。",
+          "after": "GEO 刚被提出，行业热议，老手的质疑提供了一个及时的反视角：如果最老的玩家都认为核心是商业质量而非技术细节，那么围绕 GEO 的焦虑和工具投入可能都是多余的。"
+        }
+      },
+      "fluency_repair_issue_count": 0,
+      "remaining_density_issues": [],
+      "v13_title_issues_before": [],
+      "v13_title_issues_after": [],
+      "error": ""
+    },
+    {
+      "card_id": "card-cand-business-growth-ops-1sm2jgu-validate",
+      "lane": "signal",
+      "card_type": "validate",
+      "profile_id": "hotpost_v13_title_standalone",
+      "semantic_model": "deepseek/deepseek-v4-flash",
+      "writer_model": "xiaomi/mimo-v2.5-pro",
+      "original_card": {
+        "card_id": "card-cand-business-growth-ops-1sm2jgu-validate",
+        "signal_id": "sig-1sm2jgu",
+        "card_type": "validate",
+        "lane": "signal",
+        "category_id": "validate",
+        "source_scope_id": "business-growth-ops",
+        "source_scope_name": "商业增长与运营",
+        "topic_pack_id": "funnel-conversion",
+        "topic_cluster_id": "funnel",
+        "topic_cluster_ids": [
+          "funnel"
+        ],
+        "named_topic_ids": [],
+        "source_domain_id": "business-growth-ops",
+        "source_domain_name": "商业增长与运营",
+        "source_event_at": "2026-04-15T10:50:44Z",
+        "title": "卖家现在先堵产品页的漏洞，不再先靠邮件和重定向去捞人",
+        "summary_line": "判断顺序从先用邮件/重定向挽回遗忘，转成先在产品页上回答清楚用户没问出口的问题。",
+        "audience": "被购物车放弃率困扰的电商卖家，尤其是那些已经跑通了标准挽回流程但数字卡住的人",
+        "why_now": "有用户发现，邮件和重定向这套组合拳，只能解决‘忘了’或‘等降价’这两种情况。对于‘产品页没回答我问题’这种放弃，再发一遍原页面根本没用。所以现在得先回头审计产品页，把那些导致放弃的问题在源头堵上，而不是继续在下游捞人。",
+        "why_now_reason": "new_threads_24h",
+        "signal_level": "rising",
+        "intent_tags": [
+          "避坑"
+        ],
+        "top_community": "r/ecommerce",
+        "thread_count": 1,
+        "community_count": 1,
+        "source_module": {
+          "primary_communities": [
+            "r/ecommerce"
+          ],
+          "top_community": "r/ecommerce",
+          "tone_tags": [],
+          "thread_count": 1,
+          "community_count": 1,
+          "last_active_text": "近24小时"
+        },
+        "preview_quote": {
+          "text": "the email/retargeting stack is built to recover forgetfulness and price hesitation, so it's genuinely good at that specific job. where it falls apart is the customer who left because they had a question the product page didn't answer. sending them the same page again doesn't close that loop.\n\nfrom what i've seen, the best solution is just reducing the number of questions that survive to checkout. audit your exit points, figure out which product pages have the worst abandonment, and start there. fix those and you're solving the problem at the source rather than chasing it downstream.\n\nthe intercept approach works too but it's harder to staff. the page level fix scales better.",
+          "community": "r/ecommerce",
+          "permalink": "https://www.reddit.com/r/ecommerce/comments/1sm2jgu/how_to_reduce_cart_abandonment_when_the/ogb67xj/"
+        },
+        "published_at": "2026-04-16T00:07:10.166427Z",
+        "controversy_chart": null,
+        "controversy_meta": null,
+        "quotes": [
+          {
+            "text": "the email/retargeting stack is built to recover forgetfulness and price hesitation, so it's genuinely good at that specific job. where it falls apart is the customer who left because they had a question the product page didn't answer. sending them the same page again doesn't close that loop.\n\nfrom what i've seen, the best solution is just reducing the number of questions that survive to checkout. audit your exit points, figure out which product pages have the worst abandonment, and start there. fix those and you're solving the problem at the source rather than chasing it downstream.\n\nthe intercept approach works too but it's harder to staff. the page level fix scales better.",
+            "community": "r/ecommerce",
+            "permalink": "https://www.reddit.com/r/ecommerce/comments/1sm2jgu/how_to_reduce_cart_abandonment_when_the/ogb67xj/"
+          },
+          {
+            "text": "The post is making a point that most operators don't sit with long enough. In children's products, this is particularly visible to me, a parent abandoning isn't usually forgetting or waiting for a lower price, they're trying to figure out if something is right for their specific kid. Age range, material safety, developmental stage. If the page doesn't answer that clearly, no follow-up email touches the actual problem. You're just reminding them of the thing they already decided they weren't sure about. The attribution issue is real but I think it also explains why it stays underinvested. Email sequences produce numbers in a dashboard. A well-placed answer that closes a sale in real time shows up nowhere cleanly. That doesn't make it a smaller lever, it makes it easier to deprioritize. The operators who fix the friction before exit tend to see it compound in ways the recovery stack never does.",
+            "community": "r/ecommerce",
+            "permalink": "https://www.reddit.com/r/ecommerce/comments/1sm2jgu/how_to_reduce_cart_abandonment_when_the/ogbglor/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/ecommerce/comments/1sm2jgu",
+        "detail": {
+          "pain_point": "标准挽回流程（邮件、重定向）的投入产出比卡住了，数字不再增长，因为它们解决不了因信息缺失而离开的客户。",
+          "target_user_and_scene": "销售儿童产品等需要详细信息决策的电商卖家，在用户浏览产品页、产生疑问但未得到解答的场景下。",
+          "why_test_now": "原话里有个关键句：“the email/retargeting stack is built to recover forgetfulness and price hesitation, so it's”。最硬的证据是，有用户把放弃原因归结为‘产品页没回答问题’，并指出修复产品页的摩擦点能带来复合增长，而邮件序列的功劳在数据面板上却看不清。这解释了为什么这个方法长期被低估。",
+          "min_test_action": "先挑 1 个高放弃率产品页，把用户在下单前最常卡住的 3 个问题补到页面上，再看放弃率是否先于邮件指标改善。",
+          "continue_signal": "继续看卖家是否开始系统性审计高放弃率产品页的‘未回答问题’，并对比修复前后的放弃率变化。",
+          "stop_signal": "如果讨论又回到优化邮件打开率或重定向广告的点击成本，这条‘先修产品页’的线就断了。"
+        }
+      },
+      "v12_shadow": {
+        "title": "儿童用品卖家现在先修产品页信息缺口，不再先靠邮件重定向捞回放弃用户",
+        "summary_line": "从先发邮件等人回来，转成先回答页面上没解决的问题。",
+        "audience": "已跑通标准邮件和重定向挽回流程，但投入产出比停滞的电商卖家，尤其是卖需要详细信息决策的产品（如儿童用品）",
+        "why_now": "有用户发现，邮件和重定向只能解决用户‘忘了’或‘等降价’两种放弃原因，解决不了‘页面没回答我问题’这第三种。现在判断重点从优化下游挽回，转向先审计上游产品页。",
+        "pain_point": "邮件和重定向的投入产出比停滞，再优化边际收益递减。但转向产品页审计需要改变工作顺序，短期可能看不到邮件指标改善，且新增页面内容可能影响转化。",
+        "target_user_and_scene": "卖需要详细信息决策产品（如儿童用品）的电商卖家，在用户因产品页信息缺失而放弃购物车时，标准挽回流程失效。",
+        "why_test_now": "用户原话指出，修复产品页摩擦点能带来复合增长，而邮件序列的功劳在数据面板上无法清晰归因。这直接支撑了‘先修页面’的判断。",
+        "min_test_action": "去看原始讨论",
+        "continue_signal": "继续看卖家审计产品页后，购物车放弃率是否先改善，以及复合增长是否出现。",
+        "stop_signal": "讨论回到邮件打开率或重定向点击率，说明判断线断了。"
+      },
+      "refreshed_card": {
+        "card_id": "card-cand-business-growth-ops-1sm2jgu-validate",
+        "signal_id": "sig-1sm2jgu",
+        "card_type": "validate",
+        "lane": "signal",
+        "category_id": "validate",
+        "source_scope_id": "business-growth-ops",
+        "source_scope_name": "商业增长与运营",
+        "topic_pack_id": "funnel-conversion",
+        "topic_cluster_id": "funnel",
+        "topic_cluster_ids": [
+          "funnel"
+        ],
+        "named_topic_ids": [],
+        "source_domain_id": "business-growth-ops",
+        "source_domain_name": "商业增长与运营",
+        "source_event_at": "2026-04-15T10:50:44Z",
+        "title": "儿童用品卖家应先审计产品页信息缺口，而非依赖邮件重定向挽回放弃用户",
+        "summary_line": "从先发邮件等人回来，转成先回答页面上没解决的问题。",
+        "audience": "已跑通标准邮件和重定向挽回流程，但投入产出比停滞的电商卖家，尤其是卖需要详细信息决策的产品（如儿童用品）",
+        "why_now": "有用户发现，邮件和重定向只能解决用户‘忘了’或‘等降价’两种放弃原因，解决不了‘页面没回答我问题’这第三种。现在判断重点从优化下游挽回，转向先审计上游产品页。",
+        "why_now_reason": "new_threads_24h",
+        "signal_level": "rising",
+        "intent_tags": [
+          "避坑"
+        ],
+        "top_community": "r/ecommerce",
+        "thread_count": 1,
+        "community_count": 1,
+        "source_module": {
+          "primary_communities": [
+            "r/ecommerce"
+          ],
+          "top_community": "r/ecommerce",
+          "tone_tags": [],
+          "thread_count": 1,
+          "community_count": 1,
+          "last_active_text": "近24小时"
+        },
+        "preview_quote": {
+          "text": "the email/retargeting stack is built to recover forgetfulness and price hesitation, so it's genuinely good at that specific job. where it falls apart is the customer who left because they had a question the product page didn't answer. sending them the same page again doesn't close that loop.\n\nfrom what i've seen, the best solution is just reducing the number of questions that survive to checkout. audit your exit points, figure out which product pages have the worst abandonment, and start there. fix those and you're solving the problem at the source rather than chasing it downstream.\n\nthe intercept approach works too but it's harder to staff. the page level fix scales better.",
+          "community": "r/ecommerce",
+          "permalink": "https://www.reddit.com/r/ecommerce/comments/1sm2jgu/how_to_reduce_cart_abandonment_when_the/ogb67xj/"
+        },
+        "published_at": "2026-04-16T00:07:10.166427Z",
+        "controversy_chart": null,
+        "controversy_meta": null,
+        "quotes": [
+          {
+            "text": "the email/retargeting stack is built to recover forgetfulness and price hesitation, so it's genuinely good at that specific job. where it falls apart is the customer who left because they had a question the product page didn't answer. sending them the same page again doesn't close that loop.\n\nfrom what i've seen, the best solution is just reducing the number of questions that survive to checkout. audit your exit points, figure out which product pages have the worst abandonment, and start there. fix those and you're solving the problem at the source rather than chasing it downstream.\n\nthe intercept approach works too but it's harder to staff. the page level fix scales better.",
+            "community": "r/ecommerce",
+            "permalink": "https://www.reddit.com/r/ecommerce/comments/1sm2jgu/how_to_reduce_cart_abandonment_when_the/ogb67xj/"
+          },
+          {
+            "text": "The post is making a point that most operators don't sit with long enough. In children's products, this is particularly visible to me, a parent abandoning isn't usually forgetting or waiting for a lower price, they're trying to figure out if something is right for their specific kid. Age range, material safety, developmental stage. If the page doesn't answer that clearly, no follow-up email touches the actual problem. You're just reminding them of the thing they already decided they weren't sure about. The attribution issue is real but I think it also explains why it stays underinvested. Email sequences produce numbers in a dashboard. A well-placed answer that closes a sale in real time shows up nowhere cleanly. That doesn't make it a smaller lever, it makes it easier to deprioritize. The operators who fix the friction before exit tend to see it compound in ways the recovery stack never does.",
+            "community": "r/ecommerce",
+            "permalink": "https://www.reddit.com/r/ecommerce/comments/1sm2jgu/how_to_reduce_cart_abandonment_when_the/ogbglor/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/ecommerce/comments/1sm2jgu",
+        "detail": {
+          "pain_point": "标准挽回流程（邮件、重定向）的投入产出比卡住了，数字不再增长，因为它们解决不了因信息缺失而离开的客户。",
+          "target_user_and_scene": "销售儿童产品等需要详细信息决策的电商卖家，在用户浏览产品页、产生疑问但未得到解答的场景下。",
+          "why_test_now": "原话里有个关键句：“the email/retargeting stack is built to recover forgetfulness and price hesitation, so it's”。最硬的证据是，有用户把放弃原因归结为‘产品页没回答问题’，并指出修复产品页的摩擦点能带来复合增长，而邮件序列的功劳在数据面板上却看不清。这解释了为什么这个方法长期被低估。",
+          "min_test_action": "先挑 1 个高放弃率产品页，把用户在下单前最常卡住的 3 个问题补到页面上，再看放弃率是否先于邮件指标改善。",
+          "continue_signal": "继续看卖家是否开始系统性审计高放弃率产品页的‘未回答问题’，并对比修复前后的放弃率变化。",
+          "stop_signal": "如果讨论又回到优化邮件打开率或重定向广告的点击成本，这条‘先修产品页’的线就断了。"
+        }
+      },
+      "changed": {
+        "title": {
+          "before": "卖家现在先堵产品页的漏洞，不再先靠邮件和重定向去捞人",
+          "after": "儿童用品卖家应先审计产品页信息缺口，而非依赖邮件重定向挽回放弃用户"
+        },
+        "summary_line": {
+          "before": "判断顺序从先用邮件/重定向挽回遗忘，转成先在产品页上回答清楚用户没问出口的问题。",
+          "after": "从先发邮件等人回来，转成先回答页面上没解决的问题。"
+        },
+        "audience": {
+          "before": "被购物车放弃率困扰的电商卖家，尤其是那些已经跑通了标准挽回流程但数字卡住的人",
+          "after": "已跑通标准邮件和重定向挽回流程，但投入产出比停滞的电商卖家，尤其是卖需要详细信息决策的产品（如儿童用品）"
+        },
+        "why_now": {
+          "before": "有用户发现，邮件和重定向这套组合拳，只能解决‘忘了’或‘等降价’这两种情况。对于‘产品页没回答我问题’这种放弃，再发一遍原页面根本没用。所以现在得先回头审计产品页，把那些导致放弃的问题在源头堵上，而不是继续在下游捞人。",
+          "after": "有用户发现，邮件和重定向只能解决用户‘忘了’或‘等降价’两种放弃原因，解决不了‘页面没回答我问题’这第三种。现在判断重点从优化下游挽回，转向先审计上游产品页。"
+        }
+      },
+      "fluency_repair_issue_count": 0,
+      "remaining_density_issues": [],
+      "v13_title_issues_before": [],
+      "v13_title_issues_after": [],
+      "error": ""
+    },
+    {
+      "card_id": "card-group-business-growth-ops-0128e96117",
+      "lane": "breakdown",
+      "card_type": "write",
+      "profile_id": "hotpost_v13_title_standalone",
+      "semantic_model": "deepseek/deepseek-v4-flash",
+      "writer_model": "xiaomi/mimo-v2.5-pro",
+      "original_card": {
+        "card_id": "card-group-business-growth-ops-0128e96117",
+        "signal_id": "sig-group-business-growth-ops-0128e96117",
+        "card_type": "write",
+        "lane": "breakdown",
+        "category_id": "write",
+        "source_scope_id": "business-growth-ops",
+        "source_scope_name": "商业增长与运营",
+        "topic_pack_id": "organic-discovery",
+        "topic_cluster_id": "content-production-and-editorial",
+        "topic_cluster_ids": [
+          "content-production-and-editorial",
+          "seo-geo",
+          "creator-affiliate-distribution"
+        ],
+        "named_topic_ids": [],
+        "source_domain_id": "business-growth-ops",
+        "source_domain_name": "商业增长与运营",
+        "source_event_at": "2026-04-13T14:47:51Z",
+        "title": "内容营销的‘免疫反应’：用户划走的不是广告，是没观点的‘平均内容’",
+        "summary_line": "用户对光滑、AI味重的内容已经产生免疫，迫使营销人先判断内容有没有独特观点或数据，而不是先看发布频率。",
+        "audience": "抱怨ROI下降的内容营销从业者",
+        "why_now": "一条帖子在谈用户对‘平均内容’的免疫反应，另一条在谈内容生产者常犯的‘自以为是’错误，两者共同指向一个更根本的问题：内容失效的根源不是发布策略，而是内容本身失去了‘摩擦力’。",
+        "why_now_reason": "recurring_7d",
+        "signal_level": "hot",
+        "intent_tags": [
+          "趋势变化",
+          "避坑"
+        ],
+        "top_community": "r/Emailmarketing",
+        "thread_count": 2,
+        "community_count": 2,
+        "source_module": {
+          "primary_communities": [
+            "r/Emailmarketing",
+            "r/content_marketing"
+          ],
+          "top_community": "r/Emailmarketing",
+          "tone_tags": [],
+          "thread_count": 2,
+          "community_count": 2,
+          "last_active_text": "近7天"
+        },
+        "preview_quote": {
+          "text": "We're seeing a literal \"immune response\" from consumers right now. The moment they smell a glossy, overly-curated post or a generic AI-written guide, they scroll past. It's not that content marketing is dead; it's that \"average\" content has lost its soul. The ROI in 2026 is moving toward high-friction content: the deeply researched case studies, the raw \"messy\" human stories, and the tools/calculators that actually solve a problem instead of just talking about it. If your content doesn't have a unique POV or proprietary data, you're just adding to the noise.",
+          "community": "r/content_marketing",
+          "permalink": "https://www.reddit.com/r/content_marketing/comments/1skd0vb/content_marketing_feels_broken_in_2026_is_anyone/ofy5zr1/"
+        },
+        "published_at": "2026-04-16T00:03:55.478415Z",
+        "controversy_chart": null,
+        "controversy_meta": null,
+        "quotes": [
+          {
+            "text": "We're seeing a literal \"immune response\" from consumers right now. The moment they smell a glossy, overly-curated post or a generic AI-written guide, they scroll past. It's not that content marketing is dead; it's that \"average\" content has lost its soul. The ROI in 2026 is moving toward high-friction content: the deeply researched case studies, the raw \"messy\" human stories, and the tools/calculators that actually solve a problem instead of just talking about it. If your content doesn't have a unique POV or proprietary data, you're just adding to the noise.",
+            "community": "r/content_marketing",
+            "permalink": "https://www.reddit.com/r/content_marketing/comments/1skd0vb/content_marketing_feels_broken_in_2026_is_anyone/ofy5zr1/"
+          },
+          {
+            "text": "The issue isn't usually the cleaning tool it's that most lists aren't refreshed often enough. B2B contacts change jobs fast, so even a \"clean\" list from 60 days ago can decay hard. are you seeing high bounces or just low engagement after cleaning?",
+            "community": "r/Emailmarketing",
+            "permalink": "https://www.reddit.com/r/Emailmarketing/comments/1shhhzo/why_30_of_clean_lists_are_still_trash_and_how_to/ofdlg2x/"
+          },
+          {
+            "text": "One point of clarification: Spam complaints aren’t necessarily from “bad actors,” they just didn’t want to get email from the sender.\n\nAnd yeah, don’t buy lists, that’s straight up spamming.",
+            "community": "r/Emailmarketing",
+            "permalink": "https://www.reddit.com/r/Emailmarketing/comments/1shhhzo/why_30_of_clean_lists_are_still_trash_and_how_to/ofdlgj2/"
+          },
+          {
+            "text": "There are 2 types of content most companies do.\n\n1. What they think people want to see.\n2. What customers actually want to know.\n\nMost focus too much on 1.\n\n\"Content Marketing doesn't work!\" is then what you will hear. \n\nNo, they just weren't doing it right.",
+            "community": "r/content_marketing",
+            "permalink": "https://www.reddit.com/r/content_marketing/comments/1skd0vb/content_marketing_feels_broken_in_2026_is_anyone/ofygeq2/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/Emailmarketing/comments/1shhhzo",
+        "detail": {
+          "thesis": "内容营销失效的核心，是生产者仍在制造用户已免疫的‘平均内容’，而用户真正需要的是有独特观点或能解决实际问题的‘高摩擦力’内容。",
+          "writing_angle_or_perspective": "从用户端的‘免疫反应’倒推，看内容生产者到底错在哪一步。",
+          "tension_point_or_why_it_matters": "如果生产者继续按‘我们认为用户想看’的逻辑做内容，ROI只会继续下滑，因为用户已经用‘划走’投票了。",
+          "title_hooks": [
+            "用户划走的不是广告，是没观点的‘平均内容’",
+            "内容营销的ROI，正从‘发布频率’转向‘内容摩擦力’"
+          ],
+          "quote_pack": [
+            "We're seeing a literal \"immune response\" from consumers right now. The moment they smell a glossy, overly-curated post or a generic AI-written guide, they scroll past. It's not that content marketing is dead; it's that \"average\" content has lost its soul. The ROI in 2026 is moving toward high-friction content: the deeply researched case studies, the raw \"messy\" human stories, and the tools/calculators that actually solve a problem instead of just talking about it. If your content doesn't have a unique POV or proprietary data, you're just adding to the noise.｜我们现在正看到消费者一种字面意义上的‘免疫反应’。他们一闻到光滑、过度修饰的帖子或通用的AI指南，就会划过去。内容营销没死，是‘平均’内容失去了灵魂。2026年的ROI正流向‘高摩擦力’内容：深度研究的案例、原始‘凌乱’的人类故事，以及真正解决问题而非空谈的工具/计算器。如果你的内容没有独特观点或专有数据，你只是在增加噪音。｜r/content_marketing",
+            "There are 2 types of content most companies do. 1. What they think people want to see. 2. What customers actually want to know. Most focus too much on 1. \"Content Marketing doesn't work!\" is then what you will hear. No, they just weren't doing it right.｜大多数公司做两种内容。1. 他们认为人们想看的。2. 客户真正想知道的。大多数公司太关注第1种。然后你就会听到‘内容营销没用！’。不，只是他们没做对。｜r/content_marketing"
+          ]
+        }
+      },
+      "v12_shadow": {
+        "title": "内容营销失效：用户免疫的不是广告，是没观点的‘平均内容’",
+        "summary_line": "用户对光滑、AI味重的内容已经产生免疫，迫使营销人先判断内容有没有独特观点或数据，而不是先看发布频率。",
+        "audience": "抱怨ROI下降的内容营销从业者",
+        "why_now": "一条帖子在谈用户对‘平均内容’的免疫反应，另一条在谈内容生产者常犯的‘自以为是’错误，两者共同指向一个更根本的问题：内容失效的根源不是发布策略，而是内容本身失去了‘摩擦力’。",
+        "thesis": "内容营销失效的根源，是生产者总在做‘他们认为用户想看的’内容，而用户已经进化到能瞬间识别并跳过那些没有独特观点或实用价值的‘平均内容’。",
+        "writing_angle_or_perspective": "别从渠道或算法找原因，直接看内容本身为什么被跳过。",
+        "tension_point_or_why_it_matters": "团队还在按旧逻辑堆量，但用户已经用‘划走’投票，继续下去只会加速预算浪费。",
+        "title_hooks": [
+          "不是内容营销没用，是‘平均内容’没用了",
+          "用户划走的不是广告，是没观点的光滑内容"
+        ],
+        "quote_pack": [
+          "We're seeing a literal \"immune response\" from consumers right now. The moment they smell a glossy, overly-curated post or a generic AI-written guide, they scroll past. It's not that content marketing is dead; it's that \"average\" content has lost its soul. The ROI in 2026 is moving toward high-friction content: the deeply researched case studies, the raw \"messy\" human stories, and the tools/calculators that actually solve a problem instead of just talking about it. If your content doesn't have a unique POV or proprietary data, you're just adding to the noise.｜我们现在看到消费者产生了字面意义上的‘免疫反应’。他们一闻到光滑、过度包装的帖子或通用的AI指南，就会划走。不是内容营销死了，是‘平均内容’失去了灵魂。2026年的ROI正转向高摩擦力内容：深度研究的案例、真实‘凌乱’的人类故事，以及真正解决问题而非空谈的工具/计算器。如果你的内容没有独特观点或专有数据，你只是在增加噪音。｜r/content_marketing",
+          "There are 2 types of content most companies do. 1. What they think people want to see. 2. What customers actually want to know. Most focus too much on 1. \"Content Marketing doesn't work!\" is then what you will hear. No, they just weren't doing it right.｜大多数公司做两种内容：1. 他们认为用户想看的；2. 客户真正想知道的。大多数公司太关注第一种。然后你就会听到‘内容营销没用！’。不，是他们没做对。｜r/content_marketing"
+        ]
+      },
+      "refreshed_card": {
+        "card_id": "card-group-business-growth-ops-0128e96117",
+        "signal_id": "sig-group-business-growth-ops-0128e96117",
+        "card_type": "write",
+        "lane": "breakdown",
+        "category_id": "write",
+        "source_scope_id": "business-growth-ops",
+        "source_scope_name": "商业增长与运营",
+        "topic_pack_id": "organic-discovery",
+        "topic_cluster_id": "content-production-and-editorial",
+        "topic_cluster_ids": [
+          "content-production-and-editorial",
+          "seo-geo",
+          "creator-affiliate-distribution"
+        ],
+        "named_topic_ids": [],
+        "source_domain_id": "business-growth-ops",
+        "source_domain_name": "商业增长与运营",
+        "source_event_at": "2026-04-13T14:47:51Z",
+        "title": "内容营销 ROI 转向：用户对没观点的‘平均内容’产生免疫，2026年将流向高摩擦力内容",
+        "summary_line": "用户对光滑、AI味重的内容已经产生免疫，迫使营销人先判断内容有没有独特观点或数据，而不是先看发布频率。",
+        "audience": "抱怨ROI下降的内容营销从业者",
+        "why_now": "一条帖子在谈用户对‘平均内容’的免疫反应，另一条在谈内容生产者常犯的‘自以为是’错误，两者共同指向一个更根本的问题：内容失效的根源不是发布策略，而是内容本身失去了‘摩擦力’。",
+        "why_now_reason": "recurring_7d",
+        "signal_level": "hot",
+        "intent_tags": [
+          "趋势变化",
+          "避坑"
+        ],
+        "top_community": "r/Emailmarketing",
+        "thread_count": 2,
+        "community_count": 2,
+        "source_module": {
+          "primary_communities": [
+            "r/Emailmarketing",
+            "r/content_marketing"
+          ],
+          "top_community": "r/Emailmarketing",
+          "tone_tags": [],
+          "thread_count": 2,
+          "community_count": 2,
+          "last_active_text": "近7天"
+        },
+        "preview_quote": {
+          "text": "We're seeing a literal \"immune response\" from consumers right now. The moment they smell a glossy, overly-curated post or a generic AI-written guide, they scroll past. It's not that content marketing is dead; it's that \"average\" content has lost its soul. The ROI in 2026 is moving toward high-friction content: the deeply researched case studies, the raw \"messy\" human stories, and the tools/calculators that actually solve a problem instead of just talking about it. If your content doesn't have a unique POV or proprietary data, you're just adding to the noise.",
+          "community": "r/content_marketing",
+          "permalink": "https://www.reddit.com/r/content_marketing/comments/1skd0vb/content_marketing_feels_broken_in_2026_is_anyone/ofy5zr1/"
+        },
+        "published_at": "2026-04-16T00:03:55.478415Z",
+        "controversy_chart": null,
+        "controversy_meta": null,
+        "quotes": [
+          {
+            "text": "We're seeing a literal \"immune response\" from consumers right now. The moment they smell a glossy, overly-curated post or a generic AI-written guide, they scroll past. It's not that content marketing is dead; it's that \"average\" content has lost its soul. The ROI in 2026 is moving toward high-friction content: the deeply researched case studies, the raw \"messy\" human stories, and the tools/calculators that actually solve a problem instead of just talking about it. If your content doesn't have a unique POV or proprietary data, you're just adding to the noise.",
+            "community": "r/content_marketing",
+            "permalink": "https://www.reddit.com/r/content_marketing/comments/1skd0vb/content_marketing_feels_broken_in_2026_is_anyone/ofy5zr1/"
+          },
+          {
+            "text": "The issue isn't usually the cleaning tool it's that most lists aren't refreshed often enough. B2B contacts change jobs fast, so even a \"clean\" list from 60 days ago can decay hard. are you seeing high bounces or just low engagement after cleaning?",
+            "community": "r/Emailmarketing",
+            "permalink": "https://www.reddit.com/r/Emailmarketing/comments/1shhhzo/why_30_of_clean_lists_are_still_trash_and_how_to/ofdlg2x/"
+          },
+          {
+            "text": "One point of clarification: Spam complaints aren’t necessarily from “bad actors,” they just didn’t want to get email from the sender.\n\nAnd yeah, don’t buy lists, that’s straight up spamming.",
+            "community": "r/Emailmarketing",
+            "permalink": "https://www.reddit.com/r/Emailmarketing/comments/1shhhzo/why_30_of_clean_lists_are_still_trash_and_how_to/ofdlgj2/"
+          },
+          {
+            "text": "There are 2 types of content most companies do.\n\n1. What they think people want to see.\n2. What customers actually want to know.\n\nMost focus too much on 1.\n\n\"Content Marketing doesn't work!\" is then what you will hear. \n\nNo, they just weren't doing it right.",
+            "community": "r/content_marketing",
+            "permalink": "https://www.reddit.com/r/content_marketing/comments/1skd0vb/content_marketing_feels_broken_in_2026_is_anyone/ofygeq2/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/Emailmarketing/comments/1shhhzo",
+        "detail": {
+          "thesis": "内容营销失效的核心，是生产者仍在制造用户已免疫的‘平均内容’，而用户真正需要的是有独特观点或能解决实际问题的‘高摩擦力’内容。",
+          "writing_angle_or_perspective": "从用户端的‘免疫反应’倒推，看内容生产者到底错在哪一步。",
+          "tension_point_or_why_it_matters": "如果生产者继续按‘我们认为用户想看’的逻辑做内容，ROI只会继续下滑，因为用户已经用‘划走’投票了。",
+          "title_hooks": [
+            "用户划走的不是广告，是没观点的‘平均内容’",
+            "内容营销的ROI，正从‘发布频率’转向‘内容摩擦力’"
+          ],
+          "quote_pack": [
+            "We're seeing a literal \"immune response\" from consumers right now. The moment they smell a glossy, overly-curated post or a generic AI-written guide, they scroll past. It's not that content marketing is dead; it's that \"average\" content has lost its soul. The ROI in 2026 is moving toward high-friction content: the deeply researched case studies, the raw \"messy\" human stories, and the tools/calculators that actually solve a problem instead of just talking about it. If your content doesn't have a unique POV or proprietary data, you're just adding to the noise.｜我们现在正看到消费者一种字面意义上的‘免疫反应’。他们一闻到光滑、过度修饰的帖子或通用的AI指南，就会划过去。内容营销没死，是‘平均’内容失去了灵魂。2026年的ROI正流向‘高摩擦力’内容：深度研究的案例、原始‘凌乱’的人类故事，以及真正解决问题而非空谈的工具/计算器。如果你的内容没有独特观点或专有数据，你只是在增加噪音。｜r/content_marketing",
+            "There are 2 types of content most companies do. 1. What they think people want to see. 2. What customers actually want to know. Most focus too much on 1. \"Content Marketing doesn't work!\" is then what you will hear. No, they just weren't doing it right.｜大多数公司做两种内容。1. 他们认为人们想看的。2. 客户真正想知道的。大多数公司太关注第1种。然后你就会听到‘内容营销没用！’。不，只是他们没做对。｜r/content_marketing"
+          ]
+        }
+      },
+      "changed": {
+        "title": {
+          "before": "内容营销的‘免疫反应’：用户划走的不是广告，是没观点的‘平均内容’",
+          "after": "内容营销 ROI 转向：用户对没观点的‘平均内容’产生免疫，2026年将流向高摩擦力内容"
+        }
+      },
+      "fluency_repair_issue_count": 0,
+      "remaining_density_issues": [],
+      "v13_title_issues_before": [],
+      "v13_title_issues_after": [],
+      "error": ""
+    }
+  ]
+}

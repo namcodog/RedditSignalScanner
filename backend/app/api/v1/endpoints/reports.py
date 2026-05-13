@@ -1,26 +1,31 @@
 from __future__ import annotations
 
 import asyncio
+import logging
+import os
 import time
 from collections import deque
 from datetime import datetime, timezone
 from uuid import UUID
 
-import os
 from fastapi import APIRouter, Depends, HTTPException, Query, Response, status
 from fastapi.responses import StreamingResponse
+from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.api.routes.reports import REPORT_RATE_HITS as SHARED_REPORT_RATE_HITS
 from app.api.routes.reports import REPORT_RATE_LIMITER as SHARED_REPORT_RATE_LIMITER
 from app.core.config import settings
 from app.core.security import TokenPayload, decode_jwt_token
 from app.db.session import get_session
-from app.schemas.report_payload import ReportPayload
-from app.schemas.analysis import CommunitySourceDetail
-from app.services.report.report_service import ReportService, ReportServiceError
+from app.models.community_cache import CommunityCache
+from app.models.community_pool import CommunityPool
+from app.models.task import TaskStatus
+from app.models.user import MembershipLevel
+from app.repositories.report_repository import ReportRepository
+from app.schemas.analysis import AnalysisRead, CommunitySourceDetail
 from app.schemas.community_export import CommunityExportItem, CommunityExportResponse
 from app.schemas.entity_export import EntityExportItem, EntityExportResponse
+from app.schemas.report_payload import ReportPayload
 from app.services.report.report_service import (
     InMemoryReportCache,
     ReportAccessDeniedError,
@@ -31,12 +36,8 @@ from app.services.report.report_service import (
     ReportServiceError,
 )
 from app.services.report.report_export_service import ExportFormat, ReportExportService
-from sqlalchemy import select
-from app.models.community_pool import CommunityPool
-from app.models.community_cache import CommunityCache
-from app.models.task import TaskStatus
-from app.models.user import MembershipLevel
-from app.repositories.report_repository import ReportRepository
+
+logger = logging.getLogger(__name__)
 
 class SlidingWindowRateLimiter:
     def __init__(self, *, max_requests: int, window_seconds: int) -> None:
@@ -51,7 +52,6 @@ class SlidingWindowRateLimiter:
         if window_seconds is not None:
             self._window_seconds = max(1, window_seconds)
         self._hits.clear()
-        REPORT_RATE_HITS.clear()
 
     async def allow(self, key: str) -> bool:
         now = time.monotonic()
@@ -70,7 +70,147 @@ router = APIRouter()
 REPORT_CACHE = InMemoryReportCache(settings.report_cache_ttl_seconds)
 # 与 legacy /api/report 路由共享同一限流桶，保证测试与运行时一致
 REPORT_RATE_LIMITER = SHARED_REPORT_RATE_LIMITER
-REPORT_RATE_HITS = SHARED_REPORT_RATE_HITS
+
+
+def _extract_pool_categories(pool: CommunityPool | None, fallback: list[str] | None = None) -> list[str]:
+    categories: list[str] = []
+    if pool is not None:
+        if isinstance(pool.categories, dict):
+            for value in pool.categories.values():
+                if isinstance(value, list):
+                    categories.extend(str(item) for item in value)
+        elif isinstance(pool.categories, list):
+            categories.extend(str(item) for item in pool.categories)
+    if categories:
+        return categories
+    return list(fallback or [])
+
+
+async def _load_report_with_analysis(
+    service: ReportService,
+    *,
+    task_id: UUID,
+    user_id: UUID,
+) -> tuple[ReportPayload, AnalysisRead]:
+    report = await service.get_report(task_id, user_id)
+    task = await service._repository.get_task_with_analysis(task_id)  # noqa: SLF001
+    if task is None or task.analysis is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Analysis not found")
+    analysis_read = service.validate_analysis_payload(task.analysis)
+    return report, analysis_read
+
+
+def _build_fallback_community_details(
+    report: ReportPayload,
+    fallback_names: list[str] | None = None,
+) -> list[CommunitySourceDetail]:
+    details: list[CommunitySourceDetail] = []
+    for item in report.overview.top_communities:
+        details.append(
+            CommunitySourceDetail(
+                name=item.name,
+                categories=[item.category] if item.category else [],
+                mentions=item.mentions,
+                daily_posts=item.daily_posts or 0,
+                avg_comment_length=item.avg_comment_length or 0,
+                cache_hit_rate=(item.relevance or 0) / 100.0,
+                from_cache=item.from_cache,
+            )
+        )
+    if details:
+        return details
+    for name in fallback_names or []:
+        details.append(
+            CommunitySourceDetail(
+                name=name,
+                categories=[],
+                mentions=0,
+                daily_posts=0,
+                avg_comment_length=0,
+                cache_hit_rate=0.0,
+                from_cache=False,
+            )
+        )
+    return details
+
+
+async def _resolve_report_communities(
+    service: ReportService,
+    *,
+    task_id: UUID,
+    user_id: UUID,
+) -> tuple[ReportPayload, list[CommunitySourceDetail], str, str | None]:
+    report, analysis_read = await _load_report_with_analysis(
+        service,
+        task_id=task_id,
+        user_id=user_id,
+    )
+    details = analysis_read.sources.communities_detail or []
+    if details:
+        return report, details, "analysis_sources", None
+    return (
+        report,
+        _build_fallback_community_details(report, analysis_read.sources.communities),
+        "top_communities_fallback",
+        "missing_communities_detail",
+    )
+
+
+async def _load_community_maps(
+    db: AsyncSession,
+    names: list[str],
+) -> tuple[dict[str, CommunityPool], dict[str, CommunityCache]]:
+    if not names:
+        return {}, {}
+    unique_names = list(dict.fromkeys(names))
+    pool_rows = await db.execute(select(CommunityPool).where(CommunityPool.name.in_(unique_names)))
+    cache_rows = await db.execute(
+        select(CommunityCache).where(CommunityCache.community_name.in_(unique_names))
+    )
+    pool_map = {row.name: row for row in pool_rows.scalars().all()}
+    cache_map = {row.community_name: row for row in cache_rows.scalars().all()}
+    return pool_map, cache_map
+
+
+def _build_community_export_items(
+    details: list[CommunitySourceDetail],
+    *,
+    pool_map: dict[str, CommunityPool],
+    cache_map: dict[str, CommunityCache],
+) -> list[CommunityExportItem]:
+    items: list[CommunityExportItem] = []
+    for detail in details:
+        pool = pool_map.get(detail.name)
+        cache = cache_map.get(detail.name)
+        categories = _extract_pool_categories(pool, detail.categories)
+        items.append(
+            CommunityExportItem(
+                name=detail.name,
+                mentions=detail.mentions,
+                relevance=None,
+                category=(categories[0] if categories else None),
+                categories=categories,
+                daily_posts=detail.daily_posts,
+                avg_comment_length=detail.avg_comment_length,
+                from_cache=detail.from_cache,
+                cache_hit_rate=detail.cache_hit_rate,
+                members=(cache.member_count if cache else None),
+                priority=(pool.priority if pool else None),
+                tier=(pool.tier if pool else None),
+                is_blacklisted=(pool.is_blacklisted if pool else None),
+                blacklist_reason=(pool.blacklist_reason if pool else None),
+                is_active=(pool.is_active if pool else None),
+                crawl_frequency_hours=(cache.crawl_frequency_hours if cache else None),
+                crawl_priority=(cache.crawl_priority if cache else None),
+                last_crawled_at=(cache.last_crawled_at if cache else None),
+                posts_cached=(cache.posts_cached if cache else None),
+                hit_count=(cache.hit_count if cache else None),
+                empty_hit=(cache.empty_hit if cache else None),
+                failure_hit=(cache.failure_hit if cache else None),
+                success_hit=(cache.success_hit if cache else None),
+            )
+        )
+    return items
 
 
 @router.options("/report/{task_id}")
@@ -92,14 +232,6 @@ async def get_analysis_report(
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid access token") from exc
 
     key = str(payload.sub)
-    count = REPORT_RATE_HITS.get(key, 0)
-    if count >= settings.report_rate_limit_per_minute:
-        raise HTTPException(
-            status_code=status.HTTP_429_TOO_MANY_REQUESTS,
-            detail="Too many report downloads, please wait and try again.",
-        )
-    REPORT_RATE_HITS[key] = count + 1
-
     allowed = await REPORT_RATE_LIMITER.allow(key)
     if not allowed:
         raise HTTPException(
@@ -139,7 +271,7 @@ async def get_analysis_report(
         total_mentions = max(0, int(sources.get("posts_analyzed", 0) or 0))
         cache_hit_rate = float(sources.get("cache_hit_rate", 0.0) or 0.0)
         metadata = {
-            "analysis_version": ReportService._format_analysis_version(getattr(task.analysis, "analysis_version", "1.0")),
+            "analysis_version": ReportService.format_analysis_version(getattr(task.analysis, "analysis_version", "1.0")),
             "confidence_score": 0.98,
             "processing_time_seconds": float(sources.get("analysis_duration_seconds", 0) or 1.0),
             "cache_hit_rate": cache_hit_rate,
@@ -246,14 +378,18 @@ async def download_report(
             content = ReportExportService.generate_json(report)
             media_type = "application/json"
             filename = f"reddit-signal-scanner-{task_id}.json"
-    except Exception as exc:
+    except Exception:
         # PDF/MD 失败时，降级为 JSON
+        logger.exception(
+            "Report export failed, fallback to JSON",
+            extra={"task_id": str(task_id), "format": format},
+        )
         content = ReportExportService.generate_json(report)
         media_type = "application/json"
         filename = f"reddit-signal-scanner-{task_id}.json"
         fallback_headers = {
             "X-Export-Fallback": "json",
-            "X-Export-Error": str(exc),
+            "X-Export-Error": "export_generation_failed",
         }
 
     # 返回文件流
@@ -275,17 +411,22 @@ async def download_report(
     )
 
 
-@router.get("/report/{task_id}/communities", summary="Fetch full community list used in report", response_model=list[CommunitySourceDetail])
+@router.get(
+    "/report/{task_id}/communities",
+    summary="Fetch full community list used in report",
+    response_model=list[CommunitySourceDetail],
+)
 async def get_report_communities(
     task_id: UUID,
+    response: Response,
     payload: TokenPayload = Depends(decode_jwt_token),
     db: AsyncSession = Depends(get_session),
 ) -> list[CommunitySourceDetail]:
     """
     返回报告分析使用的完整社区清单（便于前端展示“下载完整列表”）。
 
-    - 响应为 CommunitySourceDetail 列表，包含 mentions/daily_posts/avg_comment_length/cache_hit_rate 等。
-    - 当 communities_detail 为空时，回退返回 sources.communities 的名称清单（mentions=0 等缺省值）。
+    - 优先返回 analysis.sources.communities_detail
+    - 取不到时，明确降级到 overview.top_communities，并在响应头标记来源
     """
     service = ReportService(db, cache=REPORT_CACHE)
     try:
@@ -293,50 +434,22 @@ async def get_report_communities(
     except ValueError as exc:  # pragma: no cover
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid access token") from exc
 
-    # 先走 ReportService 以复用鉴权与缓存，随后读取底层 analysis.sources 以取 communities_detail
     try:
-        # 鉴权与基本校验
-        await service.get_report(task_id, user_id)
+        _, details, source, degraded_reason = await _resolve_report_communities(
+            service,
+            task_id=task_id,
+            user_id=user_id,
+        )
     except ReportServiceError as exc:
         raise HTTPException(status_code=exc.status_code, detail=exc.detail) from exc
-
-    # 直接查询底层分析记录以获取 sources.communities_detail（ReportPayload 不直接暴露）
-    try:
-        from app.repositories.report_repository import ReportRepository
-
-        repo = ReportRepository(db)
-        task = await repo.get_task_with_analysis(task_id)
-        if task is None or task.analysis is None:
-            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Analysis not found")
-
-        # 借用 ReportService 的校验/迁移逻辑
-        analysis_read = service._validate_analysis_payload(task.analysis)  # type: ignore[attr-defined]
-        # _validate_analysis_payload 返回元组 (insights, sources, version)
-        sources = analysis_read.sources  # type: ignore[attr-defined]
-        details = sources.communities_detail or []
-        return details
     except HTTPException:
         raise
-    except Exception:
-        # 兜底：回退到 top_communities（精度较低）
-        try:
-            report = await service.get_report(task_id, user_id)
-            communities: list[CommunitySourceDetail] = []
-            for t in report.overview.top_communities:
-                communities.append(
-                    CommunitySourceDetail(
-                        name=t.name,
-                        categories=[t.category] if t.category else [],
-                        mentions=t.mentions,
-                        daily_posts=t.daily_posts or 0,
-                        avg_comment_length=t.avg_comment_length or 0,
-                        cache_hit_rate=(t.relevance or 0) / 100.0,
-                        from_cache=t.from_cache,
-                    )
-                )
-            return communities
-        except Exception as exc:
-            raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(exc))
+    except Exception as exc:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(exc)) from exc
+
+    response.headers["X-Communities-Source"] = source
+    response.headers["X-Communities-Degraded"] = degraded_reason or "none"
+    return details
 
 
 @router.get(
@@ -429,14 +542,6 @@ async def download_entities_csv(
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid access token") from exc
 
     key = str(payload.sub)
-    count = REPORT_RATE_HITS.get(key, 0)
-    if count >= settings.report_rate_limit_per_minute:
-        raise HTTPException(
-            status_code=status.HTTP_429_TOO_MANY_REQUESTS,
-            detail="Too many report downloads, please wait and try again.",
-        )
-    REPORT_RATE_HITS[key] = count + 1
-
     allowed = await REPORT_RATE_LIMITER.allow(key)
     if not allowed:
         raise HTTPException(
@@ -532,18 +637,21 @@ async def download_entities_csv(
     )
 
 
-@router.get("/report/{task_id}/communities/export", summary="Export communities list (top or all)", response_model=CommunityExportResponse)
+@router.get(
+    "/report/{task_id}/communities/export",
+    summary="Export communities list (top or all)",
+    response_model=CommunityExportResponse,
+)
 async def export_communities(
     task_id: UUID,
-    scope: str = Query("all", regex="^(top|all)$", description="导出范围：top 或 all"),
+    scope: str = Query("all", pattern="^(top|all)$", description="导出范围：top 或 all"),
     payload: TokenPayload = Depends(decode_jwt_token),
     db: AsyncSession = Depends(get_session),
 ) -> CommunityExportResponse:
     """
     返回本次报告涉及的社区列表：
     - scope=top: 返回 Top 社区（用于轻量导出）
-    - scope=all: 返回完整社区明细（合并治理与抓取字段）
-    需要 JWT 认证。
+    - scope=all: 只返回真实报告社区；缺少 detail 时明确降级到 top_communities
     """
     service = ReportService(db, cache=REPORT_CACHE)
     try:
@@ -551,7 +659,6 @@ async def export_communities(
     except ValueError as exc:  # pragma: no cover - defensive guard
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid access token") from exc
 
-    # 速率限制与报告加载
     allowed = await REPORT_RATE_LIMITER.allow(payload.sub)
     if not allowed:
         raise HTTPException(
@@ -564,24 +671,24 @@ async def export_communities(
     except ReportServiceError as exc:
         raise HTTPException(status_code=exc.status_code, detail=exc.detail) from exc
 
-    items: list[CommunityExportItem] = []
     seed_source = getattr(report.overview, "seed_source", None)
     top_n = getattr(report.overview, "top_n", None)
     total_communities = getattr(report.overview, "total_communities", None)
 
     if scope == "top":
-        for c in report.overview.top_communities:
+        items: list[CommunityExportItem] = []
+        for item in report.overview.top_communities:
             items.append(
                 CommunityExportItem(
-                    name=c.name,
-                    mentions=c.mentions,
-                    relevance=c.relevance,
-                    category=c.category,
-                    categories=[c.category] if c.category else [],
-                    daily_posts=c.daily_posts,
-                    avg_comment_length=c.avg_comment_length,
-                    from_cache=c.from_cache,
-                    members=c.members,
+                    name=item.name,
+                    mentions=item.mentions,
+                    relevance=item.relevance,
+                    category=item.category,
+                    categories=[item.category] if item.category else [],
+                    daily_posts=item.daily_posts,
+                    avg_comment_length=item.avg_comment_length,
+                    from_cache=item.from_cache,
+                    members=item.members,
                 )
             )
         return CommunityExportResponse(
@@ -590,132 +697,24 @@ async def export_communities(
             seed_source=seed_source,
             top_n=top_n,
             total_communities=total_communities,
+            source="top_communities",
+            degraded_reason=None,
             items=items,
         )
 
-    # scope == all: 使用 sources.communities_detail 作为基础，再合并 DB 治理/抓取信息
-    detail = (report.overview and report.overview.top_communities) or []
-    # 优先从 sources.communities_detail 获取完整明细
-    sources = getattr(report, "report", None)
-    # 实际数据位于分析源：report.overview 没有 categories 列表，用 report.sources.communities_detail 更全
-    # 由于 ReportPayload 不直接暴露 sources，我们改为从服务内部：此处重用 ReportService 的缓存结果
-    # 变通：从 report.report_html 中无法拿到，退回 report_service 内保存的 analysis 内容较复杂
-    # 为保证鲁棒性，尝试从 
-    communities_detail = []
     try:
-        # ReportPayload 未直接包含 sources；但在 ReportService 构建时，overview/top 已从 sources 填充。
-        # 我们最佳可得信息是 top_communities 与 metadata，此外合并 DB 信息
-        # 如需更细的 mentions/relevance，仍可从 stats/overview 近似。
-        # 这里退回通过 top 列表名集查询 DB 增强；同时包含 top 信息。
-        name_set = {c.name for c in report.overview.top_communities}
-    except Exception:
-        name_set = set()
-
-    # 同时尝试从 report_html 不可行，故以 top 名集 + DB 活跃社区集合作为完整导出近似
-    # 查询 DB 以补齐治理与抓取字段
-    db_names: set[str] = set(name_set)
-    try:
-        pool_rows = (await db.execute(select(CommunityPool))).scalars().all()
-        for row in pool_rows:
-            if row.is_active:
-                db_names.add(row.name)
-    except Exception:
-        # DB 不可用时，至少返回 top 列表
-        pass
-
-    # 批量查询治理/抓取信息映射
-    pool_map = {}
-    cache_map = {}
-    if db_names:
-        try:
-            result = await db.execute(select(CommunityPool).where(CommunityPool.name.in_(list(db_names))))
-            for row in result.scalars().all():
-                pool_map[row.name] = row
-        except Exception:
-            pool_map = {}
-        try:
-            result2 = await db.execute(select(CommunityCache).where(CommunityCache.community_name.in_(list(db_names))))
-            for row in result2.scalars().all():
-                cache_map[row.community_name] = row
-        except Exception:
-            cache_map = {}
-
-    # 构建完整条目：优先以 top 列表顺序，然后补齐其他活跃社区（mentions=0，relevance=None）
-    for c in report.overview.top_communities:
-        pool = pool_map.get(c.name)
-        cache = cache_map.get(c.name)
-        categories: list[str] = []
-        if pool and isinstance(pool.categories, dict):
-            for v in pool.categories.values():
-                if isinstance(v, list):
-                    categories.extend([str(x) for x in v])
-        items.append(
-            CommunityExportItem(
-                name=c.name,
-                mentions=c.mentions,
-                relevance=c.relevance,
-                category=c.category,
-                categories=categories or ([c.category] if c.category else []),
-                daily_posts=c.daily_posts,
-                avg_comment_length=c.avg_comment_length,
-                from_cache=c.from_cache,
-                cache_hit_rate=None,
-                members=c.members or (cache.member_count if cache else None),
-                priority=(pool.priority if pool else None),
-                tier=(pool.tier if pool else None),
-                is_blacklisted=(pool.is_blacklisted if pool else None),
-                blacklist_reason=(pool.blacklist_reason if pool else None),
-                is_active=(pool.is_active if pool else None),
-                crawl_frequency_hours=(cache.crawl_frequency_hours if cache else None),
-                crawl_priority=(cache.crawl_priority if cache else None),
-                last_crawled_at=(cache.last_crawled_at if cache else None),
-                posts_cached=(cache.posts_cached if cache else None),
-                hit_count=(cache.hit_count if cache else None),
-                empty_hit=(cache.empty_hit if cache else None),
-                failure_hit=(cache.failure_hit if cache else None),
-                success_hit=(cache.success_hit if cache else None),
-            )
+        _, details, source, degraded_reason = await _resolve_report_communities(
+            service,
+            task_id=task_id,
+            user_id=user_id,
         )
+    except HTTPException:
+        raise
+    except Exception as exc:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(exc)) from exc
 
-    # 追加非 Top 的活跃社区（mentions=0）
-    for name, pool in pool_map.items():
-        if not pool.is_active:
-            continue
-        if any(item.name == name for item in items):
-            continue
-        cache = cache_map.get(name)
-        categories: list[str] = []
-        if isinstance(pool.categories, dict):
-            for v in pool.categories.values():
-                if isinstance(v, list):
-                    categories.extend([str(x) for x in v])
-        items.append(
-            CommunityExportItem(
-                name=name,
-                mentions=0,
-                relevance=None,
-                category=(categories[0] if categories else None),
-                categories=categories,
-                daily_posts=pool.daily_posts,
-                avg_comment_length=pool.avg_comment_length,
-                from_cache=None,
-                cache_hit_rate=None,
-                members=(cache.member_count if cache else None),
-                priority=pool.priority,
-                tier=pool.tier,
-                is_blacklisted=pool.is_blacklisted,
-                blacklist_reason=pool.blacklist_reason,
-                is_active=pool.is_active,
-                crawl_frequency_hours=(cache.crawl_frequency_hours if cache else None),
-                crawl_priority=(cache.crawl_priority if cache else None),
-                last_crawled_at=(cache.last_crawled_at if cache else None),
-                posts_cached=(cache.posts_cached if cache else None),
-                hit_count=(cache.hit_count if cache else None),
-                empty_hit=(cache.empty_hit if cache else None),
-                failure_hit=(cache.failure_hit if cache else None),
-                success_hit=(cache.success_hit if cache else None),
-            )
-        )
+    pool_map, cache_map = await _load_community_maps(db, [detail.name for detail in details])
+    items = _build_community_export_items(details, pool_map=pool_map, cache_map=cache_map)
 
     return CommunityExportResponse(
         task_id=str(task_id),
@@ -723,6 +722,8 @@ async def export_communities(
         seed_source=seed_source,
         top_n=top_n,
         total_communities=total_communities,
+        source=source,
+        degraded_reason=degraded_reason,
         items=items,
     )
 
@@ -733,7 +734,7 @@ async def export_communities(
 )
 async def download_communities(
     task_id: UUID,
-    scope: str = Query("all", regex="^(top|all)$", description="导出范围：top 或 all"),
+    scope: str = Query("all", pattern="^(top|all)$", description="导出范围：top 或 all"),
     payload: TokenPayload = Depends(decode_jwt_token),
     db: AsyncSession = Depends(get_session),
 ) -> StreamingResponse:
@@ -756,13 +757,14 @@ async def download_communities(
     except ReportServiceError as exc:
         raise HTTPException(status_code=exc.status_code, detail=exc.detail) from exc
 
-    # 复用与 JSON 路由一致的构造逻辑（为稳定性简化为局部实现）
-    items: list[CommunityExportItem] = []
     seed_source = getattr(report.overview, "seed_source", None)
     top_n = getattr(report.overview, "top_n", None)
     total_communities = getattr(report.overview, "total_communities", None)
+    source = "top_communities"
+    degraded_reason: str | None = None
 
     if scope == "top":
+        items: list[CommunityExportItem] = []
         for c in report.overview.top_communities:
             items.append(
                 CommunityExportItem(
@@ -778,106 +780,19 @@ async def download_communities(
                 )
             )
     else:
-        # all: 合并 DB 活跃社区信息
-        name_set = {c.name for c in report.overview.top_communities}
-        db_names: set[str] = set(name_set)
         try:
-            pool_rows = (await db.execute(select(CommunityPool))).scalars().all()
-            for row in pool_rows:
-                if row.is_active:
-                    db_names.add(row.name)
-        except Exception:
-            pass
-
-        pool_map = {}
-        cache_map = {}
-        if db_names:
-            try:
-                result = await db.execute(select(CommunityPool).where(CommunityPool.name.in_(list(db_names))))
-                for row in result.scalars().all():
-                    pool_map[row.name] = row
-            except Exception:
-                pool_map = {}
-            try:
-                result2 = await db.execute(select(CommunityCache).where(CommunityCache.community_name.in_(list(db_names))))
-                for row in result2.scalars().all():
-                    cache_map[row.community_name] = row
-            except Exception:
-                cache_map = {}
-
-        # 先 Top
-        for c in report.overview.top_communities:
-            pool = pool_map.get(c.name)
-            cache = cache_map.get(c.name)
-            categories: list[str] = []
-            if pool and isinstance(pool.categories, dict):
-                for v in pool.categories.values():
-                    if isinstance(v, list):
-                        categories.extend([str(x) for x in v])
-            items.append(
-                CommunityExportItem(
-                    name=c.name,
-                    mentions=c.mentions,
-                    relevance=c.relevance,
-                    category=c.category,
-                    categories=categories or ([c.category] if c.category else []),
-                    daily_posts=c.daily_posts,
-                    avg_comment_length=c.avg_comment_length,
-                    from_cache=c.from_cache,
-                    cache_hit_rate=None,
-                    members=c.members or (cache.member_count if cache else None),
-                    priority=(pool.priority if pool else None),
-                    tier=(pool.tier if pool else None),
-                    is_blacklisted=(pool.is_blacklisted if pool else None),
-                    blacklist_reason=(pool.blacklist_reason if pool else None),
-                    is_active=(pool.is_active if pool else None),
-                    crawl_frequency_hours=(cache.crawl_frequency_hours if cache else None),
-                    crawl_priority=(cache.crawl_priority if cache else None),
-                    last_crawled_at=(cache.last_crawled_at if cache else None),
-                    posts_cached=(cache.posts_cached if cache else None),
-                    hit_count=(cache.hit_count if cache else None),
-                    empty_hit=(cache.empty_hit if cache else None),
-                    failure_hit=(cache.failure_hit if cache else None),
-                    success_hit=(cache.success_hit if cache else None),
-                )
+            _, details, source, degraded_reason = await _resolve_report_communities(
+                service,
+                task_id=task_id,
+                user_id=user_id,
             )
-        # 再补其他活跃社区（mentions=0）
-        for name, pool in pool_map.items():
-            if not pool.is_active or any(it.name == name for it in items):
-                continue
-            cache = cache_map.get(name)
-            categories: list[str] = []
-            if isinstance(pool.categories, dict):
-                for v in pool.categories.values():
-                    if isinstance(v, list):
-                        categories.extend([str(x) for x in v])
-            items.append(
-                CommunityExportItem(
-                    name=name,
-                    mentions=0,
-                    relevance=None,
-                    category=(categories[0] if categories else None),
-                    categories=categories,
-                    daily_posts=pool.daily_posts,
-                    avg_comment_length=pool.avg_comment_length,
-                    from_cache=None,
-                    cache_hit_rate=None,
-                    members=(cache.member_count if cache else None),
-                    priority=pool.priority,
-                    tier=pool.tier,
-                    is_blacklisted=pool.is_blacklisted,
-                    blacklist_reason=pool.blacklist_reason,
-                    is_active=pool.is_active,
-                    crawl_frequency_hours=(cache.crawl_frequency_hours if cache else None),
-                    crawl_priority=(cache.crawl_priority if cache else None),
-                    last_crawled_at=(cache.last_crawled_at if cache else None),
-                    posts_cached=(cache.posts_cached if cache else None),
-                    hit_count=(cache.hit_count if cache else None),
-                    empty_hit=(cache.empty_hit if cache else None),
-                    failure_hit=(cache.failure_hit if cache else None),
-                    success_hit=(cache.success_hit if cache else None),
-                )
-            )
+        except HTTPException:
+            raise
+        except Exception as exc:
+            raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(exc)) from exc
+
+        pool_map, cache_map = await _load_community_maps(db, [detail.name for detail in details])
+        items = _build_community_export_items(details, pool_map=pool_map, cache_map=cache_map)
 
     # 生成 CSV
     import csv
@@ -915,6 +830,8 @@ async def download_communities(
     writer.writerow(["seed_source", seed_source or ""])
     writer.writerow(["top_n", top_n or ""])
     writer.writerow(["total_communities", total_communities or ""])
+    writer.writerow(["source", source])
+    writer.writerow(["degraded_reason", degraded_reason or ""])
     writer.writerow([])
     writer.writerow(headers)
     for it in items:

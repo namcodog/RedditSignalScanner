@@ -194,7 +194,7 @@ reports/
 **目标**: 一键启动所有服务，自动验收核心功能
 
 1. **验收脚本**（4h）
-   - 新增 `backend/scripts/local_acceptance.py`（自动测试注册、登录、分析、报告、导出）
+   - 新增 `backend/scripts/seed/local_acceptance.py`（自动测试注册、登录、分析、报告、导出）
    - 新增 `Makefile::local-acceptance` 命令
    - 新增 `reports/local-acceptance/` 目录
 

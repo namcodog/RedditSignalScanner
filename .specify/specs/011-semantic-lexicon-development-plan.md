@@ -77,7 +77,7 @@ L1 → L2 → L3 → L4
    - **问题**：按主题组织，缺乏语义层级结构
 
 2. **简单正则匹配**
-   - 文件：`backend/scripts/score_with_semantic.py`
+   - 文件：`backend/scripts/semantic/score_with_semantic.py`
    - 功能：基于正则的词频统计 + coverage/density/purity 计算
    - **问题**：只支持 phrase 匹配，无 exact/semantic 区分
 
@@ -422,7 +422,7 @@ python backend/scripts/crawl_for_lexicon.py \
   --force-fresh
 
 # Step 4: 验证数据质量
-python backend/scripts/validate_corpus.py \
+python backend/scripts/monitor/validate_corpus.py \
   --corpus-dir backend/data/reddit_corpus \
   --output backend/reports/local-acceptance/corpus_stats.csv
 ```
@@ -440,7 +440,7 @@ python backend/scripts/validate_corpus.py \
 **交付物**：
 - `backend/scripts/crawl_for_lexicon.py`（历史深度抓取脚本，150 行）
 - `backend/data/reddit_corpus/*.jsonl`（5 个社区语料，22k 帖）
-- `backend/scripts/validate_corpus.py`（数据质量验证）
+- `backend/scripts/monitor/validate_corpus.py`（数据质量验证）
 - `backend/reports/local-acceptance/corpus_stats.csv`（数据质量报告）
 
 **验收标准**：
@@ -476,7 +476,7 @@ python backend/scripts/build_L1_baseline.py \
   --model sentence-transformers/all-MiniLM-L6-v2
 
 # Step 3: 提取四层语义词汇（按《语义库框架.md》设计）
-python backend/scripts/extract_lexicon_from_corpus.py \
+python backend/scripts/semantic/extract_lexicon_from_corpus.py \
   --corpus backend/data/reddit_corpus/*.jsonl \
   --layer-config 跨境社区资料库/语义库框架.md \
   --L1-baseline backend/config/semantic_sets/L1_baseline_embeddings.pkl \
@@ -485,7 +485,7 @@ python backend/scripts/extract_lexicon_from_corpus.py \
   --min-freq 3
 
 # Step 4: 生成层级映射表
-python backend/scripts/extract_lexicon_from_corpus.py \
+python backend/scripts/semantic/extract_lexicon_from_corpus.py \
   --corpus backend/data/reddit_corpus/*.jsonl \
   --output-mapping backend/config/semantic_sets/layer_mapping.csv
 ```
@@ -644,7 +644,7 @@ def extract_lexicon_from_corpus(corpus_files, layer_config, L1_baseline, target_
 
 **交付物**：
 - `backend/scripts/build_L1_baseline.py`（L1 语义坐标构建）
-- `backend/scripts/extract_lexicon_from_corpus.py`（完整提取脚本，300 行）
+- `backend/scripts/semantic/extract_lexicon_from_corpus.py`（完整提取脚本，300 行）
 - `backend/config/semantic_sets/L1_baseline_embeddings.pkl`（L1 embedding 基线）
 - `backend/config/semantic_sets/crossborder_v2.0.yml`（四层结构，500 词）
 - `backend/config/semantic_sets/layer_mapping.csv`（层级映射表）
@@ -1395,7 +1395,7 @@ gantt
 7. `backend/config/semantic_sets/layer_mapping.csv`（层级映射）
 8. `backend/config/entity_dictionary/crossborder_v2.csv`（核心实体）
 9. `backend/scripts/crawl_reddit.py`（抓取脚本）
-10. `backend/scripts/extract_lexicon_from_corpus.py`（提取脚本）
+10. `backend/scripts/semantic/extract_lexicon_from_corpus.py`（提取脚本）
 11. `backend/scripts/extract_entity_dict.py`（实体提取）
 
 **阶段 1**：
@@ -1423,7 +1423,7 @@ gantt
 
 ### 11.2 修改文件
 
-1. `backend/scripts/score_with_semantic.py`（集成 HybridMatcher）
+1. `backend/scripts/semantic/score_with_semantic.py`（集成 HybridMatcher）
 2. `backend/config/semantic_sets/crossborder.yml`（迁移到 v2.0）
 
 ---

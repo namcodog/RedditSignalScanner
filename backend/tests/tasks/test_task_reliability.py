@@ -8,7 +8,7 @@ import pytest
 from celery.exceptions import Retry
 
 from app.tasks import analysis_task
-from scripts.check_celery_health import CeleryHealthError, check_celery_health
+from scripts.monitor.check_celery_health import CeleryHealthError, check_celery_health
 
 
 def test_run_analysis_task_retries_until_success(monkeypatch: pytest.MonkeyPatch) -> None:
@@ -162,8 +162,8 @@ async def test_check_celery_health_reports_counts(monkeypatch: pytest.MonkeyPatc
         def __init__(self) -> None:
             self.redis = DummyRedis()
 
-    monkeypatch.setattr("scripts.check_celery_health.celery_app.control.inspect", lambda: DummyInspect())
-    monkeypatch.setattr("scripts.check_celery_health.TaskStatusCache", DummyCache)
+    monkeypatch.setattr("scripts.monitor.check_celery_health.celery_app.control.inspect", lambda: DummyInspect())
+    monkeypatch.setattr("scripts.monitor.check_celery_health.TaskStatusCache", DummyCache)
 
     summary = await check_celery_health()
 
@@ -200,8 +200,8 @@ async def test_check_celery_health_detects_failure_rate(monkeypatch: pytest.Monk
 
             self.redis = _Redis()
 
-    monkeypatch.setattr("scripts.check_celery_health.celery_app.control.inspect", lambda: UnhealthyInspect())
-    monkeypatch.setattr("scripts.check_celery_health.TaskStatusCache", HealthyCache)
+    monkeypatch.setattr("scripts.monitor.check_celery_health.celery_app.control.inspect", lambda: UnhealthyInspect())
+    monkeypatch.setattr("scripts.monitor.check_celery_health.TaskStatusCache", HealthyCache)
 
     with pytest.raises(CeleryHealthError):
         await check_celery_health(max_failure_rate=0.1)
@@ -240,9 +240,9 @@ async def test_check_celery_health_falls_back_to_ping_when_inspect_empty(
     def fake_ping(*_args: object, **_kwargs: object) -> list[dict[str, object]]:
         return [{"worker-1": {"ok": "pong"}}]
 
-    monkeypatch.setattr("scripts.check_celery_health.celery_app.control.inspect", lambda: EmptyInspect())
-    monkeypatch.setattr("scripts.check_celery_health.celery_app.control.ping", fake_ping)
-    monkeypatch.setattr("scripts.check_celery_health.TaskStatusCache", HealthyCache)
+    monkeypatch.setattr("scripts.monitor.check_celery_health.celery_app.control.inspect", lambda: EmptyInspect())
+    monkeypatch.setattr("scripts.monitor.check_celery_health.celery_app.control.ping", fake_ping)
+    monkeypatch.setattr("scripts.monitor.check_celery_health.TaskStatusCache", HealthyCache)
 
     summary = await check_celery_health()
     assert summary["active_workers"] == 1

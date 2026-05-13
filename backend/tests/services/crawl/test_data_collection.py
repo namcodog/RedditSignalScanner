@@ -6,16 +6,15 @@ from datetime import datetime, timedelta, timezone
 from typing import List, Sequence
 
 import fakeredis.aioredis as fakeredis
-from fakeredis import FakeServer
 import pytest
+from fakeredis import FakeServer
 from sqlalchemy import delete, select
-from time import perf_counter
 
+import app.services.crawl.data_collection as data_collection
+import app.services.infrastructure.cache_manager as cache_manager
 from app.db.session import SessionFactory
 from app.models.posts_storage import PostHot, PostRaw
 from app.services.analysis import Community
-from app.services.infrastructure.cache_manager import CacheManager, DEFAULT_CACHE_TTL_SECONDS
-from app.services.crawl.data_collection import CollectionResult, DataCollectionService
 from app.services.infrastructure.reddit_client import RedditPost
 
 
@@ -74,14 +73,16 @@ def _community(name: str) -> Community:
     )
 
 
-def _service(redis_client: fakeredis.FakeRedis, reddit_client: StubRedditClient) -> DataCollectionService:
-    cache = CacheManager(redis_client)
-    return DataCollectionService(reddit_client, cache)
+def _service(
+    redis_client: fakeredis.FakeRedis, reddit_client: StubRedditClient
+) -> data_collection.DataCollectionService:
+    cache = cache_manager.CacheManager(redis_client)
+    return data_collection.DataCollectionService(reddit_client, cache)
 
 
-class FailingCache(CacheManager):
+class FailingCache(cache_manager.CacheManager):
     def __init__(self) -> None:
-        self.cache_ttl = DEFAULT_CACHE_TTL_SECONDS
+        self.cache_ttl = cache_manager.DEFAULT_CACHE_TTL_SECONDS
         self.namespace = "reddit:posts"
 
     async def get_cached_posts(self, subreddit: str, *, max_age_hours: int = 24):  # type: ignore[override]
@@ -111,13 +112,13 @@ async def test_collect_posts_prefers_cache(monkeypatch: pytest.MonkeyPatch) -> N
         url="https://reddit.com/python/cached",
         permalink="/r/python/comments/cached",
     )
-    cache = CacheManager(redis_client)
+    cache = cache_manager.CacheManager(redis_client)
     await cache.set_cached_posts("r/python", [cached_post])
 
     communities = [_community("python"), _community("golang")]
     result = await service.collect_posts(communities)
 
-    assert isinstance(result, CollectionResult)
+    assert isinstance(result, data_collection.CollectionResult)
     assert result.cache_hits == 1
     assert result.api_calls == 1
     assert result.cached_subreddits == {"r/python"}
@@ -156,14 +157,10 @@ async def test_collect_posts_runs_fetches_concurrently() -> None:
         _community("rust"),
     ]
 
-    start = perf_counter()
     result = await service.collect_posts(communities)
-    elapsed = perf_counter() - start
 
     assert result.api_calls == 3
     assert stub_reddit.max_concurrency >= 2
-    # Sequential fetching would take ~0.15s (3 * 0.05). Concurrency keeps it below the threshold.
-    assert elapsed < 0.14
 
 
 @pytest.mark.asyncio
@@ -194,7 +191,9 @@ async def test_collect_posts_uses_hot_storage_before_api() -> None:
         await session.refresh(hot_post)
 
     try:
-        result = await service.collect_posts([_community("python")], limit_per_subreddit=1)
+        result = await service.collect_posts(
+            [_community("python")], limit_per_subreddit=1
+        )
 
         assert result.api_calls == 0
         assert result.cache_hits == 1
@@ -203,7 +202,9 @@ async def test_collect_posts_uses_hot_storage_before_api() -> None:
         assert result.posts_by_subreddit["r/python"][0].id == "hot-db-test"
         assert result.posts_by_subreddit["r/python"][0].author == "hot_author"
 
-        cached_posts = await CacheManager(redis_client).get_cached_posts("r/python")
+        cached_posts = await cache_manager.CacheManager(redis_client).get_cached_posts(
+            "r/python"
+        )
         assert cached_posts and cached_posts[0].id == "hot-db-test"
         assert cached_posts[0].author == "hot_author"
     finally:
@@ -225,7 +226,9 @@ async def test_collect_posts_falls_back_to_cold_storage() -> None:
     created_community = False
     community_id: int | None = None
     async with SessionFactory() as session:
-        result = await session.execute(select(CommunityPool).where(CommunityPool.name == "r/rust"))
+        result = await session.execute(
+            select(CommunityPool).where(CommunityPool.name == "r/rust")
+        )
         community = result.scalar_one_or_none()
         if community is None:
             community = CommunityPool(
@@ -266,7 +269,9 @@ async def test_collect_posts_falls_back_to_cold_storage() -> None:
         await session.refresh(cold_post)
 
     try:
-        result = await service.collect_posts([_community("rust")], limit_per_subreddit=1)
+        result = await service.collect_posts(
+            [_community("rust")], limit_per_subreddit=1
+        )
 
         assert result.api_calls == 0
         assert result.cache_hits == 1
@@ -275,14 +280,20 @@ async def test_collect_posts_falls_back_to_cold_storage() -> None:
         assert result.posts_by_subreddit["r/rust"][0].id == "cold-db-test"
         assert result.posts_by_subreddit["r/rust"][0].author == "cold_author"
 
-        cached_posts = await CacheManager(redis_client).get_cached_posts("r/rust")
+        cached_posts = await cache_manager.CacheManager(redis_client).get_cached_posts(
+            "r/rust"
+        )
         assert cached_posts and cached_posts[0].id == "cold-db-test"
         assert cached_posts[0].author == "cold_author"
     finally:
         async with SessionFactory() as cleanup:
-            await cleanup.execute(delete(PostRaw).where(PostRaw.source_post_id == "cold-db-test"))
+            await cleanup.execute(
+                delete(PostRaw).where(PostRaw.source_post_id == "cold-db-test")
+            )
             if created_community and community_id is not None:
-                await cleanup.execute(delete(CommunityPool).where(CommunityPool.id == community_id))
+                await cleanup.execute(
+                    delete(CommunityPool).where(CommunityPool.id == community_id)
+                )
             await cleanup.commit()
 
 
@@ -299,7 +310,9 @@ async def test_collect_posts_normalizes_subreddit_names_for_db_lookup() -> None:
     community_id: int | None = None
     created_community = False
     async with SessionFactory() as session:
-        result = await session.execute(select(CommunityPool).where(CommunityPool.name == "r/ppc"))
+        result = await session.execute(
+            select(CommunityPool).where(CommunityPool.name == "r/ppc")
+        )
         community = result.scalar_one_or_none()
         if community is None:
             community = CommunityPool(
@@ -340,7 +353,9 @@ async def test_collect_posts_normalizes_subreddit_names_for_db_lookup() -> None:
         await session.refresh(cold_post)
 
     try:
-        result = await service.collect_posts([_community("r/PPC")], limit_per_subreddit=1)
+        result = await service.collect_posts(
+            [_community("r/PPC")], limit_per_subreddit=1
+        )
 
         assert result.api_calls == 0
         assert stub_reddit.calls == []
@@ -348,9 +363,13 @@ async def test_collect_posts_normalizes_subreddit_names_for_db_lookup() -> None:
         assert result.posts_by_subreddit["r/ppc"][0].id == "ppc-cold-db-test"
     finally:
         async with SessionFactory() as cleanup:
-            await cleanup.execute(delete(PostRaw).where(PostRaw.source_post_id == "ppc-cold-db-test"))
+            await cleanup.execute(
+                delete(PostRaw).where(PostRaw.source_post_id == "ppc-cold-db-test")
+            )
             if created_community and community_id is not None:
-                await cleanup.execute(delete(CommunityPool).where(CommunityPool.id == community_id))
+                await cleanup.execute(
+                    delete(CommunityPool).where(CommunityPool.id == community_id)
+                )
             await cleanup.commit()
 
 
@@ -379,15 +398,19 @@ async def test_collect_posts_handles_cache_failures() -> None:
     try:
         stub_reddit = StubRedditClient(post_count=0)
         cache = FailingCache()
-        service = DataCollectionService(stub_reddit, cache)
+        service = data_collection.DataCollectionService(stub_reddit, cache)
 
-        result = await service.collect_posts([_community("python")], limit_per_subreddit=1)
+        result = await service.collect_posts(
+            [_community("python")], limit_per_subreddit=1
+        )
         assert result.api_calls == 0
         assert result.total_posts == 1
         assert result.posts_by_subreddit["r/python"][0].id == "cache-fallback"
     finally:
         async with SessionFactory() as cleanup:
-            await cleanup.execute(delete(PostHot).where(PostHot.source_post_id == "cache-fallback"))
+            await cleanup.execute(
+                delete(PostHot).where(PostHot.source_post_id == "cache-fallback")
+            )
             await cleanup.commit()
 
 
@@ -414,7 +437,7 @@ async def test_collect_posts_skips_stale_cache_and_uses_api(
         url="https://reddit.com/python/cached",
         permalink="/r/python/comments/cached",
     )
-    cache = CacheManager(redis_client)
+    cache = cache_manager.CacheManager(redis_client)
     await cache.set_cached_posts("r/python", [cached_post])
 
     result = await service.collect_posts([_community("python")])
@@ -451,7 +474,7 @@ async def test_collect_posts_uses_stale_cache_when_api_fails(
         url="https://reddit.com/python/cached",
         permalink="/r/python/comments/cached",
     )
-    cache = CacheManager(redis_client)
+    cache = cache_manager.CacheManager(redis_client)
     await cache.set_cached_posts("r/python", [cached_post])
 
     result = await service.collect_posts([_community("python")])

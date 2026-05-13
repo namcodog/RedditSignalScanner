@@ -136,6 +136,8 @@ async def test_run_analysis_blocks_as_insufficient_samples_when_required_anchor_
 
     assert result.sources.get("analysis_blocked") == "insufficient_samples"
     assert result.sources.get("report_tier") == "C_scouting"
+    assert result.sources.get("structured_llm_status") == "skipped"
+    assert result.sources.get("structured_llm_reason") == "insufficient_samples"
     actions = result.sources.get("remediation_actions") or []
     assert any(isinstance(a, dict) and a.get("type") == "backfill_posts" for a in actions)
     lineage = result.sources.get("data_lineage")

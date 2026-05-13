@@ -31,12 +31,8 @@ class Analysis(Base):
     __tablename__ = "analyses"
     __table_args__ = (
         UniqueConstraint("task_id", name="uq_analyses_task_id"),
-        CheckConstraint(
-            "validate_insights_schema(insights)", name="ck_analyses_insights_schema"
-        ),
-        CheckConstraint(
-            "validate_sources_schema(sources)", name="ck_analyses_sources_schema"
-        ),
+        # The report pipeline now stores multiple structured source shapes
+        # including report_structured; validation belongs in service contracts.
         CheckConstraint(
             "(confidence_score IS NULL) OR (confidence_score BETWEEN 0.00 AND 1.00)",
             name="ck_analyses_confidence_score_range",

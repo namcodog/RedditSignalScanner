@@ -1,0 +1,32 @@
+{
+  "active_count_after": 359,
+  "active_count_before": 356,
+  "blocked_deleted_conflicts": [],
+  "database": "reddit_signal_scanner_dev",
+  "dry_run": false,
+  "inserted_names": [
+    "r/aeo",
+    "r/ai_ugc_marketing",
+    "r/growthhacking"
+  ],
+  "phase": "hotpost-community-pool-r12-dev-write",
+  "planned_insert_names": [
+    "r/aeo",
+    "r/ai_ugc_marketing",
+    "r/growthhacking"
+  ],
+  "rollback_sql": "reports/community-governance/community-pool-r12-dev-write-rollback-2026-05-10.sql",
+  "rollback_target_names": [
+    "r/aeo",
+    "r/ai_ugc_marketing",
+    "r/growthhacking"
+  ],
+  "skipped_existing": [],
+  "summary": {
+    "blocked_deleted_conflicts": 0,
+    "input_rows": 3,
+    "inserted": 3,
+    "skipped_existing": 0,
+    "would_insert": 3
+  }
+}

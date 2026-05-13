@@ -2,112 +2,58 @@ from __future__ import annotations
 
 from contextlib import asynccontextmanager
 from datetime import datetime, timezone
-from decimal import Decimal
 
 import pytest
-from sqlalchemy import text
-
-from app.db.session import SessionFactory
-from app.models.community_cache import CommunityCache
-from app.models.community_pool import CommunityPool
 
 
 @pytest.mark.asyncio
-async def test_backfill_bootstrap_planner_enqueues_targets(
+async def test_backfill_bootstrap_planner_delegates_to_workflow(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
+    from app.services.crawl.planner_workflow import PlannerWorkflowResult
     from app.tasks import crawler_task
 
-    now = datetime.now(timezone.utc)
-    community_needs = "r/backfill_needs"
-    community_done = "r/backfill_done"
+    captured: dict[str, object] = {}
 
-    async with SessionFactory() as session:
-        await session.execute(text("DELETE FROM crawler_run_targets"))
-        await session.execute(text("DELETE FROM crawler_runs"))
-        await session.execute(text("DELETE FROM task_outbox"))
-        session.add_all(
-            [
-                CommunityPool(
-                    name=community_needs,
-                    tier="high",
-                    categories={},
-                    description_keywords={},
-                    is_active=True,
-                    is_blacklisted=False,
-                ),
-                CommunityPool(
-                    name=community_done,
-                    tier="high",
-                    categories={},
-                    description_keywords={},
-                    is_active=True,
-                    is_blacklisted=False,
-                ),
-            ]
+    async def fake_workflow(params, *, deps):
+        captured["params"] = params
+        captured["deps"] = deps
+        return PlannerWorkflowResult(
+            status="planned",
+            inserted=1,
+            enqueued=1,
+            run_id="test-backfill-run",
         )
-        session.add_all(
-            [
-                CommunityCache(
-                    community_name=community_needs,
-                    last_crawled_at=now,
-                    posts_cached=0,
-                    ttl_seconds=3600,
-                    quality_score=Decimal("0.50"),
-                    backfill_status="NEEDS",
-                    backfill_cursor="t3_cursor",
-                ),
-                CommunityCache(
-                    community_name=community_done,
-                    last_crawled_at=now,
-                    posts_cached=0,
-                    ttl_seconds=3600,
-                    quality_score=Decimal("0.50"),
-                    backfill_status="DONE_12M",
-                ),
-            ]
-        )
-        await session.commit()
+
+    monkeypatch.setattr(crawler_task, "plan_backfill_bootstrap_workflow", fake_workflow)
     monkeypatch.setenv("BACKFILL_BOOTSTRAP_MAX_TARGETS", "5")
     monkeypatch.setenv("BACKFILL_BOOTSTRAP_POSTS_LIMIT", "123")
     monkeypatch.setenv("BACKFILL_BOOTSTRAP_WINDOW_DAYS", "365")
     monkeypatch.setenv("BACKFILL_BOOTSTRAP_COOLDOWN_MINUTES", "0")
+    monkeypatch.setenv("BACKFILL_ERROR_COOLDOWN_MINUTES", "360")
 
     result = await crawler_task._plan_backfill_bootstrap_impl()
 
-    assert result["inserted"] == 1
-    assert result["enqueued"] == 1
-
-    async with SessionFactory() as session:
-        outbox_row = await session.execute(
-            text(
-                """
-                SELECT payload
-                FROM task_outbox
-                WHERE event_type = 'execute_target'
-                ORDER BY created_at DESC
-                LIMIT 1
-                """
-            )
-        )
-        payload = outbox_row.scalar_one()
-        row = await session.execute(
-            text(
-                """
-                SELECT config
-                FROM crawler_run_targets
-                WHERE subreddit = :subreddit
-                """
-            ),
-            {"subreddit": community_needs},
-        )
-        cfg = row.scalar_one()
-        plan = cfg if isinstance(cfg, dict) else {}
-        assert plan.get("plan_kind") == "backfill_posts"
-        assert plan.get("limits", {}).get("posts_limit") == 123
-        assert plan.get("meta", {}).get("cursor_after") == "t3_cursor"
-        payload_dict = payload if isinstance(payload, dict) else {}
-        assert payload_dict.get("queue") == "backfill_queue"
+    assert result == {
+        "status": "planned",
+        "inserted": 1,
+        "enqueued": 1,
+        "run_id": "test-backfill-run",
+    }
+    params = captured["params"]
+    assert params.max_targets == 5
+    assert params.posts_limit == 123
+    assert params.window_days == 365
+    assert params.cooldown_minutes == 0
+    assert params.error_cooldown_minutes == 360
+    assert params.queue == crawler_task.BACKFILL_POSTS_QUEUE
+    assert isinstance(params.now, datetime)
+    assert params.now.tzinfo == timezone.utc
+    deps = captured["deps"]
+    assert deps.session_factory is crawler_task.SessionFactory
+    assert deps.ensure_crawler_run is crawler_task.ensure_crawler_run
+    assert deps.log_swallowed_exception is crawler_task._log_swallowed_exception
+    assert deps.queue_deps.session_factory is crawler_task.SessionFactory
 
 
 @pytest.mark.asyncio

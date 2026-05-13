@@ -1,9 +1,9 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from collections.abc import Iterable
+from dataclasses import dataclass, field
 from functools import lru_cache
 from pathlib import Path
-from typing import Iterable
 
 import yaml
 
@@ -15,9 +15,89 @@ class HotpostLexicon:
     discovery_signals: dict[str, list[str]]
     intent_label: dict[str, list[str]]
     pain_categories: dict[str, list[str]]
+    rant_friction_categories: dict[str, list[str]] = field(default_factory=dict)
 
 
-def _normalize_terms(terms: Iterable[str]) -> list[str]:
+_DEFAULT_RANT_FRICTION_CATEGORIES = {
+    "trust_gap": [
+        "trust",
+        "scam",
+        "fake",
+        "misleading",
+        "lied",
+        "counterfeit",
+        "reviews",
+        "reputation",
+        "不信",
+        "不放心",
+        "虚假",
+        "骗人",
+    ],
+    "weak_buy_reason": [
+        "sales",
+        "sale",
+        "purchase",
+        "nobody buys",
+        "conversion",
+        "conversions",
+        "orders",
+        "traffic",
+        "views",
+        "value",
+        "worth",
+        "ads",
+        "投放",
+        "流量",
+        "转化",
+        "成交",
+        "卖不动",
+        "不买",
+        "没人买",
+        "下单",
+        "订单",
+    ],
+    "wrong_audience": [
+        "audience",
+        "content",
+        "targeting",
+        "persona",
+        "wrong people",
+        "not for me",
+        "人群",
+        "受众",
+        "定位",
+    ],
+    "identity_friction": [
+        "privacy",
+        "private",
+        "discreet",
+        "shame",
+        "embarrassing",
+        "identity",
+        "隐私",
+        "羞耻",
+        "尴尬",
+    ],
+    "transaction_friction": [
+        "payment",
+        "refund",
+        "shipping",
+        "delivery",
+        "checkout",
+        "returns",
+        "support",
+        "compliance",
+        "支付",
+        "退款",
+        "物流",
+        "客服",
+        "售后",
+        "合规",
+    ],
+}
+
+
+def _normalize_terms(terms: Iterable[object]) -> list[str]:
     seen: set[str] = set()
     cleaned: list[str] = []
     for raw in terms:
@@ -31,10 +111,17 @@ def _normalize_terms(terms: Iterable[str]) -> list[str]:
     return cleaned
 
 
-def _normalize_group(payload: dict[str, list[str]]) -> dict[str, list[str]]:
+def _normalize_group(payload: object) -> dict[str, list[str]]:
+    if not isinstance(payload, dict):
+        return {}
     normalized: dict[str, list[str]] = {}
     for key, terms in payload.items():
-        normalized[key] = _normalize_terms(terms)
+        if isinstance(terms, list | tuple | set):
+            normalized[str(key)] = _normalize_terms(terms)
+        elif terms is None:
+            normalized[str(key)] = []
+        else:
+            normalized[str(key)] = _normalize_terms([terms])
     return normalized
 
 
@@ -57,6 +144,9 @@ def load_hotpost_keywords(*, config_path: Path | None = None) -> HotpostLexicon:
     discovery = _normalize_group(payload.get("discovery_signals", {}) or {})
     intent = _normalize_group(payload.get("intent_label", {}) or {})
     pains = _normalize_group(payload.get("pain_categories", {}) or {})
+    rant_frictions = _normalize_group(
+        payload.get("rant_friction_categories", {}) or _DEFAULT_RANT_FRICTION_CATEGORIES
+    )
 
     return HotpostLexicon(
         rant_signals=rant,
@@ -64,6 +154,7 @@ def load_hotpost_keywords(*, config_path: Path | None = None) -> HotpostLexicon:
         discovery_signals=discovery,
         intent_label=intent,
         pain_categories=pains,
+        rant_friction_categories=rant_frictions,
     )
 
 

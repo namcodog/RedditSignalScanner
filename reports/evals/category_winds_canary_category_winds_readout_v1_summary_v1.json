@@ -1,0 +1,12 @@
+{
+  "sample_count": 2,
+  "pass_count": 2,
+  "fail_count": 0,
+  "pass_rate": 1.0,
+  "fail_rate": 0.0,
+  "top_failure_tags": [],
+  "scope_pass_counts": {
+    "ecommerce-sellers": 2
+  },
+  "scope_fail_counts": {}
+}

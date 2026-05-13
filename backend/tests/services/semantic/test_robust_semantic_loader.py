@@ -9,9 +9,8 @@ from app.services.semantic.robust_loader import RobustSemanticLoader
 
 @pytest.mark.asyncio
 async def test_yaml_only_load(tmp_path: Path):
-    data = [{"canonical": "foo"}]
-    yaml_file = tmp_path / "lexicon.json"
-    yaml_file.write_text(json.dumps(data), encoding="utf-8")
+    yaml_file = tmp_path / "lexicon.yml"
+    yaml_file.write_text("- canonical: foo\n", encoding="utf-8")
 
     loader = RobustSemanticLoader(
         session_factory=None,
@@ -20,10 +19,11 @@ async def test_yaml_only_load(tmp_path: Path):
         ttl_seconds=1,
     )
     payload = await loader.load()
-    assert payload == data
+    assert payload == [{"canonical": "foo"}]
     metrics = await loader.get_metrics()
     assert metrics.yaml_fallbacks >= 0
     assert hasattr(metrics, "load_latency_p95_ms")
+    assert metrics.source_status == "yaml"
 
 
 @pytest.mark.asyncio
@@ -51,3 +51,6 @@ async def test_db_failure_fallback_to_yaml(tmp_path: Path, caplog):
     with caplog.at_level("WARNING"):
         payload = await loader.load()
     assert payload == data
+    metrics = await loader.get_metrics()
+    assert metrics.source_status == "yaml_fallback"
+    assert metrics.last_error == "db down"

@@ -71,13 +71,15 @@ async def test_task_sources_ledger_forbidden_for_other_user(
 
     owner_uuid = UUID(owner_id)
     task_id = uuid.uuid4()
+    completed_at = datetime.now(timezone.utc)
 
     task = Task(
         id=task_id,
         user_id=owner_uuid,
         product_description="Forbidden sources ledger test.",
         status=TaskStatus.COMPLETED,
-        completed_at=datetime.now(timezone.utc),
+        created_at=completed_at,
+        completed_at=completed_at,
     )
     db_session.add(task)
     db_session.add(

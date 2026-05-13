@@ -1,0 +1,23 @@
+{
+  "sample_count": 3,
+  "pass_count": 2,
+  "fail_count": 1,
+  "pass_rate": 0.6667,
+  "fail_rate": 0.3333,
+  "top_failure_tags": [
+    [
+      "quote_not_used_well",
+      1
+    ],
+    [
+      "why_now_not_actionable",
+      1
+    ]
+  ],
+  "scope_pass_counts": {
+    "business-growth-ops": 2
+  },
+  "scope_fail_counts": {
+    "business-growth-ops": 1
+  }
+}

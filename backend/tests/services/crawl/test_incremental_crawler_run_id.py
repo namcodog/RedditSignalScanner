@@ -10,6 +10,7 @@ import pytest_asyncio
 from sqlalchemy import select, text
 
 from app.db.session import SessionFactory
+from app.models.community_pool import CommunityPool
 from app.models.posts_storage import PostRaw
 from app.services.crawl.incremental_crawler import IncrementalCrawler
 from app.services.infrastructure.reddit_client import RedditPost
@@ -41,6 +42,17 @@ class TestIncrementalCrawlerRunId:
     async def test_cold_storage_metadata_includes_run_id(self, db_session) -> None:
         run_id = str(uuid.uuid4())
         community_run_id = str(uuid.uuid4())
+        db_session.add(
+            CommunityPool(
+                name="r/test",
+                tier="medium",
+                categories={"topic": ["test"]},
+                description_keywords={"test": 1},
+                daily_posts=10,
+                priority="medium",
+            )
+        )
+        await db_session.commit()
         crawler = IncrementalCrawler(
             db=db_session,
             reddit_client=AsyncMock(),

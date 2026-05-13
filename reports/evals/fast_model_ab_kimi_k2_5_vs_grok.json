@@ -1,0 +1,95 @@
+[
+  {
+    "candidate_id": "cand-ai-automation-1sfnauw",
+    "source_scope_id": "ai-automation",
+    "topic_pack_id": "upstream-winds",
+    "candidate_title": "Why would Anthropic keep a cyber model like Project Glasswing invite-only?",
+    "model": "x-ai/grok-4.1-fast",
+    "seconds": 13.563,
+    "title": "Anthropic 为何将 Project Glasswing 这类 cyber model 保持邀请制不公开发布？",
+    "summary_line": "r/artificial用户讨论Anthropic限制cyber model发布原因，一用户称“模型能比之前更好地找到安全漏洞。如果发布可能会被用来攻击代码”，另一用户指“受限 rollout 是收集滥用数据和维持高企业定价的策略”。",
+    "why_now": "r/artificial里一共出现了1个帖子，而且这 24 小时里又冒出来了，大家开始反复把它当成一个新变化提出来。",
+    "audience": "追踪AI模型安全风险与发布策略的AI用户"
+  },
+  {
+    "candidate_id": "cand-ai-automation-1sfnauw",
+    "source_scope_id": "ai-automation",
+    "topic_pack_id": "upstream-winds",
+    "candidate_title": "Why would Anthropic keep a cyber model like Project Glasswing invite-only?",
+    "model": "moonshotai/kimi-k2.5",
+    "seconds": 39.687,
+    "title": "网络安全 AI 模型仅限邀请使用，引发安全与商业动机猜测",
+    "summary_line": "r/artificial 上的用户正在分析 Anthropic 将 Project Glasswing 设为邀请制的原因，有用户指出「该模型能发现更多安全漏洞，如果被发布可能被用来攻击代码」，也有用户认为「限制推出通常是为了收集滥用模式的观察数据，但『网络模型』的框架也有助于保持排他性和危险性的光环」。",
+    "why_now": "r/artificial里一共出现了1个帖子，而且这 24 小时里又冒出来了，大家开始反复把它当成一个新变化提出来。",
+    "audience": "在评估 AI 工具时需要理解厂商限制政策背后真实动机的企业技术决策者"
+  },
+  {
+    "candidate_id": "cand-ai-automation-1sd78l0",
+    "source_scope_id": "ai-automation",
+    "topic_pack_id": "agent-builder",
+    "candidate_title": "Cursor keeps generating SQL queries like this and it's making me nervous",
+    "model": "x-ai/grok-4.1-fast",
+    "seconds": 11.799,
+    "title": "AI 一碰数据库代码，团队先把 ORM 和人审重新拉回来了。",
+    "summary_line": "真正让团队紧张的不是它会不会写 SQL，而是它一旦贴着现有风格继续写，错误也会显得很合理，最后只好把 ORM 和人工把关重新加回来。",
+    "why_now": "讨论已经不在夸生成速度，而是在追问哪些代码不能再直接放给 AI 写，说明数据库相关代码开始被重新划回人工把关区。",
+    "audience": "让 AI 参与数据库和后端代码的开发者"
+  },
+  {
+    "candidate_id": "cand-ai-automation-1sd78l0",
+    "source_scope_id": "ai-automation",
+    "topic_pack_id": "agent-builder",
+    "candidate_title": "Cursor keeps generating SQL queries like this and it's making me nervous",
+    "model": "moonshotai/kimi-k2.5",
+    "seconds": 30.739,
+    "title": "AI 一碰数据库代码，团队先把 ORM 和人审重新拉回来了。",
+    "summary_line": "真正让团队紧张的不是它会不会写 SQL，而是它一旦贴着现有风格继续写，错误也会显得很合理，最后只好把 ORM 和人工把关重新加回来。",
+    "why_now": "讨论已经不在夸生成速度，而是在追问哪些代码不能再直接放给 AI 写，说明数据库相关代码开始被重新划回人工把关区。",
+    "audience": "让 AI 参与数据库和后端代码的开发者"
+  },
+  {
+    "candidate_id": "cand-ecommerce-sellers-1s9m07l",
+    "source_scope_id": "ecommerce-sellers",
+    "topic_pack_id": "selection-signals",
+    "candidate_title": "Is a big coffee machine worth buying for home use?",
+    "model": "x-ai/grok-4.1-fast",
+    "seconds": 11.75,
+    "title": "同样卖水龙头，售后怎么接住故障，开始比参数更影响下单。",
+    "summary_line": "同样是水龙头，买家开始先看品牌出了故障后怎么接住，而不是先比五金参数和宣传词。",
+    "why_now": "讨论已经把品牌售后拿来正面对比，说明买家开始把维修响应算进购买判断。",
+    "audience": "在耐用品社区比较水龙头品牌售后的人"
+  },
+  {
+    "candidate_id": "cand-ecommerce-sellers-1s9m07l",
+    "source_scope_id": "ecommerce-sellers",
+    "topic_pack_id": "selection-signals",
+    "candidate_title": "Is a big coffee machine worth buying for home use?",
+    "model": "moonshotai/kimi-k2.5",
+    "seconds": 77.545,
+    "title": "同样卖水龙头，售后怎么接住故障，开始比参数更影响下单。",
+    "summary_line": "同样是水龙头，买家开始先看品牌出了故障后怎么接住，而不是先比五金参数和宣传词。",
+    "why_now": "讨论已经把品牌售后拿来正面对比，说明买家开始把维修响应算进购买判断。",
+    "audience": "在耐用品社区比较水龙头品牌售后的人"
+  },
+  {
+    "candidate_id": "cand-business-growth-ops-1sbnkdt",
+    "source_scope_id": "business-growth-ops",
+    "topic_pack_id": "paid-economics",
+    "candidate_title": "Tracking offline conversions for small biz - need advice",
+    "model": "x-ai/grok-4.1-fast",
+    "seconds": 19.164,
+    "title": "电话成交回不到广告后台，小预算账户的 CPC 开始乱跳。",
+    "summary_line": "投手需重新判断离线转化gclid存储和回传，因为解码错误通常意味着来电前未正确存储，否则智能出价飞盲。",
+    "why_now": "讨论已经从报错排查走到‘电话成交怎么回传广告后台’，说明智能出价和 CPC 判断都会被带偏。",
+    "audience": "小企业广告投放者追踪低量电话订单转化"
+  },
+  {
+    "candidate_id": "cand-business-growth-ops-1sbnkdt",
+    "source_scope_id": "business-growth-ops",
+    "topic_pack_id": "paid-economics",
+    "candidate_title": "Tracking offline conversions for small biz - need advice",
+    "model": "moonshotai/kimi-k2.5",
+    "seconds": 60.286,
+    "error": "ValueError: LLM returned invalid JSON: "
+  }
+]

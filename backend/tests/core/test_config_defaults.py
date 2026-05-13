@@ -37,3 +37,17 @@ async def test_redis_url_uses_environment(monkeypatch: pytest.MonkeyPatch) -> No
 
     assert settings.reddit_cache_redis_url == "redis://redis.internal:6380/9"
     config_module.get_settings.cache_clear()
+
+
+@pytest.mark.asyncio
+async def test_wx_mini_config_uses_environment(monkeypatch: pytest.MonkeyPatch) -> None:
+    config_module = importlib.import_module("app.core.config")
+    config_module.get_settings.cache_clear()
+    monkeypatch.setenv("WX_MINI_APPID", "wx-test-appid")
+    monkeypatch.setenv("WX_MINI_SECRET", "wx-test-secret")
+
+    settings = config_module.get_settings()
+
+    assert settings.wx_mini_appid == "wx-test-appid"
+    assert settings.wx_mini_secret == "wx-test-secret"
+    config_module.get_settings.cache_clear()

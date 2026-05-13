@@ -1,10 +1,7 @@
 from __future__ import annotations
 
-import asyncio
 import logging
-import os
 from collections import defaultdict
-from dataclasses import dataclass, field
 from datetime import datetime, timedelta, timezone
 from typing import TYPE_CHECKING, Callable, Dict, List, Sequence, cast
 
@@ -13,24 +10,26 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.db.session import SessionFactory
 from app.models.posts_storage import PostHot, PostRaw
+from app.services.crawl.data_collection_runtime import (
+    DataCollectionRuntimeDeps,
+    DataCollectionRuntimeInput,
+    collect_posts_with_fallback,
+)
+from app.services.crawl.data_collection_support import (
+    CollectionResult,
+    map_cold_record,
+    map_hot_record,
+    normalise_subreddits,
+    normalise_timestamp,
+    read_int_env,
+    read_truthy_env,
+    is_cache_stale,
+)
 from app.services.infrastructure.cache_manager import CacheManager
 from app.services.infrastructure.reddit_client import RedditAPIClient, RedditPost
 
 if TYPE_CHECKING:
     from app.services.analysis import Community
-
-
-@dataclass(slots=True)
-class CollectionResult:
-    total_posts: int
-    cache_hits: int
-    api_calls: int
-    cache_hit_rate: float
-    posts_by_subreddit: Dict[str, List[RedditPost]]
-    cached_subreddits: set[str]
-    stale_cache_subreddits: set[str] = field(default_factory=set)
-    stale_cache_fallback_subreddits: set[str] = field(default_factory=set)
-    api_failures: list[dict[str, str]] = field(default_factory=list)
 
 
 class DataCollectionService:
@@ -60,30 +59,16 @@ class DataCollectionService:
 
     @staticmethod
     def _read_int_env(name: str, default: int) -> int:
-        raw = os.getenv(name, str(default)).strip()
-        try:
-            return max(0, int(raw))
-        except ValueError:
-            return default
+        return read_int_env(name, default)
 
     @staticmethod
     def _read_truthy_env(name: str, *, default: str = "0") -> bool:
-        return os.getenv(name, default).strip().lower() in {"1", "true", "yes", "y"}
+        return read_truthy_env(name, default=default)
 
     def _is_cache_stale(self, posts: Sequence[RedditPost]) -> bool:
-        if self._cache_stale_hours <= 0:
-            return False
-        newest_ts = 0.0
-        for post in posts:
-            try:
-                newest_ts = max(newest_ts, float(post.created_utc or 0.0))
-            except (TypeError, ValueError):
-                continue
-        if newest_ts <= 0:
-            return True
-        newest_dt = datetime.fromtimestamp(newest_ts, tz=timezone.utc)
-        return datetime.now(timezone.utc) - newest_dt > timedelta(
-            hours=self._cache_stale_hours
+        return is_cache_stale(
+            posts,
+            cache_stale_hours=self._cache_stale_hours,
         )
 
     async def collect_posts(
@@ -95,202 +80,28 @@ class DataCollectionService:
         """
         Collect posts using cached data when available and falling back to live API calls.
         """
-        subreddits = self._normalise_subreddits(communities)
-        if not subreddits:
-            return CollectionResult(
-                total_posts=0,
-                cache_hits=0,
-                api_calls=0,
-                cache_hit_rate=0.0,
-                posts_by_subreddit={},
-                cached_subreddits=set(),
-            )
-
-        cached_subreddits: set[str] = set()
-        stale_cache_subreddits: set[str] = set()
-        stale_cache_fallback_subreddits: set[str] = set()
-        stale_cache_candidates: Dict[str, List[RedditPost]] = {}
-        api_failures: list[dict[str, str]] = []
-        posts_by_subreddit: Dict[str, List[RedditPost]] = {}
-
-        for subreddit in subreddits:
-            try:
-                cached = await self.cache.get_cached_posts(subreddit)
-            except Exception as exc:
-                self._logger.warning(
-                    "Redis 缓存读取失败，改用后备存储: subreddit=%s", subreddit, exc_info=exc
-                )
-                cached = None
-            if cached:
-                trimmed = list(cached[:limit_per_subreddit])
-                if self._is_cache_stale(trimmed):
-                    stale_cache_subreddits.add(subreddit)
-                    stale_cache_candidates[subreddit] = trimmed
-                    continue
-                posts_by_subreddit[subreddit] = trimmed
-                cached_subreddits.add(subreddit)
-
-        missing = [name for name in subreddits if name not in posts_by_subreddit]
-        api_calls = 0
-
-        if missing:
-            hot_hits = await self._load_hot_posts(missing, limit_per_subreddit)
-            for subreddit, posts in hot_hits.items():
-                if not posts:
-                    continue
-                trimmed = list(posts[:limit_per_subreddit])
-                posts_by_subreddit[subreddit] = trimmed
-                cached_subreddits.add(subreddit)
-                try:
-                    await self.cache.set_cached_posts(subreddit, trimmed)
-                except Exception as exc:
-                    self._logger.warning(
-                        "写入缓存失败，将继续使用后备数据: subreddit=%s", subreddit, exc_info=exc
-                    )
-
-        missing_after_hot = [
-            name for name in subreddits if name not in posts_by_subreddit
-        ]
-
-        if missing_after_hot:
-            cold_hits = await self._load_cold_posts(
-                missing_after_hot, limit_per_subreddit
-            )
-            for subreddit, posts in cold_hits.items():
-                if not posts:
-                    continue
-                trimmed = list(posts[:limit_per_subreddit])
-                posts_by_subreddit[subreddit] = trimmed
-                cached_subreddits.add(subreddit)
-                try:
-                    await self.cache.set_cached_posts(subreddit, trimmed)
-                except Exception as exc:
-                    self._logger.warning(
-                        "写入缓存失败，将继续使用后备数据: subreddit=%s", subreddit, exc_info=exc
-                    )
-
-        missing_after_cold = [
-            name for name in subreddits if name not in posts_by_subreddit
-        ]
-
-        if missing_after_cold:
-            # Reddit API 期望的是不带 "r/" 前缀的社区名
-            def _api_name(name: str) -> str:
-                key = name.strip()
-                return key[2:] if key.lower().startswith("r/") else key
-
-            fetch_coroutines = [
-                self.reddit.fetch_subreddit_posts(
-                    _api_name(subreddit),
-                    limit=limit_per_subreddit,
-                )
-                for subreddit in missing_after_cold
-            ]
-
-            results = await asyncio.gather(*fetch_coroutines, return_exceptions=True)
-            for subreddit, result in zip(missing_after_cold, results):
-                if isinstance(result, Exception):
-                    error_text = str(result)
-                    reason = (
-                        "rate_limit"
-                        if "rate limit" in error_text.lower()
-                        else "error"
-                    )
-                    api_failures.append(
-                        {
-                            "subreddit": subreddit,
-                            "error": error_text,
-                            "reason": reason,
-                        }
-                    )
-                    if (
-                        self._stale_fallback_enabled
-                        and subreddit in stale_cache_candidates
-                    ):
-                        posts_by_subreddit[subreddit] = list(
-                            stale_cache_candidates[subreddit][:limit_per_subreddit]
-                        )
-                        stale_cache_fallback_subreddits.add(subreddit)
-                    continue
-
-                # 确保 API 返回统一转为 RedditPost dataclass，避免缓存序列化报错
-                posts: List[RedditPost] = []
-                for item in result:
-                    if isinstance(item, RedditPost):
-                        posts.append(item)
-                    elif isinstance(item, dict):
-                        try:
-                            posts.append(
-                                RedditPost(
-                                    id=str(item.get("id", "")),
-                                    title=str(item.get("title", "")),
-                                    selftext=str(item.get("selftext", "")),
-                                    score=int(item.get("score", 0) or 0),
-                                    num_comments=int(item.get("num_comments", 0) or 0),
-                                    created_utc=float(item.get("created_utc", 0) or 0.0),
-                                    subreddit=str(item.get("subreddit", "")),
-                                    author=str(item.get("author", "")),
-                                    url=str(item.get("url", "")),
-                                    permalink=str(item.get("permalink", "")),
-                                )
-                            )
-                        except Exception:
-                            continue
-                    else:
-                        # 忽略无法解析的类型
-                        continue
-                posts_by_subreddit[subreddit] = posts
-                try:
-                    await self.cache.set_cached_posts(subreddit, posts)
-                except Exception as exc:
-                    self._logger.warning(
-                        "写入缓存失败，将继续使用 API 数据: subreddit=%s", subreddit, exc_info=exc
-                    )
-                api_calls += 1
-
-        total_posts = sum(len(posts) for posts in posts_by_subreddit.values())
-        cache_hits = len(cached_subreddits)
-        cache_hit_rate = cache_hits / len(subreddits) if subreddits else 0.0
-
-        return CollectionResult(
-            total_posts=total_posts,
-            cache_hits=cache_hits,
-            api_calls=api_calls,
-            cache_hit_rate=cache_hit_rate,
-            posts_by_subreddit=posts_by_subreddit,
-            cached_subreddits=cached_subreddits,
-            stale_cache_subreddits=stale_cache_subreddits,
-            stale_cache_fallback_subreddits=stale_cache_fallback_subreddits,
-            api_failures=api_failures,
+        return await collect_posts_with_fallback(
+            runtime_input=DataCollectionRuntimeInput(
+                communities=communities,
+                limit_per_subreddit=limit_per_subreddit,
+                cache_stale_hours=self._cache_stale_hours,
+                stale_fallback_enabled=self._stale_fallback_enabled,
+            ),
+            deps=DataCollectionRuntimeDeps(
+                cache_get=self.cache.get_cached_posts,
+                cache_set=self.cache.set_cached_posts,
+                load_hot_posts=self._load_hot_posts,
+                load_cold_posts=self._load_cold_posts,
+                fetch_subreddit_posts=self.reddit.fetch_subreddit_posts,
+                logger=self._logger,
+            ),
         )
 
     @staticmethod
     def _normalise_subreddits(
         communities: Sequence["Community"] | Sequence[str],
     ) -> List[str]:
-        if not communities:
-            return []
-
-        # NOTE（大白话）：
-        # - DB 里 subreddit 有格式门禁（必须是 r/<lowercase>）
-        # - 上游输入可能是 "python" / "r/PPC" 这种不统一
-        # - 这里统一成 r/<lowercase>，避免“明明冷库有数据却误打 API”
-        from app.utils.subreddit import normalize_subreddit_name
-
-        names: List[str] = []
-        seen: set[str] = set()
-
-        for entry in communities:
-            subreddit = getattr(entry, "name", entry)
-            canonical = normalize_subreddit_name(str(subreddit))
-            if not canonical:
-                continue
-            if canonical in seen:
-                continue
-            seen.add(canonical)
-            names.append(canonical)
-
-        return names
+        return normalise_subreddits(cast(Sequence[object], communities))
 
     async def _load_hot_posts(
         self,
@@ -353,56 +164,15 @@ class DataCollectionService:
 
     @staticmethod
     def _map_hot_record(record: PostHot) -> RedditPost:
-        metadata = record.extra_data or {}
-        permalink = str(
-            metadata.get("permalink")
-            or f"/r/{record.subreddit}/comments/{record.source_post_id}"
-        )
-        url = str(metadata.get("url") or f"https://reddit.com{permalink}")
-        author = str(record.author_name or metadata.get("author") or "unknown")
-
-        return RedditPost(
-            id=str(record.source_post_id),
-            title=str(record.title or ""),
-            selftext=str(record.body or ""),
-            score=int(record.score or 0),
-            num_comments=int(record.num_comments or 0),
-            created_utc=DataCollectionService._normalise_timestamp(record.created_at),
-            subreddit=str(record.subreddit),
-            author=author,
-            url=url,
-            permalink=permalink,
-        )
+        return map_hot_record(record)
 
     @staticmethod
     def _map_cold_record(record: PostRaw) -> RedditPost:
-        metadata = record.extra_data or {}
-        permalink = str(
-            metadata.get("permalink")
-            or record.url
-            or f"/r/{record.subreddit}/comments/{record.source_post_id}"
-        )
-        url = str(record.url or metadata.get("url") or f"https://reddit.com{permalink}")
-        author = str(record.author_name or metadata.get("author") or "unknown")
-
-        return RedditPost(
-            id=str(record.source_post_id),
-            title=str(record.title or ""),
-            selftext=str(record.body or ""),
-            score=int(record.score or 0),
-            num_comments=int(record.num_comments or 0),
-            created_utc=DataCollectionService._normalise_timestamp(record.created_at),
-            subreddit=str(record.subreddit),
-            author=author,
-            url=url,
-            permalink=permalink,
-        )
+        return map_cold_record(record)
 
     @staticmethod
     def _normalise_timestamp(value: datetime) -> float:
-        if value.tzinfo is None:
-            value = value.replace(tzinfo=timezone.utc)
-        return value.timestamp()
+        return normalise_timestamp(value)
 
 
 __all__ = ["CollectionResult", "DataCollectionService"]

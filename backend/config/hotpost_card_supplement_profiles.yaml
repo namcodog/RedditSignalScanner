@@ -1,0 +1,394 @@
+profiles:
+  ai-7d-llm-agent:
+    description: "补 AI / LLM / harness / agent / Hermes 相关卡时用的 7d profile，优先最近一周的路线变化、产品 adoption 和 eval/harness 讨论。"
+    watches:
+      - topic_id: ai-7d-llm-route
+        scope_id: ai-automation
+        topic_pack_id: upstream-winds
+        topic_cluster_ids: [key-people-and-route, platform-policy-shifts]
+        time_filter: week
+        candidate_cap: 4
+        subreddits: [ClaudeCode, OpenAI, ClaudeAI, LLM]
+        queries:
+          - claude code vs openai
+          - openai api pricing
+          - anthropic api pricing
+          - llm workflow shift
+      - topic_id: ai-7d-product-adoption
+        scope_id: ai-automation
+        topic_pack_id: tools-efficiency
+        topic_cluster_ids: [ai-product-and-adoption, workflow-friction]
+        time_filter: week
+        candidate_cap: 4
+        subreddits: [ClaudeCode, ChatGPTCoding, OpenAI, ClaudeAI, LLM]
+        queries:
+          - claude code workflow
+          - openai branch feature
+          - ai feature nobody uses
+          - llm workflow got worse
+      - topic_id: ai-7d-agent-harness
+        scope_id: ai-automation
+        topic_pack_id: agent-builder
+        topic_cluster_ids: [agent-incidents]
+        time_filter: week
+        candidate_cap: 4
+        subreddits: [AI_Agents, LLM, ClaudeCode, ChatGPTCoding, OpenAI]
+        queries:
+          - agent harness
+          - llm harness
+          - agent eval workflow
+          - tool calling agent
+      - topic_id: ai-7d-hermes
+        scope_id: ai-automation
+        topic_pack_id: upstream-winds
+        topic_cluster_ids: [flagship-project-tracks]
+        time_filter: week
+        candidate_cap: 3
+        subreddits: [LocalLLaMA, LLM, AI_Agents]
+        queries:
+          - '"Nous Hermes"'
+          - '"Hermes 3" llm'
+          - openhermes
+          - hermes reasoning model
+
+  crossborder-sku-selection-7d:
+    description: "日常跨境 SKU 选品纠偏入口：先从用户/爱好者社区找真实购买需求，再用卖家社区验证利润、退货、变体、主图、价格和转化，最后用众筹/预售看早期产品信任。"
+    watches:
+      - topic_id: crossborder-sku-7d-user-demand
+        scope_id: ecommerce-sellers
+        topic_pack_id: selection-signals
+        topic_cluster_ids: [small-goods, brand-trust-and-alt]
+        time_filter: week
+        candidate_cap: 5
+        subreddits: [BuyItForLife, Frugal, ManyBaggers, CampingGear, flashlight, CleaningTips, dogs, petproducts, espresso, onebag]
+        queries:
+          - product quality dropped what are you buying instead
+          - generic vs brand product actually worth it
+          - replacement part worth buying instead of replacing the whole thing
+          - small accessory you actually use every day
+          - product you rebuy because it works
+      - topic_id: crossborder-sku-7d-seller-validation
+        scope_id: ecommerce-sellers
+        topic_pack_id: category-winds
+        topic_cluster_ids: [seller-category-direction]
+        time_filter: week
+        candidate_cap: 4
+        subreddits: [AmazonSeller, FulfillmentByAmazon, EtsySellers, shopify, ecommerce]
+        queries:
+          - product niche margin
+          - return rate product category
+          - variant color sells more
+          - main image price conversion product
+          - seasonal demand shift product
+      - topic_id: crossborder-sku-7d-crowdfunding-validation
+        scope_id: ecommerce-sellers
+        topic_pack_id: selection-signals
+        topic_cluster_ids: [brand-launch-and-crowdfunding]
+        time_filter: week
+        candidate_cap: 4
+        subreddits: [kickstarter, Crowdfunding]
+        queries:
+          - would you back this product
+          - worth backing product
+          - product feedback before launch
+          - preorder product trust
+          - prototype pricing shipping feedback
+
+  selection-30d-core:
+    description: "补上线卡时用的 30d 选品核心 profile，优先更干净的耐用/配置/场景社区。"
+    watches:
+      - topic_id: selection-30d-config
+        scope_id: ecommerce-sellers
+        topic_pack_id: selection-signals
+        topic_cluster_ids: [small-goods]
+        time_filter: month
+        candidate_cap: 4
+        subreddits: [BuyItForLife, flashlight, espresso, onebag]
+        queries:
+          - best travel pillow that actually holds up long term
+          - fridge shopping reliability
+          - what actually makes a best flashlight for everyday use
+          - what's the best edc flashlight that's actually worth carrying every day
+      - topic_id: selection-30d-price
+        scope_id: ecommerce-sellers
+        topic_pack_id: selection-signals
+        topic_cluster_ids: [small-goods]
+        time_filter: month
+        candidate_cap: 4
+        subreddits: [BuyItForLife, Frugal, flashlight, onebag]
+        queries:
+          - cheaper than the name brand
+          - best cheap useful accessory
+          - generic vs brand accessory
+          - worth paying more for accessory
+      - topic_id: selection-30d-scenario
+        scope_id: ecommerce-sellers
+        topic_pack_id: selection-signals
+        topic_cluster_ids: [pet, outdoor]
+        time_filter: month
+        candidate_cap: 4
+        subreddits: [dogs, BuyItForLife, onebag, flashlight]
+        queries:
+          - best cordless vacuums for pet owners
+          - dog travel accessory
+          - commute accessory you actually use
+          - car organizer recommendation
+
+  selection-30d-home-decisions:
+    description: "可选的家居/购房采购决策 profile，信息量更大，但 homeowners 噪音更高。"
+    watches:
+      - topic_id: selection-30d-home-upgrade
+        scope_id: ecommerce-sellers
+        topic_pack_id: selection-signals
+        topic_cluster_ids: [small-goods]
+        time_filter: month
+        candidate_cap: 4
+        subreddits: [homeowners]
+        queries:
+          - first-time homebuyer which upgrades should i do through builder vs after closing
+          - worth buying for small space
+          - small space storage product
+          - desk cable management product
+
+  selection-30d-small-goods-demand:
+    description: "围绕领域树里的小商品需求补卡：小配件、可替换件、EDC、小家居收纳、宠物/出行小物。"
+    watches:
+      - topic_id: small-goods-30d-core
+        scope_id: ecommerce-sellers
+        topic_pack_id: selection-signals
+        topic_cluster_ids: [small-goods]
+        time_filter: month
+        candidate_cap: 5
+        subreddits: [BuyItForLife, Frugal, CleaningTips, organization]
+        queries:
+          - tupperware alternatives
+          - replacement part worth buying instead of replacing the whole thing
+          - small kitchen accessory that lasts
+          - cleaning tool worth rebuying
+          - cheap useful accessory you actually use every day
+      - topic_id: small-goods-30d-edc
+        scope_id: ecommerce-sellers
+        topic_pack_id: selection-signals
+        topic_cluster_ids: [edc, small-goods]
+        time_filter: month
+        candidate_cap: 2
+        subreddits: [ManyBaggers, BuyItForLife]
+        queries:
+          - top 5 non-bag items
+          - tech pouch comparison
+          - key organizer worth it
+          - small tool you actually use every day
+      - topic_id: small-goods-30d-home
+        scope_id: ecommerce-sellers
+        topic_pack_id: selection-signals
+        topic_cluster_ids: [home, small-goods]
+        time_filter: month
+        candidate_cap: 4
+        subreddits: [CleaningTips, organization, BuyItForLife]
+        queries:
+          - what are your must-have cleaning supplies and tools
+          - renter friendly small kitchen storage
+          - desk cable management product
+          - small kitchen accessory that lasts
+      - topic_id: small-goods-30d-pet
+        scope_id: ecommerce-sellers
+        topic_pack_id: selection-signals
+        topic_cluster_ids: [pet, small-goods]
+        time_filter: month
+        candidate_cap: 4
+        subreddits: [CleaningTips, dogs, BuyItForLife]
+        queries:
+          - pet hair remover tool worth it
+          - best cordless vacuums for pet owners
+          - car safety harness for dog
+          - pet stain remover worth it
+      - topic_id: small-goods-30d-outdoor
+        scope_id: ecommerce-sellers
+        topic_pack_id: selection-signals
+        topic_cluster_ids: [outdoor, small-goods]
+        time_filter: month
+        candidate_cap: 4
+        subreddits: [CampingGear, myog]
+        queries:
+          - compact gear that is actually worth carrying
+          - small repair kit item you always pack
+          - beginner camping accessory that lasts
+          - travel accessory that survives abuse
+
+  selection-30d-small-goods-broad:
+    description: "压低 EDC 权重后，专门补宠物 / 户外 / 家居小物 / 耐用品小配件的 30d profile；不再默认混入礼品线。"
+    watches:
+      - topic_id: small-goods-30d-broad-home
+        scope_id: ecommerce-sellers
+        topic_pack_id: selection-signals
+        topic_cluster_ids: [home, small-goods]
+        time_filter: month
+        candidate_cap: 4
+        subreddits: [CleaningTips, organization, BuyItForLife]
+        queries:
+          - drawer organizer that actually stays useful
+          - renter friendly kitchen storage that is worth buying
+          - cable management accessory worth paying for
+          - cleaning gadget you actually rebuy
+      - topic_id: small-goods-30d-broad-pet
+        scope_id: ecommerce-sellers
+        topic_pack_id: selection-signals
+        topic_cluster_ids: [pet, small-goods]
+        time_filter: month
+        candidate_cap: 4
+        subreddits: [petproducts, dogs, BuyItForLife]
+        queries:
+          - pet hair remover tool worth it
+          - dog car accessory you actually keep using
+          - pet odor control product that actually works
+          - chew proof pet item that lasted
+      - topic_id: small-goods-30d-broad-outdoor
+        scope_id: ecommerce-sellers
+        topic_pack_id: selection-signals
+        topic_cluster_ids: [outdoor, small-goods]
+        time_filter: month
+        candidate_cap: 4
+        subreddits: [CampingGear, myog, BuyItForLife]
+        queries:
+          - compact camping accessory that earns its weight
+          - small repair kit item you actually use outdoors
+          - camp kitchen tool worth carrying
+          - outdoor storage accessory that survives abuse
+
+  selection-30d-gift-crossborder:
+    description: "显式礼品线 profile：只在任务明确要补礼品/送礼时使用；不作为日常跨境 SKU 选品默认入口。"
+    watches:
+      - topic_id: gift-crossborder-30d-utility
+        scope_id: ecommerce-sellers
+        topic_pack_id: selection-signals
+        topic_cluster_ids: [small-goods, brand-trust-and-alt]
+        time_filter: month
+        candidate_cap: 4
+        subreddits: [giftideas, BuyItForLife, Frugal]
+        queries:
+          - good gift from the us worth bringing overseas
+          - small useful gift people actually keep
+          - gift under 50 that actually gets used
+          - stocking stuffer that was not junk
+      - topic_id: gift-crossborder-30d-brand
+        scope_id: ecommerce-sellers
+        topic_pack_id: selection-signals
+        topic_cluster_ids: [small-goods, brand-trust-and-alt]
+        time_filter: month
+        candidate_cap: 4
+        subreddits: [giftideas, Frugal, BuyItForLife]
+        queries:
+          - american brand gift worth the premium
+          - premium gift vs generic version
+          - giftable item people end up rebuying
+          - useful kitchen gift people actually use
+
+  selection-30d-gift-emotional-value:
+    description: "显式情绪价值礼品线 profile：只在任务明确要补礼品/送礼时使用；不作为日常跨境 SKU 选品默认入口。"
+    watches:
+      - topic_id: gift-emotional-30d-comfort
+        scope_id: ecommerce-sellers
+        topic_pack_id: selection-signals
+        topic_cluster_ids: [small-goods, brand-trust-and-alt]
+        time_filter: month
+        candidate_cap: 4
+        subreddits: [giftideas, Frugal, BuyItForLife]
+        queries:
+          - sentimental but useful gift people actually use
+          - comfort item gift people still keep
+          - small gift that made someone feel seen
+          - keepsake item people use every day
+      - topic_id: gift-emotional-30d-personalized
+        scope_id: ecommerce-sellers
+        topic_pack_id: selection-signals
+        topic_cluster_ids: [small-goods, brand-trust-and-alt]
+        time_filter: month
+        candidate_cap: 4
+        subreddits: [giftideas, Frugal, BuyItForLife]
+        queries:
+          - personalized useful gift not cheesy
+          - emotional gift that is still practical
+          - gift product people kept for years
+          - small meaningful product gift
+
+  selection-30d-brand-opinion:
+    description: "围绕品牌溢价 / 平替 / 众筹预售 / 品牌舆论补卡的 30d profile。"
+    watches:
+      - topic_id: small-goods-30d-brand-alt
+        scope_id: ecommerce-sellers
+        topic_pack_id: selection-signals
+        topic_cluster_ids: [brand-trust-and-alt, small-goods]
+        time_filter: month
+        candidate_cap: 4
+        subreddits: [BuyItForLife, Frugal, CampingGear, petproducts]
+        queries:
+          - worth the brand premium for everyday product
+          - premium vs generic product actually worth it
+          - brand quality dropped what are you buying instead
+          - cheaper alternative to a premium brand
+      - topic_id: small-goods-30d-brand-launch
+        scope_id: ecommerce-sellers
+        topic_pack_id: selection-signals
+        topic_cluster_ids: [brand-launch-and-crowdfunding, small-goods]
+        time_filter: month
+        candidate_cap: 4
+        subreddits: [kickstarter, Crowdfunding, EntrepreneurRideAlong]
+        queries:
+          - kickstarter gadget you still actually use
+          - indiegogo product that was worth backing
+          - preorder brand worth trusting
+          - launch product shipping delay but worth it
+
+  selection-30d-small-goods-tail:
+    description: "把长尾社区发现也当成价值，专打 small-goods 在长尾社区里的真实需求与筛选标准。"
+    watches:
+      - topic_id: small-goods-tail-edc
+        scope_id: ecommerce-sellers
+        topic_pack_id: selection-signals
+        topic_cluster_ids: [edc, small-goods]
+        time_filter: month
+        candidate_cap: 2
+        subreddits: [ManyBaggers]
+        queries:
+          - top 5 non-bag items
+          - tech pouch comparison
+          - key organizer worth it
+          - toiletry setup after long trips
+          - pouch that keeps shape over time
+      - topic_id: small-goods-tail-home
+        scope_id: ecommerce-sellers
+        topic_pack_id: selection-signals
+        topic_cluster_ids: [home, small-goods]
+        time_filter: month
+        candidate_cap: 3
+        subreddits: [organization, CleaningTips]
+        queries:
+          - what are your must-have cleaning supplies and tools
+          - renter friendly storage saver
+          - cleaning tool worth rebuying
+          - replacement part worth buying instead of replacing the whole thing
+          - small kitchen accessory that lasts
+      - topic_id: small-goods-tail-pet
+        scope_id: ecommerce-sellers
+        topic_pack_id: selection-signals
+        topic_cluster_ids: [pet, small-goods]
+        time_filter: month
+        candidate_cap: 3
+        subreddits: [CleaningTips, dogs]
+        queries:
+          - pet hair remover tool worth it
+          - fastest way to remove matted pet hair from the cushion
+          - car safety harness for dog
+          - small apartment pet cleaning tool
+      - topic_id: small-goods-tail-outdoor
+        scope_id: ecommerce-sellers
+        topic_pack_id: selection-signals
+        topic_cluster_ids: [outdoor, small-goods]
+        time_filter: month
+        candidate_cap: 3
+        subreddits: [CampingGear, myog]
+        queries:
+          - compact gear that is actually worth carrying
+          - travel accessory that survives abuse
+          - small repair kit item you always pack
+          - beginner camping accessory that lasts

@@ -14,9 +14,9 @@
   - `SemanticScorer`（分层权重评分，旧算法兼容开关）
   - `CandidateExtractor`（从 posts_hot 自动发现候选）
 - 脚本侧：
-  - `backend/scripts/score_with_semantic.py`（评分，`--enable-layered`）
-  - `backend/scripts/compare_scoring_algorithms.py`（新旧算法对比，输出相关性）
-  - `backend/scripts/semantic_extract_candidates.py`（导出候选CSV）
+  - `backend/scripts/semantic/score_with_semantic.py`（评分，`--enable-layered`）
+  - `backend/scripts/scoring/compare_scoring_algorithms.py`（新旧算法对比，输出相关性）
+  - `backend/scripts/semantic/semantic_extract_candidates.py`（导出候选CSV）
 
 ## 常用命令
 - 评分：`make semantic-score`

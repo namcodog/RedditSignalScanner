@@ -98,6 +98,20 @@ async def test_golden_business_flow_persists_task_analysis_and_report(
                 "analysis_duration_seconds": 1,
                 "reddit_api_calls": 0,
                 "data_source": "synthetic",
+                "report_tier": "A_full",
+                "facts_v2_quality": {
+                    "tier": "A_full",
+                    "flags": [],
+                    "metrics": {},
+                },
+                "counts_analyzed": {"posts": 100, "comments": 0},
+                "counts_db": {
+                    "posts_current": 100,
+                    "comments_total": 0,
+                    "comments_eligible": 0,
+                },
+                "comments_pipeline_status": "ok",
+                "data_lineage": {"crawler_run_ids": [], "target_ids": []},
             },
             report_html="<html><body>stub report</body></html>",
             action_items=[

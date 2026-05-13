@@ -1,0 +1,23 @@
+[
+  {
+    "variant_id": "human_summary_tight_why_now_v1",
+    "pass_rate": 0.5,
+    "pass_count": 1,
+    "fail_count": 1,
+    "decision": "baseline"
+  },
+  {
+    "variant_id": "tools_efficiency_focus_v1",
+    "pass_rate": 0.0,
+    "pass_count": 0,
+    "fail_count": 2,
+    "decision": "discard"
+  },
+  {
+    "variant_id": "tools_efficiency_focus_strict_v1",
+    "pass_rate": 0.0,
+    "pass_count": 0,
+    "fail_count": 2,
+    "decision": "discard"
+  }
+]

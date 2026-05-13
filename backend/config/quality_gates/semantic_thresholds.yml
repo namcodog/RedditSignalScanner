@@ -1,5 +1,5 @@
 # Spec 011 semantic quality gates (defaults)
-# 可通过环境变量覆盖：见 backend/scripts/semantic_acceptance_gate.py 帮助
+# 可通过环境变量覆盖：见 backend/scripts/semantic/semantic_acceptance_gate.py 帮助
 
 overall_coverage_min: 0.70
 brands_coverage_min: 0.60

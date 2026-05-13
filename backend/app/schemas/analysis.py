@@ -210,11 +210,17 @@ class SourcesPayload(ORMModel):
     seed_source: Optional[str] = None
     # 数据源标记：real / cache / synthetic / insufficient
     data_source: Optional[str] = None
+    # facts/report 质量门状态
+    report_tier: Optional[str] = None
+    analysis_blocked: Optional[str] = None
+    facts_v2_quality: Optional[dict[str, Any]] = None
     # 趋势物化视图状态
     trend_source: Optional[list[str]] = None
     trend_degraded: Optional[bool] = None
     facts_slice: Optional[dict[str, Any]] = None
     report_structured: Optional[dict[str, Any]] = None
+    structured_llm_status: Optional[str] = None
+    structured_llm_reason: Optional[str] = None
     knowledge_graph: Optional[dict[str, Any]] = None
     llm_used: Optional[bool] = None
     llm_model: Optional[str] = None

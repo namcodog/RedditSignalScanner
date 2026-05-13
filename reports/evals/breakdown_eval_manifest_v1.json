@@ -1,0 +1,16 @@
+{
+  "target_real": 18,
+  "target_synthetic": 6,
+  "real_count": 18,
+  "synthetic_plan_count": 6,
+  "generation_failure_count": 0,
+  "topic_pack_counts": {
+    "agent-builder": 1,
+    "selection-signals": 1,
+    "unknown": 16
+  },
+  "origin_counts": {
+    "suggestion_write": 2,
+    "published_write": 16
+  }
+}

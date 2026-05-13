@@ -19,6 +19,8 @@ depends_on: Sequence[str] | None = None
 
 
 def upgrade() -> None:
+    op.execute("CREATE EXTENSION IF NOT EXISTS vector;")
+
     op.execute(
         """
         CREATE TABLE IF NOT EXISTS comment_embeddings (

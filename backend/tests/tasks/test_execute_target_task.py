@@ -87,7 +87,10 @@ async def test_execute_target_reads_plan_from_crawler_run_targets(monkeypatch: p
         async def __aexit__(self, *_: Any) -> None:
             return None
 
+    called = {"execute": False}
+
     async def fake_execute_crawl_plan(**_: Any) -> dict[str, object]:
+        called["execute"] = True
         return {"new_posts": 1, "updated_posts": 0, "duplicates": 0}
 
     monkeypatch.setattr(crawl_execute_task, "RedditAPIClient", DummyRedditClient)
@@ -418,7 +421,122 @@ async def test_execute_target_skips_when_community_lock_busy(
         assert metrics.get("metrics_schema_version") == 2
         assert metrics.get("stop_reason") == "community_locked"
         assert metrics.get("api_calls_total") == 0
-    assert called["execute"] is False
+
+
+@pytest.mark.asyncio
+async def test_execute_target_fails_closed_when_blacklist_check_errors(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    from app.tasks import crawl_execute_task
+
+    crawl_run_id = str(uuid.uuid4())
+    subreddit = "r/blacklist_guard"
+    target_id = str(uuid.uuid4())
+
+    async with SessionFactory() as session:
+        await ensure_crawler_run(session, crawl_run_id=crawl_run_id)
+        await ensure_crawler_run_target(
+            session,
+            community_run_id=target_id,
+            crawl_run_id=crawl_run_id,
+            subreddit=subreddit,
+            status="queued",
+            config={
+                "plan_kind": "patrol",
+                "target_type": "subreddit",
+                "target_value": subreddit,
+                "reason": "cache_expired",
+                "limits": {"posts_limit": 10},
+            },
+        )
+        await session.commit()
+
+    async def fake_blacklist_status(*_: Any, **__: Any) -> bool | None:
+        raise RuntimeError("community_pool unavailable")
+
+    async def fail_execute_crawl_plan(**_: Any) -> dict[str, object]:
+        raise AssertionError("execute_crawl_plan should not run when blacklist guard fails")
+
+    monkeypatch.setattr(crawl_execute_task, "_load_community_blacklist_status", fake_blacklist_status)
+    monkeypatch.setattr(crawl_execute_task, "execute_crawl_plan", fail_execute_crawl_plan)
+
+    result = await crawl_execute_task._execute_target_impl(target_id=target_id)
+
+    assert result["status"] == "failed"
+    assert result["reason"] == "blacklist_check_failed"
+
+    async with SessionFactory() as session:
+        row = await session.execute(
+            text(
+                """
+                SELECT status, error_code
+                FROM crawler_run_targets
+                WHERE id = CAST(:id AS uuid)
+                """
+            ),
+            {"id": target_id},
+        )
+        status, error_code = row.one()
+        assert status == "failed"
+        assert error_code == "blacklist_check_failed"
+
+
+@pytest.mark.asyncio
+async def test_execute_target_returns_failure_when_complete_status_persist_fails(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    from app.tasks import crawl_execute_task
+
+    crawl_run_id = str(uuid.uuid4())
+    subreddit = "r/complete_fail"
+    target_id = str(uuid.uuid4())
+
+    async with SessionFactory() as session:
+        await ensure_crawler_run(session, crawl_run_id=crawl_run_id)
+        await ensure_crawler_run_target(
+            session,
+            community_run_id=target_id,
+            crawl_run_id=crawl_run_id,
+            subreddit=subreddit,
+            status="queued",
+            config={
+                "plan_kind": "patrol",
+                "target_type": "subreddit",
+                "target_value": subreddit,
+                "reason": "cache_expired",
+                "limits": {"posts_limit": 10},
+            },
+        )
+        await session.commit()
+
+    class DummyRedditClient:
+        def __init__(self, *_: Any, **__: Any) -> None:
+            return None
+
+        async def __aenter__(self) -> "DummyRedditClient":
+            return self
+
+        async def __aexit__(self, *_: Any) -> None:
+            return None
+
+    called = {"execute": False}
+
+    async def fake_execute_crawl_plan(**_: Any) -> dict[str, object]:
+        called["execute"] = True
+        return {"new_posts": 1, "updated_posts": 0, "duplicates": 0}
+
+    async def fake_complete_target(*_: Any, **__: Any) -> None:
+        raise RuntimeError("complete write failed")
+
+    monkeypatch.setattr(crawl_execute_task, "RedditAPIClient", DummyRedditClient)
+    monkeypatch.setattr(crawl_execute_task, "execute_crawl_plan", fake_execute_crawl_plan)
+    monkeypatch.setattr(crawl_execute_task, "complete_crawler_run_target", fake_complete_target)
+
+    result = await crawl_execute_task._execute_target_impl(target_id=target_id)
+
+    assert result["status"] == "failed"
+    assert result["reason"] == "complete_persist_failed"
+    assert called["execute"] is True
 
 
 @pytest.mark.asyncio
@@ -672,7 +790,7 @@ async def test_execute_target_partial_outcome_generates_compensation_target(
     assert len(outbox_rows) == 1
     payload = outbox_rows[0].get("payload") or {}
     assert payload.get("target_id") == str(comp["id"])
-    assert payload.get("queue") == "compensation_queue"
+    assert payload.get("queue") == "backfill_posts_queue_v2"
 
 
 @pytest.mark.asyncio
@@ -761,7 +879,7 @@ async def test_execute_target_partial_outcome_uses_compensation_delay_batches(
     outbox_rows = await _load_task_outbox()
     assert len(outbox_rows) == 1
     payload = outbox_rows[0].get("payload") or {}
-    assert payload.get("queue") == "compensation_queue"
+    assert payload.get("queue") == "backfill_posts_queue_v2"
     assert payload.get("countdown") == 30
 
 
@@ -776,6 +894,10 @@ async def test_finalize_backfill_marks_capped_on_cursor_remaining(
     backfill_floor = now - timedelta(days=60)
 
     async with SessionFactory() as session:
+        await session.execute(
+            text("DELETE FROM community_cache WHERE community_name = :name"),
+            {"name": subreddit},
+        )
         session.add(
             CommunityCache(
                 community_name=subreddit,
@@ -1205,3 +1327,73 @@ async def test_execute_target_budget_exhausted_marks_partial_and_schedules_compe
     payload = outbox_rows[0].get("payload") or {}
     assert payload.get("queue") == "compensation_queue"
     assert payload.get("countdown") == 30
+
+
+@pytest.mark.asyncio
+async def test_execute_target_execute_error_marks_failed_without_compensation(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    from app.tasks import crawl_execute_task
+
+    crawl_run_id = str(uuid.uuid4())
+    subreddit = "r/test_execute_failed"
+    target_id = str(uuid.uuid4())
+
+    plan_config = {
+        "plan_kind": "patrol",
+        "target_type": "subreddit",
+        "target_value": subreddit,
+        "reason": "cache_expired",
+        "limits": {"posts_limit": 80},
+        "meta": {"queue": "patrol_queue"},
+    }
+
+    async with SessionFactory() as session:
+        await ensure_crawler_run(session, crawl_run_id=crawl_run_id)
+        await ensure_crawler_run_target(
+            session,
+            community_run_id=target_id,
+            crawl_run_id=crawl_run_id,
+            subreddit=subreddit,
+            status="queued",
+            config=plan_config,
+        )
+        await session.execute(text("DELETE FROM task_outbox"))
+        await session.commit()
+
+    class DummyRedditClient:
+        def __init__(self, *_: Any, **__: Any) -> None:
+            return None
+
+        async def __aenter__(self) -> "DummyRedditClient":
+            return self
+
+        async def __aexit__(self, *_: Any) -> None:
+            return None
+
+    async def fake_execute_crawl_plan(**_: Any) -> dict[str, object]:
+        raise RuntimeError("boom")
+
+    monkeypatch.setattr(crawl_execute_task, "RedditAPIClient", DummyRedditClient)
+    monkeypatch.setattr(crawl_execute_task, "execute_crawl_plan", fake_execute_crawl_plan)
+
+    with pytest.raises(RuntimeError, match="boom"):
+        await crawl_execute_task._execute_target_impl(target_id=target_id)
+
+    async with SessionFactory() as session:
+        row = await session.execute(
+            text(
+                """
+                SELECT status, error_code
+                FROM crawler_run_targets
+                WHERE id = CAST(:id AS uuid)
+                """
+            ),
+            {"id": target_id},
+        )
+        status, error_code = row.one()
+    assert status == "failed"
+    assert error_code == "execute_failed"
+
+    outbox_rows = await _load_task_outbox()
+    assert outbox_rows == []

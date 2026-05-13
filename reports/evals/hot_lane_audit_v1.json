@@ -1,0 +1,265 @@
+{
+  "candidate_total": 20,
+  "listing_total": 20,
+  "runtime_hot_total": 9,
+  "runtime_hot_unpublished_total": 8,
+  "runtime_hot_published_total": 1,
+  "runtime_hot_listing_total": 9,
+  "runtime_hot_search_total": 0,
+  "runtime_signal_listing_total": 11,
+  "published_hot_total": 258,
+  "runtime_hot_by_scope": {
+    "ai-automation": 5,
+    "business-growth-ops": 2,
+    "ecommerce-sellers": 2
+  },
+  "runtime_hot_unpublished_by_scope": {
+    "ai-automation": 4,
+    "business-growth-ops": 2,
+    "ecommerce-sellers": 2
+  },
+  "runtime_hot_by_pack": {
+    "upstream-winds": 3,
+    "tools-efficiency": 2,
+    "paid-economics": 2,
+    "category-winds": 2
+  },
+  "runtime_hot_by_subreddit": {
+    "OpenAI": 2,
+    "singularity": 1,
+    "SaaS": 2,
+    "PPC": 2,
+    "EtsySellers": 2
+  },
+  "published_hot_by_scope": {
+    "ai-automation": 106,
+    "ecommerce-sellers": 96,
+    "business-growth-ops": 56
+  },
+  "runtime_hot_candidates": [
+    {
+      "candidate_id": "cand-ai-automation-1t9iteh",
+      "scope_id": "ai-automation",
+      "topic_pack_id": "upstream-winds",
+      "subreddit": "OpenAI",
+      "score": 191,
+      "num_comments": 53,
+      "signal_level": "rising",
+      "listing_source": "listing:hot:day",
+      "title": "Openclaw ia trending down and will disappear soon"
+    },
+    {
+      "candidate_id": "group-ai-automation-068d68347f",
+      "scope_id": "ai-automation",
+      "topic_pack_id": "upstream-winds",
+      "subreddit": "OpenAI",
+      "score": 191,
+      "num_comments": 53,
+      "signal_level": "rising",
+      "listing_source": "listing:hot:day",
+      "title": "Openclaw ia trending down and will disappear soon"
+    },
+    {
+      "candidate_id": "cand-ecommerce-sellers-1t4tvd4",
+      "scope_id": "ecommerce-sellers",
+      "topic_pack_id": "category-winds",
+      "subreddit": "EtsySellers",
+      "score": 11,
+      "num_comments": 51,
+      "signal_level": "rising",
+      "listing_source": "listing:hot:day",
+      "title": "How are your sales? Monthly Sales Post for May 2026"
+    },
+    {
+      "candidate_id": "group-ecommerce-sellers-e5bfb51276",
+      "scope_id": "ecommerce-sellers",
+      "topic_pack_id": "category-winds",
+      "subreddit": "EtsySellers",
+      "score": 11,
+      "num_comments": 51,
+      "signal_level": "rising",
+      "listing_source": "listing:hot:day",
+      "title": "How are your sales? Monthly Sales Post for May 2026"
+    },
+    {
+      "candidate_id": "cand-ai-automation-1t9bhls",
+      "scope_id": "ai-automation",
+      "topic_pack_id": "tools-efficiency",
+      "subreddit": "SaaS",
+      "score": 104,
+      "num_comments": 32,
+      "signal_level": "rising",
+      "listing_source": "listing:hot:day",
+      "title": "I just made my first internet money ever and I couldn't be happier"
+    },
+    {
+      "candidate_id": "group-ai-automation-f58b035193",
+      "scope_id": "ai-automation",
+      "topic_pack_id": "tools-efficiency",
+      "subreddit": "SaaS",
+      "score": 104,
+      "num_comments": 32,
+      "signal_level": "rising",
+      "listing_source": "listing:hot:day",
+      "title": "I just made my first internet money ever and I couldn't be happier"
+    },
+    {
+      "candidate_id": "cand-business-growth-ops-1t92byz",
+      "scope_id": "business-growth-ops",
+      "topic_pack_id": "paid-economics",
+      "subreddit": "PPC",
+      "score": 8,
+      "num_comments": 31,
+      "signal_level": "rising",
+      "listing_source": "listing:new:day",
+      "title": "Is Jumping Straight Into Automated Bidding the New Standard for Lead Gen?"
+    },
+    {
+      "candidate_id": "group-business-growth-ops-6fd2b6ebc1",
+      "scope_id": "business-growth-ops",
+      "topic_pack_id": "paid-economics",
+      "subreddit": "PPC",
+      "score": 8,
+      "num_comments": 31,
+      "signal_level": "rising",
+      "listing_source": "listing:new:day",
+      "title": "Is Jumping Straight Into Automated Bidding the New Standard for Lead Gen?"
+    }
+  ],
+  "runtime_hot_published_candidates": [
+    {
+      "candidate_id": "cand-ai-automation-1ssc2cv",
+      "scope_id": "ai-automation",
+      "topic_pack_id": "upstream-winds",
+      "subreddit": "singularity",
+      "score": 896,
+      "num_comments": 115,
+      "signal_level": "sustained",
+      "listing_source": "listing:hot:day",
+      "title": "Mozilla Used Anthropic’s Mythos to Find and Fix 271 Bugs in Firefox"
+    }
+  ],
+  "top_listing_signal_candidates": [
+    {
+      "candidate_id": "cand-ecommerce-sellers-1t9kj4b",
+      "scope_id": "ecommerce-sellers",
+      "topic_pack_id": "kill-signals",
+      "subreddit": "shopify",
+      "score": 4,
+      "num_comments": 21,
+      "signal_level": "sustained",
+      "listing_source": "listing:hot:day",
+      "title": "getting views but no sales"
+    },
+    {
+      "candidate_id": "group-ecommerce-sellers-40e5f76e10",
+      "scope_id": "ecommerce-sellers",
+      "topic_pack_id": "kill-signals",
+      "subreddit": "shopify",
+      "score": 4,
+      "num_comments": 21,
+      "signal_level": "sustained",
+      "listing_source": "listing:hot:day",
+      "title": "getting views but no sales"
+    },
+    {
+      "candidate_id": "cand-ecommerce-sellers-1t8iatc",
+      "scope_id": "ecommerce-sellers",
+      "topic_pack_id": "category-winds",
+      "subreddit": "AmazonSeller",
+      "score": 3,
+      "num_comments": 21,
+      "signal_level": "sustained",
+      "listing_source": "listing:hot:day",
+      "title": "amazon fba in 2026 still worth it"
+    },
+    {
+      "candidate_id": "cand-business-growth-ops-1t9cv0x",
+      "scope_id": "business-growth-ops",
+      "topic_pack_id": "paid-economics",
+      "subreddit": "ecommerce",
+      "score": 5,
+      "num_comments": 18,
+      "signal_level": "sustained",
+      "listing_source": "listing:hot:day",
+      "title": "Premium bedding return question: customer shoved the logistics bag inside the duvet cover. What would you do?"
+    },
+    {
+      "candidate_id": "cand-ecommerce-sellers-1t9cv0x",
+      "scope_id": "ecommerce-sellers",
+      "topic_pack_id": "kill-signals",
+      "subreddit": "ecommerce",
+      "score": 3,
+      "num_comments": 18,
+      "signal_level": "sustained",
+      "listing_source": "listing:hot:day",
+      "title": "Premium bedding return question: customer shoved the logistics bag inside the duvet cover. What would you do?"
+    },
+    {
+      "candidate_id": "cand-business-growth-ops-1t9dby4",
+      "scope_id": "business-growth-ops",
+      "topic_pack_id": "paid-economics",
+      "subreddit": "FacebookAds",
+      "score": 10,
+      "num_comments": 17,
+      "signal_level": "sustained",
+      "listing_source": "listing:hot:day",
+      "title": "Anyone else having a WTF day?"
+    },
+    {
+      "candidate_id": "cand-ai-automation-1szqmoa",
+      "scope_id": "ai-automation",
+      "topic_pack_id": "tools-efficiency",
+      "subreddit": "ProductManagement",
+      "score": 5,
+      "num_comments": 14,
+      "signal_level": "sustained",
+      "listing_source": "listing:hot:day",
+      "title": "Weekly rant thread"
+    },
+    {
+      "candidate_id": "cand-business-growth-ops-1t9ayv4",
+      "scope_id": "business-growth-ops",
+      "topic_pack_id": "paid-economics",
+      "subreddit": "PPC",
+      "score": 5,
+      "num_comments": 14,
+      "signal_level": "sustained",
+      "listing_source": "listing:new:day",
+      "title": "Good idea to run google ads when i don't even have one paying customer and no traffic? (I will not promote)"
+    },
+    {
+      "candidate_id": "cand-ecommerce-sellers-1t9exmv",
+      "scope_id": "ecommerce-sellers",
+      "topic_pack_id": "selection-signals",
+      "subreddit": "FulfillmentByAmazon",
+      "score": 3,
+      "num_comments": 13,
+      "signal_level": "sustained",
+      "listing_source": "listing:hot:day",
+      "title": "How are you guys handling competitors who drop prices by $0.01 every hour?"
+    },
+    {
+      "candidate_id": "cand-ai-automation-1t9igfl",
+      "scope_id": "ai-automation",
+      "topic_pack_id": "tools-efficiency",
+      "subreddit": "ProductManagement",
+      "score": 12,
+      "num_comments": 10,
+      "signal_level": "sustained",
+      "listing_source": "listing:hot:day",
+      "title": "Managing a difficult team member"
+    },
+    {
+      "candidate_id": "cand-ai-automation-1t9pd1m",
+      "scope_id": "ai-automation",
+      "topic_pack_id": "upstream-winds",
+      "subreddit": "OpenAI",
+      "score": 30,
+      "num_comments": 8,
+      "signal_level": "sustained",
+      "listing_source": "listing:hot:day",
+      "title": "GPT5.5s CoT keeps leaking in the new codex update. Looks like we know how they got token efficency, they cavemanmaxxed"
+    }
+  ]
+}

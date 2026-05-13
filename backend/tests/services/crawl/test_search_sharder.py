@@ -66,8 +66,8 @@ async def test_run_search_partition(monkeypatch, tmp_path: Path):
     out = tmp_path / "out.jsonl"
     progress = tmp_path / "progress.json"
     # Use writer to stream
-    from scripts.crawl_for_lexicon import JSONLWriter
-    writer = JSONLWriter(out)
+    from app.services.crawl.common import JSONLWriter
+    writer = JSONLWriter(out, stream=True)
     total, kpi = await run_search_partition(
         subreddit="ecommerce",
         client_id="x", client_secret="y", user_agent="z",

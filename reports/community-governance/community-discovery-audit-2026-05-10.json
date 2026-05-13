@@ -1,0 +1,421 @@
+{
+  "schema_version": "hotpost-community-discovery-audit/v1",
+  "report_date": "2026-05-10",
+  "contracts": {
+    "experimental_communities_are_probe_only": true,
+    "default_daily_collect_includes_experimental": false,
+    "auto_promote": false,
+    "writes_db": false,
+    "experimental_candidate_store": "backend/data/hotpost/experimental_candidates/<scope>.json"
+  },
+  "rows": [
+    {
+      "scope_id": "ai-automation",
+      "community": "cursorai",
+      "topic_cluster_id": "workflow-friction",
+      "collected_candidates": 1,
+      "draft_count": 0,
+      "published_count": 1,
+      "reject_count": 0,
+      "duplicate_count": 0,
+      "new_topic_count": 1,
+      "noise_notes": "",
+      "suggested_action": "keep_testing",
+      "semantic_feedback": {
+        "frequent_entities": [
+          "how do i keep context across ai tools"
+        ],
+        "pain_solution_tags": [
+          "趋势变化",
+          "how do i keep context across ai tools"
+        ],
+        "sample_titles": [
+          "Cursor rules tell the agent what to do. Where do you store why past approaches failed?",
+          "Cursor 深度用户，不再只靠 rules，需存储 AI 失败经验"
+        ],
+        "product_tags": [
+          "AI 工作流"
+        ]
+      }
+    },
+    {
+      "scope_id": "ai-automation",
+      "community": "windsurf",
+      "topic_cluster_id": "workflow-friction",
+      "collected_candidates": 0,
+      "draft_count": 0,
+      "published_count": 0,
+      "reject_count": 0,
+      "duplicate_count": 0,
+      "new_topic_count": 0,
+      "noise_notes": "no_signal_yet",
+      "suggested_action": "keep_testing",
+      "semantic_feedback": {
+        "frequent_entities": [],
+        "pain_solution_tags": [],
+        "sample_titles": [],
+        "product_tags": []
+      }
+    },
+    {
+      "scope_id": "ai-automation",
+      "community": "aider",
+      "topic_cluster_id": "workflow-friction",
+      "collected_candidates": 0,
+      "draft_count": 0,
+      "published_count": 0,
+      "reject_count": 0,
+      "duplicate_count": 0,
+      "new_topic_count": 0,
+      "noise_notes": "no_signal_yet",
+      "suggested_action": "keep_testing",
+      "semantic_feedback": {
+        "frequent_entities": [],
+        "pain_solution_tags": [],
+        "sample_titles": [],
+        "product_tags": []
+      }
+    },
+    {
+      "scope_id": "ai-automation",
+      "community": "openrouter",
+      "topic_cluster_id": "workflow-friction",
+      "collected_candidates": 0,
+      "draft_count": 0,
+      "published_count": 0,
+      "reject_count": 0,
+      "duplicate_count": 0,
+      "new_topic_count": 0,
+      "noise_notes": "no_signal_yet",
+      "suggested_action": "keep_testing",
+      "semantic_feedback": {
+        "frequent_entities": [],
+        "pain_solution_tags": [],
+        "sample_titles": [],
+        "product_tags": []
+      }
+    },
+    {
+      "scope_id": "ecommerce-sellers",
+      "community": "heronebag",
+      "topic_cluster_id": "outdoor",
+      "collected_candidates": 3,
+      "draft_count": 0,
+      "published_count": 0,
+      "reject_count": 0,
+      "duplicate_count": 1,
+      "new_topic_count": 1,
+      "noise_notes": "duplicate_posts, not_published_yet",
+      "suggested_action": "keep_testing",
+      "semantic_feedback": {
+        "frequent_entities": [
+          "how do i clean pet hair in a small apartment"
+        ],
+        "pain_solution_tags": [
+          "how do i clean pet hair in a small apartment",
+          "避坑",
+          "求推荐"
+        ],
+        "sample_titles": [
+          "Trip(s) Report with Osprey Daylite 26+6",
+          "Car Camping in WA in late May",
+          "Trip(s) Report with Osprey Daylite 26+6"
+        ],
+        "product_tags": [
+          "户外用品选品"
+        ]
+      }
+    },
+    {
+      "scope_id": "ecommerce-sellers",
+      "community": "bikepacking",
+      "topic_cluster_id": "outdoor",
+      "collected_candidates": 0,
+      "draft_count": 0,
+      "published_count": 0,
+      "reject_count": 0,
+      "duplicate_count": 0,
+      "new_topic_count": 0,
+      "noise_notes": "no_signal_yet",
+      "suggested_action": "keep_testing",
+      "semantic_feedback": {
+        "frequent_entities": [],
+        "pain_solution_tags": [],
+        "sample_titles": [],
+        "product_tags": []
+      }
+    },
+    {
+      "scope_id": "ecommerce-sellers",
+      "community": "trailrunning",
+      "topic_cluster_id": "outdoor",
+      "collected_candidates": 0,
+      "draft_count": 0,
+      "published_count": 0,
+      "reject_count": 0,
+      "duplicate_count": 0,
+      "new_topic_count": 0,
+      "noise_notes": "no_signal_yet",
+      "suggested_action": "keep_testing",
+      "semantic_feedback": {
+        "frequent_entities": [],
+        "pain_solution_tags": [],
+        "sample_titles": [],
+        "product_tags": []
+      }
+    },
+    {
+      "scope_id": "ecommerce-sellers",
+      "community": "campingandhiking",
+      "topic_cluster_id": "outdoor",
+      "collected_candidates": 0,
+      "draft_count": 0,
+      "published_count": 0,
+      "reject_count": 0,
+      "duplicate_count": 0,
+      "new_topic_count": 0,
+      "noise_notes": "no_signal_yet",
+      "suggested_action": "keep_testing",
+      "semantic_feedback": {
+        "frequent_entities": [],
+        "pain_solution_tags": [],
+        "sample_titles": [],
+        "product_tags": []
+      }
+    },
+    {
+      "scope_id": "ecommerce-sellers",
+      "community": "etsy",
+      "topic_cluster_id": "seller-category-direction",
+      "collected_candidates": 3,
+      "draft_count": 0,
+      "published_count": 2,
+      "reject_count": 0,
+      "duplicate_count": 1,
+      "new_topic_count": 1,
+      "noise_notes": "duplicate_posts",
+      "suggested_action": "promote_candidate",
+      "semantic_feedback": {
+        "frequent_entities": [
+          "custom-topic",
+          "ai generated product images"
+        ],
+        "pain_solution_tags": [
+          "趋势变化",
+          "求推荐",
+          "避坑",
+          "ai generated product images"
+        ],
+        "sample_titles": [
+          "Share Your Stuff - May 4th thru 10th, 2026",
+          "I got totally robbed and I need help.",
+          "I got totally robbed and I need help.",
+          "Etsy 买家开始从边缘渗色和花瓣变异识别 AI 生成插画",
+          "Etsy 卖家给真产品用 AI 背景，买家直接怀疑整个商品页都是假的"
+        ],
+        "product_tags": []
+      }
+    },
+    {
+      "scope_id": "business-growth-ops",
+      "community": "digital_marketing",
+      "topic_cluster_id": "seo-geo",
+      "collected_candidates": 1,
+      "draft_count": 0,
+      "published_count": 0,
+      "reject_count": 0,
+      "duplicate_count": 0,
+      "new_topic_count": 1,
+      "noise_notes": "not_published_yet",
+      "suggested_action": "keep_testing",
+      "semantic_feedback": {
+        "frequent_entities": [
+          "ranking drop",
+          "why is it so hard to tell if ai search is hurting site traffic"
+        ],
+        "pain_solution_tags": [
+          "求推荐",
+          "避坑",
+          "ranking drop",
+          "why is it so hard to tell if ai search is hurting site traffic"
+        ],
+        "sample_titles": [
+          "Used this to get some results for a client; thought I would share it with you guys."
+        ],
+        "product_tags": [
+          "GEO / AI 搜索"
+        ]
+      }
+    },
+    {
+      "scope_id": "business-growth-ops",
+      "community": "aeo",
+      "topic_cluster_id": "seo-geo",
+      "collected_candidates": 2,
+      "draft_count": 0,
+      "published_count": 3,
+      "reject_count": 0,
+      "duplicate_count": 1,
+      "new_topic_count": 1,
+      "noise_notes": "duplicate_posts",
+      "suggested_action": "promote_candidate",
+      "semantic_feedback": {
+        "frequent_entities": [
+          "custom-topic",
+          "google update",
+          "ranking drop",
+          "why is it so hard to tell if ai search is hurting site traffic"
+        ],
+        "pain_solution_tags": [
+          "求推荐",
+          "避坑",
+          "趋势变化",
+          "google update",
+          "ranking drop",
+          "why is it so hard to tell if ai search is hurting site traffic"
+        ],
+        "sample_titles": [
+          "What does \"ranking\" even mean in 2026 when the answer IS the result??",
+          "What does \"ranking\" even mean in 2026 when the answer IS the result??",
+          "内容营销人员：LLM 推荐看重原创数据，汇总式 SEO 失效",
+          "有 AEO 从业者开始只认转化率，不再信任 AI 可见度等组合指标",
+          "品牌方将 AI 可见性视为核心指标，却因缺乏原生报告只能手动追踪"
+        ],
+        "product_tags": [
+          "GEO / AI 搜索"
+        ]
+      }
+    },
+    {
+      "scope_id": "business-growth-ops",
+      "community": "ai_ugc_marketing",
+      "topic_cluster_id": "funnel",
+      "collected_candidates": 1,
+      "draft_count": 0,
+      "published_count": 3,
+      "reject_count": 0,
+      "duplicate_count": 0,
+      "new_topic_count": 1,
+      "noise_notes": "",
+      "suggested_action": "promote_candidate",
+      "semantic_feedback": {
+        "frequent_entities": [
+          "custom-topic",
+          "started using ai ugc video"
+        ],
+        "pain_solution_tags": [
+          "趋势变化",
+          "替换",
+          "避坑",
+          "started using ai ugc video"
+        ],
+        "sample_titles": [
+          "The Humble Hero Method Broke Our Instagram (Just Copy Me Already)",
+          "AI 生成的手袋开箱视频，评价焦点从画质转向开箱仪式感与动作逻辑",
+          "AI 广告创作者发现，每拍12词是跨镜头角色一致的关键参数",
+          "静态照片秒变 UGC 视频，评论区反问“客户凭什么付钱给你？”"
+        ],
+        "product_tags": [
+          "转化链路"
+        ]
+      }
+    },
+    {
+      "scope_id": "business-growth-ops",
+      "community": "growthhacking",
+      "topic_cluster_id": "funnel",
+      "collected_candidates": 2,
+      "draft_count": 0,
+      "published_count": 2,
+      "reject_count": 0,
+      "duplicate_count": 1,
+      "new_topic_count": 1,
+      "noise_notes": "duplicate_posts",
+      "suggested_action": "promote_candidate",
+      "semantic_feedback": {
+        "frequent_entities": [
+          "custom-topic",
+          "conversion",
+          "drop",
+          "abandonment",
+          "started using ai ugc video"
+        ],
+        "pain_solution_tags": [
+          "避坑",
+          "替换",
+          "conversion",
+          "drop",
+          "abandonment",
+          "趋势变化",
+          "started using ai ugc video"
+        ],
+        "sample_titles": [
+          "The silent conversion killer: Traditional CAPTCHAs cost up to 40% of signups. Here's what's replacing them.",
+          "The silent conversion killer: Traditional CAPTCHAs cost up to 40% of signups. Here's what's replacing them.",
+          "增长黑客测试发现，直接解答对比问题的内容更易被 LLM 引用",
+          "一名增长黑客把 pSEO 索引症结从 Sitemap 转向内链"
+        ],
+        "product_tags": [
+          "转化链路"
+        ]
+      }
+    },
+    {
+      "scope_id": "business-growth-ops",
+      "community": "marketingautomation",
+      "topic_cluster_id": "funnel",
+      "collected_candidates": 0,
+      "draft_count": 0,
+      "published_count": 0,
+      "reject_count": 0,
+      "duplicate_count": 0,
+      "new_topic_count": 0,
+      "noise_notes": "no_signal_yet",
+      "suggested_action": "keep_testing",
+      "semantic_feedback": {
+        "frequent_entities": [],
+        "pain_solution_tags": [],
+        "sample_titles": [],
+        "product_tags": []
+      }
+    },
+    {
+      "scope_id": "business-growth-ops",
+      "community": "conversionrateoptimization",
+      "topic_cluster_id": "funnel",
+      "collected_candidates": 0,
+      "draft_count": 0,
+      "published_count": 0,
+      "reject_count": 0,
+      "duplicate_count": 0,
+      "new_topic_count": 0,
+      "noise_notes": "no_signal_yet",
+      "suggested_action": "keep_testing",
+      "semantic_feedback": {
+        "frequent_entities": [],
+        "pain_solution_tags": [],
+        "sample_titles": [],
+        "product_tags": []
+      }
+    },
+    {
+      "scope_id": "business-growth-ops",
+      "community": "shopifydevs",
+      "topic_cluster_id": "funnel",
+      "collected_candidates": 0,
+      "draft_count": 0,
+      "published_count": 0,
+      "reject_count": 0,
+      "duplicate_count": 0,
+      "new_topic_count": 0,
+      "noise_notes": "no_signal_yet",
+      "suggested_action": "keep_testing",
+      "semantic_feedback": {
+        "frequent_entities": [],
+        "pain_solution_tags": [],
+        "sample_titles": [],
+        "product_tags": []
+      }
+    }
+  ]
+}

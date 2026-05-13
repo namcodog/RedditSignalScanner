@@ -1,0 +1,27 @@
+{
+  "sample_count": 2,
+  "blocked_fail_count": 2,
+  "blocked_pass_count": 0,
+  "allowed_fail_count": 0,
+  "allowed_pass_count": 0,
+  "rows": [
+    {
+      "eval_case_id": "breakdown-eval-suggestion-suggestion-ai-automation-94bfe667d1",
+      "human_pass": false,
+      "should_block": true,
+      "reasons": [
+        "weak_anchor_overlap"
+      ],
+      "shared_anchors": []
+    },
+    {
+      "eval_case_id": "breakdown-eval-suggestion-suggestion-ecommerce-sellers-258155f585",
+      "human_pass": false,
+      "should_block": true,
+      "reasons": [
+        "weak_anchor_overlap"
+      ],
+      "shared_anchors": []
+    }
+  ]
+}

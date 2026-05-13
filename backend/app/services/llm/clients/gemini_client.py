@@ -2,11 +2,15 @@ from __future__ import annotations
 
 import asyncio
 import json
+import logging
 import os
-import time
 import urllib.error
 import urllib.request
 from typing import Sequence
+
+from app.services.llm.interfaces import LLMClientError
+
+logger = logging.getLogger(__name__)
 
 
 class GeminiChatClient:
@@ -71,7 +75,7 @@ class GeminiChatClient:
         max_tokens: int,
     ) -> str:
         if not self._api_key:
-            return ""
+            raise LLMClientError("gemini", "missing API key")
 
         payload: dict[str, object] = {
             "contents": [{"parts": [{"text": prompt_text}]}],
@@ -81,7 +85,12 @@ class GeminiChatClient:
             },
         }
         if response_format and response_format.get("type") == "json_object":
-            payload["generationConfig"]["response_mime_type"] = "application/json"
+            generation_config = payload["generationConfig"]
+            if isinstance(generation_config, dict):
+                generation_config["responseMimeType"] = "application/json"
+                schema = response_format.get("schema")
+                if schema:
+                    generation_config["responseJsonSchema"] = schema
 
         headers = {"Content-Type": "application/json"}
         try:
@@ -98,13 +107,23 @@ class GeminiChatClient:
                 return ""
             return str(content[0].get("text") or "")
         except urllib.error.HTTPError as exc:
-            err_body = exc.read().decode("utf-8")
-            print(f"❌ Gemini API HTTP Error {exc.code}: {err_body}")
-            return ""
+            err_body = exc.read().decode("utf-8", errors="replace")
+            logger.error(
+                "Gemini HTTP request failed model=%s status=%s body=%s",
+                self._model,
+                exc.code,
+                err_body[:300],
+            )
+            raise LLMClientError(
+                "gemini", err_body or "HTTP request failed", status_code=exc.code
+            ) from exc
         except Exception as exc:
-            print(f"❌ Gemini API Connection Error: {exc}")
-            time.sleep(0.05)
-            return ""
+            logger.error(
+                "Gemini connection failed model=%s",
+                self._model,
+                exc_info=exc,
+            )
+            raise LLMClientError("gemini", str(exc) or "connection failed") from exc
 
 
-__all__ = ["GeminiChatClient"]
+__all__ = ["GeminiChatClient", "LLMClientError"]

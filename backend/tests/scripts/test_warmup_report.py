@@ -25,7 +25,9 @@ async def test_build_and_save_report(
     tmp_path: Path,
 ) -> None:
     # Arrange: seed minimal data
-    user = User(email="reporter@example.com", password_hash=hash_password("testpass123"))
+    user = User(
+        email="reporter@example.com", password_hash=hash_password("testpass123")
+    )
     db_session.add(user)
     await db_session.commit()
     await db_session.refresh(user)
@@ -34,33 +36,41 @@ async def test_build_and_save_report(
 
     # Use unique names to avoid PK collisions with other tests
     import uuid as _uuid
+
     unique_comm = f"r/example_{_uuid.uuid4().hex[:8]}"
 
     # Community data
-    db_session.add(CommunityPool(
-        name=unique_comm,
-        tier="seed",
-        categories={"main": ["test"]},
-        description_keywords={"tfidf": ["alpha"]},
-        daily_posts=3,
-        avg_comment_length=12,
-    ))
-    db_session.add(DiscoveredCommunity(
-        name=f"{unique_comm}_disc",
-        discovered_from_keywords={"kw": ["beta"]},
-        discovered_count=1,
-        first_discovered_at=now - timedelta(hours=3),
-        last_discovered_at=now - timedelta(hours=1),
-        status="pending",
-    ))
+    db_session.add(
+        CommunityPool(
+            name=unique_comm,
+            tier="seed",
+            categories={"main": ["test"]},
+            description_keywords={"tfidf": ["alpha"]},
+            daily_posts=3,
+            avg_comment_length=12,
+        )
+    )
+    db_session.add(
+        DiscoveredCommunity(
+            name=f"{unique_comm}_disc",
+            discovered_from_keywords={"kw": ["beta"]},
+            discovered_count=1,
+            first_discovered_at=now - timedelta(hours=3),
+            last_discovered_at=now - timedelta(hours=1),
+            status="pending",
+        )
+    )
+    await db_session.flush()
 
     # Cache data
-    db_session.add(CommunityCache(
-        community_name=unique_comm,
-        last_crawled_at=now - timedelta(hours=2),
-        posts_cached=5,
-        ttl_seconds=7200,
-    ))
+    db_session.add(
+        CommunityCache(
+            community_name=unique_comm,
+            last_crawled_at=now - timedelta(hours=2),
+            posts_cached=5,
+            ttl_seconds=7200,
+        )
+    )
 
     # Task with duration
     t = Task(
@@ -100,14 +110,21 @@ async def test_build_and_save_report(
     }
 
     # Act: build report (async path inside pytest-asyncio)
-    payload: dict[str, Any] = await rpt.build_report_async(precomputed_metrics=pre_metrics)
+    payload: dict[str, Any] = await rpt.build_report_async(
+        precomputed_metrics=pre_metrics
+    )
 
     # Assert: structure
     assert payload["warmup_period"] == "Day 13-19 (7 days)"
     assert set(payload.keys()) >= {
-        "generated_at", "warmup_period", "adaptive_crawl_hours",
-        "community_pool", "cache_metrics", "api_usage",
-        "user_testing", "system_performance"
+        "generated_at",
+        "warmup_period",
+        "adaptive_crawl_hours",
+        "community_pool",
+        "cache_metrics",
+        "api_usage",
+        "user_testing",
+        "system_performance",
     }
 
     # Community pool aggregation
@@ -138,6 +155,8 @@ async def test_build_and_save_report(
     monkeypatch.setattr(rpt, "BACKEND_DIR", tmp_path / "backend", raising=False)
 
     out_path = out_reports_dir / "warmup-report.json"
-    out_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+    out_path.write_text(
+        json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8"
+    )
     data = json.loads(out_path.read_text(encoding="utf-8"))
     assert data["community_pool"]["total"] == cp["total"]

@@ -7,8 +7,8 @@ import pytest
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.discovered_community import DiscoveredCommunity
-from app.services import community_discovery
-from app.services.community_discovery import CommunityDiscoveryService
+from app.services.community import community_discovery
+from app.services.community.community_discovery import CommunityDiscoveryService
 
 
 class _StubRedditClient:

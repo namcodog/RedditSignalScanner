@@ -21,10 +21,11 @@ echo ""
 echo "📋 启动顺序（基于 Day 12 端到端验收）："
 echo "   1. Redis 服务"
 echo "   2. Redis 测试数据"
-echo "   3. Celery Worker"
-echo "   4. 后端服务 (FastAPI)"
-echo "   5. 数据库用户和任务"
-echo "   6. 前端服务 (Vite)"
+echo "   3. 抓取系统（Beat + patrol + bulk）"
+echo "   4. 分析 Worker（analysis_queue）"
+echo "   5. 后端服务 (FastAPI)"
+echo "   6. 数据库用户和任务"
+echo "   7. 前端服务 (Vite)"
 echo ""
 echo "==> 1️⃣  启动 Redis ..."
 make redis-start
@@ -33,15 +34,19 @@ echo ""
 echo "==> 2️⃣  填充 Redis 测试数据 ..."
 make redis-seed
 echo ""
-echo "==> 3️⃣  启动 Celery Worker ..."
+echo "==> 3️⃣  启动抓取系统（Beat + patrol + bulk） ..."
+make crawl-start
+sleep 3
+echo ""
+echo "==> 4️⃣  启动分析 Worker（analysis_queue）..."
 require_backend_env
 echo "   关键配置: SQLALCHEMY_DISABLE_POOL=1 (避免事件循环冲突)"
 start_celery_worker background
 sleep 3
 tail -20 "${CELERY_WORKER_LOG}" | grep "ready" && echo "✅ Celery Worker started" || echo "⚠️  请检查日志: ${CELERY_WORKER_LOG}"
-"${PYTHON_BIN}" backend/scripts/check_celery_health.py || echo "⚠️  Celery 健康检查未通过"
+"${PYTHON_BIN}" backend/scripts/monitor/check_celery_health.py || echo "⚠️  Celery 健康检查未通过"
 echo ""
-echo "==> 4️⃣  数据库迁移 (Alembic upgrade) ..."
+echo "==> 5️⃣  数据库迁移 (Alembic upgrade) ..."
 if [[ -z "${MIGRATION_DATABASE_URL:-}" && -z "${DATABASE_URL_MIGRATION:-}" && -n "${DATABASE_URL:-}" ]]; then
   read -r db_host db_port db_name < <("${PYTHON_BIN}" - <<'PY'
 from urllib.parse import urlparse
@@ -66,7 +71,7 @@ fi
 
 make db-upgrade || { echo "❌ 数据库迁移失败（可能是迁移账号权限不足）。请检查 MIGRATION_DATABASE_URL/DATABASE_URL_MIGRATION 和 Postgres 连接"; exit 1; }
 echo ""
-echo "==> 5️⃣  启动后端服务 ..."
+echo "==> 6️⃣  启动后端服务 ..."
 # 黄金路径：默认走 worker（不走 inline），避免把 API 自己跑崩
 export ENABLE_CELERY_DISPATCH=1
 start_backend_reload
@@ -79,13 +84,13 @@ for _ in {1..5}; do
   sleep 2
 done
 echo ""
-echo "==> 6️⃣  创建测试用户和任务 ..."
+echo "==> 7️⃣  创建测试用户和任务 ..."
 make db-seed-user-task
 echo ""
-echo "==> 6️⃣.1  生成洞察卡片测试数据 ..."
+echo "==> 7️⃣.1  生成洞察卡片测试数据 ..."
 "${PYTHON_BIN}" backend/scripts/seed_insight_cards.py || echo "⚠️  洞察卡片种子生成失败，请检查日志"
 echo ""
-echo "==> 6️⃣.2  准备质量指标样例数据 ..."
+echo "==> 7️⃣.2  准备质量指标样例数据 ..."
 "${PYTHON_BIN}" - <<'PY'
 from __future__ import annotations
 
@@ -140,7 +145,7 @@ mkdir -p backend/reports/daily_metrics
 cp reports/daily_metrics/*.csv backend/reports/daily_metrics/ 2>/dev/null || true
 echo "✅ 指标样例数据已准备"
 echo ""
-echo "==> 7️⃣  启动前端服务 ..."
+echo "==> 8️⃣  启动前端服务 ..."
 start_frontend_background
 echo "   ⏳ 检查前端可访问性 ..."
 for _ in {1..5}; do

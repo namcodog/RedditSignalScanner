@@ -1,0 +1,65 @@
+{
+  "sample_count": 8,
+  "overall_match_count": 8,
+  "overall_match_rate": 1.0,
+  "exact_tag_match_count": 4,
+  "exact_tag_match_rate": 0.5,
+  "mismatches": [
+    {
+      "eval_case_id": "signal-eval-card-cand-ai-automation-1se2nxm-validate",
+      "predicted_overall_pass": false,
+      "human_overall_pass": false,
+      "predicted_failure_tags": [
+        "reddit_restatement",
+        "no_judgment_gain",
+        "audience_not_who_is_talking"
+      ],
+      "human_failure_tags": [
+        "reddit_restatement",
+        "no_judgment_gain"
+      ]
+    },
+    {
+      "eval_case_id": "signal-eval-card-cand-business-growth-ops-1s1lelq-validate",
+      "predicted_overall_pass": false,
+      "human_overall_pass": false,
+      "predicted_failure_tags": [
+        "reddit_restatement",
+        "quote_not_used_well",
+        "why_now_not_actionable"
+      ],
+      "human_failure_tags": [
+        "reddit_restatement",
+        "audience_not_who_is_talking"
+      ]
+    },
+    {
+      "eval_case_id": "signal-eval-card-cand-ai-automation-1sem20t-validate",
+      "predicted_overall_pass": false,
+      "human_overall_pass": false,
+      "predicted_failure_tags": [
+        "reddit_restatement",
+        "no_judgment_gain",
+        "evidence_overclaim"
+      ],
+      "human_failure_tags": [
+        "no_judgment_gain",
+        "why_now_not_actionable",
+        "reddit_restatement"
+      ]
+    },
+    {
+      "eval_case_id": "signal-eval-card-cand-ai-automation-1se6nq5-validate",
+      "predicted_overall_pass": false,
+      "human_overall_pass": false,
+      "predicted_failure_tags": [
+        "reddit_restatement",
+        "why_now_not_actionable"
+      ],
+      "human_failure_tags": [
+        "quote_not_used_well",
+        "why_now_not_actionable"
+      ]
+    }
+  ]
+}

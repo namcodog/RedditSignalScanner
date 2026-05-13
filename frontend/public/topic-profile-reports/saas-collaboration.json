@@ -1,0 +1,3721 @@
+{
+  "slug": "saas-collaboration",
+  "title": "SaaS协作",
+  "prompt": "远程团队项目管理与协作工具，解决跨时区沟通、任务拆解与进度跟踪问题，关注 Notion/Asana/Trello 的使用痛点与替代机会。",
+  "topic_profile_id": "saas_collaboration_v1",
+  "task_id": "63fb1653-aea9-463a-abd5-202460f010e2",
+  "validated_at": "2026-03-20T16:49:03.179119+00:00",
+  "summary": {
+    "decision_cards": 4,
+    "battlefields": 4,
+    "pain_points": 3,
+    "drivers": 3,
+    "opportunities": 2,
+    "report_markdown_len": 3191,
+    "llm_used": true
+  },
+  "report": {
+    "task_id": "63fb1653-aea9-463a-abd5-202460f010e2",
+    "status": "completed",
+    "generated_at": "2026-03-20T12:03:49.444878Z",
+    "product_description": "远程团队项目管理与协作工具，解决跨时区沟通、任务拆解与进度跟踪问题，关注 Notion/Asana/Trello 的使用痛点与替代机会。",
+    "data_source": null,
+    "report_markdown": "# 远程团队项目管理与协作工具，解决跨时区沟通、任务拆解与进度跟踪问题，关注 Notion/Asana/Trello 的使用痛点与替代机会。 · 市场洞察报告\n\n## 1. 开篇概览\n远程团队项目管理工具赛道痛点多过方案，IT PM和小团队管理者常抱怨焦虑和工具混乱，Notion/Asana/Trello 被吐槽多工具切换。关键社区：r/SaaS、r/projectmanagement、r/remotework、r/ProductivityApps。过去 12 个月，帖子总数 13 + 评论总数 0。\n\n## 2. 决策风向标\n**需求趋势**  \n过去周期内已覆盖 13 帖 / 0 评论，趋势可用于继续决策。覆盖社区 10 个，这是系统生成的统一结构报告。\n\n**难题与攻略比**  \nP/S 比约 0.00，痛点与方案已形成可读结构。P/S 比 0.00，结论力度会随证据强度自动升级或保守。\n\n**核心社群**  \n当前最活跃社区集中在 r/SaaS, r/projectmanagement, r/remotework。优先看高活跃且重复抱怨出现的社区，社区名单由本轮分析真实数据生成。\n\n**落地机会**  \n已出现机会线索：Best Tool For Project Management | All-in-one PM Tool For Project Management like Tasks, calendar, docs, files, chat。  \n- 在 r/SaaS 发帖测试 all-in-one 工具，值得做因为帖子覆盖 4 个，潜在团队 2260 个。  \n- 针对小远程团队推任务+日历+聊天一体化，值得做因为 r/projectmanagement 有 junior dev 管理者求工具。  \n- 验证 Upbase 式定位，值得做因为 r/remotework 抱怨生产力低，机会卡与痛点卡用同一条证据链。\n\n## 3. 概览（市场健康度诊断）\n竞争可见，但仍有结构性机会，已分析 13 帖 / 0 评论，核心社区 r/SaaS, r/projectmanagement, r/remotework。  \nP/S 比约 0.00，痛点与方案已形成可读结构，该比例代表市场在抱怨积压阶段，可继续推进。\n\n## 4. 核心战场推荐（画像分级）\n**lv1**  \n社区：r/SaaS。人群画像：29岁小远程团队管理者，用 spreadsheets+chat apps 乱套。核心吐槽点：juggling spreadsheets, chat apps, and some random free tools to keep track of tasks，但 it’s starting to feel chaotic。进入策略：先在该社区验证问题复现频率，再决定是否深挖。\n\n**lv2**  \n社区：r/projectmanagement。人群画像：IT PM 2年经验，常焦虑做 paperwork 和 plans。核心吐槽点：I think I hate my project management job / I’m an IT PM and I think I’m starting to hate it。进入策略：先在该社区验证问题复现频率，再决定是否深挖。\n\n**lv3**  \n社区：r/remotework。人群画像：远程工作者担心生产力。核心吐槽点：先看该社区是否持续出现同类抱怨。进入策略：先在该社区验证问题复现频率，再决定是否深挖。\n\n**lv4**  \n社区：r/ProductivityApps。（数据不足）\n\n## 5. 用户痛点拆解\n**痛点1: 项目管理职场焦虑**  \n用户原声：I’m an IT PM and I think I’m starting to hate it. I’ve been here around 2 years and feel like I’m constantly a ball of anxiety. I’m fine with doing project paperwork, putting together the plans。  \n数据印象：覆盖 10 个社区，已出现可追踪信号。  \n深层原因：重复 paperwork 和 plans 导致持续焦虑。  \n证据链接：https://www.reddit.com/r/projectmanagement/comments/1fzxuyb/i_think_i_hate_my_project_management_job/\n\n**痛点2: 小团队工具混乱**  \n用户原声：i’m 29 and managing a small remote team at a startup. we’ve been juggling spreadsheets, chat apps, and some random free tools to keep track of tasks, but it’s starting to feel chaotic。  \n数据印象：覆盖 10 个社区，已出现可追踪信号。  \n深层原因：多工具切换让 ops 乱套，几乎 miss deadline。  \n证据链接：https://www.reddit.com/r/saas/comments/1ps7lis/best_project_management_software_2026_for_small_teams_what_actually_works_in_real_life/\n\n**痛点3: 多工具管理客户**  \n用户原声：Freelancers: how many tools are you using just to manage clients? Notion (project tracking), Google Sheets (budgets, timelines), Gmail (client communication)。  \n数据印象：覆盖 10 个社区，已出现可追踪信号。  \n深层原因：工具堆积 depressing，Notion 等不全能。  \n证据链接：https://www.reddit.com/r/SaaS/comments/1qui7d9/freelancers_how_many_tools_are_you_using_just_to/\n\n## 6. 关键决策驱动力\n- 效率提升与省时省心：IT PM 恨重复 paperwork，小团队怕 chaotic，愿意掏钱换减少重复操作。  \n- 透明可控体验：用户犹豫多工具切换，一直强调效率透明，犹豫因当前方案 hype 多 reality 少。\n\n## 7. 商业机会\n**机会卡1**  \n对应痛点：项目管理职场焦虑+工具混乱。目标社群：r/SaaS, r/projectmanagement, r/remotework。产品定位：All-in-one PM Tool like Tasks, calendar, docs, files, chat，约2260个潜在团队。卖点建议：取代 Notion+Sheets+Gmail，减少焦虑。\n\n**机会卡2**  \n对应痛点：多工具管理客户。目标社群：r/SaaS, r/projectmanagement, r/remotework。产品定位：小团队 client 项目一体化，约1234个潜在团队。卖点建议：一站式取代 Notion/Asana/Trello，防 chaotic。",
+    "report_html": "<pre># 远程团队项目管理与协作工具，解决跨时区沟通、任务拆解与进度跟踪问题，关注 Notion/Asana/Trello 的使用痛点与替代机会。 · 市场洞察报告\n\n## 1. 开篇概览\n远程团队项目管理工具赛道痛点多过方案，IT PM和小团队管理者常抱怨焦虑和工具混乱，Notion/Asana/Trello 被吐槽多工具切换。关键社区：r/SaaS、r/projectmanagement、r/remotework、r/ProductivityApps。过去 12 个月，帖子总数 13 + 评论总数 0。\n\n## 2. 决策风向标\n**需求趋势**  \n过去周期内已覆盖 13 帖 / 0 评论，趋势可用于继续决策。覆盖社区 10 个，这是系统生成的统一结构报告。\n\n**难题与攻略比**  \nP/S 比约 0.00，痛点与方案已形成可读结构。P/S 比 0.00，结论力度会随证据强度自动升级或保守。\n\n**核心社群**  \n当前最活跃社区集中在 r/SaaS, r/projectmanagement, r/remotework。优先看高活跃且重复抱怨出现的社区，社区名单由本轮分析真实数据生成。\n\n**落地机会**  \n已出现机会线索：Best Tool For Project Management | All-in-one PM Tool For Project Management like Tasks, calendar, docs, files, chat。  \n- 在 r/SaaS 发帖测试 all-in-one 工具，值得做因为帖子覆盖 4 个，潜在团队 2260 个。  \n- 针对小远程团队推任务+日历+聊天一体化，值得做因为 r/projectmanagement 有 junior dev 管理者求工具。  \n- 验证 Upbase 式定位，值得做因为 r/remotework 抱怨生产力低，机会卡与痛点卡用同一条证据链。\n\n## 3. 概览（市场健康度诊断）\n竞争可见，但仍有结构性机会，已分析 13 帖 / 0 评论，核心社区 r/SaaS, r/projectmanagement, r/remotework。  \nP/S 比约 0.00，痛点与方案已形成可读结构，该比例代表市场在抱怨积压阶段，可继续推进。\n\n## 4. 核心战场推荐（画像分级）\n**lv1**  \n社区：r/SaaS。人群画像：29岁小远程团队管理者，用 spreadsheets+chat apps 乱套。核心吐槽点：juggling spreadsheets, chat apps, and some random free tools to keep track of tasks，但 it’s starting to feel chaotic。进入策略：先在该社区验证问题复现频率，再决定是否深挖。\n\n**lv2**  \n社区：r/projectmanagement。人群画像：IT PM 2年经验，常焦虑做 paperwork 和 plans。核心吐槽点：I think I hate my project management job / I’m an IT PM and I think I’m starting to hate it。进入策略：先在该社区验证问题复现频率，再决定是否深挖。\n\n**lv3**  \n社区：r/remotework。人群画像：远程工作者担心生产力。核心吐槽点：先看该社区是否持续出现同类抱怨。进入策略：先在该社区验证问题复现频率，再决定是否深挖。\n\n**lv4**  \n社区：r/ProductivityApps。（数据不足）\n\n## 5. 用户痛点拆解\n**痛点1: 项目管理职场焦虑**  \n用户原声：I’m an IT PM and I think I’m starting to hate it. I’ve been here around 2 years and feel like I’m constantly a ball of anxiety. I’m fine with doing project paperwork, putting together the plans。  \n数据印象：覆盖 10 个社区，已出现可追踪信号。  \n深层原因：重复 paperwork 和 plans 导致持续焦虑。  \n证据链接：https://www.reddit.com/r/projectmanagement/comments/1fzxuyb/i_think_i_hate_my_project_management_job/\n\n**痛点2: 小团队工具混乱**  \n用户原声：i’m 29 and managing a small remote team at a startup. we’ve been juggling spreadsheets, chat apps, and some random free tools to keep track of tasks, but it’s starting to feel chaotic。  \n数据印象：覆盖 10 个社区，已出现可追踪信号。  \n深层原因：多工具切换让 ops 乱套，几乎 miss deadline。  \n证据链接：https://www.reddit.com/r/saas/comments/1ps7lis/best_project_management_software_2026_for_small_teams_what_actually_works_in_real_life/\n\n**痛点3: 多工具管理客户**  \n用户原声：Freelancers: how many tools are you using just to manage clients? Notion (project tracking), Google Sheets (budgets, timelines), Gmail (client communication)。  \n数据印象：覆盖 10 个社区，已出现可追踪信号。  \n深层原因：工具堆积 depressing，Notion 等不全能。  \n证据链接：https://www.reddit.com/r/SaaS/comments/1qui7d9/freelancers_how_many_tools_are_you_using_just_to/\n\n## 6. 关键决策驱动力\n- 效率提升与省时省心：IT PM 恨重复 paperwork，小团队怕 chaotic，愿意掏钱换减少重复操作。  \n- 透明可控体验：用户犹豫多工具切换，一直强调效率透明，犹豫因当前方案 hype 多 reality 少。\n\n## 7. 商业机会\n**机会卡1**  \n对应痛点：项目管理职场焦虑+工具混乱。目标社群：r/SaaS, r/projectmanagement, r/remotework。产品定位：All-in-one PM Tool like Tasks, calendar, docs, files, chat，约2260个潜在团队。卖点建议：取代 Notion+Sheets+Gmail，减少焦虑。\n\n**机会卡2**  \n对应痛点：多工具管理客户。目标社群：r/SaaS, r/projectmanagement, r/remotework。产品定位：小团队 client 项目一体化，约1234个潜在团队。卖点建议：一站式取代 Notion/Asana/Trello，防 chaotic。</pre>",
+    "canonical_report_json": {
+      "decision_cards": [
+        {
+          "title": "需求趋势",
+          "conclusion": "过去周期内已覆盖 13 帖 / 0 评论，趋势可用于继续决策。",
+          "details": [
+            "覆盖社区：10 个",
+            "这是系统生成的统一结构报告，不依赖前端拼装。"
+          ]
+        },
+        {
+          "title": "问题/解决方案比",
+          "conclusion": "P/S 比约 0.00，痛点与方案已形成可读结构。",
+          "details": [
+            "P/S 比：0.00",
+            "结论力度会随证据强度自动升级或保守。"
+          ]
+        },
+        {
+          "title": "核心社群",
+          "conclusion": "当前最活跃社区集中在 r/SaaS, r/projectmanagement, r/remotework。",
+          "details": [
+            "优先看高活跃且重复抱怨出现的社区。",
+            "社区名单由本轮分析真实数据生成。"
+          ]
+        },
+        {
+          "title": "明确机会点",
+          "conclusion": "已出现机会线索：Best Tool For Project Management | All-in-one PM Tool For Project Management like Tasks, calendar, docs, files, chat",
+          "details": [
+            "机会卡与痛点卡使用同一条证据链。",
+            "B/C 是 Full A 同骨架简化，不走独立页面结构。"
+          ]
+        }
+      ],
+      "market_health": {
+        "competition_saturation": {
+          "level": "竞争可见，但仍有结构性机会",
+          "details": [
+            "已分析 13 帖 / 0 评论。",
+            "核心社区：r/SaaS, r/projectmanagement, r/remotework"
+          ],
+          "interpretation": "当前结论可用于继续推进。"
+        },
+        "ps_ratio": {
+          "ratio": "0.00",
+          "conclusion": "P/S 比约 0.00，痛点与方案已形成可读结构。",
+          "interpretation": "该比例用于判断市场是在抱怨积压还是方案成熟阶段。",
+          "health_assessment": "可继续推进"
+        }
+      },
+      "battlefields": [
+        {
+          "name": "r/SaaS",
+          "subreddits": [
+            "r/SaaS"
+          ],
+          "profile": "讨论量和抱怨强度都已达到可执行判断门槛。",
+          "pain_points": [
+            "I think I hate my project management job"
+          ],
+          "strategy_advice": "先在该社区验证问题复现频率，再决定是否深挖。"
+        },
+        {
+          "name": "r/projectmanagement",
+          "subreddits": [
+            "r/projectmanagement"
+          ],
+          "profile": "讨论量和抱怨强度都已达到可执行判断门槛。",
+          "pain_points": [
+            "I’m an IT PM and I think I’m starting to hate it"
+          ],
+          "strategy_advice": "先在该社区验证问题复现频率，再决定是否深挖。"
+        },
+        {
+          "name": "r/remotework",
+          "subreddits": [
+            "r/remotework"
+          ],
+          "profile": "讨论量和抱怨强度都已达到可执行判断门槛。",
+          "pain_points": [
+            "先看该社区是否持续出现同类抱怨。"
+          ],
+          "strategy_advice": "先在该社区验证问题复现频率，再决定是否深挖。"
+        },
+        {
+          "name": "r/ProductivityApps",
+          "subreddits": [
+            "r/ProductivityApps"
+          ],
+          "profile": "讨论量和抱怨强度都已达到可执行判断门槛。",
+          "pain_points": [
+            "先看该社区是否持续出现同类抱怨。"
+          ],
+          "strategy_advice": "先在该社区验证问题复现频率，再决定是否深挖。"
+        }
+      ],
+      "pain_points": [
+        {
+          "title": "I think I hate my project management job",
+          "user_voices": [
+            "I’m an IT PM and I think I’m starting to hate it. I’ve been here around 2 years and feel like I’m constantly a ball of anxiety. I’m fine with doing project paperwork, putting together the plans (wi..."
+          ],
+          "data_impression": "覆盖 10 个社区，已出现可追踪信号。",
+          "interpretation": "该痛点可直接进入解决方案验证。"
+        },
+        {
+          "title": "I’m an IT PM and I think I’m starting to hate it",
+          "user_voices": [
+            "I’m an IT PM and I think I’m starting to hate it. I’ve been here around 2 years and feel like I’m constantly a ball of anxiety. I’m fine with doing project paperwork, putting together the plans (wi..."
+          ],
+          "data_impression": "覆盖 10 个社区，已出现可追踪信号。",
+          "interpretation": "该痛点可直接进入解决方案验证。"
+        },
+        {
+          "title": "关键痛点 3",
+          "user_voices": [
+            "本轮讨论中该问题有重复出现迹象。"
+          ],
+          "data_impression": "覆盖 10 个社区，已出现可追踪信号。",
+          "interpretation": "该痛点可直接进入解决方案验证。"
+        }
+      ],
+      "drivers": [
+        {
+          "title": "效率提升与省时省心",
+          "description": "高频痛点集中在：I think I hate my project management job / I’m an IT PM and I think I’m starting to hate it"
+        },
+        {
+          "title": "驱动力 2",
+          "description": "用户持续强调效率、透明和可控的解决体验。"
+        },
+        {
+          "title": "驱动力 3",
+          "description": "用户持续强调效率、透明和可控的解决体验。"
+        }
+      ],
+      "opportunities": [
+        {
+          "title": "Best Tool For Project Management | All-in-one PM Tool For Project Management like Tasks, calendar, docs, files, chat",
+          "target_pain_points": [
+            "age",
+            "ale",
+            "all"
+          ],
+          "target_communities": [
+            "r/SaaS",
+            "r/projectmanagement",
+            "r/remotework"
+          ],
+          "product_positioning": "约2260个潜在团队",
+          "core_selling_points": [
+            "age",
+            "ale",
+            "all"
+          ]
+        },
+        {
+          "title": "any tools are you using just to manage clients",
+          "target_pain_points": [
+            "age",
+            "an",
+            "ana"
+          ],
+          "target_communities": [
+            "r/SaaS",
+            "r/projectmanagement",
+            "r/remotework"
+          ],
+          "product_positioning": "约1234个潜在团队",
+          "core_selling_points": [
+            "age",
+            "an",
+            "ana"
+          ]
+        }
+      ]
+    },
+    "report_structured": {
+      "decision_cards": [
+        {
+          "title": "需求趋势",
+          "conclusion": "过去周期内已覆盖 13 帖 / 0 评论，趋势可用于继续决策。",
+          "details": [
+            "覆盖社区：10 个",
+            "这是系统生成的统一结构报告，不依赖前端拼装。"
+          ]
+        },
+        {
+          "title": "问题/解决方案比",
+          "conclusion": "P/S 比约 0.00，痛点与方案已形成可读结构。",
+          "details": [
+            "P/S 比：0.00",
+            "结论力度会随证据强度自动升级或保守。"
+          ]
+        },
+        {
+          "title": "核心社群",
+          "conclusion": "当前最活跃社区集中在 r/SaaS, r/projectmanagement, r/remotework。",
+          "details": [
+            "优先看高活跃且重复抱怨出现的社区。",
+            "社区名单由本轮分析真实数据生成。"
+          ]
+        },
+        {
+          "title": "明确机会点",
+          "conclusion": "已出现机会线索：Best Tool For Project Management | All-in-one PM Tool For Project Management like Tasks, calendar, docs, files, chat",
+          "details": [
+            "机会卡与痛点卡使用同一条证据链。",
+            "B/C 是 Full A 同骨架简化，不走独立页面结构。"
+          ]
+        }
+      ],
+      "market_health": {
+        "competition_saturation": {
+          "level": "竞争可见，但仍有结构性机会",
+          "details": [
+            "已分析 13 帖 / 0 评论。",
+            "核心社区：r/SaaS, r/projectmanagement, r/remotework"
+          ],
+          "interpretation": "当前结论可用于继续推进。"
+        },
+        "ps_ratio": {
+          "ratio": "0.00",
+          "conclusion": "P/S 比约 0.00，痛点与方案已形成可读结构。",
+          "interpretation": "该比例用于判断市场是在抱怨积压还是方案成熟阶段。",
+          "health_assessment": "可继续推进"
+        }
+      },
+      "battlefields": [
+        {
+          "name": "r/SaaS",
+          "subreddits": [
+            "r/SaaS"
+          ],
+          "profile": "讨论量和抱怨强度都已达到可执行判断门槛。",
+          "pain_points": [
+            "I think I hate my project management job"
+          ],
+          "strategy_advice": "先在该社区验证问题复现频率，再决定是否深挖。"
+        },
+        {
+          "name": "r/projectmanagement",
+          "subreddits": [
+            "r/projectmanagement"
+          ],
+          "profile": "讨论量和抱怨强度都已达到可执行判断门槛。",
+          "pain_points": [
+            "I’m an IT PM and I think I’m starting to hate it"
+          ],
+          "strategy_advice": "先在该社区验证问题复现频率，再决定是否深挖。"
+        },
+        {
+          "name": "r/remotework",
+          "subreddits": [
+            "r/remotework"
+          ],
+          "profile": "讨论量和抱怨强度都已达到可执行判断门槛。",
+          "pain_points": [
+            "先看该社区是否持续出现同类抱怨。"
+          ],
+          "strategy_advice": "先在该社区验证问题复现频率，再决定是否深挖。"
+        },
+        {
+          "name": "r/ProductivityApps",
+          "subreddits": [
+            "r/ProductivityApps"
+          ],
+          "profile": "讨论量和抱怨强度都已达到可执行判断门槛。",
+          "pain_points": [
+            "先看该社区是否持续出现同类抱怨。"
+          ],
+          "strategy_advice": "先在该社区验证问题复现频率，再决定是否深挖。"
+        }
+      ],
+      "pain_points": [
+        {
+          "title": "I think I hate my project management job",
+          "user_voices": [
+            "I’m an IT PM and I think I’m starting to hate it. I’ve been here around 2 years and feel like I’m constantly a ball of anxiety. I’m fine with doing project paperwork, putting together the plans (wi..."
+          ],
+          "data_impression": "覆盖 10 个社区，已出现可追踪信号。",
+          "interpretation": "该痛点可直接进入解决方案验证。"
+        },
+        {
+          "title": "I’m an IT PM and I think I’m starting to hate it",
+          "user_voices": [
+            "I’m an IT PM and I think I’m starting to hate it. I’ve been here around 2 years and feel like I’m constantly a ball of anxiety. I’m fine with doing project paperwork, putting together the plans (wi..."
+          ],
+          "data_impression": "覆盖 10 个社区，已出现可追踪信号。",
+          "interpretation": "该痛点可直接进入解决方案验证。"
+        },
+        {
+          "title": "关键痛点 3",
+          "user_voices": [
+            "本轮讨论中该问题有重复出现迹象。"
+          ],
+          "data_impression": "覆盖 10 个社区，已出现可追踪信号。",
+          "interpretation": "该痛点可直接进入解决方案验证。"
+        }
+      ],
+      "drivers": [
+        {
+          "title": "效率提升与省时省心",
+          "description": "高频痛点集中在：I think I hate my project management job / I’m an IT PM and I think I’m starting to hate it"
+        },
+        {
+          "title": "驱动力 2",
+          "description": "用户持续强调效率、透明和可控的解决体验。"
+        },
+        {
+          "title": "驱动力 3",
+          "description": "用户持续强调效率、透明和可控的解决体验。"
+        }
+      ],
+      "opportunities": [
+        {
+          "title": "Best Tool For Project Management | All-in-one PM Tool For Project Management like Tasks, calendar, docs, files, chat",
+          "target_pain_points": [
+            "age",
+            "ale",
+            "all"
+          ],
+          "target_communities": [
+            "r/SaaS",
+            "r/projectmanagement",
+            "r/remotework"
+          ],
+          "product_positioning": "约2260个潜在团队",
+          "core_selling_points": [
+            "age",
+            "ale",
+            "all"
+          ]
+        },
+        {
+          "title": "any tools are you using just to manage clients",
+          "target_pain_points": [
+            "age",
+            "an",
+            "ana"
+          ],
+          "target_communities": [
+            "r/SaaS",
+            "r/projectmanagement",
+            "r/remotework"
+          ],
+          "product_positioning": "约1234个潜在团队",
+          "core_selling_points": [
+            "age",
+            "an",
+            "ana"
+          ]
+        }
+      ]
+    },
+    "report": {
+      "executive_summary": {
+        "total_communities": 10,
+        "key_insights": 19,
+        "top_opportunity": "Best Tool For Project Management | All-in-one PM Tool For Project Management like Tasks, calendar, docs, files, chat"
+      },
+      "pain_points": [
+        {
+          "description": "I think I hate my project management job",
+          "title": "I think I hate my ",
+          "text": "I think I hate my project management job",
+          "frequency": 1,
+          "sentiment_score": -0.9,
+          "severity": "high",
+          "example_posts": [
+            {
+              "community": "r/projectmanagement",
+              "content": "I’m an IT PM and I think I’m starting to hate it. I’ve been here around 2 years and feel like I’m constantly a ball of anxiety. I’m fine with doing project paperwork, putting together the plans (wi...",
+              "upvotes": 167,
+              "url": "https://www.reddit.com/r/projectmanagement/comments/1fzxuyb/i_think_i_hate_my_project_management_job/",
+              "author": "VashMatematik",
+              "permalink": "https://reddit.com/r/projectmanagement/comments/1fzxuyb/i_think_i_hate_my_project_management_job/",
+              "duplicate_ids": [],
+              "evidence_count": 1
+            },
+            {
+              "community": "r/remotework",
+              "content": "I’ve seen all the boring “remote kills productivity” rhetoric, so I decided to do a little experiment for myself.\n\nI tracked everything I could measure over **3 months**: one month fully in-office,...",
+              "upvotes": 3426,
+              "url": "https://www.reddit.com/r/remotework/comments/1nzikof/i_tracked_my_productivity_for_3_months_remote_vs/",
+              "author": "WorklawVault",
+              "permalink": "https://reddit.com/r/remotework/comments/1nzikof/i_tracked_my_productivity_for_3_months_remote_vs/",
+              "duplicate_ids": [],
+              "evidence_count": 1
+            }
+          ],
+          "user_examples": [
+            "I’m an IT PM and I think I’m starting to hate it. I’ve been here around 2 years and feel like I’m constantly a ball of anxiety. I’m fine with doing project paperwork, putting together the plans (wi..."
+          ]
+        },
+        {
+          "description": "I’m an IT PM and I think I’m starting to hate it",
+          "title": "I’m an IT PM and I",
+          "text": "I’m an IT PM and I think I’m starting to hate it",
+          "frequency": 1,
+          "sentiment_score": -0.9,
+          "severity": "high",
+          "example_posts": [
+            {
+              "community": "r/projectmanagement",
+              "content": "I’m an IT PM and I think I’m starting to hate it. I’ve been here around 2 years and feel like I’m constantly a ball of anxiety. I’m fine with doing project paperwork, putting together the plans (wi...",
+              "upvotes": 167,
+              "url": "https://www.reddit.com/r/projectmanagement/comments/1fzxuyb/i_think_i_hate_my_project_management_job/",
+              "author": "VashMatematik",
+              "permalink": "https://reddit.com/r/projectmanagement/comments/1fzxuyb/i_think_i_hate_my_project_management_job/",
+              "duplicate_ids": [],
+              "evidence_count": 1
+            },
+            {
+              "community": "r/remotework",
+              "content": "I’ve seen all the boring “remote kills productivity” rhetoric, so I decided to do a little experiment for myself.\n\nI tracked everything I could measure over **3 months**: one month fully in-office,...",
+              "upvotes": 3426,
+              "url": "https://www.reddit.com/r/remotework/comments/1nzikof/i_tracked_my_productivity_for_3_months_remote_vs/",
+              "author": "WorklawVault",
+              "permalink": "https://reddit.com/r/remotework/comments/1nzikof/i_tracked_my_productivity_for_3_months_remote_vs/",
+              "duplicate_ids": [],
+              "evidence_count": 1
+            }
+          ],
+          "user_examples": [
+            "I’m an IT PM and I think I’m starting to hate it. I’ve been here around 2 years and feel like I’m constantly a ball of anxiety. I’m fine with doing project paperwork, putting together the plans (wi..."
+          ]
+        }
+      ],
+      "pain_clusters": [
+        {
+          "topic": "think hate project",
+          "negative_mean": -0.9,
+          "communities_count": 2,
+          "top_communities": [
+            "r/projectmanagement",
+            "r/remotework"
+          ],
+          "samples": [
+            "I’m an IT PM and I think I’m starting to hate it. I’ve been here around 2 years and feel like I’m constantly a ball of anxiety. I’m fine with doing project paperwork, putting together the plans (wi...",
+            "I’ve seen all the boring “remote kills productivity” rhetoric, so I decided to do a little experiment for myself.\n\nI tracked everything I could measure over **3 months**: one month fully in-office,...",
+            "I think I hate my project management job"
+          ]
+        },
+        {
+          "topic": "I’m PM think",
+          "negative_mean": -0.9,
+          "communities_count": 2,
+          "top_communities": [
+            "r/projectmanagement",
+            "r/remotework"
+          ],
+          "samples": [
+            "I’m an IT PM and I think I’m starting to hate it. I’ve been here around 2 years and feel like I’m constantly a ball of anxiety. I’m fine with doing project paperwork, putting together the plans (wi...",
+            "I’ve seen all the boring “remote kills productivity” rhetoric, so I decided to do a little experiment for myself.\n\nI tracked everything I could measure over **3 months**: one month fully in-office,...",
+            "I’m an IT PM and I think I’m starting to hate it"
+          ]
+        }
+      ],
+      "competitors": [
+        {
+          "name": "Best Tool",
+          "mentions": 1,
+          "sentiment": "positive",
+          "strengths": [
+            "用户反馈积极",
+            "社区认可度高"
+          ],
+          "weaknesses": [
+            "需要继续观察长期表现"
+          ],
+          "market_share": 8.0,
+          "context_snippets": [
+            "Upbase Review | Best Tool For Project Management | All-in-one PM Tool For Project Management like Tasks, calendar, docs, files, chat"
+          ],
+          "layer": "attributes"
+        },
+        {
+          "name": "For Project",
+          "mentions": 1,
+          "sentiment": "positive",
+          "strengths": [
+            "用户反馈积极",
+            "社区认可度高"
+          ],
+          "weaknesses": [
+            "需要继续观察长期表现"
+          ],
+          "market_share": 8.0,
+          "context_snippets": [
+            "Upbase Review | Best Tool For Project Management | All-in-one PM Tool For Project Management like Tasks, calendar, docs, files, chat"
+          ],
+          "layer": "brands"
+        },
+        {
+          "name": "Management",
+          "mentions": 1,
+          "sentiment": "positive",
+          "strengths": [
+            "用户反馈积极",
+            "社区认可度高"
+          ],
+          "weaknesses": [
+            "需要继续观察长期表现"
+          ],
+          "market_share": 8.0,
+          "context_snippets": [
+            "Upbase Review | Best Tool For Project Management | All-in-one PM Tool For Project Management like Tasks, calendar, docs, files, chat"
+          ],
+          "layer": "attributes"
+        },
+        {
+          "name": "PM Tool",
+          "mentions": 1,
+          "sentiment": "positive",
+          "strengths": [
+            "用户反馈积极",
+            "社区认可度高"
+          ],
+          "weaknesses": [
+            "需要继续观察长期表现"
+          ],
+          "market_share": 8.0,
+          "context_snippets": [
+            "Upbase Review | Best Tool For Project Management | All-in-one PM Tool For Project Management like Tasks, calendar, docs, files, chat"
+          ],
+          "layer": "attributes"
+        },
+        {
+          "name": "Tasks",
+          "mentions": 1,
+          "sentiment": "positive",
+          "strengths": [
+            "用户反馈积极",
+            "社区认可度高"
+          ],
+          "weaknesses": [
+            "需要继续观察长期表现"
+          ],
+          "market_share": 8.0,
+          "context_snippets": [
+            "Upbase Review | Best Tool For Project Management | All-in-one PM Tool For Project Management like Tasks, calendar, docs, files, chat"
+          ],
+          "layer": "attributes"
+        },
+        {
+          "name": "Upbase Review",
+          "mentions": 1,
+          "sentiment": "positive",
+          "strengths": [
+            "用户反馈积极",
+            "社区认可度高"
+          ],
+          "weaknesses": [
+            "需要继续观察长期表现"
+          ],
+          "market_share": 8.0,
+          "context_snippets": [
+            "Upbase Review | Best Tool For Project Management | All-in-one PM Tool For Project Management like Tasks, calendar, docs, files, chat"
+          ],
+          "layer": "attributes"
+        },
+        {
+          "name": "B2B SaaS",
+          "mentions": 1,
+          "sentiment": "mixed",
+          "strengths": [
+            "社区讨论热度高"
+          ],
+          "weaknesses": [
+            "等待更多反馈细节"
+          ],
+          "market_share": 8.0,
+          "context_snippets": [
+            "Spent a weekend doing something I'd been meaning to do for a while - systematically testing how visible B2B SaaS tools actually are in AI search"
+          ],
+          "layer": "brands"
+        },
+        {
+          "name": "Spent",
+          "mentions": 1,
+          "sentiment": "mixed",
+          "strengths": [
+            "社区讨论热度高"
+          ],
+          "weaknesses": [
+            "等待更多反馈细节"
+          ],
+          "market_share": 8.0,
+          "context_snippets": [
+            "Spent a weekend doing something I'd been meaning to do for a while - systematically testing how visible B2B SaaS tools actually are in AI search"
+          ],
+          "layer": "attributes"
+        },
+        {
+          "name": "Upbase",
+          "mentions": 1,
+          "sentiment": "mixed",
+          "strengths": [
+            "社区讨论热度高"
+          ],
+          "weaknesses": [
+            "等待更多反馈细节"
+          ],
+          "market_share": 8.0,
+          "context_snippets": [
+            "What distinguishes Upbase from the vast array of project management software available"
+          ],
+          "layer": "attributes"
+        },
+        {
+          "name": "Gmail",
+          "mentions": 1,
+          "sentiment": "mixed",
+          "strengths": [
+            "社区讨论热度高"
+          ],
+          "weaknesses": [
+            "等待更多反馈细节"
+          ],
+          "market_share": 8.0,
+          "context_snippets": [
+            "The list: * Notion (project tracking) * Google Sheets (budgets, timelines) * Gmail (client communication"
+          ],
+          "layer": "attributes"
+        },
+        {
+          "name": "Google Sheets",
+          "mentions": 1,
+          "sentiment": "mixed",
+          "strengths": [
+            "社区讨论热度高"
+          ],
+          "weaknesses": [
+            "等待更多反馈细节"
+          ],
+          "market_share": 8.0,
+          "context_snippets": [
+            "The list: * Notion (project tracking) * Google Sheets (budgets, timelines) * Gmail (client communication"
+          ],
+          "layer": "channels"
+        },
+        {
+          "name": "Notion",
+          "mentions": 1,
+          "sentiment": "mixed",
+          "strengths": [
+            "社区讨论热度高"
+          ],
+          "weaknesses": [
+            "等待更多反馈细节"
+          ],
+          "market_share": 8.0,
+          "context_snippets": [
+            "The list: * Notion (project tracking) * Google Sheets (budgets, timelines) * Gmail (client communication"
+          ],
+          "layer": "brands"
+        }
+      ],
+      "opportunities": [
+        {
+          "description": "Best Tool For Project Management | All-in-one PM Tool For Project Management like Tasks, calendar, docs, files, chat",
+          "title": "Best Tool For Proj",
+          "text": "Best Tool For Project Management | All-in-one PM Tool For Project Management like Tasks, calendar, docs, files, chat",
+          "relevance_score": 1.0,
+          "potential_users": "约2556个潜在团队",
+          "potential_users_est": 2556,
+          "linked_pain_cluster": "think hate project",
+          "top_channels": [],
+          "key_insights": [
+            "age",
+            "ale",
+            "all",
+            "all-in-one"
+          ],
+          "source_examples": [
+            {
+              "url": "https://www.reddit.com/r/SaaS/comments/16h1ij9/upbase_review_best_tool_for_project_management/",
+              "author": "Abdulahkabeer",
+              "content": "**Upbase is an all-in-one project management** application designed with individuals and small teams in mind.\n\nWhat distinguishes Upbase from the vast array of project management software available...",
+              "upvotes": 0,
+              "community": "r/SaaS",
+              "permalink": "https://reddit.com/r/SaaS/comments/16h1ij9/upbase_review_best_tool_for_project_management/",
+              "duplicate_ids": [],
+              "evidence_count": 1
+            },
+            {
+              "url": "https://www.reddit.com/r/remotework/comments/1nzikof/i_tracked_my_productivity_for_3_months_remote_vs/",
+              "author": "WorklawVault",
+              "content": "I’ve seen all the boring “remote kills productivity” rhetoric, so I decided to do a little experiment for myself.\n\nI tracked everything I could measure over **3 months**: one month fully in-office,...",
+              "upvotes": 3426,
+              "community": "r/remotework",
+              "permalink": "https://reddit.com/r/remotework/comments/1nzikof/i_tracked_my_productivity_for_3_months_remote_vs/",
+              "duplicate_ids": [],
+              "evidence_count": 1
+            }
+          ]
+        },
+        {
+          "description": "any tools are you using just to manage clients",
+          "title": "any tools are you ",
+          "text": "any tools are you using just to manage clients",
+          "relevance_score": 1.0,
+          "potential_users": "约1395个潜在团队",
+          "potential_users_est": 1395,
+          "linked_pain_cluster": "think hate project",
+          "top_channels": [],
+          "key_insights": [
+            "age",
+            "an",
+            "ana",
+            "any"
+          ],
+          "source_examples": [
+            {
+              "url": "https://www.reddit.com/r/SaaS/comments/1qui7d9/freelancers_how_many_tools_are_you_using_just_to/",
+              "author": "TemperatureAbject144",
+              "content": "So I sat down last week and actually listed out every tool I use to manage client projects. The list:\n\n* Notion (project tracking)\n* Google Sheets (budgets, timelines)\n* Gmail (client communication...",
+              "upvotes": 4,
+              "community": "r/SaaS",
+              "permalink": "https://reddit.com/r/SaaS/comments/1qui7d9/freelancers_how_many_tools_are_you_using_just_to/",
+              "duplicate_ids": [],
+              "evidence_count": 1
+            },
+            {
+              "url": "https://www.reddit.com/r/remotework/comments/1nzikof/i_tracked_my_productivity_for_3_months_remote_vs/",
+              "author": "WorklawVault",
+              "content": "I’ve seen all the boring “remote kills productivity” rhetoric, so I decided to do a little experiment for myself.\n\nI tracked everything I could measure over **3 months**: one month fully in-office,...",
+              "upvotes": 3426,
+              "community": "r/remotework",
+              "permalink": "https://reddit.com/r/remotework/comments/1nzikof/i_tracked_my_productivity_for_3_months_remote_vs/",
+              "duplicate_ids": [],
+              "evidence_count": 1
+            }
+          ]
+        },
+        {
+          "description": "Looking for advice on PM tools (and workflow) - small, remote team of junior developers",
+          "title": "Looking for advice",
+          "text": "Looking for advice on PM tools (and workflow) - small, remote team of junior developers",
+          "relevance_score": 1.0,
+          "potential_users": "约2604个潜在团队",
+          "potential_users_est": 2604,
+          "linked_pain_cluster": "think hate project",
+          "top_channels": [],
+          "key_insights": [
+            "ad",
+            "advice",
+            "all",
+            "am"
+          ],
+          "source_examples": [
+            {
+              "url": "https://www.reddit.com/r/projectmanagement/comments/f1lvnj/looking_for_advice_on_pm_tools_and_workflow_small/",
+              "author": "fuzzycake",
+              "content": "I'm looking for a project management tool to manage a small remote team of (primarily adhoc) junior software developers.\n\nLooking around, I see that tools like Asana, Trello and Basecamp are very p...",
+              "upvotes": 1,
+              "community": "r/projectmanagement",
+              "permalink": "https://reddit.com/r/projectmanagement/comments/f1lvnj/looking_for_advice_on_pm_tools_and_workflow_small/",
+              "duplicate_ids": [],
+              "evidence_count": 1
+            },
+            {
+              "url": "https://www.reddit.com/r/remotework/comments/1nzikof/i_tracked_my_productivity_for_3_months_remote_vs/",
+              "author": "WorklawVault",
+              "content": "I’ve seen all the boring “remote kills productivity” rhetoric, so I decided to do a little experiment for myself.\n\nI tracked everything I could measure over **3 months**: one month fully in-office,...",
+              "upvotes": 3426,
+              "community": "r/remotework",
+              "permalink": "https://reddit.com/r/remotework/comments/1nzikof/i_tracked_my_productivity_for_3_months_remote_vs/",
+              "duplicate_ids": [],
+              "evidence_count": 1
+            }
+          ]
+        },
+        {
+          "description": "looking for a project management tool to manage a small remote team of (primarily adhoc) junior software developers",
+          "title": "looking for a proj",
+          "text": "looking for a project management tool to manage a small remote team of (primarily adhoc) junior software developers",
+          "relevance_score": 1.0,
+          "potential_users": "约3463个潜在团队",
+          "potential_users_est": 3463,
+          "linked_pain_cluster": "think hate project",
+          "top_channels": [],
+          "key_insights": [
+            "ad",
+            "age",
+            "all",
+            "am"
+          ],
+          "source_examples": [
+            {
+              "url": "https://www.reddit.com/r/projectmanagement/comments/f1lvnj/looking_for_advice_on_pm_tools_and_workflow_small/",
+              "author": "fuzzycake",
+              "content": "I'm looking for a project management tool to manage a small remote team of (primarily adhoc) junior software developers.\n\nLooking around, I see that tools like Asana, Trello and Basecamp are very p...",
+              "upvotes": 1,
+              "community": "r/projectmanagement",
+              "permalink": "https://reddit.com/r/projectmanagement/comments/f1lvnj/looking_for_advice_on_pm_tools_and_workflow_small/",
+              "duplicate_ids": [],
+              "evidence_count": 1
+            },
+            {
+              "url": "https://www.reddit.com/r/remotework/comments/1nzikof/i_tracked_my_productivity_for_3_months_remote_vs/",
+              "author": "WorklawVault",
+              "content": "I’ve seen all the boring “remote kills productivity” rhetoric, so I decided to do a little experiment for myself.\n\nI tracked everything I could measure over **3 months**: one month fully in-office,...",
+              "upvotes": 3426,
+              "community": "r/remotework",
+              "permalink": "https://reddit.com/r/remotework/comments/1nzikof/i_tracked_my_productivity_for_3_months_remote_vs/",
+              "duplicate_ids": [],
+              "evidence_count": 1
+            }
+          ]
+        },
+        {
+          "description": "recommend after testing tons",
+          "title": "recommend after te",
+          "text": "recommend after testing tons",
+          "relevance_score": 1.0,
+          "potential_users": "约1328个潜在团队",
+          "potential_users_est": 1328,
+          "linked_pain_cluster": "think hate project",
+          "top_channels": [],
+          "key_insights": [
+            "after",
+            "co",
+            "eco",
+            "ecom"
+          ],
+          "source_examples": [
+            {
+              "url": "https://www.reddit.com/r/ProductivityApps/comments/1ogesxo/best_project_tracking_software_by_use_case_heres/",
+              "author": "Fit-Repeat-3595",
+              "content": "As a manager of a remote-first company, I’ve gone deep into the project-tracking rabbit hole to figure out what actually works across different teams and workflows. Here’s what I’d recommend, based...",
+              "upvotes": 21,
+              "community": "r/ProductivityApps",
+              "permalink": "https://reddit.com/r/ProductivityApps/comments/1ogesxo/best_project_tracking_software_by_use_case_heres/",
+              "duplicate_ids": [],
+              "evidence_count": 1
+            },
+            {
+              "url": "https://www.reddit.com/r/remotework/comments/1nzikof/i_tracked_my_productivity_for_3_months_remote_vs/",
+              "author": "WorklawVault",
+              "content": "I’ve seen all the boring “remote kills productivity” rhetoric, so I decided to do a little experiment for myself.\n\nI tracked everything I could measure over **3 months**: one month fully in-office,...",
+              "upvotes": 3426,
+              "community": "r/remotework",
+              "permalink": "https://reddit.com/r/remotework/comments/1nzikof/i_tracked_my_productivity_for_3_months_remote_vs/",
+              "duplicate_ids": [],
+              "evidence_count": 1
+            }
+          ]
+        }
+      ],
+      "action_items": [
+        {
+          "title": "Best Tool For Proj",
+          "category": "strategy",
+          "problem_definition": "Best Tool For Project Management | All-in-one PM Tool For Project Management like Tasks, calendar, docs, files, chat",
+          "evidence_chain": [
+            {
+              "title": "**Upbase is an all-in-one project management** application designed with individuals and small teams in mind.\n\nWhat dist",
+              "url": "https://www.reddit.com/r/SaaS/comments/16h1ij9/upbase_review_best_tool_for_project_management/",
+              "note": "社区: r/SaaS"
+            },
+            {
+              "title": "I’ve seen all the boring “remote kills productivity” rhetoric, so I decided to do a little experiment for myself.\n\nI tra",
+              "url": "https://www.reddit.com/r/remotework/comments/1nzikof/i_tracked_my_productivity_for_3_months_remote_vs/",
+              "note": "社区: r/remotework | 赞数 3426"
+            },
+            {
+              "title": "I’m an IT PM and I think I’m starting to hate it. I’ve been here around 2 years and feel like I’m constantly a ball of a",
+              "url": "https://www.reddit.com/r/projectmanagement/comments/1fzxuyb/i_think_i_hate_my_project_management_job/",
+              "note": "社区: r/projectmanagement | 赞数 167"
+            }
+          ],
+          "suggested_actions": [
+            "Focus on `Best Tool For Project Management | All-in-one PM Tool For Project Management like Tasks, calendar, docs, files, chat`, interview core users to validate priority.",
+            "Reference opportunity `Best Tool For Project Management | All-in-one PM Tool For Project Management like Tasks, calendar, docs, files, chat` to design next product experiment.",
+            "Track community `r/projectmanagement` for follow-up discussions and iteration feedback."
+          ],
+          "confidence": 0.95,
+          "urgency": 0.9,
+          "product_fit": 0.9,
+          "priority": 0.7695
+        },
+        {
+          "title": "any tools are you ",
+          "category": "strategy",
+          "problem_definition": "any tools are you using just to manage clients",
+          "evidence_chain": [
+            {
+              "title": "So I sat down last week and actually listed out every tool I use to manage client projects. The list:\n\n* Notion (project",
+              "url": "https://www.reddit.com/r/SaaS/comments/1qui7d9/freelancers_how_many_tools_are_you_using_just_to/",
+              "note": "社区: r/SaaS | 赞数 4"
+            },
+            {
+              "title": "I’ve seen all the boring “remote kills productivity” rhetoric, so I decided to do a little experiment for myself.\n\nI tra",
+              "url": "https://www.reddit.com/r/remotework/comments/1nzikof/i_tracked_my_productivity_for_3_months_remote_vs/",
+              "note": "社区: r/remotework | 赞数 3426"
+            },
+            {
+              "title": "I’m an IT PM and I think I’m starting to hate it. I’ve been here around 2 years and feel like I’m constantly a ball of a",
+              "url": "https://www.reddit.com/r/projectmanagement/comments/1fzxuyb/i_think_i_hate_my_project_management_job/",
+              "note": "社区: r/projectmanagement | 赞数 167"
+            }
+          ],
+          "suggested_actions": [
+            "Focus on `any tools are you using just to manage clients`, interview core users to validate priority.",
+            "Reference opportunity `any tools are you using just to manage clients` to design next product experiment.",
+            "Track community `r/projectmanagement` for follow-up discussions and iteration feedback."
+          ],
+          "confidence": 0.95,
+          "urgency": 0.9,
+          "product_fit": 0.9,
+          "priority": 0.7695
+        },
+        {
+          "title": "Looking for advice",
+          "category": "strategy",
+          "problem_definition": "Looking for advice on PM tools (and workflow) - small, remote team of junior developers",
+          "evidence_chain": [
+            {
+              "title": "I'm looking for a project management tool to manage a small remote team of (primarily adhoc) junior software developers.",
+              "url": "https://www.reddit.com/r/projectmanagement/comments/f1lvnj/looking_for_advice_on_pm_tools_and_workflow_small/",
+              "note": "社区: r/projectmanagement | 赞数 1"
+            },
+            {
+              "title": "I’ve seen all the boring “remote kills productivity” rhetoric, so I decided to do a little experiment for myself.\n\nI tra",
+              "url": "https://www.reddit.com/r/remotework/comments/1nzikof/i_tracked_my_productivity_for_3_months_remote_vs/",
+              "note": "社区: r/remotework | 赞数 3426"
+            },
+            {
+              "title": "I’m an IT PM and I think I’m starting to hate it. I’ve been here around 2 years and feel like I’m constantly a ball of a",
+              "url": "https://www.reddit.com/r/projectmanagement/comments/1fzxuyb/i_think_i_hate_my_project_management_job/",
+              "note": "社区: r/projectmanagement | 赞数 167"
+            }
+          ],
+          "suggested_actions": [
+            "Focus on `Looking for advice on PM tools (and workflow) - small, remote team of junior developers`, interview core users to validate priority.",
+            "Reference opportunity `Looking for advice on PM tools (and workflow) - small, remote team of junior developers` to design next product experiment.",
+            "Track community `r/projectmanagement` for follow-up discussions and iteration feedback."
+          ],
+          "confidence": 0.95,
+          "urgency": 0.9,
+          "product_fit": 0.9,
+          "priority": 0.7695
+        }
+      ],
+      "purchase_drivers": [
+        {
+          "title": "效率提升与省时省心",
+          "description": "高频痛点集中在：I think I hate my project management job / I’m an IT PM and I think I’m starting to hate it",
+          "rationale": "高频痛点集中在：I think I hate my project management job / I’m an IT PM and I think I’m starting to hate it",
+          "actions": [
+            "减少重复操作",
+            "提升日常效率"
+          ],
+          "source_pains": [
+            "I think I hate my project management job",
+            "I’m an IT PM and I think I’m starting to hate it"
+          ]
+        }
+      ],
+      "market_health": {
+        "saturation_level": "low",
+        "saturation_score": 0.0,
+        "ps_ratio": 0.0,
+        "ps_ratio_assessment": "imbalanced"
+      },
+      "entity_summary": {
+        "brands": [
+          {
+            "name": "Notion",
+            "mentions": 6
+          },
+          {
+            "name": "Trello",
+            "mentions": 2
+          }
+        ],
+        "features": [
+          {
+            "name": "calendar",
+            "mentions": 10
+          }
+        ],
+        "pain_points": [],
+        "channels": [],
+        "logistics": [],
+        "risks": []
+      },
+      "entity_leaderboard": [
+        {
+          "name": "calendar",
+          "category": "features",
+          "mentions": 10
+        },
+        {
+          "name": "Notion",
+          "category": "brands",
+          "mentions": 6
+        },
+        {
+          "name": "Trello",
+          "category": "brands",
+          "mentions": 2
+        }
+      ],
+      "competitor_layers_summary": [
+        {
+          "layer": "attributes",
+          "label": "产品属性/噪音 (Attributes)",
+          "top_competitors": [
+            {
+              "name": "Best Tool",
+              "mentions": 1,
+              "sentiment": "positive"
+            },
+            {
+              "name": "Management",
+              "mentions": 1,
+              "sentiment": "positive"
+            },
+            {
+              "name": "PM Tool",
+              "mentions": 1,
+              "sentiment": "positive"
+            }
+          ],
+          "threats": "用户反馈积极"
+        },
+        {
+          "layer": "brands",
+          "label": "Brands",
+          "top_competitors": [
+            {
+              "name": "For Project",
+              "mentions": 1,
+              "sentiment": "positive"
+            },
+            {
+              "name": "B2B SaaS",
+              "mentions": 1,
+              "sentiment": "mixed"
+            },
+            {
+              "name": "Notion",
+              "mentions": 1,
+              "sentiment": "mixed"
+            }
+          ],
+          "threats": "用户反馈积极"
+        },
+        {
+          "layer": "channels",
+          "label": "信息渠道 (Channels)",
+          "top_competitors": [
+            {
+              "name": "Google Sheets",
+              "mentions": 1,
+              "sentiment": "mixed"
+            }
+          ],
+          "threats": "社区讨论热度高"
+        }
+      ],
+      "channel_breakdown": []
+    },
+    "metadata": {
+      "analysis_version": "1.0",
+      "confidence_score": 0.39,
+      "processing_time_seconds": 136.0,
+      "cache_hit_rate": 0.0,
+      "total_mentions": 13,
+      "recovery_applied": null,
+      "fallback_quality": null,
+      "llm_used": true,
+      "llm_model": "x-ai/grok-4.1-fast",
+      "llm_rounds": 0,
+      "lexicon_version": "v2.0",
+      "market_enhancements": {
+        "mode": "community_market",
+        "personas": [
+          {
+            "community": "r/SaaS",
+            "persona_label": "探索者",
+            "traits": [
+              "乐于尝试",
+              "关注性价比"
+            ],
+            "strategy": "从共情与价值入手",
+            "confidence": 0.65,
+            "method": "rules"
+          },
+          {
+            "community": "r/projectmanagement",
+            "persona_label": "探索者",
+            "traits": [
+              "乐于尝试",
+              "关注性价比"
+            ],
+            "strategy": "从共情与价值入手",
+            "confidence": 0.65,
+            "method": "rules"
+          },
+          {
+            "community": "r/remotework",
+            "persona_label": "探索者",
+            "traits": [
+              "乐于尝试",
+              "关注性价比"
+            ],
+            "strategy": "从共情与价值入手",
+            "confidence": 0.65,
+            "method": "rules"
+          },
+          {
+            "community": "r/ProductivityApps",
+            "persona_label": "探索者",
+            "traits": [
+              "乐于尝试",
+              "关注性价比"
+            ],
+            "strategy": "从共情与价值入手",
+            "confidence": 0.65,
+            "method": "rules"
+          },
+          {
+            "community": "r/productivity",
+            "persona_label": "探索者",
+            "traits": [
+              "乐于尝试",
+              "关注性价比"
+            ],
+            "strategy": "从共情与价值入手",
+            "confidence": 0.65,
+            "method": "rules"
+          },
+          {
+            "community": "r/startups",
+            "persona_label": "探索者",
+            "traits": [
+              "乐于尝试",
+              "关注性价比"
+            ],
+            "strategy": "从共情与价值入手",
+            "confidence": 0.65,
+            "method": "rules"
+          },
+          {
+            "community": "r/notion",
+            "persona_label": "探索者",
+            "traits": [
+              "乐于尝试",
+              "关注性价比"
+            ],
+            "strategy": "从共情与价值入手",
+            "confidence": 0.65,
+            "method": "rules"
+          },
+          {
+            "community": "r/asana",
+            "persona_label": "探索者",
+            "traits": [
+              "乐于尝试",
+              "关注性价比"
+            ],
+            "strategy": "从共情与价值入手",
+            "confidence": 0.65,
+            "method": "rules"
+          },
+          {
+            "community": "r/trello",
+            "persona_label": "探索者",
+            "traits": [
+              "乐于尝试",
+              "关注性价比"
+            ],
+            "strategy": "从共情与价值入手",
+            "confidence": 0.65,
+            "method": "rules"
+          },
+          {
+            "community": "r/Entrepreneur",
+            "persona_label": "探索者",
+            "traits": [
+              "乐于尝试",
+              "关注性价比"
+            ],
+            "strategy": "从共情与价值入手",
+            "confidence": 0.65,
+            "method": "rules"
+          }
+        ],
+        "quotes": [
+          {
+            "description": "I think I hate my project management job",
+            "quotes": [
+              {
+                "text": "I’m fine with doing project paperwork, putting together the plans (wi...",
+                "score": 0.1,
+                "sentiment": 0.0,
+                "relevance": 0.25,
+                "length": 72,
+                "source": "user_examples"
+              },
+              {
+                "text": "I’ve seen all the boring “remote kills productivity” rhetoric, so I decided to do a little experiment for myself.",
+                "score": 0.0,
+                "sentiment": 0.0,
+                "relevance": 0.0,
+                "length": 113,
+                "source": "example_posts"
+              }
+            ]
+          },
+          {
+            "description": "I’m an IT PM and I think I’m starting to hate it",
+            "quotes": [
+              {
+                "text": "I’ve seen all the boring “remote kills productivity” rhetoric, so I decided to do a little experiment for myself.",
+                "score": 0.0,
+                "sentiment": 0.0,
+                "relevance": 0.0,
+                "length": 113,
+                "source": "example_posts"
+              },
+              {
+                "text": "I tracked everything I could measure over **3 months**: one month fully in-office,...",
+                "score": 0.0,
+                "sentiment": 0.0,
+                "relevance": 0.0,
+                "length": 85,
+                "source": "example_posts"
+              }
+            ]
+          }
+        ],
+        "saturation": [
+          {
+            "community": "r/SaaS",
+            "brands": [
+              {
+                "brand": "Best Tool",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "For Project",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Management",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "PM Tool",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Tasks",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Upbase Review",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "B2B SaaS",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Spent",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Upbase",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Gmail",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Google Sheets",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Notion",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              }
+            ],
+            "overall_saturation": 0.0
+          },
+          {
+            "community": "r/projectmanagement",
+            "brands": [
+              {
+                "brand": "Best Tool",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "For Project",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Management",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "PM Tool",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Tasks",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Upbase Review",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "B2B SaaS",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Spent",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Upbase",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Gmail",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Google Sheets",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Notion",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              }
+            ],
+            "overall_saturation": 0.0
+          },
+          {
+            "community": "r/remotework",
+            "brands": [
+              {
+                "brand": "Best Tool",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "For Project",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Management",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "PM Tool",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Tasks",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Upbase Review",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "B2B SaaS",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Spent",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Upbase",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Gmail",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Google Sheets",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Notion",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              }
+            ],
+            "overall_saturation": 0.0
+          },
+          {
+            "community": "r/ProductivityApps",
+            "brands": [
+              {
+                "brand": "Best Tool",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "For Project",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Management",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "PM Tool",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Tasks",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Upbase Review",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "B2B SaaS",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Spent",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Upbase",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Gmail",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Google Sheets",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Notion",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              }
+            ],
+            "overall_saturation": 0.0
+          },
+          {
+            "community": "r/productivity",
+            "brands": [
+              {
+                "brand": "Best Tool",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "For Project",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Management",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "PM Tool",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Tasks",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Upbase Review",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "B2B SaaS",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Spent",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Upbase",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Gmail",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Google Sheets",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Notion",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              }
+            ],
+            "overall_saturation": 0.0
+          },
+          {
+            "community": "r/startups",
+            "brands": [
+              {
+                "brand": "Best Tool",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "For Project",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Management",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "PM Tool",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Tasks",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Upbase Review",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "B2B SaaS",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Spent",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Upbase",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Gmail",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Google Sheets",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Notion",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              }
+            ],
+            "overall_saturation": 0.0
+          },
+          {
+            "community": "r/notion",
+            "brands": [
+              {
+                "brand": "Best Tool",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "For Project",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Management",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "PM Tool",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Tasks",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Upbase Review",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "B2B SaaS",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Spent",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Upbase",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Gmail",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Google Sheets",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Notion",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              }
+            ],
+            "overall_saturation": 0.0
+          },
+          {
+            "community": "r/asana",
+            "brands": [
+              {
+                "brand": "Best Tool",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "For Project",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Management",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "PM Tool",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Tasks",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Upbase Review",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "B2B SaaS",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Spent",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Upbase",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Gmail",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Google Sheets",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Notion",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              }
+            ],
+            "overall_saturation": 0.0
+          },
+          {
+            "community": "r/trello",
+            "brands": [
+              {
+                "brand": "Best Tool",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "For Project",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Management",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "PM Tool",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Tasks",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Upbase Review",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "B2B SaaS",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Spent",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Upbase",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Gmail",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Google Sheets",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Notion",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              }
+            ],
+            "overall_saturation": 0.0
+          },
+          {
+            "community": "r/Entrepreneur",
+            "brands": [
+              {
+                "brand": "Best Tool",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "For Project",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Management",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "PM Tool",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Tasks",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Upbase Review",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "B2B SaaS",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Spent",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Upbase",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Gmail",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Google Sheets",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Notion",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              }
+            ],
+            "overall_saturation": 0.0
+          }
+        ],
+        "gtm_plans": {
+          "oppty-1": {
+            "opportunity_id": "oppty-1",
+            "target_community": "r/SaaS",
+            "actions": [
+              {
+                "day": "周一",
+                "phase": "W1 - 潜伏",
+                "action": "在 r/r/SaaS 3个抱怨'Best Tool For Project Management | All-in-one PM Tool For Project Management like Tasks, calendar, docs, files, chat'的帖子下回复，表达共情与求证（强调性价比）",
+                "goal": "建立可信度"
+              },
+              {
+                "day": "周二",
+                "phase": "W1 - 价值",
+                "action": "发布帖子：[讨论] 我受够了Best Tool For Project Management | All-in-one PM Tool For Project Management like Tasks, calendar, docs, files, chat，所以我整理了一份可执行的改进清单（强调性价比）",
+                "goal": "成为话题引领者"
+              },
+              {
+                "day": "周四",
+                "phase": "W1 - 讨论",
+                "action": "在 r/r/SaaS 发起征询：大家如何看待Best Tool For Project Management | All-in-one PM Tool For Project Management like Tasks, calendar, docs, files, chat？我收集到一份可执行的改进清单（强调性价比）",
+                "goal": "扩大样本、验证共识"
+              },
+              {
+                "day": "周一",
+                "phase": "W2 - 复盘",
+                "action": "复盘上周讨论要点，并补充3条新的证据源（不带外链）（强调性价比）",
+                "goal": "沉淀可信的知识"
+              },
+              {
+                "day": "周三",
+                "phase": "W2 - 软植入",
+                "action": "在自己的帖子里自然提及解决思路：一份可执行的改进清单（强调性价比）",
+                "goal": "测试市场反馈"
+              },
+              {
+                "day": "周五",
+                "phase": "W2 - 反馈",
+                "action": "发起投票或征集用例：你们如何规避Best Tool For Project Management | All-in-one PM Tool For Project Management like Tasks, calendar, docs, files, chat？（强调性价比）",
+                "goal": "收集可操作反馈"
+              }
+            ],
+            "compliance_warning": null
+          }
+        }
+      }
+    },
+    "overview": {
+      "sentiment": {
+        "positive": 46,
+        "negative": 15,
+        "neutral": 38
+      },
+      "top_communities": [
+        {
+          "name": "r/SaaS",
+          "mentions": 7,
+          "relevance": 0,
+          "category": "saas",
+          "daily_posts": 65,
+          "avg_comment_length": 84,
+          "from_cache": false,
+          "members": 450000
+        },
+        {
+          "name": "r/projectmanagement",
+          "mentions": 5,
+          "relevance": 0,
+          "category": "profile_seed",
+          "daily_posts": 80,
+          "avg_comment_length": 70,
+          "from_cache": false,
+          "members": 100000
+        },
+        {
+          "name": "r/remotework",
+          "mentions": 5,
+          "relevance": 0,
+          "category": "profile_seed",
+          "daily_posts": 80,
+          "avg_comment_length": 70,
+          "from_cache": false,
+          "members": 100000
+        },
+        {
+          "name": "r/ProductivityApps",
+          "mentions": 3,
+          "relevance": 0,
+          "category": "discovered",
+          "daily_posts": 80,
+          "avg_comment_length": 70,
+          "from_cache": false,
+          "members": 100000
+        },
+        {
+          "name": "r/productivity",
+          "mentions": 2,
+          "relevance": 0,
+          "category": "profile_seed",
+          "daily_posts": 80,
+          "avg_comment_length": 70,
+          "from_cache": false,
+          "members": 100000
+        }
+      ],
+      "total_communities": 10,
+      "top_n": 5,
+      "seed_source": "pool+discovery"
+    },
+    "stats": {
+      "total_mentions": 13,
+      "positive_mentions": 6,
+      "negative_mentions": 2,
+      "neutral_mentions": 5
+    },
+    "sources": {
+      "communities": [
+        "r/SaaS",
+        "r/projectmanagement",
+        "r/remotework",
+        "r/ProductivityApps",
+        "r/productivity",
+        "r/startups",
+        "r/notion",
+        "r/asana",
+        "r/trello",
+        "r/Entrepreneur"
+      ],
+      "posts_analyzed": 13,
+      "cache_hit_rate": 0.0,
+      "ps_ratio": 0.0,
+      "analysis_duration_seconds": 136,
+      "hybrid_posts_used": null,
+      "reddit_api_calls": 0,
+      "collection_warnings": [],
+      "product_description": "远程团队项目管理与协作工具，解决跨时区沟通、任务拆解与进度跟踪问题，关注 Notion/Asana/Trello 的使用痛点与替代机会。",
+      "communities_detail": [
+        {
+          "name": "r/SaaS",
+          "categories": [
+            "saas",
+            "pricing",
+            "metrics"
+          ],
+          "mentions": 7,
+          "daily_posts": 65,
+          "avg_comment_length": 84,
+          "cache_hit_rate": 0.0,
+          "from_cache": false
+        },
+        {
+          "name": "r/projectmanagement",
+          "categories": [
+            "profile_seed"
+          ],
+          "mentions": 5,
+          "daily_posts": 80,
+          "avg_comment_length": 70,
+          "cache_hit_rate": 0.0,
+          "from_cache": false
+        },
+        {
+          "name": "r/remotework",
+          "categories": [
+            "profile_seed"
+          ],
+          "mentions": 5,
+          "daily_posts": 80,
+          "avg_comment_length": 70,
+          "cache_hit_rate": 0.0,
+          "from_cache": false
+        },
+        {
+          "name": "r/ProductivityApps",
+          "categories": [
+            "discovered"
+          ],
+          "mentions": 3,
+          "daily_posts": 80,
+          "avg_comment_length": 70,
+          "cache_hit_rate": 0.0,
+          "from_cache": false
+        },
+        {
+          "name": "r/productivity",
+          "categories": [
+            "profile_seed"
+          ],
+          "mentions": 2,
+          "daily_posts": 80,
+          "avg_comment_length": 70,
+          "cache_hit_rate": 0.0,
+          "from_cache": false
+        },
+        {
+          "name": "r/startups",
+          "categories": [
+            "startup",
+            "business",
+            "founder"
+          ],
+          "mentions": 1,
+          "daily_posts": 180,
+          "avg_comment_length": 72,
+          "cache_hit_rate": 0.0,
+          "from_cache": false
+        },
+        {
+          "name": "r/notion",
+          "categories": [
+            "profile_seed"
+          ],
+          "mentions": 0,
+          "daily_posts": 80,
+          "avg_comment_length": 70,
+          "cache_hit_rate": 0.0,
+          "from_cache": false
+        },
+        {
+          "name": "r/asana",
+          "categories": [
+            "profile_seed"
+          ],
+          "mentions": 0,
+          "daily_posts": 80,
+          "avg_comment_length": 70,
+          "cache_hit_rate": 0.0,
+          "from_cache": false
+        },
+        {
+          "name": "r/trello",
+          "categories": [
+            "profile_seed"
+          ],
+          "mentions": 0,
+          "daily_posts": 80,
+          "avg_comment_length": 70,
+          "cache_hit_rate": 0.0,
+          "from_cache": false
+        },
+        {
+          "name": "r/Entrepreneur",
+          "categories": [
+            "business",
+            "marketing",
+            "sales"
+          ],
+          "mentions": 0,
+          "daily_posts": 150,
+          "avg_comment_length": 64,
+          "cache_hit_rate": 0.0,
+          "from_cache": false
+        }
+      ],
+      "recovery_strategy": null,
+      "fallback_quality": null,
+      "dedup_stats": {
+        "total_posts": 15,
+        "fallback_pairs": 210,
+        "candidate_pairs": 210,
+        "similarity_checks": 210
+      },
+      "duplicates_summary": [],
+      "seed_source": "pool+discovery",
+      "data_source": "real",
+      "report_tier": "A_full",
+      "analysis_blocked": null,
+      "facts_v2_quality": {
+        "tier": "A_full",
+        "flags": [],
+        "passed": true,
+        "metrics": {
+          "agg_posts": 13,
+          "solutions": 6,
+          "good_pains": 2,
+          "good_brands": 0,
+          "agg_comments": 0,
+          "source_posts": 13,
+          "coverage_tier": "unknown",
+          "coverage_total": 0,
+          "on_topic_ratio": 1.0,
+          "sample_checked": 13,
+          "source_comments": 0,
+          "db_comments_total": 0,
+          "topic_terms_count": 33,
+          "topic_terms_source": "profile",
+          "coverage_months_avg": 0.0,
+          "coverage_months_max": 0,
+          "coverage_months_min": 0,
+          "min_sample_comments": 0,
+          "db_comments_eligible": 0,
+          "coverage_capped_count": 0,
+          "topic_profiles_status": "loaded",
+          "coverage_status_counts": {},
+          "semantic_search_status": "semantic+keyword",
+          "comments_pipeline_status": "disabled",
+          "pain_clusters_pipeline_status": "engine_tfidf_fallback"
+        }
+      },
+      "trend_source": [
+        "coverage_unknown"
+      ],
+      "trend_degraded": true,
+      "facts_slice": {
+        "meta": {
+          "topic": "Remote Team SaaS Collaboration",
+          "topic_profile_id": "saas_collaboration_v1",
+          "product_description": "远程团队项目管理与协作工具，解决跨时区沟通、任务拆解与进度跟踪问题，关注 Notion/Asana/Trello 的使用痛点与替代机会。"
+        },
+        "ps_ratio": 0.0,
+        "aggregates": {
+          "communities": [
+            {
+              "name": "r/saas",
+              "posts": 4,
+              "comments": 0
+            },
+            {
+              "name": "r/projectmanagement",
+              "posts": 2,
+              "comments": 0
+            },
+            {
+              "name": "r/productivityapps",
+              "posts": 2,
+              "comments": 0
+            },
+            {
+              "name": "r/ecommerce",
+              "posts": 2,
+              "comments": 0
+            },
+            {
+              "name": "r/remotework",
+              "posts": 1,
+              "comments": 0
+            },
+            {
+              "name": "r/artificial",
+              "posts": 1,
+              "comments": 0
+            },
+            {
+              "name": "r/stripe",
+              "posts": 1,
+              "comments": 0
+            }
+          ]
+        },
+        "diagnostics": {
+          "pain_clusters_error": "cannot access local variable 'sources' where it is not associated with a value",
+          "topic_profiles_path": "/Users/hujia/Desktop/RedditSignalScanner/backend/config/topic_profiles.yaml",
+          "topic_profiles_status": "loaded",
+          "semantic_search_status": "semantic+keyword",
+          "pain_clusters_pipeline_status": "engine_tfidf_fallback"
+        },
+        "top_drivers": [
+          {
+            "title": "效率提升与省时省心",
+            "actions": [
+              "减少重复操作",
+              "提升日常效率"
+            ],
+            "rationale": "高频痛点集中在：I think I hate my project management job / I’m an IT PM and I think I’m starting to hate it",
+            "description": "高频痛点集中在：I think I hate my project management job / I’m an IT PM and I think I’m starting to hate it",
+            "source_pains": [
+              "I think I hate my project management job",
+              "I’m an IT PM and I think I’m starting to hate it"
+            ]
+          }
+        ],
+        "data_lineage": {
+          "coverage": {
+            "capped_count": 0,
+            "status_counts": {},
+            "community_statuses": [],
+            "coverage_months_avg": 0,
+            "coverage_months_max": 0,
+            "coverage_months_min": 0,
+            "missing_communities": [
+              "r/asana",
+              "r/entrepreneur",
+              "r/notion",
+              "r/productivity",
+              "r/productivityapps",
+              "r/projectmanagement",
+              "r/remotework",
+              "r/saas",
+              "r/startups",
+              "r/trello"
+            ]
+          },
+          "counts_db": {
+            "posts_current": 4,
+            "comments_total": 0,
+            "comments_eligible": 0
+          },
+          "target_ids": [
+            "689b3f24-a810-5ff0-9a3b-7c2690252f71",
+            "793b6a93-eaef-543c-a688-66ccaf7a597c",
+            "646475ef-a732-51b9-afd9-4fb7726f1e5c",
+            "841654d7-0562-5445-932b-2a64c67d5404",
+            "b312bd8e-1729-5788-abb4-ea6b209bbcc6"
+          ],
+          "source_range": {
+            "posts": 13,
+            "comments": 0
+          },
+          "crawler_run_ids": [
+            "a98687a4-6358-5aca-b91d-9eb92fd0b5d3"
+          ],
+          "target_ids_total": 5,
+          "target_ids_truncated": false,
+          "comments_pipeline_status": "disabled"
+        },
+        "trend_summary": {
+          "label": "爆发式增长",
+          "reason": "近一月讨论量 47，环比 422%，近三月速度系数 2.52；趋势数据不完整（coverage_unknown）",
+          "series": [
+            {
+              "count": 0,
+              "month": "2025-04",
+              "trend": "➡️ STABLE",
+              "growth_rate": null
+            },
+            {
+              "count": 0,
+              "month": "2025-05",
+              "trend": "📈 RISING",
+              "growth_rate": 0.0
+            },
+            {
+              "count": 0,
+              "month": "2025-06",
+              "trend": "📈 RISING",
+              "growth_rate": 0.0
+            },
+            {
+              "count": 0,
+              "month": "2025-07",
+              "trend": "📈 RISING",
+              "growth_rate": 0.0
+            },
+            {
+              "count": 0,
+              "month": "2025-08",
+              "trend": "📈 RISING",
+              "growth_rate": 0.0
+            },
+            {
+              "count": 0,
+              "month": "2025-09",
+              "trend": "📈 RISING",
+              "growth_rate": 0.0
+            },
+            {
+              "count": 0,
+              "month": "2025-10",
+              "trend": "📈 RISING",
+              "growth_rate": 0.0
+            },
+            {
+              "count": 0,
+              "month": "2025-11",
+              "trend": "📈 RISING",
+              "growth_rate": 0.0
+            },
+            {
+              "count": 0,
+              "month": "2025-12",
+              "trend": "📈 RISING",
+              "growth_rate": 0.0
+            },
+            {
+              "count": 0,
+              "month": "2026-01",
+              "trend": "📈 RISING",
+              "growth_rate": 0.0
+            },
+            {
+              "count": 9,
+              "month": "2026-02",
+              "trend": "🔥 EXPLODING",
+              "growth_rate": 9.0
+            },
+            {
+              "count": 47,
+              "month": "2026-03",
+              "trend": "🔥 EXPLODING",
+              "growth_rate": 4.2222,
+              "recent_velocity": 2.52
+            }
+          ]
+        },
+        "knowledge_graph": {
+          "drivers": [
+            {
+              "title": "效率提升与省时省心",
+              "actions": [
+                "减少重复操作",
+                "提升日常效率"
+              ],
+              "description": "高频痛点集中在：I think I hate my project management job / I’m an IT PM and I think I’m starting to hate it",
+              "source_pains": [
+                "I think I hate my project management job",
+                "I’m an IT PM and I think I’m starting to hate it"
+              ]
+            }
+          ],
+          "evidence": [],
+          "communities": [
+            {
+              "name": "r/saas",
+              "posts": 4,
+              "comments": 0
+            },
+            {
+              "name": "r/projectmanagement",
+              "posts": 2,
+              "comments": 0
+            },
+            {
+              "name": "r/productivityapps",
+              "posts": 2,
+              "comments": 0
+            },
+            {
+              "name": "r/ecommerce",
+              "posts": 2,
+              "comments": 0
+            },
+            {
+              "name": "r/remotework",
+              "posts": 1,
+              "comments": 0
+            },
+            {
+              "name": "r/artificial",
+              "posts": 1,
+              "comments": 0
+            },
+            {
+              "name": "r/stripe",
+              "posts": 1,
+              "comments": 0
+            }
+          ],
+          "pain_points": [
+            {
+              "name": "",
+              "evidence": [],
+              "mentions": 0,
+              "evidence_ids": [
+                "1fzxuyb"
+              ],
+              "unique_authors": 0
+            },
+            {
+              "name": "",
+              "evidence": [],
+              "mentions": 0,
+              "evidence_ids": [
+                "1fzxuyb"
+              ],
+              "unique_authors": 0
+            }
+          ]
+        },
+        "sample_posts_db": [
+          {
+            "body": "I’ve seen all the boring “remote kills productivity” rhetoric, so I decided to do a little experiment for myself.\n\nI tracked everything I could measure over **3 months**: one month fully in-office,...",
+            "text": "I tracked my productivity for 3 months remote vs in-office — here’s what actually changed I’ve seen all the boring “remote kills productivity” rhetoric, so I decided to do a little experiment for myself.\n\nI tracked everything I could measure over **3 months**: one month fully in-office,...",
+            "title": "I tracked my productivity for 3 months remote vs in-office — here’s what actually changed I’ve seen all the boring “remote kills productivity” rhetoric, so I decided to do a little experiment for myself.\n\nI tracked everything I could measure over **3 months**: one month fully in-office,...",
+            "subreddit": "r/remotework"
+          },
+          {
+            "body": "I’m an IT PM and I think I’m starting to hate it. I’ve been here around 2 years and feel like I’m constantly a ball of anxiety. I’m fine with doing project paperwork, putting together the plans (wi...",
+            "text": "I think I hate my project management job I’m an IT PM and I think I’m starting to hate it. I’ve been here around 2 years and feel like I’m constantly a ball of anxiety. I’m fine with doing project paperwork, putting together the plans (wi...",
+            "title": "I think I hate my project management job I’m an IT PM and I think I’m starting to hate it. I’ve been here around 2 years and feel like I’m constantly a ball of anxiety. I’m fine with doing project paperwork, putting together the plans (wi...",
+            "subreddit": "r/projectmanagement"
+          },
+          {
+            "body": "As a manager of a remote-first company, I’ve gone deep into the project-tracking rabbit hole to figure out what actually works across different teams and workflows. Here’s what I’d recommend, based...",
+            "text": "Best project tracking software by use case, here’s what I’d recommend after testing tons As a manager of a remote-first company, I’ve gone deep into the project-tracking rabbit hole to figure out what actually works across different teams and workflows. Here’s what I’d recommend, based...",
+            "title": "Best project tracking software by use case, here’s what I’d recommend after testing tons As a manager of a remote-first company, I’ve gone deep into the project-tracking rabbit hole to figure out what actually works across different teams and workflows. Here’s what I’d recommend, based...",
+            "subreddit": "r/productivityapps"
+          },
+          {
+            "body": "Running a small ecommerce brand means wearing six hats and moving fast enough that things slip constantly. Last month we almost missed a supplier deadline because the follow-up task lived in a slac...",
+            "text": "Ecommerce team workflow for small brands, how do you keep ops from becoming chaos? Running a small ecommerce brand means wearing six hats and moving fast enough that things slip constantly. Last month we almost missed a supplier deadline because the follow-up task lived in a slac...",
+            "title": "Ecommerce team workflow for small brands, how do you keep ops from becoming chaos? Running a small ecommerce brand means wearing six hats and moving fast enough that things slip constantly. Last month we almost missed a supplier deadline because the follow-up task lived in a slac...",
+            "subreddit": "r/ecommerce"
+          },
+          {
+            "body": "I’m a believer in AI's potential to improve how my team works, but most AI feature launches in this space end up being more hype than reality.\n\nSo I've tested out the most hyped AI assistant from t...",
+            "text": "Checking all the latest project management AI assistants for hype vs reality I’m a believer in AI's potential to improve how my team works, but most AI feature launches in this space end up being more hype than reality.\n\nSo I've tested out the most hyped AI assistant from t...",
+            "title": "Checking all the latest project management AI assistants for hype vs reality I’m a believer in AI's potential to improve how my team works, but most AI feature launches in this space end up being more hype than reality.\n\nSo I've tested out the most hyped AI assistant from t...",
+            "subreddit": "r/productivityapps"
+          },
+          {
+            "body": "i’m 29 and managing a small remote team at a startup. we’ve been juggling spreadsheets, chat apps, and some random free tools to keep track of tasks, but it’s starting to feel chaotic. my boss aske...",
+            "text": "best project management software 2026 for small teams, what actually works in real life? i’m 29 and managing a small remote team at a startup. we’ve been juggling spreadsheets, chat apps, and some random free tools to keep track of tasks, but it’s starting to feel chaotic. my boss aske...",
+            "title": "best project management software 2026 for small teams, what actually works in real life? i’m 29 and managing a small remote team at a startup. we’ve been juggling spreadsheets, chat apps, and some random free tools to keep track of tasks, but it’s starting to feel chaotic. my boss aske...",
+            "subreddit": "r/saas"
+          },
+          {
+            "body": "So I sat down last week and actually listed out every tool I use to manage client projects. The list:\n\n* Notion (project tracking)\n* Google Sheets (budgets, timelines)\n* Gmail (client communication...",
+            "text": "Freelancers: how many tools are you using just to manage clients? I counted mine and it got depressing. So I sat down last week and actually listed out every tool I use to manage client projects. The list:\n\n* Notion (project tracking)\n* Google Sheets (budgets, timelines)\n* Gmail (client communication...",
+            "title": "Freelancers: how many tools are you using just to manage clients? I counted mine and it got depressing. So I sat down last week and actually listed out every tool I use to manage client projects. The list:\n\n* Notion (project tracking)\n* Google Sheets (budgets, timelines)\n* Gmail (client communication...",
+            "subreddit": "r/saas"
+          },
+          {
+            "body": "\"When Ukrainian mathematician Maryna Viazovska received a Fields Medal—widely regarded as the Nobel Prize for mathematics—in July 2022, it was big news. Not only was she the second woman to accept ...",
+            "text": "Watershed Moment for AI–Human Collaboration in Math \"When Ukrainian mathematician Maryna Viazovska received a Fields Medal—widely regarded as the Nobel Prize for mathematics—in July 2022, it was big news. Not only was she the second woman to accept ...",
+            "title": "Watershed Moment for AI–Human Collaboration in Math \"When Ukrainian mathematician Maryna Viazovska received a Fields Medal—widely regarded as the Nobel Prize for mathematics—in July 2022, it was big news. Not only was she the second woman to accept ...",
+            "subreddit": "r/artificial"
+          },
+          {
+            "body": "My payout activity got suspended due to a pending verification task I haven’t done yet\n\na payout was initiated and showing as “in transit” about an hour before the suspension.\n\nWill that one still ...",
+            "text": "Payout suspended for pending task does it affect the one already in transit? My payout activity got suspended due to a pending verification task I haven’t done yet\n\na payout was initiated and showing as “in transit” about an hour before the suspension.\n\nWill that one still ...",
+            "title": "Payout suspended for pending task does it affect the one already in transit? My payout activity got suspended due to a pending verification task I haven’t done yet\n\na payout was initiated and showing as “in transit” about an hour before the suspension.\n\nWill that one still ...",
+            "subreddit": "r/stripe"
+          },
+          {
+            "body": "I'm looking for a project management tool to manage a small remote team of (primarily adhoc) junior software developers.\n\nLooking around, I see that tools like Asana, Trello and Basecamp are very p...",
+            "text": "Looking for advice on PM tools (and workflow) - small, remote team of junior developers I'm looking for a project management tool to manage a small remote team of (primarily adhoc) junior software developers.\n\nLooking around, I see that tools like Asana, Trello and Basecamp are very p...",
+            "title": "Looking for advice on PM tools (and workflow) - small, remote team of junior developers I'm looking for a project management tool to manage a small remote team of (primarily adhoc) junior software developers.\n\nLooking around, I see that tools like Asana, Trello and Basecamp are very p...",
+            "subreddit": "r/projectmanagement"
+          },
+          {
+            "body": "I run a product based business with an established presence selling in person and via retailers. \n\nWe have an online shop that does ok, it is essentially used by repeat customers who have purchased...",
+            "text": "Advice for hiring remote help to grow e-commerce aspect of retail established product business I run a product based business with an established presence selling in person and via retailers. \n\nWe have an online shop that does ok, it is essentially used by repeat customers who have purchased...",
+            "title": "Advice for hiring remote help to grow e-commerce aspect of retail established product business I run a product based business with an established presence selling in person and via retailers. \n\nWe have an online shop that does ok, it is essentially used by repeat customers who have purchased...",
+            "subreddit": "r/ecommerce"
+          },
+          {
+            "body": "Spent a weekend doing something I'd been meaning to do for a while - systematically testing how visible B2B SaaS tools actually are in AI search.\n\nThe methodology was simple. I took 15 project mana...",
+            "text": "I ran 15 B2B project management tools through 200 ChatGPT and Gemini queries. The results were pretty alarming. Spent a weekend doing something I'd been meaning to do for a while - systematically testing how visible B2B SaaS tools actually are in AI search.\n\nThe methodology was simple. I took 15 project mana...",
+            "title": "I ran 15 B2B project management tools through 200 ChatGPT and Gemini queries. The results were pretty alarming. Spent a weekend doing something I'd been meaning to do for a while - systematically testing how visible B2B SaaS tools actually are in AI search.\n\nThe methodology was simple. I took 15 project mana...",
+            "subreddit": "r/saas"
+          },
+          {
+            "body": "**Upbase is an all-in-one project management** application designed with individuals and small teams in mind.\n\nWhat distinguishes Upbase from the vast array of project management software available...",
+            "text": "Upbase Review | Best Tool For Project Management | All-in-one PM Tool For Project Management like Tasks, calendar, docs, files, chat. **Upbase is an all-in-one project management** application designed with individuals and small teams in mind.\n\nWhat distinguishes Upbase from the vast array of project management software available...",
+            "title": "Upbase Review | Best Tool For Project Management | All-in-one PM Tool For Project Management like Tasks, calendar, docs, files, chat. **Upbase is an all-in-one project management** application designed with individuals and small teams in mind.\n\nWhat distinguishes Upbase from the vast array of project management software available...",
+            "subreddit": "r/saas"
+          }
+        ],
+        "business_signals": {
+          "ps_ratio": 0.0,
+          "solutions": [
+            {
+              "frequency": 2,
+              "description": "best project management software 2026 for small teams, what actually works in real life",
+              "evidence_quote_ids": [
+                "1ps7lis"
+              ]
+            },
+            {
+              "frequency": 1,
+              "description": "Best project tracking software by use case, here’s what I’d recommend after testing tons",
+              "evidence_quote_ids": [
+                "1ogesxo"
+              ]
+            },
+            {
+              "frequency": 2,
+              "description": "As a manager of a remote-first company, I’ve gone deep into the project-tracking rabbit hole to figure out what actually works across different teams and workflows",
+              "evidence_quote_ids": [
+                "1ogesxo"
+              ]
+            },
+            {
+              "frequency": 1,
+              "description": "Here’s what I’d recommend, based",
+              "evidence_quote_ids": [
+                "1ogesxo"
+              ]
+            },
+            {
+              "frequency": 1,
+              "description": "I’m a believer in AI's potential to improve how my team works, but most AI feature launches in this space end up being more hype than reality",
+              "evidence_quote_ids": [
+                "1kfu5n9"
+              ]
+            },
+            {
+              "frequency": 1,
+              "description": "So I sat down last week and actually listed out every tool I use to manage client projects",
+              "evidence_quote_ids": [
+                "1qui7d9"
+              ]
+            }
+          ],
+          "brand_pain": [
+            {
+              "name": "Best Tool",
+              "mentions": 1,
+              "unique_authors": 1,
+              "evidence_quote_ids": [
+                "16h1ij9"
+              ]
+            },
+            {
+              "name": "For Project",
+              "mentions": 1,
+              "unique_authors": 1,
+              "evidence_quote_ids": [
+                "16h1ij9"
+              ]
+            },
+            {
+              "name": "Management",
+              "mentions": 1,
+              "unique_authors": 1,
+              "evidence_quote_ids": [
+                "16h1ij9"
+              ]
+            },
+            {
+              "name": "PM Tool",
+              "mentions": 1,
+              "unique_authors": 1,
+              "evidence_quote_ids": [
+                "16h1ij9"
+              ]
+            },
+            {
+              "name": "Tasks",
+              "mentions": 1,
+              "unique_authors": 1,
+              "evidence_quote_ids": [
+                "16h1ij9"
+              ]
+            },
+            {
+              "name": "Upbase Review",
+              "mentions": 1,
+              "unique_authors": 1,
+              "evidence_quote_ids": [
+                "16h1ij9"
+              ]
+            },
+            {
+              "name": "B2B SaaS",
+              "mentions": 1,
+              "unique_authors": 1,
+              "evidence_quote_ids": [
+                "1rt35ih"
+              ]
+            },
+            {
+              "name": "Spent",
+              "mentions": 1,
+              "unique_authors": 1,
+              "evidence_quote_ids": [
+                "1rt35ih"
+              ]
+            },
+            {
+              "name": "Upbase",
+              "mentions": 1,
+              "unique_authors": 1,
+              "evidence_quote_ids": [
+                "16h1ij9"
+              ]
+            },
+            {
+              "name": "Gmail",
+              "mentions": 1,
+              "unique_authors": 1,
+              "evidence_quote_ids": [
+                "1qui7d9"
+              ]
+            },
+            {
+              "name": "Google Sheets",
+              "mentions": 1,
+              "unique_authors": 1,
+              "evidence_quote_ids": [
+                "1qui7d9"
+              ]
+            },
+            {
+              "name": "Notion",
+              "mentions": 1,
+              "unique_authors": 1,
+              "evidence_quote_ids": [
+                "1qui7d9"
+              ]
+            }
+          ],
+          "high_value_pains": [
+            {
+              "title": "主要抱怨（汇总）",
+              "metrics": {
+                "mentions": 1,
+                "unique_authors": 1
+              },
+              "evidence_quote_ids": [
+                "1fzxuyb"
+              ]
+            },
+            {
+              "title": "其他抱怨",
+              "metrics": {
+                "mentions": 1,
+                "unique_authors": 1
+              },
+              "evidence_quote_ids": [
+                "1fzxuyb"
+              ]
+            }
+          ],
+          "competitor_insights": [
+            {
+              "name": "Best Tool",
+              "layer": "attributes",
+              "mentions": 1,
+              "sentiment": "positive",
+              "strengths": [
+                "用户反馈积极",
+                "社区认可度高"
+              ],
+              "weaknesses": [
+                "需要继续观察长期表现"
+              ],
+              "market_share": 8,
+              "context_snippets": [
+                "Upbase Review | Best Tool For Project Management | All-in-one PM Tool For Project Management like Tasks, calendar, docs, files, chat"
+              ]
+            },
+            {
+              "name": "For Project",
+              "layer": "brands",
+              "mentions": 1,
+              "sentiment": "positive",
+              "strengths": [
+                "用户反馈积极",
+                "社区认可度高"
+              ],
+              "weaknesses": [
+                "需要继续观察长期表现"
+              ],
+              "market_share": 8,
+              "context_snippets": [
+                "Upbase Review | Best Tool For Project Management | All-in-one PM Tool For Project Management like Tasks, calendar, docs, files, chat"
+              ]
+            },
+            {
+              "name": "Management",
+              "layer": "attributes",
+              "mentions": 1,
+              "sentiment": "positive",
+              "strengths": [
+                "用户反馈积极",
+                "社区认可度高"
+              ],
+              "weaknesses": [
+                "需要继续观察长期表现"
+              ],
+              "market_share": 8,
+              "context_snippets": [
+                "Upbase Review | Best Tool For Project Management | All-in-one PM Tool For Project Management like Tasks, calendar, docs, files, chat"
+              ]
+            },
+            {
+              "name": "PM Tool",
+              "layer": "attributes",
+              "mentions": 1,
+              "sentiment": "positive",
+              "strengths": [
+                "用户反馈积极",
+                "社区认可度高"
+              ],
+              "weaknesses": [
+                "需要继续观察长期表现"
+              ],
+              "market_share": 8,
+              "context_snippets": [
+                "Upbase Review | Best Tool For Project Management | All-in-one PM Tool For Project Management like Tasks, calendar, docs, files, chat"
+              ]
+            },
+            {
+              "name": "Tasks",
+              "layer": "attributes",
+              "mentions": 1,
+              "sentiment": "positive",
+              "strengths": [
+                "用户反馈积极",
+                "社区认可度高"
+              ],
+              "weaknesses": [
+                "需要继续观察长期表现"
+              ],
+              "market_share": 8,
+              "context_snippets": [
+                "Upbase Review | Best Tool For Project Management | All-in-one PM Tool For Project Management like Tasks, calendar, docs, files, chat"
+              ]
+            },
+            {
+              "name": "Upbase Review",
+              "layer": "attributes",
+              "mentions": 1,
+              "sentiment": "positive",
+              "strengths": [
+                "用户反馈积极",
+                "社区认可度高"
+              ],
+              "weaknesses": [
+                "需要继续观察长期表现"
+              ],
+              "market_share": 8,
+              "context_snippets": [
+                "Upbase Review | Best Tool For Project Management | All-in-one PM Tool For Project Management like Tasks, calendar, docs, files, chat"
+              ]
+            },
+            {
+              "name": "B2B SaaS",
+              "layer": "brands",
+              "mentions": 1,
+              "sentiment": "mixed",
+              "strengths": [
+                "社区讨论热度高"
+              ],
+              "weaknesses": [
+                "等待更多反馈细节"
+              ],
+              "market_share": 8,
+              "context_snippets": [
+                "Spent a weekend doing something I'd been meaning to do for a while - systematically testing how visible B2B SaaS tools actually are in AI search"
+              ]
+            },
+            {
+              "name": "Spent",
+              "layer": "attributes",
+              "mentions": 1,
+              "sentiment": "mixed",
+              "strengths": [
+                "社区讨论热度高"
+              ],
+              "weaknesses": [
+                "等待更多反馈细节"
+              ],
+              "market_share": 8,
+              "context_snippets": [
+                "Spent a weekend doing something I'd been meaning to do for a while - systematically testing how visible B2B SaaS tools actually are in AI search"
+              ]
+            },
+            {
+              "name": "Upbase",
+              "layer": "attributes",
+              "mentions": 1,
+              "sentiment": "mixed",
+              "strengths": [
+                "社区讨论热度高"
+              ],
+              "weaknesses": [
+                "等待更多反馈细节"
+              ],
+              "market_share": 8,
+              "context_snippets": [
+                "What distinguishes Upbase from the vast array of project management software available"
+              ]
+            },
+            {
+              "name": "Gmail",
+              "layer": "attributes",
+              "mentions": 1,
+              "sentiment": "mixed",
+              "strengths": [
+                "社区讨论热度高"
+              ],
+              "weaknesses": [
+                "等待更多反馈细节"
+              ],
+              "market_share": 8,
+              "context_snippets": [
+                "The list: * Notion (project tracking) * Google Sheets (budgets, timelines) * Gmail (client communication"
+              ]
+            },
+            {
+              "name": "Google Sheets",
+              "layer": "channels",
+              "mentions": 1,
+              "sentiment": "mixed",
+              "strengths": [
+                "社区讨论热度高"
+              ],
+              "weaknesses": [
+                "等待更多反馈细节"
+              ],
+              "market_share": 8,
+              "context_snippets": [
+                "The list: * Notion (project tracking) * Google Sheets (budgets, timelines) * Gmail (client communication"
+              ]
+            },
+            {
+              "name": "Notion",
+              "layer": "brands",
+              "mentions": 1,
+              "sentiment": "mixed",
+              "strengths": [
+                "社区讨论热度高"
+              ],
+              "weaknesses": [
+                "等待更多反馈细节"
+              ],
+              "market_share": 8,
+              "context_snippets": [
+                "The list: * Notion (project tracking) * Google Sheets (budgets, timelines) * Gmail (client communication"
+              ]
+            }
+          ],
+          "buying_opportunities": [
+            {
+              "description": "Best Tool For Project Management | All-in-one PM Tool For Project Management like Tasks, calendar, docs, files, chat",
+              "key_insights": [
+                "age",
+                "ale",
+                "all",
+                "all-in-one"
+              ],
+              "top_channels": [],
+              "potential_users": "约2260个潜在团队",
+              "relevance_score": 1.0,
+              "source_examples": [
+                {
+                  "url": "https://www.reddit.com/r/SaaS/comments/16h1ij9/upbase_review_best_tool_for_project_management/",
+                  "author": "Abdulahkabeer",
+                  "content": "**Upbase is an all-in-one project management** application designed with individuals and small teams in mind.\n\nWhat distinguishes Upbase from the vast array of project management software available...",
+                  "upvotes": 0,
+                  "community": "r/SaaS",
+                  "permalink": "https://reddit.com/r/SaaS/comments/16h1ij9/upbase_review_best_tool_for_project_management/",
+                  "duplicate_ids": [],
+                  "evidence_count": 1
+                },
+                {
+                  "url": "https://www.reddit.com/r/remotework/comments/1nzikof/i_tracked_my_productivity_for_3_months_remote_vs/",
+                  "author": "WorklawVault",
+                  "content": "I’ve seen all the boring “remote kills productivity” rhetoric, so I decided to do a little experiment for myself.\n\nI tracked everything I could measure over **3 months**: one month fully in-office,...",
+                  "upvotes": 3426,
+                  "community": "r/remotework",
+                  "permalink": "https://reddit.com/r/remotework/comments/1nzikof/i_tracked_my_productivity_for_3_months_remote_vs/",
+                  "duplicate_ids": [],
+                  "evidence_count": 1
+                }
+              ],
+              "linked_pain_cluster": "think hate project",
+              "potential_users_est": 2260
+            },
+            {
+              "description": "any tools are you using just to manage clients",
+              "key_insights": [
+                "age",
+                "an",
+                "ana",
+                "any"
+              ],
+              "top_channels": [],
+              "potential_users": "约1234个潜在团队",
+              "relevance_score": 1.0,
+              "source_examples": [
+                {
+                  "url": "https://www.reddit.com/r/SaaS/comments/1qui7d9/freelancers_how_many_tools_are_you_using_just_to/",
+                  "author": "TemperatureAbject144",
+                  "content": "So I sat down last week and actually listed out every tool I use to manage client projects. The list:\n\n* Notion (project tracking)\n* Google Sheets (budgets, timelines)\n* Gmail (client communication...",
+                  "upvotes": 4,
+                  "community": "r/SaaS",
+                  "permalink": "https://reddit.com/r/SaaS/comments/1qui7d9/freelancers_how_many_tools_are_you_using_just_to/",
+                  "duplicate_ids": [],
+                  "evidence_count": 1
+                },
+                {
+                  "url": "https://www.reddit.com/r/remotework/comments/1nzikof/i_tracked_my_productivity_for_3_months_remote_vs/",
+                  "author": "WorklawVault",
+                  "content": "I’ve seen all the boring “remote kills productivity” rhetoric, so I decided to do a little experiment for myself.\n\nI tracked everything I could measure over **3 months**: one month fully in-office,...",
+                  "upvotes": 3426,
+                  "community": "r/remotework",
+                  "permalink": "https://reddit.com/r/remotework/comments/1nzikof/i_tracked_my_productivity_for_3_months_remote_vs/",
+                  "duplicate_ids": [],
+                  "evidence_count": 1
+                }
+              ],
+              "linked_pain_cluster": "think hate project",
+              "potential_users_est": 1234
+            },
+            {
+              "description": "Looking for advice on PM tools (and workflow) - small, remote team of junior developers",
+              "key_insights": [
+                "ad",
+                "advice",
+                "all",
+                "am"
+              ],
+              "top_channels": [],
+              "potential_users": "约2302个潜在团队",
+              "relevance_score": 1.0,
+              "source_examples": [
+                {
+                  "url": "https://www.reddit.com/r/projectmanagement/comments/f1lvnj/looking_for_advice_on_pm_tools_and_workflow_small/",
+                  "author": "fuzzycake",
+                  "content": "I'm looking for a project management tool to manage a small remote team of (primarily adhoc) junior software developers.\n\nLooking around, I see that tools like Asana, Trello and Basecamp are very p...",
+                  "upvotes": 1,
+                  "community": "r/projectmanagement",
+                  "permalink": "https://reddit.com/r/projectmanagement/comments/f1lvnj/looking_for_advice_on_pm_tools_and_workflow_small/",
+                  "duplicate_ids": [],
+                  "evidence_count": 1
+                },
+                {
+                  "url": "https://www.reddit.com/r/remotework/comments/1nzikof/i_tracked_my_productivity_for_3_months_remote_vs/",
+                  "author": "WorklawVault",
+                  "content": "I’ve seen all the boring “remote kills productivity” rhetoric, so I decided to do a little experiment for myself.\n\nI tracked everything I could measure over **3 months**: one month fully in-office,...",
+                  "upvotes": 3426,
+                  "community": "r/remotework",
+                  "permalink": "https://reddit.com/r/remotework/comments/1nzikof/i_tracked_my_productivity_for_3_months_remote_vs/",
+                  "duplicate_ids": [],
+                  "evidence_count": 1
+                }
+              ],
+              "linked_pain_cluster": "think hate project",
+              "potential_users_est": 2302
+            },
+            {
+              "description": "looking for a project management tool to manage a small remote team of (primarily adhoc) junior software developers",
+              "key_insights": [
+                "ad",
+                "age",
+                "all",
+                "am"
+              ],
+              "top_channels": [],
+              "potential_users": "约3062个潜在团队",
+              "relevance_score": 1.0,
+              "source_examples": [
+                {
+                  "url": "https://www.reddit.com/r/projectmanagement/comments/f1lvnj/looking_for_advice_on_pm_tools_and_workflow_small/",
+                  "author": "fuzzycake",
+                  "content": "I'm looking for a project management tool to manage a small remote team of (primarily adhoc) junior software developers.\n\nLooking around, I see that tools like Asana, Trello and Basecamp are very p...",
+                  "upvotes": 1,
+                  "community": "r/projectmanagement",
+                  "permalink": "https://reddit.com/r/projectmanagement/comments/f1lvnj/looking_for_advice_on_pm_tools_and_workflow_small/",
+                  "duplicate_ids": [],
+                  "evidence_count": 1
+                },
+                {
+                  "url": "https://www.reddit.com/r/remotework/comments/1nzikof/i_tracked_my_productivity_for_3_months_remote_vs/",
+                  "author": "WorklawVault",
+                  "content": "I’ve seen all the boring “remote kills productivity” rhetoric, so I decided to do a little experiment for myself.\n\nI tracked everything I could measure over **3 months**: one month fully in-office,...",
+                  "upvotes": 3426,
+                  "community": "r/remotework",
+                  "permalink": "https://reddit.com/r/remotework/comments/1nzikof/i_tracked_my_productivity_for_3_months_remote_vs/",
+                  "duplicate_ids": [],
+                  "evidence_count": 1
+                }
+              ],
+              "linked_pain_cluster": "think hate project",
+              "potential_users_est": 3062
+            },
+            {
+              "description": "recommend after testing tons",
+              "key_insights": [
+                "after",
+                "co",
+                "eco",
+                "ecom"
+              ],
+              "top_channels": [],
+              "potential_users": "约1174个潜在团队",
+              "relevance_score": 1.0,
+              "source_examples": [
+                {
+                  "url": "https://www.reddit.com/r/ProductivityApps/comments/1ogesxo/best_project_tracking_software_by_use_case_heres/",
+                  "author": "Fit-Repeat-3595",
+                  "content": "As a manager of a remote-first company, I’ve gone deep into the project-tracking rabbit hole to figure out what actually works across different teams and workflows. Here’s what I’d recommend, based...",
+                  "upvotes": 21,
+                  "community": "r/ProductivityApps",
+                  "permalink": "https://reddit.com/r/ProductivityApps/comments/1ogesxo/best_project_tracking_software_by_use_case_heres/",
+                  "duplicate_ids": [],
+                  "evidence_count": 1
+                },
+                {
+                  "url": "https://www.reddit.com/r/remotework/comments/1nzikof/i_tracked_my_productivity_for_3_months_remote_vs/",
+                  "author": "WorklawVault",
+                  "content": "I’ve seen all the boring “remote kills productivity” rhetoric, so I decided to do a little experiment for myself.\n\nI tracked everything I could measure over **3 months**: one month fully in-office,...",
+                  "upvotes": 3426,
+                  "community": "r/remotework",
+                  "permalink": "https://reddit.com/r/remotework/comments/1nzikof/i_tracked_my_productivity_for_3_months_remote_vs/",
+                  "duplicate_ids": [],
+                  "evidence_count": 1
+                }
+              ],
+              "linked_pain_cluster": "think hate project",
+              "potential_users_est": 1174
+            }
+          ]
+        },
+        "facts_v2_quality": {
+          "tier": "A_full",
+          "flags": [],
+          "passed": true,
+          "metrics": {
+            "agg_posts": 13,
+            "solutions": 6,
+            "good_pains": 2,
+            "good_brands": 0,
+            "agg_comments": 0,
+            "source_posts": 13,
+            "coverage_tier": "unknown",
+            "coverage_total": 0,
+            "on_topic_ratio": 1.0,
+            "sample_checked": 13,
+            "source_comments": 0,
+            "db_comments_total": 0,
+            "topic_terms_count": 33,
+            "topic_terms_source": "profile",
+            "coverage_months_avg": 0.0,
+            "coverage_months_max": 0,
+            "coverage_months_min": 0,
+            "min_sample_comments": 0,
+            "db_comments_eligible": 0,
+            "coverage_capped_count": 0,
+            "topic_profiles_status": "loaded",
+            "coverage_status_counts": {},
+            "semantic_search_status": "semantic+keyword",
+            "comments_pipeline_status": "disabled",
+            "pain_clusters_pipeline_status": "engine_tfidf_fallback"
+          }
+        },
+        "market_saturation": [
+          {
+            "status": "机会窗口",
+            "community": "r/SaaS",
+            "top_brands": [
+              {
+                "brand": "Best Tool",
+                "status": "机会窗口",
+                "saturation": 0.0
+              },
+              {
+                "brand": "For Project",
+                "status": "机会窗口",
+                "saturation": 0.0
+              },
+              {
+                "brand": "Management",
+                "status": "机会窗口",
+                "saturation": 0.0
+              }
+            ],
+            "overall_saturation": 0.0
+          },
+          {
+            "status": "机会窗口",
+            "community": "r/projectmanagement",
+            "top_brands": [
+              {
+                "brand": "Best Tool",
+                "status": "机会窗口",
+                "saturation": 0.0
+              },
+              {
+                "brand": "For Project",
+                "status": "机会窗口",
+                "saturation": 0.0
+              },
+              {
+                "brand": "Management",
+                "status": "机会窗口",
+                "saturation": 0.0
+              }
+            ],
+            "overall_saturation": 0.0
+          },
+          {
+            "status": "机会窗口",
+            "community": "r/remotework",
+            "top_brands": [
+              {
+                "brand": "Best Tool",
+                "status": "机会窗口",
+                "saturation": 0.0
+              },
+              {
+                "brand": "For Project",
+                "status": "机会窗口",
+                "saturation": 0.0
+              },
+              {
+                "brand": "Management",
+                "status": "机会窗口",
+                "saturation": 0.0
+              }
+            ],
+            "overall_saturation": 0.0
+          },
+          {
+            "status": "机会窗口",
+            "community": "r/ProductivityApps",
+            "top_brands": [
+              {
+                "brand": "Best Tool",
+                "status": "机会窗口",
+                "saturation": 0.0
+              },
+              {
+                "brand": "For Project",
+                "status": "机会窗口",
+                "saturation": 0.0
+              },
+              {
+                "brand": "Management",
+                "status": "机会窗口",
+                "saturation": 0.0
+              }
+            ],
+            "overall_saturation": 0.0
+          },
+          {
+            "status": "机会窗口",
+            "community": "r/productivity",
+            "top_brands": [
+              {
+                "brand": "Best Tool",
+                "status": "机会窗口",
+                "saturation": 0.0
+              },
+              {
+                "brand": "For Project",
+                "status": "机会窗口",
+                "saturation": 0.0
+              },
+              {
+                "brand": "Management",
+                "status": "机会窗口",
+                "saturation": 0.0
+              }
+            ],
+            "overall_saturation": 0.0
+          },
+          {
+            "status": "机会窗口",
+            "community": "r/startups",
+            "top_brands": [
+              {
+                "brand": "Best Tool",
+                "status": "机会窗口",
+                "saturation": 0.0
+              },
+              {
+                "brand": "For Project",
+                "status": "机会窗口",
+                "saturation": 0.0
+              },
+              {
+                "brand": "Management",
+                "status": "机会窗口",
+                "saturation": 0.0
+              }
+            ],
+            "overall_saturation": 0.0
+          },
+          {
+            "status": "机会窗口",
+            "community": "r/notion",
+            "top_brands": [
+              {
+                "brand": "Best Tool",
+                "status": "机会窗口",
+                "saturation": 0.0
+              },
+              {
+                "brand": "For Project",
+                "status": "机会窗口",
+                "saturation": 0.0
+              },
+              {
+                "brand": "Management",
+                "status": "机会窗口",
+                "saturation": 0.0
+              }
+            ],
+            "overall_saturation": 0.0
+          },
+          {
+            "status": "机会窗口",
+            "community": "r/asana",
+            "top_brands": [
+              {
+                "brand": "Best Tool",
+                "status": "机会窗口",
+                "saturation": 0.0
+              },
+              {
+                "brand": "For Project",
+                "status": "机会窗口",
+                "saturation": 0.0
+              },
+              {
+                "brand": "Management",
+                "status": "机会窗口",
+                "saturation": 0.0
+              }
+            ],
+            "overall_saturation": 0.0
+          },
+          {
+            "status": "机会窗口",
+            "community": "r/trello",
+            "top_brands": [
+              {
+                "brand": "Best Tool",
+                "status": "机会窗口",
+                "saturation": 0.0
+              },
+              {
+                "brand": "For Project",
+                "status": "机会窗口",
+                "saturation": 0.0
+              },
+              {
+                "brand": "Management",
+                "status": "机会窗口",
+                "saturation": 0.0
+              }
+            ],
+            "overall_saturation": 0.0
+          },
+          {
+            "status": "机会窗口",
+            "community": "r/Entrepreneur",
+            "top_brands": [
+              {
+                "brand": "Best Tool",
+                "status": "机会窗口",
+                "saturation": 0.0
+              },
+              {
+                "brand": "For Project",
+                "status": "机会窗口",
+                "saturation": 0.0
+              },
+              {
+                "brand": "Management",
+                "status": "机会窗口",
+                "saturation": 0.0
+              }
+            ],
+            "overall_saturation": 0.0
+          }
+        ],
+        "sample_comments_db": [],
+        "battlefield_profiles": [
+          {
+            "persona": "用户需求/消费党",
+            "strategy": [
+              "减少重复操作",
+              "提升日常效率"
+            ],
+            "pain_focus": [
+              "I think I hate my project management job",
+              "I’m an IT PM and I think I’m starting to hate it"
+            ],
+            "communities": [
+              "r/projectmanagement"
+            ],
+            "evidence_posts": [
+              {
+                "url": "https://www.reddit.com/r/projectmanagement/comments/1fzxuyb/i_think_i_hate_my_project_management_job/",
+                "author": "VashMatematik",
+                "content": "I’m an IT PM and I think I’m starting to hate it. I’ve been here around 2 years and feel like I’m constantly a ball of anxiety. I’m fine with doing project paperwork, putting together the plans (wi...",
+                "upvotes": 167,
+                "community": "r/projectmanagement",
+                "permalink": "https://reddit.com/r/projectmanagement/comments/1fzxuyb/i_think_i_hate_my_project_management_job/",
+                "duplicate_ids": [],
+                "evidence_count": 1
+              }
+            ]
+          },
+          {
+            "persona": "用户需求/消费党",
+            "strategy": [
+              "减少重复操作",
+              "提升日常效率"
+            ],
+            "pain_focus": [
+              "I think I hate my project management job",
+              "I’m an IT PM and I think I’m starting to hate it"
+            ],
+            "communities": [
+              "r/SaaS"
+            ],
+            "evidence_posts": []
+          },
+          {
+            "persona": "用户需求/消费党",
+            "strategy": [
+              "减少重复操作",
+              "提升日常效率"
+            ],
+            "pain_focus": [
+              "I think I hate my project management job",
+              "I’m an IT PM and I think I’m starting to hate it"
+            ],
+            "communities": [
+              "r/remotework"
+            ],
+            "evidence_posts": [
+              {
+                "url": "https://www.reddit.com/r/remotework/comments/1nzikof/i_tracked_my_productivity_for_3_months_remote_vs/",
+                "author": "WorklawVault",
+                "content": "I’ve seen all the boring “remote kills productivity” rhetoric, so I decided to do a little experiment for myself.\n\nI tracked everything I could measure over **3 months**: one month fully in-office,...",
+                "upvotes": 3426,
+                "community": "r/remotework",
+                "permalink": "https://reddit.com/r/remotework/comments/1nzikof/i_tracked_my_productivity_for_3_months_remote_vs/",
+                "duplicate_ids": [],
+                "evidence_count": 1
+              }
+            ]
+          },
+          {
+            "persona": "用户需求/消费党",
+            "strategy": [
+              "减少重复操作",
+              "提升日常效率"
+            ],
+            "pain_focus": [
+              "I think I hate my project management job",
+              "I’m an IT PM and I think I’m starting to hate it"
+            ],
+            "communities": [
+              "r/ProductivityApps"
+            ],
+            "evidence_posts": []
+          }
+        ]
+      },
+      "report_structured": {
+        "decision_cards": [
+          {
+            "title": "需求趋势",
+            "conclusion": "过去周期内已覆盖 13 帖 / 0 评论，趋势可用于继续决策。",
+            "details": [
+              "覆盖社区：10 个",
+              "这是系统生成的统一结构报告，不依赖前端拼装。"
+            ]
+          },
+          {
+            "title": "问题/解决方案比",
+            "conclusion": "P/S 比约 0.00，痛点与方案已形成可读结构。",
+            "details": [
+              "P/S 比：0.00",
+              "结论力度会随证据强度自动升级或保守。"
+            ]
+          },
+          {
+            "title": "核心社群",
+            "conclusion": "当前最活跃社区集中在 r/SaaS, r/projectmanagement, r/remotework。",
+            "details": [
+              "优先看高活跃且重复抱怨出现的社区。",
+              "社区名单由本轮分析真实数据生成。"
+            ]
+          },
+          {
+            "title": "明确机会点",
+            "conclusion": "已出现机会线索：Best Tool For Project Management | All-in-one PM Tool For Project Management like Tasks, calendar, docs, files, chat",
+            "details": [
+              "机会卡与痛点卡使用同一条证据链。",
+              "B/C 是 Full A 同骨架简化，不走独立页面结构。"
+            ]
+          }
+        ],
+        "market_health": {
+          "competition_saturation": {
+            "level": "竞争可见，但仍有结构性机会",
+            "details": [
+              "已分析 13 帖 / 0 评论。",
+              "核心社区：r/SaaS, r/projectmanagement, r/remotework"
+            ],
+            "interpretation": "当前结论可用于继续推进。"
+          },
+          "ps_ratio": {
+            "ratio": "0.00",
+            "conclusion": "P/S 比约 0.00，痛点与方案已形成可读结构。",
+            "interpretation": "该比例用于判断市场是在抱怨积压还是方案成熟阶段。",
+            "health_assessment": "可继续推进"
+          }
+        },
+        "battlefields": [
+          {
+            "name": "r/SaaS",
+            "subreddits": [
+              "r/SaaS"
+            ],
+            "profile": "讨论量和抱怨强度都已达到可执行判断门槛。",
+            "pain_points": [
+              "I think I hate my project management job"
+            ],
+            "strategy_advice": "先在该社区验证问题复现频率，再决定是否深挖。"
+          },
+          {
+            "name": "r/projectmanagement",
+            "subreddits": [
+              "r/projectmanagement"
+            ],
+            "profile": "讨论量和抱怨强度都已达到可执行判断门槛。",
+            "pain_points": [
+              "I’m an IT PM and I think I’m starting to hate it"
+            ],
+            "strategy_advice": "先在该社区验证问题复现频率，再决定是否深挖。"
+          },
+          {
+            "name": "r/remotework",
+            "subreddits": [
+              "r/remotework"
+            ],
+            "profile": "讨论量和抱怨强度都已达到可执行判断门槛。",
+            "pain_points": [
+              "先看该社区是否持续出现同类抱怨。"
+            ],
+            "strategy_advice": "先在该社区验证问题复现频率，再决定是否深挖。"
+          },
+          {
+            "name": "r/ProductivityApps",
+            "subreddits": [
+              "r/ProductivityApps"
+            ],
+            "profile": "讨论量和抱怨强度都已达到可执行判断门槛。",
+            "pain_points": [
+              "先看该社区是否持续出现同类抱怨。"
+            ],
+            "strategy_advice": "先在该社区验证问题复现频率，再决定是否深挖。"
+          }
+        ],
+        "pain_points": [
+          {
+            "title": "I think I hate my project management job",
+            "user_voices": [
+              "I’m an IT PM and I think I’m starting to hate it. I’ve been here around 2 years and feel like I’m constantly a ball of anxiety. I’m fine with doing project paperwork, putting together the plans (wi..."
+            ],
+            "data_impression": "覆盖 10 个社区，已出现可追踪信号。",
+            "interpretation": "该痛点可直接进入解决方案验证。"
+          },
+          {
+            "title": "I’m an IT PM and I think I’m starting to hate it",
+            "user_voices": [
+              "I’m an IT PM and I think I’m starting to hate it. I’ve been here around 2 years and feel like I’m constantly a ball of anxiety. I’m fine with doing project paperwork, putting together the plans (wi..."
+            ],
+            "data_impression": "覆盖 10 个社区，已出现可追踪信号。",
+            "interpretation": "该痛点可直接进入解决方案验证。"
+          },
+          {
+            "title": "关键痛点 3",
+            "user_voices": [
+              "本轮讨论中该问题有重复出现迹象。"
+            ],
+            "data_impression": "覆盖 10 个社区，已出现可追踪信号。",
+            "interpretation": "该痛点可直接进入解决方案验证。"
+          }
+        ],
+        "drivers": [
+          {
+            "title": "效率提升与省时省心",
+            "description": "高频痛点集中在：I think I hate my project management job / I’m an IT PM and I think I’m starting to hate it"
+          },
+          {
+            "title": "驱动力 2",
+            "description": "用户持续强调效率、透明和可控的解决体验。"
+          },
+          {
+            "title": "驱动力 3",
+            "description": "用户持续强调效率、透明和可控的解决体验。"
+          }
+        ],
+        "opportunities": [
+          {
+            "title": "Best Tool For Project Management | All-in-one PM Tool For Project Management like Tasks, calendar, docs, files, chat",
+            "target_pain_points": [
+              "age",
+              "ale",
+              "all"
+            ],
+            "target_communities": [
+              "r/SaaS",
+              "r/projectmanagement",
+              "r/remotework"
+            ],
+            "product_positioning": "约2260个潜在团队",
+            "core_selling_points": [
+              "age",
+              "ale",
+              "all"
+            ]
+          },
+          {
+            "title": "any tools are you using just to manage clients",
+            "target_pain_points": [
+              "age",
+              "an",
+              "ana"
+            ],
+            "target_communities": [
+              "r/SaaS",
+              "r/projectmanagement",
+              "r/remotework"
+            ],
+            "product_positioning": "约1234个潜在团队",
+            "core_selling_points": [
+              "age",
+              "an",
+              "ana"
+            ]
+          }
+        ]
+      },
+      "structured_llm_status": "completed",
+      "structured_llm_reason": "deterministic_fallback",
+      "knowledge_graph": {
+        "drivers": [
+          {
+            "title": "效率提升与省时省心",
+            "actions": [
+              "减少重复操作",
+              "提升日常效率"
+            ],
+            "description": "高频痛点集中在：I think I hate my project management job / I’m an IT PM and I think I’m starting to hate it",
+            "source_pains": [
+              "I think I hate my project management job",
+              "I’m an IT PM and I think I’m starting to hate it"
+            ]
+          }
+        ],
+        "evidence": [],
+        "communities": [
+          {
+            "name": "r/saas",
+            "posts": 4,
+            "comments": 0
+          },
+          {
+            "name": "r/projectmanagement",
+            "posts": 2,
+            "comments": 0
+          },
+          {
+            "name": "r/productivityapps",
+            "posts": 2,
+            "comments": 0
+          },
+          {
+            "name": "r/ecommerce",
+            "posts": 2,
+            "comments": 0
+          },
+          {
+            "name": "r/remotework",
+            "posts": 1,
+            "comments": 0
+          },
+          {
+            "name": "r/artificial",
+            "posts": 1,
+            "comments": 0
+          },
+          {
+            "name": "r/stripe",
+            "posts": 1,
+            "comments": 0
+          }
+        ],
+        "pain_points": [
+          {
+            "name": "",
+            "evidence": [],
+            "mentions": 0,
+            "evidence_ids": [
+              "1fzxuyb"
+            ],
+            "unique_authors": 0
+          },
+          {
+            "name": "",
+            "evidence": [],
+            "mentions": 0,
+            "evidence_ids": [
+              "1fzxuyb"
+            ],
+            "unique_authors": 0
+          }
+        ]
+      },
+      "llm_used": false,
+      "llm_model": null,
+      "llm_rounds": 0
+    },
+    "metrics_summary": null
+  }
+}

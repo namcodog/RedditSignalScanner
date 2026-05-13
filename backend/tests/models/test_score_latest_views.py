@@ -230,41 +230,38 @@ async def test_comment_scores_latest_view_uses_is_latest() -> None:
         community_id = await _insert_community_pool(
             session, name=f"r/test_{uuid.uuid4().hex[:8]}", ts=now
         )
-        post_id = (
-            await session.execute(
-                text(
-                    """
-                    INSERT INTO posts_raw (
-                        source, source_post_id, version, created_at,
-                        fetched_at, valid_from, subreddit, title, body, is_current, community_id
-                    )
-                    VALUES ('reddit', :pid, 1, :ts, :ts, :ts, 'r/test', 'title', 'body', true, :community_id)
-                    RETURNING id
-                    """
-                ),
-                {
-                    "pid": f"post_{uuid.uuid4().hex[:8]}",
-                    "ts": now,
-                    "community_id": community_id,
-                },
-            )
-        ).scalar_one()
+        post_source_id = f"post_{uuid.uuid4().hex[:8]}"
+        await session.execute(
+            text(
+                """
+                INSERT INTO posts_raw (
+                    source, source_post_id, version, created_at,
+                    fetched_at, valid_from, subreddit, title, body, is_current, community_id
+                )
+                VALUES ('reddit', :pid, 1, :ts, :ts, :ts, 'r/test', 'title', 'body', true, :community_id)
+                """
+            ),
+            {
+                "pid": post_source_id,
+                "ts": now,
+                "community_id": community_id,
+            },
+        )
         comment_id = (
             await session.execute(
                 text(
                     """
                     INSERT INTO comments (
-                        reddit_comment_id, source, source_post_id, post_id, subreddit,
+                        reddit_comment_id, source, source_post_id, subreddit,
                         depth, body, created_utc
                     )
-                    VALUES (:cid, 'reddit', :pid, :post_id, 'r/test', 0, 'body', :ts)
+                    VALUES (:cid, 'reddit', :pid, 'r/test', 0, 'body', :ts)
                     RETURNING id
                     """
                 ),
                 {
                     "cid": f"t1_{uuid.uuid4().hex[:8]}",
-                    "pid": "post_x",
-                    "post_id": post_id,
+                    "pid": post_source_id,
                     "ts": now,
                 },
             )
@@ -326,60 +323,55 @@ async def test_comment_scores_latest_view_prefers_formal_rule_version() -> None:
         community_formal = await _insert_community_pool(
             session, name=f"r/test_{uuid.uuid4().hex[:8]}", ts=now
         )
-        post_primary = (
-            await session.execute(
-                text(
-                    """
-                    INSERT INTO posts_raw (
-                        source, source_post_id, version, created_at,
-                        fetched_at, valid_from, subreddit, title, body, is_current, community_id
-                    )
-                    VALUES ('reddit', :pid, 1, :ts, :ts, :ts, 'r/test', 'title', 'body', true, :community_id)
-                    RETURNING id
-                    """
-                ),
-                {
-                    "pid": f"post_{uuid.uuid4().hex[:8]}",
-                    "ts": now,
-                    "community_id": community_primary,
-                },
-            )
-        ).scalar_one()
-        post_formal = (
-            await session.execute(
-                text(
-                    """
-                    INSERT INTO posts_raw (
-                        source, source_post_id, version, created_at,
-                        fetched_at, valid_from, subreddit, title, body, is_current, community_id
-                    )
-                    VALUES ('reddit', :pid, 1, :ts, :ts, :ts, 'r/test', 'title', 'body', true, :community_id)
-                    RETURNING id
-                    """
-                ),
-                {
-                    "pid": f"post_{uuid.uuid4().hex[:8]}",
-                    "ts": now,
-                    "community_id": community_formal,
-                },
-            )
-        ).scalar_one()
+        post_primary_source_id = f"post_{uuid.uuid4().hex[:8]}"
+        await session.execute(
+            text(
+                """
+                INSERT INTO posts_raw (
+                    source, source_post_id, version, created_at,
+                    fetched_at, valid_from, subreddit, title, body, is_current, community_id
+                )
+                VALUES ('reddit', :pid, 1, :ts, :ts, :ts, 'r/test', 'title', 'body', true, :community_id)
+                """
+            ),
+            {
+                "pid": post_primary_source_id,
+                "ts": now,
+                "community_id": community_primary,
+            },
+        )
+        post_formal_source_id = f"post_{uuid.uuid4().hex[:8]}"
+        await session.execute(
+            text(
+                """
+                INSERT INTO posts_raw (
+                    source, source_post_id, version, created_at,
+                    fetched_at, valid_from, subreddit, title, body, is_current, community_id
+                )
+                VALUES ('reddit', :pid, 1, :ts, :ts, :ts, 'r/test', 'title', 'body', true, :community_id)
+                """
+            ),
+            {
+                "pid": post_formal_source_id,
+                "ts": now,
+                "community_id": community_formal,
+            },
+        )
         comment_primary = (
             await session.execute(
                 text(
                     """
                     INSERT INTO comments (
-                        reddit_comment_id, source, source_post_id, post_id, subreddit,
+                        reddit_comment_id, source, source_post_id, subreddit,
                         depth, body, created_utc
                     )
-                    VALUES (:cid, 'reddit', :pid, :post_id, 'r/test', 0, 'body', :ts)
+                    VALUES (:cid, 'reddit', :pid, 'r/test', 0, 'body', :ts)
                     RETURNING id
                     """
                 ),
                 {
                     "cid": f"t1_{uuid.uuid4().hex[:8]}",
-                    "pid": "post_a",
-                    "post_id": post_primary,
+                    "pid": post_primary_source_id,
                     "ts": now,
                 },
             )
@@ -389,17 +381,16 @@ async def test_comment_scores_latest_view_prefers_formal_rule_version() -> None:
                 text(
                     """
                     INSERT INTO comments (
-                        reddit_comment_id, source, source_post_id, post_id, subreddit,
+                        reddit_comment_id, source, source_post_id, subreddit,
                         depth, body, created_utc
                     )
-                    VALUES (:cid, 'reddit', :pid, :post_id, 'r/test', 0, 'body', :ts)
+                    VALUES (:cid, 'reddit', :pid, 'r/test', 0, 'body', :ts)
                     RETURNING id
                     """
                 ),
                 {
                     "cid": f"t1_{uuid.uuid4().hex[:8]}",
-                    "pid": "post_b",
-                    "post_id": post_formal,
+                    "pid": post_formal_source_id,
                     "ts": now,
                 },
             )
@@ -542,41 +533,38 @@ async def test_comment_scores_latest_view_overrides_noise_labels() -> None:
         community_id = await _insert_community_pool(
             session, name=f"r/test_{uuid.uuid4().hex[:8]}", ts=now
         )
-        post_id = (
-            await session.execute(
-                text(
-                    """
-                    INSERT INTO posts_raw (
-                        source, source_post_id, version, created_at,
-                        fetched_at, valid_from, subreddit, title, body, is_current, community_id
-                    )
-                    VALUES ('reddit', :pid, 1, :ts, :ts, :ts, 'r/test', 'title', 'body', true, :community_id)
-                    RETURNING id
-                    """
-                ),
-                {
-                    "pid": f"post_{uuid.uuid4().hex[:8]}",
-                    "ts": now,
-                    "community_id": community_id,
-                },
-            )
-        ).scalar_one()
+        post_source_id = f"post_{uuid.uuid4().hex[:8]}"
+        await session.execute(
+            text(
+                """
+                INSERT INTO posts_raw (
+                    source, source_post_id, version, created_at,
+                    fetched_at, valid_from, subreddit, title, body, is_current, community_id
+                )
+                VALUES ('reddit', :pid, 1, :ts, :ts, :ts, 'r/test', 'title', 'body', true, :community_id)
+                """
+            ),
+            {
+                "pid": post_source_id,
+                "ts": now,
+                "community_id": community_id,
+            },
+        )
         comment_id = (
             await session.execute(
                 text(
                     """
                     INSERT INTO comments (
-                        reddit_comment_id, source, source_post_id, post_id, subreddit,
+                        reddit_comment_id, source, source_post_id, subreddit,
                         depth, body, created_utc
                     )
-                    VALUES (:cid, 'reddit', :pid, :post_id, 'r/test', 0, 'body', :ts)
+                    VALUES (:cid, 'reddit', :pid, 'r/test', 0, 'body', :ts)
                     RETURNING id
                     """
                 ),
                 {
                     "cid": f"t1_{uuid.uuid4().hex[:8]}",
-                    "pid": "post_x",
-                    "post_id": post_id,
+                    "pid": post_source_id,
                     "ts": now,
                 },
             )

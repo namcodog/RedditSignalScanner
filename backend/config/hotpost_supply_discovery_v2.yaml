@@ -1,0 +1,707 @@
+version: v2-draft
+date: 2026-04-09
+principles:
+  - business_supply_config_must_live_in_yaml
+  - topic_surface_must_be_wider_than_current_pack_copy
+  - search_and_listing_are_both_first_class_sources
+  - no_more_claiming_no_material_before_coverage_floor_is_met
+  - v1_density_first_before_editorial_perfection
+
+global_rules:
+  rolling_publish_mix:
+    window_size: 30
+    lane_targets:
+      signal: 18
+      hot: 8
+      breakdown: 5
+    scope_targets:
+      ai-automation: 10
+      business-growth-ops: 10
+      ecommerce-sellers: 10
+  rolling_floor:
+    min_candidates_per_scope_7d: 12
+    min_listing_first_candidates_per_scope_7d: 4
+    min_hot_lane_candidates_7d: 6
+  operation_defaults:
+    runs_per_day: 3
+    min_cards_per_run: 15
+    feed_initial_page_size: 30
+    feed_max_page_size: 30
+    review_queue_limit: 20
+    breakdown_materialize_limit: 20
+  source_modes:
+    - search-first
+    - listing-first
+    - mixed
+  search_defaults:
+    sort: relevance
+    time_filter: week
+  collect_defaults:
+    max_candidates_per_scope: 24
+    search_fetch_limit: 12
+    listing_fetch_limit: 12
+    comments_fetch_limit: 5
+    comment_request_timeout: 8
+    api_max_concurrency: 2
+    low_quota_remaining_threshold: 25
+    low_quota_cooldown_seconds: 20
+    stop_comment_fetch_below_remaining: 30
+    max_consecutive_rate_limit_errors: 3
+    spec_batch_size: 2
+    max_search_specs_per_scope: 120
+    max_listing_specs_per_scope: 36
+    subreddit_candidate_cap: 2
+    search_subreddit_limit: 3
+    listing_subreddit_limit: 3
+    keywords_per_bucket: 2
+    template_queries_per_segment: 3
+    max_search_specs_per_segment: 40
+    max_listing_specs_per_segment: 12
+    dry_cycle: 3
+  experimental_collect:
+    include_by_default: false
+    max_communities_per_scope: 6
+    max_search_specs_per_cluster: 6
+    max_listing_specs_per_cluster: 4
+    search_subreddit_limit: 2
+    listing_subreddit_limit: 2
+  collect_profiles:
+    safe:
+      max_candidates_per_scope: 12
+      comments_fetch_limit: 3
+      api_max_concurrency: 2
+      spec_batch_size: 2
+      max_search_specs_per_scope: 60
+      max_listing_specs_per_scope: 24
+      stop_comment_fetch_below_remaining: 30
+    harvest:
+      max_candidates_per_scope: 24
+      comments_fetch_limit: 5
+      api_max_concurrency: 2
+      spec_batch_size: 2
+      max_search_specs_per_scope: 120
+      max_listing_specs_per_scope: 36
+      stop_comment_fetch_below_remaining: 30
+  search_template_sets:
+    pain:
+      - why is it so hard to {stem}
+      - i hate it when {stem}
+      - i'm losing my mind trying to {stem}
+    help:
+      - how do i {stem}
+      - what do you use for {stem}
+      - is there any tool that {stem}
+    switch:
+      - just switched from {stem}
+      - moved from {stem}
+      - replaced {stem}
+    solution:
+      - finally found a solution for {stem}
+      - this worked for {stem}
+    compare:
+      - "is {stem} worth it"
+      - "{stem} vs alternative"
+      - "should i switch to {stem}"
+  listing_rules_default:
+    - sort: hot
+      time_filter: day
+    - sort: new
+      time_filter: day
+    - sort: rising
+      time_filter: day
+    - sort: top
+      time_filter: day
+    - sort: top
+      time_filter: week
+  hot_lane:
+    min_score: 60
+    min_comments: 24
+    min_quote_count: 2
+    min_collective_comments: 24
+    sustained_override_min_score: 220
+    sustained_override_min_comments: 70
+    high_heat_override_score: 180
+    high_heat_override_comments: 70
+    direct_question_markers: [how, what, which, any, is, are, does, do, should, can, where, who, why]
+    title_debate_terms: [is over, be warned, charged me, not enough, reckless, cannibalize, disappear, exposed, now we have, warning, not a question]
+    blocked_subreddits: [cleaningtips, frugal, apartmenthacks, organization]
+    action_intents: [替换, 求替代, 迁移 / 切换意向, 求推荐, 求推荐 / 求解法, 求解法 / 求推荐, 明确阻塞, 明确阻塞 / 吐槽到影响行动, 避坑]
+    reject_terms:
+      - most suspect
+      - depraved
+      - seize the means of production
+      - public is qualified
+      - i fear them
+      - looks attractive
+      - hope people can learn from this
+      - hate to login
+      - yikes
+      - my current progress
+    practical_share_terms:
+      - sharing some of my usedcases
+      - save a lot of your time
+      - chrome extension
+      - gsc data
+      - sitemap
+      - keyword cannibalization
+      - 20k+ pages
+    debate_or_collective_terms:
+      - i don't think
+      - not wrong but
+      - by writing it myself
+      - custom scripts
+      - pipeline
+      - lower than q1
+      - 40% lower
+      - revisit my ad spend
+      - after 8 years
+      - i manufacture my own product
+      - everybody keeps saying
+      - we all
+      - everyone in this thread
+    collective_reporting_terms:
+      - canceled
+      - cancelled
+      - unsubscribe
+      - unsubscribed
+      - switched to
+      - moved to
+      - went back to
+      - turned it off
+      - pulling budget
+      - cut spend
+      - chargeback
+      - refund
+      - lost revenue
+      - delete my account
+      - 40% lower
+      - revisit my ad spend
+    platform_action_terms:
+      - rolled out
+      - rollout
+      - launched
+      - released
+      - now available
+      - opened up
+      - pricing update
+      - policy update
+      - advisor strategy
+      - now we have
+
+scopes:
+  ai-automation:
+    title: AI 与自动化
+    description: 聚焦 AI 开源项目、人物路线、agent 落地事故与平台策略变化。
+    goal: 覆盖开源项目、关键人物路线、平台策略变化和真实 agent 落地事故，不再只盯少数大厂社区。
+    topic_clusters:
+      open-source-projects:
+        tags: [github, open-source, repo-launch, model-release, cli-agent, local-stack, eval-stack]
+        named_entities:
+          - DeepSeek
+          - OpenWebUI
+          - Ollama
+          - vLLM
+          - Gemini CLI
+          - AutoResearch
+          - CrewAI
+          - LangChain
+          - LLM Council
+          - LocalSpeech
+          - OLMo
+          - MiniMax
+        primary_communities: [LocalLLaMA, OpenSourceAI, ClaudeCode, AI_Agents]
+        candidate_communities: [DeepSeek, opencodeCLI, claudeskills, OpenWebUI, vibecoding, AgentsOfAI, StableDiffusion, comfyui, n8n, selfhosted, mcp, OpenAI, ClaudeAI, perplexity_ai, singularity, aicuriosity]
+        source_mode: mixed
+        search_subreddit_limit: 10
+        listing_communities: [DeepSeek, opencodeCLI, claudeskills, OpenWebUI, vibecoding, comfyui, StableDiffusion, n8n, OpenSourceAI, OpenAI, ClaudeAI, singularity]
+        listing_subreddit_limit: 5
+        listing_rules:
+          - sort: hot
+            time_filter: day
+          - sort: rising
+            time_filter: day
+          - sort: top
+            time_filter: day
+        keyword_buckets:
+          project: [open source ai project, github release, cli agent, api compatible, local inference stack, eval framework]
+          problem: [maintenance burden, contributor bottleneck, unreliable tool use, memory issue, broken workflow]
+          change: [open sourced, released on github, now supports, moved to open source, added local support]
+      key-people-and-route:
+        tags: [key-people, worldview, strategy-shift, talk-track, narrative-change]
+        named_entities: [Andrej Karpathy, Simon Willison, Hamel Husain, swyx, Chip Huyen]
+        primary_communities: [ClaudeCode, AI_Agents, OpenAI, ProductManagement]
+        candidate_communities: [singularity, claudeskills, OpenSourceAI, ExperiencedDevs]
+        source_mode: mixed
+        allow_listing: true
+        listing_communities: [OpenAI, singularity, MachineLearning, artificial]
+        listing_rules:
+          - sort: hot
+            time_filter: day
+          - sort: rising
+            time_filter: day
+          - sort: top
+            time_filter: day
+        keyword_buckets:
+          people: [Karpathy, Simon Willison, Hamel Husain, swyx, Chip Huyen, agentic engineering, vibe coding, knowledge layer, eval driven development]
+          problem: [agent failure, orchestration failure, slop, too many tools, context loss]
+          change: [called out, changed tune, proposes, warns, says the problem is]
+      ai-product-and-adoption:
+        tags: [ai-product, ai-adoption, pm, rollout, workflow-design, eval-gap]
+        named_entities: [Hamel Husain, Product Management, AI Engineer, NotebookLM, Cursor Composer]
+        primary_communities: [ProductManagement, SaaS, ExperiencedDevs]
+        candidate_communities: [Entrepreneur, startups, ChatGPT, ClaudeAI]
+        source_mode: mixed
+        listing_communities: [ProductManagement, SaaS, ExperiencedDevs, OpenAI, ClaudeAI]
+        listing_rules:
+          - sort: hot
+            time_filter: day
+          - sort: rising
+            time_filter: day
+          - sort: top
+            time_filter: day
+        keyword_buckets:
+          category: [ai product manager, llm product workflow, ai feature rollout, ai adoption in product, ai product strategy]
+          problem: [ai feature nobody uses, ai feature trust issue, rollout failed, eval gap in production, copilot did not help]
+          change: [pm using claude, product team moved to ai workflow, ai roadmap shifted, ai feature got cut, team adopted notebooklm]
+        search_templates:
+          help: [ship an ai feature users actually adopt, measure whether an ai feature helps]
+      flagship-project-tracks:
+        tags: [flagship-project, release-race, open-vs-closed, benchmark-route, pricing-route]
+        named_entities: [OpenAI open source model, Gemini CLI, open model release, coding benchmark, agent benchmark]
+        primary_communities: [LocalLLaMA, OpenAI, ClaudeAI]
+        candidate_communities: [perplexity_ai, aicuriosity, claude, Anthropic]
+        source_mode: mixed
+        listing_communities: [OpenAI, ClaudeAI, claude, Anthropic, perplexity_ai, aicuriosity]
+        keyword_buckets:
+          category: [open model, coding model, reasoning model, agent benchmark, api pricing]
+          problem: [license change, deprecation, rate limit, benchmark doubt, sabotage claim]
+          change: [release notes, pricing update, benchmark jump, open source launch]
+      agent-incidents:
+        tags: [agent-failure, tool-calling, orchestration, eval, observability, long-running-agents]
+        named_entities: [tool calling, approval loop, browser agent, workflow agent]
+        primary_communities: [ChatGPTCoding, ClaudeAI, OpenAI, cursor, automation]
+        candidate_communities: [mcp, OpenWebUI, AI_Agents, ClaudeCode, LocalLLaMA, LLM, MachineLearning]
+        source_mode: search-first
+        keyword_buckets:
+          category: [agent eval, agent observability, multi step workflow, browser agent, mcp server, tool use]
+          problem: [agent broke in production, tool calling unreliable, ignored tool result, approval bottleneck, orchestration failure, context loss, tool call timeout, agent eval is hard]
+          change: [stopped using agent framework, moved from agent to workflow, cut steps, replaced framework, eval caught bug, moved to mcp, replaced agent with scripts]
+        search_templates:
+          pain: [trust an agent in production, debug tool calling failures, keep an agent from looping on approvals]
+          help: [evaluate an agent before production, decide if mcp is worth the setup, replace a flaky agent with a simpler workflow]
+      platform-policy-shifts:
+        tags: [platform-policy, launch-policy, access-policy, pricing-policy, safety-boundary]
+        named_entities: [API pricing, invite only, model access tier, release policy]
+        primary_communities: [OpenAI, artificial, MachineLearning]
+        candidate_communities: [singularity, ClaudeAI]
+        source_mode: mixed
+        listing_communities: [OpenAI, artificial, MachineLearning, ClaudeAI]
+        keyword_buckets:
+          category: [api pricing, access policy, release policy, safety policy]
+          problem: [rate limit, access cap, policy confusion, platform lock in]
+          change: [pricing change, opened access, invite only, limited release, policy update]
+      workflow-friction:
+        tags: [workflow-friction, context-switching, subscription-fatigue, tool-sprawl, prompt-rework]
+        primary_communities: [ChatGPT, ClaudeAI, cursor, OpenAI]
+        candidate_communities: [vibecoding, selfhosted, OpenWebUI, n8n, ChatGPTCoding, automation, LocalLLaMA]
+        experimental_communities: [CursorAI, windsurf, aider, OpenRouter]
+        source_mode: search-first
+        search_subreddit_limit: 6
+        listing_subreddit_limit: 6
+        keyword_buckets:
+          category: [ai workflow with fewer tools, too many ai subscriptions, context loss between tools, workflow overload, ai productivity overload]
+          problem: [tool switching fatigue, re explaining context to ai, copy paste context between tools, using too many ai tools, too productive to switch off, cannot switch off ai workflow]
+          change: [which ai tool did you keep, which ai subscription was worth keeping, which ai tool did you cancel, replaced multiple ai tools with one, always working on something, ai made me work more]
+        search_templates:
+          help: [keep context across ai tools, manage too many ai subscriptions]
+          pain: [re explain context to ai every time, switch between ai tools all day, ai tools make it hard to switch off]
+    topic_packs:
+      upstream-winds:
+        title: 上游风向
+        description: 大厂路线、开源项目、模型发布与平台策略变化。
+        target_share: 25
+        source_mode: mixed
+        allow_listing: true
+        allow_search_hot: true
+        bucket_priority: [change, category, problem]
+        candidate_cap: 6
+        listing_subreddit_limit: 6
+        topic_clusters: [open-source-projects, key-people-and-route, flagship-project-tracks, platform-policy-shifts]
+      tools-efficiency:
+        title: 工具与效率
+        description: AI 工具、效率、workflow、skills、SOP 与上下文摩擦。
+        target_share: 35
+        source_mode: search-first
+        allow_listing: true
+        allow_search_hot: true
+        bucket_priority: [problem, change, category]
+        candidate_cap: 4
+        topic_clusters: [open-source-projects, workflow-friction, ai-product-and-adoption]
+      agent-builder:
+        title: Builder 基建
+        description: LLM、agent、context、eval、orchestration、可靠性。
+        target_share: 40
+        source_mode: search-first
+        allow_listing: false
+        allow_search_hot: false
+        bucket_priority: [problem, change, category]
+        candidate_cap: 4
+        search_subreddit_limit: 6
+        keywords_per_bucket: 3
+        template_queries_per_segment: 4
+        topic_clusters: [agent-incidents]
+
+  ecommerce-sellers:
+    title: 电商与卖家
+    description: 聚焦真实品类、真实购买摩擦、卖家方向判断和否决信号。
+    goal: 把电商供给从抽象选品，拉回真实品类、真实场景、真实购买摩擦，不再长期靠少数社区撑住。
+    topic_clusters:
+      pet:
+        tags: [pet, dog, cat, shedding, travel, odor, chew-proof, apartment-pet]
+        primary_communities: [petproducts, BuyItForLife]
+        candidate_communities: [AmazonSeller, FulfillmentByAmazon, Frugal, CleaningTips]
+        source_mode: mixed
+        keyword_buckets:
+          scenario: [pet hair remover tool, dog travel accessory, odor control for dog bed, chew proof dog toy, pet stain remover worth it]
+          problem: [sheds everywhere, odor won’t come out, hard to clean pet mess, worth buying for pet owners]
+          change: [better alternative for pet owners, new favorite for dog owners, switched to this for pet hair]
+        search_templates:
+          help: [clean pet hair in a small apartment, control dog smell at home, remove pet stains without ruining the floor]
+      edc:
+        tags: [edc, organizer, pouch, carry, wallet, knife, keychain, small tools]
+        primary_communities: [EDC, BuyItForLife]
+        candidate_communities: [ManyBaggers, knives, onebag]
+        source_mode: search-first
+        keyword_buckets:
+          scenario: [edc organizer pouch, key organizer, desk carry, sling setup, pocket carry]
+          problem: [bulky carry, loses shape, hard to access, too heavy for daily carry]
+          change: [better carry setup, switched organizer, finally found a pouch]
+      outdoor:
+        tags: [outdoor, camping, bushcraft, travel, compact-gear, beginner-gear]
+        primary_communities: [CampingGear, BuyItForLife]
+        candidate_communities: [backpacking, flashlight, Ultralight, Bushcraft, Survival, myog]
+        experimental_communities: [HerOneBag, bikepacking, trailrunning, CampingandHiking]
+        source_mode: mixed
+        search_subreddit_limit: 6
+        keyword_buckets:
+          scenario: [car camping, beginner camping, compact outdoor gear, wet gear, cold weather setup]
+          problem: [too bulky, breaks in the field, not worth carrying, beginner confusion]
+          change: [gear i replaced, worth it for camping, new favorite outdoor tool]
+      desk-setup:
+        tags: [desk-setup, home-office, monitor-arm, standing-desk, ergonomic-mouse, ultrawide]
+        primary_communities: [homeoffice, battlestations]
+        candidate_communities: [ultrawidemasterrace, MouseReview, BuyItForLife]
+        source_mode: search-first
+        search_subreddit_limit: 4
+        keyword_buckets:
+          scenario: [standing desk, monitor arm for ultrawide, ergonomic mouse, dual laptop desk setup, desk cable setup]
+          problem: [desk wobbles, monitor arm sag, wrist pain from mouse, switching between two laptops is annoying, no room on desk]
+          change: [desk setup i switched to, standing desk feature that matters, better monitor arm for ultrawide, switched to a vertical mouse]
+      parenting-travel:
+        tags: [parenting-travel, baby-travel, car-seat, stroller, family-flight]
+        primary_communities: [beyondthebump]
+        candidate_communities: [onebag, BuyItForLife]
+        source_mode: search-first
+        search_subreddit_limit: 3
+        keyword_buckets:
+          scenario: [traveling with car seat, flying with toddler gear, stroller gate check, baby travel setup]
+          problem: [car seat gets damaged in flight, too bulky to travel with, airport with toddler is chaos, do not know what baby gear is worth bringing]
+          change: [stopped traveling with expensive car seat, switched to cheap travel seat, found a better airport setup for toddlers]
+      home:
+        tags: [home-goods, small-space, renter, kitchen, storage, cleaning, appliance]
+        primary_communities: [homeowners, Frugal, BuyItForLife]
+        candidate_communities: [ApartmentHacks, CleaningTips, organization]
+        source_mode: mixed
+        keyword_buckets:
+          scenario: [small kitchen, renter friendly, storage saver, easy clean, home setup]
+          problem: [takes too much space, too noisy, hard to clean, breaks too fast]
+          change: [better for small apartment, finally found one that lasts, switched home setup]
+        search_templates:
+          help: [find renter friendly small kitchen storage, pick a washing machine worth moving with]
+      small-goods:
+        tags: [small-goods, accessories, consumables, replacement-parts, impulse-buy, gifting]
+        primary_communities: [Frugal, BuyItForLife, homeowners]
+        candidate_communities: [EtsySellers, AmazonSeller, ecommerce, sidehustle]
+        source_mode: mixed
+        bucket_priority: [scenario, change, problem]
+        keyword_buckets:
+          scenario: [cheap useful accessory, replacement part, small product niche, repeat purchase item, giftable item]
+          problem: [too commoditized, hard to explain, impulse dies quickly, easy to copy]
+          change: [still selling in this niche, category getting crowded, what small product still works]
+      paper-goods-and-gifting:
+        tags: [paper-goods, stationery, planner, journaling, fountain-pen, reading-light, gifting]
+        primary_communities: [stationery, planners, Journaling]
+        candidate_communities: [hobonichi, fountainpens, GiftIdeas]
+        source_mode: search-first
+        search_subreddit_limit: 6
+        keyword_buckets:
+          scenario: [planner accessory, journaling setup, reading light for planner, fountain pen gift, small useful gift]
+          problem: [layout feels wrong, accessory not worth premium, hard to carry daily, generic gift, pages do not fit how i use it]
+          change: [stopped buying the cover, switched planner setup, finally found a better reading light, gift actually got used]
+      brand-trust-and-alt:
+        tags: [brand, premium-vs-generic, trusted-brand, alternative, replacement]
+        named_entities: [YETI, Stanley, Owala, Hydro Flask, Le Creuset, Weber]
+        primary_communities: [BuyItForLife, Frugal, onebag]
+        candidate_communities: [EDC, CampingGear, homeowners]
+        source_mode: mixed
+        keyword_buckets:
+          category: [brand alternative, premium vs generic, worth the brand premium, buy it for life brand]
+          problem: [brand tax, generic failed, trust brand quality, replacement part unavailable]
+          change: [switched from generic to brand, brand quality dropped, no name version was enough]
+        search_templates:
+          help: [know when the brand premium is actually worth it, find a cheaper alternative to a premium brand]
+      brand-launch-and-crowdfunding:
+        tags: [brand-launch, crowdfunding, preorder, waitlist, dtc, launch-risk]
+        named_entities: [Kickstarter, Indiegogo, DTC, preorder, waitlist]
+        primary_communities: [kickstarter, ecommerce, EntrepreneurRideAlong]
+        candidate_communities: [Crowdfunding, smallbusiness, sharktank, FulfillmentByAmazon]
+        source_mode: mixed
+        keyword_buckets:
+          category: [kickstarter product launch, indiegogo launch, dtc brand launch, preorder brand, waitlist launch]
+          problem: [backer trust issue, shipping delay, fulfillment risk, brand story weak, nobody converts from waitlist]
+          change: [campaign funded fast, prelaunch list growth, moved from amazon to own brand, launched on kickstarter first]
+        search_templates:
+          help: [validate a product before a big inventory bet, launch a brand without already having demand]
+      seller-category-direction:
+        tags: [seller-side, category-direction, saturation, demand-shift, market-crowding]
+        primary_communities: [AmazonSeller, FulfillmentByAmazon, EtsySellers]
+        candidate_communities: [EntrepreneurRideAlong, sidehustle, ecommerce, shopify, Entrepreneur]
+        experimental_communities: [Etsy]
+        source_mode: listing-first
+        listing_communities: [AmazonSeller, FulfillmentByAmazon, EtsySellers, ecommerce, shopify, sidehustle]
+        experimental_keyword_buckets:
+          category: [ai product image, amazon listing photos]
+          problem: [ai generated product images, product photos not converting]
+          change: [using ai for listing images]
+        keyword_buckets:
+          category: [what category is growing, seasonal demand shift ecommerce, amazon niche trend, etsy category trend, what category is moving now]
+          problem: [saturated niche amazon, too competitive category, niche getting crowded, inventory risk in this niche, category demand is drying up]
+          change: [what niche still has room, demand shift ecommerce, category getting crowded, what category are you avoiding, what category are you moving into]
+        search_templates:
+          help: [find an ecommerce category that still has room, know if a niche is getting crowded, spot a category demand shift before buying inventory]
+          pain: [tell if a category is too crowded to enter, know which category sellers are starting to avoid]
+      unit-economics-and-platform-risk:
+        tags: [unit-economics, platform-risk, shipping, refund, margin, returns]
+        primary_communities: [AmazonSeller, FulfillmentByAmazon, shopify, ecommerce]
+        candidate_communities: [EtsySellers, sidehustle]
+        source_mode: listing-first
+        listing_communities: [AmazonSeller, FulfillmentByAmazon, shopify, ecommerce, EtsySellers, sidehustle]
+        keyword_buckets:
+          category: [fulfillment cost, platform risk, unit economics ecommerce, return rate problem]
+          problem: [margin squeeze, chargeback issue, refund abuse, ppc not profitable, conversion dropping]
+          change: [policy change, fee increase, profit squeeze, shipping cost jump]
+    topic_packs:
+      selection-signals:
+        title: 选品信号
+        description: 需求缺口、品类机会、值得继续追的细分产品信号。
+        target_share: 60
+        source_mode: search-first
+        allow_listing: false
+        allow_search_hot: false
+        bucket_priority: [problem, change, scenario]
+        candidate_cap: 3
+        topic_clusters: [pet, edc, outdoor, home, desk-setup, parenting-travel, small-goods, paper-goods-and-gifting, brand-trust-and-alt, brand-launch-and-crowdfunding]
+      category-winds:
+        title: 类目风向
+        description: 类目热度、市场拥挤度、需求风向变化。
+        target_share: 25
+        source_mode: listing-first
+        allow_listing: true
+        allow_search_hot: false
+        bucket_priority: [problem, change, category]
+        candidate_cap: 6
+        listing_subreddit_limit: 6
+        search_subreddit_limit: 6
+        keywords_per_bucket: 3
+        template_queries_per_segment: 4
+        topic_clusters: [seller-category-direction]
+        noise_subreddits: [amazonseller, fulfillmentbyamazon, shopify, ecommerce, etsysellers]
+        noise_markers: [community promotion post, weekly megathread, megathread, share your store, promotion post]
+      kill-signals:
+        title: 否决信号
+        description: 运费、仲裁、平台、单位经济等高约束信号。
+        target_share: 15
+        source_mode: listing-first
+        allow_listing: true
+        allow_search_hot: false
+        bucket_priority: [problem, change, category]
+        candidate_cap: 3
+        listing_subreddit_limit: 6
+        topic_clusters: [unit-economics-and-platform-risk]
+        noise_subreddits: [amazonseller, fulfillmentbyamazon, shopify, ecommerce, etsysellers]
+        noise_markers: [community promotion post, weekly megathread, megathread, share your store, promotion post]
+
+  business-growth-ops:
+    title: 商业增长与运营
+    description: 覆盖 SEO/GEO、Ads、归因、漏斗和分发，不再只剩泛 SEO/PPC。
+    goal: 让增长线不再只剩泛 SEO/PPC，而是覆盖搜索、广告、归因、漏斗和分发的真实操作面。
+    topic_clusters:
+      seo-geo:
+        tags: [seo, geo, aeo, ai-search, ranking, indexing, visibility, reddit-seo]
+        named_entities: [Google Search Console, Ahrefs, Semrush, Screaming Frog, Google Discover, AI Overviews, GenEngineOptimization, GEO__AI__SEO]
+        primary_communities: [SEO, bigseo, TechSEO]
+        candidate_communities: [content_marketing, DigitalMarketing, juststart, seogrowth, GenEngineOptimization]
+        experimental_communities: [digital_marketing, AEO]
+        source_mode: mixed
+        search_subreddit_limit: 5
+        listing_subreddit_limit: 5
+        keyword_buckets:
+          category: [seo, geo, aeo, ai search, search visibility, indexing, discovery, technical seo, llm visibility, answer engine optimization]
+          problem: [ranking drop, indexing issue, content decay, ai overview impact, citation loss, google discover drop, serp cannibalization, citation volatility, llm referral decline]
+          change: [google update, geo shift, what ranks now, reddit seo, ai traffic shift, discover volatility, citation growth, ai overview rollout]
+        search_templates:
+          pain: [tell if ai search is hurting site traffic, get content cited in ai search, recover from a google discover drop, stop losing citations in ai search]
+          help: [measure geo visibility without guessing, know what content still ranks after ai overviews]
+      ads:
+        tags: [ads, media-buying, budget, creative-fatigue, bidding, account-structure]
+        primary_communities: [PPC, FacebookAds, googleads, Google_Ads, adops]
+        candidate_communities: [DigitalMarketing, agency, advertising]
+        source_mode: mixed
+        listing_communities: [PPC, FacebookAds, googleads, Google_Ads, adops, DigitalMarketing]
+        listing_rules:
+          - sort: hot
+            time_filter: day
+          - sort: rising
+            time_filter: day
+          - sort: top
+            time_filter: day
+        named_entities: [Google Ads, Meta Ads, TikTok Ads, Reddit Ads, Performance Max, Advantage+, Search Partners]
+        keyword_buckets:
+          category: [blended cac, google ads, meta ads, amazon ads, paid social, search campaign, channel profitability, incrementality test, offline conversion import, paid search profitability, pmax, advantage+, acquisition channel]
+          problem: [cpc spike, no impressions, budget waste, learning reset, creative fatigue, over reliant on paid ads, platform roas vs blended roas, attribution gap, search partners wasting budget, scale and lower roas, ad fatigue, rising cpa, weak creative refresh]
+          change: [cutting paid spend what happened, moved budget, cut paid spend, changed bidding, campaign stopped scaling, moved budget off meta, what is still profitable in paid social, when to lower roas target, budget reallocation after cpc spike, shifted budget into pmax, moved away from advantage+]
+        search_templates:
+          help: [know if paid ads are actually profitable, stop wasting budget on search partners, know which acquisition channel still scales]
+      attribution:
+        tags: [attribution, tracking, conversion, analytics, server-side, third-party-tracking]
+        named_entities: [Triple Whale, Northbeam, Hyros, GA4, Segment, PostHog, Elevar, Mixpanel]
+        primary_communities: [PPC, ecommerce, analytics]
+        candidate_communities: [SEO, Affiliatemarketing, marketinganalytics]
+        source_mode: search-first
+        keyword_buckets:
+          category: [attribution software, third party tracking, conversion tracking, server side tracking, incrementality, measurement stack]
+          problem: [platform mismatch, tracking gap, pixel not fed, source of truth conflict, blended roas mismatch, under reported revenue, data discrepancy]
+          change: [moved off platform attribution, replaced tracking tool, switched measurement setup, moved to server side tracking, started using posthog]
+        search_templates:
+          help: [track offline conversions reliably, compare platform attribution with real revenue, know which attribution tool is worth trusting]
+      funnel:
+        tags: [funnel, landing-page, checkout, drop-off, lead-quality, offer-test]
+        named_entities: [Hotjar, FullStory, Microsoft Clarity, VWO, Optimizely, Unbounce, Typeform]
+        primary_communities: [ecommerce, shopify, marketing, CRO]
+        candidate_communities: [smallbusiness, Entrepreneur, analytics, PPC, FacebookAds, Google_Ads, SaaSMarketing, consulting, sales]
+        experimental_communities: [AI_UGC_Marketing, GrowthHacking, MarketingAutomation, ConversionRateOptimization, shopifydevs]
+        source_mode: listing-first
+        listing_communities: [ecommerce, shopify, marketing, CRO, smallbusiness, analytics, SaaSMarketing, consulting, sales]
+        experimental_keyword_buckets:
+          category: [ai ugc ad, ai product video, ai agents growth stack]
+          problem: [ai ugc does not convert, product video gets clicks but no sales]
+          change: [started using ai ugc video, automated paid media with ai agents]
+        keyword_buckets:
+          category: [landing page, checkout, conversion rate, funnel, lead quality, cro, lead form, pricing page, booking appointments, form submission, booking event]
+          problem: [drop off, bounce, form friction, abandoned cart, poor lead quality, checkout confusion, weak offer fit, low landing page intent match, offer page leaks, booking vs form, appointment booking friction]
+          change: [offer test, checkout change, what converts now, funnel broke after, pricing page change, form change killed conversion, checkout tweak improved conversion, switch to booking conversion, confirmation page conversion]
+        search_templates:
+          help: [find where users drop before checkout, know which funnel step is breaking conversion, improve a pricing page that gets clicks but not checkouts, choose between booking event and form submission]
+          pain: [why does my checkout leak buyers, why did a landing page change kill conversion, booking appointments vs form submission]
+      creator-affiliate-distribution:
+        tags: [creator, affiliate, newsletter, distribution, organic reach, channel-fit]
+        named_entities: [Beehiiv, Substack, ConvertKit, Kit, PartnerStack, Impact, Refersion, LTK, ShopMy]
+        primary_communities: [Affiliatemarketing, Entrepreneur, Emailmarketing]
+        candidate_communities: [Substack, NewsletterCommunity, InstagramMarketing, agency]
+        source_mode: mixed
+        search_subreddit_limit: 5
+        listing_subreddit_limit: 5
+        listing_communities: [Substack, Emailmarketing, NewsletterCommunity, Affiliatemarketing, agency]
+        listing_rules:
+          - sort: hot
+            time_filter: day
+          - sort: rising
+            time_filter: day
+          - sort: top
+            time_filter: day
+        keyword_buckets:
+          category: [affiliate program, creator distribution, newsletter growth, channel strategy, referral loop, creator partnerships, audience growth]
+          problem: [distribution is hard, affiliate economics, creator growth stall, channel dependence, newsletter churn, sponsorship mismatch, partner quality is weak]
+          change: [new distribution playbook, affiliate strategy shift, creator monetization change, moved from substack to beehiiv, changed affiliate platform]
+        search_templates:
+          help: [choose between beehiiv and substack, find a distribution channel that still works, grow a newsletter without paid ads, know if affiliate still works for acquisition]
+      content-production-and-editorial:
+        tags: [content-production, editorial, content-ops, briefs, repurposing, editorial-workflow]
+        named_entities: [Substack, Beehiiv, Notion, Airtable, Google Docs, Clearscope, Frase, Surfer SEO]
+        primary_communities: [content_marketing, copywriting, Blogging]
+        candidate_communities: [SEO, juststart, Emailmarketing, ProductManagement]
+        source_mode: mixed
+        listing_communities: [content_marketing, copywriting, Blogging, SEO, ProductManagement]
+        listing_rules:
+          - sort: hot
+            time_filter: day
+          - sort: rising
+            time_filter: day
+          - sort: top
+            time_filter: day
+        keyword_buckets:
+          category: [content workflow, editorial calendar, content brief, repurposing workflow, content ops]
+          problem: [content production bottleneck, brief quality is weak, publishing cadence broke, content team blocked, articles take too long]
+          change: [switched editorial workflow, moved to a content system, changed briefing process, started using ai for first drafts]
+        search_templates:
+          help: [build a content workflow that actually ships, write briefs that content writers can use]
+      market-intel-and-audience-research:
+        tags: [market-analysis, market-intel, audience-research, competitor-monitoring, pricing-research]
+        named_entities: [G2, Capterra, Similarweb, SparkToro, Reddit Pro, Google Trends, AnswerThePublic]
+        primary_communities: [marketing, AskMarketing, analytics]
+        candidate_communities: [b2bmarketing, SaaSMarketing, smallbusiness, EntrepreneurRideAlong]
+        source_mode: search-first
+        search_subreddit_limit: 6
+        keyword_buckets:
+          category: [market research, audience research, competitor analysis, message testing, pricing research]
+          problem: [do not know what users care about, no idea which competitor users pick, pricing feels wrong, message does not land, channel fit is unclear]
+          change: [ran a market survey, changed positioning, reworked pricing, changed ideal customer profile]
+        search_templates:
+          help: [figure out what the market actually cares about, know why users pick a competitor over us]
+    topic_packs:
+      paid-economics:
+        title: 投放经济
+        description: ROI、ROAS、Ads、投流效率、获客成本。
+        target_share: 35
+        source_mode: search-first
+        allow_listing: true
+        allow_search_hot: false
+        bucket_priority: [problem, change, category, entity]
+        candidate_cap: 3
+        listing_subreddit_limit: 6
+        topic_clusters: [ads, attribution]
+      organic-discovery:
+        title: 自然增长
+        description: SEO、GEO、搜索、内容分发、自然流量。
+        target_share: 30
+        source_mode: listing-first
+        allow_listing: true
+        allow_search_hot: true
+        bucket_priority: [problem, change, category, entity]
+        candidate_cap: 8
+        listing_subreddit_limit: 8
+        subreddit_candidate_cap: 1
+        listing_bridge_communities: [seogrowth, Substack, Emailmarketing, content_marketing, Blogging, juststart, DigitalMarketing]
+        listing_bridge_rules:
+          - { sort: hot, time_filter: day }
+          - { sort: top, time_filter: week }
+        topic_clusters: [seo-geo, creator-affiliate-distribution, content-production-and-editorial]
+      funnel-conversion:
+        title: 转化链路
+        description: 独立站、落地页、checkout、流量转化。
+        target_share: 35
+        source_mode: listing-first
+        allow_listing: true
+        allow_search_hot: false
+        bucket_priority: [problem, change, category, entity]
+        candidate_cap: 8
+        listing_subreddit_limit: 10
+        subreddit_candidate_cap: 1
+        listing_bridge_communities: [b2bmarketing, ecommerce, shopify, smallbusiness, analytics, marketing, SaaSMarketing, consulting, sales]
+        listing_bridge_rules:
+          - { sort: hot, time_filter: day }
+          - { sort: top, time_filter: week }
+        search_subreddit_limit: 6
+        keywords_per_bucket: 3
+        template_queries_per_segment: 4
+        topic_clusters: [funnel]

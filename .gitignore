@@ -74,6 +74,13 @@ frontend/frontend_server.log
 
 # ─── Runtime State Files ───────────────────────────────────
 backend/crawl_progress.json
+*.lock
+
+# ─── Hotpost Generated Runtime Artifacts ───────────────────
+backend/data/hotpost/releases/
+backend/data/hotpost/review_queue/snapshots/
+backend/data/hotpost/mini_snapshots/
+backend/data/hotpost/**/.DS_Store
 
 # ─── Temporary Files ───────────────────────────────────────
 tmp/
@@ -112,6 +119,7 @@ backups/*.sql.gz
 # ─── Reports & Temporary Docs ──────────────────────────────
 backend/reports/
 reports/blockers/
+reports/checkpoints/
 reports/local-acceptance/
 reports/threshold-calibration/
 reports/phase-log/*.json

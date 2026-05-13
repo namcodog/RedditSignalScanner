@@ -15,16 +15,33 @@ from alembic import command
 from alembic.config import Config
 
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy import text
 
 
 ROOT = Path(__file__).resolve().parents[2]
-
-if str(ROOT) not in sys.path:
-    sys.path.insert(0, str(ROOT))
-
 BACKEND_ROOT = Path(__file__).resolve().parents[1]
-if str(BACKEND_ROOT) not in sys.path:
+_LOCAL_SCRIPTS_ROOT = BACKEND_ROOT / "scripts"
+
+
+def _ensure_backend_import_precedence() -> None:
+    for path in (ROOT, BACKEND_ROOT):
+        value = str(path)
+        while value in sys.path:
+            sys.path.remove(value)
+    sys.path.insert(0, str(ROOT))
     sys.path.insert(0, str(BACKEND_ROOT))
+
+    loaded_scripts = sys.modules.get("scripts")
+    if loaded_scripts is None:
+        return
+    loaded_scripts_file = getattr(loaded_scripts, "__file__", None)
+    loaded_scripts_path = Path(loaded_scripts_file).resolve() if loaded_scripts_file else None
+    if loaded_scripts_path is None or not loaded_scripts_path.is_relative_to(_LOCAL_SCRIPTS_ROOT):
+        for module_name in [name for name in sys.modules if name == "scripts" or name.startswith("scripts.")]:
+            del sys.modules[module_name]
+
+
+_ensure_backend_import_precedence()
 
 # Tests rely on NullPool to avoid cross-event-loop conflicts; production overrides this.
 os.environ.setdefault("SQLALCHEMY_DISABLE_POOL", "1")
@@ -36,6 +53,27 @@ os.environ.setdefault(
     "postgresql+asyncpg://postgres@localhost:5432/reddit_signal_scanner_test",
 )
 
+DEFAULT_RESET_TABLES = (
+    "storage_metrics",
+    "posts_archive",
+    "beta_feedback",
+    "tier_suggestions",
+    "tier_audit_logs",
+    "semantic_candidates",
+    "semantic_terms",
+    "crawl_metrics",
+    "quality_metrics",
+    "reports",
+    "analyses",
+    "tasks",
+)
+
+COMMUNITY_RESET_TABLES = (
+    "community_cache",
+    "community_pool",
+    "discovered_communities",
+)
+
 # Workaround for RecursionError with SQLAlchemy + Pydantic + pytest
 # See: https://github.com/pydantic/pydantic/issues/5108
 # Increase recursion limit temporarily for test environment
@@ -44,6 +82,7 @@ sys.setrecursionlimit(5000)
 
 def pytest_configure(config: pytest.Config) -> None:
     """Ensure pytest-asyncio runs in auto mode for consistent loop handling."""
+    _ensure_backend_import_precedence()
     # Default to auto mode; integration modules selectively request a session-scoped loop.
     config.option.asyncio_mode = "auto"
 
@@ -100,7 +139,7 @@ def reset_database() -> None:
     # Use synchronous connection to avoid event loop conflicts
     # Prefer DATABASE_URL so this matches the async engine's target DB
     dsn_env = os.getenv('DATABASE_URL')
-    
+
     # ========== CRITICAL SAFETY GUARD ==========
     # This guard MUST NOT be inside a try/except to prevent silent bypass!
     # Production databases WILL be cleared if this check fails.
@@ -108,7 +147,7 @@ def reset_database() -> None:
         """Hard block if database name doesn't end with _test."""
         allow_override = os.getenv('ALLOW_TEST_ON_PROD', '').strip().lower() in {'1','true','yes'}
         whitelist = {h.strip() for h in os.getenv('TEST_DB_HOST_WHITELIST', 'localhost,127.0.0.1,db,db.internal').split(',') if h.strip()}
-        
+
         # 强力保护：非 _test 库一律禁止运行
         if db_name and not db_name.endswith('_test'):
             print(f"\n{'='*60}", flush=True)
@@ -121,13 +160,13 @@ def reset_database() -> None:
             print(f"{'='*60}\n", flush=True)
             import sys as _sys
             _sys.exit(1)
-        
+
         if not allow_override and host and host not in whitelist:
             print(f"❌ Tests blocked: DATABASE_URL host '{host}' not in whitelist {whitelist}. Set ALLOW_TEST_ON_PROD=1 to override.", flush=True)
             import sys as _sys
             _sys.exit(1)
     # ========== END SAFETY GUARD ==========
-    
+
     if dsn_env:
         parsed = urlparse(dsn_env.replace('+asyncpg','').replace('+psycopg',''))
         host = (parsed.hostname or '').lower()
@@ -542,12 +581,10 @@ def reset_database() -> None:
             """
             DO $$
             BEGIN
-                IF EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'ck_analyses_sources_schema') THEN
-                    ALTER TABLE analyses DROP CONSTRAINT ck_analyses_sources_schema;
-                END IF;
-                IF EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'ck_analyses_insights_schema') THEN
-                    ALTER TABLE analyses DROP CONSTRAINT ck_analyses_insights_schema;
-                END IF;
+                ALTER TABLE analyses DROP CONSTRAINT IF EXISTS ck_analyses_sources_schema;
+                ALTER TABLE analyses DROP CONSTRAINT IF EXISTS ck_analyses_ck_analyses_sources_schema;
+                ALTER TABLE analyses DROP CONSTRAINT IF EXISTS ck_analyses_insights_schema;
+                ALTER TABLE analyses DROP CONSTRAINT IF EXISTS ck_analyses_ck_analyses_insights_schema;
             END;
             $$;
             """
@@ -584,12 +621,10 @@ def reset_database() -> None:
             """
             DO $$
             BEGIN
-                IF EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'ck_tasks_error_message_when_failed') THEN
-                    ALTER TABLE tasks DROP CONSTRAINT ck_tasks_error_message_when_failed;
-                END IF;
-                IF EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'ck_tasks_completed_status_alignment') THEN
-                    ALTER TABLE tasks DROP CONSTRAINT ck_tasks_completed_status_alignment;
-                END IF;
+                ALTER TABLE tasks DROP CONSTRAINT IF EXISTS ck_tasks_error_message_when_failed;
+                ALTER TABLE tasks DROP CONSTRAINT IF EXISTS ck_tasks_ck_tasks_error_message_when_failed;
+                ALTER TABLE tasks DROP CONSTRAINT IF EXISTS ck_tasks_completed_status_alignment;
+                ALTER TABLE tasks DROP CONSTRAINT IF EXISTS ck_tasks_ck_tasks_completed_status_alignment;
                 -- Recreate constraints using status::text so it works for either enum or varchar
                 ALTER TABLE tasks
                 ADD CONSTRAINT ck_tasks_error_message_when_failed
@@ -601,7 +636,8 @@ def reset_database() -> None:
                 ADD CONSTRAINT ck_tasks_completed_status_alignment
                 CHECK (
                     ((status::text = 'completed') AND completed_at IS NOT NULL) OR
-                    ((status::text <> 'completed') AND completed_at IS NULL)
+                    ((status::text = 'failed') AND completed_at IS NOT NULL) OR
+                    ((status::text NOT IN ('completed', 'failed')) AND completed_at IS NULL)
                 );
                 -- Recreate partial index without type cast (status is VARCHAR, no cast needed)
                 IF EXISTS (SELECT 1 FROM pg_indexes WHERE indexname = 'ix_tasks_processing') THEN
@@ -617,12 +653,10 @@ def reset_database() -> None:
             DO $$
             BEGIN
                 -- Relax completion time constraint to compare against started_at rather than created_at for test data seeding
-                IF EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'ck_tasks_completed_after_created') THEN
-                    ALTER TABLE tasks DROP CONSTRAINT ck_tasks_completed_after_created;
-                END IF;
-                IF EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'ck_tasks_valid_completion_time') THEN
-                    ALTER TABLE tasks DROP CONSTRAINT ck_tasks_valid_completion_time;
-                END IF;
+                ALTER TABLE tasks DROP CONSTRAINT IF EXISTS ck_tasks_completed_after_created;
+                ALTER TABLE tasks DROP CONSTRAINT IF EXISTS ck_tasks_ck_tasks_completed_after_created;
+                ALTER TABLE tasks DROP CONSTRAINT IF EXISTS ck_tasks_valid_completion_time;
+                ALTER TABLE tasks DROP CONSTRAINT IF EXISTS ck_tasks_ck_tasks_valid_completion_time;
                 ALTER TABLE tasks
                 ADD CONSTRAINT ck_tasks_valid_completion_time
                 CHECK (
@@ -633,25 +667,7 @@ def reset_database() -> None:
             """
         )
 
-        tables_to_truncate = [
-            "community_import_history",
-            "storage_metrics",
-            "posts_archive",
-            "beta_feedback",
-            "community_cache",
-            "community_pool",
-            "discovered_communities",
-            "tier_suggestions",
-            "tier_audit_logs",
-            "semantic_candidates",
-            "semantic_terms",
-            "crawl_metrics",
-            "quality_metrics",
-            "reports",
-            "analyses",
-            "tasks",
-            "users",
-        ]
+        tables_to_truncate = [*DEFAULT_RESET_TABLES, "users"]
         existing_tables: list[str] = []
         for t in tables_to_truncate:
             cursor.execute("SELECT to_regclass(%s)", (t,))
@@ -798,7 +814,9 @@ def truncate_tables_between_tests(request: pytest.FixtureRequest) -> Iterator[No
             for i in range(attempts):
                 try:
                     cursor.execute(
-                        "TRUNCATE TABLE beta_feedback, community_cache, community_pool, discovered_communities, tier_suggestions, tier_audit_logs, semantic_candidates, semantic_terms, crawl_metrics, quality_metrics, reports, analyses, tasks, storage_metrics, posts_archive RESTART IDENTITY CASCADE"
+                        "TRUNCATE TABLE "
+                        + ", ".join(DEFAULT_RESET_TABLES)
+                        + " RESTART IDENTITY CASCADE"
                     )
                     break
                 except psycopg.errors.LockNotAvailable:
@@ -808,6 +826,16 @@ def truncate_tables_between_tests(request: pytest.FixtureRequest) -> Iterator[No
                     delay *= 1.5  # Slower exponential backoff (0.5 → 0.75 → 1.125 → 1.69 → 2.53 → 3.8 → 5.7 → 8.5 → 12.8s)
     finally:
         conn.close()
+
+
+@pytest_asyncio.fixture(scope="function")
+async def reset_community_tables(db_session: AsyncSession) -> AsyncIterator[None]:
+    quoted = ", ".join(f'"{name}"' for name in COMMUNITY_RESET_TABLES)
+    await db_session.execute(text(f"TRUNCATE TABLE {quoted} RESTART IDENTITY CASCADE"))
+    await db_session.commit()
+    yield
+    await db_session.execute(text(f"TRUNCATE TABLE {quoted} RESTART IDENTITY CASCADE"))
+    await db_session.commit()
 
 
 # For the community import tests module, reset history once at module start so tests can assert cumulative history
@@ -869,6 +897,18 @@ async def db_session() -> AsyncIterator[AsyncSession]:
             # Explicitly dispose engine to clean up all connections
             # This prevents connection pool issues across tests
             await engine.dispose()
+
+
+@pytest_asyncio.fixture(scope="function")
+async def async_truncate_test_tables(db_session: AsyncSession) -> Callable[..., Awaitable[None]]:
+    async def _truncate(*table_names: str) -> None:
+        if not table_names:
+            return
+        quoted = ", ".join(f'"{name}"' for name in table_names)
+        await db_session.execute(text(f"TRUNCATE TABLE {quoted} RESTART IDENTITY CASCADE"))
+        await db_session.commit()
+
+    return _truncate
 
 
 @pytest_asyncio.fixture(scope="function")

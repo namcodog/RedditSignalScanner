@@ -6,6 +6,7 @@ from uuid import uuid4
 
 import psycopg
 import pytest
+from psycopg import sql
 
 from app.db.rls_sanity import verify_rls_startup_sanity
 
@@ -43,12 +44,20 @@ def _ensure_rss_app_role() -> None:
             exists = cur.fetchone() is not None
             if not exists:
                 if password:
-                    cur.execute("CREATE ROLE rss_app LOGIN PASSWORD %s", (password,))
+                    cur.execute(
+                        sql.SQL("CREATE ROLE rss_app LOGIN PASSWORD {}").format(
+                            sql.Literal(password)
+                        )
+                    )
                 else:
                     cur.execute("CREATE ROLE rss_app LOGIN")
             elif password:
                 # Ensure rss_app can connect in password-based CI environments.
-                cur.execute("ALTER ROLE rss_app WITH LOGIN PASSWORD %s", (password,))
+                cur.execute(
+                    sql.SQL("ALTER ROLE rss_app WITH LOGIN PASSWORD {}").format(
+                        sql.Literal(password)
+                    )
+                )
             cur.execute("GRANT USAGE ON SCHEMA public TO rss_app")
             # Sanity check should be able to touch RLS-protected tables.
             cur.execute("GRANT SELECT ON TABLE public.analyses TO rss_app")

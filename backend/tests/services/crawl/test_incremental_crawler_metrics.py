@@ -16,12 +16,52 @@ from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
 from sqlalchemy import select, text
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.db.session import SessionFactory
 from app.models.community_cache import CommunityCache
 from app.models.community_pool import CommunityPool
-from app.models.crawl_metrics import CrawlMetrics
 from app.services.crawl.incremental_crawler import IncrementalCrawler
+
+
+async def _seed_pool_and_cache(
+    db: AsyncSession,
+    *,
+    name: str,
+    tier: str,
+    daily_posts: int,
+    quality_score: Decimal,
+    crawl_priority: int,
+    crawl_frequency_hours: int,
+) -> None:
+    db.add(
+        CommunityPool(
+            name=name,
+            tier=tier,
+            categories={"topic": ["test"]},
+            description_keywords={"test": 1},
+            daily_posts=daily_posts,
+            quality_score=quality_score,
+            priority=tier,
+        )
+    )
+    await db.flush()
+    db.add(
+        CommunityCache(
+            community_name=name,
+            last_crawled_at=datetime.now(timezone.utc),
+            posts_cached=0,
+            ttl_seconds=3600,
+            quality_score=quality_score,
+            crawl_priority=crawl_priority,
+            crawl_frequency_hours=crawl_frequency_hours,
+            is_active=True,
+            success_hit=0,
+            empty_hit=0,
+            failure_hit=0,
+            avg_valid_posts=Decimal("0.00"),
+        )
+    )
 
 
 @pytest.mark.asyncio
@@ -36,32 +76,15 @@ async def test_crawler_records_success_metrics() -> None:
         )
         await db.commit()
 
-        pool = CommunityPool(
-            name="r/TestSuccess",
+        await _seed_pool_and_cache(
+            db,
+            name="r/testsuccess",
             tier="high",
-            categories={"topic": ["test"]},
-            description_keywords={"test": 1},
             daily_posts=50,
-            quality_score=Decimal("0.80"),
-            priority="high",
-        )
-        from datetime import datetime, timezone
-
-        cache = CommunityCache(
-            community_name="r/TestSuccess",
-            last_crawled_at=datetime.now(timezone.utc),
-            posts_cached=0,
-            ttl_seconds=3600,
             quality_score=Decimal("0.80"),
             crawl_priority=80,
             crawl_frequency_hours=2,
-            is_active=True,
-            success_hit=0,
-            empty_hit=0,
-            failure_hit=0,
-            avg_valid_posts=Decimal("0.00"),
         )
-        db.add_all([pool, cache])
         await db.commit()
 
     # Mock Reddit API to return 10 posts
@@ -76,26 +99,28 @@ async def test_crawler_records_success_metrics() -> None:
             created_utc=1697500000 + i,
             score=10,
             num_comments=5,
-            url=f"https://reddit.com/r/TestSuccess/comments/post{i}",
-            permalink=f"/r/TestSuccess/comments/post{i}",
-            subreddit="TestSuccess",
+            url=f"https://reddit.com/r/testsuccess/comments/post{i}",
+            permalink=f"/r/testsuccess/comments/post{i}",
+            subreddit="testsuccess",
         )
         for i in range(10)
     ]
 
-    with patch("app.services.infrastructure.reddit_client.RedditAPIClient") as MockRedditClient:
+    with patch(
+        "app.services.infrastructure.reddit_client.RedditAPIClient"
+    ) as MockRedditClient:
         mock_client = AsyncMock()
         mock_client.fetch_subreddit_posts.return_value = mock_posts
         MockRedditClient.return_value = mock_client
 
         async with SessionFactory() as db:
             crawler = IncrementalCrawler(db=db, reddit_client=mock_client)
-            await crawler.crawl_community_incremental("r/TestSuccess")
+            await crawler.crawl_community_incremental("r/testsuccess")
 
     # Verify: success_hit incremented, avg_valid_posts updated
     async with SessionFactory() as db:
         stmt = select(CommunityCache).where(
-            CommunityCache.community_name == "r/TestSuccess"
+            CommunityCache.community_name == "r/testsuccess"
         )
         result = await db.execute(stmt)
         cache = result.scalar_one()
@@ -118,46 +143,33 @@ async def test_crawler_records_empty_metrics() -> None:
         )
         await db.commit()
 
-        pool = CommunityPool(
-            name="r/TestEmpty",
+        await _seed_pool_and_cache(
+            db,
+            name="r/testempty",
             tier="low",
-            categories={"topic": ["test"]},
-            description_keywords={"test": 1},
             daily_posts=1,
-            quality_score=Decimal("0.30"),
-            priority="low",
-        )
-        cache = CommunityCache(
-            community_name="r/TestEmpty",
-            last_crawled_at=datetime.now(timezone.utc),
-            posts_cached=0,
-            ttl_seconds=3600,
             quality_score=Decimal("0.30"),
             crawl_priority=30,
             crawl_frequency_hours=24,
-            is_active=True,
-            success_hit=0,
-            empty_hit=0,
-            failure_hit=0,
-            avg_valid_posts=Decimal("0.00"),
         )
-        db.add_all([pool, cache])
         await db.commit()
 
     # Mock Reddit API to return empty list
-    with patch("app.services.infrastructure.reddit_client.RedditAPIClient") as MockRedditClient:
+    with patch(
+        "app.services.infrastructure.reddit_client.RedditAPIClient"
+    ) as MockRedditClient:
         mock_client = AsyncMock()
         mock_client.fetch_subreddit_posts.return_value = []
         MockRedditClient.return_value = mock_client
 
         async with SessionFactory() as db:
             crawler = IncrementalCrawler(db=db, reddit_client=mock_client)
-            await crawler.crawl_community_incremental("r/TestEmpty")
+            await crawler.crawl_community_incremental("r/testempty")
 
     # Verify: empty_hit incremented
     async with SessionFactory() as db:
         stmt = select(CommunityCache).where(
-            CommunityCache.community_name == "r/TestEmpty"
+            CommunityCache.community_name == "r/testempty"
         )
         result = await db.execute(stmt)
         cache = result.scalar_one()
@@ -180,46 +192,33 @@ async def test_crawler_records_failure_metrics() -> None:
         )
         await db.commit()
 
-        pool = CommunityPool(
-            name="r/TestFailure",
+        await _seed_pool_and_cache(
+            db,
+            name="r/testfailure",
             tier="medium",
-            categories={"topic": ["test"]},
-            description_keywords={"test": 1},
             daily_posts=20,
-            quality_score=Decimal("0.60"),
-            priority="medium",
-        )
-        cache = CommunityCache(
-            community_name="r/TestFailure",
-            last_crawled_at=datetime.now(timezone.utc),
-            posts_cached=0,
-            ttl_seconds=3600,
             quality_score=Decimal("0.60"),
             crawl_priority=60,
             crawl_frequency_hours=6,
-            is_active=True,
-            success_hit=0,
-            empty_hit=0,
-            failure_hit=0,
-            avg_valid_posts=Decimal("0.00"),
         )
-        db.add_all([pool, cache])
         await db.commit()
 
     # Mock Reddit API to raise exception
-    with patch("app.services.infrastructure.reddit_client.RedditAPIClient") as MockRedditClient:
+    with patch(
+        "app.services.infrastructure.reddit_client.RedditAPIClient"
+    ) as MockRedditClient:
         mock_client = AsyncMock()
         mock_client.fetch_subreddit_posts.side_effect = Exception("API Error")
         MockRedditClient.return_value = mock_client
 
         async with SessionFactory() as db:
             crawler = IncrementalCrawler(db=db, reddit_client=mock_client)
-            await crawler.crawl_community_incremental("r/TestFailure")
+            await crawler.crawl_community_incremental("r/testfailure")
 
     # Verify: failure_hit incremented
     async with SessionFactory() as db:
         stmt = select(CommunityCache).where(
-            CommunityCache.community_name == "r/TestFailure"
+            CommunityCache.community_name == "r/testfailure"
         )
         result = await db.execute(stmt)
         cache = result.scalar_one()
@@ -243,36 +242,23 @@ async def test_crawler_writes_crawl_metrics() -> None:
         await db.commit()
 
         for i in range(5):
-            pool = CommunityPool(
-                name=f"r/Test{i}",
+            await _seed_pool_and_cache(
+                db,
+                name=f"r/test{i}",
                 tier="high",
-                categories={"topic": ["test"]},
-                description_keywords={"test": 1},
                 daily_posts=50,
-                quality_score=Decimal("0.80"),
-                priority="high",
-            )
-            cache = CommunityCache(
-                community_name=f"r/Test{i}",
-                last_crawled_at=datetime.now(timezone.utc),
-                posts_cached=0,
-                ttl_seconds=3600,
                 quality_score=Decimal("0.80"),
                 crawl_priority=80,
                 crawl_frequency_hours=2,
-                is_active=True,
-                success_hit=0,
-                empty_hit=0,
-                failure_hit=0,
-                avg_valid_posts=Decimal("0.00"),
             )
-            db.add_all([pool, cache])
         await db.commit()
 
     # Mock Reddit API
     from app.services.infrastructure.reddit_client import RedditPost
 
-    with patch("app.services.infrastructure.reddit_client.RedditAPIClient") as MockRedditClient:
+    with patch(
+        "app.services.infrastructure.reddit_client.RedditAPIClient"
+    ) as MockRedditClient:
         mock_client = AsyncMock()
         mock_client.fetch_subreddit_posts.return_value = [
             RedditPost(
@@ -285,23 +271,30 @@ async def test_crawler_writes_crawl_metrics() -> None:
                 num_comments=5,
                 url="https://reddit.com/test",
                 permalink="/test",
-                subreddit="Test",
+                subreddit="test0",
             )
         ]
         MockRedditClient.return_value = mock_client
 
         async with SessionFactory() as db:
             crawler = IncrementalCrawler(db=db, reddit_client=mock_client)
-            await crawler.crawl_communities([f"r/Test{i}" for i in range(5)])
+            await crawler.crawl_communities([f"r/test{i}" for i in range(5)])
 
     # Verify: crawl_metrics 表有记录
     async with SessionFactory() as db:
-        stmt = select(CrawlMetrics)
-        result = await db.execute(stmt)
-        metrics = result.scalars().all()
+        result = await db.execute(
+            text(
+                """
+                SELECT metric_date, total_communities, successful_crawls
+                FROM crawl_metrics
+                ORDER BY id
+                """
+            )
+        )
+        metrics = result.mappings().all()
 
         assert len(metrics) > 0, "crawl_metrics should have records"
         metric = metrics[0]
-        assert metric.total_communities == 5, "total_communities should be 5"
-        assert metric.successful_crawls > 0, "successful_crawls should be > 0"
-        assert metric.metric_date == datetime.now(timezone.utc).date()
+        assert metric["total_communities"] == 5, "total_communities should be 5"
+        assert metric["successful_crawls"] > 0, "successful_crawls should be > 0"
+        assert metric["metric_date"] == datetime.now(timezone.utc).date()

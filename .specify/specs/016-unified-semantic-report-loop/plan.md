@@ -194,7 +194,7 @@ class TextClassifier:
 
 **文件**：
 - `backend/app/services/semantic/semantic_scorer.py`
-- `backend/scripts/score_with_semantic.py`
+- `backend/scripts/semantic/score_with_semantic.py`
 
 **改造**：
 ```python

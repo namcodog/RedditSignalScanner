@@ -4,6 +4,7 @@ from app.services.hotpost.keywords import HotpostLexicon
 from app.services.hotpost.rules import (
     classify_intent_label,
     classify_pain_category,
+    classify_rant_friction_category,
     compute_signal_score,
     count_resonance,
     detect_discovery_signals,
@@ -41,6 +42,11 @@ def _lexicon() -> HotpostLexicon:
             "ux": ["confusing"],
             "other": [],
         },
+        rant_friction_categories={
+            "trust_gap": ["scam", "fake"],
+            "transaction_friction": ["refund", "shipping"],
+            "other": [],
+        },
     )
 
 
@@ -70,6 +76,14 @@ def test_classify_pain_category_prefers_most_matches() -> None:
     text = normalize_text("This is confusing and very confusing but also expensive.")
 
     assert classify_pain_category(text, lexicon) == "ux"
+
+
+def test_classify_rant_friction_category_and_label_alias() -> None:
+    lexicon = _lexicon()
+    text = normalize_text("The refund and shipping flow is broken.")
+
+    assert classify_rant_friction_category(text, lexicon) == "transaction_friction"
+    assert normalize_pain_category_label("trust gap", lexicon) == "trust_gap"
 
 
 def test_count_resonance() -> None:

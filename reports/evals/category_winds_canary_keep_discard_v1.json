@@ -1,0 +1,16 @@
+[
+  {
+    "variant_id": "human_summary_tight_why_now_v1",
+    "pass_rate": 0.0,
+    "pass_count": 0,
+    "fail_count": 2,
+    "decision": "baseline"
+  },
+  {
+    "variant_id": "category_winds_readout_v1",
+    "pass_rate": 1.0,
+    "pass_count": 2,
+    "fail_count": 0,
+    "decision": "keep"
+  }
+]

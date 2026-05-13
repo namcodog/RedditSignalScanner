@@ -1,0 +1,749 @@
+{
+  "kind": "hotpost_v13_published_shadow_refresh",
+  "plan_version": 1,
+  "profile_id": "hotpost_v13_title_standalone",
+  "created_at": "2026-04-29T05:02:59.237352Z",
+  "selected": 4,
+  "generated": 3,
+  "failed": 1,
+  "cards": [
+    {
+      "card_id": "card-cand-ai-automation-1sts36l-validate",
+      "lane": "hot",
+      "card_type": "validate",
+      "profile_id": "hotpost_v13_title_standalone",
+      "semantic_model": "deepseek/deepseek-v4-flash",
+      "writer_model": "xiaomi/mimo-v2.5-pro",
+      "original_card": {
+        "card_id": "card-cand-ai-automation-1sts36l-validate",
+        "signal_id": "sig-1sts36l",
+        "card_type": "validate",
+        "lane": "hot",
+        "category_id": "validate",
+        "source_scope_id": "ai-automation",
+        "source_scope_name": "AI 与自动化",
+        "topic_pack_id": "upstream-winds",
+        "topic_cluster_id": "platform-policy-shifts",
+        "topic_cluster_ids": [
+          "platform-policy-shifts"
+        ],
+        "named_topic_ids": [
+          "platform-policy-watch"
+        ],
+        "source_domain_id": "ai-automation",
+        "source_domain_name": "AI 与自动化",
+        "source_event_at": "2026-04-23T19:02:07Z",
+        "title": "GPT-5.5 价格翻倍这帖火了，因为大家开始吵“按 Token 算钱”是不是过时了",
+        "summary_line": "争议焦点在于：是该盯着 API 标价喊贵，还是看完成任务的实际成本（actual cost to perform a task）。",
+        "audience": "算着 API 账单过日子的开发者和 AI 产品负责人",
+        "why_now": "讨论已经从单纯吐槽 OpenAI 涨价，变成了对计费逻辑的质疑，尤其是 Canva 这种大厂下场说“贵得有理”之后。",
+        "why_now_reason": "new_threads_24h",
+        "signal_level": "rising",
+        "intent_tags": [
+          "趋势变化"
+        ],
+        "top_community": "r/OpenAI",
+        "thread_count": 1,
+        "community_count": 1,
+        "source_module": {
+          "primary_communities": [
+            "r/OpenAI"
+          ],
+          "top_community": "r/OpenAI",
+          "tone_tags": [],
+          "thread_count": 1,
+          "community_count": 1,
+          "last_active_text": "近7天"
+        },
+        "preview_quote": {
+          "text": "During our testing of GPT-5.5 at Canva, we've found it to be significantly more token efficient for a wide variety of tasks, especially coding and agentic work. Our internal evals show about the same to their published claims.\n\nNot all tokens are the same, the actual cost to perform a task successfully is what matters. Per-token pricing isn't a meaningful metric anymore.",
+          "community": "r/OpenAI",
+          "permalink": "https://www.reddit.com/r/OpenAI/comments/1sts36l/gpt55_api_pricing_twice_as_expensive_as_gpt54/ohvnhc0/"
+        },
+        "published_at": "2026-04-24T05:21:05.655453Z",
+        "controversy_chart": {
+          "support_ratio": 0.29,
+          "oppose_ratio": 0.36,
+          "neutral_ratio": 0.35,
+          "support_point": "实际任务成本才重要，按词计费已过时。",
+          "oppose_point": "价格翻倍就是不行，尤其对非营利起家的。",
+          "neutral_point": "还得看新模型的价格表现。",
+          "debate_focus": "按词计费是不是已经过时了",
+          "dominant_side": "oppose",
+          "confidence": "medium"
+        },
+        "controversy_meta": {
+          "post_id": "1sts36l",
+          "sample_size": 14,
+          "sampled_at": "2026-04-24T05:21:05.696495Z",
+          "fetch_status": "ok",
+          "llm_summary_version": "cn_human_point_slots_v8",
+          "sample_quality": "low",
+          "summary_status": "ok",
+          "confidence_reason": "评论样本中，支持和反对按词计费的观点数量接近，中立观点主要关注竞争对手的新模型表现，整体争议点集中在计费方式是否过时以及价格的合理性上。"
+        },
+        "quotes": [
+          {
+            "text": "During our testing of GPT-5.5 at Canva, we've found it to be significantly more token efficient for a wide variety of tasks, especially coding and agentic work. Our internal evals show about the same to their published claims.\n\nNot all tokens are the same, the actual cost to perform a task successfully is what matters. Per-token pricing isn't a meaningful metric anymore.",
+            "community": "r/OpenAI",
+            "permalink": "https://www.reddit.com/r/OpenAI/comments/1sts36l/gpt55_api_pricing_twice_as_expensive_as_gpt54/ohvnhc0/"
+          },
+          {
+            "text": "Way too pricey. The next Gemini flash model should come out in May and set a new standard for price performance ratio",
+            "community": "r/OpenAI",
+            "permalink": "https://www.reddit.com/r/OpenAI/comments/1sts36l/gpt55_api_pricing_twice_as_expensive_as_gpt54/ohvnq08/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/OpenAI/comments/1sts36l",
+        "detail": {
+          "flashpoint": "GPT-5.5 价格直接翻倍，但 Canva 员工回帖说这模型效率极高，算下来完成任务反而更省钱。",
+          "fight_line": "坚守“单价论”觉得 OpenAI 涨价太离谱，对比“效率论”认为任务成功成本才是唯一指标。",
+          "why_test_now": "关键证据是“During our testing of GPT-5.5 at Canva, we've found it to be significantly more token effici”。关键点在于 per-token pricing isn't a meaningful metric。大家不再只看标价，而是在算模型变聪明后能不能少花钱。",
+          "continue_signal": "继续看其他大厂的 internal evals 报告，以及 5 月 Gemini Flash 出来后的价格对线。",
+          "stop_signal": "如果讨论只剩对 OpenAI 的情绪宣泄，或者没有更多实际测试数据流出，就不必再追。"
+        }
+      },
+      "v12_shadow": {
+        "title": "GPT-5.5 API 价格翻倍，但 Canva 测试说算总账可能更便宜",
+        "summary_line": "争议焦点是：盯着单价喊贵，还是算任务总成本后发现可能更划算。",
+        "audience": "用 OpenAI API 做开发、关心模型成本和效率的工程师与产品负责人",
+        "why_now": "Canva 员工用内部测试数据下场，打破了纯涨价恐慌，把讨论从情绪化吐槽拉向理性权衡。",
+        "flashpoint": "OpenAI 将 GPT-5.5 API 价格翻倍，引发预算焦虑；但 Canva 员工回帖称内部测试显示效率提升，完成任务的总成本可能更低。",
+        "fight_line": "一派盯着单价喊贵，等着换模型；另一派算任务总成本，认为效率提升可能抵消涨价。",
+        "why_test_now": "关键证据是 Canva 的内部测试，核心逻辑是 token 效率提升可能抵消单价上涨。测试点在于“每任务成本是否真的降低”。",
+        "continue_signal": "继续看有没有其他大厂公布类似测试数据，或者社区自发跑 benchmark 对比任务成本。",
+        "stop_signal": "如果只剩情绪化喊贵或重复转述 Canva 说法，没有更多独立测试或场景细分，就不用放大。"
+      },
+      "refreshed_card": {
+        "card_id": "card-cand-ai-automation-1sts36l-validate",
+        "signal_id": "sig-1sts36l",
+        "card_type": "validate",
+        "lane": "hot",
+        "category_id": "validate",
+        "source_scope_id": "ai-automation",
+        "source_scope_name": "AI 与自动化",
+        "topic_pack_id": "upstream-winds",
+        "topic_cluster_id": "platform-policy-shifts",
+        "topic_cluster_ids": [
+          "platform-policy-shifts"
+        ],
+        "named_topic_ids": [
+          "platform-policy-watch"
+        ],
+        "source_domain_id": "ai-automation",
+        "source_domain_name": "AI 与自动化",
+        "source_event_at": "2026-04-23T19:02:07Z",
+        "title": "GPT-5.5 API 单价翻倍，但 Canva 测试显示任务总成本可能更低",
+        "summary_line": "争议焦点是：盯着单价喊贵，还是算任务总成本后发现可能更划算。",
+        "audience": "用 OpenAI API 做开发、关心模型成本和效率的工程师与产品负责人",
+        "why_now": "Canva 员工用内部测试数据下场，打破了纯涨价恐慌，把讨论从情绪化吐槽拉向理性权衡。",
+        "why_now_reason": "new_threads_24h",
+        "signal_level": "rising",
+        "intent_tags": [
+          "趋势变化"
+        ],
+        "top_community": "r/OpenAI",
+        "thread_count": 1,
+        "community_count": 1,
+        "source_module": {
+          "primary_communities": [
+            "r/OpenAI"
+          ],
+          "top_community": "r/OpenAI",
+          "tone_tags": [],
+          "thread_count": 1,
+          "community_count": 1,
+          "last_active_text": "近7天"
+        },
+        "preview_quote": {
+          "text": "During our testing of GPT-5.5 at Canva, we've found it to be significantly more token efficient for a wide variety of tasks, especially coding and agentic work. Our internal evals show about the same to their published claims.\n\nNot all tokens are the same, the actual cost to perform a task successfully is what matters. Per-token pricing isn't a meaningful metric anymore.",
+          "community": "r/OpenAI",
+          "permalink": "https://www.reddit.com/r/OpenAI/comments/1sts36l/gpt55_api_pricing_twice_as_expensive_as_gpt54/ohvnhc0/"
+        },
+        "published_at": "2026-04-24T05:21:05.655453Z",
+        "controversy_chart": {
+          "support_ratio": 0.29,
+          "oppose_ratio": 0.36,
+          "neutral_ratio": 0.35,
+          "support_point": "实际任务成本才重要，按词计费已过时。",
+          "oppose_point": "价格翻倍就是不行，尤其对非营利起家的。",
+          "neutral_point": "还得看新模型的价格表现。",
+          "debate_focus": "按词计费是不是已经过时了",
+          "dominant_side": "oppose",
+          "confidence": "medium"
+        },
+        "controversy_meta": {
+          "post_id": "1sts36l",
+          "sample_size": 14,
+          "sampled_at": "2026-04-24T05:21:05.696495Z",
+          "fetch_status": "ok",
+          "llm_summary_version": "cn_human_point_slots_v8",
+          "sample_quality": "low",
+          "summary_status": "ok",
+          "confidence_reason": "评论样本中，支持和反对按词计费的观点数量接近，中立观点主要关注竞争对手的新模型表现，整体争议点集中在计费方式是否过时以及价格的合理性上。"
+        },
+        "quotes": [
+          {
+            "text": "During our testing of GPT-5.5 at Canva, we've found it to be significantly more token efficient for a wide variety of tasks, especially coding and agentic work. Our internal evals show about the same to their published claims.\n\nNot all tokens are the same, the actual cost to perform a task successfully is what matters. Per-token pricing isn't a meaningful metric anymore.",
+            "community": "r/OpenAI",
+            "permalink": "https://www.reddit.com/r/OpenAI/comments/1sts36l/gpt55_api_pricing_twice_as_expensive_as_gpt54/ohvnhc0/"
+          },
+          {
+            "text": "Way too pricey. The next Gemini flash model should come out in May and set a new standard for price performance ratio",
+            "community": "r/OpenAI",
+            "permalink": "https://www.reddit.com/r/OpenAI/comments/1sts36l/gpt55_api_pricing_twice_as_expensive_as_gpt54/ohvnq08/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/OpenAI/comments/1sts36l",
+        "detail": {
+          "flashpoint": "GPT-5.5 价格直接翻倍，但 Canva 员工回帖说这模型效率极高，算下来完成任务反而更省钱。",
+          "fight_line": "坚守“单价论”觉得 OpenAI 涨价太离谱，对比“效率论”认为任务成功成本才是唯一指标。",
+          "why_test_now": "关键证据是“During our testing of GPT-5.5 at Canva, we've found it to be significantly more token effici”。关键点在于 per-token pricing isn't a meaningful metric。大家不再只看标价，而是在算模型变聪明后能不能少花钱。",
+          "continue_signal": "继续看其他大厂的 internal evals 报告，以及 5 月 Gemini Flash 出来后的价格对线。",
+          "stop_signal": "如果讨论只剩对 OpenAI 的情绪宣泄，或者没有更多实际测试数据流出，就不必再追。"
+        }
+      },
+      "changed": {
+        "title": {
+          "before": "GPT-5.5 价格翻倍这帖火了，因为大家开始吵“按 Token 算钱”是不是过时了",
+          "after": "GPT-5.5 API 单价翻倍，但 Canva 测试显示任务总成本可能更低"
+        },
+        "summary_line": {
+          "before": "争议焦点在于：是该盯着 API 标价喊贵，还是看完成任务的实际成本（actual cost to perform a task）。",
+          "after": "争议焦点是：盯着单价喊贵，还是算任务总成本后发现可能更划算。"
+        },
+        "audience": {
+          "before": "算着 API 账单过日子的开发者和 AI 产品负责人",
+          "after": "用 OpenAI API 做开发、关心模型成本和效率的工程师与产品负责人"
+        },
+        "why_now": {
+          "before": "讨论已经从单纯吐槽 OpenAI 涨价，变成了对计费逻辑的质疑，尤其是 Canva 这种大厂下场说“贵得有理”之后。",
+          "after": "Canva 员工用内部测试数据下场，打破了纯涨价恐慌，把讨论从情绪化吐槽拉向理性权衡。"
+        }
+      },
+      "fluency_repair_issue_count": 0,
+      "remaining_density_issues": [
+        "title: 重点字段 36 字，超过建议 34 字，阅读负担高。"
+      ],
+      "v13_title_issues_before": [],
+      "v13_title_issues_after": [],
+      "error": ""
+    },
+    {
+      "card_id": "card-group-ai-automation-4bd5d9c843",
+      "lane": "breakdown",
+      "card_type": "write",
+      "profile_id": "hotpost_v13_title_standalone",
+      "semantic_model": "deepseek/deepseek-v4-flash",
+      "writer_model": "xiaomi/mimo-v2.5-pro",
+      "original_card": {
+        "card_id": "card-group-ai-automation-4bd5d9c843",
+        "signal_id": "sig-group-ai-automation-4bd5d9c843",
+        "card_type": "write",
+        "lane": "breakdown",
+        "category_id": "write",
+        "source_scope_id": "ai-automation",
+        "source_scope_name": "AI 与自动化",
+        "topic_pack_id": "tools-efficiency",
+        "topic_cluster_id": "ai-product-and-adoption",
+        "topic_cluster_ids": [
+          "ai-product-and-adoption"
+        ],
+        "named_topic_ids": [],
+        "source_domain_id": "ai-automation",
+        "source_domain_name": "AI 与自动化",
+        "source_event_at": "2026-04-23T09:00:24Z",
+        "title": "兼职产品岗的第一反应，从‘值不值得做’变成了‘是不是在拿我训练 AI’",
+        "summary_line": "产品经理们开始怀疑，一些听起来不错的兼职机会，本质上可能只是在为AI代理收集训练数据。",
+        "audience": "看到‘兼职产品负责人’这类招聘帖的产品经理",
+        "why_now": "当一个人在质疑岗位真实性，另一个人在感叹‘兼职产品负责人’本身就像个矛盾概念时，说明怀疑已经从个案变成了对这类岗位存在逻辑的根本性质疑。",
+        "why_now_reason": "new_threads_24h",
+        "signal_level": "sustained",
+        "intent_tags": [
+          "趋势变化"
+        ],
+        "top_community": "r/ProductManagement",
+        "thread_count": 3,
+        "community_count": 2,
+        "source_module": {
+          "primary_communities": [
+            "r/ProductManagement",
+            "r/SaaS"
+          ],
+          "top_community": "r/ProductManagement",
+          "tone_tags": [],
+          "thread_count": 3,
+          "community_count": 2,
+          "last_active_text": "近24小时"
+        },
+        "preview_quote": {
+          "text": "If this is even real\n\n\nIt doesn't sound like an actual product owner position, it sounds like they're hiring a bunch of people to train a product owner AI agent",
+          "community": "r/ProductManagement",
+          "permalink": "https://www.reddit.com/r/ProductManagement/comments/1st8bap/has_anyone_tried_one_of_these_freelance_parttime/ohrhrpt/"
+        },
+        "published_at": "2026-04-24T05:14:17.935126Z",
+        "controversy_chart": null,
+        "controversy_meta": null,
+        "quotes": [
+          {
+            "text": "If this is even real\n\n\nIt doesn't sound like an actual product owner position, it sounds like they're hiring a bunch of people to train a product owner AI agent",
+            "community": "r/ProductManagement",
+            "permalink": "https://www.reddit.com/r/ProductManagement/comments/1st8bap/has_anyone_tried_one_of_these_freelance_parttime/ohrhrpt/"
+          },
+          {
+            "text": "Even if these recaptcha occurs on daily basis at random time is worth it. I am gonna loose my mind if I see another “I built this so you don’t have to” post",
+            "community": "r/SaaS",
+            "permalink": "https://www.reddit.com/r/SaaS/comments/1sndwq7/end_of_ai_slop/ogl33mg/"
+          },
+          {
+            "text": "Dead internet theory is so real.\n\nLook at this example it's literally all bots talking to each other.  \n\n  \n[https://www.reddit.com/r/AI\\_Agents/comments/1sn2w7y/](https://www.reddit.com/r/AI_Agents/comments/1sn2w7y/)",
+            "community": "r/SaaS",
+            "permalink": "https://www.reddit.com/r/SaaS/comments/1sndwq7/end_of_ai_slop/ogl9xlu/"
+          },
+          {
+            "text": "I feel the same way - it feels like an oxymoron. Even as a PM it takes years to fully grasp the product you're working on. \n\nHowever I do know people personally who are PMs who do consulting on the side. It generally works well  if you're an expert in a specific industry with many years of experience",
+            "community": "r/ProductManagement",
+            "permalink": "https://www.reddit.com/r/ProductManagement/comments/1st8bap/has_anyone_tried_one_of_these_freelance_parttime/ohrfnhl/"
+          },
+          {
+            "text": "My UX designer is having an existential crisis because we’ve started moving faster than he can keep up by using Claude Design. At this point, waiting for a designer to manually create figma prototypes is causing a massive bottleneck between product and engineering  as engineering are also now using AI. I feel so horrible for him as he’s a lovely guy, and it’s genuinely heartbreaking to see someone’s passion and potentially their livelihood taken away seemingly overnight.",
+            "community": "r/ProductManagement",
+            "permalink": "https://www.reddit.com/r/ProductManagement/comments/1stdbl3/weekly_rant_thread/ohtzgax/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/SaaS/comments/1sndwq7",
+        "detail": {
+          "thesis": "产品经理对‘兼职产品负责人’这类岗位的怀疑，已经从评估工作好坏，升级到了质疑其存在目的——它可能根本不是为真人设计的职位，而是为了训练AI代理。",
+          "writing_angle_or_perspective": "从‘岗位真实性’这个切口进去，看怀疑如何从‘这工作好不好’转向‘这工作是不是给人做的’。",
+          "tension_point_or_why_it_matters": "如果连‘产品负责人’这种核心决策角色都开始被怀疑是AI训练的幌子，那么未来任何高价值的兼职或咨询岗位，都可能面临同样的信任危机。",
+          "title_hooks": [
+            "兼职产品岗？先别急着看JD，先想想这是不是给AI准备的训练数据",
+            "当‘兼职’和‘产品负责人’放在一起，产品经理的第一反应是：这听起来像人干的活吗？"
+          ],
+          "quote_pack": [
+            "If this is even real\n\n\nIt doesn't sound like an actual product owner position, it sounds like they're hiring a bunch of people to train a product owner AI agent｜这到底是不是真的？听起来不像一个真正的产品负责人职位，更像是在招一群人来训练一个产品负责人AI代理。｜r/ProductManagement",
+            "I feel the same way - it feels like an oxymoron. Even as a PM it takes years to fully grasp the product you're working on.｜我有同感——这感觉像个矛盾体。即使作为一名产品经理，也需要数年时间才能完全掌握你负责的产品。｜r/ProductManagement"
+          ]
+        }
+      },
+      "v12_shadow": {},
+      "refreshed_card": {},
+      "changed": {},
+      "fluency_repair_issue_count": 0,
+      "remaining_density_issues": [],
+      "v13_title_issues_before": [],
+      "v13_title_issues_after": [],
+      "error": "ValueError: thesis contains banned pattern: 已经从"
+    },
+    {
+      "card_id": "card-cand-business-growth-ops-1stfurr-validate",
+      "lane": "signal",
+      "card_type": "validate",
+      "profile_id": "hotpost_v13_title_standalone",
+      "semantic_model": "deepseek/deepseek-v4-flash",
+      "writer_model": "xiaomi/mimo-v2.5-pro",
+      "original_card": {
+        "card_id": "card-cand-business-growth-ops-1stfurr-validate",
+        "signal_id": "sig-1stfurr",
+        "card_type": "validate",
+        "lane": "signal",
+        "category_id": "validate",
+        "source_scope_id": "business-growth-ops",
+        "source_scope_name": "商业增长与运营",
+        "topic_pack_id": "funnel-conversion",
+        "topic_cluster_id": "funnel",
+        "topic_cluster_ids": [
+          "funnel"
+        ],
+        "named_topic_ids": [
+          "checkout-conversion"
+        ],
+        "source_domain_id": "business-growth-ops",
+        "source_domain_name": "商业增长与运营",
+        "source_event_at": "2026-04-23T11:20:50Z",
+        "title": "卖家现在先看会话回放，不再先猜是哪个环节出错",
+        "summary_line": "判断顺序从先猜是哪个环节出错，转成先看20-30个真实会话回放，因为2.1%的转化率意味着问题藏在分析工具看不到的地方。",
+        "audience": "Shopify卖家，特别是移动端转化率卡在2%左右的",
+        "why_now": "有用户发现，所有常规优化都做完后，移动端转化率还是只有2.1%。这说明问题不在表面数据，而在用户实际操作中的误点、缩放失灵等细节。所以，下一步先看的不是调整哪个按钮，而是先看20-30个真实用户的会话回放。",
+        "why_now_reason": "new_threads_24h",
+        "signal_level": "sustained",
+        "intent_tags": [
+          "趋势变化"
+        ],
+        "top_community": "r/ecommerce",
+        "thread_count": 1,
+        "community_count": 1,
+        "source_module": {
+          "primary_communities": [
+            "r/ecommerce"
+          ],
+          "top_community": "r/ecommerce",
+          "tone_tags": [],
+          "thread_count": 1,
+          "community_count": 1,
+          "last_active_text": "近7天"
+        },
+        "preview_quote": {
+          "text": "2.1% with all the obvious fixes done means the problem is something you canot see from analytics alone. session replays on mobile specifically watch 20-30 real sessions and you'll spot things invisible in dashboards. mis-taps, broken zoom, rage clicks on elements that look fine on your phone but not on others.\n\nbeen building a shopify tool around exactly this mobile behavior tracking with AI suggestions on what to fix. still pre-launch but mobile gap is kind of the core problem it targets.\n\nwhat's your iOS vs Android split?",
+          "community": "r/ecommerce",
+          "permalink": "https://www.reddit.com/r/ecommerce/comments/1stfurr/mobile_conversion_rate_optimization_tools_anyone/oht0cz7/"
+        },
+        "published_at": "2026-04-24T05:14:09.181685Z",
+        "controversy_chart": null,
+        "controversy_meta": null,
+        "quotes": [
+          {
+            "text": "2.1% with all the obvious fixes done means the problem is something you canot see from analytics alone. session replays on mobile specifically watch 20-30 real sessions and you'll spot things invisible in dashboards. mis-taps, broken zoom, rage clicks on elements that look fine on your phone but not on others.\n\nbeen building a shopify tool around exactly this mobile behavior tracking with AI suggestions on what to fix. still pre-launch but mobile gap is kind of the core problem it targets.\n\nwhat's your iOS vs Android split?",
+            "community": "r/ecommerce",
+            "permalink": "https://www.reddit.com/r/ecommerce/comments/1stfurr/mobile_conversion_rate_optimization_tools_anyone/oht0cz7/"
+          },
+          {
+            "text": "What's add to cart rate mobile vs desktop? if similar rates but lower conversion it's definitely checkout friction",
+            "community": "r/ecommerce",
+            "permalink": "https://www.reddit.com/r/ecommerce/comments/1stfurr/mobile_conversion_rate_optimization_tools_anyone/ohx20e1/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/ecommerce/comments/1stfurr",
+        "detail": {
+          "pain_point": "移动端转化率死活上不去，但分析工具里看不出具体原因，只能干着急。",
+          "target_user_and_scene": "做Shopify的卖家，在优化完所有已知问题后，发现移动端转化率依然远低于桌面端时。",
+          "why_test_now": "原话里有个关键句：“What's add to cart rate mobile vs desktop? if similar rates but lower conversion it's defini”。最硬的证据是‘2.1% with all the obvious fixes done’和‘session replays on mobile specifically watch 20-30 real sessions’。这直接说明，当常规方法失效时，唯一的办法是去看用户到底怎么操作的，而不是继续猜。",
+          "min_test_action": "去看原始讨论",
+          "continue_signal": "继续看有没有更多卖家开始分享具体的会话回放发现，比如‘rage clicks’或‘broken zoom’的具体案例。",
+          "stop_signal": "如果讨论又回到调整按钮颜色、简化表单这些老生常谈，而没人再提会话回放的具体发现，这条线就失去价值了。"
+        }
+      },
+      "v12_shadow": {
+        "title": "移动端转化率卡在2.1%？先看20个真实会话回放，别再瞎猜",
+        "summary_line": "判断顺序从“猜是哪个环节出错”，转成“先看20-30个真实用户的会话回放”。",
+        "audience": "移动端转化率优化遇到瓶颈的电商卖家",
+        "why_now": "常规优化（按钮颜色、表单简化）都做完后，移动端转化率仍卡在2.1%。问题可能藏在用户操作细节里，分析工具看不出，所以现在要先看回放。",
+        "pain_point": "投入精力优化可见因素后，转化率纹丝不动，陷入盲目A/B测试的循环。",
+        "target_user_and_scene": "移动端转化率长期卡在2%左右，常规优化手段已用尽的电商卖家。",
+        "why_test_now": "原帖建议“session replays on mobile specifically watch 20-30 real sessions”，并列举误触、缩放失灵等具体问题，这是基于真实困境的硬建议。",
+        "min_test_action": "去看原始讨论",
+        "continue_signal": "观察卖家看回放后，是否定位到误触、缩放失灵等具体问题。",
+        "stop_signal": "卖家反馈看回放后仍找不到问题或转化率无提升，此路径价值下降。"
+      },
+      "refreshed_card": {
+        "card_id": "card-cand-business-growth-ops-1stfurr-validate",
+        "signal_id": "sig-1stfurr",
+        "card_type": "validate",
+        "lane": "signal",
+        "category_id": "validate",
+        "source_scope_id": "business-growth-ops",
+        "source_scope_name": "商业增长与运营",
+        "topic_pack_id": "funnel-conversion",
+        "topic_cluster_id": "funnel",
+        "topic_cluster_ids": [
+          "funnel"
+        ],
+        "named_topic_ids": [
+          "checkout-conversion"
+        ],
+        "source_domain_id": "business-growth-ops",
+        "source_domain_name": "商业增长与运营",
+        "source_event_at": "2026-04-23T11:20:50Z",
+        "title": "移动端转化率卡在2.1%？先看20个真实会话回放，别再瞎猜",
+        "summary_line": "判断顺序从“猜是哪个环节出错”，转成“先看20-30个真实用户的会话回放”。",
+        "audience": "移动端转化率优化遇到瓶颈的电商卖家",
+        "why_now": "常规优化（按钮颜色、表单简化）都做完后，移动端转化率仍卡在2.1%。问题可能藏在用户操作细节里，分析工具看不出，所以现在要先看回放。",
+        "why_now_reason": "new_threads_24h",
+        "signal_level": "sustained",
+        "intent_tags": [
+          "趋势变化"
+        ],
+        "top_community": "r/ecommerce",
+        "thread_count": 1,
+        "community_count": 1,
+        "source_module": {
+          "primary_communities": [
+            "r/ecommerce"
+          ],
+          "top_community": "r/ecommerce",
+          "tone_tags": [],
+          "thread_count": 1,
+          "community_count": 1,
+          "last_active_text": "近7天"
+        },
+        "preview_quote": {
+          "text": "2.1% with all the obvious fixes done means the problem is something you canot see from analytics alone. session replays on mobile specifically watch 20-30 real sessions and you'll spot things invisible in dashboards. mis-taps, broken zoom, rage clicks on elements that look fine on your phone but not on others.\n\nbeen building a shopify tool around exactly this mobile behavior tracking with AI suggestions on what to fix. still pre-launch but mobile gap is kind of the core problem it targets.\n\nwhat's your iOS vs Android split?",
+          "community": "r/ecommerce",
+          "permalink": "https://www.reddit.com/r/ecommerce/comments/1stfurr/mobile_conversion_rate_optimization_tools_anyone/oht0cz7/"
+        },
+        "published_at": "2026-04-24T05:14:09.181685Z",
+        "controversy_chart": null,
+        "controversy_meta": null,
+        "quotes": [
+          {
+            "text": "2.1% with all the obvious fixes done means the problem is something you canot see from analytics alone. session replays on mobile specifically watch 20-30 real sessions and you'll spot things invisible in dashboards. mis-taps, broken zoom, rage clicks on elements that look fine on your phone but not on others.\n\nbeen building a shopify tool around exactly this mobile behavior tracking with AI suggestions on what to fix. still pre-launch but mobile gap is kind of the core problem it targets.\n\nwhat's your iOS vs Android split?",
+            "community": "r/ecommerce",
+            "permalink": "https://www.reddit.com/r/ecommerce/comments/1stfurr/mobile_conversion_rate_optimization_tools_anyone/oht0cz7/"
+          },
+          {
+            "text": "What's add to cart rate mobile vs desktop? if similar rates but lower conversion it's definitely checkout friction",
+            "community": "r/ecommerce",
+            "permalink": "https://www.reddit.com/r/ecommerce/comments/1stfurr/mobile_conversion_rate_optimization_tools_anyone/ohx20e1/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/ecommerce/comments/1stfurr",
+        "detail": {
+          "pain_point": "移动端转化率死活上不去，但分析工具里看不出具体原因，只能干着急。",
+          "target_user_and_scene": "做Shopify的卖家，在优化完所有已知问题后，发现移动端转化率依然远低于桌面端时。",
+          "why_test_now": "原话里有个关键句：“What's add to cart rate mobile vs desktop? if similar rates but lower conversion it's defini”。最硬的证据是‘2.1% with all the obvious fixes done’和‘session replays on mobile specifically watch 20-30 real sessions’。这直接说明，当常规方法失效时，唯一的办法是去看用户到底怎么操作的，而不是继续猜。",
+          "min_test_action": "去看原始讨论",
+          "continue_signal": "继续看有没有更多卖家开始分享具体的会话回放发现，比如‘rage clicks’或‘broken zoom’的具体案例。",
+          "stop_signal": "如果讨论又回到调整按钮颜色、简化表单这些老生常谈，而没人再提会话回放的具体发现，这条线就失去价值了。"
+        }
+      },
+      "changed": {
+        "title": {
+          "before": "卖家现在先看会话回放，不再先猜是哪个环节出错",
+          "after": "移动端转化率卡在2.1%？先看20个真实会话回放，别再瞎猜"
+        },
+        "summary_line": {
+          "before": "判断顺序从先猜是哪个环节出错，转成先看20-30个真实会话回放，因为2.1%的转化率意味着问题藏在分析工具看不到的地方。",
+          "after": "判断顺序从“猜是哪个环节出错”，转成“先看20-30个真实用户的会话回放”。"
+        },
+        "audience": {
+          "before": "Shopify卖家，特别是移动端转化率卡在2%左右的",
+          "after": "移动端转化率优化遇到瓶颈的电商卖家"
+        },
+        "why_now": {
+          "before": "有用户发现，所有常规优化都做完后，移动端转化率还是只有2.1%。这说明问题不在表面数据，而在用户实际操作中的误点、缩放失灵等细节。所以，下一步先看的不是调整哪个按钮，而是先看20-30个真实用户的会话回放。",
+          "after": "常规优化（按钮颜色、表单简化）都做完后，移动端转化率仍卡在2.1%。问题可能藏在用户操作细节里，分析工具看不出，所以现在要先看回放。"
+        }
+      },
+      "fluency_repair_issue_count": 0,
+      "remaining_density_issues": [
+        "why_test_now: 重点字段 100 字，超过建议 78 字，阅读负担高。"
+      ],
+      "v13_title_issues_before": [],
+      "v13_title_issues_after": [],
+      "error": ""
+    },
+    {
+      "card_id": "card-cand-ai-automation-1sspwz2-validate",
+      "lane": "hot",
+      "card_type": "validate",
+      "profile_id": "hotpost_v13_title_standalone",
+      "semantic_model": "deepseek/deepseek-v4-flash",
+      "writer_model": "xiaomi/mimo-v2.5-pro",
+      "original_card": {
+        "card_id": "card-cand-ai-automation-1sspwz2-validate",
+        "signal_id": "sig-1sspwz2",
+        "card_type": "validate",
+        "lane": "hot",
+        "category_id": "validate",
+        "source_scope_id": "ai-automation",
+        "source_scope_name": "AI 与自动化",
+        "topic_pack_id": "upstream-winds",
+        "topic_cluster_id": "platform-policy-shifts",
+        "topic_cluster_ids": [
+          "platform-policy-shifts"
+        ],
+        "named_topic_ids": [
+          "claude-platform"
+        ],
+        "source_domain_id": "ai-automation",
+        "source_domain_name": "AI 与自动化",
+        "source_event_at": "2026-04-22T16:07:22Z",
+        "title": "Anthropic 毫无预警封掉整个公司账号，这帖火在大家发现“最强模型”成了最大的供应链风险",
+        "summary_line": "争议焦点在于：Anthropic 这种不给解释、不退费、没人工客服的封号逻辑，到底是算力不够在暴力赶客，还是安全过滤杀疯了。",
+        "audience": "业务全挂在 Claude 上的开发者和企业负责人",
+        "why_now": "这帖火是因为它戳破了“模型好用就行”的幻觉，评论区已经从吐槽难用变成了教大家怎么搞多模型备份保命。",
+        "why_now_reason": "recurring_7d",
+        "signal_level": "hot",
+        "intent_tags": [
+          "避坑"
+        ],
+        "top_community": "r/ClaudeAI",
+        "thread_count": 1,
+        "community_count": 1,
+        "source_module": {
+          "primary_communities": [
+            "r/ClaudeAI"
+          ],
+          "top_community": "r/ClaudeAI",
+          "tone_tags": [],
+          "thread_count": 1,
+          "community_count": 1,
+          "last_active_text": "近7天"
+        },
+        "preview_quote": {
+          "text": "**TL;DR of the discussion generated automatically after 200 comments.**\n\nThe thread is overwhelmingly on OP's side, and the consensus is that **banning an entire organization without warning, explanation, or a human to talk to is a massive red flag for any business.** Everyone's pointing out the supreme irony of Anthropic becoming the very 'supply chain risk' they warned about, especially since OP's API account is still getting billed while admins are locked out.\n\nThe leading theory is that **Anthropic is simply out of compute** and is aggressively shedding heavy users, though overzealous safety filters (did \"fertilizer\" get flagged as \"bombs\"?) are also a popular guess. Several users report similar sudden bans with zero recourse, even on Enterprise plans.\n\nThe community's advice is unanimous: **diversify your models.** Use API routers, have backup providers, and look into open-source alternatives so you don't get rugged. The general vibe is that while Claude is great, relying on a single provider with opaque, automated enforcement is a recipe for disaster.",
+          "community": "r/ClaudeAI",
+          "permalink": "https://www.reddit.com/r/ClaudeAI/comments/1sspwz2/psa_anthropic_bans_organizations_without_warning/oho4kbp/"
+        },
+        "published_at": "2026-04-24T05:13:57.577145Z",
+        "controversy_chart": {
+          "support_ratio": 0.42,
+          "oppose_ratio": 0.12,
+          "neutral_ratio": 0.46,
+          "support_point": "这种不给解释、不退费的封号逻辑，是最大的供应链风险。",
+          "oppose_point": "其他头部模型也一样不响应，这是行业通病。",
+          "neutral_point": "先看算力够不够用，还得看安全过滤是不是太严。",
+          "debate_focus": "这种封号逻辑到底是不是供应链风险？",
+          "dominant_side": "neutral",
+          "confidence": "high"
+        },
+        "controversy_meta": {
+          "post_id": "1sspwz2",
+          "sample_size": 40,
+          "sampled_at": "2026-04-24T05:13:57.617881Z",
+          "fetch_status": "ok",
+          "llm_summary_version": "cn_human_point_slots_v8",
+          "sample_quality": "high",
+          "summary_status": "ok",
+          "confidence_reason": "绝大多数评论都认为这种封号行为是不可接受的供应链风险，但也有部分评论指出其他头部模型也存在类似问题，还有一部分评论在猜测封号原因，认为可能是算力不足或安全过滤过于严格。"
+        },
+        "quotes": [
+          {
+            "text": "**TL;DR of the discussion generated automatically after 200 comments.**\n\nThe thread is overwhelmingly on OP's side, and the consensus is that **banning an entire organization without warning, explanation, or a human to talk to is a massive red flag for any business.** Everyone's pointing out the supreme irony of Anthropic becoming the very 'supply chain risk' they warned about, especially since OP's API account is still getting billed while admins are locked out.\n\nThe leading theory is that **Anthropic is simply out of compute** and is aggressively shedding heavy users, though overzealous safety filters (did \"fertilizer\" get flagged as \"bombs\"?) are also a popular guess. Several users report similar sudden bans with zero recourse, even on Enterprise plans.\n\nThe community's advice is unanimous: **diversify your models.** Use API routers, have backup providers, and look into open-source alternatives so you don't get rugged. The general vibe is that while Claude is great, relying on a single provider with opaque, automated enforcement is a recipe for disaster.",
+            "community": "r/ClaudeAI",
+            "permalink": "https://www.reddit.com/r/ClaudeAI/comments/1sspwz2/psa_anthropic_bans_organizations_without_warning/oho4kbp/"
+          },
+          {
+            "text": "this is exactly why single provider dependency is dangerous for any business. doesn’t matter how good the tool is if they can cut you off with zero notice and zero explanation",
+            "community": "r/ClaudeAI",
+            "permalink": "https://www.reddit.com/r/ClaudeAI/comments/1sspwz2/psa_anthropic_bans_organizations_without_warning/ohnoyvq/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/ClaudeAI/comments/1sspwz2",
+        "detail": {
+          "flashpoint": "楼主爆料公司账号被封后，后台还在持续扣费，且完全找不到人工申诉渠道，这种“只管收钱不管活人”的行为直接引爆了评论区。",
+          "fight_line": "这到底是 Anthropic 算力吃紧在暴力“甩客”，还是它的自动化安全审核逻辑太蠢，把正常业务词当成了违禁词。",
+          "why_test_now": "关键证据是“supply chain risk”。大家发现最信任的工具，随时能因为一个黑盒算法让整个业务一夜归零。",
+          "continue_signal": "继续看 API routers、backup providers 相关的讨论，看大家是否真的开始大规模转向多模型架构或开源替代方案。",
+          "stop_signal": "如果讨论变成单纯的“封号申诉指南”，或者 Anthropic 官方出来道歉并恢复账号，这波热度就到头了。"
+        }
+      },
+      "v12_shadow": {
+        "title": "Anthropic 封禁账号无预警，开发者警惕 Claude 单点依赖风险",
+        "summary_line": "争议焦点是：Anthropic 到底是算力不够在赶客，还是安全过滤器误杀？但无论哪种，大家共识是依赖单一模型提供商风险太高。",
+        "audience": "用 Claude API 做业务、担心被供应商单方面切断服务的开发者和公司",
+        "why_now": "讨论从吐槽 Anthropic 客服缺失，转向了具体怎么备份、怎么切换模型，说明用户心态从抱怨变成了行动。",
+        "flashpoint": "一个公司账号被 Anthropic 毫无预警封禁，无法申诉，但 API 还在扣费。这件事把“供应链风险”从理论变成了真实案例。",
+        "fight_line": "一派认为 Anthropic 是算力不够在清理大用户，另一派觉得是安全过滤器过度敏感误杀了正常内容。",
+        "why_test_now": "关键证据：“this is exactly why single provider dependency is dangerous for any business.” “供应链风险”有了具体案例：最信任的工具可能因算法误判让业务停摆。",
+        "continue_signal": "看 API routers、多模型切换策略有没有用户落地，以及 Anthropic 会不会改客服流程。",
+        "stop_signal": "如果只剩情绪发泄，没有新的封禁案例或具体的备份方案讨论，热度就该降了。"
+      },
+      "refreshed_card": {
+        "card_id": "card-cand-ai-automation-1sspwz2-validate",
+        "signal_id": "sig-1sspwz2",
+        "card_type": "validate",
+        "lane": "hot",
+        "category_id": "validate",
+        "source_scope_id": "ai-automation",
+        "source_scope_name": "AI 与自动化",
+        "topic_pack_id": "upstream-winds",
+        "topic_cluster_id": "platform-policy-shifts",
+        "topic_cluster_ids": [
+          "platform-policy-shifts"
+        ],
+        "named_topic_ids": [
+          "claude-platform"
+        ],
+        "source_domain_id": "ai-automation",
+        "source_domain_name": "AI 与自动化",
+        "source_event_at": "2026-04-22T16:07:22Z",
+        "title": "Anthropic 无预警封禁账号，开发者警惕 Claude 单点依赖风险",
+        "summary_line": "争议焦点是：Anthropic 到底是算力不够在赶客，还是安全过滤器误杀？但无论哪种，大家共识是依赖单一模型提供商风险太高。",
+        "audience": "用 Claude API 做业务、担心被供应商单方面切断服务的开发者和公司",
+        "why_now": "讨论从吐槽 Anthropic 客服缺失，转向了具体怎么备份、怎么切换模型，说明用户心态从抱怨变成了行动。",
+        "why_now_reason": "recurring_7d",
+        "signal_level": "hot",
+        "intent_tags": [
+          "避坑"
+        ],
+        "top_community": "r/ClaudeAI",
+        "thread_count": 1,
+        "community_count": 1,
+        "source_module": {
+          "primary_communities": [
+            "r/ClaudeAI"
+          ],
+          "top_community": "r/ClaudeAI",
+          "tone_tags": [],
+          "thread_count": 1,
+          "community_count": 1,
+          "last_active_text": "近7天"
+        },
+        "preview_quote": {
+          "text": "**TL;DR of the discussion generated automatically after 200 comments.**\n\nThe thread is overwhelmingly on OP's side, and the consensus is that **banning an entire organization without warning, explanation, or a human to talk to is a massive red flag for any business.** Everyone's pointing out the supreme irony of Anthropic becoming the very 'supply chain risk' they warned about, especially since OP's API account is still getting billed while admins are locked out.\n\nThe leading theory is that **Anthropic is simply out of compute** and is aggressively shedding heavy users, though overzealous safety filters (did \"fertilizer\" get flagged as \"bombs\"?) are also a popular guess. Several users report similar sudden bans with zero recourse, even on Enterprise plans.\n\nThe community's advice is unanimous: **diversify your models.** Use API routers, have backup providers, and look into open-source alternatives so you don't get rugged. The general vibe is that while Claude is great, relying on a single provider with opaque, automated enforcement is a recipe for disaster.",
+          "community": "r/ClaudeAI",
+          "permalink": "https://www.reddit.com/r/ClaudeAI/comments/1sspwz2/psa_anthropic_bans_organizations_without_warning/oho4kbp/"
+        },
+        "published_at": "2026-04-24T05:13:57.577145Z",
+        "controversy_chart": {
+          "support_ratio": 0.42,
+          "oppose_ratio": 0.12,
+          "neutral_ratio": 0.46,
+          "support_point": "这种不给解释、不退费的封号逻辑，是最大的供应链风险。",
+          "oppose_point": "其他头部模型也一样不响应，这是行业通病。",
+          "neutral_point": "先看算力够不够用，还得看安全过滤是不是太严。",
+          "debate_focus": "这种封号逻辑到底是不是供应链风险？",
+          "dominant_side": "neutral",
+          "confidence": "high"
+        },
+        "controversy_meta": {
+          "post_id": "1sspwz2",
+          "sample_size": 40,
+          "sampled_at": "2026-04-24T05:13:57.617881Z",
+          "fetch_status": "ok",
+          "llm_summary_version": "cn_human_point_slots_v8",
+          "sample_quality": "high",
+          "summary_status": "ok",
+          "confidence_reason": "绝大多数评论都认为这种封号行为是不可接受的供应链风险，但也有部分评论指出其他头部模型也存在类似问题，还有一部分评论在猜测封号原因，认为可能是算力不足或安全过滤过于严格。"
+        },
+        "quotes": [
+          {
+            "text": "**TL;DR of the discussion generated automatically after 200 comments.**\n\nThe thread is overwhelmingly on OP's side, and the consensus is that **banning an entire organization without warning, explanation, or a human to talk to is a massive red flag for any business.** Everyone's pointing out the supreme irony of Anthropic becoming the very 'supply chain risk' they warned about, especially since OP's API account is still getting billed while admins are locked out.\n\nThe leading theory is that **Anthropic is simply out of compute** and is aggressively shedding heavy users, though overzealous safety filters (did \"fertilizer\" get flagged as \"bombs\"?) are also a popular guess. Several users report similar sudden bans with zero recourse, even on Enterprise plans.\n\nThe community's advice is unanimous: **diversify your models.** Use API routers, have backup providers, and look into open-source alternatives so you don't get rugged. The general vibe is that while Claude is great, relying on a single provider with opaque, automated enforcement is a recipe for disaster.",
+            "community": "r/ClaudeAI",
+            "permalink": "https://www.reddit.com/r/ClaudeAI/comments/1sspwz2/psa_anthropic_bans_organizations_without_warning/oho4kbp/"
+          },
+          {
+            "text": "this is exactly why single provider dependency is dangerous for any business. doesn’t matter how good the tool is if they can cut you off with zero notice and zero explanation",
+            "community": "r/ClaudeAI",
+            "permalink": "https://www.reddit.com/r/ClaudeAI/comments/1sspwz2/psa_anthropic_bans_organizations_without_warning/ohnoyvq/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/ClaudeAI/comments/1sspwz2",
+        "detail": {
+          "flashpoint": "楼主爆料公司账号被封后，后台还在持续扣费，且完全找不到人工申诉渠道，这种“只管收钱不管活人”的行为直接引爆了评论区。",
+          "fight_line": "这到底是 Anthropic 算力吃紧在暴力“甩客”，还是它的自动化安全审核逻辑太蠢，把正常业务词当成了违禁词。",
+          "why_test_now": "关键证据是“supply chain risk”。大家发现最信任的工具，随时能因为一个黑盒算法让整个业务一夜归零。",
+          "continue_signal": "继续看 API routers、backup providers 相关的讨论，看大家是否真的开始大规模转向多模型架构或开源替代方案。",
+          "stop_signal": "如果讨论变成单纯的“封号申诉指南”，或者 Anthropic 官方出来道歉并恢复账号，这波热度就到头了。"
+        }
+      },
+      "changed": {
+        "title": {
+          "before": "Anthropic 毫无预警封掉整个公司账号，这帖火在大家发现“最强模型”成了最大的供应链风险",
+          "after": "Anthropic 无预警封禁账号，开发者警惕 Claude 单点依赖风险"
+        },
+        "summary_line": {
+          "before": "争议焦点在于：Anthropic 这种不给解释、不退费、没人工客服的封号逻辑，到底是算力不够在暴力赶客，还是安全过滤杀疯了。",
+          "after": "争议焦点是：Anthropic 到底是算力不够在赶客，还是安全过滤器误杀？但无论哪种，大家共识是依赖单一模型提供商风险太高。"
+        },
+        "audience": {
+          "before": "业务全挂在 Claude 上的开发者和企业负责人",
+          "after": "用 Claude API 做业务、担心被供应商单方面切断服务的开发者和公司"
+        },
+        "why_now": {
+          "before": "这帖火是因为它戳破了“模型好用就行”的幻觉，评论区已经从吐槽难用变成了教大家怎么搞多模型备份保命。",
+          "after": "讨论从吐槽 Anthropic 客服缺失，转向了具体怎么备份、怎么切换模型，说明用户心态从抱怨变成了行动。"
+        }
+      },
+      "fluency_repair_issue_count": 0,
+      "remaining_density_issues": [
+        "title: 重点字段 37 字，超过建议 34 字，阅读负担高。",
+        "why_test_now: 重点字段 118 字，超过建议 78 字，阅读负担高。"
+      ],
+      "v13_title_issues_before": [],
+      "v13_title_issues_after": [],
+      "error": ""
+    }
+  ]
+}

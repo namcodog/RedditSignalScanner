@@ -1,195 +1,135 @@
-/**
- * AdminDashboardPage 测试 - 简化版
- * 测试目标: 覆盖率 >80%
- * 注意: AdminDashboardPage使用Mock数据，不调用API
- */
-
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
+
 import AdminDashboardPage from '../AdminDashboardPage';
-import * as adminService from '@/services/admin.service';
+import * as adminApi from '@/api/admin.api';
 
-// Mock admin service
-vi.mock('@/services/admin.service', () => ({
-  adminService: {
-    getCommunities: vi.fn(),
-    getAnalysisTasks: vi.fn(),
-    getBetaFeedback: vi.fn(),
-    getQualityMetrics: vi.fn(),
-  },
+vi.mock('@/api/admin.api', () => ({
+  getAdminDashboardStats: vi.fn(),
+  getRecentTasks: vi.fn(),
 }));
-
-const mockCommunities = {
-  items: [
-    {
-      community: 'r/startups',
-      hit_7d: 12,
-      last_crawled_at: '2025-10-26T10:00:00Z',
-      dup_ratio: 0.05,
-      spam_ratio: 0.02,
-      topic_score: 0.85,
-      c_score: 0.90,
-      status_color: 'green' as const,
-      labels: ['startup', 'funding'],
-      evidence_samples: ['Sample evidence 1'],
-    },
-    {
-      community: 'r/technology',
-      hit_7d: 5,
-      last_crawled_at: '2025-10-25T10:00:00Z',
-      dup_ratio: 0.10,
-      spam_ratio: 0.05,
-      topic_score: 0.70,
-      c_score: 0.75,
-      status_color: 'yellow' as const,
-      labels: ['tech', 'innovation'],
-      evidence_samples: ['Sample evidence 2'],
-    },
-    {
-      community: 'r/programming',
-      hit_7d: 2,
-      last_crawled_at: '2025-10-24T10:00:00Z',
-      dup_ratio: 0.15,
-      spam_ratio: 0.08,
-      topic_score: 0.50,
-      c_score: 0.55,
-      status_color: 'red' as const,
-      labels: ['code', 'dev'],
-      evidence_samples: ['Sample evidence 3'],
-    },
-  ],
-  total: 3,
-  page: 1,
-  page_size: 200,
-};
 
 describe('AdminDashboardPage', () => {
   beforeEach(() => {
-    // Reset mocks before each test
     vi.clearAllMocks();
-    // Setup default mock implementation
-    vi.mocked(adminService.adminService.getCommunities).mockResolvedValue(mockCommunities);
-    vi.mocked(adminService.adminService.getAnalysisTasks).mockResolvedValue({ items: [], total: 0 });
-  });
-
-  it('应该显示页面标题', () => {
-    render(<MemoryRouter><AdminDashboardPage /></MemoryRouter>);
-    expect(screen.getByText('Reddit Signal Scanner')).toBeInTheDocument();
-    expect(screen.getByText('Admin Dashboard')).toBeInTheDocument();
-  });
-
-  it('应该显示Tab导航', () => {
-    render(<MemoryRouter><AdminDashboardPage /></MemoryRouter>);
-    expect(screen.getByText('社区验收')).toBeInTheDocument();
-    expect(screen.getByText('算法验收')).toBeInTheDocument();
-    expect(screen.getByText('用户反馈')).toBeInTheDocument();
-  });
-
-  it('应该默认显示社区验收Tab', async () => {
-    render(<MemoryRouter><AdminDashboardPage /></MemoryRouter>);
-    await waitFor(() => {
-      expect(screen.getByText('社区名')).toBeInTheDocument();
-      expect(screen.getByText('7天命中')).toBeInTheDocument();
+    vi.mocked(adminApi.getAdminDashboardStats).mockResolvedValue({
+      total_users: 12,
+      total_tasks: 34,
+      tasks_today: 3,
+      tasks_completed_today: 2,
+      avg_processing_time: 18.5,
+      cache_hit_rate: 0.72,
+      active_workers: 2,
+      pipeline_health: {},
+    });
+    vi.mocked(adminApi.getRecentTasks).mockResolvedValue({
+      items: [
+        {
+          task_id: 'task-12345678',
+          user_email: 'admin@example.com',
+          status: 'completed',
+          created_at: '2025-10-25T08:00:00Z',
+          completed_at: '2025-10-25T08:01:00Z',
+          processing_seconds: 60,
+          confidence_score: 0.88,
+          analysis_version: 1,
+          posts_analyzed: 16,
+          cache_hit_rate: 0.5,
+          communities_count: 3,
+          reddit_api_calls: 4,
+          pain_points_count: 2,
+          competitors_count: 1,
+          opportunities_count: 1,
+        },
+      ],
+      total: 1,
     });
   });
 
-  it('应该能切换Tab', async () => {
-    render(<MemoryRouter><AdminDashboardPage /></MemoryRouter>);
-    // 等待初始数据加载
+  it('应该显示当前 admin 仪表盘核心统计和最近任务', async () => {
+    render(
+      <MemoryRouter>
+        <AdminDashboardPage />
+      </MemoryRouter>,
+    );
+
     await waitFor(() => {
-      expect(screen.getByText('社区名')).toBeInTheDocument();
+      expect(screen.getByRole('heading', { name: '系统控制面', level: 1 })).toBeInTheDocument();
     });
-    fireEvent.click(screen.getByText('算法验收'));
-    // 算法验收Tab显示"暂无分析任务数据"（因为没有mock数据）
+
+    expect(screen.getByRole('heading', { name: '今天可以放心开工', level: 2 })).toBeInTheDocument();
+    expect(screen.getByText('这里不回答市场值不值，只回答今天这套机器能不能放心开工。')).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: '今天先看什么', level: 3 })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: '今天机器稳不稳', level: 3 })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: '控制面捷径', level: 3 })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: '今天先做哪一步', level: 3 })).toBeInTheDocument();
+    expect(screen.getByText('当前风险级别')).toBeInTheDocument();
+    expect(screen.getByText('低风险')).toBeInTheDocument();
+    expect(screen.getByText('队列压力（最近任务）')).toBeInTheDocument();
+    expect(screen.getByText('空闲')).toBeInTheDocument();
+    expect(screen.getByText('今日建议动作')).toBeInTheDocument();
+    expect(screen.getByText('机器状态稳定，可以按计划开新任务，异常时再回控制面复核。')).toBeInTheDocument();
+    expect(screen.getByText('先抽查已完成任务（1 条）')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: '先看任务账本' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: '再看社区池' })).toBeInTheDocument();
+    expect(screen.getAllByText('12').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('34').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('18.5秒').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('72.0%').length).toBeGreaterThan(0);
+    expect(document.body.textContent).toContain('任务 task-123...');
+    expect(screen.getByText('16 帖子')).toBeInTheDocument();
+  });
+
+  it('应该调用 admin.api 作为唯一数据来源', async () => {
+    render(
+      <MemoryRouter>
+        <AdminDashboardPage />
+      </MemoryRouter>,
+    );
+
     await waitFor(() => {
-      expect(screen.getByText(/暂无分析任务数据/i)).toBeInTheDocument();
+      expect(adminApi.getAdminDashboardStats).toHaveBeenCalled();
+      expect(adminApi.getRecentTasks).toHaveBeenCalledWith({ limit: 5 });
     });
   });
 
-  it('应该显示Mock社区数据', async () => {
-    render(<MemoryRouter><AdminDashboardPage /></MemoryRouter>);
-    await waitFor(() => {
-      expect(screen.getByText('r/startups')).toBeInTheDocument();
-      expect(screen.getByText('r/technology')).toBeInTheDocument();
+  it('应该在最近任务为空时给出统一空状态和下一步动作', async () => {
+    vi.mocked(adminApi.getRecentTasks).mockResolvedValue({
+      items: [],
+      total: 0,
     });
+
+    render(
+      <MemoryRouter>
+        <AdminDashboardPage />
+      </MemoryRouter>,
+    );
+
+    await waitFor(() => {
+      expect(screen.getByRole('heading', { name: '当前还没有最近任务', level: 3 })).toBeInTheDocument();
+    });
+
+    expect(screen.getByText('这不代表系统坏了，只是最近没有新的分析任务进来，或者这批任务还没开始跑。')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: '看任务账本' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: '看社区池' })).toBeInTheDocument();
   });
 
-  it('应该显示状态标签', async () => {
-    render(<MemoryRouter><AdminDashboardPage /></MemoryRouter>);
-    // 等待数据加载后再检查状态标签
-    await waitFor(() => {
-      // 使用getAllByText因为状态标签和筛选器都有这些文本
-      expect(screen.getAllByText('正常').length).toBeGreaterThan(0);
-      expect(screen.getAllByText('警告').length).toBeGreaterThan(0);
-      expect(screen.getAllByText('异常').length).toBeGreaterThan(0);
-    });
-  });
+  it('应该在仪表盘失败时给出统一错误状态和下一步动作', async () => {
+    vi.mocked(adminApi.getAdminDashboardStats).mockRejectedValue(new Error('后台统计服务不可用'));
 
-  it('应该有搜索功能', async () => {
-    render(<MemoryRouter><AdminDashboardPage /></MemoryRouter>);
-    // 等待数据加载
-    await waitFor(() => {
-      expect(screen.getByText('r/startups')).toBeInTheDocument();
-    });
-    const searchInput = screen.getByPlaceholderText(/搜索/i) as HTMLInputElement;
-    fireEvent.change(searchInput, { target: { value: 'startups' } });
-    expect(searchInput.value).toBe('startups');
-  });
+    render(
+      <MemoryRouter>
+        <AdminDashboardPage />
+      </MemoryRouter>,
+    );
 
-  it('应该能过滤社区', async () => {
-    render(<MemoryRouter><AdminDashboardPage /></MemoryRouter>);
-    // 等待数据加载
     await waitFor(() => {
-      expect(screen.getByText('r/startups')).toBeInTheDocument();
-      expect(screen.getByText('r/technology')).toBeInTheDocument();
+      expect(screen.getByRole('heading', { name: '系统驾驶舱暂时没拿到最新状态', level: 3 })).toBeInTheDocument();
     });
-    const searchInput = screen.getByPlaceholderText(/搜索/i);
-    fireEvent.change(searchInput, { target: { value: 'startups' } });
-    await waitFor(() => {
-      expect(screen.getByText('r/startups')).toBeInTheDocument();
-      expect(screen.queryByText('r/technology')).not.toBeInTheDocument();
-    });
-  });
 
-  it('应该有状态筛选器', async () => {
-    render(<MemoryRouter><AdminDashboardPage /></MemoryRouter>);
-    // 等待数据加载
-    await waitFor(() => {
-      expect(screen.getByText('r/startups')).toBeInTheDocument();
-    });
-    const [statusSelect] = screen.getAllByRole<HTMLSelectElement>('combobox');
-    expect(statusSelect).toBeDefined();
-    if (!statusSelect) {
-      throw new Error('状态筛选器未找到');
-    }
-  });
-
-  it('应该能按状态筛选', async () => {
-    render(<MemoryRouter><AdminDashboardPage /></MemoryRouter>);
-    // 等待数据加载
-    await waitFor(() => {
-      expect(screen.getByText('r/startups')).toBeInTheDocument();
-      expect(screen.getByText('r/technology')).toBeInTheDocument();
-    });
-    const [statusSelect] = screen.getAllByRole<HTMLSelectElement>('combobox');
-    if (!statusSelect) {
-      throw new Error('状态筛选器未找到');
-    }
-    fireEvent.change(statusSelect, { target: { value: 'green' } });
-    await waitFor(() => {
-      expect(screen.getByText('r/startups')).toBeInTheDocument();
-      expect(screen.queryByText('r/technology')).not.toBeInTheDocument();
-    });
-  });
-
-  it('应该显示功能按钮', async () => {
-    render(<MemoryRouter><AdminDashboardPage /></MemoryRouter>);
-    // 等待数据加载
-    await waitFor(() => {
-      expect(screen.getByText('r/startups')).toBeInTheDocument();
-    });
-    expect(screen.getByText(/生成.*Patch/i)).toBeInTheDocument();
-    expect(screen.getByText(/一键开.*PR/i)).toBeInTheDocument();
+    expect(screen.getByText('后台统计服务不可用')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: '刷新仪表盘' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: '看任务账本' })).toBeInTheDocument();
   });
 });

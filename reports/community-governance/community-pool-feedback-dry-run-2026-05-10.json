@@ -1,0 +1,645 @@
+{
+  "contracts": {
+    "auto_promote": false,
+    "requires_human_review": true,
+    "writes_db": false
+  },
+  "report_date": "2026-05-10",
+  "rows": [
+    {
+      "already_in_pool": false,
+      "candidate_count": 1,
+      "community": "r/cursorai",
+      "draft_count": 0,
+      "duplicate_count": 0,
+      "evidence": {
+        "candidate_count": 1,
+        "draft_count": 0,
+        "duplicate_count": 0,
+        "published_count": 1,
+        "reject_count": 0,
+        "total_evidence": 2
+      },
+      "feedback_action": "keep_testing",
+      "published_count": 1,
+      "reasons": [
+        "probe evidence is not enough for pool feedback"
+      ],
+      "reject_count": 0,
+      "risks": [],
+      "source_scope": "ai-automation",
+      "suggested_user_tags": [
+        "AI工具与Agent"
+      ],
+      "topic_cluster": "workflow-friction",
+      "value_assessment": {
+        "positive_signals": [
+          "candidate_evidence",
+          "published_evidence",
+          "interest_tag_mapping",
+          "new_topic_coverage"
+        ],
+        "risks": [],
+        "score": 58,
+        "stage": "validated"
+      }
+    },
+    {
+      "already_in_pool": false,
+      "candidate_count": 0,
+      "community": "r/windsurf",
+      "draft_count": 0,
+      "duplicate_count": 0,
+      "evidence": {
+        "candidate_count": 0,
+        "draft_count": 0,
+        "duplicate_count": 0,
+        "published_count": 0,
+        "reject_count": 0,
+        "total_evidence": 0
+      },
+      "feedback_action": "keep_testing",
+      "published_count": 0,
+      "reasons": [
+        "no probe evidence yet"
+      ],
+      "reject_count": 0,
+      "risks": [
+        "no_signal_yet"
+      ],
+      "source_scope": "ai-automation",
+      "suggested_user_tags": [
+        "AI工具与Agent"
+      ],
+      "topic_cluster": "workflow-friction",
+      "value_assessment": {
+        "positive_signals": [
+          "interest_tag_mapping"
+        ],
+        "risks": [],
+        "score": 0,
+        "stage": "observe"
+      }
+    },
+    {
+      "already_in_pool": false,
+      "candidate_count": 0,
+      "community": "r/aider",
+      "draft_count": 0,
+      "duplicate_count": 0,
+      "evidence": {
+        "candidate_count": 0,
+        "draft_count": 0,
+        "duplicate_count": 0,
+        "published_count": 0,
+        "reject_count": 0,
+        "total_evidence": 0
+      },
+      "feedback_action": "keep_testing",
+      "published_count": 0,
+      "reasons": [
+        "no probe evidence yet"
+      ],
+      "reject_count": 0,
+      "risks": [
+        "no_signal_yet"
+      ],
+      "source_scope": "ai-automation",
+      "suggested_user_tags": [
+        "AI工具与Agent"
+      ],
+      "topic_cluster": "workflow-friction",
+      "value_assessment": {
+        "positive_signals": [
+          "interest_tag_mapping"
+        ],
+        "risks": [],
+        "score": 0,
+        "stage": "observe"
+      }
+    },
+    {
+      "already_in_pool": false,
+      "candidate_count": 0,
+      "community": "r/openrouter",
+      "draft_count": 0,
+      "duplicate_count": 0,
+      "evidence": {
+        "candidate_count": 0,
+        "draft_count": 0,
+        "duplicate_count": 0,
+        "published_count": 0,
+        "reject_count": 0,
+        "total_evidence": 0
+      },
+      "feedback_action": "keep_testing",
+      "published_count": 0,
+      "reasons": [
+        "no probe evidence yet"
+      ],
+      "reject_count": 0,
+      "risks": [
+        "no_signal_yet"
+      ],
+      "source_scope": "ai-automation",
+      "suggested_user_tags": [
+        "AI工具与Agent"
+      ],
+      "topic_cluster": "workflow-friction",
+      "value_assessment": {
+        "positive_signals": [
+          "interest_tag_mapping"
+        ],
+        "risks": [],
+        "score": 0,
+        "stage": "observe"
+      }
+    },
+    {
+      "already_in_pool": false,
+      "candidate_count": 3,
+      "community": "r/heronebag",
+      "draft_count": 0,
+      "duplicate_count": 1,
+      "evidence": {
+        "candidate_count": 3,
+        "draft_count": 0,
+        "duplicate_count": 1,
+        "published_count": 0,
+        "reject_count": 0,
+        "total_evidence": 3
+      },
+      "feedback_action": "keep_testing",
+      "published_count": 0,
+      "reasons": [
+        "probe evidence is not enough for pool feedback"
+      ],
+      "reject_count": 0,
+      "risks": [
+        "duplicate_posts",
+        "not_published_yet"
+      ],
+      "source_scope": "ecommerce-sellers",
+      "suggested_user_tags": [
+        "家居生活选品"
+      ],
+      "topic_cluster": "outdoor",
+      "value_assessment": {
+        "positive_signals": [
+          "candidate_evidence",
+          "interest_tag_mapping",
+          "new_topic_coverage"
+        ],
+        "risks": [
+          "duplicate_posts"
+        ],
+        "score": 29,
+        "stage": "testing"
+      }
+    },
+    {
+      "already_in_pool": true,
+      "candidate_count": 0,
+      "community": "r/bikepacking",
+      "draft_count": 0,
+      "duplicate_count": 0,
+      "evidence": {
+        "candidate_count": 0,
+        "draft_count": 0,
+        "duplicate_count": 0,
+        "published_count": 0,
+        "reject_count": 0,
+        "total_evidence": 0
+      },
+      "feedback_action": "already_in_pool",
+      "published_count": 0,
+      "reasons": [
+        "already tracked in community_pool"
+      ],
+      "reject_count": 0,
+      "risks": [
+        "no_signal_yet"
+      ],
+      "source_scope": "ecommerce-sellers",
+      "suggested_user_tags": [
+        "家居生活选品"
+      ],
+      "topic_cluster": "outdoor",
+      "value_assessment": {
+        "positive_signals": [
+          "interest_tag_mapping"
+        ],
+        "risks": [],
+        "score": 0,
+        "stage": "already_in_pool"
+      }
+    },
+    {
+      "already_in_pool": true,
+      "candidate_count": 0,
+      "community": "r/trailrunning",
+      "draft_count": 0,
+      "duplicate_count": 0,
+      "evidence": {
+        "candidate_count": 0,
+        "draft_count": 0,
+        "duplicate_count": 0,
+        "published_count": 0,
+        "reject_count": 0,
+        "total_evidence": 0
+      },
+      "feedback_action": "already_in_pool",
+      "published_count": 0,
+      "reasons": [
+        "already tracked in community_pool"
+      ],
+      "reject_count": 0,
+      "risks": [
+        "no_signal_yet"
+      ],
+      "source_scope": "ecommerce-sellers",
+      "suggested_user_tags": [
+        "家居生活选品"
+      ],
+      "topic_cluster": "outdoor",
+      "value_assessment": {
+        "positive_signals": [
+          "interest_tag_mapping"
+        ],
+        "risks": [],
+        "score": 0,
+        "stage": "already_in_pool"
+      }
+    },
+    {
+      "already_in_pool": true,
+      "candidate_count": 0,
+      "community": "r/campingandhiking",
+      "draft_count": 0,
+      "duplicate_count": 0,
+      "evidence": {
+        "candidate_count": 0,
+        "draft_count": 0,
+        "duplicate_count": 0,
+        "published_count": 0,
+        "reject_count": 0,
+        "total_evidence": 0
+      },
+      "feedback_action": "already_in_pool",
+      "published_count": 0,
+      "reasons": [
+        "already tracked in community_pool"
+      ],
+      "reject_count": 0,
+      "risks": [
+        "no_signal_yet"
+      ],
+      "source_scope": "ecommerce-sellers",
+      "suggested_user_tags": [
+        "家居生活选品"
+      ],
+      "topic_cluster": "outdoor",
+      "value_assessment": {
+        "positive_signals": [
+          "interest_tag_mapping"
+        ],
+        "risks": [],
+        "score": 0,
+        "stage": "already_in_pool"
+      }
+    },
+    {
+      "already_in_pool": true,
+      "candidate_count": 3,
+      "community": "r/etsy",
+      "draft_count": 0,
+      "duplicate_count": 1,
+      "evidence": {
+        "candidate_count": 3,
+        "draft_count": 0,
+        "duplicate_count": 1,
+        "published_count": 2,
+        "reject_count": 0,
+        "total_evidence": 5
+      },
+      "feedback_action": "already_in_pool",
+      "published_count": 2,
+      "reasons": [
+        "already tracked in community_pool"
+      ],
+      "reject_count": 0,
+      "risks": [
+        "duplicate_posts"
+      ],
+      "source_scope": "ecommerce-sellers",
+      "suggested_user_tags": [
+        "卖家店铺运营"
+      ],
+      "topic_cluster": "seller-category-direction",
+      "value_assessment": {
+        "positive_signals": [
+          "candidate_evidence",
+          "published_evidence",
+          "interest_tag_mapping",
+          "new_topic_coverage"
+        ],
+        "risks": [
+          "duplicate_posts"
+        ],
+        "score": 99,
+        "stage": "already_in_pool"
+      }
+    },
+    {
+      "already_in_pool": true,
+      "candidate_count": 1,
+      "community": "r/digital_marketing",
+      "draft_count": 0,
+      "duplicate_count": 0,
+      "evidence": {
+        "candidate_count": 1,
+        "draft_count": 0,
+        "duplicate_count": 0,
+        "published_count": 0,
+        "reject_count": 0,
+        "total_evidence": 1
+      },
+      "feedback_action": "already_in_pool",
+      "published_count": 0,
+      "reasons": [
+        "already tracked in community_pool"
+      ],
+      "reject_count": 0,
+      "risks": [
+        "not_published_yet"
+      ],
+      "source_scope": "business-growth-ops",
+      "suggested_user_tags": [
+        "SEO&GEO"
+      ],
+      "topic_cluster": "seo-geo",
+      "value_assessment": {
+        "positive_signals": [
+          "candidate_evidence",
+          "interest_tag_mapping",
+          "new_topic_coverage"
+        ],
+        "risks": [],
+        "score": 23,
+        "stage": "already_in_pool"
+      }
+    },
+    {
+      "already_in_pool": false,
+      "candidate_count": 2,
+      "community": "r/aeo",
+      "draft_count": 0,
+      "duplicate_count": 1,
+      "evidence": {
+        "candidate_count": 2,
+        "draft_count": 0,
+        "duplicate_count": 1,
+        "published_count": 3,
+        "reject_count": 0,
+        "total_evidence": 5
+      },
+      "feedback_action": "promote_candidate",
+      "published_count": 3,
+      "reasons": [
+        "Hotpost probe has publishable evidence"
+      ],
+      "reject_count": 0,
+      "risks": [
+        "duplicate_posts"
+      ],
+      "source_scope": "business-growth-ops",
+      "suggested_user_tags": [
+        "SEO&GEO"
+      ],
+      "topic_cluster": "seo-geo",
+      "value_assessment": {
+        "positive_signals": [
+          "candidate_evidence",
+          "published_evidence",
+          "interest_tag_mapping",
+          "new_topic_coverage"
+        ],
+        "risks": [
+          "duplicate_posts"
+        ],
+        "score": 100,
+        "stage": "pool_candidate"
+      }
+    },
+    {
+      "already_in_pool": false,
+      "candidate_count": 1,
+      "community": "r/ai_ugc_marketing",
+      "draft_count": 0,
+      "duplicate_count": 0,
+      "evidence": {
+        "candidate_count": 1,
+        "draft_count": 0,
+        "duplicate_count": 0,
+        "published_count": 3,
+        "reject_count": 0,
+        "total_evidence": 4
+      },
+      "feedback_action": "promote_candidate",
+      "published_count": 3,
+      "reasons": [
+        "Hotpost probe has publishable evidence"
+      ],
+      "reject_count": 0,
+      "risks": [],
+      "source_scope": "business-growth-ops",
+      "suggested_user_tags": [
+        "广告投放",
+        "卖家店铺运营",
+        "内容营销创作"
+      ],
+      "topic_cluster": "funnel",
+      "value_assessment": {
+        "positive_signals": [
+          "candidate_evidence",
+          "published_evidence",
+          "interest_tag_mapping",
+          "new_topic_coverage"
+        ],
+        "risks": [],
+        "score": 100,
+        "stage": "pool_candidate"
+      }
+    },
+    {
+      "already_in_pool": false,
+      "candidate_count": 2,
+      "community": "r/growthhacking",
+      "draft_count": 0,
+      "duplicate_count": 1,
+      "evidence": {
+        "candidate_count": 2,
+        "draft_count": 0,
+        "duplicate_count": 1,
+        "published_count": 2,
+        "reject_count": 0,
+        "total_evidence": 4
+      },
+      "feedback_action": "promote_candidate",
+      "published_count": 2,
+      "reasons": [
+        "Hotpost probe has publishable evidence"
+      ],
+      "reject_count": 0,
+      "risks": [
+        "duplicate_posts"
+      ],
+      "source_scope": "business-growth-ops",
+      "suggested_user_tags": [
+        "广告投放",
+        "卖家店铺运营",
+        "内容营销创作"
+      ],
+      "topic_cluster": "funnel",
+      "value_assessment": {
+        "positive_signals": [
+          "candidate_evidence",
+          "published_evidence",
+          "interest_tag_mapping",
+          "new_topic_coverage"
+        ],
+        "risks": [
+          "duplicate_posts"
+        ],
+        "score": 91,
+        "stage": "pool_candidate"
+      }
+    },
+    {
+      "already_in_pool": false,
+      "candidate_count": 0,
+      "community": "r/marketingautomation",
+      "draft_count": 0,
+      "duplicate_count": 0,
+      "evidence": {
+        "candidate_count": 0,
+        "draft_count": 0,
+        "duplicate_count": 0,
+        "published_count": 0,
+        "reject_count": 0,
+        "total_evidence": 0
+      },
+      "feedback_action": "keep_testing",
+      "published_count": 0,
+      "reasons": [
+        "no probe evidence yet"
+      ],
+      "reject_count": 0,
+      "risks": [
+        "no_signal_yet"
+      ],
+      "source_scope": "business-growth-ops",
+      "suggested_user_tags": [
+        "广告投放",
+        "卖家店铺运营",
+        "内容营销创作"
+      ],
+      "topic_cluster": "funnel",
+      "value_assessment": {
+        "positive_signals": [
+          "interest_tag_mapping"
+        ],
+        "risks": [],
+        "score": 0,
+        "stage": "observe"
+      }
+    },
+    {
+      "already_in_pool": false,
+      "candidate_count": 0,
+      "community": "r/conversionrateoptimization",
+      "draft_count": 0,
+      "duplicate_count": 0,
+      "evidence": {
+        "candidate_count": 0,
+        "draft_count": 0,
+        "duplicate_count": 0,
+        "published_count": 0,
+        "reject_count": 0,
+        "total_evidence": 0
+      },
+      "feedback_action": "keep_testing",
+      "published_count": 0,
+      "reasons": [
+        "no probe evidence yet"
+      ],
+      "reject_count": 0,
+      "risks": [
+        "no_signal_yet"
+      ],
+      "source_scope": "business-growth-ops",
+      "suggested_user_tags": [
+        "广告投放",
+        "卖家店铺运营",
+        "内容营销创作"
+      ],
+      "topic_cluster": "funnel",
+      "value_assessment": {
+        "positive_signals": [
+          "interest_tag_mapping"
+        ],
+        "risks": [],
+        "score": 0,
+        "stage": "observe"
+      }
+    },
+    {
+      "already_in_pool": false,
+      "candidate_count": 0,
+      "community": "r/shopifydevs",
+      "draft_count": 0,
+      "duplicate_count": 0,
+      "evidence": {
+        "candidate_count": 0,
+        "draft_count": 0,
+        "duplicate_count": 0,
+        "published_count": 0,
+        "reject_count": 0,
+        "total_evidence": 0
+      },
+      "feedback_action": "keep_testing",
+      "published_count": 0,
+      "reasons": [
+        "no probe evidence yet"
+      ],
+      "reject_count": 0,
+      "risks": [
+        "no_signal_yet"
+      ],
+      "source_scope": "business-growth-ops",
+      "suggested_user_tags": [
+        "广告投放",
+        "卖家店铺运营",
+        "内容营销创作"
+      ],
+      "topic_cluster": "funnel",
+      "value_assessment": {
+        "positive_signals": [
+          "interest_tag_mapping"
+        ],
+        "risks": [],
+        "score": 0,
+        "stage": "observe"
+      }
+    }
+  ],
+  "schema_version": "hotpost-community-pool-feedback-dry-run/v1",
+  "source_audit_schema": "hotpost-community-discovery-audit/v1",
+  "summary": {
+    "already_in_pool": 5,
+    "input_rows": 16,
+    "keep_testing": 8,
+    "promote_candidate": 3,
+    "reject": 0
+  }
+}

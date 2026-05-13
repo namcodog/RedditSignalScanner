@@ -110,6 +110,8 @@ async def emit_tier_suggestions_as_decision_units(
             status=TaskStatus.COMPLETED,
             started_at=emitted_at,
             completed_at=emitted_at,
+            created_at=emitted_at,
+            updated_at=emitted_at,
         )
         session.add(task)
         await session.flush()
@@ -220,4 +222,3 @@ __all__ = [
     "TierSuggestionDecisionUnitEmissionResult",
     "emit_tier_suggestions_as_decision_units",
 ]
-

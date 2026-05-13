@@ -1,0 +1,4374 @@
+{
+  "database_url": "postgresql+asyncpg://rss_app:1RC8apeUjrYDU1BSS1OTzXOU@localhost:5432/reddit_signal_scanner_dev",
+  "snapshot": {
+    "summary": {
+      "effective_pool_count": 141,
+      "candidate_count": 126,
+      "pool_garbage_count": 0,
+      "historical_shell_count": 48,
+      "discovered_garbage_count": 0,
+      "anomaly_count": 0
+    },
+    "effective_communities": [
+      {
+        "id": 1305,
+        "name": "r/3dprinting",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Tools_EDC"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 1.0,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1409,
+        "name": "r/airfryer",
+        "tier": "high",
+        "priority": "high",
+        "categories": [
+          "Food_Coffee_Lifestyle"
+        ],
+        "health_status": "healthy",
+        "discovered_count": 0,
+        "quality_score": 0.85,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 40,
+        "name": "r/aliexpress",
+        "tier": "high",
+        "priority": "high",
+        "categories": [
+          "Ecommerce_Business"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1231,
+        "name": "r/appliances",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Home_Lifestyle"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1399,
+        "name": "r/aquariums",
+        "tier": "high",
+        "priority": "high",
+        "categories": [
+          "Home_Lifestyle"
+        ],
+        "health_status": "healthy",
+        "discovered_count": 0,
+        "quality_score": 0.85,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1310,
+        "name": "r/askculinary",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Food_Coffee_Lifestyle"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 1.0,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1407,
+        "name": "r/askelectronics",
+        "tier": "high",
+        "priority": "high",
+        "categories": [
+          "Tools_EDC"
+        ],
+        "health_status": "healthy",
+        "discovered_count": 0,
+        "quality_score": 0.85,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1295,
+        "name": "r/autism_parenting",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Family_Parenting"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1348,
+        "name": "r/autodetailing",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Tools_EDC"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 1.0,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1389,
+        "name": "r/automation",
+        "tier": "high",
+        "priority": "high",
+        "categories": [
+          "AI_Workflow"
+        ],
+        "health_status": "healthy",
+        "discovered_count": 0,
+        "quality_score": 0.85,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1283,
+        "name": "r/babybumps",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Family_Parenting"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1368,
+        "name": "r/backpacking",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Minimal_Outdoor"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 1.0,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1255,
+        "name": "r/barista",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Food_Coffee_Lifestyle"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1404,
+        "name": "r/battlestations",
+        "tier": "Tier A",
+        "priority": "high",
+        "categories": [
+          "Tools_EDC"
+        ],
+        "health_status": "healthy",
+        "discovered_count": 1,
+        "quality_score": 0.85,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1284,
+        "name": "r/beyondthebump",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Family_Parenting"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1380,
+        "name": "r/bicycling",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Minimal_Outdoor"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 1.0,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1271,
+        "name": "r/bikepacking",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Minimal_Outdoor"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1291,
+        "name": "r/blendedfamilies",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Family_Parenting"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1367,
+        "name": "r/budgetfood",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Frugal_Living"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 1.0,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1268,
+        "name": "r/bushcraft",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Minimal_Outdoor"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1381,
+        "name": "r/buyitforlife",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Frugal_Living"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 1.0,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1372,
+        "name": "r/campingandhiking",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Minimal_Outdoor"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 1.0,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1224,
+        "name": "r/carpentry",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Tools_EDC"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1401,
+        "name": "r/cats",
+        "tier": "high",
+        "priority": "high",
+        "categories": [
+          "Family_Parenting"
+        ],
+        "health_status": "healthy",
+        "discovered_count": 0,
+        "quality_score": 0.85,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1386,
+        "name": "r/chatgpt",
+        "tier": "high",
+        "priority": "high",
+        "categories": [
+          "AI_Workflow"
+        ],
+        "health_status": "healthy",
+        "discovered_count": 0,
+        "quality_score": 0.85,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1314,
+        "name": "r/cheap_meals",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Food_Coffee_Lifestyle"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 1.0,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1325,
+        "name": "r/cleaningtips",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Home_Lifestyle"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 1.0,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1363,
+        "name": "r/coffee",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Food_Coffee_Lifestyle"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 1.0,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1317,
+        "name": "r/cooking",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Food_Coffee_Lifestyle"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 1.0,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1392,
+        "name": "r/cozyplaces",
+        "tier": "high",
+        "priority": "high",
+        "categories": [
+          "Home_Lifestyle"
+        ],
+        "health_status": "healthy",
+        "discovered_count": 0,
+        "quality_score": 0.85,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1350,
+        "name": "r/cycling",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Minimal_Outdoor"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 1.0,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1279,
+        "name": "r/daddit",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Family_Parenting"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1405,
+        "name": "r/desksetup",
+        "tier": "high",
+        "priority": "high",
+        "categories": [
+          "Tools_EDC"
+        ],
+        "health_status": "healthy",
+        "discovered_count": 0,
+        "quality_score": 0.85,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1347,
+        "name": "r/digitalnomad",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Minimal_Outdoor"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 1.0,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1289,
+        "name": "r/divorce",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Family_Parenting"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1312,
+        "name": "r/diy",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Home_Lifestyle"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 1.0,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1400,
+        "name": "r/dogs",
+        "tier": "high",
+        "priority": "high",
+        "categories": [
+          "Family_Parenting"
+        ],
+        "health_status": "healthy",
+        "discovered_count": 0,
+        "quality_score": 0.85,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 46,
+        "name": "r/dropship",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Ecommerce_Business"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.7,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 43,
+        "name": "r/dropshipping",
+        "tier": "high",
+        "priority": "high",
+        "categories": [
+          "Ecommerce_Business"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1346,
+        "name": "r/eatcheapandhealthy",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Frugal_Living"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 1.0,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 92,
+        "name": "r/ecommerce",
+        "tier": "high",
+        "priority": "high",
+        "categories": [
+          "Ecommerce_Business"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.8,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 72,
+        "name": "r/ecommercemarketing",
+        "tier": "high",
+        "priority": "high",
+        "categories": [
+          "Ecommerce_Business"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1287,
+        "name": "r/education",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Family_Parenting"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1226,
+        "name": "r/electricians",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Home_Lifestyle"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1353,
+        "name": "r/entrepreneur",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Ecommerce_Business"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 1.0,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1344,
+        "name": "r/espresso",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Food_Coffee_Lifestyle"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 1.0,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 52,
+        "name": "r/etsy",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Ecommerce_Business"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.7,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 39,
+        "name": "r/etsysellers",
+        "tier": "high",
+        "priority": "low",
+        "categories": [
+          "Ecommerce_Business"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.7,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 38,
+        "name": "r/facebookads",
+        "tier": "high",
+        "priority": "high",
+        "categories": [
+          "Ecommerce_Business"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1338,
+        "name": "r/familyissues",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Family_Parenting"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 1.0,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1261,
+        "name": "r/fermentation",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Food_Coffee_Lifestyle"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1227,
+        "name": "r/fixit",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Home_Lifestyle"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1236,
+        "name": "r/flashlight",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Tools_EDC"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 88,
+        "name": "r/flipping",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Ecommerce_Business"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.7,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 121,
+        "name": "r/freelance",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Ecommerce_Business"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.75,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1302,
+        "name": "r/frugal",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Frugal_Living"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 1.0,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1328,
+        "name": "r/frugalmalefashion",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Frugal_Living"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 1.0,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1333,
+        "name": "r/gardening",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Home_Lifestyle"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 1.0,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1267,
+        "name": "r/hammockcamping",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Minimal_Outdoor"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1228,
+        "name": "r/handyman",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Home_Lifestyle"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1332,
+        "name": "r/hiking",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Minimal_Outdoor"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 1.0,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1222,
+        "name": "r/home",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Home_Lifestyle"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1299,
+        "name": "r/homeautomation",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Home_Lifestyle"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 1.0,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1262,
+        "name": "r/homebrewing",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Home_Lifestyle"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1229,
+        "name": "r/homebuilding",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Home_Lifestyle"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1303,
+        "name": "r/homedecorating",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Home_Lifestyle"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 1.0,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1324,
+        "name": "r/homeimprovement",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Home_Lifestyle"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 1.0,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1377,
+        "name": "r/homeowners",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Home_Lifestyle"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 1.0,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1288,
+        "name": "r/homeschool",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Family_Parenting"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1360,
+        "name": "r/houseplants",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Home_Lifestyle"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 1.0,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1395,
+        "name": "r/hvac",
+        "tier": "high",
+        "priority": "high",
+        "categories": [
+          "Home_Lifestyle"
+        ],
+        "health_status": "healthy",
+        "discovered_count": 0,
+        "quality_score": 0.85,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1233,
+        "name": "r/ikeahacks",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Home_Lifestyle"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1375,
+        "name": "r/interiordesign",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Home_Lifestyle"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 1.0,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1408,
+        "name": "r/justrolledintotheshop",
+        "tier": "high",
+        "priority": "high",
+        "categories": [
+          "Tools_EDC"
+        ],
+        "health_status": "healthy",
+        "discovered_count": 0,
+        "quality_score": 0.85,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1237,
+        "name": "r/knives",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Tools_EDC"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1321,
+        "name": "r/landscaping",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Home_Lifestyle"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 1.0,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1394,
+        "name": "r/lawncare",
+        "tier": "high",
+        "priority": "high",
+        "categories": [
+          "Home_Lifestyle"
+        ],
+        "health_status": "healthy",
+        "discovered_count": 0,
+        "quality_score": 0.85,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1340,
+        "name": "r/leanfire",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Frugal_Living"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 1.0,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1385,
+        "name": "r/localllama",
+        "tier": "high",
+        "priority": "high",
+        "categories": [
+          "AI_Workflow"
+        ],
+        "health_status": "healthy",
+        "discovered_count": 0,
+        "quality_score": 0.85,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1244,
+        "name": "r/lockpicking",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Tools_EDC"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 58,
+        "name": "r/logistics",
+        "tier": "high",
+        "priority": "high",
+        "categories": [
+          "Ecommerce_Business"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1390,
+        "name": "r/malelivingspace",
+        "tier": "high",
+        "priority": "high",
+        "categories": [
+          "Home_Lifestyle"
+        ],
+        "health_status": "healthy",
+        "discovered_count": 0,
+        "quality_score": 0.85,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 10,
+        "name": "r/marketing",
+        "tier": "high",
+        "priority": "high",
+        "categories": [
+          "Ecommerce_Business"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 7,
+        "quality_score": 0.75,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1373,
+        "name": "r/marriage",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Family_Parenting"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 1.0,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1365,
+        "name": "r/mealprepsunday",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Frugal_Living"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 1.0,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1364,
+        "name": "r/mechanicalkeyboards",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Tools_EDC"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 1.0,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1306,
+        "name": "r/metalworking",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Tools_EDC"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 1.0,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1327,
+        "name": "r/minimalism",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Frugal_Living"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 1.0,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1269,
+        "name": "r/mountaineering",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Minimal_Outdoor"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1238,
+        "name": "r/multitools",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Tools_EDC"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1337,
+        "name": "r/onebag",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Minimal_Outdoor"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 1.0,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1339,
+        "name": "r/outdoorsgear",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Tools_EDC"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 1.0,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1278,
+        "name": "r/overlanding",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Minimal_Outdoor"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1354,
+        "name": "r/parenting",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Family_Parenting"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 1.0,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1285,
+        "name": "r/parentingteenagers",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Family_Parenting"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1240,
+        "name": "r/pens",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Tools_EDC"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1403,
+        "name": "r/pets",
+        "tier": "high",
+        "priority": "high",
+        "categories": [
+          "Family_Parenting"
+        ],
+        "health_status": "healthy",
+        "discovered_count": 0,
+        "quality_score": 0.85,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1225,
+        "name": "r/plumbing",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Home_Lifestyle"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1254,
+        "name": "r/pourover",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Food_Coffee_Lifestyle"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1245,
+        "name": "r/preppers",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Frugal_Living"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 293,
+        "name": "r/printondemand",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Ecommerce_Business"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.7,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1388,
+        "name": "r/promptengineering",
+        "tier": "high",
+        "priority": "high",
+        "categories": [
+          "AI_Workflow"
+        ],
+        "health_status": "healthy",
+        "discovered_count": 0,
+        "quality_score": 0.85,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1402,
+        "name": "r/puppy101",
+        "tier": "high",
+        "priority": "high",
+        "categories": [
+          "Family_Parenting"
+        ],
+        "health_status": "healthy",
+        "discovered_count": 0,
+        "quality_score": 0.85,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1398,
+        "name": "r/reeftank",
+        "tier": "high",
+        "priority": "high",
+        "categories": [
+          "Home_Lifestyle"
+        ],
+        "health_status": "healthy",
+        "discovered_count": 0,
+        "quality_score": 0.85,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1319,
+        "name": "r/relationship_advice",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Family_Parenting"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 1.0,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1280,
+        "name": "r/relationships",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Family_Parenting"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1230,
+        "name": "r/remodel",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Home_Lifestyle"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1357,
+        "name": "r/running",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Minimal_Outdoor"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 1.0,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1411,
+        "name": "r/saas",
+        "tier": "high",
+        "priority": "high",
+        "categories": [
+          "Ecommerce_Business"
+        ],
+        "health_status": "healthy",
+        "discovered_count": 0,
+        "quality_score": 0.85,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 105,
+        "name": "r/seo",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Ecommerce_Business"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.75,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1343,
+        "name": "r/simpleliving",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Frugal_Living"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 1.0,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 118,
+        "name": "r/smallbusiness",
+        "tier": "high",
+        "priority": "high",
+        "categories": [
+          "Ecommerce_Business"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.8,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1330,
+        "name": "r/smarthome",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Home_Lifestyle"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 1.0,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1342,
+        "name": "r/smoking",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Food_Coffee_Lifestyle"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 1.0,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1232,
+        "name": "r/solar",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Home_Lifestyle"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1379,
+        "name": "r/solotravel",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Minimal_Outdoor"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 1.0,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1258,
+        "name": "r/sousvide",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Food_Coffee_Lifestyle"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1387,
+        "name": "r/stablediffusion",
+        "tier": "high",
+        "priority": "high",
+        "categories": [
+          "AI_Workflow"
+        ],
+        "health_status": "healthy",
+        "discovered_count": 0,
+        "quality_score": 0.85,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 9,
+        "name": "r/startups",
+        "tier": "high",
+        "priority": "high",
+        "categories": [
+          "Ecommerce_Business"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 7,
+        "quality_score": 0.85,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1329,
+        "name": "r/survival",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Minimal_Outdoor"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 1.0,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1246,
+        "name": "r/tacticalgear",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Tools_EDC"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1318,
+        "name": "r/tea",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Food_Coffee_Lifestyle"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 1.0,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 62,
+        "name": "r/techseo",
+        "tier": "high",
+        "priority": "high",
+        "categories": [
+          "Ecommerce_Business"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1251,
+        "name": "r/thrifting",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Frugal_Living"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 60,
+        "name": "r/tiktokshop",
+        "tier": "high",
+        "priority": "high",
+        "categories": [
+          "Ecommerce_Business"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1274,
+        "name": "r/tinyhouses",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Home_Lifestyle"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1286,
+        "name": "r/toddlers",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Family_Parenting"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1326,
+        "name": "r/tools",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Tools_EDC"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 1.0,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1270,
+        "name": "r/trailrunning",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Minimal_Outdoor"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1352,
+        "name": "r/travel",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Minimal_Outdoor"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 1.0,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1315,
+        "name": "r/ukpersonalfinance",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Frugal_Living"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 1.0,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1382,
+        "name": "r/ultralight",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Minimal_Outdoor"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 1.0,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1273,
+        "name": "r/vanlife",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Minimal_Outdoor"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 70,
+        "name": "r/walmartcanada",
+        "tier": "high",
+        "priority": "high",
+        "categories": [
+          "Frugal_Living"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 69,
+        "name": "r/walmartsellers",
+        "tier": "high",
+        "priority": "high",
+        "categories": [
+          "Ecommerce_Business"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1370,
+        "name": "r/watches",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Tools_EDC"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 1.0,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1243,
+        "name": "r/welding",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Tools_EDC"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1264,
+        "name": "r/wine",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Food_Coffee_Lifestyle"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1374,
+        "name": "r/woodworking",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Home_Lifestyle"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 1.0,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1241,
+        "name": "r/workbenches",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Tools_EDC"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      },
+      {
+        "id": 1341,
+        "name": "r/zerowaste",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Frugal_Living"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 1.0,
+        "is_active": true,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null
+      }
+    ],
+    "candidate_communities": [
+      {
+        "id": 184,
+        "name": "r/3dprintentrepreneurs",
+        "status": "pending",
+        "discovered_count": 6,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 347,
+        "name": "r/alphaandbetausers",
+        "status": "pending",
+        "discovered_count": 2,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 124,
+        "name": "r/amazonfbatips",
+        "status": "pending",
+        "discovered_count": 5,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 181,
+        "name": "r/anticonsumption",
+        "status": "pending",
+        "discovered_count": 12,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 357,
+        "name": "r/artificial",
+        "status": "pending",
+        "discovered_count": 12,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 361,
+        "name": "r/asianamerican",
+        "status": "pending",
+        "discovered_count": 7,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 143,
+        "name": "r/askreddit",
+        "status": "pending",
+        "discovered_count": 10,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 152,
+        "name": "r/assholedesign",
+        "status": "pending",
+        "discovered_count": 3,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 60,
+        "name": "r/atyr_alpha",
+        "status": "pending",
+        "discovered_count": 6,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 171,
+        "name": "r/aves",
+        "status": "pending",
+        "discovered_count": 3,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 180,
+        "name": "r/beermoneyuk",
+        "status": "pending",
+        "discovered_count": 8,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 51,
+        "name": "r/bestofredditorupdates",
+        "status": "pending",
+        "discovered_count": 21,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 118,
+        "name": "r/buhaydigital",
+        "status": "pending",
+        "discovered_count": 8,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 125,
+        "name": "r/businessideas",
+        "status": "pending",
+        "discovered_count": 12,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 339,
+        "name": "r/casualpt",
+        "status": "pending",
+        "discovered_count": 2,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 175,
+        "name": "r/ccw",
+        "status": "pending",
+        "discovered_count": 3,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 166,
+        "name": "r/chess",
+        "status": "pending",
+        "discovered_count": 3,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 359,
+        "name": "r/china",
+        "status": "pending",
+        "discovered_count": 6,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 360,
+        "name": "r/chineselanguage",
+        "status": "pending",
+        "discovered_count": 7,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 340,
+        "name": "r/clickup",
+        "status": "pending",
+        "discovered_count": 2,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 346,
+        "name": "r/cofounderhunt",
+        "status": "pending",
+        "discovered_count": 2,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 362,
+        "name": "r/conspiracy",
+        "status": "pending",
+        "discovered_count": 30,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 62,
+        "name": "r/couchtuner",
+        "status": "pending",
+        "discovered_count": 6,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 363,
+        "name": "r/crafts",
+        "status": "pending",
+        "discovered_count": 6,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 259,
+        "name": "r/craftycommerce",
+        "status": "pending",
+        "discovered_count": 4,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 146,
+        "name": "r/damnthatsinteresting",
+        "status": "pending",
+        "discovered_count": 6,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 157,
+        "name": "r/damnthatsreal",
+        "status": "pending",
+        "discovered_count": 3,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 160,
+        "name": "r/deduction",
+        "status": "pending",
+        "discovered_count": 12,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 102,
+        "name": "r/digitalincomepath",
+        "status": "pending",
+        "discovered_count": 25,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 172,
+        "name": "r/digitalminimalism",
+        "status": "pending",
+        "discovered_count": 3,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 252,
+        "name": "r/dnd",
+        "status": "pending",
+        "discovered_count": 6,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 190,
+        "name": "r/dropshipnospam",
+        "status": "pending",
+        "discovered_count": 4,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 159,
+        "name": "r/dumbphones",
+        "status": "pending",
+        "discovered_count": 20,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 158,
+        "name": "r/edc",
+        "status": "pending",
+        "discovered_count": 40,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 177,
+        "name": "r/edmproduction",
+        "status": "pending",
+        "discovered_count": 3,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 161,
+        "name": "r/electricdaisycarnival",
+        "status": "pending",
+        "discovered_count": 12,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 343,
+        "name": "r/entrepreneurs",
+        "status": "pending",
+        "discovered_count": 2,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 289,
+        "name": "r/eticaret_yildizi",
+        "status": "pending",
+        "discovered_count": 1,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 258,
+        "name": "r/etsycommunity",
+        "status": "pending",
+        "discovered_count": 4,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 154,
+        "name": "r/europe",
+        "status": "pending",
+        "discovered_count": 3,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 162,
+        "name": "r/everydaycarry_india",
+        "status": "pending",
+        "discovered_count": 6,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 64,
+        "name": "r/facepalm",
+        "status": "pending",
+        "discovered_count": 6,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 122,
+        "name": "r/freelance_forhire",
+        "status": "pending",
+        "discovered_count": 8,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 164,
+        "name": "r/glocks",
+        "status": "pending",
+        "discovered_count": 6,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 173,
+        "name": "r/hamiltonwatches",
+        "status": "pending",
+        "discovered_count": 3,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 52,
+        "name": "r/hfy",
+        "status": "pending",
+        "discovered_count": 9,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 370,
+        "name": "r/icleanedmyroom",
+        "status": "pending",
+        "discovered_count": 6,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 123,
+        "name": "r/indiabusiness",
+        "status": "pending",
+        "discovered_count": 6,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 121,
+        "name": "r/indianentrepreneur",
+        "status": "pending",
+        "discovered_count": 6,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 369,
+        "name": "r/indianhomedecor",
+        "status": "pending",
+        "discovered_count": 30,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 142,
+        "name": "r/interestingasfuck",
+        "status": "pending",
+        "discovered_count": 9,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 286,
+        "name": "r/jenova_ai",
+        "status": "pending",
+        "discovered_count": 1,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 254,
+        "name": "r/leagueoflegends",
+        "status": "pending",
+        "discovered_count": 6,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 167,
+        "name": "r/leatherman",
+        "status": "pending",
+        "discovered_count": 3,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 110,
+        "name": "r/london",
+        "status": "pending",
+        "discovered_count": 6,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 358,
+        "name": "r/machinelearning",
+        "status": "pending",
+        "discovered_count": 15,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 155,
+        "name": "r/mademesmile",
+        "status": "pending",
+        "discovered_count": 3,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 336,
+        "name": "r/managers",
+        "status": "pending",
+        "discovered_count": 3,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 174,
+        "name": "r/manybaggers",
+        "status": "pending",
+        "discovered_count": 3,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 53,
+        "name": "r/melanotan2",
+        "status": "pending",
+        "discovered_count": 6,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 151,
+        "name": "r/mildlyinteresting",
+        "status": "pending",
+        "discovered_count": 3,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 367,
+        "name": "r/modelmakers",
+        "status": "pending",
+        "discovered_count": 5,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 56,
+        "name": "r/motorbuzz",
+        "status": "pending",
+        "discovered_count": 6,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 156,
+        "name": "r/movies",
+        "status": "pending",
+        "discovered_count": 3,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 145,
+        "name": "r/news",
+        "status": "pending",
+        "discovered_count": 6,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 144,
+        "name": "r/nlsalaris",
+        "status": "pending",
+        "discovered_count": 5,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 372,
+        "name": "r/nosleep",
+        "status": "pending",
+        "discovered_count": 11,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 148,
+        "name": "r/nostupidquestions",
+        "status": "pending",
+        "discovered_count": 3,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 331,
+        "name": "r/notion",
+        "status": "pending",
+        "discovered_count": 7,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 350,
+        "name": "r/notiondeutsch",
+        "status": "pending",
+        "discovered_count": 1,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 105,
+        "name": "r/onlineincomehustle",
+        "status": "pending",
+        "discovered_count": 39,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 373,
+        "name": "r/openclaw",
+        "status": "pending",
+        "discovered_count": 6,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 366,
+        "name": "r/paintbynumbers",
+        "status": "pending",
+        "discovered_count": 23,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 179,
+        "name": "r/passive_income",
+        "status": "pending",
+        "discovered_count": 18,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 150,
+        "name": "r/pcmasterrace",
+        "status": "pending",
+        "discovered_count": 3,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 153,
+        "name": "r/piracy",
+        "status": "pending",
+        "discovered_count": 3,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 341,
+        "name": "r/pmcareers",
+        "status": "pending",
+        "discovered_count": 2,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 103,
+        "name": "r/printify",
+        "status": "pending",
+        "discovered_count": 9,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 344,
+        "name": "r/productivity",
+        "status": "pending",
+        "discovered_count": 2,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 332,
+        "name": "r/productivityapps",
+        "status": "pending",
+        "discovered_count": 6,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 282,
+        "name": "r/productresearcher",
+        "status": "pending",
+        "discovered_count": 2,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 333,
+        "name": "r/projectmanagement",
+        "status": "pending",
+        "discovered_count": 4,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 348,
+        "name": "r/recruitinghell",
+        "status": "pending",
+        "discovered_count": 1,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 189,
+        "name": "r/redditpregunta",
+        "status": "pending",
+        "discovered_count": 4,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 106,
+        "name": "r/reviewmyshopify",
+        "status": "pending",
+        "discovered_count": 2,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 58,
+        "name": "r/romancenovels",
+        "status": "pending",
+        "discovered_count": 6,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 170,
+        "name": "r/sandiego",
+        "status": "pending",
+        "discovered_count": 3,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 342,
+        "name": "r/selfhosted",
+        "status": "pending",
+        "discovered_count": 2,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 354,
+        "name": "r/shopify",
+        "status": "pending",
+        "discovered_count": 1,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 119,
+        "name": "r/shopify_hustlers",
+        "status": "pending",
+        "discovered_count": 6,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 109,
+        "name": "r/shopifydev",
+        "status": "pending",
+        "discovered_count": 2,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 192,
+        "name": "r/sidehustlegrind",
+        "status": "pending",
+        "discovered_count": 4,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 335,
+        "name": "r/sideproject",
+        "status": "pending",
+        "discovered_count": 4,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 55,
+        "name": "r/siliconvalleybayarea",
+        "status": "pending",
+        "discovered_count": 6,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 176,
+        "name": "r/sketchywatches",
+        "status": "pending",
+        "discovered_count": 3,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 169,
+        "name": "r/skookum",
+        "status": "pending",
+        "discovered_count": 3,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 285,
+        "name": "r/smallbusinessindia",
+        "status": "pending",
+        "discovered_count": 1,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 349,
+        "name": "r/startups_promotion",
+        "status": "pending",
+        "discovered_count": 1,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 63,
+        "name": "r/stocklaunchers",
+        "status": "pending",
+        "discovered_count": 6,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 61,
+        "name": "r/stockmarket",
+        "status": "pending",
+        "discovered_count": 6,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 368,
+        "name": "r/stocks",
+        "status": "pending",
+        "discovered_count": 30,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 49,
+        "name": "r/superstonk",
+        "status": "pending",
+        "discovered_count": 12,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 149,
+        "name": "r/sweatypalms",
+        "status": "pending",
+        "discovered_count": 3,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 186,
+        "name": "r/tariffs",
+        "status": "pending",
+        "discovered_count": 4,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 365,
+        "name": "r/tarotjourneys",
+        "status": "pending",
+        "discovered_count": 5,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 141,
+        "name": "r/technology",
+        "status": "pending",
+        "discovered_count": 9,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 59,
+        "name": "r/thesidehustle",
+        "status": "pending",
+        "discovered_count": 6,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 288,
+        "name": "r/thinkingdeeplyai",
+        "status": "pending",
+        "discovered_count": 1,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 147,
+        "name": "r/tiktokcringe",
+        "status": "pending",
+        "discovered_count": 3,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 104,
+        "name": "r/tiktokshophelps",
+        "status": "pending",
+        "discovered_count": 4,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 374,
+        "name": "r/toys",
+        "status": "pending",
+        "discovered_count": 30,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 57,
+        "name": "r/trumptariffnews",
+        "status": "pending",
+        "discovered_count": 6,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 375,
+        "name": "r/twoxchromosomes",
+        "status": "pending",
+        "discovered_count": 36,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 112,
+        "name": "r/tybusers",
+        "status": "pending",
+        "discovered_count": 1,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 50,
+        "name": "r/u_enoumen",
+        "status": "pending",
+        "discovered_count": 9,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 191,
+        "name": "r/u_jasoncarlmorgan",
+        "status": "pending",
+        "discovered_count": 4,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 113,
+        "name": "r/u_lilyymagno",
+        "status": "pending",
+        "discovered_count": 1,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 48,
+        "name": "r/u_softtechhubus",
+        "status": "pending",
+        "discovered_count": 24,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 371,
+        "name": "r/ufyh",
+        "status": "pending",
+        "discovered_count": 19,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 107,
+        "name": "r/virtualassistant4hire",
+        "status": "pending",
+        "discovered_count": 6,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 111,
+        "name": "r/wallstreetbets",
+        "status": "pending",
+        "discovered_count": 2,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 54,
+        "name": "r/wayofthebern",
+        "status": "pending",
+        "discovered_count": 6,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 337,
+        "name": "r/webdev",
+        "status": "pending",
+        "discovered_count": 2,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 108,
+        "name": "r/whaaat_ai",
+        "status": "pending",
+        "discovered_count": 2,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 163,
+        "name": "r/whatsinmybag",
+        "status": "pending",
+        "discovered_count": 6,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      },
+      {
+        "id": 140,
+        "name": "r/worldnews",
+        "status": "pending",
+        "discovered_count": 21,
+        "cooldown_until": null,
+        "metrics": {},
+        "deleted_at": null
+      }
+    ],
+    "garbage_communities": {
+      "pool": [],
+      "discovered": []
+    },
+    "historical_shells": [
+      {
+        "id": 51,
+        "name": "r/aliexpressbr",
+        "tier": "high",
+        "priority": "high",
+        "categories": [
+          "Ecommerce_Business"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": false,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null,
+        "has_posts_raw": true,
+        "has_community_audit": false,
+        "has_category_map": false,
+        "blocked_reason": "has_historical_references"
+      },
+      {
+        "id": 57,
+        "name": "r/amazon_influencer",
+        "tier": "high",
+        "priority": "high",
+        "categories": [
+          "Ecommerce_Business"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": false,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null,
+        "has_posts_raw": true,
+        "has_community_audit": false,
+        "has_category_map": false,
+        "blocked_reason": "has_historical_references"
+      },
+      {
+        "id": 83,
+        "name": "r/amazonanswers",
+        "tier": "high",
+        "priority": "high",
+        "categories": [
+          "Ecommerce_Business"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": false,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null,
+        "has_posts_raw": true,
+        "has_community_audit": false,
+        "has_category_map": false,
+        "blocked_reason": "has_historical_references"
+      },
+      {
+        "id": 1296,
+        "name": "r/amazonargentina",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Ecommerce_Business"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 1.0,
+        "is_active": false,
+        "is_blacklisted": true,
+        "config_blacklisted": false,
+        "deleted_at": null,
+        "has_posts_raw": true,
+        "has_community_audit": false,
+        "has_category_map": false,
+        "blocked_reason": "has_historical_references"
+      },
+      {
+        "id": 44,
+        "name": "r/amazonecho",
+        "tier": "high",
+        "priority": "high",
+        "categories": [
+          "Ecommerce_Business"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": false,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null,
+        "has_posts_raw": true,
+        "has_community_audit": false,
+        "has_category_map": false,
+        "blocked_reason": "has_historical_references"
+      },
+      {
+        "id": 63,
+        "name": "r/amazonfba",
+        "tier": "high",
+        "priority": "high",
+        "categories": [
+          "Ecommerce_Business"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": false,
+        "is_blacklisted": true,
+        "config_blacklisted": false,
+        "deleted_at": null,
+        "has_posts_raw": true,
+        "has_community_audit": false,
+        "has_category_map": false,
+        "blocked_reason": "has_historical_references"
+      },
+      {
+        "id": 64,
+        "name": "r/amazonfbaonlineretail",
+        "tier": "high",
+        "priority": "high",
+        "categories": [
+          "Ecommerce_Business"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": false,
+        "is_blacklisted": true,
+        "config_blacklisted": false,
+        "deleted_at": null,
+        "has_posts_raw": true,
+        "has_community_audit": false,
+        "has_category_map": false,
+        "blocked_reason": "has_historical_references"
+      },
+      {
+        "id": 71,
+        "name": "r/amazonfbatips",
+        "tier": "high",
+        "priority": "high",
+        "categories": [
+          "Ecommerce_Business"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": false,
+        "is_blacklisted": true,
+        "config_blacklisted": false,
+        "deleted_at": null,
+        "has_posts_raw": true,
+        "has_community_audit": false,
+        "has_category_map": false,
+        "blocked_reason": "has_historical_references"
+      },
+      {
+        "id": 1298,
+        "name": "r/amazonmerch",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Ecommerce_Business"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 1.0,
+        "is_active": false,
+        "is_blacklisted": true,
+        "config_blacklisted": false,
+        "deleted_at": null,
+        "has_posts_raw": true,
+        "has_community_audit": false,
+        "has_category_map": false,
+        "blocked_reason": "has_historical_references"
+      },
+      {
+        "id": 48,
+        "name": "r/amazonprime",
+        "tier": "high",
+        "priority": "high",
+        "categories": [
+          "Ecommerce_Business"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": false,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null,
+        "has_posts_raw": true,
+        "has_community_audit": false,
+        "has_category_map": false,
+        "blocked_reason": "has_historical_references"
+      },
+      {
+        "id": 59,
+        "name": "r/amazonseller",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Ecommerce_Business"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.75,
+        "is_active": false,
+        "is_blacklisted": true,
+        "config_blacklisted": false,
+        "deleted_at": null,
+        "has_posts_raw": true,
+        "has_community_audit": false,
+        "has_category_map": false,
+        "blocked_reason": "has_historical_references"
+      },
+      {
+        "id": 1371,
+        "name": "r/amazonsellercentral",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Ecommerce_Business"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 1.0,
+        "is_active": false,
+        "is_blacklisted": true,
+        "config_blacklisted": false,
+        "deleted_at": null,
+        "has_posts_raw": true,
+        "has_community_audit": false,
+        "has_category_map": false,
+        "blocked_reason": "has_historical_references"
+      },
+      {
+        "id": 87,
+        "name": "r/amazonvine",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Ecommerce_Business"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": false,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null,
+        "has_posts_raw": true,
+        "has_community_audit": false,
+        "has_category_map": false,
+        "blocked_reason": "has_historical_references"
+      },
+      {
+        "id": 1281,
+        "name": "r/amitheasshole",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Family_Parenting"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": false,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null,
+        "has_posts_raw": true,
+        "has_community_audit": false,
+        "has_category_map": false,
+        "blocked_reason": "has_historical_references"
+      },
+      {
+        "id": 1282,
+        "name": "r/askmen",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Family_Parenting"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": false,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null,
+        "has_posts_raw": true,
+        "has_community_audit": false,
+        "has_category_map": false,
+        "blocked_reason": "has_historical_references"
+      },
+      {
+        "id": 465,
+        "name": "r/baking",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Food_Coffee_Lifestyle"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.6,
+        "is_active": false,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null,
+        "has_posts_raw": true,
+        "has_community_audit": false,
+        "has_category_map": false,
+        "blocked_reason": "has_historical_references"
+      },
+      {
+        "id": 1260,
+        "name": "r/bbq",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Food_Coffee_Lifestyle"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": false,
+        "is_blacklisted": true,
+        "config_blacklisted": false,
+        "deleted_at": null,
+        "has_posts_raw": true,
+        "has_community_audit": false,
+        "has_category_map": false,
+        "blocked_reason": "has_historical_references"
+      },
+      {
+        "id": 1265,
+        "name": "r/beer",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Food_Coffee_Lifestyle"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": false,
+        "is_blacklisted": true,
+        "config_blacklisted": false,
+        "deleted_at": null,
+        "has_posts_raw": true,
+        "has_community_audit": false,
+        "has_category_map": false,
+        "blocked_reason": "has_historical_references"
+      },
+      {
+        "id": 42,
+        "name": "r/bigseo",
+        "tier": "high",
+        "priority": "high",
+        "categories": [
+          "Ecommerce_Business"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": false,
+        "is_blacklisted": true,
+        "config_blacklisted": false,
+        "deleted_at": null,
+        "has_posts_raw": true,
+        "has_community_audit": false,
+        "has_category_map": false,
+        "blocked_reason": "has_historical_references"
+      },
+      {
+        "id": 1366,
+        "name": "r/breadit",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Food_Coffee_Lifestyle"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 1.0,
+        "is_active": false,
+        "is_blacklisted": true,
+        "config_blacklisted": false,
+        "deleted_at": null,
+        "has_posts_raw": true,
+        "has_community_audit": false,
+        "has_category_map": false,
+        "blocked_reason": "has_historical_references"
+      },
+      {
+        "id": 1309,
+        "name": "r/childfree",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Family_Parenting"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 1.0,
+        "is_active": false,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null,
+        "has_posts_raw": true,
+        "has_community_audit": false,
+        "has_category_map": false,
+        "blocked_reason": "has_historical_references"
+      },
+      {
+        "id": 1383,
+        "name": "r/climbing",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Minimal_Outdoor"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 1.0,
+        "is_active": false,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null,
+        "has_posts_raw": true,
+        "has_community_audit": false,
+        "has_category_map": false,
+        "blocked_reason": "has_historical_references"
+      },
+      {
+        "id": 1263,
+        "name": "r/cocktails",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Food_Coffee_Lifestyle"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": false,
+        "is_blacklisted": true,
+        "config_blacklisted": false,
+        "deleted_at": null,
+        "has_posts_raw": true,
+        "has_community_audit": false,
+        "has_category_map": false,
+        "blocked_reason": "has_historical_references"
+      },
+      {
+        "id": 1304,
+        "name": "r/decorating",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Home_Lifestyle"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 1.0,
+        "is_active": false,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null,
+        "has_posts_raw": true,
+        "has_community_audit": false,
+        "has_category_map": false,
+        "blocked_reason": "has_historical_references"
+      },
+      {
+        "id": 54,
+        "name": "r/digital_marketing",
+        "tier": "high",
+        "priority": "high",
+        "categories": [
+          "Ecommerce_Business"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": false,
+        "is_blacklisted": true,
+        "config_blacklisted": false,
+        "deleted_at": null,
+        "has_posts_raw": true,
+        "has_community_audit": false,
+        "has_category_map": false,
+        "blocked_reason": "has_historical_references"
+      },
+      {
+        "id": 1272,
+        "name": "r/fixedgearbicycle",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Tools_EDC"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": false,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null,
+        "has_posts_raw": true,
+        "has_community_audit": false,
+        "has_category_map": false,
+        "blocked_reason": "has_historical_references"
+      },
+      {
+        "id": 47,
+        "name": "r/fulfillmentbyamazon",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Ecommerce_Business"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.75,
+        "is_active": false,
+        "is_blacklisted": true,
+        "config_blacklisted": false,
+        "deleted_at": null,
+        "has_posts_raw": true,
+        "has_community_audit": false,
+        "has_category_map": false,
+        "blocked_reason": "has_historical_references"
+      },
+      {
+        "id": 1369,
+        "name": "r/geartrade",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Tools_EDC"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 1.0,
+        "is_active": false,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null,
+        "has_posts_raw": true,
+        "has_community_audit": false,
+        "has_category_map": false,
+        "blocked_reason": "has_historical_references"
+      },
+      {
+        "id": 1257,
+        "name": "r/matcha",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Food_Coffee_Lifestyle"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": false,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null,
+        "has_posts_raw": true,
+        "has_community_audit": false,
+        "has_category_map": false,
+        "blocked_reason": "has_historical_references"
+      },
+      {
+        "id": 1331,
+        "name": "r/mechanicadvice",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Tools_EDC"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 1.0,
+        "is_active": false,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null,
+        "has_posts_raw": true,
+        "has_community_audit": false,
+        "has_category_map": false,
+        "blocked_reason": "has_historical_references"
+      },
+      {
+        "id": 1355,
+        "name": "r/mommit",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Family_Parenting"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 1.0,
+        "is_active": false,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null,
+        "has_posts_raw": true,
+        "has_community_audit": false,
+        "has_category_map": false,
+        "blocked_reason": "has_historical_references"
+      },
+      {
+        "id": 50,
+        "name": "r/peopleofwalmart",
+        "tier": "high",
+        "priority": "high",
+        "categories": [
+          "Frugal_Living"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": false,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null,
+        "has_posts_raw": true,
+        "has_community_audit": false,
+        "has_category_map": false,
+        "blocked_reason": "has_historical_references"
+      },
+      {
+        "id": 1293,
+        "name": "r/raisedbynarcissists",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Family_Parenting"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": false,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null,
+        "has_posts_raw": true,
+        "has_community_audit": false,
+        "has_category_map": false,
+        "blocked_reason": "has_historical_references"
+      },
+      {
+        "id": 100,
+        "name": "r/seo_marketing_offers",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Ecommerce_Business"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": false,
+        "is_blacklisted": true,
+        "config_blacklisted": false,
+        "deleted_at": null,
+        "has_posts_raw": true,
+        "has_community_audit": false,
+        "has_category_map": false,
+        "blocked_reason": "has_historical_references"
+      },
+      {
+        "id": 93,
+        "name": "r/shopify",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Ecommerce_Business"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.75,
+        "is_active": false,
+        "is_blacklisted": true,
+        "config_blacklisted": false,
+        "deleted_at": null,
+        "has_posts_raw": true,
+        "has_community_audit": false,
+        "has_category_map": false,
+        "blocked_reason": "has_historical_references"
+      },
+      {
+        "id": 1358,
+        "name": "r/shopifyappdev",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Ecommerce_Business"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 1.0,
+        "is_active": false,
+        "is_blacklisted": true,
+        "config_blacklisted": false,
+        "deleted_at": null,
+        "has_posts_raw": true,
+        "has_community_audit": false,
+        "has_category_map": false,
+        "blocked_reason": "has_historical_references"
+      },
+      {
+        "id": 77,
+        "name": "r/shopifydev",
+        "tier": "high",
+        "priority": "high",
+        "categories": [
+          "Ecommerce_Business"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": false,
+        "is_blacklisted": true,
+        "config_blacklisted": false,
+        "deleted_at": null,
+        "has_posts_raw": true,
+        "has_community_audit": false,
+        "has_category_map": false,
+        "blocked_reason": "has_historical_references"
+      },
+      {
+        "id": 76,
+        "name": "r/shopifyecommerce",
+        "tier": "high",
+        "priority": "high",
+        "categories": [
+          "Ecommerce_Business"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": false,
+        "is_blacklisted": true,
+        "config_blacklisted": false,
+        "deleted_at": null,
+        "has_posts_raw": true,
+        "has_community_audit": false,
+        "has_category_map": false,
+        "blocked_reason": "has_historical_references"
+      },
+      {
+        "id": 1308,
+        "name": "r/shopifyseo",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Ecommerce_Business"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 1.0,
+        "is_active": false,
+        "is_blacklisted": true,
+        "config_blacklisted": false,
+        "deleted_at": null,
+        "has_posts_raw": true,
+        "has_community_audit": false,
+        "has_category_map": false,
+        "blocked_reason": "has_historical_references"
+      },
+      {
+        "id": 1253,
+        "name": "r/sideproject",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Ecommerce_Business"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": false,
+        "is_blacklisted": true,
+        "config_blacklisted": false,
+        "deleted_at": null,
+        "has_posts_raw": true,
+        "has_community_audit": false,
+        "has_category_map": false,
+        "blocked_reason": "has_historical_references"
+      },
+      {
+        "id": 74,
+        "name": "r/spellcasterreviews",
+        "tier": "high",
+        "priority": "high",
+        "categories": [
+          "Home_Lifestyle"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": false,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null,
+        "has_posts_raw": true,
+        "has_community_audit": false,
+        "has_category_map": false,
+        "blocked_reason": "has_historical_references"
+      },
+      {
+        "id": 1290,
+        "name": "r/stepparents",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Family_Parenting"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": false,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null,
+        "has_posts_raw": true,
+        "has_community_audit": false,
+        "has_category_map": false,
+        "blocked_reason": "has_historical_references"
+      },
+      {
+        "id": 1336,
+        "name": "r/teachers",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Food_Coffee_Lifestyle"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 1.0,
+        "is_active": false,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null,
+        "has_posts_raw": true,
+        "has_community_audit": false,
+        "has_category_map": false,
+        "blocked_reason": "has_historical_references"
+      },
+      {
+        "id": 1250,
+        "name": "r/thrifty",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Frugal_Living"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": false,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null,
+        "has_posts_raw": true,
+        "has_community_audit": false,
+        "has_category_map": false,
+        "blocked_reason": "has_historical_references"
+      },
+      {
+        "id": 1235,
+        "name": "r/toolporn",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Tools_EDC"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": false,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null,
+        "has_posts_raw": true,
+        "has_community_audit": false,
+        "has_category_map": false,
+        "blocked_reason": "has_historical_references"
+      },
+      {
+        "id": 1297,
+        "name": "r/trueoffmychest",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Family_Parenting"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 1.0,
+        "is_active": false,
+        "is_blacklisted": true,
+        "config_blacklisted": false,
+        "deleted_at": null,
+        "has_posts_raw": true,
+        "has_community_audit": false,
+        "has_category_map": false,
+        "blocked_reason": "has_historical_references"
+      },
+      {
+        "id": 94,
+        "name": "r/walmart",
+        "tier": "high",
+        "priority": "medium",
+        "categories": [
+          "Frugal_Living"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": false,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null,
+        "has_posts_raw": true,
+        "has_community_audit": false,
+        "has_category_map": false,
+        "blocked_reason": "has_historical_references"
+      },
+      {
+        "id": 67,
+        "name": "r/walmart_rx",
+        "tier": "high",
+        "priority": "high",
+        "categories": [
+          "Ecommerce_Business"
+        ],
+        "health_status": "unknown",
+        "discovered_count": 0,
+        "quality_score": 0.5,
+        "is_active": false,
+        "is_blacklisted": false,
+        "config_blacklisted": false,
+        "deleted_at": null,
+        "has_posts_raw": true,
+        "has_community_audit": false,
+        "has_category_map": false,
+        "blocked_reason": "has_historical_references"
+      }
+    ],
+    "anomalies": []
+  }
+}

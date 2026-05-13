@@ -1,0 +1,16 @@
+[
+  {
+    "variant_id": "human_summary_tight_why_now_v1",
+    "pass_rate": 0.6667,
+    "pass_count": 2,
+    "fail_count": 1,
+    "decision": "baseline"
+  },
+  {
+    "variant_id": "paid_econ_signal_readout_v2",
+    "pass_rate": 1.0,
+    "pass_count": 3,
+    "fail_count": 0,
+    "decision": "keep"
+  }
+]

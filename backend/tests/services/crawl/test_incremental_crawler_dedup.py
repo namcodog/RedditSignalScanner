@@ -308,10 +308,16 @@ class TestIncrementalCrawlerDedup:
         await self._ensure_pool(db_session, "r/test_update")
         # 生成唯一的 post_id 列表（用于两次抓取）
         post_ids = [str(uuid.uuid4())[:8] for _ in range(10)]
+        base_created_utc = datetime.now(timezone.utc).timestamp()
 
         # 准备测试数据
         mock_posts_v1 = [
-            self._create_mock_post(post_id=post_ids[i], title=f"Update Post {i}", score=10)
+            self._create_mock_post(
+                post_id=post_ids[i],
+                title=f"Update Post {i}",
+                score=10,
+                created_utc=base_created_utc,
+            )
             for i in range(10)
         ]
 
@@ -323,7 +329,12 @@ class TestIncrementalCrawlerDedup:
 
         # 模拟帖子获得更多点赞（score 变化）
         mock_posts_v2 = [
-            self._create_mock_post(post_id=post_ids[i], title=f"Update Post {i}", score=100)
+            self._create_mock_post(
+                post_id=post_ids[i],
+                title=f"Update Post {i}",
+                score=100,
+                created_utc=base_created_utc + 1,
+            )
             for i in range(10)
         ]
 
@@ -424,16 +435,28 @@ class TestIncrementalCrawlerDedup:
         subreddit = "r/test_scd2"
         await self._ensure_pool(db_session, subreddit)
         post_id = str(uuid.uuid4())[:8]
+        base_created_utc = datetime.now(timezone.utc).timestamp()
 
         # 第一次抓取: 新增版本1
-        initial_post = self._create_mock_post(post_id=post_id, title="SCD2 Post", score=3)
+        initial_post = self._create_mock_post(
+            post_id=post_id,
+            title="SCD2 Post",
+            score=3,
+            created_utc=base_created_utc,
+        )
         crawler.reddit_client.fetch_subreddit_posts = AsyncMock(return_value=[initial_post])
         await crawler.crawl_community_incremental(subreddit, limit=1)
 
         # 第二次抓取: 分数变化 -> 应触发新版本
-        updated_post = self._create_mock_post(post_id=post_id, title="SCD2 Post", score=10)
+        updated_post = self._create_mock_post(
+            post_id=post_id,
+            title="SCD2 Post",
+            score=10,
+            created_utc=base_created_utc + 1,
+        )
         crawler.reddit_client.fetch_subreddit_posts = AsyncMock(return_value=[updated_post])
         await crawler.crawl_community_incremental(subreddit, limit=1)
+        db_session.expire_all()
 
         # 查询所有版本
         result = await db_session.execute(

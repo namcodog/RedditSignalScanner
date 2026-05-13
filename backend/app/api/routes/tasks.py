@@ -73,6 +73,10 @@ async def get_task_status(
         )
 
     cached = await STATUS_CACHE.get_status(str(task_id), session=db)
+    stage: str | None = None
+    blocked_reason: str | None = None
+    next_action: str | None = None
+    details: dict[str, object] | None = None
 
     # 若缓存存在但与数据库中的终态不一致（completed/failed），以数据库为准并回填缓存，避免陈旧状态
     if cached is not None:
@@ -84,6 +88,10 @@ async def get_task_status(
             message = _MESSAGE_MAP.get(status_value, "")
             error = task.error_message
             updated_at = task.updated_at or datetime.now(timezone.utc)
+            stage = getattr(cached, "stage", None)
+            blocked_reason = getattr(cached, "blocked_reason", None)
+            next_action = getattr(cached, "next_action", None)
+            details = getattr(cached, "details", None)
             # 异步地回填缓存（不阻塞请求）
             try:
                 await STATUS_CACHE.set_status(
@@ -93,6 +101,10 @@ async def get_task_status(
                         progress=progress,
                         message=message,
                         error=error,
+                        stage=stage,
+                        blocked_reason=blocked_reason,
+                        next_action=next_action,
+                        details=details,
                         updated_at=updated_at.isoformat(),
                     )
                 )
@@ -108,6 +120,10 @@ async def get_task_status(
             progress = cached.progress
             message = cached.message or _MESSAGE_MAP.get(status_value, "")
             error = cached.error or task.error_message
+            stage = getattr(cached, "stage", None)
+            blocked_reason = getattr(cached, "blocked_reason", None)
+            next_action = getattr(cached, "next_action", None)
+            details = getattr(cached, "details", None)
     else:
         status_value = task.status
         progress = _PROGRESS_MAP.get(status_value, 0)
@@ -120,6 +136,10 @@ async def get_task_status(
         status=status_value,
         progress=progress,
         message=message,
+        stage=stage,
+        blocked_reason=blocked_reason,
+        next_action=next_action,
+        details=details,
         error=error,
         percentage=progress,
         current_step=message or "",

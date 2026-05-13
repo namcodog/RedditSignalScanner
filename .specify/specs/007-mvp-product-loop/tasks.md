@@ -141,7 +141,7 @@
 
 ### 验收脚本
 
-- [ ] T044 [US4] 创建 `backend/scripts/local_acceptance.py`（自动测试注册、登录、分析、报告、导出）
+- [ ] T044 [US4] 创建 `backend/scripts/seed/local_acceptance.py`（自动测试注册、登录、分析、报告、导出）
 - [ ] T045 [US4] 新增 `Makefile::local-acceptance` 命令，调用验收脚本
 - [ ] T046 [US4] 新增健康检查函数：Redis、Celery、Backend、Frontend
 

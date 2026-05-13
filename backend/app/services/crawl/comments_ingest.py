@@ -13,6 +13,7 @@ from app.db.session import SessionFactory
 from app.services.crawl.crawler_runs_service import ensure_crawler_run
 from app.utils.subreddit import normalize_subreddit_name, subreddit_key
 
+logger = logging.getLogger(__name__)
 
 # process-level cache to avoid重复信息架构探测
 _COMMENTS_HAS_EXPIRES: bool | None = None
@@ -20,443 +21,125 @@ _COMMENTS_HAS_CRAWL_RUN_ID: bool | None = None
 _COMMENTS_HAS_COMMUNITY_RUN_ID: bool | None = None
 _COMMENTS_HAS_POST_ID: bool | None = None
 
-
-# Two SQL variants to be compatible during rollout
-COMMENT_UPSERT_SQL_WITH_EXPIRES = text(
-    """
-    INSERT INTO comments (
-        reddit_comment_id, source, source_post_id, post_id, subreddit,
-        source_track, first_seen_at, fetched_at,
-        parent_id, depth, body, author_id, author_name, author_created_utc,
-        created_utc, score, is_submitter, distinguished, edited,
-        permalink, removed_by_category, awards_count,
-        lang, business_pool,
-        captured_at, expires_at
-    ) VALUES (
-        :reddit_comment_id, :source, :source_post_id, :post_id, :subreddit,
-        :source_track, :first_seen_at, :fetched_at,
-        :parent_id, :depth, :body, :author_id, :author_name, :author_created_utc,
-        :created_utc, :score, :is_submitter, :distinguished, :edited,
-        :permalink, :removed_by_category, :awards_count,
-        :lang, :business_pool,
-        :captured_at, :expires_at
-    )
-    ON CONFLICT (reddit_comment_id) DO UPDATE SET
-        body = EXCLUDED.body,
-        score = EXCLUDED.score,
-        edited = EXCLUDED.edited,
-        removed_by_category = EXCLUDED.removed_by_category,
-        awards_count = EXCLUDED.awards_count,
-        expires_at = COALESCE(EXCLUDED.expires_at, comments.expires_at),
-        post_id = COALESCE(comments.post_id, EXCLUDED.post_id),
-        source_track = COALESCE(EXCLUDED.source_track, comments.source_track),
-        first_seen_at = COALESCE(comments.first_seen_at, EXCLUDED.first_seen_at),
-        fetched_at = EXCLUDED.fetched_at,
-        lang = COALESCE(EXCLUDED.lang, comments.lang),
-        business_pool = COALESCE(EXCLUDED.business_pool, comments.business_pool)
-	    """
-	)
-
-COMMENT_UPSERT_SQL_NO_POST_ID_WITH_EXPIRES = text(
-    """
-    INSERT INTO comments (
-        reddit_comment_id, source, source_post_id, subreddit,
-        source_track, first_seen_at, fetched_at,
-        parent_id, depth, body, author_id, author_name, author_created_utc,
-        created_utc, score, is_submitter, distinguished, edited,
-        permalink, removed_by_category, awards_count,
-        lang, business_pool,
-        captured_at, expires_at
-    ) VALUES (
-        :reddit_comment_id, :source, :source_post_id, :subreddit,
-        :source_track, :first_seen_at, :fetched_at,
-        :parent_id, :depth, :body, :author_id, :author_name, :author_created_utc,
-        :created_utc, :score, :is_submitter, :distinguished, :edited,
-        :permalink, :removed_by_category, :awards_count,
-        :lang, :business_pool,
-        :captured_at, :expires_at
-    )
-    ON CONFLICT (reddit_comment_id) DO UPDATE SET
-        body = EXCLUDED.body,
-        score = EXCLUDED.score,
-        edited = EXCLUDED.edited,
-        removed_by_category = EXCLUDED.removed_by_category,
-        awards_count = EXCLUDED.awards_count,
-        expires_at = COALESCE(EXCLUDED.expires_at, comments.expires_at),
-        source_track = COALESCE(EXCLUDED.source_track, comments.source_track),
-        first_seen_at = COALESCE(comments.first_seen_at, EXCLUDED.first_seen_at),
-        fetched_at = EXCLUDED.fetched_at,
-        lang = COALESCE(EXCLUDED.lang, comments.lang),
-        business_pool = COALESCE(EXCLUDED.business_pool, comments.business_pool)
-    """
+_COMMENT_BASE_COLUMNS = (
+    "reddit_comment_id",
+    "source",
+    "source_post_id",
+    "subreddit",
+    "source_track",
+    "first_seen_at",
+    "fetched_at",
+    "parent_id",
+    "depth",
+    "body",
+    "author_id",
+    "author_name",
+    "author_created_utc",
+    "created_utc",
+    "score",
+    "is_submitter",
+    "distinguished",
+    "edited",
+    "permalink",
+    "removed_by_category",
+    "awards_count",
+    "lang",
+    "business_pool",
+    "captured_at",
 )
-
-COMMENT_UPSERT_SQL_WITH_EXPIRES_AND_RUN_ID = text(
-    """
-    INSERT INTO comments (
-        reddit_comment_id, source, source_post_id, post_id, subreddit,
-        source_track, first_seen_at, fetched_at,
-        parent_id, depth, body, author_id, author_name, author_created_utc,
-        created_utc, score, is_submitter, distinguished, edited,
-        permalink, removed_by_category, awards_count,
-        lang, business_pool,
-        captured_at, expires_at,
-        crawl_run_id
-    ) VALUES (
-        :reddit_comment_id, :source, :source_post_id, :post_id, :subreddit,
-        :source_track, :first_seen_at, :fetched_at,
-        :parent_id, :depth, :body, :author_id, :author_name, :author_created_utc,
-        :created_utc, :score, :is_submitter, :distinguished, :edited,
-        :permalink, :removed_by_category, :awards_count,
-        :lang, :business_pool,
-        :captured_at, :expires_at,
-        :crawl_run_id
-    )
-    ON CONFLICT (reddit_comment_id) DO UPDATE SET
-        body = EXCLUDED.body,
-        score = EXCLUDED.score,
-        edited = EXCLUDED.edited,
-        removed_by_category = EXCLUDED.removed_by_category,
-        awards_count = EXCLUDED.awards_count,
-        expires_at = COALESCE(EXCLUDED.expires_at, comments.expires_at),
-        crawl_run_id = COALESCE(EXCLUDED.crawl_run_id, comments.crawl_run_id),
-        post_id = COALESCE(comments.post_id, EXCLUDED.post_id),
-        source_track = COALESCE(EXCLUDED.source_track, comments.source_track),
-        first_seen_at = COALESCE(comments.first_seen_at, EXCLUDED.first_seen_at),
-        fetched_at = EXCLUDED.fetched_at,
-        lang = COALESCE(EXCLUDED.lang, comments.lang),
-        business_pool = COALESCE(EXCLUDED.business_pool, comments.business_pool)
-	    """
-	)
-
-COMMENT_UPSERT_SQL_WITH_EXPIRES_AND_RUN_IDS = text(
-    """
-    INSERT INTO comments (
-        reddit_comment_id, source, source_post_id, post_id, subreddit,
-        source_track, first_seen_at, fetched_at,
-        parent_id, depth, body, author_id, author_name, author_created_utc,
-        created_utc, score, is_submitter, distinguished, edited,
-        permalink, removed_by_category, awards_count,
-        lang, business_pool,
-        captured_at, expires_at,
-        crawl_run_id, community_run_id
-    ) VALUES (
-        :reddit_comment_id, :source, :source_post_id, :post_id, :subreddit,
-        :source_track, :first_seen_at, :fetched_at,
-        :parent_id, :depth, :body, :author_id, :author_name, :author_created_utc,
-        :created_utc, :score, :is_submitter, :distinguished, :edited,
-        :permalink, :removed_by_category, :awards_count,
-        :lang, :business_pool,
-        :captured_at, :expires_at,
-        :crawl_run_id, :community_run_id
-    )
-    ON CONFLICT (reddit_comment_id) DO UPDATE SET
-        body = EXCLUDED.body,
-        score = EXCLUDED.score,
-        edited = EXCLUDED.edited,
-        removed_by_category = EXCLUDED.removed_by_category,
-        awards_count = EXCLUDED.awards_count,
-        expires_at = COALESCE(EXCLUDED.expires_at, comments.expires_at),
-        crawl_run_id = COALESCE(EXCLUDED.crawl_run_id, comments.crawl_run_id),
-        community_run_id = COALESCE(EXCLUDED.community_run_id, comments.community_run_id),
-        post_id = COALESCE(comments.post_id, EXCLUDED.post_id),
-        source_track = COALESCE(EXCLUDED.source_track, comments.source_track),
-        first_seen_at = COALESCE(comments.first_seen_at, EXCLUDED.first_seen_at),
-        fetched_at = EXCLUDED.fetched_at,
-        lang = COALESCE(EXCLUDED.lang, comments.lang),
-        business_pool = COALESCE(EXCLUDED.business_pool, comments.business_pool)
-	    """
-	)
-
-COMMENT_UPSERT_SQL_NO_POST_ID_WITH_EXPIRES_AND_RUN_ID = text(
-    """
-    INSERT INTO comments (
-        reddit_comment_id, source, source_post_id, subreddit,
-        source_track, first_seen_at, fetched_at,
-        parent_id, depth, body, author_id, author_name, author_created_utc,
-        created_utc, score, is_submitter, distinguished, edited,
-        permalink, removed_by_category, awards_count,
-        lang, business_pool,
-        captured_at, expires_at,
-        crawl_run_id
-    ) VALUES (
-        :reddit_comment_id, :source, :source_post_id, :subreddit,
-        :source_track, :first_seen_at, :fetched_at,
-        :parent_id, :depth, :body, :author_id, :author_name, :author_created_utc,
-        :created_utc, :score, :is_submitter, :distinguished, :edited,
-        :permalink, :removed_by_category, :awards_count,
-        :lang, :business_pool,
-        :captured_at, :expires_at,
-        :crawl_run_id
-    )
-    ON CONFLICT (reddit_comment_id) DO UPDATE SET
-        body = EXCLUDED.body,
-        score = EXCLUDED.score,
-        edited = EXCLUDED.edited,
-        removed_by_category = EXCLUDED.removed_by_category,
-        awards_count = EXCLUDED.awards_count,
-        expires_at = COALESCE(EXCLUDED.expires_at, comments.expires_at),
-        crawl_run_id = COALESCE(EXCLUDED.crawl_run_id, comments.crawl_run_id),
-        source_track = COALESCE(EXCLUDED.source_track, comments.source_track),
-        first_seen_at = COALESCE(comments.first_seen_at, EXCLUDED.first_seen_at),
-        fetched_at = EXCLUDED.fetched_at,
-        lang = COALESCE(EXCLUDED.lang, comments.lang),
-        business_pool = COALESCE(EXCLUDED.business_pool, comments.business_pool)
-    """
+_COMMENT_BASE_UPDATE_ASSIGNMENTS = (
+    "body = EXCLUDED.body",
+    "score = EXCLUDED.score",
+    "edited = EXCLUDED.edited",
+    "removed_by_category = EXCLUDED.removed_by_category",
+    "awards_count = EXCLUDED.awards_count",
+    "source_track = COALESCE(EXCLUDED.source_track, comments.source_track)",
+    "first_seen_at = COALESCE(comments.first_seen_at, EXCLUDED.first_seen_at)",
+    "fetched_at = EXCLUDED.fetched_at",
+    "lang = COALESCE(EXCLUDED.lang, comments.lang)",
+    "business_pool = COALESCE(EXCLUDED.business_pool, comments.business_pool)",
 )
+_COMMENT_UPSERT_SQL_CACHE: dict[tuple[bool, bool, bool, bool], Any] = {}
 
-COMMENT_UPSERT_SQL_NO_POST_ID_WITH_EXPIRES_AND_RUN_IDS = text(
-    """
-    INSERT INTO comments (
-        reddit_comment_id, source, source_post_id, subreddit,
-        source_track, first_seen_at, fetched_at,
-        parent_id, depth, body, author_id, author_name, author_created_utc,
-        created_utc, score, is_submitter, distinguished, edited,
-        permalink, removed_by_category, awards_count,
-        lang, business_pool,
-        captured_at, expires_at,
-        crawl_run_id, community_run_id
-    ) VALUES (
-        :reddit_comment_id, :source, :source_post_id, :subreddit,
-        :source_track, :first_seen_at, :fetched_at,
-        :parent_id, :depth, :body, :author_id, :author_name, :author_created_utc,
-        :created_utc, :score, :is_submitter, :distinguished, :edited,
-        :permalink, :removed_by_category, :awards_count,
-        :lang, :business_pool,
-        :captured_at, :expires_at,
-        :crawl_run_id, :community_run_id
-    )
-    ON CONFLICT (reddit_comment_id) DO UPDATE SET
-        body = EXCLUDED.body,
-        score = EXCLUDED.score,
-        edited = EXCLUDED.edited,
-        removed_by_category = EXCLUDED.removed_by_category,
-        awards_count = EXCLUDED.awards_count,
-        expires_at = COALESCE(EXCLUDED.expires_at, comments.expires_at),
-        crawl_run_id = COALESCE(EXCLUDED.crawl_run_id, comments.crawl_run_id),
-        community_run_id = COALESCE(EXCLUDED.community_run_id, comments.community_run_id),
-        source_track = COALESCE(EXCLUDED.source_track, comments.source_track),
-        first_seen_at = COALESCE(comments.first_seen_at, EXCLUDED.first_seen_at),
-        fetched_at = EXCLUDED.fetched_at,
-        lang = COALESCE(EXCLUDED.lang, comments.lang),
-        business_pool = COALESCE(EXCLUDED.business_pool, comments.business_pool)
-    """
-)
 
-COMMENT_UPSERT_SQL_LEGACY = text(
-    """
-    INSERT INTO comments (
-        reddit_comment_id, source, source_post_id, post_id, subreddit,
-        source_track, first_seen_at, fetched_at,
-        parent_id, depth, body, author_id, author_name, author_created_utc,
-        created_utc, score, is_submitter, distinguished, edited,
-        permalink, removed_by_category, awards_count,
-        lang, business_pool,
-        captured_at
-    ) VALUES (
-        :reddit_comment_id, :source, :source_post_id, :post_id, :subreddit,
-        :source_track, :first_seen_at, :fetched_at,
-        :parent_id, :depth, :body, :author_id, :author_name, :author_created_utc,
-        :created_utc, :score, :is_submitter, :distinguished, :edited,
-        :permalink, :removed_by_category, :awards_count,
-        :lang, :business_pool,
-        :captured_at
-    )
-    ON CONFLICT (reddit_comment_id) DO UPDATE SET
-        body = EXCLUDED.body,
-        score = EXCLUDED.score,
-        edited = EXCLUDED.edited,
-        removed_by_category = EXCLUDED.removed_by_category,
-        awards_count = EXCLUDED.awards_count,
-        post_id = COALESCE(comments.post_id, EXCLUDED.post_id),
-        source_track = COALESCE(EXCLUDED.source_track, comments.source_track),
-        first_seen_at = COALESCE(comments.first_seen_at, EXCLUDED.first_seen_at),
-        fetched_at = EXCLUDED.fetched_at,
-        lang = COALESCE(EXCLUDED.lang, comments.lang),
-        business_pool = COALESCE(EXCLUDED.business_pool, comments.business_pool)
-	    """
-	)
+def _build_comment_upsert_sql(
+    *,
+    has_expires: bool,
+    has_post_id: bool,
+    has_crawl_run_id: bool,
+    has_community_run_id: bool,
+) -> Any:
+    key = (has_expires, has_post_id, has_crawl_run_id, has_community_run_id)
+    cached = _COMMENT_UPSERT_SQL_CACHE.get(key)
+    if cached is not None:
+        return cached
 
-COMMENT_UPSERT_SQL_NO_POST_ID_LEGACY = text(
-    """
-    INSERT INTO comments (
-        reddit_comment_id, source, source_post_id, subreddit,
-        source_track, first_seen_at, fetched_at,
-        parent_id, depth, body, author_id, author_name, author_created_utc,
-        created_utc, score, is_submitter, distinguished, edited,
-        permalink, removed_by_category, awards_count,
-        lang, business_pool,
-        captured_at
-    ) VALUES (
-        :reddit_comment_id, :source, :source_post_id, :subreddit,
-        :source_track, :first_seen_at, :fetched_at,
-        :parent_id, :depth, :body, :author_id, :author_name, :author_created_utc,
-        :created_utc, :score, :is_submitter, :distinguished, :edited,
-        :permalink, :removed_by_category, :awards_count,
-        :lang, :business_pool,
-        :captured_at
-    )
-    ON CONFLICT (reddit_comment_id) DO UPDATE SET
-        body = EXCLUDED.body,
-        score = EXCLUDED.score,
-        edited = EXCLUDED.edited,
-        removed_by_category = EXCLUDED.removed_by_category,
-        awards_count = EXCLUDED.awards_count,
-        source_track = COALESCE(EXCLUDED.source_track, comments.source_track),
-        first_seen_at = COALESCE(comments.first_seen_at, EXCLUDED.first_seen_at),
-        fetched_at = EXCLUDED.fetched_at,
-        lang = COALESCE(EXCLUDED.lang, comments.lang),
-        business_pool = COALESCE(EXCLUDED.business_pool, comments.business_pool)
-    """
-)
+    columns = ["reddit_comment_id", "source", "source_post_id"]
+    if has_post_id:
+        columns.append("post_id")
+    columns.extend(_COMMENT_BASE_COLUMNS[3:])
+    if has_expires:
+        columns.append("expires_at")
+    if has_crawl_run_id:
+        columns.append("crawl_run_id")
+    if has_community_run_id:
+        columns.append("community_run_id")
 
-COMMENT_UPSERT_SQL_LEGACY_AND_RUN_ID = text(
-    """
-    INSERT INTO comments (
-        reddit_comment_id, source, source_post_id, post_id, subreddit,
-        source_track, first_seen_at, fetched_at,
-        parent_id, depth, body, author_id, author_name, author_created_utc,
-        created_utc, score, is_submitter, distinguished, edited,
-        permalink, removed_by_category, awards_count,
-        lang, business_pool,
-        captured_at,
-        crawl_run_id
-    ) VALUES (
-        :reddit_comment_id, :source, :source_post_id, :post_id, :subreddit,
-        :source_track, :first_seen_at, :fetched_at,
-        :parent_id, :depth, :body, :author_id, :author_name, :author_created_utc,
-        :created_utc, :score, :is_submitter, :distinguished, :edited,
-        :permalink, :removed_by_category, :awards_count,
-        :lang, :business_pool,
-        :captured_at,
-        :crawl_run_id
-    )
-    ON CONFLICT (reddit_comment_id) DO UPDATE SET
-        body = EXCLUDED.body,
-        score = EXCLUDED.score,
-        edited = EXCLUDED.edited,
-        removed_by_category = EXCLUDED.removed_by_category,
-        awards_count = EXCLUDED.awards_count,
-        crawl_run_id = COALESCE(EXCLUDED.crawl_run_id, comments.crawl_run_id),
-        post_id = COALESCE(comments.post_id, EXCLUDED.post_id),
-        source_track = COALESCE(EXCLUDED.source_track, comments.source_track),
-        first_seen_at = COALESCE(comments.first_seen_at, EXCLUDED.first_seen_at),
-        fetched_at = EXCLUDED.fetched_at,
-        lang = COALESCE(EXCLUDED.lang, comments.lang),
-        business_pool = COALESCE(EXCLUDED.business_pool, comments.business_pool)
-	    """
-	)
+    update_assignments = list(_COMMENT_BASE_UPDATE_ASSIGNMENTS)
+    if has_expires:
+        update_assignments.insert(
+            5,
+            "expires_at = COALESCE(EXCLUDED.expires_at, comments.expires_at)",
+        )
+    if has_crawl_run_id:
+        update_assignments.insert(
+            6 if has_expires else 5,
+            "crawl_run_id = COALESCE(EXCLUDED.crawl_run_id, comments.crawl_run_id)",
+        )
+    if has_community_run_id:
+        update_assignments.insert(
+            7 if has_expires and has_crawl_run_id else 6 if (has_expires or has_crawl_run_id) else 5,
+            "community_run_id = COALESCE(EXCLUDED.community_run_id, comments.community_run_id)",
+        )
+    if has_post_id:
+        update_assignments.insert(
+            5,
+            "post_id = COALESCE(comments.post_id, EXCLUDED.post_id)",
+        )
 
-COMMENT_UPSERT_SQL_LEGACY_AND_RUN_IDS = text(
-    """
-    INSERT INTO comments (
-        reddit_comment_id, source, source_post_id, post_id, subreddit,
-        source_track, first_seen_at, fetched_at,
-        parent_id, depth, body, author_id, author_name, author_created_utc,
-        created_utc, score, is_submitter, distinguished, edited,
-        permalink, removed_by_category, awards_count,
-        lang, business_pool,
-        captured_at,
-        crawl_run_id, community_run_id
-    ) VALUES (
-        :reddit_comment_id, :source, :source_post_id, :post_id, :subreddit,
-        :source_track, :first_seen_at, :fetched_at,
-        :parent_id, :depth, :body, :author_id, :author_name, :author_created_utc,
-        :created_utc, :score, :is_submitter, :distinguished, :edited,
-        :permalink, :removed_by_category, :awards_count,
-        :lang, :business_pool,
-        :captured_at,
-        :crawl_run_id, :community_run_id
+    sql = text(
+        f"""
+        INSERT INTO comments (
+            {", ".join(columns)}
+        ) VALUES (
+            {", ".join(f":{column}" for column in columns)}
+        )
+        ON CONFLICT (reddit_comment_id) DO UPDATE SET
+            {", ".join(update_assignments)}
+        """
     )
-    ON CONFLICT (reddit_comment_id) DO UPDATE SET
-        body = EXCLUDED.body,
-        score = EXCLUDED.score,
-        edited = EXCLUDED.edited,
-        removed_by_category = EXCLUDED.removed_by_category,
-        awards_count = EXCLUDED.awards_count,
-        crawl_run_id = COALESCE(EXCLUDED.crawl_run_id, comments.crawl_run_id),
-        community_run_id = COALESCE(EXCLUDED.community_run_id, comments.community_run_id),
-        post_id = COALESCE(comments.post_id, EXCLUDED.post_id),
-        source_track = COALESCE(EXCLUDED.source_track, comments.source_track),
-        first_seen_at = COALESCE(comments.first_seen_at, EXCLUDED.first_seen_at),
-        fetched_at = EXCLUDED.fetched_at,
-        lang = COALESCE(EXCLUDED.lang, comments.lang),
-        business_pool = COALESCE(EXCLUDED.business_pool, comments.business_pool)
-	    """
-	)
+    _COMMENT_UPSERT_SQL_CACHE[key] = sql
+    return sql
 
-COMMENT_UPSERT_SQL_NO_POST_ID_LEGACY_AND_RUN_ID = text(
-    """
-    INSERT INTO comments (
-        reddit_comment_id, source, source_post_id, subreddit,
-        source_track, first_seen_at, fetched_at,
-        parent_id, depth, body, author_id, author_name, author_created_utc,
-        created_utc, score, is_submitter, distinguished, edited,
-        permalink, removed_by_category, awards_count,
-        lang, business_pool,
-        captured_at,
-        crawl_run_id
-    ) VALUES (
-        :reddit_comment_id, :source, :source_post_id, :subreddit,
-        :source_track, :first_seen_at, :fetched_at,
-        :parent_id, :depth, :body, :author_id, :author_name, :author_created_utc,
-        :created_utc, :score, :is_submitter, :distinguished, :edited,
-        :permalink, :removed_by_category, :awards_count,
-        :lang, :business_pool,
-        :captured_at,
-        :crawl_run_id
-    )
-    ON CONFLICT (reddit_comment_id) DO UPDATE SET
-        body = EXCLUDED.body,
-        score = EXCLUDED.score,
-        edited = EXCLUDED.edited,
-        removed_by_category = EXCLUDED.removed_by_category,
-        awards_count = EXCLUDED.awards_count,
-        crawl_run_id = COALESCE(EXCLUDED.crawl_run_id, comments.crawl_run_id),
-        source_track = COALESCE(EXCLUDED.source_track, comments.source_track),
-        first_seen_at = COALESCE(comments.first_seen_at, EXCLUDED.first_seen_at),
-        fetched_at = EXCLUDED.fetched_at,
-        lang = COALESCE(EXCLUDED.lang, comments.lang),
-        business_pool = COALESCE(EXCLUDED.business_pool, comments.business_pool)
-    """
-)
 
-COMMENT_UPSERT_SQL_NO_POST_ID_LEGACY_AND_RUN_IDS = text(
-    """
-    INSERT INTO comments (
-        reddit_comment_id, source, source_post_id, subreddit,
-        source_track, first_seen_at, fetched_at,
-        parent_id, depth, body, author_id, author_name, author_created_utc,
-        created_utc, score, is_submitter, distinguished, edited,
-        permalink, removed_by_category, awards_count,
-        lang, business_pool,
-        captured_at,
-        crawl_run_id, community_run_id
-    ) VALUES (
-        :reddit_comment_id, :source, :source_post_id, :subreddit,
-        :source_track, :first_seen_at, :fetched_at,
-        :parent_id, :depth, :body, :author_id, :author_name, :author_created_utc,
-        :created_utc, :score, :is_submitter, :distinguished, :edited,
-        :permalink, :removed_by_category, :awards_count,
-        :lang, :business_pool,
-        :captured_at,
-        :crawl_run_id, :community_run_id
-    )
-    ON CONFLICT (reddit_comment_id) DO UPDATE SET
-        body = EXCLUDED.body,
-        score = EXCLUDED.score,
-        edited = EXCLUDED.edited,
-        removed_by_category = EXCLUDED.removed_by_category,
-        awards_count = EXCLUDED.awards_count,
-        crawl_run_id = COALESCE(EXCLUDED.crawl_run_id, comments.crawl_run_id),
-        community_run_id = COALESCE(EXCLUDED.community_run_id, comments.community_run_id),
-        source_track = COALESCE(EXCLUDED.source_track, comments.source_track),
-        first_seen_at = COALESCE(comments.first_seen_at, EXCLUDED.first_seen_at),
-        fetched_at = EXCLUDED.fetched_at,
-        lang = COALESCE(EXCLUDED.lang, comments.lang),
-        business_pool = COALESCE(EXCLUDED.business_pool, comments.business_pool)
-    """
-)
+def _build_comment_upsert_params(
+    params: Mapping[str, Any],
+    *,
+    has_expires: bool,
+    has_post_id: bool,
+    has_crawl_run_id: bool,
+    has_community_run_id: bool,
+) -> dict[str, Any]:
+    statement_params = dict(params)
+    if not has_expires:
+        statement_params.pop("expires_at", None)
+    if not has_post_id:
+        statement_params.pop("post_id", None)
+    if not has_crawl_run_id:
+        statement_params.pop("crawl_run_id", None)
+    if not has_community_run_id:
+        statement_params.pop("community_run_id", None)
+    return statement_params
 
 def _now_utc() -> datetime:
     return datetime.now(timezone.utc)
@@ -584,10 +267,21 @@ async def persist_comments(
                 {"source": source, "source_post_id": source_post_id},
             )
             post_id = res.scalar()
-        except Exception:
+        except Exception as exc:
+            logger.warning(
+                "Comment ingestion post_id lookup failed: source_post_id=%s subreddit=%s",
+                source_post_id,
+                normalized_subreddit,
+                exc_info=exc,
+            )
             post_id = None
 
         if post_id is None:
+            logger.warning(
+                "Comment ingestion skipped batch because post_id resolution failed: source_post_id=%s subreddit=%s",
+                source_post_id,
+                normalized_subreddit,
+            )
             return 0
 
     authors: dict[str, dict[str, Any]] = {}
@@ -645,53 +339,21 @@ async def persist_comments(
             # keep structure but avoid empty bodies breaking NOT NULL
             params["body"] = "[deleted]"
 
-        if has_expires and has_crawl_run_id and has_community_run_id:
-            await session.execute(
-                COMMENT_UPSERT_SQL_WITH_EXPIRES_AND_RUN_IDS
-                if has_post_id
-                else COMMENT_UPSERT_SQL_NO_POST_ID_WITH_EXPIRES_AND_RUN_IDS,
+        await session.execute(
+            _build_comment_upsert_sql(
+                has_expires=has_expires,
+                has_post_id=has_post_id,
+                has_crawl_run_id=has_crawl_run_id,
+                has_community_run_id=has_community_run_id,
+            ),
+            _build_comment_upsert_params(
                 params,
-            )
-        elif has_expires and has_crawl_run_id:
-            await session.execute(
-                COMMENT_UPSERT_SQL_WITH_EXPIRES_AND_RUN_ID
-                if has_post_id
-                else COMMENT_UPSERT_SQL_NO_POST_ID_WITH_EXPIRES_AND_RUN_ID,
-                params,
-            )
-        elif has_expires:
-            await session.execute(
-                COMMENT_UPSERT_SQL_WITH_EXPIRES
-                if has_post_id
-                else COMMENT_UPSERT_SQL_NO_POST_ID_WITH_EXPIRES,
-                params,
-            )
-        else:
-            legacy_params = params.copy()
-            legacy_params.pop("expires_at", None)
-            if has_crawl_run_id and has_community_run_id:
-                await session.execute(
-                    COMMENT_UPSERT_SQL_LEGACY_AND_RUN_IDS
-                    if has_post_id
-                    else COMMENT_UPSERT_SQL_NO_POST_ID_LEGACY_AND_RUN_IDS,
-                    legacy_params,
-                )
-            elif has_crawl_run_id:
-                await session.execute(
-                    COMMENT_UPSERT_SQL_LEGACY_AND_RUN_ID
-                    if has_post_id
-                    else COMMENT_UPSERT_SQL_NO_POST_ID_LEGACY_AND_RUN_ID,
-                    legacy_params,
-                )
-            else:
-                legacy_params.pop("crawl_run_id", None)
-                legacy_params.pop("community_run_id", None)
-                await session.execute(
-                    COMMENT_UPSERT_SQL_LEGACY
-                    if has_post_id
-                    else COMMENT_UPSERT_SQL_NO_POST_ID_LEGACY,
-                    legacy_params,
-                )
+                has_expires=has_expires,
+                has_post_id=has_post_id,
+                has_crawl_run_id=has_crawl_run_id,
+                has_community_run_id=has_community_run_id,
+            ),
+        )
         # collect author info for upsert
         aid = params.get("author_id") or params.get("author_name")
         # Skip ultra-common placeholders to avoid hot-row contention
@@ -704,9 +366,8 @@ async def persist_comments(
             }
         processed += 1
 
-    # upsert authors (best-effort，使用单独的短事务，避免与主事务形成死锁)
+    # upsert authors (best-effort，使用单独的短事务，避免与主事务形成死锁)  
     if authors:
-        logger = logging.getLogger(__name__)
         try:
             async with SessionFactory() as author_session:
                 for a in authors.values():

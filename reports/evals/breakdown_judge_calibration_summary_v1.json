@@ -1,0 +1,52 @@
+{
+  "sample_count": 18,
+  "overall_match_count": 15,
+  "overall_match_rate": 0.8333,
+  "exact_tag_match_count": 14,
+  "exact_tag_match_rate": 0.7778,
+  "mismatches": [
+    {
+      "eval_case_id": "breakdown-eval-suggestion-suggestion-ai-automation-94bfe667d1",
+      "predicted_overall_pass": false,
+      "human_overall_pass": false,
+      "predicted_failure_tags": [
+        "weak_thesis",
+        "quote_pack_not_supporting_claim"
+      ],
+      "human_failure_tags": [
+        "weak_thesis",
+        "stitched_not_coherent"
+      ]
+    },
+    {
+      "eval_case_id": "breakdown-eval-suggestion-suggestion-ecommerce-sellers-258155f585",
+      "predicted_overall_pass": true,
+      "human_overall_pass": false,
+      "predicted_failure_tags": [],
+      "human_failure_tags": [
+        "stitched_not_coherent",
+        "weak_thesis"
+      ]
+    },
+    {
+      "eval_case_id": "breakdown-eval-published-clue-roadmap-lightweight-alignment",
+      "predicted_overall_pass": true,
+      "human_overall_pass": false,
+      "predicted_failure_tags": [],
+      "human_failure_tags": [
+        "stitched_not_coherent",
+        "no_judgment_gain"
+      ]
+    },
+    {
+      "eval_case_id": "breakdown-eval-published-clue-sales-followup-slip",
+      "predicted_overall_pass": true,
+      "human_overall_pass": false,
+      "predicted_failure_tags": [],
+      "human_failure_tags": [
+        "stitched_not_coherent",
+        "reporty_title"
+      ]
+    }
+  ]
+}

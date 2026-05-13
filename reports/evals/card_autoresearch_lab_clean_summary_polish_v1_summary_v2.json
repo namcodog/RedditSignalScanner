@@ -1,0 +1,43 @@
+{
+  "sample_count": 31,
+  "pass_count": 15,
+  "fail_count": 16,
+  "pass_rate": 0.4839,
+  "fail_rate": 0.5161,
+  "top_failure_tags": [
+    [
+      "reddit_restatement",
+      14
+    ],
+    [
+      "no_judgment_gain",
+      9
+    ],
+    [
+      "why_now_not_actionable",
+      5
+    ],
+    [
+      "quote_not_used_well",
+      3
+    ],
+    [
+      "audience_not_who_is_talking",
+      2
+    ],
+    [
+      "evidence_overclaim",
+      2
+    ]
+  ],
+  "scope_pass_counts": {
+    "ai-automation": 2,
+    "ecommerce-sellers": 8,
+    "business-growth-ops": 5
+  },
+  "scope_fail_counts": {
+    "ai-automation": 8,
+    "business-growth-ops": 5,
+    "ecommerce-sellers": 3
+  }
+}

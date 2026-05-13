@@ -423,7 +423,7 @@ r/Roborock         21 条  █████
 #### 全站搜索模式
 ```bash
 cd backend
-PYTHONPATH=. python scripts/hunt_rant_posts.py \
+PYTHONPATH=. python scripts/scoring/hunt_rant_posts.py \
   --brand "Roomba" \
   --rant-words "broken,terrible,problem,refund" \
   --time-filter all \
@@ -435,7 +435,7 @@ PYTHONPATH=. python scripts/hunt_rant_posts.py \
 #### 定向社区模式
 ```bash
 cd backend
-PYTHONPATH=. python scripts/hunt_rant_focused.py \
+PYTHONPATH=. python scripts/scoring/hunt_rant_focused.py \
   --brand "Roomba" \
   --subreddits "roomba,RobotVacuums,Roborock" \
   --max-posts 300 \

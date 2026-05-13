@@ -250,7 +250,7 @@ make test-contract
 
 ```bash
 # T044: 创建验收脚本
-cat > backend/scripts/local_acceptance.py << 'EOF'
+cat > backend/scripts/seed/local_acceptance.py << 'EOF'
 #!/usr/bin/env python3
 """本地验收测试脚本"""
 import asyncio
@@ -282,14 +282,14 @@ if __name__ == "__main__":
     asyncio.run(main())
 EOF
 
-chmod +x backend/scripts/local_acceptance.py
+chmod +x backend/scripts/seed/local_acceptance.py
 
 # T045: 新增 Makefile 命令
 cat >> Makefile << 'EOF'
 
 local-acceptance: ## 运行本地验收测试
 	@echo "==> Running local acceptance tests ..."
-	cd backend && python scripts/local_acceptance.py
+	cd backend && python scripts/seed/local_acceptance.py
 EOF
 
 # T047: 优化 dev-golden-path

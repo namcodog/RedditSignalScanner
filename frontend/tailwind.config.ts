@@ -13,8 +13,9 @@ const config: Config = {
     },
     extend: {
       fontFamily: {
-        display: ['"DM Sans"', ...defaultTheme.fontFamily.sans],
-        sans: ['"Inter"', ...defaultTheme.fontFamily.sans],
+        display: ['"Noto Serif SC"', '"Songti SC"', '"STSong"', 'serif'],
+        sans: ['"Noto Sans SC"', '"PingFang SC"', '"Hiragino Sans GB"', '"Microsoft YaHei"', ...defaultTheme.fontFamily.sans],
+        mono: ['"IBM Plex Mono"', '"Fira Code"', ...defaultTheme.fontFamily.mono],
       },
       colors: {
         border: 'hsl(var(--border))',
@@ -54,6 +55,8 @@ const config: Config = {
       },
       boxShadow: {
         card: '0 10px 30px -20px rgba(15, 23, 42, 0.25)',
+        editorial: '0 24px 56px -32px rgba(47, 31, 20, 0.42)',
+        inset: 'inset 0 1px 0 rgba(255, 255, 255, 0.8)',
       },
       keyframes: {
         'accordion-down': {
@@ -75,4 +78,3 @@ const config: Config = {
 };
 
 export default config;
-

@@ -24,6 +24,28 @@ depends_on: Sequence[str] | None = None
 _PRIMARY_RULE_VERSION = "rulebook_v1"
 
 
+def _ensure_noise_labels_table() -> None:
+    op.execute(
+        """
+        CREATE TABLE IF NOT EXISTS noise_labels (
+            id BIGSERIAL PRIMARY KEY,
+            content_type VARCHAR(20) NOT NULL,
+            content_id BIGINT NOT NULL,
+            noise_type VARCHAR(50) NOT NULL,
+            reason TEXT,
+            created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
+            updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now()
+        )
+        """
+    )
+    op.execute(
+        """
+        CREATE INDEX IF NOT EXISTS ix_noise_labels_content
+        ON noise_labels (content_type, content_id)
+        """
+    )
+
+
 def _table_exists(name: str) -> bool:
     bind = op.get_bind()
     try:
@@ -260,6 +282,8 @@ def _create_comment_scores_latest_view(*, prefer_primary: bool, apply_noise: boo
 
 
 def upgrade() -> None:
+    _ensure_noise_labels_table()
+
     if _table_exists("post_scores"):
         _create_post_scores_latest_view(prefer_primary=True, apply_noise=True)
     if _table_exists("comment_scores"):

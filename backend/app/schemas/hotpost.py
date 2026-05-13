@@ -12,6 +12,14 @@ HotpostMode = Literal["trending", "rant", "opportunity"]
 HotpostTimeFilter = Literal["week", "month", "year", "all"]
 
 
+class HotpostQueryParse(ORMModel):
+    query_kind: str | None = None
+    subject: str | None = None
+    compare_target: str | None = None
+    focus: str | None = None
+    scenario: str | None = None
+
+
 class HotpostSearchRequest(ORMModel):
     """爆帖速递搜索请求"""
 
@@ -19,6 +27,7 @@ class HotpostSearchRequest(ORMModel):
     mode: HotpostMode | None = Field(default=None)
     subreddits: list[str] | None = Field(default=None)
     time_filter: HotpostTimeFilter | None = Field(default=None)
+    query_parse_override: HotpostQueryParse | None = None
     limit: int = Field(default=30, ge=1, le=100)
 
     @field_validator("query")
@@ -131,6 +140,14 @@ class PainPoint(ORMModel):
     evidence_posts: list[Hotpost] = Field(default_factory=list)
 
 
+class ComplaintFacet(ORMModel):
+    label: str
+    target: str | None = None
+    representative_quote: str
+    evidence_count: int = 0
+    evidence_urls: list[str] = Field(default_factory=list)
+
+
 class CompetitorMention(ORMModel):
     name: str
     sentiment: str | None = None
@@ -237,6 +254,27 @@ class NextSteps(ORMModel):
     suggested_keywords: list[str] = Field(default_factory=list)
 
 
+class HotpostDebugInfo(ORMModel):
+    query_source: str | None = None
+    query_degraded_reason: str | None = None
+    search_query: str | None = None
+    query_parts: list[str] = Field(default_factory=list)
+    keywords: list[str] = Field(default_factory=list)
+    time_filter: str | None = None
+    sort: str | None = None
+    subreddits: list[str] = Field(default_factory=list)
+    raw_posts: int | None = None
+    filtered_posts: int | None = None
+    relevance_filtered: int | None = None
+    response_source: str | None = None
+    summary_source: str | None = None
+    summary_degraded_reason: str | None = None
+    report_source: str | None = None
+    report_degraded_reason: str | None = None
+    llm_report_applied: bool | None = None
+    degraded_reasons: list[str] = Field(default_factory=list)
+
+
 class HotpostSearchResponse(ORMModel):
     query_id: str
     query: str
@@ -275,7 +313,7 @@ class HotpostSearchResponse(ORMModel):
     reliability_note: str | None = None
     next_steps: NextSteps | None = None
     notes: list[str] | None = None
-    debug_info: dict[str, Any] | None = None
+    debug_info: HotpostDebugInfo | None = None
 
 
 class HotpostDeepdiveResponse(ORMModel):
@@ -292,6 +330,7 @@ class HotpostDeepdiveRequest(ORMModel):
 __all__ = [
     "HotpostMode",
     "HotpostTimeFilter",
+    "HotpostQueryParse",
     "HotpostSearchRequest",
     "HotpostSearchResponse",
     "HotpostDeepdiveResponse",
@@ -301,6 +340,7 @@ __all__ = [
     "HotpostTopic",
     "HotpostTopicEvidence",
     "PainPoint",
+    "ComplaintFacet",
     "CompetitorMention",
     "MigrationIntent",
     "TopQuote",
@@ -311,4 +351,5 @@ __all__ = [
     "UserSegment",
     "MarketOpportunity",
     "NextSteps",
+    "HotpostDebugInfo",
 ]

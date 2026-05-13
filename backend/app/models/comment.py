@@ -129,7 +129,7 @@ class ContentLabel(Base):
     )
 
     id = Column(BigInteger, Sequence("content_labels_id_seq"), primary_key=True)
-    content_type = Column(
+    content_type: Column[str] = Column(
         SQLEnum(
             ContentType,
             name="content_type",
@@ -164,7 +164,7 @@ class ContentEntity(Base):
     )
 
     id = Column(BigInteger, Sequence("content_entities_id_seq"), primary_key=True)
-    content_type = Column(
+    content_type: Column[str] = Column(
         SQLEnum(
             ContentType,
             name="content_type",

@@ -1,0 +1,1335 @@
+{
+  "baseline_release_id": "release-727805c2aaf3",
+  "required_new_releases": 5,
+  "inventory_minimum_cards": 30,
+  "release_count": 5,
+  "total_release_count": 103,
+  "watch_communities": [
+    "r/FacebookAds",
+    "r/PPC",
+    "r/BuyItForLife"
+  ],
+  "watch_packs": [
+    "paid-economics"
+  ],
+  "latest_release_id": "release-dfc7383d1f14",
+  "latest_status": "stable",
+  "latest_remediation_focus": "release_surface",
+  "stable_streak": 6,
+  "remaining_new_releases": 0,
+  "observed_new_releases": 6,
+  "release_summaries": [
+    {
+      "release_id": "release-dfc7383d1f14",
+      "published_at": "2026-04-17T16:09:37.515762Z",
+      "card_count": 58,
+      "front_window": 30,
+      "full": {
+        "card_count": 58,
+        "scope_counts": {
+          "ai-automation": 12,
+          "ecommerce-sellers": 21,
+          "business-growth-ops": 25
+        },
+        "top_communities": [
+          [
+            "r/FulfillmentByAmazon",
+            5
+          ],
+          [
+            "r/DigitalMarketing",
+            5
+          ],
+          [
+            "r/PPC",
+            5
+          ],
+          [
+            "r/BuyItForLife",
+            5
+          ],
+          [
+            "r/FacebookAds",
+            5
+          ],
+          [
+            "r/LLM",
+            4
+          ],
+          [
+            "r/OpenAI",
+            3
+          ],
+          [
+            "r/Google_Ads",
+            3
+          ],
+          [
+            "r/Frugal",
+            3
+          ],
+          [
+            "r/EDC",
+            3
+          ],
+          [
+            "r/adops",
+            2
+          ],
+          [
+            "r/ecommerce",
+            2
+          ]
+        ],
+        "top_packs": [
+          [
+            "paid-economics",
+            14
+          ],
+          [
+            "selection-signals",
+            13
+          ],
+          [
+            "agent-builder",
+            8
+          ],
+          [
+            "organic-discovery",
+            8
+          ],
+          [
+            "kill-signals",
+            7
+          ],
+          [
+            "upstream-winds",
+            4
+          ],
+          [
+            "funnel-conversion",
+            3
+          ],
+          [
+            "category-winds",
+            1
+          ]
+        ],
+        "watched_communities": {
+          "r/FacebookAds": 5,
+          "r/PPC": 5,
+          "r/BuyItForLife": 5
+        },
+        "watched_packs": {
+          "paid-economics": 14
+        },
+        "effective_watch_communities": {
+          "r/FacebookAds": 5,
+          "r/PPC": 5,
+          "r/BuyItForLife": 5
+        },
+        "effective_watch_packs": {
+          "paid-economics": 14
+        },
+        "dynamic_watch_communities": [],
+        "dynamic_watch_packs": [],
+        "caps": {
+          "scope": 29,
+          "pack": 14,
+          "community": 5
+        },
+        "alerts": []
+      },
+      "front30": {
+        "card_count": 30,
+        "scope_counts": {
+          "ai-automation": 5,
+          "ecommerce-sellers": 13,
+          "business-growth-ops": 12
+        },
+        "top_communities": [
+          [
+            "r/OpenAI",
+            2
+          ],
+          [
+            "r/FulfillmentByAmazon",
+            2
+          ],
+          [
+            "r/Google_Ads",
+            2
+          ],
+          [
+            "r/Frugal",
+            2
+          ],
+          [
+            "r/DigitalMarketing",
+            2
+          ],
+          [
+            "r/PPC",
+            2
+          ],
+          [
+            "r/EDC",
+            2
+          ],
+          [
+            "r/BuyItForLife",
+            2
+          ],
+          [
+            "r/FacebookAds",
+            2
+          ],
+          [
+            "r/shopify",
+            2
+          ],
+          [
+            "r/LLM",
+            1
+          ],
+          [
+            "r/Emailmarketing",
+            1
+          ]
+        ],
+        "top_packs": [
+          [
+            "selection-signals",
+            8
+          ],
+          [
+            "paid-economics",
+            6
+          ],
+          [
+            "organic-discovery",
+            4
+          ],
+          [
+            "kill-signals",
+            4
+          ],
+          [
+            "upstream-winds",
+            3
+          ],
+          [
+            "funnel-conversion",
+            2
+          ],
+          [
+            "agent-builder",
+            2
+          ],
+          [
+            "category-winds",
+            1
+          ]
+        ],
+        "watched_communities": {
+          "r/FacebookAds": 2,
+          "r/PPC": 2,
+          "r/BuyItForLife": 2
+        },
+        "watched_packs": {
+          "paid-economics": 6
+        },
+        "effective_watch_communities": {
+          "r/FacebookAds": 2,
+          "r/PPC": 2,
+          "r/BuyItForLife": 2
+        },
+        "effective_watch_packs": {
+          "paid-economics": 6
+        },
+        "dynamic_watch_communities": [],
+        "dynamic_watch_packs": [],
+        "caps": {
+          "scope": 12,
+          "pack": 10,
+          "community": 2
+        },
+        "alerts": []
+      },
+      "alerts": [],
+      "status": "stable",
+      "trend": {
+        "community_rebounds": [],
+        "pack_rebounds": []
+      },
+      "stability": {
+        "front30_stable": true,
+        "full_inventory_stable": true,
+        "scope_visible": true,
+        "inventory_supported": true,
+        "community_nonincreasing": true,
+        "pack_nonincreasing": true,
+        "qualified_for_stable": true,
+        "stable_streak": 6,
+        "observed_new_releases": 6,
+        "remediation_focus": "release_surface"
+      }
+    },
+    {
+      "release_id": "release-de33e9da1942",
+      "published_at": "2026-04-17T07:18:55.917579Z",
+      "card_count": 58,
+      "front_window": 30,
+      "full": {
+        "card_count": 58,
+        "scope_counts": {
+          "ai-automation": 12,
+          "ecommerce-sellers": 21,
+          "business-growth-ops": 25
+        },
+        "top_communities": [
+          [
+            "r/FulfillmentByAmazon",
+            5
+          ],
+          [
+            "r/DigitalMarketing",
+            5
+          ],
+          [
+            "r/PPC",
+            5
+          ],
+          [
+            "r/BuyItForLife",
+            5
+          ],
+          [
+            "r/FacebookAds",
+            5
+          ],
+          [
+            "r/Google_Ads",
+            4
+          ],
+          [
+            "r/LLM",
+            4
+          ],
+          [
+            "r/OpenAI",
+            3
+          ],
+          [
+            "r/Frugal",
+            3
+          ],
+          [
+            "r/EDC",
+            3
+          ],
+          [
+            "r/ecommerce",
+            2
+          ],
+          [
+            "r/shopify",
+            2
+          ]
+        ],
+        "top_packs": [
+          [
+            "paid-economics",
+            14
+          ],
+          [
+            "selection-signals",
+            13
+          ],
+          [
+            "agent-builder",
+            8
+          ],
+          [
+            "organic-discovery",
+            8
+          ],
+          [
+            "kill-signals",
+            7
+          ],
+          [
+            "upstream-winds",
+            3
+          ],
+          [
+            "funnel-conversion",
+            3
+          ],
+          [
+            "category-winds",
+            1
+          ],
+          [
+            "tools-efficiency",
+            1
+          ]
+        ],
+        "watched_communities": {
+          "r/FacebookAds": 5,
+          "r/PPC": 5,
+          "r/BuyItForLife": 5
+        },
+        "watched_packs": {
+          "paid-economics": 14
+        },
+        "effective_watch_communities": {
+          "r/FacebookAds": 5,
+          "r/PPC": 5,
+          "r/BuyItForLife": 5
+        },
+        "effective_watch_packs": {
+          "paid-economics": 14
+        },
+        "dynamic_watch_communities": [],
+        "dynamic_watch_packs": [],
+        "caps": {
+          "scope": 29,
+          "pack": 14,
+          "community": 5
+        },
+        "alerts": []
+      },
+      "front30": {
+        "card_count": 30,
+        "scope_counts": {
+          "ai-automation": 5,
+          "ecommerce-sellers": 13,
+          "business-growth-ops": 12
+        },
+        "top_communities": [
+          [
+            "r/OpenAI",
+            2
+          ],
+          [
+            "r/FulfillmentByAmazon",
+            2
+          ],
+          [
+            "r/Google_Ads",
+            2
+          ],
+          [
+            "r/Frugal",
+            2
+          ],
+          [
+            "r/DigitalMarketing",
+            2
+          ],
+          [
+            "r/PPC",
+            2
+          ],
+          [
+            "r/EDC",
+            2
+          ],
+          [
+            "r/BuyItForLife",
+            2
+          ],
+          [
+            "r/FacebookAds",
+            2
+          ],
+          [
+            "r/shopify",
+            2
+          ],
+          [
+            "r/LLM",
+            1
+          ],
+          [
+            "r/Emailmarketing",
+            1
+          ]
+        ],
+        "top_packs": [
+          [
+            "selection-signals",
+            8
+          ],
+          [
+            "paid-economics",
+            6
+          ],
+          [
+            "organic-discovery",
+            4
+          ],
+          [
+            "kill-signals",
+            4
+          ],
+          [
+            "upstream-winds",
+            2
+          ],
+          [
+            "funnel-conversion",
+            2
+          ],
+          [
+            "agent-builder",
+            2
+          ],
+          [
+            "category-winds",
+            1
+          ],
+          [
+            "tools-efficiency",
+            1
+          ]
+        ],
+        "watched_communities": {
+          "r/FacebookAds": 2,
+          "r/PPC": 2,
+          "r/BuyItForLife": 2
+        },
+        "watched_packs": {
+          "paid-economics": 6
+        },
+        "effective_watch_communities": {
+          "r/FacebookAds": 2,
+          "r/PPC": 2,
+          "r/BuyItForLife": 2
+        },
+        "effective_watch_packs": {
+          "paid-economics": 6
+        },
+        "dynamic_watch_communities": [],
+        "dynamic_watch_packs": [],
+        "caps": {
+          "scope": 12,
+          "pack": 10,
+          "community": 2
+        },
+        "alerts": []
+      },
+      "alerts": [],
+      "status": "stable",
+      "trend": {
+        "community_rebounds": [],
+        "pack_rebounds": []
+      },
+      "stability": {
+        "front30_stable": true,
+        "full_inventory_stable": true,
+        "scope_visible": true,
+        "inventory_supported": true,
+        "community_nonincreasing": true,
+        "pack_nonincreasing": true,
+        "qualified_for_stable": true,
+        "stable_streak": 5,
+        "observed_new_releases": 5,
+        "remediation_focus": "release_surface"
+      }
+    },
+    {
+      "release_id": "release-81ab015d63be",
+      "published_at": "2026-04-17T07:18:55.917579Z",
+      "card_count": 58,
+      "front_window": 30,
+      "full": {
+        "card_count": 58,
+        "scope_counts": {
+          "ai-automation": 12,
+          "ecommerce-sellers": 21,
+          "business-growth-ops": 25
+        },
+        "top_communities": [
+          [
+            "r/FulfillmentByAmazon",
+            5
+          ],
+          [
+            "r/DigitalMarketing",
+            5
+          ],
+          [
+            "r/PPC",
+            5
+          ],
+          [
+            "r/BuyItForLife",
+            5
+          ],
+          [
+            "r/FacebookAds",
+            5
+          ],
+          [
+            "r/Google_Ads",
+            4
+          ],
+          [
+            "r/LLM",
+            4
+          ],
+          [
+            "r/OpenAI",
+            3
+          ],
+          [
+            "r/Frugal",
+            3
+          ],
+          [
+            "r/EDC",
+            3
+          ],
+          [
+            "r/ecommerce",
+            2
+          ],
+          [
+            "r/shopify",
+            2
+          ]
+        ],
+        "top_packs": [
+          [
+            "paid-economics",
+            14
+          ],
+          [
+            "selection-signals",
+            13
+          ],
+          [
+            "agent-builder",
+            8
+          ],
+          [
+            "organic-discovery",
+            8
+          ],
+          [
+            "kill-signals",
+            7
+          ],
+          [
+            "upstream-winds",
+            3
+          ],
+          [
+            "funnel-conversion",
+            3
+          ],
+          [
+            "category-winds",
+            1
+          ],
+          [
+            "tools-efficiency",
+            1
+          ]
+        ],
+        "watched_communities": {
+          "r/FacebookAds": 5,
+          "r/PPC": 5,
+          "r/BuyItForLife": 5
+        },
+        "watched_packs": {
+          "paid-economics": 14
+        },
+        "effective_watch_communities": {
+          "r/FacebookAds": 5,
+          "r/PPC": 5,
+          "r/BuyItForLife": 5
+        },
+        "effective_watch_packs": {
+          "paid-economics": 14
+        },
+        "dynamic_watch_communities": [],
+        "dynamic_watch_packs": [],
+        "caps": {
+          "scope": 29,
+          "pack": 14,
+          "community": 5
+        },
+        "alerts": []
+      },
+      "front30": {
+        "card_count": 30,
+        "scope_counts": {
+          "ai-automation": 5,
+          "ecommerce-sellers": 13,
+          "business-growth-ops": 12
+        },
+        "top_communities": [
+          [
+            "r/OpenAI",
+            2
+          ],
+          [
+            "r/FulfillmentByAmazon",
+            2
+          ],
+          [
+            "r/Google_Ads",
+            2
+          ],
+          [
+            "r/Frugal",
+            2
+          ],
+          [
+            "r/DigitalMarketing",
+            2
+          ],
+          [
+            "r/PPC",
+            2
+          ],
+          [
+            "r/EDC",
+            2
+          ],
+          [
+            "r/BuyItForLife",
+            2
+          ],
+          [
+            "r/FacebookAds",
+            2
+          ],
+          [
+            "r/shopify",
+            2
+          ],
+          [
+            "r/LLM",
+            1
+          ],
+          [
+            "r/Emailmarketing",
+            1
+          ]
+        ],
+        "top_packs": [
+          [
+            "selection-signals",
+            8
+          ],
+          [
+            "paid-economics",
+            6
+          ],
+          [
+            "organic-discovery",
+            4
+          ],
+          [
+            "kill-signals",
+            4
+          ],
+          [
+            "upstream-winds",
+            2
+          ],
+          [
+            "funnel-conversion",
+            2
+          ],
+          [
+            "agent-builder",
+            2
+          ],
+          [
+            "category-winds",
+            1
+          ],
+          [
+            "tools-efficiency",
+            1
+          ]
+        ],
+        "watched_communities": {
+          "r/FacebookAds": 2,
+          "r/PPC": 2,
+          "r/BuyItForLife": 2
+        },
+        "watched_packs": {
+          "paid-economics": 6
+        },
+        "effective_watch_communities": {
+          "r/FacebookAds": 2,
+          "r/PPC": 2,
+          "r/BuyItForLife": 2
+        },
+        "effective_watch_packs": {
+          "paid-economics": 6
+        },
+        "dynamic_watch_communities": [],
+        "dynamic_watch_packs": [],
+        "caps": {
+          "scope": 12,
+          "pack": 10,
+          "community": 2
+        },
+        "alerts": []
+      },
+      "alerts": [],
+      "status": "watching",
+      "trend": {
+        "community_rebounds": [],
+        "pack_rebounds": []
+      },
+      "stability": {
+        "front30_stable": true,
+        "full_inventory_stable": true,
+        "scope_visible": true,
+        "inventory_supported": true,
+        "community_nonincreasing": true,
+        "pack_nonincreasing": true,
+        "qualified_for_stable": true,
+        "stable_streak": 4,
+        "observed_new_releases": 4,
+        "remediation_focus": "release_surface"
+      }
+    },
+    {
+      "release_id": "release-a8032ce3de22",
+      "published_at": "2026-04-17T07:18:55.917579Z",
+      "card_count": 58,
+      "front_window": 30,
+      "full": {
+        "card_count": 58,
+        "scope_counts": {
+          "ai-automation": 12,
+          "ecommerce-sellers": 21,
+          "business-growth-ops": 25
+        },
+        "top_communities": [
+          [
+            "r/FulfillmentByAmazon",
+            5
+          ],
+          [
+            "r/DigitalMarketing",
+            5
+          ],
+          [
+            "r/PPC",
+            5
+          ],
+          [
+            "r/BuyItForLife",
+            5
+          ],
+          [
+            "r/FacebookAds",
+            5
+          ],
+          [
+            "r/Google_Ads",
+            4
+          ],
+          [
+            "r/LLM",
+            4
+          ],
+          [
+            "r/OpenAI",
+            3
+          ],
+          [
+            "r/Frugal",
+            3
+          ],
+          [
+            "r/EDC",
+            3
+          ],
+          [
+            "r/ecommerce",
+            2
+          ],
+          [
+            "r/shopify",
+            2
+          ]
+        ],
+        "top_packs": [
+          [
+            "paid-economics",
+            14
+          ],
+          [
+            "selection-signals",
+            13
+          ],
+          [
+            "agent-builder",
+            8
+          ],
+          [
+            "organic-discovery",
+            8
+          ],
+          [
+            "kill-signals",
+            7
+          ],
+          [
+            "upstream-winds",
+            3
+          ],
+          [
+            "funnel-conversion",
+            3
+          ],
+          [
+            "category-winds",
+            1
+          ],
+          [
+            "tools-efficiency",
+            1
+          ]
+        ],
+        "watched_communities": {
+          "r/FacebookAds": 5,
+          "r/PPC": 5,
+          "r/BuyItForLife": 5
+        },
+        "watched_packs": {
+          "paid-economics": 14
+        },
+        "effective_watch_communities": {
+          "r/FacebookAds": 5,
+          "r/PPC": 5,
+          "r/BuyItForLife": 5
+        },
+        "effective_watch_packs": {
+          "paid-economics": 14
+        },
+        "dynamic_watch_communities": [],
+        "dynamic_watch_packs": [],
+        "caps": {
+          "scope": 29,
+          "pack": 14,
+          "community": 5
+        },
+        "alerts": []
+      },
+      "front30": {
+        "card_count": 30,
+        "scope_counts": {
+          "ai-automation": 5,
+          "ecommerce-sellers": 13,
+          "business-growth-ops": 12
+        },
+        "top_communities": [
+          [
+            "r/OpenAI",
+            2
+          ],
+          [
+            "r/FulfillmentByAmazon",
+            2
+          ],
+          [
+            "r/Google_Ads",
+            2
+          ],
+          [
+            "r/Frugal",
+            2
+          ],
+          [
+            "r/DigitalMarketing",
+            2
+          ],
+          [
+            "r/PPC",
+            2
+          ],
+          [
+            "r/EDC",
+            2
+          ],
+          [
+            "r/BuyItForLife",
+            2
+          ],
+          [
+            "r/FacebookAds",
+            2
+          ],
+          [
+            "r/shopify",
+            2
+          ],
+          [
+            "r/LLM",
+            1
+          ],
+          [
+            "r/Emailmarketing",
+            1
+          ]
+        ],
+        "top_packs": [
+          [
+            "selection-signals",
+            8
+          ],
+          [
+            "paid-economics",
+            6
+          ],
+          [
+            "organic-discovery",
+            4
+          ],
+          [
+            "kill-signals",
+            4
+          ],
+          [
+            "upstream-winds",
+            2
+          ],
+          [
+            "funnel-conversion",
+            2
+          ],
+          [
+            "agent-builder",
+            2
+          ],
+          [
+            "category-winds",
+            1
+          ],
+          [
+            "tools-efficiency",
+            1
+          ]
+        ],
+        "watched_communities": {
+          "r/FacebookAds": 2,
+          "r/PPC": 2,
+          "r/BuyItForLife": 2
+        },
+        "watched_packs": {
+          "paid-economics": 6
+        },
+        "effective_watch_communities": {
+          "r/FacebookAds": 2,
+          "r/PPC": 2,
+          "r/BuyItForLife": 2
+        },
+        "effective_watch_packs": {
+          "paid-economics": 6
+        },
+        "dynamic_watch_communities": [],
+        "dynamic_watch_packs": [],
+        "caps": {
+          "scope": 12,
+          "pack": 10,
+          "community": 2
+        },
+        "alerts": []
+      },
+      "alerts": [],
+      "status": "watching",
+      "trend": {
+        "community_rebounds": [],
+        "pack_rebounds": []
+      },
+      "stability": {
+        "front30_stable": true,
+        "full_inventory_stable": true,
+        "scope_visible": true,
+        "inventory_supported": true,
+        "community_nonincreasing": true,
+        "pack_nonincreasing": true,
+        "qualified_for_stable": true,
+        "stable_streak": 3,
+        "observed_new_releases": 3,
+        "remediation_focus": "release_surface"
+      }
+    },
+    {
+      "release_id": "release-ba1e32de9844",
+      "published_at": "2026-04-17T07:18:55.917579Z",
+      "card_count": 58,
+      "front_window": 30,
+      "full": {
+        "card_count": 58,
+        "scope_counts": {
+          "ai-automation": 12,
+          "ecommerce-sellers": 21,
+          "business-growth-ops": 25
+        },
+        "top_communities": [
+          [
+            "r/FulfillmentByAmazon",
+            5
+          ],
+          [
+            "r/DigitalMarketing",
+            5
+          ],
+          [
+            "r/PPC",
+            5
+          ],
+          [
+            "r/BuyItForLife",
+            5
+          ],
+          [
+            "r/FacebookAds",
+            5
+          ],
+          [
+            "r/Google_Ads",
+            4
+          ],
+          [
+            "r/LLM",
+            4
+          ],
+          [
+            "r/OpenAI",
+            3
+          ],
+          [
+            "r/Frugal",
+            3
+          ],
+          [
+            "r/EDC",
+            3
+          ],
+          [
+            "r/ecommerce",
+            2
+          ],
+          [
+            "r/shopify",
+            2
+          ]
+        ],
+        "top_packs": [
+          [
+            "paid-economics",
+            14
+          ],
+          [
+            "selection-signals",
+            13
+          ],
+          [
+            "agent-builder",
+            8
+          ],
+          [
+            "organic-discovery",
+            8
+          ],
+          [
+            "kill-signals",
+            7
+          ],
+          [
+            "upstream-winds",
+            3
+          ],
+          [
+            "funnel-conversion",
+            3
+          ],
+          [
+            "category-winds",
+            1
+          ],
+          [
+            "tools-efficiency",
+            1
+          ]
+        ],
+        "watched_communities": {
+          "r/FacebookAds": 5,
+          "r/PPC": 5,
+          "r/BuyItForLife": 5
+        },
+        "watched_packs": {
+          "paid-economics": 14
+        },
+        "effective_watch_communities": {
+          "r/FacebookAds": 5,
+          "r/PPC": 5,
+          "r/BuyItForLife": 5
+        },
+        "effective_watch_packs": {
+          "paid-economics": 14
+        },
+        "dynamic_watch_communities": [],
+        "dynamic_watch_packs": [],
+        "caps": {
+          "scope": 29,
+          "pack": 14,
+          "community": 5
+        },
+        "alerts": []
+      },
+      "front30": {
+        "card_count": 30,
+        "scope_counts": {
+          "ai-automation": 5,
+          "ecommerce-sellers": 13,
+          "business-growth-ops": 12
+        },
+        "top_communities": [
+          [
+            "r/OpenAI",
+            2
+          ],
+          [
+            "r/FulfillmentByAmazon",
+            2
+          ],
+          [
+            "r/Google_Ads",
+            2
+          ],
+          [
+            "r/Frugal",
+            2
+          ],
+          [
+            "r/DigitalMarketing",
+            2
+          ],
+          [
+            "r/PPC",
+            2
+          ],
+          [
+            "r/EDC",
+            2
+          ],
+          [
+            "r/BuyItForLife",
+            2
+          ],
+          [
+            "r/FacebookAds",
+            2
+          ],
+          [
+            "r/shopify",
+            2
+          ],
+          [
+            "r/LLM",
+            1
+          ],
+          [
+            "r/Emailmarketing",
+            1
+          ]
+        ],
+        "top_packs": [
+          [
+            "selection-signals",
+            8
+          ],
+          [
+            "paid-economics",
+            6
+          ],
+          [
+            "organic-discovery",
+            4
+          ],
+          [
+            "kill-signals",
+            4
+          ],
+          [
+            "upstream-winds",
+            2
+          ],
+          [
+            "funnel-conversion",
+            2
+          ],
+          [
+            "agent-builder",
+            2
+          ],
+          [
+            "category-winds",
+            1
+          ],
+          [
+            "tools-efficiency",
+            1
+          ]
+        ],
+        "watched_communities": {
+          "r/FacebookAds": 2,
+          "r/PPC": 2,
+          "r/BuyItForLife": 2
+        },
+        "watched_packs": {
+          "paid-economics": 6
+        },
+        "effective_watch_communities": {
+          "r/FacebookAds": 2,
+          "r/PPC": 2,
+          "r/BuyItForLife": 2
+        },
+        "effective_watch_packs": {
+          "paid-economics": 6
+        },
+        "dynamic_watch_communities": [],
+        "dynamic_watch_packs": [],
+        "caps": {
+          "scope": 12,
+          "pack": 10,
+          "community": 2
+        },
+        "alerts": []
+      },
+      "alerts": [],
+      "status": "watching",
+      "trend": {
+        "community_rebounds": [],
+        "pack_rebounds": []
+      },
+      "stability": {
+        "front30_stable": true,
+        "full_inventory_stable": true,
+        "scope_visible": true,
+        "inventory_supported": true,
+        "community_nonincreasing": true,
+        "pack_nonincreasing": true,
+        "qualified_for_stable": true,
+        "stable_streak": 2,
+        "observed_new_releases": 2,
+        "remediation_focus": "release_surface"
+      }
+    }
+  ]
+}

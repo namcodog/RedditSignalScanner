@@ -76,7 +76,7 @@ cd backend
 export $(cat .env | grep -v '^#' | xargs)
 
 # 运行端到端测试
-python scripts/test_real_reddit_e2e.py
+python scripts/seed/test_real_reddit_e2e.py
 ```
 
 **期望输出**:
@@ -114,7 +114,7 @@ python scripts/test_real_reddit_e2e.py
 
 ```bash
 # 在 backend 目录执行
-python scripts/start_24h_warmup.py
+python scripts/crawl/start_24h_warmup.py
 ```
 
 **交互式选项**:

@@ -1,0 +1,31 @@
+{
+  "sample_count": 3,
+  "pass_count": 1,
+  "fail_count": 2,
+  "pass_rate": 0.3333,
+  "fail_rate": 0.6667,
+  "top_failure_tags": [
+    [
+      "why_now_not_actionable",
+      2
+    ],
+    [
+      "reddit_restatement",
+      1
+    ],
+    [
+      "reporty_title",
+      1
+    ],
+    [
+      "quote_not_used_well",
+      1
+    ]
+  ],
+  "scope_pass_counts": {
+    "business-growth-ops": 1
+  },
+  "scope_fail_counts": {
+    "business-growth-ops": 2
+  }
+}

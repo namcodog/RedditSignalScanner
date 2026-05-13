@@ -1,0 +1,522 @@
+query_resolution:
+  default_time_filters:
+    trending: month
+    rant: all
+    opportunity: month
+  keyword_extraction:
+    token_pattern: "[a-zA-Z][a-zA-Z0-9_\\-]{1,}"
+    min_length: 3
+    max_keywords: 8
+    stopwords:
+      - the
+      - and
+      - for
+      - with
+      - from
+      - that
+      - this
+      - are
+      - was
+      - were
+      - how
+      - what
+      - why
+      - when
+      - where
+      - which
+      - about
+      - into
+      - than
+      - then
+      - has
+      - have
+      - had
+      - get
+      - gets
+      - got
+      - but
+      - not
+      - over
+      - under
+      - your
+      - their
+      - our
+      - people
+      - person
+      - say
+      - says
+      - said
+      - mad
+      - lately
+      - now
+      - today
+      - easy
+      - easier
+      - easiest
+      - better
+      - worse
+      - use
+      - using
+      - used
+  query_planner:
+    max_query_parts: 2
+    max_expanded_terms: 6
+    max_negative_terms: 6
+    noise_terms:
+      - help
+      - advice
+      - thoughts
+      - anyone
+      - reddit
+      - sub
+    strategy_by_mode:
+      trending: global-first
+      rant: subreddit-first
+      opportunity: global-first
+    intent_labels:
+      trending: trend_tracking
+      rant: pain_point_discovery
+      opportunity: opportunity_discovery
+    mode_terms:
+      trending:
+        - trend
+        - discussion
+        - adoption
+      rant:
+        - issue
+        - complaint
+        - broken
+        - refund
+      opportunity:
+        - looking for
+        - alternative
+        - would pay
+        - workflow
+    term_aliases:
+      aigc:
+        - generative ai
+        - ai-generated content
+        - gen ai
+      conversion:
+        - no sales
+      conversions:
+        - no sales
+      purchase:
+        - no sales
+      purchases:
+        - no sales
+    candidate_subreddits:
+      trending:
+        - r/technology
+        - r/startups
+        - r/entrepreneur
+      rant:
+        - r/CustomerService
+        - r/smallbusiness
+        - r/rant
+      opportunity:
+        - r/saas
+        - r/startups
+        - r/entrepreneur
+    positive_intent_terms:
+      trending:
+        - trend
+        - adoption
+        - breakout
+      rant:
+        - issue
+        - complaint
+        - refund
+        - broken
+      opportunity:
+        - software
+        - tool
+        - platform
+        - automation
+        - alternative
+        - prevention
+    forbidden_context_terms:
+      rant:
+        - storytime
+        - fanfic
+      opportunity:
+        - exam
+        - homework
+        - assignment
+        - tutoring
+        - class
+        - storytime
+        - creepypasta
+    domain_terms:
+      trending:
+        - ai
+        - startup
+        - ecommerce
+      rant:
+        - refund
+        - chargeback
+        - dispute
+        - support
+        - app
+      opportunity:
+        - shopify
+        - chargeback
+        - dispute
+        - payment
+        - fraud
+        - invoice
+        - scheduling
+        - ecommerce
+        - saas
+    strict_domain_terms:
+      rant:
+        - support
+        - refund
+        - chargeback
+        - dispute
+        - payout
+        - account
+        - seller
+        - creator
+        - policy
+        - suspension
+      opportunity:
+        - chargeback
+        - dispute
+        - refund
+        - fraud
+        - invoice
+        - scheduling
+        - inventory
+        - listing
+        - response
+    strict_anchor_min_hits:
+      rant: 1
+      opportunity: 1
+
+quality_contract:
+  top_quotes_limit: 3
+  suggested_keywords_limit: 5
+  trending_topic_limit: 3
+  trend_thresholds:
+    explosive_score: 500
+    rising_score: 100
+    rising_comments: 30
+
+auto_remediation:
+  enabled: true
+  max_rounds: 1
+  max_added_query_parts: 2
+  max_added_subreddits: 3
+  mode_terms:
+    trending:
+      - trend
+      - discussion
+      - adoption
+    rant:
+      - complaint
+      - issue
+      - frustrated
+      - refund
+    opportunity:
+      - looking for
+      - need
+      - alternative
+      - would pay
+  gap_terms:
+    missing_top_quotes:
+      - comment
+      - review
+      - experience
+    missing_topics:
+      - latest trend
+      - what changed
+    missing_topic_evidence:
+      - case study
+      - detailed experience
+    missing_pain_points:
+      - pain point
+      - complaint
+      - issue
+    missing_pain_voice:
+      - user story
+      - direct quote
+    missing_unmet_needs:
+      - looking for
+      - wish there was
+      - unmet need
+    missing_market_opportunity:
+      - would pay
+      - switch from
+      - buy intent
+  subreddit_hints:
+    trending:
+      - r/technology
+      - r/startups
+      - r/entrepreneur
+    rant:
+      - r/CustomerService
+      - r/smallbusiness
+      - r/rant
+    opportunity:
+      - r/startups
+      - r/entrepreneur
+      - r/sideproject
+
+mode_contracts:
+  trending:
+    hit_rules:
+      min_evidence_posts: 2
+      min_primary_items: 1
+    sufficiency_rules:
+      min_evidence_posts: 4
+      min_primary_items: 2
+      min_strong_quotes: 1
+    projection_rules:
+      primary_list_field: topics
+      preview_item_limit: 2
+      standard_item_limit: 3
+      preview_quote_limit: 2
+      standard_quote_limit: 3
+      min_quote_chars: 24
+      clear_fields_on_no_hit:
+        - topics
+        - trending_keywords
+  rant:
+    hit_rules:
+      min_evidence_posts: 1
+      min_anchor_posts: 1
+      min_strong_quotes: 1
+      min_primary_items: 0
+    sufficiency_rules:
+      min_evidence_posts: 4
+      min_anchor_posts: 2
+      min_primary_items: 2
+      min_strong_quotes: 2
+    projection_rules:
+      primary_list_field: pain_points
+      preview_item_limit: 2
+      standard_item_limit: 4
+      preview_quote_limit: 2
+      standard_quote_limit: 3
+      min_quote_chars: 24
+      clear_fields_on_no_hit:
+        - pain_points
+        - competitor_mentions
+        - migration_intent
+  opportunity:
+    hit_rules:
+      min_evidence_posts: 1
+      min_anchor_posts: 1
+      min_primary_items: 1
+    sufficiency_rules:
+      min_evidence_posts: 3
+      min_anchor_posts: 2
+      min_primary_items: 2
+      min_strong_quotes: 2
+    projection_rules:
+      primary_list_field: unmet_needs
+      preview_item_limit: 1
+      standard_item_limit: 2
+      preview_quote_limit: 2
+      standard_quote_limit: 3
+      min_quote_chars: 24
+      clear_fields_on_no_hit:
+        - unmet_needs
+        - user_segments
+        - existing_tools
+        - market_opportunity
+
+preview_projection:
+  top_quotes:
+    token_min_length: 4
+    max_support_terms: 8
+    require_overlap_if_available: true
+    stopwords:
+      - with
+      - from
+      - about
+      - after
+      - before
+      - into
+      - keep
+      - keeps
+      - users
+      - user
+      - there
+      - their
+      - they
+  opportunity:
+    voice_max_chars: 96
+    target_user_replacements:
+      - from: Shopify使用
+        to: 使用 Shopify 的
+      - from: Shopify users
+        to: 使用 Shopify 的用户
+      - from: SaaS founders
+        to: SaaS 创始人
+      - from: ecommerce sellers
+        to: 电商卖家
+
+llm_routing:
+  fast_model: "deepseek/deepseek-v4-flash"
+  reasoning_model: "deepseek/deepseek-v4-pro"
+  reasoning_enabled: true
+  production_profile_id: "hotpost_v13_title_standalone"
+  fast_model_lane_overrides:
+    hot:
+      model: "google/gemini-3-flash-preview"
+      timeout_seconds: 22
+  fast_model_pack_overrides: {}
+  profiles:
+    hotpost_v12:
+      semantic_model: "deepseek/deepseek-v4-flash"
+      writer_model: "deepseek/deepseek-v4-pro"
+      enabled_by_default: false
+    hotpost_v13_title_standalone:
+      semantic_model: "google/gemini-3-flash-preview"
+      writer_model: "deepseek/deepseek-v4-pro"
+      enabled_by_default: false
+  reasoning_trigger_modes:
+    - rant
+    - opportunity
+    - trending
+  reasoning_min_evidence: 10
+  reasoning_min_evidence_by_mode:
+    rant: 8
+    opportunity: 10
+    trending: 12
+  reasoning_trigger_on_gaps: true
+
+hot_controversy:
+  model: "google/gemini-2.5-flash-lite"
+  summary_version: "cn_human_point_slots_v8"
+  timeout_seconds: 20
+
+reddit_guardrails:
+  initial_query_parts_limit: 1
+  initial_query_parts_limit_by_mode:
+    rant: 2
+  initial_subreddits_limit: 2
+  initial_subreddits_limit_by_mode:
+    rant: 4
+  remediation_query_parts_limit: 1
+  remediation_query_parts_limit_by_mode:
+    rant: 2
+  remediation_subreddits_limit: 2
+  remediation_subreddits_limit_by_mode:
+    rant: 3
+  search_request_timeout_seconds: 15
+  max_posts_per_subreddit: 40
+  max_comment_posts: 8
+  max_comment_posts_by_mode:
+    rant: 12
+  circuit_breaker_cooldown_seconds: 90
+
+evidence_ranking:
+  max_suggested_subreddits: 5
+  opportunity_hint_priority: true
+  weights:
+    relevance: 4.0
+    quoteability: 2.0
+    freshness: 1.5
+    comments: 1.0
+    signals: 1.0
+
+retrieval_precision:
+  trusted_subreddit_terms:
+    trending:
+      - technology
+      - startup
+      - entrepreneur
+    rant:
+      - ecommerce
+      - shopify
+      - customer
+      - smallbusiness
+    opportunity:
+      - shopify
+      - ecommerce
+      - saas
+      - startup
+      - entrepreneur
+      - fraud
+      - payment
+  suspicious_subreddit_terms:
+    - exam
+    - homework
+    - assignment
+    - helper
+    - tutoring
+    - hesi
+  suspicious_title_terms:
+    - pay someone
+    - take my
+    - exam help
+    - assignment help
+    - cheating
+    - quiz
+  suspicious_body_terms:
+    - whatsapp
+    - contact us
+    - 100% success
+    - paid help
+    - website:
+    - call:
+  generic_query_terms:
+    - software
+    - tool
+    - app
+    - platform
+    - service
+    - solution
+    - alternative
+  trusted_source_boost: 4.0
+  unknown_source_penalty: 1.5
+  required_focus_hits_for_opportunity: 1
+  suspicious_source_block: true
+
+evidence_packaging:
+  title_max_chars: 140
+  why_relevant_max_chars: 120
+  focus_terms_limit: 4
+  modes:
+    trending:
+      query_weight: 3.0
+      intent_weight: 1.0
+      domain_weight: 1.5
+      why_relevant_weight: 1.0
+      keep_focus_only: false
+      min_post_score: 0.0
+      min_comment_score: 0.0
+    rant:
+      query_weight: 4.0
+      intent_weight: 1.5
+      domain_weight: 4.0
+      why_relevant_weight: 1.0
+      keep_focus_only: true
+      min_post_score: 4.0
+      min_comment_score: 3.0
+    opportunity:
+      query_weight: 3.0
+      intent_weight: 2.0
+      domain_weight: 4.0
+      why_relevant_weight: 1.0
+      keep_focus_only: true
+      min_post_score: 6.0
+      min_comment_score: 4.0
+
+mode_insights:
+  trending:
+    explosive_hours: 72
+    rising_days: 7
+    sustained_days: 30
+  rant:
+    high_severity_percentage: 0.35
+    medium_severity_percentage: 0.20
+  opportunity:
+    high_me_too_count: 5
+    medium_me_too_count: 3
+    high_wtp_bonus: 2.0
+    medium_wtp_bonus: 1.0
+    workaround_bonus: 1.5

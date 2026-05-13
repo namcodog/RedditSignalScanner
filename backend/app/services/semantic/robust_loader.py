@@ -3,12 +3,14 @@ from __future__ import annotations
 
 import asyncio
 import json
+import logging
 import time
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Awaitable, Callable, Optional
 
 from sqlalchemy.ext.asyncio import AsyncSession
+import yaml
 
 from app.events.semantic_bus import Events, get_event_bus
 from app.interfaces.semantic_provider import (
@@ -16,6 +18,9 @@ from app.interfaces.semantic_provider import (
     SemanticMetrics,
     SemanticProvider,
 )
+
+
+logger = logging.getLogger(__name__)
 
 
 @dataclass(slots=True)
@@ -44,6 +49,8 @@ class RobustSemanticLoader(SemanticProvider):
         self._db_hits = 0
         self._yaml_fallbacks = 0
         self._load_latencies: list[float] = []
+        self._last_source_status = "not_loaded"
+        self._last_error: str | None = None
         get_event_bus().subscribe(Events.LEXICON_UPDATED, self._on_lexicon_updated)
 
     async def load(self):
@@ -77,21 +84,37 @@ class RobustSemanticLoader(SemanticProvider):
             last_refresh=last_refresh_dt,  # type: ignore[arg-type]
             total_terms=self._estimate_terms(self._cache.payload if self._cache else None),
             load_latency_p95_ms=p95_latency,
+            source_status=self._last_source_status,
+            last_error=self._last_error,
         )
 
     async def _load_by_strategy(self):
         if self._strategy == SemanticLoadStrategy.DB_ONLY:
-            return await self._load_from_db()
+            payload = await self._load_from_db()
+            self._last_source_status = "db"
+            self._last_error = None
+            return payload
         if self._strategy == SemanticLoadStrategy.YAML_ONLY:
-            return self._load_from_yaml()
+            payload, status, error = self._load_from_yaml()
+            self._last_source_status = status
+            self._last_error = error
+            return payload
         try:
-            return await self._load_from_db()
+            payload = await self._load_from_db()
+            self._last_source_status = "db"
+            self._last_error = None
+            return payload
         except Exception as exc:
-            import logging
-
-            logging.getLogger(__name__).warning("DB load failed, fallback to YAML: %s", exc)
+            logger.warning("DB load failed, fallback to YAML: %s", exc)
             self._yaml_fallbacks += 1
-            return self._load_from_yaml()
+            payload, status, error = self._load_from_yaml()
+            if status == "yaml":
+                self._last_source_status = "yaml_fallback"
+                self._last_error = str(exc)
+            else:
+                self._last_source_status = status
+                self._last_error = error or str(exc)
+            return payload
 
     async def _load_from_db(self):
         if not self._session_factory:
@@ -109,12 +132,16 @@ class RobustSemanticLoader(SemanticProvider):
 
     def _load_from_yaml(self):
         if not self._fallback_yaml.exists():
-            return []
+            return [], "empty_fallback", f"fallback file missing: {self._fallback_yaml}"
         try:
             content = self._fallback_yaml.read_text(encoding="utf-8")
-            return json.loads(content)
-        except Exception:
-            return []
+            if self._fallback_yaml.suffix.lower() == ".json":
+                payload = json.loads(content)
+            else:
+                payload = yaml.safe_load(content)
+            return payload or [], "yaml", None
+        except Exception as exc:
+            return [], "load_failed", str(exc)
 
     async def _on_lexicon_updated(self, _payload: Any) -> None:
         await self.reload()

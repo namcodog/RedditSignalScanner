@@ -53,33 +53,34 @@ async def test_decision_units_view_allows_same_title_as_insight_and_filters_kind
             )
         )
 
-        user_id = (
-            await session.execute(
-                text(
-                    """
-                    INSERT INTO users (email, password_hash, membership_level)
-                    VALUES (:email, :password_hash, 'free')
-                    RETURNING id
-                    """
-                ),
-                {
-                    "email": f"du-{uuid.uuid4().hex}@example.com",
-                    "password_hash": hash_password("SecurePass123!"),
-                },
-            )
-        ).scalar_one()
-        task_id = (
-            await session.execute(
-                text(
-                    """
-                    INSERT INTO tasks (user_id, product_description)
-                    VALUES (:user_id, :product_description)
-                    RETURNING id
-                    """
-                ),
-                {"user_id": user_id, "product_description": "DecisionUnit schema verification task"},
-            )
-        ).scalar_one()
+        user_id = uuid.uuid4()
+        await session.execute(
+            text(
+                """
+                INSERT INTO users (id, email, password_hash, membership_level)
+                VALUES (:id, :email, :password_hash, 'free')
+                """
+            ),
+            {
+                "id": user_id,
+                "email": f"du-{uuid.uuid4().hex}@example.com",
+                "password_hash": hash_password("SecurePass123!"),
+            },
+        )
+        task_id = uuid.uuid4()
+        await session.execute(
+            text(
+                """
+                INSERT INTO tasks (id, user_id, product_description)
+                VALUES (:id, :user_id, :product_description)
+                """
+            ),
+            {
+                "id": task_id,
+                "user_id": user_id,
+                "product_description": "DecisionUnit schema verification task",
+            },
+        )
 
         shared_title = "Same title can exist in two kinds"
 
@@ -158,4 +159,3 @@ async def test_evidences_has_content_reference_columns() -> None:
 
     assert "content_type" in colset
     assert "content_id" in colset
-

@@ -1,69 +1,150 @@
 import React from 'react';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
+import {
+  ArrowRight,
+  Boxes,
+  Download,
+  LayoutDashboard,
+  LogOut,
+  ScanSearch,
+  ScrollText,
+  ShieldCheck,
+} from 'lucide-react';
 import { logout } from '@/api';
+import { ROUTES } from '@/router/routes';
+
+type AdminNavItem = {
+  to: string;
+  label: string;
+  icon: React.ReactNode;
+  end?: boolean;
+};
+
+const NAV_SECTIONS: Array<{ title: string; items: AdminNavItem[] }> = [
+  {
+    title: '控制面',
+    items: [
+      {
+        to: ROUTES.ADMIN_DASHBOARD,
+        end: true,
+        label: '系统控制面',
+        icon: <LayoutDashboard className="h-4 w-4" aria-hidden="true" />,
+      },
+    ],
+  },
+  {
+    title: '社区流转',
+    items: [
+      {
+        to: ROUTES.ADMIN_CANDIDATES,
+        label: '候选审核',
+        icon: <ScanSearch className="h-4 w-4" aria-hidden="true" />,
+      },
+      {
+        to: ROUTES.ADMIN_POOL,
+        label: '社区池',
+        icon: <Boxes className="h-4 w-4" aria-hidden="true" />,
+      },
+      {
+        to: ROUTES.ADMIN_COMMUNITY_IMPORT,
+        label: '社区导入',
+        icon: <Download className="h-4 w-4" aria-hidden="true" />,
+      },
+    ],
+  },
+  {
+    title: '任务追踪',
+    items: [
+      {
+        to: ROUTES.ADMIN_TASK_LEDGER,
+        label: '任务账本',
+        icon: <ScrollText className="h-4 w-4" aria-hidden="true" />,
+      },
+    ],
+  },
+];
 
 const AdminLayout: React.FC = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
     logout();
-    navigate('/login');
+    navigate(ROUTES.LOGIN);
   };
 
-  const navItems = [
-    { to: '/admin', end: true, label: '📊 仪表盘', icon: 'M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z' },
-    { to: '/admin/communities/discovered', label: '🔍 候选审核', icon: 'M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z' },
-    { to: '/admin/communities/pool', label: '🏊 社区池', icon: 'M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z' },
-    { to: '/admin/communities/import', label: '📥 社区导入', icon: 'M19 15v4H5v-4H3v4c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-4h-2zM11 4v8H8l4 4 4-4h-3V4h-2z' },
-    { to: '/admin/tasks/ledger', label: '📒 任务账本', icon: 'M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z' },
-  ];
-
   return (
-    <div className="flex h-screen bg-gray-100 dark:bg-gray-900 font-sans text-gray-900 dark:text-gray-100">
-      {/* Sidebar */}
-      <aside className="w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 flex flex-col">
-        <div className="p-6 border-b border-gray-200 dark:border-gray-700 flex items-center gap-3">
-          <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold">R</div>
-          <span className="font-bold text-lg tracking-tight">Signal Admin</span>
+    <div className="min-h-screen bg-background lg:grid lg:grid-cols-[312px_minmax(0,1fr)]">
+      <aside className="surface-admin-shell flex min-h-full flex-col border-b border-white/10 px-4 py-5 lg:border-b-0 lg:border-r lg:px-5 lg:py-6">
+        <div className="space-y-4 border-b border-white/10 pb-5">
+          <div className="flex items-center gap-3">
+            <div className="surface-brand-mark flex h-12 w-12 items-center justify-center rounded-2xl text-primary-foreground">
+              <ShieldCheck className="h-5 w-5" aria-hidden="true" />
+            </div>
+            <div className="min-w-0">
+              <div className="text-[0.72rem] font-semibold uppercase tracking-[0.22em] text-primary/85">
+                Control Desk
+              </div>
+              <div className="text-lg font-semibold text-white">Signal Admin</div>
+            </div>
+          </div>
+          <p className="text-sm leading-6 text-white/70">
+            这里先看系统稳不稳，再决定今天要不要处理社区和任务，不把后台做成第二个结果页。
+          </p>
         </div>
-        
-        <nav className="flex-1 p-4 space-y-1">
-          {navItems.map((item) => (
-            <NavLink
-              key={item.to}
-              to={item.to}
-              end={!!item.end}
-              className={({ isActive }) => `
-                flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors
-                ${isActive 
-                  ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300' 
-                  : 'text-gray-700 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-gray-200'
-                }
-              `}
-            >
-              <svg className="w-5 h-5 opacity-70" viewBox="0 0 24 24" fill="currentColor">
-                <path d={item.icon} />
-              </svg>
-              {item.label}
-            </NavLink>
+
+        <nav className="mt-5 flex-1 space-y-5">
+          {NAV_SECTIONS.map((section) => (
+            <div key={section.title} className="space-y-2">
+              <div className="px-2 text-[0.7rem] font-semibold uppercase tracking-[0.24em] text-white/45">
+                {section.title}
+              </div>
+              <div className="space-y-2">
+                {section.items.map((item) => (
+                  <NavLink
+                    key={item.to}
+                    to={item.to}
+                    end={item.end === true}
+                    className={({ isActive }) =>
+                      [
+                        'group flex items-center justify-between rounded-2xl px-4 py-3 text-sm font-medium transition-colors',
+                        'surface-admin-link',
+                        isActive ? 'surface-admin-link-active' : '',
+                      ].join(' ')
+                    }
+                  >
+                    <span className="flex items-center gap-3">
+                      <span className="text-current">{item.icon}</span>
+                      <span>{item.label}</span>
+                    </span>
+                    <ArrowRight className="h-4 w-4 opacity-50 transition-transform group-hover:translate-x-0.5 group-hover:opacity-90" aria-hidden="true" />
+                  </NavLink>
+                ))}
+              </div>
+            </div>
           ))}
         </nav>
 
-        <div className="p-4 border-t border-gray-200 dark:border-gray-700">
-          <button 
+        <div className="space-y-3 border-t border-white/10 pt-5">
+          <div className="rounded-[24px] border border-white/10 bg-white/5 px-4 py-4">
+            <div className="text-sm font-semibold text-white">今天先看系统有没有跑顺</div>
+            <p className="mt-2 text-sm leading-6 text-white/65">
+              如果任务账本和控制面都正常，再去看候选审核和社区池，不要反着排。
+            </p>
+          </div>
+          <button
             onClick={handleLogout}
-            className="flex items-center gap-3 w-full px-3 py-2.5 text-sm font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
+            className="flex w-full items-center justify-between rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-medium text-white/80 transition-colors hover:bg-white/10 hover:text-white"
           >
-            <svg className="w-5 h-5 opacity-70" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM19 3H5c-1.1 0-2 .9-2 2v4h2V5h14v14H5v-4H3v4c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z" />
-            </svg>
-            退出登录
+            <span className="flex items-center gap-3">
+              <LogOut className="h-4 w-4" aria-hidden="true" />
+              退出登录
+            </span>
+            <ArrowRight className="h-4 w-4 opacity-60" aria-hidden="true" />
           </button>
         </div>
       </aside>
 
-      {/* Main Content */}
-      <main className="flex-1 overflow-auto">
+      <main className="min-w-0 overflow-auto">
         <Outlet />
       </main>
     </div>

@@ -38,6 +38,17 @@ def _ensure_utc(dt: datetime) -> datetime:
     return dt.astimezone(timezone.utc)
 
 
+def _now_not_before(*datetimes: datetime | None) -> datetime:
+    timestamp = datetime.now(timezone.utc)
+    for dt in datetimes:
+        if dt is None:
+            continue
+        candidate = _ensure_utc(dt)
+        if candidate > timestamp:
+            timestamp = candidate
+    return timestamp
+
+
 def _parse_int_env(key: str, default: int) -> int:
     raw = os.getenv(key, "").strip()
     if not raw:
@@ -101,7 +112,7 @@ async def _schedule_example_report(
                 task.status = TaskStatus.FAILED
                 task.error_message = reason
                 task.failure_category = "processing_error"
-                task.completed_at = datetime.now(timezone.utc)
+                task.completed_at = _now_not_before(task.created_at, task.started_at)
                 await session.commit()
             finally:
                 unset_current_user_id()
@@ -129,7 +140,7 @@ async def _schedule_example_report(
                 if task is None:
                     return
                 task.status = TaskStatus.PROCESSING
-                task.started_at = datetime.now(timezone.utc)
+                task.started_at = _now_not_before(task.created_at)
                 await session.commit()
             finally:
                 unset_current_user_id()
@@ -171,7 +182,7 @@ async def _schedule_example_report(
                 session.add(report)
 
                 task.status = TaskStatus.COMPLETED
-                task.completed_at = datetime.now(timezone.utc)
+                task.completed_at = _now_not_before(task.created_at, task.started_at)
                 await session.commit()
             finally:
                 unset_current_user_id()
@@ -189,6 +200,7 @@ async def _schedule_example_report(
         else:
             asyncio.create_task(_run_example_flow())
     except Exception as exc:
+        logger.exception("Example report generation failed for task %s", task_id)
         await _mark_failed(str(exc))
 
 

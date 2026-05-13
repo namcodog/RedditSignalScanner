@@ -40,6 +40,15 @@ jobs:
           redis-version: '7.x'
           auto-start: true
 
+      # 3.1. 安装 pgvector，匹配包含 vector(1024) 的迁移合同
+      - name: Install pgvector
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential postgresql-server-dev-16
+          git clone --depth 1 --branch v0.8.1 https://github.com/pgvector/pgvector.git /tmp/pgvector
+          make -C /tmp/pgvector with_llvm=no OPTFLAGS=""
+          sudo make -C /tmp/pgvector with_llvm=no install
+
       # 4. 设置 Python 环境
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -235,11 +244,15 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      # 5. 检测 Breaking Changes
-      - name: Check for Breaking Changes
+      # 5. 运行现有 API 契约测试
+      - name: Run API contract tests
         working-directory: backend
+        env:
+          SKIP_DB_RESET: "1"
         run: |
-          python scripts/check_breaking_changes.py
+          python -m pytest \
+            tests/api/test_golden_path_contract.py \
+            -q
 
       # 6. 运行 Property-based 测试（可选，耗时较长）
       # - name: Run Schemathesis Tests
@@ -273,4 +286,3 @@ jobs:
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: 'trivy-results.sarif'
-

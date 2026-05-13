@@ -19,6 +19,7 @@ class TokenPayload(BaseModel):
     exp: Optional[int] = None
     tenant_id: Optional[str] = None
     email: Optional[str] = None
+    source: Optional[str] = None
 
     @field_validator("sub")
     @classmethod
@@ -94,6 +95,7 @@ def create_access_token(
     email: Optional[str] = None,
     expires_delta: Optional[timedelta] = None,
     tenant_id: Optional[str] = None,
+    source: Optional[str] = None,
     settings: Optional[Settings] = None,
 ) -> Tuple[str, datetime]:
     cfg = settings or get_settings()
@@ -111,6 +113,8 @@ def create_access_token(
         payload["email"] = email
     if tenant_id:
         payload["tenant_id"] = tenant_id
+    if source:
+        payload["source"] = source
 
     token = jwt.encode(payload, cfg.jwt_secret, algorithm=cfg.jwt_algorithm)
     return token, expires_at

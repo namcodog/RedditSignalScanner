@@ -1,0 +1,323 @@
+{
+  "schema_version": "hotpost-community-discovery-audit/v1",
+  "report_date": "2026-05-09",
+  "contracts": {
+    "experimental_communities_are_probe_only": true,
+    "default_daily_collect_includes_experimental": false,
+    "auto_promote": false,
+    "writes_db": false,
+    "experimental_candidate_store": "backend/data/hotpost/experimental_candidates/<scope>.json"
+  },
+  "rows": [
+    {
+      "scope_id": "ai-automation",
+      "community": "cursorai",
+      "topic_cluster_id": "workflow-friction",
+      "collected_candidates": 0,
+      "draft_count": 0,
+      "published_count": 1,
+      "reject_count": 0,
+      "duplicate_count": 0,
+      "new_topic_count": 1,
+      "noise_notes": "",
+      "suggested_action": "keep_testing",
+      "semantic_feedback": {
+        "frequent_entities": [],
+        "pain_solution_tags": [
+          "趋势变化"
+        ],
+        "sample_titles": [
+          "Cursor 深度用户，不再只靠 rules，需存储 AI 失败经验"
+        ],
+        "product_tags": [
+          "AI 工作流"
+        ]
+      }
+    },
+    {
+      "scope_id": "ai-automation",
+      "community": "windsurf",
+      "topic_cluster_id": "workflow-friction",
+      "collected_candidates": 0,
+      "draft_count": 0,
+      "published_count": 0,
+      "reject_count": 0,
+      "duplicate_count": 0,
+      "new_topic_count": 0,
+      "noise_notes": "no_signal_yet",
+      "suggested_action": "keep_testing",
+      "semantic_feedback": {
+        "frequent_entities": [],
+        "pain_solution_tags": [],
+        "sample_titles": [],
+        "product_tags": []
+      }
+    },
+    {
+      "scope_id": "ai-automation",
+      "community": "aider",
+      "topic_cluster_id": "workflow-friction",
+      "collected_candidates": 0,
+      "draft_count": 0,
+      "published_count": 0,
+      "reject_count": 0,
+      "duplicate_count": 0,
+      "new_topic_count": 0,
+      "noise_notes": "no_signal_yet",
+      "suggested_action": "keep_testing",
+      "semantic_feedback": {
+        "frequent_entities": [],
+        "pain_solution_tags": [],
+        "sample_titles": [],
+        "product_tags": []
+      }
+    },
+    {
+      "scope_id": "ai-automation",
+      "community": "openrouter",
+      "topic_cluster_id": "workflow-friction",
+      "collected_candidates": 0,
+      "draft_count": 0,
+      "published_count": 0,
+      "reject_count": 0,
+      "duplicate_count": 0,
+      "new_topic_count": 0,
+      "noise_notes": "no_signal_yet",
+      "suggested_action": "keep_testing",
+      "semantic_feedback": {
+        "frequent_entities": [],
+        "pain_solution_tags": [],
+        "sample_titles": [],
+        "product_tags": []
+      }
+    },
+    {
+      "scope_id": "ecommerce-sellers",
+      "community": "heronebag",
+      "topic_cluster_id": "outdoor",
+      "collected_candidates": 0,
+      "draft_count": 0,
+      "published_count": 0,
+      "reject_count": 0,
+      "duplicate_count": 0,
+      "new_topic_count": 0,
+      "noise_notes": "no_signal_yet",
+      "suggested_action": "keep_testing",
+      "semantic_feedback": {
+        "frequent_entities": [],
+        "pain_solution_tags": [],
+        "sample_titles": [],
+        "product_tags": []
+      }
+    },
+    {
+      "scope_id": "ecommerce-sellers",
+      "community": "bikepacking",
+      "topic_cluster_id": "outdoor",
+      "collected_candidates": 0,
+      "draft_count": 0,
+      "published_count": 0,
+      "reject_count": 0,
+      "duplicate_count": 0,
+      "new_topic_count": 0,
+      "noise_notes": "no_signal_yet",
+      "suggested_action": "keep_testing",
+      "semantic_feedback": {
+        "frequent_entities": [],
+        "pain_solution_tags": [],
+        "sample_titles": [],
+        "product_tags": []
+      }
+    },
+    {
+      "scope_id": "ecommerce-sellers",
+      "community": "trailrunning",
+      "topic_cluster_id": "outdoor",
+      "collected_candidates": 0,
+      "draft_count": 0,
+      "published_count": 0,
+      "reject_count": 0,
+      "duplicate_count": 0,
+      "new_topic_count": 0,
+      "noise_notes": "no_signal_yet",
+      "suggested_action": "keep_testing",
+      "semantic_feedback": {
+        "frequent_entities": [],
+        "pain_solution_tags": [],
+        "sample_titles": [],
+        "product_tags": []
+      }
+    },
+    {
+      "scope_id": "ecommerce-sellers",
+      "community": "campingandhiking",
+      "topic_cluster_id": "outdoor",
+      "collected_candidates": 0,
+      "draft_count": 0,
+      "published_count": 0,
+      "reject_count": 0,
+      "duplicate_count": 0,
+      "new_topic_count": 0,
+      "noise_notes": "no_signal_yet",
+      "suggested_action": "keep_testing",
+      "semantic_feedback": {
+        "frequent_entities": [],
+        "pain_solution_tags": [],
+        "sample_titles": [],
+        "product_tags": []
+      }
+    },
+    {
+      "scope_id": "business-growth-ops",
+      "community": "aiseo",
+      "topic_cluster_id": "seo-geo",
+      "collected_candidates": 0,
+      "draft_count": 0,
+      "published_count": 0,
+      "reject_count": 0,
+      "duplicate_count": 0,
+      "new_topic_count": 0,
+      "noise_notes": "no_signal_yet",
+      "suggested_action": "keep_testing",
+      "semantic_feedback": {
+        "frequent_entities": [],
+        "pain_solution_tags": [],
+        "sample_titles": [],
+        "product_tags": []
+      }
+    },
+    {
+      "scope_id": "business-growth-ops",
+      "community": "b2bgrowth",
+      "topic_cluster_id": "seo-geo",
+      "collected_candidates": 0,
+      "draft_count": 0,
+      "published_count": 0,
+      "reject_count": 0,
+      "duplicate_count": 0,
+      "new_topic_count": 0,
+      "noise_notes": "no_signal_yet",
+      "suggested_action": "keep_testing",
+      "semantic_feedback": {
+        "frequent_entities": [],
+        "pain_solution_tags": [],
+        "sample_titles": [],
+        "product_tags": []
+      }
+    },
+    {
+      "scope_id": "business-growth-ops",
+      "community": "saasstartups",
+      "topic_cluster_id": "seo-geo",
+      "collected_candidates": 0,
+      "draft_count": 0,
+      "published_count": 0,
+      "reject_count": 0,
+      "duplicate_count": 0,
+      "new_topic_count": 0,
+      "noise_notes": "no_signal_yet",
+      "suggested_action": "keep_testing",
+      "semantic_feedback": {
+        "frequent_entities": [],
+        "pain_solution_tags": [],
+        "sample_titles": [],
+        "product_tags": []
+      }
+    },
+    {
+      "scope_id": "business-growth-ops",
+      "community": "marketingautomation",
+      "topic_cluster_id": "seo-geo",
+      "collected_candidates": 0,
+      "draft_count": 0,
+      "published_count": 0,
+      "reject_count": 0,
+      "duplicate_count": 0,
+      "new_topic_count": 0,
+      "noise_notes": "no_signal_yet",
+      "suggested_action": "keep_testing",
+      "semantic_feedback": {
+        "frequent_entities": [],
+        "pain_solution_tags": [],
+        "sample_titles": [],
+        "product_tags": []
+      }
+    },
+    {
+      "scope_id": "business-growth-ops",
+      "community": "conversionrateoptimization",
+      "topic_cluster_id": "funnel",
+      "collected_candidates": 0,
+      "draft_count": 0,
+      "published_count": 0,
+      "reject_count": 0,
+      "duplicate_count": 0,
+      "new_topic_count": 0,
+      "noise_notes": "no_signal_yet",
+      "suggested_action": "keep_testing",
+      "semantic_feedback": {
+        "frequent_entities": [],
+        "pain_solution_tags": [],
+        "sample_titles": [],
+        "product_tags": []
+      }
+    },
+    {
+      "scope_id": "business-growth-ops",
+      "community": "growthhacking",
+      "topic_cluster_id": "funnel",
+      "collected_candidates": 0,
+      "draft_count": 0,
+      "published_count": 0,
+      "reject_count": 0,
+      "duplicate_count": 0,
+      "new_topic_count": 0,
+      "noise_notes": "no_signal_yet",
+      "suggested_action": "keep_testing",
+      "semantic_feedback": {
+        "frequent_entities": [],
+        "pain_solution_tags": [],
+        "sample_titles": [],
+        "product_tags": []
+      }
+    },
+    {
+      "scope_id": "business-growth-ops",
+      "community": "shopifydevs",
+      "topic_cluster_id": "funnel",
+      "collected_candidates": 0,
+      "draft_count": 0,
+      "published_count": 0,
+      "reject_count": 0,
+      "duplicate_count": 0,
+      "new_topic_count": 0,
+      "noise_notes": "no_signal_yet",
+      "suggested_action": "keep_testing",
+      "semantic_feedback": {
+        "frequent_entities": [],
+        "pain_solution_tags": [],
+        "sample_titles": [],
+        "product_tags": []
+      }
+    },
+    {
+      "scope_id": "business-growth-ops",
+      "community": "salesops",
+      "topic_cluster_id": "funnel",
+      "collected_candidates": 0,
+      "draft_count": 0,
+      "published_count": 0,
+      "reject_count": 0,
+      "duplicate_count": 0,
+      "new_topic_count": 0,
+      "noise_notes": "no_signal_yet",
+      "suggested_action": "keep_testing",
+      "semantic_feedback": {
+        "frequent_entities": [],
+        "pain_solution_tags": [],
+        "sample_titles": [],
+        "product_tags": []
+      }
+    }
+  ]
+}

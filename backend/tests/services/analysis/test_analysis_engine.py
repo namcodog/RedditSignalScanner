@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from datetime import datetime, timezone
+from types import SimpleNamespace
 from typing import List
 from uuid import uuid4
 
@@ -12,6 +13,7 @@ from sqlalchemy import delete, select, text
 from app.models.task import TaskStatus
 from app.schemas.task import TaskSummary
 from app.services.analysis import analysis_engine as analysis_engine_module
+from app.services.analysis import analysis_rendering as analysis_rendering_module
 from app.services.analysis.analysis_engine import run_analysis, _community_pool_priority_order
 from app.services.crawl.data_collection import CollectionResult
 from app.services.infrastructure.reddit_client import RedditPost
@@ -66,7 +68,9 @@ def mock_sample_guard(monkeypatch: pytest.MonkeyPatch) -> None:
 
 
 @pytest.mark.asyncio
-async def test_run_analysis_fast_with_mocked_database() -> None:
+async def test_run_analysis_fast_with_mocked_database(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
     """
     快速版本：使用 Mock 替代所有外部依赖（基于 exa-code 最佳实践）
 
@@ -85,7 +89,20 @@ async def test_run_analysis_fast_with_mocked_database() -> None:
     mock_result.scalars.return_value.all.return_value = []
     mock_session.execute.return_value = mock_result
 
-    with patch('app.services.analysis.analysis_engine.SessionFactory') as mock_factory:
+    async def _noop_record(*_: object, **__: object) -> None:
+        return None
+
+    async def _fresh_views() -> tuple[bool, list[str]]:
+        return False, []
+
+    monkeypatch.setattr(
+        analysis_engine_module, "_record_discovered_communities", _noop_record
+    )
+    monkeypatch.setattr(
+        analysis_engine_module, "_check_trend_views_freshness", _fresh_views
+    )
+
+    with patch("app.services.analysis.analysis_engine.SessionFactory") as mock_factory:
         mock_factory.return_value.__aenter__.return_value = mock_session
 
         task = TaskSummary(
@@ -99,8 +116,8 @@ async def test_run_analysis_fast_with_mocked_database() -> None:
         result = await run_analysis(task, data_collection=None)
 
         # 验证核心功能
-        # 注意：扩展社区池后，处理时间增加到 ~150 秒是合理的
-        assert result.sources["analysis_duration_seconds"] < 200
+        # 这里是合成耗时估算，不是 wall clock；当前实现上限被 clamp 在 260 秒
+        assert 0 < result.sources["analysis_duration_seconds"] <= 260
         assert "communities" in result.sources
         assert "cache_hit_rate" in result.sources
         assert "reddit_api_calls" in result.sources
@@ -108,10 +125,84 @@ async def test_run_analysis_fast_with_mocked_database() -> None:
         assert result.sources["reddit_api_calls"] == 0
         report_tier = result.sources.get("report_tier")
         assert report_tier in {"A_full", "B_trimmed", "C_scouting", "X_blocked"}
+        assert result.sources.get("structured_llm_status") in {
+            "completed",
+            "skipped",
+            "failed",
+        }
         if report_tier in {"C_scouting", "X_blocked"}:
             assert result.insights["pain_points"] == []
         else:
             assert len(result.insights["pain_points"]) >= 4
+
+
+@pytest.mark.asyncio
+async def test_render_structured_report_with_llm_reports_skipped_reason_for_scouting() -> None:
+    task = TaskSummary(
+        id=uuid4(),
+        status=TaskStatus.PENDING,
+        product_description="Test product",
+        created_at=datetime.now(timezone.utc),
+        updated_at=datetime.now(timezone.utc),
+    )
+    settings = SimpleNamespace(
+        enable_llm_summary=True,
+        llm_model_name="gpt-4o-mini",
+        openai_api_key="test-key",
+    )
+
+    result = await analysis_rendering_module.render_structured_report_with_llm(
+        task=task,
+        facts_slice={"market_health": {}},
+        report_tier="C_scouting",
+        settings=settings,
+    )
+
+    assert result.status == "skipped"
+    assert result.reason == "tier_skipped"
+    assert result.report is None
+    assert result.model is None
+    assert result.rounds == 0
+
+
+@pytest.mark.asyncio
+async def test_render_structured_report_with_llm_reports_failed_reason_for_llm_error(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    class StubClient:
+        def __init__(self, *_: object, **__: object) -> None:
+            pass
+
+        async def generate(self, *_: object, **__: object) -> str:
+            raise RuntimeError("llm down")
+
+    monkeypatch.setattr(analysis_rendering_module, "OpenAIChatClient", StubClient)
+
+    task = TaskSummary(
+        id=uuid4(),
+        status=TaskStatus.PENDING,
+        product_description="Test product",
+        created_at=datetime.now(timezone.utc),
+        updated_at=datetime.now(timezone.utc),
+    )
+    settings = SimpleNamespace(
+        enable_llm_summary=True,
+        llm_model_name="gpt-4o-mini",
+        openai_api_key="test-key",
+    )
+
+    result = await analysis_rendering_module.render_structured_report_with_llm(
+        task=task,
+        facts_slice={"market_health": {}},
+        report_tier="A_full",
+        settings=settings,
+    )
+
+    assert result.status == "failed"
+    assert result.reason == "llm_generate_failed"
+    assert result.report is None
+    assert result.model == "gpt-4o-mini"
+    assert result.rounds == 1
 
 
 @pytest.mark.asyncio
@@ -245,9 +336,13 @@ def test_apply_post_score_policy_filters_noise_and_sets_priority() -> None:
 async def test_priority_order_prefers_high_over_medium_low(
     db_session: "AsyncSession",
 ) -> None:
+    suffix = uuid4().hex[:8]
+    high_name = f"r/priority_high_{suffix}"
+    medium_name = f"r/priority_medium_{suffix}"
+    low_name = f"r/priority_low_{suffix}"
     communities = [
         CommunityPool(
-            name="r/priority_high",
+            name=high_name,
             tier="high",
             categories={},
             description_keywords={},
@@ -259,7 +354,7 @@ async def test_priority_order_prefers_high_over_medium_low(
             is_blacklisted=False,
         ),
         CommunityPool(
-            name="r/priority_medium",
+            name=medium_name,
             tier="high",
             categories={},
             description_keywords={},
@@ -271,7 +366,7 @@ async def test_priority_order_prefers_high_over_medium_low(
             is_blacklisted=False,
         ),
         CommunityPool(
-            name="r/priority_low",
+            name=low_name,
             tier="high",
             categories={},
             description_keywords={},
@@ -287,7 +382,9 @@ async def test_priority_order_prefers_high_over_medium_low(
     await db_session.commit()
 
     result = await db_session.execute(
-        select(CommunityPool.name, CommunityPool.priority).order_by(
+        select(CommunityPool.name, CommunityPool.priority)
+        .where(CommunityPool.name.in_([high_name, medium_name, low_name]))
+        .order_by(
             _community_pool_priority_order(CommunityPool).desc(),
             CommunityPool.name.asc(),
         )
@@ -298,7 +395,9 @@ async def test_priority_order_prefers_high_over_medium_low(
 
 @pytest.mark.asyncio
 @pytest.mark.slow
-async def test_run_analysis_produces_signals_without_external_services() -> None:
+async def test_run_analysis_produces_signals_without_external_services(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
     """
     Verify that run_analysis produces signals without calling external Reddit API.
     4. 减少分析耗时阈值（270s → 30s），适应优化后的性能
@@ -306,6 +405,13 @@ async def test_run_analysis_produces_signals_without_external_services() -> None
     注：此测试验证核心分析逻辑，不依赖真实数据库和 Redis
     如需快速测试，请使用：pytest -m "not slow"
     """
+    async def _noop_record(*_: object, **__: object) -> None:
+        return None
+
+    monkeypatch.setattr(
+        analysis_engine_module, "_record_discovered_communities", _noop_record
+    )
+
     task = TaskSummary(
         id=uuid4(),
         status=TaskStatus.PENDING,
@@ -317,13 +423,18 @@ async def test_run_analysis_produces_signals_without_external_services() -> None
     result = await run_analysis(task, data_collection=None)
 
     # 验证核心功能
-    # 注意：扩展社区池后，处理时间增加到 ~150 秒是合理的
-    assert result.sources["analysis_duration_seconds"] < 200
+    # 这里是合成耗时估算，不是 wall clock；当前实现上限被 clamp 在 260 秒
+    assert 0 < result.sources["analysis_duration_seconds"] <= 260
     assert "communities" in result.sources
     assert "cache_hit_rate" in result.sources
     assert "reddit_api_calls" in result.sources
     assert 0.0 <= result.sources["cache_hit_rate"] <= 1.0
     assert result.sources["reddit_api_calls"] == 0
+    assert result.sources.get("structured_llm_status") in {
+        "completed",
+        "skipped",
+        "failed",
+    }
     report_tier = result.sources.get("report_tier")
     assert report_tier in {"A_full", "B_trimmed", "C_scouting", "X_blocked"}
     if report_tier in {"C_scouting", "X_blocked"}:
@@ -979,6 +1090,72 @@ async def test_run_analysis_insufficient_samples_triggers_auto_backfill_targets(
 
 
 @pytest.mark.asyncio
+async def test_run_analysis_insufficient_samples_without_topic_profile_uses_keyword_fallback_backfill(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    shortfall_result = SampleCheckResult(
+        hot_count=0,
+        cold_count=1,
+        combined_count=1,
+        shortfall=1499,
+        remaining_shortfall=1499,
+        supplemented=False,
+        supplement_posts=[],
+    )
+
+    async def _shortfall_guard(**_: object) -> SampleCheckResult:
+        return shortfall_result
+
+    monkeypatch.setattr(
+        analysis_engine_module.sample_guard,
+        "check_sample_size",
+        _shortfall_guard,
+    )
+    monkeypatch.setenv("REMEDIATION_BUDGET_ENABLED", "0")
+    monkeypatch.setattr(
+        analysis_engine_module,
+        "_select_top_communities",
+        lambda _keywords: [
+            analysis_engine_module.CommunityProfile(
+                name="r/shopify",
+                categories=("ecommerce",),
+                description_keywords=("shopify", "conversion"),
+                daily_posts=120,
+                avg_comment_length=80,
+                cache_hit_rate=0.9,
+            ),
+            analysis_engine_module.CommunityProfile(
+                name="r/Entrepreneur",
+                categories=("business",),
+                description_keywords=("startup", "growth"),
+                daily_posts=90,
+                avg_comment_length=70,
+                cache_hit_rate=0.85,
+            ),
+        ],
+    )
+
+    task = TaskSummary(
+        id=uuid4(),
+        status=TaskStatus.PENDING,
+        product_description="跨境回款工具，帮助 Shopify/TikTok 卖家统一结算与费率管理",
+        topic_profile_id=None,
+        created_at=datetime.now(timezone.utc),
+        updated_at=datetime.now(timezone.utc),
+    )
+
+    result = await run_analysis(task, data_collection=None)
+
+    assert result.sources["analysis_blocked"] == "insufficient_samples"
+    actions = result.sources.get("remediation_actions") or []
+    assert actions, "Expected fallback remediation actions when topic_profile is absent"
+    assert actions[0]["type"] == "backfill_posts"
+    assert int(actions[0].get("targets") or 0) > 0
+    communities = actions[0].get("communities") or []
+    assert "r/shopify" in communities
+
+
+@pytest.mark.asyncio
 async def test_run_analysis_uses_topic_profile_preferred_days_for_sample_guard(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
@@ -1370,7 +1547,7 @@ async def test_run_analysis_applies_facts_v2_quality_gate_without_topic_profile(
 
 
 @pytest.mark.asyncio
-async def test_run_analysis_blocks_topic_mismatch_without_profile_when_meta_has_terms(
+async def test_run_analysis_does_not_hard_block_open_question_without_profile(
     mock_sample_guard: None,
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
@@ -1434,9 +1611,9 @@ async def test_run_analysis_blocks_topic_mismatch_without_profile_when_meta_has_
 
     quality = result.sources.get("facts_v2_quality")
     assert isinstance(quality, dict)
-    assert quality.get("tier") == "X_blocked", quality
-    assert "topic_mismatch" in (quality.get("flags") or []), quality
-    assert result.sources.get("report_tier") == "X_blocked", result.sources.get("report_tier")
+    assert quality.get("tier") != "X_blocked", quality
+    assert "topic_mismatch" not in (quality.get("flags") or []), quality
+    assert result.sources.get("report_tier") != "X_blocked", result.sources.get("report_tier")
 
 
 @pytest.mark.asyncio

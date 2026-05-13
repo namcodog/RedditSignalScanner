@@ -1,0 +1,85 @@
+# Phase 2 Community Pool Dev Write
+
+- DB writes: `true`
+- target_database: `reddit_signal_scanner_dev`
+- input_rows: `69`
+- would_insert: `56`
+- inserted: `56`
+- skipped_existing: `13`
+- blocked_deleted_conflicts: `0`
+- rollback_sql: `reports/community-governance/phase2-dev-write-rollback.sql`
+
+## Skipped Existing
+
+- r/digitalmarketing
+- r/openai
+- r/claudeai
+- r/manybaggers
+- r/artificial
+- r/edc
+- r/notion
+- r/singularity
+- r/vibecoding
+- r/claude
+- r/homeoffice
+- r/newparents
+- r/obsidianmd
+
+## Inserted Names
+
+- r/ppc
+- r/claudecode
+- r/giftideas
+- r/kickstarter
+- r/productmanagement
+- r/ai_agents
+- r/llm
+- r/analytics
+- r/google_ads
+- r/googleads
+- r/adops
+- r/campinggear
+- r/projectmanagement
+- r/asianbeauty
+- r/content_marketing
+- r/cursor
+- r/juststart
+- r/productivity
+- r/entrepreneurridealong
+- r/experienceddevs
+- r/machinelearning
+- r/stationery
+- r/b2bmarketing
+- r/codex
+- r/managers
+- r/sales
+- r/skincareaddiction
+- r/agi
+- r/beagles
+- r/chatgptcoding
+- r/claudeskills
+- r/contentcreators
+- r/customersupport
+- r/emailmarketing
+- r/helpdesk
+- r/hobonichi
+- r/openwebui
+- r/perplexity_ai
+- r/pkms
+- r/programming
+- r/research
+- r/revops
+- r/seogrowth
+- r/substack
+- r/sysadmin
+- r/writing
+- r/apartmenthacks
+- r/askmarketing
+- r/blogging
+- r/comfyui
+- r/consulting
+- r/fountainpens
+- r/journaling
+- r/opensourceai
+- r/planners
+- r/sidehustle

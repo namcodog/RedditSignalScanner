@@ -6,7 +6,7 @@ import pytest
 from sqlalchemy import text
 
 from app.db.session import SessionFactory
-from app.services.community_discovery import CommunityDiscoveryService
+from app.services.community.community_discovery import CommunityDiscoveryService
 from app.services.infrastructure.reddit_client import RedditAPIClient
 
 
@@ -48,4 +48,3 @@ async def test_fetch_pain_keywords_reads_semantic_rules_term_column() -> None:
         service = CommunityDiscoveryService(session, reddit)
         keywords = await service._fetch_pain_keywords_from_db(limit=5)
         assert "refund denied" in keywords
-

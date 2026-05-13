@@ -1,0 +1,162 @@
+{
+  "source_scope_id": "business-growth-ops",
+  "topic_pack_id": "paid-economics",
+  "case_count": 3,
+  "generation_failure_count": 0,
+  "cases": [
+    {
+      "eval_case_id": "signal-eval-generated-card-cand-business-growth-ops-1saryha-validate",
+      "sample_origin": "candidate_generated",
+      "input_bundle": {
+        "source_scope_id": "business-growth-ops",
+        "source_scope_name": "商业增长与运营",
+        "topic_pack_id": "paid-economics",
+        "signal_level": "sustained",
+        "why_now_reason": "switch_signal_7d",
+        "intent_tags": [
+          "替换",
+          "求推荐"
+        ],
+        "thread_count": 1,
+        "community_count": 1,
+        "quote_count": 2,
+        "source_communities": [
+          "r/FacebookAds"
+        ],
+        "evidence_quotes": [
+          {
+            "text": "A one-day spike of fake conversions can absolutely throw Meta off when your normal volume is 1-2 bookings a day. The bigger fix is making sure imported contacts and live booking events never hit the same conversion path again.",
+            "community": "r/FacebookAds",
+            "permalink": "https://www.reddit.com/r/FacebookAds/comments/1saryha/accidentally_triggered_meta_conversion_api_for/odyh2ll/"
+          },
+          {
+            "text": "It made your Pixel worse than it was before, but I don't think you're cooked forever. The good news is they were real people so it's still a decent signal. All on one day is of course not great.\n\nHow many days has it been since the 66 conversions day?",
+            "community": "r/FacebookAds",
+            "permalink": "https://www.reddit.com/r/FacebookAds/comments/1saryha/accidentally_triggered_meta_conversion_api_for/odyhrqt/"
+          }
+        ]
+      },
+      "baseline_output": {
+        "title": "GoHighLevel意外为100导入联系人触发Meta Conversion API，担心像素中毒",
+        "summary_line": "FacebookAds社区用户说，一天假转化峰值绝对会让Meta出错，当正常量是1-2个预订一天时；另一用户称这让你的Pixel比之前更糟了，但不是永久。",
+        "audience": "用GoHighLevel导入联系人跑Facebook广告的投放运营者",
+        "why_now": "r/FacebookAds里一共出现了1个帖子，近 7 天里还在继续冒头，已经有人开始找替代，已经有人直接问推荐和方案。",
+        "detail": {
+          "pain_point": "意外触发CAPI导入100联系人造成一天66转化峰值，干扰Meta像素学习",
+          "target_user_and_scene": "GoHighLevel用户误触Meta CAPI后检查像素数据场景",
+          "why_test_now": "r/FacebookAds里已经连续出现了1个帖子，近 7 天里还在继续冒头，已经有人开始找替代，已经有人直接问推荐和方案。",
+          "min_test_action": "去看原始讨论",
+          "continue_signal": "如果接下来在更多社区里还出现同样抱怨，而且继续有人直接问推荐，就继续盯。",
+          "stop_signal": "如果后面只剩零散吐槽，没有新的具体场景或后续追问，就先放过。"
+        }
+      },
+      "metadata": {
+        "candidate_id": "cand-business-growth-ops-1saryha",
+        "case_polarity": "pending_review"
+      }
+    },
+    {
+      "eval_case_id": "signal-eval-generated-card-cand-business-growth-ops-1sa15we-validate",
+      "sample_origin": "candidate_generated",
+      "input_bundle": {
+        "source_scope_id": "business-growth-ops",
+        "source_scope_name": "商业增长与运营",
+        "topic_pack_id": "paid-economics",
+        "signal_level": "sustained",
+        "why_now_reason": "switch_signal_7d",
+        "intent_tags": [
+          "替换",
+          "求推荐"
+        ],
+        "thread_count": 1,
+        "community_count": 1,
+        "quote_count": 2,
+        "source_communities": [
+          "r/PPC"
+        ],
+        "evidence_quotes": [
+          {
+            "text": "IMO you threw the algorithm into learning mode twice in a row... first when you added CallRail as primary then again by keeping your best converters secondary... I run service accounts for clients at $100k+ monthly spend mostly and when someone makes this exact move performance tanks for 14-21 days minimum... make offline conversions primary immediately and let CallRail sit as secondary for observation... your 21 booked conversions is barely enough data but the algorithm will recalibrate faster optimizing toward actual revenue instead of phone rings... forms convert better so why are you optimizing bids toward calls.",
+            "community": "r/PPC",
+            "permalink": "https://www.reddit.com/r/PPC/comments/1sa15we/lead_quality_primary_goal_changes/oduek9i/"
+          },
+          {
+            "text": "A ROAS drop from 7x to 2x after switching offline conversions to primary is a specific signal. The question worth asking before anything else is whether the algorithm is now optimizing for a lower-quality conversion event or whether the volume of 21 imported conversions is too thin for the model to trust.",
+            "community": "r/PPC",
+            "permalink": "https://www.reddit.com/r/PPC/comments/1sa15we/lead_quality_primary_goal_changes/odsr3a0/"
+          }
+        ]
+      },
+      "baseline_output": {
+        "title": "切换CallRail为主目标后性能下降14-21天ROAS从7x掉到2x",
+        "summary_line": "r/PPC从业者指出连续更改首要目标导致算法两次进入学习模式，‘performance tanks for 14-21 days minimum’翻译为‘性能至少下降14-21天’，并称21个预订转化数据勉强够用。另一评论提到ROAS从7x降到2x可能是数据太薄或优化低质事件。",
+        "audience": "运行客户每月10万美元以上PPC服务账户的广告经理",
+        "why_now": "r/PPC里一共出现了1个帖子，近 7 天里还在继续冒头，已经有人开始找替代，已经有人直接问推荐和方案。",
+        "detail": {
+          "pain_point": "更改首要目标如将CallRail设为主导致算法重学性能下降14-21天ROAS暴跌数据不足",
+          "target_user_and_scene": "PPC广告账户管理者在调整lead quality和conversion goals时遇到性能问题",
+          "why_test_now": "r/PPC里已经连续出现了1个帖子，近 7 天里还在继续冒头，已经有人开始找替代，已经有人直接问推荐和方案。",
+          "min_test_action": "去看原始讨论",
+          "continue_signal": "如果接下来在更多社区里还出现同样抱怨，而且继续有人直接问推荐，就继续盯。",
+          "stop_signal": "如果后面只剩零散吐槽，没有新的具体场景或后续追问，就先放过。"
+        }
+      },
+      "metadata": {
+        "candidate_id": "cand-business-growth-ops-1sa15we",
+        "case_polarity": "pending_review"
+      }
+    },
+    {
+      "eval_case_id": "signal-eval-generated-card-cand-business-growth-ops-1sbnkdt-validate",
+      "sample_origin": "candidate_generated",
+      "input_bundle": {
+        "source_scope_id": "business-growth-ops",
+        "source_scope_name": "商业增长与运营",
+        "topic_pack_id": "paid-economics",
+        "signal_level": "sustained",
+        "why_now_reason": "switch_signal_7d",
+        "intent_tags": [
+          "求推荐",
+          "避坑"
+        ],
+        "thread_count": 1,
+        "community_count": 1,
+        "quote_count": 2,
+        "source_communities": [
+          "r/googleads"
+        ],
+        "evidence_quotes": [
+          {
+            "text": "the gclid decode error usually means the gclid isn't being stored properly before the call happens. store the gclid in a cookie or hidden form field the moment someone lands on your site, then log it alongside the phone order in a simple google sheet. from there you upload that sheet to google ads under conversions as an enhanced offline conversion upload, match on gclid, and set conversion time to the date of the call. at low volume, around 20 conversions a month, this manual sheet method works fine and takes maybe 20 minutes a week to maintain. zapier can automate the sheet logging if calls come through a tool like callrail that captures gclid. without feeding those offline signals back, google's smart bidding is basically flying blind and yes that explains the cpc spike.",
+            "community": "r/googleads",
+            "permalink": "https://www.reddit.com/r/googleads/comments/1sbnkdt/tracking_offline_conversions_for_small_biz_need/oe51pem/"
+          },
+          {
+            "text": "Had the same issue. GCLID errors usually mean the ID expired before upload. fix is simple, store the GCLID in a hidden form field on landing, attach it to the customer when they call, then upload manually via CSV. At your volume that's totally manageable",
+            "community": "r/googleads",
+            "permalink": "https://www.reddit.com/r/googleads/comments/1sbnkdt/tracking_offline_conversions_for_small_biz_need/oe4qplv/"
+          }
+        ]
+      },
+      "baseline_output": {
+        "title": "小企业追踪电话订单线下转化时gclid decode错误CPC飙升",
+        "summary_line": "r/googleads用户说“the gclid decode error usually means the gclid isn't being stored properly before the call happens”（gclid decode错误通常意味着通话前gclid没有正确存储），建议用cookie或hidden form field存储后上传google sheet。",
+        "audience": "小企业Google Ads运营者追踪低量电话订单转化",
+        "why_now": "r/googleads里一共出现了1个帖子，近 7 天里还在继续冒头，已经有人直接问推荐和方案，避坑情绪也很重。",
+        "detail": {
+          "pain_point": "gclid decode错误无法正确上传每月约20个电话订单线下转化，smart bidding CPC飙升",
+          "target_user_and_scene": "小企业Google Ads用户处理电话呼叫线下转化的帖子",
+          "why_test_now": "r/googleads里已经连续出现了1个帖子，近 7 天里还在继续冒头，已经有人直接问推荐和方案，避坑情绪也很重。",
+          "min_test_action": "去看原始讨论",
+          "continue_signal": "如果接下来在更多社区里还出现同样抱怨，而且继续有人直接问推荐，就继续盯。",
+          "stop_signal": "如果后面只剩零散吐槽，没有新的具体场景或后续追问，就先放过。"
+        }
+      },
+      "metadata": {
+        "candidate_id": "cand-business-growth-ops-1sbnkdt",
+        "case_polarity": "pending_review"
+      }
+    }
+  ],
+  "generation_failures": []
+}

@@ -5,10 +5,12 @@ import time
 from typing import Optional
 from uuid import UUID
 
+from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
 from app.models.analysis import Analysis
+from app.models.community_cache import CommunityCache
 from app.models.task import Task
 
 
@@ -35,6 +37,15 @@ class ReportRepository:
         elapsed = time.perf_counter() - start
         logger.debug("Fetched report task %s in %.4fs", task_id, elapsed)
         return task
+
+    async def get_community_member_count(self, community_name: str) -> int | None:
+        """Load member count for a community from cache table."""
+        result = await self._db.execute(
+            select(CommunityCache.member_count).where(
+                CommunityCache.community_name == community_name
+            )
+        )
+        return result.scalar_one_or_none()
 
 
 __all__ = ["ReportRepository"]

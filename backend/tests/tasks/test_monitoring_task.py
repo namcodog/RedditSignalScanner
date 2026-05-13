@@ -1,12 +1,20 @@
 from __future__ import annotations
 
+import asyncio
 import json
 import os
+from datetime import datetime, timezone
 from pathlib import Path
+from types import SimpleNamespace
 from typing import Any, Dict
 
 import pytest
 
+from app.schemas.monitoring import (
+    ContractHealthResult,
+    MonitoringAlertPayload,
+    MonitoringDegradedCheck,
+)
 from app.tasks import monitoring_task as mt
 from app.middleware.route_metrics import DEFAULT_ROUTE_METRICS_KEY_PREFIX
 
@@ -92,3 +100,113 @@ def test_update_performance_dashboard(monkeypatch: pytest.MonkeyPatch, tmp_path:
     assert payload["golden_calls_last_minute"] == 2
     assert payload["legacy_calls_last_minute"] == 5
     assert payload["legacy_top_paths_last_minute"][0]["route"] == "GET /api/auth/me"
+
+
+def test_monitor_cache_health_marks_degraded_on_partial_failure(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    class _FakeCacheManager:
+        def __init__(self, *_args: Any, **_kwargs: Any) -> None:
+            pass
+
+        async def calculate_cache_hit_rate(self, _seed_names: list[str]) -> float:
+            return 0.45
+
+    async def _fake_seed_names() -> list[str]:
+        return ["r/python"]
+
+    async def _fake_entity_metrics(*, cutoff: Any) -> Dict[str, Any]:
+        raise RuntimeError(f"boom@{cutoff}")
+
+    async def _fake_maintenance() -> Dict[str, Dict[str, Any] | None]:
+        return {
+            "cleanup": {"deleted_count": 3},
+            "metrics_snapshot": {"id": 42},
+        }
+
+    monkeypatch.setattr(
+        mt,
+        "get_settings",
+        lambda: SimpleNamespace(reddit_cache_redis_url="redis://test", reddit_cache_ttl_seconds=60),
+    )
+    monkeypatch.setattr(mt, "CacheManager", _FakeCacheManager)
+    monkeypatch.setattr(mt, "_load_cache_seed_names", _fake_seed_names)
+    monkeypatch.setattr(mt, "_load_entity_extraction_metrics", _fake_entity_metrics)
+    monkeypatch.setattr(mt, "_run_cache_maintenance_tasks", _fake_maintenance)
+    monkeypatch.setattr(mt, "run_coro", lambda coro: asyncio.run(coro))
+
+    payload = mt.monitor_cache_health()
+
+    assert payload["status"] == "degraded"
+    assert "generated_at" in payload
+    assert payload["cleanup_deleted"] == 3
+    assert payload["storage_metrics_id"] == 42
+    assert payload["degraded_checks"][0]["code"] == "entity_rate_unavailable"
+
+
+def test_monitor_contract_health_serializes_finalized_result(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    async def _fake_build(**_kwargs: Any) -> ContractHealthResult:
+        return ContractHealthResult(
+            status="ok",
+            generated_at=datetime(2026, 3, 14, tzinfo=timezone.utc),
+            window_hours=24,
+            report={},
+            alerts=[
+                MonitoringAlertPayload(
+                    level="warning",
+                    code="demo",
+                    message="demo warning",
+                    details={},
+                )
+            ],
+        )
+
+    def _fake_finalize(**kwargs: Any) -> ContractHealthResult:
+        result: ContractHealthResult = kwargs["result"]
+        result.status = "degraded"
+        result.degraded_checks.append(
+            MonitoringDegradedCheck(
+                code="audit_event_write_failed",
+                message="audit down",
+            )
+        )
+        return result
+
+    monkeypatch.setattr(mt, "_build_contract_health_result", _fake_build)
+    monkeypatch.setattr(mt, "_finalize_contract_health_result", _fake_finalize)
+    monkeypatch.setattr(mt, "run_coro", lambda coro: asyncio.run(coro))
+    monkeypatch.setattr(mt, "get_settings", lambda: SimpleNamespace())
+
+    result = mt.monitor_contract_health()
+
+    assert result["status"] == "degraded"
+    assert result["generated_at"] == "2026-03-14T00:00:00Z"
+    assert result["degraded_checks"][0]["code"] == "audit_event_write_failed"
+
+
+def test_monitor_cache_health_error_payload_uses_shared_contract(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setattr(
+        mt,
+        "get_settings",
+        lambda: SimpleNamespace(reddit_cache_redis_url="redis://test", reddit_cache_ttl_seconds=60),
+    )
+    monkeypatch.setattr(
+        mt,
+        "CacheManager",
+        lambda *_args, **_kwargs: SimpleNamespace(),
+    )
+    def _boom(coro: Any) -> Any:
+        coro.close()
+        raise RuntimeError("cache down")
+
+    monkeypatch.setattr(mt, "run_coro", _boom)
+
+    payload = mt.monitor_cache_health()
+
+    assert payload["status"] == "error"
+    assert payload["message"] == "cache down"
+    assert "generated_at" in payload

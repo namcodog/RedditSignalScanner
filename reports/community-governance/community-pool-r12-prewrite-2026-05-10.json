@@ -1,0 +1,204 @@
+{
+  "contracts": {
+    "auto_promote": false,
+    "requires_human_review": true,
+    "source": "hotpost_community_pool_r12_prewrite",
+    "writes_db": false
+  },
+  "report_date": "2026-05-10",
+  "rows": [
+    {
+      "community": "r/aeo",
+      "evidence": {
+        "candidate_count": 2,
+        "draft_count": 0,
+        "duplicate_count": 1,
+        "published_count": 3,
+        "reject_count": 0,
+        "total_evidence": 5
+      },
+      "label_review": "single_tag_ok",
+      "risks": [
+        "duplicate_posts"
+      ],
+      "source_scope": "business-growth-ops",
+      "suggested_user_tags": [
+        "SEO&GEO"
+      ],
+      "topic_cluster": "seo-geo",
+      "value_assessment": {
+        "positive_signals": [
+          "candidate_evidence",
+          "published_evidence",
+          "interest_tag_mapping",
+          "new_topic_coverage"
+        ],
+        "risks": [
+          "duplicate_posts"
+        ],
+        "score": 100,
+        "stage": "pool_candidate"
+      },
+      "write_preview": {
+        "action": "prepare_dev_write",
+        "pool_insert": {
+          "categories": [
+            "Ecommerce_Business"
+          ],
+          "description_keywords": {
+            "candidate_count": 2,
+            "display_name": "r/aeo",
+            "duplicate_count": 1,
+            "published_count": 3,
+            "score": 100,
+            "source": "hotpost_community_pool_r12_prewrite",
+            "source_scope": "business-growth-ops",
+            "suggested_user_tags": [
+              "SEO&GEO"
+            ],
+            "topic_cluster": "seo-geo",
+            "total_evidence": 5,
+            "value_stage": "pool_candidate"
+          },
+          "name": "r/aeo",
+          "priority": "medium",
+          "tier": "seed"
+        },
+        "would_insert_pool": true
+      }
+    },
+    {
+      "community": "r/ai_ugc_marketing",
+      "evidence": {
+        "candidate_count": 1,
+        "draft_count": 0,
+        "duplicate_count": 0,
+        "published_count": 3,
+        "reject_count": 0,
+        "total_evidence": 4
+      },
+      "label_review": "multi_tag_review",
+      "risks": [],
+      "source_scope": "business-growth-ops",
+      "suggested_user_tags": [
+        "广告投放",
+        "卖家店铺运营",
+        "内容营销创作"
+      ],
+      "topic_cluster": "funnel",
+      "value_assessment": {
+        "positive_signals": [
+          "candidate_evidence",
+          "published_evidence",
+          "interest_tag_mapping",
+          "new_topic_coverage"
+        ],
+        "risks": [],
+        "score": 100,
+        "stage": "pool_candidate"
+      },
+      "write_preview": {
+        "action": "prepare_dev_write",
+        "pool_insert": {
+          "categories": [
+            "Ecommerce_Business"
+          ],
+          "description_keywords": {
+            "candidate_count": 1,
+            "display_name": "r/ai_ugc_marketing",
+            "duplicate_count": 0,
+            "published_count": 3,
+            "score": 100,
+            "source": "hotpost_community_pool_r12_prewrite",
+            "source_scope": "business-growth-ops",
+            "suggested_user_tags": [
+              "广告投放",
+              "卖家店铺运营",
+              "内容营销创作"
+            ],
+            "topic_cluster": "funnel",
+            "total_evidence": 4,
+            "value_stage": "pool_candidate"
+          },
+          "name": "r/ai_ugc_marketing",
+          "priority": "medium",
+          "tier": "seed"
+        },
+        "would_insert_pool": true
+      }
+    },
+    {
+      "community": "r/growthhacking",
+      "evidence": {
+        "candidate_count": 2,
+        "draft_count": 0,
+        "duplicate_count": 1,
+        "published_count": 2,
+        "reject_count": 0,
+        "total_evidence": 4
+      },
+      "label_review": "multi_tag_review",
+      "risks": [
+        "duplicate_posts"
+      ],
+      "source_scope": "business-growth-ops",
+      "suggested_user_tags": [
+        "广告投放",
+        "卖家店铺运营",
+        "内容营销创作"
+      ],
+      "topic_cluster": "funnel",
+      "value_assessment": {
+        "positive_signals": [
+          "candidate_evidence",
+          "published_evidence",
+          "interest_tag_mapping",
+          "new_topic_coverage"
+        ],
+        "risks": [
+          "duplicate_posts"
+        ],
+        "score": 91,
+        "stage": "pool_candidate"
+      },
+      "write_preview": {
+        "action": "prepare_dev_write",
+        "pool_insert": {
+          "categories": [
+            "Ecommerce_Business"
+          ],
+          "description_keywords": {
+            "candidate_count": 2,
+            "display_name": "r/growthhacking",
+            "duplicate_count": 1,
+            "published_count": 2,
+            "score": 91,
+            "source": "hotpost_community_pool_r12_prewrite",
+            "source_scope": "business-growth-ops",
+            "suggested_user_tags": [
+              "广告投放",
+              "卖家店铺运营",
+              "内容营销创作"
+            ],
+            "topic_cluster": "funnel",
+            "total_evidence": 4,
+            "value_stage": "pool_candidate"
+          },
+          "name": "r/growthhacking",
+          "priority": "medium",
+          "tier": "seed"
+        },
+        "would_insert_pool": true
+      }
+    }
+  ],
+  "schema_version": "hotpost-community-pool-r12-prewrite/v1",
+  "source_feedback_schema": "hotpost-community-pool-feedback-dry-run/v1",
+  "summary": {
+    "blocked": 0,
+    "candidate_rows": 3,
+    "input_rows": 16,
+    "skipped_existing": 0,
+    "would_insert": 3
+  }
+}

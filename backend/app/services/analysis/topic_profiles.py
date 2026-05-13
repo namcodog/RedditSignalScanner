@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+import logging
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 
@@ -16,6 +17,149 @@ _ANCHOR_STOPWORDS = {
     "tool",
     "product",
 }
+
+_DEFAULT_BRAND_DISCOVERY_STOPWORDS = (
+    "the",
+    "and",
+    "for",
+    "are",
+    "but",
+    "not",
+    "you",
+    "all",
+    "any",
+    "can",
+    "had",
+    "her",
+    "was",
+    "one",
+    "our",
+    "out",
+    "has",
+    "his",
+    "how",
+    "its",
+    "may",
+    "new",
+    "now",
+    "old",
+    "see",
+    "way",
+    "who",
+    "did",
+    "get",
+    "got",
+    "let",
+    "say",
+    "she",
+    "too",
+    "use",
+    "this",
+    "that",
+    "with",
+    "have",
+    "from",
+    "they",
+    "been",
+    "said",
+    "each",
+    "make",
+    "like",
+    "just",
+    "over",
+    "such",
+    "take",
+    "than",
+    "them",
+    "very",
+    "some",
+    "what",
+    "when",
+    "much",
+    "then",
+    "also",
+    "into",
+    "year",
+    "your",
+    "more",
+    "will",
+    "would",
+    "there",
+    "their",
+    "which",
+    "about",
+    "could",
+    "other",
+    "after",
+    "first",
+    "these",
+    "those",
+    "still",
+    "every",
+    "where",
+    "being",
+    "going",
+    "really",
+    "should",
+    "think",
+    "right",
+    "never",
+    "great",
+    "thing",
+    "people",
+    "since",
+    "doing",
+    "though",
+    "well",
+    "here",
+    "even",
+    "only",
+    "reddit",
+    "subreddit",
+    "post",
+    "comment",
+    "edit",
+    "update",
+    "deleted",
+    "removed",
+    "mod",
+    "admin",
+    "bot",
+    "sorry",
+    "thanks",
+    "thank",
+    "please",
+    "anyone",
+    "everyone",
+    "something",
+    "anything",
+    "nothing",
+    "everything",
+    "january",
+    "february",
+    "march",
+    "april",
+    "june",
+    "july",
+    "august",
+    "september",
+    "october",
+    "november",
+    "december",
+    "monday",
+    "tuesday",
+    "wednesday",
+    "thursday",
+    "friday",
+    "saturday",
+    "sunday",
+    "amazon",
+    "walmart",
+    "target",
+    "costco",
+    "best",
+    "buy",
+)
 
 # 默认优先读取 backend/config，其次读取仓库根目录 config（便于 CI/容器只挂一份配置）。
 DEFAULT_BACKEND_TOPIC_PROFILES_PATH = (
@@ -70,6 +214,7 @@ def _sanitize_anchor_terms(values: Sequence[str]) -> list[str]:
 
 
 VALID_TOPIC_MODES = {"market_insight", "operations"}
+logger = logging.getLogger(__name__)
 
 
 def _normalize_mode(value: object) -> str:
@@ -77,6 +222,37 @@ def _normalize_mode(value: object) -> str:
     if raw in VALID_TOPIC_MODES:
         return raw
     return "market_insight"
+
+
+def _coerce_bool(value: object, default: bool) -> bool:
+    if isinstance(value, bool):
+        return value
+    if isinstance(value, str):
+        lowered = value.strip().lower()
+        if lowered in {"1", "true", "yes", "on"}:
+            return True
+        if lowered in {"0", "false", "no", "off"}:
+            return False
+    return default
+
+
+def _normalize_stopwords(values: Sequence[str]) -> list[str]:
+    normalized: list[str] = []
+    for raw in values:
+        item = _norm_text(raw).lower()
+        if not item:
+            continue
+        normalized.append(item)
+    return _dedupe_keep_order(normalized)
+
+
+@dataclass(frozen=True, slots=True)
+class BrandDiscoveryConfig:
+    enabled: bool = True
+    min_frequency: int = 3
+    max_candidates: int = 15
+    token_pattern: str = r"\b([A-Z][a-zA-Z]{1,20})\b"
+    stopwords: list[str] = field(default_factory=lambda: list(_DEFAULT_BRAND_DISCOVERY_STOPWORDS))
 
 
 @dataclass(frozen=True, slots=True)
@@ -96,12 +272,14 @@ class TopicProfile:
     preferred_days: int | None = None
     pain_min_mentions: int | None = None
     pain_min_unique_authors: int | None = None
+    min_good_brands: int | None = None
     brand_min_mentions: int | None = None
     brand_min_unique_authors: int | None = None
     min_solutions: int | None = None
     min_sample_comments: int | None = None
     require_context_for_fetch: bool = False
     context_keywords_any: list[str] = field(default_factory=list)
+    brand_discovery: BrandDiscoveryConfig = field(default_factory=BrandDiscoveryConfig)
 
 
 def _coerce_optional_int(value: object) -> int | None:
@@ -116,26 +294,90 @@ def _coerce_optional_int(value: object) -> int | None:
     return None
 
 
-def load_topic_profiles(
+def _load_topic_profiles_payload(
     path: Path | None = None,
-) -> list[TopicProfile]:
+    diagnostics: dict[str, Any] | None = None,
+) -> dict[str, Any]:
     candidate_paths = (
         [path]
         if path is not None
         else [DEFAULT_BACKEND_TOPIC_PROFILES_PATH, DEFAULT_ROOT_TOPIC_PROFILES_PATH]
     )
-    payload: dict[str, Any] = {}
     for candidate in candidate_paths:
         if candidate is None or not candidate.exists():
             continue
+        if diagnostics is not None:
+            diagnostics["topic_profiles_path"] = str(candidate)
         try:
             payload = yaml.safe_load(candidate.read_text(encoding="utf-8")) or {}
-        except Exception:
-            payload = {}
-        break
+            if isinstance(payload, dict):
+                if diagnostics is not None:
+                    diagnostics["topic_profiles_status"] = "loaded"
+                return payload
+            logger.warning("Topic profiles payload is not a dict: %s", candidate)
+            if diagnostics is not None:
+                diagnostics["topic_profiles_status"] = "invalid_payload"
+            break
+        except Exception as exc:
+            logger.warning("Failed to load topic profiles from %s", candidate, exc_info=True)
+            if diagnostics is not None:
+                diagnostics["topic_profiles_status"] = "load_failed"
+                diagnostics["topic_profiles_error"] = str(exc)[:200]
+            continue
+    if diagnostics is not None and "topic_profiles_status" not in diagnostics:
+        diagnostics["topic_profiles_status"] = "missing"
+    return {}
+
+
+def _coerce_brand_discovery_config(
+    raw: object,
+    *,
+    base: BrandDiscoveryConfig | None = None,
+) -> BrandDiscoveryConfig:
+    seed = base or BrandDiscoveryConfig()
+    if not isinstance(raw, Mapping):
+        return seed
+
+    min_frequency = _coerce_optional_int(raw.get("min_frequency"))
+    max_candidates = _coerce_optional_int(raw.get("max_candidates"))
+    token_pattern = str(raw.get("token_pattern") or seed.token_pattern).strip() or seed.token_pattern
+    raw_stopwords = raw.get("stopwords") or []
+    if isinstance(raw_stopwords, list):
+        stopwords = _normalize_stopwords([*seed.stopwords, *[str(x) for x in raw_stopwords if x]])
+    else:
+        stopwords = list(seed.stopwords)
+
+    return BrandDiscoveryConfig(
+        enabled=_coerce_bool(raw.get("enabled"), seed.enabled),
+        min_frequency=max(1, min_frequency or seed.min_frequency),
+        max_candidates=max(1, max_candidates or seed.max_candidates),
+        token_pattern=token_pattern,
+        stopwords=stopwords,
+    )
+
+
+def load_brand_discovery_defaults(
+    path: Path | None = None,
+    diagnostics: dict[str, Any] | None = None,
+) -> BrandDiscoveryConfig:
+    payload = _load_topic_profiles_payload(path, diagnostics=diagnostics)
+    return _coerce_brand_discovery_config(payload.get("brand_discovery"), base=BrandDiscoveryConfig())
+
+
+def load_topic_profiles(
+    path: Path | None = None,
+    diagnostics: dict[str, Any] | None = None,
+) -> list[TopicProfile]:
+    payload = _load_topic_profiles_payload(path, diagnostics=diagnostics)
+    brand_discovery_defaults = _coerce_brand_discovery_config(
+        payload.get("brand_discovery"),
+        base=BrandDiscoveryConfig(),
+    )
 
     raw_profiles = payload.get("topic_profiles", [])
     if not isinstance(raw_profiles, list):
+        if diagnostics is not None:
+            diagnostics["topic_profiles_status"] = "invalid_payload"
         return []
 
     profiles: list[TopicProfile] = []
@@ -174,12 +416,17 @@ def load_topic_profiles(
                 preferred_days=_coerce_optional_int(raw.get("preferred_days")),
                 pain_min_mentions=_coerce_optional_int(raw.get("pain_min_mentions")),
                 pain_min_unique_authors=_coerce_optional_int(raw.get("pain_min_unique_authors")),
+                min_good_brands=_coerce_optional_int(raw.get("min_good_brands")),
                 brand_min_mentions=_coerce_optional_int(raw.get("brand_min_mentions")),
                 brand_min_unique_authors=_coerce_optional_int(raw.get("brand_min_unique_authors")),
                 min_solutions=_coerce_optional_int(raw.get("min_solutions")),
                 min_sample_comments=_coerce_optional_int(raw.get("min_sample_comments")),
                 require_context_for_fetch=require_context_for_fetch,
                 context_keywords_any=_dedupe_keep_order([str(x) for x in context_keywords_raw if x]),
+                brand_discovery=_coerce_brand_discovery_config(
+                    raw.get("brand_discovery"),
+                    base=brand_discovery_defaults,
+                ),
             )
         )
     return profiles
@@ -323,12 +570,14 @@ def topic_profile_blocklist_keywords(profile: TopicProfile) -> list[str]:
 
 
 __all__ = [
+    "BrandDiscoveryConfig",
     "TopicProfile",
     "build_fetch_keywords",
     "build_search_keywords",
     "context_keywords_for_profile",
     "filter_items_by_profile_context",
     "filter_relevance_map_with_profile",
+    "load_brand_discovery_defaults",
     "load_topic_profiles",
     "match_topic_profile",
     "normalize_subreddit",

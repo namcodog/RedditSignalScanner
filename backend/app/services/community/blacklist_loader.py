@@ -13,11 +13,25 @@ import yaml
 logger = logging.getLogger(__name__)
 
 
+def _resolve_default_blacklist_path() -> Path:
+    current = Path(__file__).resolve()
+    candidates = [
+        Path("config/community_blacklist.yaml"),
+        current.parents[3] / "config" / "community_blacklist.yaml",
+        current.parents[2] / "config" / "community_blacklist.yaml",
+    ]
+    for candidate in candidates:
+        if candidate.exists():
+            return candidate
+    return candidates[0]
+
+
 class BlacklistConfig:
     """黑名单配置类"""
 
     def __init__(self, config_path: str = "config/community_blacklist.yaml") -> None:
-        self.config_path = Path(config_path)
+        path = Path(config_path)
+        self.config_path = path if path.exists() else _resolve_default_blacklist_path()
         self.blacklisted_communities: set[str] = set()
         self.downranked_communities: dict[str, dict[str, Any]] = {}
         self.downrank_keywords: dict[str, dict[str, Any]] = {}
@@ -43,6 +57,13 @@ class BlacklistConfig:
 
             # 全局黑名单（新结构）
             for item in config.get("global_blacklist", []) or []:
+                if isinstance(item, str):
+                    self.blacklisted_communities.add(item.strip().lower())
+                elif isinstance(item, dict) and item.get("name"):
+                    self.blacklisted_communities.add(str(item["name"]).strip().lower())
+
+            # 社区黑名单（兼容 backend/config/community_blacklist.yaml 旧口径）
+            for item in config.get("blacklisted_communities", []) or []:
                 if isinstance(item, str):
                     self.blacklisted_communities.add(item.strip().lower())
                 elif isinstance(item, dict) and item.get("name"):
@@ -206,8 +227,13 @@ _blacklist_config: BlacklistConfig | None = None
 def get_blacklist_config() -> BlacklistConfig:
     """获取黑名单配置单例"""
     global _blacklist_config
-    if _blacklist_config is None:
-        _blacklist_config = BlacklistConfig()
+    resolved_default = _resolve_default_blacklist_path()
+    if (
+        _blacklist_config is None
+        or not _blacklist_config.config_path.exists()
+        or _blacklist_config.config_path.resolve() != resolved_default.resolve()
+    ):
+        _blacklist_config = BlacklistConfig(str(resolved_default))
     return _blacklist_config
 
 

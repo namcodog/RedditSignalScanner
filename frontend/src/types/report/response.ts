@@ -2,7 +2,7 @@
  * 报告响应（ReportResponse）类型
  */
 
-import type { Insights } from '../analysis.types';
+import type { Insights, Sources } from '../analysis.types';
 import type { ExecutiveSummary } from './executive';
 import type { ActionItem } from './action-items';
 import type { ReportMetadata } from './metadata';
@@ -19,8 +19,12 @@ export interface ReportResponse {
   generated_at: string;
   /** 产品描述 (允许 null) */
   product_description?: string | null | undefined;
+  /** 完整报告 markdown（用于导出/文档视图） */
+  report_markdown?: string | null | undefined;
   /** 报告 HTML 快照（用于导出，允许 null） */
   report_html?: string | null | undefined;
+  /** 唯一交付真相源（canonical report） */
+  canonical_report_json?: StructuredReport | null | undefined;
   /** 结构化报告（LLM 输出，允许 null） */
   report_structured?: StructuredReport | null | undefined;
   /** 报告内容 */
@@ -45,12 +49,15 @@ export interface ReportResponse {
   overview: Overview;
   /** 统计数据 */
   stats: Stats;
+  /** 数据来源与分析状态 */
+  sources?: Sources | null | undefined;
 }
 
 export interface StructuredReport {
   decision_cards: StructuredDecisionCard[];
   market_health: StructuredMarketHealth;
   battlefields: StructuredBattlefield[];
+  target_communities?: string[] | undefined;
   pain_points: StructuredPainPoint[];
   drivers: StructuredDriver[];
   opportunities: StructuredOpportunity[];
@@ -89,6 +96,13 @@ export interface StructuredPainPoint {
   user_voices: string[];
   data_impression?: string | undefined;
   interpretation: string;
+  evidence_chain?:
+    | Array<{
+        title: string;
+        url?: string | null | undefined;
+        note: string;
+      }>
+    | undefined;
 }
 
 export interface StructuredDriver {
@@ -102,4 +116,11 @@ export interface StructuredOpportunity {
   target_communities: string[];
   product_positioning: string;
   core_selling_points: string[];
+  evidence_chain?:
+    | Array<{
+        title: string;
+        url?: string | null | undefined;
+        note: string;
+      }>
+    | undefined;
 }

@@ -23,12 +23,18 @@ class FactsV2QualityGateConfig:
     pain_min_unique_authors: int = 5
     pain_min_evidence: int = 1
 
-    min_good_brands: int = 2
+    # Brand pain extraction is naturally sparse in some valid topics.
+    # Keep strict per-item quality thresholds, but require >=1 qualified brand
+    # signal to avoid downgrading otherwise complete reports to B_trimmed.
+    min_good_brands: int = 1
     brand_min_mentions: int = 10
     brand_min_unique_authors: int = 5
     brand_min_evidence: int = 3
 
     min_solutions: int = 5
+    a_full_pain_hysteresis: int = 0
+    a_full_brand_hysteresis: int = 0
+    a_full_solution_hysteresis: int = 0
 
     # Consistency
     range_mismatch_tolerance: float = 0.2  # 20%
@@ -52,6 +58,8 @@ def _apply_profile_overrides(
         updates["pain_min_mentions"] = profile.pain_min_mentions
     if profile.pain_min_unique_authors is not None and profile.pain_min_unique_authors > 0:
         updates["pain_min_unique_authors"] = profile.pain_min_unique_authors
+    if profile.min_good_brands is not None and profile.min_good_brands >= 0:
+        updates["min_good_brands"] = profile.min_good_brands
     if profile.brand_min_mentions is not None and profile.brand_min_mentions > 0:
         updates["brand_min_mentions"] = profile.brand_min_mentions
     if profile.brand_min_unique_authors is not None and profile.brand_min_unique_authors > 0:
@@ -76,6 +84,7 @@ def quality_check_facts_v2(
 
     flags: list[str] = []
     metrics: dict[str, Any] = {}
+    diagnostics = _as_dict(facts_v2.get("diagnostics"))
 
     # 1) Topic match check (sample texts)
     meta = _as_dict(facts_v2.get("meta"))
@@ -257,6 +266,45 @@ def quality_check_facts_v2(
     elif coverage_tier == "partial":
         flags.append("coverage_partial")
 
+    # 5) Pipeline diagnostics: tell "数据真薄" and "上游降级" apart.
+    topic_profiles_status = _get_str(diagnostics, "topic_profiles_status")
+    semantic_search_status = _get_str(diagnostics, "semantic_search_status")
+    pain_pipeline_status = _get_str(diagnostics, "pain_clusters_pipeline_status")
+    brand_pipeline_status = _get_str(diagnostics, "brand_pain_pipeline_status")
+    domain_config_status = _get_str(diagnostics, "domain_pain_config_status")
+
+    if topic_profiles_status:
+        metrics["topic_profiles_status"] = topic_profiles_status
+    if semantic_search_status:
+        metrics["semantic_search_status"] = semantic_search_status
+    if pain_pipeline_status:
+        metrics["pain_clusters_pipeline_status"] = pain_pipeline_status
+    if brand_pipeline_status:
+        metrics["brand_pain_pipeline_status"] = brand_pipeline_status
+    if domain_config_status:
+        metrics["domain_pain_config_status"] = domain_config_status
+
+    if topic_profiles_status in {"load_failed", "invalid_payload", "missing"}:
+        _append_flag_once(flags, "topic_profiles_degraded")
+    if semantic_search_status in {"keyword_only", "query_failed"}:
+        _append_flag_once(flags, "semantic_search_degraded")
+    if domain_config_status in {"missing", "invalid_payload", "load_failed"}:
+        _append_flag_once(flags, "domain_pain_config_degraded")
+    if "pains_low" in flags and pain_pipeline_status in {
+        "db_error",
+        "fallback_error",
+        "db_error_tfidf_fallback",
+        "no_domain_mapping",
+        "insufficient_signal",
+    }:
+        _append_flag_once(flags, "pains_pipeline_degraded")
+    if "brand_pain_low" in flags and brand_pipeline_status in {
+        "blocked_by_pain_clusters",
+        "invalid_pain_clusters",
+        "no_brand_candidates",
+    }:
+        _append_flag_once(flags, "brand_pain_pipeline_degraded")
+
     tier = _determine_report_tier(flags, metrics, cfg)
     passed = tier != "X_blocked"
     return FactsV2QualityResult(passed=passed, tier=tier, flags=flags, metrics=metrics)
@@ -280,11 +328,14 @@ def _determine_report_tier(
     good_pains = int(metrics.get("good_pains") or 0)
     good_brands = int(metrics.get("good_brands") or 0)
     solutions = int(metrics.get("solutions") or 0)
+    pains_for_a = cfg.min_good_pains + max(0, cfg.a_full_pain_hysteresis)
+    brands_for_a = cfg.min_good_brands + max(0, cfg.a_full_brand_hysteresis)
+    solutions_for_a = cfg.min_solutions + max(0, cfg.a_full_solution_hysteresis)
 
     if (
-        good_pains >= cfg.min_good_pains
-        and good_brands >= cfg.min_good_brands
-        and solutions >= cfg.min_solutions
+        good_pains >= pains_for_a
+        and good_brands >= brands_for_a
+        and solutions >= solutions_for_a
     ):
         return "A_full"
     if good_pains >= 1:
@@ -296,6 +347,11 @@ def _mismatch_ratio(expected: int, actual: int) -> float:
     if expected <= 0:
         return 0.0 if actual <= 0 else 1.0
     return abs(actual - expected) / expected
+
+
+def _append_flag_once(flags: list[str], flag: str) -> None:
+    if flag not in flags:
+        flags.append(flag)
 
 
 def _as_list_of_dict(value: object) -> list[Mapping[str, object]]:

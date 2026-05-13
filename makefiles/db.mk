@@ -40,7 +40,7 @@ db-reset: ## 重置数据库（危险操作！）
 
 db-seed-user-task: ## 创建测试用户和任务（用于黄金路径）
 	@echo "==> Creating test user and task ..."
-	@PYTHONPATH=$(BACKEND_DIR) $(PYTHON) $(BACKEND_DIR)/scripts/seed_user_task.py --frontend-port $(FRONTEND_PORT)
+	@PYTHONPATH=$(BACKEND_DIR) $(PYTHON) $(BACKEND_DIR)/scripts/seed/seed_user_task.py --frontend-port $(FRONTEND_PORT)
 	@echo ""
 	@echo "⏳ Waiting for analysis to progress (check Celery logs) ..."
 	@sleep 5

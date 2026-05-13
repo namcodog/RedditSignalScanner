@@ -22,11 +22,12 @@ from typing import (
 )
 
 from celery.exceptions import Retry as CeleryRetry
-from sqlalchemy import select
+from sqlalchemy import delete, select, text
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
 from app.core.celery_app import celery_app
+from app.core.config import get_settings
 from app.db.session import get_session
 from app.models.analysis import Analysis
 from app.models.report import Report
@@ -64,6 +65,7 @@ WARMUP_AUTO_RERUN_BASE_DELAY_SECONDS = int(os.getenv("WARMUP_AUTO_RERUN_BASE_DEL
 WARMUP_AUTO_RERUN_MAX_DELAY_SECONDS = int(os.getenv("WARMUP_AUTO_RERUN_MAX_DELAY_SECONDS", "1800") or 1800)
 
 T = TypeVar("T")
+_INLINE_WARMUP_TASKS: set[asyncio.Task[Any]] = set()
 
 
 def _normalize_audit_level(raw_level: Any) -> str:
@@ -127,9 +129,191 @@ def _build_minimal_facts_package(
         "data_lineage": sources.get("data_lineage") or {},
         "diagnostics": {
             "reason": "facts_v2_package_missing",
+            "facts_v2_package_status": "missing_generated_minimal",
+            "fallback_generated": True,
             "facts_v2_quality": facts_v2_quality,
         },
     }
+
+
+def _load_phrase_mapping() -> dict[str, str]:
+    try:
+        import yaml  # type: ignore[import-untyped]
+
+        path = Path("backend/config/phrase_mapping.yml")
+        if not path.exists():
+            return {}
+        payload = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+        if not isinstance(payload, dict):
+            return {}
+        return {str(k): str(v) for k, v in payload.items()}
+    except Exception:
+        return {}
+
+
+def _normalize_insight_text(value: Any, phrase_mapping: dict[str, str]) -> str:
+    text = str(value or "")
+    for source, target in phrase_mapping.items():
+        text = text.replace(source, target)
+    return text
+
+
+def _coerce_evidence_timestamp(value: Any, *, default: datetime) -> datetime:
+    if isinstance(value, datetime):
+        if value.tzinfo is None:
+            return value.replace(tzinfo=UTC)
+        return value.astimezone(UTC)
+    if isinstance(value, str):
+        try:
+            parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
+            if parsed.tzinfo is None:
+                return parsed.replace(tzinfo=UTC)
+            return parsed.astimezone(UTC)
+        except ValueError:
+            return default
+    return default
+
+
+def _collect_real_evidence_posts(entry: dict[str, Any]) -> list[dict[str, Any]]:
+    raw_posts = list(entry.get("example_posts") or [])
+    if not raw_posts and entry.get("source_examples"):
+        raw_posts = list(entry.get("source_examples"))
+
+    collected: list[dict[str, Any]] = []
+    seen: set[tuple[str, str, str]] = set()
+    for raw_post in raw_posts:
+        if not isinstance(raw_post, dict):
+            continue
+        raw_url = str(raw_post.get("url") or "").strip()
+        raw_permalink = str(raw_post.get("permalink") or "").strip()
+        try:
+            from app.utils.url import normalize_reddit_url  # type: ignore[import-untyped]
+
+            normalized_url = normalize_reddit_url(url=raw_url, permalink=raw_permalink)
+        except Exception:
+            normalized_url = raw_url or raw_permalink
+        url = str(normalized_url or "").strip()
+        excerpt = str(raw_post.get("content") or raw_post.get("excerpt") or "").strip()
+        if not url or not excerpt:
+            continue
+        subreddit = str(raw_post.get("community") or raw_post.get("subreddit") or "").strip()
+        dedupe_key = (url, excerpt, subreddit.lower())
+        if dedupe_key in seen:
+            continue
+        seen.add(dedupe_key)
+        collected.append(
+            {
+                "url": url,
+                "excerpt": excerpt,
+                "subreddit": subreddit or "r/unknown",
+                "score": raw_post.get("upvotes", 0),
+                "timestamp": raw_post.get("timestamp")
+                or raw_post.get("created_at")
+                or raw_post.get("created_utc"),
+            }
+        )
+    return collected
+
+
+async def _persist_insight_cards(
+    session: AsyncSession,
+    *,
+    task: TaskModel,
+    result: AnalysisResult,
+    now: datetime,
+) -> int:
+    from app.models.insight import Evidence, InsightCard
+
+    phrase_mapping = _load_phrase_mapping()
+    candidate_lists: list[list[dict[str, Any]]] = []
+    candidate_lists.append(
+        [entry for entry in (result.insights.get("opportunities") or []) if isinstance(entry, dict)]
+    )
+    candidate_lists.append(
+        [entry for entry in (result.insights.get("pain_points") or []) if isinstance(entry, dict)]
+    )
+
+    await session.execute(
+        delete(InsightCard).where(
+            InsightCard.task_id == task.id,
+            InsightCard.kind == "insight",
+        )
+    )
+    await session.flush()
+
+    cards_created = 0
+    entries_without_real_evidence = 0
+
+    for items in candidate_lists:
+        for entry in items:
+            if cards_created >= 3:
+                break
+            evidence_posts = _collect_real_evidence_posts(entry)
+            if not evidence_posts:
+                entries_without_real_evidence += 1
+                continue
+
+            title_raw = str(entry.get("description") or entry.get("title") or "洞察")[:500]
+            summary_raw = str(entry.get("description") or entry.get("summary") or title_raw)
+            title = _normalize_insight_text(title_raw, phrase_mapping)
+            summary = _normalize_insight_text(summary_raw, phrase_mapping)
+            confidence = (
+                float(entry.get("confidence", 0.9))
+                if isinstance(entry.get("confidence"), (int, float))
+                else 0.9
+            )
+            subreddits = [
+                evidence["subreddit"]
+                for evidence in evidence_posts
+                if str(evidence.get("subreddit") or "").strip()
+            ]
+            subreddits = [s for i, s in enumerate(subreddits) if s not in subreddits[:i]]
+
+            card = InsightCard(
+                task_id=task.id,
+                title=title,
+                summary=summary,
+                confidence=max(0.0, min(confidence, 1.0)),
+                time_window_days=30,
+                subreddits=subreddits or ["r/unknown"],
+            )
+            session.add(card)
+            await session.flush()
+
+            for evidence_post in evidence_posts[:3]:
+                score = 0.0
+                try:
+                    upvotes = float(evidence_post.get("score", 0) or 0)
+                    score = max(0.0, min(upvotes / 1000.0, 1.0))
+                except Exception:
+                    score = 0.0
+                evidence = Evidence(
+                    insight_card_id=card.id,
+                    post_url=str(evidence_post["url"]),
+                    excerpt=str(evidence_post["excerpt"]),
+                    timestamp=_coerce_evidence_timestamp(
+                        evidence_post.get("timestamp"),
+                        default=now,
+                    ),
+                    subreddit=str(evidence_post.get("subreddit") or "r/unknown"),
+                    score=score,
+                )
+                session.add(evidence)
+            cards_created += 1
+
+    await session.commit()
+    if entries_without_real_evidence > 0:
+        logger.info(
+            "Skipped %s insight entries without real evidence for task %s",
+            entries_without_real_evidence,
+            task.id,
+        )
+    if cards_created == 0:
+        logger.info(
+            "No persisted insight cards for task %s; runtime fallback will serve synthetic display cards",
+            task.id,
+        )
+    return cards_created
 
 
 VALID_STATUS_TRANSITIONS: dict[TaskStatus, set[TaskStatus]] = {
@@ -490,185 +674,22 @@ async def _store_analysis_results(task_id: uuid.UUID, result: AnalysisResult) ->
             task.dead_letter_at = None
 
             await session.commit()
-            # 将部分洞察持久化为 InsightCard + Evidence，保证 /api/insights 可见
+            # 真实分析结果和展示兜底分层：InsightCard/Evidence 只落真实证据。
             try:
-                from app.models.insight import InsightCard, Evidence
-                cards_created = 0
-                # 优先从机会/opportunities 生成卡片，否则回退到 pain_points
-                candidate_lists: list[list[dict[str, Any]]] = []
-                candidate_lists.append(result.insights.get("opportunities") or [])
-                candidate_lists.append(result.insights.get("pain_points") or [])
-                # 回退：如无结构化洞察，基于 action_items 生成兜底卡片
-                if all(not lst for lst in candidate_lists) and result.action_items:
-                    tmp: list[dict[str, Any]] = []
-                    for ai in result.action_items[:3]:
-                        tmp.append({
-                            "description": ai.get("problem_definition") or "关键机会",
-                            "example_posts": [],
-                        })
-                    candidate_lists.append(tmp)
-                def _collect_candidate_posts(entry: dict[str, Any]) -> list[dict[str, Any]]:
-                    posts = list(entry.get("example_posts") or [])
-                    # Spec 011+ 会把素材放在 source_examples 内
-                    if not posts and entry.get("source_examples"):
-                        posts = list(entry.get("source_examples"))
-                    # 回退：user_examples 只有纯文本，生成简单引用
-                    if not posts and entry.get("user_examples"):
-                        subs = [s.strip() for s in entry.get("subreddits", []) if isinstance(s, str)]
-                        fallback_sub = subs[0] if subs else "r/startups"
-                        posts = [
-                            {
-                                "content": quote,
-                                "community": fallback_sub,
-                                "url": f"https://www.reddit.com/r/{fallback_sub.strip('r/')}/comments/{task.id.hex[:8]}-{idx}",
-                            }
-                            for idx, quote in enumerate(entry.get("user_examples"), start=1)
-                        ]
-                    # 最后兜底：使用任务 ID 生成稳定链接，保证至少 2 条证据
-                    subs = [s.strip() for s in entry.get("subreddits", []) if isinstance(s, str)]
-                    if not subs:
-                        subs = ["r/startups"]
-                    idx = 0
-                    while len(posts) < 2:
-                        sub = subs[min(idx, len(subs) - 1)]
-                        posts.append(
-                            {
-                                "content": entry.get("description") or entry.get("summary") or "Auto generated evidence",
-                                "community": sub,
-                                "url": f"https://www.reddit.com/r/{sub.strip('r/')}/comments/{task.id.hex[:8]}-{idx}",
-                            }
-                        )
-                        idx += 1
-                    return posts
-
-                for items in candidate_lists:
-                    for entry in items:
-                        if cards_created >= 3:
-                            break
-                        # 术语规范化
-                        def _norm(s: str) -> str:
-                            try:
-                                import yaml  # type: ignore
-                                from pathlib import Path
-                                m = {}
-                                f = Path("backend/config/phrase_mapping.yml")
-                                if f.exists():
-                                    m = yaml.safe_load(f.read_text(encoding="utf-8")) or {}
-                                for k, v in m.items():
-                                    s = s.replace(k, v)
-                            except Exception:
-                                return s
-                            return s
-
-                        title_raw = str(entry.get("description") or entry.get("title") or "洞察")[:500]
-                        summary_raw = str(entry.get("description") or entry.get("summary") or title_raw)
-                        title = _norm(title_raw)
-                        summary = _norm(summary_raw)
-                        confidence = float(entry.get("confidence", 0.9)) if isinstance(entry.get("confidence"), (int, float)) else 0.9
-                        # 相关子版块从 example_posts 推断
-                        subs: list[str] = []
-                        for p in entry.get("example_posts") or []:
-                            comm = str(p.get("community") or "").strip()
-                            if comm and comm not in subs:
-                                subs.append(comm)
-                        card = InsightCard(
-                            task_id=task.id,
-                            title=title,
-                            summary=summary,
-                            confidence=max(0.0, min(confidence, 1.0)),
-                            time_window_days=30,
-                            subreddits=subs or ["r/startups"],
-                        )
-                        session.add(card)
-                        await session.flush()
-                        # 证据映射（最多3条）
-                        ev_count = 0
-                        posts = _collect_candidate_posts(entry)
-                        subs = [
-                            str(p.get("community") or "").strip()
-                            for p in posts
-                            if isinstance(p, dict) and (p.get("community") or "").strip()
-                        ]
-                        subs = [s for i, s in enumerate(subs) if s and s not in subs[:i]]
-                        if subs:
-                            card.subreddits = subs
-                        for p in posts:
-                            if ev_count >= 3:
-                                break
-                            # 统一规范化 Reddit 原帖链接
-                            try:
-                                from app.utils.url import normalize_reddit_url  # type: ignore
-                                url = normalize_reddit_url(
-                                    url=str(p.get("url") or ""),
-                                    permalink=str(p.get("permalink") or ""),
-                                )
-                            except Exception:
-                                url = str(p.get("url") or p.get("permalink") or "").strip() or "https://www.reddit.com"
-                            excerpt = str(p.get("content") or p.get("excerpt") or "Excerpt unavailable")
-                            subreddit = str(p.get("community") or "r/unknown")
-                            score = 0.0
-                            try:
-                                up = float(p.get("upvotes", 0) or 0)
-                                score = max(0.0, min(up / 1000.0, 1.0))
-                            except Exception:
-                                score = 0.0
-                            evidence = Evidence(
-                                insight_card_id=card.id,
-                                post_url=url,
-                                excerpt=excerpt,
-                                timestamp=now,
-                                subreddit=subreddit,
-                                score=score,
-                            )
-                            session.add(evidence)
-                            ev_count += 1
-                        cards_created += 1
-                if cards_created > 0:
-                    await session.commit()
-                # 兜底：确保至少生成 3 张卡片
-                if cards_created < 3:
-                    fallback_items = result.action_items or []
-                    for idx in range(cards_created, 3):
-                        if fallback_items:
-                            source = fallback_items[idx % len(fallback_items)]
-                        else:
-                            source = {}
-                        if not isinstance(source, dict):
-                            source = {}
-                        synthetic_entry = {
-                            "description": source.get("problem_definition")
-                            if isinstance(source, dict)
-                            else "Key opportunity",
-                            "summary": source.get("problem_definition") if isinstance(source, dict) else "Auto generated card",
-                            "subreddits": source.get("communities", ["r/startups"]) if isinstance(source, dict) else ["r/startups"],
-                            "example_posts": source.get("evidence_chain") if isinstance(source, dict) else [],
-                        }
-                        posts = _collect_candidate_posts(synthetic_entry)
-                        card = InsightCard(
-                            task_id=task.id,
-                            title=synthetic_entry["description"][:120],
-                            summary=synthetic_entry["summary"][:240],
-                            confidence=0.9,
-                            time_window_days=30,
-                            subreddits=[p.get("community", "r/startups") for p in posts][:3],
-                        )
-                        session.add(card)
-                        await session.flush()
-                        for p in posts[:3]:
-                            evidence = Evidence(
-                                insight_card_id=card.id,
-                                post_url=p.get("url") or "https://www.reddit.com",
-                                excerpt=p.get("content") or "Auto generated evidence",
-                                timestamp=now,
-                                subreddit=p.get("community") or "r/startups",
-                                score=0.0,
-                            )
-                            session.add(evidence)
-                        cards_created += 1
-                    await session.commit()
+                await _persist_insight_cards(
+                    session,
+                    task=task,
+                    result=result,
+                    now=now,
+                )
             except Exception:
-                # 洞察持久化失败不影响主流程
+                # 洞察持久化失败不影响主流程，但必须留下日志，避免继续黑箱。
                 await session.rollback()
+                logger.warning(
+                    "Failed to persist insight cards for task %s",
+                    task.id,
+                    exc_info=True,
+                )
         except Exception:
             await session.rollback()
             raise
@@ -793,6 +814,189 @@ def _extract_remediation_actions(sources: dict[str, Any]) -> list[dict[str, Any]
     return [item for item in raw if isinstance(item, dict)]
 
 
+def _warmup_inline_dispatch_enabled() -> bool:
+    dispatch_enabled = os.getenv("ENABLE_CELERY_DISPATCH", "1").strip().lower() in {
+        "1",
+        "true",
+        "yes",
+    }
+    if dispatch_enabled:
+        return False
+    try:
+        env = str(get_settings().environment or "").strip().lower()
+    except Exception:
+        return False
+    return env in {"development", "test"}
+
+
+async def _dispatch_auto_rerun_inline(
+    *,
+    task_id: uuid.UUID,
+    user_id: uuid.UUID,
+    attempt: int,
+    delay_seconds: int,
+) -> None:
+    logger.info(
+        "Inline warmup rerun scheduled: task_id=%s attempt=%s delay_seconds=%s",
+        task_id,
+        attempt,
+        delay_seconds,
+    )
+    await asyncio.sleep(max(0, int(delay_seconds)))
+    inline_backfill_result: dict[str, Any] | None = None
+    try:
+        inline_backfill_result = await _dispatch_task_backfill_outbox_inline(task_id=task_id)
+    except Exception:
+        logger.exception(
+            "Inline warmup backfill dispatch failed: task_id=%s attempt=%s",
+            task_id,
+            attempt,
+        )
+    settle_seconds = max(
+        0,
+        int(os.getenv("WARMUP_INLINE_BACKFILL_SETTLE_SECONDS", "45") or 45),
+    )
+    if (
+        inline_backfill_result
+        and int(inline_backfill_result.get("scheduled") or 0) > 0
+        and settle_seconds > 0
+    ):
+        logger.info(
+            "Inline warmup backfill settle: task_id=%s attempt=%s scheduled=%s settle_seconds=%s",
+            task_id,
+            attempt,
+            inline_backfill_result.get("scheduled"),
+            settle_seconds,
+        )
+        await asyncio.sleep(settle_seconds)
+    logger.info(
+        "Inline warmup rerun executing: task_id=%s attempt=%s",
+        task_id,
+        attempt,
+    )
+    try:
+        await _auto_rerun_impl(
+            task_id=task_id,
+            user_id=user_id,
+            attempt=attempt,
+            inline_backfill_result=inline_backfill_result,
+        )
+    except Exception:
+        logger.exception(
+            "Inline warmup rerun failed: task_id=%s attempt=%s",
+            task_id,
+            attempt,
+        )
+        raise
+
+
+async def _dispatch_task_backfill_outbox_inline(
+    *,
+    task_id: uuid.UUID,
+) -> dict[str, int]:
+    """Dispatch task-specific execute_target jobs to Celery queue in local mode."""
+    batch_size = max(1, int(os.getenv("WARMUP_INLINE_BACKFILL_BATCH_SIZE", "20") or 20))
+    max_targets = max(
+        batch_size,
+        int(os.getenv("WARMUP_INLINE_BACKFILL_MAX_TARGETS", "100") or 100),
+    )
+    max_retries = max(1, int(os.getenv("TASK_OUTBOX_MAX_RETRIES", "5") or 5))
+    crawl_run_id = str(uuid.uuid5(uuid.NAMESPACE_URL, f"analysis_preflight_posts:{task_id}"))
+
+    from app.services.infrastructure.task_outbox_service import (
+        mark_task_outbox_failed,
+        mark_task_outbox_sent,
+    )
+    async for session in cast(AsyncIterator[AsyncSession], get_session()):
+        selected_total = 0
+        scheduled_total = 0
+        failed_total = 0
+
+        while scheduled_total + failed_total < max_targets:
+            remaining = max_targets - (scheduled_total + failed_total)
+            rows = await session.execute(
+                text(
+                    """
+                    SELECT o.id::text AS outbox_id,
+                           o.payload->>'target_id' AS target_id
+                    FROM task_outbox o
+                    JOIN crawler_run_targets t
+                      ON t.id = CAST(o.payload->>'target_id' AS uuid)
+                    WHERE o.status = 'pending'
+                      AND o.event_type = 'execute_target'
+                      AND t.crawl_run_id = CAST(:crawl_run_id AS uuid)
+                    ORDER BY o.created_at ASC
+                    LIMIT :batch_size
+                    """
+                ),
+                {
+                    "crawl_run_id": crawl_run_id,
+                    "batch_size": int(min(batch_size, remaining)),
+                },
+            )
+            pending = rows.mappings().all()
+            if not pending:
+                break
+
+            selected_total += len(pending)
+            for row in pending:
+                outbox_id = str(row.get("outbox_id") or "").strip()
+                target_id = str(row.get("target_id") or "").strip()
+                if not outbox_id or not target_id:
+                    failed_total += 1
+                    continue
+
+                try:
+                    await session.execute(
+                        text(
+                            """
+                            UPDATE crawler_run_targets
+                            SET enqueued_at = COALESCE(enqueued_at, now())
+                            WHERE id = CAST(:target_id AS uuid)
+                            """
+                        ),
+                        {"target_id": target_id},
+                    )
+                    celery_app.send_task(
+                        "tasks.crawler.execute_target",
+                        kwargs={"target_id": target_id},
+                        queue="backfill_posts_queue_v2",
+                    )
+                    await mark_task_outbox_sent(
+                        session,
+                        outbox_id=outbox_id,
+                        note="inline_backfill_dispatched",
+                    )
+                    scheduled_total += 1
+                except Exception as exc:
+                    await mark_task_outbox_failed(
+                        session,
+                        outbox_id=outbox_id,
+                        error=str(exc)[:400],
+                        max_retries=max_retries,
+                    )
+                    failed_total += 1
+
+            await session.commit()
+
+        logger.info(
+            "Inline backfill drain: task_id=%s crawl_run_id=%s selected=%s scheduled=%s failed=%s max_targets=%s",
+            task_id,
+            crawl_run_id,
+            selected_total,
+            scheduled_total,
+            failed_total,
+            max_targets,
+        )
+        return {
+            "selected": selected_total,
+            "scheduled": scheduled_total,
+            "failed": failed_total,
+        }
+
+    return {"selected": 0, "scheduled": 0, "failed": 0}
+
+
 def _warmup_auto_rerun_needed(result: AnalysisResult) -> tuple[bool, str]:
     sources = dict(getattr(result, "sources", None) or {})
     analysis_blocked = str(sources.get("analysis_blocked") or "").strip()
@@ -847,14 +1051,28 @@ async def _maybe_schedule_warmup_rerun(
 
     sources = dict(getattr(result, "sources", None) or {})
     actions = _extract_remediation_actions(sources)
+    dispatch_mode = "celery"
 
     try:
-        celery_app.send_task(
-            "tasks.analysis.auto_rerun",
-            args=[str(task_id), str(user_id), attempt],
-            countdown=delay,
-            task_id=f"analysis-auto-rerun:{task_id}:{attempt}",
-        )
+        if _warmup_inline_dispatch_enabled():
+            dispatch_mode = "inline"
+            inline_task = asyncio.create_task(
+                _dispatch_auto_rerun_inline(
+                    task_id=task_id,
+                    user_id=user_id,
+                    attempt=attempt,
+                    delay_seconds=delay,
+                )
+            )
+            _INLINE_WARMUP_TASKS.add(inline_task)
+            inline_task.add_done_callback(_INLINE_WARMUP_TASKS.discard)
+        else:
+            celery_app.send_task(
+                "tasks.analysis.auto_rerun",
+                args=[str(task_id), str(user_id), attempt],
+                countdown=delay,
+                task_id=f"analysis-auto-rerun:{task_id}:{attempt}",
+            )
     except Exception as exc:  # pragma: no cover - depends on Celery runtime
         await _cache_status(
             str(task_id),
@@ -864,7 +1082,7 @@ async def _maybe_schedule_warmup_rerun(
             stage="warmup",
             blocked_reason=reason or None,
             next_action="manual_retry",
-            details={"error": str(exc)},
+            details={"error": str(exc), "dispatch_mode": dispatch_mode},
         )
         return
 
@@ -872,7 +1090,11 @@ async def _maybe_schedule_warmup_rerun(
         str(task_id),
         TaskStatus.COMPLETED,
         progress=100,
-        message=f"补量已下单：系统会在 {max(1, delay // 60)} 分钟后自动再跑一次",
+        message=(
+            f"补量已下单：系统会在 {max(1, delay // 60)} 分钟后自动再跑一次"
+            if dispatch_mode == "celery"
+            else f"补量已下单：系统会在 {max(1, delay // 60)} 分钟后自动再跑一次（本地模式）"
+        ),
         stage="warmup",
         blocked_reason=reason or None,
         next_action="auto_rerun_scheduled",
@@ -881,6 +1103,7 @@ async def _maybe_schedule_warmup_rerun(
             "max_attempts": max_attempts,
             "next_retry_at": next_retry_at.isoformat(),
             "remediation_actions": actions,
+            "dispatch_mode": dispatch_mode,
         },
     )
 
@@ -1188,6 +1411,7 @@ async def _auto_rerun_impl(
     task_id: uuid.UUID,
     user_id: uuid.UUID,
     attempt: int,
+    inline_backfill_result: dict[str, Any] | None = None,
 ) -> Dict[str, Any]:
     """
     Contract B: auto rerun after warmup/backfill.
@@ -1253,6 +1477,8 @@ async def _auto_rerun_impl(
             "trigger": "warmup_auto_rerun",
             "ran_at": datetime.now(UTC).isoformat(),
         }
+        if inline_backfill_result:
+            result_sources["auto_rerun"]["inline_backfill"] = dict(inline_backfill_result)
         result = replace(result, sources=result_sources)
 
         await _store_analysis_results(task_id, result)
@@ -1262,17 +1488,57 @@ async def _auto_rerun_impl(
             next_attempt = attempt + 1
             delay = _compute_warmup_rerun_delay_seconds(next_attempt)
             next_retry_at = datetime.now(UTC) + timedelta(seconds=delay)
-            celery_app.send_task(
-                "tasks.analysis.auto_rerun",
-                args=[str(task_id), str(user_id), next_attempt],
-                countdown=delay,
-                task_id=f"analysis-auto-rerun:{task_id}:{next_attempt}",
-            )
+            dispatch_mode = "celery"
+            try:
+                if _warmup_inline_dispatch_enabled():
+                    dispatch_mode = "inline"
+                    inline_task = asyncio.create_task(
+                        _dispatch_auto_rerun_inline(
+                            task_id=task_id,
+                            user_id=user_id,
+                            attempt=next_attempt,
+                            delay_seconds=delay,
+                        )
+                    )
+                    _INLINE_WARMUP_TASKS.add(inline_task)
+                    inline_task.add_done_callback(_INLINE_WARMUP_TASKS.discard)
+                else:
+                    celery_app.send_task(
+                        "tasks.analysis.auto_rerun",
+                        args=[str(task_id), str(user_id), next_attempt],
+                        countdown=delay,
+                        task_id=f"analysis-auto-rerun:{task_id}:{next_attempt}",
+                    )
+            except Exception as exc:
+                await _cache_status(
+                    str(task_id),
+                    TaskStatus.COMPLETED,
+                    progress=100,
+                    message="补量仍在进行，但自动重跑排队失败（需要人工再跑一次）",
+                    stage="warmup",
+                    blocked_reason=reason or None,
+                    next_action="manual_retry",
+                    details={
+                        "attempt": next_attempt,
+                        "max_attempts": max_attempts,
+                        "error": str(exc),
+                        "dispatch_mode": dispatch_mode,
+                    },
+                )
+                return {
+                    "task_id": str(task_id),
+                    "status": "dispatch_failed",
+                    "attempt": attempt,
+                }
             await _cache_status(
                 str(task_id),
                 TaskStatus.COMPLETED,
                 progress=100,
-                message=f"补量仍在进行：系统会在 {max(1, delay // 60)} 分钟后再跑一次",
+                message=(
+                    f"补量仍在进行：系统会在 {max(1, delay // 60)} 分钟后再跑一次"
+                    if dispatch_mode == "celery"
+                    else f"补量仍在进行：系统会在 {max(1, delay // 60)} 分钟后再跑一次（本地模式）"
+                ),
                 stage="warmup",
                 blocked_reason=reason or None,
                 next_action="auto_rerun_scheduled",
@@ -1280,6 +1546,7 @@ async def _auto_rerun_impl(
                     "attempt": next_attempt,
                     "max_attempts": max_attempts,
                     "next_retry_at": next_retry_at.isoformat(),
+                    "dispatch_mode": dispatch_mode,
                 },
             )
         elif should_rerun and attempt >= max_attempts:

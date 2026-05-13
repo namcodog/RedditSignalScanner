@@ -1,0 +1,251 @@
+{
+  "version": 2,
+  "contract": {
+    "taxonomy_version": "business-labels-v1",
+    "user_selectable": true,
+    "tag_count": 9,
+    "allowed_source_ref_prefixes": ["topic_cluster:", "topic_pack:", "historic_tag:"],
+    "source_of_truth": "backend/config/community_interest_tags.json"
+  },
+  "tags": [
+    {
+      "id": "home_lifestyle_selection",
+      "display_name": "家居生活选品",
+      "short_description": "看家庭、宠物、户外和亲子场景里的真实购买反馈。",
+      "group": "生活与品类",
+      "source_refs": [
+        "topic_cluster:pet",
+        "topic_cluster:home",
+        "topic_cluster:outdoor",
+        "topic_cluster:parenting-travel"
+      ],
+      "match": {
+        "categories": ["Home_Lifestyle"],
+        "keywords": ["baby", "beyondthebump", "camping", "campinggear", "cat", "cleaning", "cleaningtips", "dog", "home", "homeowners", "outdoor", "parenting-travel", "pet", "stroller"],
+        "semantic_terms": ["camping", "cleaning", "dog", "home", "outdoor", "parenting", "pet"]
+      }
+    },
+    {
+      "id": "product_selection",
+      "display_name": "好物选品",
+      "short_description": "看小商品、EDC、桌面、文具礼品和新品验证线索。",
+      "group": "生活与品类",
+      "source_refs": [
+        "topic_cluster:small-goods",
+        "topic_cluster:edc",
+        "topic_cluster:desk-setup",
+        "topic_cluster:paper-goods-and-gifting",
+        "historic_tag:product-selection",
+        "historic_tag:product-validation",
+        "historic_tag:sku-tool-home-auto-demand",
+        "historic_tag:sku-new-community-demand"
+      ],
+      "match": {
+        "categories": ["Tools_EDC"],
+        "keywords": ["accessory", "battlestations", "desk", "desksetup", "edc", "flashlight", "gift", "hobonichi", "onebag", "planner", "product-selection", "product-validation", "small-goods", "stationery", "tool"],
+        "semantic_terms": ["desk", "edc", "gift", "product validation", "small goods", "stationery"]
+      }
+    },
+    {
+      "id": "paid_advertising",
+      "display_name": "广告投放",
+      "short_description": "看投放成本、归因、渠道效率和市场研究相关讨论。",
+      "group": "增长与运营",
+      "source_refs": [
+        "topic_cluster:ads",
+        "topic_cluster:attribution",
+        "topic_cluster:market-intel-and-audience-research",
+        "topic_cluster:funnel"
+      ],
+      "match": {
+        "categories": [],
+        "keywords": ["ads", "attribution", "cac", "conversion", "cpc", "creative", "cro", "facebookads", "funnel", "ga4", "googleads", "market-intel", "ppc", "roas", "tracking"],
+        "semantic_terms": ["ads", "attribution", "conversion", "creative", "funnel", "ga4", "market research", "ppc", "roas"]
+      }
+    },
+    {
+      "id": "seo_geo",
+      "display_name": "SEO&GEO",
+      "short_description": "看搜索排名、AI 引用、内容可见性和自然流量变化。",
+      "group": "增长与运营",
+      "source_refs": [
+        "topic_cluster:seo-geo",
+        "historic_tag:geo-ai-search-citation",
+        "topic_pack:organic-discovery"
+      ],
+      "match": {
+        "categories": [],
+        "keywords": ["ai overview", "ai search", "bigseo", "citation", "geo", "indexing", "organic-discovery", "ranking", "search", "seo"],
+        "semantic_terms": ["ai search", "citation", "geo", "organic search", "seo"]
+      }
+    },
+    {
+      "id": "ai_tools_agents",
+      "display_name": "AI工具与Agent",
+      "short_description": "看 AI 工具、Agent、产品落地和工作流摩擦。",
+      "group": "AI 与自动化",
+      "source_refs": [
+        "topic_cluster:agent-incidents",
+        "topic_cluster:ai-product-and-adoption",
+        "topic_cluster:workflow-friction",
+        "historic_tag:tool-stack-shifts"
+      ],
+      "match": {
+        "categories": ["AI_Workflow"],
+        "keywords": ["agent", "ai-product", "automation", "claude", "claudecode", "context", "cursor", "eval", "llm", "mcp", "openai", "tool-calling", "workflow"],
+        "semantic_terms": ["agent", "automation", "claude", "eval", "llm", "workflow"]
+      }
+    },
+    {
+      "id": "crowdfunding_brand_launch",
+      "display_name": "众筹与品牌启动",
+      "short_description": "看众筹、新品牌发布、预售、品牌信任和平替讨论。",
+      "group": "电商与品牌",
+      "source_refs": [
+        "topic_cluster:brand-launch-and-crowdfunding",
+        "historic_tag:crowdfunding",
+        "topic_cluster:brand-trust-and-alt"
+      ],
+      "match": {
+        "categories": [],
+        "keywords": ["brand", "brand-launch", "crowdfunding", "dtc", "generic", "indiegogo", "kickstarter", "premium", "preorder", "waitlist"],
+        "semantic_terms": ["brand", "crowdfunding", "kickstarter", "preorder"]
+      }
+    },
+    {
+      "id": "platform_policy_trends",
+      "display_name": "电商平台政策与风向",
+      "short_description": "看电商平台规则、费用变化、履约政策和卖家经营风险。",
+      "group": "电商与品牌",
+      "source_refs": [
+        "topic_cluster:unit-economics-and-platform-risk",
+        "topic_pack:kill-signals"
+      ],
+      "source_ref_match": true,
+      "match": {
+        "categories": [],
+        "keywords": ["chargeback", "fee", "margin", "payout", "policy", "refund", "returns", "risk"],
+        "semantic_terms": ["chargeback", "fee", "margin", "payout", "policy", "refund", "returns", "risk"]
+      }
+    },
+    {
+      "id": "seller_store_ops",
+      "display_name": "卖家店铺运营",
+      "short_description": "看卖家类目、单位经济、平台风险、店铺漏斗和转化链路。",
+      "group": "电商与品牌",
+      "source_refs": [
+        "topic_cluster:seller-category-direction",
+        "topic_cluster:unit-economics-and-platform-risk",
+        "topic_cluster:funnel"
+      ],
+      "match": {
+        "categories": ["Ecommerce_Business"],
+        "keywords": ["amazon", "amazonseller", "checkout", "conversion", "etsy", "fba", "funnel", "inventory", "margin", "refund", "seller-category-direction", "shopify", "unit-economics"],
+        "semantic_terms": ["amazon", "checkout", "conversion", "fba", "margin", "shopify"]
+      }
+    },
+    {
+      "id": "content_marketing_creation",
+      "display_name": "内容营销创作",
+      "short_description": "看内容生产、编辑流程、创作者分发、联盟和 newsletter 增长。",
+      "group": "增长与运营",
+      "source_refs": [
+        "topic_cluster:content-production-and-editorial",
+        "historic_tag:content-production",
+        "topic_cluster:creator-affiliate-distribution",
+        "topic_cluster:funnel"
+      ],
+      "match": {
+        "categories": [],
+        "keywords": ["affiliate", "ai ugc", "blogging", "content-production", "content_marketing", "copywriting", "creator", "distribution", "editorial", "emailmarketing", "newsletter", "product video", "substack", "ugc"],
+        "semantic_terms": ["affiliate", "content", "creator", "editorial", "newsletter", "product video", "ugc"]
+      }
+    }
+  ],
+  "policy": {
+    "generic_hotspot_keys": [
+      "ai",
+      "artificial",
+      "chatgpt",
+      "claudeai",
+      "digitalmarketing",
+      "ecommerce",
+      "entrepreneur",
+      "openai",
+      "ppc",
+      "seo",
+      "smallbusiness"
+    ],
+    "generic_cap_ratio": 0.3,
+    "score": {
+      "status_bonus": {
+        "ready": 100.0,
+        "historical_depth": 60.0,
+        "watching": 20.0
+      },
+      "recent_posts_15d_weight": 2.0,
+      "recent_posts_15d_cap": 24.0,
+      "historical_posts_weight": 0.25,
+      "historical_posts_cap": 20.0,
+      "semantic_observations_weight": 1.0,
+      "semantic_observations_cap": 15.0,
+      "hotpost_cards_weight": 1.2,
+      "hotpost_cards_cap": 18.0,
+      "content_labels_weight": 1.5,
+      "content_labels_cap": 10.0,
+      "content_entities_weight": 1.0,
+      "content_entities_cap": 10.0,
+      "quality_score_weight": 10.0,
+      "quality_score_cap": 10.0,
+      "generic_multiplier": 0.75
+    },
+    "reason_templates": {
+      "recent_activity": "15 天内 {recent_posts_15d} 条相关讨论，说明这里现在仍有可观察的问题和需求。",
+      "historical_depth": "历史库里有 {historical_posts} 条相关帖子，适合看长期反复出现的问题。",
+      "semantic_fit": "主题证据集中在 {related_terms}，和这个标签的需求匹配。",
+      "signal_density": "过去已有 {hotpost_cards} 条高价值信号从这里出来，说明讨论能持续转成可用线索。",
+      "low_evidence": "当前证据还少，先放在观察位。",
+      "sample_title": "代表讨论：{sample_title}"
+    },
+    "evidence_summary_templates": {
+      "recent_activity": "近期活跃：15 天内 {recent_posts_15d} 条帖子",
+      "semantic_terms": "语义证据：{semantic_terms}",
+      "semantic_observations": "语义观察：{semantic_observations} 条",
+      "hotpost_cards": "发布验证：已产出 {hotpost_cards} 条高价值信号",
+      "historical_posts": "历史数据：旧 DB 有 {historical_posts} 条帖子",
+      "sample_title": "代表讨论：{sample_title}",
+      "low_evidence": "证据不足：仅来自社区池覆盖"
+    },
+    "activity_labels": {
+      "ready": "近期活跃",
+      "historical_depth": "历史深度",
+      "watching": "观察中"
+    },
+    "role_labels": {
+      "longtail_vertical": "长尾垂直社区",
+      "generic_hotspot": "泛热点社区"
+    },
+    "audit_rules": {
+      "needs_evidence": {
+        "review_status": "补证据",
+        "action": "先保留观察，补近期活跃、语义词或代表讨论后再进入强推荐。",
+        "reason": "证据不足，不能只靠社区名或配置判断。"
+      },
+      "generic_reference": {
+        "review_status": "限额参考",
+        "action": "可保留为热点入口，但不能挤掉长尾社区。",
+        "reason": "泛社区适合看大盘热度，不适合打满推荐面。"
+      },
+      "review_match": {
+        "review_status": "复核匹配",
+        "action": "人工确认标签归属，优先补语义证据。",
+        "reason": "缺少可解释的语义词，容易变成库存列表。"
+      },
+      "recommended": {
+        "review_status": "推荐通过",
+        "action": "可以进入当前标签的用户预览。",
+        "reason": "近期活跃、语义证据或历史信号能解释推荐关系。"
+      }
+    }
+  }
+}

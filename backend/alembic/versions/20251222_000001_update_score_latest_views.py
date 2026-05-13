@@ -102,7 +102,7 @@ def _post_scores_latest_view_placeholder_sql(*, use_id_columns: bool) -> str:
         return """
             CREATE OR REPLACE VIEW post_scores_latest_v AS
             SELECT
-                NULL::bigint AS id,
+                NULL::uuid AS id,
                 NULL::bigint AS post_id,
                 NULL::text AS llm_version,
                 NULL::text AS rule_version,

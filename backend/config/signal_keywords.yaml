@@ -1,5 +1,6 @@
 version: 1
 negative_terms:
+  # --- Original: Product Defects / Functional Issues ---
   - slow
   - confusing
   - expensive
@@ -55,6 +56,97 @@ negative_terms:
   - "missing feature"
   - "not working"
   - "stopped working"
+  # --- NEW: Experience / Satisfaction ---
+  - disappointing
+  - underwhelming
+  - mediocre
+  - bland
+  - gross
+  - disgusting
+  - "not great"
+  - "not good"
+  - "not worth"
+  - unpleasant
+  - "meh"
+  - "just okay"
+  - subpar
+  - lackluster
+  - "let down"
+  - "fell short"
+  - dumb
+  - dumbest
+  - stupid
+  - ridiculous
+  - absurd
+  - "makes no sense"
+  # --- NEW: Price / Value ---
+  - overpriced
+  - ripoff
+  - "rip off"
+  - "rip-off"
+  - "too much"
+  - "too expensive"
+  - "not worth it"
+  - "waste of money"
+  - "waste of time"
+  - pricey
+  - "highway robbery"
+  - "costs too much"
+  # --- NEW: Quality / Durability ---
+  - "cheaply made"
+  - flimsy
+  - inconsistent
+  - degraded
+  - worse
+  - "went downhill"
+  - "used to be"
+  - "no longer"
+  - "not like it used to"
+  - defective
+  - "fell apart"
+  - "broke after"
+  - "died after"
+  - "low quality"
+  - "poor quality"
+  - "cheap quality"
+  - unreliable
+  - "hit or miss"
+  # --- NEW: Service / Wait ---
+  - rude
+  - unprofessional
+  - waited
+  - ignored
+  - "long wait"
+  - "took forever"
+  - unresponsive
+  - "no response"
+  - "no help"
+  - "bad service"
+  - "terrible service"
+  - "poor service"
+  - "customer service"
+  # --- NEW: Regret / Return ---
+  - regret
+  - returned
+  - refund
+  - "wish I hadn't"
+  - "shouldn't have"
+  - "sent it back"
+  - "giving up"
+  - "gave up"
+  - "done with"
+  - "moving on"
+  - "never again"
+  - "never buying"
+  # --- NEW: Comparison / Decline ---
+  - "worse than"
+  - "inferior"
+  - downgrade
+  - "not as good"
+  - "used to be better"
+  - "gone downhill"
+  - "they changed"
+  - "not the same"
 solution_cues:
   - "fixed it"
   - fix
@@ -145,6 +237,7 @@ competitor_cues:
   - "or"
   - " v "
 pain_patterns:
+  # --- Original 12 patterns ---
   - "\\b(i\\s+(?:hate|can't stand|dislike)\\s+.+)"
   - "\\b(.+?\\s+is\\s+(?:too\\s+)?(?:slow|broken|unreliable|expensive|bad|terrible))"
   - "\\b(struggle[s]? to\\s+.+)"
@@ -157,6 +250,15 @@ pain_patterns:
   - "\\b(sick of\\s+.+)"
   - "\\b(no way to\\s+.+)"
   - "\\b(can't figure out\\s+.+)"
+  # --- NEW: Experience / Wish / Regret patterns ---
+  - "\\b(wish (?:it|they|this|i) (?:had|would|could|were)\\s+.+)"
+  - "\\b(would be (?:nice|better|great) if\\s+.+)"
+  - "\\b(the (?:only|biggest|main|worst) (?:problem|issue|drawback|downside)\\s+.+)"
+  - "\\b(not (?:great|good|happy|satisfied|impressed) (?:with|about)\\s+.+)"
+  - "\\b((?:shouldn't|should not) have (?:bought|gotten|purchased|ordered)\\s*.+)"
+  - "\\b(waste of (?:money|time)\\s*.+)"
+  - "\\b((?:used to|no longer) (?:be|taste|work|make)\\s+.+)"
+  - "\\b((?:way too|far too|much too) (?:expensive|slow|complicated|hard|loud|hot|cold)\\s*.+)"
 pain_buckets:
   broken:
     - error
@@ -182,11 +284,17 @@ pain_buckets:
     - price
     - pricing
     - budget
+    - overpriced
+    - ripoff
+    - "waste of money"
+    - pricey
   slow:
     - slow
     - latency
     - lag
     - sluggish
+    - "long wait"
+    - "took forever"
   complex:
     - confusing
     - complex
@@ -194,3 +302,48 @@ pain_buckets:
     - difficult
     - hard
     - clunky
+  # --- NEW: Universal pain buckets ---
+  experience:
+    - disappointing
+    - disappointed
+    - underwhelming
+    - mediocre
+    - bland
+    - subpar
+    - lackluster
+    - "let down"
+    - "not great"
+    - "not good"
+    - unpleasant
+  quality:
+    - flimsy
+    - "cheaply made"
+    - inconsistent
+    - defective
+    - "fell apart"
+    - "poor quality"
+    - "low quality"
+    - unreliable
+    - "hit or miss"
+    - "broke after"
+    - "died after"
+  service:
+    - rude
+    - unprofessional
+    - ignored
+    - unresponsive
+    - "bad service"
+    - "terrible service"
+    - "poor service"
+    - "no response"
+    - "no help"
+  regret:
+    - regret
+    - returned
+    - refund
+    - "wish I hadn't"
+    - "never again"
+    - "never buying"
+    - "gave up"
+    - "giving up"
+    - "done with"

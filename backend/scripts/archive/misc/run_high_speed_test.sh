@@ -23,7 +23,7 @@ START_TIME=$(date +%s)
 
 # 运行脚本
 COMMENTS_BACKFILL_BATCH_SIZE=5 \
-python -u scripts/backfill_comments_for_posts.py \
+python -u scripts/import/backfill_comments_for_posts.py \
   --subreddits r/FacebookAds \
   --since-days 7 \
   --page-size 100 \

@@ -1,97 +1,31 @@
 from __future__ import annotations
 
-import uuid
 from contextlib import asynccontextmanager
 from datetime import datetime, timezone
-from decimal import Decimal
 
 import pytest
-from sqlalchemy import text
-
-from app.db.session import SessionFactory
-from app.models.community_cache import CommunityCache
-from app.models.community_pool import CommunityPool
-from app.services.crawl.crawler_runs_service import ensure_crawler_run
-from app.services.crawl.crawler_run_targets_service import ensure_crawler_run_target
 
 
 @pytest.mark.asyncio
-async def test_seed_sampling_planner_enqueues_capped_only(
+async def test_seed_sampling_planner_delegates_to_workflow(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
+    from app.services.crawl.planner_workflow import PlannerWorkflowResult
     from app.tasks import crawler_task
 
-    now = datetime.now(timezone.utc)
-    needs_seed = "r/seed_needed"
-    recent_seed = "r/seed_recent"
+    captured: dict[str, object] = {}
 
-    async with SessionFactory() as session:
-        await session.execute(text("DELETE FROM crawler_run_targets"))
-        await session.execute(text("DELETE FROM crawler_runs"))
-        await session.execute(text("DELETE FROM task_outbox"))
-        session.add_all(
-            [
-                CommunityPool(
-                    name=needs_seed,
-                    tier="high",
-                    categories={},
-                    description_keywords={},
-                    is_active=True,
-                    is_blacklisted=False,
-                ),
-                CommunityPool(
-                    name=recent_seed,
-                    tier="high",
-                    categories={},
-                    description_keywords={},
-                    is_active=True,
-                    is_blacklisted=False,
-                ),
-            ]
+    async def fake_workflow(params, *, deps):
+        captured["params"] = params
+        captured["deps"] = deps
+        return PlannerWorkflowResult(
+            status="planned",
+            inserted=2,
+            enqueued=2,
+            run_id="test-seed-run",
         )
-        session.add_all(
-            [
-                CommunityCache(
-                    community_name=needs_seed,
-                    last_crawled_at=now,
-                    posts_cached=0,
-                    ttl_seconds=3600,
-                    quality_score=Decimal("0.50"),
-                    backfill_status="NEEDS",
-                    backfill_capped=True,
-                    sample_posts=200,
-                ),
-                CommunityCache(
-                    community_name=recent_seed,
-                    last_crawled_at=now,
-                    posts_cached=0,
-                    ttl_seconds=3600,
-                    quality_score=Decimal("0.50"),
-                    backfill_status="NEEDS",
-                    backfill_capped=True,
-                    sample_posts=200,
-                ),
-            ]
-        )
-        await session.commit()
 
-    recent_run_id = str(uuid.uuid4())
-    recent_target_id = str(uuid.uuid4())
-    async with SessionFactory() as session:
-        await ensure_crawler_run(session, crawl_run_id=recent_run_id)
-        await ensure_crawler_run_target(
-            session,
-            community_run_id=recent_target_id,
-            crawl_run_id=recent_run_id,
-            subreddit=recent_seed,
-            status="completed",
-            plan_kind="seed_top_year",
-            idempotency_key="seed_recent",
-            idempotency_key_human="seed_recent",
-            config={"plan_kind": "seed_top_year"},
-        )
-        await session.commit()
-
+    monkeypatch.setattr(crawler_task, "plan_seed_sampling_workflow", fake_workflow)
     monkeypatch.setenv("SEED_SAMPLING_COOLDOWN_DAYS", "30")
     monkeypatch.setenv("SEED_SAMPLING_MAX_TARGETS", "10")
     monkeypatch.setenv("SEED_SAMPLING_POSTS_LIMIT", "200")
@@ -99,32 +33,25 @@ async def test_seed_sampling_planner_enqueues_capped_only(
 
     result = await crawler_task._plan_seed_sampling_impl()
 
-    assert result["inserted"] == 2
-    assert result["enqueued"] == 2
-
-    async with SessionFactory() as session:
-        outbox_count = await session.execute(
-            text(
-                """
-                SELECT COUNT(*)
-                FROM task_outbox
-                WHERE event_type = 'execute_target'
-                """
-            )
-        )
-        assert int(outbox_count.scalar() or 0) == 2
-        row = await session.execute(
-            text(
-                """
-                SELECT COUNT(*)
-                FROM crawler_run_targets
-                WHERE subreddit = :subreddit
-                  AND plan_kind IN ('seed_top_year', 'seed_top_all')
-                """
-            ),
-            {"subreddit": needs_seed},
-        )
-        assert int(row.scalar() or 0) == 2
+    assert result == {
+        "status": "planned",
+        "inserted": 2,
+        "enqueued": 2,
+        "run_id": "test-seed-run",
+    }
+    params = captured["params"]
+    assert params.cooldown_days == 30
+    assert params.max_targets == 10
+    assert params.posts_limit == 200
+    assert params.min_posts == 200
+    assert params.queue == crawler_task.BACKFILL_POSTS_QUEUE
+    assert isinstance(params.now, datetime)
+    assert params.now.tzinfo == timezone.utc
+    deps = captured["deps"]
+    assert deps.session_factory is crawler_task.SessionFactory
+    assert deps.ensure_crawler_run is crawler_task.ensure_crawler_run
+    assert deps.log_swallowed_exception is crawler_task._log_swallowed_exception
+    assert deps.queue_deps.session_factory is crawler_task.SessionFactory
 
 
 @pytest.mark.asyncio

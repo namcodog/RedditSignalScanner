@@ -15,3 +15,11 @@ def test_resolve_llm_api_key_falls_back_to_openai(monkeypatch) -> None:
     monkeypatch.setenv("OPENAI_API_KEY", "sk-openai")
     monkeypatch.delenv("OPENROUTER_API_KEY", raising=False)
     assert resolve_llm_api_key() == "sk-openai"
+
+
+def test_resolve_llm_api_key_respects_explicit_empty_key(monkeypatch) -> None:
+    monkeypatch.setenv("OPENAI_BASE", "https://openrouter.ai/api/v1")
+    monkeypatch.setenv("OPENAI_API_KEY", "sk-openai")
+    monkeypatch.setenv("OPENROUTER_API_KEY", "or-openrouter")
+
+    assert resolve_llm_api_key(explicit_key="") == ""

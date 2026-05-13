@@ -1,17 +1,42 @@
 """T1 Stats Layer: 聚合社区活跃度、P/S 比、痛点分布、品牌共现."""
+# ============================================================
+# 🔒 DETERMINISM PROTOCOL (Phase 240)
+# ============================================================
+# 本文件的所有时间相关 SQL 查询已从动态当前时间改为 anchor_ts 参数。
+# 受影响函数: fetch_topic_relevant_communities, build_stats_snapshot,
+#             build_entity_sentiment_matrix
+#
+# ⚠️ AI 协作提示: 新增 SQL 时间查询时，必须:
+#    1. 在函数签名中添加 anchor_ts: datetime | None = None
+#    2. 使用 _resolve_anchor_ts(anchor_ts) 替代动态当前时间
+#    3. 禁止在 SQL 字符串中直接写当前时间函数
+# ============================================================
 from __future__ import annotations
 
 import json
 from collections import defaultdict, Counter
 from dataclasses import asdict, dataclass
 from datetime import datetime, timedelta, timezone
+import logging
 from pathlib import Path
 from typing import Any, Iterable, Mapping, Optional, Sequence
 
 from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncSession
+from app.services.analysis.search_query import build_websearch_query
 from app.services.semantic.embedding_service import embedding_service
 from app.db.read_scopes import get_comments_core_lab_relation
+
+logger = logging.getLogger(__name__)
+
+
+def _resolve_anchor_ts(anchor_ts: datetime | None = None) -> datetime:
+    if anchor_ts is None:
+        return datetime.now(timezone.utc)
+    if anchor_ts.tzinfo is None:
+        return anchor_ts.replace(tzinfo=timezone.utc)
+    return anchor_ts.astimezone(timezone.utc)
+
 
 @dataclass(slots=True)
 class CommunityStat:
@@ -130,17 +155,23 @@ class T1StatsService:
             return row.description_keywords
         return ["General Discussion", "Business"]
 
-    async def _fetch_sample_title(self, subreddit: str) -> str:
+    async def _fetch_sample_title(self, subreddit: str, anchor_ts: datetime | None = None) -> str:
         # Get one recent high-engagement post title
         sql = """
         SELECT title FROM posts_raw 
         WHERE lower(subreddit) = lower(:name) 
           AND is_current = true
-          AND created_at >= NOW() - INTERVAL '1 year'
+          AND created_at >= :year_window_start
         ORDER BY created_at DESC 
         LIMIT 1
         """
-        res = await self.session.execute(text(sql), {"name": "r/"+subreddit if not subreddit.startswith("r/") else subreddit})
+        res = await self.session.execute(
+            text(sql),
+            {
+                "name": "r/" + subreddit if not subreddit.startswith("r/") else subreddit,
+                "year_window_start": _resolve_anchor_ts(anchor_ts) - timedelta(days=365),
+            },
+        )
         row = res.fetchone()
         return row.title if row else "No recent posts"
 
@@ -160,13 +191,15 @@ async def _fetch_t1_subreddits(session: AsyncSession) -> list[str]:
 
 
 async def _fetch_posts_comments(
-    session: AsyncSession, *, subs: Sequence[str], since_dt: datetime
+    session: AsyncSession, *, subs: Sequence[str], since_dt: datetime, anchor_ts: datetime | None = None
 ) -> Mapping[str, tuple[int, int, int, int]]:
+    anchor_value = _resolve_anchor_ts(anchor_ts)
+    recent_window_start = anchor_value - timedelta(days=30)
     comments_rel = await get_comments_core_lab_relation(session)
     sql = f"""
     WITH posts AS (
         SELECT lower(subreddit) AS sr, COUNT(*) AS post_cnt,
-               COUNT(*) FILTER (WHERE created_at >= NOW() - INTERVAL '30 days') AS recent_posts_30d
+               COUNT(*) FILTER (WHERE created_at >= :recent_window_start) AS recent_posts_30d
         FROM posts_raw
         WHERE is_current = true
           AND COALESCE(is_duplicate, false) = false
@@ -176,7 +209,7 @@ async def _fetch_posts_comments(
     ),
     comments AS (
         SELECT lower(subreddit) AS sr, COUNT(*) AS comment_cnt,
-               COUNT(*) FILTER (WHERE created_utc >= NOW() - INTERVAL '30 days') AS recent_comments_30d
+               COUNT(*) FILTER (WHERE created_utc >= :recent_window_start) AS recent_comments_30d
         FROM {comments_rel}
         WHERE created_utc >= :since
           AND (:has_subs = FALSE OR lower(subreddit) = ANY(:subs))
@@ -193,6 +226,8 @@ async def _fetch_posts_comments(
     rows = await session.execute(
         text(sql),
         {
+            "anchor_ts": anchor_value,
+            "recent_window_start": recent_window_start,
             "since": since_dt,
             "subs": list(subs) or [""],
             "has_subs": bool(subs),
@@ -407,11 +442,13 @@ async def build_trend_analysis(
     ORDER BY months.month_start ASC
     """
 
-    search_query = " | ".join(tokens)
+    search_query = build_websearch_query(tokens)
+    if not search_query:
+        return []
     params: dict[str, Any] = {"months": months, "search_query": search_query}
 
-    post_predicates = "to_tsvector('english', COALESCE(title, '') || ' ' || COALESCE(body, '')) @@ to_tsquery('english', :search_query)"
-    comment_predicates = "to_tsvector('english', COALESCE(body, '')) @@ to_tsquery('english', :search_query)"
+    post_predicates = "to_tsvector('english', COALESCE(title, '') || ' ' || COALESCE(body, '')) @@ websearch_to_tsquery('english', :search_query)"
+    comment_predicates = "to_tsvector('english', COALESCE(body, '')) @@ websearch_to_tsquery('english', :search_query)"
 
     stmt = text(
         sql.format(
@@ -481,6 +518,7 @@ async def build_entity_sentiment_matrix(
     topic_tokens: Sequence[str],
     months: int = 12,
     min_mentions: int = 3,
+    anchor_ts: datetime | None = None,
 ) -> dict[str, dict[str, float]]:
     """
     Returns a nested dict: { "Entity": { "Aspect": score, ... }, ... }
@@ -490,14 +528,18 @@ async def build_entity_sentiment_matrix(
     if not tokens:
         return {}
 
-    search_query = " | ".join(tokens)
+    search_query = build_websearch_query(tokens)
+    if not search_query:
+        return {}
+    anchor_value = _resolve_anchor_ts(anchor_ts)
+    month_window_start = anchor_value - timedelta(days=30 * max(int(months or 0), 0))
     comments_rel = await get_comments_core_lab_relation(session)
     sql = f"""
     WITH relevant_comments AS (
         SELECT id
         FROM {comments_rel}
-        WHERE created_utc >= NOW() - (interval '1 month' * :months)
-          AND to_tsvector('english', COALESCE(body, '')) @@ to_tsquery('english', :search_query)
+        WHERE created_utc >= :month_window_start
+          AND to_tsvector('english', COALESCE(body, '')) @@ websearch_to_tsquery('english', :search_query)
     )
     SELECT 
         e.entity_name,
@@ -519,6 +561,8 @@ async def build_entity_sentiment_matrix(
     ORDER BY cnt DESC
     """
     params = {
+        "anchor_ts": anchor_value,
+        "month_window_start": month_window_start,
         "months": months,
         "search_query": search_query,
         "min_mentions": min_mentions,
@@ -545,6 +589,8 @@ async def fetch_topic_relevant_communities(
     exclusion_tokens: Sequence[str] | None = None,
     days: int = 365,
     min_relevance_score: int = 5,
+    anchor_ts: datetime | None = None,
+    diagnostics: dict[str, Any] | None = None,
 ) -> dict[str, int]:
     """按内容相关性统计社区，过滤掉噪音社区。
 
@@ -556,36 +602,54 @@ async def fetch_topic_relevant_communities(
     """
     tokens = [t.strip().lower() for t in topic_tokens or [] if t and t.strip()]
     if not tokens:
+        if diagnostics is not None:
+            diagnostics["semantic_search_status"] = "disabled_no_tokens"
         return {}
-    search_query = " | ".join(tokens)
+    search_query = build_websearch_query(tokens)
+    if not search_query:
+        if diagnostics is not None:
+            diagnostics["semantic_search_status"] = "disabled_no_search_query"
+        return {}
 
     # [NEW] Generate topic embedding
     try:
         topic_embedding = embedding_service.encode(topic)
         has_embedding = True
     except Exception as e:
-        print(f"⚠️ Semantic embedding failed: {e}")
+        logger.warning("Semantic embedding failed for topic %s", topic, exc_info=True)
         topic_embedding = None
         has_embedding = False
+        if diagnostics is not None:
+            diagnostics["semantic_search_status"] = "keyword_only"
+            diagnostics["semantic_search_error"] = str(e)[:200]
+    else:
+        if diagnostics is not None:
+            diagnostics["semantic_search_status"] = "semantic+keyword"
 
     excludes = [e.strip().lower() for e in (exclusion_tokens or []) if e and e.strip()]
-    exclude_query = " | ".join(excludes)
+    exclude_query = build_websearch_query(excludes)
     has_exclude = bool(exclude_query)
+    anchor_value = _resolve_anchor_ts(anchor_ts)
+    year_window_start = anchor_value - timedelta(days=365)
 
     # Comments 查询容易超时，窗口缩短到 180 天兜底
     comments_days = min(days, 180)
 
     params_common = {
-        "days": days,
+        "anchor_ts": anchor_value,
+        "window_start": anchor_value - timedelta(days=max(int(days or 0), 0)),
+        "year_window_start": year_window_start,
         "search_query": search_query,
         "has_exclude": has_exclude,
-        "exclude_query": exclude_query or "''",
+        "exclude_query": exclude_query or "",
     }
     params_comments = {
-        "days": comments_days,
+        "anchor_ts": anchor_value,
+        "window_start": anchor_value - timedelta(days=max(int(comments_days or 0), 0)),
+        "year_window_start": year_window_start,
         "search_query": search_query,
         "has_exclude": has_exclude,
-        "exclude_query": exclude_query or "''",
+        "exclude_query": exclude_query or "",
     }
 
     counts: Counter[str] = Counter()
@@ -595,16 +659,16 @@ async def fetch_topic_relevant_communities(
         """
         SELECT lower(p.subreddit) AS sr, COUNT(*) AS cnt
         FROM posts_raw p
-        WHERE p.created_at >= NOW() - (interval '1 day' * :days)
-          AND p.created_at >= NOW() - INTERVAL '1 year'
+        WHERE p.created_at >= :window_start
+          AND p.created_at >= :year_window_start
           AND p.is_current = true
           AND COALESCE(p.is_duplicate, false) = false
           AND to_tsvector('english', COALESCE(p.title, '') || ' ' || COALESCE(p.body, ''))
-              @@ to_tsquery('english', :search_query)
+              @@ websearch_to_tsquery('english', :search_query)
           AND (
               :has_exclude = FALSE OR NOT (
                   to_tsvector('english', COALESCE(p.title, '') || ' ' || COALESCE(p.body, ''))
-                  @@ to_tsquery('english', :exclude_query)
+                  @@ websearch_to_tsquery('english', :exclude_query)
               )
           )
         GROUP BY sr
@@ -628,23 +692,27 @@ async def fetch_topic_relevant_communities(
             SELECT lower(p.subreddit) AS sr, COUNT(*) AS cnt
             FROM posts_raw p
             JOIN post_embeddings pe ON pe.post_id = p.id
-            WHERE p.created_at >= NOW() - (interval '1 day' * :days)
-              AND p.created_at >= NOW() - INTERVAL '1 year'
+            WHERE p.created_at >= :window_start
+              AND p.created_at >= :year_window_start
               AND p.is_current = true
               AND COALESCE(p.is_duplicate, false) = false
               AND pe.embedding <=> :topic_embedding < 0.4
             GROUP BY sr
             """
         )
-        rows = await session.execute(
+        semantic_rows = await session.execute(
             sql_posts_semantic,
-            {"days": days, "topic_embedding": topic_embedding_str},
+            {
+                "window_start": params_common["window_start"],
+                "year_window_start": year_window_start,
+                "topic_embedding": topic_embedding_str,
+            },
         )
-    for row in rows.fetchall():
-        sr = getattr(row, "sr", None)
-        cnt = getattr(row, "cnt", 0) or 0
-        if sr:
-            counts[sr] += int(cnt)
+        for row in semantic_rows.fetchall():
+            sr = getattr(row, "sr", None)
+            cnt = getattr(row, "cnt", 0) or 0
+            if sr:
+                counts[sr] += int(cnt)
 
     # 3) 评论全文检索
     comments_rel = await get_comments_core_lab_relation(session)
@@ -652,14 +720,14 @@ async def fetch_topic_relevant_communities(
         f"""
         SELECT lower(subreddit) AS sr, COUNT(*) AS cnt
         FROM {comments_rel}
-        WHERE created_utc >= NOW() - (interval '1 day' * :days)
-          AND created_utc >= NOW() - INTERVAL '1 year'
+        WHERE created_utc >= :window_start
+          AND created_utc >= :year_window_start
           AND to_tsvector('english', COALESCE(body, ''))
-              @@ to_tsquery('english', :search_query)
+              @@ websearch_to_tsquery('english', :search_query)
           AND (
               :has_exclude = FALSE OR NOT (
                   to_tsvector('english', COALESCE(body, ''))
-                  @@ to_tsquery('english', :exclude_query)
+                  @@ websearch_to_tsquery('english', :exclude_query)
               )
           )
         GROUP BY sr
@@ -679,12 +747,19 @@ async def build_stats_snapshot(
     subreddits: Optional[Sequence[str]] = None,
     days: int = 365,
     brand_limit: int = 10,
+    anchor_ts: datetime | None = None,
 ) -> T1StatsSnapshot:
-    since_dt = datetime.now(timezone.utc) - timedelta(days=min(365, max(1, days)))
+    anchor_value = _resolve_anchor_ts(anchor_ts)
+    since_dt = anchor_value - timedelta(days=min(365, max(1, days)))
     # Do not remove prefix, just lower
     subs = list({s.lower() for s in (subreddits or []) if s}) or await _fetch_t1_subreddits(session)
 
-    posts_comments = await _fetch_posts_comments(session, subs=subs, since_dt=since_dt)
+    posts_comments = await _fetch_posts_comments(
+        session,
+        subs=subs,
+        since_dt=since_dt,
+        anchor_ts=anchor_value,
+    )
     ps_counts = await _fetch_ps_ratio_by_sub(session, subs=subs, since_dt=since_dt)
 
     community_stats: list[CommunityStat] = []
@@ -719,7 +794,7 @@ async def build_stats_snapshot(
     )
 
     return T1StatsSnapshot(
-        generated_at=datetime.now(timezone.utc).isoformat(),
+        generated_at=anchor_value.isoformat(),
         since_utc=since_dt.isoformat(),
         subreddits=subs,
         global_ps_ratio=global_ps_ratio,
@@ -738,9 +813,14 @@ async def write_snapshot_to_file(
     subreddits: Optional[Sequence[str]] = None,
     days: int = 365,
     brand_limit: int = 10,
+    anchor_ts: datetime | None = None,
 ) -> Path:
     snapshot = await build_stats_snapshot(
-        session, subreddits=subreddits, days=days, brand_limit=brand_limit
+        session,
+        subreddits=subreddits,
+        days=days,
+        brand_limit=brand_limit,
+        anchor_ts=anchor_ts,
     )
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(

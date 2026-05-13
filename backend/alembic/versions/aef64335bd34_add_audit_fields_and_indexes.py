@@ -193,6 +193,29 @@ def upgrade() -> None:
 
     # Check and create foreign keys only if they don't exist
     conn = op.get_bind()
+    history_columns = {
+        row[0]
+        for row in conn.execute(
+            sa.text(
+                """
+                SELECT column_name
+                FROM information_schema.columns
+                WHERE table_schema = 'public'
+                AND table_name = 'community_import_history'
+                """
+            )
+        )
+    }
+    if "created_by" not in history_columns:
+        op.add_column(
+            "community_import_history",
+            sa.Column("created_by", postgresql.UUID(as_uuid=True), nullable=True),
+        )
+    if "updated_by" not in history_columns:
+        op.add_column(
+            "community_import_history",
+            sa.Column("updated_by", postgresql.UUID(as_uuid=True), nullable=True),
+        )
 
     # Check if fk_community_import_history_created_by_users exists
     fk_created_by_exists = conn.execute(sa.text("""

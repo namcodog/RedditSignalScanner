@@ -125,9 +125,35 @@ check_redis() {
 }
 
 check_backend_health() {
-  curl -sf "http://localhost:${BACKEND_PORT}/api/healthz" >/dev/null
+  curl -sf "http://localhost:${BACKEND_PORT}/api/v1/health" >/dev/null
 }
 
 check_frontend_health() {
   curl -sf "http://localhost:${FRONTEND_PORT}/" >/dev/null
+}
+
+wait_backend_health() {
+  local retries=${1:-20}
+  local sleep_seconds=${2:-1}
+  local i
+  for ((i = 1; i <= retries; i++)); do
+    if check_backend_health; then
+      return 0
+    fi
+    sleep "${sleep_seconds}"
+  done
+  return 1
+}
+
+wait_frontend_health() {
+  local retries=${1:-20}
+  local sleep_seconds=${2:-1}
+  local i
+  for ((i = 1; i <= retries; i++)); do
+    if check_frontend_health; then
+      return 0
+    fi
+    sleep "${sleep_seconds}"
+  done
+  return 1
 }

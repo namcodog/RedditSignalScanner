@@ -1,0 +1,23 @@
+[
+  {
+    "variant_id": "human_summary_tight_why_now_v1",
+    "pass_rate": 0.4194,
+    "pass_count": 13,
+    "fail_count": 18,
+    "decision": "discard"
+  },
+  {
+    "variant_id": "judgment_forward_summary_v2",
+    "pass_rate": 0.2258,
+    "pass_count": 7,
+    "fail_count": 24,
+    "decision": "discard"
+  },
+  {
+    "variant_id": "judgment_forward_summary_strict_v2",
+    "pass_rate": 0.2581,
+    "pass_count": 8,
+    "fail_count": 23,
+    "decision": "discard"
+  }
+]

@@ -29,12 +29,11 @@ describe('OpportunitiesList', () => {
 
     render(<OpportunitiesList opportunities={opportunities} />);
 
-    // 使用 getAllByText 因为文本可能出现多次
-    expect(screen.getAllByText('开发移动端应用').length).toBeGreaterThan(0);
-    expect(screen.getAllByText('添加离线模式').length).toBeGreaterThan(0);
+    // 使用 getAllByText 因为标题和描述都会展示机会文本
+    expect(screen.getAllByText('AI推荐系统').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('自动化客服').length).toBeGreaterThan(0);
   });
 
   // 移除重复测试 - 这些测试都只验证相同的文本，导致 "Found multiple elements" 错误
   // 如需测试特定功能，应该使用更具体的选择器或验证不同的元素
 });
-

@@ -1,0 +1,30 @@
+{
+  "sample_count": 18,
+  "pass_count": 16,
+  "fail_count": 2,
+  "pass_rate": 0.8889,
+  "fail_rate": 0.1111,
+  "top_failure_tags": [
+    [
+      "weak_thesis",
+      2
+    ],
+    [
+      "quote_pack_not_supporting_claim",
+      2
+    ],
+    [
+      "stitched_not_coherent",
+      2
+    ]
+  ],
+  "scope_pass_counts": {
+    "ai-automation": 10,
+    "ecommerce-sellers": 1,
+    "business-growth-ops": 5
+  },
+  "scope_fail_counts": {
+    "ai-automation": 1,
+    "ecommerce-sellers": 1
+  }
+}

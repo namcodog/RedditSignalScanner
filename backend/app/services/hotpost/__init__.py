@@ -9,6 +9,7 @@ from app.services.hotpost.rules import (
     compute_signal_score,
     classify_intent_label,
     classify_pain_category,
+    classify_rant_friction_category,
     count_resonance,
 )
 
@@ -22,5 +23,6 @@ __all__ = [
     "compute_signal_score",
     "classify_intent_label",
     "classify_pain_category",
+    "classify_rant_friction_category",
     "count_resonance",
 ]

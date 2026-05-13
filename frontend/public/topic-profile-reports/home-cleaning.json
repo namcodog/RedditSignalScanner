@@ -1,0 +1,4725 @@
+{
+  "slug": "home-cleaning",
+  "title": "家居",
+  "prompt": "面向北美租房人群的家居收纳与清洁工具推荐/比价助手，解决空间小、产品选择多、踩雷的问题。",
+  "topic_profile_id": "vacuum_cleaner_v1",
+  "task_id": "dd7e6282-805f-493a-b006-bc77d9bab54a",
+  "validated_at": "2026-03-20T16:49:27.430768+00:00",
+  "summary": {
+    "decision_cards": 4,
+    "battlefields": 4,
+    "pain_points": 3,
+    "drivers": 3,
+    "opportunities": 2,
+    "report_markdown_len": 2704,
+    "llm_used": true
+  },
+  "report": {
+    "task_id": "dd7e6282-805f-493a-b006-bc77d9bab54a",
+    "status": "completed",
+    "generated_at": "2026-03-20T12:04:04.180974Z",
+    "product_description": "面向北美租房人群的家居收纳与清洁工具推荐/比价助手，解决空间小、产品选择多、踩雷的问题。",
+    "data_source": null,
+    "report_markdown": "# 面向北美租房人群的家居收纳与清洁工具推荐/比价助手，解决空间小、产品选择多、踩雷的问题。 · 市场洞察报告\n\n## 1. 开篇概览\n北美租房用户尘土积累快，常规吸尘跟不上，机器人吸尘器需求高但方案少，P/S比0.00，市场痛点积压。  \n关键社区：r/RobotVacuums、r/VacuumCleaners、r/CleaningTips、r/cleaningtips、r/buyitforlife。  \n过去12个月，帖子总数24 + 评论总数0。\n\n## 2. 决策风向标\n**需求趋势**  \n过去周期覆盖24帖/0评论，趋势支持继续决策。覆盖11个社区，信号可追踪。  \n\n**难题与攻略比**  \nP/S比约0.00，痛点远超方案。市场在抱怨阶段，机会大。结论已形成可读结构。  \n\n**核心社群**  \n最活跃是r/RobotVacuums、r/VacuumCleaners、r/CleaningTips。高活跃社区重复抱怨尘土问题。名单基于真实数据。  \n\n**落地机会**  \n- 在r/RobotVacuums发帖验证“Looking for an appropriate robot vacuum cleaner for my case”，约1662潜在用户，尘土痛点复现率高值得抢先切入。  \n- 针对“looking for recommendations for a robot vacuum cleaner that will dock and transfer all the dust into a bag”，约3262潜在用户，手动倒尘麻烦大，推自清洁机器人比价值得做。  \n- 监控r/VacuumCleaners尘土帖子，HEPA过滤需求强，租房小户型用户多，建推荐工具测试转化。  \n\n## 3. 概览（市场健康度诊断）\n竞争可见，但仍有结构性机会，已分析24帖/0评论。  \nP/S比0.00代表痛点积压、方案不成熟，可继续推进。\n\n## 4. 核心战场推荐（画像分级）\n**lv1 r/RobotVacuums**  \n新租户或上班族，尘土快、空间小。核心吐槽：Hello, I've recently moved into a new flat and I'm getting terrible dust。先验证问题复现频率，再深挖。  \n\n**lv2 r/VacuumCleaners**  \n尘土重城市居民或过敏者。核心吐槽：I live in a city that is soooo dusty。先验证问题复现频率，再深挖。  \n\n**lv3 r/CleaningTips**  \n公寓住户，地毯硬地板混用。核心吐槽：Suggestion for ~$200 Bagged/Bagless Vacuum Cleaner (90% Carpet and rest Hardfloor)。先验证问题复现频率，再深挖。  \n\n**lv4 r/cleaningtips**  \n买错机器的用户。核心吐槽：Hello, I bought the Upright Shark CarpetXpert with StainStriker vacuum cleaner, but didn't realize it doesn't support dry cleaning。先验证问题复现频率，再深挖。  \n\n## 5. 用户痛点拆解\n**新租尘土狂积**  \n原声：Hello, I've recently moved into a new flat and I'm getting terrible dust. What you see in the photo is after 6 days from the last cleaning。  \n数据印象：覆盖11社区，可追踪信号。  \n深层原因：（数据不足）。  \n证据链接：https://www.reddit.com/r/CleaningTips/comments/1ln8q4e/best_way_to_remove_dust_air_purifier_robot_vacuum/  \n\n**尘城地板秒脏**  \n原声：I live in a city that is soooo dusty, you just can't believe it unless you see it. I can mop my floors in the morning, and in the evening they're dusty again。  \n数据印象：覆盖11社区，可追踪信号。  \n深层原因：（数据不足）。  \n证据链接：https://www.reddit.com/r/VacuumCleaners/comments/1pw0n1v/what_do_i_want_in_a_robotic_vacuum_cleaner/  \n\n**地毯过敏求HEPA**  \n原声：Suggestion for ~$200 Bagged/Bagless Vacuum Cleaner (90% Carpet and rest Hardfloor)。I have a dust allergy... spouse has hairfall。  \n数据印象：覆盖11社区，可追踪信号。  \n深层原因：（数据不足）。  \n证据链接：https://www.reddit.com/r/VacuumCleaners/comments/1mkwlju/suggestion_for_200_baggedbagless_vacuum_cleaner/  \n\n## 6. 关键决策驱动力\n- 效率提升与省时省心：尘土反复扫、重复操作烦，想机器人自动搞定才买。  \n- 透明可控体验：犹豫品牌坑多、功能不匹配，一直等社区推荐才下单。  \n\n## 7. 商业机会\n**机会卡1**  \n对应痛点：尘土积累快。目标社群：r/RobotVacuums、r/VacuumCleaners、r/CleaningTips。产品定位：约1662潜在用户机器人吸尘推荐。卖点建议：匹配租房场景，避免手动倒尘。  \n\n**机会卡2**  \n对应痛点：手动清灰麻烦。目标社群：r/RobotVacuums、r/VacuumCleaners、r/CleaningTips。产品定位：约3262潜在用户自清洁机器人比价。卖点建议：自动转尘袋、省时防脏手。",
+    "report_html": "<pre># 面向北美租房人群的家居收纳与清洁工具推荐/比价助手，解决空间小、产品选择多、踩雷的问题。 · 市场洞察报告\n\n## 1. 开篇概览\n北美租房用户尘土积累快，常规吸尘跟不上，机器人吸尘器需求高但方案少，P/S比0.00，市场痛点积压。  \n关键社区：r/RobotVacuums、r/VacuumCleaners、r/CleaningTips、r/cleaningtips、r/buyitforlife。  \n过去12个月，帖子总数24 + 评论总数0。\n\n## 2. 决策风向标\n**需求趋势**  \n过去周期覆盖24帖/0评论，趋势支持继续决策。覆盖11个社区，信号可追踪。  \n\n**难题与攻略比**  \nP/S比约0.00，痛点远超方案。市场在抱怨阶段，机会大。结论已形成可读结构。  \n\n**核心社群**  \n最活跃是r/RobotVacuums、r/VacuumCleaners、r/CleaningTips。高活跃社区重复抱怨尘土问题。名单基于真实数据。  \n\n**落地机会**  \n- 在r/RobotVacuums发帖验证“Looking for an appropriate robot vacuum cleaner for my case”，约1662潜在用户，尘土痛点复现率高值得抢先切入。  \n- 针对“looking for recommendations for a robot vacuum cleaner that will dock and transfer all the dust into a bag”，约3262潜在用户，手动倒尘麻烦大，推自清洁机器人比价值得做。  \n- 监控r/VacuumCleaners尘土帖子，HEPA过滤需求强，租房小户型用户多，建推荐工具测试转化。  \n\n## 3. 概览（市场健康度诊断）\n竞争可见，但仍有结构性机会，已分析24帖/0评论。  \nP/S比0.00代表痛点积压、方案不成熟，可继续推进。\n\n## 4. 核心战场推荐（画像分级）\n**lv1 r/RobotVacuums**  \n新租户或上班族，尘土快、空间小。核心吐槽：Hello, I&#x27;ve recently moved into a new flat and I&#x27;m getting terrible dust。先验证问题复现频率，再深挖。  \n\n**lv2 r/VacuumCleaners**  \n尘土重城市居民或过敏者。核心吐槽：I live in a city that is soooo dusty。先验证问题复现频率，再深挖。  \n\n**lv3 r/CleaningTips**  \n公寓住户，地毯硬地板混用。核心吐槽：Suggestion for ~$200 Bagged/Bagless Vacuum Cleaner (90% Carpet and rest Hardfloor)。先验证问题复现频率，再深挖。  \n\n**lv4 r/cleaningtips**  \n买错机器的用户。核心吐槽：Hello, I bought the Upright Shark CarpetXpert with StainStriker vacuum cleaner, but didn&#x27;t realize it doesn&#x27;t support dry cleaning。先验证问题复现频率，再深挖。  \n\n## 5. 用户痛点拆解\n**新租尘土狂积**  \n原声：Hello, I&#x27;ve recently moved into a new flat and I&#x27;m getting terrible dust. What you see in the photo is after 6 days from the last cleaning。  \n数据印象：覆盖11社区，可追踪信号。  \n深层原因：（数据不足）。  \n证据链接：https://www.reddit.com/r/CleaningTips/comments/1ln8q4e/best_way_to_remove_dust_air_purifier_robot_vacuum/  \n\n**尘城地板秒脏**  \n原声：I live in a city that is soooo dusty, you just can&#x27;t believe it unless you see it. I can mop my floors in the morning, and in the evening they&#x27;re dusty again。  \n数据印象：覆盖11社区，可追踪信号。  \n深层原因：（数据不足）。  \n证据链接：https://www.reddit.com/r/VacuumCleaners/comments/1pw0n1v/what_do_i_want_in_a_robotic_vacuum_cleaner/  \n\n**地毯过敏求HEPA**  \n原声：Suggestion for ~$200 Bagged/Bagless Vacuum Cleaner (90% Carpet and rest Hardfloor)。I have a dust allergy... spouse has hairfall。  \n数据印象：覆盖11社区，可追踪信号。  \n深层原因：（数据不足）。  \n证据链接：https://www.reddit.com/r/VacuumCleaners/comments/1mkwlju/suggestion_for_200_baggedbagless_vacuum_cleaner/  \n\n## 6. 关键决策驱动力\n- 效率提升与省时省心：尘土反复扫、重复操作烦，想机器人自动搞定才买。  \n- 透明可控体验：犹豫品牌坑多、功能不匹配，一直等社区推荐才下单。  \n\n## 7. 商业机会\n**机会卡1**  \n对应痛点：尘土积累快。目标社群：r/RobotVacuums、r/VacuumCleaners、r/CleaningTips。产品定位：约1662潜在用户机器人吸尘推荐。卖点建议：匹配租房场景，避免手动倒尘。  \n\n**机会卡2**  \n对应痛点：手动清灰麻烦。目标社群：r/RobotVacuums、r/VacuumCleaners、r/CleaningTips。产品定位：约3262潜在用户自清洁机器人比价。卖点建议：自动转尘袋、省时防脏手。</pre>",
+    "canonical_report_json": {
+      "decision_cards": [
+        {
+          "title": "需求趋势",
+          "conclusion": "过去周期内已覆盖 24 帖 / 0 评论，趋势可用于继续决策。",
+          "details": [
+            "覆盖社区：11 个",
+            "这是系统生成的统一结构报告，不依赖前端拼装。"
+          ]
+        },
+        {
+          "title": "问题/解决方案比",
+          "conclusion": "P/S 比约 0.00，痛点与方案已形成可读结构。",
+          "details": [
+            "P/S 比：0.00",
+            "结论力度会随证据强度自动升级或保守。"
+          ]
+        },
+        {
+          "title": "核心社群",
+          "conclusion": "当前最活跃社区集中在 r/RobotVacuums, r/VacuumCleaners, r/CleaningTips。",
+          "details": [
+            "优先看高活跃且重复抱怨出现的社区。",
+            "社区名单由本轮分析真实数据生成。"
+          ]
+        },
+        {
+          "title": "明确机会点",
+          "conclusion": "已出现机会线索：Looking for an appropriate robot vacuum cleaner for my case",
+          "details": [
+            "机会卡与痛点卡使用同一条证据链。",
+            "B/C 是 Full A 同骨架简化，不走独立页面结构。"
+          ]
+        }
+      ],
+      "market_health": {
+        "competition_saturation": {
+          "level": "竞争可见，但仍有结构性机会",
+          "details": [
+            "已分析 24 帖 / 0 评论。",
+            "核心社区：r/RobotVacuums, r/VacuumCleaners, r/CleaningTips"
+          ],
+          "interpretation": "当前结论可用于继续推进。"
+        },
+        "ps_ratio": {
+          "ratio": "0.00",
+          "conclusion": "P/S 比约 0.00，痛点与方案已形成可读结构。",
+          "interpretation": "该比例用于判断市场是在抱怨积压还是方案成熟阶段。",
+          "health_assessment": "可继续推进"
+        }
+      },
+      "battlefields": [
+        {
+          "name": "r/RobotVacuums",
+          "subreddits": [
+            "r/RobotVacuums"
+          ],
+          "profile": "讨论量和抱怨强度都已达到可执行判断门槛。",
+          "pain_points": [
+            "Hello, I've recently moved into a new flat and I'm getting terrible dust"
+          ],
+          "strategy_advice": "先在该社区验证问题复现频率，再决定是否深挖。"
+        },
+        {
+          "name": "r/VacuumCleaners",
+          "subreddits": [
+            "r/VacuumCleaners"
+          ],
+          "profile": "讨论量和抱怨强度都已达到可执行判断门槛。",
+          "pain_points": [
+            ") I live in a city that is soooo dusty, you just can't believe it unless you see it"
+          ],
+          "strategy_advice": "先在该社区验证问题复现频率，再决定是否深挖。"
+        },
+        {
+          "name": "r/CleaningTips",
+          "subreddits": [
+            "r/CleaningTips"
+          ],
+          "profile": "讨论量和抱怨强度都已达到可执行判断门槛。",
+          "pain_points": [
+            "Suggestion for ~$200 Bagged/Bagless Vacuum Cleaner (90% Carpet and rest Hardfloor)"
+          ],
+          "strategy_advice": "先在该社区验证问题复现频率，再决定是否深挖。"
+        },
+        {
+          "name": "r/cleaningtips",
+          "subreddits": [
+            "r/cleaningtips"
+          ],
+          "profile": "讨论量和抱怨强度都已达到可执行判断门槛。",
+          "pain_points": [
+            "Hello, I bought the Upright Shark CarpetXpert with StainStriker vacuum cleaner, but didn't realize it doesn't support dry cleaning for dust and debris pickup"
+          ],
+          "strategy_advice": "先在该社区验证问题复现频率，再决定是否深挖。"
+        }
+      ],
+      "pain_points": [
+        {
+          "title": "Hello, I've recently moved into a new flat and I'm getting terrible dust",
+          "user_voices": [
+            "Hello, I've recently moved into a new flat and I'm getting terrible dust. What you see in the photo is after 6 days from the last cleaning. I do vacuum regularly, but this dust accumulation is driv..."
+          ],
+          "data_impression": "覆盖 11 个社区，已出现可追踪信号。",
+          "interpretation": "该痛点可直接进入解决方案验证。"
+        },
+        {
+          "title": ") I live in a city that is soooo dusty, you just can't believe it unless you see it",
+          "user_voices": [
+            "My entire house is tile. (I am retired and living in Mexico.) I live in a city that is soooo dusty, you just can't believe it unless you see it. I can mop my floors in the morning, and in the eveni..."
+          ],
+          "data_impression": "覆盖 11 个社区，已出现可追踪信号。",
+          "interpretation": "该痛点可直接进入解决方案验证。"
+        },
+        {
+          "title": "Suggestion for ~$200 Bagged/Bagless Vacuum Cleaner (90% Carpet and rest Hardfloor)",
+          "user_voices": [
+            "Hi. I am planning to buy a vacuum cleaner with HEPA filtration for my 1100 sq ft apartment. I have a dust allergy (not severe, but it is there). I do not have any pets, but my spouse has hairfall i..."
+          ],
+          "data_impression": "覆盖 11 个社区，已出现可追踪信号。",
+          "interpretation": "该痛点可直接进入解决方案验证。"
+        }
+      ],
+      "drivers": [
+        {
+          "title": "效率提升与省时省心",
+          "description": "高频痛点集中在：Hello, I've recently moved into a new flat and I'm getting terrible dust / ) I live in a city that is soooo dusty, you just can't believe it unless you see it"
+        },
+        {
+          "title": "驱动力 2",
+          "description": "用户持续强调效率、透明和可控的解决体验。"
+        },
+        {
+          "title": "驱动力 3",
+          "description": "用户持续强调效率、透明和可控的解决体验。"
+        }
+      ],
+      "opportunities": [
+        {
+          "title": "Looking for an appropriate robot vacuum cleaner for my case",
+          "target_pain_points": [
+            "an",
+            "app",
+            "at"
+          ],
+          "target_communities": [
+            "r/RobotVacuums",
+            "r/VacuumCleaners",
+            "r/CleaningTips"
+          ],
+          "product_positioning": "约1662个潜在团队",
+          "core_selling_points": [
+            "an",
+            "app",
+            "at"
+          ]
+        },
+        {
+          "title": "looking for recommendations for a robot vacuum cleaner that will dock and transfer all the dust into a bag without having to empty it myself",
+          "target_pain_points": [
+            "all",
+            "an",
+            "at"
+          ],
+          "target_communities": [
+            "r/RobotVacuums",
+            "r/VacuumCleaners",
+            "r/CleaningTips"
+          ],
+          "product_positioning": "约3262个潜在团队",
+          "core_selling_points": [
+            "all",
+            "an",
+            "at"
+          ]
+        }
+      ]
+    },
+    "report_structured": {
+      "decision_cards": [
+        {
+          "title": "需求趋势",
+          "conclusion": "过去周期内已覆盖 24 帖 / 0 评论，趋势可用于继续决策。",
+          "details": [
+            "覆盖社区：11 个",
+            "这是系统生成的统一结构报告，不依赖前端拼装。"
+          ]
+        },
+        {
+          "title": "问题/解决方案比",
+          "conclusion": "P/S 比约 0.00，痛点与方案已形成可读结构。",
+          "details": [
+            "P/S 比：0.00",
+            "结论力度会随证据强度自动升级或保守。"
+          ]
+        },
+        {
+          "title": "核心社群",
+          "conclusion": "当前最活跃社区集中在 r/RobotVacuums, r/VacuumCleaners, r/CleaningTips。",
+          "details": [
+            "优先看高活跃且重复抱怨出现的社区。",
+            "社区名单由本轮分析真实数据生成。"
+          ]
+        },
+        {
+          "title": "明确机会点",
+          "conclusion": "已出现机会线索：Looking for an appropriate robot vacuum cleaner for my case",
+          "details": [
+            "机会卡与痛点卡使用同一条证据链。",
+            "B/C 是 Full A 同骨架简化，不走独立页面结构。"
+          ]
+        }
+      ],
+      "market_health": {
+        "competition_saturation": {
+          "level": "竞争可见，但仍有结构性机会",
+          "details": [
+            "已分析 24 帖 / 0 评论。",
+            "核心社区：r/RobotVacuums, r/VacuumCleaners, r/CleaningTips"
+          ],
+          "interpretation": "当前结论可用于继续推进。"
+        },
+        "ps_ratio": {
+          "ratio": "0.00",
+          "conclusion": "P/S 比约 0.00，痛点与方案已形成可读结构。",
+          "interpretation": "该比例用于判断市场是在抱怨积压还是方案成熟阶段。",
+          "health_assessment": "可继续推进"
+        }
+      },
+      "battlefields": [
+        {
+          "name": "r/RobotVacuums",
+          "subreddits": [
+            "r/RobotVacuums"
+          ],
+          "profile": "讨论量和抱怨强度都已达到可执行判断门槛。",
+          "pain_points": [
+            "Hello, I've recently moved into a new flat and I'm getting terrible dust"
+          ],
+          "strategy_advice": "先在该社区验证问题复现频率，再决定是否深挖。"
+        },
+        {
+          "name": "r/VacuumCleaners",
+          "subreddits": [
+            "r/VacuumCleaners"
+          ],
+          "profile": "讨论量和抱怨强度都已达到可执行判断门槛。",
+          "pain_points": [
+            ") I live in a city that is soooo dusty, you just can't believe it unless you see it"
+          ],
+          "strategy_advice": "先在该社区验证问题复现频率，再决定是否深挖。"
+        },
+        {
+          "name": "r/CleaningTips",
+          "subreddits": [
+            "r/CleaningTips"
+          ],
+          "profile": "讨论量和抱怨强度都已达到可执行判断门槛。",
+          "pain_points": [
+            "Suggestion for ~$200 Bagged/Bagless Vacuum Cleaner (90% Carpet and rest Hardfloor)"
+          ],
+          "strategy_advice": "先在该社区验证问题复现频率，再决定是否深挖。"
+        },
+        {
+          "name": "r/cleaningtips",
+          "subreddits": [
+            "r/cleaningtips"
+          ],
+          "profile": "讨论量和抱怨强度都已达到可执行判断门槛。",
+          "pain_points": [
+            "Hello, I bought the Upright Shark CarpetXpert with StainStriker vacuum cleaner, but didn't realize it doesn't support dry cleaning for dust and debris pickup"
+          ],
+          "strategy_advice": "先在该社区验证问题复现频率，再决定是否深挖。"
+        }
+      ],
+      "pain_points": [
+        {
+          "title": "Hello, I've recently moved into a new flat and I'm getting terrible dust",
+          "user_voices": [
+            "Hello, I've recently moved into a new flat and I'm getting terrible dust. What you see in the photo is after 6 days from the last cleaning. I do vacuum regularly, but this dust accumulation is driv..."
+          ],
+          "data_impression": "覆盖 11 个社区，已出现可追踪信号。",
+          "interpretation": "该痛点可直接进入解决方案验证。"
+        },
+        {
+          "title": ") I live in a city that is soooo dusty, you just can't believe it unless you see it",
+          "user_voices": [
+            "My entire house is tile. (I am retired and living in Mexico.) I live in a city that is soooo dusty, you just can't believe it unless you see it. I can mop my floors in the morning, and in the eveni..."
+          ],
+          "data_impression": "覆盖 11 个社区，已出现可追踪信号。",
+          "interpretation": "该痛点可直接进入解决方案验证。"
+        },
+        {
+          "title": "Suggestion for ~$200 Bagged/Bagless Vacuum Cleaner (90% Carpet and rest Hardfloor)",
+          "user_voices": [
+            "Hi. I am planning to buy a vacuum cleaner with HEPA filtration for my 1100 sq ft apartment. I have a dust allergy (not severe, but it is there). I do not have any pets, but my spouse has hairfall i..."
+          ],
+          "data_impression": "覆盖 11 个社区，已出现可追踪信号。",
+          "interpretation": "该痛点可直接进入解决方案验证。"
+        }
+      ],
+      "drivers": [
+        {
+          "title": "效率提升与省时省心",
+          "description": "高频痛点集中在：Hello, I've recently moved into a new flat and I'm getting terrible dust / ) I live in a city that is soooo dusty, you just can't believe it unless you see it"
+        },
+        {
+          "title": "驱动力 2",
+          "description": "用户持续强调效率、透明和可控的解决体验。"
+        },
+        {
+          "title": "驱动力 3",
+          "description": "用户持续强调效率、透明和可控的解决体验。"
+        }
+      ],
+      "opportunities": [
+        {
+          "title": "Looking for an appropriate robot vacuum cleaner for my case",
+          "target_pain_points": [
+            "an",
+            "app",
+            "at"
+          ],
+          "target_communities": [
+            "r/RobotVacuums",
+            "r/VacuumCleaners",
+            "r/CleaningTips"
+          ],
+          "product_positioning": "约1662个潜在团队",
+          "core_selling_points": [
+            "an",
+            "app",
+            "at"
+          ]
+        },
+        {
+          "title": "looking for recommendations for a robot vacuum cleaner that will dock and transfer all the dust into a bag without having to empty it myself",
+          "target_pain_points": [
+            "all",
+            "an",
+            "at"
+          ],
+          "target_communities": [
+            "r/RobotVacuums",
+            "r/VacuumCleaners",
+            "r/CleaningTips"
+          ],
+          "product_positioning": "约3262个潜在团队",
+          "core_selling_points": [
+            "all",
+            "an",
+            "at"
+          ]
+        }
+      ]
+    },
+    "report": {
+      "executive_summary": {
+        "total_communities": 11,
+        "key_insights": 28,
+        "top_opportunity": "Looking for an appropriate robot vacuum cleaner for my case"
+      },
+      "pain_points": [
+        {
+          "description": "Hello, I've recently moved into a new flat and I'm getting terrible dust",
+          "title": "Hello",
+          "text": "Hello, I've recently moved into a new flat and I'm getting terrible dust",
+          "frequency": 1,
+          "sentiment_score": -0.9,
+          "severity": "high",
+          "example_posts": [
+            {
+              "community": "r/CleaningTips",
+              "content": "Hello, I've recently moved into a new flat and I'm getting terrible dust. What you see in the photo is after 6 days from the last cleaning. I do vacuum regularly, but this dust accumulation is driv...",
+              "upvotes": 1,
+              "url": "https://i.redd.it/ww3yrv0mit9f1.jpeg",
+              "author": "Colorsin",
+              "permalink": "https://reddit.com/r/CleaningTips/comments/1ln8q4e/best_way_to_remove_dust_air_purifier_robot_vacuum/",
+              "duplicate_ids": [
+                "1ln8q4e"
+              ],
+              "evidence_count": 2
+            },
+            {
+              "community": "r/RobotVacuums",
+              "content": "DJI's official Weibo account posted a short video showing the appearance of their upcoming robot, which still looks very futuristic.\nThe words in the middle“实力绝尘”In the context of Chinese, it means...",
+              "upvotes": 86,
+              "url": "https://v.redd.it/ozei4dg8lmef1",
+              "author": "alezin2020",
+              "permalink": "https://reddit.com/r/RobotVacuums/comments/1m798aq/dji_officially_announced_that_it_will_launch_a/",
+              "duplicate_ids": [],
+              "evidence_count": 1
+            }
+          ],
+          "user_examples": [
+            "Hello, I've recently moved into a new flat and I'm getting terrible dust. What you see in the photo is after 6 days from the last cleaning. I do vacuum regularly, but this dust accumulation is driv..."
+          ]
+        },
+        {
+          "description": ") I live in a city that is soooo dusty, you just can't believe it unless you see it",
+          "title": ") I live in a city",
+          "text": ") I live in a city that is soooo dusty, you just can't believe it unless you see it",
+          "frequency": 1,
+          "sentiment_score": -0.8,
+          "severity": "high",
+          "example_posts": [
+            {
+              "community": "r/VacuumCleaners",
+              "content": "My entire house is tile. (I am retired and living in Mexico.) I live in a city that is soooo dusty, you just can't believe it unless you see it. I can mop my floors in the morning, and in the eveni...",
+              "upvotes": 1,
+              "url": "https://www.reddit.com/r/VacuumCleaners/comments/1pw0n1v/what_do_i_want_in_a_robotic_vacuum_cleaner/",
+              "author": "ifellicantgetup",
+              "permalink": "https://reddit.com/r/VacuumCleaners/comments/1pw0n1v/what_do_i_want_in_a_robotic_vacuum_cleaner/",
+              "duplicate_ids": [],
+              "evidence_count": 1
+            },
+            {
+              "community": "r/CleaningTips",
+              "content": "Hi all, I’d really appreciate some feedback from folks who know more about cleaning expectations and pricing.\n\nI recently hired a cleaner I’ve used a few times in the past. She’s always done a grea...",
+              "upvotes": 6741,
+              "url": "https://www.reddit.com/gallery/1nagjou",
+              "author": "Full_Swan7288",
+              "permalink": "https://reddit.com/r/CleaningTips/comments/1nagjou/did_i_handle_this_fairly_with_my_cleaner_looking/",
+              "duplicate_ids": [
+                "1nagjou"
+              ],
+              "evidence_count": 2
+            }
+          ],
+          "user_examples": [
+            "My entire house is tile. (I am retired and living in Mexico.) I live in a city that is soooo dusty, you just can't believe it unless you see it. I can mop my floors in the morning, and in the eveni..."
+          ]
+        },
+        {
+          "description": "Suggestion for ~$200 Bagged/Bagless Vacuum Cleaner (90% Carpet and rest Hardfloor)",
+          "title": "Suggestion for ~$2",
+          "text": "Suggestion for ~$200 Bagged/Bagless Vacuum Cleaner (90% Carpet and rest Hardfloor)",
+          "frequency": 1,
+          "sentiment_score": -0.45,
+          "severity": "medium",
+          "example_posts": [
+            {
+              "community": "r/VacuumCleaners",
+              "content": "Hi. I am planning to buy a vacuum cleaner with HEPA filtration for my 1100 sq ft apartment. I have a dust allergy (not severe, but it is there). I do not have any pets, but my spouse has hairfall i...",
+              "upvotes": 1,
+              "url": "https://www.reddit.com/r/VacuumCleaners/comments/1mkwlju/suggestion_for_200_baggedbagless_vacuum_cleaner/",
+              "author": "Furiousguy79",
+              "permalink": "https://reddit.com/r/VacuumCleaners/comments/1mkwlju/suggestion_for_200_baggedbagless_vacuum_cleaner/",
+              "duplicate_ids": [],
+              "evidence_count": 1
+            },
+            {
+              "community": "r/CleaningTips",
+              "content": "Hi all, I’d really appreciate some feedback from folks who know more about cleaning expectations and pricing.\n\nI recently hired a cleaner I’ve used a few times in the past. She’s always done a grea...",
+              "upvotes": 6741,
+              "url": "https://www.reddit.com/gallery/1nagjou",
+              "author": "Full_Swan7288",
+              "permalink": "https://reddit.com/r/CleaningTips/comments/1nagjou/did_i_handle_this_fairly_with_my_cleaner_looking/",
+              "duplicate_ids": [
+                "1nagjou"
+              ],
+              "evidence_count": 2
+            }
+          ],
+          "user_examples": [
+            "Hi. I am planning to buy a vacuum cleaner with HEPA filtration for my 1100 sq ft apartment. I have a dust allergy (not severe, but it is there). I do not have any pets, but my spouse has hairfall i..."
+          ]
+        },
+        {
+          "description": "Hello, I bought the Upright Shark CarpetXpert with StainStriker vacuum cleaner, but didn't realize it doesn't support dry cleaning for dust and debris pickup",
+          "title": "Hello",
+          "text": "Hello, I bought the Upright Shark CarpetXpert with StainStriker vacuum cleaner, but didn't realize it doesn't support dry cleaning for dust and debris pickup",
+          "frequency": 1,
+          "sentiment_score": -0.45,
+          "severity": "medium",
+          "example_posts": [
+            {
+              "community": "r/VacuumCleaners",
+              "content": "Hello,\n\nI bought the Upright Shark CarpetXpert with StainStriker vacuum cleaner, but didn't realize it doesn't support dry cleaning for dust and debris pickup. I'm looking for a vacuum cleaner that...",
+              "upvotes": 1,
+              "url": "https://www.reddit.com/r/VacuumCleaners/comments/1pfzd0t/looking_for_a_multipurpose_carpet_cleaner/",
+              "author": "Joeshmo04",
+              "permalink": "https://reddit.com/r/VacuumCleaners/comments/1pfzd0t/looking_for_a_multipurpose_carpet_cleaner/",
+              "duplicate_ids": [],
+              "evidence_count": 1
+            },
+            {
+              "community": "r/CleaningTips",
+              "content": "Hi all, I’d really appreciate some feedback from folks who know more about cleaning expectations and pricing.\n\nI recently hired a cleaner I’ve used a few times in the past. She’s always done a grea...",
+              "upvotes": 6741,
+              "url": "https://www.reddit.com/gallery/1nagjou",
+              "author": "Full_Swan7288",
+              "permalink": "https://reddit.com/r/CleaningTips/comments/1nagjou/did_i_handle_this_fairly_with_my_cleaner_looking/",
+              "duplicate_ids": [
+                "1nagjou"
+              ],
+              "evidence_count": 2
+            }
+          ],
+          "user_examples": [
+            "Hello,\n\nI bought the Upright Shark CarpetXpert with StainStriker vacuum cleaner, but didn't realize it doesn't support dry cleaning for dust and debris pickup. I'm looking for a vacuum cleaner that..."
+          ]
+        },
+        {
+          "description": "I'm a college student and made the poor decision of moving to an apt with a carpeted floor in my room",
+          "title": "I'm a college stud",
+          "text": "I'm a college student and made the poor decision of moving to an apt with a carpeted floor in my room",
+          "frequency": 1,
+          "sentiment_score": -0.45,
+          "severity": "medium",
+          "example_posts": [
+            {
+              "community": "r/BuyItForLife",
+              "content": "I'm a college student and made the poor decision of moving to an apt with a carpeted floor in my room.... as a very allergic person. Its hell and the tiny vacuum cleaner I had simply does not cut i...",
+              "upvotes": 0,
+              "url": "https://www.reddit.com/r/BuyItForLife/comments/1rc4c6g/i_need_a_strong_vacuum_cleaner_that_can_help_with/",
+              "author": "1Admr1",
+              "permalink": "https://reddit.com/r/BuyItForLife/comments/1rc4c6g/i_need_a_strong_vacuum_cleaner_that_can_help_with/",
+              "duplicate_ids": [
+                "1rc4ec6",
+                "1rc4c6g"
+              ],
+              "evidence_count": 3
+            },
+            {
+              "community": "r/CleaningTips",
+              "content": "Hi all, I’d really appreciate some feedback from folks who know more about cleaning expectations and pricing.\n\nI recently hired a cleaner I’ve used a few times in the past. She’s always done a grea...",
+              "upvotes": 6741,
+              "url": "https://www.reddit.com/gallery/1nagjou",
+              "author": "Full_Swan7288",
+              "permalink": "https://reddit.com/r/CleaningTips/comments/1nagjou/did_i_handle_this_fairly_with_my_cleaner_looking/",
+              "duplicate_ids": [
+                "1nagjou"
+              ],
+              "evidence_count": 2
+            }
+          ],
+          "user_examples": [
+            "I'm a college student and made the poor decision of moving to an apt with a carpeted floor in my room.... as a very allergic person. Its hell and the tiny vacuum cleaner I had simply does not cut i..."
+          ]
+        },
+        {
+          "description": "And then things got gross",
+          "title": "And then things go",
+          "text": "And then things got gross",
+          "frequency": 1,
+          "sentiment_score": -0.45,
+          "severity": "medium",
+          "example_posts": [
+            {
+              "community": "r/CleaningTips",
+              "content": "I always figured stuff like the dishwasher and washing machine basically cleaned themselves. Like, it’s all hot water and soap, right?\n\nBut then my washer started smelling like swamp water, my dish...",
+              "upvotes": 1128,
+              "url": "https://www.reddit.com/r/CleaningTips/comments/1jyeqm6/do_you_actually_clean_your_vacuum_dishwasher_etc/",
+              "author": "Shopstop74",
+              "permalink": "https://reddit.com/r/CleaningTips/comments/1jyeqm6/do_you_actually_clean_your_vacuum_dishwasher_etc/",
+              "duplicate_ids": [
+                "1jyeqm6"
+              ],
+              "evidence_count": 2
+            },
+            {
+              "community": "r/RobotVacuums",
+              "content": "DJI's official Weibo account posted a short video showing the appearance of their upcoming robot, which still looks very futuristic.\nThe words in the middle“实力绝尘”In the context of Chinese, it means...",
+              "upvotes": 86,
+              "url": "https://v.redd.it/ozei4dg8lmef1",
+              "author": "alezin2020",
+              "permalink": "https://reddit.com/r/RobotVacuums/comments/1m798aq/dji_officially_announced_that_it_will_launch_a/",
+              "duplicate_ids": [],
+              "evidence_count": 1
+            }
+          ],
+          "user_examples": [
+            "I always figured stuff like the dishwasher and washing machine basically cleaned themselves. Like, it’s all hot water and soap, right?\n\nBut then my washer started smelling like swamp water, my dish..."
+          ]
+        }
+      ],
+      "pain_clusters": [
+        {
+          "topic": "Hello, I've recently",
+          "negative_mean": -0.6,
+          "communities_count": 3,
+          "top_communities": [
+            "r/CleaningTips",
+            "r/RobotVacuums",
+            "r/VacuumCleaners"
+          ],
+          "samples": [
+            "Hello, I've recently moved into a new flat and I'm getting terrible dust. What you see in the photo is after 6 days from the last cleaning. I do vacuum regularly, but this dust accumulation is driv...",
+            "DJI's official Weibo account posted a short video showing the appearance of their upcoming robot, which still looks very futuristic.\nThe words in the middle“实力绝尘”In the context of Chinese, it means...",
+            "Hi. I am planning to buy a vacuum cleaner with HEPA filtration for my 1100 sq ft apartment. I have a dust allergy (not severe, but it is there). I do not have any pets, but my spouse has hairfall i..."
+          ]
+        },
+        {
+          "topic": ") live city",
+          "negative_mean": -0.8,
+          "communities_count": 2,
+          "top_communities": [
+            "r/VacuumCleaners",
+            "r/CleaningTips"
+          ],
+          "samples": [
+            "My entire house is tile. (I am retired and living in Mexico.) I live in a city that is soooo dusty, you just can't believe it unless you see it. I can mop my floors in the morning, and in the eveni...",
+            "Hi all, I’d really appreciate some feedback from folks who know more about cleaning expectations and pricing.\n\nI recently hired a cleaner I’ve used a few times in the past. She’s always done a grea...",
+            ") I live in a city that is soooo dusty, you just can't believe it unless you see it"
+          ]
+        },
+        {
+          "topic": "I'm college student",
+          "negative_mean": -0.45,
+          "communities_count": 2,
+          "top_communities": [
+            "r/BuyItForLife",
+            "r/CleaningTips"
+          ],
+          "samples": [
+            "I'm a college student and made the poor decision of moving to an apt with a carpeted floor in my room.... as a very allergic person. Its hell and the tiny vacuum cleaner I had simply does not cut i...",
+            "Hi all, I’d really appreciate some feedback from folks who know more about cleaning expectations and pricing.\n\nI recently hired a cleaner I’ve used a few times in the past. She’s always done a grea...",
+            "I'm a college student and made the poor decision of moving to an apt with a carpeted floor in my room"
+          ]
+        },
+        {
+          "topic": "things got gross",
+          "negative_mean": -0.45,
+          "communities_count": 2,
+          "top_communities": [
+            "r/CleaningTips",
+            "r/RobotVacuums"
+          ],
+          "samples": [
+            "I always figured stuff like the dishwasher and washing machine basically cleaned themselves. Like, it’s all hot water and soap, right?\n\nBut then my washer started smelling like swamp water, my dish...",
+            "DJI's official Weibo account posted a short video showing the appearance of their upcoming robot, which still looks very futuristic.\nThe words in the middle“实力绝尘”In the context of Chinese, it means...",
+            "And then things got gross"
+          ]
+        }
+      ],
+      "competitors": [
+        {
+          "name": "Vacuum Wars",
+          "mentions": 4,
+          "sentiment": "mixed",
+          "strengths": [
+            "社区讨论热度高"
+          ],
+          "weaknesses": [
+            "等待更多反馈细节"
+          ],
+          "market_share": 21.0,
+          "context_snippets": [
+            "Vacuum Wars Review of the eufy E28 Robot Vacuum Mop Combo with a SPOT Cleaner",
+            "The MOVA V50 Pro Ultra — Vacuum Wars' New #1 Robot Vacuum",
+            "--r/VacuumCleaners seems to recommend Sebo or Miele, Vacuum Wars seems to recommend Shark"
+          ],
+          "layer": "brands"
+        },
+        {
+          "name": "Robot Vacuum",
+          "mentions": 2,
+          "sentiment": "positive",
+          "strengths": [
+            "用户反馈积极",
+            "社区认可度高"
+          ],
+          "weaknesses": [
+            "需要继续观察长期表现"
+          ],
+          "market_share": 11.0,
+          "context_snippets": [
+            "The MOVA V50 Pro Ultra — Vacuum Wars' New #1 Robot Vacuum",
+            "India Best Robot Vacuum Cleaner Buying Guide 2026"
+          ],
+          "layer": "attributes"
+        },
+        {
+          "name": "Dyson",
+          "mentions": 2,
+          "sentiment": "positive",
+          "strengths": [
+            "用户反馈积极",
+            "社区认可度高"
+          ],
+          "weaknesses": [
+            "需要继续观察长期表现"
+          ],
+          "market_share": 11.0,
+          "context_snippets": [
+            "My in-laws got us a Dyson stick vac when we got our new house and it’s great for in-between / light upkeep but just not cutting it as a whole house cleaner for us",
+            "Their top-five picks for upright vacuums are Shark, Shark, Shark, Shark, and Dyson"
+          ],
+          "layer": "brands"
+        },
+        {
+          "name": "Cleaner",
+          "mentions": 2,
+          "sentiment": "mixed",
+          "strengths": [
+            "社区讨论热度高"
+          ],
+          "weaknesses": [
+            "等待更多反馈细节"
+          ],
+          "market_share": 11.0,
+          "context_snippets": [
+            "SAMSUNG Jet Bot Robot Cordless Vacuum Cleaner",
+            "Suggestion for ~$200 Bagged/Bagless Vacuum Cleaner (90% Carpet and rest Hardfloor)"
+          ],
+          "layer": "attributes"
+        },
+        {
+          "name": "Shark",
+          "mentions": 2,
+          "sentiment": "mixed",
+          "strengths": [
+            "社区讨论热度高"
+          ],
+          "weaknesses": [
+            "等待更多反馈细节"
+          ],
+          "market_share": 11.0,
+          "context_snippets": [
+            "--r/VacuumCleaners seems to recommend Sebo or Miele, Vacuum Wars seems to recommend Shark",
+            "Their top-five picks for upright vacuums are Shark, Shark, Shark, Shark, and Dyson"
+          ],
+          "layer": "brands"
+        },
+        {
+          "name": "Best Robot",
+          "mentions": 1,
+          "sentiment": "positive",
+          "strengths": [
+            "用户反馈积极",
+            "社区认可度高"
+          ],
+          "weaknesses": [
+            "需要继续观察长期表现"
+          ],
+          "market_share": 5.0,
+          "context_snippets": [
+            "Best Robot Vacuum Cleaner for Home in 2025"
+          ],
+          "layer": "attributes"
+        },
+        {
+          "name": "Vacuum Cleaner",
+          "mentions": 1,
+          "sentiment": "positive",
+          "strengths": [
+            "用户反馈积极",
+            "社区认可度高"
+          ],
+          "weaknesses": [
+            "需要继续观察长期表现"
+          ],
+          "market_share": 5.0,
+          "context_snippets": [
+            "Best Robot Vacuum Cleaner for Home in 2025"
+          ],
+          "layer": "attributes"
+        },
+        {
+          "name": "Cleaner Buying",
+          "mentions": 1,
+          "sentiment": "positive",
+          "strengths": [
+            "用户反馈积极",
+            "社区认可度高"
+          ],
+          "weaknesses": [
+            "需要继续观察长期表现"
+          ],
+          "market_share": 5.0,
+          "context_snippets": [
+            "India Best Robot Vacuum Cleaner Buying Guide 2026"
+          ],
+          "layer": "attributes"
+        },
+        {
+          "name": "Guide",
+          "mentions": 1,
+          "sentiment": "positive",
+          "strengths": [
+            "用户反馈积极",
+            "社区认可度高"
+          ],
+          "weaknesses": [
+            "需要继续观察长期表现"
+          ],
+          "market_share": 5.0,
+          "context_snippets": [
+            "India Best Robot Vacuum Cleaner Buying Guide 2026"
+          ],
+          "layer": "attributes"
+        },
+        {
+          "name": "India Best",
+          "mentions": 1,
+          "sentiment": "positive",
+          "strengths": [
+            "用户反馈积极",
+            "社区认可度高"
+          ],
+          "weaknesses": [
+            "需要继续观察长期表现"
+          ],
+          "market_share": 5.0,
+          "context_snippets": [
+            "India Best Robot Vacuum Cleaner Buying Guide 2026"
+          ],
+          "layer": "brands"
+        },
+        {
+          "name": "CarpetXpert",
+          "mentions": 1,
+          "sentiment": "negative",
+          "strengths": [
+            "行业认知度高"
+          ],
+          "weaknesses": [
+            "用户反馈偏负面"
+          ],
+          "market_share": 5.0,
+          "context_snippets": [
+            "Hello, I bought the Upright Shark CarpetXpert with StainStriker vacuum cleaner, but didn't realize it doesn't support dry cleaning for dust and debris pickup"
+          ],
+          "layer": "attributes"
+        },
+        {
+          "name": "StainStriker",
+          "mentions": 1,
+          "sentiment": "negative",
+          "strengths": [
+            "行业认知度高"
+          ],
+          "weaknesses": [
+            "用户反馈偏负面"
+          ],
+          "market_share": 5.0,
+          "context_snippets": [
+            "Hello, I bought the Upright Shark CarpetXpert with StainStriker vacuum cleaner, but didn't realize it doesn't support dry cleaning for dust and debris pickup"
+          ],
+          "layer": "attributes"
+        }
+      ],
+      "opportunities": [
+        {
+          "description": "Looking for an appropriate robot vacuum cleaner for my case",
+          "title": "Looking for an app",
+          "text": "Looking for an appropriate robot vacuum cleaner for my case",
+          "relevance_score": 1.0,
+          "potential_users": "约1866个潜在团队",
+          "potential_users_est": 1866,
+          "linked_pain_cluster": "Hello, I've recently",
+          "top_channels": [],
+          "key_insights": [
+            "an",
+            "app",
+            "at",
+            "bot"
+          ],
+          "source_examples": [
+            {
+              "url": "https://www.reddit.com/r/RobotVacuums/comments/1nmpmbt/looking_for_an_appropriate_robot_vacuum_cleaner/",
+              "author": "Roboplanter",
+              "content": "Hi all!\n\nFirst post in this community and in reddit! I'm in the market after a robot vacuum cleaner and I've been lurking this sub for a while. I see many users asking the same question and that th...",
+              "upvotes": 1,
+              "community": "r/RobotVacuums",
+              "permalink": "https://reddit.com/r/RobotVacuums/comments/1nmpmbt/looking_for_an_appropriate_robot_vacuum_cleaner/",
+              "duplicate_ids": [],
+              "evidence_count": 1
+            },
+            {
+              "url": "https://www.reddit.com/gallery/1nagjou",
+              "author": "Full_Swan7288",
+              "content": "Hi all, I’d really appreciate some feedback from folks who know more about cleaning expectations and pricing.\n\nI recently hired a cleaner I’ve used a few times in the past. She’s always done a grea...",
+              "upvotes": 6741,
+              "community": "r/CleaningTips",
+              "permalink": "https://reddit.com/r/CleaningTips/comments/1nagjou/did_i_handle_this_fairly_with_my_cleaner_looking/",
+              "duplicate_ids": [
+                "1nagjou"
+              ],
+              "evidence_count": 2
+            }
+          ]
+        },
+        {
+          "description": "looking for recommendations for a robot vacuum cleaner that will dock and transfer all the dust into a bag without having to empty it myself",
+          "title": "looking for recomm",
+          "text": "looking for recommendations for a robot vacuum cleaner that will dock and transfer all the dust into a bag without having to empty it myself",
+          "relevance_score": 1.0,
+          "potential_users": "约3663个潜在团队",
+          "potential_users_est": 3663,
+          "linked_pain_cluster": "Hello, I've recently",
+          "top_channels": [],
+          "key_insights": [
+            "all",
+            "an",
+            "at",
+            "bag"
+          ],
+          "source_examples": [
+            {
+              "url": "https://www.reddit.com/r/RobotVacuums/comments/1nh6zjw/robot_vacuum_cleaner_recommendation/",
+              "author": "BlueGingerbreadMan",
+              "content": "Hi Everyone,\n\n  \nI'm looking for  recommendations for a robot vacuum cleaner that will dock and transfer all the dust into a bag without having to empty it myself. I also want a robot vacuum that c...",
+              "upvotes": 1,
+              "community": "r/RobotVacuums",
+              "permalink": "https://reddit.com/r/RobotVacuums/comments/1nh6zjw/robot_vacuum_cleaner_recommendation/",
+              "duplicate_ids": [],
+              "evidence_count": 1
+            },
+            {
+              "url": "https://www.reddit.com/gallery/1nagjou",
+              "author": "Full_Swan7288",
+              "content": "Hi all, I’d really appreciate some feedback from folks who know more about cleaning expectations and pricing.\n\nI recently hired a cleaner I’ve used a few times in the past. She’s always done a grea...",
+              "upvotes": 6741,
+              "community": "r/CleaningTips",
+              "permalink": "https://reddit.com/r/CleaningTips/comments/1nagjou/did_i_handle_this_fairly_with_my_cleaner_looking/",
+              "duplicate_ids": [
+                "1nagjou"
+              ],
+              "evidence_count": 2
+            }
+          ]
+        },
+        {
+          "description": "want a robot vacuum that c",
+          "title": "want a robot vacuu",
+          "text": "want a robot vacuum that c",
+          "relevance_score": 1.0,
+          "potential_users": "约1192个潜在团队",
+          "potential_users_est": 1192,
+          "linked_pain_cluster": "Hello, I've recently",
+          "top_channels": [],
+          "key_insights": [
+            "an",
+            "ant",
+            "at",
+            "bot"
+          ],
+          "source_examples": [
+            {
+              "url": "https://www.reddit.com/r/RobotVacuums/comments/1nh6zjw/robot_vacuum_cleaner_recommendation/",
+              "author": "BlueGingerbreadMan",
+              "content": "Hi Everyone,\n\n  \nI'm looking for  recommendations for a robot vacuum cleaner that will dock and transfer all the dust into a bag without having to empty it myself. I also want a robot vacuum that c...",
+              "upvotes": 1,
+              "community": "r/RobotVacuums",
+              "permalink": "https://reddit.com/r/RobotVacuums/comments/1nh6zjw/robot_vacuum_cleaner_recommendation/",
+              "duplicate_ids": [],
+              "evidence_count": 1
+            },
+            {
+              "url": "https://www.reddit.com/gallery/1nagjou",
+              "author": "Full_Swan7288",
+              "content": "Hi all, I’d really appreciate some feedback from folks who know more about cleaning expectations and pricing.\n\nI recently hired a cleaner I’ve used a few times in the past. She’s always done a grea...",
+              "upvotes": 6741,
+              "community": "r/CleaningTips",
+              "permalink": "https://reddit.com/r/CleaningTips/comments/1nagjou/did_i_handle_this_fairly_with_my_cleaner_looking/",
+              "duplicate_ids": [
+                "1nagjou"
+              ],
+              "evidence_count": 2
+            }
+          ]
+        },
+        {
+          "description": "Suggestions for robot vacuum cleaner in india",
+          "title": "Suggestions for ro",
+          "text": "Suggestions for robot vacuum cleaner in india",
+          "relevance_score": 1.0,
+          "potential_users": "约1686个潜在团队",
+          "potential_users_est": 1686,
+          "linked_pain_cluster": "Hello, I've recently",
+          "top_channels": [],
+          "key_insights": [
+            "an",
+            "bot",
+            "cle",
+            "clean"
+          ],
+          "source_examples": [
+            {
+              "url": "https://www.reddit.com/r/VacuumCleaners/comments/1npkz21/suggestions_for_robot_vacuum_cleaner_in_india/",
+              "author": "rggrgfr",
+              "content": "Hi, \n\nLooking for a robot vacuum cleaner.\n\nI live along with my family and I want to minimise the cleaning work for them.\nI need it for evryday purpose.\nDaily vacuuming the dust and moping the floo...",
+              "upvotes": 1,
+              "community": "r/VacuumCleaners",
+              "permalink": "https://reddit.com/r/VacuumCleaners/comments/1npkz21/suggestions_for_robot_vacuum_cleaner_in_india/",
+              "duplicate_ids": [],
+              "evidence_count": 1
+            },
+            {
+              "url": "https://www.reddit.com/gallery/1nagjou",
+              "author": "Full_Swan7288",
+              "content": "Hi all, I’d really appreciate some feedback from folks who know more about cleaning expectations and pricing.\n\nI recently hired a cleaner I’ve used a few times in the past. She’s always done a grea...",
+              "upvotes": 6741,
+              "community": "r/CleaningTips",
+              "permalink": "https://reddit.com/r/CleaningTips/comments/1nagjou/did_i_handle_this_fairly_with_my_cleaner_looking/",
+              "duplicate_ids": [
+                "1nagjou"
+              ],
+              "evidence_count": 2
+            }
+          ]
+        },
+        {
+          "description": "Looking for a robot vacuum cleaner",
+          "title": "Looking for a robo",
+          "text": "Looking for a robot vacuum cleaner",
+          "relevance_score": 1.0,
+          "potential_users": "约1507个潜在团队",
+          "potential_users_est": 1507,
+          "linked_pain_cluster": "Hello, I've recently",
+          "top_channels": [],
+          "key_insights": [
+            "an",
+            "bot",
+            "cle",
+            "clean"
+          ],
+          "source_examples": [
+            {
+              "url": "https://www.reddit.com/r/VacuumCleaners/comments/1npkz21/suggestions_for_robot_vacuum_cleaner_in_india/",
+              "author": "rggrgfr",
+              "content": "Hi, \n\nLooking for a robot vacuum cleaner.\n\nI live along with my family and I want to minimise the cleaning work for them.\nI need it for evryday purpose.\nDaily vacuuming the dust and moping the floo...",
+              "upvotes": 1,
+              "community": "r/VacuumCleaners",
+              "permalink": "https://reddit.com/r/VacuumCleaners/comments/1npkz21/suggestions_for_robot_vacuum_cleaner_in_india/",
+              "duplicate_ids": [],
+              "evidence_count": 1
+            },
+            {
+              "url": "https://www.reddit.com/gallery/1nagjou",
+              "author": "Full_Swan7288",
+              "content": "Hi all, I’d really appreciate some feedback from folks who know more about cleaning expectations and pricing.\n\nI recently hired a cleaner I’ve used a few times in the past. She’s always done a grea...",
+              "upvotes": 6741,
+              "community": "r/CleaningTips",
+              "permalink": "https://reddit.com/r/CleaningTips/comments/1nagjou/did_i_handle_this_fairly_with_my_cleaner_looking/",
+              "duplicate_ids": [
+                "1nagjou"
+              ],
+              "evidence_count": 2
+            }
+          ]
+        },
+        {
+          "description": "Looking for a serious vacuum that handles fur and dust on carpet",
+          "title": "Looking for a seri",
+          "text": "Looking for a serious vacuum that handles fur and dust on carpet",
+          "relevance_score": 1.0,
+          "potential_users": "约1511个潜在团队",
+          "potential_users_est": 1511,
+          "linked_pain_cluster": "Hello, I've recently",
+          "top_channels": [],
+          "key_insights": [
+            "an",
+            "at",
+            "car",
+            "carpet"
+          ],
+          "source_examples": [
+            {
+              "url": "https://www.reddit.com/r/VacuumCleaners/comments/1q6ll7s/looking_for_a_serious_vacuum_that_handles_fur_and/",
+              "author": "oddkira",
+              "content": "My in-laws got us a Dyson stick vac when we got our new house and it’s great for in-between / light upkeep but just not cutting it as a whole house cleaner for us.\n\n\\- 3 level home with lots of car...",
+              "upvotes": 2,
+              "community": "r/VacuumCleaners",
+              "permalink": "https://reddit.com/r/VacuumCleaners/comments/1q6ll7s/looking_for_a_serious_vacuum_that_handles_fur_and/",
+              "duplicate_ids": [],
+              "evidence_count": 1
+            },
+            {
+              "url": "https://www.reddit.com/gallery/1nagjou",
+              "author": "Full_Swan7288",
+              "content": "Hi all, I’d really appreciate some feedback from folks who know more about cleaning expectations and pricing.\n\nI recently hired a cleaner I’ve used a few times in the past. She’s always done a grea...",
+              "upvotes": 6741,
+              "community": "r/CleaningTips",
+              "permalink": "https://reddit.com/r/CleaningTips/comments/1nagjou/did_i_handle_this_fairly_with_my_cleaner_looking/",
+              "duplicate_ids": [
+                "1nagjou"
+              ],
+              "evidence_count": 2
+            }
+          ]
+        },
+        {
+          "description": "need a strong vacuum cleaner that can help with the carpeted floor with a detachable head",
+          "title": "need a strong vacu",
+          "text": "need a strong vacuum cleaner that can help with the carpeted floor with a detachable head",
+          "relevance_score": 1.0,
+          "potential_users": "约2403个潜在团队",
+          "potential_users_est": 2403,
+          "linked_pain_cluster": "Hello, I've recently",
+          "top_channels": [],
+          "key_insights": [
+            "able",
+            "ach",
+            "ad",
+            "an"
+          ],
+          "source_examples": [
+            {
+              "url": "https://www.reddit.com/r/BuyItForLife/comments/1rc4c6g/i_need_a_strong_vacuum_cleaner_that_can_help_with/",
+              "author": "1Admr1",
+              "content": "I'm a college student and made the poor decision of moving to an apt with a carpeted floor in my room.... as a very allergic person. Its hell and the tiny vacuum cleaner I had simply does not cut i...",
+              "upvotes": 0,
+              "community": "r/BuyItForLife",
+              "permalink": "https://reddit.com/r/BuyItForLife/comments/1rc4c6g/i_need_a_strong_vacuum_cleaner_that_can_help_with/",
+              "duplicate_ids": [
+                "1rc4ec6",
+                "1rc4c6g"
+              ],
+              "evidence_count": 3
+            },
+            {
+              "url": "https://www.reddit.com/gallery/1nagjou",
+              "author": "Full_Swan7288",
+              "content": "Hi all, I’d really appreciate some feedback from folks who know more about cleaning expectations and pricing.\n\nI recently hired a cleaner I’ve used a few times in the past. She’s always done a grea...",
+              "upvotes": 6741,
+              "community": "r/CleaningTips",
+              "permalink": "https://reddit.com/r/CleaningTips/comments/1nagjou/did_i_handle_this_fairly_with_my_cleaner_looking/",
+              "duplicate_ids": [
+                "1nagjou"
+              ],
+              "evidence_count": 2
+            }
+          ]
+        },
+        {
+          "description": "Looking for a multi-purpose carpet cleaner",
+          "title": "Looking for a mult",
+          "text": "Looking for a multi-purpose carpet cleaner",
+          "relevance_score": 1.0,
+          "potential_users": "约1462个潜在团队",
+          "potential_users_est": 1462,
+          "linked_pain_cluster": "Hello, I've recently",
+          "top_channels": [],
+          "key_insights": [
+            "a m",
+            "an",
+            "car",
+            "carpet"
+          ],
+          "source_examples": [
+            {
+              "url": "https://www.reddit.com/r/VacuumCleaners/comments/1pfzd0t/looking_for_a_multipurpose_carpet_cleaner/",
+              "author": "Joeshmo04",
+              "content": "Hello,\n\nI bought the Upright Shark CarpetXpert with StainStriker vacuum cleaner, but didn't realize it doesn't support dry cleaning for dust and debris pickup. I'm looking for a vacuum cleaner that...",
+              "upvotes": 1,
+              "community": "r/VacuumCleaners",
+              "permalink": "https://reddit.com/r/VacuumCleaners/comments/1pfzd0t/looking_for_a_multipurpose_carpet_cleaner/",
+              "duplicate_ids": [],
+              "evidence_count": 1
+            },
+            {
+              "url": "https://www.reddit.com/gallery/1nagjou",
+              "author": "Full_Swan7288",
+              "content": "Hi all, I’d really appreciate some feedback from folks who know more about cleaning expectations and pricing.\n\nI recently hired a cleaner I’ve used a few times in the past. She’s always done a grea...",
+              "upvotes": 6741,
+              "community": "r/CleaningTips",
+              "permalink": "https://reddit.com/r/CleaningTips/comments/1nagjou/did_i_handle_this_fairly_with_my_cleaner_looking/",
+              "duplicate_ids": [
+                "1nagjou"
+              ],
+              "evidence_count": 2
+            }
+          ]
+        },
+        {
+          "description": "looking for a vacuum cleaner that",
+          "title": "looking for a vacu",
+          "text": "looking for a vacuum cleaner that",
+          "relevance_score": 1.0,
+          "potential_users": "约1282个潜在团队",
+          "potential_users_est": 1282,
+          "linked_pain_cluster": "Hello, I've recently",
+          "top_channels": [],
+          "key_insights": [
+            "an",
+            "at",
+            "cle",
+            "clean"
+          ],
+          "source_examples": [
+            {
+              "url": "https://www.reddit.com/r/VacuumCleaners/comments/1pfzd0t/looking_for_a_multipurpose_carpet_cleaner/",
+              "author": "Joeshmo04",
+              "content": "Hello,\n\nI bought the Upright Shark CarpetXpert with StainStriker vacuum cleaner, but didn't realize it doesn't support dry cleaning for dust and debris pickup. I'm looking for a vacuum cleaner that...",
+              "upvotes": 1,
+              "community": "r/VacuumCleaners",
+              "permalink": "https://reddit.com/r/VacuumCleaners/comments/1pfzd0t/looking_for_a_multipurpose_carpet_cleaner/",
+              "duplicate_ids": [],
+              "evidence_count": 1
+            },
+            {
+              "url": "https://www.reddit.com/gallery/1nagjou",
+              "author": "Full_Swan7288",
+              "content": "Hi all, I’d really appreciate some feedback from folks who know more about cleaning expectations and pricing.\n\nI recently hired a cleaner I’ve used a few times in the past. She’s always done a grea...",
+              "upvotes": 6741,
+              "community": "r/CleaningTips",
+              "permalink": "https://reddit.com/r/CleaningTips/comments/1nagjou/did_i_handle_this_fairly_with_my_cleaner_looking/",
+              "duplicate_ids": [
+                "1nagjou"
+              ],
+              "evidence_count": 2
+            }
+          ]
+        },
+        {
+          "description": "Suggestion for ~$200 Bagged/Bagless Vacuum Cleaner (90% Carpet and rest Hardfloor)",
+          "title": "Suggestion for ~$2",
+          "text": "Suggestion for ~$200 Bagged/Bagless Vacuum Cleaner (90% Carpet and rest Hardfloor)",
+          "relevance_score": 1.0,
+          "potential_users": "约2001个潜在团队",
+          "potential_users_est": 2001,
+          "linked_pain_cluster": "Hello, I've recently",
+          "top_channels": [],
+          "key_insights": [
+            "$200",
+            "90%",
+            "agl",
+            "an"
+          ],
+          "source_examples": [
+            {
+              "url": "https://www.reddit.com/r/VacuumCleaners/comments/1mkwlju/suggestion_for_200_baggedbagless_vacuum_cleaner/",
+              "author": "Furiousguy79",
+              "content": "Hi. I am planning to buy a vacuum cleaner with HEPA filtration for my 1100 sq ft apartment. I have a dust allergy (not severe, but it is there). I do not have any pets, but my spouse has hairfall i...",
+              "upvotes": 1,
+              "community": "r/VacuumCleaners",
+              "permalink": "https://reddit.com/r/VacuumCleaners/comments/1mkwlju/suggestion_for_200_baggedbagless_vacuum_cleaner/",
+              "duplicate_ids": [],
+              "evidence_count": 1
+            },
+            {
+              "url": "https://www.reddit.com/gallery/1nagjou",
+              "author": "Full_Swan7288",
+              "content": "Hi all, I’d really appreciate some feedback from folks who know more about cleaning expectations and pricing.\n\nI recently hired a cleaner I’ve used a few times in the past. She’s always done a grea...",
+              "upvotes": 6741,
+              "community": "r/CleaningTips",
+              "permalink": "https://reddit.com/r/CleaningTips/comments/1nagjou/did_i_handle_this_fairly_with_my_cleaner_looking/",
+              "duplicate_ids": [
+                "1nagjou"
+              ],
+              "evidence_count": 2
+            }
+          ]
+        }
+      ],
+      "action_items": [
+        {
+          "title": "Looking for an app",
+          "category": "strategy",
+          "problem_definition": "Looking for an appropriate robot vacuum cleaner for my case",
+          "evidence_chain": [
+            {
+              "title": "Hi all!\n\nFirst post in this community and in reddit! I'm in the market after a robot vacuum cleaner and I've been lurkin",
+              "url": "https://www.reddit.com/r/RobotVacuums/comments/1nmpmbt/looking_for_an_appropriate_robot_vacuum_cleaner/",
+              "note": "社区: r/RobotVacuums | 赞数 1"
+            },
+            {
+              "title": "Hi all, I’d really appreciate some feedback from folks who know more about cleaning expectations and pricing.\n\nI recentl",
+              "url": "https://www.reddit.com/gallery/1nagjou",
+              "note": "社区: r/CleaningTips | 赞数 6741"
+            },
+            {
+              "title": "Hello, I've recently moved into a new flat and I'm getting terrible dust. What you see in the photo is after 6 days from",
+              "url": "https://i.redd.it/ww3yrv0mit9f1.jpeg",
+              "note": "社区: r/CleaningTips | 赞数 1"
+            }
+          ],
+          "suggested_actions": [
+            "Focus on `Looking for an appropriate robot vacuum cleaner for my case`, interview core users to validate priority.",
+            "Reference opportunity `Looking for an appropriate robot vacuum cleaner for my case` to design next product experiment.",
+            "Track community `r/CleaningTips` for follow-up discussions and iteration feedback."
+          ],
+          "confidence": 0.95,
+          "urgency": 0.9,
+          "product_fit": 0.9,
+          "priority": 0.7695
+        },
+        {
+          "title": "looking for recomm",
+          "category": "strategy",
+          "problem_definition": "looking for recommendations for a robot vacuum cleaner that will dock and transfer all the dust into a bag without having to empty it myself",
+          "evidence_chain": [
+            {
+              "title": "Hi Everyone,\n\n  \nI'm looking for  recommendations for a robot vacuum cleaner that will dock and transfer all the dust in",
+              "url": "https://www.reddit.com/r/RobotVacuums/comments/1nh6zjw/robot_vacuum_cleaner_recommendation/",
+              "note": "社区: r/RobotVacuums | 赞数 1"
+            },
+            {
+              "title": "Hi all, I’d really appreciate some feedback from folks who know more about cleaning expectations and pricing.\n\nI recentl",
+              "url": "https://www.reddit.com/gallery/1nagjou",
+              "note": "社区: r/CleaningTips | 赞数 6741"
+            },
+            {
+              "title": "My entire house is tile. (I am retired and living in Mexico.) I live in a city that is soooo dusty, you just can't belie",
+              "url": "https://www.reddit.com/r/VacuumCleaners/comments/1pw0n1v/what_do_i_want_in_a_robotic_vacuum_cleaner/",
+              "note": "社区: r/VacuumCleaners | 赞数 1"
+            }
+          ],
+          "suggested_actions": [
+            "Focus on `looking for recommendations for a robot vacuum cleaner that will dock and transfer all the dust into a bag without having to empty it myself`, interview core users to validate priority.",
+            "Reference opportunity `looking for recommendations for a robot vacuum cleaner that will dock and transfer all the dust into a bag without having to empty it myself` to design next product experiment.",
+            "Track community `r/VacuumCleaners` for follow-up discussions and iteration feedback."
+          ],
+          "confidence": 0.95,
+          "urgency": 0.9,
+          "product_fit": 0.9,
+          "priority": 0.7695
+        },
+        {
+          "title": "want a robot vacuu",
+          "category": "strategy",
+          "problem_definition": "want a robot vacuum that c",
+          "evidence_chain": [
+            {
+              "title": "Hi Everyone,\n\n  \nI'm looking for  recommendations for a robot vacuum cleaner that will dock and transfer all the dust in",
+              "url": "https://www.reddit.com/r/RobotVacuums/comments/1nh6zjw/robot_vacuum_cleaner_recommendation/",
+              "note": "社区: r/RobotVacuums | 赞数 1"
+            },
+            {
+              "title": "Hi all, I’d really appreciate some feedback from folks who know more about cleaning expectations and pricing.\n\nI recentl",
+              "url": "https://www.reddit.com/gallery/1nagjou",
+              "note": "社区: r/CleaningTips | 赞数 6741"
+            },
+            {
+              "title": "Hi. I am planning to buy a vacuum cleaner with HEPA filtration for my 1100 sq ft apartment. I have a dust allergy (not s",
+              "url": "https://www.reddit.com/r/VacuumCleaners/comments/1mkwlju/suggestion_for_200_baggedbagless_vacuum_cleaner/",
+              "note": "社区: r/VacuumCleaners | 赞数 1"
+            }
+          ],
+          "suggested_actions": [
+            "Focus on `want a robot vacuum that c`, interview core users to validate priority.",
+            "Reference opportunity `want a robot vacuum that c` to design next product experiment.",
+            "Track community `r/VacuumCleaners` for follow-up discussions and iteration feedback."
+          ],
+          "confidence": 0.95,
+          "urgency": 0.75,
+          "product_fit": 0.9,
+          "priority": 0.6412
+        }
+      ],
+      "purchase_drivers": [
+        {
+          "title": "效率提升与省时省心",
+          "description": "高频痛点集中在：Hello, I've recently moved into a new flat and I'm getting terrible dust / ) I live in a city that is soooo dusty, you just can't believe it unless you see it",
+          "rationale": "高频痛点集中在：Hello, I've recently moved into a new flat and I'm getting terrible dust / ) I live in a city that is soooo dusty, you just can't believe it unless you see it",
+          "actions": [
+            "减少重复操作",
+            "提升日常效率"
+          ],
+          "source_pains": [
+            "Hello, I've recently moved into a new flat and I'm getting terrible dust",
+            ") I live in a city that is soooo dusty, you just can't believe it unless you see it",
+            "Suggestion for ~$200 Bagged/Bagless Vacuum Cleaner (90% Carpet and rest Hardfloor)"
+          ]
+        }
+      ],
+      "market_health": {
+        "saturation_level": "low",
+        "saturation_score": 0.0,
+        "ps_ratio": 0.0,
+        "ps_ratio_assessment": "imbalanced"
+      },
+      "entity_summary": {
+        "brands": [],
+        "features": [
+          {
+            "name": "vacuum",
+            "mentions": 97
+          },
+          {
+            "name": "cleaner",
+            "mentions": 97
+          },
+          {
+            "name": "for",
+            "mentions": 85
+          },
+          {
+            "name": "https",
+            "mentions": 73
+          },
+          {
+            "name": "reddit",
+            "mentions": 71
+          }
+        ],
+        "pain_points": [],
+        "channels": [],
+        "logistics": [],
+        "risks": []
+      },
+      "entity_leaderboard": [
+        {
+          "name": "vacuum",
+          "category": "features",
+          "mentions": 97
+        },
+        {
+          "name": "cleaner",
+          "category": "features",
+          "mentions": 97
+        },
+        {
+          "name": "for",
+          "category": "features",
+          "mentions": 85
+        },
+        {
+          "name": "https",
+          "category": "features",
+          "mentions": 73
+        },
+        {
+          "name": "reddit",
+          "category": "features",
+          "mentions": 71
+        }
+      ],
+      "competitor_layers_summary": [
+        {
+          "layer": "attributes",
+          "label": "产品属性/噪音 (Attributes)",
+          "top_competitors": [
+            {
+              "name": "Robot Vacuum",
+              "mentions": 2,
+              "sentiment": "positive"
+            },
+            {
+              "name": "Cleaner",
+              "mentions": 2,
+              "sentiment": "mixed"
+            },
+            {
+              "name": "Best Robot",
+              "mentions": 1,
+              "sentiment": "positive"
+            }
+          ],
+          "threats": "用户反馈积极"
+        },
+        {
+          "layer": "brands",
+          "label": "Brands",
+          "top_competitors": [
+            {
+              "name": "Vacuum Wars",
+              "mentions": 4,
+              "sentiment": "mixed"
+            },
+            {
+              "name": "Dyson",
+              "mentions": 2,
+              "sentiment": "positive"
+            },
+            {
+              "name": "Shark",
+              "mentions": 2,
+              "sentiment": "mixed"
+            }
+          ],
+          "threats": "社区讨论热度高"
+        }
+      ],
+      "channel_breakdown": []
+    },
+    "metadata": {
+      "analysis_version": "1.0",
+      "confidence_score": 0.45,
+      "processing_time_seconds": 162.0,
+      "cache_hit_rate": 0.0,
+      "total_mentions": 24,
+      "recovery_applied": null,
+      "fallback_quality": null,
+      "llm_used": true,
+      "llm_model": "x-ai/grok-4.1-fast",
+      "llm_rounds": 0,
+      "lexicon_version": "v2.0",
+      "market_enhancements": {
+        "mode": "community_market",
+        "personas": [
+          {
+            "community": "r/RobotVacuums",
+            "persona_label": "探索者",
+            "traits": [
+              "乐于尝试",
+              "关注性价比"
+            ],
+            "strategy": "从共情与价值入手",
+            "confidence": 0.65,
+            "method": "rules"
+          },
+          {
+            "community": "r/VacuumCleaners",
+            "persona_label": "探索者",
+            "traits": [
+              "乐于尝试",
+              "关注性价比"
+            ],
+            "strategy": "从共情与价值入手",
+            "confidence": 0.65,
+            "method": "rules"
+          },
+          {
+            "community": "r/CleaningTips",
+            "persona_label": "探索者",
+            "traits": [
+              "乐于尝试",
+              "关注性价比"
+            ],
+            "strategy": "从共情与价值入手",
+            "confidence": 0.65,
+            "method": "rules"
+          },
+          {
+            "community": "r/BuyItForLife",
+            "persona_label": "探索者",
+            "traits": [
+              "乐于尝试",
+              "关注性价比"
+            ],
+            "strategy": "从共情与价值入手",
+            "confidence": 0.65,
+            "method": "rules"
+          },
+          {
+            "community": "r/ApplianceGuideIndia",
+            "persona_label": "探索者",
+            "traits": [
+              "乐于尝试",
+              "关注性价比"
+            ],
+            "strategy": "从共情与价值入手",
+            "confidence": 0.65,
+            "method": "rules"
+          },
+          {
+            "community": "r/cleaningtips",
+            "persona_label": "探索者",
+            "traits": [
+              "乐于尝试",
+              "关注性价比"
+            ],
+            "strategy": "从共情与价值入手",
+            "confidence": 0.65,
+            "method": "rules"
+          },
+          {
+            "community": "r/homeimprovement",
+            "persona_label": "探索者",
+            "traits": [
+              "乐于尝试",
+              "关注性价比"
+            ],
+            "strategy": "从共情与价值入手",
+            "confidence": 0.65,
+            "method": "rules"
+          },
+          {
+            "community": "r/buyitforlife",
+            "persona_label": "探索者",
+            "traits": [
+              "乐于尝试",
+              "关注性价比"
+            ],
+            "strategy": "从共情与价值入手",
+            "confidence": 0.65,
+            "method": "rules"
+          },
+          {
+            "community": "r/frugal",
+            "persona_label": "探索者",
+            "traits": [
+              "乐于尝试",
+              "关注性价比"
+            ],
+            "strategy": "从共情与价值入手",
+            "confidence": 0.65,
+            "method": "rules"
+          },
+          {
+            "community": "r/appliances",
+            "persona_label": "探索者",
+            "traits": [
+              "乐于尝试",
+              "关注性价比"
+            ],
+            "strategy": "从共情与价值入手",
+            "confidence": 0.65,
+            "method": "rules"
+          },
+          {
+            "community": "r/homeautomation",
+            "persona_label": "探索者",
+            "traits": [
+              "乐于尝试",
+              "关注性价比"
+            ],
+            "strategy": "从共情与价值入手",
+            "confidence": 0.65,
+            "method": "rules"
+          }
+        ],
+        "quotes": [
+          {
+            "description": "Hello, I've recently moved into a new flat and I'm getting terrible dust",
+            "quotes": [
+              {
+                "text": "Hello, I've recently moved into a new flat and I'm getting terrible dust.",
+                "score": 0.533,
+                "sentiment": 0.333,
+                "relevance": 1.0,
+                "length": 73,
+                "source": "user_examples"
+              },
+              {
+                "text": "Hello, I've recently moved into a new flat and I'm getting terrible dust",
+                "score": 0.533,
+                "sentiment": 0.333,
+                "relevance": 1.0,
+                "length": 72,
+                "source": "description"
+              }
+            ]
+          },
+          {
+            "description": ") I live in a city that is soooo dusty, you just can't believe it unless you see it",
+            "quotes": [
+              {
+                "text": "(I am retired and living in Mexico.) I live in a city that is soooo dusty, you just can't believe it unless you see it.",
+                "score": 0.667,
+                "sentiment": 0.667,
+                "relevance": 1.0,
+                "length": 119,
+                "source": "user_examples"
+              },
+              {
+                "text": ") I live in a city that is soooo dusty, you just can't believe it unless you see it",
+                "score": 0.667,
+                "sentiment": 0.667,
+                "relevance": 1.0,
+                "length": 83,
+                "source": "description"
+              }
+            ]
+          },
+          {
+            "description": "Suggestion for ~$200 Bagged/Bagless Vacuum Cleaner (90% Carpet and rest Hardfloor)",
+            "quotes": [
+              {
+                "text": "Suggestion for ~$200 Bagged/Bagless Vacuum Cleaner (90% Carpet and rest Hardfloor)",
+                "score": 0.533,
+                "sentiment": 0.333,
+                "relevance": 1.0,
+                "length": 82,
+                "source": "description"
+              },
+              {
+                "text": "I am planning to buy a vacuum cleaner with HEPA filtration for my 1100 sq ft apartment.",
+                "score": 0.1,
+                "sentiment": 0.0,
+                "relevance": 0.25,
+                "length": 87,
+                "source": "user_examples"
+              }
+            ]
+          },
+          {
+            "description": "Hello, I bought the Upright Shark CarpetXpert with StainStriker vacuum cleaner, but didn't realize it doesn't support dry cleaning for dust and debris pickup",
+            "quotes": [
+              {
+                "text": "Hi all, I’d really appreciate some feedback from folks who know more about cleaning expectations and pricing.",
+                "score": 0.024,
+                "sentiment": 0.0,
+                "relevance": 0.059,
+                "length": 109,
+                "source": "example_posts"
+              },
+              {
+                "text": "I recently hired a cleaner I’ve used a few times in the past.",
+                "score": 0.024,
+                "sentiment": 0.0,
+                "relevance": 0.059,
+                "length": 61,
+                "source": "example_posts"
+              }
+            ]
+          },
+          {
+            "description": "I'm a college student and made the poor decision of moving to an apt with a carpeted floor in my room",
+            "quotes": [
+              {
+                "text": "I'm a college student and made the poor decision of moving to an apt with a carpeted floor in my room....",
+                "score": 0.533,
+                "sentiment": 0.333,
+                "relevance": 1.0,
+                "length": 105,
+                "source": "user_examples"
+              },
+              {
+                "text": "I'm a college student and made the poor decision of moving to an apt with a carpeted floor in my room",
+                "score": 0.533,
+                "sentiment": 0.333,
+                "relevance": 1.0,
+                "length": 101,
+                "source": "description"
+              }
+            ]
+          },
+          {
+            "description": "And then things got gross",
+            "quotes": [
+              {
+                "text": "But then my washer started smelling like swamp water, my dish...",
+                "score": 0.133,
+                "sentiment": 0.0,
+                "relevance": 0.333,
+                "length": 64,
+                "source": "user_examples"
+              },
+              {
+                "text": "DJI's official Weibo account posted a short video showing the appearance of their upcoming robot, which still looks very futuristic.",
+                "score": 0.0,
+                "sentiment": 0.0,
+                "relevance": 0.0,
+                "length": 132,
+                "source": "example_posts"
+              }
+            ]
+          }
+        ],
+        "saturation": [
+          {
+            "community": "r/RobotVacuums",
+            "brands": [
+              {
+                "brand": "Vacuum Wars",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Robot Vacuum",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Dyson",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Cleaner",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Shark",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Best Robot",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Vacuum Cleaner",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Cleaner Buying",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Guide",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "India Best",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "CarpetXpert",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "StainStriker",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              }
+            ],
+            "overall_saturation": 0.0
+          },
+          {
+            "community": "r/VacuumCleaners",
+            "brands": [
+              {
+                "brand": "Vacuum Wars",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Robot Vacuum",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Dyson",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Cleaner",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Shark",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Best Robot",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Vacuum Cleaner",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Cleaner Buying",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Guide",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "India Best",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "CarpetXpert",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "StainStriker",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              }
+            ],
+            "overall_saturation": 0.0
+          },
+          {
+            "community": "r/CleaningTips",
+            "brands": [
+              {
+                "brand": "Vacuum Wars",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Robot Vacuum",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Dyson",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Cleaner",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Shark",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Best Robot",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Vacuum Cleaner",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Cleaner Buying",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Guide",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "India Best",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "CarpetXpert",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "StainStriker",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              }
+            ],
+            "overall_saturation": 0.0
+          },
+          {
+            "community": "r/BuyItForLife",
+            "brands": [
+              {
+                "brand": "Vacuum Wars",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Robot Vacuum",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Dyson",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Cleaner",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Shark",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Best Robot",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Vacuum Cleaner",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Cleaner Buying",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Guide",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "India Best",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "CarpetXpert",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "StainStriker",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              }
+            ],
+            "overall_saturation": 0.0
+          },
+          {
+            "community": "r/ApplianceGuideIndia",
+            "brands": [
+              {
+                "brand": "Vacuum Wars",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Robot Vacuum",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Dyson",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Cleaner",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Shark",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Best Robot",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Vacuum Cleaner",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Cleaner Buying",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Guide",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "India Best",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "CarpetXpert",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "StainStriker",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              }
+            ],
+            "overall_saturation": 0.0
+          },
+          {
+            "community": "r/cleaningtips",
+            "brands": [
+              {
+                "brand": "Vacuum Wars",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Robot Vacuum",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Dyson",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Cleaner",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Shark",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Best Robot",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Vacuum Cleaner",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Cleaner Buying",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Guide",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "India Best",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "CarpetXpert",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "StainStriker",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              }
+            ],
+            "overall_saturation": 0.0
+          },
+          {
+            "community": "r/homeimprovement",
+            "brands": [
+              {
+                "brand": "Vacuum Wars",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Robot Vacuum",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Dyson",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Cleaner",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Shark",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Best Robot",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Vacuum Cleaner",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Cleaner Buying",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Guide",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "India Best",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "CarpetXpert",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "StainStriker",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              }
+            ],
+            "overall_saturation": 0.0
+          },
+          {
+            "community": "r/buyitforlife",
+            "brands": [
+              {
+                "brand": "Vacuum Wars",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Robot Vacuum",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Dyson",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Cleaner",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Shark",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Best Robot",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Vacuum Cleaner",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Cleaner Buying",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Guide",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "India Best",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "CarpetXpert",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "StainStriker",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              }
+            ],
+            "overall_saturation": 0.0
+          },
+          {
+            "community": "r/frugal",
+            "brands": [
+              {
+                "brand": "Vacuum Wars",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Robot Vacuum",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Dyson",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Cleaner",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Shark",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Best Robot",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Vacuum Cleaner",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Cleaner Buying",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Guide",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "India Best",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "CarpetXpert",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "StainStriker",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              }
+            ],
+            "overall_saturation": 0.0
+          },
+          {
+            "community": "r/appliances",
+            "brands": [
+              {
+                "brand": "Vacuum Wars",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Robot Vacuum",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Dyson",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Cleaner",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Shark",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Best Robot",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Vacuum Cleaner",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Cleaner Buying",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Guide",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "India Best",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "CarpetXpert",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "StainStriker",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              }
+            ],
+            "overall_saturation": 0.0
+          },
+          {
+            "community": "r/homeautomation",
+            "brands": [
+              {
+                "brand": "Vacuum Wars",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Robot Vacuum",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Dyson",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Cleaner",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Shark",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Best Robot",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Vacuum Cleaner",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Cleaner Buying",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "Guide",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "India Best",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "CarpetXpert",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              },
+              {
+                "brand": "StainStriker",
+                "saturation": 0.0,
+                "status": "机会窗口"
+              }
+            ],
+            "overall_saturation": 0.0
+          }
+        ],
+        "gtm_plans": {
+          "oppty-1": {
+            "opportunity_id": "oppty-1",
+            "target_community": "r/RobotVacuums",
+            "actions": [
+              {
+                "day": "周一",
+                "phase": "W1 - 潜伏",
+                "action": "在 r/r/RobotVacuums 3个抱怨'Looking for an appropriate robot vacuum cleaner for my case'的帖子下回复，表达共情与求证（强调性价比）",
+                "goal": "建立可信度"
+              },
+              {
+                "day": "周二",
+                "phase": "W1 - 价值",
+                "action": "发布帖子：[讨论] 我受够了Looking for an appropriate robot vacuum cleaner for my case，所以我整理了一份可执行的改进清单（强调性价比）",
+                "goal": "成为话题引领者"
+              },
+              {
+                "day": "周四",
+                "phase": "W1 - 讨论",
+                "action": "在 r/r/RobotVacuums 发起征询：大家如何看待Looking for an appropriate robot vacuum cleaner for my case？我收集到一份可执行的改进清单（强调性价比）",
+                "goal": "扩大样本、验证共识"
+              },
+              {
+                "day": "周一",
+                "phase": "W2 - 复盘",
+                "action": "复盘上周讨论要点，并补充3条新的证据源（不带外链）（强调性价比）",
+                "goal": "沉淀可信的知识"
+              },
+              {
+                "day": "周三",
+                "phase": "W2 - 软植入",
+                "action": "在自己的帖子里自然提及解决思路：一份可执行的改进清单（强调性价比）",
+                "goal": "测试市场反馈"
+              },
+              {
+                "day": "周五",
+                "phase": "W2 - 反馈",
+                "action": "发起投票或征集用例：你们如何规避Looking for an appropriate robot vacuum cleaner for my case？（强调性价比）",
+                "goal": "收集可操作反馈"
+              }
+            ],
+            "compliance_warning": null
+          }
+        }
+      }
+    },
+    "overview": {
+      "sentiment": {
+        "positive": 38,
+        "negative": 33,
+        "neutral": 29
+      },
+      "top_communities": [
+        {
+          "name": "r/RobotVacuums",
+          "mentions": 8,
+          "relevance": 0,
+          "category": "discovered",
+          "daily_posts": 80,
+          "avg_comment_length": 70,
+          "from_cache": false,
+          "members": 100000
+        },
+        {
+          "name": "r/VacuumCleaners",
+          "mentions": 8,
+          "relevance": 0,
+          "category": "discovered",
+          "daily_posts": 80,
+          "avg_comment_length": 70,
+          "from_cache": false,
+          "members": 100000
+        },
+        {
+          "name": "r/CleaningTips",
+          "mentions": 6,
+          "relevance": 0,
+          "category": "discovered",
+          "daily_posts": 80,
+          "avg_comment_length": 70,
+          "from_cache": false,
+          "members": 100000
+        },
+        {
+          "name": "r/cleaningtips",
+          "mentions": 6,
+          "relevance": 0,
+          "category": "profile_seed",
+          "daily_posts": 80,
+          "avg_comment_length": 70,
+          "from_cache": false,
+          "members": 100000
+        },
+        {
+          "name": "r/BuyItForLife",
+          "mentions": 2,
+          "relevance": 0,
+          "category": "discovered",
+          "daily_posts": 80,
+          "avg_comment_length": 70,
+          "from_cache": false,
+          "members": 100000
+        }
+      ],
+      "total_communities": 11,
+      "top_n": 5,
+      "seed_source": "pool+discovery"
+    },
+    "stats": {
+      "total_mentions": 24,
+      "positive_mentions": 9,
+      "negative_mentions": 8,
+      "neutral_mentions": 7
+    },
+    "sources": {
+      "communities": [
+        "r/RobotVacuums",
+        "r/VacuumCleaners",
+        "r/CleaningTips",
+        "r/BuyItForLife",
+        "r/ApplianceGuideIndia",
+        "r/cleaningtips",
+        "r/homeimprovement",
+        "r/buyitforlife",
+        "r/frugal",
+        "r/appliances",
+        "r/homeautomation"
+      ],
+      "posts_analyzed": 24,
+      "cache_hit_rate": 0.0,
+      "ps_ratio": 0.0,
+      "analysis_duration_seconds": 162,
+      "hybrid_posts_used": null,
+      "reddit_api_calls": 0,
+      "collection_warnings": [],
+      "product_description": "面向北美租房人群的家居收纳与清洁工具推荐/比价助手，解决空间小、产品选择多、踩雷的问题。",
+      "communities_detail": [
+        {
+          "name": "r/RobotVacuums",
+          "categories": [
+            "discovered"
+          ],
+          "mentions": 8,
+          "daily_posts": 80,
+          "avg_comment_length": 70,
+          "cache_hit_rate": 0.0,
+          "from_cache": false
+        },
+        {
+          "name": "r/VacuumCleaners",
+          "categories": [
+            "discovered"
+          ],
+          "mentions": 8,
+          "daily_posts": 80,
+          "avg_comment_length": 70,
+          "cache_hit_rate": 0.0,
+          "from_cache": false
+        },
+        {
+          "name": "r/CleaningTips",
+          "categories": [
+            "discovered"
+          ],
+          "mentions": 6,
+          "daily_posts": 80,
+          "avg_comment_length": 70,
+          "cache_hit_rate": 0.0,
+          "from_cache": false
+        },
+        {
+          "name": "r/BuyItForLife",
+          "categories": [
+            "discovered"
+          ],
+          "mentions": 2,
+          "daily_posts": 80,
+          "avg_comment_length": 70,
+          "cache_hit_rate": 0.0,
+          "from_cache": false
+        },
+        {
+          "name": "r/ApplianceGuideIndia",
+          "categories": [
+            "discovered"
+          ],
+          "mentions": 1,
+          "daily_posts": 80,
+          "avg_comment_length": 70,
+          "cache_hit_rate": 0.0,
+          "from_cache": false
+        },
+        {
+          "name": "r/cleaningtips",
+          "categories": [
+            "profile_seed"
+          ],
+          "mentions": 6,
+          "daily_posts": 80,
+          "avg_comment_length": 70,
+          "cache_hit_rate": 0.0,
+          "from_cache": false
+        },
+        {
+          "name": "r/homeimprovement",
+          "categories": [
+            "profile_seed"
+          ],
+          "mentions": 0,
+          "daily_posts": 80,
+          "avg_comment_length": 70,
+          "cache_hit_rate": 0.0,
+          "from_cache": false
+        },
+        {
+          "name": "r/buyitforlife",
+          "categories": [
+            "profile_seed"
+          ],
+          "mentions": 2,
+          "daily_posts": 80,
+          "avg_comment_length": 70,
+          "cache_hit_rate": 0.0,
+          "from_cache": false
+        },
+        {
+          "name": "r/frugal",
+          "categories": [
+            "profile_seed"
+          ],
+          "mentions": 0,
+          "daily_posts": 80,
+          "avg_comment_length": 70,
+          "cache_hit_rate": 0.0,
+          "from_cache": false
+        },
+        {
+          "name": "r/appliances",
+          "categories": [
+            "profile_seed"
+          ],
+          "mentions": 0,
+          "daily_posts": 80,
+          "avg_comment_length": 70,
+          "cache_hit_rate": 0.0,
+          "from_cache": false
+        },
+        {
+          "name": "r/homeautomation",
+          "categories": [
+            "profile_seed"
+          ],
+          "mentions": 0,
+          "daily_posts": 80,
+          "avg_comment_length": 70,
+          "cache_hit_rate": 0.0,
+          "from_cache": false
+        }
+      ],
+      "recovery_strategy": null,
+      "fallback_quality": null,
+      "dedup_stats": {
+        "total_posts": 33,
+        "fallback_pairs": 512,
+        "candidate_pairs": 532,
+        "similarity_checks": 532
+      },
+      "duplicates_summary": [
+        {
+          "post_id": "1rc4c6g",
+          "duplicate_ids": [
+            "1rc4ec6",
+            "1rc4c6g"
+          ],
+          "evidence_count": 3
+        },
+        {
+          "post_id": "1jpmd63",
+          "duplicate_ids": [
+            "1jpmd63"
+          ],
+          "evidence_count": 2
+        },
+        {
+          "post_id": "1jyeqm6",
+          "duplicate_ids": [
+            "1jyeqm6"
+          ],
+          "evidence_count": 2
+        },
+        {
+          "post_id": "1ln8q4e",
+          "duplicate_ids": [
+            "1ln8q4e"
+          ],
+          "evidence_count": 2
+        },
+        {
+          "post_id": "1nagjou",
+          "duplicate_ids": [
+            "1nagjou"
+          ],
+          "evidence_count": 2
+        },
+        {
+          "post_id": "1nbwjim",
+          "duplicate_ids": [
+            "1nbwjim"
+          ],
+          "evidence_count": 2
+        },
+        {
+          "post_id": "1kgb8em",
+          "duplicate_ids": [
+            "1kgb8em"
+          ],
+          "evidence_count": 2
+        },
+        {
+          "post_id": "1k59czz",
+          "duplicate_ids": [
+            "1k59czz"
+          ],
+          "evidence_count": 2
+        }
+      ],
+      "seed_source": "pool+discovery",
+      "data_source": "real",
+      "report_tier": "A_full",
+      "analysis_blocked": null,
+      "facts_v2_quality": {
+        "tier": "A_full",
+        "flags": [],
+        "passed": true,
+        "metrics": {
+          "agg_posts": 24,
+          "solutions": 8,
+          "good_pains": 2,
+          "good_brands": 1,
+          "agg_comments": 0,
+          "source_posts": 24,
+          "coverage_tier": "unknown",
+          "coverage_total": 0,
+          "on_topic_ratio": 0.958,
+          "sample_checked": 24,
+          "source_comments": 0,
+          "db_comments_total": 0,
+          "topic_terms_count": 19,
+          "topic_terms_source": "profile",
+          "coverage_months_avg": 0.0,
+          "coverage_months_max": 0,
+          "coverage_months_min": 0,
+          "min_sample_comments": 0,
+          "db_comments_eligible": 0,
+          "coverage_capped_count": 0,
+          "topic_profiles_status": "loaded",
+          "coverage_status_counts": {},
+          "semantic_search_status": "semantic+keyword",
+          "comments_pipeline_status": "disabled",
+          "pain_clusters_pipeline_status": "engine_tfidf_fallback"
+        }
+      },
+      "trend_source": [
+        "coverage_unknown"
+      ],
+      "trend_degraded": true,
+      "facts_slice": {
+        "meta": {
+          "topic": "家用吸尘器 清洁工具",
+          "topic_profile_id": "vacuum_cleaner_v1",
+          "product_description": "面向北美租房人群的家居收纳与清洁工具推荐/比价助手，解决空间小、产品选择多、踩雷的问题。"
+        },
+        "ps_ratio": 0.0,
+        "aggregates": {
+          "communities": [
+            {
+              "name": "r/robotvacuums",
+              "posts": 7,
+              "comments": 0
+            },
+            {
+              "name": "r/vacuumcleaners",
+              "posts": 7,
+              "comments": 0
+            },
+            {
+              "name": "r/cleaningtips",
+              "posts": 6,
+              "comments": 0
+            },
+            {
+              "name": "r/buyitforlife",
+              "posts": 2,
+              "comments": 0
+            },
+            {
+              "name": "r/applianceguideindia",
+              "posts": 1,
+              "comments": 0
+            },
+            {
+              "name": "r/ecommerce",
+              "posts": 1,
+              "comments": 0
+            }
+          ]
+        },
+        "diagnostics": {
+          "pain_clusters_error": "cannot access local variable 'sources' where it is not associated with a value",
+          "topic_profiles_path": "/Users/hujia/Desktop/RedditSignalScanner/backend/config/topic_profiles.yaml",
+          "topic_profiles_status": "loaded",
+          "semantic_search_status": "semantic+keyword",
+          "pain_clusters_pipeline_status": "engine_tfidf_fallback"
+        },
+        "top_drivers": [
+          {
+            "title": "效率提升与省时省心",
+            "actions": [
+              "减少重复操作",
+              "提升日常效率"
+            ],
+            "rationale": "高频痛点集中在：Hello, I've recently moved into a new flat and I'm getting terrible dust / ) I live in a city that is soooo dusty, you just can't believe it unless you see it",
+            "description": "高频痛点集中在：Hello, I've recently moved into a new flat and I'm getting terrible dust / ) I live in a city that is soooo dusty, you just can't believe it unless you see it",
+            "source_pains": [
+              "Hello, I've recently moved into a new flat and I'm getting terrible dust",
+              ") I live in a city that is soooo dusty, you just can't believe it unless you see it",
+              "Suggestion for ~$200 Bagged/Bagless Vacuum Cleaner (90% Carpet and rest Hardfloor)"
+            ]
+          }
+        ],
+        "data_lineage": {
+          "coverage": {
+            "capped_count": 0,
+            "status_counts": {},
+            "community_statuses": [],
+            "coverage_months_avg": 0,
+            "coverage_months_max": 0,
+            "coverage_months_min": 0,
+            "missing_communities": [
+              "r/applianceguideindia",
+              "r/appliances",
+              "r/buyitforlife",
+              "r/cleaningtips",
+              "r/frugal",
+              "r/homeautomation",
+              "r/homeimprovement",
+              "r/robotvacuums",
+              "r/vacuumcleaners"
+            ]
+          },
+          "counts_db": {
+            "posts_current": 1,
+            "comments_total": 0,
+            "comments_eligible": 0
+          },
+          "target_ids": [
+            "29377ff5-45eb-5a9b-8f75-297ed2e09b5e",
+            "e1d63c4c-fa29-5681-8aba-4cf1396a7d07",
+            "0dcd2bae-ffd9-5b3c-b3cf-e8a59faf2a2b",
+            "d9b8bf31-0a56-5d20-8f9e-625ad86ba1c8",
+            "6060ff31-b6fa-55d8-9386-7d92ef1f1146"
+          ],
+          "source_range": {
+            "posts": 24,
+            "comments": 0
+          },
+          "crawler_run_ids": [
+            "97232eed-c2db-512f-b22d-d7d8aa6b1cbc"
+          ],
+          "target_ids_total": 5,
+          "target_ids_truncated": false,
+          "comments_pipeline_status": "disabled"
+        },
+        "trend_summary": {
+          "label": "爆发式增长",
+          "reason": "近一月讨论量 169，环比 160%，近三月速度系数 2.17；趋势数据不完整（coverage_unknown）",
+          "series": [
+            {
+              "count": 0,
+              "month": "2025-04",
+              "trend": "➡️ STABLE",
+              "growth_rate": null
+            },
+            {
+              "count": 0,
+              "month": "2025-05",
+              "trend": "📈 RISING",
+              "growth_rate": 0.0
+            },
+            {
+              "count": 0,
+              "month": "2025-06",
+              "trend": "📈 RISING",
+              "growth_rate": 0.0
+            },
+            {
+              "count": 0,
+              "month": "2025-07",
+              "trend": "📈 RISING",
+              "growth_rate": 0.0
+            },
+            {
+              "count": 0,
+              "month": "2025-08",
+              "trend": "📈 RISING",
+              "growth_rate": 0.0
+            },
+            {
+              "count": 0,
+              "month": "2025-09",
+              "trend": "📈 RISING",
+              "growth_rate": 0.0
+            },
+            {
+              "count": 0,
+              "month": "2025-10",
+              "trend": "📈 RISING",
+              "growth_rate": 0.0
+            },
+            {
+              "count": 0,
+              "month": "2025-11",
+              "trend": "📈 RISING",
+              "growth_rate": 0.0
+            },
+            {
+              "count": 0,
+              "month": "2025-12",
+              "trend": "📈 RISING",
+              "growth_rate": 0.0
+            },
+            {
+              "count": 0,
+              "month": "2026-01",
+              "trend": "📈 RISING",
+              "growth_rate": 0.0
+            },
+            {
+              "count": 65,
+              "month": "2026-02",
+              "trend": "🔥 EXPLODING",
+              "growth_rate": 65.0
+            },
+            {
+              "count": 169,
+              "month": "2026-03",
+              "trend": "🔥 EXPLODING",
+              "growth_rate": 1.6,
+              "recent_velocity": 2.17
+            }
+          ]
+        },
+        "knowledge_graph": {
+          "drivers": [
+            {
+              "title": "效率提升与省时省心",
+              "actions": [
+                "减少重复操作",
+                "提升日常效率"
+              ],
+              "description": "高频痛点集中在：Hello, I've recently moved into a new flat and I'm getting terrible dust / ) I live in a city that is soooo dusty, you just can't believe it unless you see it",
+              "source_pains": [
+                "Hello, I've recently moved into a new flat and I'm getting terrible dust",
+                ") I live in a city that is soooo dusty, you just can't believe it unless you see it",
+                "Suggestion for ~$200 Bagged/Bagless Vacuum Cleaner (90% Carpet and rest Hardfloor)"
+              ]
+            }
+          ],
+          "evidence": [],
+          "communities": [
+            {
+              "name": "r/robotvacuums",
+              "posts": 7,
+              "comments": 0
+            },
+            {
+              "name": "r/vacuumcleaners",
+              "posts": 7,
+              "comments": 0
+            },
+            {
+              "name": "r/cleaningtips",
+              "posts": 6,
+              "comments": 0
+            },
+            {
+              "name": "r/buyitforlife",
+              "posts": 2,
+              "comments": 0
+            },
+            {
+              "name": "r/applianceguideindia",
+              "posts": 1,
+              "comments": 0
+            },
+            {
+              "name": "r/ecommerce",
+              "posts": 1,
+              "comments": 0
+            }
+          ],
+          "pain_points": [
+            {
+              "name": "",
+              "evidence": [],
+              "mentions": 0,
+              "evidence_ids": [
+                "1ln8q4e",
+                "1pw0n1v",
+                "1mkwlju",
+                "1pfzd0t",
+                "1rc4c6g"
+              ],
+              "unique_authors": 0
+            },
+            {
+              "name": "",
+              "evidence": [],
+              "mentions": 0,
+              "evidence_ids": [
+                "1ln8q4e",
+                "1pw0n1v",
+                "1mkwlju",
+                "1pfzd0t",
+                "1rc4c6g"
+              ],
+              "unique_authors": 0
+            }
+          ]
+        },
+        "sample_posts_db": [
+          {
+            "body": "Hi all, I’d really appreciate some feedback from folks who know more about cleaning expectations and pricing.\n\nI recently hired a cleaner I’ve used a few times in the past. She’s always done a grea...",
+            "text": "Did I handle this fairly with my cleaner? Looking for advice. Hi all, I’d really appreciate some feedback from folks who know more about cleaning expectations and pricing.\n\nI recently hired a cleaner I’ve used a few times in the past. She’s always done a grea...",
+            "title": "Did I handle this fairly with my cleaner? Looking for advice. Hi all, I’d really appreciate some feedback from folks who know more about cleaning expectations and pricing.\n\nI recently hired a cleaner I’ve used a few times in the past. She’s always done a grea...",
+            "subreddit": "r/cleaningtips"
+          },
+          {
+            "body": "I always figured stuff like the dishwasher and washing machine basically cleaned themselves. Like, it’s all hot water and soap, right?\n\nBut then my washer started smelling like swamp water, my dish...",
+            "text": "Do you actually clean your vacuum, dishwasher, etc.? I didn’t. And then things got gross. I always figured stuff like the dishwasher and washing machine basically cleaned themselves. Like, it’s all hot water and soap, right?\n\nBut then my washer started smelling like swamp water, my dish...",
+            "title": "Do you actually clean your vacuum, dishwasher, etc.? I didn’t. And then things got gross. I always figured stuff like the dishwasher and washing machine basically cleaned themselves. Like, it’s all hot water and soap, right?\n\nBut then my washer started smelling like swamp water, my dish...",
+            "subreddit": "r/cleaningtips"
+          },
+          {
+            "body": "Hey guys I’d like your opinion. Our current cleaner— I’ll name her Diane has cleaned our house for the last 3-4 years. We originally found her through a very high end realtor in the area bc we had ...",
+            "text": "Firing cleaning lady Hey guys I’d like your opinion. Our current cleaner— I’ll name her Diane has cleaned our house for the last 3-4 years. We originally found her through a very high end realtor in the area bc we had ...",
+            "title": "Firing cleaning lady Hey guys I’d like your opinion. Our current cleaner— I’ll name her Diane has cleaned our house for the last 3-4 years. We originally found her through a very high end realtor in the area bc we had ...",
+            "subreddit": "r/cleaningtips"
+          },
+          {
+            "body": "DJI's official Weibo account posted a short video showing the appearance of their upcoming robot, which still looks very futuristic.\nThe words in the middle“实力绝尘”In the context of Chinese, it means...",
+            "text": "DJI officially announced that it will launch a robot vacuum cleaner on August 6. DJI's official Weibo account posted a short video showing the appearance of their upcoming robot, which still looks very futuristic.\nThe words in the middle“实力绝尘”In the context of Chinese, it means...",
+            "title": "DJI officially announced that it will launch a robot vacuum cleaner on August 6. DJI's official Weibo account posted a short video showing the appearance of their upcoming robot, which still looks very futuristic.\nThe words in the middle“实力绝尘”In the context of Chinese, it means...",
+            "subreddit": "r/robotvacuums"
+          },
+          {
+            "body": "Hey everyone,\n\nWe’re excited to give the r/robotvacuums community an early look at a robot vacuum that we *just* finished testing, and it blew us away: the **MOVA V50 Pro Ultra Complete**. This rev...",
+            "text": "The MOVA V50 Pro Ultra — Vacuum Wars' New #1 Robot Vacuum Hey everyone,\n\nWe’re excited to give the r/robotvacuums community an early look at a robot vacuum that we *just* finished testing, and it blew us away: the **MOVA V50 Pro Ultra Complete**. This rev...",
+            "title": "The MOVA V50 Pro Ultra — Vacuum Wars' New #1 Robot Vacuum Hey everyone,\n\nWe’re excited to give the r/robotvacuums community an early look at a robot vacuum that we *just* finished testing, and it blew us away: the **MOVA V50 Pro Ultra Complete**. This rev...",
+            "subreddit": "r/robotvacuums"
+          },
+          {
+            "body": "Ugh, it's that time of year again. My cat is losing fur everywhere, and pollen seems to be drifting right into my apartment. My allergies are in full revolt. I have an air purifier (bless it), but ...",
+            "text": "Allergy struggles. Any useful cleaner for dust&amp;pet hair? Ugh, it's that time of year again. My cat is losing fur everywhere, and pollen seems to be drifting right into my apartment. My allergies are in full revolt. I have an air purifier (bless it), but ...",
+            "title": "Allergy struggles. Any useful cleaner for dust&amp;pet hair? Ugh, it's that time of year again. My cat is losing fur everywhere, and pollen seems to be drifting right into my apartment. My allergies are in full revolt. I have an air purifier (bless it), but ...",
+            "subreddit": "r/cleaningtips"
+          },
+          {
+            "body": "In 2026, India’s robot vacuum market is flooded with rebranded Chinese models, exaggerated AI claims, and fake “smart navigation” marketing. Many brands focus more on app screenshots and influencer...",
+            "text": "India Best Robot Vacuum Cleaner Buying Guide 2026 In 2026, India’s robot vacuum market is flooded with rebranded Chinese models, exaggerated AI claims, and fake “smart navigation” marketing. Many brands focus more on app screenshots and influencer...",
+            "title": "India Best Robot Vacuum Cleaner Buying Guide 2026 In 2026, India’s robot vacuum market is flooded with rebranded Chinese models, exaggerated AI claims, and fake “smart navigation” marketing. Many brands focus more on app screenshots and influencer...",
+            "subreddit": "r/applianceguideindia"
+          },
+          {
+            "body": "What's the deal with Vacuum Wars? Their top-five picks for upright vacuums are Shark, Shark, Shark, Shark, and Dyson. I don't see any Vacuum Wars content regarding canister vacuums (e.g., Miele and...",
+            "text": "HELP!--r/VacuumCleaners seems to recommend Sebo or Miele, Vacuum Wars seems to recommend Shark What's the deal with Vacuum Wars? Their top-five picks for upright vacuums are Shark, Shark, Shark, Shark, and Dyson. I don't see any Vacuum Wars content regarding canister vacuums (e.g., Miele and...",
+            "title": "HELP!--r/VacuumCleaners seems to recommend Sebo or Miele, Vacuum Wars seems to recommend Shark What's the deal with Vacuum Wars? Their top-five picks for upright vacuums are Shark, Shark, Shark, Shark, and Dyson. I don't see any Vacuum Wars content regarding canister vacuums (e.g., Miele and...",
+            "subreddit": "r/vacuumcleaners"
+          },
+          {
+            "body": "Hey everyone,  \nWe’ve been testing the new **eufy E28** robot vacuum for a few weeks now, and wanted to give r/robotvacuums an early look before our full video review goes live in a couple weeks. T...",
+            "text": "Vacuum Wars Review of the eufy E28 Robot Vacuum Mop Combo with a SPOT Cleaner! Hey everyone,  \nWe’ve been testing the new **eufy E28** robot vacuum for a few weeks now, and wanted to give r/robotvacuums an early look before our full video review goes live in a couple weeks. T...",
+            "title": "Vacuum Wars Review of the eufy E28 Robot Vacuum Mop Combo with a SPOT Cleaner! Hey everyone,  \nWe’ve been testing the new **eufy E28** robot vacuum for a few weeks now, and wanted to give r/robotvacuums an early look before our full video review goes live in a couple weeks. T...",
+            "subreddit": "r/robotvacuums"
+          },
+          {
+            "body": "I’m a bachelor living with a few flatmate in a rented flat of 2BHK. Cleaning and dusting regularly is a bit of a struggle for me. I’m looking for a good robot vacuum cleaner that can make my life e...",
+            "text": "Best Robot Vacuum Cleaner for Home in 2025 I’m a bachelor living with a few flatmate in a rented flat of 2BHK. Cleaning and dusting regularly is a bit of a struggle for me. I’m looking for a good robot vacuum cleaner that can make my life e...",
+            "title": "Best Robot Vacuum Cleaner for Home in 2025 I’m a bachelor living with a few flatmate in a rented flat of 2BHK. Cleaning and dusting regularly is a bit of a struggle for me. I’m looking for a good robot vacuum cleaner that can make my life e...",
+            "subreddit": "r/buyitforlife"
+          },
+          {
+            "body": "-Ecovacs N30 pro omni doesn’t comes with a inbuilt water tank inside the robot and mopping lifting is not that useful\n\n\n-Narwal x freo ultra does not have dust bag inside the dock/station\n\n\n-Most o...",
+            "text": "Indian Buyer-Here are info about robot vacuum cleaner -Ecovacs N30 pro omni doesn’t comes with a inbuilt water tank inside the robot and mopping lifting is not that useful\n\n\n-Narwal x freo ultra does not have dust bag inside the dock/station\n\n\n-Most o...",
+            "title": "Indian Buyer-Here are info about robot vacuum cleaner -Ecovacs N30 pro omni doesn’t comes with a inbuilt water tank inside the robot and mopping lifting is not that useful\n\n\n-Narwal x freo ultra does not have dust bag inside the dock/station\n\n\n-Most o...",
+            "subreddit": "r/robotvacuums"
+          },
+          {
+            "body": "Based on my attempts to vacuum so far, the carpet is actually an optical illusion created by dust and hair.\n\nI'll fill the cannister entirely one room, twice in another, and the next week it'll be ...",
+            "text": "Australians among you, I need a new vacuum cleaner for a house that's 90% short/mid pile carpet, packed with 70 years of god knows what. Based on my attempts to vacuum so far, the carpet is actually an optical illusion created by dust and hair.\n\nI'll fill the cannister entirely one room, twice in another, and the next week it'll be ...",
+            "title": "Australians among you, I need a new vacuum cleaner for a house that's 90% short/mid pile carpet, packed with 70 years of god knows what. Based on my attempts to vacuum so far, the carpet is actually an optical illusion created by dust and hair.\n\nI'll fill the cannister entirely one room, twice in another, and the next week it'll be ...",
+            "subreddit": "r/vacuumcleaners"
+          },
+          {
+            "body": "My in-laws got us a Dyson stick vac when we got our new house and it’s great for in-between / light upkeep but just not cutting it as a whole house cleaner for us.\n\n\\- 3 level home with lots of car...",
+            "text": "Looking for a serious vacuum that handles fur and dust on carpet My in-laws got us a Dyson stick vac when we got our new house and it’s great for in-between / light upkeep but just not cutting it as a whole house cleaner for us.\n\n\\- 3 level home with lots of car...",
+            "title": "Looking for a serious vacuum that handles fur and dust on carpet My in-laws got us a Dyson stick vac when we got our new house and it’s great for in-between / light upkeep but just not cutting it as a whole house cleaner for us.\n\n\\- 3 level home with lots of car...",
+            "subreddit": "r/vacuumcleaners"
+          },
+          {
+            "body": "Hi all!\n\nFirst post in this community and in reddit! I'm in the market after a robot vacuum cleaner and I've been lurking this sub for a while. I see many users asking the same question and that th...",
+            "text": "Looking for an appropriate robot vacuum cleaner for my case Hi all!\n\nFirst post in this community and in reddit! I'm in the market after a robot vacuum cleaner and I've been lurking this sub for a while. I see many users asking the same question and that th...",
+            "title": "Looking for an appropriate robot vacuum cleaner for my case Hi all!\n\nFirst post in this community and in reddit! I'm in the market after a robot vacuum cleaner and I've been lurking this sub for a while. I see many users asking the same question and that th...",
+            "subreddit": "r/robotvacuums"
+          },
+          {
+            "body": "Hi Everyone,\n\n  \nI'm looking for  recommendations for a robot vacuum cleaner that will dock and transfer all the dust into a bag without having to empty it myself. I also want a robot vacuum that c...",
+            "text": "robot vacuum cleaner recommendation Hi Everyone,\n\n  \nI'm looking for  recommendations for a robot vacuum cleaner that will dock and transfer all the dust into a bag without having to empty it myself. I also want a robot vacuum that c...",
+            "title": "robot vacuum cleaner recommendation Hi Everyone,\n\n  \nI'm looking for  recommendations for a robot vacuum cleaner that will dock and transfer all the dust into a bag without having to empty it myself. I also want a robot vacuum that c...",
+            "subreddit": "r/robotvacuums"
+          },
+          {
+            "body": "Hey, I’m sorry if this is not for troubleshooting, but I’m trying to figure out whether I should just throw out my Samsung jet bot and purchase another one on Amazon for $360 because the wheel is b...",
+            "text": "SAMSUNG Jet Bot Robot Cordless Vacuum Cleaner Hey, I’m sorry if this is not for troubleshooting, but I’m trying to figure out whether I should just throw out my Samsung jet bot and purchase another one on Amazon for $360 because the wheel is b...",
+            "title": "SAMSUNG Jet Bot Robot Cordless Vacuum Cleaner Hey, I’m sorry if this is not for troubleshooting, but I’m trying to figure out whether I should just throw out my Samsung jet bot and purchase another one on Amazon for $360 because the wheel is b...",
+            "subreddit": "r/robotvacuums"
+          },
+          {
+            "body": "My entire house is tile. (I am retired and living in Mexico.) I live in a city that is soooo dusty, you just can't believe it unless you see it. I can mop my floors in the morning, and in the eveni...",
+            "text": "What do I want in a robotic vacuum cleaner? My entire house is tile. (I am retired and living in Mexico.) I live in a city that is soooo dusty, you just can't believe it unless you see it. I can mop my floors in the morning, and in the eveni...",
+            "title": "What do I want in a robotic vacuum cleaner? My entire house is tile. (I am retired and living in Mexico.) I live in a city that is soooo dusty, you just can't believe it unless you see it. I can mop my floors in the morning, and in the eveni...",
+            "subreddit": "r/vacuumcleaners"
+          },
+          {
+            "body": "Hi, \n\nLooking for a robot vacuum cleaner.\n\nI live along with my family and I want to minimise the cleaning work for them.\nI need it for evryday purpose.\nDaily vacuuming the dust and moping the floo...",
+            "text": "Suggestions for robot vacuum cleaner in india Hi, \n\nLooking for a robot vacuum cleaner.\n\nI live along with my family and I want to minimise the cleaning work for them.\nI need it for evryday purpose.\nDaily vacuuming the dust and moping the floo...",
+            "title": "Suggestions for robot vacuum cleaner in india Hi, \n\nLooking for a robot vacuum cleaner.\n\nI live along with my family and I want to minimise the cleaning work for them.\nI need it for evryday purpose.\nDaily vacuuming the dust and moping the floo...",
+            "subreddit": "r/vacuumcleaners"
+          },
+          {
+            "body": "Hello,\n\nI bought the Upright Shark CarpetXpert with StainStriker vacuum cleaner, but didn't realize it doesn't support dry cleaning for dust and debris pickup. I'm looking for a vacuum cleaner that...",
+            "text": "Looking for a multi-purpose carpet cleaner Hello,\n\nI bought the Upright Shark CarpetXpert with StainStriker vacuum cleaner, but didn't realize it doesn't support dry cleaning for dust and debris pickup. I'm looking for a vacuum cleaner that...",
+            "title": "Looking for a multi-purpose carpet cleaner Hello,\n\nI bought the Upright Shark CarpetXpert with StainStriker vacuum cleaner, but didn't realize it doesn't support dry cleaning for dust and debris pickup. I'm looking for a vacuum cleaner that...",
+            "subreddit": "r/vacuumcleaners"
+          },
+          {
+            "body": "Hi. I am planning to buy a vacuum cleaner with HEPA filtration for my 1100 sq ft apartment. I have a dust allergy (not severe, but it is there). I do not have any pets, but my spouse has hairfall i...",
+            "text": "Suggestion for ~$200 Bagged/Bagless Vacuum Cleaner (90% Carpet and rest Hardfloor). Hi. I am planning to buy a vacuum cleaner with HEPA filtration for my 1100 sq ft apartment. I have a dust allergy (not severe, but it is there). I do not have any pets, but my spouse has hairfall i...",
+            "title": "Suggestion for ~$200 Bagged/Bagless Vacuum Cleaner (90% Carpet and rest Hardfloor). Hi. I am planning to buy a vacuum cleaner with HEPA filtration for my 1100 sq ft apartment. I have a dust allergy (not severe, but it is there). I do not have any pets, but my spouse has hairfall i...",
+            "subreddit": "r/vacuumcleaners"
+          }
+        ],
+        "business_signals": {
+          "ps_ratio": 0.0,
+          "solutions": [
+            {
+              "frequency": 1,
+              "description": "I need a strong vacuum cleaner that can help with the carpeted floor with a detachable head",
+              "evidence_quote_ids": [
+                "1rc4c6g",
+                "1rc4ec6"
+              ]
+            },
+            {
+              "frequency": 1,
+              "description": "Best Robot Vacuum Cleaner for Home in 2025",
+              "evidence_quote_ids": [
+                "1k59czz"
+              ]
+            },
+            {
+              "frequency": 1,
+              "description": "India Best Robot Vacuum Cleaner Buying Guide 2026",
+              "evidence_quote_ids": [
+                "1qt24if"
+              ]
+            },
+            {
+              "frequency": 1,
+              "description": "My in-laws got us a Dyson stick vac when we got our new house and it’s great for in-between / light upkeep but just not cutting it as a whole house cleaner for us",
+              "evidence_quote_ids": [
+                "1q6ll7s"
+              ]
+            },
+            {
+              "frequency": 1,
+              "description": "Any useful cleaner for dust&amp;pet hair",
+              "evidence_quote_ids": [
+                "1jpmd63"
+              ]
+            },
+            {
+              "frequency": 1,
+              "description": "Best way to remove dust",
+              "evidence_quote_ids": [
+                "1ln8q4e"
+              ]
+            },
+            {
+              "frequency": 1,
+              "description": "I’m looking for a good robot vacuum cleaner that can make my life e",
+              "evidence_quote_ids": [
+                "1k59czz"
+              ]
+            },
+            {
+              "frequency": 1,
+              "description": "Australians among you, I need a new vacuum cleaner for a house that's 90% short/mid pile carpet, packed with 70 years of god knows what",
+              "evidence_quote_ids": [
+                "1mchnz2"
+              ]
+            }
+          ],
+          "brand_pain": [
+            {
+              "name": "Vacuum Wars",
+              "mentions": 4,
+              "unique_authors": 2,
+              "evidence_quote_ids": [
+                "1ll2i87",
+                "1me1lwb",
+                "1qn0gc8"
+              ]
+            },
+            {
+              "name": "Robot Vacuum",
+              "mentions": 2,
+              "unique_authors": 2,
+              "evidence_quote_ids": [
+                "1me1lwb",
+                "1qt24if"
+              ]
+            },
+            {
+              "name": "Dyson",
+              "mentions": 2,
+              "unique_authors": 2,
+              "evidence_quote_ids": [
+                "1q6ll7s",
+                "1qn0gc8"
+              ]
+            },
+            {
+              "name": "Cleaner",
+              "mentions": 2,
+              "unique_authors": 2,
+              "evidence_quote_ids": [
+                "1lyw7s5",
+                "1mkwlju"
+              ]
+            },
+            {
+              "name": "Shark",
+              "mentions": 2,
+              "unique_authors": 1,
+              "evidence_quote_ids": [
+                "1qn0gc8"
+              ]
+            },
+            {
+              "name": "Best Robot",
+              "mentions": 1,
+              "unique_authors": 1,
+              "evidence_quote_ids": [
+                "1k59czz"
+              ]
+            },
+            {
+              "name": "Vacuum Cleaner",
+              "mentions": 1,
+              "unique_authors": 1,
+              "evidence_quote_ids": [
+                "1k59czz"
+              ]
+            },
+            {
+              "name": "Cleaner Buying",
+              "mentions": 1,
+              "unique_authors": 1,
+              "evidence_quote_ids": [
+                "1qt24if"
+              ]
+            },
+            {
+              "name": "Guide",
+              "mentions": 1,
+              "unique_authors": 1,
+              "evidence_quote_ids": [
+                "1qt24if"
+              ]
+            },
+            {
+              "name": "India Best",
+              "mentions": 1,
+              "unique_authors": 1,
+              "evidence_quote_ids": [
+                "1qt24if"
+              ]
+            },
+            {
+              "name": "CarpetXpert",
+              "mentions": 1,
+              "unique_authors": 1,
+              "evidence_quote_ids": [
+                "1pfzd0t"
+              ]
+            },
+            {
+              "name": "StainStriker",
+              "mentions": 1,
+              "unique_authors": 1,
+              "evidence_quote_ids": [
+                "1pfzd0t"
+              ]
+            }
+          ],
+          "high_value_pains": [
+            {
+              "title": "主要抱怨（汇总）",
+              "metrics": {
+                "mentions": 10,
+                "unique_authors": 6
+              },
+              "evidence_quote_ids": [
+                "1ln8q4e",
+                "1pw0n1v",
+                "1mkwlju",
+                "1pfzd0t",
+                "1rc4c6g"
+              ]
+            },
+            {
+              "title": "其他抱怨",
+              "metrics": {
+                "mentions": 10,
+                "unique_authors": 6
+              },
+              "evidence_quote_ids": [
+                "1ln8q4e",
+                "1pw0n1v",
+                "1mkwlju",
+                "1pfzd0t",
+                "1rc4c6g"
+              ]
+            }
+          ],
+          "competitor_insights": [
+            {
+              "name": "Vacuum Wars",
+              "layer": "brands",
+              "mentions": 4,
+              "sentiment": "mixed",
+              "strengths": [
+                "社区讨论热度高"
+              ],
+              "weaknesses": [
+                "等待更多反馈细节"
+              ],
+              "market_share": 21,
+              "context_snippets": [
+                "Vacuum Wars Review of the eufy E28 Robot Vacuum Mop Combo with a SPOT Cleaner",
+                "The MOVA V50 Pro Ultra — Vacuum Wars' New #1 Robot Vacuum",
+                "--r/VacuumCleaners seems to recommend Sebo or Miele, Vacuum Wars seems to recommend Shark"
+              ]
+            },
+            {
+              "name": "Robot Vacuum",
+              "layer": "attributes",
+              "mentions": 2,
+              "sentiment": "positive",
+              "strengths": [
+                "用户反馈积极",
+                "社区认可度高"
+              ],
+              "weaknesses": [
+                "需要继续观察长期表现"
+              ],
+              "market_share": 11,
+              "context_snippets": [
+                "The MOVA V50 Pro Ultra — Vacuum Wars' New #1 Robot Vacuum",
+                "India Best Robot Vacuum Cleaner Buying Guide 2026"
+              ]
+            },
+            {
+              "name": "Dyson",
+              "layer": "brands",
+              "mentions": 2,
+              "sentiment": "positive",
+              "strengths": [
+                "用户反馈积极",
+                "社区认可度高"
+              ],
+              "weaknesses": [
+                "需要继续观察长期表现"
+              ],
+              "market_share": 11,
+              "context_snippets": [
+                "My in-laws got us a Dyson stick vac when we got our new house and it’s great for in-between / light upkeep but just not cutting it as a whole house cleaner for us",
+                "Their top-five picks for upright vacuums are Shark, Shark, Shark, Shark, and Dyson"
+              ]
+            },
+            {
+              "name": "Cleaner",
+              "layer": "attributes",
+              "mentions": 2,
+              "sentiment": "mixed",
+              "strengths": [
+                "社区讨论热度高"
+              ],
+              "weaknesses": [
+                "等待更多反馈细节"
+              ],
+              "market_share": 11,
+              "context_snippets": [
+                "SAMSUNG Jet Bot Robot Cordless Vacuum Cleaner",
+                "Suggestion for ~$200 Bagged/Bagless Vacuum Cleaner (90% Carpet and rest Hardfloor)"
+              ]
+            },
+            {
+              "name": "Shark",
+              "layer": "brands",
+              "mentions": 2,
+              "sentiment": "mixed",
+              "strengths": [
+                "社区讨论热度高"
+              ],
+              "weaknesses": [
+                "等待更多反馈细节"
+              ],
+              "market_share": 11,
+              "context_snippets": [
+                "--r/VacuumCleaners seems to recommend Sebo or Miele, Vacuum Wars seems to recommend Shark",
+                "Their top-five picks for upright vacuums are Shark, Shark, Shark, Shark, and Dyson"
+              ]
+            },
+            {
+              "name": "Best Robot",
+              "layer": "attributes",
+              "mentions": 1,
+              "sentiment": "positive",
+              "strengths": [
+                "用户反馈积极",
+                "社区认可度高"
+              ],
+              "weaknesses": [
+                "需要继续观察长期表现"
+              ],
+              "market_share": 5,
+              "context_snippets": [
+                "Best Robot Vacuum Cleaner for Home in 2025"
+              ]
+            },
+            {
+              "name": "Vacuum Cleaner",
+              "layer": "attributes",
+              "mentions": 1,
+              "sentiment": "positive",
+              "strengths": [
+                "用户反馈积极",
+                "社区认可度高"
+              ],
+              "weaknesses": [
+                "需要继续观察长期表现"
+              ],
+              "market_share": 5,
+              "context_snippets": [
+                "Best Robot Vacuum Cleaner for Home in 2025"
+              ]
+            },
+            {
+              "name": "Cleaner Buying",
+              "layer": "attributes",
+              "mentions": 1,
+              "sentiment": "positive",
+              "strengths": [
+                "用户反馈积极",
+                "社区认可度高"
+              ],
+              "weaknesses": [
+                "需要继续观察长期表现"
+              ],
+              "market_share": 5,
+              "context_snippets": [
+                "India Best Robot Vacuum Cleaner Buying Guide 2026"
+              ]
+            },
+            {
+              "name": "Guide",
+              "layer": "attributes",
+              "mentions": 1,
+              "sentiment": "positive",
+              "strengths": [
+                "用户反馈积极",
+                "社区认可度高"
+              ],
+              "weaknesses": [
+                "需要继续观察长期表现"
+              ],
+              "market_share": 5,
+              "context_snippets": [
+                "India Best Robot Vacuum Cleaner Buying Guide 2026"
+              ]
+            },
+            {
+              "name": "India Best",
+              "layer": "brands",
+              "mentions": 1,
+              "sentiment": "positive",
+              "strengths": [
+                "用户反馈积极",
+                "社区认可度高"
+              ],
+              "weaknesses": [
+                "需要继续观察长期表现"
+              ],
+              "market_share": 5,
+              "context_snippets": [
+                "India Best Robot Vacuum Cleaner Buying Guide 2026"
+              ]
+            },
+            {
+              "name": "CarpetXpert",
+              "layer": "attributes",
+              "mentions": 1,
+              "sentiment": "negative",
+              "strengths": [
+                "行业认知度高"
+              ],
+              "weaknesses": [
+                "用户反馈偏负面"
+              ],
+              "market_share": 5,
+              "context_snippets": [
+                "Hello, I bought the Upright Shark CarpetXpert with StainStriker vacuum cleaner, but didn't realize it doesn't support dry cleaning for dust and debris pickup"
+              ]
+            },
+            {
+              "name": "StainStriker",
+              "layer": "attributes",
+              "mentions": 1,
+              "sentiment": "negative",
+              "strengths": [
+                "行业认知度高"
+              ],
+              "weaknesses": [
+                "用户反馈偏负面"
+              ],
+              "market_share": 5,
+              "context_snippets": [
+                "Hello, I bought the Upright Shark CarpetXpert with StainStriker vacuum cleaner, but didn't realize it doesn't support dry cleaning for dust and debris pickup"
+              ]
+            }
+          ],
+          "buying_opportunities": [
+            {
+              "description": "Looking for an appropriate robot vacuum cleaner for my case",
+              "key_insights": [
+                "an",
+                "app",
+                "at",
+                "bot"
+              ],
+              "top_channels": [],
+              "potential_users": "约1662个潜在团队",
+              "relevance_score": 1.0,
+              "source_examples": [
+                {
+                  "url": "https://www.reddit.com/r/RobotVacuums/comments/1nmpmbt/looking_for_an_appropriate_robot_vacuum_cleaner/",
+                  "author": "Roboplanter",
+                  "content": "Hi all!\n\nFirst post in this community and in reddit! I'm in the market after a robot vacuum cleaner and I've been lurking this sub for a while. I see many users asking the same question and that th...",
+                  "upvotes": 1,
+                  "community": "r/RobotVacuums",
+                  "permalink": "https://reddit.com/r/RobotVacuums/comments/1nmpmbt/looking_for_an_appropriate_robot_vacuum_cleaner/",
+                  "duplicate_ids": [],
+                  "evidence_count": 1
+                },
+                {
+                  "url": "https://www.reddit.com/gallery/1nagjou",
+                  "author": "Full_Swan7288",
+                  "content": "Hi all, I’d really appreciate some feedback from folks who know more about cleaning expectations and pricing.\n\nI recently hired a cleaner I’ve used a few times in the past. She’s always done a grea...",
+                  "upvotes": 6741,
+                  "community": "r/CleaningTips",
+                  "permalink": "https://reddit.com/r/CleaningTips/comments/1nagjou/did_i_handle_this_fairly_with_my_cleaner_looking/",
+                  "duplicate_ids": [
+                    "1nagjou"
+                  ],
+                  "evidence_count": 2
+                }
+              ],
+              "linked_pain_cluster": "Hello, I've recently",
+              "potential_users_est": 1662
+            },
+            {
+              "description": "looking for recommendations for a robot vacuum cleaner that will dock and transfer all the dust into a bag without having to empty it myself",
+              "key_insights": [
+                "all",
+                "an",
+                "at",
+                "bag"
+              ],
+              "top_channels": [],
+              "potential_users": "约3262个潜在团队",
+              "relevance_score": 1.0,
+              "source_examples": [
+                {
+                  "url": "https://www.reddit.com/r/RobotVacuums/comments/1nh6zjw/robot_vacuum_cleaner_recommendation/",
+                  "author": "BlueGingerbreadMan",
+                  "content": "Hi Everyone,\n\n  \nI'm looking for  recommendations for a robot vacuum cleaner that will dock and transfer all the dust into a bag without having to empty it myself. I also want a robot vacuum that c...",
+                  "upvotes": 1,
+                  "community": "r/RobotVacuums",
+                  "permalink": "https://reddit.com/r/RobotVacuums/comments/1nh6zjw/robot_vacuum_cleaner_recommendation/",
+                  "duplicate_ids": [],
+                  "evidence_count": 1
+                },
+                {
+                  "url": "https://www.reddit.com/gallery/1nagjou",
+                  "author": "Full_Swan7288",
+                  "content": "Hi all, I’d really appreciate some feedback from folks who know more about cleaning expectations and pricing.\n\nI recently hired a cleaner I’ve used a few times in the past. She’s always done a grea...",
+                  "upvotes": 6741,
+                  "community": "r/CleaningTips",
+                  "permalink": "https://reddit.com/r/CleaningTips/comments/1nagjou/did_i_handle_this_fairly_with_my_cleaner_looking/",
+                  "duplicate_ids": [
+                    "1nagjou"
+                  ],
+                  "evidence_count": 2
+                }
+              ],
+              "linked_pain_cluster": "Hello, I've recently",
+              "potential_users_est": 3262
+            },
+            {
+              "description": "want a robot vacuum that c",
+              "key_insights": [
+                "an",
+                "ant",
+                "at",
+                "bot"
+              ],
+              "top_channels": [],
+              "potential_users": "约1062个潜在团队",
+              "relevance_score": 1.0,
+              "source_examples": [
+                {
+                  "url": "https://www.reddit.com/r/RobotVacuums/comments/1nh6zjw/robot_vacuum_cleaner_recommendation/",
+                  "author": "BlueGingerbreadMan",
+                  "content": "Hi Everyone,\n\n  \nI'm looking for  recommendations for a robot vacuum cleaner that will dock and transfer all the dust into a bag without having to empty it myself. I also want a robot vacuum that c...",
+                  "upvotes": 1,
+                  "community": "r/RobotVacuums",
+                  "permalink": "https://reddit.com/r/RobotVacuums/comments/1nh6zjw/robot_vacuum_cleaner_recommendation/",
+                  "duplicate_ids": [],
+                  "evidence_count": 1
+                },
+                {
+                  "url": "https://www.reddit.com/gallery/1nagjou",
+                  "author": "Full_Swan7288",
+                  "content": "Hi all, I’d really appreciate some feedback from folks who know more about cleaning expectations and pricing.\n\nI recently hired a cleaner I’ve used a few times in the past. She’s always done a grea...",
+                  "upvotes": 6741,
+                  "community": "r/CleaningTips",
+                  "permalink": "https://reddit.com/r/CleaningTips/comments/1nagjou/did_i_handle_this_fairly_with_my_cleaner_looking/",
+                  "duplicate_ids": [
+                    "1nagjou"
+                  ],
+                  "evidence_count": 2
+                }
+              ],
+              "linked_pain_cluster": "Hello, I've recently",
+              "potential_users_est": 1062
+            },
+            {
+              "description": "Suggestions for robot vacuum cleaner in india",
+              "key_insights": [
+                "an",
+                "bot",
+                "cle",
+                "clean"
+              ],
+              "top_channels": [],
+              "potential_users": "约1502个潜在团队",
+              "relevance_score": 1.0,
+              "source_examples": [
+                {
+                  "url": "https://www.reddit.com/r/VacuumCleaners/comments/1npkz21/suggestions_for_robot_vacuum_cleaner_in_india/",
+                  "author": "rggrgfr",
+                  "content": "Hi, \n\nLooking for a robot vacuum cleaner.\n\nI live along with my family and I want to minimise the cleaning work for them.\nI need it for evryday purpose.\nDaily vacuuming the dust and moping the floo...",
+                  "upvotes": 1,
+                  "community": "r/VacuumCleaners",
+                  "permalink": "https://reddit.com/r/VacuumCleaners/comments/1npkz21/suggestions_for_robot_vacuum_cleaner_in_india/",
+                  "duplicate_ids": [],
+                  "evidence_count": 1
+                },
+                {
+                  "url": "https://www.reddit.com/gallery/1nagjou",
+                  "author": "Full_Swan7288",
+                  "content": "Hi all, I’d really appreciate some feedback from folks who know more about cleaning expectations and pricing.\n\nI recently hired a cleaner I’ve used a few times in the past. She’s always done a grea...",
+                  "upvotes": 6741,
+                  "community": "r/CleaningTips",
+                  "permalink": "https://reddit.com/r/CleaningTips/comments/1nagjou/did_i_handle_this_fairly_with_my_cleaner_looking/",
+                  "duplicate_ids": [
+                    "1nagjou"
+                  ],
+                  "evidence_count": 2
+                }
+              ],
+              "linked_pain_cluster": "Hello, I've recently",
+              "potential_users_est": 1502
+            },
+            {
+              "description": "Looking for a robot vacuum cleaner",
+              "key_insights": [
+                "an",
+                "bot",
+                "cle",
+                "clean"
+              ],
+              "top_channels": [],
+              "potential_users": "约1342个潜在团队",
+              "relevance_score": 1.0,
+              "source_examples": [
+                {
+                  "url": "https://www.reddit.com/r/VacuumCleaners/comments/1npkz21/suggestions_for_robot_vacuum_cleaner_in_india/",
+                  "author": "rggrgfr",
+                  "content": "Hi, \n\nLooking for a robot vacuum cleaner.\n\nI live along with my family and I want to minimise the cleaning work for them.\nI need it for evryday purpose.\nDaily vacuuming the dust and moping the floo...",
+                  "upvotes": 1,
+                  "community": "r/VacuumCleaners",
+                  "permalink": "https://reddit.com/r/VacuumCleaners/comments/1npkz21/suggestions_for_robot_vacuum_cleaner_in_india/",
+                  "duplicate_ids": [],
+                  "evidence_count": 1
+                },
+                {
+                  "url": "https://www.reddit.com/gallery/1nagjou",
+                  "author": "Full_Swan7288",
+                  "content": "Hi all, I’d really appreciate some feedback from folks who know more about cleaning expectations and pricing.\n\nI recently hired a cleaner I’ve used a few times in the past. She’s always done a grea...",
+                  "upvotes": 6741,
+                  "community": "r/CleaningTips",
+                  "permalink": "https://reddit.com/r/CleaningTips/comments/1nagjou/did_i_handle_this_fairly_with_my_cleaner_looking/",
+                  "duplicate_ids": [
+                    "1nagjou"
+                  ],
+                  "evidence_count": 2
+                }
+              ],
+              "linked_pain_cluster": "Hello, I've recently",
+              "potential_users_est": 1342
+            },
+            {
+              "description": "Looking for a serious vacuum that handles fur and dust on carpet",
+              "key_insights": [
+                "an",
+                "at",
+                "car",
+                "carpet"
+              ],
+              "top_channels": [],
+              "potential_users": "约1346个潜在团队",
+              "relevance_score": 1.0,
+              "source_examples": [
+                {
+                  "url": "https://www.reddit.com/r/VacuumCleaners/comments/1q6ll7s/looking_for_a_serious_vacuum_that_handles_fur_and/",
+                  "author": "oddkira",
+                  "content": "My in-laws got us a Dyson stick vac when we got our new house and it’s great for in-between / light upkeep but just not cutting it as a whole house cleaner for us.\n\n\\- 3 level home with lots of car...",
+                  "upvotes": 2,
+                  "community": "r/VacuumCleaners",
+                  "permalink": "https://reddit.com/r/VacuumCleaners/comments/1q6ll7s/looking_for_a_serious_vacuum_that_handles_fur_and/",
+                  "duplicate_ids": [],
+                  "evidence_count": 1
+                },
+                {
+                  "url": "https://www.reddit.com/gallery/1nagjou",
+                  "author": "Full_Swan7288",
+                  "content": "Hi all, I’d really appreciate some feedback from folks who know more about cleaning expectations and pricing.\n\nI recently hired a cleaner I’ve used a few times in the past. She’s always done a grea...",
+                  "upvotes": 6741,
+                  "community": "r/CleaningTips",
+                  "permalink": "https://reddit.com/r/CleaningTips/comments/1nagjou/did_i_handle_this_fairly_with_my_cleaner_looking/",
+                  "duplicate_ids": [
+                    "1nagjou"
+                  ],
+                  "evidence_count": 2
+                }
+              ],
+              "linked_pain_cluster": "Hello, I've recently",
+              "potential_users_est": 1346
+            },
+            {
+              "description": "need a strong vacuum cleaner that can help with the carpeted floor with a detachable head",
+              "key_insights": [
+                "able",
+                "ach",
+                "ad",
+                "an"
+              ],
+              "top_channels": [],
+              "potential_users": "约2140个潜在团队",
+              "relevance_score": 1.0,
+              "source_examples": [
+                {
+                  "url": "https://www.reddit.com/r/BuyItForLife/comments/1rc4c6g/i_need_a_strong_vacuum_cleaner_that_can_help_with/",
+                  "author": "1Admr1",
+                  "content": "I'm a college student and made the poor decision of moving to an apt with a carpeted floor in my room.... as a very allergic person. Its hell and the tiny vacuum cleaner I had simply does not cut i...",
+                  "upvotes": 0,
+                  "community": "r/BuyItForLife",
+                  "permalink": "https://reddit.com/r/BuyItForLife/comments/1rc4c6g/i_need_a_strong_vacuum_cleaner_that_can_help_with/",
+                  "duplicate_ids": [
+                    "1rc4ec6",
+                    "1rc4c6g"
+                  ],
+                  "evidence_count": 3
+                },
+                {
+                  "url": "https://www.reddit.com/gallery/1nagjou",
+                  "author": "Full_Swan7288",
+                  "content": "Hi all, I’d really appreciate some feedback from folks who know more about cleaning expectations and pricing.\n\nI recently hired a cleaner I’ve used a few times in the past. She’s always done a grea...",
+                  "upvotes": 6741,
+                  "community": "r/CleaningTips",
+                  "permalink": "https://reddit.com/r/CleaningTips/comments/1nagjou/did_i_handle_this_fairly_with_my_cleaner_looking/",
+                  "duplicate_ids": [
+                    "1nagjou"
+                  ],
+                  "evidence_count": 2
+                }
+              ],
+              "linked_pain_cluster": "Hello, I've recently",
+              "potential_users_est": 2140
+            },
+            {
+              "description": "Looking for a multi-purpose carpet cleaner",
+              "key_insights": [
+                "a m",
+                "an",
+                "car",
+                "carpet"
+              ],
+              "top_channels": [],
+              "potential_users": "约1302个潜在团队",
+              "relevance_score": 1.0,
+              "source_examples": [
+                {
+                  "url": "https://www.reddit.com/r/VacuumCleaners/comments/1pfzd0t/looking_for_a_multipurpose_carpet_cleaner/",
+                  "author": "Joeshmo04",
+                  "content": "Hello,\n\nI bought the Upright Shark CarpetXpert with StainStriker vacuum cleaner, but didn't realize it doesn't support dry cleaning for dust and debris pickup. I'm looking for a vacuum cleaner that...",
+                  "upvotes": 1,
+                  "community": "r/VacuumCleaners",
+                  "permalink": "https://reddit.com/r/VacuumCleaners/comments/1pfzd0t/looking_for_a_multipurpose_carpet_cleaner/",
+                  "duplicate_ids": [],
+                  "evidence_count": 1
+                },
+                {
+                  "url": "https://www.reddit.com/gallery/1nagjou",
+                  "author": "Full_Swan7288",
+                  "content": "Hi all, I’d really appreciate some feedback from folks who know more about cleaning expectations and pricing.\n\nI recently hired a cleaner I’ve used a few times in the past. She’s always done a grea...",
+                  "upvotes": 6741,
+                  "community": "r/CleaningTips",
+                  "permalink": "https://reddit.com/r/CleaningTips/comments/1nagjou/did_i_handle_this_fairly_with_my_cleaner_looking/",
+                  "duplicate_ids": [
+                    "1nagjou"
+                  ],
+                  "evidence_count": 2
+                }
+              ],
+              "linked_pain_cluster": "Hello, I've recently",
+              "potential_users_est": 1302
+            },
+            {
+              "description": "looking for a vacuum cleaner that",
+              "key_insights": [
+                "an",
+                "at",
+                "cle",
+                "clean"
+              ],
+              "top_channels": [],
+              "potential_users": "约1142个潜在团队",
+              "relevance_score": 1.0,
+              "source_examples": [
+                {
+                  "url": "https://www.reddit.com/r/VacuumCleaners/comments/1pfzd0t/looking_for_a_multipurpose_carpet_cleaner/",
+                  "author": "Joeshmo04",
+                  "content": "Hello,\n\nI bought the Upright Shark CarpetXpert with StainStriker vacuum cleaner, but didn't realize it doesn't support dry cleaning for dust and debris pickup. I'm looking for a vacuum cleaner that...",
+                  "upvotes": 1,
+                  "community": "r/VacuumCleaners",
+                  "permalink": "https://reddit.com/r/VacuumCleaners/comments/1pfzd0t/looking_for_a_multipurpose_carpet_cleaner/",
+                  "duplicate_ids": [],
+                  "evidence_count": 1
+                },
+                {
+                  "url": "https://www.reddit.com/gallery/1nagjou",
+                  "author": "Full_Swan7288",
+                  "content": "Hi all, I’d really appreciate some feedback from folks who know more about cleaning expectations and pricing.\n\nI recently hired a cleaner I’ve used a few times in the past. She’s always done a grea...",
+                  "upvotes": 6741,
+                  "community": "r/CleaningTips",
+                  "permalink": "https://reddit.com/r/CleaningTips/comments/1nagjou/did_i_handle_this_fairly_with_my_cleaner_looking/",
+                  "duplicate_ids": [
+                    "1nagjou"
+                  ],
+                  "evidence_count": 2
+                }
+              ],
+              "linked_pain_cluster": "Hello, I've recently",
+              "potential_users_est": 1142
+            },
+            {
+              "description": "Suggestion for ~$200 Bagged/Bagless Vacuum Cleaner (90% Carpet and rest Hardfloor)",
+              "key_insights": [
+                "$200",
+                "90%",
+                "agl",
+                "an"
+              ],
+              "top_channels": [],
+              "potential_users": "约1782个潜在团队",
+              "relevance_score": 1.0,
+              "source_examples": [
+                {
+                  "url": "https://www.reddit.com/r/VacuumCleaners/comments/1mkwlju/suggestion_for_200_baggedbagless_vacuum_cleaner/",
+                  "author": "Furiousguy79",
+                  "content": "Hi. I am planning to buy a vacuum cleaner with HEPA filtration for my 1100 sq ft apartment. I have a dust allergy (not severe, but it is there). I do not have any pets, but my spouse has hairfall i...",
+                  "upvotes": 1,
+                  "community": "r/VacuumCleaners",
+                  "permalink": "https://reddit.com/r/VacuumCleaners/comments/1mkwlju/suggestion_for_200_baggedbagless_vacuum_cleaner/",
+                  "duplicate_ids": [],
+                  "evidence_count": 1
+                },
+                {
+                  "url": "https://www.reddit.com/gallery/1nagjou",
+                  "author": "Full_Swan7288",
+                  "content": "Hi all, I’d really appreciate some feedback from folks who know more about cleaning expectations and pricing.\n\nI recently hired a cleaner I’ve used a few times in the past. She’s always done a grea...",
+                  "upvotes": 6741,
+                  "community": "r/CleaningTips",
+                  "permalink": "https://reddit.com/r/CleaningTips/comments/1nagjou/did_i_handle_this_fairly_with_my_cleaner_looking/",
+                  "duplicate_ids": [
+                    "1nagjou"
+                  ],
+                  "evidence_count": 2
+                }
+              ],
+              "linked_pain_cluster": "Hello, I've recently",
+              "potential_users_est": 1782
+            }
+          ]
+        },
+        "facts_v2_quality": {
+          "tier": "A_full",
+          "flags": [],
+          "passed": true,
+          "metrics": {
+            "agg_posts": 24,
+            "solutions": 8,
+            "good_pains": 2,
+            "good_brands": 1,
+            "agg_comments": 0,
+            "source_posts": 24,
+            "coverage_tier": "unknown",
+            "coverage_total": 0,
+            "on_topic_ratio": 0.958,
+            "sample_checked": 24,
+            "source_comments": 0,
+            "db_comments_total": 0,
+            "topic_terms_count": 19,
+            "topic_terms_source": "profile",
+            "coverage_months_avg": 0.0,
+            "coverage_months_max": 0,
+            "coverage_months_min": 0,
+            "min_sample_comments": 0,
+            "db_comments_eligible": 0,
+            "coverage_capped_count": 0,
+            "topic_profiles_status": "loaded",
+            "coverage_status_counts": {},
+            "semantic_search_status": "semantic+keyword",
+            "comments_pipeline_status": "disabled",
+            "pain_clusters_pipeline_status": "engine_tfidf_fallback"
+          }
+        },
+        "market_saturation": [
+          {
+            "status": "机会窗口",
+            "community": "r/RobotVacuums",
+            "top_brands": [
+              {
+                "brand": "Vacuum Wars",
+                "status": "机会窗口",
+                "saturation": 0.0
+              },
+              {
+                "brand": "Robot Vacuum",
+                "status": "机会窗口",
+                "saturation": 0.0
+              },
+              {
+                "brand": "Dyson",
+                "status": "机会窗口",
+                "saturation": 0.0
+              }
+            ],
+            "overall_saturation": 0.0
+          },
+          {
+            "status": "机会窗口",
+            "community": "r/VacuumCleaners",
+            "top_brands": [
+              {
+                "brand": "Vacuum Wars",
+                "status": "机会窗口",
+                "saturation": 0.0
+              },
+              {
+                "brand": "Robot Vacuum",
+                "status": "机会窗口",
+                "saturation": 0.0
+              },
+              {
+                "brand": "Dyson",
+                "status": "机会窗口",
+                "saturation": 0.0
+              }
+            ],
+            "overall_saturation": 0.0
+          },
+          {
+            "status": "机会窗口",
+            "community": "r/CleaningTips",
+            "top_brands": [
+              {
+                "brand": "Vacuum Wars",
+                "status": "机会窗口",
+                "saturation": 0.0
+              },
+              {
+                "brand": "Robot Vacuum",
+                "status": "机会窗口",
+                "saturation": 0.0
+              },
+              {
+                "brand": "Dyson",
+                "status": "机会窗口",
+                "saturation": 0.0
+              }
+            ],
+            "overall_saturation": 0.0
+          },
+          {
+            "status": "机会窗口",
+            "community": "r/BuyItForLife",
+            "top_brands": [
+              {
+                "brand": "Vacuum Wars",
+                "status": "机会窗口",
+                "saturation": 0.0
+              },
+              {
+                "brand": "Robot Vacuum",
+                "status": "机会窗口",
+                "saturation": 0.0
+              },
+              {
+                "brand": "Dyson",
+                "status": "机会窗口",
+                "saturation": 0.0
+              }
+            ],
+            "overall_saturation": 0.0
+          },
+          {
+            "status": "机会窗口",
+            "community": "r/ApplianceGuideIndia",
+            "top_brands": [
+              {
+                "brand": "Vacuum Wars",
+                "status": "机会窗口",
+                "saturation": 0.0
+              },
+              {
+                "brand": "Robot Vacuum",
+                "status": "机会窗口",
+                "saturation": 0.0
+              },
+              {
+                "brand": "Dyson",
+                "status": "机会窗口",
+                "saturation": 0.0
+              }
+            ],
+            "overall_saturation": 0.0
+          },
+          {
+            "status": "机会窗口",
+            "community": "r/cleaningtips",
+            "top_brands": [
+              {
+                "brand": "Vacuum Wars",
+                "status": "机会窗口",
+                "saturation": 0.0
+              },
+              {
+                "brand": "Robot Vacuum",
+                "status": "机会窗口",
+                "saturation": 0.0
+              },
+              {
+                "brand": "Dyson",
+                "status": "机会窗口",
+                "saturation": 0.0
+              }
+            ],
+            "overall_saturation": 0.0
+          },
+          {
+            "status": "机会窗口",
+            "community": "r/homeimprovement",
+            "top_brands": [
+              {
+                "brand": "Vacuum Wars",
+                "status": "机会窗口",
+                "saturation": 0.0
+              },
+              {
+                "brand": "Robot Vacuum",
+                "status": "机会窗口",
+                "saturation": 0.0
+              },
+              {
+                "brand": "Dyson",
+                "status": "机会窗口",
+                "saturation": 0.0
+              }
+            ],
+            "overall_saturation": 0.0
+          },
+          {
+            "status": "机会窗口",
+            "community": "r/buyitforlife",
+            "top_brands": [
+              {
+                "brand": "Vacuum Wars",
+                "status": "机会窗口",
+                "saturation": 0.0
+              },
+              {
+                "brand": "Robot Vacuum",
+                "status": "机会窗口",
+                "saturation": 0.0
+              },
+              {
+                "brand": "Dyson",
+                "status": "机会窗口",
+                "saturation": 0.0
+              }
+            ],
+            "overall_saturation": 0.0
+          },
+          {
+            "status": "机会窗口",
+            "community": "r/frugal",
+            "top_brands": [
+              {
+                "brand": "Vacuum Wars",
+                "status": "机会窗口",
+                "saturation": 0.0
+              },
+              {
+                "brand": "Robot Vacuum",
+                "status": "机会窗口",
+                "saturation": 0.0
+              },
+              {
+                "brand": "Dyson",
+                "status": "机会窗口",
+                "saturation": 0.0
+              }
+            ],
+            "overall_saturation": 0.0
+          },
+          {
+            "status": "机会窗口",
+            "community": "r/appliances",
+            "top_brands": [
+              {
+                "brand": "Vacuum Wars",
+                "status": "机会窗口",
+                "saturation": 0.0
+              },
+              {
+                "brand": "Robot Vacuum",
+                "status": "机会窗口",
+                "saturation": 0.0
+              },
+              {
+                "brand": "Dyson",
+                "status": "机会窗口",
+                "saturation": 0.0
+              }
+            ],
+            "overall_saturation": 0.0
+          },
+          {
+            "status": "机会窗口",
+            "community": "r/homeautomation",
+            "top_brands": [
+              {
+                "brand": "Vacuum Wars",
+                "status": "机会窗口",
+                "saturation": 0.0
+              },
+              {
+                "brand": "Robot Vacuum",
+                "status": "机会窗口",
+                "saturation": 0.0
+              },
+              {
+                "brand": "Dyson",
+                "status": "机会窗口",
+                "saturation": 0.0
+              }
+            ],
+            "overall_saturation": 0.0
+          }
+        ],
+        "sample_comments_db": [],
+        "battlefield_profiles": [
+          {
+            "persona": "用户需求/消费党",
+            "strategy": [
+              "减少重复操作",
+              "提升日常效率"
+            ],
+            "pain_focus": [
+              ") I live in a city that is soooo dusty, you just can't believe it unless you see it",
+              "Hello, I bought the Upright Shark CarpetXpert with StainStriker vacuum cleaner, but didn't realize it doesn't support dry cleaning for dust and debris pickup",
+              "Suggestion for ~$200 Bagged/Bagless Vacuum Cleaner (90% Carpet and rest Hardfloor)"
+            ],
+            "communities": [
+              "r/VacuumCleaners"
+            ],
+            "evidence_posts": [
+              {
+                "url": "https://www.reddit.com/r/VacuumCleaners/comments/1pw0n1v/what_do_i_want_in_a_robotic_vacuum_cleaner/",
+                "author": "ifellicantgetup",
+                "content": "My entire house is tile. (I am retired and living in Mexico.) I live in a city that is soooo dusty, you just can't believe it unless you see it. I can mop my floors in the morning, and in the eveni...",
+                "upvotes": 1,
+                "community": "r/VacuumCleaners",
+                "permalink": "https://reddit.com/r/VacuumCleaners/comments/1pw0n1v/what_do_i_want_in_a_robotic_vacuum_cleaner/",
+                "duplicate_ids": [],
+                "evidence_count": 1
+              },
+              {
+                "url": "https://www.reddit.com/r/VacuumCleaners/comments/1mkwlju/suggestion_for_200_baggedbagless_vacuum_cleaner/",
+                "author": "Furiousguy79",
+                "content": "Hi. I am planning to buy a vacuum cleaner with HEPA filtration for my 1100 sq ft apartment. I have a dust allergy (not severe, but it is there). I do not have any pets, but my spouse has hairfall i...",
+                "upvotes": 1,
+                "community": "r/VacuumCleaners",
+                "permalink": "https://reddit.com/r/VacuumCleaners/comments/1mkwlju/suggestion_for_200_baggedbagless_vacuum_cleaner/",
+                "duplicate_ids": [],
+                "evidence_count": 1
+              },
+              {
+                "url": "https://www.reddit.com/r/VacuumCleaners/comments/1pfzd0t/looking_for_a_multipurpose_carpet_cleaner/",
+                "author": "Joeshmo04",
+                "content": "Hello,\n\nI bought the Upright Shark CarpetXpert with StainStriker vacuum cleaner, but didn't realize it doesn't support dry cleaning for dust and debris pickup. I'm looking for a vacuum cleaner that...",
+                "upvotes": 1,
+                "community": "r/VacuumCleaners",
+                "permalink": "https://reddit.com/r/VacuumCleaners/comments/1pfzd0t/looking_for_a_multipurpose_carpet_cleaner/",
+                "duplicate_ids": [],
+                "evidence_count": 1
+              }
+            ]
+          },
+          {
+            "persona": "用户需求/消费党",
+            "strategy": [
+              "减少重复操作",
+              "提升日常效率"
+            ],
+            "pain_focus": [
+              ") I live in a city that is soooo dusty, you just can't believe it unless you see it",
+              "And then things got gross",
+              "Hello, I bought the Upright Shark CarpetXpert with StainStriker vacuum cleaner, but didn't realize it doesn't support dry cleaning for dust and debris pickup"
+            ],
+            "communities": [
+              "r/CleaningTips"
+            ],
+            "evidence_posts": [
+              {
+                "url": "https://i.redd.it/ww3yrv0mit9f1.jpeg",
+                "author": "Colorsin",
+                "content": "Hello, I've recently moved into a new flat and I'm getting terrible dust. What you see in the photo is after 6 days from the last cleaning. I do vacuum regularly, but this dust accumulation is driv...",
+                "upvotes": 1,
+                "community": "r/CleaningTips",
+                "permalink": "https://reddit.com/r/CleaningTips/comments/1ln8q4e/best_way_to_remove_dust_air_purifier_robot_vacuum/",
+                "duplicate_ids": [
+                  "1ln8q4e"
+                ],
+                "evidence_count": 2
+              },
+              {
+                "url": "https://www.reddit.com/gallery/1nagjou",
+                "author": "Full_Swan7288",
+                "content": "Hi all, I’d really appreciate some feedback from folks who know more about cleaning expectations and pricing.\n\nI recently hired a cleaner I’ve used a few times in the past. She’s always done a grea...",
+                "upvotes": 6741,
+                "community": "r/CleaningTips",
+                "permalink": "https://reddit.com/r/CleaningTips/comments/1nagjou/did_i_handle_this_fairly_with_my_cleaner_looking/",
+                "duplicate_ids": [
+                  "1nagjou"
+                ],
+                "evidence_count": 2
+              },
+              {
+                "url": "https://www.reddit.com/r/CleaningTips/comments/1jyeqm6/do_you_actually_clean_your_vacuum_dishwasher_etc/",
+                "author": "Shopstop74",
+                "content": "I always figured stuff like the dishwasher and washing machine basically cleaned themselves. Like, it’s all hot water and soap, right?\n\nBut then my washer started smelling like swamp water, my dish...",
+                "upvotes": 1128,
+                "community": "r/CleaningTips",
+                "permalink": "https://reddit.com/r/CleaningTips/comments/1jyeqm6/do_you_actually_clean_your_vacuum_dishwasher_etc/",
+                "duplicate_ids": [
+                  "1jyeqm6"
+                ],
+                "evidence_count": 2
+              }
+            ]
+          },
+          {
+            "persona": "用户需求/消费党",
+            "strategy": [
+              "减少重复操作",
+              "提升日常效率"
+            ],
+            "pain_focus": [
+              "I'm a college student and made the poor decision of moving to an apt with a carpeted floor in my room"
+            ],
+            "communities": [
+              "r/BuyItForLife"
+            ],
+            "evidence_posts": [
+              {
+                "url": "https://www.reddit.com/r/BuyItForLife/comments/1rc4c6g/i_need_a_strong_vacuum_cleaner_that_can_help_with/",
+                "author": "1Admr1",
+                "content": "I'm a college student and made the poor decision of moving to an apt with a carpeted floor in my room.... as a very allergic person. Its hell and the tiny vacuum cleaner I had simply does not cut i...",
+                "upvotes": 0,
+                "community": "r/BuyItForLife",
+                "permalink": "https://reddit.com/r/BuyItForLife/comments/1rc4c6g/i_need_a_strong_vacuum_cleaner_that_can_help_with/",
+                "duplicate_ids": [
+                  "1rc4ec6",
+                  "1rc4c6g"
+                ],
+                "evidence_count": 3
+              }
+            ]
+          },
+          {
+            "persona": "用户需求/消费党",
+            "strategy": [
+              "减少重复操作",
+              "提升日常效率"
+            ],
+            "pain_focus": [
+              "And then things got gross",
+              "Hello, I've recently moved into a new flat and I'm getting terrible dust"
+            ],
+            "communities": [
+              "r/RobotVacuums"
+            ],
+            "evidence_posts": [
+              {
+                "url": "https://v.redd.it/ozei4dg8lmef1",
+                "author": "alezin2020",
+                "content": "DJI's official Weibo account posted a short video showing the appearance of their upcoming robot, which still looks very futuristic.\nThe words in the middle“实力绝尘”In the context of Chinese, it means...",
+                "upvotes": 86,
+                "community": "r/RobotVacuums",
+                "permalink": "https://reddit.com/r/RobotVacuums/comments/1m798aq/dji_officially_announced_that_it_will_launch_a/",
+                "duplicate_ids": [],
+                "evidence_count": 1
+              }
+            ]
+          }
+        ]
+      },
+      "report_structured": {
+        "decision_cards": [
+          {
+            "title": "需求趋势",
+            "conclusion": "过去周期内已覆盖 24 帖 / 0 评论，趋势可用于继续决策。",
+            "details": [
+              "覆盖社区：11 个",
+              "这是系统生成的统一结构报告，不依赖前端拼装。"
+            ]
+          },
+          {
+            "title": "问题/解决方案比",
+            "conclusion": "P/S 比约 0.00，痛点与方案已形成可读结构。",
+            "details": [
+              "P/S 比：0.00",
+              "结论力度会随证据强度自动升级或保守。"
+            ]
+          },
+          {
+            "title": "核心社群",
+            "conclusion": "当前最活跃社区集中在 r/RobotVacuums, r/VacuumCleaners, r/CleaningTips。",
+            "details": [
+              "优先看高活跃且重复抱怨出现的社区。",
+              "社区名单由本轮分析真实数据生成。"
+            ]
+          },
+          {
+            "title": "明确机会点",
+            "conclusion": "已出现机会线索：Looking for an appropriate robot vacuum cleaner for my case",
+            "details": [
+              "机会卡与痛点卡使用同一条证据链。",
+              "B/C 是 Full A 同骨架简化，不走独立页面结构。"
+            ]
+          }
+        ],
+        "market_health": {
+          "competition_saturation": {
+            "level": "竞争可见，但仍有结构性机会",
+            "details": [
+              "已分析 24 帖 / 0 评论。",
+              "核心社区：r/RobotVacuums, r/VacuumCleaners, r/CleaningTips"
+            ],
+            "interpretation": "当前结论可用于继续推进。"
+          },
+          "ps_ratio": {
+            "ratio": "0.00",
+            "conclusion": "P/S 比约 0.00，痛点与方案已形成可读结构。",
+            "interpretation": "该比例用于判断市场是在抱怨积压还是方案成熟阶段。",
+            "health_assessment": "可继续推进"
+          }
+        },
+        "battlefields": [
+          {
+            "name": "r/RobotVacuums",
+            "subreddits": [
+              "r/RobotVacuums"
+            ],
+            "profile": "讨论量和抱怨强度都已达到可执行判断门槛。",
+            "pain_points": [
+              "Hello, I've recently moved into a new flat and I'm getting terrible dust"
+            ],
+            "strategy_advice": "先在该社区验证问题复现频率，再决定是否深挖。"
+          },
+          {
+            "name": "r/VacuumCleaners",
+            "subreddits": [
+              "r/VacuumCleaners"
+            ],
+            "profile": "讨论量和抱怨强度都已达到可执行判断门槛。",
+            "pain_points": [
+              ") I live in a city that is soooo dusty, you just can't believe it unless you see it"
+            ],
+            "strategy_advice": "先在该社区验证问题复现频率，再决定是否深挖。"
+          },
+          {
+            "name": "r/CleaningTips",
+            "subreddits": [
+              "r/CleaningTips"
+            ],
+            "profile": "讨论量和抱怨强度都已达到可执行判断门槛。",
+            "pain_points": [
+              "Suggestion for ~$200 Bagged/Bagless Vacuum Cleaner (90% Carpet and rest Hardfloor)"
+            ],
+            "strategy_advice": "先在该社区验证问题复现频率，再决定是否深挖。"
+          },
+          {
+            "name": "r/cleaningtips",
+            "subreddits": [
+              "r/cleaningtips"
+            ],
+            "profile": "讨论量和抱怨强度都已达到可执行判断门槛。",
+            "pain_points": [
+              "Hello, I bought the Upright Shark CarpetXpert with StainStriker vacuum cleaner, but didn't realize it doesn't support dry cleaning for dust and debris pickup"
+            ],
+            "strategy_advice": "先在该社区验证问题复现频率，再决定是否深挖。"
+          }
+        ],
+        "pain_points": [
+          {
+            "title": "Hello, I've recently moved into a new flat and I'm getting terrible dust",
+            "user_voices": [
+              "Hello, I've recently moved into a new flat and I'm getting terrible dust. What you see in the photo is after 6 days from the last cleaning. I do vacuum regularly, but this dust accumulation is driv..."
+            ],
+            "data_impression": "覆盖 11 个社区，已出现可追踪信号。",
+            "interpretation": "该痛点可直接进入解决方案验证。"
+          },
+          {
+            "title": ") I live in a city that is soooo dusty, you just can't believe it unless you see it",
+            "user_voices": [
+              "My entire house is tile. (I am retired and living in Mexico.) I live in a city that is soooo dusty, you just can't believe it unless you see it. I can mop my floors in the morning, and in the eveni..."
+            ],
+            "data_impression": "覆盖 11 个社区，已出现可追踪信号。",
+            "interpretation": "该痛点可直接进入解决方案验证。"
+          },
+          {
+            "title": "Suggestion for ~$200 Bagged/Bagless Vacuum Cleaner (90% Carpet and rest Hardfloor)",
+            "user_voices": [
+              "Hi. I am planning to buy a vacuum cleaner with HEPA filtration for my 1100 sq ft apartment. I have a dust allergy (not severe, but it is there). I do not have any pets, but my spouse has hairfall i..."
+            ],
+            "data_impression": "覆盖 11 个社区，已出现可追踪信号。",
+            "interpretation": "该痛点可直接进入解决方案验证。"
+          }
+        ],
+        "drivers": [
+          {
+            "title": "效率提升与省时省心",
+            "description": "高频痛点集中在：Hello, I've recently moved into a new flat and I'm getting terrible dust / ) I live in a city that is soooo dusty, you just can't believe it unless you see it"
+          },
+          {
+            "title": "驱动力 2",
+            "description": "用户持续强调效率、透明和可控的解决体验。"
+          },
+          {
+            "title": "驱动力 3",
+            "description": "用户持续强调效率、透明和可控的解决体验。"
+          }
+        ],
+        "opportunities": [
+          {
+            "title": "Looking for an appropriate robot vacuum cleaner for my case",
+            "target_pain_points": [
+              "an",
+              "app",
+              "at"
+            ],
+            "target_communities": [
+              "r/RobotVacuums",
+              "r/VacuumCleaners",
+              "r/CleaningTips"
+            ],
+            "product_positioning": "约1662个潜在团队",
+            "core_selling_points": [
+              "an",
+              "app",
+              "at"
+            ]
+          },
+          {
+            "title": "looking for recommendations for a robot vacuum cleaner that will dock and transfer all the dust into a bag without having to empty it myself",
+            "target_pain_points": [
+              "all",
+              "an",
+              "at"
+            ],
+            "target_communities": [
+              "r/RobotVacuums",
+              "r/VacuumCleaners",
+              "r/CleaningTips"
+            ],
+            "product_positioning": "约3262个潜在团队",
+            "core_selling_points": [
+              "all",
+              "an",
+              "at"
+            ]
+          }
+        ]
+      },
+      "structured_llm_status": "completed",
+      "structured_llm_reason": "deterministic_fallback",
+      "knowledge_graph": {
+        "drivers": [
+          {
+            "title": "效率提升与省时省心",
+            "actions": [
+              "减少重复操作",
+              "提升日常效率"
+            ],
+            "description": "高频痛点集中在：Hello, I've recently moved into a new flat and I'm getting terrible dust / ) I live in a city that is soooo dusty, you just can't believe it unless you see it",
+            "source_pains": [
+              "Hello, I've recently moved into a new flat and I'm getting terrible dust",
+              ") I live in a city that is soooo dusty, you just can't believe it unless you see it",
+              "Suggestion for ~$200 Bagged/Bagless Vacuum Cleaner (90% Carpet and rest Hardfloor)"
+            ]
+          }
+        ],
+        "evidence": [],
+        "communities": [
+          {
+            "name": "r/robotvacuums",
+            "posts": 7,
+            "comments": 0
+          },
+          {
+            "name": "r/vacuumcleaners",
+            "posts": 7,
+            "comments": 0
+          },
+          {
+            "name": "r/cleaningtips",
+            "posts": 6,
+            "comments": 0
+          },
+          {
+            "name": "r/buyitforlife",
+            "posts": 2,
+            "comments": 0
+          },
+          {
+            "name": "r/applianceguideindia",
+            "posts": 1,
+            "comments": 0
+          },
+          {
+            "name": "r/ecommerce",
+            "posts": 1,
+            "comments": 0
+          }
+        ],
+        "pain_points": [
+          {
+            "name": "",
+            "evidence": [],
+            "mentions": 0,
+            "evidence_ids": [
+              "1ln8q4e",
+              "1pw0n1v",
+              "1mkwlju",
+              "1pfzd0t",
+              "1rc4c6g"
+            ],
+            "unique_authors": 0
+          },
+          {
+            "name": "",
+            "evidence": [],
+            "mentions": 0,
+            "evidence_ids": [
+              "1ln8q4e",
+              "1pw0n1v",
+              "1mkwlju",
+              "1pfzd0t",
+              "1rc4c6g"
+            ],
+            "unique_authors": 0
+          }
+        ]
+      },
+      "llm_used": false,
+      "llm_model": null,
+      "llm_rounds": 0
+    },
+    "metrics_summary": null
+  }
+}

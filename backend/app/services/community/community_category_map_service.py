@@ -5,13 +5,11 @@ from typing import Iterable
 from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncSession
 
-_CATEGORY_ALIASES = {
-    "E-commerce_Ops": "Ecommerce_Business",
-}
+from app.services.community.business_category_config import load_business_category_config
 
 
 def _canonical_category_key(key: str) -> str:
-    return _CATEGORY_ALIASES.get(key, key)
+    return load_business_category_config().aliases.get(key, key)
 
 
 def _normalize_category_keys(raw: object | None) -> list[str]:
@@ -86,4 +84,4 @@ async def replace_community_category_map(
         ),
         {"community_id": community_id, "keys": keys},
     )
-    return int(result.rowcount or 0)
+    return len(result.all())

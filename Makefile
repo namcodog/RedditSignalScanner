@@ -29,7 +29,10 @@ RESET  := $(shell tput -Txterm sgr0)
 	plan-backfill plan-seed dispatch-outbox dev-backend-start dev-backend-stop \
 	dev-backend-restart dev-backend-logs crawl-min crawl-start crawl-status \
 	start-worker-analysis crawl-stop data-clean data-score llm-label data-pipeline \
-	db-sync-noise-labels semantic-llm-sync
+	db-sync-noise-labels semantic-llm-sync test-quality-gate check-determinism \
+	hotpost-breakdown-materialize hotpost-breakdown-overlap hotpost-workflow-dry-run \
+	hotpost-intake-freshness-gate hotpost-publish-until-exhausted hotpost-topic-tree-audit \
+	hotpost-release-trend-audit boundary-status
 
 # --- Default Goal ---
 help:
@@ -50,7 +53,26 @@ help:
 	@echo "  ${YELLOW}dev-backend-stop${RESET}   : Stop backend on port 8006."
 	@echo "  ${YELLOW}dev-backend-restart${RESET}: Restart backend on port 8006."
 	@echo "  ${YELLOW}dev-backend-logs${RESET}   : Tail backend logs."
+	@echo "  ${YELLOW}hotpost-collect-daily${RESET} : Run hotpost daily collect once (all-scope by default)."
+	@echo "  ${YELLOW}hotpost-publish-until-exhausted${RESET} : Run one all-scope collect -> sync -> plan -> gate cycle. It is one daily operating round, not an overnight shell orchestrator."
+	@echo "  ${YELLOW}hotpost-intake-freshness-gate${RESET} : Legacy alias of one publish-until-exhausted cycle."
+	@echo "  ${YELLOW}hotpost-topic-tree-audit${RESET} : Audit current plan with 4-layer topic tree governance (all-scope by default)."
+	@echo "  ${YELLOW}hotpost-release-trend-audit${RESET} : Persist rolling-inventory stability audit for the latest 5 releases."
+	@echo "  ${YELLOW}hotpost-review-queue${RESET} : Show hotpost review queue."
+	@echo "  ${YELLOW}hotpost-breakdown-materialize${RESET} : Materialize coherent breakdown drafts once."
+	@echo "  ${YELLOW}hotpost-breakdown-overlap${RESET} : Run breakdown overlap audit once."
+	@echo "  ${YELLOW}hotpost-workflow-dry-run${RESET} : Run collect -> queue -> materialize -> overlap dry-run summary."
+	@echo "  ${YELLOW}boundary-status${RESET} : Check root repo vs hotpost mini repo boundary status."
 	@echo "  ${YELLOW}test-core${RESET}      : Run core unit tests."
+	@echo "  ${YELLOW}test-e2e${RESET}       : Run current frontend formal E2E suite (Playwright)."
+	@echo "  ${YELLOW}test-e2e-smoke${RESET} : Run product polish smoke E2E."
+	@echo "  ${YELLOW}test-e2e-backend${RESET} : Run legacy backend critical-path E2E."
+	@echo "  ${YELLOW}test-e2e-live-report${RESET} : Run live report full-chain acceptance."
+	@echo "  ${YELLOW}test-file-length-gate${RESET} : Enforce <=300 lines per changed code file."
+	@echo "  ${YELLOW}acceptance-hotpost-quality-smoke${RESET} : Run low-cost live Hotpost quality smoke."
+	@echo "  ${YELLOW}test-e2e-warzone-live-matrix${RESET} : Run 8-warzone live matrix + strict A/C gate."
+	@echo "  ${YELLOW}test-e2e-warzone-live-matrix-2x${RESET} : Run warzone matrix twice for stability verification."
+	@echo "  ${YELLOW}test-admin-e2e${RESET} : Run current Admin dashboard E2E."
 	@echo "  ${YELLOW}crawl-min${RESET}      : Run minimal crawl once (dev/test DB only)."
 	@echo "  ${YELLOW}crawl-start${RESET}    : Start crawler system safely (beat + patrol + bulk [+probe])."
 	@echo "  ${YELLOW}crawl-status${RESET}   : Show crawler/worker status (no changes)."
@@ -76,17 +98,20 @@ help:
 ## 1. System Health Check
 check-health:
 	@echo "${GREEN}[*] Checking System Health...${RESET}"
-	@$(PYTHON) $(BACKEND_DIR)/scripts/t1_data_audit.py || (echo "${RED}[!] Health Check Failed${RESET}"; exit 1)
+	@$(PYTHON) $(BACKEND_DIR)/scripts/report/t1_data_audit.py || (echo "${RED}[!] Health Check Failed${RESET}"; exit 1)
 
 ## 1.1 Dev Backend (Stable Restart Flow)
 dev-backend-start:
 	@echo "${GREEN}[*] Starting Backend (port 8006)...${RESET}"
 	@mkdir -p logs
-	@/bin/sh -c 'set -a; [ -f "$(ENV_FILE)" ] && . "$(ENV_FILE)"; set +a; cd "$(BACKEND_DIR)" && nohup uvicorn app.main:app --reload --port 8006 > ../logs/backend.log 2>&1 &'
+	@tmux has-session -t rss_backend_8006 2>/dev/null && tmux kill-session -t rss_backend_8006 || true
+	@tmux new-session -d -s rss_backend_8006 '/bin/sh backend/scripts/infra/run_backend_8006.sh > logs/backend.log 2>&1'
+	@/bin/sh -c 'for i in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20; do curl -fsS http://127.0.0.1:8006/openapi.json >/dev/null 2>&1 && exit 0; sleep 1; done; echo "backend startup failed"; exit 1'
 	@echo "    Logs: logs/backend.log"
 
 dev-backend-stop:
 	@echo "${YELLOW}[*] Stopping Backend (port 8006)...${RESET}"
+	@tmux has-session -t rss_backend_8006 2>/dev/null && tmux kill-session -t rss_backend_8006 || true
 	@/bin/sh -c 'pids=$$(lsof -ti :8006 || true); if [ -n "$$pids" ]; then echo "    PIDs: $$pids"; kill $$pids; sleep 1; else echo "    (no process)"; fi'
 
 dev-backend-restart: dev-backend-stop dev-backend-start
@@ -94,20 +119,51 @@ dev-backend-restart: dev-backend-stop dev-backend-start
 dev-backend-logs:
 	@tail -n 100 -f logs/backend.log
 
+hotpost-collect-daily:
+	@/bin/sh -c 'set -a; [ -f "$(ENV_FILE)" ] && . "$(ENV_FILE)"; set +a; cd "$(BACKEND_DIR)" && "$(PYTHON)" scripts/hotpost/daily_collect.py'
+
+hotpost-intake-freshness-gate:
+	@/bin/sh -c 'set -a; [ -f "$(ENV_FILE)" ] && . "$(ENV_FILE)"; set +a; cd "$(BACKEND_DIR)" && "$(PYTHON)" scripts/hotpost/run_intake_freshness_gate.py'
+
+hotpost-publish-until-exhausted: hotpost-intake-freshness-gate
+
+hotpost-topic-tree-audit:
+	@/bin/sh -c 'set -a; [ -f "$(ENV_FILE)" ] && . "$(ENV_FILE)"; set +a; cd "$(BACKEND_DIR)" && "$(PYTHON)" scripts/hotpost/audit_topic_tree_governance.py'
+
+hotpost-release-trend-audit:
+	@/bin/sh -c 'set -a; [ -f "$(ENV_FILE)" ] && . "$(ENV_FILE)"; set +a; cd "$(BACKEND_DIR)" && "$(PYTHON)" scripts/hotpost/audit_recent_mini_releases.py --limit 5'
+
+hotpost-review-queue:
+	@cd $(BACKEND_DIR) && $(PYTHON) scripts/hotpost/review_cards.py queue
+
+hotpost-breakdown-materialize:
+	@/bin/sh -c 'set -a; [ -f "$(ENV_FILE)" ] && . "$(ENV_FILE)"; set +a; cd "$(BACKEND_DIR)" && "$(PYTHON)" scripts/hotpost/materialize_breakdown_drafts.py'
+
+hotpost-breakdown-overlap:
+	@/bin/sh -c 'set -a; [ -f "$(ENV_FILE)" ] && . "$(ENV_FILE)"; set +a; cd "$(ROOT_DIR)" && "$(PYTHON)" backend/scripts/evals/run_breakdown_overlap_audit_v1.py'
+
+hotpost-workflow-dry-run:
+	@/bin/sh -c 'set -a; [ -f "$(ENV_FILE)" ] && . "$(ENV_FILE)"; set +a; cd "$(BACKEND_DIR)" && "$(PYTHON)" scripts/hotpost/workflow_dry_run.py'
+
+boundary-status:
+	@./scripts/check-boundary-status.sh
+
 ## 2. T1 Data Audit (Wrapper)
 audit-t1:
 	@echo "${GREEN}[*] Auditing T1 Data availability...${RESET}"
-	@$(PYTHON) $(BACKEND_DIR)/scripts/t1_data_audit.py
+	@$(PYTHON) $(BACKEND_DIR)/scripts/report/t1_data_audit.py
 
 ## 3. Refresh Views (SOP Phase 2)
 refresh-mining:
 	@echo "${GREEN}[*] Refreshing Analysis Materialized Views (SOP Sec.2)...${RESET}"
-	@$(PYTHON) $(BACKEND_DIR)/scripts/refresh_mining_views.py
+	@$(PYTHON) $(BACKEND_DIR)/scripts/infra/refresh_mining_views.py
 
 ## 4. Generate T1 Report (SOP v4.0 Omni-Analyst)
-# Usage: make report-t1 TOPIC="Your Topic" DESC="Your Product Desc"
+# Usage: make report-t1 TOPIC="Your Topic" DESC="Your Product Desc" MODE=market_insight DAYS=365
 TOPIC ?= "跨境电商运营与痛点"
 DESC ?= "跨境电商卖家工具与服务"
+MODE ?= market_insight
+DAYS ?= 365
 
 # Auto-generate filename from TOPIC:
 # 1. Keep Chinese, Letters, Numbers
@@ -130,12 +186,14 @@ report-t1:
 	@echo "    Model: ${MODEL_NAME}"
 	@echo "    File:  ${OUT}"
 	@# Data Guard: Stop if DB is empty
-	@$(PYTHON) $(BACKEND_DIR)/scripts/db_guard.py || (echo "${RED}[!] Data Guard Blocked Execution. See above.${RESET}"; exit 1)
+	@$(PYTHON) $(BACKEND_DIR)/scripts/infra/db_guard.py || (echo "${RED}[!] Data Guard Blocked Execution. See above.${RESET}"; exit 1)
 	@# CRITICAL: Dynamically pass the model from .env
-	@$(PYTHON) $(BACKEND_DIR)/scripts/generate_t1_market_report.py \
+	@$(PYTHON) $(BACKEND_DIR)/scripts/report/generate_t1_market_report.py \
 		--topic "${TOPIC}" \
 		--product-desc "${DESC}" \
 		--model "${MODEL_NAME}" \
+		--mode "${MODE}" \
+		--days ${DAYS} \
 		--out "${OUT}" \
 		--run-quality
 	@echo "${GREEN}[✓] Report generated at ${OUT}${RESET}"
@@ -155,7 +213,7 @@ restore-db:
 	@# Note: Using PGPASSWORD inline is not secure for prod, but okay for local dev restoration
 	@export PGPASSWORD=postgres && pg_restore --verbose --clean --if-exists -h localhost -U postgres -d $(DB_NAME) $(BACKUP_FILE) > /tmp/restore.log 2>&1 || echo "${YELLOW}[!] Restore finished with warnings (check /tmp/restore.log)${RESET}"
 	@echo "${GREEN}[✓] Restore Complete. Verifying data...${RESET}"
-	@$(PYTHON) $(BACKEND_DIR)/scripts/t1_data_audit.py
+	@$(PYTHON) $(BACKEND_DIR)/scripts/report/t1_data_audit.py
 
 ## 6. Testing (SAFE: Uses test database, never touches production!)
 # Test Database URL - ALWAYS use this for pytest!
@@ -175,12 +233,25 @@ test-unit:
 
 ## 7. Manual Guard Check
 guard-db:
-	@$(PYTHON) $(BACKEND_DIR)/scripts/db_guard.py
+	@$(PYTHON) $(BACKEND_DIR)/scripts/infra/db_guard.py
 
-## 8. Quality Gate (Placeholder)
-stage4-quality:
-	@echo "${GREEN}[*] Running Stage 4 Quality Checks (Placeholder)...${RESET}"
-	@# Add actual quality checks here (e.g., content validation, logic verification)
+## 8. Quality Gate
+## 检查报告链路中是否有 NOW() 残留 — Phase 240 确定性协议门禁
+check-determinism:
+	@echo "🔒 Checking determinism protocol compliance..."
+	@if grep -rn "NOW()" backend/scripts/report/generate_t1_market_report.py backend/app/services/analysis/t1_stats.py backend/app/tasks/embedding_task.py 2>/dev/null; then \
+		echo "❌ FAIL: NOW() found in determinism-critical files!"; \
+		echo "   Replace with anchor_ts parameter. See DETERMINISM PROTOCOL in file headers."; \
+		exit 1; \
+	else \
+		echo "✅ PASS: No NOW() in critical files."; \
+	fi
+
+test-quality-gate: check-determinism
+	@echo "${GREEN}[*] Running Quality Gate + Midstream Tests (19 tests)...${RESET}"
+	@cd $(BACKEND_DIR) && SKIP_DB_RESET=1 $(PYTHON) -m pytest tests/services/analysis/test_facts_v2_quality_gate.py tests/services/analysis/test_facts_v2_midstream.py -v
+
+stage4-quality: test-quality-gate
 	@echo "${GREEN}[✓] Quality Checks Passed.${RESET}"
 
 ## 13. Phase 5: Semantic Vectorization
@@ -253,10 +324,10 @@ dispatch-outbox:
 
 ## 14.1 Smart Ops: Crawl system starter (DB-aware)
 crawler-smart-status: ## 只看本地 Dev 库现状 + 启动建议（不启动进程）
-	@PY=$$( [ -x .venv/bin/python ] && echo .venv/bin/python || echo $(PYTHON) ); $$PY $(BACKEND_DIR)/scripts/smart_crawler_workflow.py
+	@PY=$$( [ -x .venv/bin/python ] && echo .venv/bin/python || echo $(PYTHON) ); $$PY $(BACKEND_DIR)/scripts/crawl/smart_crawler_workflow.py
 
 crawler-smart-start: ## 按建议一键启动 Celery（Beat + patrol + bulk；probe 视开关）
-	@PY=$$( [ -x .venv/bin/python ] && echo .venv/bin/python || echo $(PYTHON) ); BULK_QUEUE_LIST="$(BULK_QUEUE_LIST)" $$PY $(BACKEND_DIR)/scripts/smart_crawler_workflow.py --apply
+	@PY=$$( [ -x .venv/bin/python ] && echo .venv/bin/python || echo $(PYTHON) ); BULK_QUEUE_LIST="$(BULK_QUEUE_LIST)" $$PY $(BACKEND_DIR)/scripts/crawl/smart_crawler_workflow.py --apply
 
 ## 14.3 Minimal Crawl (local smoke test; dev/test only)
 MIN_CRAWL_SCOPE ?= T1
@@ -270,7 +341,7 @@ crawl-min:
 		*reddit_signal_scanner_dev*|*reddit_signal_scanner_test*) ;; \
 		*reddit_signal_scanner*) echo "${RED}[!] Blocked: gold DB is not allowed for crawl-min.${RESET}"; exit 1 ;; \
 	esac
-	@PYTHONPATH=$(PYTHONPATH) DATABASE_URL=$(MIN_CRAWL_DB_URL) $(PYTHON) $(BACKEND_DIR)/scripts/crawl_once.py --scope $(MIN_CRAWL_SCOPE) --limit $(MIN_CRAWL_LIMIT)
+	@PYTHONPATH=$(PYTHONPATH) DATABASE_URL=$(MIN_CRAWL_DB_URL) $(PYTHON) $(BACKEND_DIR)/scripts/crawl/crawl_once.py --scope $(MIN_CRAWL_SCOPE) --limit $(MIN_CRAWL_LIMIT)
 
 ## 14.4 Safe crawler shortcuts
 crawl-start: ## Safe start for crawler system (beat + patrol + bulk; probe optional)
@@ -288,19 +359,19 @@ crawl-stop: ## Stop all local celery processes (dev/test only)
 
 ## 14.5 Diagnostics & Utility (read-only unless stated)
 celery-health:
-	@$(PYTHON) $(BACKEND_DIR)/scripts/check_celery_health.py
+	@$(PYTHON) $(BACKEND_DIR)/scripts/monitor/check_celery_health.py
 
 celery-config:
-	@$(PYTHON) $(BACKEND_DIR)/scripts/verify_celery_config.py
+	@$(PYTHON) $(BACKEND_DIR)/scripts/monitor/verify_celery_config.py
 
 local-acceptance:
-	@$(PYTHON) $(BACKEND_DIR)/scripts/local_acceptance.py
+	@$(PYTHON) $(BACKEND_DIR)/scripts/seed/local_acceptance.py
 
 monitor-crawl:
-	@$(PYTHON) $(BACKEND_DIR)/scripts/monitor_crawl_progress.py
+	@$(PYTHON) $(BACKEND_DIR)/scripts/monitor/monitor_crawl_progress.py
 
 seed-test-accounts:
-	@$(PYTHON) $(BACKEND_DIR)/scripts/seed_test_accounts.py
+	@$(PYTHON) $(BACKEND_DIR)/scripts/seed/seed_test_accounts.py
 
 ## 14.6 Data Pipeline (clean -> score -> llm label)
 data-clean:
@@ -333,7 +404,7 @@ data-pipeline-kag: data-clean data-score data-embeddings llm-label semantic-llm-
 
 kag-acceptance:
 	@echo "${GREEN}[*] Running KAG acceptance check...${RESET}"
-	@cd $(BACKEND_DIR) && $(PYTHON) scripts/kag_acceptance.py --from-examples --limit 6
+	@cd $(BACKEND_DIR) && $(PYTHON) scripts/seed/kag_acceptance.py --from-examples --limit 6
 
 semantic-llm-sync:
 	@echo "${GREEN}[*] Syncing LLM candidates -> semantic library...${RESET}"
@@ -348,7 +419,7 @@ discover-communities:
 ingest-jsonl:
 	@echo "${GREEN}[*] Ingesting Historical JSONL Data...${RESET}"
 	@# Usage: make ingest-jsonl FILE="path/to/data.jsonl" COMMUNITY="r/name"
-	@$(PYTHON) $(BACKEND_DIR)/scripts/ingest_jsonl.py --file "${FILE}" --community "${COMMUNITY}" --update-watermark
+	@$(PYTHON) $(BACKEND_DIR)/scripts/import/ingest_jsonl.py --file "${FILE}" --community "${COMMUNITY}" --update-watermark
 
 
 # --- Database Operations (SOP v1.8) ---
@@ -403,12 +474,12 @@ db-realtime-stats:
 
 semantic-tag:
 	@echo "${GREEN}[*] Running Semantic Tagger (Incremental Batch)...${RESET}"
-	@$(PYTHON) $(BACKEND_DIR)/scripts/run_semantic_pipeline.py --limit 1000
+	@$(PYTHON) $(BACKEND_DIR)/scripts/semantic/run_semantic_pipeline.py --limit 1000
 
 semantic-refresh:
 	@echo "${GREEN}[*] Running Full Semantic Refresh (All Posts)...${RESET}"
 	@echo "${YELLOW}    This may take a while.${RESET}"
-	@$(PYTHON) $(BACKEND_DIR)/scripts/run_semantic_pipeline.py --refresh-all --verbose
+	@$(PYTHON) $(BACKEND_DIR)/scripts/semantic/run_semantic_pipeline.py --refresh-all --verbose
 
 semantic-embed:
 	@echo "${GREEN}[*] Starting Vector Embedding Backfill (Phase 3 Task A)...${RESET}"

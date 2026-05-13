@@ -9,6 +9,7 @@ from app.models.evidence_post import EvidencePost
 from app.models.example_library import ExampleLibrary
 from app.models.facts_run_log import FactsRunLog
 from app.models.facts_snapshot import FactsSnapshot
+from app.models.facts_quality_audit import FactsQualityAudit
 from app.models.insight import Evidence, InsightCard
 from app.models.metrics import QualityMetrics
 from app.models.report import Report
@@ -53,6 +54,7 @@ __all__ = [
     "ExampleLibrary",
     "FactsSnapshot",
     "FactsRunLog",
+    "FactsQualityAudit",
     "CommunityImportHistory",
     "QualityMetrics",
     "InsightCard",

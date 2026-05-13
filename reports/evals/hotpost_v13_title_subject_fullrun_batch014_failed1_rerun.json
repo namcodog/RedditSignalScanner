@@ -1,0 +1,188 @@
+{
+  "kind": "hotpost_v13_published_shadow_refresh",
+  "plan_version": 1,
+  "profile_id": "hotpost_v13_title_standalone",
+  "created_at": "2026-04-29T09:21:56.848053Z",
+  "selected": 1,
+  "generated": 1,
+  "failed": 0,
+  "cards": [
+    {
+      "card_id": "card-cand-ecommerce-sellers-1si8x21-validate",
+      "lane": "signal",
+      "card_type": "validate",
+      "profile_id": "hotpost_v13_title_standalone",
+      "semantic_model": "deepseek/deepseek-v4-flash",
+      "writer_model": "xiaomi/mimo-v2.5-pro",
+      "original_card": {
+        "card_id": "card-cand-ecommerce-sellers-1si8x21-validate",
+        "signal_id": "sig-1si8x21",
+        "card_type": "validate",
+        "lane": "signal",
+        "category_id": "validate",
+        "source_scope_id": "ecommerce-sellers",
+        "source_scope_name": "电商与卖家",
+        "topic_pack_id": "selection-signals",
+        "topic_cluster_id": "home",
+        "topic_cluster_ids": [
+          "home"
+        ],
+        "named_topic_ids": [],
+        "source_domain_id": "ecommerce-sellers",
+        "source_domain_name": "电商与卖家",
+        "source_event_at": "2026-04-11T04:15:06Z",
+        "title": "清理囤积症亲属的家，现在先别急着扔东西",
+        "summary_line": "从先想着怎么把垃圾清掉，转成先确认对方是不是有囤积症，以及怎么沟通才不会让情况更糟。",
+        "audience": "需要帮助有囤积倾向的亲人清理脏乱房间的家人或朋友",
+        "why_now": "有用户分享了自己处理囤积症亲属的经验，指出强行清理会让囤积行为在一年内反弹得更严重。这改变了行动顺序：以后遇到类似情况，先问的不是‘怎么清理最快’，而是‘怎么沟通才不会造成心理创伤，导致东西越堆越多’。",
+        "why_now_reason": "recurring_7d",
+        "signal_level": "sustained",
+        "intent_tags": [
+          "避坑"
+        ],
+        "top_community": "r/CleaningTips",
+        "thread_count": 1,
+        "community_count": 1,
+        "preview_quote": {
+          "text": "You should talk with r/hoarding \n\n\nI'm gonna drop my spark notes on hoarding in case anything is helpful.\n\n\n\nIt sucks.  It's incredibly mentally draining.  There are special tricks to talking with someone with hoarding disorder- but it helps to confirm that it is hoarding disorder and not one of the many lookalikes.  \n\n\nHoarding is typically co-morbid, meaning there's usually more than one mental disorder at the same time.\n\n\nHoarding is frequently related to financial hardship or instability.  My husband has a very mild case, a good CPA and some finance classes helped a ton.  I know that may not be helpful in this case but it helps to know.\n\n\nAvoid arguing about items as much as possible.  It usually makes the issue worse.  It helps the disorder rehearse the reasons to keep things.  Most hoarders keep things for the same reasons everyone else keeps things.  Most common: sentiment, cost to replace/what if I need it later, and potential future use.  To get out of these cycles requires practice, look for things easier to toss.  A somewhat dirty trick I pulled frequently is arguing to keep something that's obviously a toss- it helps them practice the arguments for letting go.  (Can totally backfire)\n\n\nIf you scan the brain of someone with hoarding disorder you will frequently find that the decision making part of the brain isn't working correctly.  I'm not a doctor, so I will explain poorly, but they use WAY more energy to make decisions then the average person.  Think of the mental toll picking a car and dealing with car loans versus going through junk mail.  It's like a hoarder has to go through car loan calculations just to sort the mail- obviously they start avoiding these tasks.\n\n\nLastly; Hoarding was classified as a form of OCD until 2013.  It's very similar to OCD, it's frequently co-morbid with OCD.  The name 'hoarder' sucks because it doesn't name any of the core issues like OCD does.  We don't call OCD Neat-Freak disorder, that's stupid.  Importantly- the disorder doesn't go away with the hoard, the hoard has NOTHING to do with it.  In most cases a forced cleanout will cause the hoarding disorder to get worse, the hoard will be back within a year and be bigger.  Usually due to the trauma the forced cleanout caused.\n\n\nSo- sorry for the text wall!  Been there. Done hoarder clean outs before.  Good luck.  Breathe, drink water, go slowly.  And most importantly - don't remove the whole hoard.  Just want you have to make it safe.",
+          "community": "r/CleaningTips",
+          "permalink": "https://www.reddit.com/r/CleaningTips/comments/1si8x21/i_just_need_some_words_of_encouragement_to_help/ofj0yom/"
+        },
+        "published_at": "2026-04-13T09:38:10.248266Z",
+        "source_module": {
+          "primary_communities": [
+            "r/CleaningTips"
+          ],
+          "top_community": "r/CleaningTips",
+          "tone_tags": [],
+          "thread_count": 1,
+          "community_count": 1,
+          "last_active_text": "近7天"
+        },
+        "quotes": [
+          {
+            "text": "You should talk with r/hoarding \n\n\nI'm gonna drop my spark notes on hoarding in case anything is helpful.\n\n\n\nIt sucks.  It's incredibly mentally draining.  There are special tricks to talking with someone with hoarding disorder- but it helps to confirm that it is hoarding disorder and not one of the many lookalikes.  \n\n\nHoarding is typically co-morbid, meaning there's usually more than one mental disorder at the same time.\n\n\nHoarding is frequently related to financial hardship or instability.  My husband has a very mild case, a good CPA and some finance classes helped a ton.  I know that may not be helpful in this case but it helps to know.\n\n\nAvoid arguing about items as much as possible.  It usually makes the issue worse.  It helps the disorder rehearse the reasons to keep things.  Most hoarders keep things for the same reasons everyone else keeps things.  Most common: sentiment, cost to replace/what if I need it later, and potential future use.  To get out of these cycles requires practice, look for things easier to toss.  A somewhat dirty trick I pulled frequently is arguing to keep something that's obviously a toss- it helps them practice the arguments for letting go.  (Can totally backfire)\n\n\nIf you scan the brain of someone with hoarding disorder you will frequently find that the decision making part of the brain isn't working correctly.  I'm not a doctor, so I will explain poorly, but they use WAY more energy to make decisions then the average person.  Think of the mental toll picking a car and dealing with car loans versus going through junk mail.  It's like a hoarder has to go through car loan calculations just to sort the mail- obviously they start avoiding these tasks.\n\n\nLastly; Hoarding was classified as a form of OCD until 2013.  It's very similar to OCD, it's frequently co-morbid with OCD.  The name 'hoarder' sucks because it doesn't name any of the core issues like OCD does.  We don't call OCD Neat-Freak disorder, that's stupid.  Importantly- the disorder doesn't go away with the hoard, the hoard has NOTHING to do with it.  In most cases a forced cleanout will cause the hoarding disorder to get worse, the hoard will be back within a year and be bigger.  Usually due to the trauma the forced cleanout caused.\n\n\nSo- sorry for the text wall!  Been there. Done hoarder clean outs before.  Good luck.  Breathe, drink water, go slowly.  And most importantly - don't remove the whole hoard.  Just want you have to make it safe.",
+            "community": "r/CleaningTips",
+            "permalink": "https://www.reddit.com/r/CleaningTips/comments/1si8x21/i_just_need_some_words_of_encouragement_to_help/ofj0yom/"
+          },
+          {
+            "text": "You are doing a very good thing. Sometimes, people don't do things as we know they should.",
+            "community": "r/CleaningTips",
+            "permalink": "https://www.reddit.com/r/CleaningTips/comments/1si8x21/i_just_need_some_words_of_encouragement_to_help/ofihu8z/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/CleaningTips/comments/1si8x21",
+        "detail": {
+          "pain_point": "费了很大力气把东西清空，结果亲人因为创伤反应，很快又囤积了更多物品，让之前的努力白费，关系也搞僵了。",
+          "target_user_and_scene": "发现老年亲属家里蟑螂横行、堆满杂物，想帮忙清理但不知从何下手的家人。",
+          "why_test_now": "真正把动作顺序翻过来的，是大家明确提醒：强行清空只会让囤积反弹得更快、更严重。这样一来，第一步就不再是扔东西，而是先评估对方是不是囤积症、怎么沟通才不把关系和情况一起搞坏。",
+          "min_test_action": "先别清屋子，先和对方确认哪些东西绝对不能碰，再只处理 1 个低冲突角落，观察是否会引发更强抵触。",
+          "continue_signal": "继续关注关于‘如何与囤积症患者沟通’的具体技巧，比如‘避免争论物品去留’、‘从容易丢弃的东西开始练习’。继续看 some words、need、encouragement 这些词会不会继续出现。",
+          "stop_signal": "如果讨论只停留在‘鼓励楼主加油’或‘推荐杀虫剂’，而没有深入到囤积症的心理机制和沟通方法，这条信号的价值就减弱了。"
+        }
+      },
+      "v12_shadow": {
+        "title": "帮囤积症亲属清理，现在先别急着扔东西",
+        "summary_line": "从先清垃圾，转成先确认是不是囤积症并学习沟通方法。",
+        "audience": "正在帮囤积症亲属清理房间的家人",
+        "why_now": "有用户分享经验，指出强行清理会在一年内导致更严重的反弹，因为清理行为本身会造成心理创伤。这意味着以后遇到这种情况，先问的不是怎么扔，而是怎么沟通。",
+        "pain_point": "急于改善卫生和安全状况，但强行清理可能破坏关系并导致囤积恶化，缺乏专业指导。",
+        "target_user_and_scene": "家里有囤积症亲属，面对蟑螂、杂物等卫生问题，想帮忙清理但不知如何下手的家人。",
+        "why_test_now": "原话里有个关键句：“You should talk with r/hoarding I'm gonna drop my spark notes on hoarding in case anything i”。把顺序翻过来的是这个提醒：囤积症是心理问题，清掉东西不等于解决问题，反而可能让问题更严重。这样一来，第一步就不再是动手扔，而是先学习如何沟通。",
+        "min_test_action": "去看原始讨论",
+        "continue_signal": "观察沟通后囤积行为是否缓和，或是否出现新的囤积迹象。",
+        "stop_signal": "如果沟通后囤积行为没有改善，或关系持续恶化，可能需要寻求专业心理帮助。"
+      },
+      "refreshed_card": {
+        "card_id": "card-cand-ecommerce-sellers-1si8x21-validate",
+        "signal_id": "sig-1si8x21",
+        "card_type": "validate",
+        "lane": "signal",
+        "category_id": "validate",
+        "source_scope_id": "ecommerce-sellers",
+        "source_scope_name": "电商与卖家",
+        "topic_pack_id": "selection-signals",
+        "topic_cluster_id": "home",
+        "topic_cluster_ids": [
+          "home"
+        ],
+        "named_topic_ids": [],
+        "source_domain_id": "ecommerce-sellers",
+        "source_domain_name": "电商与卖家",
+        "source_event_at": "2026-04-11T04:15:06Z",
+        "title": "帮囤积症亲属清理，先别急着扔东西，否则一年内可能反弹更严重",
+        "summary_line": "从先清垃圾，转成先确认是不是囤积症并学习沟通方法。",
+        "audience": "正在帮囤积症亲属清理房间的家人",
+        "why_now": "有用户分享经验，指出强行清理会在一年内导致更严重的反弹，因为清理行为本身会造成心理创伤。这意味着以后遇到这种情况，先问的不是怎么扔，而是怎么沟通。",
+        "why_now_reason": "recurring_7d",
+        "signal_level": "sustained",
+        "intent_tags": [
+          "避坑"
+        ],
+        "top_community": "r/CleaningTips",
+        "thread_count": 1,
+        "community_count": 1,
+        "preview_quote": {
+          "text": "You should talk with r/hoarding \n\n\nI'm gonna drop my spark notes on hoarding in case anything is helpful.\n\n\n\nIt sucks.  It's incredibly mentally draining.  There are special tricks to talking with someone with hoarding disorder- but it helps to confirm that it is hoarding disorder and not one of the many lookalikes.  \n\n\nHoarding is typically co-morbid, meaning there's usually more than one mental disorder at the same time.\n\n\nHoarding is frequently related to financial hardship or instability.  My husband has a very mild case, a good CPA and some finance classes helped a ton.  I know that may not be helpful in this case but it helps to know.\n\n\nAvoid arguing about items as much as possible.  It usually makes the issue worse.  It helps the disorder rehearse the reasons to keep things.  Most hoarders keep things for the same reasons everyone else keeps things.  Most common: sentiment, cost to replace/what if I need it later, and potential future use.  To get out of these cycles requires practice, look for things easier to toss.  A somewhat dirty trick I pulled frequently is arguing to keep something that's obviously a toss- it helps them practice the arguments for letting go.  (Can totally backfire)\n\n\nIf you scan the brain of someone with hoarding disorder you will frequently find that the decision making part of the brain isn't working correctly.  I'm not a doctor, so I will explain poorly, but they use WAY more energy to make decisions then the average person.  Think of the mental toll picking a car and dealing with car loans versus going through junk mail.  It's like a hoarder has to go through car loan calculations just to sort the mail- obviously they start avoiding these tasks.\n\n\nLastly; Hoarding was classified as a form of OCD until 2013.  It's very similar to OCD, it's frequently co-morbid with OCD.  The name 'hoarder' sucks because it doesn't name any of the core issues like OCD does.  We don't call OCD Neat-Freak disorder, that's stupid.  Importantly- the disorder doesn't go away with the hoard, the hoard has NOTHING to do with it.  In most cases a forced cleanout will cause the hoarding disorder to get worse, the hoard will be back within a year and be bigger.  Usually due to the trauma the forced cleanout caused.\n\n\nSo- sorry for the text wall!  Been there. Done hoarder clean outs before.  Good luck.  Breathe, drink water, go slowly.  And most importantly - don't remove the whole hoard.  Just want you have to make it safe.",
+          "community": "r/CleaningTips",
+          "permalink": "https://www.reddit.com/r/CleaningTips/comments/1si8x21/i_just_need_some_words_of_encouragement_to_help/ofj0yom/"
+        },
+        "published_at": "2026-04-13T09:38:10.248266Z",
+        "source_module": {
+          "primary_communities": [
+            "r/CleaningTips"
+          ],
+          "top_community": "r/CleaningTips",
+          "tone_tags": [],
+          "thread_count": 1,
+          "community_count": 1,
+          "last_active_text": "近7天"
+        },
+        "quotes": [
+          {
+            "text": "You should talk with r/hoarding \n\n\nI'm gonna drop my spark notes on hoarding in case anything is helpful.\n\n\n\nIt sucks.  It's incredibly mentally draining.  There are special tricks to talking with someone with hoarding disorder- but it helps to confirm that it is hoarding disorder and not one of the many lookalikes.  \n\n\nHoarding is typically co-morbid, meaning there's usually more than one mental disorder at the same time.\n\n\nHoarding is frequently related to financial hardship or instability.  My husband has a very mild case, a good CPA and some finance classes helped a ton.  I know that may not be helpful in this case but it helps to know.\n\n\nAvoid arguing about items as much as possible.  It usually makes the issue worse.  It helps the disorder rehearse the reasons to keep things.  Most hoarders keep things for the same reasons everyone else keeps things.  Most common: sentiment, cost to replace/what if I need it later, and potential future use.  To get out of these cycles requires practice, look for things easier to toss.  A somewhat dirty trick I pulled frequently is arguing to keep something that's obviously a toss- it helps them practice the arguments for letting go.  (Can totally backfire)\n\n\nIf you scan the brain of someone with hoarding disorder you will frequently find that the decision making part of the brain isn't working correctly.  I'm not a doctor, so I will explain poorly, but they use WAY more energy to make decisions then the average person.  Think of the mental toll picking a car and dealing with car loans versus going through junk mail.  It's like a hoarder has to go through car loan calculations just to sort the mail- obviously they start avoiding these tasks.\n\n\nLastly; Hoarding was classified as a form of OCD until 2013.  It's very similar to OCD, it's frequently co-morbid with OCD.  The name 'hoarder' sucks because it doesn't name any of the core issues like OCD does.  We don't call OCD Neat-Freak disorder, that's stupid.  Importantly- the disorder doesn't go away with the hoard, the hoard has NOTHING to do with it.  In most cases a forced cleanout will cause the hoarding disorder to get worse, the hoard will be back within a year and be bigger.  Usually due to the trauma the forced cleanout caused.\n\n\nSo- sorry for the text wall!  Been there. Done hoarder clean outs before.  Good luck.  Breathe, drink water, go slowly.  And most importantly - don't remove the whole hoard.  Just want you have to make it safe.",
+            "community": "r/CleaningTips",
+            "permalink": "https://www.reddit.com/r/CleaningTips/comments/1si8x21/i_just_need_some_words_of_encouragement_to_help/ofj0yom/"
+          },
+          {
+            "text": "You are doing a very good thing. Sometimes, people don't do things as we know they should.",
+            "community": "r/CleaningTips",
+            "permalink": "https://www.reddit.com/r/CleaningTips/comments/1si8x21/i_just_need_some_words_of_encouragement_to_help/ofihu8z/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/CleaningTips/comments/1si8x21",
+        "detail": {
+          "pain_point": "费了很大力气把东西清空，结果亲人因为创伤反应，很快又囤积了更多物品，让之前的努力白费，关系也搞僵了。",
+          "target_user_and_scene": "发现老年亲属家里蟑螂横行、堆满杂物，想帮忙清理但不知从何下手的家人。",
+          "why_test_now": "真正把动作顺序翻过来的，是大家明确提醒：强行清空只会让囤积反弹得更快、更严重。这样一来，第一步就不再是扔东西，而是先评估对方是不是囤积症、怎么沟通才不把关系和情况一起搞坏。",
+          "min_test_action": "先别清屋子，先和对方确认哪些东西绝对不能碰，再只处理 1 个低冲突角落，观察是否会引发更强抵触。",
+          "continue_signal": "继续关注关于‘如何与囤积症患者沟通’的具体技巧，比如‘避免争论物品去留’、‘从容易丢弃的东西开始练习’。继续看 some words、need、encouragement 这些词会不会继续出现。",
+          "stop_signal": "如果讨论只停留在‘鼓励楼主加油’或‘推荐杀虫剂’，而没有深入到囤积症的心理机制和沟通方法，这条信号的价值就减弱了。"
+        }
+      },
+      "changed": {
+        "title": {
+          "before": "清理囤积症亲属的家，现在先别急着扔东西",
+          "after": "帮囤积症亲属清理，先别急着扔东西，否则一年内可能反弹更严重"
+        },
+        "summary_line": {
+          "before": "从先想着怎么把垃圾清掉，转成先确认对方是不是有囤积症，以及怎么沟通才不会让情况更糟。",
+          "after": "从先清垃圾，转成先确认是不是囤积症并学习沟通方法。"
+        },
+        "audience": {
+          "before": "需要帮助有囤积倾向的亲人清理脏乱房间的家人或朋友",
+          "after": "正在帮囤积症亲属清理房间的家人"
+        },
+        "why_now": {
+          "before": "有用户分享了自己处理囤积症亲属的经验，指出强行清理会让囤积行为在一年内反弹得更严重。这改变了行动顺序：以后遇到类似情况，先问的不是‘怎么清理最快’，而是‘怎么沟通才不会造成心理创伤，导致东西越堆越多’。",
+          "after": "有用户分享经验，指出强行清理会在一年内导致更严重的反弹，因为清理行为本身会造成心理创伤。这意味着以后遇到这种情况，先问的不是怎么扔，而是怎么沟通。"
+        }
+      },
+      "fluency_repair_issue_count": 0,
+      "remaining_density_issues": [],
+      "v13_title_issues_before": [],
+      "v13_title_issues_after": [],
+      "error": ""
+    }
+  ]
+}

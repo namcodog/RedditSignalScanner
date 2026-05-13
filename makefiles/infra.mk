@@ -45,10 +45,10 @@ redis-status: ## 检查Redis状态
 
 redis-seed: ## 填充测试数据到Redis（使用seed_test_data.py）
 	@echo "==> Seeding test data to Redis ..."
-	@cd $(BACKEND_DIR) && $(PYTHON) scripts/seed_test_data.py
+	@cd $(BACKEND_DIR) && $(PYTHON) scripts/seed/seed_test_data.py
 	@echo "✅ Test data seeded successfully"
 
 redis-purge: ## 清空Redis测试数据
 	@echo "==> Purging test data from Redis ..."
-	@cd $(BACKEND_DIR) && $(PYTHON) scripts/seed_test_data.py --purge
+	@cd $(BACKEND_DIR) && $(PYTHON) scripts/seed/seed_test_data.py --purge
 	@echo "✅ Test data purged successfully"

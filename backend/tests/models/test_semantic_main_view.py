@@ -304,37 +304,34 @@ async def test_semantic_main_view_comment_uses_comment_scores_latest_v() -> None
             session, name=f"r/test_{uuid.uuid4().hex[:8]}", ts=now
         )
         source_post_id = f"post_{uuid.uuid4().hex[:8]}"
-        post_id = (
-            await session.execute(
-                text(
-                    """
-                    INSERT INTO posts_raw (
-                        source, source_post_id, version, created_at,
-                        fetched_at, valid_from, subreddit, title, body, is_current, community_id
-                    )
-                    VALUES (
-                        'reddit', :pid, 1, :ts,
-                        :ts, :ts, 'r/test', 'title', 'body', true, :community_id
-                    )
-                    RETURNING id
-                    """
-                ),
-                {"pid": source_post_id, "ts": now, "community_id": community_id},
-            )
-        ).scalar_one()
+        await session.execute(
+            text(
+                """
+                INSERT INTO posts_raw (
+                    source, source_post_id, version, created_at,
+                    fetched_at, valid_from, subreddit, title, body, is_current, community_id
+                )
+                VALUES (
+                    'reddit', :pid, 1, :ts,
+                    :ts, :ts, 'r/test', 'title', 'body', true, :community_id
+                )
+                """
+            ),
+            {"pid": source_post_id, "ts": now, "community_id": community_id},
+        )
 
         comment_id = (
             await session.execute(
                 text(
                     """
                     INSERT INTO comments (
-                        reddit_comment_id, source, source_post_id, subreddit, body, created_utc, post_id
+                        reddit_comment_id, source, source_post_id, subreddit, body, created_utc
                     )
-                    VALUES (:cid, 'reddit', :pid, 'r/test', 'comment body', :ts, :post_id)
+                    VALUES (:cid, 'reddit', :pid, 'r/test', 'comment body', :ts)
                     RETURNING id
                     """
                 ),
-                {"cid": f"t1_{uuid.uuid4().hex[:8]}", "pid": source_post_id, "ts": now, "post_id": post_id},
+                {"cid": f"t1_{uuid.uuid4().hex[:8]}", "pid": source_post_id, "ts": now},
             )
         ).scalar_one()
 

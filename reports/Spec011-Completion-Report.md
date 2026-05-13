@@ -11,7 +11,7 @@
 ## 实施与产出（代码与命令）
 - 指标与门禁
   - calculate_metrics：`backend/scripts/calculate_metrics.py`（补充计数项与 layer-map 参数）
-  - 质量门禁：`backend/scripts/semantic_acceptance_gate.py`（支持 features 可选校验、CI 判定）
+  - 质量门禁：`backend/scripts/semantic/semantic_acceptance_gate.py`（支持 features 可选校验、CI 判定）
   - Make 目标：`semantic-metrics`、`semantic-acceptance`
 - 自动发布与治理
   - 自动发布：`make semantic-release-auto`（别名自适应高置信→品牌基线+锁痛点→多样化字典→门禁→可选报告/回灌）

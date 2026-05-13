@@ -9,17 +9,19 @@ import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
   testDir: './e2e',
+  testIgnore: ['**/*debug*.spec.ts'],
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
-  reporter: 'html',
+  timeout: 120 * 1000,
+  reporter: process.env.CI ? 'line' : 'html',
 
   // E2E 失败快照保存配置
   outputDir: '../reports/failed_e2e',
 
   use: {
-    baseURL: 'http://localhost:3006',
+    baseURL: process.env.PLAYWRIGHT_BASE_URL ?? 'http://localhost:3006',
     trace: 'retain-on-failure',  // 失败时保留 trace
     screenshot: 'only-on-failure',  // 失败时截图
   },
@@ -33,9 +35,8 @@ export default defineConfig({
 
   webServer: {
     command: 'npm run dev',
-    url: 'http://localhost:3006',
+    url: process.env.PLAYWRIGHT_BASE_URL ?? 'http://localhost:3006',
     reuseExistingServer: !process.env.CI,
     timeout: 120 * 1000,
   },
 });
-

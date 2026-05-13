@@ -1,0 +1,230 @@
+{
+  "kind": "hotpost_v13_published_shadow_refresh",
+  "plan_version": 1,
+  "profile_id": "hotpost_v13_title_standalone",
+  "created_at": "2026-04-29T14:12:45.347576Z",
+  "selected": 1,
+  "generated": 1,
+  "failed": 0,
+  "cards": [
+    {
+      "card_id": "card-group-ai-automation-4bd5d9c843",
+      "lane": "breakdown",
+      "card_type": "write",
+      "profile_id": "hotpost_v13_title_standalone",
+      "semantic_model": "deepseek/deepseek-v4-flash",
+      "writer_model": "xiaomi/mimo-v2.5-pro",
+      "original_card": {
+        "card_id": "card-group-ai-automation-4bd5d9c843",
+        "signal_id": "sig-group-ai-automation-4bd5d9c843",
+        "card_type": "write",
+        "lane": "breakdown",
+        "category_id": "write",
+        "source_scope_id": "ai-automation",
+        "source_scope_name": "AI 与自动化",
+        "topic_pack_id": "tools-efficiency",
+        "topic_cluster_id": "ai-product-and-adoption",
+        "topic_cluster_ids": [
+          "ai-product-and-adoption"
+        ],
+        "named_topic_ids": [],
+        "source_domain_id": "ai-automation",
+        "source_domain_name": "AI 与自动化",
+        "source_event_at": "2026-04-23T09:00:24Z",
+        "title": "兼职产品岗的第一反应，从‘值不值得做’变成了‘是不是在拿我训练 AI’",
+        "summary_line": "产品经理们开始怀疑，一些听起来不错的兼职机会，本质上可能只是在为AI代理收集训练数据。",
+        "audience": "看到‘兼职产品负责人’这类招聘帖的产品经理",
+        "why_now": "当一个人在质疑岗位真实性，另一个人在感叹‘兼职产品负责人’本身就像个矛盾概念时，说明怀疑已经从个案变成了对这类岗位存在逻辑的根本性质疑。",
+        "why_now_reason": "new_threads_24h",
+        "signal_level": "sustained",
+        "intent_tags": [
+          "趋势变化"
+        ],
+        "top_community": "r/ProductManagement",
+        "thread_count": 3,
+        "community_count": 2,
+        "source_module": {
+          "primary_communities": [
+            "r/ProductManagement",
+            "r/SaaS"
+          ],
+          "top_community": "r/ProductManagement",
+          "tone_tags": [],
+          "thread_count": 3,
+          "community_count": 2,
+          "last_active_text": "近24小时"
+        },
+        "preview_quote": {
+          "text": "If this is even real\n\n\nIt doesn't sound like an actual product owner position, it sounds like they're hiring a bunch of people to train a product owner AI agent",
+          "community": "r/ProductManagement",
+          "permalink": "https://www.reddit.com/r/ProductManagement/comments/1st8bap/has_anyone_tried_one_of_these_freelance_parttime/ohrhrpt/"
+        },
+        "published_at": "2026-04-24T05:14:17.935126Z",
+        "controversy_chart": null,
+        "controversy_meta": null,
+        "quotes": [
+          {
+            "text": "If this is even real\n\n\nIt doesn't sound like an actual product owner position, it sounds like they're hiring a bunch of people to train a product owner AI agent",
+            "community": "r/ProductManagement",
+            "permalink": "https://www.reddit.com/r/ProductManagement/comments/1st8bap/has_anyone_tried_one_of_these_freelance_parttime/ohrhrpt/"
+          },
+          {
+            "text": "Even if these recaptcha occurs on daily basis at random time is worth it. I am gonna loose my mind if I see another “I built this so you don’t have to” post",
+            "community": "r/SaaS",
+            "permalink": "https://www.reddit.com/r/SaaS/comments/1sndwq7/end_of_ai_slop/ogl33mg/"
+          },
+          {
+            "text": "Dead internet theory is so real.\n\nLook at this example it's literally all bots talking to each other.  \n\n  \n[https://www.reddit.com/r/AI\\_Agents/comments/1sn2w7y/](https://www.reddit.com/r/AI_Agents/comments/1sn2w7y/)",
+            "community": "r/SaaS",
+            "permalink": "https://www.reddit.com/r/SaaS/comments/1sndwq7/end_of_ai_slop/ogl9xlu/"
+          },
+          {
+            "text": "I feel the same way - it feels like an oxymoron. Even as a PM it takes years to fully grasp the product you're working on. \n\nHowever I do know people personally who are PMs who do consulting on the side. It generally works well  if you're an expert in a specific industry with many years of experience",
+            "community": "r/ProductManagement",
+            "permalink": "https://www.reddit.com/r/ProductManagement/comments/1st8bap/has_anyone_tried_one_of_these_freelance_parttime/ohrfnhl/"
+          },
+          {
+            "text": "My UX designer is having an existential crisis because we’ve started moving faster than he can keep up by using Claude Design. At this point, waiting for a designer to manually create figma prototypes is causing a massive bottleneck between product and engineering  as engineering are also now using AI. I feel so horrible for him as he’s a lovely guy, and it’s genuinely heartbreaking to see someone’s passion and potentially their livelihood taken away seemingly overnight.",
+            "community": "r/ProductManagement",
+            "permalink": "https://www.reddit.com/r/ProductManagement/comments/1stdbl3/weekly_rant_thread/ohtzgax/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/SaaS/comments/1sndwq7",
+        "detail": {
+          "thesis": "产品经理对‘兼职产品负责人’这类岗位的怀疑，已经从评估工作好坏，升级到了质疑其存在目的——它可能根本不是为真人设计的职位，而是为了训练AI代理。",
+          "writing_angle_or_perspective": "从‘岗位真实性’这个切口进去，看怀疑如何从‘这工作好不好’转向‘这工作是不是给人做的’。",
+          "tension_point_or_why_it_matters": "如果连‘产品负责人’这种核心决策角色都开始被怀疑是AI训练的幌子，那么未来任何高价值的兼职或咨询岗位，都可能面临同样的信任危机。",
+          "title_hooks": [
+            "兼职产品岗？先别急着看JD，先想想这是不是给AI准备的训练数据",
+            "当‘兼职’和‘产品负责人’放在一起，产品经理的第一反应是：这听起来像人干的活吗？"
+          ],
+          "quote_pack": [
+            "If this is even real\n\n\nIt doesn't sound like an actual product owner position, it sounds like they're hiring a bunch of people to train a product owner AI agent｜这到底是不是真的？听起来不像一个真正的产品负责人职位，更像是在招一群人来训练一个产品负责人AI代理。｜r/ProductManagement",
+            "I feel the same way - it feels like an oxymoron. Even as a PM it takes years to fully grasp the product you're working on.｜我有同感——这感觉像个矛盾体。即使作为一名产品经理，也需要数年时间才能完全掌握你负责的产品。｜r/ProductManagement"
+          ]
+        }
+      },
+      "v12_shadow": {
+        "title": "兼职产品岗的信任崩塌：从‘值不值得做’到‘是不是在拿我训练 AI’",
+        "summary_line": "产品经理们开始怀疑，一些听起来不错的兼职机会，本质上可能只是在为AI代理收集训练数据。",
+        "audience": "看到‘兼职产品负责人’这类招聘帖的产品经理",
+        "why_now": "当一个人在质疑岗位真实性，另一个人在感叹‘兼职产品负责人’本身就像个矛盾概念时，说明怀疑从个案变成了对这类岗位存在逻辑的根本性质疑。",
+        "thesis": "产品经理对兼职岗位的信任危机，从‘这活儿值不值’升级到‘这活儿到底是不是给人干的’。",
+        "writing_angle_or_perspective": "从产品经理看到招聘帖时的心理活动切入，描述从心动到怀疑再到警觉的转变过程。",
+        "tension_point_or_why_it_matters": "这种怀疑会直接杀死真实的兼职机会，因为即使是真的岗位，也会被当成AI训练陷阱而无人问津。",
+        "title_hooks": [
+          "看到‘兼职产品负责人’招聘，你的第一反应是心动还是怀疑？"
+        ],
+        "quote_pack": [
+          "If this is even real. It doesn't sound like an actual product owner position, it sounds like they're hiring a bunch of people to train a product owner AI agent｜这到底是不是真的？听起来不像真正的岗位，倒像是在招一群人来训练产品负责人AI代理。｜r/ProductManagement",
+          "I feel the same way - it feels like an oxymoron. Even as a PM it takes years to fully grasp the product you're working on.｜我也有同感，这听起来就像个矛盾概念。就算是产品经理，也需要好几年才能完全吃透自己负责的产品。｜r/ProductManagement"
+        ]
+      },
+      "refreshed_card": {
+        "card_id": "card-group-ai-automation-4bd5d9c843",
+        "signal_id": "sig-group-ai-automation-4bd5d9c843",
+        "card_type": "write",
+        "lane": "breakdown",
+        "category_id": "write",
+        "source_scope_id": "ai-automation",
+        "source_scope_name": "AI 与自动化",
+        "topic_pack_id": "tools-efficiency",
+        "topic_cluster_id": "ai-product-and-adoption",
+        "topic_cluster_ids": [
+          "ai-product-and-adoption"
+        ],
+        "named_topic_ids": [],
+        "source_domain_id": "ai-automation",
+        "source_domain_name": "AI 与自动化",
+        "source_event_at": "2026-04-23T09:00:24Z",
+        "title": "产品经理看到兼职产品负责人招聘，第一反应是‘这是招人还是招 AI 饲料？’",
+        "summary_line": "产品经理们开始怀疑，一些听起来不错的兼职机会，本质上可能只是在为AI代理收集训练数据。",
+        "audience": "看到‘兼职产品负责人’这类招聘帖的产品经理",
+        "why_now": "当一个人在质疑岗位真实性，另一个人在感叹‘兼职产品负责人’本身就像个矛盾概念时，说明怀疑从个案变成了对这类岗位存在逻辑的根本性质疑。",
+        "why_now_reason": "new_threads_24h",
+        "signal_level": "sustained",
+        "intent_tags": [
+          "趋势变化"
+        ],
+        "top_community": "r/ProductManagement",
+        "thread_count": 3,
+        "community_count": 2,
+        "source_module": {
+          "primary_communities": [
+            "r/ProductManagement",
+            "r/SaaS"
+          ],
+          "top_community": "r/ProductManagement",
+          "tone_tags": [],
+          "thread_count": 3,
+          "community_count": 2,
+          "last_active_text": "近24小时"
+        },
+        "preview_quote": {
+          "text": "If this is even real\n\n\nIt doesn't sound like an actual product owner position, it sounds like they're hiring a bunch of people to train a product owner AI agent",
+          "community": "r/ProductManagement",
+          "permalink": "https://www.reddit.com/r/ProductManagement/comments/1st8bap/has_anyone_tried_one_of_these_freelance_parttime/ohrhrpt/"
+        },
+        "published_at": "2026-04-24T05:14:17.935126Z",
+        "controversy_chart": null,
+        "controversy_meta": null,
+        "quotes": [
+          {
+            "text": "If this is even real\n\n\nIt doesn't sound like an actual product owner position, it sounds like they're hiring a bunch of people to train a product owner AI agent",
+            "community": "r/ProductManagement",
+            "permalink": "https://www.reddit.com/r/ProductManagement/comments/1st8bap/has_anyone_tried_one_of_these_freelance_parttime/ohrhrpt/"
+          },
+          {
+            "text": "Even if these recaptcha occurs on daily basis at random time is worth it. I am gonna loose my mind if I see another “I built this so you don’t have to” post",
+            "community": "r/SaaS",
+            "permalink": "https://www.reddit.com/r/SaaS/comments/1sndwq7/end_of_ai_slop/ogl33mg/"
+          },
+          {
+            "text": "Dead internet theory is so real.\n\nLook at this example it's literally all bots talking to each other.  \n\n  \n[https://www.reddit.com/r/AI\\_Agents/comments/1sn2w7y/](https://www.reddit.com/r/AI_Agents/comments/1sn2w7y/)",
+            "community": "r/SaaS",
+            "permalink": "https://www.reddit.com/r/SaaS/comments/1sndwq7/end_of_ai_slop/ogl9xlu/"
+          },
+          {
+            "text": "I feel the same way - it feels like an oxymoron. Even as a PM it takes years to fully grasp the product you're working on. \n\nHowever I do know people personally who are PMs who do consulting on the side. It generally works well  if you're an expert in a specific industry with many years of experience",
+            "community": "r/ProductManagement",
+            "permalink": "https://www.reddit.com/r/ProductManagement/comments/1st8bap/has_anyone_tried_one_of_these_freelance_parttime/ohrfnhl/"
+          },
+          {
+            "text": "My UX designer is having an existential crisis because we’ve started moving faster than he can keep up by using Claude Design. At this point, waiting for a designer to manually create figma prototypes is causing a massive bottleneck between product and engineering  as engineering are also now using AI. I feel so horrible for him as he’s a lovely guy, and it’s genuinely heartbreaking to see someone’s passion and potentially their livelihood taken away seemingly overnight.",
+            "community": "r/ProductManagement",
+            "permalink": "https://www.reddit.com/r/ProductManagement/comments/1stdbl3/weekly_rant_thread/ohtzgax/"
+          }
+        ],
+        "source_link": "https://www.reddit.com/r/SaaS/comments/1sndwq7",
+        "detail": {
+          "thesis": "产品经理对‘兼职产品负责人’这类岗位的怀疑，已经从评估工作好坏，升级到了质疑其存在目的——它可能根本不是为真人设计的职位，而是为了训练AI代理。",
+          "writing_angle_or_perspective": "从‘岗位真实性’这个切口进去，看怀疑如何从‘这工作好不好’转向‘这工作是不是给人做的’。",
+          "tension_point_or_why_it_matters": "如果连‘产品负责人’这种核心决策角色都开始被怀疑是AI训练的幌子，那么未来任何高价值的兼职或咨询岗位，都可能面临同样的信任危机。",
+          "title_hooks": [
+            "兼职产品岗？先别急着看JD，先想想这是不是给AI准备的训练数据",
+            "当‘兼职’和‘产品负责人’放在一起，产品经理的第一反应是：这听起来像人干的活吗？"
+          ],
+          "quote_pack": [
+            "If this is even real\n\n\nIt doesn't sound like an actual product owner position, it sounds like they're hiring a bunch of people to train a product owner AI agent｜这到底是不是真的？听起来不像一个真正的产品负责人职位，更像是在招一群人来训练一个产品负责人AI代理。｜r/ProductManagement",
+            "I feel the same way - it feels like an oxymoron. Even as a PM it takes years to fully grasp the product you're working on.｜我有同感——这感觉像个矛盾体。即使作为一名产品经理，也需要数年时间才能完全掌握你负责的产品。｜r/ProductManagement"
+          ]
+        }
+      },
+      "changed": {
+        "title": {
+          "before": "兼职产品岗的第一反应，从‘值不值得做’变成了‘是不是在拿我训练 AI’",
+          "after": "产品经理看到兼职产品负责人招聘，第一反应是‘这是招人还是招 AI 饲料？’"
+        },
+        "why_now": {
+          "before": "当一个人在质疑岗位真实性，另一个人在感叹‘兼职产品负责人’本身就像个矛盾概念时，说明怀疑已经从个案变成了对这类岗位存在逻辑的根本性质疑。",
+          "after": "当一个人在质疑岗位真实性，另一个人在感叹‘兼职产品负责人’本身就像个矛盾概念时，说明怀疑从个案变成了对这类岗位存在逻辑的根本性质疑。"
+        }
+      },
+      "fluency_repair_issue_count": 0,
+      "remaining_density_issues": [],
+      "v13_title_issues_before": [],
+      "v13_title_issues_after": [],
+      "error": ""
+    }
+  ]
+}
