@@ -6,15 +6,17 @@ from pathlib import Path
 from typing import Any, Iterable
 
 import yaml
-from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.models.community_pool import CommunityPool
+from app.services.community import community_truth_source_snapshot_service
 from app.services.community.blacklist_loader import BlacklistConfig
 from app.services.community.community_pool_loader import CommunityProfile
 from app.utils.subreddit import normalize_subreddit_name
 
 logger = logging.getLogger(__name__)
+load_effective_truth_communities = (
+    community_truth_source_snapshot_service.load_effective_truth_communities
+)
 
 
 def _load_yaml(path: Path) -> dict[str, Any]:
@@ -55,7 +57,7 @@ class CrawlPlanEntry:
 
 
 class CrawlPlanBuilder:
-    """Builds crawl plan from community_pool + YAML configs."""
+    """Builds crawl plan from effective truth-source communities + YAML configs."""
 
     def __init__(self, db: AsyncSession, config_root: Path | None = None) -> None:
         self.db = db
@@ -98,9 +100,10 @@ class CrawlPlanBuilder:
         return None
 
     async def build_plan(self) -> list[CrawlPlanEntry]:
-        stmt = select(CommunityPool)
-        result = await self.db.execute(stmt)
-        rows = result.scalars().all()
+        rows = await load_effective_truth_communities(
+            self.db,
+            is_config_blacklisted=self.blacklist.is_community_blacklisted,
+        )
 
         plan: list[CrawlPlanEntry] = []
         for row in rows:
@@ -108,23 +111,24 @@ class CrawlPlanBuilder:
             overrides = self.vertical_overrides.get(key, {})
             role = self.role_map.get(key)
             vertical = overrides.get("vertical") or self._derive_vertical(
-                _as_list(row.categories)
+                row.normalized_categories or _as_list(row.categories)
             )
             crawl_track = overrides.get("crawl_track") or "both"
             priority = overrides.get("priority") or row.priority
 
-            is_blacklisted = bool(row.is_blacklisted)
-            if self.blacklist and self.blacklist.is_community_blacklisted(row.name):
-                is_blacklisted = True
+            if not row.tier:
+                raise ValueError(f"Crawl plan community {row.name} requires tier")
+
+            is_blacklisted = bool(row.is_blacklisted or row.config_blacklisted)
             status = "paused" if (not row.is_active or is_blacklisted) else "active"
 
             profile = CommunityProfile(
                 name=row.name,
                 tier=row.tier,
-                categories=_as_list(row.categories),
-                description_keywords=row.description_keywords or {},
-                daily_posts=row.daily_posts or 0,
-                avg_comment_length=row.avg_comment_length or 0,
+                categories=row.normalized_categories or _as_list(row.categories),
+                description_keywords={},
+                daily_posts=0,
+                avg_comment_length=0,
                 quality_score=float(row.quality_score or 0.0),
                 priority=priority or "medium",
             )
@@ -137,6 +141,7 @@ class CrawlPlanBuilder:
                     vertical=vertical,
                     crawl_track=str(crawl_track or "both"),
                     priority=priority or "medium",
+                    source="truth_source",
                 )
             )
 

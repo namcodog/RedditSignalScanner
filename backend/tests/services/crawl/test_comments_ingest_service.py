@@ -1,21 +1,23 @@
 from __future__ import annotations
 
-from datetime import datetime, timezone
 import uuid
+from datetime import datetime, timezone
 
 import pytest
 from sqlalchemy import text
 
 from app.db.session import SessionFactory
 from app.models.community_pool import CommunityPool
-from app.services.crawl.comments_ingest import _build_comment_upsert_sql, persist_comments
+from app.services.crawl import comments_ingest
 
 
 @pytest.mark.asyncio
 async def test_persist_comments_idempotent(monkeypatch: pytest.MonkeyPatch) -> None:
     async with SessionFactory() as session:
         await session.execute(
-            text("TRUNCATE TABLE comments, authors, posts_quarantine, posts_raw, community_pool RESTART IDENTITY CASCADE")
+            text(
+                "TRUNCATE TABLE comments, authors, posts_quarantine, posts_raw, community_pool RESTART IDENTITY CASCADE"
+            )
         )
         await session.commit()
 
@@ -60,13 +62,13 @@ async def test_persist_comments_idempotent(monkeypatch: pytest.MonkeyPatch) -> N
             }
         ]
 
-        n1 = await persist_comments(
+        n1 = await comments_ingest.persist_comments(
             session,
             source_post_id=source_post_id,
             subreddit=subreddit,
             comments=items,
         )
-        n2 = await persist_comments(
+        n2 = await comments_ingest.persist_comments(
             session,
             source_post_id=source_post_id,
             subreddit=subreddit,
@@ -93,7 +95,9 @@ async def test_persist_comments_idempotent(monkeypatch: pytest.MonkeyPatch) -> N
 async def test_persist_comments_writes_crawl_run_id_when_supported() -> None:
     async with SessionFactory() as session:
         await session.execute(
-            text("TRUNCATE TABLE comments, authors, posts_quarantine, posts_raw, community_pool RESTART IDENTITY CASCADE")
+            text(
+                "TRUNCATE TABLE comments, authors, posts_quarantine, posts_raw, community_pool RESTART IDENTITY CASCADE"
+            )
         )
         await session.commit()
 
@@ -139,7 +143,7 @@ async def test_persist_comments_writes_crawl_run_id_when_supported() -> None:
             }
         ]
 
-        n = await persist_comments(
+        n = await comments_ingest.persist_comments(
             session,
             source_post_id=source_post_id,
             subreddit=subreddit,
@@ -173,19 +177,19 @@ async def test_persist_comments_writes_crawl_run_id_when_supported() -> None:
 
 
 def test_build_comment_upsert_sql_is_cached_and_flag_driven() -> None:
-    with_expires = _build_comment_upsert_sql(
+    with_expires = comments_ingest._build_comment_upsert_sql(
         has_expires=True,
         has_post_id=True,
         has_crawl_run_id=True,
         has_community_run_id=True,
     )
-    same_again = _build_comment_upsert_sql(
+    same_again = comments_ingest._build_comment_upsert_sql(
         has_expires=True,
         has_post_id=True,
         has_crawl_run_id=True,
         has_community_run_id=True,
     )
-    legacy = _build_comment_upsert_sql(
+    legacy = comments_ingest._build_comment_upsert_sql(
         has_expires=False,
         has_post_id=False,
         has_crawl_run_id=False,
@@ -203,7 +207,6 @@ def test_build_comment_upsert_sql_is_cached_and_flag_driven() -> None:
 
 @pytest.mark.asyncio
 async def test_persist_comments_logs_when_post_fk_cannot_be_resolved(
-    caplog: pytest.LogCaptureFixture,
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     import app.services.crawl.comments_ingest as comments_ingest_module
@@ -212,6 +215,12 @@ async def test_persist_comments_logs_when_post_fk_cannot_be_resolved(
     monkeypatch.setattr(comments_ingest_module, "_COMMENTS_HAS_EXPIRES", False)
     monkeypatch.setattr(comments_ingest_module, "_COMMENTS_HAS_CRAWL_RUN_ID", False)
     monkeypatch.setattr(comments_ingest_module, "_COMMENTS_HAS_COMMUNITY_RUN_ID", False)
+    warning_messages: list[str] = []
+
+    def capture_warning(message: str, *args: object, **_: object) -> None:
+        warning_messages.append(message % args if args else message)
+
+    monkeypatch.setattr(comments_ingest_module.logger, "warning", capture_warning)
 
     async with SessionFactory() as session:
         now = datetime.now(timezone.utc)
@@ -226,13 +235,12 @@ async def test_persist_comments_logs_when_post_fk_cannot_be_resolved(
             }
         ]
 
-        with caplog.at_level("WARNING"):
-            processed = await persist_comments(
-                session,
-                source_post_id="t3_missing_fk_target",
-                subreddit="r/homegym",
-                comments=items,
-            )
+        processed = await comments_ingest.persist_comments(
+            session,
+            source_post_id="t3_missing_fk_target",
+            subreddit="r/homegym",
+            comments=items,
+        )
 
     assert processed == 0
-    assert "post_id resolution failed" in caplog.text
+    assert any("post_id resolution failed" in message for message in warning_messages)

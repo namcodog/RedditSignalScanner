@@ -56,9 +56,42 @@ async def load_community_blacklist_status(
     return await session.scalar(
         text(
             """
-            SELECT is_blacklisted
-            FROM community_pool
-            WHERE name = :name
+            WITH truth_decisions AS (
+                SELECT g.decision
+                FROM community_registry r
+                JOIN community_domain_membership m
+                  ON m.community_id = r.id
+                 AND m.is_current = TRUE
+                JOIN community_governance_decision g
+                  ON g.membership_id = m.id
+                 AND g.is_current = TRUE
+                WHERE r.platform = 'reddit'
+                  AND lower(r.community_name) = lower(:name)
+            ),
+            truth_status AS (
+                SELECT
+                    COUNT(*) AS decision_count,
+                    CASE
+                        WHEN BOOL_OR(decision = 'blocked') THEN TRUE
+                        WHEN BOOL_OR(decision = 'approved') THEN FALSE
+                        ELSE NULL
+                    END AS is_blacklisted
+                FROM truth_decisions
+            ),
+            pool_status AS (
+                SELECT is_blacklisted
+                FROM community_pool
+                WHERE lower(name) = lower(:name)
+                LIMIT 1
+            )
+            SELECT
+                CASE
+                    WHEN truth_status.decision_count > 0
+                    THEN truth_status.is_blacklisted
+                    ELSE pool_status.is_blacklisted
+                END
+            FROM truth_status
+            LEFT JOIN pool_status ON TRUE
             """
         ),
         {"name": subreddit},
@@ -80,7 +113,7 @@ def build_global_rate_limiter(
         return None
 
     try:
-        from app.services.infrastructure.global_rate_limiter import GlobalRateLimiter
+        from app.services.infrastructure import global_rate_limiter
     except Exception:
         return None
 
@@ -106,7 +139,7 @@ def build_global_rate_limiter(
     try:
         client_id = str(getattr(settings, "reddit_client_id", "") or "default")
         rclient = redis.Redis.from_url(getattr(settings, "reddit_cache_redis_url"))
-        return GlobalRateLimiter(
+        return global_rate_limiter.GlobalRateLimiter(
             rclient,
             limit=bucket_limit,
             window_seconds=window_seconds,
@@ -162,9 +195,7 @@ def backfill_comments_min() -> int:
     return max(1, int(os.getenv("BACKFILL_DONE_COMMENTS_MIN", "20000")))
 
 
-async def count_posts_since(
-    *, session: Any, subreddit: str, since: datetime
-) -> int:
+async def count_posts_since(*, session: Any, subreddit: str, since: datetime) -> int:
     result = await session.execute(
         text(
             """
@@ -179,9 +210,7 @@ async def count_posts_since(
     return int(result.scalar() or 0)
 
 
-async def count_comments_since(
-    *, session: Any, subreddit: str, since: datetime
-) -> int:
+async def count_comments_since(*, session: Any, subreddit: str, since: datetime) -> int:
     result = await session.execute(
         text(
             """
@@ -196,18 +225,32 @@ async def count_comments_since(
     return int(result.scalar() or 0)
 
 
-async def load_backfill_floor(
-    *, session: Any, subreddit: str
-) -> datetime | None:
+async def load_backfill_floor(*, session: Any, subreddit: str) -> datetime | None:
     result = await session.execute(
         text(
             """
-            SELECT backfill_floor
-            FROM community_cache
-            WHERE community_name = :name
+            WITH runtime_status AS (
+                SELECT s.backfill_floor
+                FROM community_registry r
+                JOIN community_runtime_state s
+                  ON s.community_id = r.id
+                WHERE r.platform = 'reddit'
+                  AND lower(r.community_name) = lower(:name)
+                LIMIT 1
+            ),
+            cache_status AS (
+                SELECT backfill_floor
+                FROM community_cache
+                WHERE lower(community_name) = lower(:key)
+                LIMIT 1
+            )
+            SELECT COALESCE(
+                (SELECT backfill_floor FROM runtime_status),
+                (SELECT backfill_floor FROM cache_status)
+            )
             """
         ),
-        {"name": subreddit_key(subreddit)},
+        {"name": subreddit, "key": subreddit_key(subreddit)},
     )
     floor = result.scalar_one_or_none()
     if floor is not None and getattr(floor, "tzinfo", None) is None:
@@ -244,9 +287,7 @@ async def finalize_backfill_status(
     backfill_floor = await load_backfill_floor_func(
         session=session, subreddit=subreddit
     )
-    coverage_months = (
-        max(0, (now - backfill_floor).days // 30) if backfill_floor else 0
-    )
+    coverage_months = max(0, (now - backfill_floor).days // 30) if backfill_floor else 0
 
     since_window = now - timedelta(days=backfill_done_months_func() * 30)
     sample_posts = await count_posts_since_func(
