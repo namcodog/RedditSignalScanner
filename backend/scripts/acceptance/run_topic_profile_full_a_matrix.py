@@ -140,11 +140,14 @@ def _validate_full_a_contract(report_payload: dict[str, Any]) -> dict[str, Any]:
     report_html = str(report_payload.get("report_html") or "").strip()
     if not report_html:
         raise RuntimeError("report_html missing")
-    modern_markers = ("## 已分析赛道", "## 决策卡片")
+    modern_required_markers = ("## 已分析赛道",)
+    modern_decision_markers = ("## 决策卡片", "## 决策风向标")
     legacy_markers = ("## 指标概览", "## 核心战场推荐（社区）")
+    has_modern_markers = all(marker in report_html for marker in modern_required_markers) and any(
+        marker in report_html for marker in modern_decision_markers
+    )
     if not (
-        all(marker in report_html for marker in modern_markers)
-        or all(marker in report_html for marker in legacy_markers)
+        has_modern_markers or all(marker in report_html for marker in legacy_markers)
     ):
         raise RuntimeError("report_html missing required market report markers")
 
