@@ -14,6 +14,7 @@ SCORE_POSTS_LIMIT ?= 500
 SCORE_COMMENTS_LIMIT ?= 500
 LLM_LABEL_POST_LIMIT ?= 200
 LLM_LABEL_COMMENT_LIMIT ?= 200
+PROBE_ARGS ?=
 BRAND_ARGS ?=
 
 # Export PYTHONPATH so all python sub-processes see it
@@ -33,7 +34,8 @@ RESET  := $(shell tput -Txterm sgr0)
 	db-sync-noise-labels semantic-llm-sync test-quality-gate check-determinism \
 	hotpost-breakdown-materialize hotpost-breakdown-overlap hotpost-workflow-dry-run \
 	hotpost-intake-freshness-gate hotpost-publish-until-exhausted hotpost-topic-tree-audit \
-	hotpost-release-trend-audit brand-ops-sidecar brand-registry-view brand-system-evidence \
+	hotpost-release-trend-audit hotpost-community-exploration-pre hotpost-community-exploration-post \
+	brand-ops-sidecar brand-registry-view brand-system-evidence \
 	boundary-status
 
 # --- Default Goal ---
@@ -64,6 +66,8 @@ help:
 	@echo "  ${YELLOW}hotpost-breakdown-materialize${RESET} : Materialize coherent breakdown drafts once."
 	@echo "  ${YELLOW}hotpost-breakdown-overlap${RESET} : Run breakdown overlap audit once."
 	@echo "  ${YELLOW}hotpost-workflow-dry-run${RESET} : Run collect -> queue -> materialize -> overlap dry-run summary."
+	@echo "  ${YELLOW}hotpost-community-exploration-pre${RESET} : Probe experimental communities before daily publishing. Use PROBE_ARGS='--probe scope:n:direction'."
+	@echo "  ${YELLOW}hotpost-community-exploration-post${RESET} : Build post-publish community discovery audit + R11.5 dry-run."
 	@echo "  ${YELLOW}brand-ops-sidecar${RESET} : Build post-release Brand Intelligence digest, quality review, and semantic review queue."
 	@echo "  ${YELLOW}brand-registry-view${RESET} : Preview read-only Brand Registry view. Use BRAND_ARGS='--status verified --limit 30'."
 	@echo "  ${YELLOW}brand-system-evidence${RESET} : Build backend-only Brand Evidence pack for recommendation and card context."
@@ -149,6 +153,13 @@ hotpost-breakdown-overlap:
 
 hotpost-workflow-dry-run:
 	@/bin/sh -c 'set -a; [ -f "$(ENV_FILE)" ] && . "$(ENV_FILE)"; set +a; cd "$(BACKEND_DIR)" && "$(PYTHON)" scripts/hotpost/workflow_dry_run.py'
+
+hotpost-community-exploration-pre:
+	@test -n "$(PROBE_ARGS)" || (echo "PROBE_ARGS is required, for example: make hotpost-community-exploration-pre PROBE_ARGS='--probe ai-automation:6:AI工具'" && exit 2)
+	@/bin/sh -c 'set -a; [ -f "$(ENV_FILE)" ] && . "$(ENV_FILE)"; set +a; cd "$(ROOT_DIR)" && "$(PYTHON)" backend/scripts/hotpost/run_community_exploration_loop.py --stage pre $(PROBE_ARGS)'
+
+hotpost-community-exploration-post:
+	@/bin/sh -c 'set -a; [ -f "$(ENV_FILE)" ] && . "$(ENV_FILE)"; set +a; cd "$(ROOT_DIR)" && "$(PYTHON)" backend/scripts/hotpost/run_community_exploration_loop.py --stage post'
 
 brand-ops-sidecar:
 	@/bin/sh -c 'set -a; [ -f "$(ENV_FILE)" ] && . "$(ENV_FILE)"; set +a; cd "$(ROOT_DIR)" && "$(PYTHON)" backend/scripts/brand_intelligence/generate_brand_digest.py'

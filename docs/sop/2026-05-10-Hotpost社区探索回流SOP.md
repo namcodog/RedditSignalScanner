@@ -5,7 +5,7 @@
 
 ## 一句话口径
 
-探索社区先证明价值，再进入主项目社区池；任何阶段都不自动写 DB。
+探索社区嵌在日常出卡里：小配额试采，用真实发卡验证，用审计报告回流；任何阶段都不自动写 DB。
 
 ## 固定边界
 
@@ -13,6 +13,7 @@
 - 探索社区只来自 `backend/config/hotpost_supply_discovery_v2.yaml` 的 `experimental_communities`。
 - 默认日常采集不包含 `experimental_communities`。
 - probe 候选只允许写 `backend/data/hotpost/experimental_candidates/<scope>.json`。
+- 每天只定 `1-3` 个探索方向，且必须贴着当天正式出卡主题。
 - 回流报告、R11.5、R12 预审都只读，不能写 `community_pool`。
 - Gold DB 禁止写；Dev 写入必须单独确认、带 guard 和 rollback。
 - 小程序只读发布快照，不参与社区池写入。
@@ -24,26 +25,47 @@
 日常出卡计划里必须写明：
 
 - 今天正式出卡补哪些 scope / 题材
-- 今天 probe 哪些 scope 或实验社区
+- 今天探索方向是什么，最多 `1-3` 个
+- 每个探索方向对应哪些 scope 或实验社区
 - 如果不 probe，写明原因
 
-### 2. 显式 probe
+示例：
 
-只允许显式运行：
+- 补 SEO / GEO：probe `AEO / digital_marketing / ai_search`
+- 补 AI 工具：probe `CursorAI / Windsurf / Aider / OpenRouter`
+- 补好物选品：probe `HerOneBag / outdoor / niche gear`
+
+### 2. 出卡前 pre 编排
+
+只允许显式运行固定入口：
 
 ```bash
-PYTHONPATH=backend python backend/scripts/hotpost/probe_community_discovery.py --scope <scope_id> --mode safe --max-candidates <n>
+make hotpost-community-exploration-pre PROBE_ARGS='--probe <scope_id>:<n>:<探索方向>'
 ```
 
 禁止把 `experimental_communities` 接进默认 `daily_collect`。
 
-### 3. 生成探索审计
+probe 只负责验货；如果内容足够好，要回到正式 V13 review / publish 链路，不从 `experimental_candidates` 直接发布。
+
+### 3. 正常出卡
 
 ```bash
-PYTHONPATH=backend python backend/scripts/hotpost/audit_community_discovery.py
+make hotpost-publish-until-exhausted
 ```
 
-重点看：
+后续人工 review、publish、`push_mini_snapshot.py` 仍按正式 V13 发布链路执行。
+
+### 4. 出卡后 post 编排
+
+```bash
+make hotpost-community-exploration-post
+```
+
+post 编排会一次性生成探索审计和 R11.5 dry-run。重点看：
+
+- `reports/community-governance/community-discovery-audit-<date>.json`
+- `reports/community-governance/community-pool-feedback-dry-run-<date>.json`
+- `reports/community-governance/community-pool-feedback-dry-run-<date>.md`
 
 - `collected_candidates`
 - `draft_count`
@@ -54,14 +76,16 @@ PYTHONPATH=backend python backend/scripts/hotpost/audit_community_discovery.py
 
 只说“探索已触发”不合格，必须说明是否有候选和发布证据。
 
-### 4. 生成 R11.5 回流 dry-run
+日报必须写清：
 
-```bash
-PYTHONPATH=backend python backend/scripts/hotpost/community_pool_feedback_dry_run.py \
-  --input reports/community-governance/community-discovery-audit-<date>.json \
-  --json-output reports/community-governance/community-pool-feedback-dry-run-<date>.json \
-  --md-output reports/community-governance/community-pool-feedback-dry-run-<date>.md
-```
+- 今天 probe 了哪些社区
+- 哪些采到候选
+- 哪些进入 draft / publish
+- 哪些只是观察
+- 有没有 `pool_candidate`
+- 是否需要 R12 预写入
+
+### 5. R11.5 回流判断
 
 人工只重点看：
 
@@ -71,7 +95,9 @@ PYTHONPATH=backend python backend/scripts/hotpost/community_pool_feedback_dry_ru
 - `already_in_pool`：不新增，只补证据
 - `observe / no_signal_yet`：不动作
 
-### 5. 用户确认后生成 R12 预写入审计
+每天可以审计，但不建议每天写 `community_pool`。只有出现 `pool_candidate` 后，才进入待确认；R12 预审建议每 `2-3` 天或每周集中处理。
+
+### 6. 用户确认后生成 R12 预写入审计
 
 ```bash
 PYTHONPATH=backend python backend/scripts/hotpost/community_pool_r12_prewrite.py \
@@ -89,7 +115,7 @@ R12 预审只回答四件事：
 
 当前 R12 预审仍是 `writes_db=false`。
 
-### 6. Dev 写入必须单独确认
+### 7. Dev 写入必须单独确认
 
 只有同时满足以下条件，才允许进入真实 Dev 写入任务：
 
@@ -123,7 +149,9 @@ PYTHONPATH=backend python backend/scripts/community/community_recommendation_pre
 ```text
 今日探索社区回流：
 
+- 探索方向:
 - probe scope:
+- probed communities:
 - audit report:
 - R11.5:
   - input_rows:
@@ -131,6 +159,8 @@ PYTHONPATH=backend python backend/scripts/community/community_recommendation_pre
   - promote_candidate:
   - keep_testing:
   - reject:
+- published_from_probe:
+- observe_only:
 - pool_candidate:
   - r/xxx -> 标签 / score / evidence
 - R12 prewrite:
