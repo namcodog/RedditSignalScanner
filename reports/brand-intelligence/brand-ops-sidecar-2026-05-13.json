@@ -1,0 +1,601 @@
+{
+  "auto_write_semantic_lexicon": false,
+  "blocks_publish": false,
+  "db_write_status": {
+    "available": false,
+    "db_writes": false,
+    "inserted_mentions": 0,
+    "inserted_registry_rows": 0,
+    "would_insert_mentions": 0,
+    "would_insert_registry_rows": 0
+  },
+  "interest_tag_counts": {
+    "AI工具与Agent": 35,
+    "SEO&GEO": 21,
+    "众筹与品牌启动": 11,
+    "内容营销创作": 8,
+    "卖家店铺运营": 43,
+    "好物选品": 39,
+    "家居生活选品": 17,
+    "广告投放": 26,
+    "电商平台政策与风向": 5
+  },
+  "new_brand_candidates": [],
+  "noise_items": [
+    {
+      "canonical_name": "Case",
+      "community_count": 26,
+      "interest_tags": [
+        "家居生活选品",
+        "好物选品",
+        "广告投放",
+        "SEO&GEO",
+        "AI工具与Agent",
+        "众筹与品牌启动",
+        "卖家店铺运营",
+        "内容营销创作"
+      ],
+      "mention_count": 51,
+      "noise_flags": [
+        "generic_term"
+      ],
+      "review_status": "rejected"
+    },
+    {
+      "canonical_name": "Kind",
+      "community_count": 24,
+      "interest_tags": [
+        "家居生活选品",
+        "好物选品",
+        "广告投放",
+        "SEO&GEO",
+        "AI工具与Agent",
+        "众筹与品牌启动",
+        "电商平台政策与风向",
+        "卖家店铺运营"
+      ],
+      "mention_count": 42,
+      "noise_flags": [
+        "generic_term"
+      ],
+      "review_status": "rejected"
+    },
+    {
+      "canonical_name": "Campaign",
+      "community_count": 9,
+      "interest_tags": [
+        "广告投放",
+        "AI工具与Agent",
+        "众筹与品牌启动",
+        "卖家店铺运营"
+      ],
+      "mention_count": 37,
+      "noise_flags": [
+        "generic_term"
+      ],
+      "review_status": "rejected"
+    },
+    {
+      "canonical_name": "Spot",
+      "community_count": 18,
+      "interest_tags": [
+        "好物选品",
+        "广告投放",
+        "SEO&GEO",
+        "AI工具与Agent",
+        "众筹与品牌启动",
+        "卖家店铺运营",
+        "内容营销创作"
+      ],
+      "mention_count": 26,
+      "noise_flags": [
+        "generic_term"
+      ],
+      "review_status": "rejected"
+    },
+    {
+      "canonical_name": "Action",
+      "community_count": 14,
+      "interest_tags": [
+        "广告投放",
+        "AI工具与Agent",
+        "众筹与品牌启动",
+        "卖家店铺运营",
+        "内容营销创作"
+      ],
+      "mention_count": 21,
+      "noise_flags": [
+        "generic_term"
+      ],
+      "review_status": "rejected"
+    },
+    {
+      "canonical_name": "Material",
+      "community_count": 9,
+      "interest_tags": [
+        "好物选品",
+        "SEO&GEO"
+      ],
+      "mention_count": 19,
+      "noise_flags": [
+        "generic_term"
+      ],
+      "review_status": "rejected"
+    },
+    {
+      "canonical_name": "Flow",
+      "community_count": 9,
+      "interest_tags": [
+        "广告投放",
+        "SEO&GEO",
+        "AI工具与Agent",
+        "卖家店铺运营"
+      ],
+      "mention_count": 15,
+      "noise_flags": [
+        "generic_term"
+      ],
+      "review_status": "rejected"
+    },
+    {
+      "canonical_name": "Article",
+      "community_count": 10,
+      "interest_tags": [
+        "家居生活选品",
+        "SEO&GEO",
+        "众筹与品牌启动",
+        "内容营销创作"
+      ],
+      "mention_count": 12,
+      "noise_flags": [
+        "generic_term"
+      ],
+      "review_status": "rejected"
+    },
+    {
+      "canonical_name": "Cross",
+      "community_count": 9,
+      "interest_tags": [
+        "好物选品",
+        "广告投放",
+        "AI工具与Agent",
+        "卖家店铺运营"
+      ],
+      "mention_count": 12,
+      "noise_flags": [
+        "generic_term"
+      ],
+      "review_status": "rejected"
+    },
+    {
+      "canonical_name": "Ratio",
+      "community_count": 7,
+      "interest_tags": [
+        "好物选品",
+        "广告投放",
+        "SEO&GEO",
+        "AI工具与Agent",
+        "众筹与品牌启动"
+      ],
+      "mention_count": 12,
+      "noise_flags": [
+        "generic_term"
+      ],
+      "review_status": "rejected"
+    },
+    {
+      "canonical_name": "Sharp",
+      "community_count": 5,
+      "interest_tags": [
+        "SEO&GEO",
+        "AI工具与Agent",
+        "卖家店铺运营"
+      ],
+      "mention_count": 11,
+      "noise_flags": [
+        "generic_term"
+      ],
+      "review_status": "rejected"
+    },
+    {
+      "canonical_name": "Engineer",
+      "community_count": 4,
+      "interest_tags": [
+        "广告投放",
+        "SEO&GEO",
+        "AI工具与Agent"
+      ],
+      "mention_count": 8,
+      "noise_flags": [
+        "generic_term"
+      ],
+      "review_status": "rejected"
+    },
+    {
+      "canonical_name": "Route",
+      "community_count": 7,
+      "interest_tags": [
+        "家居生活选品",
+        "广告投放",
+        "AI工具与Agent",
+        "卖家店铺运营"
+      ],
+      "mention_count": 8,
+      "noise_flags": [
+        "generic_term"
+      ],
+      "review_status": "rejected"
+    },
+    {
+      "canonical_name": "Primary",
+      "community_count": 4,
+      "interest_tags": [
+        "广告投放",
+        "SEO&GEO"
+      ],
+      "mention_count": 7,
+      "noise_flags": [
+        "generic_term"
+      ],
+      "review_status": "rejected"
+    },
+    {
+      "canonical_name": "Downstream",
+      "community_count": 4,
+      "interest_tags": [
+        "AI工具与Agent"
+      ],
+      "mention_count": 6,
+      "noise_flags": [
+        "generic_term"
+      ],
+      "review_status": "rejected"
+    },
+    {
+      "canonical_name": "Heart",
+      "community_count": 4,
+      "interest_tags": [
+        "好物选品"
+      ],
+      "mention_count": 6,
+      "noise_flags": [
+        "generic_term"
+      ],
+      "review_status": "rejected"
+    }
+  ],
+  "phase": "brand-intelligence-r15-3-daily-ops-sidecar",
+  "report_date": "2026-05-13",
+  "runs_after": [
+    "hotpost_release",
+    "mini_snapshot"
+  ],
+  "semantic_review_queue": [
+    {
+      "auto_apply": false,
+      "canonical_name": "google",
+      "community_count": 31,
+      "interest_tags": [
+        "家居生活选品",
+        "好物选品",
+        "广告投放",
+        "SEO&GEO",
+        "AI工具与Agent",
+        "卖家店铺运营",
+        "内容营销创作"
+      ],
+      "mention_count": 309,
+      "review_action": "review_for_semantic_lexicon"
+    },
+    {
+      "auto_apply": false,
+      "canonical_name": "shopify",
+      "community_count": 8,
+      "interest_tags": [
+        "广告投放",
+        "SEO&GEO",
+        "AI工具与Agent",
+        "卖家店铺运营"
+      ],
+      "mention_count": 119,
+      "review_action": "review_for_semantic_lexicon"
+    },
+    {
+      "auto_apply": false,
+      "canonical_name": "Amazon",
+      "community_count": 15,
+      "interest_tags": [
+        "家居生活选品",
+        "好物选品",
+        "AI工具与Agent",
+        "电商平台政策与风向",
+        "卖家店铺运营"
+      ],
+      "mention_count": 81,
+      "review_action": "review_for_semantic_lexicon"
+    },
+    {
+      "auto_apply": false,
+      "canonical_name": "etsy",
+      "community_count": 5,
+      "interest_tags": [
+        "好物选品",
+        "卖家店铺运营"
+      ],
+      "mention_count": 68,
+      "review_action": "review_for_semantic_lexicon"
+    },
+    {
+      "auto_apply": false,
+      "canonical_name": "fba",
+      "community_count": 4,
+      "interest_tags": [
+        "AI工具与Agent",
+        "卖家店铺运营"
+      ],
+      "mention_count": 51,
+      "review_action": "review_for_semantic_lexicon"
+    },
+    {
+      "auto_apply": false,
+      "canonical_name": "facebook",
+      "community_count": 6,
+      "interest_tags": [
+        "广告投放",
+        "SEO&GEO",
+        "众筹与品牌启动"
+      ],
+      "mention_count": 46,
+      "review_action": "review_for_semantic_lexicon"
+    },
+    {
+      "auto_apply": false,
+      "canonical_name": "youtube",
+      "community_count": 9,
+      "interest_tags": [
+        "家居生活选品",
+        "广告投放",
+        "SEO&GEO",
+        "AI工具与Agent"
+      ],
+      "mention_count": 15,
+      "review_action": "review_for_semantic_lexicon"
+    },
+    {
+      "auto_apply": false,
+      "canonical_name": "tiktok",
+      "community_count": 3,
+      "interest_tags": [
+        "广告投放",
+        "众筹与品牌启动",
+        "卖家店铺运营"
+      ],
+      "mention_count": 9,
+      "review_action": "review_for_semantic_lexicon"
+    },
+    {
+      "auto_apply": false,
+      "canonical_name": "TikTok Shop",
+      "community_count": 3,
+      "interest_tags": [
+        "广告投放",
+        "众筹与品牌启动",
+        "卖家店铺运营"
+      ],
+      "mention_count": 9,
+      "review_action": "review_for_semantic_lexicon"
+    },
+    {
+      "auto_apply": false,
+      "canonical_name": "instagram",
+      "community_count": 4,
+      "interest_tags": [
+        "广告投放",
+        "SEO&GEO"
+      ],
+      "mention_count": 7,
+      "review_action": "review_for_semantic_lexicon"
+    },
+    {
+      "auto_apply": false,
+      "canonical_name": "Temu",
+      "community_count": 2,
+      "interest_tags": [
+        "好物选品"
+      ],
+      "mention_count": 6,
+      "review_action": "review_for_semantic_lexicon"
+    },
+    {
+      "auto_apply": false,
+      "canonical_name": "alibaba",
+      "community_count": 2,
+      "interest_tags": [
+        "AI工具与Agent",
+        "卖家店铺运营"
+      ],
+      "mention_count": 3,
+      "review_action": "review_for_semantic_lexicon"
+    },
+    {
+      "auto_apply": false,
+      "canonical_name": "bigcommerce",
+      "community_count": 2,
+      "interest_tags": [
+        "卖家店铺运营"
+      ],
+      "mention_count": 3,
+      "review_action": "review_for_semantic_lexicon"
+    }
+  ],
+  "summary": {
+    "brands_observed": 171,
+    "candidate_brands": 142,
+    "cards_scanned": 881,
+    "evidence_count": 1571,
+    "new_brand_candidates": 0,
+    "noise_items": 16,
+    "registry_known_brands": 1655,
+    "rejected_brands": 16,
+    "semantic_review_queue": 13,
+    "verified_brands": 13
+  },
+  "verified_brands": [
+    {
+      "canonical_name": "google",
+      "community_count": 31,
+      "interest_tags": [
+        "家居生活选品",
+        "好物选品",
+        "广告投放",
+        "SEO&GEO",
+        "AI工具与Agent",
+        "卖家店铺运营",
+        "内容营销创作"
+      ],
+      "mention_count": 309,
+      "noise_flags": [],
+      "review_status": "verified"
+    },
+    {
+      "canonical_name": "shopify",
+      "community_count": 8,
+      "interest_tags": [
+        "广告投放",
+        "SEO&GEO",
+        "AI工具与Agent",
+        "卖家店铺运营"
+      ],
+      "mention_count": 119,
+      "noise_flags": [],
+      "review_status": "verified"
+    },
+    {
+      "canonical_name": "Amazon",
+      "community_count": 15,
+      "interest_tags": [
+        "家居生活选品",
+        "好物选品",
+        "AI工具与Agent",
+        "电商平台政策与风向",
+        "卖家店铺运营"
+      ],
+      "mention_count": 81,
+      "noise_flags": [],
+      "review_status": "verified"
+    },
+    {
+      "canonical_name": "etsy",
+      "community_count": 5,
+      "interest_tags": [
+        "好物选品",
+        "卖家店铺运营"
+      ],
+      "mention_count": 68,
+      "noise_flags": [],
+      "review_status": "verified"
+    },
+    {
+      "canonical_name": "fba",
+      "community_count": 4,
+      "interest_tags": [
+        "AI工具与Agent",
+        "卖家店铺运营"
+      ],
+      "mention_count": 51,
+      "noise_flags": [],
+      "review_status": "verified"
+    },
+    {
+      "canonical_name": "facebook",
+      "community_count": 6,
+      "interest_tags": [
+        "广告投放",
+        "SEO&GEO",
+        "众筹与品牌启动"
+      ],
+      "mention_count": 46,
+      "noise_flags": [],
+      "review_status": "verified"
+    },
+    {
+      "canonical_name": "youtube",
+      "community_count": 9,
+      "interest_tags": [
+        "家居生活选品",
+        "广告投放",
+        "SEO&GEO",
+        "AI工具与Agent"
+      ],
+      "mention_count": 15,
+      "noise_flags": [],
+      "review_status": "verified"
+    },
+    {
+      "canonical_name": "tiktok",
+      "community_count": 3,
+      "interest_tags": [
+        "广告投放",
+        "众筹与品牌启动",
+        "卖家店铺运营"
+      ],
+      "mention_count": 9,
+      "noise_flags": [],
+      "review_status": "verified"
+    },
+    {
+      "canonical_name": "TikTok Shop",
+      "community_count": 3,
+      "interest_tags": [
+        "广告投放",
+        "众筹与品牌启动",
+        "卖家店铺运营"
+      ],
+      "mention_count": 9,
+      "noise_flags": [],
+      "review_status": "verified"
+    },
+    {
+      "canonical_name": "instagram",
+      "community_count": 4,
+      "interest_tags": [
+        "广告投放",
+        "SEO&GEO"
+      ],
+      "mention_count": 7,
+      "noise_flags": [],
+      "review_status": "verified"
+    },
+    {
+      "canonical_name": "Temu",
+      "community_count": 2,
+      "interest_tags": [
+        "好物选品"
+      ],
+      "mention_count": 6,
+      "noise_flags": [],
+      "review_status": "verified"
+    },
+    {
+      "canonical_name": "alibaba",
+      "community_count": 2,
+      "interest_tags": [
+        "AI工具与Agent",
+        "卖家店铺运营"
+      ],
+      "mention_count": 3,
+      "noise_flags": [],
+      "review_status": "verified"
+    },
+    {
+      "canonical_name": "bigcommerce",
+      "community_count": 2,
+      "interest_tags": [
+        "卖家店铺运营"
+      ],
+      "mention_count": 3,
+      "noise_flags": [],
+      "review_status": "verified"
+    }
+  ]
+}

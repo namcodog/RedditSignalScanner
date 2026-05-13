@@ -1,0 +1,135 @@
+# Brand Registry R15.2 Dev Write
+
+- DB writes: `true`
+- target_database: `reddit_signal_scanner_dev`
+- input_registry_rows: `1655`
+- input_mentions: `1254`
+- would_insert_registry_rows: `1655`
+- would_insert_mentions: `1254`
+- inserted_registry_rows: `1655`
+- inserted_mentions: `1254`
+- rollback_sql: `reports/brand-intelligence/brand-registry-r15-2-dev-write-rollback-2026-05-12.sql`
+
+## Planned Brand Inserts
+
+- 1688.com
+- 1stdibs
+- 1zpresso
+- 2checkout
+- 3 sprouts
+- 3dcart
+- 3m
+- 4moms
+- 5.11 tactical
+- 66 north
+- 7-eleven
+- 99 ranch
+- a dozen cousins
+- a101
+- abby&finn
+- acaia
+- acebeam
+- acr bivy
+- action
+- adbadger
+- adidas terrex
+- adobe commerce
+- adorama used
+- adroll
+- adtomic
+- adyen
+- aeon
+- aer
+- aeropress
+- affirm
+- afterpay
+- aftership
+- age of innocence
+- agility
+- ahold delhaize
+- aihello
+- airwallex
+- alani nu
+- albany park
+- albert heijn
+- aldi
+- alibaba
+- aliexpress
+- all-clad
+- allmodern
+- alma coffee
+- almond breeze
+- alpaka
+- alps mountaineering
+- alter eco
+- altra
+- amana
+- amara
+- amazeowl
+- amazon
+- amazon fresh
+- amazon marketing services
+- amazon warehouse
+- amazonbasics
+- amzbase
+- amzrefund
+- amzscout
+- anchor hocking
+- and wander
+- andy pandy
+- angel dear
+- anker
+- annie selke
+- anthropologie home
+- apple refurbished
+- april coffee
+- apt2b
+- aptamil
+- aptdeco
+- aquaphor
+- aramex
+- arc'teryx
+- arc'teryx regear
+- arcbest
+- arhaus
+- armadillo
+- armytek
+- article
+- artipoppe
+- artisan cutlery
+- asda
+- ashley furniture
+- asinspector
+- asolo
+- astral
+- attentive
+- auchan
+- aura
+- australia post
+- authorize.net
+- avalara
+- aveeno baby
+- avocado green
+- avocado green mattress
+- awara
+- b&b italia
+- b&h used
+- b&m
+- babo botanicals
+- baby bjorn
+- baby brezza
+- baby einstein
+- baby jogger
+- babyganics
+- babyletto
+- bachan's
+- back market
+- baffin
+- bahco
+- baier
+- baker
+- balmuda
+- bambo nature
+- banking circle
+- banza
+- ... 1535 more

@@ -6,7 +6,7 @@
     "experimental_communities_are_probe_only": true,
     "writes_db": false
   },
-  "report_date": "2026-05-12",
+  "report_date": "2026-05-13",
   "rows": [
     {
       "collected_candidates": 1,
@@ -95,28 +95,33 @@
       "topic_cluster_id": "workflow-friction"
     },
     {
-      "collected_candidates": 1,
+      "collected_candidates": 3,
       "community": "heronebag",
       "draft_count": 0,
-      "duplicate_count": 0,
+      "duplicate_count": 1,
       "new_topic_count": 1,
-      "noise_notes": "not_published_yet",
+      "noise_notes": "duplicate_posts, not_published_yet",
       "published_count": 0,
       "reject_count": 0,
       "scope_id": "ecommerce-sellers",
       "semantic_feedback": {
         "frequent_entities": [
+          "too bulky",
           "how do i clean pet hair in a small apartment"
         ],
         "pain_solution_tags": [
+          "趋势变化",
           "求推荐",
+          "too bulky",
           "how do i clean pet hair in a small apartment"
         ],
         "product_tags": [
           "户外用品选品"
         ],
         "sample_titles": [
-          "Car Camping in WA in late May"
+          "Packing for 12 days in Italy in late June/Early July",
+          "Car Camping in WA in late May",
+          "Packing for 12 days in Italy in late June/Early July"
         ]
       },
       "suggested_action": "keep_testing",
@@ -180,12 +185,12 @@
       "topic_cluster_id": "outdoor"
     },
     {
-      "collected_candidates": 3,
+      "collected_candidates": 1,
       "community": "etsy",
       "draft_count": 0,
-      "duplicate_count": 1,
+      "duplicate_count": 0,
       "new_topic_count": 2,
-      "noise_notes": "duplicate_posts",
+      "noise_notes": "",
       "published_count": 4,
       "reject_count": 0,
       "scope_id": "ecommerce-sellers",
@@ -201,10 +206,10 @@
         "product_tags": [],
         "sample_titles": [
           "Share Your Stuff - May 11th thru 17th, 2026",
-          "Do buyers actually read or check photos?",
-          "Do buyers actually read or check photos?",
           "Etsy 卖家确认买家普遍跳过商品图片和描述",
-          "Etsy 卖家抱怨自动退款，同行指出应先调处理时间和追踪"
+          "Etsy 卖家抱怨自动退款，同行指出应先调处理时间和追踪",
+          "Etsy 买家开始从边缘渗色和花瓣变异识别 AI 生成插画",
+          "Etsy 卖家给真产品用 AI 背景，买家直接怀疑整个商品页都是假的"
         ]
       },
       "suggested_action": "promote_candidate",
@@ -289,28 +294,20 @@
       "semantic_feedback": {
         "frequent_entities": [
           "custom-topic",
-          "demos",
-          "drops",
-          "drop",
-          "ai ugc does not convert",
           "started using ai ugc video"
         ],
         "pain_solution_tags": [
           "趋势变化",
-          "求推荐",
+          "替换",
           "避坑",
-          "demos",
-          "drops",
-          "drop",
-          "ai ugc does not convert",
           "started using ai ugc video"
         ],
         "product_tags": [
           "转化链路"
         ],
         "sample_titles": [
-          "Kling 3 vs Seedance 2: It's Not Even Close - a complete review + prompts + styles and custom GPT + Claude template FREE",
-          "Kling 3 vs Seedance 2: It's Not Even Close - a complete review + prompts + styles and custom GPT + Claude template FREE",
+          "The Humble Hero Method Broke Our Instagram (Just Copy Me Already)",
+          "The Humble Hero Method Broke Our Instagram (Just Copy Me Already)",
           "AI 护肤广告露出三只手，评论却说动态剪辑更关键",
           "AI 生成的手袋开箱视频，评价焦点从画质转向开箱仪式感与动作逻辑",
           "AI 广告创作者发现，每拍12词是跨镜头角色一致的关键参数"
@@ -344,7 +341,7 @@
           "GEO / AI 搜索"
         ],
         "sample_titles": [
-          "I started redesigning local business homepages for free with AI… and it’s getting weird results",
+          "Brand health was declining for months and we had no dashboard showing it",
           "增长负责人发现，只看 GA 和排名会错过 Reddit 上的品牌负面信号",
           "增长黑客测试发现，直接解答对比问题的内容更易被 LLM 引用",
           "一名增长黑客把 pSEO 索引症结从 Sitemap 转向内链"

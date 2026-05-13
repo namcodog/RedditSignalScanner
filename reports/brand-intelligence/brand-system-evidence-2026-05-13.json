@@ -1,0 +1,4398 @@
+{
+  "community_brand_evidence": [
+    {
+      "brand_count": 9,
+      "brands": [
+        {
+          "brand_key": "google",
+          "business_domains": [],
+          "communities": [
+            "r/AskMarketing",
+            "r/Blogging",
+            "r/ChatGPT",
+            "r/ClaudeAI",
+            "r/DigitalMarketing",
+            "r/Entrepreneur",
+            "r/FacebookAds",
+            "r/Google_Ads",
+            "r/GrowthHacking",
+            "r/LLM",
+            "r/PPC",
+            "r/SEO",
+            "r/TechSEO",
+            "r/adops",
+            "r/aeo",
+            "r/agi",
+            "r/analytics",
+            "r/artificial",
+            "r/automation",
+            "r/b2bmarketing",
+            "r/bigseo",
+            "r/claudeskills",
+            "r/content_marketing",
+            "r/dogs",
+            "r/ecommerce",
+            "r/googleads",
+            "r/juststart",
+            "r/seogrowth",
+            "r/shopify"
+          ],
+          "display_name": "google",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "家居生活选品",
+            "好物选品",
+            "广告投放",
+            "SEO&GEO",
+            "AI工具与Agent",
+            "卖家店铺运营",
+            "内容营销创作"
+          ],
+          "latest_observed_at": "2026-05-12T04:33:32.209536+00:00",
+          "mention_count": 305
+        },
+        {
+          "brand_key": "shopify",
+          "business_domains": [
+            "电商平台与卖家工具"
+          ],
+          "communities": [
+            "r/DigitalMarketing",
+            "r/FulfillmentByAmazon",
+            "r/PPC",
+            "r/SEO",
+            "r/analytics",
+            "r/automation",
+            "r/ecommerce",
+            "r/shopify"
+          ],
+          "display_name": "Shopify",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "广告投放",
+            "SEO&GEO",
+            "AI工具与Agent",
+            "卖家店铺运营"
+          ],
+          "latest_observed_at": "2026-05-11T06:28:31.977368+00:00",
+          "mention_count": 110
+        },
+        {
+          "brand_key": "amazon",
+          "business_domains": [],
+          "communities": [
+            "r/AmazonSeller",
+            "r/BuyItForLife",
+            "r/ClaudeAI",
+            "r/CleaningTips",
+            "r/Coffee",
+            "r/Frugal",
+            "r/FulfillmentByAmazon",
+            "r/GiftIdeas",
+            "r/Leuven",
+            "r/OpenAI",
+            "r/agi",
+            "r/ecommerce",
+            "r/espresso",
+            "r/flashlight",
+            "r/fountainpens"
+          ],
+          "display_name": "Amazon",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "家居生活选品",
+            "好物选品",
+            "AI工具与Agent",
+            "电商平台政策与风向",
+            "卖家店铺运营"
+          ],
+          "latest_observed_at": "2026-05-12T03:54:15.548530+00:00",
+          "mention_count": 78
+        },
+        {
+          "brand_key": "etsy",
+          "business_domains": [
+            "家居生活"
+          ],
+          "communities": [
+            "r/Etsy",
+            "r/EtsySellers",
+            "r/GiftIdeas",
+            "r/ecommerce",
+            "r/shopify"
+          ],
+          "display_name": "Etsy",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "好物选品",
+            "卖家店铺运营"
+          ],
+          "latest_observed_at": "2026-05-12T04:58:38.912170+00:00",
+          "mention_count": 68
+        },
+        {
+          "brand_key": "fba",
+          "business_domains": [],
+          "communities": [
+            "r/AmazonSeller",
+            "r/EtsySellers",
+            "r/FulfillmentByAmazon",
+            "r/ecommerce"
+          ],
+          "display_name": "fba",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "AI工具与Agent",
+            "卖家店铺运营"
+          ],
+          "latest_observed_at": "2026-05-12T03:54:15.548530+00:00",
+          "mention_count": 51
+        },
+        {
+          "brand_key": "facebook",
+          "business_domains": [],
+          "communities": [
+            "r/FacebookAds",
+            "r/ManyBaggers",
+            "r/SEO",
+            "r/ecommerce",
+            "r/fountainpens",
+            "r/kickstarter"
+          ],
+          "display_name": "facebook",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "广告投放",
+            "SEO&GEO",
+            "众筹与品牌启动"
+          ],
+          "latest_observed_at": "2026-05-11T05:12:28.668933+00:00",
+          "mention_count": 46
+        },
+        {
+          "brand_key": "instagram",
+          "business_domains": [],
+          "communities": [
+            "r/DigitalMarketing",
+            "r/FacebookAds",
+            "r/SEO",
+            "r/ecommerce"
+          ],
+          "display_name": "instagram",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "广告投放",
+            "SEO&GEO"
+          ],
+          "latest_observed_at": "2026-04-30T11:32:23.780691+00:00",
+          "mention_count": 7
+        },
+        {
+          "brand_key": "alibaba",
+          "business_domains": [
+            "电商平台与卖家工具"
+          ],
+          "communities": [
+            "r/FulfillmentByAmazon",
+            "r/ecommerce"
+          ],
+          "display_name": "Alibaba",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "AI工具与Agent",
+            "卖家店铺运营"
+          ],
+          "latest_observed_at": "2026-04-24T05:21:16.365307+00:00",
+          "mention_count": 3
+        }
+      ],
+      "community": "r/ecommerce",
+      "mention_count": 671,
+      "top_brands": "google, Shopify, Amazon, Etsy, fba"
+    },
+    {
+      "brand_count": 6,
+      "brands": [
+        {
+          "brand_key": "google",
+          "business_domains": [],
+          "communities": [
+            "r/AskMarketing",
+            "r/Blogging",
+            "r/ChatGPT",
+            "r/ClaudeAI",
+            "r/DigitalMarketing",
+            "r/Entrepreneur",
+            "r/FacebookAds",
+            "r/Google_Ads",
+            "r/GrowthHacking",
+            "r/LLM",
+            "r/PPC",
+            "r/SEO",
+            "r/TechSEO",
+            "r/adops",
+            "r/aeo",
+            "r/agi",
+            "r/analytics",
+            "r/artificial",
+            "r/automation",
+            "r/b2bmarketing",
+            "r/bigseo",
+            "r/claudeskills",
+            "r/content_marketing",
+            "r/dogs",
+            "r/ecommerce",
+            "r/googleads",
+            "r/juststart",
+            "r/seogrowth",
+            "r/shopify"
+          ],
+          "display_name": "google",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "家居生活选品",
+            "好物选品",
+            "广告投放",
+            "SEO&GEO",
+            "AI工具与Agent",
+            "卖家店铺运营",
+            "内容营销创作"
+          ],
+          "latest_observed_at": "2026-05-12T04:33:32.209536+00:00",
+          "mention_count": 305
+        },
+        {
+          "brand_key": "shopify",
+          "business_domains": [
+            "电商平台与卖家工具"
+          ],
+          "communities": [
+            "r/DigitalMarketing",
+            "r/FulfillmentByAmazon",
+            "r/PPC",
+            "r/SEO",
+            "r/analytics",
+            "r/automation",
+            "r/ecommerce",
+            "r/shopify"
+          ],
+          "display_name": "Shopify",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "广告投放",
+            "SEO&GEO",
+            "AI工具与Agent",
+            "卖家店铺运营"
+          ],
+          "latest_observed_at": "2026-05-11T06:28:31.977368+00:00",
+          "mention_count": 110
+        },
+        {
+          "brand_key": "etsy",
+          "business_domains": [
+            "家居生活"
+          ],
+          "communities": [
+            "r/Etsy",
+            "r/EtsySellers",
+            "r/GiftIdeas",
+            "r/ecommerce",
+            "r/shopify"
+          ],
+          "display_name": "Etsy",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "好物选品",
+            "卖家店铺运营"
+          ],
+          "latest_observed_at": "2026-05-12T04:58:38.912170+00:00",
+          "mention_count": 68
+        },
+        {
+          "brand_key": "tiktok",
+          "business_domains": [],
+          "communities": [
+            "r/FacebookAds",
+            "r/kickstarter",
+            "r/shopify"
+          ],
+          "display_name": "tiktok",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "广告投放",
+            "众筹与品牌启动",
+            "卖家店铺运营"
+          ],
+          "latest_observed_at": "2026-05-12T04:33:32.209536+00:00",
+          "mention_count": 9
+        },
+        {
+          "brand_key": "tiktok shop",
+          "business_domains": [],
+          "communities": [
+            "r/FacebookAds",
+            "r/kickstarter",
+            "r/shopify"
+          ],
+          "display_name": "TikTok Shop",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "广告投放",
+            "众筹与品牌启动",
+            "卖家店铺运营"
+          ],
+          "latest_observed_at": "2026-05-12T04:33:32.209536+00:00",
+          "mention_count": 9
+        },
+        {
+          "brand_key": "bigcommerce",
+          "business_domains": [
+            "电商平台与卖家工具"
+          ],
+          "communities": [
+            "r/ecommerce",
+            "r/shopify"
+          ],
+          "display_name": "BigCommerce",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "卖家店铺运营"
+          ],
+          "latest_observed_at": "2026-05-07T04:21:44.469870+00:00",
+          "mention_count": 3
+        }
+      ],
+      "community": "r/shopify",
+      "mention_count": 504,
+      "top_brands": "google, Shopify, Etsy, tiktok, TikTok Shop"
+    },
+    {
+      "brand_count": 5,
+      "brands": [
+        {
+          "brand_key": "google",
+          "business_domains": [],
+          "communities": [
+            "r/AskMarketing",
+            "r/Blogging",
+            "r/ChatGPT",
+            "r/ClaudeAI",
+            "r/DigitalMarketing",
+            "r/Entrepreneur",
+            "r/FacebookAds",
+            "r/Google_Ads",
+            "r/GrowthHacking",
+            "r/LLM",
+            "r/PPC",
+            "r/SEO",
+            "r/TechSEO",
+            "r/adops",
+            "r/aeo",
+            "r/agi",
+            "r/analytics",
+            "r/artificial",
+            "r/automation",
+            "r/b2bmarketing",
+            "r/bigseo",
+            "r/claudeskills",
+            "r/content_marketing",
+            "r/dogs",
+            "r/ecommerce",
+            "r/googleads",
+            "r/juststart",
+            "r/seogrowth",
+            "r/shopify"
+          ],
+          "display_name": "google",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "家居生活选品",
+            "好物选品",
+            "广告投放",
+            "SEO&GEO",
+            "AI工具与Agent",
+            "卖家店铺运营",
+            "内容营销创作"
+          ],
+          "latest_observed_at": "2026-05-12T04:33:32.209536+00:00",
+          "mention_count": 305
+        },
+        {
+          "brand_key": "shopify",
+          "business_domains": [
+            "电商平台与卖家工具"
+          ],
+          "communities": [
+            "r/DigitalMarketing",
+            "r/FulfillmentByAmazon",
+            "r/PPC",
+            "r/SEO",
+            "r/analytics",
+            "r/automation",
+            "r/ecommerce",
+            "r/shopify"
+          ],
+          "display_name": "Shopify",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "广告投放",
+            "SEO&GEO",
+            "AI工具与Agent",
+            "卖家店铺运营"
+          ],
+          "latest_observed_at": "2026-05-11T06:28:31.977368+00:00",
+          "mention_count": 110
+        },
+        {
+          "brand_key": "facebook",
+          "business_domains": [],
+          "communities": [
+            "r/FacebookAds",
+            "r/ManyBaggers",
+            "r/SEO",
+            "r/ecommerce",
+            "r/fountainpens",
+            "r/kickstarter"
+          ],
+          "display_name": "facebook",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "广告投放",
+            "SEO&GEO",
+            "众筹与品牌启动"
+          ],
+          "latest_observed_at": "2026-05-11T05:12:28.668933+00:00",
+          "mention_count": 46
+        },
+        {
+          "brand_key": "youtube",
+          "business_domains": [],
+          "communities": [
+            "r/AI_Agents",
+            "r/BuyItForLife",
+            "r/CampingGear",
+            "r/DigitalMarketing",
+            "r/EntrepreneurRideAlong",
+            "r/FacebookAds",
+            "r/ManyBaggers",
+            "r/PPC",
+            "r/SEO"
+          ],
+          "display_name": "youtube",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "家居生活选品",
+            "广告投放",
+            "SEO&GEO",
+            "AI工具与Agent"
+          ],
+          "latest_observed_at": "2026-05-04T10:07:57.177718+00:00",
+          "mention_count": 15
+        },
+        {
+          "brand_key": "instagram",
+          "business_domains": [],
+          "communities": [
+            "r/DigitalMarketing",
+            "r/FacebookAds",
+            "r/SEO",
+            "r/ecommerce"
+          ],
+          "display_name": "instagram",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "广告投放",
+            "SEO&GEO"
+          ],
+          "latest_observed_at": "2026-04-30T11:32:23.780691+00:00",
+          "mention_count": 7
+        }
+      ],
+      "community": "r/SEO",
+      "mention_count": 483,
+      "top_brands": "google, Shopify, facebook, youtube, instagram"
+    },
+    {
+      "brand_count": 4,
+      "brands": [
+        {
+          "brand_key": "google",
+          "business_domains": [],
+          "communities": [
+            "r/AskMarketing",
+            "r/Blogging",
+            "r/ChatGPT",
+            "r/ClaudeAI",
+            "r/DigitalMarketing",
+            "r/Entrepreneur",
+            "r/FacebookAds",
+            "r/Google_Ads",
+            "r/GrowthHacking",
+            "r/LLM",
+            "r/PPC",
+            "r/SEO",
+            "r/TechSEO",
+            "r/adops",
+            "r/aeo",
+            "r/agi",
+            "r/analytics",
+            "r/artificial",
+            "r/automation",
+            "r/b2bmarketing",
+            "r/bigseo",
+            "r/claudeskills",
+            "r/content_marketing",
+            "r/dogs",
+            "r/ecommerce",
+            "r/googleads",
+            "r/juststart",
+            "r/seogrowth",
+            "r/shopify"
+          ],
+          "display_name": "google",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "家居生活选品",
+            "好物选品",
+            "广告投放",
+            "SEO&GEO",
+            "AI工具与Agent",
+            "卖家店铺运营",
+            "内容营销创作"
+          ],
+          "latest_observed_at": "2026-05-12T04:33:32.209536+00:00",
+          "mention_count": 305
+        },
+        {
+          "brand_key": "shopify",
+          "business_domains": [
+            "电商平台与卖家工具"
+          ],
+          "communities": [
+            "r/DigitalMarketing",
+            "r/FulfillmentByAmazon",
+            "r/PPC",
+            "r/SEO",
+            "r/analytics",
+            "r/automation",
+            "r/ecommerce",
+            "r/shopify"
+          ],
+          "display_name": "Shopify",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "广告投放",
+            "SEO&GEO",
+            "AI工具与Agent",
+            "卖家店铺运营"
+          ],
+          "latest_observed_at": "2026-05-11T06:28:31.977368+00:00",
+          "mention_count": 110
+        },
+        {
+          "brand_key": "youtube",
+          "business_domains": [],
+          "communities": [
+            "r/AI_Agents",
+            "r/BuyItForLife",
+            "r/CampingGear",
+            "r/DigitalMarketing",
+            "r/EntrepreneurRideAlong",
+            "r/FacebookAds",
+            "r/ManyBaggers",
+            "r/PPC",
+            "r/SEO"
+          ],
+          "display_name": "youtube",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "家居生活选品",
+            "广告投放",
+            "SEO&GEO",
+            "AI工具与Agent"
+          ],
+          "latest_observed_at": "2026-05-04T10:07:57.177718+00:00",
+          "mention_count": 15
+        },
+        {
+          "brand_key": "instagram",
+          "business_domains": [],
+          "communities": [
+            "r/DigitalMarketing",
+            "r/FacebookAds",
+            "r/SEO",
+            "r/ecommerce"
+          ],
+          "display_name": "instagram",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "广告投放",
+            "SEO&GEO"
+          ],
+          "latest_observed_at": "2026-04-30T11:32:23.780691+00:00",
+          "mention_count": 7
+        }
+      ],
+      "community": "r/DigitalMarketing",
+      "mention_count": 437,
+      "top_brands": "google, Shopify, youtube, instagram"
+    },
+    {
+      "brand_count": 3,
+      "brands": [
+        {
+          "brand_key": "google",
+          "business_domains": [],
+          "communities": [
+            "r/AskMarketing",
+            "r/Blogging",
+            "r/ChatGPT",
+            "r/ClaudeAI",
+            "r/DigitalMarketing",
+            "r/Entrepreneur",
+            "r/FacebookAds",
+            "r/Google_Ads",
+            "r/GrowthHacking",
+            "r/LLM",
+            "r/PPC",
+            "r/SEO",
+            "r/TechSEO",
+            "r/adops",
+            "r/aeo",
+            "r/agi",
+            "r/analytics",
+            "r/artificial",
+            "r/automation",
+            "r/b2bmarketing",
+            "r/bigseo",
+            "r/claudeskills",
+            "r/content_marketing",
+            "r/dogs",
+            "r/ecommerce",
+            "r/googleads",
+            "r/juststart",
+            "r/seogrowth",
+            "r/shopify"
+          ],
+          "display_name": "google",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "家居生活选品",
+            "好物选品",
+            "广告投放",
+            "SEO&GEO",
+            "AI工具与Agent",
+            "卖家店铺运营",
+            "内容营销创作"
+          ],
+          "latest_observed_at": "2026-05-12T04:33:32.209536+00:00",
+          "mention_count": 305
+        },
+        {
+          "brand_key": "shopify",
+          "business_domains": [
+            "电商平台与卖家工具"
+          ],
+          "communities": [
+            "r/DigitalMarketing",
+            "r/FulfillmentByAmazon",
+            "r/PPC",
+            "r/SEO",
+            "r/analytics",
+            "r/automation",
+            "r/ecommerce",
+            "r/shopify"
+          ],
+          "display_name": "Shopify",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "广告投放",
+            "SEO&GEO",
+            "AI工具与Agent",
+            "卖家店铺运营"
+          ],
+          "latest_observed_at": "2026-05-11T06:28:31.977368+00:00",
+          "mention_count": 110
+        },
+        {
+          "brand_key": "youtube",
+          "business_domains": [],
+          "communities": [
+            "r/AI_Agents",
+            "r/BuyItForLife",
+            "r/CampingGear",
+            "r/DigitalMarketing",
+            "r/EntrepreneurRideAlong",
+            "r/FacebookAds",
+            "r/ManyBaggers",
+            "r/PPC",
+            "r/SEO"
+          ],
+          "display_name": "youtube",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "家居生活选品",
+            "广告投放",
+            "SEO&GEO",
+            "AI工具与Agent"
+          ],
+          "latest_observed_at": "2026-05-04T10:07:57.177718+00:00",
+          "mention_count": 15
+        }
+      ],
+      "community": "r/PPC",
+      "mention_count": 430,
+      "top_brands": "google, Shopify, youtube"
+    },
+    {
+      "brand_count": 2,
+      "brands": [
+        {
+          "brand_key": "google",
+          "business_domains": [],
+          "communities": [
+            "r/AskMarketing",
+            "r/Blogging",
+            "r/ChatGPT",
+            "r/ClaudeAI",
+            "r/DigitalMarketing",
+            "r/Entrepreneur",
+            "r/FacebookAds",
+            "r/Google_Ads",
+            "r/GrowthHacking",
+            "r/LLM",
+            "r/PPC",
+            "r/SEO",
+            "r/TechSEO",
+            "r/adops",
+            "r/aeo",
+            "r/agi",
+            "r/analytics",
+            "r/artificial",
+            "r/automation",
+            "r/b2bmarketing",
+            "r/bigseo",
+            "r/claudeskills",
+            "r/content_marketing",
+            "r/dogs",
+            "r/ecommerce",
+            "r/googleads",
+            "r/juststart",
+            "r/seogrowth",
+            "r/shopify"
+          ],
+          "display_name": "google",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "家居生活选品",
+            "好物选品",
+            "广告投放",
+            "SEO&GEO",
+            "AI工具与Agent",
+            "卖家店铺运营",
+            "内容营销创作"
+          ],
+          "latest_observed_at": "2026-05-12T04:33:32.209536+00:00",
+          "mention_count": 305
+        },
+        {
+          "brand_key": "shopify",
+          "business_domains": [
+            "电商平台与卖家工具"
+          ],
+          "communities": [
+            "r/DigitalMarketing",
+            "r/FulfillmentByAmazon",
+            "r/PPC",
+            "r/SEO",
+            "r/analytics",
+            "r/automation",
+            "r/ecommerce",
+            "r/shopify"
+          ],
+          "display_name": "Shopify",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "广告投放",
+            "SEO&GEO",
+            "AI工具与Agent",
+            "卖家店铺运营"
+          ],
+          "latest_observed_at": "2026-05-11T06:28:31.977368+00:00",
+          "mention_count": 110
+        }
+      ],
+      "community": "r/analytics",
+      "mention_count": 415,
+      "top_brands": "google, Shopify"
+    },
+    {
+      "brand_count": 2,
+      "brands": [
+        {
+          "brand_key": "google",
+          "business_domains": [],
+          "communities": [
+            "r/AskMarketing",
+            "r/Blogging",
+            "r/ChatGPT",
+            "r/ClaudeAI",
+            "r/DigitalMarketing",
+            "r/Entrepreneur",
+            "r/FacebookAds",
+            "r/Google_Ads",
+            "r/GrowthHacking",
+            "r/LLM",
+            "r/PPC",
+            "r/SEO",
+            "r/TechSEO",
+            "r/adops",
+            "r/aeo",
+            "r/agi",
+            "r/analytics",
+            "r/artificial",
+            "r/automation",
+            "r/b2bmarketing",
+            "r/bigseo",
+            "r/claudeskills",
+            "r/content_marketing",
+            "r/dogs",
+            "r/ecommerce",
+            "r/googleads",
+            "r/juststart",
+            "r/seogrowth",
+            "r/shopify"
+          ],
+          "display_name": "google",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "家居生活选品",
+            "好物选品",
+            "广告投放",
+            "SEO&GEO",
+            "AI工具与Agent",
+            "卖家店铺运营",
+            "内容营销创作"
+          ],
+          "latest_observed_at": "2026-05-12T04:33:32.209536+00:00",
+          "mention_count": 305
+        },
+        {
+          "brand_key": "shopify",
+          "business_domains": [
+            "电商平台与卖家工具"
+          ],
+          "communities": [
+            "r/DigitalMarketing",
+            "r/FulfillmentByAmazon",
+            "r/PPC",
+            "r/SEO",
+            "r/analytics",
+            "r/automation",
+            "r/ecommerce",
+            "r/shopify"
+          ],
+          "display_name": "Shopify",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "广告投放",
+            "SEO&GEO",
+            "AI工具与Agent",
+            "卖家店铺运营"
+          ],
+          "latest_observed_at": "2026-05-11T06:28:31.977368+00:00",
+          "mention_count": 110
+        }
+      ],
+      "community": "r/automation",
+      "mention_count": 415,
+      "top_brands": "google, Shopify"
+    },
+    {
+      "brand_count": 6,
+      "brands": [
+        {
+          "brand_key": "google",
+          "business_domains": [],
+          "communities": [
+            "r/AskMarketing",
+            "r/Blogging",
+            "r/ChatGPT",
+            "r/ClaudeAI",
+            "r/DigitalMarketing",
+            "r/Entrepreneur",
+            "r/FacebookAds",
+            "r/Google_Ads",
+            "r/GrowthHacking",
+            "r/LLM",
+            "r/PPC",
+            "r/SEO",
+            "r/TechSEO",
+            "r/adops",
+            "r/aeo",
+            "r/agi",
+            "r/analytics",
+            "r/artificial",
+            "r/automation",
+            "r/b2bmarketing",
+            "r/bigseo",
+            "r/claudeskills",
+            "r/content_marketing",
+            "r/dogs",
+            "r/ecommerce",
+            "r/googleads",
+            "r/juststart",
+            "r/seogrowth",
+            "r/shopify"
+          ],
+          "display_name": "google",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "家居生活选品",
+            "好物选品",
+            "广告投放",
+            "SEO&GEO",
+            "AI工具与Agent",
+            "卖家店铺运营",
+            "内容营销创作"
+          ],
+          "latest_observed_at": "2026-05-12T04:33:32.209536+00:00",
+          "mention_count": 305
+        },
+        {
+          "brand_key": "facebook",
+          "business_domains": [],
+          "communities": [
+            "r/FacebookAds",
+            "r/ManyBaggers",
+            "r/SEO",
+            "r/ecommerce",
+            "r/fountainpens",
+            "r/kickstarter"
+          ],
+          "display_name": "facebook",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "广告投放",
+            "SEO&GEO",
+            "众筹与品牌启动"
+          ],
+          "latest_observed_at": "2026-05-11T05:12:28.668933+00:00",
+          "mention_count": 46
+        },
+        {
+          "brand_key": "youtube",
+          "business_domains": [],
+          "communities": [
+            "r/AI_Agents",
+            "r/BuyItForLife",
+            "r/CampingGear",
+            "r/DigitalMarketing",
+            "r/EntrepreneurRideAlong",
+            "r/FacebookAds",
+            "r/ManyBaggers",
+            "r/PPC",
+            "r/SEO"
+          ],
+          "display_name": "youtube",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "家居生活选品",
+            "广告投放",
+            "SEO&GEO",
+            "AI工具与Agent"
+          ],
+          "latest_observed_at": "2026-05-04T10:07:57.177718+00:00",
+          "mention_count": 15
+        },
+        {
+          "brand_key": "tiktok",
+          "business_domains": [],
+          "communities": [
+            "r/FacebookAds",
+            "r/kickstarter",
+            "r/shopify"
+          ],
+          "display_name": "tiktok",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "广告投放",
+            "众筹与品牌启动",
+            "卖家店铺运营"
+          ],
+          "latest_observed_at": "2026-05-12T04:33:32.209536+00:00",
+          "mention_count": 9
+        },
+        {
+          "brand_key": "tiktok shop",
+          "business_domains": [],
+          "communities": [
+            "r/FacebookAds",
+            "r/kickstarter",
+            "r/shopify"
+          ],
+          "display_name": "TikTok Shop",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "广告投放",
+            "众筹与品牌启动",
+            "卖家店铺运营"
+          ],
+          "latest_observed_at": "2026-05-12T04:33:32.209536+00:00",
+          "mention_count": 9
+        },
+        {
+          "brand_key": "instagram",
+          "business_domains": [],
+          "communities": [
+            "r/DigitalMarketing",
+            "r/FacebookAds",
+            "r/SEO",
+            "r/ecommerce"
+          ],
+          "display_name": "instagram",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "广告投放",
+            "SEO&GEO"
+          ],
+          "latest_observed_at": "2026-04-30T11:32:23.780691+00:00",
+          "mention_count": 7
+        }
+      ],
+      "community": "r/FacebookAds",
+      "mention_count": 391,
+      "top_brands": "google, facebook, youtube, tiktok, TikTok Shop"
+    },
+    {
+      "brand_count": 2,
+      "brands": [
+        {
+          "brand_key": "google",
+          "business_domains": [],
+          "communities": [
+            "r/AskMarketing",
+            "r/Blogging",
+            "r/ChatGPT",
+            "r/ClaudeAI",
+            "r/DigitalMarketing",
+            "r/Entrepreneur",
+            "r/FacebookAds",
+            "r/Google_Ads",
+            "r/GrowthHacking",
+            "r/LLM",
+            "r/PPC",
+            "r/SEO",
+            "r/TechSEO",
+            "r/adops",
+            "r/aeo",
+            "r/agi",
+            "r/analytics",
+            "r/artificial",
+            "r/automation",
+            "r/b2bmarketing",
+            "r/bigseo",
+            "r/claudeskills",
+            "r/content_marketing",
+            "r/dogs",
+            "r/ecommerce",
+            "r/googleads",
+            "r/juststart",
+            "r/seogrowth",
+            "r/shopify"
+          ],
+          "display_name": "google",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "家居生活选品",
+            "好物选品",
+            "广告投放",
+            "SEO&GEO",
+            "AI工具与Agent",
+            "卖家店铺运营",
+            "内容营销创作"
+          ],
+          "latest_observed_at": "2026-05-12T04:33:32.209536+00:00",
+          "mention_count": 305
+        },
+        {
+          "brand_key": "amazon",
+          "business_domains": [],
+          "communities": [
+            "r/AmazonSeller",
+            "r/BuyItForLife",
+            "r/ClaudeAI",
+            "r/CleaningTips",
+            "r/Coffee",
+            "r/Frugal",
+            "r/FulfillmentByAmazon",
+            "r/GiftIdeas",
+            "r/Leuven",
+            "r/OpenAI",
+            "r/agi",
+            "r/ecommerce",
+            "r/espresso",
+            "r/flashlight",
+            "r/fountainpens"
+          ],
+          "display_name": "Amazon",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "家居生活选品",
+            "好物选品",
+            "AI工具与Agent",
+            "电商平台政策与风向",
+            "卖家店铺运营"
+          ],
+          "latest_observed_at": "2026-05-12T03:54:15.548530+00:00",
+          "mention_count": 78
+        }
+      ],
+      "community": "r/ClaudeAI",
+      "mention_count": 383,
+      "top_brands": "google, Amazon"
+    },
+    {
+      "brand_count": 2,
+      "brands": [
+        {
+          "brand_key": "google",
+          "business_domains": [],
+          "communities": [
+            "r/AskMarketing",
+            "r/Blogging",
+            "r/ChatGPT",
+            "r/ClaudeAI",
+            "r/DigitalMarketing",
+            "r/Entrepreneur",
+            "r/FacebookAds",
+            "r/Google_Ads",
+            "r/GrowthHacking",
+            "r/LLM",
+            "r/PPC",
+            "r/SEO",
+            "r/TechSEO",
+            "r/adops",
+            "r/aeo",
+            "r/agi",
+            "r/analytics",
+            "r/artificial",
+            "r/automation",
+            "r/b2bmarketing",
+            "r/bigseo",
+            "r/claudeskills",
+            "r/content_marketing",
+            "r/dogs",
+            "r/ecommerce",
+            "r/googleads",
+            "r/juststart",
+            "r/seogrowth",
+            "r/shopify"
+          ],
+          "display_name": "google",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "家居生活选品",
+            "好物选品",
+            "广告投放",
+            "SEO&GEO",
+            "AI工具与Agent",
+            "卖家店铺运营",
+            "内容营销创作"
+          ],
+          "latest_observed_at": "2026-05-12T04:33:32.209536+00:00",
+          "mention_count": 305
+        },
+        {
+          "brand_key": "amazon",
+          "business_domains": [],
+          "communities": [
+            "r/AmazonSeller",
+            "r/BuyItForLife",
+            "r/ClaudeAI",
+            "r/CleaningTips",
+            "r/Coffee",
+            "r/Frugal",
+            "r/FulfillmentByAmazon",
+            "r/GiftIdeas",
+            "r/Leuven",
+            "r/OpenAI",
+            "r/agi",
+            "r/ecommerce",
+            "r/espresso",
+            "r/flashlight",
+            "r/fountainpens"
+          ],
+          "display_name": "Amazon",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "家居生活选品",
+            "好物选品",
+            "AI工具与Agent",
+            "电商平台政策与风向",
+            "卖家店铺运营"
+          ],
+          "latest_observed_at": "2026-05-12T03:54:15.548530+00:00",
+          "mention_count": 78
+        }
+      ],
+      "community": "r/agi",
+      "mention_count": 383,
+      "top_brands": "google, Amazon"
+    },
+    {
+      "brand_count": 1,
+      "brands": [
+        {
+          "brand_key": "google",
+          "business_domains": [],
+          "communities": [
+            "r/AskMarketing",
+            "r/Blogging",
+            "r/ChatGPT",
+            "r/ClaudeAI",
+            "r/DigitalMarketing",
+            "r/Entrepreneur",
+            "r/FacebookAds",
+            "r/Google_Ads",
+            "r/GrowthHacking",
+            "r/LLM",
+            "r/PPC",
+            "r/SEO",
+            "r/TechSEO",
+            "r/adops",
+            "r/aeo",
+            "r/agi",
+            "r/analytics",
+            "r/artificial",
+            "r/automation",
+            "r/b2bmarketing",
+            "r/bigseo",
+            "r/claudeskills",
+            "r/content_marketing",
+            "r/dogs",
+            "r/ecommerce",
+            "r/googleads",
+            "r/juststart",
+            "r/seogrowth",
+            "r/shopify"
+          ],
+          "display_name": "google",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "家居生活选品",
+            "好物选品",
+            "广告投放",
+            "SEO&GEO",
+            "AI工具与Agent",
+            "卖家店铺运营",
+            "内容营销创作"
+          ],
+          "latest_observed_at": "2026-05-12T04:33:32.209536+00:00",
+          "mention_count": 305
+        }
+      ],
+      "community": "r/AskMarketing",
+      "mention_count": 305,
+      "top_brands": "google"
+    },
+    {
+      "brand_count": 1,
+      "brands": [
+        {
+          "brand_key": "google",
+          "business_domains": [],
+          "communities": [
+            "r/AskMarketing",
+            "r/Blogging",
+            "r/ChatGPT",
+            "r/ClaudeAI",
+            "r/DigitalMarketing",
+            "r/Entrepreneur",
+            "r/FacebookAds",
+            "r/Google_Ads",
+            "r/GrowthHacking",
+            "r/LLM",
+            "r/PPC",
+            "r/SEO",
+            "r/TechSEO",
+            "r/adops",
+            "r/aeo",
+            "r/agi",
+            "r/analytics",
+            "r/artificial",
+            "r/automation",
+            "r/b2bmarketing",
+            "r/bigseo",
+            "r/claudeskills",
+            "r/content_marketing",
+            "r/dogs",
+            "r/ecommerce",
+            "r/googleads",
+            "r/juststart",
+            "r/seogrowth",
+            "r/shopify"
+          ],
+          "display_name": "google",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "家居生活选品",
+            "好物选品",
+            "广告投放",
+            "SEO&GEO",
+            "AI工具与Agent",
+            "卖家店铺运营",
+            "内容营销创作"
+          ],
+          "latest_observed_at": "2026-05-12T04:33:32.209536+00:00",
+          "mention_count": 305
+        }
+      ],
+      "community": "r/Blogging",
+      "mention_count": 305,
+      "top_brands": "google"
+    },
+    {
+      "brand_count": 1,
+      "brands": [
+        {
+          "brand_key": "google",
+          "business_domains": [],
+          "communities": [
+            "r/AskMarketing",
+            "r/Blogging",
+            "r/ChatGPT",
+            "r/ClaudeAI",
+            "r/DigitalMarketing",
+            "r/Entrepreneur",
+            "r/FacebookAds",
+            "r/Google_Ads",
+            "r/GrowthHacking",
+            "r/LLM",
+            "r/PPC",
+            "r/SEO",
+            "r/TechSEO",
+            "r/adops",
+            "r/aeo",
+            "r/agi",
+            "r/analytics",
+            "r/artificial",
+            "r/automation",
+            "r/b2bmarketing",
+            "r/bigseo",
+            "r/claudeskills",
+            "r/content_marketing",
+            "r/dogs",
+            "r/ecommerce",
+            "r/googleads",
+            "r/juststart",
+            "r/seogrowth",
+            "r/shopify"
+          ],
+          "display_name": "google",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "家居生活选品",
+            "好物选品",
+            "广告投放",
+            "SEO&GEO",
+            "AI工具与Agent",
+            "卖家店铺运营",
+            "内容营销创作"
+          ],
+          "latest_observed_at": "2026-05-12T04:33:32.209536+00:00",
+          "mention_count": 305
+        }
+      ],
+      "community": "r/ChatGPT",
+      "mention_count": 305,
+      "top_brands": "google"
+    },
+    {
+      "brand_count": 1,
+      "brands": [
+        {
+          "brand_key": "google",
+          "business_domains": [],
+          "communities": [
+            "r/AskMarketing",
+            "r/Blogging",
+            "r/ChatGPT",
+            "r/ClaudeAI",
+            "r/DigitalMarketing",
+            "r/Entrepreneur",
+            "r/FacebookAds",
+            "r/Google_Ads",
+            "r/GrowthHacking",
+            "r/LLM",
+            "r/PPC",
+            "r/SEO",
+            "r/TechSEO",
+            "r/adops",
+            "r/aeo",
+            "r/agi",
+            "r/analytics",
+            "r/artificial",
+            "r/automation",
+            "r/b2bmarketing",
+            "r/bigseo",
+            "r/claudeskills",
+            "r/content_marketing",
+            "r/dogs",
+            "r/ecommerce",
+            "r/googleads",
+            "r/juststart",
+            "r/seogrowth",
+            "r/shopify"
+          ],
+          "display_name": "google",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "家居生活选品",
+            "好物选品",
+            "广告投放",
+            "SEO&GEO",
+            "AI工具与Agent",
+            "卖家店铺运营",
+            "内容营销创作"
+          ],
+          "latest_observed_at": "2026-05-12T04:33:32.209536+00:00",
+          "mention_count": 305
+        }
+      ],
+      "community": "r/Entrepreneur",
+      "mention_count": 305,
+      "top_brands": "google"
+    },
+    {
+      "brand_count": 1,
+      "brands": [
+        {
+          "brand_key": "google",
+          "business_domains": [],
+          "communities": [
+            "r/AskMarketing",
+            "r/Blogging",
+            "r/ChatGPT",
+            "r/ClaudeAI",
+            "r/DigitalMarketing",
+            "r/Entrepreneur",
+            "r/FacebookAds",
+            "r/Google_Ads",
+            "r/GrowthHacking",
+            "r/LLM",
+            "r/PPC",
+            "r/SEO",
+            "r/TechSEO",
+            "r/adops",
+            "r/aeo",
+            "r/agi",
+            "r/analytics",
+            "r/artificial",
+            "r/automation",
+            "r/b2bmarketing",
+            "r/bigseo",
+            "r/claudeskills",
+            "r/content_marketing",
+            "r/dogs",
+            "r/ecommerce",
+            "r/googleads",
+            "r/juststart",
+            "r/seogrowth",
+            "r/shopify"
+          ],
+          "display_name": "google",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "家居生活选品",
+            "好物选品",
+            "广告投放",
+            "SEO&GEO",
+            "AI工具与Agent",
+            "卖家店铺运营",
+            "内容营销创作"
+          ],
+          "latest_observed_at": "2026-05-12T04:33:32.209536+00:00",
+          "mention_count": 305
+        }
+      ],
+      "community": "r/Google_Ads",
+      "mention_count": 305,
+      "top_brands": "google"
+    },
+    {
+      "brand_count": 1,
+      "brands": [
+        {
+          "brand_key": "google",
+          "business_domains": [],
+          "communities": [
+            "r/AskMarketing",
+            "r/Blogging",
+            "r/ChatGPT",
+            "r/ClaudeAI",
+            "r/DigitalMarketing",
+            "r/Entrepreneur",
+            "r/FacebookAds",
+            "r/Google_Ads",
+            "r/GrowthHacking",
+            "r/LLM",
+            "r/PPC",
+            "r/SEO",
+            "r/TechSEO",
+            "r/adops",
+            "r/aeo",
+            "r/agi",
+            "r/analytics",
+            "r/artificial",
+            "r/automation",
+            "r/b2bmarketing",
+            "r/bigseo",
+            "r/claudeskills",
+            "r/content_marketing",
+            "r/dogs",
+            "r/ecommerce",
+            "r/googleads",
+            "r/juststart",
+            "r/seogrowth",
+            "r/shopify"
+          ],
+          "display_name": "google",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "家居生活选品",
+            "好物选品",
+            "广告投放",
+            "SEO&GEO",
+            "AI工具与Agent",
+            "卖家店铺运营",
+            "内容营销创作"
+          ],
+          "latest_observed_at": "2026-05-12T04:33:32.209536+00:00",
+          "mention_count": 305
+        }
+      ],
+      "community": "r/GrowthHacking",
+      "mention_count": 305,
+      "top_brands": "google"
+    },
+    {
+      "brand_count": 1,
+      "brands": [
+        {
+          "brand_key": "google",
+          "business_domains": [],
+          "communities": [
+            "r/AskMarketing",
+            "r/Blogging",
+            "r/ChatGPT",
+            "r/ClaudeAI",
+            "r/DigitalMarketing",
+            "r/Entrepreneur",
+            "r/FacebookAds",
+            "r/Google_Ads",
+            "r/GrowthHacking",
+            "r/LLM",
+            "r/PPC",
+            "r/SEO",
+            "r/TechSEO",
+            "r/adops",
+            "r/aeo",
+            "r/agi",
+            "r/analytics",
+            "r/artificial",
+            "r/automation",
+            "r/b2bmarketing",
+            "r/bigseo",
+            "r/claudeskills",
+            "r/content_marketing",
+            "r/dogs",
+            "r/ecommerce",
+            "r/googleads",
+            "r/juststart",
+            "r/seogrowth",
+            "r/shopify"
+          ],
+          "display_name": "google",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "家居生活选品",
+            "好物选品",
+            "广告投放",
+            "SEO&GEO",
+            "AI工具与Agent",
+            "卖家店铺运营",
+            "内容营销创作"
+          ],
+          "latest_observed_at": "2026-05-12T04:33:32.209536+00:00",
+          "mention_count": 305
+        }
+      ],
+      "community": "r/LLM",
+      "mention_count": 305,
+      "top_brands": "google"
+    },
+    {
+      "brand_count": 1,
+      "brands": [
+        {
+          "brand_key": "google",
+          "business_domains": [],
+          "communities": [
+            "r/AskMarketing",
+            "r/Blogging",
+            "r/ChatGPT",
+            "r/ClaudeAI",
+            "r/DigitalMarketing",
+            "r/Entrepreneur",
+            "r/FacebookAds",
+            "r/Google_Ads",
+            "r/GrowthHacking",
+            "r/LLM",
+            "r/PPC",
+            "r/SEO",
+            "r/TechSEO",
+            "r/adops",
+            "r/aeo",
+            "r/agi",
+            "r/analytics",
+            "r/artificial",
+            "r/automation",
+            "r/b2bmarketing",
+            "r/bigseo",
+            "r/claudeskills",
+            "r/content_marketing",
+            "r/dogs",
+            "r/ecommerce",
+            "r/googleads",
+            "r/juststart",
+            "r/seogrowth",
+            "r/shopify"
+          ],
+          "display_name": "google",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "家居生活选品",
+            "好物选品",
+            "广告投放",
+            "SEO&GEO",
+            "AI工具与Agent",
+            "卖家店铺运营",
+            "内容营销创作"
+          ],
+          "latest_observed_at": "2026-05-12T04:33:32.209536+00:00",
+          "mention_count": 305
+        }
+      ],
+      "community": "r/TechSEO",
+      "mention_count": 305,
+      "top_brands": "google"
+    },
+    {
+      "brand_count": 1,
+      "brands": [
+        {
+          "brand_key": "google",
+          "business_domains": [],
+          "communities": [
+            "r/AskMarketing",
+            "r/Blogging",
+            "r/ChatGPT",
+            "r/ClaudeAI",
+            "r/DigitalMarketing",
+            "r/Entrepreneur",
+            "r/FacebookAds",
+            "r/Google_Ads",
+            "r/GrowthHacking",
+            "r/LLM",
+            "r/PPC",
+            "r/SEO",
+            "r/TechSEO",
+            "r/adops",
+            "r/aeo",
+            "r/agi",
+            "r/analytics",
+            "r/artificial",
+            "r/automation",
+            "r/b2bmarketing",
+            "r/bigseo",
+            "r/claudeskills",
+            "r/content_marketing",
+            "r/dogs",
+            "r/ecommerce",
+            "r/googleads",
+            "r/juststart",
+            "r/seogrowth",
+            "r/shopify"
+          ],
+          "display_name": "google",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "家居生活选品",
+            "好物选品",
+            "广告投放",
+            "SEO&GEO",
+            "AI工具与Agent",
+            "卖家店铺运营",
+            "内容营销创作"
+          ],
+          "latest_observed_at": "2026-05-12T04:33:32.209536+00:00",
+          "mention_count": 305
+        }
+      ],
+      "community": "r/adops",
+      "mention_count": 305,
+      "top_brands": "google"
+    },
+    {
+      "brand_count": 1,
+      "brands": [
+        {
+          "brand_key": "google",
+          "business_domains": [],
+          "communities": [
+            "r/AskMarketing",
+            "r/Blogging",
+            "r/ChatGPT",
+            "r/ClaudeAI",
+            "r/DigitalMarketing",
+            "r/Entrepreneur",
+            "r/FacebookAds",
+            "r/Google_Ads",
+            "r/GrowthHacking",
+            "r/LLM",
+            "r/PPC",
+            "r/SEO",
+            "r/TechSEO",
+            "r/adops",
+            "r/aeo",
+            "r/agi",
+            "r/analytics",
+            "r/artificial",
+            "r/automation",
+            "r/b2bmarketing",
+            "r/bigseo",
+            "r/claudeskills",
+            "r/content_marketing",
+            "r/dogs",
+            "r/ecommerce",
+            "r/googleads",
+            "r/juststart",
+            "r/seogrowth",
+            "r/shopify"
+          ],
+          "display_name": "google",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "家居生活选品",
+            "好物选品",
+            "广告投放",
+            "SEO&GEO",
+            "AI工具与Agent",
+            "卖家店铺运营",
+            "内容营销创作"
+          ],
+          "latest_observed_at": "2026-05-12T04:33:32.209536+00:00",
+          "mention_count": 305
+        }
+      ],
+      "community": "r/aeo",
+      "mention_count": 305,
+      "top_brands": "google"
+    },
+    {
+      "brand_count": 1,
+      "brands": [
+        {
+          "brand_key": "google",
+          "business_domains": [],
+          "communities": [
+            "r/AskMarketing",
+            "r/Blogging",
+            "r/ChatGPT",
+            "r/ClaudeAI",
+            "r/DigitalMarketing",
+            "r/Entrepreneur",
+            "r/FacebookAds",
+            "r/Google_Ads",
+            "r/GrowthHacking",
+            "r/LLM",
+            "r/PPC",
+            "r/SEO",
+            "r/TechSEO",
+            "r/adops",
+            "r/aeo",
+            "r/agi",
+            "r/analytics",
+            "r/artificial",
+            "r/automation",
+            "r/b2bmarketing",
+            "r/bigseo",
+            "r/claudeskills",
+            "r/content_marketing",
+            "r/dogs",
+            "r/ecommerce",
+            "r/googleads",
+            "r/juststart",
+            "r/seogrowth",
+            "r/shopify"
+          ],
+          "display_name": "google",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "家居生活选品",
+            "好物选品",
+            "广告投放",
+            "SEO&GEO",
+            "AI工具与Agent",
+            "卖家店铺运营",
+            "内容营销创作"
+          ],
+          "latest_observed_at": "2026-05-12T04:33:32.209536+00:00",
+          "mention_count": 305
+        }
+      ],
+      "community": "r/artificial",
+      "mention_count": 305,
+      "top_brands": "google"
+    },
+    {
+      "brand_count": 1,
+      "brands": [
+        {
+          "brand_key": "google",
+          "business_domains": [],
+          "communities": [
+            "r/AskMarketing",
+            "r/Blogging",
+            "r/ChatGPT",
+            "r/ClaudeAI",
+            "r/DigitalMarketing",
+            "r/Entrepreneur",
+            "r/FacebookAds",
+            "r/Google_Ads",
+            "r/GrowthHacking",
+            "r/LLM",
+            "r/PPC",
+            "r/SEO",
+            "r/TechSEO",
+            "r/adops",
+            "r/aeo",
+            "r/agi",
+            "r/analytics",
+            "r/artificial",
+            "r/automation",
+            "r/b2bmarketing",
+            "r/bigseo",
+            "r/claudeskills",
+            "r/content_marketing",
+            "r/dogs",
+            "r/ecommerce",
+            "r/googleads",
+            "r/juststart",
+            "r/seogrowth",
+            "r/shopify"
+          ],
+          "display_name": "google",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "家居生活选品",
+            "好物选品",
+            "广告投放",
+            "SEO&GEO",
+            "AI工具与Agent",
+            "卖家店铺运营",
+            "内容营销创作"
+          ],
+          "latest_observed_at": "2026-05-12T04:33:32.209536+00:00",
+          "mention_count": 305
+        }
+      ],
+      "community": "r/b2bmarketing",
+      "mention_count": 305,
+      "top_brands": "google"
+    },
+    {
+      "brand_count": 1,
+      "brands": [
+        {
+          "brand_key": "google",
+          "business_domains": [],
+          "communities": [
+            "r/AskMarketing",
+            "r/Blogging",
+            "r/ChatGPT",
+            "r/ClaudeAI",
+            "r/DigitalMarketing",
+            "r/Entrepreneur",
+            "r/FacebookAds",
+            "r/Google_Ads",
+            "r/GrowthHacking",
+            "r/LLM",
+            "r/PPC",
+            "r/SEO",
+            "r/TechSEO",
+            "r/adops",
+            "r/aeo",
+            "r/agi",
+            "r/analytics",
+            "r/artificial",
+            "r/automation",
+            "r/b2bmarketing",
+            "r/bigseo",
+            "r/claudeskills",
+            "r/content_marketing",
+            "r/dogs",
+            "r/ecommerce",
+            "r/googleads",
+            "r/juststart",
+            "r/seogrowth",
+            "r/shopify"
+          ],
+          "display_name": "google",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "家居生活选品",
+            "好物选品",
+            "广告投放",
+            "SEO&GEO",
+            "AI工具与Agent",
+            "卖家店铺运营",
+            "内容营销创作"
+          ],
+          "latest_observed_at": "2026-05-12T04:33:32.209536+00:00",
+          "mention_count": 305
+        }
+      ],
+      "community": "r/bigseo",
+      "mention_count": 305,
+      "top_brands": "google"
+    },
+    {
+      "brand_count": 1,
+      "brands": [
+        {
+          "brand_key": "google",
+          "business_domains": [],
+          "communities": [
+            "r/AskMarketing",
+            "r/Blogging",
+            "r/ChatGPT",
+            "r/ClaudeAI",
+            "r/DigitalMarketing",
+            "r/Entrepreneur",
+            "r/FacebookAds",
+            "r/Google_Ads",
+            "r/GrowthHacking",
+            "r/LLM",
+            "r/PPC",
+            "r/SEO",
+            "r/TechSEO",
+            "r/adops",
+            "r/aeo",
+            "r/agi",
+            "r/analytics",
+            "r/artificial",
+            "r/automation",
+            "r/b2bmarketing",
+            "r/bigseo",
+            "r/claudeskills",
+            "r/content_marketing",
+            "r/dogs",
+            "r/ecommerce",
+            "r/googleads",
+            "r/juststart",
+            "r/seogrowth",
+            "r/shopify"
+          ],
+          "display_name": "google",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "家居生活选品",
+            "好物选品",
+            "广告投放",
+            "SEO&GEO",
+            "AI工具与Agent",
+            "卖家店铺运营",
+            "内容营销创作"
+          ],
+          "latest_observed_at": "2026-05-12T04:33:32.209536+00:00",
+          "mention_count": 305
+        }
+      ],
+      "community": "r/claudeskills",
+      "mention_count": 305,
+      "top_brands": "google"
+    },
+    {
+      "brand_count": 1,
+      "brands": [
+        {
+          "brand_key": "google",
+          "business_domains": [],
+          "communities": [
+            "r/AskMarketing",
+            "r/Blogging",
+            "r/ChatGPT",
+            "r/ClaudeAI",
+            "r/DigitalMarketing",
+            "r/Entrepreneur",
+            "r/FacebookAds",
+            "r/Google_Ads",
+            "r/GrowthHacking",
+            "r/LLM",
+            "r/PPC",
+            "r/SEO",
+            "r/TechSEO",
+            "r/adops",
+            "r/aeo",
+            "r/agi",
+            "r/analytics",
+            "r/artificial",
+            "r/automation",
+            "r/b2bmarketing",
+            "r/bigseo",
+            "r/claudeskills",
+            "r/content_marketing",
+            "r/dogs",
+            "r/ecommerce",
+            "r/googleads",
+            "r/juststart",
+            "r/seogrowth",
+            "r/shopify"
+          ],
+          "display_name": "google",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "家居生活选品",
+            "好物选品",
+            "广告投放",
+            "SEO&GEO",
+            "AI工具与Agent",
+            "卖家店铺运营",
+            "内容营销创作"
+          ],
+          "latest_observed_at": "2026-05-12T04:33:32.209536+00:00",
+          "mention_count": 305
+        }
+      ],
+      "community": "r/content_marketing",
+      "mention_count": 305,
+      "top_brands": "google"
+    },
+    {
+      "brand_count": 1,
+      "brands": [
+        {
+          "brand_key": "google",
+          "business_domains": [],
+          "communities": [
+            "r/AskMarketing",
+            "r/Blogging",
+            "r/ChatGPT",
+            "r/ClaudeAI",
+            "r/DigitalMarketing",
+            "r/Entrepreneur",
+            "r/FacebookAds",
+            "r/Google_Ads",
+            "r/GrowthHacking",
+            "r/LLM",
+            "r/PPC",
+            "r/SEO",
+            "r/TechSEO",
+            "r/adops",
+            "r/aeo",
+            "r/agi",
+            "r/analytics",
+            "r/artificial",
+            "r/automation",
+            "r/b2bmarketing",
+            "r/bigseo",
+            "r/claudeskills",
+            "r/content_marketing",
+            "r/dogs",
+            "r/ecommerce",
+            "r/googleads",
+            "r/juststart",
+            "r/seogrowth",
+            "r/shopify"
+          ],
+          "display_name": "google",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "家居生活选品",
+            "好物选品",
+            "广告投放",
+            "SEO&GEO",
+            "AI工具与Agent",
+            "卖家店铺运营",
+            "内容营销创作"
+          ],
+          "latest_observed_at": "2026-05-12T04:33:32.209536+00:00",
+          "mention_count": 305
+        }
+      ],
+      "community": "r/dogs",
+      "mention_count": 305,
+      "top_brands": "google"
+    },
+    {
+      "brand_count": 1,
+      "brands": [
+        {
+          "brand_key": "google",
+          "business_domains": [],
+          "communities": [
+            "r/AskMarketing",
+            "r/Blogging",
+            "r/ChatGPT",
+            "r/ClaudeAI",
+            "r/DigitalMarketing",
+            "r/Entrepreneur",
+            "r/FacebookAds",
+            "r/Google_Ads",
+            "r/GrowthHacking",
+            "r/LLM",
+            "r/PPC",
+            "r/SEO",
+            "r/TechSEO",
+            "r/adops",
+            "r/aeo",
+            "r/agi",
+            "r/analytics",
+            "r/artificial",
+            "r/automation",
+            "r/b2bmarketing",
+            "r/bigseo",
+            "r/claudeskills",
+            "r/content_marketing",
+            "r/dogs",
+            "r/ecommerce",
+            "r/googleads",
+            "r/juststart",
+            "r/seogrowth",
+            "r/shopify"
+          ],
+          "display_name": "google",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "家居生活选品",
+            "好物选品",
+            "广告投放",
+            "SEO&GEO",
+            "AI工具与Agent",
+            "卖家店铺运营",
+            "内容营销创作"
+          ],
+          "latest_observed_at": "2026-05-12T04:33:32.209536+00:00",
+          "mention_count": 305
+        }
+      ],
+      "community": "r/googleads",
+      "mention_count": 305,
+      "top_brands": "google"
+    },
+    {
+      "brand_count": 1,
+      "brands": [
+        {
+          "brand_key": "google",
+          "business_domains": [],
+          "communities": [
+            "r/AskMarketing",
+            "r/Blogging",
+            "r/ChatGPT",
+            "r/ClaudeAI",
+            "r/DigitalMarketing",
+            "r/Entrepreneur",
+            "r/FacebookAds",
+            "r/Google_Ads",
+            "r/GrowthHacking",
+            "r/LLM",
+            "r/PPC",
+            "r/SEO",
+            "r/TechSEO",
+            "r/adops",
+            "r/aeo",
+            "r/agi",
+            "r/analytics",
+            "r/artificial",
+            "r/automation",
+            "r/b2bmarketing",
+            "r/bigseo",
+            "r/claudeskills",
+            "r/content_marketing",
+            "r/dogs",
+            "r/ecommerce",
+            "r/googleads",
+            "r/juststart",
+            "r/seogrowth",
+            "r/shopify"
+          ],
+          "display_name": "google",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "家居生活选品",
+            "好物选品",
+            "广告投放",
+            "SEO&GEO",
+            "AI工具与Agent",
+            "卖家店铺运营",
+            "内容营销创作"
+          ],
+          "latest_observed_at": "2026-05-12T04:33:32.209536+00:00",
+          "mention_count": 305
+        }
+      ],
+      "community": "r/juststart",
+      "mention_count": 305,
+      "top_brands": "google"
+    },
+    {
+      "brand_count": 1,
+      "brands": [
+        {
+          "brand_key": "google",
+          "business_domains": [],
+          "communities": [
+            "r/AskMarketing",
+            "r/Blogging",
+            "r/ChatGPT",
+            "r/ClaudeAI",
+            "r/DigitalMarketing",
+            "r/Entrepreneur",
+            "r/FacebookAds",
+            "r/Google_Ads",
+            "r/GrowthHacking",
+            "r/LLM",
+            "r/PPC",
+            "r/SEO",
+            "r/TechSEO",
+            "r/adops",
+            "r/aeo",
+            "r/agi",
+            "r/analytics",
+            "r/artificial",
+            "r/automation",
+            "r/b2bmarketing",
+            "r/bigseo",
+            "r/claudeskills",
+            "r/content_marketing",
+            "r/dogs",
+            "r/ecommerce",
+            "r/googleads",
+            "r/juststart",
+            "r/seogrowth",
+            "r/shopify"
+          ],
+          "display_name": "google",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "家居生活选品",
+            "好物选品",
+            "广告投放",
+            "SEO&GEO",
+            "AI工具与Agent",
+            "卖家店铺运营",
+            "内容营销创作"
+          ],
+          "latest_observed_at": "2026-05-12T04:33:32.209536+00:00",
+          "mention_count": 305
+        }
+      ],
+      "community": "r/seogrowth",
+      "mention_count": 305,
+      "top_brands": "google"
+    },
+    {
+      "brand_count": 4,
+      "brands": [
+        {
+          "brand_key": "shopify",
+          "business_domains": [
+            "电商平台与卖家工具"
+          ],
+          "communities": [
+            "r/DigitalMarketing",
+            "r/FulfillmentByAmazon",
+            "r/PPC",
+            "r/SEO",
+            "r/analytics",
+            "r/automation",
+            "r/ecommerce",
+            "r/shopify"
+          ],
+          "display_name": "Shopify",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "广告投放",
+            "SEO&GEO",
+            "AI工具与Agent",
+            "卖家店铺运营"
+          ],
+          "latest_observed_at": "2026-05-11T06:28:31.977368+00:00",
+          "mention_count": 110
+        },
+        {
+          "brand_key": "amazon",
+          "business_domains": [],
+          "communities": [
+            "r/AmazonSeller",
+            "r/BuyItForLife",
+            "r/ClaudeAI",
+            "r/CleaningTips",
+            "r/Coffee",
+            "r/Frugal",
+            "r/FulfillmentByAmazon",
+            "r/GiftIdeas",
+            "r/Leuven",
+            "r/OpenAI",
+            "r/agi",
+            "r/ecommerce",
+            "r/espresso",
+            "r/flashlight",
+            "r/fountainpens"
+          ],
+          "display_name": "Amazon",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "家居生活选品",
+            "好物选品",
+            "AI工具与Agent",
+            "电商平台政策与风向",
+            "卖家店铺运营"
+          ],
+          "latest_observed_at": "2026-05-12T03:54:15.548530+00:00",
+          "mention_count": 78
+        },
+        {
+          "brand_key": "fba",
+          "business_domains": [],
+          "communities": [
+            "r/AmazonSeller",
+            "r/EtsySellers",
+            "r/FulfillmentByAmazon",
+            "r/ecommerce"
+          ],
+          "display_name": "fba",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "AI工具与Agent",
+            "卖家店铺运营"
+          ],
+          "latest_observed_at": "2026-05-12T03:54:15.548530+00:00",
+          "mention_count": 51
+        },
+        {
+          "brand_key": "alibaba",
+          "business_domains": [
+            "电商平台与卖家工具"
+          ],
+          "communities": [
+            "r/FulfillmentByAmazon",
+            "r/ecommerce"
+          ],
+          "display_name": "Alibaba",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "AI工具与Agent",
+            "卖家店铺运营"
+          ],
+          "latest_observed_at": "2026-04-24T05:21:16.365307+00:00",
+          "mention_count": 3
+        }
+      ],
+      "community": "r/FulfillmentByAmazon",
+      "mention_count": 242,
+      "top_brands": "Shopify, Amazon, fba, Alibaba"
+    },
+    {
+      "brand_count": 2,
+      "brands": [
+        {
+          "brand_key": "amazon",
+          "business_domains": [],
+          "communities": [
+            "r/AmazonSeller",
+            "r/BuyItForLife",
+            "r/ClaudeAI",
+            "r/CleaningTips",
+            "r/Coffee",
+            "r/Frugal",
+            "r/FulfillmentByAmazon",
+            "r/GiftIdeas",
+            "r/Leuven",
+            "r/OpenAI",
+            "r/agi",
+            "r/ecommerce",
+            "r/espresso",
+            "r/flashlight",
+            "r/fountainpens"
+          ],
+          "display_name": "Amazon",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "家居生活选品",
+            "好物选品",
+            "AI工具与Agent",
+            "电商平台政策与风向",
+            "卖家店铺运营"
+          ],
+          "latest_observed_at": "2026-05-12T03:54:15.548530+00:00",
+          "mention_count": 78
+        },
+        {
+          "brand_key": "etsy",
+          "business_domains": [
+            "家居生活"
+          ],
+          "communities": [
+            "r/Etsy",
+            "r/EtsySellers",
+            "r/GiftIdeas",
+            "r/ecommerce",
+            "r/shopify"
+          ],
+          "display_name": "Etsy",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "好物选品",
+            "卖家店铺运营"
+          ],
+          "latest_observed_at": "2026-05-12T04:58:38.912170+00:00",
+          "mention_count": 68
+        }
+      ],
+      "community": "r/GiftIdeas",
+      "mention_count": 146,
+      "top_brands": "Amazon, Etsy"
+    },
+    {
+      "brand_count": 2,
+      "brands": [
+        {
+          "brand_key": "amazon",
+          "business_domains": [],
+          "communities": [
+            "r/AmazonSeller",
+            "r/BuyItForLife",
+            "r/ClaudeAI",
+            "r/CleaningTips",
+            "r/Coffee",
+            "r/Frugal",
+            "r/FulfillmentByAmazon",
+            "r/GiftIdeas",
+            "r/Leuven",
+            "r/OpenAI",
+            "r/agi",
+            "r/ecommerce",
+            "r/espresso",
+            "r/flashlight",
+            "r/fountainpens"
+          ],
+          "display_name": "Amazon",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "家居生活选品",
+            "好物选品",
+            "AI工具与Agent",
+            "电商平台政策与风向",
+            "卖家店铺运营"
+          ],
+          "latest_observed_at": "2026-05-12T03:54:15.548530+00:00",
+          "mention_count": 78
+        },
+        {
+          "brand_key": "fba",
+          "business_domains": [],
+          "communities": [
+            "r/AmazonSeller",
+            "r/EtsySellers",
+            "r/FulfillmentByAmazon",
+            "r/ecommerce"
+          ],
+          "display_name": "fba",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "AI工具与Agent",
+            "卖家店铺运营"
+          ],
+          "latest_observed_at": "2026-05-12T03:54:15.548530+00:00",
+          "mention_count": 51
+        }
+      ],
+      "community": "r/AmazonSeller",
+      "mention_count": 129,
+      "top_brands": "Amazon, fba"
+    },
+    {
+      "brand_count": 2,
+      "brands": [
+        {
+          "brand_key": "amazon",
+          "business_domains": [],
+          "communities": [
+            "r/AmazonSeller",
+            "r/BuyItForLife",
+            "r/ClaudeAI",
+            "r/CleaningTips",
+            "r/Coffee",
+            "r/Frugal",
+            "r/FulfillmentByAmazon",
+            "r/GiftIdeas",
+            "r/Leuven",
+            "r/OpenAI",
+            "r/agi",
+            "r/ecommerce",
+            "r/espresso",
+            "r/flashlight",
+            "r/fountainpens"
+          ],
+          "display_name": "Amazon",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "家居生活选品",
+            "好物选品",
+            "AI工具与Agent",
+            "电商平台政策与风向",
+            "卖家店铺运营"
+          ],
+          "latest_observed_at": "2026-05-12T03:54:15.548530+00:00",
+          "mention_count": 78
+        },
+        {
+          "brand_key": "facebook",
+          "business_domains": [],
+          "communities": [
+            "r/FacebookAds",
+            "r/ManyBaggers",
+            "r/SEO",
+            "r/ecommerce",
+            "r/fountainpens",
+            "r/kickstarter"
+          ],
+          "display_name": "facebook",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "广告投放",
+            "SEO&GEO",
+            "众筹与品牌启动"
+          ],
+          "latest_observed_at": "2026-05-11T05:12:28.668933+00:00",
+          "mention_count": 46
+        }
+      ],
+      "community": "r/fountainpens",
+      "mention_count": 124,
+      "top_brands": "Amazon, facebook"
+    },
+    {
+      "brand_count": 2,
+      "brands": [
+        {
+          "brand_key": "etsy",
+          "business_domains": [
+            "家居生活"
+          ],
+          "communities": [
+            "r/Etsy",
+            "r/EtsySellers",
+            "r/GiftIdeas",
+            "r/ecommerce",
+            "r/shopify"
+          ],
+          "display_name": "Etsy",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "好物选品",
+            "卖家店铺运营"
+          ],
+          "latest_observed_at": "2026-05-12T04:58:38.912170+00:00",
+          "mention_count": 68
+        },
+        {
+          "brand_key": "fba",
+          "business_domains": [],
+          "communities": [
+            "r/AmazonSeller",
+            "r/EtsySellers",
+            "r/FulfillmentByAmazon",
+            "r/ecommerce"
+          ],
+          "display_name": "fba",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "AI工具与Agent",
+            "卖家店铺运营"
+          ],
+          "latest_observed_at": "2026-05-12T03:54:15.548530+00:00",
+          "mention_count": 51
+        }
+      ],
+      "community": "r/EtsySellers",
+      "mention_count": 119,
+      "top_brands": "Etsy, fba"
+    },
+    {
+      "brand_count": 2,
+      "brands": [
+        {
+          "brand_key": "amazon",
+          "business_domains": [],
+          "communities": [
+            "r/AmazonSeller",
+            "r/BuyItForLife",
+            "r/ClaudeAI",
+            "r/CleaningTips",
+            "r/Coffee",
+            "r/Frugal",
+            "r/FulfillmentByAmazon",
+            "r/GiftIdeas",
+            "r/Leuven",
+            "r/OpenAI",
+            "r/agi",
+            "r/ecommerce",
+            "r/espresso",
+            "r/flashlight",
+            "r/fountainpens"
+          ],
+          "display_name": "Amazon",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "家居生活选品",
+            "好物选品",
+            "AI工具与Agent",
+            "电商平台政策与风向",
+            "卖家店铺运营"
+          ],
+          "latest_observed_at": "2026-05-12T03:54:15.548530+00:00",
+          "mention_count": 78
+        },
+        {
+          "brand_key": "youtube",
+          "business_domains": [],
+          "communities": [
+            "r/AI_Agents",
+            "r/BuyItForLife",
+            "r/CampingGear",
+            "r/DigitalMarketing",
+            "r/EntrepreneurRideAlong",
+            "r/FacebookAds",
+            "r/ManyBaggers",
+            "r/PPC",
+            "r/SEO"
+          ],
+          "display_name": "youtube",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "家居生活选品",
+            "广告投放",
+            "SEO&GEO",
+            "AI工具与Agent"
+          ],
+          "latest_observed_at": "2026-05-04T10:07:57.177718+00:00",
+          "mention_count": 15
+        }
+      ],
+      "community": "r/BuyItForLife",
+      "mention_count": 93,
+      "top_brands": "Amazon, youtube"
+    },
+    {
+      "brand_count": 2,
+      "brands": [
+        {
+          "brand_key": "amazon",
+          "business_domains": [],
+          "communities": [
+            "r/AmazonSeller",
+            "r/BuyItForLife",
+            "r/ClaudeAI",
+            "r/CleaningTips",
+            "r/Coffee",
+            "r/Frugal",
+            "r/FulfillmentByAmazon",
+            "r/GiftIdeas",
+            "r/Leuven",
+            "r/OpenAI",
+            "r/agi",
+            "r/ecommerce",
+            "r/espresso",
+            "r/flashlight",
+            "r/fountainpens"
+          ],
+          "display_name": "Amazon",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "家居生活选品",
+            "好物选品",
+            "AI工具与Agent",
+            "电商平台政策与风向",
+            "卖家店铺运营"
+          ],
+          "latest_observed_at": "2026-05-12T03:54:15.548530+00:00",
+          "mention_count": 78
+        },
+        {
+          "brand_key": "temu",
+          "business_domains": [],
+          "communities": [
+            "r/EDC",
+            "r/Leuven"
+          ],
+          "display_name": "Temu",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "好物选品"
+          ],
+          "latest_observed_at": "2026-04-18T05:24:34.228369+00:00",
+          "mention_count": 6
+        }
+      ],
+      "community": "r/Leuven",
+      "mention_count": 84,
+      "top_brands": "Amazon, Temu"
+    },
+    {
+      "brand_count": 1,
+      "brands": [
+        {
+          "brand_key": "amazon",
+          "business_domains": [],
+          "communities": [
+            "r/AmazonSeller",
+            "r/BuyItForLife",
+            "r/ClaudeAI",
+            "r/CleaningTips",
+            "r/Coffee",
+            "r/Frugal",
+            "r/FulfillmentByAmazon",
+            "r/GiftIdeas",
+            "r/Leuven",
+            "r/OpenAI",
+            "r/agi",
+            "r/ecommerce",
+            "r/espresso",
+            "r/flashlight",
+            "r/fountainpens"
+          ],
+          "display_name": "Amazon",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "家居生活选品",
+            "好物选品",
+            "AI工具与Agent",
+            "电商平台政策与风向",
+            "卖家店铺运营"
+          ],
+          "latest_observed_at": "2026-05-12T03:54:15.548530+00:00",
+          "mention_count": 78
+        }
+      ],
+      "community": "r/CleaningTips",
+      "mention_count": 78,
+      "top_brands": "Amazon"
+    },
+    {
+      "brand_count": 1,
+      "brands": [
+        {
+          "brand_key": "amazon",
+          "business_domains": [],
+          "communities": [
+            "r/AmazonSeller",
+            "r/BuyItForLife",
+            "r/ClaudeAI",
+            "r/CleaningTips",
+            "r/Coffee",
+            "r/Frugal",
+            "r/FulfillmentByAmazon",
+            "r/GiftIdeas",
+            "r/Leuven",
+            "r/OpenAI",
+            "r/agi",
+            "r/ecommerce",
+            "r/espresso",
+            "r/flashlight",
+            "r/fountainpens"
+          ],
+          "display_name": "Amazon",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "家居生活选品",
+            "好物选品",
+            "AI工具与Agent",
+            "电商平台政策与风向",
+            "卖家店铺运营"
+          ],
+          "latest_observed_at": "2026-05-12T03:54:15.548530+00:00",
+          "mention_count": 78
+        }
+      ],
+      "community": "r/Coffee",
+      "mention_count": 78,
+      "top_brands": "Amazon"
+    },
+    {
+      "brand_count": 1,
+      "brands": [
+        {
+          "brand_key": "amazon",
+          "business_domains": [],
+          "communities": [
+            "r/AmazonSeller",
+            "r/BuyItForLife",
+            "r/ClaudeAI",
+            "r/CleaningTips",
+            "r/Coffee",
+            "r/Frugal",
+            "r/FulfillmentByAmazon",
+            "r/GiftIdeas",
+            "r/Leuven",
+            "r/OpenAI",
+            "r/agi",
+            "r/ecommerce",
+            "r/espresso",
+            "r/flashlight",
+            "r/fountainpens"
+          ],
+          "display_name": "Amazon",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "家居生活选品",
+            "好物选品",
+            "AI工具与Agent",
+            "电商平台政策与风向",
+            "卖家店铺运营"
+          ],
+          "latest_observed_at": "2026-05-12T03:54:15.548530+00:00",
+          "mention_count": 78
+        }
+      ],
+      "community": "r/Frugal",
+      "mention_count": 78,
+      "top_brands": "Amazon"
+    },
+    {
+      "brand_count": 1,
+      "brands": [
+        {
+          "brand_key": "amazon",
+          "business_domains": [],
+          "communities": [
+            "r/AmazonSeller",
+            "r/BuyItForLife",
+            "r/ClaudeAI",
+            "r/CleaningTips",
+            "r/Coffee",
+            "r/Frugal",
+            "r/FulfillmentByAmazon",
+            "r/GiftIdeas",
+            "r/Leuven",
+            "r/OpenAI",
+            "r/agi",
+            "r/ecommerce",
+            "r/espresso",
+            "r/flashlight",
+            "r/fountainpens"
+          ],
+          "display_name": "Amazon",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "家居生活选品",
+            "好物选品",
+            "AI工具与Agent",
+            "电商平台政策与风向",
+            "卖家店铺运营"
+          ],
+          "latest_observed_at": "2026-05-12T03:54:15.548530+00:00",
+          "mention_count": 78
+        }
+      ],
+      "community": "r/OpenAI",
+      "mention_count": 78,
+      "top_brands": "Amazon"
+    },
+    {
+      "brand_count": 1,
+      "brands": [
+        {
+          "brand_key": "amazon",
+          "business_domains": [],
+          "communities": [
+            "r/AmazonSeller",
+            "r/BuyItForLife",
+            "r/ClaudeAI",
+            "r/CleaningTips",
+            "r/Coffee",
+            "r/Frugal",
+            "r/FulfillmentByAmazon",
+            "r/GiftIdeas",
+            "r/Leuven",
+            "r/OpenAI",
+            "r/agi",
+            "r/ecommerce",
+            "r/espresso",
+            "r/flashlight",
+            "r/fountainpens"
+          ],
+          "display_name": "Amazon",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "家居生活选品",
+            "好物选品",
+            "AI工具与Agent",
+            "电商平台政策与风向",
+            "卖家店铺运营"
+          ],
+          "latest_observed_at": "2026-05-12T03:54:15.548530+00:00",
+          "mention_count": 78
+        }
+      ],
+      "community": "r/espresso",
+      "mention_count": 78,
+      "top_brands": "Amazon"
+    },
+    {
+      "brand_count": 1,
+      "brands": [
+        {
+          "brand_key": "amazon",
+          "business_domains": [],
+          "communities": [
+            "r/AmazonSeller",
+            "r/BuyItForLife",
+            "r/ClaudeAI",
+            "r/CleaningTips",
+            "r/Coffee",
+            "r/Frugal",
+            "r/FulfillmentByAmazon",
+            "r/GiftIdeas",
+            "r/Leuven",
+            "r/OpenAI",
+            "r/agi",
+            "r/ecommerce",
+            "r/espresso",
+            "r/flashlight",
+            "r/fountainpens"
+          ],
+          "display_name": "Amazon",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "家居生活选品",
+            "好物选品",
+            "AI工具与Agent",
+            "电商平台政策与风向",
+            "卖家店铺运营"
+          ],
+          "latest_observed_at": "2026-05-12T03:54:15.548530+00:00",
+          "mention_count": 78
+        }
+      ],
+      "community": "r/flashlight",
+      "mention_count": 78,
+      "top_brands": "Amazon"
+    },
+    {
+      "brand_count": 1,
+      "brands": [
+        {
+          "brand_key": "etsy",
+          "business_domains": [
+            "家居生活"
+          ],
+          "communities": [
+            "r/Etsy",
+            "r/EtsySellers",
+            "r/GiftIdeas",
+            "r/ecommerce",
+            "r/shopify"
+          ],
+          "display_name": "Etsy",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "好物选品",
+            "卖家店铺运营"
+          ],
+          "latest_observed_at": "2026-05-12T04:58:38.912170+00:00",
+          "mention_count": 68
+        }
+      ],
+      "community": "r/Etsy",
+      "mention_count": 68,
+      "top_brands": "Etsy"
+    },
+    {
+      "brand_count": 3,
+      "brands": [
+        {
+          "brand_key": "facebook",
+          "business_domains": [],
+          "communities": [
+            "r/FacebookAds",
+            "r/ManyBaggers",
+            "r/SEO",
+            "r/ecommerce",
+            "r/fountainpens",
+            "r/kickstarter"
+          ],
+          "display_name": "facebook",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "广告投放",
+            "SEO&GEO",
+            "众筹与品牌启动"
+          ],
+          "latest_observed_at": "2026-05-11T05:12:28.668933+00:00",
+          "mention_count": 46
+        },
+        {
+          "brand_key": "tiktok",
+          "business_domains": [],
+          "communities": [
+            "r/FacebookAds",
+            "r/kickstarter",
+            "r/shopify"
+          ],
+          "display_name": "tiktok",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "广告投放",
+            "众筹与品牌启动",
+            "卖家店铺运营"
+          ],
+          "latest_observed_at": "2026-05-12T04:33:32.209536+00:00",
+          "mention_count": 9
+        },
+        {
+          "brand_key": "tiktok shop",
+          "business_domains": [],
+          "communities": [
+            "r/FacebookAds",
+            "r/kickstarter",
+            "r/shopify"
+          ],
+          "display_name": "TikTok Shop",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "广告投放",
+            "众筹与品牌启动",
+            "卖家店铺运营"
+          ],
+          "latest_observed_at": "2026-05-12T04:33:32.209536+00:00",
+          "mention_count": 9
+        }
+      ],
+      "community": "r/kickstarter",
+      "mention_count": 64,
+      "top_brands": "facebook, tiktok, TikTok Shop"
+    },
+    {
+      "brand_count": 2,
+      "brands": [
+        {
+          "brand_key": "facebook",
+          "business_domains": [],
+          "communities": [
+            "r/FacebookAds",
+            "r/ManyBaggers",
+            "r/SEO",
+            "r/ecommerce",
+            "r/fountainpens",
+            "r/kickstarter"
+          ],
+          "display_name": "facebook",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "广告投放",
+            "SEO&GEO",
+            "众筹与品牌启动"
+          ],
+          "latest_observed_at": "2026-05-11T05:12:28.668933+00:00",
+          "mention_count": 46
+        },
+        {
+          "brand_key": "youtube",
+          "business_domains": [],
+          "communities": [
+            "r/AI_Agents",
+            "r/BuyItForLife",
+            "r/CampingGear",
+            "r/DigitalMarketing",
+            "r/EntrepreneurRideAlong",
+            "r/FacebookAds",
+            "r/ManyBaggers",
+            "r/PPC",
+            "r/SEO"
+          ],
+          "display_name": "youtube",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "家居生活选品",
+            "广告投放",
+            "SEO&GEO",
+            "AI工具与Agent"
+          ],
+          "latest_observed_at": "2026-05-04T10:07:57.177718+00:00",
+          "mention_count": 15
+        }
+      ],
+      "community": "r/ManyBaggers",
+      "mention_count": 61,
+      "top_brands": "facebook, youtube"
+    },
+    {
+      "brand_count": 1,
+      "brands": [
+        {
+          "brand_key": "youtube",
+          "business_domains": [],
+          "communities": [
+            "r/AI_Agents",
+            "r/BuyItForLife",
+            "r/CampingGear",
+            "r/DigitalMarketing",
+            "r/EntrepreneurRideAlong",
+            "r/FacebookAds",
+            "r/ManyBaggers",
+            "r/PPC",
+            "r/SEO"
+          ],
+          "display_name": "youtube",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "家居生活选品",
+            "广告投放",
+            "SEO&GEO",
+            "AI工具与Agent"
+          ],
+          "latest_observed_at": "2026-05-04T10:07:57.177718+00:00",
+          "mention_count": 15
+        }
+      ],
+      "community": "r/AI_Agents",
+      "mention_count": 15,
+      "top_brands": "youtube"
+    },
+    {
+      "brand_count": 1,
+      "brands": [
+        {
+          "brand_key": "youtube",
+          "business_domains": [],
+          "communities": [
+            "r/AI_Agents",
+            "r/BuyItForLife",
+            "r/CampingGear",
+            "r/DigitalMarketing",
+            "r/EntrepreneurRideAlong",
+            "r/FacebookAds",
+            "r/ManyBaggers",
+            "r/PPC",
+            "r/SEO"
+          ],
+          "display_name": "youtube",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "家居生活选品",
+            "广告投放",
+            "SEO&GEO",
+            "AI工具与Agent"
+          ],
+          "latest_observed_at": "2026-05-04T10:07:57.177718+00:00",
+          "mention_count": 15
+        }
+      ],
+      "community": "r/CampingGear",
+      "mention_count": 15,
+      "top_brands": "youtube"
+    },
+    {
+      "brand_count": 1,
+      "brands": [
+        {
+          "brand_key": "youtube",
+          "business_domains": [],
+          "communities": [
+            "r/AI_Agents",
+            "r/BuyItForLife",
+            "r/CampingGear",
+            "r/DigitalMarketing",
+            "r/EntrepreneurRideAlong",
+            "r/FacebookAds",
+            "r/ManyBaggers",
+            "r/PPC",
+            "r/SEO"
+          ],
+          "display_name": "youtube",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "家居生活选品",
+            "广告投放",
+            "SEO&GEO",
+            "AI工具与Agent"
+          ],
+          "latest_observed_at": "2026-05-04T10:07:57.177718+00:00",
+          "mention_count": 15
+        }
+      ],
+      "community": "r/EntrepreneurRideAlong",
+      "mention_count": 15,
+      "top_brands": "youtube"
+    },
+    {
+      "brand_count": 1,
+      "brands": [
+        {
+          "brand_key": "temu",
+          "business_domains": [],
+          "communities": [
+            "r/EDC",
+            "r/Leuven"
+          ],
+          "display_name": "Temu",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "好物选品"
+          ],
+          "latest_observed_at": "2026-04-18T05:24:34.228369+00:00",
+          "mention_count": 6
+        }
+      ],
+      "community": "r/EDC",
+      "mention_count": 6,
+      "top_brands": "Temu"
+    }
+  ],
+  "db_writes": false,
+  "frontend_display": false,
+  "interest_tag_evidence": [
+    {
+      "brand_count": 9,
+      "brands": [
+        {
+          "brand_key": "google",
+          "business_domains": [],
+          "communities": [
+            "r/AskMarketing",
+            "r/Blogging",
+            "r/ChatGPT",
+            "r/ClaudeAI",
+            "r/DigitalMarketing",
+            "r/Entrepreneur",
+            "r/FacebookAds",
+            "r/Google_Ads",
+            "r/GrowthHacking",
+            "r/LLM",
+            "r/PPC",
+            "r/SEO",
+            "r/TechSEO",
+            "r/adops",
+            "r/aeo",
+            "r/agi",
+            "r/analytics",
+            "r/artificial",
+            "r/automation",
+            "r/b2bmarketing",
+            "r/bigseo",
+            "r/claudeskills",
+            "r/content_marketing",
+            "r/dogs",
+            "r/ecommerce",
+            "r/googleads",
+            "r/juststart",
+            "r/seogrowth",
+            "r/shopify"
+          ],
+          "display_name": "google",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "家居生活选品",
+            "好物选品",
+            "广告投放",
+            "SEO&GEO",
+            "AI工具与Agent",
+            "卖家店铺运营",
+            "内容营销创作"
+          ],
+          "latest_observed_at": "2026-05-12T04:33:32.209536+00:00",
+          "mention_count": 305
+        },
+        {
+          "brand_key": "shopify",
+          "business_domains": [
+            "电商平台与卖家工具"
+          ],
+          "communities": [
+            "r/DigitalMarketing",
+            "r/FulfillmentByAmazon",
+            "r/PPC",
+            "r/SEO",
+            "r/analytics",
+            "r/automation",
+            "r/ecommerce",
+            "r/shopify"
+          ],
+          "display_name": "Shopify",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "广告投放",
+            "SEO&GEO",
+            "AI工具与Agent",
+            "卖家店铺运营"
+          ],
+          "latest_observed_at": "2026-05-11T06:28:31.977368+00:00",
+          "mention_count": 110
+        },
+        {
+          "brand_key": "amazon",
+          "business_domains": [],
+          "communities": [
+            "r/AmazonSeller",
+            "r/BuyItForLife",
+            "r/ClaudeAI",
+            "r/CleaningTips",
+            "r/Coffee",
+            "r/Frugal",
+            "r/FulfillmentByAmazon",
+            "r/GiftIdeas",
+            "r/Leuven",
+            "r/OpenAI",
+            "r/agi",
+            "r/ecommerce",
+            "r/espresso",
+            "r/flashlight",
+            "r/fountainpens"
+          ],
+          "display_name": "Amazon",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "家居生活选品",
+            "好物选品",
+            "AI工具与Agent",
+            "电商平台政策与风向",
+            "卖家店铺运营"
+          ],
+          "latest_observed_at": "2026-05-12T03:54:15.548530+00:00",
+          "mention_count": 78
+        },
+        {
+          "brand_key": "etsy",
+          "business_domains": [
+            "家居生活"
+          ],
+          "communities": [
+            "r/Etsy",
+            "r/EtsySellers",
+            "r/GiftIdeas",
+            "r/ecommerce",
+            "r/shopify"
+          ],
+          "display_name": "Etsy",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "好物选品",
+            "卖家店铺运营"
+          ],
+          "latest_observed_at": "2026-05-12T04:58:38.912170+00:00",
+          "mention_count": 68
+        },
+        {
+          "brand_key": "fba",
+          "business_domains": [],
+          "communities": [
+            "r/AmazonSeller",
+            "r/EtsySellers",
+            "r/FulfillmentByAmazon",
+            "r/ecommerce"
+          ],
+          "display_name": "fba",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "AI工具与Agent",
+            "卖家店铺运营"
+          ],
+          "latest_observed_at": "2026-05-12T03:54:15.548530+00:00",
+          "mention_count": 51
+        },
+        {
+          "brand_key": "tiktok",
+          "business_domains": [],
+          "communities": [
+            "r/FacebookAds",
+            "r/kickstarter",
+            "r/shopify"
+          ],
+          "display_name": "tiktok",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "广告投放",
+            "众筹与品牌启动",
+            "卖家店铺运营"
+          ],
+          "latest_observed_at": "2026-05-12T04:33:32.209536+00:00",
+          "mention_count": 9
+        },
+        {
+          "brand_key": "tiktok shop",
+          "business_domains": [],
+          "communities": [
+            "r/FacebookAds",
+            "r/kickstarter",
+            "r/shopify"
+          ],
+          "display_name": "TikTok Shop",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "广告投放",
+            "众筹与品牌启动",
+            "卖家店铺运营"
+          ],
+          "latest_observed_at": "2026-05-12T04:33:32.209536+00:00",
+          "mention_count": 9
+        },
+        {
+          "brand_key": "alibaba",
+          "business_domains": [
+            "电商平台与卖家工具"
+          ],
+          "communities": [
+            "r/FulfillmentByAmazon",
+            "r/ecommerce"
+          ],
+          "display_name": "Alibaba",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "AI工具与Agent",
+            "卖家店铺运营"
+          ],
+          "latest_observed_at": "2026-04-24T05:21:16.365307+00:00",
+          "mention_count": 3
+        }
+      ],
+      "interest_tag": "卖家店铺运营",
+      "mention_count": 636,
+      "top_brands": "google, Shopify, Amazon, Etsy, fba"
+    },
+    {
+      "brand_count": 6,
+      "brands": [
+        {
+          "brand_key": "google",
+          "business_domains": [],
+          "communities": [
+            "r/AskMarketing",
+            "r/Blogging",
+            "r/ChatGPT",
+            "r/ClaudeAI",
+            "r/DigitalMarketing",
+            "r/Entrepreneur",
+            "r/FacebookAds",
+            "r/Google_Ads",
+            "r/GrowthHacking",
+            "r/LLM",
+            "r/PPC",
+            "r/SEO",
+            "r/TechSEO",
+            "r/adops",
+            "r/aeo",
+            "r/agi",
+            "r/analytics",
+            "r/artificial",
+            "r/automation",
+            "r/b2bmarketing",
+            "r/bigseo",
+            "r/claudeskills",
+            "r/content_marketing",
+            "r/dogs",
+            "r/ecommerce",
+            "r/googleads",
+            "r/juststart",
+            "r/seogrowth",
+            "r/shopify"
+          ],
+          "display_name": "google",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "家居生活选品",
+            "好物选品",
+            "广告投放",
+            "SEO&GEO",
+            "AI工具与Agent",
+            "卖家店铺运营",
+            "内容营销创作"
+          ],
+          "latest_observed_at": "2026-05-12T04:33:32.209536+00:00",
+          "mention_count": 305
+        },
+        {
+          "brand_key": "shopify",
+          "business_domains": [
+            "电商平台与卖家工具"
+          ],
+          "communities": [
+            "r/DigitalMarketing",
+            "r/FulfillmentByAmazon",
+            "r/PPC",
+            "r/SEO",
+            "r/analytics",
+            "r/automation",
+            "r/ecommerce",
+            "r/shopify"
+          ],
+          "display_name": "Shopify",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "广告投放",
+            "SEO&GEO",
+            "AI工具与Agent",
+            "卖家店铺运营"
+          ],
+          "latest_observed_at": "2026-05-11T06:28:31.977368+00:00",
+          "mention_count": 110
+        },
+        {
+          "brand_key": "amazon",
+          "business_domains": [],
+          "communities": [
+            "r/AmazonSeller",
+            "r/BuyItForLife",
+            "r/ClaudeAI",
+            "r/CleaningTips",
+            "r/Coffee",
+            "r/Frugal",
+            "r/FulfillmentByAmazon",
+            "r/GiftIdeas",
+            "r/Leuven",
+            "r/OpenAI",
+            "r/agi",
+            "r/ecommerce",
+            "r/espresso",
+            "r/flashlight",
+            "r/fountainpens"
+          ],
+          "display_name": "Amazon",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "家居生活选品",
+            "好物选品",
+            "AI工具与Agent",
+            "电商平台政策与风向",
+            "卖家店铺运营"
+          ],
+          "latest_observed_at": "2026-05-12T03:54:15.548530+00:00",
+          "mention_count": 78
+        },
+        {
+          "brand_key": "fba",
+          "business_domains": [],
+          "communities": [
+            "r/AmazonSeller",
+            "r/EtsySellers",
+            "r/FulfillmentByAmazon",
+            "r/ecommerce"
+          ],
+          "display_name": "fba",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "AI工具与Agent",
+            "卖家店铺运营"
+          ],
+          "latest_observed_at": "2026-05-12T03:54:15.548530+00:00",
+          "mention_count": 51
+        },
+        {
+          "brand_key": "youtube",
+          "business_domains": [],
+          "communities": [
+            "r/AI_Agents",
+            "r/BuyItForLife",
+            "r/CampingGear",
+            "r/DigitalMarketing",
+            "r/EntrepreneurRideAlong",
+            "r/FacebookAds",
+            "r/ManyBaggers",
+            "r/PPC",
+            "r/SEO"
+          ],
+          "display_name": "youtube",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "家居生活选品",
+            "广告投放",
+            "SEO&GEO",
+            "AI工具与Agent"
+          ],
+          "latest_observed_at": "2026-05-04T10:07:57.177718+00:00",
+          "mention_count": 15
+        },
+        {
+          "brand_key": "alibaba",
+          "business_domains": [
+            "电商平台与卖家工具"
+          ],
+          "communities": [
+            "r/FulfillmentByAmazon",
+            "r/ecommerce"
+          ],
+          "display_name": "Alibaba",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "AI工具与Agent",
+            "卖家店铺运营"
+          ],
+          "latest_observed_at": "2026-04-24T05:21:16.365307+00:00",
+          "mention_count": 3
+        }
+      ],
+      "interest_tag": "AI工具与Agent",
+      "mention_count": 562,
+      "top_brands": "google, Shopify, Amazon, fba, youtube"
+    },
+    {
+      "brand_count": 7,
+      "brands": [
+        {
+          "brand_key": "google",
+          "business_domains": [],
+          "communities": [
+            "r/AskMarketing",
+            "r/Blogging",
+            "r/ChatGPT",
+            "r/ClaudeAI",
+            "r/DigitalMarketing",
+            "r/Entrepreneur",
+            "r/FacebookAds",
+            "r/Google_Ads",
+            "r/GrowthHacking",
+            "r/LLM",
+            "r/PPC",
+            "r/SEO",
+            "r/TechSEO",
+            "r/adops",
+            "r/aeo",
+            "r/agi",
+            "r/analytics",
+            "r/artificial",
+            "r/automation",
+            "r/b2bmarketing",
+            "r/bigseo",
+            "r/claudeskills",
+            "r/content_marketing",
+            "r/dogs",
+            "r/ecommerce",
+            "r/googleads",
+            "r/juststart",
+            "r/seogrowth",
+            "r/shopify"
+          ],
+          "display_name": "google",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "家居生活选品",
+            "好物选品",
+            "广告投放",
+            "SEO&GEO",
+            "AI工具与Agent",
+            "卖家店铺运营",
+            "内容营销创作"
+          ],
+          "latest_observed_at": "2026-05-12T04:33:32.209536+00:00",
+          "mention_count": 305
+        },
+        {
+          "brand_key": "shopify",
+          "business_domains": [
+            "电商平台与卖家工具"
+          ],
+          "communities": [
+            "r/DigitalMarketing",
+            "r/FulfillmentByAmazon",
+            "r/PPC",
+            "r/SEO",
+            "r/analytics",
+            "r/automation",
+            "r/ecommerce",
+            "r/shopify"
+          ],
+          "display_name": "Shopify",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "广告投放",
+            "SEO&GEO",
+            "AI工具与Agent",
+            "卖家店铺运营"
+          ],
+          "latest_observed_at": "2026-05-11T06:28:31.977368+00:00",
+          "mention_count": 110
+        },
+        {
+          "brand_key": "facebook",
+          "business_domains": [],
+          "communities": [
+            "r/FacebookAds",
+            "r/ManyBaggers",
+            "r/SEO",
+            "r/ecommerce",
+            "r/fountainpens",
+            "r/kickstarter"
+          ],
+          "display_name": "facebook",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "广告投放",
+            "SEO&GEO",
+            "众筹与品牌启动"
+          ],
+          "latest_observed_at": "2026-05-11T05:12:28.668933+00:00",
+          "mention_count": 46
+        },
+        {
+          "brand_key": "youtube",
+          "business_domains": [],
+          "communities": [
+            "r/AI_Agents",
+            "r/BuyItForLife",
+            "r/CampingGear",
+            "r/DigitalMarketing",
+            "r/EntrepreneurRideAlong",
+            "r/FacebookAds",
+            "r/ManyBaggers",
+            "r/PPC",
+            "r/SEO"
+          ],
+          "display_name": "youtube",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "家居生活选品",
+            "广告投放",
+            "SEO&GEO",
+            "AI工具与Agent"
+          ],
+          "latest_observed_at": "2026-05-04T10:07:57.177718+00:00",
+          "mention_count": 15
+        },
+        {
+          "brand_key": "tiktok",
+          "business_domains": [],
+          "communities": [
+            "r/FacebookAds",
+            "r/kickstarter",
+            "r/shopify"
+          ],
+          "display_name": "tiktok",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "广告投放",
+            "众筹与品牌启动",
+            "卖家店铺运营"
+          ],
+          "latest_observed_at": "2026-05-12T04:33:32.209536+00:00",
+          "mention_count": 9
+        },
+        {
+          "brand_key": "tiktok shop",
+          "business_domains": [],
+          "communities": [
+            "r/FacebookAds",
+            "r/kickstarter",
+            "r/shopify"
+          ],
+          "display_name": "TikTok Shop",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "广告投放",
+            "众筹与品牌启动",
+            "卖家店铺运营"
+          ],
+          "latest_observed_at": "2026-05-12T04:33:32.209536+00:00",
+          "mention_count": 9
+        },
+        {
+          "brand_key": "instagram",
+          "business_domains": [],
+          "communities": [
+            "r/DigitalMarketing",
+            "r/FacebookAds",
+            "r/SEO",
+            "r/ecommerce"
+          ],
+          "display_name": "instagram",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "广告投放",
+            "SEO&GEO"
+          ],
+          "latest_observed_at": "2026-04-30T11:32:23.780691+00:00",
+          "mention_count": 7
+        }
+      ],
+      "interest_tag": "广告投放",
+      "mention_count": 501,
+      "top_brands": "google, Shopify, facebook, youtube, tiktok"
+    },
+    {
+      "brand_count": 5,
+      "brands": [
+        {
+          "brand_key": "google",
+          "business_domains": [],
+          "communities": [
+            "r/AskMarketing",
+            "r/Blogging",
+            "r/ChatGPT",
+            "r/ClaudeAI",
+            "r/DigitalMarketing",
+            "r/Entrepreneur",
+            "r/FacebookAds",
+            "r/Google_Ads",
+            "r/GrowthHacking",
+            "r/LLM",
+            "r/PPC",
+            "r/SEO",
+            "r/TechSEO",
+            "r/adops",
+            "r/aeo",
+            "r/agi",
+            "r/analytics",
+            "r/artificial",
+            "r/automation",
+            "r/b2bmarketing",
+            "r/bigseo",
+            "r/claudeskills",
+            "r/content_marketing",
+            "r/dogs",
+            "r/ecommerce",
+            "r/googleads",
+            "r/juststart",
+            "r/seogrowth",
+            "r/shopify"
+          ],
+          "display_name": "google",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "家居生活选品",
+            "好物选品",
+            "广告投放",
+            "SEO&GEO",
+            "AI工具与Agent",
+            "卖家店铺运营",
+            "内容营销创作"
+          ],
+          "latest_observed_at": "2026-05-12T04:33:32.209536+00:00",
+          "mention_count": 305
+        },
+        {
+          "brand_key": "shopify",
+          "business_domains": [
+            "电商平台与卖家工具"
+          ],
+          "communities": [
+            "r/DigitalMarketing",
+            "r/FulfillmentByAmazon",
+            "r/PPC",
+            "r/SEO",
+            "r/analytics",
+            "r/automation",
+            "r/ecommerce",
+            "r/shopify"
+          ],
+          "display_name": "Shopify",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "广告投放",
+            "SEO&GEO",
+            "AI工具与Agent",
+            "卖家店铺运营"
+          ],
+          "latest_observed_at": "2026-05-11T06:28:31.977368+00:00",
+          "mention_count": 110
+        },
+        {
+          "brand_key": "facebook",
+          "business_domains": [],
+          "communities": [
+            "r/FacebookAds",
+            "r/ManyBaggers",
+            "r/SEO",
+            "r/ecommerce",
+            "r/fountainpens",
+            "r/kickstarter"
+          ],
+          "display_name": "facebook",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "广告投放",
+            "SEO&GEO",
+            "众筹与品牌启动"
+          ],
+          "latest_observed_at": "2026-05-11T05:12:28.668933+00:00",
+          "mention_count": 46
+        },
+        {
+          "brand_key": "youtube",
+          "business_domains": [],
+          "communities": [
+            "r/AI_Agents",
+            "r/BuyItForLife",
+            "r/CampingGear",
+            "r/DigitalMarketing",
+            "r/EntrepreneurRideAlong",
+            "r/FacebookAds",
+            "r/ManyBaggers",
+            "r/PPC",
+            "r/SEO"
+          ],
+          "display_name": "youtube",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "家居生活选品",
+            "广告投放",
+            "SEO&GEO",
+            "AI工具与Agent"
+          ],
+          "latest_observed_at": "2026-05-04T10:07:57.177718+00:00",
+          "mention_count": 15
+        },
+        {
+          "brand_key": "instagram",
+          "business_domains": [],
+          "communities": [
+            "r/DigitalMarketing",
+            "r/FacebookAds",
+            "r/SEO",
+            "r/ecommerce"
+          ],
+          "display_name": "instagram",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "广告投放",
+            "SEO&GEO"
+          ],
+          "latest_observed_at": "2026-04-30T11:32:23.780691+00:00",
+          "mention_count": 7
+        }
+      ],
+      "interest_tag": "SEO&GEO",
+      "mention_count": 483,
+      "top_brands": "google, Shopify, facebook, youtube, instagram"
+    },
+    {
+      "brand_count": 4,
+      "brands": [
+        {
+          "brand_key": "google",
+          "business_domains": [],
+          "communities": [
+            "r/AskMarketing",
+            "r/Blogging",
+            "r/ChatGPT",
+            "r/ClaudeAI",
+            "r/DigitalMarketing",
+            "r/Entrepreneur",
+            "r/FacebookAds",
+            "r/Google_Ads",
+            "r/GrowthHacking",
+            "r/LLM",
+            "r/PPC",
+            "r/SEO",
+            "r/TechSEO",
+            "r/adops",
+            "r/aeo",
+            "r/agi",
+            "r/analytics",
+            "r/artificial",
+            "r/automation",
+            "r/b2bmarketing",
+            "r/bigseo",
+            "r/claudeskills",
+            "r/content_marketing",
+            "r/dogs",
+            "r/ecommerce",
+            "r/googleads",
+            "r/juststart",
+            "r/seogrowth",
+            "r/shopify"
+          ],
+          "display_name": "google",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "家居生活选品",
+            "好物选品",
+            "广告投放",
+            "SEO&GEO",
+            "AI工具与Agent",
+            "卖家店铺运营",
+            "内容营销创作"
+          ],
+          "latest_observed_at": "2026-05-12T04:33:32.209536+00:00",
+          "mention_count": 305
+        },
+        {
+          "brand_key": "amazon",
+          "business_domains": [],
+          "communities": [
+            "r/AmazonSeller",
+            "r/BuyItForLife",
+            "r/ClaudeAI",
+            "r/CleaningTips",
+            "r/Coffee",
+            "r/Frugal",
+            "r/FulfillmentByAmazon",
+            "r/GiftIdeas",
+            "r/Leuven",
+            "r/OpenAI",
+            "r/agi",
+            "r/ecommerce",
+            "r/espresso",
+            "r/flashlight",
+            "r/fountainpens"
+          ],
+          "display_name": "Amazon",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "家居生活选品",
+            "好物选品",
+            "AI工具与Agent",
+            "电商平台政策与风向",
+            "卖家店铺运营"
+          ],
+          "latest_observed_at": "2026-05-12T03:54:15.548530+00:00",
+          "mention_count": 78
+        },
+        {
+          "brand_key": "etsy",
+          "business_domains": [
+            "家居生活"
+          ],
+          "communities": [
+            "r/Etsy",
+            "r/EtsySellers",
+            "r/GiftIdeas",
+            "r/ecommerce",
+            "r/shopify"
+          ],
+          "display_name": "Etsy",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "好物选品",
+            "卖家店铺运营"
+          ],
+          "latest_observed_at": "2026-05-12T04:58:38.912170+00:00",
+          "mention_count": 68
+        },
+        {
+          "brand_key": "temu",
+          "business_domains": [],
+          "communities": [
+            "r/EDC",
+            "r/Leuven"
+          ],
+          "display_name": "Temu",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "好物选品"
+          ],
+          "latest_observed_at": "2026-04-18T05:24:34.228369+00:00",
+          "mention_count": 6
+        }
+      ],
+      "interest_tag": "好物选品",
+      "mention_count": 457,
+      "top_brands": "google, Amazon, Etsy, Temu"
+    },
+    {
+      "brand_count": 3,
+      "brands": [
+        {
+          "brand_key": "google",
+          "business_domains": [],
+          "communities": [
+            "r/AskMarketing",
+            "r/Blogging",
+            "r/ChatGPT",
+            "r/ClaudeAI",
+            "r/DigitalMarketing",
+            "r/Entrepreneur",
+            "r/FacebookAds",
+            "r/Google_Ads",
+            "r/GrowthHacking",
+            "r/LLM",
+            "r/PPC",
+            "r/SEO",
+            "r/TechSEO",
+            "r/adops",
+            "r/aeo",
+            "r/agi",
+            "r/analytics",
+            "r/artificial",
+            "r/automation",
+            "r/b2bmarketing",
+            "r/bigseo",
+            "r/claudeskills",
+            "r/content_marketing",
+            "r/dogs",
+            "r/ecommerce",
+            "r/googleads",
+            "r/juststart",
+            "r/seogrowth",
+            "r/shopify"
+          ],
+          "display_name": "google",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "家居生活选品",
+            "好物选品",
+            "广告投放",
+            "SEO&GEO",
+            "AI工具与Agent",
+            "卖家店铺运营",
+            "内容营销创作"
+          ],
+          "latest_observed_at": "2026-05-12T04:33:32.209536+00:00",
+          "mention_count": 305
+        },
+        {
+          "brand_key": "amazon",
+          "business_domains": [],
+          "communities": [
+            "r/AmazonSeller",
+            "r/BuyItForLife",
+            "r/ClaudeAI",
+            "r/CleaningTips",
+            "r/Coffee",
+            "r/Frugal",
+            "r/FulfillmentByAmazon",
+            "r/GiftIdeas",
+            "r/Leuven",
+            "r/OpenAI",
+            "r/agi",
+            "r/ecommerce",
+            "r/espresso",
+            "r/flashlight",
+            "r/fountainpens"
+          ],
+          "display_name": "Amazon",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "家居生活选品",
+            "好物选品",
+            "AI工具与Agent",
+            "电商平台政策与风向",
+            "卖家店铺运营"
+          ],
+          "latest_observed_at": "2026-05-12T03:54:15.548530+00:00",
+          "mention_count": 78
+        },
+        {
+          "brand_key": "youtube",
+          "business_domains": [],
+          "communities": [
+            "r/AI_Agents",
+            "r/BuyItForLife",
+            "r/CampingGear",
+            "r/DigitalMarketing",
+            "r/EntrepreneurRideAlong",
+            "r/FacebookAds",
+            "r/ManyBaggers",
+            "r/PPC",
+            "r/SEO"
+          ],
+          "display_name": "youtube",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "家居生活选品",
+            "广告投放",
+            "SEO&GEO",
+            "AI工具与Agent"
+          ],
+          "latest_observed_at": "2026-05-04T10:07:57.177718+00:00",
+          "mention_count": 15
+        }
+      ],
+      "interest_tag": "家居生活选品",
+      "mention_count": 398,
+      "top_brands": "google, Amazon, youtube"
+    },
+    {
+      "brand_count": 1,
+      "brands": [
+        {
+          "brand_key": "google",
+          "business_domains": [],
+          "communities": [
+            "r/AskMarketing",
+            "r/Blogging",
+            "r/ChatGPT",
+            "r/ClaudeAI",
+            "r/DigitalMarketing",
+            "r/Entrepreneur",
+            "r/FacebookAds",
+            "r/Google_Ads",
+            "r/GrowthHacking",
+            "r/LLM",
+            "r/PPC",
+            "r/SEO",
+            "r/TechSEO",
+            "r/adops",
+            "r/aeo",
+            "r/agi",
+            "r/analytics",
+            "r/artificial",
+            "r/automation",
+            "r/b2bmarketing",
+            "r/bigseo",
+            "r/claudeskills",
+            "r/content_marketing",
+            "r/dogs",
+            "r/ecommerce",
+            "r/googleads",
+            "r/juststart",
+            "r/seogrowth",
+            "r/shopify"
+          ],
+          "display_name": "google",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "家居生活选品",
+            "好物选品",
+            "广告投放",
+            "SEO&GEO",
+            "AI工具与Agent",
+            "卖家店铺运营",
+            "内容营销创作"
+          ],
+          "latest_observed_at": "2026-05-12T04:33:32.209536+00:00",
+          "mention_count": 305
+        }
+      ],
+      "interest_tag": "内容营销创作",
+      "mention_count": 305,
+      "top_brands": "google"
+    },
+    {
+      "brand_count": 1,
+      "brands": [
+        {
+          "brand_key": "amazon",
+          "business_domains": [],
+          "communities": [
+            "r/AmazonSeller",
+            "r/BuyItForLife",
+            "r/ClaudeAI",
+            "r/CleaningTips",
+            "r/Coffee",
+            "r/Frugal",
+            "r/FulfillmentByAmazon",
+            "r/GiftIdeas",
+            "r/Leuven",
+            "r/OpenAI",
+            "r/agi",
+            "r/ecommerce",
+            "r/espresso",
+            "r/flashlight",
+            "r/fountainpens"
+          ],
+          "display_name": "Amazon",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "家居生活选品",
+            "好物选品",
+            "AI工具与Agent",
+            "电商平台政策与风向",
+            "卖家店铺运营"
+          ],
+          "latest_observed_at": "2026-05-12T03:54:15.548530+00:00",
+          "mention_count": 78
+        }
+      ],
+      "interest_tag": "电商平台政策与风向",
+      "mention_count": 78,
+      "top_brands": "Amazon"
+    },
+    {
+      "brand_count": 3,
+      "brands": [
+        {
+          "brand_key": "facebook",
+          "business_domains": [],
+          "communities": [
+            "r/FacebookAds",
+            "r/ManyBaggers",
+            "r/SEO",
+            "r/ecommerce",
+            "r/fountainpens",
+            "r/kickstarter"
+          ],
+          "display_name": "facebook",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "广告投放",
+            "SEO&GEO",
+            "众筹与品牌启动"
+          ],
+          "latest_observed_at": "2026-05-11T05:12:28.668933+00:00",
+          "mention_count": 46
+        },
+        {
+          "brand_key": "tiktok",
+          "business_domains": [],
+          "communities": [
+            "r/FacebookAds",
+            "r/kickstarter",
+            "r/shopify"
+          ],
+          "display_name": "tiktok",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "广告投放",
+            "众筹与品牌启动",
+            "卖家店铺运营"
+          ],
+          "latest_observed_at": "2026-05-12T04:33:32.209536+00:00",
+          "mention_count": 9
+        },
+        {
+          "brand_key": "tiktok shop",
+          "business_domains": [],
+          "communities": [
+            "r/FacebookAds",
+            "r/kickstarter",
+            "r/shopify"
+          ],
+          "display_name": "TikTok Shop",
+          "evidence_status": "verified",
+          "interest_tags": [
+            "广告投放",
+            "众筹与品牌启动",
+            "卖家店铺运营"
+          ],
+          "latest_observed_at": "2026-05-12T04:33:32.209536+00:00",
+          "mention_count": 9
+        }
+      ],
+      "interest_tag": "众筹与品牌启动",
+      "mention_count": 64,
+      "top_brands": "facebook, tiktok, TikTok Shop"
+    }
+  ],
+  "miniapp_snapshot_fields": false,
+  "phase": "brand-intelligence-r16-system-evidence",
+  "profile": "system_evidence",
+  "source": "brand_registry + brand_mentions",
+  "summary": {
+    "brand_count": 13,
+    "community_count": 49,
+    "interest_tag_count": 9,
+    "mention_count": 710
+  },
+  "system_contract": {
+    "main_system_uses": [
+      "community_recommendation_explanations",
+      "hotpost_card_context",
+      "semantic_review_queue"
+    ],
+    "miniapp_benefit": "indirect_card_quality_and_reasoning",
+    "not_frontend_surface": true
+  }
+}

@@ -4,7 +4,7 @@
     "requires_human_review": true,
     "writes_db": false
   },
-  "report_date": "2026-05-12",
+  "report_date": "2026-05-13",
   "rows": [
     {
       "already_in_pool": false,
@@ -157,17 +157,17 @@
     },
     {
       "already_in_pool": false,
-      "candidate_count": 1,
+      "candidate_count": 3,
       "community": "r/heronebag",
       "draft_count": 0,
-      "duplicate_count": 0,
+      "duplicate_count": 1,
       "evidence": {
-        "candidate_count": 1,
+        "candidate_count": 3,
         "draft_count": 0,
-        "duplicate_count": 0,
+        "duplicate_count": 1,
         "published_count": 0,
         "reject_count": 0,
-        "total_evidence": 1
+        "total_evidence": 3
       },
       "feedback_action": "keep_testing",
       "published_count": 0,
@@ -176,6 +176,7 @@
       ],
       "reject_count": 0,
       "risks": [
+        "duplicate_posts",
         "not_published_yet"
       ],
       "source_scope": "ecommerce-sellers",
@@ -189,8 +190,10 @@
           "interest_tag_mapping",
           "new_topic_coverage"
         ],
-        "risks": [],
-        "score": 23,
+        "risks": [
+          "duplicate_posts"
+        ],
+        "score": 29,
         "stage": "testing"
       }
     },
@@ -307,17 +310,17 @@
     },
     {
       "already_in_pool": true,
-      "candidate_count": 3,
+      "candidate_count": 1,
       "community": "r/etsy",
       "draft_count": 0,
-      "duplicate_count": 1,
+      "duplicate_count": 0,
       "evidence": {
-        "candidate_count": 3,
+        "candidate_count": 1,
         "draft_count": 0,
-        "duplicate_count": 1,
+        "duplicate_count": 0,
         "published_count": 4,
         "reject_count": 0,
-        "total_evidence": 7
+        "total_evidence": 5
       },
       "feedback_action": "already_in_pool",
       "published_count": 4,
@@ -325,9 +328,7 @@
         "already tracked in community_pool"
       ],
       "reject_count": 0,
-      "risks": [
-        "duplicate_posts"
-      ],
+      "risks": [],
       "source_scope": "ecommerce-sellers",
       "suggested_user_tags": [
         "卖家店铺运营"
@@ -340,9 +341,7 @@
           "interest_tag_mapping",
           "new_topic_coverage"
         ],
-        "risks": [
-          "duplicate_posts"
-        ],
+        "risks": [],
         "score": 100,
         "stage": "already_in_pool"
       }
