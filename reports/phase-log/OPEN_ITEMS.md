@@ -6,17 +6,18 @@
 
 ### P0
 
-0. Brand Intelligence R16 系统证据包已完成，下一步做 accepted / archive 文本匹配护栏
+0. Brand Intelligence R16 系统证据包已完成，下一步接入推荐解释
    已完成：主系统品牌收录第一层已经接入已发布 Hotpost 卡、语义库、初始品牌表、历史 archive 品牌包和噪音词表；R15.2 已新增 Dev DB `brand_registry / brand_mentions` 并显式写入；R15.3 已把品牌 digest、质量审查、sidecar 报告和语义审核队列接进日常运营后置动作；R15.4 已补只读服务、API 和预览命令。
    当前结果：Dev DB `brand_registry=1655 / brand_mentions=1254`；状态分布为 `accepted=1457 / verified=13 / candidate=2 / match_guarded=58 / canonical_review=81 / metadata_review=44`。2026-05-13 sidecar 扫描 `881` 张已发布卡，识别 `171` 个品牌、`1571` 条证据，结果为 `verified=13 / candidate=142 / rejected=16 / semantic_review_queue=13 / new_brand_candidates=0`。
    写入产物：`reports/brand-intelligence/brand-registry-r15-2-dev-write-2026-05-12.md`、`.json`、`brand-registry-r15-2-dev-write-rollback-2026-05-12.sql`；幂等复跑产物为 `brand-registry-r15-2-dev-write-rerun-2026-05-12.md/json`。
    Sidecar 产物：`reports/brand-intelligence/brand-ops-sidecar-2026-05-13.md/json`、`brand-semantic-review-queue-2026-05-13.json`，运营日志已补 `Brand Intelligence Sidecar` 段。
    只读消费产物：`reports/brand-intelligence/brand-registry-view-2026-05-13.md/json`；consumer-safe 预览为 `returned_brands=13 / mention_count=710 / consumer_profile=consumer_safe / field_contract_version=brand-consumer-v1 / db_writes=false / miniapp_snapshot_fields=false`。
    审计产物：`reports/brand-intelligence/brand-intelligence-r15-audit-2026-05-13.md`。审计暴露的两个 P1 已修：API / CLI 默认只出 `verified` 品牌；消费字段改为 `display_name / business_domains / interest_tags / evidence_status / display_status / mention_count`，内部治理字段只在 CLI `--profile internal_registry` 下输出。
-   R16 产物：`reports/brand-intelligence/brand-system-evidence-2026-05-13.md/json`；当前结果为 `brand_count=13 / mention_count=710 / interest_tag_count=9 / community_count=49`，用于主系统推荐解释、Hotpost sidecar 和语义审核上下文。
+   R16 产物：`reports/brand-intelligence/brand-system-evidence-2026-05-13.md/json`；当前结果为 `brand_count=117 / mention_count=976 / interest_tag_count=9 / community_count=60`，用于主系统推荐解释、Hotpost sidecar 和语义审核上下文。
    当前边界：R15.4 / R16 都只读；Gold DB、小程序快照、cloud DB、Hotpost 发布链和语义库都未写；`frontend_display=false / miniapp_snapshot_fields=false`，不做前端品牌页或小程序品牌 tab。
-   关键修正：`system_evidence` 默认只用 `verified`。`accepted` 品牌仍保留在注册表，但暂不自动进入系统证据层；原因是“品牌存在被收录”不等于文本里每次命中都是真的品牌提及。
-   下一步：先给 accepted / archive 品牌补文本匹配护栏，避免普通短语误当品牌；再把安全品牌证据接入社区推荐解释和 Hotpost sidecar。后续再补高证据候选晋级队列和 API 高频读取索引。
+   关键修正：`system_evidence` 当前允许 `verified + accepted`，但 `accepted` mention 必须先过配置化 `brand_match_guard`；已确认 `Can Do` 这类普通短语不会进入系统证据包。
+   Sidecar 补充：`reports/brand-intelligence/brand-ops-sidecar-2026-05-13.md/json` 已带 `system_evidence_summary`，当前 `system_evidence_brands=117`。
+   下一步：把安全品牌证据接入社区推荐解释和 Hotpost 后续上下文；后续再补高证据候选晋级队列和 API 高频读取索引。
 
 0. 2026-05-13 Hotpost 日常出卡已完成，待线上 Upsert 导入
    已完成：今日正式发布 `25` 张，最新快照 `release-f798171983ef`，总卡数 `881`；同步检查通过，首页 feed contract `30/30`。运营日志已更新到 `reports/ops-log/2026-05-13.md`。

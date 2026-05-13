@@ -6,10 +6,13 @@
   - [CURRENT_STATUS.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/CURRENT_STATUS.md)
 - 未完成事项：
   - [OPEN_ITEMS.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/OPEN_ITEMS.md)
-- Brand Intelligence R16 系统证据包已落地：品牌池不做前端展示，先作为主系统 / Hotpost / 小程序间接受益的证据层；当前 `brand_count=13 / mention_count=710 / interest_tag_count=9 / community_count=49`，`db_writes=false / frontend_display=false / miniapp_snapshot_fields=false`：
+- Brand Intelligence R16 文本护栏与 sidecar 接入已落地：系统证据包允许 `verified + accepted`，但 `accepted` mention 必须先过配置化护栏；当前 `brand_count=117 / mention_count=976 / interest_tag_count=9 / community_count=60`，sidecar 已带 `system_evidence_brands=117`，`db_writes=false / frontend_display=false / miniapp_snapshot_fields=false`：
+  - [phase1132.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1132.md)
   - [phase1131.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1131.md)
   - [brand-system-evidence-2026-05-13.md](/Users/hujia/Desktop/RedditSignalScanner/reports/brand-intelligence/brand-system-evidence-2026-05-13.md)
   - [brand-system-evidence-2026-05-13.json](/Users/hujia/Desktop/RedditSignalScanner/reports/brand-intelligence/brand-system-evidence-2026-05-13.json)
+  - [brand-ops-sidecar-2026-05-13.md](/Users/hujia/Desktop/RedditSignalScanner/reports/brand-intelligence/brand-ops-sidecar-2026-05-13.md)
+  - [brand-ops-sidecar-2026-05-13.json](/Users/hujia/Desktop/RedditSignalScanner/reports/brand-intelligence/brand-ops-sidecar-2026-05-13.json)
 - Brand Intelligence R15.4 consumer-safe 只读合同已收口：共享读取服务、`/brand-intelligence/registry` API 和 `make brand-registry-view` 已可读同一张 `brand_registry`；默认只返回 `verified` 品牌，消费字段为 `display_name / business_domains / interest_tags / evidence_status / display_status / mention_count`，预览为 `returned_brands=13 / mention_count=710 / db_writes=false / miniapp_snapshot_fields=false`：
   - [phase1130.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1130.md)
   - [phase1129.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1129.md)

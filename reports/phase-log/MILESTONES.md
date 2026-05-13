@@ -61,7 +61,7 @@
   - Reddit Community Intelligence 已完成一次口径纠偏：Phase 0 / 1 / 2 社区治理和 Dev 写入只算数据准备，当前产品主线改为“系统从已有数据和语义库生成标签 / 赛道 -> 用户点击 -> 有证据、有理由、长尾优先的社区推荐”
   - 标签式社区推荐已落成合同修正版：`CAPABILITY_SEEDS` 已从 production code 移除，9 个用户可选业务标签、旧业务分类目录和 Phase 2 分类推断都改由配置真相源承载；后端应用服务入口已收口，CLI 和后续 API / 前端适配层必须共用同一 service；当前能生成 `9` 个具像化兴趣标签和 `68` 条推荐样例，后端验收为 `acceptance_passed=true / ready_count=33`
   - Hotpost 探索社区池到 `community_pool` 的 R10/R11/R12 已落地：显式 probe 入口和只读回流 dry-run 都已具备；R11.5 社区价值评分算法已补上，人工发布验证降级为校准样本；2026-05-10 首次把 3 个用户确认的 `pool_candidate` 写入 Dev `community_pool`，Gold DB 和小程序派生产物未写
-  - Brand Intelligence R15.0 到 R16 已落地：主系统能从已发布 Hotpost 卡、语义库、初始品牌表、历史 archive 品牌包和噪音词表生成品牌池，已显式写入 Dev DB `brand_registry=1655 / brand_mentions=1254`，已接入日常运营 sidecar，并已有 consumer-safe 只读服务 / API / 预览报告；R16 新增后端系统证据包，默认只用 `verified` 品牌给推荐解释、Hotpost sidecar 和语义审核提供证据
+  - Brand Intelligence R15.0 到 R16 已落地：主系统能从已发布 Hotpost 卡、语义库、初始品牌表、历史 archive 品牌包和噪音词表生成品牌池，已显式写入 Dev DB `brand_registry=1655 / brand_mentions=1254`，已接入日常运营 sidecar，并已有 consumer-safe 只读服务 / API / 预览报告；R16 后端系统证据包已补文本护栏，允许安全的 `verified + accepted` 证据进入推荐解释、Hotpost sidecar 和语义审核上下文
   - `2026-05-13` Hotpost 日常出卡按硬节奏完成 `25` 张，最新快照 `release-f798171983ef / card_count=881`；本轮把特朗普访华 x AI 深度信号、Claude Code / Agent harness、LocalLLaMA、SKU 选品和 Amazon/FBA 经营信号一起收进正式首页，并保持探索社区只读回流。
 - 今天仍然有效的结论：
   - Hotpost 当前主问题是 `freshness / quota / freshest supply`；Community Intelligence 当前主问题已经从“后端能不能生成推荐”变成“用户是否认可推荐质量，以及是否需要补真实 Reddit 活跃探测和更深语义观察”

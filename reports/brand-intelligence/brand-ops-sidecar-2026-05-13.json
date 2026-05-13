@@ -440,6 +440,13 @@
     "semantic_review_queue": 13,
     "verified_brands": 13
   },
+  "system_evidence_summary": {
+    "available": true,
+    "brand_count": 117,
+    "community_count": 60,
+    "interest_tag_count": 9,
+    "mention_count": 976
+  },
   "verified_brands": [
     {
       "canonical_name": "google",

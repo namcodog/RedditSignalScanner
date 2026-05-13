@@ -22,6 +22,8 @@ from app.db.session import SessionFactory
 from app.models.brand_registry import BrandRegistry
 from app.services.brand_intelligence.brand_ops_sidecar import (
     build_brand_ops_sidecar,
+)
+from app.services.brand_intelligence.brand_ops_sidecar_outputs import (
     render_brand_ops_sidecar_markdown,
 )
 from scripts.import_safety import ensure_dev_or_test_database
@@ -44,6 +46,11 @@ def parse_args() -> argparse.Namespace:
         default=REPORT_DIR / f"brand-quality-review-{TODAY}.json",
     )
     parser.add_argument("--registry-write-input", type=Path)
+    parser.add_argument(
+        "--system-evidence-input",
+        type=Path,
+        default=REPORT_DIR / f"brand-system-evidence-{TODAY}.json",
+    )
     parser.add_argument(
         "--json-output",
         type=Path,
@@ -79,6 +86,7 @@ def main() -> None:
         quality_payload=_load_json(args.quality_input),
         registry_write_payload=_optional_json(args.registry_write_input),
         known_brand_keys=known_brand_keys,
+        system_evidence_payload=_optional_json(args.system_evidence_input),
     )
     _write_outputs(
         payload,

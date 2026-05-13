@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "guarded_statuses": ["accepted"],
+  "blocked_terms": ["can do"],
+  "ambiguous_terms": [
+    "action",
+    "campaign",
+    "can do",
+    "case",
+    "cross",
+    "downstream",
+    "flow",
+    "kind",
+    "made",
+    "material",
+    "route",
+    "sharp",
+    "spot"
+  ],
+  "context_terms": [
+    "app",
+    "brand",
+    "company",
+    "official",
+    "platform",
+    "product",
+    "review",
+    "shop",
+    "store",
+    "tool",
+    "website"
+  ]
+}

@@ -26,7 +26,10 @@ SOURCE = (
 
 def test_system_evidence_pack_is_backend_only_and_groups_by_tag_and_community() -> None:
     assert load_brand_consumer_profile("system_evidence").exclude_risk_flags is True
-    assert load_brand_consumer_profile("system_evidence").review_statuses == ("verified",)
+    assert load_brand_consumer_profile("system_evidence").review_statuses == (
+        "verified",
+        "accepted",
+    )
 
     payload = build_brand_system_evidence_payload(
         [
