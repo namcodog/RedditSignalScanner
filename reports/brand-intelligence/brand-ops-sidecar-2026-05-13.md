@@ -8,12 +8,14 @@
 - verified_brands: `13`
 - new_brand_candidates: `0`
 - noise_items: `16`
+- system_evidence_brands: `117`
 - db_writes: `false`
 
 ## Daily Operator Checklist
 
 - 记录新增品牌候选和最高证据。
 - 记录 verified 品牌和对应兴趣标签。
+- 记录系统证据包是否可用，不阻塞出卡。
 - 记录 rejected/noise 样本，不进入品牌池。
 - 记录 DB 写入状态；默认只读或 dry-run。
 

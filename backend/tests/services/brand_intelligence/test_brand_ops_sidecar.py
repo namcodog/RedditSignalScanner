@@ -4,6 +4,8 @@ from typing import cast
 
 from app.services.brand_intelligence.brand_ops_sidecar import (
     build_brand_ops_sidecar,
+)
+from app.services.brand_intelligence.brand_ops_sidecar_outputs import (
     render_brand_ops_sidecar_markdown,
 )
 
@@ -39,6 +41,14 @@ def test_sidecar_reports_non_blocking_daily_ops_contract() -> None:
                 "inserted_mentions": 0,
             },
         },
+        system_evidence_payload={
+            "summary": {
+                "brand_count": 13,
+                "mention_count": 710,
+                "interest_tag_count": 9,
+                "community_count": 49,
+            }
+        },
         known_brand_keys=frozenset({"openai"}),
     )
 
@@ -53,6 +63,13 @@ def test_sidecar_reports_non_blocking_daily_ops_contract() -> None:
     assert summary["new_brand_candidates"] == 1
     assert db_status["db_writes"] is False
     assert db_status["would_insert_registry_rows"] == 1
+    assert payload["system_evidence_summary"] == {
+        "available": True,
+        "brand_count": 13,
+        "mention_count": 710,
+        "interest_tag_count": 9,
+        "community_count": 49,
+    }
 
 
 def test_sidecar_semantic_queue_only_uses_reviewed_non_noise_brands() -> None:
@@ -75,6 +92,7 @@ def test_sidecar_semantic_queue_only_uses_reviewed_non_noise_brands() -> None:
             ],
         },
         registry_write_payload=None,
+        system_evidence_payload=None,
         known_brand_keys=frozenset(),
     )
 
@@ -96,6 +114,7 @@ def test_sidecar_markdown_has_operator_sections() -> None:
             "items": [_item("OpenAI", "verified", 1, 1)],
         },
         registry_write_payload=None,
+        system_evidence_payload={"summary": {"brand_count": 1}},
         known_brand_keys=frozenset(),
     )
 
@@ -104,6 +123,7 @@ def test_sidecar_markdown_has_operator_sections() -> None:
     assert "## Daily Operator Checklist" in markdown
     assert "## Semantic Review Queue" in markdown
     assert "auto_write_semantic_lexicon: `false`" in markdown
+    assert "system_evidence_brands: `1`" in markdown
 
 
 def _item(

@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import re
 from typing import Iterable, Mapping, cast
 
 
@@ -11,6 +10,7 @@ def build_brand_ops_sidecar(
     quality_payload: Mapping[str, object],
     registry_write_payload: Mapping[str, object] | None,
     known_brand_keys: frozenset[str],
+    system_evidence_payload: Mapping[str, object] | None = None,
 ) -> dict[str, object]:
     digest_summary = _mapping(digest_payload.get("summary"))
     quality_summary = _mapping(quality_payload.get("summary"))
@@ -49,6 +49,7 @@ def build_brand_ops_sidecar(
         },
         "interest_tag_counts": _mapping(quality_summary.get("interest_tag_counts")),
         "db_write_status": _db_write_status(registry_write_payload),
+        "system_evidence_summary": _system_evidence_summary(system_evidence_payload),
         "new_brand_candidates": [
             _ops_item(item) for item in _top_items(new_items, limit=30)
         ],
@@ -64,48 +65,6 @@ def build_brand_ops_sidecar(
     }
 
 
-def render_brand_ops_sidecar_markdown(payload: Mapping[str, object]) -> str:
-    summary = _mapping(payload.get("summary"))
-    db_status = _mapping(payload.get("db_write_status"))
-    lines = [
-        "# Brand Intelligence Daily Sidecar",
-        "",
-        f"- date: `{_text(payload.get('report_date'))}`",
-        f"- blocks_publish: `{_bool_text(payload.get('blocks_publish'))}`",
-        f"- auto_write_semantic_lexicon: `{_bool_text(payload.get('auto_write_semantic_lexicon'))}`",
-        f"- cards_scanned: `{_int(summary.get('cards_scanned'))}`",
-        f"- brands_observed: `{_int(summary.get('brands_observed'))}`",
-        f"- verified_brands: `{_int(summary.get('verified_brands'))}`",
-        f"- new_brand_candidates: `{_int(summary.get('new_brand_candidates'))}`",
-        f"- noise_items: `{_int(summary.get('noise_items'))}`",
-        f"- db_writes: `{_bool_text(db_status.get('db_writes'))}`",
-        "",
-        "## Daily Operator Checklist",
-        "",
-        "- 记录新增品牌候选和最高证据。",
-        "- 记录 verified 品牌和对应兴趣标签。",
-        "- 记录 rejected/noise 样本，不进入品牌池。",
-        "- 记录 DB 写入状态；默认只读或 dry-run。",
-        "",
-        "## New Brand Candidates",
-        "",
-        *_brand_table(payload.get("new_brand_candidates")),
-        "",
-        "## Verified Brands",
-        "",
-        *_brand_table(payload.get("verified_brands")),
-        "",
-        "## Noise Items",
-        "",
-        *_brand_table(payload.get("noise_items")),
-        "",
-        "## Semantic Review Queue",
-        "",
-        *_queue_table(payload.get("semantic_review_queue")),
-    ]
-    return "\n".join(lines).rstrip() + "\n"
-
-
 def _db_write_status(payload: Mapping[str, object] | None) -> dict[str, object]:
     if payload is None:
         return _db_status(False, False, 0, 0, 0, 0)
@@ -118,6 +77,25 @@ def _db_write_status(payload: Mapping[str, object] | None) -> dict[str, object]:
         _int(summary.get("inserted_registry_rows")),
         _int(summary.get("inserted_mentions")),
     )
+
+
+def _system_evidence_summary(payload: Mapping[str, object] | None) -> dict[str, object]:
+    if payload is None:
+        return {
+            "available": False,
+            "brand_count": 0,
+            "mention_count": 0,
+            "interest_tag_count": 0,
+            "community_count": 0,
+        }
+    summary = _mapping(payload.get("summary"))
+    return {
+        "available": True,
+        "brand_count": _int(summary.get("brand_count")),
+        "mention_count": _int(summary.get("mention_count")),
+        "interest_tag_count": _int(summary.get("interest_tag_count")),
+        "community_count": _int(summary.get("community_count")),
+    }
 
 
 def _semantic_queue_item(item: Mapping[str, object]) -> dict[str, object]:
@@ -184,41 +162,6 @@ def _top_items(
     )[:limit]
 
 
-def _brand_table(value: object) -> list[str]:
-    rows = (
-        [_mapping(item) for item in value if isinstance(item, dict)]
-        if isinstance(value, list)
-        else []
-    )
-    if not rows:
-        return ["- none"]
-    lines = [
-        "| Brand | Status | Mentions | Communities | Tags |",
-        "|---|---:|---:|---:|---|",
-    ]
-    lines.extend(
-        f"| {_cell(_text(row.get('canonical_name')))} | {_cell(_text(row.get('review_status')))} | {_int(row.get('mention_count'))} | {_int(row.get('community_count'))} | {_cell(', '.join(_strings(row.get('interest_tags'))))} |"
-        for row in rows
-    )
-    return lines
-
-
-def _queue_table(value: object) -> list[str]:
-    rows = (
-        [_mapping(item) for item in value if isinstance(item, dict)]
-        if isinstance(value, list)
-        else []
-    )
-    if not rows:
-        return ["- none"]
-    lines = ["| Brand | Action | Auto Apply | Tags |", "|---|---|---:|---|"]
-    lines.extend(
-        f"| {_cell(_text(row.get('canonical_name')))} | {_cell(_text(row.get('review_action')))} | `{_bool_text(row.get('auto_apply'))}` | {_cell(', '.join(_strings(row.get('interest_tags'))))} |"
-        for row in rows
-    )
-    return lines
-
-
 def _status_count(summary: Mapping[str, object], status: str) -> int:
     return _int(_mapping(summary.get("status_counts")).get(status))
 
@@ -252,12 +195,4 @@ def _int(value: object) -> int:
 
 
 def _brand_key(value: str) -> str:
-    return re.sub(r"\s+", " ", value.strip().lower())
-
-
-def _bool_text(value: object) -> str:
-    return "true" if value is True else "false"
-
-
-def _cell(value: str) -> str:
-    return value.replace("|", "\\|")
+    return " ".join(value.strip().lower().split())

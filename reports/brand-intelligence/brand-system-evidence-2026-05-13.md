@@ -5,8 +5,8 @@
 - frontend_display: `false`
 - miniapp_snapshot_fields: `false`
 - profile: `system_evidence`
-- brands: `13`
-- mentions: `710`
+- brands: `117`
+- mentions: `976`
 
 ## System Use
 
@@ -18,30 +18,36 @@
 
 | Tag | Brands | Mentions | Top Brands |
 |---|---:|---:|---|
-| 卖家店铺运营 | 9 | 636 | google, Shopify, Amazon, Etsy, fba |
-| AI工具与Agent | 6 | 562 | google, Shopify, Amazon, fba, youtube |
-| 广告投放 | 7 | 501 | google, Shopify, facebook, youtube, tiktok |
-| SEO&GEO | 5 | 483 | google, Shopify, facebook, youtube, instagram |
-| 好物选品 | 4 | 457 | google, Amazon, Etsy, Temu |
-| 家居生活选品 | 3 | 398 | google, Amazon, youtube |
+| 卖家店铺运营 | 24 | 667 | google, Shopify, Amazon, Etsy, fba |
+| AI工具与Agent | 17 | 581 | google, Shopify, Amazon, fba, youtube |
+| 好物选品 | 26 | 523 | google, Amazon, Etsy, Zebralight, Olight |
+| 广告投放 | 9 | 504 | google, Shopify, facebook, youtube, tiktok |
+| SEO&GEO | 7 | 491 | google, Shopify, facebook, youtube, instagram |
+| 家居生活选品 | 12 | 425 | google, Amazon, youtube, Dyson, Roborock |
 | 内容营销创作 | 1 | 305 | google |
-| 电商平台政策与风向 | 1 | 78 | Amazon |
+| 电商平台政策与风向 | 3 | 87 | Amazon, Aeropress, Hario |
 | 众筹与品牌启动 | 3 | 64 | facebook, tiktok, TikTok Shop |
 
 ## Community Brand Evidence
 
 | Community | Brands | Top Brands |
 |---|---:|---|
-| r/ecommerce | 9 | google, Shopify, Amazon, Etsy, fba |
-| r/shopify | 6 | google, Shopify, Etsy, tiktok, TikTok Shop |
-| r/SEO | 5 | google, Shopify, facebook, youtube, instagram |
-| r/DigitalMarketing | 4 | google, Shopify, youtube, instagram |
-| r/PPC | 3 | google, Shopify, youtube |
+| r/ecommerce | 16 | google, Shopify, Amazon, Etsy, fba |
+| r/shopify | 9 | google, Shopify, Etsy, tiktok, TikTok Shop |
+| r/SEO | 6 | google, Shopify, facebook, youtube, instagram |
+| r/DigitalMarketing | 5 | google, Shopify, youtube, instagram, Yotpo |
+| r/PPC | 4 | google, Shopify, youtube, The Range |
 | r/analytics | 2 | google, Shopify |
 | r/automation | 2 | google, Shopify |
 | r/FacebookAds | 6 | google, facebook, youtube, tiktok, TikTok Shop |
-| r/ClaudeAI | 2 | google, Amazon |
+| r/ClaudeAI | 3 | google, Amazon, Command |
 | r/agi | 2 | google, Amazon |
+| r/dogs | 4 | google, Dyson, Roborock, Tineco |
+| r/TechSEO | 2 | google, Made In |
+| r/aeo | 2 | google, Global |
+| r/artificial | 3 | google, Century, Aura |
+| r/adops | 2 | google, The Range |
+| r/googleads | 2 | google, Sassy |
 | r/AskMarketing | 1 | google |
 | r/Blogging | 1 | google |
 | r/ChatGPT | 1 | google |
@@ -49,16 +55,10 @@
 | r/Google_Ads | 1 | google |
 | r/GrowthHacking | 1 | google |
 | r/LLM | 1 | google |
-| r/TechSEO | 1 | google |
-| r/adops | 1 | google |
-| r/aeo | 1 | google |
-| r/artificial | 1 | google |
 | r/b2bmarketing | 1 | google |
 | r/bigseo | 1 | google |
 | r/claudeskills | 1 | google |
 | r/content_marketing | 1 | google |
-| r/dogs | 1 | google |
-| r/googleads | 1 | google |
 | r/juststart | 1 | google |
 | r/seogrowth | 1 | google |
-| r/FulfillmentByAmazon | 4 | Shopify, Amazon, fba, Alibaba |
+| r/FulfillmentByAmazon | 13 | Shopify, Amazon, fba, Alibaba, Global |

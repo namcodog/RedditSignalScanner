@@ -2,15 +2,13 @@ from __future__ import annotations
 
 from collections.abc import Sequence
 from dataclasses import dataclass
-from datetime import datetime
 
-from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.models.brand_registry import BrandMention, BrandRegistry
 from app.services.brand_intelligence.brand_consumer_profile import (
     load_brand_consumer_profile,
 )
+from app.services.brand_intelligence.brand_match_guard import load_brand_match_guard
 
 
 @dataclass(frozen=True)
@@ -33,14 +31,14 @@ async def load_brand_system_evidence(
     limit: int = 100,
 ) -> dict[str, object]:
     profile = load_brand_consumer_profile(profile_id)
-    if profile.review_statuses:
-        statuses = profile.review_statuses
-    else:
-        statuses = ()
-    rows = await _load_rows(
+    from app.services.brand_intelligence.brand_system_evidence_loader import (
+        load_brand_evidence_rows,
+    )
+
+    rows = await load_brand_evidence_rows(
         session,
-        statuses=statuses,
-        exclude_risk_flags=profile.exclude_risk_flags,
+        profile=profile,
+        guard=load_brand_match_guard(),
         min_mentions=max(1, min_mentions),
         limit=max(1, limit),
     )
@@ -75,58 +73,6 @@ def build_brand_system_evidence_payload(
         "interest_tag_evidence": _tag_evidence(ordered),
         "community_brand_evidence": _community_evidence(ordered),
     }
-
-
-async def _load_rows(
-    session: AsyncSession,
-    *,
-    statuses: tuple[str, ...],
-    exclude_risk_flags: bool,
-    min_mentions: int,
-    limit: int,
-) -> tuple[BrandEvidenceRow, ...]:
-    mention_count = func.count(BrandMention.id)
-    communities = func.array_agg(func.distinct(BrandMention.community)).filter(
-        BrandMention.community.is_not(None)
-    )
-    stmt = (
-        select(
-            BrandRegistry,
-            mention_count,
-            communities,
-            func.max(BrandMention.observed_at),
-        )
-        .join(BrandMention, BrandMention.brand_id == BrandRegistry.id)
-        .where(BrandRegistry.is_active.is_(True))
-        .group_by(BrandRegistry.id)
-        .having(mention_count >= min_mentions)
-        .order_by(mention_count.desc(), BrandRegistry.canonical_name)
-        .limit(limit)
-    )
-    if statuses:
-        stmt = stmt.where(BrandRegistry.review_status.in_(statuses))
-    if exclude_risk_flags:
-        stmt = stmt.where(func.cardinality(BrandRegistry.risk_flags) == 0)
-    result = await session.execute(stmt)
-    return tuple(_row_from_result(*item) for item in result.all())
-
-
-def _row_from_result(
-    brand: BrandRegistry,
-    mention_count: int,
-    communities: Sequence[str] | None,
-    latest: datetime | None,
-) -> BrandEvidenceRow:
-    return BrandEvidenceRow(
-        brand_key=brand.brand_key,
-        display_name=brand.canonical_name,
-        evidence_status=brand.review_status,
-        business_domains=tuple(brand.domains),
-        interest_tags=tuple(brand.interest_tags),
-        mention_count=int(mention_count),
-        communities=tuple(sorted(item for item in (communities or ()) if item)),
-        latest_observed_at=latest.isoformat() if latest else None,
-    )
 
 
 def _summary(rows: Sequence[BrandEvidenceRow]) -> dict[str, object]:

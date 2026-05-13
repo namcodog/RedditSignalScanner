@@ -164,8 +164,8 @@ hotpost-community-exploration-post:
 brand-ops-sidecar:
 	@/bin/sh -c 'set -a; [ -f "$(ENV_FILE)" ] && . "$(ENV_FILE)"; set +a; cd "$(ROOT_DIR)" && "$(PYTHON)" backend/scripts/brand_intelligence/generate_brand_digest.py'
 	@/bin/sh -c 'set -a; [ -f "$(ENV_FILE)" ] && . "$(ENV_FILE)"; set +a; cd "$(ROOT_DIR)" && "$(PYTHON)" backend/scripts/brand_intelligence/generate_brand_quality_review.py'
-	@/bin/sh -c 'set -a; [ -f "$(ENV_FILE)" ] && . "$(ENV_FILE)"; set +a; cd "$(ROOT_DIR)" && "$(PYTHON)" backend/scripts/brand_intelligence/generate_brand_ops_sidecar.py'
 	@/bin/sh -c 'set -a; [ -f "$(ENV_FILE)" ] && . "$(ENV_FILE)"; set +a; cd "$(ROOT_DIR)" && "$(PYTHON)" backend/scripts/brand_intelligence/generate_brand_system_evidence.py'
+	@/bin/sh -c 'set -a; [ -f "$(ENV_FILE)" ] && . "$(ENV_FILE)"; set +a; cd "$(ROOT_DIR)" && "$(PYTHON)" backend/scripts/brand_intelligence/generate_brand_ops_sidecar.py'
 
 brand-registry-view:
 	@/bin/sh -c 'set -a; [ -f "$(ENV_FILE)" ] && . "$(ENV_FILE)"; set +a; cd "$(ROOT_DIR)" && "$(PYTHON)" backend/scripts/brand_intelligence/preview_brand_registry.py $(BRAND_ARGS)'
