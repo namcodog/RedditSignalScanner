@@ -177,6 +177,12 @@ async def test_governance_cleanup_dev_removes_garbage_and_preserves_effective(
                 is_active=False,
                 is_blacklisted=False,
             ),
+        ]
+    )
+    await db_session.flush()
+
+    db_session.add_all(
+        [
             CommunityCache(
                 community_name=effective_name,
                 last_crawled_at=now,
