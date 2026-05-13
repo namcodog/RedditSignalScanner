@@ -34,8 +34,11 @@ async def _ensure_truth_tables(db_session) -> None:
         )
         await conn.run_sync(CommunityRuntimeState.__table__.create, checkfirst=True)
 
+
 @pytest.mark.asyncio
-async def test_reconcile_legacy_truth_batch_dry_run_does_not_persist(db_session) -> None:
+async def test_reconcile_legacy_truth_batch_dry_run_does_not_persist(
+    db_session,
+) -> None:
     await _ensure_truth_tables(db_session)
     community_name = _unique_subreddit("newparents")
     await db_session.execute(
@@ -109,18 +112,6 @@ async def test_reconcile_legacy_truth_batch_persists_synced_rows(db_session) -> 
                 priority="high",
                 is_active=True,
             ),
-            CommunityCache(
-                community_name=populated_name,
-                last_crawled_at=datetime(2026, 3, 27, tzinfo=timezone.utc),
-                posts_cached=5,
-                ttl_seconds=3600,
-                quality_score=Decimal("0.70"),
-                hit_count=1,
-                crawl_priority=50,
-                is_active=True,
-                sample_posts=5,
-                sample_comments=2,
-            ),
             CommunityPool(
                 name=empty_name,
                 tier="semantic",
@@ -133,6 +124,21 @@ async def test_reconcile_legacy_truth_batch_persists_synced_rows(db_session) -> 
                 is_active=True,
             ),
         ]
+    )
+    await db_session.flush()
+    db_session.add(
+        CommunityCache(
+            community_name=populated_name,
+            last_crawled_at=datetime(2026, 3, 27, tzinfo=timezone.utc),
+            posts_cached=5,
+            ttl_seconds=3600,
+            quality_score=Decimal("0.70"),
+            hit_count=1,
+            crawl_priority=50,
+            is_active=True,
+            sample_posts=5,
+            sample_comments=2,
+        )
     )
     await db_session.commit()
 
