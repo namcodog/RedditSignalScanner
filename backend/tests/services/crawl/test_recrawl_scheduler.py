@@ -17,7 +17,11 @@ async def test_find_low_quality_candidates_filters_by_thresholds() -> None:
     """find_low_quality_candidates returns stale + low-quality communities."""
     now = datetime.now(timezone.utc)
     async with SessionFactory() as db:
-        await db.execute(text("TRUNCATE TABLE community_cache, community_pool RESTART IDENTITY CASCADE"))
+        await db.execute(
+            text(
+                "TRUNCATE TABLE community_cache, community_pool RESTART IDENTITY CASCADE"
+            )
+        )
         await db.commit()
 
         db.add_all(
@@ -52,6 +56,7 @@ async def test_find_low_quality_candidates_filters_by_thresholds() -> None:
                 ),
             ]
         )
+        await db.flush()
         db.add_all(
             [
                 CommunityCache(
