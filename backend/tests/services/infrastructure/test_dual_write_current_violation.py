@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import uuid
 from datetime import datetime, timezone
 from unittest.mock import AsyncMock
 
@@ -18,7 +19,7 @@ async def test_dual_write_skips_current_unique_violation(
     now = datetime.now(timezone.utc).timestamp()
 
     async def fake_upsert(  # noqa: ARG001
-        self: IncrementalCrawler, community_name: str, post: RedditPost
+        community_name: str, post: RedditPost
     ) -> tuple[bool, bool]:
         raise IntegrityError(
             "stmt",
@@ -29,18 +30,22 @@ async def test_dual_write_skips_current_unique_violation(
         )
 
     async with SessionFactory() as session:
+        crawl_run_id = str(uuid.uuid4())
+        community_run_id = str(uuid.uuid4())
         crawler = IncrementalCrawler(
             db=session,
             reddit_client=None,
-            crawl_run_id="run",
-            community_run_id="cid",
+            crawl_run_id=crawl_run_id,
+            community_run_id=community_run_id,
             source_track="backfill_posts",
             refresh_posts_latest_after_write=False,
         )
         monkeypatch.setattr(
-            IncrementalCrawler, "_upsert_to_cold_storage", fake_upsert
+            crawler._crawler_runtime, "upsert_to_cold_storage", fake_upsert
         )
-        monkeypatch.setattr(IncrementalCrawler, "_upsert_to_hot_cache", AsyncMock())
+        monkeypatch.setattr(
+            crawler._crawler_runtime, "upsert_to_hot_cache", AsyncMock()
+        )
 
         post = RedditPost(
             id="p1",

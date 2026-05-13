@@ -8,27 +8,24 @@ from typing import Any, Dict, Mapping
 
 from sqlalchemy import text
 
-from app.schemas.monitoring import (
-    MonitoringAlertPayload,
-    MonitoringDegradedCheck,
-    MonitoringTaskResult,
-)
+from app.schemas import monitoring as monitoring_schemas
 from app.services.community.community_pool_loader import CommunityPoolLoader
-from app.services.ops.contract_health import (
-    ContractHealthAlert,
-    ContractHealthAlertThresholds,
-)
+from app.services.ops import contract_health as contract_health_ops
+
 
 def utc_now() -> datetime:
     return datetime.now(timezone.utc)
 
 
 def mark_payload_degraded(
-    payload: Dict[str, Any] | MonitoringTaskResult, *, code: str, message: str
+    payload: Dict[str, Any] | monitoring_schemas.MonitoringTaskResult,
+    *,
+    code: str,
+    message: str,
 ) -> None:
-    if isinstance(payload, MonitoringTaskResult):
+    if isinstance(payload, monitoring_schemas.MonitoringTaskResult):
         payload.degraded_checks.append(
-            MonitoringDegradedCheck(code=code, message=message)
+            monitoring_schemas.MonitoringDegradedCheck(code=code, message=message)
         )
         if payload.status not in {"error", "degraded"}:
             payload.status = "degraded"
@@ -44,7 +41,7 @@ def mark_payload_degraded(
 def build_monitoring_error_result(
     *, message: str, generated_at: datetime | None = None
 ) -> dict[str, Any]:
-    return MonitoringTaskResult(
+    return monitoring_schemas.MonitoringTaskResult(
         status="error",
         generated_at=generated_at or utc_now(),
         message=message,
@@ -52,7 +49,7 @@ def build_monitoring_error_result(
 
 
 def serialize_monitoring_result(
-    result: MonitoringTaskResult | dict[str, Any]
+    result: monitoring_schemas.MonitoringTaskResult | dict[str, Any]
 ) -> dict[str, Any]:
     if isinstance(result, dict):
         return result
@@ -77,7 +74,14 @@ async def load_entity_extraction_metrics(*, cutoff: datetime) -> Dict[str, Any]:
             {"cutoff": cutoff},
         )
         res_entities = await db_metrics.execute(
-            text("SELECT count(*) FROM content_entities WHERE created_at >= :cutoff"),
+            text(
+                """
+                SELECT count(*)
+                FROM semantic_observation
+                WHERE observation_type = 'content_entity'
+                  AND observed_at >= :cutoff
+                """
+            ),
             {"cutoff": cutoff},
         )
     recent_posts = int(res_posts.scalar() or 0)
@@ -91,14 +95,11 @@ async def load_entity_extraction_metrics(*, cutoff: datetime) -> Dict[str, Any]:
 
 
 async def run_cache_maintenance_tasks() -> Dict[str, Dict[str, Any] | None]:
-    from app.tasks.maintenance_task import (
-        cleanup_expired_posts_hot_impl,
-        collect_storage_metrics_impl,
-    )
+    from app.tasks import maintenance_task
 
     cleanup, metrics_snapshot = await asyncio.gather(
-        cleanup_expired_posts_hot_impl(),
-        collect_storage_metrics_impl(),
+        maintenance_task.cleanup_expired_posts_hot_impl(),
+        maintenance_task.collect_storage_metrics_impl(),
     )
     return {
         "cleanup": cleanup,
@@ -108,8 +109,8 @@ async def run_cache_maintenance_tasks() -> Dict[str, Dict[str, Any] | None]:
 
 def build_contract_health_thresholds(
     *, as_float: Any, as_int: Any
-) -> ContractHealthAlertThresholds:
-    return ContractHealthAlertThresholds(
+) -> contract_health_ops.ContractHealthAlertThresholds:
+    return contract_health_ops.ContractHealthAlertThresholds(
         comments_not_used_rate_warn=as_float(
             os.getenv("CONTRACT_HEALTH_ALERT_COMMENTS_NOT_USED_RATE_WARN", "0.10"),
             default=0.10,
@@ -126,10 +127,10 @@ def build_contract_health_thresholds(
 
 
 def serialize_contract_alerts(
-    alerts: list[ContractHealthAlert],
-) -> list[MonitoringAlertPayload]:
+    alerts: list[contract_health_ops.ContractHealthAlert],
+) -> list[monitoring_schemas.MonitoringAlertPayload]:
     return [
-        MonitoringAlertPayload(
+        monitoring_schemas.MonitoringAlertPayload(
             level=alert.level,
             code=alert.code,
             message=alert.message,

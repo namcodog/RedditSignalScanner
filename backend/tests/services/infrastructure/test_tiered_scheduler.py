@@ -17,13 +17,17 @@ async def test_tiered_scheduler_assignments_and_application() -> None:
     """Tiered scheduler assigns communities based on avg_valid_posts thresholds."""
     # Arrange: seed pool & cache data
     async with SessionFactory() as db:
-        await db.execute(text("TRUNCATE TABLE community_cache, community_pool RESTART IDENTITY CASCADE"))
+        await db.execute(
+            text(
+                "TRUNCATE TABLE community_cache, community_pool RESTART IDENTITY CASCADE"
+            )
+        )
         await db.commit()
 
         db.add_all(
             [
                 CommunityPool(
-                    name="r/TestTier1",
+                    name="r/testtier1",
                     tier="high",
                     categories={"topic": ["alpha"]},
                     description_keywords={"alpha": 1},
@@ -32,7 +36,7 @@ async def test_tiered_scheduler_assignments_and_application() -> None:
                     priority="high",
                 ),
                 CommunityPool(
-                    name="r/TestTier2",
+                    name="r/testtier2",
                     tier="medium",
                     categories={"topic": ["beta"]},
                     description_keywords={"beta": 1},
@@ -41,7 +45,7 @@ async def test_tiered_scheduler_assignments_and_application() -> None:
                     priority="medium",
                 ),
                 CommunityPool(
-                    name="r/TestTier3",
+                    name="r/testtier3",
                     tier="low",
                     categories={"topic": ["gamma"]},
                     description_keywords={"gamma": 1},
@@ -56,7 +60,7 @@ async def test_tiered_scheduler_assignments_and_application() -> None:
         db.add_all(
             [
                 CommunityCache(
-                    community_name="r/TestTier1",
+                    community_name="r/testtier1",
                     last_crawled_at=datetime.now(timezone.utc),
                     posts_cached=0,
                     ttl_seconds=3600,
@@ -68,7 +72,7 @@ async def test_tiered_scheduler_assignments_and_application() -> None:
                     avg_valid_posts=Decimal("25.00"),
                 ),
                 CommunityCache(
-                    community_name="r/TestTier2",
+                    community_name="r/testtier2",
                     last_crawled_at=datetime.now(timezone.utc),
                     posts_cached=0,
                     ttl_seconds=3600,
@@ -80,7 +84,7 @@ async def test_tiered_scheduler_assignments_and_application() -> None:
                     avg_valid_posts=Decimal("15.00"),
                 ),
                 CommunityCache(
-                    community_name="r/TestTier3",
+                    community_name="r/testtier3",
                     last_crawled_at=datetime.now(timezone.utc),
                     posts_cached=0,
                     ttl_seconds=3600,
@@ -105,9 +109,9 @@ async def test_tiered_scheduler_assignments_and_application() -> None:
         tier3_names = await scheduler.get_communities_for_tier("tier3")
 
     # Assert
-    assert "r/TestTier1" in assignments["tier1"]
-    assert "r/TestTier2" in assignments["tier2"]
-    assert "r/TestTier3" in assignments["tier3"]
-    assert "r/TestTier1" in tier1_names
-    assert "r/TestTier2" in tier2_names
-    assert "r/TestTier3" in tier3_names
+    assert "r/testtier1" in assignments["tier1"]
+    assert "r/testtier2" in assignments["tier2"]
+    assert "r/testtier3" in assignments["tier3"]
+    assert "r/testtier1" in tier1_names
+    assert "r/testtier2" in tier2_names
+    assert "r/testtier3" in tier3_names
