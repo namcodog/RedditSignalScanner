@@ -19,6 +19,9 @@ def public_reasons(
         "recent_posts_15d": signal.recent_posts_15d,
         "historical_posts": signal.historical_posts,
         "hotpost_cards": signal.hotpost_cards,
+        "brand_terms": "、".join(signal.brand_terms[:3]),
+        "brand_mentions": signal.brand_mentions,
+        "brand_count": signal.brand_count,
         "related_terms": related_terms,
         "sample_title": signal.sample_titles[0] if signal.sample_titles else "",
     }
@@ -27,10 +30,17 @@ def public_reasons(
         reasons.append(_format(templates["recent_activity"], values))
     elif signal.historical_posts:
         reasons.append(_format(templates["historical_depth"], values))
-    if semantic_terms or signal.semantic_observations or signal.content_labels or signal.content_entities:
+    if (
+        semantic_terms
+        or signal.semantic_observations
+        or signal.content_labels
+        or signal.content_entities
+    ):
         reasons.append(_format(templates["semantic_fit"], values))
     if signal.hotpost_cards:
         reasons.append(_format(templates["signal_density"], values))
+    if signal.brand_terms:
+        reasons.append(_format(templates["brand_fit"], values))
     if not reasons:
         reasons.append(_format(templates["low_evidence"], values))
     return tuple(dict.fromkeys(reasons))
@@ -53,6 +63,9 @@ def evidence_summary(
         "semantic_observations": signal.semantic_observations,
         "hotpost_cards": signal.hotpost_cards,
         "historical_posts": signal.historical_posts,
+        "brand_terms": ", ".join(signal.brand_terms[:5]),
+        "brand_mentions": signal.brand_mentions,
+        "brand_count": signal.brand_count,
         "sample_title": signal.sample_titles[0] if signal.sample_titles else "",
     }
     summary: list[str] = []
@@ -64,6 +77,8 @@ def evidence_summary(
         summary.append(_format(templates["semantic_observations"], values))
     if signal.hotpost_cards:
         summary.append(_format(templates["hotpost_cards"], values))
+    if signal.brand_terms:
+        summary.append(_format(templates["brand_terms"], values))
     if signal.historical_posts:
         summary.append(_format(templates["historical_posts"], values))
     if signal.sample_titles:
@@ -73,5 +88,9 @@ def evidence_summary(
 
 def evidence_teaser(signal: CommunitySignal, policy: RecommendationPolicy) -> str:
     if signal.sample_titles:
-        return policy.reason_templates["sample_title"].format(sample_title=signal.sample_titles[0])
+        return str(
+            policy.reason_templates["sample_title"].format(
+                sample_title=signal.sample_titles[0]
+            )
+        )
     return ""

@@ -6,9 +6,12 @@
   - [CURRENT_STATUS.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/CURRENT_STATUS.md)
 - 未完成事项：
   - [OPEN_ITEMS.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/OPEN_ITEMS.md)
-- Brand Intelligence R16 文本护栏与 sidecar 接入已落地：系统证据包允许 `verified + accepted`，但 `accepted` mention 必须先过配置化护栏；当前 `brand_count=117 / mention_count=976 / interest_tag_count=9 / community_count=60`，sidecar 已带 `system_evidence_brands=117`，`db_writes=false / frontend_display=false / miniapp_snapshot_fields=false`：
+- Brand Intelligence R16 文本护栏、sidecar 和社区推荐解释接入已落地：系统证据包允许 `verified + accepted`，但 `accepted` mention 必须先过配置化护栏；当前 `brand_count=117 / mention_count=976 / interest_tag_count=9 / community_count=60`，sidecar 已带 `system_evidence_brands=117`；社区推荐预览为 `tags=9 / recommendations=69 / ready_count=29`，其中 `46` 条推荐带品牌证据；`db_writes=false / frontend_display=false / miniapp_snapshot_fields=false`：
+  - [phase1133.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1133.md)
   - [phase1132.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1132.md)
   - [phase1131.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1131.md)
+  - [preview.md](/Users/hujia/Desktop/RedditSignalScanner/reports/community-recommendation/preview.md)
+  - [preview.json](/Users/hujia/Desktop/RedditSignalScanner/reports/community-recommendation/preview.json)
   - [brand-system-evidence-2026-05-13.md](/Users/hujia/Desktop/RedditSignalScanner/reports/brand-intelligence/brand-system-evidence-2026-05-13.md)
   - [brand-system-evidence-2026-05-13.json](/Users/hujia/Desktop/RedditSignalScanner/reports/brand-intelligence/brand-system-evidence-2026-05-13.json)
   - [brand-ops-sidecar-2026-05-13.md](/Users/hujia/Desktop/RedditSignalScanner/reports/brand-intelligence/brand-ops-sidecar-2026-05-13.md)
@@ -94,7 +97,7 @@
 - Hotpost 2026-05-08 已按“每日 25 张”为硬需求完成正式发卡：AI 6 / 商业增长 9 / 电商卖家 10，最新快照 `release-cf603c02169b`，首页第 1、2 张为 `hot`，同步和小程序 snapshot data 校验通过；trend audit 仍为 `watching`：
   - [phase1096.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1096.md)
   - [2026-05-08.md](/Users/hujia/Desktop/RedditSignalScanner/reports/ops-log/2026-05-08.md)
-- Reddit Community Intelligence 当前入口已纠偏：产品口径是“系统从已有数据和语义库生成具像化兴趣标签 -> 用户点击 -> 有证据、有理由、长尾优先的社区推荐”。Phase 0 / 1 / 2 社区治理和 Dev 写入只作为数据准备与库存校准；当前合同修正版已移除 production code 里的 `CAPABILITY_SEEDS`，9 个用户可选标签、旧业务分类目录和 Phase 2 分类推断都已改为配置真相源，R7-R9 已补齐推荐理由证据化、标签-社区审核表和语义证据密度，后端服务入口已收口，preview 为 `tags=9 / recommendations=68 / ready_count=33`，`电商平台政策与风向` 已从空状态修到 `ready / available_community_count=5`：
+- Reddit Community Intelligence 当前入口已纠偏：产品口径是“系统从已有数据和语义库生成具像化兴趣标签 -> 用户点击 -> 有证据、有理由、长尾优先的社区推荐”。Phase 0 / 1 / 2 社区治理和 Dev 写入只作为数据准备与库存校准；当前合同修正版已移除 production code 里的 `CAPABILITY_SEEDS`，9 个用户可选标签、旧业务分类目录和 Phase 2 分类推断都已改为配置真相源，R7-R9 已补齐推荐理由证据化、标签-社区审核表和语义证据密度，后端服务入口已收口，preview 为 `tags=9 / recommendations=69 / ready_count=29`，品牌证据已接入推荐解释：
   - [phase1100.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1100.md)
   - [community-recommendation-backend-architecture-2026-05-08.md](/Users/hujia/Desktop/RedditSignalScanner/docs/reference/community-recommendation-backend-architecture-2026-05-08.md)
   - [phase1099.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1099.md)

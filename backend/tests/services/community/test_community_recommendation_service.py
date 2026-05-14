@@ -1,8 +1,13 @@
 from __future__ import annotations
 
 from pathlib import Path
+from typing import cast
 
-from app.services.community.community_recommendation_models import CommunitySignal
+from app.services.community.community_brand_evidence import CommunityBrandEvidence
+from app.services.community.community_recommendation_models import (
+    CommunitySignal,
+    JsonValue,
+)
 from app.services.community.community_recommendation_service import (
     build_community_recommendation_report_from_signals,
 )
@@ -50,3 +55,45 @@ def test_report_service_builds_preview_audit_payloads_and_summary() -> None:
     assert report.summary["user_input_required"] is False
     assert report.preview_payload()["tags"]
     assert report.audit_payload()["row_count"] == report.recommendation_count
+
+
+def test_report_service_merges_brand_evidence_into_recommendations() -> None:
+    signals = [
+        CommunitySignal(
+            community="r/ClaudeCode",
+            keywords=("claude", "agent"),
+            semantic_terms=("agent workflow",),
+            hotpost_cards=3,
+            recent_posts_15d=2,
+        )
+    ]
+
+    report = build_community_recommendation_report_from_signals(
+        signals,
+        brand_evidence=(
+            CommunityBrandEvidence(
+                community="r/ClaudeCode",
+                brand_terms=("OpenAI", "Claude"),
+                brand_mentions=6,
+                brand_count=2,
+            ),
+        ),
+    )
+    payload = report.preview_payload()
+    recommendation_groups = cast(dict[str, JsonValue], payload["recommendations"])
+    first_item = cast(
+        dict[str, JsonValue],
+        next(
+            item
+            for value in recommendation_groups.values()
+            if isinstance(value, list) and value
+            for item in value
+            if isinstance(item, dict)
+        ),
+    )
+
+    debug = cast(dict[str, JsonValue], first_item["debug"])
+    sources = cast(list[JsonValue], debug["evidence_sources"])
+
+    assert "OpenAI" in str(first_item["reason"])
+    assert "brand_system_evidence" in sources
