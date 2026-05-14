@@ -94,6 +94,156 @@ profiles:
           - preorder product trust
           - prototype pricing shipping feedback
 
+  crossborder-sku-brand-ebay-7d:
+    description: "围绕品牌池和 eBay 渠道补 SKU：先看已有品牌的溢价/平替/零件/翻新信号，再小配额探索 eBay 转售、拆件、翻新和真实成交价。"
+    watches:
+      - topic_id: sku-brand-7d-cleaning-home
+        scope_id: ecommerce-sellers
+        topic_pack_id: selection-signals
+        topic_cluster_ids: [brand-trust-and-alt, home]
+        time_filter: week
+        candidate_cap: 5
+        subreddits: [CleaningTips, BuyItForLife, dogs, RobotVacuums]
+        queries:
+          - Dyson vs Roborock worth it
+          - Tineco vs Dyson pet hair
+          - Roborock replacement parts worth it
+          - DeWalt vs Hoover vacuum
+          - vacuum refurbished worth buying
+      - topic_id: sku-brand-7d-outdoor-edc
+        scope_id: ecommerce-sellers
+        topic_pack_id: selection-signals
+        topic_cluster_ids: [brand-trust-and-alt, outdoor, edc]
+        time_filter: week
+        candidate_cap: 5
+        subreddits: [onebag, CampingGear, flashlight, BuyItForLife]
+        queries:
+          - Osprey vs Peak Design worth it
+          - Patagonia alternative worth buying
+          - Baffin boots worth it
+          - Coleman vs Big Agnes camping gear
+          - Olight vs Zebralight vs Fenix vs Wurkkos
+      - topic_id: sku-brand-7d-coffee-small-appliance
+        scope_id: ecommerce-sellers
+        topic_pack_id: selection-signals
+        topic_cluster_ids: [brand-trust-and-alt, small-goods]
+        time_filter: week
+        candidate_cap: 5
+        subreddits: [espresso, Coffee, BuyItForLife]
+        queries:
+          - Breville vs Gaggia worth it
+          - Eureka vs Baratza grinder
+          - Baratza replacement parts
+          - Aeropress alternative
+          - Hario vs Cafelat Robot worth it
+      - topic_id: sku-brand-7d-stationery-and-resale
+        scope_id: ecommerce-sellers
+        topic_pack_id: selection-signals
+        topic_cluster_ids: [brand-trust-and-alt, small-goods]
+        time_filter: week
+        candidate_cap: 4
+        subreddits: [fountainpens, stationery, BuyItForLife]
+        queries:
+          - Pilot fountain pen worth it
+          - fountain pen second hand worth buying
+          - Mercari Rakuten stationery haul
+          - premium pen alternative worth it
+      - topic_id: sku-ebay-7d-resale-refurbished
+        scope_id: ecommerce-sellers
+        topic_pack_id: category-winds
+        topic_cluster_ids: [seller-category-direction, unit-economics-and-platform-risk]
+        time_filter: week
+        candidate_cap: 5
+        subreddits: [eBaySellerAdvice, eBaySellers, Flipping, reselling]
+        queries:
+          - ebay refurbished electronics worth selling
+          - ebay parts only listing profit
+          - ebay sold listings product research
+          - ebay return scam seller protection
+          - ebay vintage item demand
+
+  crossborder-sku-brand-discovery-7d:
+    description: "用每个领域 5 个已知品牌做锚点，专门发现新品牌、平替品牌、质量下滑品牌和配件/翻新机会；这是探索盘，不等于正式品牌池晋级。"
+    watches:
+      - topic_id: brand-discovery-7d-cleaning-home
+        scope_id: ecommerce-sellers
+        topic_pack_id: selection-signals
+        topic_cluster_ids: [brand-trust-and-alt, home]
+        time_filter: week
+        candidate_cap: 5
+        subreddits: [VacuumCleaners, CleaningTips, BuyItForLife, dogs, RobotVacuums]
+        queries:
+          - Dyson Shark Roborock Tineco Hoover alternative
+          - vacuum brand quality dropped what are you buying instead
+          - unknown vacuum brand actually worth it
+          - robot vacuum parts replacement brand
+          - refurbished vacuum brand worth buying
+      - topic_id: brand-discovery-7d-coffee-appliance
+        scope_id: ecommerce-sellers
+        topic_pack_id: selection-signals
+        topic_cluster_ids: [brand-trust-and-alt, small-goods]
+        time_filter: week
+        candidate_cap: 5
+        subreddits: [espresso, Coffee, BuyItForLife]
+        queries:
+          - Breville Baratza Eureka Gaggia Aeropress alternative
+          - espresso grinder brand quality issue
+          - coffee machine replacement parts brand
+          - budget espresso brand worth it
+          - grinder brand people switched to
+      - topic_id: brand-discovery-7d-bags-travel-edc
+        scope_id: ecommerce-sellers
+        topic_pack_id: selection-signals
+        topic_cluster_ids: [brand-trust-and-alt, outdoor, edc]
+        time_filter: week
+        candidate_cap: 5
+        subreddits: [onebag, ManyBaggers, EDC, BuyItForLife]
+        queries:
+          - Osprey Bellroy Cotopaxi Patagonia Peak Design alternative
+          - travel bag brand quality dropped
+          - unknown backpack brand worth it
+          - packing cube brand recommendation
+          - bag brand warranty repair experience
+      - topic_id: brand-discovery-7d-outdoor-camping
+        scope_id: ecommerce-sellers
+        topic_pack_id: selection-signals
+        topic_cluster_ids: [brand-trust-and-alt, outdoor]
+        time_filter: week
+        candidate_cap: 5
+        subreddits: [CampingGear, Ultralight, BuyItForLife]
+        queries:
+          - MSR Big Agnes Coleman Baffin Quechua alternative
+          - tent brand waterproof failure
+          - camping gear brand worth the premium
+          - budget outdoor brand actually good
+          - boots brand quality dropped
+      - topic_id: brand-discovery-7d-stationery-resale
+        scope_id: ecommerce-sellers
+        topic_pack_id: selection-signals
+        topic_cluster_ids: [brand-trust-and-alt, small-goods]
+        time_filter: week
+        candidate_cap: 5
+        subreddits: [fountainpens, stationery, BuyItForLife]
+        queries:
+          - Pilot Jinhao Sailor Mercari Rakuten alternative
+          - fountain pen brand worth it
+          - japanese stationery brand second hand
+          - pen accessory brand compatibility
+          - unknown fountain pen brand actually good
+      - topic_id: brand-discovery-7d-flashlight-hardware
+        scope_id: ecommerce-sellers
+        topic_pack_id: selection-signals
+        topic_cluster_ids: [brand-trust-and-alt, edc, small-goods]
+        time_filter: week
+        candidate_cap: 5
+        subreddits: [flashlight, EDC, BuyItForLife]
+        queries:
+          - Zebralight Olight Fenix Sofirn Acebeam alternative
+          - flashlight brand quality issue
+          - unknown flashlight brand worth it
+          - battery compatibility flashlight brand
+          - flashlight replacement parts brand
+
   selection-30d-core:
     description: "补上线卡时用的 30d 选品核心 profile，优先更干净的耐用/配置/场景社区。"
     watches:

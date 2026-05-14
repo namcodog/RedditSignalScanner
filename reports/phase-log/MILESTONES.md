@@ -63,6 +63,7 @@
   - Hotpost 探索社区池到 `community_pool` 的 R10/R11/R12 已落地：显式 probe 入口和只读回流 dry-run 都已具备；R11.5 社区价值评分算法已补上，人工发布验证降级为校准样本；2026-05-10 首次把 3 个用户确认的 `pool_candidate` 写入 Dev `community_pool`，Gold DB 和小程序派生产物未写
   - Brand Intelligence R15.0 到 R16 已落地：主系统能从已发布 Hotpost 卡、语义库、初始品牌表、历史 archive 品牌包和噪音词表生成品牌池，已显式写入 Dev DB `brand_registry=1655 / brand_mentions=1254`，已接入日常运营 sidecar，并已有 consumer-safe 只读服务 / API / 预览报告；R16 后端系统证据包已补文本护栏，安全品牌证据已进入社区推荐解释和 Hotpost sidecar，但只做解释增强，不直接改排序或 ready 判断
   - `2026-05-13` Hotpost 日常出卡按硬节奏完成 `25` 张，最新快照 `release-f798171983ef / card_count=881`；本轮把特朗普访华 x AI 深度信号、Claude Code / Agent harness、LocalLLaMA、SKU 选品和 Amazon/FBA 经营信号一起收进正式首页，并保持探索社区只读回流。
+  - `2026-05-14` Hotpost 日常出卡完成 `25` 张，最新快照 `release-eca996e28609 / card_count=906`；本轮验证“品牌池先命中，再探索新品牌”的 SKU 运营口径，并把 eBay / 品牌探索小配额 profile 接进显式 probe，默认日常采集仍不含 experimental。
 - 今天仍然有效的结论：
   - Hotpost 当前主问题是 `freshness / quota / freshest supply`；Community Intelligence 当前主问题已经从“后端能不能生成推荐”变成“用户是否认可推荐质量，以及是否需要补真实 Reddit 活跃探测和更深语义观察”
   - 当前阶段是稳态运营优化期，不是大架构重建期
