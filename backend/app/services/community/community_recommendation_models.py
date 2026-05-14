@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+from typing import cast
 
 from app.services.hotpost.hotpost_community_activity import normalize_community_key
 
@@ -30,12 +31,15 @@ class CommunitySignal:
     hotpost_cards: int = 0
     content_labels: int = 0
     content_entities: int = 0
+    brand_terms: tuple[str, ...] = ()
+    brand_mentions: int = 0
+    brand_count: int = 0
     quality_score: float = 0.0
     sample_titles: tuple[str, ...] = ()
 
     @property
     def key(self) -> str:
-        return normalize_community_key(self.community)
+        return cast(str, normalize_community_key(self.community))
 
 
 @dataclass(frozen=True)
@@ -71,6 +75,9 @@ class CommunityRecommendation:
     historical_posts: int
     hotpost_cards: int
     semantic_observations: int
+    brand_terms: tuple[str, ...] = ()
+    brand_mentions: int = 0
+    brand_count: int = 0
     semantic_terms: tuple[str, ...] = ()
     evidence_summary: tuple[str, ...] = ()
     sample_titles: tuple[str, ...] = ()
@@ -96,7 +103,9 @@ class PreviewAcceptance:
 @dataclass(frozen=True)
 class RecommendationPreview:
     tags: tuple[CapabilityTag, ...]
-    recommendations: dict[str, tuple[CommunityRecommendation, ...]] = field(default_factory=dict)
+    recommendations: dict[str, tuple[CommunityRecommendation, ...]] = field(
+        default_factory=dict
+    )
     acceptance: PreviewAcceptance = field(
         default_factory=lambda: PreviewAcceptance(
             ready_count=0,

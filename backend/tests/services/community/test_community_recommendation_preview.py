@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from app.services.community.community_recommendation_preview import (
+    CapabilityTag,
     CommunitySignal,
     build_capability_tags,
     build_recommendations_for_tag,
@@ -17,11 +18,9 @@ INTERNAL_PUBLIC_TERMS = (
 )
 
 
-def _tag_with_ref(signals: list[CommunitySignal], source_ref: str):
+def _tag_with_ref(signals: list[CommunitySignal], source_ref: str) -> CapabilityTag:
     return next(
-        tag
-        for tag in build_capability_tags(signals)
-        if source_ref in tag.source_refs
+        tag for tag in build_capability_tags(signals) if source_ref in tag.source_refs
     )
 
 
@@ -45,7 +44,9 @@ def test_public_reasons_do_not_leak_internal_evidence_terms() -> None:
     recommendations = build_recommendations_for_tag(tag, signals, limit=1)
     public_text = " ".join(recommendations[0].reasons)
 
-    assert not any(term.lower() in public_text.lower() for term in INTERNAL_PUBLIC_TERMS)
+    assert not any(
+        term.lower() in public_text.lower() for term in INTERNAL_PUBLIC_TERMS
+    )
 
 
 def test_build_capability_tags_from_existing_data_not_user_input() -> None:
@@ -69,7 +70,11 @@ def test_build_capability_tags_from_existing_data_not_user_input() -> None:
     ]
 
     tags = build_capability_tags(signals)
-    seller_ops = next(tag for tag in tags if "topic_cluster:seller-category-direction" in tag.source_refs)
+    seller_ops = next(
+        tag
+        for tag in tags
+        if "topic_cluster:seller-category-direction" in tag.source_refs
+    )
 
     assert seller_ops.user_input_required is False
     assert seller_ops.status == "ready"
@@ -93,7 +98,9 @@ def test_build_capability_tag_marks_historical_depth_without_recent_activity() -
     ]
 
     tags = build_capability_tags(signals)
-    tag = next(tag for tag in tags if "topic_cluster:agent-incidents" in tag.source_refs)
+    tag = next(
+        tag for tag in tags if "topic_cluster:agent-incidents" in tag.source_refs
+    )
 
     assert tag.status == "historical_depth"
     assert tag.ready_community_count == 0
@@ -133,7 +140,33 @@ def test_recommendations_include_reasons_evidence_and_longtail_priority() -> Non
     assert "generic_hotspot" in recommendations[1].risk_flags
 
 
-def test_tag_matching_does_not_use_loose_substrings_or_single_cross_domain_terms() -> None:
+def test_recommendations_use_brand_evidence_without_leaking_internal_source() -> None:
+    signals = [
+        CommunitySignal(
+            community="r/shopify",
+            keywords=("checkout", "conversion"),
+            semantic_terms=("seller operations",),
+            brand_terms=("Shopify", "Etsy"),
+            brand_mentions=9,
+            brand_count=2,
+            recent_posts_15d=2,
+            hotpost_cards=1,
+        )
+    ]
+    tag = _tag_with_ref(signals, "topic_cluster:seller-category-direction")
+
+    recommendation = build_recommendations_for_tag(tag, signals, limit=1)[0]
+    public_text = " ".join(recommendation.reasons)
+
+    assert "Shopify" in public_text
+    assert "brand_system_evidence" in recommendation.evidence_sources
+    assert "brand_system_evidence" not in public_text
+    assert "品牌证据" in " / ".join(recommendation.evidence_summary)
+
+
+def test_tag_matching_does_not_use_loose_substrings_or_single_cross_domain_terms() -> (
+    None
+):
     signals = [
         CommunitySignal(
             community="r/fulfillmentbyamazon",
@@ -170,5 +203,5 @@ def test_tag_matching_can_use_community_key_when_evidence_exists() -> None:
     assert _matched_tag_ids(signals) == [
         tag.tag_id
         for tag in load_interest_tag_catalog().tags
-            if "topic_cluster:seller-category-direction" in tag.source_refs
+        if "topic_cluster:seller-category-direction" in tag.source_refs
     ]

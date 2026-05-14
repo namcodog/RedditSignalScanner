@@ -204,6 +204,7 @@
       "historical_depth": "历史库里有 {historical_posts} 条相关帖子，适合看长期反复出现的问题。",
       "semantic_fit": "主题证据集中在 {related_terms}，和这个标签的需求匹配。",
       "signal_density": "过去已有 {hotpost_cards} 条高价值信号从这里出来，说明讨论能持续转成可用线索。",
+      "brand_fit": "相关品牌讨论集中在 {brand_terms}，说明这里能看到真实产品和平台选择。",
       "low_evidence": "当前证据还少，先放在观察位。",
       "sample_title": "代表讨论：{sample_title}"
     },
@@ -212,6 +213,7 @@
       "semantic_terms": "语义证据：{semantic_terms}",
       "semantic_observations": "语义观察：{semantic_observations} 条",
       "hotpost_cards": "发布验证：已产出 {hotpost_cards} 条高价值信号",
+      "brand_terms": "品牌证据：{brand_terms}，共 {brand_count} 个品牌",
       "historical_posts": "历史数据：旧 DB 有 {historical_posts} 条帖子",
       "sample_title": "代表讨论：{sample_title}",
       "low_evidence": "证据不足：仅来自社区池覆盖"

@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import replace
-from typing import Iterable, Sequence
+from typing import Iterable
 
 from app.services.community.community_recommendation_models import (
     HISTORICAL_DEPTH,
@@ -9,10 +9,7 @@ from app.services.community.community_recommendation_models import (
     WATCHING,
     CapabilityTag,
     CommunityActivitySnapshot,
-    CommunityRecommendation,
     CommunitySignal,
-    PreviewAcceptance,
-    RecommendationPreview,
 )
 from app.services.community.community_recommendation_utils import (
     dedupe,
@@ -91,6 +88,8 @@ def evidence_sources_for_signal(signal: CommunitySignal) -> tuple[str, ...]:
         sources.append("content_labels")
     if signal.content_entities:
         sources.append("content_entities")
+    if signal.brand_terms:
+        sources.append("brand_system_evidence")
     if signal.recent_posts_15d:
         sources.append("recent_activity_15d")
     if signal.recent_activity_source:
@@ -120,16 +119,24 @@ def merge_activity_snapshots(
         merged.append(
             replace(
                 signal,
-                recent_posts_15d=max(signal.recent_posts_15d, snapshot.recent_posts_15d),
-                latest_activity_at=latest_activity(signal.latest_activity_at, snapshot.latest_activity_at),
+                recent_posts_15d=max(
+                    signal.recent_posts_15d, snapshot.recent_posts_15d
+                ),
+                latest_activity_at=latest_activity(
+                    signal.latest_activity_at, snapshot.latest_activity_at
+                ),
                 recent_activity_source=snapshot.source,
             )
         )
     return tuple(merged)
 
 
-def signal_matches_definition(signal: CommunitySignal, definition: InterestTagDefinition) -> bool:
-    source_ref_hit = definition.source_ref_match and bool(set(signal.source_refs) & set(definition.source_refs))
+def signal_matches_definition(
+    signal: CommunitySignal, definition: InterestTagDefinition
+) -> bool:
+    source_ref_hit = definition.source_ref_match and bool(
+        set(signal.source_refs) & set(definition.source_refs)
+    )
     if source_ref_hit and has_recommendation_evidence(signal):
         return True
     categories = {normalize_text(item) for item in signal.categories}
@@ -137,9 +144,13 @@ def signal_matches_definition(signal: CommunitySignal, definition: InterestTagDe
     category_match = bool(categories & category_keys)
     if term_hit_count(definition.semantic_keys, signal.semantic_terms) > 0:
         return True
-    if community_key_hit_count(definition.keyword_keys, signal) and has_recommendation_evidence(signal):
+    if community_key_hit_count(
+        definition.keyword_keys, signal
+    ) and has_recommendation_evidence(signal):
         return True
-    keyword_hits = term_hit_count(definition.keyword_keys, (*signal.keywords, signal.community))
+    keyword_hits = term_hit_count(
+        definition.keyword_keys, (*signal.keywords, signal.community)
+    )
     return keyword_hits >= 2 or (category_match and keyword_hits > 0)
 
 
@@ -167,7 +178,11 @@ def build_capability_tags(
     for definition in active_catalog.tags:
         matched = signals_for_definition(definition, signal_list)
         statuses = [community_status(signal) for signal in matched]
-        generic = sum(1 for s in matched if community_role(s, active_catalog.policy) == "generic_hotspot")
+        generic = sum(
+            1
+            for s in matched
+            if community_role(s, active_catalog.policy) == "generic_hotspot"
+        )
         sources: set[str] = set()
         for signal in matched:
             sources.update(evidence_sources_for_signal(signal))

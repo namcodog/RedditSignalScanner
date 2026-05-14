@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Iterable
+from typing import Iterable, cast
 
 from app.services.community.community_recommendation_core import (
     community_role,
@@ -24,7 +24,11 @@ from app.services.community.community_recommendation_text import (
     public_reasons,
     public_terms,
 )
-from app.services.community.community_recommendation_utils import dedupe, normalize_text, tokenize
+from app.services.community.community_recommendation_utils import (
+    dedupe,
+    normalize_text,
+    tokenize,
+)
 from app.services.community.interest_tag_catalog import (
     InterestTagCatalog,
     InterestTagDefinition,
@@ -34,20 +38,41 @@ from app.services.community.interest_tag_catalog import (
 
 
 def community_score(signal: CommunitySignal, policy: RecommendationPolicy) -> float:
-    weights = policy.score_weights
+    weights = cast(dict[str, float], policy.score_weights)
     score = (
         policy.status_bonus[community_status(signal)]
-        + min(signal.recent_posts_15d * weights["recent_posts_15d_weight"], weights["recent_posts_15d_cap"])
-        + min(signal.historical_posts * weights["historical_posts_weight"], weights["historical_posts_cap"])
-        + min(signal.semantic_observations * weights["semantic_observations_weight"], weights["semantic_observations_cap"])
-        + min(signal.hotpost_cards * weights["hotpost_cards_weight"], weights["hotpost_cards_cap"])
-        + min(signal.content_labels * weights["content_labels_weight"], weights["content_labels_cap"])
-        + min(signal.content_entities * weights["content_entities_weight"], weights["content_entities_cap"])
-        + min(max(signal.quality_score, 0.0) * weights["quality_score_weight"], weights["quality_score_cap"])
+        + min(
+            signal.recent_posts_15d * weights["recent_posts_15d_weight"],
+            weights["recent_posts_15d_cap"],
+        )
+        + min(
+            signal.historical_posts * weights["historical_posts_weight"],
+            weights["historical_posts_cap"],
+        )
+        + min(
+            signal.semantic_observations * weights["semantic_observations_weight"],
+            weights["semantic_observations_cap"],
+        )
+        + min(
+            signal.hotpost_cards * weights["hotpost_cards_weight"],
+            weights["hotpost_cards_cap"],
+        )
+        + min(
+            signal.content_labels * weights["content_labels_weight"],
+            weights["content_labels_cap"],
+        )
+        + min(
+            signal.content_entities * weights["content_entities_weight"],
+            weights["content_entities_cap"],
+        )
+        + min(
+            max(signal.quality_score, 0.0) * weights["quality_score_weight"],
+            weights["quality_score_cap"],
+        )
     )
     if community_role(signal, policy) == "generic_hotspot":
         score *= weights["generic_multiplier"]
-    return round(score, 4)
+    return float(round(score, 4))
 
 
 def semantic_terms_for_definition(
@@ -58,7 +83,7 @@ def semantic_terms_for_definition(
     terms.extend(signal.content_label_terms)
     terms.extend(signal.content_entity_terms)
     if terms:
-        return dedupe(terms, limit=5)
+        return cast(tuple[str, ...], dedupe(terms, limit=5))
     categories = {normalize_text(item) for item in signal.categories}
     category_keys = {normalize_text(item) for item in definition.category_keys}
     terms.extend(sorted(categories & category_keys))
@@ -67,10 +92,12 @@ def semantic_terms_for_definition(
         key = normalize_text(keyword)
         if key in tokens:
             terms.append(key)
-    return dedupe(terms, limit=5)
+    return cast(tuple[str, ...], dedupe(terms, limit=5))
 
 
-def risk_flags(signal: CommunitySignal, policy: RecommendationPolicy) -> tuple[str, ...]:
+def risk_flags(
+    signal: CommunitySignal, policy: RecommendationPolicy
+) -> tuple[str, ...]:
     flags: list[str] = []
     if community_role(signal, policy) == "generic_hotspot":
         flags.append("generic_hotspot")
@@ -112,6 +139,9 @@ def build_recommendations_for_tag(
                 historical_posts=signal.historical_posts,
                 hotpost_cards=signal.hotpost_cards,
                 semantic_observations=signal.semantic_observations,
+                brand_terms=signal.brand_terms,
+                brand_mentions=signal.brand_mentions,
+                brand_count=signal.brand_count,
                 semantic_terms=terms,
                 evidence_summary=evidence_summary(signal, terms, policy),
                 sample_titles=signal.sample_titles,
@@ -121,7 +151,14 @@ def build_recommendations_for_tag(
                 evidence_teaser=evidence_teaser(signal, policy),
             )
         )
-    rows.sort(key=lambda r: ({READY: 2, HISTORICAL_DEPTH: 1, WATCHING: 0}[r.status], r.role == "longtail_vertical", r.score), reverse=True)
+    rows.sort(
+        key=lambda r: (
+            {READY: 2, HISTORICAL_DEPTH: 1, WATCHING: 0}[r.status],
+            r.role == "longtail_vertical",
+            r.score,
+        ),
+        reverse=True,
+    )
     return tuple(_apply_generic_cap(rows, policy, limit, generic_cap_ratio))
 
 
@@ -131,7 +168,13 @@ def _apply_generic_cap(
     limit: int,
     cap_ratio: float | None,
 ) -> list[CommunityRecommendation]:
-    generic_limit = max(0, int(max(0.0, cap_ratio if cap_ratio is not None else policy.generic_cap_ratio) * max(1, limit)))
+    generic_limit = max(
+        0,
+        int(
+            max(0.0, cap_ratio if cap_ratio is not None else policy.generic_cap_ratio)
+            * max(1, limit)
+        ),
+    )
     if generic_limit == 0 and any(row.role == "generic_hotspot" for row in rows):
         generic_limit = 1
     used = 0

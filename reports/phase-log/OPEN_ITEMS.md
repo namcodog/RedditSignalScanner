@@ -6,7 +6,7 @@
 
 ### P0
 
-0. Brand Intelligence R16 系统证据包已完成，下一步接入推荐解释
+0. Brand Intelligence R16 系统证据包已接入社区推荐解释，下一步审质量并接 Hotpost 上下文
    已完成：主系统品牌收录第一层已经接入已发布 Hotpost 卡、语义库、初始品牌表、历史 archive 品牌包和噪音词表；R15.2 已新增 Dev DB `brand_registry / brand_mentions` 并显式写入；R15.3 已把品牌 digest、质量审查、sidecar 报告和语义审核队列接进日常运营后置动作；R15.4 已补只读服务、API 和预览命令。
    当前结果：Dev DB `brand_registry=1655 / brand_mentions=1254`；状态分布为 `accepted=1457 / verified=13 / candidate=2 / match_guarded=58 / canonical_review=81 / metadata_review=44`。2026-05-13 sidecar 扫描 `881` 张已发布卡，识别 `171` 个品牌、`1571` 条证据，结果为 `verified=13 / candidate=142 / rejected=16 / semantic_review_queue=13 / new_brand_candidates=0`。
    写入产物：`reports/brand-intelligence/brand-registry-r15-2-dev-write-2026-05-12.md`、`.json`、`brand-registry-r15-2-dev-write-rollback-2026-05-12.sql`；幂等复跑产物为 `brand-registry-r15-2-dev-write-rerun-2026-05-12.md/json`。
@@ -17,7 +17,8 @@
    当前边界：R15.4 / R16 都只读；Gold DB、小程序快照、cloud DB、Hotpost 发布链和语义库都未写；`frontend_display=false / miniapp_snapshot_fields=false`，不做前端品牌页或小程序品牌 tab。
    关键修正：`system_evidence` 当前允许 `verified + accepted`，但 `accepted` mention 必须先过配置化 `brand_match_guard`；已确认 `Can Do` 这类普通短语不会进入系统证据包。
    Sidecar 补充：`reports/brand-intelligence/brand-ops-sidecar-2026-05-13.md/json` 已带 `system_evidence_summary`，当前 `system_evidence_brands=117`。
-   下一步：把安全品牌证据接入社区推荐解释和 Hotpost 后续上下文；后续再补高证据候选晋级队列和 API 高频读取索引。
+   社区推荐接入：`reports/community-recommendation/preview.md/json` 已重跑为 `tags=9 / recommendations=69 / ready_count=29 / acceptance_passed=true`；`46` 条推荐带品牌证据。品牌证据只增强解释，不参与排序、状态或 ready 判断，因为当前 `mention_count` 不是社区内计数。
+   下一步：先审社区推荐质量，再接 Hotpost 后续上下文；后续再补高证据候选晋级队列和 API 高频读取索引。
 
 0. 2026-05-13 Hotpost 日常出卡已完成，待线上 Upsert 导入
    已完成：今日正式发布 `25` 张，最新快照 `release-f798171983ef`，总卡数 `881`；同步检查通过，首页 feed contract `30/30`。运营日志已更新到 `reports/ops-log/2026-05-13.md`。
@@ -34,8 +35,8 @@
    当前产品合同：`docs/reference/community-intelligence-clean-contract-2026-05-07.md`。当前系统设计：`docs/superpowers/specs/2026-05-08-community-discovery-recommendation-system-design.md`。当前后端架构：`docs/reference/community-recommendation-backend-architecture-2026-05-08.md`。主线目标是系统根据已有数据和语义库生成可服务标签 / 赛道，用户点击后获得有证据、有理由、长尾优先的 Reddit 社区推荐；不是继续做开放检索框，也不是把 Phase 0 / 1 / 2 治理结果当成产品完成。
    旧社区发现 / 社区池治理链已归档为历史实现：`docs/reference/community-discovery-legacy-archive-2026-05-08.md`。归档含义是“不再作为当前推荐产品主链”，不是否定 DB 8 大领域，也不是删除历史数据。
    已完成事实：治理审计、Phase 1 dry-run、Phase 2 Dev 写入都已经落地；Dev `community_pool` active count 从 `300` 到 `356`，实际新增 `56` 个社区，rollback SQL 在 `reports/community-governance/phase2-dev-write-rollback.sql`。这些是数据准备和库存校准，不是推荐结果页。
-   新增完成：后端应用服务入口 `backend/app/services/community/community_recommendation_service.py` 已统一生成 preview、audit 和验收摘要；CLI `backend/scripts/community/community_recommendation_preview.py` 已改为调用同一 service，后续 API / 前端只能做薄适配，不能重写推荐链。当前输出在 `reports/community-recommendation/preview.md` 和 `reports/community-recommendation/preview.json`，生成 `9` 个具像化兴趣标签、`64` 条推荐样例。CI-R2-R5 已补齐：`15D` 活跃探测合同、语义证据摘要、长尾优先 / 泛社区限额、后端验收摘要。R7-R9 已补齐：推荐理由证据化、标签-社区审核表、`content_labels / content_entities` 语义证据密度。
-   合同修复：`CAPABILITY_SEEDS` 已从 production code 移除；标签目录、泛社区名单、分数权重、用户推荐文案、审核文案和证据摘要模板改由 `backend/config/community_interest_tags.json` 承载；旧业务分类目录、别名和 Phase 2 分类推断规则改由 `backend/config/community_business_categories.json` 承载。用户可见 preview 区不再暴露 `Hotpost / community_pool / semantic_observation / semantic ledger / 语义账本 / ai_workflow / tools_edc` 等内部词。当前推荐预览 CLI 为 `acceptance_passed=true / ready_count=33 / tags=9 / recommendations=68`，`电商平台政策与风向` 已从空状态修到 `ready / available_community_count=5`，新增审核表在 `reports/community-recommendation/audit.md` 和 `audit.json`。
+   新增完成：后端应用服务入口 `backend/app/services/community/community_recommendation_service.py` 已统一生成 preview、audit 和验收摘要；CLI `backend/scripts/community/community_recommendation_preview.py` 已改为调用同一 service，后续 API / 前端只能做薄适配，不能重写推荐链。当前输出在 `reports/community-recommendation/preview.md` 和 `reports/community-recommendation/preview.json`，生成 `9` 个具像化兴趣标签、`69` 条推荐样例。CI-R2-R5 已补齐：`15D` 活跃探测合同、语义证据摘要、长尾优先 / 泛社区限额、后端验收摘要。R7-R9 已补齐：推荐理由证据化、标签-社区审核表、`content_labels / content_entities` 语义证据密度。
+   合同修复：`CAPABILITY_SEEDS` 已从 production code 移除；标签目录、泛社区名单、分数权重、用户推荐文案、审核文案和证据摘要模板改由 `backend/config/community_interest_tags.json` 承载；旧业务分类目录、别名和 Phase 2 分类推断规则改由 `backend/config/community_business_categories.json` 承载。用户可见 preview 区不再暴露 `Hotpost / community_pool / semantic_observation / semantic ledger / 语义账本 / ai_workflow / tools_edc` 等内部词。当前推荐预览 CLI 为 `acceptance_passed=true / ready_count=29 / tags=9 / recommendations=69`，`电商平台政策与风向` 已从空状态修到 `ready / available_community_count=5`，新增审核表在 `reports/community-recommendation/audit.md` 和 `audit.json`。
    新增护栏：旧 `community_pool.categories` 不能单独构成推荐证据，必须同时有标签相关关键词或语义证据命中；已验证 `r/managers` 不再进入“家居生活选品”预览。
    当前边界：`community_pool` 是社区总池，不是推荐面；Hotpost / 小程序是新社区探测器，不能用“没出卡”否定旧 DB 社区。当前 `ready` 主要来自 Hotpost 近期探测 `hotpost_recent_probe`，不是 Dev `posts_hot` 自己恢复了完整 15D 新鲜数据；深层 `semantic_observation / semantic_terms` 仍需后续继续补密度，但推荐层已开始读取 `content_labels / content_entities` 的标签和实体词。当前不做 UserTrack、Web/API、前端入口、开放搜索框、实时重抓或生产写库。
    新增桥接计划：`docs/superpowers/plans/2026-05-08-hotpost-community-pool-feedback-loop-plan.md`。当前 Hotpost 探索社区池已实现配置隔离和只读审计；R10/R11 已落地：日常采集默认不含探索社区，显式 `probe_community_discovery.py --scope ...` 才开启探索试采；回流 dry-run 只读、不写 DB、不自动入池。R11.5 已补社区价值评分算法，规则在 `backend/config/community_value_scoring.json`，报告输出 `observe / testing / validated / pool_candidate / reject` 和分数。2026-05-10 已跑出 3 个真实 `pool_candidate`：`r/aeo`、`r/ai_ugc_marketing`、`r/growthhacking`；`r/etsy` 和 `r/digital_marketing` 已在 pool，只补证据。R12 已写入 Dev `community_pool`，结果为 `active_count_before=356 / active_count_after=359 / inserted=3 / skipped_existing=0 / blocked=0`；Gold DB 和小程序派生产物未写。产物在 `reports/community-governance/community-pool-feedback-dry-run-2026-05-10.md`、`reports/community-governance/community-pool-r12-prewrite-2026-05-10.md` 和 `reports/community-governance/community-pool-r12-dev-write-2026-05-10.md`。
