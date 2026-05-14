@@ -466,13 +466,13 @@ scopes:
         tags: [seller-side, category-direction, saturation, demand-shift, market-crowding]
         primary_communities: [AmazonSeller, FulfillmentByAmazon, EtsySellers]
         candidate_communities: [EntrepreneurRideAlong, sidehustle, ecommerce, shopify, Entrepreneur]
-        experimental_communities: [Etsy]
+        experimental_communities: [Etsy, eBaySellerAdvice, eBaySellers, Flipping, reselling]
         source_mode: listing-first
         listing_communities: [AmazonSeller, FulfillmentByAmazon, EtsySellers, ecommerce, shopify, sidehustle]
         experimental_keyword_buckets:
-          category: [ai product image, amazon listing photos]
-          problem: [ai generated product images, product photos not converting]
-          change: [using ai for listing images]
+          category: [ai product image, amazon listing photos, ebay sold listings, ebay refurbished, ebay parts only listing]
+          problem: [ai generated product images, product photos not converting, ebay profit margin, ebay return scam, ebay listing flagged]
+          change: [using ai for listing images, reselling vintage items, selling refurbished electronics, parting out products on ebay]
         keyword_buckets:
           category: [what category is growing, seasonal demand shift ecommerce, amazon niche trend, etsy category trend, what category is moving now]
           problem: [saturated niche amazon, too competitive category, niche getting crowded, inventory risk in this niche, category demand is drying up]
@@ -484,8 +484,13 @@ scopes:
         tags: [unit-economics, platform-risk, shipping, refund, margin, returns]
         primary_communities: [AmazonSeller, FulfillmentByAmazon, shopify, ecommerce]
         candidate_communities: [EtsySellers, sidehustle]
+        experimental_communities: [eBaySellerAdvice, eBaySellers, Flipping, reselling]
         source_mode: listing-first
         listing_communities: [AmazonSeller, FulfillmentByAmazon, shopify, ecommerce, EtsySellers, sidehustle]
+        experimental_keyword_buckets:
+          category: [ebay seller fees, ebay shipping cost, ebay sold listings, ebay refurbished]
+          problem: [ebay buyer refund, ebay return abuse, ebay fee margin squeeze, ebay seller protection]
+          change: [moved to ebay, stopped selling on ebay, changed ebay pricing, switched to refurbished resale]
         keyword_buckets:
           category: [fulfillment cost, platform risk, unit economics ecommerce, return rate problem]
           problem: [margin squeeze, chargeback issue, refund abuse, ppc not profitable, conversion dropping]

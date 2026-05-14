@@ -22,6 +22,11 @@
   - [brand-intelligence-r15-audit-2026-05-13.md](/Users/hujia/Desktop/RedditSignalScanner/reports/brand-intelligence/brand-intelligence-r15-audit-2026-05-13.md)
   - [brand-registry-view-2026-05-13.md](/Users/hujia/Desktop/RedditSignalScanner/reports/brand-intelligence/brand-registry-view-2026-05-13.md)
   - [brand-registry-view-2026-05-13.json](/Users/hujia/Desktop/RedditSignalScanner/reports/brand-intelligence/brand-registry-view-2026-05-13.json)
+- Hotpost 2026-05-14 日常出卡已完成：正式发布 `25` 张，最新快照 `release-eca996e28609 / card_count=906`，结构 `hot 6 / signal 19`；品牌池驱动 SKU 出卡，新增 eBay / 品牌探索小配额 profile，同步链和小程序子仓派生产物已收口，社区回流 `already_in_pool=10 / keep_testing=12 / promote_candidate=2 / reject=0`：
+  - [phase1134.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1134.md)
+  - [2026-05-14.md](/Users/hujia/Desktop/RedditSignalScanner/reports/ops-log/2026-05-14.md)
+  - [community-exploration-post-2026-05-14.json](/Users/hujia/Desktop/RedditSignalScanner/reports/community-governance/community-exploration-post-2026-05-14.json)
+  - [community-pool-feedback-dry-run-2026-05-14.md](/Users/hujia/Desktop/RedditSignalScanner/reports/community-governance/community-pool-feedback-dry-run-2026-05-14.md)
 - Hotpost 2026-05-13 日常出卡已完成：正式发布 `25` 张，最新快照 `release-f798171983ef / card_count=881`，结构 `hot 12 / signal 12 / breakdown 1`；同步链和小程序 snapshot data 校验通过，社区回流 `already_in_pool=8 / keep_testing=8 / promote_candidate=0`：
   - [phase1127.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1127.md)
   - [2026-05-13.md](/Users/hujia/Desktop/RedditSignalScanner/reports/ops-log/2026-05-13.md)

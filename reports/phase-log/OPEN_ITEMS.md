@@ -1,6 +1,6 @@
 # 未完成事项
 
-最后更新：2026-05-13
+最后更新：2026-05-14
 
 ## 当前未完成的项目事项
 
@@ -19,6 +19,13 @@
    Sidecar 补充：`reports/brand-intelligence/brand-ops-sidecar-2026-05-13.md/json` 已带 `system_evidence_summary`，当前 `system_evidence_brands=117`。
    社区推荐接入：`reports/community-recommendation/preview.md/json` 已重跑为 `tags=9 / recommendations=69 / ready_count=29 / acceptance_passed=true`；`46` 条推荐带品牌证据。品牌证据只增强解释，不参与排序、状态或 ready 判断，因为当前 `mention_count` 不是社区内计数。
    下一步：先审社区推荐质量，再接 Hotpost 后续上下文；后续再补高证据候选晋级队列和 API 高频读取索引。
+
+0. 2026-05-14 Hotpost 日常出卡已完成，待线上 Upsert 导入
+   已完成：今日正式发布 `25` 张，最新快照 `release-eca996e28609`，总卡数 `906`；同步检查通过，miniRelease / miniFavorites 派生产物已在小程序子仓提交合并。
+   出卡结果：结构 `hot 6 / signal 19`，类别 `电商与卖家 20 / AI 与自动化 4 / 商业增长与运营 1`；本轮按品牌池和 SKU 方向补 eBay、钢笔、露营、onebag、咖啡设备、清洁电器等卡。
+   配置变化：新增 `crossborder-sku-brand-ebay-7d` 和 `crossborder-sku-brand-discovery-7d`，并把 eBay 转售 / 翻新 / 退货风险社区纳入显式 experimental probe；默认日常采集仍不包含 experimental。
+   当前边界：`trend audit` 为 `watching`，`remaining_new_releases=5`，还不能写成 stable。社区回流为 `already_in_pool=10 / keep_testing=12 / promote_candidate=2 / reject=0`，本轮没有 R12 写入对象。
+   下一步：线上导入 `mini_release_meta.wechat-import.json` 和 `mini_release_cards.wechat-import.json` 时继续用 Upsert；后续人工复核 `eBaySellerAdvice` 等 promote candidate 是否进入 R12 预审。
 
 0. 2026-05-13 Hotpost 日常出卡已完成，待线上 Upsert 导入
    已完成：今日正式发布 `25` 张，最新快照 `release-f798171983ef`，总卡数 `881`；同步检查通过，首页 feed contract `30/30`。运营日志已更新到 `reports/ops-log/2026-05-13.md`。
