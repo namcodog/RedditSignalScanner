@@ -373,6 +373,7 @@ def test_experimental_communities_require_explicit_flag_and_small_budget() -> No
     assert experimental
     assert {item.subreddit for item in experimental} <= {
         "Etsy",
+        "Entrepreneur",
         "HerOneBag",
         "bikepacking",
         "eBaySellerAdvice",
