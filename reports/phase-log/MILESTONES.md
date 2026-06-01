@@ -1,6 +1,6 @@
 # 项目里程碑
 
-最后更新：2026-05-13
+最后更新：2026-06-01
 
 ## 里程碑 1：项目骨架与工具链建立
 
@@ -64,11 +64,17 @@
   - Brand Intelligence R15.0 到 R16 已落地：主系统能从已发布 Hotpost 卡、语义库、初始品牌表、历史 archive 品牌包和噪音词表生成品牌池，已显式写入 Dev DB `brand_registry=1655 / brand_mentions=1254`，已接入日常运营 sidecar，并已有 consumer-safe 只读服务 / API / 预览报告；R16 后端系统证据包已补文本护栏，安全品牌证据已进入社区推荐解释和 Hotpost sidecar，但只做解释增强，不直接改排序或 ready 判断
   - `2026-05-13` Hotpost 日常出卡按硬节奏完成 `25` 张，最新快照 `release-f798171983ef / card_count=881`；本轮把特朗普访华 x AI 深度信号、Claude Code / Agent harness、LocalLLaMA、SKU 选品和 Amazon/FBA 经营信号一起收进正式首页，并保持探索社区只读回流。
   - `2026-05-14` Hotpost 日常出卡完成 `25` 张，最新快照 `release-eca996e28609 / card_count=906`；本轮验证“品牌池先命中，再探索新品牌”的 SKU 运营口径，并把 eBay / 品牌探索小配额 profile 接进显式 probe，默认日常采集仍不含 experimental。
+  - `2026-05-26` Hotpost 日运营完成 `25` 张，最新快照 `release-30b20d1df3a4 / card_count=1185`；同步链和首页 feed contract 通过，社区探索继续只读回流，品牌 sidecar 继续只做上下文增强，不写 DB。
+  - `2026-05-29` Hotpost V13 出卡链路补上结构化质量合同和 AI 预检节点：`semantic_brief -> writer -> draft_precheck -> 人工 review` 已落地，precheck 只做 report-only，不自动改稿或发布。
+  - `2026-06-01` Hotpost V13 模型生成链路补上工程级稳定性护栏：SDK timeout、阶段级 timeout、JSON 错误分类、空响应不修复、JSON object 抽取、子阶段 trace 已落地；相关回归 `104 passed`，3 个修改源文件 `mypy --strict` 通过。
+  - `2026-06-01` Hotpost 补卡与剩余缺口收口：`hot_controversy` 独立 LLM 路径补上 timeout / trace；V13 阶段等待窗口按真实慢响应拉长；title repair 空响应不再报废整张卡；本轮发布 `7` 张并同步到 `release-dea5ddcc9848 / card_count=1265`，mini release sync 全绿。
 - 今天仍然有效的结论：
   - Hotpost 当前主问题是 `freshness / quota / freshest supply`；Community Intelligence 当前主问题已经从“后端能不能生成推荐”变成“用户是否认可推荐质量，以及是否需要补真实 Reddit 活跃探测和更深语义观察”
   - 当前阶段是稳态运营优化期，不是大架构重建期
   - 产品正式默认范围是 `all-scope`；单 slice 只用于显式局部修复
   - V13 阻塞时宁可少发，也不能静默切旧模型或旧 prompt 补量
+  - 模型链路优化的正确方向是先可观测、可分类、可降级，再判断是否需要换渠道；不能把渠道 503、空响应和本地 timeout 混成一个“模型失败”。
+  - V13 质量治理不再只靠长 prompt：语义 brief 要结构化，人工 review 前要有可记录的 AI 预检，但最终发布决策仍归人工
   - 积分增长不能只看点击分享，必须看被邀请人完成授权和手机号绑定后的真实转化
   - `community_pool` 是社区总池，不是推荐结果页；下一步先做用户验收，再谈前端 / API / 生产写入
 

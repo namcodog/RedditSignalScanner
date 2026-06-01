@@ -1,0 +1,20 @@
+{
+  "candidate_id": "cand-ai-automation-1tsr2q5",
+  "draft_id": "draft-cand-ai-automation-1tsr2q5-validate",
+  "card_id": "card-cand-ai-automation-1tsr2q5-validate",
+  "card_type": "validate",
+  "allow_breakdown": false,
+  "overall_status": "failed",
+  "stages": [
+    {
+      "name": "duplicate_preflight",
+      "status": "completed"
+    },
+    {
+      "name": "model_generation",
+      "status": "failed"
+    }
+  ],
+  "error_type": "TimeoutError",
+  "error": ""
+}

@@ -6,6 +6,63 @@
   - [CURRENT_STATUS.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/CURRENT_STATUS.md)
 - 未完成事项：
   - [OPEN_ITEMS.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/OPEN_ITEMS.md)
+- Hotpost V13 模型链路稳定性修复已落地：SDK timeout、阶段级 timeout、JSON 错误分类、空响应不修复、JSON object 抽取和 generation trace 子阶段已补齐；precheck 超时会降级为 `REWRITE + precheck_error + stage_timeout`，不再把整条 seed 链直接打死：
+  - [phase1149.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1149.md)
+- Hotpost V13 结构化 brief 与 AI 预检节点已落地：出卡链路升级为 `semantic_brief -> writer -> draft_precheck -> 人工 review`；precheck 输出 `PASS / REWRITE / BLOCK`，只做 report-only，`show-draft` 会展示，breakdown/write 最终稿不会丢预检，预检异常会记为 `REWRITE + precheck_error`：
+  - [phase1148.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1148.md)
+  - [2026-05-29.md](/Users/hujia/Desktop/RedditSignalScanner/reports/ops-log/2026-05-29.md)
+- Hotpost 2026-05-26 日运营已完成：正式追加 `25` 张，最新快照 `release-30b20d1df3a4 / card_count=1185`，结构 `hot 9 / signal 13 / breakdown 3`，类别 `AI 与自动化 11 / 电商与卖家 9 / 商业增长与运营 5`；同步链、首页 feed contract、copy guard 和 hot 争议图 guard 通过，社区探索 `promote_candidate=4`，品牌 sidecar `brands_observed=213`：
+  - [phase1147.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1147.md)
+  - [2026-05-26.md](/Users/hujia/Desktop/RedditSignalScanner/reports/ops-log/2026-05-26.md)
+  - [community-exploration-post-2026-05-26.json](/Users/hujia/Desktop/RedditSignalScanner/reports/community-governance/community-exploration-post-2026-05-26.json)
+  - [brand-ops-sidecar-2026-05-26.md](/Users/hujia/Desktop/RedditSignalScanner/reports/brand-intelligence/brand-ops-sidecar-2026-05-26.md)
+- Hotpost 2026-05-23/24 两天补发已推进但未完整收口：正式追加 `15` 张，最新快照 `release-d1e9b9f26a29 / card_count=1149`，结构 `hot 9 / signal 6`，类别 `AI 与自动化 11 / 商业增长与运营 4`；同步链通过，首页前两张均为 `hot`，`/workflows` 标题污染已修并补测试；当前阻塞为 DeepSeek 官方 `deepseek-v4-pro` 返回 `402 Insufficient Balance`，SKU / eBay / 品牌选品仍有 `12` 个候选待补：
+  - [phase1146.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1146.md)
+  - [2026-05-24.md](/Users/hujia/Desktop/RedditSignalScanner/reports/ops-log/2026-05-24.md)
+  - [community-exploration-post-2026-05-24.json](/Users/hujia/Desktop/RedditSignalScanner/reports/community-governance/community-exploration-post-2026-05-24.json)
+  - [brand-ops-sidecar-2026-05-24.md](/Users/hujia/Desktop/RedditSignalScanner/reports/brand-intelligence/brand-ops-sidecar-2026-05-24.md)
+- Hotpost 2026-05-22 日常出卡已完成：正式追加 `25` 张，最新快照 `release-e24eb0af5574 / card_count=1134`，结构 `hot 11 / signal 14`，类别 `电商与卖家 17 / 商业增长与运营 5 / AI 与自动化 3`；同步链和 copy guard 通过，首页前两张均为 `hot`，探索回流 `already_in_pool=12 / keep_testing=8 / promote_candidate=4 / reject=0`，品牌 sidecar `new_brand_candidates=0`：
+  - [phase1145.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1145.md)
+  - [2026-05-22.md](/Users/hujia/Desktop/RedditSignalScanner/reports/ops-log/2026-05-22.md)
+  - [community-exploration-post-2026-05-22.json](/Users/hujia/Desktop/RedditSignalScanner/reports/community-governance/community-exploration-post-2026-05-22.json)
+  - [brand-ops-sidecar-2026-05-22.md](/Users/hujia/Desktop/RedditSignalScanner/reports/brand-intelligence/brand-ops-sidecar-2026-05-22.md)
+- Hotpost 2026-05-21 日常出卡已完成：正式追加 `26` 张，最新快照 `release-7b03ab193ce4 / card_count=1109`，结构 `hot 13 / signal 13`，类别 `电商与卖家 21 / 商业增长与运营 3 / AI 与自动化 2`；同步链和 copy guard 通过，首页前两张均为 `hot`，探索回流 `already_in_pool=12 / keep_testing=8 / promote_candidate=4 / reject=0`，品牌 sidecar `new_brand_candidates=0`：
+  - [phase1144.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1144.md)
+  - [2026-05-21.md](/Users/hujia/Desktop/RedditSignalScanner/reports/ops-log/2026-05-21.md)
+  - [community-exploration-post-2026-05-21.json](/Users/hujia/Desktop/RedditSignalScanner/reports/community-governance/community-exploration-post-2026-05-21.json)
+  - [brand-ops-sidecar-2026-05-21.md](/Users/hujia/Desktop/RedditSignalScanner/reports/brand-intelligence/brand-ops-sidecar-2026-05-21.md)
+- Hotpost 2026-05-20 日常出卡已完成：正式追加 `25` 张，最新快照 `release-9bc24a160791 / card_count=1083`，结构 `hot 12 / signal 13`，类别 `电商与卖家 15 / 商业增长与运营 6 / AI 与自动化 4`；同步链和 copy guard 通过，首页前两张均为 `hot`，探索回流 `already_in_pool=12 / keep_testing=8 / promote_candidate=4 / reject=0`，品牌 sidecar `new_brand_candidates=0`：
+  - [phase1143.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1143.md)
+  - [2026-05-20.md](/Users/hujia/Desktop/RedditSignalScanner/reports/ops-log/2026-05-20.md)
+  - [community-exploration-post-2026-05-20.json](/Users/hujia/Desktop/RedditSignalScanner/reports/community-governance/community-exploration-post-2026-05-20.json)
+  - [brand-ops-sidecar-2026-05-20.md](/Users/hujia/Desktop/RedditSignalScanner/reports/brand-intelligence/brand-ops-sidecar-2026-05-20.md)
+- Hotpost 2026-05-19 日常出卡已完成：正式追加 `30` 张，最新快照 `release-d5fdfced5175 / card_count=1058`，结构 `hot 17 / signal 13`，类别 `电商与卖家 17 / AI 与自动化 11 / 商业增长与运营 2`；同步链和 copy guard 通过，首页前两张均为 `hot`，探索回流 `already_in_pool=12 / keep_testing=10 / promote_candidate=2 / reject=0`，品牌 sidecar `new_brand_candidates=0`：
+  - [phase1142.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1142.md)
+  - [2026-05-19.md](/Users/hujia/Desktop/RedditSignalScanner/reports/ops-log/2026-05-19.md)
+  - [community-exploration-post-2026-05-19.json](/Users/hujia/Desktop/RedditSignalScanner/reports/community-governance/community-exploration-post-2026-05-19.json)
+  - [community-pool-feedback-dry-run-2026-05-19.md](/Users/hujia/Desktop/RedditSignalScanner/reports/community-governance/community-pool-feedback-dry-run-2026-05-19.md)
+  - [brand-ops-sidecar-2026-05-19.md](/Users/hujia/Desktop/RedditSignalScanner/reports/brand-intelligence/brand-ops-sidecar-2026-05-19.md)
+- Hotpost 2026-05-18 发布后收尾已完成：R12 预审把 `r/eBaySellerAdvice` 两条 promote 合并为一条，并已写入 Dev community pool；复跑 dry-run 确认不会重复写。品牌 sidecar 复核后确认 `Mirror` 是小写动词误识别，已进入噪音项，不再作为新品牌候选：
+  - [phase1141.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1141.md)
+  - [community-pool-r12-prewrite-2026-05-18.md](/Users/hujia/Desktop/RedditSignalScanner/reports/community-governance/community-pool-r12-prewrite-2026-05-18.md)
+  - [community-pool-r12-dev-write-2026-05-18.md](/Users/hujia/Desktop/RedditSignalScanner/reports/community-governance/community-pool-r12-dev-write-2026-05-18.md)
+  - [brand-ops-sidecar-2026-05-18.md](/Users/hujia/Desktop/RedditSignalScanner/reports/brand-intelligence/brand-ops-sidecar-2026-05-18.md)
+- Hotpost 2026-05-18 日常出卡已完成：正式追加 `27` 张，最新快照 `release-d55b3b8369dd / card_count=1028`，结构 `hot 14 / signal 13`，类别 `商业增长与运营 11 / 电商与卖家 10 / AI 与自动化 6`；同步链和 copy guard 通过，首页前两张为 `hot`，探索回流 `already_in_pool=10 / keep_testing=12 / promote_candidate=2 / reject=0`：
+  - [phase1140.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1140.md)
+  - [2026-05-18.md](/Users/hujia/Desktop/RedditSignalScanner/reports/ops-log/2026-05-18.md)
+  - [community-exploration-post-2026-05-18.json](/Users/hujia/Desktop/RedditSignalScanner/reports/community-governance/community-exploration-post-2026-05-18.json)
+  - [community-pool-feedback-dry-run-2026-05-18.md](/Users/hujia/Desktop/RedditSignalScanner/reports/community-governance/community-pool-feedback-dry-run-2026-05-18.md)
+- Hotpost 2026-05-17 两天补发已完成：补回 5/16 空窗并完成 5/17 日更，追加 `51` 张，最新快照 `release-ced31a676824 / card_count=1001`，结构 `hot 16 / signal 35`，类别 `AI 与自动化 21 / 电商与卖家 30`；同步链和 copy guard 通过，首页前两张为 `hot`，探索回流 `already_in_pool=10 / keep_testing=12 / promote_candidate=2 / reject=0`：
+  - [phase1139.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1139.md)
+  - [2026-05-17.md](/Users/hujia/Desktop/RedditSignalScanner/reports/ops-log/2026-05-17.md)
+  - [community-exploration-post-2026-05-17.json](/Users/hujia/Desktop/RedditSignalScanner/reports/community-governance/community-exploration-post-2026-05-17.json)
+  - [community-pool-feedback-dry-run-2026-05-17.md](/Users/hujia/Desktop/RedditSignalScanner/reports/community-governance/community-pool-feedback-dry-run-2026-05-17.md)
+- Hotpost 2026-05-15 出卡已完成：日常 `25` 张后追加中美会谈专题 `12` 张，当天合计 `37` 张；最新快照 `release-90e8299bfe62 / card_count=950`，结构 `hot 19 / signal 18`；类别 `电商与卖家 17 / AI 与自动化 10 / 商业增长与运营 10`；同步链通过，首页前两张为 `hot`，社区回流 `already_in_pool=10 / keep_testing=12 / promote_candidate=2 / reject=0`：
+  - [phase1138.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1138.md)
+  - [phase1137.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1137.md)
+  - [2026-05-15.md](/Users/hujia/Desktop/RedditSignalScanner/reports/ops-log/2026-05-15.md)
+  - [community-exploration-post-2026-05-15.json](/Users/hujia/Desktop/RedditSignalScanner/reports/community-governance/community-exploration-post-2026-05-15.json)
+  - [community-pool-feedback-dry-run-2026-05-15.md](/Users/hujia/Desktop/RedditSignalScanner/reports/community-governance/community-pool-feedback-dry-run-2026-05-15.md)
 - Brand Intelligence R16 文本护栏、sidecar 和社区推荐解释接入已落地：系统证据包允许 `verified + accepted`，但 `accepted` mention 必须先过配置化护栏；当前 `brand_count=117 / mention_count=976 / interest_tag_count=9 / community_count=60`，sidecar 已带 `system_evidence_brands=117`；社区推荐预览为 `tags=9 / recommendations=69 / ready_count=29`，其中 `46` 条推荐带品牌证据；`db_writes=false / frontend_display=false / miniapp_snapshot_fields=false`：
   - [phase1133.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1133.md)
   - [phase1132.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1132.md)
@@ -553,6 +610,7 @@
 - 其他一律不再留在根目录
 # 最新阶段
 
+- [phase1150](./phase1150.md): 2026-06-01 补卡继续执行并收口模型链路剩余缺口；发布 7 张，最新 snapshot `release-dea5ddcc9848 / card_count=1265`，同步检查全绿。
 - [phase1079](./phase1079.md): Hotpost V13 semantic 已完成出卡前增强：lane-specific readout、结构化 evidence basis、uncertainty 和 review artifact 持久化已落地。
 - [phase1078](./phase1078.md): Hotpost V13 semantic prompt 已增强，并确认 LLM 运行时配置真实生效；breakdown prompt 现在也会收到 semantic brief。
 - [phase1077](./phase1077.md): Hotpost `fast_model` 已收缩为 `deepseek/deepseek-v4-flash`；V13 语义理解 prompt 已确认存在，writer/reasoning 仍走 `deepseek/deepseek-v4-pro`。

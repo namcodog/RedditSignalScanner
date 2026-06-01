@@ -1,0 +1,26 @@
+{
+  "active_count_after": 360,
+  "active_count_before": 360,
+  "blocked_deleted_conflicts": [],
+  "database": "reddit_signal_scanner_dev",
+  "dry_run": true,
+  "inserted_names": [],
+  "phase": "hotpost-community-pool-r12-dev-write",
+  "planned_insert_names": [
+    "r/ebaysellers",
+    "r/reselling"
+  ],
+  "rollback_sql": "reports/community-governance/community-pool-r12-dev-write-rollback-dry-run-2026-05-28.sql",
+  "rollback_target_names": [
+    "r/ebaysellers",
+    "r/reselling"
+  ],
+  "skipped_existing": [],
+  "summary": {
+    "blocked_deleted_conflicts": 0,
+    "input_rows": 2,
+    "inserted": 0,
+    "skipped_existing": 0,
+    "would_insert": 2
+  }
+}

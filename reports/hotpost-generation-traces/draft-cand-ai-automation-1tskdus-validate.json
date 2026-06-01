@@ -1,0 +1,20 @@
+{
+  "candidate_id": "cand-ai-automation-1tskdus",
+  "draft_id": "draft-cand-ai-automation-1tskdus-validate",
+  "card_id": "card-cand-ai-automation-1tskdus-validate",
+  "card_type": "validate",
+  "allow_breakdown": false,
+  "overall_status": "failed",
+  "stages": [
+    {
+      "name": "duplicate_preflight",
+      "status": "completed"
+    },
+    {
+      "name": "model_generation",
+      "status": "failed"
+    }
+  ],
+  "error_type": "ValueError",
+  "error": "LLM returned invalid JSON:                                                                                                                                                                                                         "
+}

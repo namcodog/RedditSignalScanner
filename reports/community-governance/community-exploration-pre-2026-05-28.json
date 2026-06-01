@@ -1,0 +1,44 @@
+{
+  "contracts": {
+    "auto_promote": false,
+    "probe_only": true,
+    "writes_db": false,
+    "writes_formal_candidates": false
+  },
+  "probes": [
+    {
+      "direction": "SKU品牌舆情与eBay二手交易",
+      "experimental_candidate_count": 6,
+      "experimental_candidate_path": "/Users/hujia/Desktop/RedditSignalScanner/backend/data/hotpost/experimental_candidates/ecommerce-sellers.json",
+      "max_candidates": 8,
+      "mode": "safe",
+      "persisted_to_formal_candidates": false,
+      "scope_id": "ecommerce-sellers"
+    },
+    {
+      "direction": "GEO-AEO与AI搜索商业流量",
+      "experimental_candidate_count": 6,
+      "experimental_candidate_path": "/Users/hujia/Desktop/RedditSignalScanner/backend/data/hotpost/experimental_candidates/business-growth-ops.json",
+      "max_candidates": 6,
+      "mode": "safe",
+      "persisted_to_formal_candidates": false,
+      "scope_id": "business-growth-ops"
+    },
+    {
+      "direction": "AI工具链质量争议",
+      "experimental_candidate_count": 0,
+      "experimental_candidate_path": "/Users/hujia/Desktop/RedditSignalScanner/backend/data/hotpost/experimental_candidates/ai-automation.json",
+      "max_candidates": 6,
+      "mode": "safe",
+      "persisted_to_formal_candidates": false,
+      "scope_id": "ai-automation"
+    }
+  ],
+  "report_date": "2026-05-28",
+  "schema_version": "hotpost-community-exploration-loop/v1",
+  "stage": "pre",
+  "summary": {
+    "experimental_candidate_count": 12,
+    "probe_count": 3
+  }
+}

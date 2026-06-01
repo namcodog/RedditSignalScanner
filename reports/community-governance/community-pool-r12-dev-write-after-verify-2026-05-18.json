@@ -1,0 +1,22 @@
+{
+  "active_count_after": 360,
+  "active_count_before": 360,
+  "blocked_deleted_conflicts": [],
+  "database": "reddit_signal_scanner_dev",
+  "dry_run": true,
+  "inserted_names": [],
+  "phase": "hotpost-community-pool-r12-dev-write",
+  "planned_insert_names": [],
+  "rollback_sql": "reports/community-governance/community-pool-r12-dev-write-after-verify-rollback-2026-05-18.sql",
+  "rollback_target_names": [],
+  "skipped_existing": [
+    "r/ebayselleradvice"
+  ],
+  "summary": {
+    "blocked_deleted_conflicts": 0,
+    "input_rows": 1,
+    "inserted": 0,
+    "skipped_existing": 1,
+    "would_insert": 0
+  }
+}

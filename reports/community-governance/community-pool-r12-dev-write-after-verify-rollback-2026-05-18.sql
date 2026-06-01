@@ -1,0 +1,1 @@
+-- No R12 community_pool rows were inserted.

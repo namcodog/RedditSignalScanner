@@ -1,0 +1,20 @@
+{
+  "candidate_id": "cand-ecommerce-sellers-1tsb20d",
+  "draft_id": "draft-cand-ecommerce-sellers-1tsb20d-validate",
+  "card_id": "card-cand-ecommerce-sellers-1tsb20d-validate",
+  "card_type": "validate",
+  "allow_breakdown": false,
+  "overall_status": "failed",
+  "stages": [
+    {
+      "name": "duplicate_preflight",
+      "status": "completed"
+    },
+    {
+      "name": "model_generation",
+      "status": "failed"
+    }
+  ],
+  "error_type": "TimeoutError",
+  "error": ""
+}

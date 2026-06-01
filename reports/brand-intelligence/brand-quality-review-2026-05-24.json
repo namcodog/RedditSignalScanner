@@ -1,0 +1,2845 @@
+{
+  "items": [
+    {
+      "canonical_name": "google",
+      "community_count": 34,
+      "interest_tags": [
+        "家居生活选品",
+        "好物选品",
+        "广告投放",
+        "SEO&GEO",
+        "AI工具与Agent",
+        "卖家店铺运营",
+        "内容营销创作"
+      ],
+      "mention_count": 348,
+      "noise_flags": [],
+      "reason": "来源可信且证据达到当前阈值。",
+      "review_status": "verified",
+      "source_lifecycle": "seed"
+    },
+    {
+      "canonical_name": "shopify",
+      "community_count": 9,
+      "interest_tags": [
+        "广告投放",
+        "SEO&GEO",
+        "AI工具与Agent",
+        "卖家店铺运营"
+      ],
+      "mention_count": 146,
+      "noise_flags": [],
+      "reason": "来源可信且证据达到当前阈值。",
+      "review_status": "verified",
+      "source_lifecycle": "seed"
+    },
+    {
+      "canonical_name": "Amazon",
+      "community_count": 17,
+      "interest_tags": [
+        "家居生活选品",
+        "好物选品",
+        "AI工具与Agent",
+        "电商平台政策与风向",
+        "卖家店铺运营"
+      ],
+      "mention_count": 99,
+      "noise_flags": [],
+      "reason": "来源可信且证据达到当前阈值。",
+      "review_status": "verified",
+      "source_lifecycle": "approved"
+    },
+    {
+      "canonical_name": "Google Ads",
+      "community_count": 9,
+      "interest_tags": [
+        "广告投放",
+        "SEO&GEO",
+        "卖家店铺运营"
+      ],
+      "mention_count": 99,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "ebay",
+      "community_count": 6,
+      "interest_tags": [
+        "AI工具与Agent",
+        "卖家店铺运营"
+      ],
+      "mention_count": 77,
+      "noise_flags": [],
+      "reason": "来源可信且证据达到当前阈值。",
+      "review_status": "verified",
+      "source_lifecycle": "seed"
+    },
+    {
+      "canonical_name": "etsy",
+      "community_count": 5,
+      "interest_tags": [
+        "好物选品",
+        "卖家店铺运营"
+      ],
+      "mention_count": 76,
+      "noise_flags": [],
+      "reason": "来源可信且证据达到当前阈值。",
+      "review_status": "verified",
+      "source_lifecycle": "seed"
+    },
+    {
+      "canonical_name": "Case",
+      "community_count": 32,
+      "interest_tags": [
+        "家居生活选品",
+        "好物选品",
+        "广告投放",
+        "SEO&GEO",
+        "AI工具与Agent",
+        "众筹与品牌启动",
+        "卖家店铺运营",
+        "内容营销创作"
+      ],
+      "mention_count": 67,
+      "noise_flags": [
+        "generic_term"
+      ],
+      "reason": "命中噪音规则，不能进入品牌库。",
+      "review_status": "rejected",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "facebook",
+      "community_count": 9,
+      "interest_tags": [
+        "广告投放",
+        "SEO&GEO",
+        "众筹与品牌启动"
+      ],
+      "mention_count": 53,
+      "noise_flags": [],
+      "reason": "来源可信且证据达到当前阈值。",
+      "review_status": "verified",
+      "source_lifecycle": "seed"
+    },
+    {
+      "canonical_name": "fba",
+      "community_count": 4,
+      "interest_tags": [
+        "AI工具与Agent",
+        "卖家店铺运营"
+      ],
+      "mention_count": 52,
+      "noise_flags": [],
+      "reason": "来源可信且证据达到当前阈值。",
+      "review_status": "verified",
+      "source_lifecycle": "seed"
+    },
+    {
+      "canonical_name": "Kind",
+      "community_count": 27,
+      "interest_tags": [
+        "家居生活选品",
+        "好物选品",
+        "广告投放",
+        "SEO&GEO",
+        "AI工具与Agent",
+        "众筹与品牌启动",
+        "电商平台政策与风向",
+        "卖家店铺运营"
+      ],
+      "mention_count": 46,
+      "noise_flags": [
+        "generic_term"
+      ],
+      "reason": "命中噪音规则，不能进入品牌库。",
+      "review_status": "rejected",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Campaign",
+      "community_count": 9,
+      "interest_tags": [
+        "广告投放",
+        "AI工具与Agent",
+        "众筹与品牌启动",
+        "卖家店铺运营"
+      ],
+      "mention_count": 42,
+      "noise_flags": [
+        "generic_term"
+      ],
+      "reason": "命中噪音规则，不能进入品牌库。",
+      "review_status": "rejected",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Can Do",
+      "community_count": 24,
+      "interest_tags": [
+        "家居生活选品",
+        "好物选品",
+        "广告投放",
+        "SEO&GEO",
+        "AI工具与Agent",
+        "众筹与品牌启动",
+        "卖家店铺运营",
+        "内容营销创作"
+      ],
+      "mention_count": 38,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Convoy",
+      "community_count": 1,
+      "interest_tags": [
+        "好物选品"
+      ],
+      "mention_count": 32,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Spot",
+      "community_count": 22,
+      "interest_tags": [
+        "家居生活选品",
+        "好物选品",
+        "广告投放",
+        "SEO&GEO",
+        "AI工具与Agent",
+        "众筹与品牌启动",
+        "卖家店铺运营",
+        "内容营销创作"
+      ],
+      "mention_count": 30,
+      "noise_flags": [
+        "generic_term"
+      ],
+      "reason": "命中噪音规则，不能进入品牌库。",
+      "review_status": "rejected",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Aer",
+      "community_count": 2,
+      "interest_tags": [],
+      "mention_count": 28,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Pilot",
+      "community_count": 2,
+      "interest_tags": [],
+      "mention_count": 28,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Action",
+      "community_count": 16,
+      "interest_tags": [
+        "广告投放",
+        "AI工具与Agent",
+        "众筹与品牌启动",
+        "卖家店铺运营",
+        "内容营销创作"
+      ],
+      "mention_count": 26,
+      "noise_flags": [
+        "generic_term"
+      ],
+      "reason": "命中噪音规则，不能进入品牌库。",
+      "review_status": "rejected",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "MD",
+      "community_count": 5,
+      "interest_tags": [
+        "AI工具与Agent"
+      ],
+      "mention_count": 25,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Target",
+      "community_count": 12,
+      "interest_tags": [
+        "广告投放",
+        "SEO&GEO",
+        "AI工具与Agent",
+        "众筹与品牌启动",
+        "卖家店铺运营",
+        "内容营销创作"
+      ],
+      "mention_count": 22,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "youtube",
+      "community_count": 11,
+      "interest_tags": [
+        "家居生活选品",
+        "广告投放",
+        "SEO&GEO",
+        "AI工具与Agent"
+      ],
+      "mention_count": 22,
+      "noise_flags": [],
+      "reason": "来源可信且证据达到当前阈值。",
+      "review_status": "verified",
+      "source_lifecycle": "seed"
+    },
+    {
+      "canonical_name": "Material",
+      "community_count": 10,
+      "interest_tags": [
+        "好物选品",
+        "SEO&GEO"
+      ],
+      "mention_count": 21,
+      "noise_flags": [
+        "generic_term"
+      ],
+      "reason": "命中噪音规则，不能进入品牌库。",
+      "review_status": "rejected",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Flow",
+      "community_count": 11,
+      "interest_tags": [
+        "广告投放",
+        "SEO&GEO",
+        "AI工具与Agent",
+        "卖家店铺运营"
+      ],
+      "mention_count": 20,
+      "noise_flags": [
+        "generic_term"
+      ],
+      "reason": "命中噪音规则，不能进入品牌库。",
+      "review_status": "rejected",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Baratza",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 18,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Cross",
+      "community_count": 13,
+      "interest_tags": [
+        "好物选品",
+        "广告投放",
+        "AI工具与Agent",
+        "卖家店铺运营"
+      ],
+      "mention_count": 16,
+      "noise_flags": [
+        "generic_term"
+      ],
+      "reason": "命中噪音规则，不能进入品牌库。",
+      "review_status": "rejected",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Dyson",
+      "community_count": 4,
+      "interest_tags": [
+        "家居生活选品"
+      ],
+      "mention_count": 15,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Article",
+      "community_count": 12,
+      "interest_tags": [
+        "家居生活选品",
+        "SEO&GEO",
+        "AI工具与Agent",
+        "众筹与品牌启动",
+        "内容营销创作"
+      ],
+      "mention_count": 14,
+      "noise_flags": [
+        "generic_term"
+      ],
+      "reason": "命中噪音规则，不能进入品牌库。",
+      "review_status": "rejected",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Eureka",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 14,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Costco",
+      "community_count": 5,
+      "interest_tags": [
+        "家居生活选品"
+      ],
+      "mention_count": 13,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Ratio",
+      "community_count": 8,
+      "interest_tags": [
+        "好物选品",
+        "广告投放",
+        "SEO&GEO",
+        "AI工具与Agent",
+        "众筹与品牌启动"
+      ],
+      "mention_count": 13,
+      "noise_flags": [
+        "generic_term"
+      ],
+      "reason": "命中噪音规则，不能进入品牌库。",
+      "review_status": "rejected",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Roborock",
+      "community_count": 4,
+      "interest_tags": [
+        "家居生活选品"
+      ],
+      "mention_count": 13,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Shark",
+      "community_count": 5,
+      "interest_tags": [
+        "家居生活选品",
+        "AI工具与Agent"
+      ],
+      "mention_count": 12,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Miele",
+      "community_count": 2,
+      "interest_tags": [],
+      "mention_count": 11,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Sharp",
+      "community_count": 5,
+      "interest_tags": [
+        "SEO&GEO",
+        "AI工具与Agent",
+        "卖家店铺运营"
+      ],
+      "mention_count": 11,
+      "noise_flags": [
+        "generic_term"
+      ],
+      "reason": "命中噪音规则，不能进入品牌库。",
+      "review_status": "rejected",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Bellroy",
+      "community_count": 2,
+      "interest_tags": [
+        "好物选品"
+      ],
+      "mention_count": 10,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Gaggia",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 10,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Lamy",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 10,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Timemore",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 10,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "UPS",
+      "community_count": 6,
+      "interest_tags": [
+        "AI工具与Agent",
+        "卖家店铺运营",
+        "内容营销创作"
+      ],
+      "mention_count": 10,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Vitamix",
+      "community_count": 2,
+      "interest_tags": [],
+      "mention_count": 10,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Acebeam",
+      "community_count": 1,
+      "interest_tags": [
+        "好物选品"
+      ],
+      "mention_count": 9,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Breville",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 9,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "instagram",
+      "community_count": 4,
+      "interest_tags": [
+        "广告投放",
+        "SEO&GEO"
+      ],
+      "mention_count": 9,
+      "noise_flags": [],
+      "reason": "来源可信且证据达到当前阈值。",
+      "review_status": "verified",
+      "source_lifecycle": "seed"
+    },
+    {
+      "canonical_name": "Kaweco",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 9,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Patagonia",
+      "community_count": 2,
+      "interest_tags": [],
+      "mention_count": 9,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Primary",
+      "community_count": 6,
+      "interest_tags": [
+        "好物选品",
+        "广告投放",
+        "SEO&GEO"
+      ],
+      "mention_count": 9,
+      "noise_flags": [
+        "generic_term"
+      ],
+      "reason": "命中噪音规则，不能进入品牌库。",
+      "review_status": "rejected",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Route",
+      "community_count": 8,
+      "interest_tags": [
+        "家居生活选品",
+        "广告投放",
+        "AI工具与Agent",
+        "卖家店铺运营"
+      ],
+      "mention_count": 9,
+      "noise_flags": [
+        "generic_term"
+      ],
+      "reason": "命中噪音规则，不能进入品牌库。",
+      "review_status": "rejected",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "tiktok",
+      "community_count": 3,
+      "interest_tags": [
+        "广告投放",
+        "众筹与品牌启动",
+        "卖家店铺运营"
+      ],
+      "mention_count": 9,
+      "noise_flags": [],
+      "reason": "来源可信且证据达到当前阈值。",
+      "review_status": "verified",
+      "source_lifecycle": "seed"
+    },
+    {
+      "canonical_name": "TikTok Shop",
+      "community_count": 3,
+      "interest_tags": [
+        "广告投放",
+        "众筹与品牌启动",
+        "卖家店铺运营"
+      ],
+      "mention_count": 9,
+      "noise_flags": [],
+      "reason": "来源可信且证据达到当前阈值。",
+      "review_status": "verified",
+      "source_lifecycle": "approved"
+    },
+    {
+      "canonical_name": "Engineer",
+      "community_count": 4,
+      "interest_tags": [
+        "广告投放",
+        "SEO&GEO",
+        "AI工具与Agent"
+      ],
+      "mention_count": 8,
+      "noise_flags": [
+        "generic_term"
+      ],
+      "reason": "命中噪音规则，不能进入品牌库。",
+      "review_status": "rejected",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Factor",
+      "community_count": 7,
+      "interest_tags": [
+        "好物选品",
+        "SEO&GEO",
+        "AI工具与Agent",
+        "卖家店铺运营"
+      ],
+      "mention_count": 8,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Google Shopping",
+      "community_count": 2,
+      "interest_tags": [
+        "卖家店铺运营"
+      ],
+      "mention_count": 8,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "MSR",
+      "community_count": 1,
+      "interest_tags": [
+        "家居生活选品"
+      ],
+      "mention_count": 8,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Aeropress",
+      "community_count": 2,
+      "interest_tags": [
+        "电商平台政策与风向"
+      ],
+      "mention_count": 7,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Darn Tough",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 7,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Downstream",
+      "community_count": 4,
+      "interest_tags": [
+        "AI工具与Agent"
+      ],
+      "mention_count": 7,
+      "noise_flags": [
+        "generic_term"
+      ],
+      "reason": "命中噪音规则，不能进入品牌库。",
+      "review_status": "rejected",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Dragonfly",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 7,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Ikea",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 7,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Olight",
+      "community_count": 1,
+      "interest_tags": [
+        "好物选品"
+      ],
+      "mention_count": 7,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Peak Design",
+      "community_count": 3,
+      "interest_tags": [
+        "好物选品"
+      ],
+      "mention_count": 7,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "shopify plus",
+      "community_count": 1,
+      "interest_tags": [
+        "卖家店铺运营"
+      ],
+      "mention_count": 7,
+      "noise_flags": [],
+      "reason": "证据未达到验证阈值，继续观察。",
+      "review_status": "candidate",
+      "source_lifecycle": "seed"
+    },
+    {
+      "canonical_name": "Temu",
+      "community_count": 3,
+      "interest_tags": [
+        "好物选品",
+        "卖家店铺运营"
+      ],
+      "mention_count": 7,
+      "noise_flags": [],
+      "reason": "来源可信且证据达到当前阈值。",
+      "review_status": "verified",
+      "source_lifecycle": "approved"
+    },
+    {
+      "canonical_name": "Wurkkos",
+      "community_count": 1,
+      "interest_tags": [
+        "好物选品"
+      ],
+      "mention_count": 7,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Zebralight",
+      "community_count": 2,
+      "interest_tags": [
+        "好物选品"
+      ],
+      "mention_count": 7,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Bosch",
+      "community_count": 1,
+      "interest_tags": [
+        "好物选品"
+      ],
+      "mention_count": 6,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Depop",
+      "community_count": 2,
+      "interest_tags": [],
+      "mention_count": 6,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Dreame",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 6,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Global",
+      "community_count": 4,
+      "interest_tags": [
+        "AI工具与Agent",
+        "卖家店铺运营"
+      ],
+      "mention_count": 6,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Heart",
+      "community_count": 4,
+      "interest_tags": [
+        "好物选品"
+      ],
+      "mention_count": 6,
+      "noise_flags": [
+        "generic_term"
+      ],
+      "reason": "命中噪音规则，不能进入品牌库。",
+      "review_status": "rejected",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Osprey",
+      "community_count": 3,
+      "interest_tags": [
+        "好物选品"
+      ],
+      "mention_count": 6,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Parachute",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 6,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Rags",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 6,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Samsung",
+      "community_count": 2,
+      "interest_tags": [],
+      "mention_count": 6,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Sebo",
+      "community_count": 3,
+      "interest_tags": [
+        "家居生活选品"
+      ],
+      "mention_count": 6,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Slayer",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 6,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Yeti",
+      "community_count": 2,
+      "interest_tags": [
+        "家居生活选品"
+      ],
+      "mention_count": 6,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Baffin",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 5,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Chrome Industries",
+      "community_count": 1,
+      "interest_tags": [
+        "好物选品"
+      ],
+      "mention_count": 5,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Delta",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 5,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Facebook Marketplace",
+      "community_count": 3,
+      "interest_tags": [],
+      "mention_count": 5,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Made In",
+      "community_count": 2,
+      "interest_tags": [
+        "SEO&GEO"
+      ],
+      "mention_count": 5,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Skilhunt",
+      "community_count": 1,
+      "interest_tags": [
+        "好物选品"
+      ],
+      "mention_count": 5,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Yotpo",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 5,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Anker",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 4,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Cafelat Robot",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 4,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Century",
+      "community_count": 3,
+      "interest_tags": [],
+      "mention_count": 4,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Coleman",
+      "community_count": 1,
+      "interest_tags": [
+        "家居生活选品"
+      ],
+      "mention_count": 4,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Eufy",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 4,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Fenix",
+      "community_count": 1,
+      "interest_tags": [
+        "好物选品"
+      ],
+      "mention_count": 4,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "GE",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 4,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Herman Miller",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 4,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Mahlkonig",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 4,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Milwaukee",
+      "community_count": 1,
+      "interest_tags": [
+        "好物选品"
+      ],
+      "mention_count": 4,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Poshmark",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 4,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Sofirn",
+      "community_count": 1,
+      "interest_tags": [
+        "好物选品"
+      ],
+      "mention_count": 4,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "USPS",
+      "community_count": 3,
+      "interest_tags": [
+        "AI工具与Agent",
+        "卖家店铺运营"
+      ],
+      "mention_count": 4,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "walmart",
+      "community_count": 2,
+      "interest_tags": [
+        "AI工具与Agent",
+        "卖家店铺运营"
+      ],
+      "mention_count": 4,
+      "noise_flags": [],
+      "reason": "来源可信且证据达到当前阈值。",
+      "review_status": "verified",
+      "source_lifecycle": "seed"
+    },
+    {
+      "canonical_name": "woocommerce",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 4,
+      "noise_flags": [],
+      "reason": "证据未达到验证阈值，继续观察。",
+      "review_status": "candidate",
+      "source_lifecycle": "seed"
+    },
+    {
+      "canonical_name": "alibaba",
+      "community_count": 2,
+      "interest_tags": [
+        "AI工具与Agent",
+        "卖家店铺运营"
+      ],
+      "mention_count": 3,
+      "noise_flags": [],
+      "reason": "来源可信且证据达到当前阈值。",
+      "review_status": "verified",
+      "source_lifecycle": "seed"
+    },
+    {
+      "canonical_name": "Big Agnes",
+      "community_count": 1,
+      "interest_tags": [
+        "家居生活选品"
+      ],
+      "mention_count": 3,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "bigcommerce",
+      "community_count": 2,
+      "interest_tags": [
+        "卖家店铺运营"
+      ],
+      "mention_count": 3,
+      "noise_flags": [],
+      "reason": "来源可信且证据达到当前阈值。",
+      "review_status": "verified",
+      "source_lifecycle": "seed"
+    },
+    {
+      "canonical_name": "Braintree",
+      "community_count": 1,
+      "interest_tags": [
+        "卖家店铺运营"
+      ],
+      "mention_count": 3,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Cotopaxi",
+      "community_count": 1,
+      "interest_tags": [
+        "好物选品"
+      ],
+      "mention_count": 3,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "DeWalt",
+      "community_count": 2,
+      "interest_tags": [
+        "家居生活选品",
+        "好物选品"
+      ],
+      "mention_count": 3,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Dollar Tree",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 3,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Emisar",
+      "community_count": 1,
+      "interest_tags": [
+        "好物选品"
+      ],
+      "mention_count": 3,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Equator",
+      "community_count": 2,
+      "interest_tags": [],
+      "mention_count": 3,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Flex",
+      "community_count": 2,
+      "interest_tags": [],
+      "mention_count": 3,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "GOAT",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 3,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Goruck",
+      "community_count": 2,
+      "interest_tags": [],
+      "mention_count": 3,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "HubSpot",
+      "community_count": 2,
+      "interest_tags": [
+        "AI工具与Agent"
+      ],
+      "mention_count": 3,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Montblanc",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 3,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Penny",
+      "community_count": 2,
+      "interest_tags": [
+        "好物选品"
+      ],
+      "mention_count": 3,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Profitec",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 3,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Rab",
+      "community_count": 2,
+      "interest_tags": [],
+      "mention_count": 3,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Rancilio",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 3,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "ReyLight",
+      "community_count": 1,
+      "interest_tags": [
+        "好物选品"
+      ],
+      "mention_count": 3,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "RovyVon",
+      "community_count": 1,
+      "interest_tags": [
+        "好物选品"
+      ],
+      "mention_count": 3,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Sellerboard",
+      "community_count": 1,
+      "interest_tags": [
+        "AI工具与Agent",
+        "卖家店铺运营"
+      ],
+      "mention_count": 3,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Sharpie",
+      "community_count": 2,
+      "interest_tags": [
+        "家居生活选品",
+        "好物选品"
+      ],
+      "mention_count": 3,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "The Range",
+      "community_count": 3,
+      "interest_tags": [
+        "好物选品",
+        "广告投放"
+      ],
+      "mention_count": 3,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Twsbi",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 3,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Vinted",
+      "community_count": 2,
+      "interest_tags": [],
+      "mention_count": 3,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Zip",
+      "community_count": 3,
+      "interest_tags": [
+        "广告投放",
+        "卖家店铺运营"
+      ],
+      "mention_count": 3,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "aliexpress",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 2,
+      "noise_flags": [],
+      "reason": "证据未达到验证阈值，继续观察。",
+      "review_status": "candidate",
+      "source_lifecycle": "seed"
+    },
+    {
+      "canonical_name": "Armytek",
+      "community_count": 1,
+      "interest_tags": [
+        "好物选品"
+      ],
+      "mention_count": 2,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Authorize.Net",
+      "community_count": 1,
+      "interest_tags": [
+        "卖家店铺运营"
+      ],
+      "mention_count": 2,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Brooklinen",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 2,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Command",
+      "community_count": 2,
+      "interest_tags": [
+        "AI工具与Agent"
+      ],
+      "mention_count": 2,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Crocs",
+      "community_count": 1,
+      "interest_tags": [
+        "广告投放",
+        "卖家店铺运营"
+      ],
+      "mention_count": 2,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Exped",
+      "community_count": 1,
+      "interest_tags": [
+        "家居生活选品"
+      ],
+      "mention_count": 2,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "FedEx",
+      "community_count": 1,
+      "interest_tags": [
+        "AI工具与Agent",
+        "卖家店铺运营"
+      ],
+      "mention_count": 2,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Hario",
+      "community_count": 2,
+      "interest_tags": [
+        "电商平台政策与风向"
+      ],
+      "mention_count": 2,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Hint",
+      "community_count": 2,
+      "interest_tags": [
+        "AI工具与Agent",
+        "卖家店铺运营"
+      ],
+      "mention_count": 2,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Hästens",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 2,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Jet",
+      "community_count": 2,
+      "interest_tags": [
+        "家居生活选品"
+      ],
+      "mention_count": 2,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "KitchenAid",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 2,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Klaviyo",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 2,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Le Creuset",
+      "community_count": 2,
+      "interest_tags": [
+        "好物选品"
+      ],
+      "mention_count": 2,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Leatherman",
+      "community_count": 2,
+      "interest_tags": [
+        "好物选品"
+      ],
+      "mention_count": 2,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Matador",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 2,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Mercari",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 2,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Metro",
+      "community_count": 2,
+      "interest_tags": [],
+      "mention_count": 2,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Nemo",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 2,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Pelican",
+      "community_count": 1,
+      "interest_tags": [
+        "好物选品"
+      ],
+      "mention_count": 2,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Pottery Barn",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 2,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Rakuten",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 2,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Ramp",
+      "community_count": 1,
+      "interest_tags": [
+        "家居生活选品"
+      ],
+      "mention_count": 2,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Sawyer",
+      "community_count": 1,
+      "interest_tags": [
+        "家居生活选品"
+      ],
+      "mention_count": 2,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Shock",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 2,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Starbucks",
+      "community_count": 2,
+      "interest_tags": [
+        "好物选品"
+      ],
+      "mention_count": 2,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Tineco",
+      "community_count": 1,
+      "interest_tags": [
+        "家居生活选品"
+      ],
+      "mention_count": 2,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Weltool",
+      "community_count": 1,
+      "interest_tags": [
+        "好物选品"
+      ],
+      "mention_count": 2,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Whirlpool",
+      "community_count": 2,
+      "interest_tags": [],
+      "mention_count": 2,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Wise",
+      "community_count": 1,
+      "interest_tags": [
+        "家居生活选品"
+      ],
+      "mention_count": 2,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Wolf",
+      "community_count": 1,
+      "interest_tags": [
+        "AI工具与Agent"
+      ],
+      "mention_count": 2,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "wordpress",
+      "community_count": 1,
+      "interest_tags": [
+        "SEO&GEO"
+      ],
+      "mention_count": 2,
+      "noise_flags": [],
+      "reason": "证据未达到验证阈值，继续观察。",
+      "review_status": "candidate",
+      "source_lifecycle": "seed"
+    },
+    {
+      "canonical_name": "Affirm",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 1,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Alpaka",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 1,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Altra",
+      "community_count": 1,
+      "interest_tags": [
+        "好物选品"
+      ],
+      "mention_count": 1,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Aura",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 1,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Beta",
+      "community_count": 1,
+      "interest_tags": [
+        "广告投放"
+      ],
+      "mention_count": 1,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Buff",
+      "community_count": 1,
+      "interest_tags": [
+        "好物选品"
+      ],
+      "mention_count": 1,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Calphalon",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 1,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Celsius",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 1,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Century Furniture",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 1,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Coast",
+      "community_count": 1,
+      "interest_tags": [
+        "卖家店铺运营"
+      ],
+      "mention_count": 1,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Craigslist",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 1,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Dia",
+      "community_count": 1,
+      "interest_tags": [
+        "广告投放"
+      ],
+      "mention_count": 1,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "ECM",
+      "community_count": 1,
+      "interest_tags": [
+        "电商平台政策与风向"
+      ],
+      "mention_count": 1,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Evergoods",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 1,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Ezpz",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 1,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Facebook Ads",
+      "community_count": 1,
+      "interest_tags": [
+        "广告投放"
+      ],
+      "mention_count": 1,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Fluke",
+      "community_count": 1,
+      "interest_tags": [
+        "好物选品"
+      ],
+      "mention_count": 1,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Frigidaire",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 1,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Global Sources",
+      "community_count": 1,
+      "interest_tags": [
+        "AI工具与Agent",
+        "卖家店铺运营"
+      ],
+      "mention_count": 1,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Gorgias",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 1,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Halo",
+      "community_count": 1,
+      "interest_tags": [
+        "AI工具与Agent",
+        "卖家店铺运营"
+      ],
+      "mention_count": 1,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Helium 10",
+      "community_count": 1,
+      "interest_tags": [
+        "AI工具与Agent",
+        "卖家店铺运营"
+      ],
+      "mention_count": 1,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Helix",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 1,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Hilleberg",
+      "community_count": 1,
+      "interest_tags": [
+        "家居生活选品"
+      ],
+      "mention_count": 1,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Hoover",
+      "community_count": 1,
+      "interest_tags": [
+        "家居生活选品"
+      ],
+      "mention_count": 1,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Kenmore",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 1,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Lelit",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 1,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Marshalls",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 1,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Menu",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 1,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Mere",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 1,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Mint",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 1,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Mirror",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 1,
+      "noise_flags": [
+        "lowercase_ambiguous_match"
+      ],
+      "reason": "命中噪音规则，不能进入品牌库。",
+      "review_status": "rejected",
+      "source_lifecycle": "approved"
+    },
+    {
+      "canonical_name": "Mountain Laurel Designs",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 1,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Mystery Ranch",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 1,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Noctigon",
+      "community_count": 1,
+      "interest_tags": [
+        "好物选品"
+      ],
+      "mention_count": 1,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Orbitkey",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 1,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Panasonic",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 1,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Pelikan",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 1,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Pirate Ship",
+      "community_count": 1,
+      "interest_tags": [
+        "卖家店铺运营"
+      ],
+      "mention_count": 1,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Quince",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 1,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Roomba",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 1,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Salesforce Commerce Cloud",
+      "community_count": 1,
+      "interest_tags": [
+        "卖家店铺运营"
+      ],
+      "mention_count": 1,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Sassy",
+      "community_count": 1,
+      "interest_tags": [
+        "广告投放"
+      ],
+      "mention_count": 1,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "ShipStation",
+      "community_count": 1,
+      "interest_tags": [
+        "卖家店铺运营"
+      ],
+      "mention_count": 1,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Slickdeals",
+      "community_count": 1,
+      "interest_tags": [
+        "AI工具与Agent",
+        "卖家店铺运营"
+      ],
+      "mention_count": 1,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Stanley",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 1,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Streamlight",
+      "community_count": 1,
+      "interest_tags": [
+        "好物选品"
+      ],
+      "mention_count": 1,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "The Inside",
+      "community_count": 1,
+      "interest_tags": [
+        "好物选品"
+      ],
+      "mention_count": 1,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Thule",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 1,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "TJ Maxx",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 1,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Toaks",
+      "community_count": 1,
+      "interest_tags": [
+        "家居生活选品"
+      ],
+      "mention_count": 1,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Trader Joe's",
+      "community_count": 1,
+      "interest_tags": [
+        "好物选品"
+      ],
+      "mention_count": 1,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Upside",
+      "community_count": 1,
+      "interest_tags": [
+        "卖家店铺运营"
+      ],
+      "mention_count": 1,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Viking",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 1,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Zebra",
+      "community_count": 1,
+      "interest_tags": [
+        "好物选品"
+      ],
+      "mention_count": 1,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Zendesk",
+      "community_count": 1,
+      "interest_tags": [
+        "好物选品"
+      ],
+      "mention_count": 1,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Zpacks",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 1,
+      "noise_flags": [],
+      "reason": "来自历史候选池，需要人工确认后才能升级。",
+      "review_status": "candidate",
+      "source_lifecycle": "candidate"
+    }
+  ],
+  "noise_items": [
+    {
+      "canonical_name": "Case",
+      "community_count": 32,
+      "interest_tags": [
+        "家居生活选品",
+        "好物选品",
+        "广告投放",
+        "SEO&GEO",
+        "AI工具与Agent",
+        "众筹与品牌启动",
+        "卖家店铺运营",
+        "内容营销创作"
+      ],
+      "mention_count": 67,
+      "noise_flags": [
+        "generic_term"
+      ],
+      "reason": "命中噪音规则，不能进入品牌库。",
+      "review_status": "rejected",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Kind",
+      "community_count": 27,
+      "interest_tags": [
+        "家居生活选品",
+        "好物选品",
+        "广告投放",
+        "SEO&GEO",
+        "AI工具与Agent",
+        "众筹与品牌启动",
+        "电商平台政策与风向",
+        "卖家店铺运营"
+      ],
+      "mention_count": 46,
+      "noise_flags": [
+        "generic_term"
+      ],
+      "reason": "命中噪音规则，不能进入品牌库。",
+      "review_status": "rejected",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Campaign",
+      "community_count": 9,
+      "interest_tags": [
+        "广告投放",
+        "AI工具与Agent",
+        "众筹与品牌启动",
+        "卖家店铺运营"
+      ],
+      "mention_count": 42,
+      "noise_flags": [
+        "generic_term"
+      ],
+      "reason": "命中噪音规则，不能进入品牌库。",
+      "review_status": "rejected",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Spot",
+      "community_count": 22,
+      "interest_tags": [
+        "家居生活选品",
+        "好物选品",
+        "广告投放",
+        "SEO&GEO",
+        "AI工具与Agent",
+        "众筹与品牌启动",
+        "卖家店铺运营",
+        "内容营销创作"
+      ],
+      "mention_count": 30,
+      "noise_flags": [
+        "generic_term"
+      ],
+      "reason": "命中噪音规则，不能进入品牌库。",
+      "review_status": "rejected",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Action",
+      "community_count": 16,
+      "interest_tags": [
+        "广告投放",
+        "AI工具与Agent",
+        "众筹与品牌启动",
+        "卖家店铺运营",
+        "内容营销创作"
+      ],
+      "mention_count": 26,
+      "noise_flags": [
+        "generic_term"
+      ],
+      "reason": "命中噪音规则，不能进入品牌库。",
+      "review_status": "rejected",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Material",
+      "community_count": 10,
+      "interest_tags": [
+        "好物选品",
+        "SEO&GEO"
+      ],
+      "mention_count": 21,
+      "noise_flags": [
+        "generic_term"
+      ],
+      "reason": "命中噪音规则，不能进入品牌库。",
+      "review_status": "rejected",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Flow",
+      "community_count": 11,
+      "interest_tags": [
+        "广告投放",
+        "SEO&GEO",
+        "AI工具与Agent",
+        "卖家店铺运营"
+      ],
+      "mention_count": 20,
+      "noise_flags": [
+        "generic_term"
+      ],
+      "reason": "命中噪音规则，不能进入品牌库。",
+      "review_status": "rejected",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Cross",
+      "community_count": 13,
+      "interest_tags": [
+        "好物选品",
+        "广告投放",
+        "AI工具与Agent",
+        "卖家店铺运营"
+      ],
+      "mention_count": 16,
+      "noise_flags": [
+        "generic_term"
+      ],
+      "reason": "命中噪音规则，不能进入品牌库。",
+      "review_status": "rejected",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Article",
+      "community_count": 12,
+      "interest_tags": [
+        "家居生活选品",
+        "SEO&GEO",
+        "AI工具与Agent",
+        "众筹与品牌启动",
+        "内容营销创作"
+      ],
+      "mention_count": 14,
+      "noise_flags": [
+        "generic_term"
+      ],
+      "reason": "命中噪音规则，不能进入品牌库。",
+      "review_status": "rejected",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Ratio",
+      "community_count": 8,
+      "interest_tags": [
+        "好物选品",
+        "广告投放",
+        "SEO&GEO",
+        "AI工具与Agent",
+        "众筹与品牌启动"
+      ],
+      "mention_count": 13,
+      "noise_flags": [
+        "generic_term"
+      ],
+      "reason": "命中噪音规则，不能进入品牌库。",
+      "review_status": "rejected",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Sharp",
+      "community_count": 5,
+      "interest_tags": [
+        "SEO&GEO",
+        "AI工具与Agent",
+        "卖家店铺运营"
+      ],
+      "mention_count": 11,
+      "noise_flags": [
+        "generic_term"
+      ],
+      "reason": "命中噪音规则，不能进入品牌库。",
+      "review_status": "rejected",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Primary",
+      "community_count": 6,
+      "interest_tags": [
+        "好物选品",
+        "广告投放",
+        "SEO&GEO"
+      ],
+      "mention_count": 9,
+      "noise_flags": [
+        "generic_term"
+      ],
+      "reason": "命中噪音规则，不能进入品牌库。",
+      "review_status": "rejected",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Route",
+      "community_count": 8,
+      "interest_tags": [
+        "家居生活选品",
+        "广告投放",
+        "AI工具与Agent",
+        "卖家店铺运营"
+      ],
+      "mention_count": 9,
+      "noise_flags": [
+        "generic_term"
+      ],
+      "reason": "命中噪音规则，不能进入品牌库。",
+      "review_status": "rejected",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Engineer",
+      "community_count": 4,
+      "interest_tags": [
+        "广告投放",
+        "SEO&GEO",
+        "AI工具与Agent"
+      ],
+      "mention_count": 8,
+      "noise_flags": [
+        "generic_term"
+      ],
+      "reason": "命中噪音规则，不能进入品牌库。",
+      "review_status": "rejected",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Downstream",
+      "community_count": 4,
+      "interest_tags": [
+        "AI工具与Agent"
+      ],
+      "mention_count": 7,
+      "noise_flags": [
+        "generic_term"
+      ],
+      "reason": "命中噪音规则，不能进入品牌库。",
+      "review_status": "rejected",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Heart",
+      "community_count": 4,
+      "interest_tags": [
+        "好物选品"
+      ],
+      "mention_count": 6,
+      "noise_flags": [
+        "generic_term"
+      ],
+      "reason": "命中噪音规则，不能进入品牌库。",
+      "review_status": "rejected",
+      "source_lifecycle": "candidate"
+    },
+    {
+      "canonical_name": "Mirror",
+      "community_count": 1,
+      "interest_tags": [],
+      "mention_count": 1,
+      "noise_flags": [
+        "lowercase_ambiguous_match"
+      ],
+      "reason": "命中噪音规则，不能进入品牌库。",
+      "review_status": "rejected",
+      "source_lifecycle": "approved"
+    }
+  ],
+  "summary": {
+    "brand_count": 213,
+    "card_count": 1149,
+    "db_writes": false,
+    "interest_tag_counts": {
+      "AI工具与Agent": 39,
+      "SEO&GEO": 21,
+      "众筹与品牌启动": 12,
+      "内容营销创作": 8,
+      "卖家店铺运营": 46,
+      "好物选品": 51,
+      "家居生活选品": 29,
+      "广告投放": 28,
+      "电商平台政策与风向": 5
+    },
+    "noise_count": 17,
+    "report_date": "2026-05-24",
+    "source": "brand_digest",
+    "status_counts": {
+      "candidate": 181,
+      "rejected": 17,
+      "verified": 15
+    }
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "contracts": {
+    "auto_promote": false,
+    "probe_only": true,
+    "writes_db": false,
+    "writes_formal_candidates": false
+  },
+  "probes": [
+    {
+      "direction": "1688进货与卖家供应链",
+      "experimental_candidate_count": 4,
+      "experimental_candidate_path": "/Users/hujia/Desktop/RedditSignalScanner/backend/data/hotpost/experimental_candidates/ecommerce-sellers.json",
+      "max_candidates": 6,
+      "mode": "safe",
+      "persisted_to_formal_candidates": false,
+      "scope_id": "ecommerce-sellers"
+    },
+    {
+      "direction": "eBay_reselling与平台风控",
+      "experimental_candidate_count": 4,
+      "experimental_candidate_path": "/Users/hujia/Desktop/RedditSignalScanner/backend/data/hotpost/experimental_candidates/ecommerce-sellers.json",
+      "max_candidates": 6,
+      "mode": "safe",
+      "persisted_to_formal_candidates": false,
+      "scope_id": "ecommerce-sellers"
+    },
+    {
+      "direction": "广告投放异常与GEO_AEO可见性",
+      "experimental_candidate_count": 2,
+      "experimental_candidate_path": "/Users/hujia/Desktop/RedditSignalScanner/backend/data/hotpost/experimental_candidates/business-growth-ops.json",
+      "max_candidates": 4,
+      "mode": "safe",
+      "persisted_to_formal_candidates": false,
+      "scope_id": "business-growth-ops"
+    },
+    {
+      "direction": "Agent工具链与模型能力争议",
+      "experimental_candidate_count": 0,
+      "experimental_candidate_path": "/Users/hujia/Desktop/RedditSignalScanner/backend/data/hotpost/experimental_candidates/ai-automation.json",
+      "max_candidates": 4,
+      "mode": "safe",
+      "persisted_to_formal_candidates": false,
+      "scope_id": "ai-automation"
+    }
+  ],
+  "report_date": "2026-05-29",
+  "schema_version": "hotpost-community-exploration-loop/v1",
+  "stage": "pre",
+  "summary": {
+    "experimental_candidate_count": 10,
+    "probe_count": 4
+  }
+}

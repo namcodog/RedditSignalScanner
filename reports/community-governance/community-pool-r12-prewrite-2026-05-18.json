@@ -1,0 +1,78 @@
+{
+  "contracts": {
+    "auto_promote": false,
+    "requires_human_review": true,
+    "source": "hotpost_community_pool_r12_prewrite",
+    "writes_db": false
+  },
+  "report_date": "2026-05-18",
+  "rows": [
+    {
+      "community": "r/ebayselleradvice",
+      "evidence": {
+        "candidate_count": 1,
+        "draft_count": 0,
+        "duplicate_count": 0,
+        "published_count": 10,
+        "reject_count": 0,
+        "total_evidence": 11
+      },
+      "label_review": "multi_tag_review",
+      "risks": [],
+      "source_scope": "ecommerce-sellers",
+      "suggested_user_tags": [
+        "卖家店铺运营",
+        "电商平台政策与风向"
+      ],
+      "topic_cluster": "seller-category-direction,unit-economics-and-platform-risk",
+      "value_assessment": {
+        "positive_signals": [
+          "candidate_evidence",
+          "published_evidence",
+          "interest_tag_mapping",
+          "new_topic_coverage"
+        ],
+        "risks": [],
+        "score": 100,
+        "stage": "pool_candidate"
+      },
+      "write_preview": {
+        "action": "prepare_dev_write",
+        "pool_insert": {
+          "categories": [
+            "Ecommerce_Business"
+          ],
+          "description_keywords": {
+            "candidate_count": 1,
+            "display_name": "r/ebayselleradvice",
+            "duplicate_count": 0,
+            "published_count": 10,
+            "score": 100,
+            "source": "hotpost_community_pool_r12_prewrite",
+            "source_scope": "ecommerce-sellers",
+            "suggested_user_tags": [
+              "卖家店铺运营",
+              "电商平台政策与风向"
+            ],
+            "topic_cluster": "seller-category-direction,unit-economics-and-platform-risk",
+            "total_evidence": 11,
+            "value_stage": "pool_candidate"
+          },
+          "name": "r/ebayselleradvice",
+          "priority": "medium",
+          "tier": "seed"
+        },
+        "would_insert_pool": true
+      }
+    }
+  ],
+  "schema_version": "hotpost-community-pool-r12-prewrite/v1",
+  "source_feedback_schema": "hotpost-community-pool-feedback-dry-run/v1",
+  "summary": {
+    "blocked": 0,
+    "candidate_rows": 1,
+    "input_rows": 24,
+    "skipped_existing": 0,
+    "would_insert": 1
+  }
+}

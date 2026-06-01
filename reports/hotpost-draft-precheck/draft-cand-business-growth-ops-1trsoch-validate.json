@@ -1,0 +1,9 @@
+{
+  "decision": "PASS",
+  "reasons": [],
+  "required_fixes": [],
+  "risk_flags": [],
+  "publish_note": "",
+  "should_rewrite": false,
+  "should_block": false
+}

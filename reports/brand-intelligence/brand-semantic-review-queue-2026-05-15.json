@@ -1,0 +1,185 @@
+{
+  "auto_write_semantic_lexicon": false,
+  "items": [
+    {
+      "auto_apply": false,
+      "canonical_name": "google",
+      "community_count": 31,
+      "interest_tags": [
+        "家居生活选品",
+        "好物选品",
+        "广告投放",
+        "SEO&GEO",
+        "AI工具与Agent",
+        "卖家店铺运营",
+        "内容营销创作"
+      ],
+      "mention_count": 311,
+      "review_action": "review_for_semantic_lexicon"
+    },
+    {
+      "auto_apply": false,
+      "canonical_name": "shopify",
+      "community_count": 8,
+      "interest_tags": [
+        "广告投放",
+        "SEO&GEO",
+        "AI工具与Agent",
+        "卖家店铺运营"
+      ],
+      "mention_count": 128,
+      "review_action": "review_for_semantic_lexicon"
+    },
+    {
+      "auto_apply": false,
+      "canonical_name": "Amazon",
+      "community_count": 17,
+      "interest_tags": [
+        "家居生活选品",
+        "好物选品",
+        "AI工具与Agent",
+        "电商平台政策与风向",
+        "卖家店铺运营"
+      ],
+      "mention_count": 92,
+      "review_action": "review_for_semantic_lexicon"
+    },
+    {
+      "auto_apply": false,
+      "canonical_name": "etsy",
+      "community_count": 5,
+      "interest_tags": [
+        "好物选品",
+        "卖家店铺运营"
+      ],
+      "mention_count": 74,
+      "review_action": "review_for_semantic_lexicon"
+    },
+    {
+      "auto_apply": false,
+      "canonical_name": "fba",
+      "community_count": 4,
+      "interest_tags": [
+        "AI工具与Agent",
+        "卖家店铺运营"
+      ],
+      "mention_count": 51,
+      "review_action": "review_for_semantic_lexicon"
+    },
+    {
+      "auto_apply": false,
+      "canonical_name": "facebook",
+      "community_count": 7,
+      "interest_tags": [
+        "广告投放",
+        "SEO&GEO",
+        "众筹与品牌启动"
+      ],
+      "mention_count": 47,
+      "review_action": "review_for_semantic_lexicon"
+    },
+    {
+      "auto_apply": false,
+      "canonical_name": "ebay",
+      "community_count": 4,
+      "interest_tags": [
+        "AI工具与Agent",
+        "卖家店铺运营"
+      ],
+      "mention_count": 33,
+      "review_action": "review_for_semantic_lexicon"
+    },
+    {
+      "auto_apply": false,
+      "canonical_name": "youtube",
+      "community_count": 10,
+      "interest_tags": [
+        "家居生活选品",
+        "广告投放",
+        "SEO&GEO",
+        "AI工具与Agent"
+      ],
+      "mention_count": 17,
+      "review_action": "review_for_semantic_lexicon"
+    },
+    {
+      "auto_apply": false,
+      "canonical_name": "tiktok",
+      "community_count": 3,
+      "interest_tags": [
+        "广告投放",
+        "众筹与品牌启动",
+        "卖家店铺运营"
+      ],
+      "mention_count": 9,
+      "review_action": "review_for_semantic_lexicon"
+    },
+    {
+      "auto_apply": false,
+      "canonical_name": "TikTok Shop",
+      "community_count": 3,
+      "interest_tags": [
+        "广告投放",
+        "众筹与品牌启动",
+        "卖家店铺运营"
+      ],
+      "mention_count": 9,
+      "review_action": "review_for_semantic_lexicon"
+    },
+    {
+      "auto_apply": false,
+      "canonical_name": "instagram",
+      "community_count": 4,
+      "interest_tags": [
+        "广告投放",
+        "SEO&GEO"
+      ],
+      "mention_count": 7,
+      "review_action": "review_for_semantic_lexicon"
+    },
+    {
+      "auto_apply": false,
+      "canonical_name": "Temu",
+      "community_count": 3,
+      "interest_tags": [
+        "好物选品",
+        "卖家店铺运营"
+      ],
+      "mention_count": 7,
+      "review_action": "review_for_semantic_lexicon"
+    },
+    {
+      "auto_apply": false,
+      "canonical_name": "walmart",
+      "community_count": 2,
+      "interest_tags": [
+        "AI工具与Agent",
+        "卖家店铺运营"
+      ],
+      "mention_count": 4,
+      "review_action": "review_for_semantic_lexicon"
+    },
+    {
+      "auto_apply": false,
+      "canonical_name": "alibaba",
+      "community_count": 2,
+      "interest_tags": [
+        "AI工具与Agent",
+        "卖家店铺运营"
+      ],
+      "mention_count": 3,
+      "review_action": "review_for_semantic_lexicon"
+    },
+    {
+      "auto_apply": false,
+      "canonical_name": "bigcommerce",
+      "community_count": 2,
+      "interest_tags": [
+        "卖家店铺运营"
+      ],
+      "mention_count": 3,
+      "review_action": "review_for_semantic_lexicon"
+    }
+  ],
+  "report_date": "2026-05-15"
+}

@@ -1,0 +1,44 @@
+{
+  "contracts": {
+    "auto_promote": false,
+    "probe_only": true,
+    "writes_db": false,
+    "writes_formal_candidates": false
+  },
+  "probes": [
+    {
+      "direction": "宠物用品/户外装备/厨房小家电/家居收纳/维修配件/二手转售SKU",
+      "experimental_candidate_count": 6,
+      "experimental_candidate_path": "/Users/hujia/Desktop/RedditSignalScanner/backend/data/hotpost/experimental_candidates/ecommerce-sellers.json",
+      "max_candidates": 18,
+      "mode": "safe",
+      "persisted_to_formal_candidates": false,
+      "scope_id": "ecommerce-sellers"
+    },
+    {
+      "direction": "GEO/AEO/AI搜索/品牌答案监控/AI流量归因/内容证据页",
+      "experimental_candidate_count": 4,
+      "experimental_candidate_path": "/Users/hujia/Desktop/RedditSignalScanner/backend/data/hotpost/experimental_candidates/business-growth-ops.json",
+      "max_candidates": 14,
+      "mode": "safe",
+      "persisted_to_formal_candidates": false,
+      "scope_id": "business-growth-ops"
+    },
+    {
+      "direction": "Gemini/Claude/OpenAI/AI工具链/电商AI工作流/模型商业采用",
+      "experimental_candidate_count": 0,
+      "experimental_candidate_path": "/Users/hujia/Desktop/RedditSignalScanner/backend/data/hotpost/experimental_candidates/ai-automation.json",
+      "max_candidates": 12,
+      "mode": "safe",
+      "persisted_to_formal_candidates": false,
+      "scope_id": "ai-automation"
+    }
+  ],
+  "report_date": "2026-05-24",
+  "schema_version": "hotpost-community-exploration-loop/v1",
+  "stage": "pre",
+  "summary": {
+    "experimental_candidate_count": 10,
+    "probe_count": 3
+  }
+}

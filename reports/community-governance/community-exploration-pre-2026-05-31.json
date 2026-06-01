@@ -1,0 +1,53 @@
+{
+  "contracts": {
+    "auto_promote": false,
+    "probe_only": true,
+    "writes_db": false,
+    "writes_formal_candidates": false
+  },
+  "probes": [
+    {
+      "direction": "r/Entrepreneur市场验证与渠道选择",
+      "experimental_candidate_count": 4,
+      "experimental_candidate_path": "/Users/hujia/Desktop/RedditSignalScanner/backend/data/hotpost/experimental_candidates/business-growth-ops.json",
+      "max_candidates": 6,
+      "mode": "safe",
+      "persisted_to_formal_candidates": false,
+      "scope_id": "business-growth-ops"
+    },
+    {
+      "direction": "1688进货与供应链风控",
+      "experimental_candidate_count": 2,
+      "experimental_candidate_path": "/Users/hujia/Desktop/RedditSignalScanner/backend/data/hotpost/experimental_candidates/ecommerce-sellers.json",
+      "max_candidates": 6,
+      "mode": "safe",
+      "persisted_to_formal_candidates": false,
+      "scope_id": "ecommerce-sellers"
+    },
+    {
+      "direction": "品牌溢价平替与众筹预售风险",
+      "experimental_candidate_count": 2,
+      "experimental_candidate_path": "/Users/hujia/Desktop/RedditSignalScanner/backend/data/hotpost/experimental_candidates/ecommerce-sellers.json",
+      "max_candidates": 6,
+      "mode": "safe",
+      "persisted_to_formal_candidates": false,
+      "scope_id": "ecommerce-sellers"
+    },
+    {
+      "direction": "Agent工具链与模型能力争议",
+      "experimental_candidate_count": 0,
+      "experimental_candidate_path": "/Users/hujia/Desktop/RedditSignalScanner/backend/data/hotpost/experimental_candidates/ai-automation.json",
+      "max_candidates": 4,
+      "mode": "safe",
+      "persisted_to_formal_candidates": false,
+      "scope_id": "ai-automation"
+    }
+  ],
+  "report_date": "2026-05-31",
+  "schema_version": "hotpost-community-exploration-loop/v1",
+  "stage": "pre",
+  "summary": {
+    "experimental_candidate_count": 8,
+    "probe_count": 4
+  }
+}

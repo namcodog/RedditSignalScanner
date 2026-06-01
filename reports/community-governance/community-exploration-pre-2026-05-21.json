@@ -1,0 +1,44 @@
+{
+  "contracts": {
+    "auto_promote": false,
+    "probe_only": true,
+    "writes_db": false,
+    "writes_formal_candidates": false
+  },
+  "probes": [
+    {
+      "direction": "品牌舆情/用户支持反对/替代品/价格质量售后/跨境SKU/二手转售",
+      "experimental_candidate_count": 8,
+      "experimental_candidate_path": "/Users/hujia/Desktop/RedditSignalScanner/backend/data/hotpost/experimental_candidates/ecommerce-sellers.json",
+      "max_candidates": 18,
+      "mode": "safe",
+      "persisted_to_formal_candidates": false,
+      "scope_id": "ecommerce-sellers"
+    },
+    {
+      "direction": "eBay转售/refurbished/parts-only/return-risk/sold-listings",
+      "experimental_candidate_count": 8,
+      "experimental_candidate_path": "/Users/hujia/Desktop/RedditSignalScanner/backend/data/hotpost/experimental_candidates/ecommerce-sellers.json",
+      "max_candidates": 12,
+      "mode": "safe",
+      "persisted_to_formal_candidates": false,
+      "scope_id": "ecommerce-sellers"
+    },
+    {
+      "direction": "Gemini用户反馈/r-bard/r-singularity/AI产品体验但只保留硬信号",
+      "experimental_candidate_count": 0,
+      "experimental_candidate_path": "/Users/hujia/Desktop/RedditSignalScanner/backend/data/hotpost/experimental_candidates/ai-automation.json",
+      "max_candidates": 8,
+      "mode": "safe",
+      "persisted_to_formal_candidates": false,
+      "scope_id": "ai-automation"
+    }
+  ],
+  "report_date": "2026-05-21",
+  "schema_version": "hotpost-community-exploration-loop/v1",
+  "stage": "pre",
+  "summary": {
+    "experimental_candidate_count": 16,
+    "probe_count": 3
+  }
+}

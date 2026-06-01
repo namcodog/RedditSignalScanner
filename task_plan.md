@@ -1,5 +1,178 @@
 # Task Plan — Hotpost 5 天缺口回补
 
+## 2026-06-01 V13 预检优化后运营计划
+
+- [x] 真实链路验证 -> 验证点：抽样 seed `2` 张 validate draft，不发布；两张均成功生成，`generation_trace.allow_breakdown=false`，重复 seed 被 `Draft already exists` 提前拦截。
+- [x] 缺口判断 -> 验证点：工程链路已稳定，但 AI 预检过宽；`PASS` 没拦住半截英文原话、`min_test_action=去看原始讨论`、废词跟踪等低质字段。
+- [x] 预检规则优化 -> 验证点：补上确定性后处理，模型误判 `PASS` 时，遇到 `weak_min_test_action / truncated_quote / junk_tracking_terms` 会强制转 `REWRITE`。
+- [x] 回归验证 -> 验证点：相关回归 `109 passed`；刚才真实生成的两张旧 PASS，本地复验均转为 `REWRITE`。
+
+下一步出卡节奏：
+
+- 先不发布刚才两张测试 draft，除非人工改掉 `why_test_now / min_test_action / continue_signal` 后重新 review。
+- 重新跑 validate queue，优先挑 `电商与卖家 / 产品品牌众筹 / 1688进货观察 / 商业增长` 的新候选做 `2-3` 张小样本 seed。
+- 每张 seed 后必须先看 `show-draft`：
+  - `PASS`：继续人工 review。
+  - `REWRITE`：先改稿或换候选，不直接发布。
+  - `BLOCK`：默认不发，除非人工能明确说明预检误判。
+- 小样本复验通过后，再恢复日常出卡；今日不追硬数量，目标是验证优化后 `precheck` 能不能提前拦住低质稿。
+- 发布链仍按原 SOP：发布后才跑 `push_mini_snapshot.py`、同步检查、社区探索 post 和品牌 sidecar。
+
+今日判断边界：
+
+- 这次优化解决的是“AI 预检太宽松”，不是模型路线切换；不静默换旧模型或旧 prompt。
+- 如果新规则导致 REWRITE 变多，这是预期结果，不算模型失败；只有重复误杀高质量稿，才回头调规则。
+- 1688 / 产品品牌众筹继续作为观察重点，但不因方向重要就降低证据标准。
+
+## 2026-06-01 运营补全执行结果
+
+- [x] 小配额定向采集 -> 验证点：`crossborder-sku-selection-7d` 跑出 `13` 个候选，`crossborder-sku-brand-ebay-7d` 跑出 `23` 个候选，`china-sourcing-1688-7d` 跑出 `10` 个候选；Kickstarter/Crowdfunding 信号已在 SKU profile 内覆盖。
+- [x] 产品 / 品牌 / 众筹继续补厚 -> 验证点：已在原 `6` 张基础上补发 `1` 张渠道特供 / 品牌溢价卡；当前相关卡 `7` 张，仍低于目标 `10-12`。
+- [x] 1688 / 进货继续观察 -> 验证点：本轮仍未发布纯 1688 卡；强候选集中在中国验厂、Alibaba sourcing 和履约问题，但证据不够支撑 `3-5` 张发布。
+- [x] 商业增长补齐 -> 验证点：新增 `3` 张，覆盖改版后低转化、Shopify bot 流量污染、广告扣款现金流错配；今日商业增长达到 `5` 张。
+- [x] AI 补充 -> 验证点：新增 `1` 张 Claude 自动发 TikTok 的内容污染信号；今日 AI 到 `4` 张，仍低于目标 `5-7`。
+- [x] 发布同步 -> 验证点：新增 `5` 张后，`push_mini_snapshot.py` 生成 `release-26a0d6956396 / card_count=1258`；`check_mini_release_sync.py` 通过，`feed_contract=30/30`、`miniRelease / miniFavorites / cloud_db` 一致，hot controversy guard 和 copy guard 均通过。
+
+当前缺口：
+
+- 总量：`17/25-30`，未完成。
+- 产品 / 品牌 / 众筹：`7/10-12`，缺 `3-5` 张。
+- 1688 / 进货：`0/3-5`，缺口保留，不硬发弱证据。
+- AI：`4/5-7`，缺 `1-3` 张。
+- 商业增长：`5/5-6`，达标。
+
+阻塞判断：
+
+- `make hotpost-publish-until-exhausted` 完成采集侧 `yield_exhaustion`，但最终 `decision=rewrite`，原因是 `hot_over_age_limit / stale_ratio_above_threshold`。
+- 模型侧仍有坏 JSON / 空 JSON / 总超时 / Gemini 503；这不是候选池空，而是生成链稳定性和 hot 过龄共同限制。
+- 预检规则有效：多张草稿被挡在 `weak_min_test_action`、半截英文引用和垃圾追踪词上；只对可人工明确修复的字段做了修补后发布。
+
+## 2026-05-31 日常出卡计划
+
+- [x] 计划校准 -> 验证点：5/28、5/29 已有正式运营日志和 release；当前真正缺口是 `2026-05-30` 空窗 + `2026-05-31` 今日运营。实际执行跨过本地零点，正式发布日志归到 `reports/ops-log/2026-06-01.md`，不倒填 `published_at=2026-05-30`。
+- [x] 状态复核 -> 验证点：已确认 latest release、review queue、topic tree、hot lane、V13 precheck；发现 `task_plan.md` 与正式 ops-log 的 5/29 发卡数冲突时，以 `reports/ops-log/2026-05-29.md` 为准。
+- [x] 探索社区 pre -> 验证点：显式 probe，只写 `experimental_candidates`，不直接写正式 candidates / drafts / release / DB；结果 `probe_count=4 / experimental_candidate_count=8`。
+- [x] 第 1 轮 all-scope 基础盘 -> 验证点：`make hotpost-publish-until-exhausted` 约 3 分钟无输出后终止，改用可观测的 topic tree、hot lane、validate/write queue 和定向 collect 推进。
+- [x] 第 2 轮定向补薄 -> 验证点：已补 `商业增长与运营`、`AI 与自动化`、`1688/进货/供应链`、`产品/品牌/众筹`；电商没有只围绕 eBay/Etsy/咖啡/钢笔老面孔。
+- [x] r/Entrepreneur 新方向复核 -> 验证点：本轮没有继续从 r/Entrepreneur 硬发；商业增长侧改发画廊转化和 Meta Ads 公开信。
+- [x] 1688 / 进货观察 -> 验证点：`china-sourcing-1688-7d` 跑出 `watch_count=3 / candidate_count=10`；纯 1688 卡仍未过发布线，保留观察。
+- [x] 产品 / 品牌 / 众筹深挖 -> 验证点：发布 `6` 张相关卡，覆盖 Kickstarter 预热预算、AI 众筹页信任、扫地机溢价、钢笔笔尖、情侣露营装备和 onebag 极简装备。
+- [x] 人审发布 -> 验证点：`show-draft` 已先看 V13 precheck；`Openclaws` 被 precheck 标为 `BLOCK` 未发布；已发布草稿均通过人工 review。
+- [x] 第 3 轮停机确认 -> 验证点：本轮未达到完整日运营停机条件；停止原因是基础 workflow 无输出、breakdown materialize 超时、部分 seed 超时或重复已发布。
+- [x] 发布后收口 -> 验证点：`push_mini_snapshot.py`、`check_mini_release_sync.py`、`community-exploration-post`、`brand-ops-sidecar`、小程序 snapshot data 检查已完成。
+
+今日目标：
+
+- 总量目标 `35-45` 张；低于 `30` 张必须写明供给、模型或质量门阻塞，不包装成完整双日恢复。
+- 领域结构：`电商与卖家 16-20`、`AI 与自动化 8-12`、`商业增长与运营 8-10`、`breakdown 2-4`。
+- 1688 / 进货观察目标 `2-4` 张；如果只有弱单帖或泛采购教程，只保留观察，不硬发。
+- 产品 / 品牌 / 众筹目标 `4-6` 张；优先覆盖品牌信任、平替、预售/众筹、产品验证，不把普通晒单当品牌信号。
+- r/Entrepreneur 目标 `4-6` 张；作为商业增长新方向，不抢占全部首页。
+
+今日探索方向：
+
+- `business-growth-ops:6:r/Entrepreneur 市场验证与渠道选择`
+- `ecommerce-sellers:6:1688进货与供应链风控`
+- `ecommerce-sellers:6:品牌溢价、平替与众筹预售风险`
+- `ecommerce-sellers:6:eBay/reselling 平台费用、退货与单位经济`
+- `ai-automation:4:Agent工具链、模型能力争议与开发者真实反馈`
+
+今日判断边界：
+
+- 5/30 缺口用今天新发卡覆盖，不倒填历史发布时间。
+- `r/Entrepreneur` 已证明有价值，但仍是持续观察源，不因“新方向”降低证据标准。
+- 1688 现在仍是 `电商与卖家 / SKU 选品 / 供应链进货判断` 的观察线，不独立成成熟栏目。
+- 产品 / 品牌 / 众筹必须有“用户为什么信或不信、为什么愿意多付或转向平替、为什么预售/众筹可能交付失败”的判断增量；纯开箱、纯晒图、纯新品广告不发。
+- 品牌 sidecar 继续只做上下文增强和观察；没有新品牌候选时不硬造品牌卡。
+- V13 超时在正常范围内等待；超过运营窗口就换候选或留队列，不静默切旧模型。
+
+执行结果：
+
+- 正式发布 `12` 张：`hot 7 / signal 5`。
+- 类别分布：`电商与卖家 7 / AI 与自动化 3 / 商业增长与运营 2`。
+- 产品 / 品牌 / 众筹相关 `6` 张，是本轮最有效的新增方向。
+- 最新快照：`release-5bd6c336831a`，`card_count=1253`；同步链、hot controversy guard、copy guard、小程序 snapshot data 检查通过。
+- 社区探索 post：`already_in_pool=18 / keep_testing=8 / promote_candidate=0 / reject=0`，本轮没有新的 R12 入池对象。
+- 品牌 sidecar：`brands_observed=217 / verified=15 / candidate=185 / rejected=17 / new_brand_candidates=0 / db_writes=false`。
+- 本轮结论：发布链健康，但总量低于完整恢复线；`trend audit` 仍为 `rebound`，不能写 stable。
+
+## 2026-05-29 日常出卡计划
+
+- [x] 计划校准 -> 验证点：今天按正常日运营执行，不再按双日补发冲量；正式发布时间只记 `2026-05-29`。
+- [x] 第 1 轮 all-scope 基础盘 -> 验证点：跑 `make hotpost-publish-until-exhausted`、`make hotpost-topic-tree-audit`、`audit_hot_lane.py` 和 validate queue，确认自然供给、hot 争议面和薄领域。
+- [x] 第 2 轮定向补薄 -> 验证点：优先补 `AI 与自动化`、`商业增长与运营` 和 `1688/进货/供应链`；电商继续保主线但不把首页打成单一 eBay/Etsy 面。
+- [x] 1688 小配额观察 -> 验证点：跑 `collect_named_topics.py --watch-profile china-sourcing-1688-7d --mode safe`；只发有真实商品、供应商风险、质检/物流、利润核算或用户踩坑的卡。
+- [x] 新社区持续观察 -> 验证点：显式跑 pre probe，不直接写正式 candidates / drafts / release；重点看 `r/ebaysellers`、`r/reselling` 写入 Dev 后是否继续产出可发布信号。
+- [x] 人审发布 -> 验证点：hot 必须有争议图；signal 必须有判断增量；breakdown 必须有强 thesis；V13 超时在合理范围内等待，超出运营窗口则换候选，不静默切旧模型。
+- [x] 第 3 轮停机确认 -> 验证点：再次跑 all-scope 确认 `yield_exhausted` 与 `publish_ready=false`；若 `trend audit` 仍为 `rebound / watching`，只能写“今日发布完成”，不能写系统 stable。
+- [x] 发布后收口 -> 验证点：`push_mini_snapshot.py`、`check_mini_release_sync.py`、`community-exploration-post`、`brand-ops-sidecar`、`hotpost-release-trend-audit` 全部记录结果。
+
+今日目标：
+
+- 总量目标 `25-35` 张；低于 `25` 张写明供给或模型阻塞，不包装成完整日运营。
+- 领域结构：`电商与卖家 12-16`、`AI 与自动化 7-10`、`商业增长与运营 5-8`、`breakdown 2-3`。
+- 1688 / 进货观察目标 `2-4` 张；如果只有泛教程、搬运帖或纯采购入口介绍，只保留观察，不硬发。
+- 新社区目标：`r/ebaysellers / r/reselling` 先作为观察增强源，不设硬发卡数；只有出现平台政策、退货风控、单位经济或类目拥挤的强信号才转正式卡。
+
+今日探索方向：
+
+- `ecommerce-sellers:6:1688进货与卖家供应链`
+- `ecommerce-sellers:6:eBay reselling与平台风控`
+- `business-growth-ops:4:广告投放异常与GEO/AEO可见性`
+- `ai-automation:4:Agent工具链与模型能力争议`
+
+今日判断边界：
+
+- 1688 不是独立成熟主线，今天仍归入 `电商与卖家 / SKU 选品 / 供应链进货判断`。
+- 品牌侧只做 sidecar 观察；没有新品牌候选时不要为“品牌探索”硬造卡。
+- 新社区“收录”不等于提高权重或自动发布；持续观察要看真实可发布证据。
+- 5/28 已达到最低完整线但 `trend audit=rebound`，今天的目标是恢复稳态节奏和补薄结构，不是追 `40-50` 的补发口径。
+
+执行结果：
+
+- 正式发布 `21` 张：`hot 12 / signal 9 / breakdown 0`。
+- 类别分布：`电商与卖家 11 / AI 与自动化 6 / 商业增长与运营 4`。
+- 最新快照：`release-24445df394bd`，`card_count=1236`；`snapshot / miniRelease / miniFavorites / cloud_db / hot controversy guard / copy guard` 检查通过。
+- 三轮 all-scope 最终均未回到 publish-ready：`stopped_by=yield_exhaustion / publish_ready=false / stale_ratio_out_of_control`。
+- 1688 纯进货候选仍未过质量门；`1tpwcir` 命中中国工厂验货但被 `single_thread_weak_evidence / single_community_weak_evidence` 挡住。
+- 社区探索 post：`already_in_pool=16 / keep_testing=8 / promote_candidate=0 / reject=0`，本轮没有新的 R12 入池对象。
+- 品牌 sidecar：`brands_observed=217 / verified=15 / candidate=185 / rejected=17 / new_brand_candidates=0 / db_writes=false`。
+- 本轮结论：发布链同步健康，但总量低于 `25`，不能写成完整日运营；`trend audit` 仍为 `rebound`，系统健康未 stable。
+
+## 2026-05-28 补 05-27 + 05-28 双日出卡计划
+
+- [x] 计划校准 -> 验证点：正式发布时间按 `2026-05-28` 记录，运营日志明确覆盖 `05-27 + 05-28` 内容窗口，不倒填 `published_at=2026-05-27`。
+- [x] 1688 观察线接入 -> 验证点：新增 `china-sourcing-1688-7d` 只作为手动补货 profile，不进入默认 daily watchlist；目标测试通过。
+- [x] 基础盘审计 -> 验证点：跑 `make hotpost-workflow-dry-run`、`make hotpost-topic-tree-audit`、`audit_hot_lane.py` 和 validate queue，确认当前可发面不是旧弱草稿。
+- [x] 5/27 空窗补发段 -> 验证点：优先补 `eBay / reselling / SKU品牌舆情 / FBA供应商涨价 / Etsy-Shopify摩擦 / GEO-AEO / PPC转化`，不让 AI 抢主线。执行结果：已补 PPC / Meta Ads / Etsy / Shopify / FBA / eBay / SKU品牌舆情 / 选品信号；达到最低完整线，但未达理想目标。
+- [x] 5/28 新鲜盘段 -> 验证点：重新跑 `7d fresh supply`，只有 `decision=publish` 且有净新增价值才继续 seed / review / publish。执行结果：已按 queue 人审发布新鲜候选；`make hotpost-publish-until-exhausted` 长链路无输出后终止，未拿到 clean final no-collect gate。
+- [x] 1688 小配额观察 -> 验证点：跑 `collect_named_topics.py --watch-profile china-sourcing-1688-7d --mode safe`；只收真实商品、供应商、质检、物流、利润和用户踩坑，不发泛教程。
+- [x] 探索社区 pre -> 验证点：只写 `experimental_candidates`，不写正式 candidates / drafts / release / DB。
+- [x] 人审发布 -> 验证点：hot 必须有争议图；signal 必须有判断增量；breakdown 必须有强 thesis；V13 `402/503/连接失败` 时不静默换旧模型。
+- [x] 发布后收口 -> 验证点：`push_mini_snapshot.py`、`check_mini_release_sync.py`、`community-exploration-post`、`brand-ops-sidecar`、`hotpost-release-trend-audit` 全部记录结果。
+
+今日目标：
+
+- 总量目标 `40-50` 张；低于 `30` 张必须写成补发未完整收口，不包装成正常双日运营。
+- 领域结构：`电商与卖家 18-22`、`AI 与自动化 12-16`、`商业增长与运营 8-12`、`breakdown 2-4`。
+- 1688 观察目标 `3-5` 张；若只有泛经验帖、搬运帖、教程帖，先保留观察，不硬发。
+
+今日新增 1688 判断边界：
+
+- 看商品信息：小件轻货、耗材/配件、宠物/户外/收纳/厨房小工具、可定制/贴牌、已被 Temu/TikTok/Amazon 卷过的同款、高认证或侵权风险品。
+- 看用户声音：为什么去 1688 找货、质量/色差/尺寸/包装/发货/售后/沟通踩坑、代采/货代/质检是否变成关键环节、低价算完物流/退货/平台费用后是否仍赚钱。
+- 只归入 `电商与卖家 / SKU 选品 / 供应链进货判断`，今天不作为独立成熟主线。
+
+执行结果：
+
+- 正式发布 `30` 张：`hot 15 / signal 13 / breakdown 2`。
+- 类别分布：`电商与卖家 20 / AI 与自动化 6 / 商业增长与运营 4`。
+- 最新快照：`release-80fdcbfc84b2`，`card_count=1215`；`snapshot / miniRelease / miniFavorites / cloud_db / hot controversy guard / copy guard` 检查通过。
+- `trend audit` 仍为 `rebound`，`remaining_new_releases=5`，系统健康未回到 stable。
+- 1688 观察线已接入并小配额采集；本日可发的是相邻进货/利润/售后/低价耗材寿命信号，未出现足够强的纯 1688 商品卡。
+- V13 timeout 调整后部分 seed 成功，但 `make hotpost-publish-until-exhausted` 和个别商品 seed 仍会长时间无输出；后续需要继续补 collect/LLM 长链路可观测 timeout。
+- 本轮结论：发布链达到最低完整线；理想总量 `40-50` 未达成，且 trend audit 仍为 `rebound`，系统健康收口未完成。
+
 ## 2026-05-09 日常发卡运营计划
 
 - [ ] 回顾 05-06 至 05-08 运营日志，确认今天不是继续平均补 SEO/PPC，而是 `SKU 选品 + AI` 双主线。

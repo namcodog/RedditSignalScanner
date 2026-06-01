@@ -1,0 +1,1614 @@
+{
+  "audit": {
+    "contracts": {
+      "auto_promote": false,
+      "default_daily_collect_includes_experimental": false,
+      "experimental_candidate_store": "backend/data/hotpost/experimental_candidates/<scope>.json",
+      "experimental_communities_are_probe_only": true,
+      "writes_db": false
+    },
+    "report_date": "2026-05-24",
+    "rows": [
+      {
+        "collected_candidates": 0,
+        "community": "cursorai",
+        "draft_count": 0,
+        "duplicate_count": 0,
+        "new_topic_count": 1,
+        "noise_notes": "",
+        "published_count": 1,
+        "reject_count": 0,
+        "scope_id": "ai-automation",
+        "semantic_feedback": {
+          "frequent_entities": [],
+          "pain_solution_tags": [
+            "趋势变化"
+          ],
+          "product_tags": [
+            "AI 工作流"
+          ],
+          "sample_titles": [
+            "Cursor 深度用户，不再只靠 rules，需存储 AI 失败经验"
+          ]
+        },
+        "suggested_action": "keep_testing",
+        "topic_cluster_id": "workflow-friction"
+      },
+      {
+        "collected_candidates": 0,
+        "community": "windsurf",
+        "draft_count": 0,
+        "duplicate_count": 0,
+        "new_topic_count": 0,
+        "noise_notes": "no_signal_yet",
+        "published_count": 0,
+        "reject_count": 0,
+        "scope_id": "ai-automation",
+        "semantic_feedback": {
+          "frequent_entities": [],
+          "pain_solution_tags": [],
+          "product_tags": [],
+          "sample_titles": []
+        },
+        "suggested_action": "keep_testing",
+        "topic_cluster_id": "workflow-friction"
+      },
+      {
+        "collected_candidates": 0,
+        "community": "aider",
+        "draft_count": 0,
+        "duplicate_count": 0,
+        "new_topic_count": 0,
+        "noise_notes": "no_signal_yet",
+        "published_count": 0,
+        "reject_count": 0,
+        "scope_id": "ai-automation",
+        "semantic_feedback": {
+          "frequent_entities": [],
+          "pain_solution_tags": [],
+          "product_tags": [],
+          "sample_titles": []
+        },
+        "suggested_action": "keep_testing",
+        "topic_cluster_id": "workflow-friction"
+      },
+      {
+        "collected_candidates": 0,
+        "community": "openrouter",
+        "draft_count": 0,
+        "duplicate_count": 0,
+        "new_topic_count": 0,
+        "noise_notes": "no_signal_yet",
+        "published_count": 0,
+        "reject_count": 0,
+        "scope_id": "ai-automation",
+        "semantic_feedback": {
+          "frequent_entities": [],
+          "pain_solution_tags": [],
+          "product_tags": [],
+          "sample_titles": []
+        },
+        "suggested_action": "keep_testing",
+        "topic_cluster_id": "workflow-friction"
+      },
+      {
+        "collected_candidates": 1,
+        "community": "heronebag",
+        "draft_count": 0,
+        "duplicate_count": 0,
+        "new_topic_count": 1,
+        "noise_notes": "not_published_yet",
+        "published_count": 0,
+        "reject_count": 0,
+        "scope_id": "ecommerce-sellers",
+        "semantic_feedback": {
+          "frequent_entities": [
+            "too bulky",
+            "how do i clean pet hair in a small apartment"
+          ],
+          "pain_solution_tags": [
+            "替换",
+            "避坑",
+            "too bulky",
+            "how do i clean pet hair in a small apartment"
+          ],
+          "product_tags": [
+            "户外用品选品"
+          ],
+          "sample_titles": [
+            "Packing a carry on + a purse for 12 days in Saint Petersburg and Murmansk in June"
+          ]
+        },
+        "suggested_action": "keep_testing",
+        "topic_cluster_id": "outdoor"
+      },
+      {
+        "collected_candidates": 0,
+        "community": "bikepacking",
+        "draft_count": 0,
+        "duplicate_count": 0,
+        "new_topic_count": 0,
+        "noise_notes": "no_signal_yet",
+        "published_count": 0,
+        "reject_count": 0,
+        "scope_id": "ecommerce-sellers",
+        "semantic_feedback": {
+          "frequent_entities": [],
+          "pain_solution_tags": [],
+          "product_tags": [],
+          "sample_titles": []
+        },
+        "suggested_action": "keep_testing",
+        "topic_cluster_id": "outdoor"
+      },
+      {
+        "collected_candidates": 0,
+        "community": "trailrunning",
+        "draft_count": 0,
+        "duplicate_count": 0,
+        "new_topic_count": 0,
+        "noise_notes": "no_signal_yet",
+        "published_count": 0,
+        "reject_count": 0,
+        "scope_id": "ecommerce-sellers",
+        "semantic_feedback": {
+          "frequent_entities": [],
+          "pain_solution_tags": [],
+          "product_tags": [],
+          "sample_titles": []
+        },
+        "suggested_action": "keep_testing",
+        "topic_cluster_id": "outdoor"
+      },
+      {
+        "collected_candidates": 0,
+        "community": "campingandhiking",
+        "draft_count": 0,
+        "duplicate_count": 0,
+        "new_topic_count": 0,
+        "noise_notes": "no_signal_yet",
+        "published_count": 0,
+        "reject_count": 0,
+        "scope_id": "ecommerce-sellers",
+        "semantic_feedback": {
+          "frequent_entities": [],
+          "pain_solution_tags": [],
+          "product_tags": [],
+          "sample_titles": []
+        },
+        "suggested_action": "keep_testing",
+        "topic_cluster_id": "outdoor"
+      },
+      {
+        "collected_candidates": 2,
+        "community": "etsy",
+        "draft_count": 0,
+        "duplicate_count": 0,
+        "new_topic_count": 2,
+        "noise_notes": "",
+        "published_count": 4,
+        "reject_count": 0,
+        "scope_id": "ecommerce-sellers",
+        "semantic_feedback": {
+          "frequent_entities": [
+            "custom-topic"
+          ],
+          "pain_solution_tags": [
+            "趋势变化",
+            "避坑",
+            "替换"
+          ],
+          "product_tags": [],
+          "sample_titles": [
+            "Share Your Stuff - May 18th thru 24th, 2026",
+            "Why do people favorite items on Etsy but don’t buy?",
+            "Etsy 卖家确认买家普遍跳过商品图片和描述",
+            "Etsy 卖家抱怨自动退款，同行指出应先调处理时间和追踪",
+            "Etsy 买家开始从边缘渗色和花瓣变异识别 AI 生成插画"
+          ]
+        },
+        "suggested_action": "promote_candidate",
+        "topic_cluster_id": "seller-category-direction"
+      },
+      {
+        "collected_candidates": 3,
+        "community": "ebayselleradvice",
+        "draft_count": 0,
+        "duplicate_count": 1,
+        "new_topic_count": 2,
+        "noise_notes": "duplicate_posts",
+        "published_count": 11,
+        "reject_count": 0,
+        "scope_id": "ecommerce-sellers",
+        "semantic_feedback": {
+          "frequent_entities": [
+            "sku-ebay-7d-resale-refurbished",
+            "custom-topic"
+          ],
+          "pain_solution_tags": [
+            "趋势变化",
+            "求推荐",
+            "避坑"
+          ],
+          "product_tags": [],
+          "sample_titles": [
+            "Advice on situation on delivery",
+            "Vintage Playboys from the late 60s -80s?",
+            "Advice on situation on delivery",
+            "eBay 卖家开始用重量收据和买家自拍应对“发错货”投诉",
+            "eBay 卖家开始把买家质量下降归因于 Facebook 引流合作"
+          ]
+        },
+        "suggested_action": "promote_candidate",
+        "topic_cluster_id": "seller-category-direction"
+      },
+      {
+        "collected_candidates": 0,
+        "community": "ebaysellers",
+        "draft_count": 0,
+        "duplicate_count": 0,
+        "new_topic_count": 2,
+        "noise_notes": "",
+        "published_count": 4,
+        "reject_count": 0,
+        "scope_id": "ecommerce-sellers",
+        "semantic_feedback": {
+          "frequent_entities": [
+            "sku-ebay-7d-resale-refurbished",
+            "custom-topic"
+          ],
+          "pain_solution_tags": [
+            "避坑",
+            "求推荐"
+          ],
+          "product_tags": [],
+          "sample_titles": [
+            "eBay 卖家卖高价笔记本，定价前先查成交记录",
+            "eBay 卖家未拿扫描回执，100美元包裹在邮局丢失无法追责",
+            "eBay 卖家遭平台鉴定损坏货物后因表达不清证据不足维权受阻",
+            "eBay 卖家未开启自动接受报价，商品却低价成交，怀疑平台 Bug"
+          ]
+        },
+        "suggested_action": "promote_candidate",
+        "topic_cluster_id": "seller-category-direction"
+      },
+      {
+        "collected_candidates": 0,
+        "community": "flipping",
+        "draft_count": 0,
+        "duplicate_count": 0,
+        "new_topic_count": 2,
+        "noise_notes": "",
+        "published_count": 6,
+        "reject_count": 0,
+        "scope_id": "ecommerce-sellers",
+        "semantic_feedback": {
+          "frequent_entities": [
+            "sku-ebay-7d-resale-refurbished"
+          ],
+          "pain_solution_tags": [
+            "趋势变化"
+          ],
+          "product_tags": [],
+          "sample_titles": [
+            "二手卖家定价不再逐平台找最优，直接以 eBay 成交价为基准",
+            "eBay 卖家吐槽买家退货总拖到最后一刻才寄出",
+            "二手卖家遭买家以老弱病残为由要求退货，社区定性为紧迫感诈骗",
+            "二手卖家在描述中坦白大麻味，以此规避退货纠纷",
+            "二手卖家收到退货申请，先排查是否调包再退款"
+          ]
+        },
+        "suggested_action": "promote_candidate",
+        "topic_cluster_id": "seller-category-direction"
+      },
+      {
+        "collected_candidates": 0,
+        "community": "reselling",
+        "draft_count": 0,
+        "duplicate_count": 0,
+        "new_topic_count": 2,
+        "noise_notes": "",
+        "published_count": 4,
+        "reject_count": 0,
+        "scope_id": "ecommerce-sellers",
+        "semantic_feedback": {
+          "frequent_entities": [
+            "sku-ebay-7d-resale-refurbished"
+          ],
+          "pain_solution_tags": [
+            "避坑",
+            "趋势变化",
+            "求推荐"
+          ],
+          "product_tags": [],
+          "sample_titles": [
+            "二手卖家斥直播带货掠夺性，质疑社区热帖为 AI 生成",
+            "转卖者穿后带标退货，二手平台5倍加价激怒同行",
+            "转售老手教新人：先把物流和采购工具配好，再谈卖什么",
+            "Depop 和 eBay 卖家开始无视定价建议，转向手动查价"
+          ]
+        },
+        "suggested_action": "promote_candidate",
+        "topic_cluster_id": "seller-category-direction"
+      },
+      {
+        "collected_candidates": 3,
+        "community": "ebayselleradvice",
+        "draft_count": 0,
+        "duplicate_count": 1,
+        "new_topic_count": 2,
+        "noise_notes": "duplicate_posts",
+        "published_count": 11,
+        "reject_count": 0,
+        "scope_id": "ecommerce-sellers",
+        "semantic_feedback": {
+          "frequent_entities": [
+            "sku-ebay-7d-resale-refurbished",
+            "custom-topic"
+          ],
+          "pain_solution_tags": [
+            "趋势变化",
+            "求推荐",
+            "避坑"
+          ],
+          "product_tags": [],
+          "sample_titles": [
+            "Advice on situation on delivery",
+            "Vintage Playboys from the late 60s -80s?",
+            "Advice on situation on delivery",
+            "eBay 卖家开始用重量收据和买家自拍应对“发错货”投诉",
+            "eBay 卖家开始把买家质量下降归因于 Facebook 引流合作"
+          ]
+        },
+        "suggested_action": "promote_candidate",
+        "topic_cluster_id": "unit-economics-and-platform-risk"
+      },
+      {
+        "collected_candidates": 0,
+        "community": "ebaysellers",
+        "draft_count": 0,
+        "duplicate_count": 0,
+        "new_topic_count": 2,
+        "noise_notes": "",
+        "published_count": 4,
+        "reject_count": 0,
+        "scope_id": "ecommerce-sellers",
+        "semantic_feedback": {
+          "frequent_entities": [
+            "sku-ebay-7d-resale-refurbished",
+            "custom-topic"
+          ],
+          "pain_solution_tags": [
+            "避坑",
+            "求推荐"
+          ],
+          "product_tags": [],
+          "sample_titles": [
+            "eBay 卖家卖高价笔记本，定价前先查成交记录",
+            "eBay 卖家未拿扫描回执，100美元包裹在邮局丢失无法追责",
+            "eBay 卖家遭平台鉴定损坏货物后因表达不清证据不足维权受阻",
+            "eBay 卖家未开启自动接受报价，商品却低价成交，怀疑平台 Bug"
+          ]
+        },
+        "suggested_action": "promote_candidate",
+        "topic_cluster_id": "unit-economics-and-platform-risk"
+      },
+      {
+        "collected_candidates": 0,
+        "community": "flipping",
+        "draft_count": 0,
+        "duplicate_count": 0,
+        "new_topic_count": 2,
+        "noise_notes": "",
+        "published_count": 6,
+        "reject_count": 0,
+        "scope_id": "ecommerce-sellers",
+        "semantic_feedback": {
+          "frequent_entities": [
+            "sku-ebay-7d-resale-refurbished"
+          ],
+          "pain_solution_tags": [
+            "趋势变化"
+          ],
+          "product_tags": [],
+          "sample_titles": [
+            "二手卖家定价不再逐平台找最优，直接以 eBay 成交价为基准",
+            "eBay 卖家吐槽买家退货总拖到最后一刻才寄出",
+            "二手卖家遭买家以老弱病残为由要求退货，社区定性为紧迫感诈骗",
+            "二手卖家在描述中坦白大麻味，以此规避退货纠纷",
+            "二手卖家收到退货申请，先排查是否调包再退款"
+          ]
+        },
+        "suggested_action": "promote_candidate",
+        "topic_cluster_id": "unit-economics-and-platform-risk"
+      },
+      {
+        "collected_candidates": 0,
+        "community": "reselling",
+        "draft_count": 0,
+        "duplicate_count": 0,
+        "new_topic_count": 2,
+        "noise_notes": "",
+        "published_count": 4,
+        "reject_count": 0,
+        "scope_id": "ecommerce-sellers",
+        "semantic_feedback": {
+          "frequent_entities": [
+            "sku-ebay-7d-resale-refurbished"
+          ],
+          "pain_solution_tags": [
+            "避坑",
+            "趋势变化",
+            "求推荐"
+          ],
+          "product_tags": [],
+          "sample_titles": [
+            "二手卖家斥直播带货掠夺性，质疑社区热帖为 AI 生成",
+            "转卖者穿后带标退货，二手平台5倍加价激怒同行",
+            "转售老手教新人：先把物流和采购工具配好，再谈卖什么",
+            "Depop 和 eBay 卖家开始无视定价建议，转向手动查价"
+          ]
+        },
+        "suggested_action": "promote_candidate",
+        "topic_cluster_id": "unit-economics-and-platform-risk"
+      },
+      {
+        "collected_candidates": 1,
+        "community": "digital_marketing",
+        "draft_count": 0,
+        "duplicate_count": 0,
+        "new_topic_count": 1,
+        "noise_notes": "not_published_yet",
+        "published_count": 0,
+        "reject_count": 0,
+        "scope_id": "business-growth-ops",
+        "semantic_feedback": {
+          "frequent_entities": [
+            "ranking drop",
+            "google update"
+          ],
+          "pain_solution_tags": [
+            "求推荐",
+            "ranking drop",
+            "google update"
+          ],
+          "product_tags": [
+            "GEO / AI 搜索"
+          ],
+          "sample_titles": [
+            "How is AI search changing SEO traffic patterns in 2026?"
+          ]
+        },
+        "suggested_action": "keep_testing",
+        "topic_cluster_id": "seo-geo"
+      },
+      {
+        "collected_candidates": 0,
+        "community": "aeo",
+        "draft_count": 0,
+        "duplicate_count": 0,
+        "new_topic_count": 1,
+        "noise_notes": "",
+        "published_count": 13,
+        "reject_count": 0,
+        "scope_id": "business-growth-ops",
+        "semantic_feedback": {
+          "frequent_entities": [
+            "custom-topic",
+            "geo-ai-search-aeo-7d"
+          ],
+          "pain_solution_tags": [
+            "趋势变化",
+            "求推荐",
+            "避坑",
+            "替换"
+          ],
+          "product_tags": [
+            "GEO / AI 搜索"
+          ],
+          "sample_titles": [
+            "GEO 追踪单次结果波动大，代理商要求每提示词至少跑 5 次",
+            "营销者发现，AI 推荐品牌不再只数引用次数，更看上下文和权威度",
+            "SEO 负责人改看品牌提及率和 AI 声量，不再等标准衡量工具",
+            "社区版主开始紧盯“非真实提及”，怕被 Google 新规惩罚",
+            "美国营销人争论 AEO 与 GEO 差异：是答案优化，还是 LLM 引用？"
+          ]
+        },
+        "suggested_action": "promote_candidate",
+        "topic_cluster_id": "seo-geo"
+      },
+      {
+        "collected_candidates": 1,
+        "community": "ai_ugc_marketing",
+        "draft_count": 0,
+        "duplicate_count": 0,
+        "new_topic_count": 1,
+        "noise_notes": "",
+        "published_count": 4,
+        "reject_count": 0,
+        "scope_id": "business-growth-ops",
+        "semantic_feedback": {
+          "frequent_entities": [
+            "custom-topic",
+            "started using ai ugc video"
+          ],
+          "pain_solution_tags": [
+            "趋势变化",
+            "求推荐",
+            "started using ai ugc video"
+          ],
+          "product_tags": [
+            "转化链路"
+          ],
+          "sample_titles": [
+            "I made a full AI UGC video for a skincare brand called Lumya from scratch.",
+            "AI 护肤广告露出三只手，评论却说动态剪辑更关键",
+            "AI 生成的手袋开箱视频，评价焦点从画质转向开箱仪式感与动作逻辑",
+            "AI 广告创作者发现，每拍12词是跨镜头角色一致的关键参数",
+            "静态照片秒变 UGC 视频，评论区反问“客户凭什么付钱给你？”"
+          ]
+        },
+        "suggested_action": "promote_candidate",
+        "topic_cluster_id": "funnel"
+      },
+      {
+        "collected_candidates": 2,
+        "community": "growthhacking",
+        "draft_count": 0,
+        "duplicate_count": 1,
+        "new_topic_count": 2,
+        "noise_notes": "duplicate_posts",
+        "published_count": 3,
+        "reject_count": 0,
+        "scope_id": "business-growth-ops",
+        "semantic_feedback": {
+          "frequent_entities": [
+            "custom-topic",
+            "started using ai ugc video"
+          ],
+          "pain_solution_tags": [
+            "避坑",
+            "趋势变化",
+            "started using ai ugc video",
+            "求推荐"
+          ],
+          "product_tags": [
+            "转化链路",
+            "GEO / AI 搜索"
+          ],
+          "sample_titles": [
+            "How EarlySEO went from slow organic traction to $763 in monthly revenue by focusing on the right content format",
+            "How EarlySEO went from slow organic traction to $763 in monthly revenue by focusing on the right content format",
+            "增长负责人发现，只看 GA 和排名会错过 Reddit 上的品牌负面信号",
+            "增长黑客测试发现，直接解答对比问题的内容更易被 LLM 引用",
+            "一名增长黑客把 pSEO 索引症结从 Sitemap 转向内链"
+          ]
+        },
+        "suggested_action": "promote_candidate",
+        "topic_cluster_id": "funnel"
+      },
+      {
+        "collected_candidates": 0,
+        "community": "marketingautomation",
+        "draft_count": 0,
+        "duplicate_count": 0,
+        "new_topic_count": 0,
+        "noise_notes": "no_signal_yet",
+        "published_count": 0,
+        "reject_count": 0,
+        "scope_id": "business-growth-ops",
+        "semantic_feedback": {
+          "frequent_entities": [],
+          "pain_solution_tags": [],
+          "product_tags": [],
+          "sample_titles": []
+        },
+        "suggested_action": "keep_testing",
+        "topic_cluster_id": "funnel"
+      },
+      {
+        "collected_candidates": 0,
+        "community": "conversionrateoptimization",
+        "draft_count": 0,
+        "duplicate_count": 0,
+        "new_topic_count": 0,
+        "noise_notes": "no_signal_yet",
+        "published_count": 0,
+        "reject_count": 0,
+        "scope_id": "business-growth-ops",
+        "semantic_feedback": {
+          "frequent_entities": [],
+          "pain_solution_tags": [],
+          "product_tags": [],
+          "sample_titles": []
+        },
+        "suggested_action": "keep_testing",
+        "topic_cluster_id": "funnel"
+      },
+      {
+        "collected_candidates": 0,
+        "community": "shopifydevs",
+        "draft_count": 0,
+        "duplicate_count": 0,
+        "new_topic_count": 0,
+        "noise_notes": "no_signal_yet",
+        "published_count": 0,
+        "reject_count": 0,
+        "scope_id": "business-growth-ops",
+        "semantic_feedback": {
+          "frequent_entities": [],
+          "pain_solution_tags": [],
+          "product_tags": [],
+          "sample_titles": []
+        },
+        "suggested_action": "keep_testing",
+        "topic_cluster_id": "funnel"
+      }
+    ],
+    "schema_version": "hotpost-community-discovery-audit/v1"
+  },
+  "contracts": {
+    "auto_promote": false,
+    "probe_only": true,
+    "requires_human_review": true,
+    "writes_db": false,
+    "writes_formal_candidates": false
+  },
+  "feedback": {
+    "contracts": {
+      "auto_promote": false,
+      "requires_human_review": true,
+      "writes_db": false
+    },
+    "report_date": "2026-05-24",
+    "rows": [
+      {
+        "already_in_pool": false,
+        "candidate_count": 0,
+        "community": "r/cursorai",
+        "draft_count": 0,
+        "duplicate_count": 0,
+        "evidence": {
+          "candidate_count": 0,
+          "draft_count": 0,
+          "duplicate_count": 0,
+          "published_count": 1,
+          "reject_count": 0,
+          "total_evidence": 1
+        },
+        "feedback_action": "keep_testing",
+        "published_count": 1,
+        "reasons": [
+          "probe evidence is not enough for pool feedback"
+        ],
+        "reject_count": 0,
+        "risks": [],
+        "source_scope": "ai-automation",
+        "suggested_user_tags": [
+          "AI工具与Agent"
+        ],
+        "topic_cluster": "workflow-friction",
+        "value_assessment": {
+          "positive_signals": [
+            "published_evidence",
+            "interest_tag_mapping",
+            "new_topic_coverage"
+          ],
+          "risks": [],
+          "score": 50,
+          "stage": "validated"
+        }
+      },
+      {
+        "already_in_pool": false,
+        "candidate_count": 0,
+        "community": "r/windsurf",
+        "draft_count": 0,
+        "duplicate_count": 0,
+        "evidence": {
+          "candidate_count": 0,
+          "draft_count": 0,
+          "duplicate_count": 0,
+          "published_count": 0,
+          "reject_count": 0,
+          "total_evidence": 0
+        },
+        "feedback_action": "keep_testing",
+        "published_count": 0,
+        "reasons": [
+          "no probe evidence yet"
+        ],
+        "reject_count": 0,
+        "risks": [
+          "no_signal_yet"
+        ],
+        "source_scope": "ai-automation",
+        "suggested_user_tags": [
+          "AI工具与Agent"
+        ],
+        "topic_cluster": "workflow-friction",
+        "value_assessment": {
+          "positive_signals": [
+            "interest_tag_mapping"
+          ],
+          "risks": [],
+          "score": 0,
+          "stage": "observe"
+        }
+      },
+      {
+        "already_in_pool": false,
+        "candidate_count": 0,
+        "community": "r/aider",
+        "draft_count": 0,
+        "duplicate_count": 0,
+        "evidence": {
+          "candidate_count": 0,
+          "draft_count": 0,
+          "duplicate_count": 0,
+          "published_count": 0,
+          "reject_count": 0,
+          "total_evidence": 0
+        },
+        "feedback_action": "keep_testing",
+        "published_count": 0,
+        "reasons": [
+          "no probe evidence yet"
+        ],
+        "reject_count": 0,
+        "risks": [
+          "no_signal_yet"
+        ],
+        "source_scope": "ai-automation",
+        "suggested_user_tags": [
+          "AI工具与Agent"
+        ],
+        "topic_cluster": "workflow-friction",
+        "value_assessment": {
+          "positive_signals": [
+            "interest_tag_mapping"
+          ],
+          "risks": [],
+          "score": 0,
+          "stage": "observe"
+        }
+      },
+      {
+        "already_in_pool": false,
+        "candidate_count": 0,
+        "community": "r/openrouter",
+        "draft_count": 0,
+        "duplicate_count": 0,
+        "evidence": {
+          "candidate_count": 0,
+          "draft_count": 0,
+          "duplicate_count": 0,
+          "published_count": 0,
+          "reject_count": 0,
+          "total_evidence": 0
+        },
+        "feedback_action": "keep_testing",
+        "published_count": 0,
+        "reasons": [
+          "no probe evidence yet"
+        ],
+        "reject_count": 0,
+        "risks": [
+          "no_signal_yet"
+        ],
+        "source_scope": "ai-automation",
+        "suggested_user_tags": [
+          "AI工具与Agent"
+        ],
+        "topic_cluster": "workflow-friction",
+        "value_assessment": {
+          "positive_signals": [
+            "interest_tag_mapping"
+          ],
+          "risks": [],
+          "score": 0,
+          "stage": "observe"
+        }
+      },
+      {
+        "already_in_pool": false,
+        "candidate_count": 1,
+        "community": "r/heronebag",
+        "draft_count": 0,
+        "duplicate_count": 0,
+        "evidence": {
+          "candidate_count": 1,
+          "draft_count": 0,
+          "duplicate_count": 0,
+          "published_count": 0,
+          "reject_count": 0,
+          "total_evidence": 1
+        },
+        "feedback_action": "keep_testing",
+        "published_count": 0,
+        "reasons": [
+          "probe evidence is not enough for pool feedback"
+        ],
+        "reject_count": 0,
+        "risks": [
+          "not_published_yet"
+        ],
+        "source_scope": "ecommerce-sellers",
+        "suggested_user_tags": [
+          "家居生活选品"
+        ],
+        "topic_cluster": "outdoor",
+        "value_assessment": {
+          "positive_signals": [
+            "candidate_evidence",
+            "interest_tag_mapping",
+            "new_topic_coverage"
+          ],
+          "risks": [],
+          "score": 23,
+          "stage": "testing"
+        }
+      },
+      {
+        "already_in_pool": true,
+        "candidate_count": 0,
+        "community": "r/bikepacking",
+        "draft_count": 0,
+        "duplicate_count": 0,
+        "evidence": {
+          "candidate_count": 0,
+          "draft_count": 0,
+          "duplicate_count": 0,
+          "published_count": 0,
+          "reject_count": 0,
+          "total_evidence": 0
+        },
+        "feedback_action": "already_in_pool",
+        "published_count": 0,
+        "reasons": [
+          "already tracked in community_pool"
+        ],
+        "reject_count": 0,
+        "risks": [
+          "no_signal_yet"
+        ],
+        "source_scope": "ecommerce-sellers",
+        "suggested_user_tags": [
+          "家居生活选品"
+        ],
+        "topic_cluster": "outdoor",
+        "value_assessment": {
+          "positive_signals": [
+            "interest_tag_mapping"
+          ],
+          "risks": [],
+          "score": 0,
+          "stage": "already_in_pool"
+        }
+      },
+      {
+        "already_in_pool": true,
+        "candidate_count": 0,
+        "community": "r/trailrunning",
+        "draft_count": 0,
+        "duplicate_count": 0,
+        "evidence": {
+          "candidate_count": 0,
+          "draft_count": 0,
+          "duplicate_count": 0,
+          "published_count": 0,
+          "reject_count": 0,
+          "total_evidence": 0
+        },
+        "feedback_action": "already_in_pool",
+        "published_count": 0,
+        "reasons": [
+          "already tracked in community_pool"
+        ],
+        "reject_count": 0,
+        "risks": [
+          "no_signal_yet"
+        ],
+        "source_scope": "ecommerce-sellers",
+        "suggested_user_tags": [
+          "家居生活选品"
+        ],
+        "topic_cluster": "outdoor",
+        "value_assessment": {
+          "positive_signals": [
+            "interest_tag_mapping"
+          ],
+          "risks": [],
+          "score": 0,
+          "stage": "already_in_pool"
+        }
+      },
+      {
+        "already_in_pool": true,
+        "candidate_count": 0,
+        "community": "r/campingandhiking",
+        "draft_count": 0,
+        "duplicate_count": 0,
+        "evidence": {
+          "candidate_count": 0,
+          "draft_count": 0,
+          "duplicate_count": 0,
+          "published_count": 0,
+          "reject_count": 0,
+          "total_evidence": 0
+        },
+        "feedback_action": "already_in_pool",
+        "published_count": 0,
+        "reasons": [
+          "already tracked in community_pool"
+        ],
+        "reject_count": 0,
+        "risks": [
+          "no_signal_yet"
+        ],
+        "source_scope": "ecommerce-sellers",
+        "suggested_user_tags": [
+          "家居生活选品"
+        ],
+        "topic_cluster": "outdoor",
+        "value_assessment": {
+          "positive_signals": [
+            "interest_tag_mapping"
+          ],
+          "risks": [],
+          "score": 0,
+          "stage": "already_in_pool"
+        }
+      },
+      {
+        "already_in_pool": true,
+        "candidate_count": 2,
+        "community": "r/etsy",
+        "draft_count": 0,
+        "duplicate_count": 0,
+        "evidence": {
+          "candidate_count": 2,
+          "draft_count": 0,
+          "duplicate_count": 0,
+          "published_count": 4,
+          "reject_count": 0,
+          "total_evidence": 6
+        },
+        "feedback_action": "already_in_pool",
+        "published_count": 4,
+        "reasons": [
+          "already tracked in community_pool"
+        ],
+        "reject_count": 0,
+        "risks": [],
+        "source_scope": "ecommerce-sellers",
+        "suggested_user_tags": [
+          "卖家店铺运营"
+        ],
+        "topic_cluster": "seller-category-direction",
+        "value_assessment": {
+          "positive_signals": [
+            "candidate_evidence",
+            "published_evidence",
+            "interest_tag_mapping",
+            "new_topic_coverage"
+          ],
+          "risks": [],
+          "score": 100,
+          "stage": "already_in_pool"
+        }
+      },
+      {
+        "already_in_pool": true,
+        "candidate_count": 3,
+        "community": "r/ebayselleradvice",
+        "draft_count": 0,
+        "duplicate_count": 1,
+        "evidence": {
+          "candidate_count": 3,
+          "draft_count": 0,
+          "duplicate_count": 1,
+          "published_count": 11,
+          "reject_count": 0,
+          "total_evidence": 14
+        },
+        "feedback_action": "already_in_pool",
+        "published_count": 11,
+        "reasons": [
+          "already tracked in community_pool"
+        ],
+        "reject_count": 0,
+        "risks": [
+          "duplicate_posts"
+        ],
+        "source_scope": "ecommerce-sellers",
+        "suggested_user_tags": [
+          "卖家店铺运营"
+        ],
+        "topic_cluster": "seller-category-direction",
+        "value_assessment": {
+          "positive_signals": [
+            "candidate_evidence",
+            "published_evidence",
+            "interest_tag_mapping",
+            "new_topic_coverage"
+          ],
+          "risks": [
+            "duplicate_posts"
+          ],
+          "score": 100,
+          "stage": "already_in_pool"
+        }
+      },
+      {
+        "already_in_pool": false,
+        "candidate_count": 0,
+        "community": "r/ebaysellers",
+        "draft_count": 0,
+        "duplicate_count": 0,
+        "evidence": {
+          "candidate_count": 0,
+          "draft_count": 0,
+          "duplicate_count": 0,
+          "published_count": 4,
+          "reject_count": 0,
+          "total_evidence": 4
+        },
+        "feedback_action": "promote_candidate",
+        "published_count": 4,
+        "reasons": [
+          "Hotpost probe has publishable evidence"
+        ],
+        "reject_count": 0,
+        "risks": [],
+        "source_scope": "ecommerce-sellers",
+        "suggested_user_tags": [
+          "卖家店铺运营"
+        ],
+        "topic_cluster": "seller-category-direction",
+        "value_assessment": {
+          "positive_signals": [
+            "published_evidence",
+            "interest_tag_mapping",
+            "new_topic_coverage"
+          ],
+          "risks": [],
+          "score": 100,
+          "stage": "pool_candidate"
+        }
+      },
+      {
+        "already_in_pool": true,
+        "candidate_count": 0,
+        "community": "r/flipping",
+        "draft_count": 0,
+        "duplicate_count": 0,
+        "evidence": {
+          "candidate_count": 0,
+          "draft_count": 0,
+          "duplicate_count": 0,
+          "published_count": 6,
+          "reject_count": 0,
+          "total_evidence": 6
+        },
+        "feedback_action": "already_in_pool",
+        "published_count": 6,
+        "reasons": [
+          "already tracked in community_pool"
+        ],
+        "reject_count": 0,
+        "risks": [],
+        "source_scope": "ecommerce-sellers",
+        "suggested_user_tags": [
+          "卖家店铺运营"
+        ],
+        "topic_cluster": "seller-category-direction",
+        "value_assessment": {
+          "positive_signals": [
+            "published_evidence",
+            "interest_tag_mapping",
+            "new_topic_coverage"
+          ],
+          "risks": [],
+          "score": 100,
+          "stage": "already_in_pool"
+        }
+      },
+      {
+        "already_in_pool": false,
+        "candidate_count": 0,
+        "community": "r/reselling",
+        "draft_count": 0,
+        "duplicate_count": 0,
+        "evidence": {
+          "candidate_count": 0,
+          "draft_count": 0,
+          "duplicate_count": 0,
+          "published_count": 4,
+          "reject_count": 0,
+          "total_evidence": 4
+        },
+        "feedback_action": "promote_candidate",
+        "published_count": 4,
+        "reasons": [
+          "Hotpost probe has publishable evidence"
+        ],
+        "reject_count": 0,
+        "risks": [],
+        "source_scope": "ecommerce-sellers",
+        "suggested_user_tags": [
+          "卖家店铺运营"
+        ],
+        "topic_cluster": "seller-category-direction",
+        "value_assessment": {
+          "positive_signals": [
+            "published_evidence",
+            "interest_tag_mapping",
+            "new_topic_coverage"
+          ],
+          "risks": [],
+          "score": 100,
+          "stage": "pool_candidate"
+        }
+      },
+      {
+        "already_in_pool": true,
+        "candidate_count": 3,
+        "community": "r/ebayselleradvice",
+        "draft_count": 0,
+        "duplicate_count": 1,
+        "evidence": {
+          "candidate_count": 3,
+          "draft_count": 0,
+          "duplicate_count": 1,
+          "published_count": 11,
+          "reject_count": 0,
+          "total_evidence": 14
+        },
+        "feedback_action": "already_in_pool",
+        "published_count": 11,
+        "reasons": [
+          "already tracked in community_pool"
+        ],
+        "reject_count": 0,
+        "risks": [
+          "duplicate_posts"
+        ],
+        "source_scope": "ecommerce-sellers",
+        "suggested_user_tags": [
+          "电商平台政策与风向",
+          "卖家店铺运营"
+        ],
+        "topic_cluster": "unit-economics-and-platform-risk",
+        "value_assessment": {
+          "positive_signals": [
+            "candidate_evidence",
+            "published_evidence",
+            "interest_tag_mapping",
+            "new_topic_coverage"
+          ],
+          "risks": [
+            "duplicate_posts"
+          ],
+          "score": 100,
+          "stage": "already_in_pool"
+        }
+      },
+      {
+        "already_in_pool": false,
+        "candidate_count": 0,
+        "community": "r/ebaysellers",
+        "draft_count": 0,
+        "duplicate_count": 0,
+        "evidence": {
+          "candidate_count": 0,
+          "draft_count": 0,
+          "duplicate_count": 0,
+          "published_count": 4,
+          "reject_count": 0,
+          "total_evidence": 4
+        },
+        "feedback_action": "promote_candidate",
+        "published_count": 4,
+        "reasons": [
+          "Hotpost probe has publishable evidence"
+        ],
+        "reject_count": 0,
+        "risks": [],
+        "source_scope": "ecommerce-sellers",
+        "suggested_user_tags": [
+          "电商平台政策与风向",
+          "卖家店铺运营"
+        ],
+        "topic_cluster": "unit-economics-and-platform-risk",
+        "value_assessment": {
+          "positive_signals": [
+            "published_evidence",
+            "interest_tag_mapping",
+            "new_topic_coverage"
+          ],
+          "risks": [],
+          "score": 100,
+          "stage": "pool_candidate"
+        }
+      },
+      {
+        "already_in_pool": true,
+        "candidate_count": 0,
+        "community": "r/flipping",
+        "draft_count": 0,
+        "duplicate_count": 0,
+        "evidence": {
+          "candidate_count": 0,
+          "draft_count": 0,
+          "duplicate_count": 0,
+          "published_count": 6,
+          "reject_count": 0,
+          "total_evidence": 6
+        },
+        "feedback_action": "already_in_pool",
+        "published_count": 6,
+        "reasons": [
+          "already tracked in community_pool"
+        ],
+        "reject_count": 0,
+        "risks": [],
+        "source_scope": "ecommerce-sellers",
+        "suggested_user_tags": [
+          "电商平台政策与风向",
+          "卖家店铺运营"
+        ],
+        "topic_cluster": "unit-economics-and-platform-risk",
+        "value_assessment": {
+          "positive_signals": [
+            "published_evidence",
+            "interest_tag_mapping",
+            "new_topic_coverage"
+          ],
+          "risks": [],
+          "score": 100,
+          "stage": "already_in_pool"
+        }
+      },
+      {
+        "already_in_pool": false,
+        "candidate_count": 0,
+        "community": "r/reselling",
+        "draft_count": 0,
+        "duplicate_count": 0,
+        "evidence": {
+          "candidate_count": 0,
+          "draft_count": 0,
+          "duplicate_count": 0,
+          "published_count": 4,
+          "reject_count": 0,
+          "total_evidence": 4
+        },
+        "feedback_action": "promote_candidate",
+        "published_count": 4,
+        "reasons": [
+          "Hotpost probe has publishable evidence"
+        ],
+        "reject_count": 0,
+        "risks": [],
+        "source_scope": "ecommerce-sellers",
+        "suggested_user_tags": [
+          "电商平台政策与风向",
+          "卖家店铺运营"
+        ],
+        "topic_cluster": "unit-economics-and-platform-risk",
+        "value_assessment": {
+          "positive_signals": [
+            "published_evidence",
+            "interest_tag_mapping",
+            "new_topic_coverage"
+          ],
+          "risks": [],
+          "score": 100,
+          "stage": "pool_candidate"
+        }
+      },
+      {
+        "already_in_pool": true,
+        "candidate_count": 1,
+        "community": "r/digital_marketing",
+        "draft_count": 0,
+        "duplicate_count": 0,
+        "evidence": {
+          "candidate_count": 1,
+          "draft_count": 0,
+          "duplicate_count": 0,
+          "published_count": 0,
+          "reject_count": 0,
+          "total_evidence": 1
+        },
+        "feedback_action": "already_in_pool",
+        "published_count": 0,
+        "reasons": [
+          "already tracked in community_pool"
+        ],
+        "reject_count": 0,
+        "risks": [
+          "not_published_yet"
+        ],
+        "source_scope": "business-growth-ops",
+        "suggested_user_tags": [
+          "SEO&GEO"
+        ],
+        "topic_cluster": "seo-geo",
+        "value_assessment": {
+          "positive_signals": [
+            "candidate_evidence",
+            "interest_tag_mapping",
+            "new_topic_coverage"
+          ],
+          "risks": [],
+          "score": 23,
+          "stage": "already_in_pool"
+        }
+      },
+      {
+        "already_in_pool": true,
+        "candidate_count": 0,
+        "community": "r/aeo",
+        "draft_count": 0,
+        "duplicate_count": 0,
+        "evidence": {
+          "candidate_count": 0,
+          "draft_count": 0,
+          "duplicate_count": 0,
+          "published_count": 13,
+          "reject_count": 0,
+          "total_evidence": 13
+        },
+        "feedback_action": "already_in_pool",
+        "published_count": 13,
+        "reasons": [
+          "already tracked in community_pool"
+        ],
+        "reject_count": 0,
+        "risks": [],
+        "source_scope": "business-growth-ops",
+        "suggested_user_tags": [
+          "SEO&GEO"
+        ],
+        "topic_cluster": "seo-geo",
+        "value_assessment": {
+          "positive_signals": [
+            "published_evidence",
+            "interest_tag_mapping",
+            "new_topic_coverage"
+          ],
+          "risks": [],
+          "score": 100,
+          "stage": "already_in_pool"
+        }
+      },
+      {
+        "already_in_pool": true,
+        "candidate_count": 1,
+        "community": "r/ai_ugc_marketing",
+        "draft_count": 0,
+        "duplicate_count": 0,
+        "evidence": {
+          "candidate_count": 1,
+          "draft_count": 0,
+          "duplicate_count": 0,
+          "published_count": 4,
+          "reject_count": 0,
+          "total_evidence": 5
+        },
+        "feedback_action": "already_in_pool",
+        "published_count": 4,
+        "reasons": [
+          "already tracked in community_pool"
+        ],
+        "reject_count": 0,
+        "risks": [],
+        "source_scope": "business-growth-ops",
+        "suggested_user_tags": [
+          "广告投放",
+          "卖家店铺运营",
+          "内容营销创作"
+        ],
+        "topic_cluster": "funnel",
+        "value_assessment": {
+          "positive_signals": [
+            "candidate_evidence",
+            "published_evidence",
+            "interest_tag_mapping",
+            "new_topic_coverage"
+          ],
+          "risks": [],
+          "score": 100,
+          "stage": "already_in_pool"
+        }
+      },
+      {
+        "already_in_pool": true,
+        "candidate_count": 2,
+        "community": "r/growthhacking",
+        "draft_count": 0,
+        "duplicate_count": 1,
+        "evidence": {
+          "candidate_count": 2,
+          "draft_count": 0,
+          "duplicate_count": 1,
+          "published_count": 3,
+          "reject_count": 0,
+          "total_evidence": 5
+        },
+        "feedback_action": "already_in_pool",
+        "published_count": 3,
+        "reasons": [
+          "already tracked in community_pool"
+        ],
+        "reject_count": 0,
+        "risks": [
+          "duplicate_posts"
+        ],
+        "source_scope": "business-growth-ops",
+        "suggested_user_tags": [
+          "广告投放",
+          "卖家店铺运营",
+          "内容营销创作"
+        ],
+        "topic_cluster": "funnel",
+        "value_assessment": {
+          "positive_signals": [
+            "candidate_evidence",
+            "published_evidence",
+            "interest_tag_mapping",
+            "new_topic_coverage"
+          ],
+          "risks": [
+            "duplicate_posts"
+          ],
+          "score": 100,
+          "stage": "already_in_pool"
+        }
+      },
+      {
+        "already_in_pool": false,
+        "candidate_count": 0,
+        "community": "r/marketingautomation",
+        "draft_count": 0,
+        "duplicate_count": 0,
+        "evidence": {
+          "candidate_count": 0,
+          "draft_count": 0,
+          "duplicate_count": 0,
+          "published_count": 0,
+          "reject_count": 0,
+          "total_evidence": 0
+        },
+        "feedback_action": "keep_testing",
+        "published_count": 0,
+        "reasons": [
+          "no probe evidence yet"
+        ],
+        "reject_count": 0,
+        "risks": [
+          "no_signal_yet"
+        ],
+        "source_scope": "business-growth-ops",
+        "suggested_user_tags": [
+          "广告投放",
+          "卖家店铺运营",
+          "内容营销创作"
+        ],
+        "topic_cluster": "funnel",
+        "value_assessment": {
+          "positive_signals": [
+            "interest_tag_mapping"
+          ],
+          "risks": [],
+          "score": 0,
+          "stage": "observe"
+        }
+      },
+      {
+        "already_in_pool": false,
+        "candidate_count": 0,
+        "community": "r/conversionrateoptimization",
+        "draft_count": 0,
+        "duplicate_count": 0,
+        "evidence": {
+          "candidate_count": 0,
+          "draft_count": 0,
+          "duplicate_count": 0,
+          "published_count": 0,
+          "reject_count": 0,
+          "total_evidence": 0
+        },
+        "feedback_action": "keep_testing",
+        "published_count": 0,
+        "reasons": [
+          "no probe evidence yet"
+        ],
+        "reject_count": 0,
+        "risks": [
+          "no_signal_yet"
+        ],
+        "source_scope": "business-growth-ops",
+        "suggested_user_tags": [
+          "广告投放",
+          "卖家店铺运营",
+          "内容营销创作"
+        ],
+        "topic_cluster": "funnel",
+        "value_assessment": {
+          "positive_signals": [
+            "interest_tag_mapping"
+          ],
+          "risks": [],
+          "score": 0,
+          "stage": "observe"
+        }
+      },
+      {
+        "already_in_pool": false,
+        "candidate_count": 0,
+        "community": "r/shopifydevs",
+        "draft_count": 0,
+        "duplicate_count": 0,
+        "evidence": {
+          "candidate_count": 0,
+          "draft_count": 0,
+          "duplicate_count": 0,
+          "published_count": 0,
+          "reject_count": 0,
+          "total_evidence": 0
+        },
+        "feedback_action": "keep_testing",
+        "published_count": 0,
+        "reasons": [
+          "no probe evidence yet"
+        ],
+        "reject_count": 0,
+        "risks": [
+          "no_signal_yet"
+        ],
+        "source_scope": "business-growth-ops",
+        "suggested_user_tags": [
+          "广告投放",
+          "卖家店铺运营",
+          "内容营销创作"
+        ],
+        "topic_cluster": "funnel",
+        "value_assessment": {
+          "positive_signals": [
+            "interest_tag_mapping"
+          ],
+          "risks": [],
+          "score": 0,
+          "stage": "observe"
+        }
+      }
+    ],
+    "schema_version": "hotpost-community-pool-feedback-dry-run/v1",
+    "source_audit_schema": "hotpost-community-discovery-audit/v1",
+    "summary": {
+      "already_in_pool": 12,
+      "input_rows": 24,
+      "keep_testing": 8,
+      "promote_candidate": 4,
+      "reject": 0
+    }
+  },
+  "report_date": "2026-05-24",
+  "schema_version": "hotpost-community-exploration-loop/v1",
+  "stage": "post",
+  "standard_reports": {
+    "audit_json": "/Users/hujia/Desktop/RedditSignalScanner/reports/community-governance/community-discovery-audit-2026-05-24.json",
+    "feedback_json": "/Users/hujia/Desktop/RedditSignalScanner/reports/community-governance/community-pool-feedback-dry-run-2026-05-24.json",
+    "feedback_md": "/Users/hujia/Desktop/RedditSignalScanner/reports/community-governance/community-pool-feedback-dry-run-2026-05-24.md"
+  },
+  "summary": {
+    "already_in_pool": 12,
+    "audit_rows": 24,
+    "keep_testing": 8,
+    "promote_candidate": 4,
+    "reject": 0
+  }
+}

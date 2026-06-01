@@ -1,0 +1,654 @@
+{
+  "contracts": {
+    "auto_promote": false,
+    "default_daily_collect_includes_experimental": false,
+    "experimental_candidate_store": "backend/data/hotpost/experimental_candidates/<scope>.json",
+    "experimental_communities_are_probe_only": true,
+    "writes_db": false
+  },
+  "report_date": "2026-05-22",
+  "rows": [
+    {
+      "collected_candidates": 0,
+      "community": "cursorai",
+      "draft_count": 0,
+      "duplicate_count": 0,
+      "new_topic_count": 1,
+      "noise_notes": "",
+      "published_count": 1,
+      "reject_count": 0,
+      "scope_id": "ai-automation",
+      "semantic_feedback": {
+        "frequent_entities": [],
+        "pain_solution_tags": [
+          "趋势变化"
+        ],
+        "product_tags": [
+          "AI 工作流"
+        ],
+        "sample_titles": [
+          "Cursor 深度用户，不再只靠 rules，需存储 AI 失败经验"
+        ]
+      },
+      "suggested_action": "keep_testing",
+      "topic_cluster_id": "workflow-friction"
+    },
+    {
+      "collected_candidates": 0,
+      "community": "windsurf",
+      "draft_count": 0,
+      "duplicate_count": 0,
+      "new_topic_count": 0,
+      "noise_notes": "no_signal_yet",
+      "published_count": 0,
+      "reject_count": 0,
+      "scope_id": "ai-automation",
+      "semantic_feedback": {
+        "frequent_entities": [],
+        "pain_solution_tags": [],
+        "product_tags": [],
+        "sample_titles": []
+      },
+      "suggested_action": "keep_testing",
+      "topic_cluster_id": "workflow-friction"
+    },
+    {
+      "collected_candidates": 0,
+      "community": "aider",
+      "draft_count": 0,
+      "duplicate_count": 0,
+      "new_topic_count": 0,
+      "noise_notes": "no_signal_yet",
+      "published_count": 0,
+      "reject_count": 0,
+      "scope_id": "ai-automation",
+      "semantic_feedback": {
+        "frequent_entities": [],
+        "pain_solution_tags": [],
+        "product_tags": [],
+        "sample_titles": []
+      },
+      "suggested_action": "keep_testing",
+      "topic_cluster_id": "workflow-friction"
+    },
+    {
+      "collected_candidates": 0,
+      "community": "openrouter",
+      "draft_count": 0,
+      "duplicate_count": 0,
+      "new_topic_count": 0,
+      "noise_notes": "no_signal_yet",
+      "published_count": 0,
+      "reject_count": 0,
+      "scope_id": "ai-automation",
+      "semantic_feedback": {
+        "frequent_entities": [],
+        "pain_solution_tags": [],
+        "product_tags": [],
+        "sample_titles": []
+      },
+      "suggested_action": "keep_testing",
+      "topic_cluster_id": "workflow-friction"
+    },
+    {
+      "collected_candidates": 1,
+      "community": "heronebag",
+      "draft_count": 0,
+      "duplicate_count": 0,
+      "new_topic_count": 1,
+      "noise_notes": "not_published_yet",
+      "published_count": 0,
+      "reject_count": 0,
+      "scope_id": "ecommerce-sellers",
+      "semantic_feedback": {
+        "frequent_entities": [
+          "too bulky",
+          "how do i clean pet hair in a small apartment"
+        ],
+        "pain_solution_tags": [
+          "求推荐",
+          "避坑",
+          "too bulky",
+          "how do i clean pet hair in a small apartment"
+        ],
+        "product_tags": [
+          "户外用品选品"
+        ],
+        "sample_titles": [
+          "Trip Report: 2 weeks Germany-Austria (wheelchair user)"
+        ]
+      },
+      "suggested_action": "keep_testing",
+      "topic_cluster_id": "outdoor"
+    },
+    {
+      "collected_candidates": 2,
+      "community": "bikepacking",
+      "draft_count": 0,
+      "duplicate_count": 1,
+      "new_topic_count": 1,
+      "noise_notes": "duplicate_posts, not_published_yet",
+      "published_count": 0,
+      "reject_count": 0,
+      "scope_id": "ecommerce-sellers",
+      "semantic_feedback": {
+        "frequent_entities": [
+          "gear i replaced",
+          "too bulky",
+          "how do i clean pet hair in a small apartment"
+        ],
+        "pain_solution_tags": [
+          "替换",
+          "gear i replaced",
+          "求推荐",
+          "避坑",
+          "too bulky",
+          "how do i clean pet hair in a small apartment"
+        ],
+        "product_tags": [
+          "户外用品选品"
+        ],
+        "sample_titles": [
+          "Bikepacking boo-boo, advice please?",
+          "Bikepacking boo-boo, advice please?"
+        ]
+      },
+      "suggested_action": "keep_testing",
+      "topic_cluster_id": "outdoor"
+    },
+    {
+      "collected_candidates": 0,
+      "community": "trailrunning",
+      "draft_count": 0,
+      "duplicate_count": 0,
+      "new_topic_count": 0,
+      "noise_notes": "no_signal_yet",
+      "published_count": 0,
+      "reject_count": 0,
+      "scope_id": "ecommerce-sellers",
+      "semantic_feedback": {
+        "frequent_entities": [],
+        "pain_solution_tags": [],
+        "product_tags": [],
+        "sample_titles": []
+      },
+      "suggested_action": "keep_testing",
+      "topic_cluster_id": "outdoor"
+    },
+    {
+      "collected_candidates": 0,
+      "community": "campingandhiking",
+      "draft_count": 0,
+      "duplicate_count": 0,
+      "new_topic_count": 0,
+      "noise_notes": "no_signal_yet",
+      "published_count": 0,
+      "reject_count": 0,
+      "scope_id": "ecommerce-sellers",
+      "semantic_feedback": {
+        "frequent_entities": [],
+        "pain_solution_tags": [],
+        "product_tags": [],
+        "sample_titles": []
+      },
+      "suggested_action": "keep_testing",
+      "topic_cluster_id": "outdoor"
+    },
+    {
+      "collected_candidates": 2,
+      "community": "etsy",
+      "draft_count": 0,
+      "duplicate_count": 0,
+      "new_topic_count": 2,
+      "noise_notes": "",
+      "published_count": 4,
+      "reject_count": 0,
+      "scope_id": "ecommerce-sellers",
+      "semantic_feedback": {
+        "frequent_entities": [
+          "custom-topic"
+        ],
+        "pain_solution_tags": [
+          "趋势变化",
+          "替换",
+          "避坑"
+        ],
+        "product_tags": [],
+        "sample_titles": [
+          "Share Your Stuff - May 18th thru 24th, 2026",
+          "Didn't receive $500 ring",
+          "Etsy 卖家确认买家普遍跳过商品图片和描述",
+          "Etsy 卖家抱怨自动退款，同行指出应先调处理时间和追踪",
+          "Etsy 买家开始从边缘渗色和花瓣变异识别 AI 生成插画"
+        ]
+      },
+      "suggested_action": "promote_candidate",
+      "topic_cluster_id": "seller-category-direction"
+    },
+    {
+      "collected_candidates": 3,
+      "community": "ebayselleradvice",
+      "draft_count": 0,
+      "duplicate_count": 1,
+      "new_topic_count": 2,
+      "noise_notes": "duplicate_posts",
+      "published_count": 11,
+      "reject_count": 0,
+      "scope_id": "ecommerce-sellers",
+      "semantic_feedback": {
+        "frequent_entities": [
+          "sku-ebay-7d-resale-refurbished",
+          "custom-topic"
+        ],
+        "pain_solution_tags": [
+          "趋势变化",
+          "避坑",
+          "求推荐",
+          "替换"
+        ],
+        "product_tags": [],
+        "sample_titles": [
+          "Buyer wants to return watch as 'faulty' or get £700 refund",
+          "I had an item canceled due to something called intellectual property policy.",
+          "Buyer wants to return watch as 'faulty' or get £700 refund",
+          "eBay 卖家开始用重量收据和买家自拍应对“发错货”投诉",
+          "eBay 卖家开始把买家质量下降归因于 Facebook 引流合作"
+        ]
+      },
+      "suggested_action": "promote_candidate",
+      "topic_cluster_id": "seller-category-direction"
+    },
+    {
+      "collected_candidates": 0,
+      "community": "ebaysellers",
+      "draft_count": 0,
+      "duplicate_count": 0,
+      "new_topic_count": 2,
+      "noise_notes": "",
+      "published_count": 4,
+      "reject_count": 0,
+      "scope_id": "ecommerce-sellers",
+      "semantic_feedback": {
+        "frequent_entities": [
+          "sku-ebay-7d-resale-refurbished",
+          "custom-topic"
+        ],
+        "pain_solution_tags": [
+          "避坑",
+          "求推荐"
+        ],
+        "product_tags": [],
+        "sample_titles": [
+          "eBay 卖家卖高价笔记本，定价前先查成交记录",
+          "eBay 卖家未拿扫描回执，100美元包裹在邮局丢失无法追责",
+          "eBay 卖家遭平台鉴定损坏货物后因表达不清证据不足维权受阻",
+          "eBay 卖家未开启自动接受报价，商品却低价成交，怀疑平台 Bug"
+        ]
+      },
+      "suggested_action": "promote_candidate",
+      "topic_cluster_id": "seller-category-direction"
+    },
+    {
+      "collected_candidates": 0,
+      "community": "flipping",
+      "draft_count": 0,
+      "duplicate_count": 0,
+      "new_topic_count": 3,
+      "noise_notes": "",
+      "published_count": 6,
+      "reject_count": 0,
+      "scope_id": "ecommerce-sellers",
+      "semantic_feedback": {
+        "frequent_entities": [
+          "sku-ebay-7d-resale-refurbished"
+        ],
+        "pain_solution_tags": [
+          "趋势变化"
+        ],
+        "product_tags": [],
+        "sample_titles": [
+          "二手卖家定价不再逐平台找最优，直接以 eBay 成交价为基准",
+          "eBay 卖家吐槽买家退货总拖到最后一刻才寄出",
+          "二手卖家遭买家以老弱病残为由要求退货，社区定性为紧迫感诈骗",
+          "二手卖家在描述中坦白大麻味，以此规避退货纠纷",
+          "二手卖家收到退货申请，先排查是否调包再退款"
+        ]
+      },
+      "suggested_action": "promote_candidate",
+      "topic_cluster_id": "seller-category-direction"
+    },
+    {
+      "collected_candidates": 0,
+      "community": "reselling",
+      "draft_count": 0,
+      "duplicate_count": 0,
+      "new_topic_count": 3,
+      "noise_notes": "",
+      "published_count": 4,
+      "reject_count": 0,
+      "scope_id": "ecommerce-sellers",
+      "semantic_feedback": {
+        "frequent_entities": [
+          "sku-ebay-7d-resale-refurbished"
+        ],
+        "pain_solution_tags": [
+          "避坑",
+          "趋势变化",
+          "求推荐"
+        ],
+        "product_tags": [],
+        "sample_titles": [
+          "二手卖家斥直播带货掠夺性，质疑社区热帖为 AI 生成",
+          "转卖者穿后带标退货，二手平台5倍加价激怒同行",
+          "转售老手教新人：先把物流和采购工具配好，再谈卖什么",
+          "Depop 和 eBay 卖家开始无视定价建议，转向手动查价"
+        ]
+      },
+      "suggested_action": "promote_candidate",
+      "topic_cluster_id": "seller-category-direction"
+    },
+    {
+      "collected_candidates": 3,
+      "community": "ebayselleradvice",
+      "draft_count": 0,
+      "duplicate_count": 1,
+      "new_topic_count": 2,
+      "noise_notes": "duplicate_posts",
+      "published_count": 11,
+      "reject_count": 0,
+      "scope_id": "ecommerce-sellers",
+      "semantic_feedback": {
+        "frequent_entities": [
+          "sku-ebay-7d-resale-refurbished",
+          "custom-topic"
+        ],
+        "pain_solution_tags": [
+          "趋势变化",
+          "避坑",
+          "求推荐",
+          "替换"
+        ],
+        "product_tags": [],
+        "sample_titles": [
+          "Buyer wants to return watch as 'faulty' or get £700 refund",
+          "I had an item canceled due to something called intellectual property policy.",
+          "Buyer wants to return watch as 'faulty' or get £700 refund",
+          "eBay 卖家开始用重量收据和买家自拍应对“发错货”投诉",
+          "eBay 卖家开始把买家质量下降归因于 Facebook 引流合作"
+        ]
+      },
+      "suggested_action": "promote_candidate",
+      "topic_cluster_id": "unit-economics-and-platform-risk"
+    },
+    {
+      "collected_candidates": 0,
+      "community": "ebaysellers",
+      "draft_count": 0,
+      "duplicate_count": 0,
+      "new_topic_count": 2,
+      "noise_notes": "",
+      "published_count": 4,
+      "reject_count": 0,
+      "scope_id": "ecommerce-sellers",
+      "semantic_feedback": {
+        "frequent_entities": [
+          "sku-ebay-7d-resale-refurbished",
+          "custom-topic"
+        ],
+        "pain_solution_tags": [
+          "避坑",
+          "求推荐"
+        ],
+        "product_tags": [],
+        "sample_titles": [
+          "eBay 卖家卖高价笔记本，定价前先查成交记录",
+          "eBay 卖家未拿扫描回执，100美元包裹在邮局丢失无法追责",
+          "eBay 卖家遭平台鉴定损坏货物后因表达不清证据不足维权受阻",
+          "eBay 卖家未开启自动接受报价，商品却低价成交，怀疑平台 Bug"
+        ]
+      },
+      "suggested_action": "promote_candidate",
+      "topic_cluster_id": "unit-economics-and-platform-risk"
+    },
+    {
+      "collected_candidates": 0,
+      "community": "flipping",
+      "draft_count": 0,
+      "duplicate_count": 0,
+      "new_topic_count": 3,
+      "noise_notes": "",
+      "published_count": 6,
+      "reject_count": 0,
+      "scope_id": "ecommerce-sellers",
+      "semantic_feedback": {
+        "frequent_entities": [
+          "sku-ebay-7d-resale-refurbished"
+        ],
+        "pain_solution_tags": [
+          "趋势变化"
+        ],
+        "product_tags": [],
+        "sample_titles": [
+          "二手卖家定价不再逐平台找最优，直接以 eBay 成交价为基准",
+          "eBay 卖家吐槽买家退货总拖到最后一刻才寄出",
+          "二手卖家遭买家以老弱病残为由要求退货，社区定性为紧迫感诈骗",
+          "二手卖家在描述中坦白大麻味，以此规避退货纠纷",
+          "二手卖家收到退货申请，先排查是否调包再退款"
+        ]
+      },
+      "suggested_action": "promote_candidate",
+      "topic_cluster_id": "unit-economics-and-platform-risk"
+    },
+    {
+      "collected_candidates": 0,
+      "community": "reselling",
+      "draft_count": 0,
+      "duplicate_count": 0,
+      "new_topic_count": 3,
+      "noise_notes": "",
+      "published_count": 4,
+      "reject_count": 0,
+      "scope_id": "ecommerce-sellers",
+      "semantic_feedback": {
+        "frequent_entities": [
+          "sku-ebay-7d-resale-refurbished"
+        ],
+        "pain_solution_tags": [
+          "避坑",
+          "趋势变化",
+          "求推荐"
+        ],
+        "product_tags": [],
+        "sample_titles": [
+          "二手卖家斥直播带货掠夺性，质疑社区热帖为 AI 生成",
+          "转卖者穿后带标退货，二手平台5倍加价激怒同行",
+          "转售老手教新人：先把物流和采购工具配好，再谈卖什么",
+          "Depop 和 eBay 卖家开始无视定价建议，转向手动查价"
+        ]
+      },
+      "suggested_action": "promote_candidate",
+      "topic_cluster_id": "unit-economics-and-platform-risk"
+    },
+    {
+      "collected_candidates": 0,
+      "community": "digital_marketing",
+      "draft_count": 0,
+      "duplicate_count": 0,
+      "new_topic_count": 0,
+      "noise_notes": "no_signal_yet",
+      "published_count": 0,
+      "reject_count": 0,
+      "scope_id": "business-growth-ops",
+      "semantic_feedback": {
+        "frequent_entities": [],
+        "pain_solution_tags": [],
+        "product_tags": [],
+        "sample_titles": []
+      },
+      "suggested_action": "keep_testing",
+      "topic_cluster_id": "seo-geo"
+    },
+    {
+      "collected_candidates": 0,
+      "community": "aeo",
+      "draft_count": 0,
+      "duplicate_count": 0,
+      "new_topic_count": 1,
+      "noise_notes": "",
+      "published_count": 12,
+      "reject_count": 0,
+      "scope_id": "business-growth-ops",
+      "semantic_feedback": {
+        "frequent_entities": [
+          "custom-topic"
+        ],
+        "pain_solution_tags": [
+          "求推荐",
+          "避坑",
+          "趋势变化",
+          "替换"
+        ],
+        "product_tags": [
+          "GEO / AI 搜索"
+        ],
+        "sample_titles": [
+          "营销者发现，AI 推荐品牌不再只数引用次数，更看上下文和权威度",
+          "SEO 负责人改看品牌提及率和 AI 声量，不再等标准衡量工具",
+          "社区版主开始紧盯“非真实提及”，怕被 Google 新规惩罚",
+          "美国营销人争论 AEO 与 GEO 差异：是答案优化，还是 LLM 引用？",
+          "网站运营者改用服务器日志追踪 AI 爬虫，放弃前端 JS 埋点"
+        ]
+      },
+      "suggested_action": "promote_candidate",
+      "topic_cluster_id": "seo-geo"
+    },
+    {
+      "collected_candidates": 2,
+      "community": "ai_ugc_marketing",
+      "draft_count": 0,
+      "duplicate_count": 1,
+      "new_topic_count": 1,
+      "noise_notes": "duplicate_posts",
+      "published_count": 4,
+      "reject_count": 0,
+      "scope_id": "business-growth-ops",
+      "semantic_feedback": {
+        "frequent_entities": [
+          "custom-topic",
+          "started using ai ugc video"
+        ],
+        "pain_solution_tags": [
+          "趋势变化",
+          "求推荐",
+          "started using ai ugc video",
+          "避坑"
+        ],
+        "product_tags": [
+          "转化链路"
+        ],
+        "sample_titles": [
+          "Tired of Upwork/Fiverr middlemen. Where do you find direct clients as an AI video creator?",
+          "Tired of Upwork/Fiverr middlemen. Where do you find direct clients as an AI video creator?",
+          "AI 护肤广告露出三只手，评论却说动态剪辑更关键",
+          "AI 生成的手袋开箱视频，评价焦点从画质转向开箱仪式感与动作逻辑",
+          "AI 广告创作者发现，每拍12词是跨镜头角色一致的关键参数"
+        ]
+      },
+      "suggested_action": "promote_candidate",
+      "topic_cluster_id": "funnel"
+    },
+    {
+      "collected_candidates": 1,
+      "community": "growthhacking",
+      "draft_count": 0,
+      "duplicate_count": 0,
+      "new_topic_count": 2,
+      "noise_notes": "",
+      "published_count": 3,
+      "reject_count": 0,
+      "scope_id": "business-growth-ops",
+      "semantic_feedback": {
+        "frequent_entities": [
+          "custom-topic",
+          "started using ai ugc video"
+        ],
+        "pain_solution_tags": [
+          "避坑",
+          "趋势变化",
+          "求推荐",
+          "started using ai ugc video"
+        ],
+        "product_tags": [
+          "转化链路",
+          "GEO / AI 搜索"
+        ],
+        "sample_titles": [
+          "How did I make a SaaS at age 15 as a highschool student",
+          "增长负责人发现，只看 GA 和排名会错过 Reddit 上的品牌负面信号",
+          "增长黑客测试发现，直接解答对比问题的内容更易被 LLM 引用",
+          "一名增长黑客把 pSEO 索引症结从 Sitemap 转向内链"
+        ]
+      },
+      "suggested_action": "promote_candidate",
+      "topic_cluster_id": "funnel"
+    },
+    {
+      "collected_candidates": 0,
+      "community": "marketingautomation",
+      "draft_count": 0,
+      "duplicate_count": 0,
+      "new_topic_count": 0,
+      "noise_notes": "no_signal_yet",
+      "published_count": 0,
+      "reject_count": 0,
+      "scope_id": "business-growth-ops",
+      "semantic_feedback": {
+        "frequent_entities": [],
+        "pain_solution_tags": [],
+        "product_tags": [],
+        "sample_titles": []
+      },
+      "suggested_action": "keep_testing",
+      "topic_cluster_id": "funnel"
+    },
+    {
+      "collected_candidates": 0,
+      "community": "conversionrateoptimization",
+      "draft_count": 0,
+      "duplicate_count": 0,
+      "new_topic_count": 0,
+      "noise_notes": "no_signal_yet",
+      "published_count": 0,
+      "reject_count": 0,
+      "scope_id": "business-growth-ops",
+      "semantic_feedback": {
+        "frequent_entities": [],
+        "pain_solution_tags": [],
+        "product_tags": [],
+        "sample_titles": []
+      },
+      "suggested_action": "keep_testing",
+      "topic_cluster_id": "funnel"
+    },
+    {
+      "collected_candidates": 0,
+      "community": "shopifydevs",
+      "draft_count": 0,
+      "duplicate_count": 0,
+      "new_topic_count": 0,
+      "noise_notes": "no_signal_yet",
+      "published_count": 0,
+      "reject_count": 0,
+      "scope_id": "business-growth-ops",
+      "semantic_feedback": {
+        "frequent_entities": [],
+        "pain_solution_tags": [],
+        "product_tags": [],
+        "sample_titles": []
+      },
+      "suggested_action": "keep_testing",
+      "topic_cluster_id": "funnel"
+    }
+  ],
+  "schema_version": "hotpost-community-discovery-audit/v1"
+}

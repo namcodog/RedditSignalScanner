@@ -1,10 +1,30 @@
 # 未完成事项
 
-最后更新：2026-05-14
+最后更新：2026-06-01
 
 ## 当前未完成的项目事项
 
 ### P0
+
+0. Hotpost V13 模型链路稳定性已修，下一轮真实出卡需要验证效果
+   已完成：OpenAI-compatible SDK 请求显式带 `timeout`；`_generate_json()` 增加阶段级硬超时；空响应分类为 `empty_response` 且不再同模型修复；坏 JSON 支持先抽取第一个 JSON object；generation trace 增加 `sub_stages`。
+   当前边界：这轮没有切换模型渠道，也没有做自动 fallback；如果 DeepSeek / Gemini 自身 503 或慢响应，系统现在会更清楚地记录和降级，但不会伪装成成功。
+   下一步：下一轮按运营计划出卡时重点看 `sub_stages`、`error_type`、precheck `REWRITE/BLOCK` 分布和真实 seed 成功率；如果 timeout 已在正常范围，再继续优化 AI 预检规则。
+
+0. Hotpost V13 已接入 AI 预检节点，下一轮真实出卡需要观察误判率
+   已完成：`semantic_brief` 新增 `confidence_level / publish_risk / claim_type / evidence_strength / writer_constraints`；`draft_precheck` 已接入 `generate_card_content()`，输出 `PASS / REWRITE / BLOCK`，并通过 `reports/hotpost-draft-precheck/<draft_id>.json` 和 `review_cards.py show-draft` 进入人工 review 面。
+   当前边界：precheck 只做 report-only，不自动改稿、不自动发布、不改变 queue 排序；预检异常会记为 `REWRITE + precheck_error`，不能当成通过。
+   下一步：下一轮 V13 seed / review 抽样看 `PASS / REWRITE / BLOCK` 分布，重点看它是否能提前拦住证据放大、泛建议和弱主张。
+
+0. 2026-05-26 Hotpost 日运营已完成，下一步进入 2026-05-27 日运营
+   已完成：正式发布 `25` 张，最新快照 `release-30b20d1df3a4`，总卡数 `1185`；同步链、首页 feed contract、copy guard 和 hot 争议图 guard 均通过。运营日志已更新到 `reports/ops-log/2026-05-26.md`。
+   当前边界：`trend audit` 仍为 `rebound`，不能写成 stable。社区探索有 `4` 个 promote candidate，其中 `r/ebaysellers / r/reselling` 只进入 R12 预审候选，不自动写正式池。
+   下一步：2026-05-27 继续 all-scope 日运营，先看 `7d` fresh supply，再按薄领域、品牌舆情、社区探索回流补卡。
+
+0. 2026-05-23/24 Hotpost 两天补发未完整收口，等待 DeepSeek 官方余额恢复
+   已完成：本轮先发出 `15` 张 AI 硬信号和 GEO/AEO 卡，最新快照 `release-d1e9b9f26a29`，总卡数 `1149`；同步链、首页前两张 hot、copy guard 和 hot controversy guard 通过。`/workflows` 被洗成 `/流程 s` 的标题污染已修，并补回归测试。
+   当前阻塞：V13 writer 官方 DeepSeek `deepseek-v4-pro` 返回 `402 Insufficient Balance`，剩余 SKU / eBay / 品牌选品 `12` 个候选无法继续 seed；不能静默换模型。另有 `1tknjcx` 因 hot 争议图 Gemini 503 未发布。
+   下一步：恢复 DeepSeek 官方余额后，继续补 SKU / eBay / 品牌选品候选；不硬发弱 SEO 或泛平台抱怨。
 
 0. Brand Intelligence R16 系统证据包已接入社区推荐解释，下一步审质量并接 Hotpost 上下文
    已完成：主系统品牌收录第一层已经接入已发布 Hotpost 卡、语义库、初始品牌表、历史 archive 品牌包和噪音词表；R15.2 已新增 Dev DB `brand_registry / brand_mentions` 并显式写入；R15.3 已把品牌 digest、质量审查、sidecar 报告和语义审核队列接进日常运营后置动作；R15.4 已补只读服务、API 和预览命令。
@@ -427,6 +447,9 @@
 
 ## 下一步要完成的事情
 
+0. 2026-06-01 本轮已完成 `7` 张补卡并同步 `release-dea5ddcc9848 / card_count=1265`；下一轮不要再把这轮当未执行事项，只继续补 fresh supply。
+0. 模型链路已能区分 `provider_503 / stage_timeout / empty_response`，且 title repair 空响应不再报废整张卡；后续重点观察 DeepSeek 空响应是否仍高频。
+0. 当前 trend audit 是 `rebound / remaining_new_releases=5`，不能按 stable 对外表述；后续继续守 release_surface。
 0. 主线回到 `all-scope` 正常日运营；历史补卡只保留为明确漏发时的专项动作
 0. 后续继续专项补 `selection-signals / small-goods / category-winds`，优先补能帮助做选品判断的卡
 0. 继续跑近 `7d` 的窄 query fresh 挖掘；必要时继续用 `--live seed` 绕开 queue 对选品苗子的吞噬
