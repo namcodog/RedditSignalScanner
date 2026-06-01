@@ -153,6 +153,14 @@ close 约束：
 - 禁止在根仓用 `git add .` 混入小程序；根仓本地应通过 `.git/info/exclude` 忽略 `/hotpost-mini/`。
 - `mini_snapshots` 和 `hotpost-mini/.../cloudfunctions/*/data` 是发布派生产物，只能由 `push_mini_snapshot.py` 写入，不手改。
 
+### Git 收口 / 回滚门禁
+
+- 用户要求“提交 / 收口 / 推送 / 记录状态”时，默认必须提交并 push 到远端；只有用户明确说“只本地提交”才可以不 push。
+- 提交必须按主仓、小程序子仓、运营记录、派生产物分批 staging；禁止 `git add .`，禁止把小程序子仓改动混入主仓。
+- 收口前必须记录本轮前后的 commit 锚点；可回滚证明优先使用这些 commit 通过 `git revert` 反向提交，禁止用 `git reset --hard` 或 force push 作为默认回滚方案。
+- 最终状态必须用命令证明，不接受口头 clean：主仓和小程序子仓都要满足工作区空、暂存区空、stash 空、`HEAD == origin/main`、远端 `main` hash 等于本地 `HEAD`。
+- 最终检查入口固定为 `make git-clean-status`；涉及小程序边界时仍必须同时跑 `make boundary-status`。
+
 ### 思考与反馈
 
 - 不使用“你说得对、我认了、我没想好”这类敷衍或讨好式表达。

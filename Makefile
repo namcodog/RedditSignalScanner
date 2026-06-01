@@ -36,7 +36,7 @@ RESET  := $(shell tput -Txterm sgr0)
 	hotpost-intake-freshness-gate hotpost-publish-until-exhausted hotpost-topic-tree-audit \
 	hotpost-release-trend-audit hotpost-community-exploration-pre hotpost-community-exploration-post \
 	brand-ops-sidecar brand-registry-view brand-system-evidence \
-	boundary-status
+	boundary-status git-clean-status
 
 # --- Default Goal ---
 help:
@@ -72,6 +72,7 @@ help:
 	@echo "  ${YELLOW}brand-registry-view${RESET} : Preview read-only Brand Registry view. Use BRAND_ARGS='--status verified --limit 30'."
 	@echo "  ${YELLOW}brand-system-evidence${RESET} : Build backend-only Brand Evidence pack for recommendation and card context."
 	@echo "  ${YELLOW}boundary-status${RESET} : Check root repo vs hotpost mini repo boundary status."
+	@echo "  ${YELLOW}git-clean-status${RESET} : Verify root and mini repos are clean, pushed, and rollback-ready."
 	@echo "  ${YELLOW}test-core${RESET}      : Run core unit tests."
 	@echo "  ${YELLOW}test-e2e${RESET}       : Run current frontend formal E2E suite (Playwright)."
 	@echo "  ${YELLOW}test-e2e-smoke${RESET} : Run product polish smoke E2E."
@@ -175,6 +176,9 @@ brand-system-evidence:
 
 boundary-status:
 	@./scripts/check-boundary-status.sh
+
+git-clean-status:
+	@./scripts/check-git-clean-status.sh
 
 ## 2. T1 Data Audit (Wrapper)
 audit-t1:
