@@ -3,7 +3,7 @@ from __future__ import annotations
 import asyncio
 from contextlib import asynccontextmanager
 from threading import Thread
-from typing import Optional, Any
+from typing import Optional, Any, AsyncIterator
 
 from app.services.hotpost.hot_comment_sample import collect_hot_comment_sample
 from app.services.hotpost.hot_controversy_llm import build_hot_controversy_result
@@ -73,7 +73,7 @@ async def refresh_hot_controversy_cards(
 
 
 @asynccontextmanager
-async def _managed_reddit_client(reddit_client:Optional[ Any]):
+async def _managed_reddit_client(reddit_client: Optional[Any]) -> AsyncIterator[Any]:
     if reddit_client is not None:
         yield reddit_client
         return

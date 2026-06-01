@@ -1,13 +1,17 @@
 from __future__ import annotations
 
+import asyncio
+from contextlib import contextmanager
+from contextvars import ContextVar
 from difflib import SequenceMatcher
 import json
 import logging
 import os
 import re
+import time
 from functools import lru_cache
 from pathlib import Path
-from typing import Optional, Any, Callable
+from typing import Optional, Any, Callable, Iterator, cast
 
 import yaml
 
@@ -62,6 +66,44 @@ logger = logging.getLogger(__name__)
 
 
 LLMClientFactory = Callable[[str, float], Any]
+_GENERATION_SUB_STAGES: ContextVar[list[dict[str, Any]] | None] = ContextVar(
+    "hotpost_generation_sub_stages",
+    default=None,
+)
+
+
+class HotpostLLMJsonError(ValueError):
+    def __init__(self, error_type: str, message: str) -> None:
+        self.error_type = error_type
+        super().__init__(f"{error_type}: {message}")
+
+
+class HotpostLLMStageTimeout(TimeoutError):
+    def __init__(self, stage: str, model: str, timeout: float) -> None:
+        self.error_type = "stage_timeout"
+        super().__init__(f"{stage} timed out after {timeout:.2f}s for model {model}")
+
+
+@contextmanager
+def collect_generation_sub_stages() -> Iterator[list[dict[str, Any]]]:
+    stages: list[dict[str, Any]] = []
+    token = _GENERATION_SUB_STAGES.set(stages)
+    try:
+        yield stages
+    finally:
+        _GENERATION_SUB_STAGES.reset(token)
+
+
+def generation_error_type(exc: BaseException) -> str:
+    error_type = getattr(exc, "error_type", "")
+    if isinstance(error_type, str) and error_type:
+        return error_type
+    status_code = getattr(exc, "status_code", None)
+    if status_code == 503 or "503" in str(exc):
+        return "provider_503"
+    if isinstance(exc, TimeoutError):
+        return "stage_timeout"
+    return exc.__class__.__name__
 
 
 def _default_client_factory(model: str, timeout: float) -> Any:
@@ -154,6 +196,9 @@ async def generate_card_content(
             reasons = ", ".join(quality["reasons"])
             raise ValueError(f"Signal input quality gate blocked draft: {reasons}")
     rules = load_card_content_rules()
+    precheck_timeout = _pipeline_timeout(
+        rules, "precheck_seconds", float(rules["timeouts"]["signal_seconds"])
+    )
     models = load_card_content_models()
     variant_id = production_signal_variant(_draft_topic_pack_id(draft), rules=rules)
     topic_pack_id = _draft_topic_pack_id(draft)
@@ -194,13 +239,16 @@ async def generate_card_content(
         semantic_brief = await _generate_profile_semantic_brief(
             draft,
             model=str(production_profile["semantic_model"]),
+            timeout=_pipeline_timeout(rules, "semantic_brief_seconds", 90.0),
             client_factory=client_factory,
         )
         signal_messages = _with_profile_semantic_brief(
             signal_messages, semantic_brief=semantic_brief
         )
         signal_model = str(production_profile["writer_model"])
-        signal_timeout = float(rules["timeouts"]["signal_seconds"])
+        signal_timeout = _pipeline_timeout(
+            rules, "writer_seconds", float(rules["timeouts"]["signal_seconds"])
+        )
     else:
         signal_model, signal_timeout = resolve_card_content_model_route(
             models=models,
@@ -222,7 +270,7 @@ async def generate_card_content(
             semantic_brief=semantic_brief,
             semantic_model=str(production_profile["semantic_model"]),
             writer_model=signal_model,
-            timeout=signal_timeout,
+            timeout=_pipeline_timeout(rules, "title_repair_seconds", signal_timeout),
             client_factory=client_factory,
         )
     try:
@@ -242,7 +290,14 @@ async def generate_card_content(
         signal_draft, source_draft=draft, rules=rules
     )
     if not allow_breakdown or not _can_attempt_breakdown(signal_draft, models):
-        return signal_draft
+        return await _attach_draft_precheck_result(
+            signal_draft,
+            semantic_brief=semantic_brief,
+            production_profile=production_profile,
+            model=signal_model,
+            timeout=precheck_timeout,
+            client_factory=client_factory,
+        )
     breakdown_model = _breakdown_content_model(
         models=models, production_profile=production_profile
     )
@@ -265,9 +320,16 @@ async def generate_card_content(
         response_schema=breakdown_schema,
     )
     if not should_be_breakdown(signal_draft, breakdown_payload):
-        return signal_draft
+        return await _attach_draft_precheck_result(
+            signal_draft,
+            semantic_brief=semantic_brief,
+            production_profile=production_profile,
+            model=signal_model,
+            timeout=precheck_timeout,
+            client_factory=client_factory,
+        )
     try:
-        return _apply_breakdown_content(signal_draft, breakdown_payload, rules)
+        final_draft = _apply_breakdown_content(signal_draft, breakdown_payload, rules)
     except ValueError as exc:
         breakdown_payload = await _regenerate_json_for_validation_error(
             model=breakdown_model,
@@ -279,8 +341,23 @@ async def generate_card_content(
             response_schema=breakdown_schema,
         )
         if not should_be_breakdown(signal_draft, breakdown_payload):
-            return signal_draft
-        return _apply_breakdown_content(signal_draft, breakdown_payload, rules)
+            return await _attach_draft_precheck_result(
+                signal_draft,
+                semantic_brief=semantic_brief,
+                production_profile=production_profile,
+                model=signal_model,
+                timeout=precheck_timeout,
+                client_factory=client_factory,
+            )
+        final_draft = _apply_breakdown_content(signal_draft, breakdown_payload, rules)
+    return await _attach_draft_precheck_result(
+        final_draft,
+        semantic_brief=semantic_brief,
+        production_profile=production_profile,
+        model=signal_model,
+        timeout=precheck_timeout,
+        client_factory=client_factory,
+    )
 
 
 async def refresh_breakdown_content(
@@ -328,6 +405,7 @@ async def _generate_profile_semantic_brief(
     *,
     model: str,
     client_factory: LLMClientFactory,
+    timeout: float = 90.0,
 ) -> dict[str, Any]:
     messages = [
         {
@@ -340,6 +418,11 @@ async def _generate_profile_semantic_brief(
                 "lane_specific 里按 hot / signal / breakdown 分别给判断；不适用的字段写“不适用”。"
                 "uncertainty 要写 confidence、missing_evidence、weak_points、single_thread_risk。"
                 "avoid_claims 写出后续模型绝对不能扩写的结论。"
+                "confidence_level 只能是 high / medium / low。"
+                "publish_risk 只能是 pass / needs_human_review / block；证据弱、单帖风险高、泛建议时不要写 pass。"
+                "claim_type 必须选择最贴近的一个；如果只是泛创业建议，写 generic_advice。"
+                "evidence_strength 要判断 quote 是否真支撑主张、是否单帖、是否有具体动作、是否有可量化结果。"
+                "writer_constraints 负责告诉后续 writer 必须降调和不能写什么。"
                 "所有字符串用短句，每个字段不超过 80 个中文字；evidence_basis 最多 3 条，quote_text 只写短摘录。"
             ),
         },
@@ -352,7 +435,7 @@ async def _generate_profile_semantic_brief(
     ]
     return await _generate_json(
         model=model,
-        timeout=90.0,
+        timeout=timeout,
         messages=messages,
         client_factory=client_factory,
         max_tokens=2800,
@@ -360,6 +443,104 @@ async def _generate_profile_semantic_brief(
         trace_id=draft.draft_id,
         stage="semantic_brief",
     )
+
+
+def _pipeline_timeout(rules: dict[str, Any], key: str, default: float) -> float:
+    pipeline = rules.get("pipeline") or {}
+    if not isinstance(pipeline, dict):
+        return default
+    value = pipeline.get(key)
+    return float(value) if value is not None else default
+
+
+async def _generate_draft_precheck(
+    draft: ValidationCardDraft | WritingCardDraft,
+    *,
+    semantic_brief: dict[str, Any],
+    model: str,
+    timeout: float,
+    client_factory: LLMClientFactory,
+) -> dict[str, Any]:
+    from app.services.hotpost.draft_precheck import (
+        build_draft_precheck_messages,
+        draft_precheck_json_schema,
+        parse_draft_precheck_result,
+    )
+
+    payload = await _generate_json(
+        model=model,
+        timeout=timeout,
+        messages=build_draft_precheck_messages(
+            draft_payload=draft.model_dump(mode="json"),
+            semantic_brief=semantic_brief,
+        ),
+        client_factory=client_factory,
+        max_tokens=1200,
+        response_schema=draft_precheck_json_schema(),
+        trace_id=draft.draft_id,
+        stage="draft_precheck",
+    )
+    return parse_draft_precheck_result(
+        payload,
+        draft_payload=draft.model_dump(mode="json"),
+    )
+
+
+async def _attach_draft_precheck_result(
+    draft: ValidationCardDraft | WritingCardDraft,
+    *,
+    semantic_brief: dict[str, Any] | None,
+    production_profile: dict[str, Any] | None,
+    model: str,
+    timeout: float,
+    client_factory: LLMClientFactory,
+) -> ValidationCardDraft | WritingCardDraft:
+    if production_profile is None or semantic_brief is None:
+        return draft
+    precheck_result = await _generate_draft_precheck_report(
+        draft,
+        semantic_brief=semantic_brief,
+        model=model,
+        timeout=timeout,
+        client_factory=client_factory,
+    )
+    object.__setattr__(draft, "_hotpost_precheck_result", precheck_result)
+    return draft
+
+
+async def _generate_draft_precheck_report(
+    draft: ValidationCardDraft | WritingCardDraft,
+    *,
+    semantic_brief: dict[str, Any],
+    model: str,
+    timeout: float,
+    client_factory: LLMClientFactory,
+) -> dict[str, Any]:
+    try:
+        return await _generate_draft_precheck(
+            draft,
+            semantic_brief=semantic_brief,
+            model=model,
+            timeout=timeout,
+            client_factory=client_factory,
+        )
+    except Exception as exc:
+        error_type = generation_error_type(exc)
+        logger.warning(
+            "Hotpost draft precheck failed draft_id=%s model=%s error=%s",
+            draft.draft_id,
+            model,
+            str(exc)[:240],
+        )
+        return {
+            "decision": "REWRITE",
+            "reasons": ["AI 预检节点失败，不能视为通过。"],
+            "required_fixes": ["人工核对标题、摘要和 detail 是否被原始证据支撑。"],
+            "risk_flags": ["precheck_error", error_type],
+            "publish_note": "AI 预检失败，进入人工 review 时必须重新核对证据。",
+            "should_rewrite": True,
+            "should_block": False,
+        }
 
 
 def _semantic_brief_input(
@@ -417,6 +598,7 @@ def _with_profile_semantic_brief(
 - hot 卡优先看 lane_specific.hot；signal 卡优先看 lane_specific.signal；breakdown 卡优先看 lane_specific.breakdown。
 - evidence_basis 只作为证据索引；引用原文和 permalink 仍以原始 evidence_quotes 为准，不要编造未列出的 quote。
 - 不要照抄 brief，要把它转成自然中文卡片。
+- writer_constraints 是硬写作合同；publish_risk 不是 pass 时，表达必须降调。
 - 不新增事实；brief 说不能夸大的地方，一律收窄。
 - uncertainty 里的 missing_evidence、weak_points、single_thread_risk 是降调依据，不要把弱证据写成强趋势。
 - avoid_claims 是硬边界，不能换个说法写进标题、摘要或 detail。
@@ -441,26 +623,36 @@ async def _repair_v13_title_if_needed(
         issues = find_v13_title_issues(_v13_title_check_payload(repaired_payload))
         if not issues:
             break
-        title_payload = await _generate_json(
-            model=writer_model,
-            timeout=timeout,
-            messages=build_title_independence_repair_messages(
-                generated=_v13_title_check_payload(repaired_payload),
-                semantic_brief=semantic_brief,
-                issues=issues,
-                semantic_model=semantic_model,
-                writer_model=writer_model,
-            ),
-            client_factory=client_factory,
-            max_tokens=1024,
-            response_schema=None,
-        )
+        try:
+            title_payload = await _generate_json(
+                model=writer_model,
+                timeout=timeout,
+                messages=build_title_independence_repair_messages(
+                    generated=_v13_title_check_payload(repaired_payload),
+                    semantic_brief=semantic_brief,
+                    issues=issues,
+                    semantic_model=semantic_model,
+                    writer_model=writer_model,
+                ),
+                client_factory=client_factory,
+                max_tokens=1024,
+                response_schema=None,
+            )
+        except (HotpostLLMJsonError, HotpostLLMStageTimeout) as exc:
+            logger.warning(
+                "Hotpost title repair skipped model=%s error_type=%s error=%s",
+                writer_model,
+                generation_error_type(exc),
+                str(exc)[:160],
+            )
+            break
         repaired_payload = merge_title_repair(repaired_payload, title_payload)
     return repaired_payload
 
 
 def _v13_title_check_payload(payload: dict[str, Any]) -> dict[str, Any]:
-    detail = payload.get("detail") if isinstance(payload.get("detail"), dict) else {}
+    raw_detail = payload.get("detail")
+    detail = cast(dict[str, Any], raw_detail) if isinstance(raw_detail, dict) else {}
     return {**payload, **detail}
 
 
@@ -471,6 +663,58 @@ def _semantic_brief_json_schema() -> dict[str, Any]:
             "core_scene": {"type": "STRING"},
             "actor_and_scene": {"type": "STRING"},
             "supported_claim": {"type": "STRING"},
+            "confidence_level": {
+                "type": "STRING",
+                "enum": ["high", "medium", "low"],
+            },
+            "publish_risk": {
+                "type": "STRING",
+                "enum": ["pass", "needs_human_review", "block"],
+            },
+            "claim_type": {
+                "type": "STRING",
+                "enum": [
+                    "channel_test",
+                    "market_validation",
+                    "tool_adoption",
+                    "platform_risk",
+                    "generic_advice",
+                    "unknown",
+                ],
+            },
+            "evidence_strength": {
+                "type": "OBJECT",
+                "properties": {
+                    "quote_support": {
+                        "type": "STRING",
+                        "enum": ["strong", "partial", "weak"],
+                    },
+                    "single_thread_risk": {"type": "BOOLEAN"},
+                    "has_specific_user_action": {"type": "BOOLEAN"},
+                    "has_measurable_result": {"type": "BOOLEAN"},
+                },
+                "required": [
+                    "quote_support",
+                    "single_thread_risk",
+                    "has_specific_user_action",
+                    "has_measurable_result",
+                ],
+            },
+            "writer_constraints": {
+                "type": "OBJECT",
+                "properties": {
+                    "must_not_claim": {
+                        "type": "ARRAY",
+                        "items": {"type": "STRING"},
+                    },
+                    "must_downscope": {
+                        "type": "ARRAY",
+                        "items": {"type": "STRING"},
+                    },
+                    "preferred_angle": {"type": "STRING"},
+                },
+                "required": ["must_not_claim", "must_downscope", "preferred_angle"],
+            },
             "evidence_basis": {
                 "type": "ARRAY",
                 "items": {
@@ -560,6 +804,11 @@ def _semantic_brief_json_schema() -> dict[str, Any]:
             "core_scene",
             "actor_and_scene",
             "supported_claim",
+            "confidence_level",
+            "publish_risk",
+            "claim_type",
+            "evidence_strength",
+            "writer_constraints",
             "evidence_basis",
             "lane_specific",
             "tension_or_decision",
@@ -741,11 +990,17 @@ async def _generate_json(
     stage: str = "",
 ) -> dict[str, Any]:
     client = client_factory(model, timeout)
-    raw = await client.generate(
-        messages,
-        response_format=_json_response_format_for_model(
-            model, response_schema=response_schema
-        ),
+    response_format = _json_response_format_for_model(
+        model, response_schema=response_schema
+    )
+    stage_name = stage or "llm_json"
+    raw = await _call_llm_json_stage(
+        client=client,
+        model=model,
+        timeout=timeout,
+        name=stage_name,
+        messages=messages,
+        response_format=response_format,
         temperature=0.2,
         max_tokens=max_tokens,
     )
@@ -755,14 +1010,19 @@ async def _generate_json(
         _log_invalid_json_payload(
             model=model, stage=stage, trace_id=trace_id, raw=raw, error=exc
         )
+        if generation_error_type(exc) == "empty_response":
+            raise
         retry_messages = _invalid_json_retry_messages(messages, model=model, attempt=1)
-        raw = await client.generate(
-            retry_messages,
-            response_format=_json_response_format_for_model(
-                model, response_schema=response_schema
-            ),
+        raw = await _call_llm_json_stage(
+            client=client,
+            model=model,
+            timeout=timeout,
+            name="json_retry",
+            messages=retry_messages,
+            response_format=response_format,
             temperature=0.0,
             max_tokens=max_tokens,
+            attempt=1,
         )
         try:
             return _coerce_llm_json_payload(raw)
@@ -770,19 +1030,26 @@ async def _generate_json(
             _log_invalid_json_payload(
                 model=model, stage=stage, trace_id=trace_id, raw=raw, error=exc
             )
+            if generation_error_type(exc) == "empty_response":
+                raise
             if not model.startswith("google/"):
                 return await _repair_invalid_json_payload(
                     client=client,
+                    model=model,
+                    timeout=timeout,
                     raw=raw,
                     response_schema=response_schema,
                 )
-            raw = await client.generate(
-                _invalid_json_retry_messages(messages, model=model, attempt=2),
-                response_format=_json_response_format_for_model(
-                    model, response_schema=response_schema
-                ),
+            raw = await _call_llm_json_stage(
+                client=client,
+                model=model,
+                timeout=timeout,
+                name="json_retry",
+                messages=_invalid_json_retry_messages(messages, model=model, attempt=2),
+                response_format=response_format,
                 temperature=0.0,
                 max_tokens=max_tokens,
+                attempt=2,
             )
             try:
                 return _coerce_llm_json_payload(raw)
@@ -790,11 +1057,112 @@ async def _generate_json(
                 _log_invalid_json_payload(
                     model=model, stage=stage, trace_id=trace_id, raw=raw, error=exc
                 )
+                if generation_error_type(exc) == "empty_response":
+                    raise
                 return await _repair_invalid_json_payload(
                     client=client,
+                    model=model,
+                    timeout=timeout,
                     raw=raw,
                     response_schema=response_schema,
                 )
+
+
+async def _call_llm_json_stage(
+    *,
+    client: Any,
+    model: str,
+    timeout: float,
+    name: str,
+    messages: list[dict[str, str]],
+    response_format: Optional[dict[str, Any]],
+    temperature: float,
+    max_tokens: int,
+    attempt: int | None = None,
+) -> str:
+    started = time.monotonic()
+    try:
+        raw = await asyncio.wait_for(
+            client.generate(
+                messages,
+                response_format=response_format,
+                temperature=temperature,
+                max_tokens=max_tokens,
+            ),
+            timeout=max(0.001, float(timeout)),
+        )
+    except asyncio.TimeoutError as exc:
+        error = HotpostLLMStageTimeout(name, model, timeout)
+        _record_generation_sub_stage(
+            name=name,
+            model=model,
+            timeout=timeout,
+            started=started,
+            status="failed",
+            error_type=error.error_type,
+            attempt=attempt,
+        )
+        raise error from exc
+    except Exception as exc:
+        _record_generation_sub_stage(
+            name=name,
+            model=model,
+            timeout=timeout,
+            started=started,
+            status="failed",
+            error_type=generation_error_type(exc),
+            attempt=attempt,
+        )
+        raise
+    _record_generation_sub_stage(
+        name=name,
+        model=model,
+        timeout=timeout,
+        started=started,
+        status="completed",
+        attempt=attempt,
+        raw_chars=len(raw or ""),
+    )
+    return str(raw or "")
+
+
+def _record_generation_sub_stage(
+    *,
+    name: str,
+    model: str,
+    timeout: float,
+    started: float,
+    status: str,
+    error_type: str = "",
+    attempt: int | None = None,
+    raw_chars: int | None = None,
+) -> None:
+    stages = _GENERATION_SUB_STAGES.get()
+    if stages is None:
+        return
+    entry: dict[str, Any] = {
+        "name": name,
+        "status": status,
+        "model": model,
+        "provider": _provider_for_model(model),
+        "timeout_seconds": float(timeout),
+        "duration_ms": round((time.monotonic() - started) * 1000, 1),
+    }
+    if attempt is not None:
+        entry["attempt"] = attempt
+    if error_type:
+        entry["error_type"] = error_type
+    if raw_chars is not None:
+        entry["raw_chars"] = raw_chars
+    stages.append(entry)
+
+
+def _provider_for_model(model: str) -> str:
+    if model.startswith("google/"):
+        return "gemini"
+    if model.startswith("deepseek/"):
+        return "deepseek"
+    return "openai_compatible"
 
 
 def _log_invalid_json_payload(
@@ -823,7 +1191,7 @@ def _coerce_llm_json_payload(raw: str) -> dict[str, Any]:
     if isinstance(payload, list) and len(payload) == 1 and isinstance(payload[0], dict):
         payload = payload[0]
     if not isinstance(payload, dict):
-        raise ValueError("LLM payload must be a JSON object")
+        raise HotpostLLMJsonError("invalid_json", "LLM payload must be a JSON object")
     return payload
 
 
@@ -863,6 +1231,8 @@ def _invalid_json_retry_messages(
 async def _repair_invalid_json_payload(
     *,
     client: Any,
+    model: str,
+    timeout: float,
     raw: str,
     response_schema: Optional[dict[str, Any]] = None,
 ) -> dict[str, Any]:
@@ -882,13 +1252,20 @@ async def _repair_invalid_json_payload(
             "content": raw,
         },
     ]
-    repaired = await client.generate(
-        repair_messages,
+    repaired = await _call_llm_json_stage(
+        client=client,
+        model=model,
+        timeout=timeout,
+        name="json_repair",
+        messages=repair_messages,
         response_format={"type": "json_object"},
         temperature=0.0,
         max_tokens=2048,
     )
-    return _coerce_llm_json_payload(repaired)
+    try:
+        return _coerce_llm_json_payload(repaired)
+    except ValueError as exc:
+        raise HotpostLLMJsonError("json_repair_failed", str(exc)) from exc
 
 
 async def _regenerate_json_for_validation_error(
@@ -935,6 +1312,8 @@ def _max_tokens(rules: dict[str, Any], key: str, *, default: int) -> int:
 
 
 def _loads_llm_json(raw: str) -> Any:
+    if not raw or not raw.strip():
+        raise HotpostLLMJsonError("empty_response", "LLM returned empty response")
     try:
         return json.loads(raw)
     except json.JSONDecodeError as exc:
@@ -944,7 +1323,47 @@ def _loads_llm_json(raw: str) -> Any:
                 return json.loads(normalized)
             except json.JSONDecodeError:
                 pass
-        raise ValueError(f"LLM returned invalid JSON: {raw[:200]}") from exc
+        extracted = _extract_first_json_object(normalized)
+        if extracted:
+            try:
+                return json.loads(extracted)
+            except json.JSONDecodeError:
+                pass
+        error_type = "json_extra_data" if exc.msg == "Extra data" else "invalid_json"
+        raise HotpostLLMJsonError(
+            error_type,
+            f"LLM returned invalid JSON: {raw[:200]}",
+        ) from exc
+
+
+def _extract_first_json_object(raw: str) -> str | None:
+    start = raw.find("{")
+    if start < 0:
+        return None
+    depth = 0
+    in_string = False
+    escaped = False
+    for index in range(start, len(raw)):
+        char = raw[index]
+        if escaped:
+            escaped = False
+            continue
+        if char == "\\" and in_string:
+            escaped = True
+            continue
+        if char == '"':
+            in_string = not in_string
+            continue
+        if in_string:
+            continue
+        if char == "{":
+            depth += 1
+            continue
+        if char == "}":
+            depth -= 1
+            if depth == 0:
+                return raw[start : index + 1]
+    return None
 
 
 def _escape_json_string_control_chars(raw: str) -> str:

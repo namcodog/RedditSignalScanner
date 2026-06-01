@@ -135,6 +135,51 @@ def test_publish_draft_keeps_payload_valid_under_concurrent_writes(monkeypatch, 
     assert (root / "candidates" / "business-growth-ops.json").exists()
 
 
+def test_publish_draft_blocks_precheck_block_by_default(monkeypatch, tmp_path: Path) -> None:
+    from app.schemas.hotpost_card_candidates import CandidatePack
+    from app.schemas.hotpost_clues import ValidationDetail
+    from app.services.hotpost import card_draft_store, card_payload_store
+    from app.services.hotpost.card_candidate_store import save_candidate
+    from app.services.hotpost.card_draft_builder import seed_validation_draft
+    from app.services.hotpost.card_draft_store import publish_draft, save_draft
+
+    path = _seeded_path(tmp_path)
+    monkeypatch.setattr(card_payload_store, "_CARDS_PATH", path)
+    monkeypatch.setattr(
+        card_draft_store,
+        "load_draft_precheck",
+        lambda draft_id: {"decision": "BLOCK", "reasons": ["证据不支撑标题"]},
+    )
+
+    candidate = CandidatePack.model_validate(_candidate("cand-block", "post-block"))
+    save_candidate(candidate)
+    draft = seed_validation_draft(candidate).model_copy(
+        update={
+            "title": "published-cand-block",
+            "summary_line": "summary-block",
+            "audience": "投手",
+            "why_now": "最近这类讨论开始影响预算判断。",
+            "source_link": "https://www.reddit.com/r/PPC/comments/post-block",
+            "detail": ValidationDetail(
+                pain_point="优化目标一改，投放表现立刻失稳。",
+                target_user_and_scene="小预算广告账户切换主要优化目标时。",
+                why_test_now="最近讨论已经从参数设置转向预算判断。",
+                min_test_action="先核对主要优化目标切换前后的样本量。",
+                continue_signal="继续有人反馈样本回传太少导致系统学歪。",
+                stop_signal="如果回传样本恢复稳定且表现回升，这个信号就减弱。",
+            ),
+        }
+    )
+    save_draft(draft)
+
+    try:
+        publish_draft(draft.draft_id)
+    except ValueError as exc:
+        assert "precheck BLOCK" in str(exc)
+    else:
+        raise AssertionError("expected precheck BLOCK to stop publish")
+
+
 def test_merge_published_cards_preserves_other_states(monkeypatch, tmp_path: Path) -> None:
     from app.schemas.hotpost_card_candidates import CandidatePack
     from app.schemas.hotpost_clues import ValidationDetail

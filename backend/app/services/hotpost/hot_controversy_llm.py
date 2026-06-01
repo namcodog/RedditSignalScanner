@@ -1,7 +1,9 @@
 from __future__ import annotations
 
+import asyncio
 import json
 import re
+import time
 from functools import lru_cache
 from pathlib import Path
 from typing import Optional, Any, Mapping
@@ -41,46 +43,69 @@ async def build_hot_controversy_result(
     *,
     card: Mapping[str, Any],
     sample: Mapping[str, Any],
-    llm_client:Optional[ Any] = None,
-    llm_model:Optional[ str] = None,
-) ->Optional[ tuple[dict[str, Any]], dict[str, Any]]:
+    llm_client: Optional[Any] = None,
+    llm_model: Optional[str] = None,
+) -> tuple[dict[str, Any] | None, dict[str, Any]]:
     _ = llm_model
     config = load_hot_controversy_llm_config()
     model_name = str(config["model"])
-    meta = {
+    sample_size = int(sample.get("sample_size") or 0)
+    meta: dict[str, Any] = {
         "post_id": sample.get("post_id"),
-        "sample_size": int(sample.get("sample_size") or 0),
+        "sample_size": sample_size,
         "sampled_at": sample.get("sampled_at"),
         "fetch_status": str(sample.get("fetch_status") or "unknown"),
         "llm_summary_version": str(config["summary_version"]),
-        "sample_quality": _sample_quality(int(sample.get("sample_size") or 0)),
+        "sample_quality": _sample_quality(sample_size),
         "summary_status": "skipped",
     }
-    if meta["fetch_status"] != "ok" or meta["sample_size"] <= 0:
+    if meta["fetch_status"] != "ok" or sample_size <= 0:
         return None, meta | {"summary_status": "no_sample"}
 
-    client = llm_client or build_card_content_client(model_name, timeout=float(config["timeout_seconds"]))
+    timeout = float(config["timeout_seconds"])
+    client = llm_client or build_card_content_client(model_name, timeout=timeout)
     try:
-        raw = await client.generate(
-            _render_prompt(card=card, sample_comments=list(sample.get("sample_comments") or [])),
-            response_format={"type": "json_object", "schema": _response_schema()},
-            temperature=0.1,
-            max_tokens=600,
+        raw, llm_trace = await _generate_hot_controversy_json(
+            client=client,
+            model=model_name,
+            timeout=timeout,
+            prompt=_render_prompt(
+                card=card,
+                sample_comments=list(sample.get("sample_comments") or []),
+            ),
         )
-    except Exception:
-        return None, meta | {"summary_status": "llm_failed"}
+    except Exception as exc:
+        return None, meta | {
+            "summary_status": "llm_failed",
+            "error_type": _controversy_error_type(exc),
+            "llm_trace": _hot_controversy_trace(
+                model=model_name,
+                timeout=timeout,
+                status="failed",
+                started=0.0,
+                error_type=_controversy_error_type(exc),
+            ),
+        }
 
     try:
         payload = json.loads(raw)
     except json.JSONDecodeError:
-        return None, meta | {"summary_status": "invalid_json"}
+        return None, meta | {
+            "summary_status": "invalid_json",
+            "error_type": "invalid_json",
+            "llm_trace": llm_trace | {"status": "failed", "error_type": "invalid_json"},
+        }
 
     support_count = _nonnegative_int(payload.get("support_comments"))
     oppose_count = _nonnegative_int(payload.get("oppose_comments"))
     neutral_count = _nonnegative_int(payload.get("neutral_comments"))
     total = support_count + oppose_count + neutral_count
     if total <= 0:
-        return None, meta | {"summary_status": "empty_counts"}
+        return None, meta | {
+            "summary_status": "empty_counts",
+            "error_type": "empty_counts",
+            "llm_trace": llm_trace | {"status": "failed", "error_type": "empty_counts"},
+        }
 
     support_point = _normalize_cn_output(_clean_line(payload.get("support_point")))
     oppose_point = _normalize_cn_output(_clean_line(payload.get("oppose_point")))
@@ -95,9 +120,82 @@ async def build_hot_controversy_result(
         oppose_point=oppose_point,
         neutral_point=neutral_point,
         debate_focus=debate_focus,
-        confidence=_confidence(sample_size=meta["sample_size"]),
+        confidence=_confidence(sample_size=sample_size),
     )
-    return chart, meta | {"summary_status": "ok", "confidence_reason": _clean_line(payload.get("confidence_reason"))}
+    return chart, meta | {
+        "summary_status": "ok",
+        "confidence_reason": _clean_line(payload.get("confidence_reason")),
+        "llm_trace": llm_trace,
+    }
+
+
+async def _generate_hot_controversy_json(
+    *,
+    client: Any,
+    model: str,
+    timeout: float,
+    prompt: str,
+) -> tuple[str, dict[str, Any]]:
+    started = time.monotonic()
+    try:
+        raw = await asyncio.wait_for(
+            client.generate(
+                prompt,
+                response_format={"type": "json_object", "schema": _response_schema()},
+                temperature=0.1,
+                max_tokens=600,
+            ),
+            timeout=max(0.001, timeout),
+        )
+    except asyncio.TimeoutError as exc:
+        error = TimeoutError(f"hot_controversy timed out after {timeout:.2f}s")
+        error.error_type = "stage_timeout"  # type: ignore[attr-defined]
+        raise error from exc
+    trace = _hot_controversy_trace(
+        model=model,
+        timeout=timeout,
+        status="completed",
+        started=started,
+        raw_chars=len(raw or ""),
+    )
+    return str(raw or ""), trace
+
+
+def _hot_controversy_trace(
+    *,
+    model: str,
+    timeout: float,
+    status: str,
+    started: float,
+    error_type: str = "",
+    raw_chars: int | None = None,
+) -> dict[str, Any]:
+    trace: dict[str, Any] = {
+        "stage": "hot_controversy",
+        "status": status,
+        "model": model,
+        "provider": "gemini" if model.startswith("google/") else "openai_compatible",
+        "timeout_seconds": timeout,
+    }
+    if started > 0:
+        trace["duration_ms"] = round((time.monotonic() - started) * 1000, 1)
+    if error_type:
+        trace["error_type"] = error_type
+    if raw_chars is not None:
+        trace["raw_chars"] = raw_chars
+    return trace
+
+
+def _controversy_error_type(exc: BaseException) -> str:
+    error_type = getattr(exc, "error_type", "")
+    if isinstance(error_type, str) and error_type:
+        return error_type
+    status_code = getattr(exc, "status_code", None)
+    if status_code == 503 or "503" in str(exc):
+        return "provider_503"
+    if isinstance(exc, TimeoutError):
+        return "stage_timeout"
+    return exc.__class__.__name__
 
 
 def _build_chart(

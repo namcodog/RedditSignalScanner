@@ -162,6 +162,49 @@ profiles:
           - ebay return scam seller protection
           - ebay vintage item demand
 
+  china-sourcing-1688-7d:
+    description: "1688 / 中国货源观察入口：小配额看商品利润、供应商风险、质检物流和卖家真实踩坑；只作为观察线，不进入默认 daily watchlist。"
+    watches:
+      - topic_id: china-sourcing-1688-7d-product-and-margin
+        scope_id: ecommerce-sellers
+        topic_pack_id: selection-signals
+        topic_cluster_ids: [small-goods, brand-trust-and-alt]
+        time_filter: week
+        candidate_cap: 4
+        subreddits: [AmazonSeller, FulfillmentByAmazon, EtsySellers, ecommerce, shopify, Flipping, reselling]
+        queries:
+          - 1688 product sourcing
+          - 1688 product margin
+          - 1688 vs alibaba product
+          - china wholesale product margin
+          - temu same product supplier
+      - topic_id: china-sourcing-1688-7d-supplier-risk
+        scope_id: ecommerce-sellers
+        topic_pack_id: category-winds
+        topic_cluster_ids: [seller-category-direction, unit-economics-and-platform-risk]
+        time_filter: week
+        candidate_cap: 4
+        subreddits: [AmazonSeller, FulfillmentByAmazon, EtsySellers, ecommerce, shopify]
+        queries:
+          - 1688 supplier quality issue
+          - 1688 sourcing agent
+          - china sourcing quality inspection
+          - supplier sample quality different from bulk order
+          - private label supplier risk
+      - topic_id: china-sourcing-1688-7d-user-voice
+        scope_id: ecommerce-sellers
+        topic_pack_id: category-winds
+        topic_cluster_ids: [seller-category-direction, unit-economics-and-platform-risk]
+        time_filter: week
+        candidate_cap: 4
+        subreddits: [AmazonSeller, FulfillmentByAmazon, EtsySellers, ecommerce, shopify, smallbusiness]
+        queries:
+          - 1688 shipping cost
+          - 1688 agent review
+          - 1688 vs aliexpress
+          - sourcing from china mistake
+          - china wholesale quality control
+
   crossborder-sku-brand-discovery-7d:
     description: "用每个领域 5 个已知品牌做锚点，专门发现新品牌、平替品牌、质量下滑品牌和配件/翻新机会；这是探索盘，不等于正式品牌池晋级。"
     watches:

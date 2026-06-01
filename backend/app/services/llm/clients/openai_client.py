@@ -18,10 +18,10 @@ import logging
 import os
 import urllib.error
 import urllib.request
-from typing import List, Sequence
+from typing import Any, List, Sequence, cast
 
 try:  # Prefer the official SDK if available (>=1.0)
-    from openai import OpenAI  # type: ignore
+    from openai import OpenAI
 except Exception:  # pragma: no cover - optional dependency
     OpenAI = None  # type: ignore
 
@@ -53,7 +53,7 @@ class OpenAIChatClient(LLMClient):
         base_url: str | None = None,
     ) -> None:
         self._base = (
-            base_url or os.getenv("OPENAI_BASE", "https://api.openai.com/v1")
+            base_url or os.getenv("OPENAI_BASE") or "https://api.openai.com/v1"
         ).rstrip("/")
         # Prefer explicit key, then env var based on base URL
         self._api_key = resolve_llm_api_key(base_url=self._base, explicit_key=api_key)
@@ -63,12 +63,16 @@ class OpenAIChatClient(LLMClient):
         self._sdk = None
         if OpenAI is not None:  # prefer SDK
             try:
-                client_kwargs = {"api_key": self._api_key}
-                if self._base and self._base != "https://api.openai.com/v1":
-                    client_kwargs["base_url"] = self._base
-                if self._org:
-                    client_kwargs["organization"] = self._org
-                self._sdk = OpenAI(**client_kwargs)
+                self._sdk = OpenAI(
+                    api_key=self._api_key,
+                    base_url=(
+                        self._base
+                        if self._base != "https://api.openai.com/v1"
+                        else None
+                    ),
+                    organization=self._org,
+                    timeout=self._timeout,
+                )
             except Exception:
                 self._sdk = None
 
@@ -175,10 +179,12 @@ class OpenAIChatClient(LLMClient):
                     "messages": messages,
                     "temperature": temperature,
                     "max_tokens": max_tokens,
+                    "timeout": self._timeout,
                 }
                 if response_format:
                     kwargs["response_format"] = response_format
-                resp = self._sdk.chat.completions.create(**kwargs)
+                completions = cast(Any, self._sdk.chat.completions)
+                resp = completions.create(**kwargs)
                 return resp.choices[0].message.content or ""
             except Exception as exc:
                 sdk_error = exc
@@ -215,9 +221,10 @@ class OpenAIChatClient(LLMClient):
             )
             with urllib.request.urlopen(req, timeout=self._timeout) as resp:
                 data = json.loads(resp.read().decode("utf-8"))
-                return ((data.get("choices") or [{}])[0].get("message") or {}).get(
+                content = ((data.get("choices") or [{}])[0].get("message") or {}).get(
                     "content", ""
                 )
+                return str(content or "")
         except urllib.error.HTTPError as exc:
             err_body = exc.read().decode("utf-8", errors="replace")
             logger.error(

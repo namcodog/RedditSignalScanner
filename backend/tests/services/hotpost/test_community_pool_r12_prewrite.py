@@ -100,6 +100,52 @@ def test_r12_prewrite_plan_keeps_label_mapping_from_payload() -> None:
     assert row["label_review"] == "multi_tag_review"
 
 
+def test_r12_prewrite_plan_merges_duplicate_community_candidates() -> None:
+    payload = build_r12_prewrite_plan(
+        {
+            "rows": [
+                _feedback_row(
+                    community="r/eBaySellerAdvice",
+                    source_scope="ecommerce-sellers",
+                    suggested_user_tags=["卖家店铺运营"],
+                    topic_cluster="seller-category-direction",
+                ),
+                _feedback_row(
+                    community="r/ebayselleradvice",
+                    source_scope="ecommerce-sellers",
+                    suggested_user_tags=["电商平台政策与风向", "卖家店铺运营"],
+                    topic_cluster="unit-economics-and-platform-risk",
+                    value_assessment={"score": 100, "stage": "pool_candidate"},
+                ),
+            ]
+        },
+        active_pool_keys=set(),
+        deleted_pool_keys=set(),
+    )
+
+    assert payload["summary"] == {
+        "input_rows": 2,
+        "candidate_rows": 1,
+        "would_insert": 1,
+        "skipped_existing": 0,
+        "blocked": 0,
+    }
+    row = payload["rows"][0]
+    assert row["community"] == "r/ebayselleradvice"
+    assert row["suggested_user_tags"] == ["卖家店铺运营", "电商平台政策与风向"]
+    assert row["label_review"] == "multi_tag_review"
+    assert (
+        row["topic_cluster"]
+        == "seller-category-direction,unit-economics-and-platform-risk"
+    )
+    assert row["write_preview"]["pool_insert"]["description_keywords"][
+        "suggested_user_tags"
+    ] == [
+        "卖家店铺运营",
+        "电商平台政策与风向",
+    ]
+
+
 def test_r12_prewrite_service_does_not_hardcode_tag_or_community_names() -> None:
     source = SERVICE_SOURCE.read_text(encoding="utf-8")
     catalog = load_interest_tag_catalog()

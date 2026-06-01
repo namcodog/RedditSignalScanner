@@ -29,3 +29,21 @@ def test_small_goods_broad_no_longer_defaults_to_giftideas() -> None:
 
     assert "giftideas" not in subreddits
     assert "small-goods-30d-broad-gift" not in topic_ids
+
+
+def test_1688_sourcing_profile_is_observation_only_ecommerce_supply() -> None:
+    from app.services.hotpost.named_topic_watch_profiles import load_named_topic_watch_profile
+
+    watches = load_named_topic_watch_profile("china-sourcing-1688-7d")
+    by_topic = {watch.topic_id: watch for watch in watches}
+
+    assert set(by_topic) == {
+        "china-sourcing-1688-7d-product-and-margin",
+        "china-sourcing-1688-7d-supplier-risk",
+        "china-sourcing-1688-7d-user-voice",
+    }
+    assert {watch.scope_id for watch in watches} == {"ecommerce-sellers"}
+    assert by_topic["china-sourcing-1688-7d-product-and-margin"].topic_pack_id == "selection-signals"
+    assert by_topic["china-sourcing-1688-7d-supplier-risk"].topic_pack_id == "category-winds"
+    assert by_topic["china-sourcing-1688-7d-user-voice"].topic_pack_id == "category-winds"
+    assert any("1688" in query for watch in watches for query in watch.queries)

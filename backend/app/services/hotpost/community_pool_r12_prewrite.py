@@ -26,7 +26,12 @@ def build_r12_prewrite_plan(
     active_keys = {_key(value) for value in active_pool_keys}
     deleted_keys = {_key(value) for value in deleted_pool_keys}
     input_rows = _feedback_rows(feedback_payload)
-    candidate_rows = [_build_row(row, active_keys, deleted_keys) for row in input_rows if _is_pool_candidate(row)]
+    raw_candidate_rows = [
+        _build_row(row, active_keys, deleted_keys)
+        for row in input_rows
+        if _is_pool_candidate(row)
+    ]
+    candidate_rows = _merge_duplicate_communities(raw_candidate_rows)
     actions = Counter(str(row["write_preview"]["action"]) for row in candidate_rows)
     return {
         "schema_version": "hotpost-community-pool-r12-prewrite/v1",
@@ -49,15 +54,123 @@ def build_r12_prewrite_plan(
     }
 
 
-def _build_row(row: Mapping[str, Any], active_keys: set[str], deleted_keys: set[str]) -> dict[str, Any]:
+def _merge_duplicate_communities(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    merged: list[dict[str, Any]] = []
+    by_key: dict[str, dict[str, Any]] = {}
+    for row in rows:
+        key = normalize_key(str(row["community"]))
+        existing = by_key.get(key)
+        if existing is None:
+            by_key[key] = row
+            merged.append(row)
+            continue
+        _merge_row(existing, row)
+    return merged
+
+
+def _merge_row(target: dict[str, Any], incoming: Mapping[str, Any]) -> None:
+    tags = _ordered_unique(
+        [
+            *list(target.get("suggested_user_tags") or []),
+            *list(incoming.get("suggested_user_tags") or []),
+        ]
+    )
+    clusters = _ordered_unique(
+        [
+            *[
+                part
+                for part in str(target.get("topic_cluster") or "").split(",")
+                if part
+            ],
+            *[
+                part
+                for part in str(incoming.get("topic_cluster") or "").split(",")
+                if part
+            ],
+        ]
+    )
+    target["suggested_user_tags"] = tags
+    target["topic_cluster"] = ",".join(clusters)
+    target["label_review"] = _label_review(tags)
+    target["risks"] = _ordered_unique(
+        [*list(target.get("risks") or []), *list(incoming.get("risks") or [])]
+    )
+    target["evidence"] = _merge_number_mapping(
+        _mapping(target.get("evidence"), "target.evidence"),
+        _mapping(incoming.get("evidence"), "incoming.evidence"),
+    )
+    target["value_assessment"] = _merge_value_assessment(
+        _mapping(target.get("value_assessment"), "target.value_assessment"),
+        _mapping(incoming.get("value_assessment"), "incoming.value_assessment"),
+    )
+    pool_insert = target["write_preview"]["pool_insert"]
+    pool_insert["description_keywords"].update(
+        {
+            "suggested_user_tags": tags,
+            "topic_cluster": target["topic_cluster"],
+            "score": _int(target["value_assessment"].get("score")),
+            "candidate_count": _int(target["evidence"].get("candidate_count")),
+            "published_count": _int(target["evidence"].get("published_count")),
+            "duplicate_count": _int(target["evidence"].get("duplicate_count")),
+            "total_evidence": _int(target["evidence"].get("total_evidence")),
+        }
+    )
+
+
+def _merge_number_mapping(
+    first: Mapping[str, Any], second: Mapping[str, Any]
+) -> dict[str, Any]:
+    keys = {*first.keys(), *second.keys()}
+    return {key: max(_int(first.get(key)), _int(second.get(key))) for key in keys}
+
+
+def _merge_value_assessment(
+    first: Mapping[str, Any], second: Mapping[str, Any]
+) -> dict[str, Any]:
+    merged = dict(first)
+    merged["score"] = max(_int(first.get("score")), _int(second.get("score")))
+    merged["stage"] = first.get("stage") or second.get("stage") or ""
+    merged["positive_signals"] = _ordered_unique(
+        [
+            *list(first.get("positive_signals") or []),
+            *list(second.get("positive_signals") or []),
+        ]
+    )
+    merged["risks"] = _ordered_unique(
+        [*list(first.get("risks") or []), *list(second.get("risks") or [])]
+    )
+    return merged
+
+
+def _ordered_unique(values: list[Any]) -> list[str]:
+    seen: set[str] = set()
+    result: list[str] = []
+    for value in values:
+        item = str(value).strip()
+        if not item or item in seen:
+            continue
+        seen.add(item)
+        result.append(item)
+    return result
+
+
+def _build_row(
+    row: Mapping[str, Any], active_keys: set[str], deleted_keys: set[str]
+) -> dict[str, Any]:
     community = canonical_community_name(str(row.get("community") or ""))
     key = normalize_key(community)
-    tags = [str(tag) for tag in list(row.get("suggested_user_tags") or []) if str(tag).strip()]
+    tags = [
+        str(tag)
+        for tag in list(row.get("suggested_user_tags") or [])
+        if str(tag).strip()
+    ]
     source_scope = str(row.get("source_scope") or "")
     topic_cluster = str(row.get("topic_cluster") or "")
     evidence = _mapping(row.get("evidence"), "row.evidence")
     value = _mapping(row.get("value_assessment"), "row.value_assessment")
-    write_action = _write_action(key=key, tags=tags, active_keys=active_keys, deleted_keys=deleted_keys)
+    write_action = _write_action(
+        key=key, tags=tags, active_keys=active_keys, deleted_keys=deleted_keys
+    )
     risks = _risks(row, write_action)
     return {
         "community": community,
@@ -123,7 +236,9 @@ def _is_pool_candidate(row: Mapping[str, Any]) -> bool:
     )
 
 
-def _write_action(*, key: str, tags: list[str], active_keys: set[str], deleted_keys: set[str]) -> str:
+def _write_action(
+    *, key: str, tags: list[str], active_keys: set[str], deleted_keys: set[str]
+) -> str:
     if key in active_keys:
         return ACTION_SKIP_EXISTING
     if key in deleted_keys:
@@ -143,7 +258,10 @@ def _label_review(tags: list[str]) -> str:
 
 def _risks(row: Mapping[str, Any], write_action: str) -> list[str]:
     risks = [str(risk) for risk in list(row.get("risks") or []) if str(risk).strip()]
-    if write_action not in {ACTION_PREPARE, ACTION_SKIP_EXISTING} and write_action not in risks:
+    if (
+        write_action not in {ACTION_PREPARE, ACTION_SKIP_EXISTING}
+        and write_action not in risks
+    ):
         risks.append(write_action)
     return risks
 

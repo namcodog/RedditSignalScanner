@@ -5,6 +5,7 @@ from app.schemas.hotpost_clues import CardType
 from app.schemas.hotpost_signal import SourceScopeId
 from app.services.hotpost.card_draft_builder import build_published_card
 from app.services.hotpost.card_payload_store import load_drafts, mutate_drafts, mutate_drafts_and_published
+from app.services.hotpost.draft_precheck_store import load_draft_precheck
 
 
 def _load_draft(item: dict) -> ValidationCardDraft | WritingCardDraft:
@@ -58,12 +59,19 @@ def delete_draft(draft_id: str) -> bool:
     return mutate_drafts(_mutate)
 
 
-def publish_draft(draft_id: str) -> tuple[str, int]:
+def publish_draft(draft_id: str, *, override_precheck_block: bool = False) -> tuple[str, int]:
     def _mutate(drafts: list[dict], published: list[dict]) -> tuple[str, int]:
         index = next((idx for idx, item in enumerate(drafts) if item["draft_id"] == draft_id), None)
         if index is None:
             raise LookupError("Draft not found")
         draft = _load_draft(drafts[index])
+        precheck = load_draft_precheck(draft_id)
+        if (
+            isinstance(precheck, dict)
+            and precheck.get("decision") == "BLOCK"
+            and not override_precheck_block
+        ):
+            raise ValueError("precheck BLOCK: publish requires human override")
         if any(item["card_id"] == draft.card_id for item in published):
             raise ValueError("Published card already exists")
         published.append(build_published_card(draft).model_dump(mode="json"))

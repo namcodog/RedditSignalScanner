@@ -179,7 +179,14 @@ def _polish_title(text: str) -> str:
 
 
 def _de_jargonize_client_copy(text: str) -> str:
-    polished = text
+    protected_slash_commands: dict[str, str] = {}
+
+    def _protect_slash_command(match: re.Match[str]) -> str:
+        token = f"__SLASH_COMMAND_{len(protected_slash_commands)}__"
+        protected_slash_commands[token] = match.group(0)
+        return token
+
+    polished = re.sub(r"/[A-Za-z][A-Za-z0-9_-]*", _protect_slash_command, text)
     polished = polished.replace("值得关注", "值得看")
     polished = re.sub(
         r"继续观察社区中关于\s*(.+?)\s*等词汇的讨论频率",
@@ -245,6 +252,8 @@ def _de_jargonize_client_copy(text: str) -> str:
     polished = polished.replace("内容大差不差，但一旦说话人标错，这份纪要就没人敢当真。", "内容大差不差，但一旦说话人标错，这份纪要谁也不敢当真。")
     polished = polished.replace("会后不是没人看纪要，是大家都不知道第一步该谁接。", "会后不是纪要没人看，而是大家都不知道第一步该谁接。")
     polished = polished.replace("行动项写出来不等于有人认领", "行动项写出来不等于真有人接住")
+    for token, command in protected_slash_commands.items():
+        polished = polished.replace(token, command)
     polished = re.sub(r"\bSQL\b", "SQL", polished)
     polished = re.sub(r"\s+", " ", polished)
     return polished.strip()

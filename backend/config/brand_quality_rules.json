@@ -24,6 +24,9 @@
     "sharp",
     "spot"
   ],
+  "ambiguous_case_terms": [
+    "mirror"
+  ],
   "person_name_surnames": [
     "brown",
     "davis",

@@ -42,20 +42,31 @@ async def _run(args: argparse.Namespace) -> dict[str, Any]:
 
     if not args.no_collect:
         triggered_actions.append("daily_collect")
+        _progress("daily_collect", "started", mode=args.collect_mode, scope=collect_scope)
         collect_summary = await _run_daily_collect(mode=args.collect_mode, scope=collect_scope)
+        _progress("daily_collect", "completed", summary=collect_summary)
 
     sync_step = "post_collect_sync" if collect_summary is not None else "initial_sync"
+    _progress(sync_step, "started")
     sync_runs.append({"step": sync_step, "summary": sync_topic_metadata()})
+    _progress(sync_step, "completed", summary=sync_runs[-1]["summary"])
+    _progress("publish_plan", "started", target_total=target_total, scope=collect_scope)
     payload = _write_plan(target_total, scope=collect_scope, output_path=args.output_plan)
     initial = evaluate_publish_plan(payload, target_total=target_total)
+    _progress("publish_plan", "completed", decision=initial.get("decision"))
     final = initial
 
     if final["decision"] != "publish" and not args.no_named_topics and _should_collect_named_topics(final):
         triggered_actions.append("collect_named_topics")
+        _progress("collect_named_topics", "started", mode=args.collect_mode)
         named_topic_summary = await _run_named_topic_collect(mode=args.collect_mode)
+        _progress("collect_named_topics", "completed", summary=named_topic_summary)
+        _progress("post_named_topic_sync", "started")
         sync_runs.append({"step": "post_named_topic_sync", "summary": sync_topic_metadata()})
+        _progress("post_named_topic_sync", "completed", summary=sync_runs[-1]["summary"])
         payload = _write_plan(target_total, scope=collect_scope, output_path=args.output_plan)
         final = evaluate_publish_plan(payload, target_total=target_total)
+        _progress("publish_plan", "completed", decision=final.get("decision"))
 
     if (
         final["decision"] == "publish"
@@ -69,10 +80,15 @@ async def _run(args: argparse.Namespace) -> dict[str, Any]:
         )
         if governance_watches:
             triggered_actions.append("collect_governance_topics")
+            _progress("collect_governance_topics", "started", count=len(governance_watches))
             governance_collect_summary = await _run_named_topic_collect(mode=args.collect_mode, watches=governance_watches)
+            _progress("collect_governance_topics", "completed", summary=governance_collect_summary)
+            _progress("post_governance_collect_sync", "started")
             sync_runs.append({"step": "post_governance_collect_sync", "summary": sync_topic_metadata()})
+            _progress("post_governance_collect_sync", "completed", summary=sync_runs[-1]["summary"])
             governance_preview_payload = _write_plan(target_total, scope=collect_scope, output_path=None)
             governance_preview = evaluate_publish_plan(governance_preview_payload, target_total=target_total)
+            _progress("governance_preview", "completed", decision=governance_preview.get("decision"))
 
     summary = {
         "workflow": "reddit-signal-scanner-intake-freshness-gate",
@@ -136,6 +152,13 @@ def _should_collect_named_topics(summary: dict[str, Any]) -> bool:
         fail_reasons=list(summary.get("fail_reasons") or []),
         lane_counts=dict(summary.get("lane_counts") or {}),
         candidate_freshness_by_lane=dict(summary.get("candidate_freshness_by_lane") or {}),
+    )
+
+
+def _progress(stage: str, status: str, **extra: object) -> None:
+    print(
+        json.dumps({"stage": stage, "status": status, **extra}, ensure_ascii=False),
+        file=sys.stderr,
     )
 
 

@@ -14,6 +14,7 @@ class EvidenceThreshold:
 class BrandQualityRules:
     verified_thresholds: Mapping[str, EvidenceThreshold]
     generic_terms: frozenset[str]
+    ambiguous_case_terms: frozenset[str]
     person_name_surnames: frozenset[str]
 
 

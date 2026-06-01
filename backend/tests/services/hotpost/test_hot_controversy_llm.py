@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import asyncio
+
 import pytest
 
 from app.services.hotpost.hot_controversy_llm import (
@@ -17,6 +19,12 @@ class _FakeLLM:
     async def generate(self, prompt: str, **kwargs: object) -> str:
         self.calls.append({"prompt": prompt, **kwargs})
         return self._content
+
+
+class _SlowLLM:
+    async def generate(self, _prompt: str, **_kwargs: object) -> str:
+        await asyncio.sleep(0.05)
+        return "{}"
 
 
 @pytest.mark.asyncio
@@ -67,7 +75,44 @@ async def test_build_hot_controversy_result_uses_real_counts() -> None:
     assert meta["fetch_status"] == "ok"
     assert meta["llm_summary_version"] == "cn_human_point_slots_v8"
     assert meta["sample_quality"] == "medium"
+    assert meta["llm_trace"]["stage"] == "hot_controversy"
+    assert meta["llm_trace"]["status"] == "completed"
+    assert meta["llm_trace"]["model"] == CONTROVERSY_LLM_MODEL
     assert len(llm.calls) == 1
+
+
+@pytest.mark.asyncio
+async def test_build_hot_controversy_result_times_out_with_error_type(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setattr(
+        "app.services.hotpost.hot_controversy_llm.load_hot_controversy_llm_config",
+        lambda: {
+            "model": CONTROVERSY_LLM_MODEL,
+            "summary_version": "cn_human_point_slots_v8",
+            "timeout_seconds": 0.01,
+        },
+    )
+
+    chart, meta = await build_hot_controversy_result(
+        card={
+            "card_id": "card-hot",
+            "title": "Claude Mythos",
+            "summary_line": "大家在吵。",
+        },
+        sample={
+            "post_id": "1timeout",
+            "fetch_status": "ok",
+            "sample_size": 18,
+            "sampled_at": "2026-04-14T12:00:00Z",
+            "sample_comments": [{"body": "comment a"}],
+        },
+        llm_client=_SlowLLM(),
+    )
+
+    assert chart is None
+    assert meta["summary_status"] == "llm_failed"
+    assert meta["error_type"] == "stage_timeout"
 
 
 @pytest.mark.asyncio

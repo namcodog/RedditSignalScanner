@@ -148,6 +148,36 @@ def test_quality_review_flags_noise_without_silent_acceptance(tmp_path: Path) ->
     assert len(report.noise_items) == 3
 
 
+def test_quality_review_rejects_lowercase_ambiguous_brand_match(
+    tmp_path: Path,
+) -> None:
+    digest = BrandDigestReport(
+        report_date="2026-05-12",
+        card_count=2,
+        brands=(
+            _brand(
+                "Mirror",
+                "approved",
+                [_evidence("Headers that mirror how buyers describe problems.")],
+            ),
+            _brand("Linear", "approved", [_evidence("Linear changed pricing.")]),
+        ),
+    )
+
+    report = build_brand_quality_review(
+        digest,
+        rules=load_brand_quality_rules(
+            _write_rules(tmp_path, ambiguous_case_terms=("mirror",))
+        ),
+        tags=load_interest_tag_rules(_write_tags(tmp_path)),
+    )
+    rows = {item.canonical_name: item for item in report.items}
+
+    assert rows["Mirror"].review_status == "rejected"
+    assert "lowercase_ambiguous_match" in rows["Mirror"].noise_flags
+    assert rows["Linear"].review_status == "verified"
+
+
 def test_quality_review_writes_json_and_markdown(tmp_path: Path) -> None:
     digest = BrandDigestReport(
         report_date="2026-05-12",
@@ -182,7 +212,11 @@ def test_quality_review_service_has_no_hardcoded_brand_list() -> None:
 
 
 def _write_rules(
-    root: Path, *, seed_mentions: int = 1, generic_terms: tuple[str, ...] = ("case",)
+    root: Path,
+    *,
+    seed_mentions: int = 1,
+    generic_terms: tuple[str, ...] = ("case",),
+    ambiguous_case_terms: tuple[str, ...] = (),
 ) -> Path:
     path = root / "brand_quality_rules.json"
     path.write_text(
@@ -194,6 +228,7 @@ def _write_rules(
                     "candidate": {"min_mentions": 99, "min_communities": 99},
                 },
                 "generic_terms": list(generic_terms),
+                "ambiguous_case_terms": list(ambiguous_case_terms),
                 "person_name_surnames": ["smith"],
             }
         ),

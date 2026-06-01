@@ -1,6 +1,13 @@
 timeouts:
-  signal_seconds: 18
-  breakdown_seconds: 28
+  signal_seconds: 40
+  breakdown_seconds: 50
+
+pipeline:
+  total_seconds: 240
+  semantic_brief_seconds: 60
+  writer_seconds: 70
+  title_repair_seconds: 45
+  precheck_seconds: 45
 
 max_tokens:
   signal: 2200

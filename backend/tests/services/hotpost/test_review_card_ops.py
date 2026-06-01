@@ -60,11 +60,12 @@ async def test_seed_review_draft_generates_before_save(monkeypatch: pytest.Monke
     )
     saved: list[ValidationCardDraft] = []
 
-    async def _fake_generate(_draft: ValidationCardDraft) -> ValidationCardDraft:
+    async def _fake_generate(_draft: ValidationCardDraft, **_kwargs) -> ValidationCardDraft:
         return generated
 
     monkeypatch.setattr(mod, "get_candidate", lambda _candidate_id: candidate)
     monkeypatch.setattr(mod, "generate_card_content", _fake_generate)
+    monkeypatch.setattr(mod, "save_generation_trace", lambda *args, **kwargs: None)
     monkeypatch.setattr(mod, "save_draft", lambda draft: saved.append(draft) or draft)
 
     result = await mod.seed_review_draft("cand-ops-001", "validate")
@@ -97,10 +98,11 @@ async def test_seed_review_draft_replaces_incomplete_existing_draft(monkeypatch:
     updated: list[ValidationCardDraft] = []
     saved: list[ValidationCardDraft] = []
 
-    async def _fake_generate(_draft: ValidationCardDraft) -> ValidationCardDraft:
+    async def _fake_generate(_draft: ValidationCardDraft, **_kwargs) -> ValidationCardDraft:
         return generated
 
     monkeypatch.setattr(mod, "generate_card_content", _fake_generate)
+    monkeypatch.setattr(mod, "save_generation_trace", lambda *args, **kwargs: None)
     monkeypatch.setattr(mod, "list_drafts", lambda *args, **kwargs: [existing])
     monkeypatch.setattr(mod, "save_draft", lambda draft: saved.append(draft) or draft)
     monkeypatch.setattr(mod, "update_draft", lambda draft_id, draft: updated.append(draft) or draft)

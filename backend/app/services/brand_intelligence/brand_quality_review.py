@@ -42,6 +42,10 @@ def load_brand_quality_rules(path: Path = DEFAULT_RULES_PATH) -> BrandQualityRul
             _normalize(value)
             for value in _as_string_tuple(payload.get("generic_terms"))
         ),
+        ambiguous_case_terms=frozenset(
+            _normalize(value)
+            for value in _as_string_tuple(payload.get("ambiguous_case_terms"))
+        ),
         person_name_surnames=frozenset(
             _normalize(value)
             for value in _as_string_tuple(payload.get("person_name_surnames"))
@@ -109,7 +113,11 @@ def _review_status(
     rules: BrandQualityRules,
     noise_flags: tuple[str, ...],
 ) -> str:
-    if "generic_term" in noise_flags or "community_name_overlap" in noise_flags:
+    if (
+        "generic_term" in noise_flags
+        or "community_name_overlap" in noise_flags
+        or "lowercase_ambiguous_match" in noise_flags
+    ):
         return "rejected"
     threshold = rules.verified_thresholds.get(brand.source_lifecycle)
     if (
@@ -126,6 +134,8 @@ def _noise_flags(brand: BrandCandidate, rules: BrandQualityRules) -> tuple[str, 
     normalized = _normalize(brand.canonical_name)
     if normalized in rules.generic_terms:
         flags.append("generic_term")
+    if normalized in rules.ambiguous_case_terms and not _has_exact_case_evidence(brand):
+        flags.append("lowercase_ambiguous_match")
     if (
         brand.source_lifecycle == "candidate"
         and len(brand.evidence) <= 1
@@ -181,6 +191,11 @@ def _looks_like_person_name(value: str, rules: BrandQualityRules) -> bool:
         and all(re.match(r"^[A-Z][a-z]+$", part) for part in parts)
         and _normalize(parts[1]) in rules.person_name_surnames
     )
+
+
+def _has_exact_case_evidence(brand: BrandCandidate) -> bool:
+    pattern = re.compile(rf"\b{re.escape(brand.canonical_name)}\b")
+    return any(pattern.search(item.source_text) for item in brand.evidence)
 
 
 def _as_string_tuple(value: object) -> tuple[str, ...]:

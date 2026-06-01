@@ -756,6 +756,15 @@ def test_polish_generated_text_rewrites_ai_jargon_for_client_copy() -> None:
     assert "流程" in result
 
 
+def test_polish_generated_text_keeps_slash_commands_readable() -> None:
+    result = polish_generated_text(
+        "Claude Code 上线 /workflows，开发者预判自建工具将被替代。",
+        field_name="title",
+    )
+    assert "/workflows" in result
+    assert "/流程" not in result
+
+
 def test_polish_generated_text_rewrites_growth_blackwords_for_client_copy() -> None:
     result = polish_generated_text(
         "Reddit 广告先被人判成 click fraud 重灾区，checkout 也撑不住。",
@@ -972,6 +981,16 @@ class _RecordingClient(_FakeClient):
         return await super().generate(prompt, **kwargs)
 
 
+def _precheck_payload() -> dict:
+    return {
+        "decision": "PASS",
+        "reasons": ["证据支撑当前主张"],
+        "required_fixes": [],
+        "risk_flags": [],
+        "publish_note": "可以进入人工 review",
+    }
+
+
 class _RawClient:
     def __init__(self, raw: str) -> None:
         self.raw = raw
@@ -1026,6 +1045,35 @@ async def test_generate_json_normalizes_control_chars_inside_strings() -> None:
     )
 
     assert payload == {"title": "ok", "summary_line": "第一行\n第二行"}
+
+
+@pytest.mark.asyncio
+async def test_generate_json_extracts_object_when_response_has_extra_text() -> None:
+    payload = await _generate_json(
+        model="deepseek/deepseek-v4-pro",
+        timeout=60,
+        messages=[{"role": "system", "content": "return json"}],
+        client_factory=lambda _model, _timeout: _RawClient(
+            'note before {"title":"ok","summary_line":"可解析"} trailing note'
+        ),
+    )
+
+    assert payload == {"title": "ok", "summary_line": "可解析"}
+
+
+@pytest.mark.asyncio
+async def test_generate_json_classifies_empty_response_without_repair() -> None:
+    client = _RawSequenceClient([""])
+
+    with pytest.raises(ValueError, match="empty_response"):
+        await _generate_json(
+            model="deepseek/deepseek-v4-pro",
+            timeout=60,
+            messages=[{"role": "system", "content": "return json"}],
+            client_factory=lambda _model, _timeout: client,
+        )
+
+    assert len(client.calls) == 1
 
 
 @pytest.mark.asyncio
@@ -1206,6 +1254,7 @@ async def test_generate_card_content_uses_v13_production_profile_before_hot_lane
                 "stop_signal": "如果后续只剩单帖吐槽，没有替代方案讨论，可以先放过。",
             },
         },
+        _precheck_payload(),
     ]
     seen_models: list[str] = []
 
@@ -1281,6 +1330,7 @@ async def test_generate_card_content_repairs_v13_title_issue_before_validation(
         {
             "title": "Shopify 移动端转化卡住，卖家用会话回放查运费",
         },
+        _precheck_payload(),
     ]
     seen_models: list[str] = []
 
@@ -1296,8 +1346,80 @@ async def test_generate_card_content_repairs_v13_title_issue_before_validation(
         "google/gemini-3-flash-preview",
         "deepseek/deepseek-v4-pro",
         "deepseek/deepseek-v4-pro",
+        "deepseek/deepseek-v4-pro",
     ]
     assert result.title == "Shopify 移动端转化卡住，卖家用会话回放查运费"
+
+
+@pytest.mark.asyncio
+async def test_generate_card_content_keeps_draft_when_title_repair_returns_empty(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.delenv("HOTPOST_CARD_CONTENT_PROFILE_ID", raising=False)
+    load_card_content_models.cache_clear()
+    draft = seed_validation_draft(
+        _candidate(
+            title="Mobile conversion stuck at 2.1%",
+            source_scope_id="business-growth-ops",
+            source_scope_name="商业增长与运营",
+            topic_pack_id="funnel-conversion",
+            matched_subreddit="shopify",
+            score=96,
+            num_comments=42,
+            signal_level="rising",
+            listing_source="search:relevance:week",
+            intent_tags=["优化"],
+            quotes=[
+                {
+                    "text": "Our Shopify mobile conversion has been stuck at 2.1%, session replays show users drop at shipping.",
+                    "community": "r/shopify",
+                    "permalink": "https://www.reddit.com/r/shopify/comments/v13/q1",
+                },
+                {
+                    "text": "Before redesigning, watch 20-30 mobile recordings and fix the obvious friction.",
+                    "community": "r/ecommerce",
+                    "permalink": "https://www.reddit.com/r/ecommerce/comments/v13/q2",
+                },
+            ],
+        )
+    )
+    raws = [
+        json.dumps(
+            {
+                "core_scene": "Shopify 卖家的移动端转化率卡在 2.1%。",
+                "supported_claim": "证据支持先看用户会话回放定位运费步骤摩擦。",
+                "risk_bounds": "不能说所有 Shopify 店铺都有这个问题。",
+            },
+            ensure_ascii=False,
+        ),
+        json.dumps(
+            {
+                "title": "移动端转化率卡在2.1%，先看用户会话回放",
+                "summary_line": "Shopify 卖家的移动端转化率卡在 2.1%，评论建议先看 20-30 条会话回放。",
+                "audience": "移动端转化率卡住的 Shopify 卖家",
+                "why_now": "讨论已经从泛泛改版，收窄到运费步骤和会话回放这类具体排查动作。",
+                "preview_quote_permalink": "https://www.reddit.com/r/shopify/comments/v13/q1",
+                "detail": {
+                    "flashpoint": "争议点是先改版整个移动端页面，还是先用会话回放定位运费步骤。",
+                    "fight_line": "改版派觉得页面体验整体不行，排查派认为先看用户卡在哪一步。",
+                    "why_test_now": "原帖给出 2.1% 转化率和会话回放证据。",
+                    "continue_signal": "继续看 shipping、session replay、mobile 这些词是不是重复出现。",
+                    "stop_signal": "如果后续只剩泛泛改版建议，没有具体步骤证据，可以先放过。",
+                },
+            },
+            ensure_ascii=False,
+        ),
+        "",
+        json.dumps(_precheck_payload(), ensure_ascii=False),
+    ]
+    client = _RawSequenceClient(raws)
+
+    result = await generate_card_content(
+        draft, client_factory=lambda _model, _timeout: client, allow_breakdown=False
+    )
+
+    assert result.title == "移动端转化率卡在2.1%，先看用户会话回放"
+    assert getattr(result, "_hotpost_precheck_result")["decision"] == "PASS"
 
 
 @pytest.mark.asyncio
@@ -1345,6 +1467,7 @@ async def test_generate_card_content_routes_breakdown_to_v13_writer_when_product
                 "https://www.reddit.com/r/startups/comments/def456/q2",
             ],
         },
+        _precheck_payload(),
     ]
     seen_models: list[str] = []
 
@@ -1359,8 +1482,10 @@ async def test_generate_card_content_routes_breakdown_to_v13_writer_when_product
         "google/gemini-3-flash-preview",
         "deepseek/deepseek-v4-pro",
         "deepseek/deepseek-v4-pro",
+        "deepseek/deepseek-v4-pro",
     ]
     assert "xiaomi/mimo-v2.5-pro" not in seen_models
+    assert getattr(result, "_hotpost_precheck_result")["decision"] == "PASS"
 
 
 @pytest.mark.asyncio
@@ -1453,6 +1578,7 @@ async def test_generate_card_content_passes_v13_semantic_brief_to_breakdown_prom
                 "https://www.reddit.com/r/startups/comments/def456/q2",
             ],
         },
+        _precheck_payload(),
     ]
     clients: list[_RecordingClient] = []
 
@@ -1464,7 +1590,7 @@ async def test_generate_card_content_passes_v13_semantic_brief_to_breakdown_prom
     result = await generate_card_content(draft, client_factory=factory)
 
     assert result.card_type == "write"
-    assert len(clients) == 3
+    assert len(clients) == 4
     breakdown_prompt = clients[2].messages[0]["content"]
     assert "## 语义理解层 brief" in breakdown_prompt
     assert "actor_and_scene" in breakdown_prompt
@@ -2306,7 +2432,8 @@ async def test_generate_card_content_routes_paid_economics_to_preview_fast_model
         return _FakeClient(payloads)
 
     await generate_card_content(draft, client_factory=factory)
-    assert calls[0] == ("deepseek/deepseek-v4-flash", 18.0)
+    expected_timeout = float(load_card_content_rules()["timeouts"]["signal_seconds"])
+    assert calls[0] == ("deepseek/deepseek-v4-flash", expected_timeout)
 
 
 @pytest.mark.asyncio
@@ -2571,7 +2698,8 @@ async def test_generate_card_content_routes_upstream_winds_to_preview_fast_model
         return _FakeClient(payloads)
 
     await generate_card_content(draft, client_factory=factory)
-    assert calls[0] == ("deepseek/deepseek-v4-flash", 18.0)
+    expected_timeout = float(load_card_content_rules()["timeouts"]["signal_seconds"])
+    assert calls[0] == ("deepseek/deepseek-v4-flash", expected_timeout)
 
 
 @pytest.mark.asyncio

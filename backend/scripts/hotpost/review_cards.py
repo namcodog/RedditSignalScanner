@@ -22,6 +22,8 @@ from app.services.hotpost.card_selection_policy import (
 from app.services.hotpost.card_draft_store import delete_draft, list_drafts, publish_draft, update_draft
 from app.services.hotpost.card_payload_store import load_published_cards
 from app.services.hotpost.card_review_rejection_store import save_review_rejection
+from app.services.hotpost.draft_precheck_store import load_draft_precheck
+from app.services.hotpost.generation_trace_store import load_generation_trace
 from app.services.hotpost.review_queue_policy import filter_actionable_candidates
 from app.services.hotpost.review_card_ops import seed_review_draft, seed_review_draft_from_candidate, seed_review_group_draft
 from app.services.hotpost.review_queue_snapshot_store import get_snapshot_candidate, write_review_queue_snapshot
@@ -54,6 +56,7 @@ def main() -> None:
     reject.add_argument("--note", default="")
     publish = sub.add_parser("publish")
     publish.add_argument("draft_id")
+    publish.add_argument("--override-precheck-block", action="store_true")
     args = parser.parse_args()
     {
         "queue": queue_cmd,
@@ -106,11 +109,13 @@ def queue_cmd(args: argparse.Namespace) -> None:
 
 
 def seed_cmd(args: argparse.Namespace) -> None:
+    _progress("seed", "started", candidate_id=args.candidate_id, card_type=args.card_type)
     if args.live:
         draft = __import__("asyncio").run(seed_review_draft(args.candidate_id, args.card_type))
     else:
         candidate = get_snapshot_candidate(args.candidate_id, snapshot_id=args.snapshot_id)
         draft = __import__("asyncio").run(seed_review_draft_from_candidate(candidate, args.card_type))
+    _progress("seed", "completed", draft_id=draft.draft_id)
     print(draft.draft_id)
 
 
@@ -132,7 +137,17 @@ def update_cmd(args: argparse.Namespace) -> None:
 
 
 def publish_cmd(args: argparse.Namespace) -> None:
-    card_id, published_count = publish_draft(args.draft_id)
+    precheck = load_draft_precheck(args.draft_id)
+    if (
+        isinstance(precheck, dict)
+        and precheck.get("decision") == "BLOCK"
+        and not getattr(args, "override_precheck_block", False)
+    ):
+        raise SystemExit("precheck BLOCK: use --override-precheck-block only after human review")
+    card_id, published_count = publish_draft(
+        args.draft_id,
+        override_precheck_block=getattr(args, "override_precheck_block", False),
+    )
     print(json.dumps({"card_id": card_id, "published_count": published_count}, ensure_ascii=False))
 
 
@@ -151,7 +166,21 @@ def _load_draft(payload: dict) -> ValidationCardDraft | WritingCardDraft:
 
 
 def _review_payload(draft: ValidationCardDraft | WritingCardDraft) -> dict:
-    return draft.model_dump(mode="json")
+    payload = draft.model_dump(mode="json")
+    precheck = load_draft_precheck(draft.draft_id)
+    if precheck is not None:
+        payload["precheck"] = precheck
+    trace = load_generation_trace(draft.draft_id)
+    if trace is not None:
+        payload["generation_trace"] = trace
+    return payload
+
+
+def _progress(stage: str, status: str, **extra: object) -> None:
+    print(
+        json.dumps({"stage": stage, "status": status, **extra}, ensure_ascii=False),
+        file=sys.stderr,
+    )
 
 
 if __name__ == "__main__":
