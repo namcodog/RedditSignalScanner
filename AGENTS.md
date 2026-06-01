@@ -46,23 +46,76 @@
 ### 基本原则
 
 - 先遵守当前项目自己的本地规则文件
-- 固定启动初始化必须调用 `key-os`；初始化后只在跨项目上下文、个人画像、知识沉淀、写回判断、任务收口时继续调用
-- 把 `KEYOS_ROOT` 视为 `key-os` canonical root；不要直接进入文件树乱翻，统一只通过 `keyos` CLI 访问
+- `key-os` 只作为外部个人 OS：提供记忆、读取路由、治理门禁、写回规则和收口检查；当前任务仍以本仓交付为主
+- canonical root 固定为 `/Users/hujia/Library/CloudStorage/GoogleDrive-namcodog@gmail.com/我的云端硬盘/key-os`
+- `/Users/hujia/key-os` 只允许作为快捷入口或兼容路径，不是正式真相源
+- 当前执行模式是控制 agent 执行，`keyos` CLI 负责读取路由、写回门禁、收口和检查；`steward LLM` 默认关闭
 - 当前项目的代码、文档、测试、交付物继续写在当前项目仓库
-- 不在当前项目目录里再维护第二套长期记忆系统
+- 不在当前项目目录里再维护第二套长期记忆系统，也不要把外部运行时变成 `key-os` 的长期管理员
 
 ### 启动与读取
 
 - 每次会话开始固定执行：`keyos status --json` -> `keyos check --json` -> `keyos read --json`。
 - `keyos read --json` 返回的 `files` 是 key-os 初始化首跳，只代表跨项目连续性和推荐上下文，不替代本项目 phase-log 当前状态。
-- 如果已知道目标，完成固定初始化后再按需使用：`keyos read rules --json`、`keyos read wiki --json`、`keyos read audit --json`、`keyos read project:<name> --json`。
+- 如果已知道目标，完成固定初始化后再按需使用：`keyos read rules --json`、`keyos read wiki --json`、`keyos read audit --json`、`keyos read project:<name> --json`、`keyos wiki query "<topic>" --json`。
+- 默认窄读，只读 `keyos` 返回的 `files`；不把 `/Users/hujia`、home 根目录或 `key-os` 全库当默认 grep / glob 起点。
+- 检索优先级：`keyos` CLI 命中文件 -> canonical root 下被显式点名的文件 -> 当前仓库限定目录。
+- 涉及 memory / knowledge base / history / prior discussions / topic ideas 时，先走 `keyos read` 或 `keyos wiki query`，不要把普通文件系统搜索当成记忆检索。
 - 扩展读取只补充跨项目规则、历史判断或项目连续性；涉及 RedditSignalScanner 当前进度时，仍必须回到 `reports/phase-log/` 四入口核实。
+
+### 改前治理
+
+- 修改任何文件前先运行：
+
+```bash
+KEYOS_ROOT="/Users/hujia/Library/CloudStorage/GoogleDrive-namcodog@gmail.com/我的云端硬盘/key-os" keyos steward prepare \
+  --goal "<本次目标>" \
+  --acceptance "<可验证验收点>" \
+  --llm-provider disabled \
+  --json
+```
+
+- 只有看到 `execution_discipline_v1.status=active` 才能继续。
+- 如果 `prepare` 返回 block、`keyos check` 失败、或 JSON 不可判断，先停止并处理阻塞。
 
 ### 调用边界
 
 - 研究 / 资料任务优先用 `keyos wiki query --json`、`keyos wiki ingest ... --json`。
-- 任务完成且需要沉淀经验时优先 `keyos close ... --json`；高价值任务优先 `keyos steward prepare ... --json` / `keyos steward close ... --json`。
-- 只有需要把高价值判断沉淀进 `key-os` 时才允许写回，而且只允许用：`keyos inbox ...`、`keyos write ...`、`keyos close ...`、`keyos steward ...`、`keyos wiki ...`。
+- 写回 `key-os` 只能通过 CLI：`keyos inbox ...`、`keyos write ...`、`keyos steward ...`、`keyos wiki ...`、`keyos evolve --json`。
+- 不要手改 `key-os` canonical 文件；尤其不要静默改 `00-core/*`、`01-memory/MEMORY.md`、`01-memory/ARCHIVE.md`。
+- 任务完成后如果触发写回条件，运行 `keyos steward close ... --json`，再运行 `keyos check --json`。
+
+### 真实任务回流
+
+当本仓完成一个可验证的真实任务，并且满足下面任一条件时，必须把结果回流到 key-os，避免 key-os 的质量账本长期只有治理样本。
+
+触发条件：
+- 改变了下一次任务应该采用的判断。
+- 产出可复用结论、失败教训或方法。
+- 踩到下次容易重犯的坑。
+- 完成一次真实工程 / 运营任务，例如产品、后端、前端、小程序、数据链、质量门禁、产卡、发布、补漏、真机排障或 release surface 修复，并已完成验证。
+
+不满足以上条件的只读问答或微小检查，不强行写回。
+
+收口命令：
+
+```bash
+KEYOS_ROOT="/Users/hujia/Library/CloudStorage/GoogleDrive-namcodog@gmail.com/我的云端硬盘/key-os" keyos steward close \
+  --task-type "engineering|research|writing|governance" \
+  --file "<本仓关键文件或报告>" \
+  --result-quality "A|B|C" \
+  --wrong-context "<这次纠正了什么误判，没有就写 none>" \
+  --promotion-action "none" \
+  --note "<一句话写清真实任务、验证结果和可复用经验>" \
+  --llm-provider disabled \
+  --json
+```
+
+close 约束：
+- 颗粒度按工作 session，不按 commit。
+- `--note` 用一句话写结论，不写过程流水。
+- `--wrong-context` 非 `none` 时，`--promotion-action` 必须填具体动作。
+- `task_type` 不要写成 `governance`，除非这次任务真的只是在维护 `key-os` 或本仓规则文件。真实产品 / 工程 / 运营任务优先用 `engineering`、`research` 或 `writing`，让 `task-quality-ledger.md` 出现非治理样本。
 
 ### 失败处理
 
@@ -73,6 +126,7 @@
 
 - 不要直接手改 `daily / project / wiki` 文件，不要直接进入 `KEYOS_ROOT` 文件树找内容，不要把自己当成 `key-os` 仓库维护者。
 - 你的职责是使用 `key-os`、读取 `key-os`、回填高价值结果给 `key-os`。
+- 完整云端协议入口：`key-os/AGENTS.md`、`key-os/03-governance/AGENT_OS_PROTOCOL.md`、`key-os/03-governance/EXTERNAL_AGENT_PROMPT.md`。
 
 ### 关于仓库内 `mem/`
 
