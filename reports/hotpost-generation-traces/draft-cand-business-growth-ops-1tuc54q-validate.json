@@ -1,7 +1,7 @@
 {
-  "candidate_id": "cand-business-growth-ops-1tsx3ui",
-  "draft_id": "draft-cand-business-growth-ops-1tsx3ui-validate",
-  "card_id": "card-cand-business-growth-ops-1tsx3ui-write",
+  "candidate_id": "cand-business-growth-ops-1tuc54q",
+  "draft_id": "draft-cand-business-growth-ops-1tuc54q-validate",
+  "card_id": "card-cand-business-growth-ops-1tuc54q-write",
   "card_type": "write",
   "allow_breakdown": true,
   "overall_status": "completed",
@@ -22,8 +22,8 @@
       "model": "deepseek/deepseek-v4-flash",
       "provider": "deepseek",
       "timeout_seconds": 40.0,
-      "duration_ms": 15275.3,
-      "raw_chars": 721
+      "duration_ms": 17170.8,
+      "raw_chars": 849
     }
   ]
 }

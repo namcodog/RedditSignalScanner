@@ -1,0 +1,98 @@
+{
+  "candidate_id": "cand-ecommerce-sellers-1tyaytu",
+  "draft_id": "draft-cand-ecommerce-sellers-1tyaytu-validate",
+  "card_id": "card-cand-ecommerce-sellers-1tyaytu-validate",
+  "card_type": "validate",
+  "allow_breakdown": false,
+  "overall_status": "failed",
+  "stages": [
+    {
+      "name": "duplicate_preflight",
+      "status": "completed"
+    },
+    {
+      "name": "model_generation",
+      "status": "failed"
+    }
+  ],
+  "sub_stages": [
+    {
+      "name": "llm_json",
+      "status": "completed",
+      "model": "google/gemini-3-flash-preview",
+      "provider": "gemini",
+      "timeout_seconds": 22.0,
+      "duration_ms": 12594.3,
+      "raw_chars": 714
+    },
+    {
+      "name": "json_retry",
+      "status": "completed",
+      "model": "google/gemini-3-flash-preview",
+      "provider": "gemini",
+      "timeout_seconds": 22.0,
+      "duration_ms": 11927.0,
+      "attempt": 1,
+      "raw_chars": 137
+    },
+    {
+      "name": "json_retry",
+      "status": "completed",
+      "model": "google/gemini-3-flash-preview",
+      "provider": "gemini",
+      "timeout_seconds": 22.0,
+      "duration_ms": 11803.4,
+      "attempt": 2,
+      "raw_chars": 124
+    },
+    {
+      "name": "json_repair",
+      "status": "completed",
+      "model": "google/gemini-3-flash-preview",
+      "provider": "gemini",
+      "timeout_seconds": 22.0,
+      "duration_ms": 4355.7,
+      "raw_chars": 150
+    },
+    {
+      "name": "llm_json",
+      "status": "completed",
+      "model": "google/gemini-3-flash-preview",
+      "provider": "gemini",
+      "timeout_seconds": 22.0,
+      "duration_ms": 11507.3,
+      "raw_chars": 133
+    },
+    {
+      "name": "json_retry",
+      "status": "completed",
+      "model": "google/gemini-3-flash-preview",
+      "provider": "gemini",
+      "timeout_seconds": 22.0,
+      "duration_ms": 11225.1,
+      "attempt": 1,
+      "raw_chars": 139
+    },
+    {
+      "name": "json_retry",
+      "status": "completed",
+      "model": "google/gemini-3-flash-preview",
+      "provider": "gemini",
+      "timeout_seconds": 22.0,
+      "duration_ms": 11901.8,
+      "attempt": 2,
+      "raw_chars": 138
+    },
+    {
+      "name": "json_repair",
+      "status": "completed",
+      "model": "google/gemini-3-flash-preview",
+      "provider": "gemini",
+      "timeout_seconds": 22.0,
+      "duration_ms": 5403.6,
+      "raw_chars": 192
+    }
+  ],
+  "error_type": "ValueError",
+  "error": "why_test_now is empty"
+}

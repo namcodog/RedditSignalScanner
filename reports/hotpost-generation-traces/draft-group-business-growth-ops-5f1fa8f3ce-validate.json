@@ -1,0 +1,39 @@
+{
+  "candidate_id": "group-business-growth-ops-5f1fa8f3ce",
+  "draft_id": "draft-group-business-growth-ops-5f1fa8f3ce-validate",
+  "card_id": "card-group-business-growth-ops-5f1fa8f3ce-validate",
+  "card_type": "validate",
+  "allow_breakdown": false,
+  "overall_status": "completed",
+  "stages": [
+    {
+      "name": "duplicate_preflight",
+      "status": "completed"
+    },
+    {
+      "name": "model_generation",
+      "status": "completed"
+    }
+  ],
+  "sub_stages": [
+    {
+      "name": "llm_json",
+      "status": "completed",
+      "model": "google/gemini-3-flash-preview",
+      "provider": "gemini",
+      "timeout_seconds": 22.0,
+      "duration_ms": 13881.5,
+      "raw_chars": 152
+    },
+    {
+      "name": "json_retry",
+      "status": "completed",
+      "model": "google/gemini-3-flash-preview",
+      "provider": "gemini",
+      "timeout_seconds": 22.0,
+      "duration_ms": 10956.0,
+      "attempt": 1,
+      "raw_chars": 713
+    }
+  ]
+}

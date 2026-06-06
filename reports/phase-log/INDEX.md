@@ -6,6 +6,9 @@
   - [CURRENT_STATUS.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/CURRENT_STATUS.md)
 - 未完成事项：
   - [OPEN_ITEMS.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/OPEN_ITEMS.md)
+- Hotpost 2026-06-06 补发已完成：正式追加 `30` 张，最新快照 `release-fc002edc345d / card_count=1295`，结构 `signal 21 / hot 5 / breakdown 4`，类别 `电商与卖家 20 / 商业增长与运营 8 / AI 与自动化 2`；同步链、copy guard、hot controversy guard 通过；本轮确认 Reddit 主 OAuth 可用，阻塞在 DeepSeek 长响应和发布 schema 泄漏，已修 `llm_trace` 泄漏并补测试：
+  - [phase1151.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1151.md)
+  - [2026-06-06.md](/Users/hujia/Desktop/RedditSignalScanner/reports/ops-log/2026-06-06.md)
 - Hotpost V13 模型链路稳定性修复已落地：SDK timeout、阶段级 timeout、JSON 错误分类、空响应不修复、JSON object 抽取和 generation trace 子阶段已补齐；precheck 超时会降级为 `REWRITE + precheck_error + stage_timeout`，不再把整条 seed 链直接打死：
   - [phase1149.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1149.md)
 - Hotpost V13 结构化 brief 与 AI 预检节点已落地：出卡链路升级为 `semantic_brief -> writer -> draft_precheck -> 人工 review`；precheck 输出 `PASS / REWRITE / BLOCK`，只做 report-only，`show-draft` 会展示，breakdown/write 最终稿不会丢预检，预检异常会记为 `REWRITE + precheck_error`：

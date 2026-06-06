@@ -1,9 +1,9 @@
 {
-  "candidate_id": "cand-business-growth-ops-1tsx3ui",
-  "draft_id": "draft-cand-business-growth-ops-1tsx3ui-validate",
-  "card_id": "card-cand-business-growth-ops-1tsx3ui-write",
-  "card_type": "write",
-  "allow_breakdown": true,
+  "candidate_id": "cand-ai-automation-1txr6g8",
+  "draft_id": "draft-cand-ai-automation-1txr6g8-validate",
+  "card_id": "card-cand-ai-automation-1txr6g8-validate",
+  "card_type": "validate",
+  "allow_breakdown": false,
   "overall_status": "completed",
   "stages": [
     {
@@ -22,8 +22,8 @@
       "model": "deepseek/deepseek-v4-flash",
       "provider": "deepseek",
       "timeout_seconds": 40.0,
-      "duration_ms": 15275.3,
-      "raw_chars": 721
+      "duration_ms": 12150.7,
+      "raw_chars": 793
     }
   ]
 }

@@ -1,0 +1,40 @@
+{
+  "candidate_id": "cand-ecommerce-sellers-1tszk0p",
+  "draft_id": "draft-cand-ecommerce-sellers-1tszk0p-validate",
+  "card_id": "card-cand-ecommerce-sellers-1tszk0p-validate",
+  "card_type": "validate",
+  "allow_breakdown": false,
+  "overall_status": "failed",
+  "stages": [
+    {
+      "name": "duplicate_preflight",
+      "status": "completed"
+    },
+    {
+      "name": "model_generation",
+      "status": "failed"
+    }
+  ],
+  "sub_stages": [
+    {
+      "name": "llm_json",
+      "status": "completed",
+      "model": "deepseek/deepseek-v4-flash",
+      "provider": "deepseek",
+      "timeout_seconds": 40.0,
+      "duration_ms": 10007.3,
+      "raw_chars": 632
+    },
+    {
+      "name": "llm_json",
+      "status": "completed",
+      "model": "deepseek/deepseek-v4-flash",
+      "provider": "deepseek",
+      "timeout_seconds": 40.0,
+      "duration_ms": 10675.9,
+      "raw_chars": 677
+    }
+  ],
+  "error_type": "ValueError",
+  "error": "why_test_now contains banned pattern: …"
+}

@@ -1,0 +1,39 @@
+{
+  "candidate_id": "cand-business-growth-ops-1twhrci",
+  "draft_id": "draft-cand-business-growth-ops-1twhrci-validate",
+  "card_id": "card-cand-business-growth-ops-1twhrci-validate",
+  "card_type": "validate",
+  "allow_breakdown": false,
+  "overall_status": "completed",
+  "stages": [
+    {
+      "name": "duplicate_preflight",
+      "status": "completed"
+    },
+    {
+      "name": "model_generation",
+      "status": "completed"
+    }
+  ],
+  "sub_stages": [
+    {
+      "name": "llm_json",
+      "status": "completed",
+      "model": "google/gemini-3-flash-preview",
+      "provider": "gemini",
+      "timeout_seconds": 22.0,
+      "duration_ms": 12907.5,
+      "raw_chars": 141
+    },
+    {
+      "name": "json_retry",
+      "status": "completed",
+      "model": "google/gemini-3-flash-preview",
+      "provider": "gemini",
+      "timeout_seconds": 22.0,
+      "duration_ms": 10052.5,
+      "attempt": 1,
+      "raw_chars": 697
+    }
+  ]
+}

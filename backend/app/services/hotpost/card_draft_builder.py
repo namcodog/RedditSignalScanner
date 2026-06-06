@@ -128,6 +128,7 @@ def build_published_card(draft: ValidationCardDraft | WritingCardDraft) -> Valid
             refreshed = refresh_hot_controversy_cards_sync([published.model_dump(mode="json")])[0]
             if not isinstance(refreshed.get("controversy_chart"), dict) or not isinstance(refreshed.get("controversy_meta"), dict):
                 raise ValueError("Hot validate card requires controversy chart before publish")
+            refreshed["controversy_meta"].pop("llm_trace", None)
             return ValidationCardDetail.model_validate(refreshed)
         return published
     return WritingCardDetail(**common, detail=draft.detail.model_dump())

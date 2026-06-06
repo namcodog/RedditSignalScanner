@@ -1,0 +1,31 @@
+{
+  "candidate_id": "cand-ecommerce-sellers-1ttaoov",
+  "draft_id": "draft-cand-ecommerce-sellers-1ttaoov-write",
+  "card_id": "card-cand-ecommerce-sellers-1ttaoov-write",
+  "card_type": "write",
+  "allow_breakdown": true,
+  "overall_status": "failed",
+  "stages": [
+    {
+      "name": "duplicate_preflight",
+      "status": "completed"
+    },
+    {
+      "name": "model_generation",
+      "status": "failed"
+    }
+  ],
+  "sub_stages": [
+    {
+      "name": "llm_json",
+      "status": "failed",
+      "model": "deepseek/deepseek-v4-flash",
+      "provider": "deepseek",
+      "timeout_seconds": 40.0,
+      "duration_ms": 40002.9,
+      "error_type": "stage_timeout"
+    }
+  ],
+  "error_type": "stage_timeout",
+  "error": "llm_json timed out after 40.00s for model deepseek/deepseek-v4-flash"
+}

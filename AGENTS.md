@@ -1,5 +1,7 @@
 # Repository Guidelines
 
+> 任何 metrics / 架构 / 商业 evidence 变化 → 同轮按 `<key-os>/02-projects/active/reddit-signal-scanner/methods/PROFILE_SYNC_CONTRACT.md` 同步 key-os 画像视图。
+
 ## 行为准则：Karpathy 编码规则（最高频使用）
 
 这组规则用于减少 LLM 常见编码错误。它默认偏谨慎；极简单任务可以用判断力压缩流程，但不能跳过事实核实和必要验证。

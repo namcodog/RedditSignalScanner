@@ -1,0 +1,29 @@
+{
+  "candidate_id": "cand-ai-automation-1txrh7z",
+  "draft_id": "draft-cand-ai-automation-1txrh7z-validate",
+  "card_id": "card-cand-ai-automation-1txrh7z-validate",
+  "card_type": "validate",
+  "allow_breakdown": false,
+  "overall_status": "completed",
+  "stages": [
+    {
+      "name": "duplicate_preflight",
+      "status": "completed"
+    },
+    {
+      "name": "model_generation",
+      "status": "completed"
+    }
+  ],
+  "sub_stages": [
+    {
+      "name": "llm_json",
+      "status": "completed",
+      "model": "google/gemini-3-flash-preview",
+      "provider": "gemini",
+      "timeout_seconds": 22.0,
+      "duration_ms": 10951.3,
+      "raw_chars": 674
+    }
+  ]
+}

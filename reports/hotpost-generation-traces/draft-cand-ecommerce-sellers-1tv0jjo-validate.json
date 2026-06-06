@@ -1,0 +1,21 @@
+{
+  "candidate_id": "cand-ecommerce-sellers-1tv0jjo",
+  "draft_id": "draft-cand-ecommerce-sellers-1tv0jjo-validate",
+  "card_id": "card-cand-ecommerce-sellers-1tv0jjo-validate",
+  "card_type": "validate",
+  "allow_breakdown": false,
+  "overall_status": "failed",
+  "stages": [
+    {
+      "name": "duplicate_preflight",
+      "status": "completed"
+    },
+    {
+      "name": "model_generation",
+      "status": "failed"
+    }
+  ],
+  "sub_stages": [],
+  "error_type": "ValueError",
+  "error": "Signal input quality gate blocked draft: single_thread_weak_evidence, single_community_weak_evidence"
+}

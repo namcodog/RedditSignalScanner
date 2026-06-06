@@ -1,0 +1,38 @@
+{
+  "candidate_id": "cand-ecommerce-sellers-1txvf9n",
+  "draft_id": "draft-cand-ecommerce-sellers-1txvf9n-validate",
+  "card_id": "card-cand-ecommerce-sellers-1txvf9n-validate",
+  "card_type": "validate",
+  "allow_breakdown": false,
+  "overall_status": "completed",
+  "stages": [
+    {
+      "name": "duplicate_preflight",
+      "status": "completed"
+    },
+    {
+      "name": "model_generation",
+      "status": "completed"
+    }
+  ],
+  "sub_stages": [
+    {
+      "name": "llm_json",
+      "status": "completed",
+      "model": "deepseek/deepseek-v4-flash",
+      "provider": "deepseek",
+      "timeout_seconds": 40.0,
+      "duration_ms": 12273.5,
+      "raw_chars": 718
+    },
+    {
+      "name": "llm_json",
+      "status": "completed",
+      "model": "deepseek/deepseek-v4-flash",
+      "provider": "deepseek",
+      "timeout_seconds": 40.0,
+      "duration_ms": 9951.4,
+      "raw_chars": 779
+    }
+  ]
+}

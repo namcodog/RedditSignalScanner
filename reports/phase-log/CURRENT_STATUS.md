@@ -1,6 +1,6 @@
 # 当前项目状态
 
-最后更新：2026-06-01
+最后更新：2026-06-06
 
 ## 当前协作口径
 
@@ -19,6 +19,15 @@
 ## 当前主判断
 
 Reddit Community Intelligence 当前口径已纠偏：主线目标不是继续证明 Phase 0 / 1 / 2 治理正确，也不是回到空白检索框；当前目标是“系统根据已有数据和语义库生成可服务标签 / 赛道，用户点击后获得有证据、有理由、长尾优先的 Reddit 社区推荐”。
+
+## 2026-06-06 Hotpost 补发状态
+
+- 本轮按多日空窗后的最低完整线完成 Hotpost 补发：正式发布 `30` 张，最新小程序快照 `release-fc002edc345d`，总卡数 `1295`。
+- 结构为 `signal 21 / hot 5 / breakdown 4`；类别为 `电商与卖家 20 / 商业增长与运营 8 / AI 与自动化 2`。
+- 同步链已通过：snapshot、miniRelease、miniFavorites、cloud_db 均为 `feed_contract=30/30`；copy guard、hot controversy guard、trend audit guard 均通过。
+- 本轮验证 Reddit 主 OAuth 采集可用；实际阻塞不在 Reddit 连接，而在 DeepSeek `deepseek-v4-pro` 多次阶段超时和 hot 发布 schema 泄漏 `llm_trace`。
+- 已修复 hot 发布时 `controversy_meta.llm_trace` 泄漏导致 schema validation 失败的问题，并补回归测试。
+- 当前边界：为完成运营补发，本轮使用 `HOTPOST_CARD_CONTENT_PROFILE_ID=off` 走既有快速内容路由；DeepSeek 长响应和模型路由稳定性仍需后续治理，`trend audit` 仍为 `watching / remaining_new_releases=5`，不能写 stable。
 
 ## 2026-06-01 Hotpost V13 模型链路稳定性
 

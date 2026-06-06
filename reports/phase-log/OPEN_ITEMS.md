@@ -1,15 +1,15 @@
 # 未完成事项
 
-最后更新：2026-06-01
+最后更新：2026-06-06
 
 ## 当前未完成的项目事项
 
 ### P0
 
-0. Hotpost V13 模型链路稳定性已修，下一轮真实出卡需要验证效果
-   已完成：OpenAI-compatible SDK 请求显式带 `timeout`；`_generate_json()` 增加阶段级硬超时；空响应分类为 `empty_response` 且不再同模型修复；坏 JSON 支持先抽取第一个 JSON object；generation trace 增加 `sub_stages`。
-   当前边界：这轮没有切换模型渠道，也没有做自动 fallback；如果 DeepSeek / Gemini 自身 503 或慢响应，系统现在会更清楚地记录和降级，但不会伪装成成功。
-   下一步：下一轮按运营计划出卡时重点看 `sub_stages`、`error_type`、precheck `REWRITE/BLOCK` 分布和真实 seed 成功率；如果 timeout 已在正常范围，再继续优化 AI 预检规则。
+0. Hotpost 2026-06-06 补发已完成，下一步治理模型路由稳定性
+   已完成：正式发布 `30` 张，最新快照 `release-fc002edc345d`，总卡数 `1295`；同步链、首页 feed contract、copy guard、hot controversy guard 均通过。运营日志已更新到 `reports/ops-log/2026-06-06.md`。
+   当前边界：Reddit 主 OAuth 采集可用，实际阻塞来自 DeepSeek `deepseek-v4-pro` 多次阶段超时；本轮为达成运营补发使用 `HOTPOST_CARD_CONTENT_PROFILE_ID=off` 走既有快速内容路由。`trend audit=watching / remaining_new_releases=5`，不能写 stable。
+   下一步：不要继续盲目补量；先复盘 DeepSeek 长响应、阶段 trace、precheck 分布和质量 guard，再决定是否做渠道级替换或分阶段模型路由。
 
 0. Hotpost V13 已接入 AI 预检节点，下一轮真实出卡需要观察误判率
    已完成：`semantic_brief` 新增 `confidence_level / publish_risk / claim_type / evidence_strength / writer_constraints`；`draft_precheck` 已接入 `generate_card_content()`，输出 `PASS / REWRITE / BLOCK`，并通过 `reports/hotpost-draft-precheck/<draft_id>.json` 和 `review_cards.py show-draft` 进入人工 review 面。
