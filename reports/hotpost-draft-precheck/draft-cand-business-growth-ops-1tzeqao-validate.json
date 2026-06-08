@@ -1,0 +1,9 @@
+{
+  "decision": "REWRITE",
+  "reasons": [],
+  "required_fixes": [],
+  "risk_flags": [],
+  "publish_note": "",
+  "should_rewrite": true,
+  "should_block": false
+}

@@ -1,0 +1,21 @@
+{
+  "candidate_id": "cand-ai-automation-1tzk4n0",
+  "draft_id": "draft-cand-ai-automation-1tzk4n0-validate",
+  "card_id": "card-cand-ai-automation-1tzk4n0-validate",
+  "card_type": "validate",
+  "allow_breakdown": false,
+  "overall_status": "failed",
+  "stages": [
+    {
+      "name": "duplicate_preflight",
+      "status": "completed"
+    },
+    {
+      "name": "model_generation",
+      "status": "failed"
+    }
+  ],
+  "sub_stages": [],
+  "error_type": "ValueError",
+  "error": "Signal input quality gate blocked draft: single_thread_weak_evidence, single_community_weak_evidence"
+}

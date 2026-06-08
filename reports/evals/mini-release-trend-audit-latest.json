@@ -3,7 +3,7 @@
   "required_new_releases": 5,
   "inventory_minimum_cards": 30,
   "release_count": 5,
-  "total_release_count": 247,
+  "total_release_count": 255,
   "watch_communities": [
     "r/FacebookAds",
     "r/PPC",
@@ -12,26 +12,26 @@
   "watch_packs": [
     "paid-economics"
   ],
-  "latest_release_id": "release-fc002edc345d",
+  "latest_release_id": "release-946ce945cd74",
   "latest_status": "watching",
   "latest_remediation_focus": "release_surface",
   "stable_streak": 0,
   "remaining_new_releases": 5,
-  "observed_new_releases": 150,
+  "observed_new_releases": 158,
   "release_summaries": [
     {
-      "release_id": "release-fc002edc345d",
-      "published_at": "2026-06-06T10:56:45.261100Z",
-      "card_count": 1295,
-      "total_card_count": 1295,
+      "release_id": "release-946ce945cd74",
+      "published_at": "2026-06-08T08:47:04.313774Z",
+      "card_count": 1325,
+      "total_card_count": 1325,
       "supplement_card_count": 0,
       "front_window": 30,
       "full": {
-        "card_count": 1295,
+        "card_count": 1325,
         "scope_counts": {
-          "ecommerce-sellers": 591,
-          "business-growth-ops": 327,
-          "ai-automation": 377
+          "ecommerce-sellers": 603,
+          "ai-automation": 391,
+          "business-growth-ops": 331
         },
         "top_communities": [
           [
@@ -40,35 +40,35 @@
           ],
           [
             "r/OpenAI",
-            63
+            67
           ],
           [
             "r/ClaudeCode",
-            62
+            65
+          ],
+          [
+            "r/PPC",
+            59
           ],
           [
             "r/ecommerce",
             58
           ],
           [
-            "r/PPC",
-            57
-          ],
-          [
             "r/FacebookAds",
-            50
+            51
           ],
           [
             "r/ClaudeAI",
-            44
+            45
           ],
           [
             "r/espresso",
-            43
+            44
           ],
           [
             "r/FulfillmentByAmazon",
-            39
+            40
           ],
           [
             "r/LocalLLaMA",
@@ -86,27 +86,27 @@
         "top_packs": [
           [
             "selection-signals",
-            450
+            459
           ],
           [
             "upstream-winds",
-            201
+            207
           ],
           [
             "paid-economics",
-            136
+            140
+          ],
+          [
+            "tools-efficiency",
+            110
           ],
           [
             "organic-discovery",
             110
           ],
           [
-            "tools-efficiency",
-            105
-          ],
-          [
             "category-winds",
-            105
+            108
           ],
           [
             "funnel-conversion",
@@ -114,7 +114,7 @@
           ],
           [
             "agent-builder",
-            64
+            67
           ],
           [
             "kill-signals",
@@ -122,68 +122,68 @@
           ]
         ],
         "watched_communities": {
-          "r/FacebookAds": 50,
-          "r/PPC": 57,
+          "r/FacebookAds": 51,
+          "r/PPC": 59,
           "r/BuyItForLife": 92
         },
         "watched_packs": {
-          "paid-economics": 136
+          "paid-economics": 140
         },
         "effective_watch_communities": {
-          "r/FacebookAds": 50,
-          "r/PPC": 57,
+          "r/FacebookAds": 51,
+          "r/PPC": 59,
           "r/BuyItForLife": 92,
-          "r/OpenAI": 63,
-          "r/ClaudeCode": 62,
+          "r/OpenAI": 67,
+          "r/ClaudeCode": 65,
           "r/ecommerce": 58,
-          "r/ClaudeAI": 44,
-          "r/espresso": 43,
-          "r/FulfillmentByAmazon": 39,
+          "r/ClaudeAI": 45,
+          "r/espresso": 44,
+          "r/FulfillmentByAmazon": 40,
           "r/LocalLLaMA": 36,
           "r/DigitalMarketing": 34,
           "r/shopify": 33,
+          "r/EtsySellers": 32,
           "r/SEO": 32,
-          "r/EtsySellers": 29,
+          "r/ProductManagement": 28,
+          "r/fountainpens": 27,
           "r/ManyBaggers": 27,
-          "r/fountainpens": 26,
+          "r/flashlight": 26,
           "r/kickstarter": 26,
           "r/AI_Agents": 25,
-          "r/ProductManagement": 24,
-          "r/flashlight": 24,
           "r/CleaningTips": 22,
           "r/GiftIdeas": 21,
+          "r/eBaySellerAdvice": 19,
           "r/artificial": 19,
           "r/AmazonSeller": 18,
           "r/onebag": 17,
-          "r/eBaySellerAdvice": 17,
           "r/Frugal": 17,
           "r/EDC": 16,
-          "r/CampingGear": 13,
-          "r/dogs": 13,
+          "r/dogs": 14,
+          "r/CampingGear": 14,
           "r/aeo": 13,
           "r/Entrepreneur": 12,
           "r/worldnews": 12,
-          "r/analytics": 10,
+          "r/SaaS": 11,
+          "r/analytics": 11,
           "r/LLM": 10,
           "r/ChatGPT": 10,
-          "r/SaaS": 10,
           "r/RobotVacuums": 8,
+          "r/PromptEngineering": 7,
           "r/Google_Ads": 7,
           "r/Appliances": 6,
           "r/smallbusiness": 6,
           "r/singularity": 6,
-          "r/Flipping": 6,
-          "r/PromptEngineering": 6
+          "r/Flipping": 6
         },
         "effective_watch_packs": {
-          "paid-economics": 136,
-          "selection-signals": 450,
-          "upstream-winds": 201,
+          "paid-economics": 140,
+          "selection-signals": 459,
+          "upstream-winds": 207,
+          "tools-efficiency": 110,
           "organic-discovery": 110,
-          "tools-efficiency": 105,
-          "category-winds": 105,
+          "category-winds": 108,
           "funnel-conversion": 79,
-          "agent-builder": 64,
+          "agent-builder": 67,
           "kill-signals": 35
         },
         "dynamic_watch_communities": [
@@ -196,20 +196,993 @@
           "r/LocalLLaMA",
           "r/DigitalMarketing",
           "r/shopify",
-          "r/SEO",
           "r/EtsySellers",
-          "r/ManyBaggers",
+          "r/SEO",
+          "r/ProductManagement",
           "r/fountainpens",
+          "r/ManyBaggers",
+          "r/flashlight",
           "r/kickstarter",
           "r/AI_Agents",
-          "r/ProductManagement",
-          "r/flashlight",
           "r/CleaningTips",
           "r/GiftIdeas",
+          "r/eBaySellerAdvice",
           "r/artificial",
           "r/AmazonSeller",
           "r/onebag",
+          "r/Frugal",
+          "r/EDC",
+          "r/dogs",
+          "r/CampingGear",
+          "r/aeo",
+          "r/Entrepreneur",
+          "r/worldnews",
+          "r/SaaS",
+          "r/analytics",
+          "r/LLM",
+          "r/ChatGPT",
+          "r/RobotVacuums",
+          "r/PromptEngineering",
+          "r/Google_Ads",
+          "r/Appliances",
+          "r/smallbusiness",
+          "r/singularity",
+          "r/Flipping"
+        ],
+        "dynamic_watch_packs": [
+          "selection-signals",
+          "upstream-winds",
+          "tools-efficiency",
+          "organic-discovery",
+          "category-winds",
+          "funnel-conversion",
+          "agent-builder",
+          "kill-signals"
+        ],
+        "caps": {
+          "scope": 663,
+          "pack": 14,
+          "community": 5
+        },
+        "alerts": [
+          "full:community_over:r/BuyItForLife",
+          "full:community_over:r/OpenAI",
+          "full:community_over:r/ClaudeCode",
+          "full:community_over:r/PPC",
+          "full:community_over:r/ecommerce",
+          "full:community_over:r/FacebookAds",
+          "full:community_over:r/ClaudeAI",
+          "full:community_over:r/espresso",
+          "full:community_over:r/FulfillmentByAmazon",
+          "full:community_over:r/LocalLLaMA",
+          "full:community_over:r/DigitalMarketing",
+          "full:community_over:r/shopify",
+          "full:community_over:r/EtsySellers",
+          "full:community_over:r/SEO",
+          "full:community_over:r/ProductManagement",
+          "full:community_over:r/fountainpens",
+          "full:community_over:r/ManyBaggers",
+          "full:community_over:r/flashlight",
+          "full:community_over:r/kickstarter",
+          "full:community_over:r/AI_Agents",
+          "full:community_over:r/CleaningTips",
+          "full:community_over:r/GiftIdeas",
+          "full:community_over:r/eBaySellerAdvice",
+          "full:community_over:r/artificial",
+          "full:community_over:r/AmazonSeller",
+          "full:community_over:r/onebag",
+          "full:community_over:r/Frugal",
+          "full:community_over:r/EDC",
+          "full:community_over:r/dogs",
+          "full:community_over:r/CampingGear",
+          "full:community_over:r/aeo",
+          "full:community_over:r/Entrepreneur",
+          "full:community_over:r/worldnews",
+          "full:community_over:r/SaaS",
+          "full:community_over:r/analytics",
+          "full:community_over:r/LLM",
+          "full:community_over:r/ChatGPT",
+          "full:community_over:r/RobotVacuums",
+          "full:community_over:r/PromptEngineering",
+          "full:community_over:r/Google_Ads",
+          "full:community_over:r/Appliances",
+          "full:community_over:r/smallbusiness",
+          "full:community_over:r/singularity",
+          "full:community_over:r/Flipping",
+          "full:pack_over:selection-signals",
+          "full:pack_over:upstream-winds",
+          "full:pack_over:paid-economics",
+          "full:pack_over:tools-efficiency",
+          "full:pack_over:organic-discovery",
+          "full:pack_over:category-winds",
+          "full:pack_over:funnel-conversion",
+          "full:pack_over:agent-builder",
+          "full:pack_over:kill-signals"
+        ]
+      },
+      "front30": {
+        "card_count": 30,
+        "scope_counts": {
+          "ecommerce-sellers": 12,
+          "ai-automation": 14,
+          "business-growth-ops": 4
+        },
+        "top_communities": [
+          [
+            "r/ProductManagement",
+            4
+          ],
+          [
+            "r/OpenAI",
+            4
+          ],
+          [
+            "r/ClaudeCode",
+            3
+          ],
+          [
+            "r/EtsySellers",
+            3
+          ],
+          [
+            "r/flashlight",
+            2
+          ],
+          [
+            "r/eBaySellerAdvice",
+            2
+          ],
+          [
+            "r/PPC",
+            2
+          ],
+          [
+            "r/espresso",
+            1
+          ],
+          [
+            "r/dogs",
+            1
+          ],
+          [
+            "r/SaaS",
+            1
+          ],
+          [
+            "r/fountainpens",
+            1
+          ],
+          [
+            "r/CampingGear",
+            1
+          ]
+        ],
+        "top_packs": [
+          [
+            "selection-signals",
+            9
+          ],
+          [
+            "upstream-winds",
+            6
+          ],
+          [
+            "tools-efficiency",
+            5
+          ],
+          [
+            "paid-economics",
+            4
+          ],
+          [
+            "category-winds",
+            3
+          ],
+          [
+            "agent-builder",
+            3
+          ]
+        ],
+        "watched_communities": {
+          "r/FacebookAds": 1,
+          "r/PPC": 2,
+          "r/BuyItForLife": 0
+        },
+        "watched_packs": {
+          "paid-economics": 4
+        },
+        "effective_watch_communities": {
+          "r/FacebookAds": 1,
+          "r/PPC": 2,
+          "r/BuyItForLife": 0,
+          "r/ProductManagement": 4,
+          "r/OpenAI": 4,
+          "r/ClaudeCode": 3,
+          "r/EtsySellers": 3
+        },
+        "effective_watch_packs": {
+          "paid-economics": 4
+        },
+        "dynamic_watch_communities": [
+          "r/ProductManagement",
+          "r/OpenAI",
+          "r/ClaudeCode",
+          "r/EtsySellers"
+        ],
+        "dynamic_watch_packs": [],
+        "caps": {
+          "scope": 12,
+          "pack": 10,
+          "community": 2
+        },
+        "alerts": [
+          "front:community_over:r/ProductManagement",
+          "front:community_over:r/OpenAI",
+          "front:community_over:r/ClaudeCode",
+          "front:community_over:r/EtsySellers"
+        ]
+      },
+      "alerts": [
+        "front:community_over:r/ClaudeCode",
+        "front:community_over:r/EtsySellers",
+        "front:community_over:r/OpenAI",
+        "front:community_over:r/ProductManagement",
+        "full:community_over:r/AI_Agents",
+        "full:community_over:r/AmazonSeller",
+        "full:community_over:r/Appliances",
+        "full:community_over:r/BuyItForLife",
+        "full:community_over:r/CampingGear",
+        "full:community_over:r/ChatGPT",
+        "full:community_over:r/ClaudeAI",
+        "full:community_over:r/ClaudeCode",
+        "full:community_over:r/CleaningTips",
+        "full:community_over:r/DigitalMarketing",
+        "full:community_over:r/EDC",
+        "full:community_over:r/Entrepreneur",
+        "full:community_over:r/EtsySellers",
+        "full:community_over:r/FacebookAds",
+        "full:community_over:r/Flipping",
+        "full:community_over:r/Frugal",
+        "full:community_over:r/FulfillmentByAmazon",
+        "full:community_over:r/GiftIdeas",
+        "full:community_over:r/Google_Ads",
+        "full:community_over:r/LLM",
+        "full:community_over:r/LocalLLaMA",
+        "full:community_over:r/ManyBaggers",
+        "full:community_over:r/OpenAI",
+        "full:community_over:r/PPC",
+        "full:community_over:r/ProductManagement",
+        "full:community_over:r/PromptEngineering",
+        "full:community_over:r/RobotVacuums",
+        "full:community_over:r/SEO",
+        "full:community_over:r/SaaS",
+        "full:community_over:r/aeo",
+        "full:community_over:r/analytics",
+        "full:community_over:r/artificial",
+        "full:community_over:r/dogs",
+        "full:community_over:r/eBaySellerAdvice",
+        "full:community_over:r/ecommerce",
+        "full:community_over:r/espresso",
+        "full:community_over:r/flashlight",
+        "full:community_over:r/fountainpens",
+        "full:community_over:r/kickstarter",
+        "full:community_over:r/onebag",
+        "full:community_over:r/shopify",
+        "full:community_over:r/singularity",
+        "full:community_over:r/smallbusiness",
+        "full:community_over:r/worldnews",
+        "full:pack_over:agent-builder",
+        "full:pack_over:category-winds",
+        "full:pack_over:funnel-conversion",
+        "full:pack_over:kill-signals",
+        "full:pack_over:organic-discovery",
+        "full:pack_over:paid-economics",
+        "full:pack_over:selection-signals",
+        "full:pack_over:tools-efficiency",
+        "full:pack_over:upstream-winds"
+      ],
+      "status": "watching",
+      "trend": {
+        "community_rebounds": [],
+        "pack_rebounds": []
+      },
+      "stability": {
+        "front30_stable": false,
+        "full_inventory_stable": false,
+        "scope_visible": true,
+        "inventory_supported": true,
+        "community_nonincreasing": true,
+        "pack_nonincreasing": true,
+        "qualified_for_stable": false,
+        "stable_streak": 0,
+        "observed_new_releases": 158,
+        "remediation_focus": "release_surface"
+      }
+    },
+    {
+      "release_id": "release-eb4a83dadc59",
+      "published_at": "2026-06-08T08:47:04.313774Z",
+      "card_count": 1325,
+      "total_card_count": 1325,
+      "supplement_card_count": 0,
+      "front_window": 30,
+      "full": {
+        "card_count": 1325,
+        "scope_counts": {
+          "ecommerce-sellers": 603,
+          "ai-automation": 391,
+          "business-growth-ops": 331
+        },
+        "top_communities": [
+          [
+            "r/BuyItForLife",
+            92
+          ],
+          [
+            "r/OpenAI",
+            67
+          ],
+          [
+            "r/ClaudeCode",
+            65
+          ],
+          [
+            "r/PPC",
+            59
+          ],
+          [
+            "r/ecommerce",
+            58
+          ],
+          [
+            "r/FacebookAds",
+            51
+          ],
+          [
+            "r/ClaudeAI",
+            45
+          ],
+          [
+            "r/espresso",
+            44
+          ],
+          [
+            "r/FulfillmentByAmazon",
+            40
+          ],
+          [
+            "r/LocalLLaMA",
+            36
+          ],
+          [
+            "r/DigitalMarketing",
+            34
+          ],
+          [
+            "r/shopify",
+            33
+          ]
+        ],
+        "top_packs": [
+          [
+            "selection-signals",
+            459
+          ],
+          [
+            "upstream-winds",
+            207
+          ],
+          [
+            "paid-economics",
+            140
+          ],
+          [
+            "tools-efficiency",
+            110
+          ],
+          [
+            "organic-discovery",
+            110
+          ],
+          [
+            "category-winds",
+            108
+          ],
+          [
+            "funnel-conversion",
+            79
+          ],
+          [
+            "agent-builder",
+            67
+          ],
+          [
+            "kill-signals",
+            35
+          ]
+        ],
+        "watched_communities": {
+          "r/FacebookAds": 51,
+          "r/PPC": 59,
+          "r/BuyItForLife": 92
+        },
+        "watched_packs": {
+          "paid-economics": 140
+        },
+        "effective_watch_communities": {
+          "r/FacebookAds": 51,
+          "r/PPC": 59,
+          "r/BuyItForLife": 92,
+          "r/OpenAI": 67,
+          "r/ClaudeCode": 65,
+          "r/ecommerce": 58,
+          "r/ClaudeAI": 45,
+          "r/espresso": 44,
+          "r/FulfillmentByAmazon": 40,
+          "r/LocalLLaMA": 36,
+          "r/DigitalMarketing": 34,
+          "r/shopify": 33,
+          "r/EtsySellers": 32,
+          "r/SEO": 32,
+          "r/ProductManagement": 28,
+          "r/fountainpens": 27,
+          "r/ManyBaggers": 27,
+          "r/flashlight": 26,
+          "r/kickstarter": 26,
+          "r/AI_Agents": 25,
+          "r/CleaningTips": 22,
+          "r/GiftIdeas": 21,
+          "r/eBaySellerAdvice": 19,
+          "r/artificial": 19,
+          "r/AmazonSeller": 18,
+          "r/onebag": 17,
+          "r/Frugal": 17,
+          "r/EDC": 16,
+          "r/dogs": 14,
+          "r/CampingGear": 14,
+          "r/aeo": 13,
+          "r/Entrepreneur": 12,
+          "r/worldnews": 12,
+          "r/SaaS": 11,
+          "r/analytics": 11,
+          "r/LLM": 10,
+          "r/ChatGPT": 10,
+          "r/RobotVacuums": 8,
+          "r/PromptEngineering": 7,
+          "r/Google_Ads": 7,
+          "r/Appliances": 6,
+          "r/smallbusiness": 6,
+          "r/singularity": 6,
+          "r/Flipping": 6
+        },
+        "effective_watch_packs": {
+          "paid-economics": 140,
+          "selection-signals": 459,
+          "upstream-winds": 207,
+          "tools-efficiency": 110,
+          "organic-discovery": 110,
+          "category-winds": 108,
+          "funnel-conversion": 79,
+          "agent-builder": 67,
+          "kill-signals": 35
+        },
+        "dynamic_watch_communities": [
+          "r/OpenAI",
+          "r/ClaudeCode",
+          "r/ecommerce",
+          "r/ClaudeAI",
+          "r/espresso",
+          "r/FulfillmentByAmazon",
+          "r/LocalLLaMA",
+          "r/DigitalMarketing",
+          "r/shopify",
+          "r/EtsySellers",
+          "r/SEO",
+          "r/ProductManagement",
+          "r/fountainpens",
+          "r/ManyBaggers",
+          "r/flashlight",
+          "r/kickstarter",
+          "r/AI_Agents",
+          "r/CleaningTips",
+          "r/GiftIdeas",
           "r/eBaySellerAdvice",
+          "r/artificial",
+          "r/AmazonSeller",
+          "r/onebag",
+          "r/Frugal",
+          "r/EDC",
+          "r/dogs",
+          "r/CampingGear",
+          "r/aeo",
+          "r/Entrepreneur",
+          "r/worldnews",
+          "r/SaaS",
+          "r/analytics",
+          "r/LLM",
+          "r/ChatGPT",
+          "r/RobotVacuums",
+          "r/PromptEngineering",
+          "r/Google_Ads",
+          "r/Appliances",
+          "r/smallbusiness",
+          "r/singularity",
+          "r/Flipping"
+        ],
+        "dynamic_watch_packs": [
+          "selection-signals",
+          "upstream-winds",
+          "tools-efficiency",
+          "organic-discovery",
+          "category-winds",
+          "funnel-conversion",
+          "agent-builder",
+          "kill-signals"
+        ],
+        "caps": {
+          "scope": 663,
+          "pack": 14,
+          "community": 5
+        },
+        "alerts": [
+          "full:community_over:r/BuyItForLife",
+          "full:community_over:r/OpenAI",
+          "full:community_over:r/ClaudeCode",
+          "full:community_over:r/PPC",
+          "full:community_over:r/ecommerce",
+          "full:community_over:r/FacebookAds",
+          "full:community_over:r/ClaudeAI",
+          "full:community_over:r/espresso",
+          "full:community_over:r/FulfillmentByAmazon",
+          "full:community_over:r/LocalLLaMA",
+          "full:community_over:r/DigitalMarketing",
+          "full:community_over:r/shopify",
+          "full:community_over:r/EtsySellers",
+          "full:community_over:r/SEO",
+          "full:community_over:r/ProductManagement",
+          "full:community_over:r/fountainpens",
+          "full:community_over:r/ManyBaggers",
+          "full:community_over:r/flashlight",
+          "full:community_over:r/kickstarter",
+          "full:community_over:r/AI_Agents",
+          "full:community_over:r/CleaningTips",
+          "full:community_over:r/GiftIdeas",
+          "full:community_over:r/eBaySellerAdvice",
+          "full:community_over:r/artificial",
+          "full:community_over:r/AmazonSeller",
+          "full:community_over:r/onebag",
+          "full:community_over:r/Frugal",
+          "full:community_over:r/EDC",
+          "full:community_over:r/dogs",
+          "full:community_over:r/CampingGear",
+          "full:community_over:r/aeo",
+          "full:community_over:r/Entrepreneur",
+          "full:community_over:r/worldnews",
+          "full:community_over:r/SaaS",
+          "full:community_over:r/analytics",
+          "full:community_over:r/LLM",
+          "full:community_over:r/ChatGPT",
+          "full:community_over:r/RobotVacuums",
+          "full:community_over:r/PromptEngineering",
+          "full:community_over:r/Google_Ads",
+          "full:community_over:r/Appliances",
+          "full:community_over:r/smallbusiness",
+          "full:community_over:r/singularity",
+          "full:community_over:r/Flipping",
+          "full:pack_over:selection-signals",
+          "full:pack_over:upstream-winds",
+          "full:pack_over:paid-economics",
+          "full:pack_over:tools-efficiency",
+          "full:pack_over:organic-discovery",
+          "full:pack_over:category-winds",
+          "full:pack_over:funnel-conversion",
+          "full:pack_over:agent-builder",
+          "full:pack_over:kill-signals"
+        ]
+      },
+      "front30": {
+        "card_count": 30,
+        "scope_counts": {
+          "ecommerce-sellers": 12,
+          "ai-automation": 14,
+          "business-growth-ops": 4
+        },
+        "top_communities": [
+          [
+            "r/ProductManagement",
+            4
+          ],
+          [
+            "r/OpenAI",
+            4
+          ],
+          [
+            "r/ClaudeCode",
+            3
+          ],
+          [
+            "r/EtsySellers",
+            3
+          ],
+          [
+            "r/flashlight",
+            2
+          ],
+          [
+            "r/eBaySellerAdvice",
+            2
+          ],
+          [
+            "r/PPC",
+            2
+          ],
+          [
+            "r/espresso",
+            1
+          ],
+          [
+            "r/dogs",
+            1
+          ],
+          [
+            "r/SaaS",
+            1
+          ],
+          [
+            "r/fountainpens",
+            1
+          ],
+          [
+            "r/CampingGear",
+            1
+          ]
+        ],
+        "top_packs": [
+          [
+            "selection-signals",
+            9
+          ],
+          [
+            "upstream-winds",
+            6
+          ],
+          [
+            "tools-efficiency",
+            5
+          ],
+          [
+            "paid-economics",
+            4
+          ],
+          [
+            "category-winds",
+            3
+          ],
+          [
+            "agent-builder",
+            3
+          ]
+        ],
+        "watched_communities": {
+          "r/FacebookAds": 1,
+          "r/PPC": 2,
+          "r/BuyItForLife": 0
+        },
+        "watched_packs": {
+          "paid-economics": 4
+        },
+        "effective_watch_communities": {
+          "r/FacebookAds": 1,
+          "r/PPC": 2,
+          "r/BuyItForLife": 0,
+          "r/ProductManagement": 4,
+          "r/OpenAI": 4,
+          "r/ClaudeCode": 3,
+          "r/EtsySellers": 3
+        },
+        "effective_watch_packs": {
+          "paid-economics": 4
+        },
+        "dynamic_watch_communities": [
+          "r/ProductManagement",
+          "r/OpenAI",
+          "r/ClaudeCode",
+          "r/EtsySellers"
+        ],
+        "dynamic_watch_packs": [],
+        "caps": {
+          "scope": 12,
+          "pack": 10,
+          "community": 2
+        },
+        "alerts": [
+          "front:community_over:r/ProductManagement",
+          "front:community_over:r/OpenAI",
+          "front:community_over:r/ClaudeCode",
+          "front:community_over:r/EtsySellers"
+        ]
+      },
+      "alerts": [
+        "front:community_over:r/ClaudeCode",
+        "front:community_over:r/EtsySellers",
+        "front:community_over:r/OpenAI",
+        "front:community_over:r/ProductManagement",
+        "full:community_over:r/AI_Agents",
+        "full:community_over:r/AmazonSeller",
+        "full:community_over:r/Appliances",
+        "full:community_over:r/BuyItForLife",
+        "full:community_over:r/CampingGear",
+        "full:community_over:r/ChatGPT",
+        "full:community_over:r/ClaudeAI",
+        "full:community_over:r/ClaudeCode",
+        "full:community_over:r/CleaningTips",
+        "full:community_over:r/DigitalMarketing",
+        "full:community_over:r/EDC",
+        "full:community_over:r/Entrepreneur",
+        "full:community_over:r/EtsySellers",
+        "full:community_over:r/FacebookAds",
+        "full:community_over:r/Flipping",
+        "full:community_over:r/Frugal",
+        "full:community_over:r/FulfillmentByAmazon",
+        "full:community_over:r/GiftIdeas",
+        "full:community_over:r/Google_Ads",
+        "full:community_over:r/LLM",
+        "full:community_over:r/LocalLLaMA",
+        "full:community_over:r/ManyBaggers",
+        "full:community_over:r/OpenAI",
+        "full:community_over:r/PPC",
+        "full:community_over:r/ProductManagement",
+        "full:community_over:r/PromptEngineering",
+        "full:community_over:r/RobotVacuums",
+        "full:community_over:r/SEO",
+        "full:community_over:r/SaaS",
+        "full:community_over:r/aeo",
+        "full:community_over:r/analytics",
+        "full:community_over:r/artificial",
+        "full:community_over:r/dogs",
+        "full:community_over:r/eBaySellerAdvice",
+        "full:community_over:r/ecommerce",
+        "full:community_over:r/espresso",
+        "full:community_over:r/flashlight",
+        "full:community_over:r/fountainpens",
+        "full:community_over:r/kickstarter",
+        "full:community_over:r/onebag",
+        "full:community_over:r/shopify",
+        "full:community_over:r/singularity",
+        "full:community_over:r/smallbusiness",
+        "full:community_over:r/worldnews",
+        "full:pack_over:agent-builder",
+        "full:pack_over:category-winds",
+        "full:pack_over:funnel-conversion",
+        "full:pack_over:kill-signals",
+        "full:pack_over:organic-discovery",
+        "full:pack_over:paid-economics",
+        "full:pack_over:selection-signals",
+        "full:pack_over:tools-efficiency",
+        "full:pack_over:upstream-winds"
+      ],
+      "status": "rebound",
+      "trend": {
+        "community_rebounds": [
+          "r/ClaudeCode",
+          "r/espresso",
+          "r/ProductManagement",
+          "r/fountainpens",
+          "r/flashlight",
+          "r/dogs",
+          "r/PromptEngineering"
+        ],
+        "pack_rebounds": [
+          "selection-signals",
+          "upstream-winds",
+          "tools-efficiency",
+          "agent-builder"
+        ]
+      },
+      "stability": {
+        "front30_stable": false,
+        "full_inventory_stable": false,
+        "scope_visible": true,
+        "inventory_supported": true,
+        "community_nonincreasing": false,
+        "pack_nonincreasing": false,
+        "qualified_for_stable": false,
+        "stable_streak": 0,
+        "observed_new_releases": 157,
+        "remediation_focus": "release_surface"
+      }
+    },
+    {
+      "release_id": "release-9148c3492935",
+      "published_at": "2026-06-08T08:27:09.919260Z",
+      "card_count": 1318,
+      "total_card_count": 1318,
+      "supplement_card_count": 0,
+      "front_window": 30,
+      "full": {
+        "card_count": 1318,
+        "scope_counts": {
+          "ecommerce-sellers": 599,
+          "ai-automation": 388,
+          "business-growth-ops": 331
+        },
+        "top_communities": [
+          [
+            "r/BuyItForLife",
+            92
+          ],
+          [
+            "r/OpenAI",
+            67
+          ],
+          [
+            "r/ClaudeCode",
+            64
+          ],
+          [
+            "r/PPC",
+            59
+          ],
+          [
+            "r/ecommerce",
+            58
+          ],
+          [
+            "r/FacebookAds",
+            51
+          ],
+          [
+            "r/ClaudeAI",
+            45
+          ],
+          [
+            "r/espresso",
+            43
+          ],
+          [
+            "r/FulfillmentByAmazon",
+            40
+          ],
+          [
+            "r/LocalLLaMA",
+            36
+          ],
+          [
+            "r/DigitalMarketing",
+            34
+          ],
+          [
+            "r/shopify",
+            33
+          ]
+        ],
+        "top_packs": [
+          [
+            "selection-signals",
+            455
+          ],
+          [
+            "upstream-winds",
+            206
+          ],
+          [
+            "paid-economics",
+            140
+          ],
+          [
+            "organic-discovery",
+            110
+          ],
+          [
+            "tools-efficiency",
+            109
+          ],
+          [
+            "category-winds",
+            108
+          ],
+          [
+            "funnel-conversion",
+            79
+          ],
+          [
+            "agent-builder",
+            66
+          ],
+          [
+            "kill-signals",
+            35
+          ]
+        ],
+        "watched_communities": {
+          "r/FacebookAds": 51,
+          "r/PPC": 59,
+          "r/BuyItForLife": 92
+        },
+        "watched_packs": {
+          "paid-economics": 140
+        },
+        "effective_watch_communities": {
+          "r/FacebookAds": 51,
+          "r/PPC": 59,
+          "r/BuyItForLife": 92,
+          "r/OpenAI": 67,
+          "r/ClaudeCode": 64,
+          "r/ecommerce": 58,
+          "r/ClaudeAI": 45,
+          "r/espresso": 43,
+          "r/FulfillmentByAmazon": 40,
+          "r/LocalLLaMA": 36,
+          "r/DigitalMarketing": 34,
+          "r/shopify": 33,
+          "r/EtsySellers": 32,
+          "r/SEO": 32,
+          "r/ProductManagement": 27,
+          "r/ManyBaggers": 27,
+          "r/fountainpens": 26,
+          "r/kickstarter": 26,
+          "r/flashlight": 25,
+          "r/AI_Agents": 25,
+          "r/CleaningTips": 22,
+          "r/GiftIdeas": 21,
+          "r/eBaySellerAdvice": 19,
+          "r/artificial": 19,
+          "r/AmazonSeller": 18,
+          "r/onebag": 17,
+          "r/Frugal": 17,
+          "r/EDC": 16,
+          "r/CampingGear": 14,
+          "r/dogs": 13,
+          "r/aeo": 13,
+          "r/Entrepreneur": 12,
+          "r/worldnews": 12,
+          "r/SaaS": 11,
+          "r/analytics": 11,
+          "r/LLM": 10,
+          "r/ChatGPT": 10,
+          "r/RobotVacuums": 8,
+          "r/Google_Ads": 7,
+          "r/Appliances": 6,
+          "r/smallbusiness": 6,
+          "r/singularity": 6,
+          "r/Flipping": 6,
+          "r/PromptEngineering": 6
+        },
+        "effective_watch_packs": {
+          "paid-economics": 140,
+          "selection-signals": 455,
+          "upstream-winds": 206,
+          "organic-discovery": 110,
+          "tools-efficiency": 109,
+          "category-winds": 108,
+          "funnel-conversion": 79,
+          "agent-builder": 66,
+          "kill-signals": 35
+        },
+        "dynamic_watch_communities": [
+          "r/OpenAI",
+          "r/ClaudeCode",
+          "r/ecommerce",
+          "r/ClaudeAI",
+          "r/espresso",
+          "r/FulfillmentByAmazon",
+          "r/LocalLLaMA",
+          "r/DigitalMarketing",
+          "r/shopify",
+          "r/EtsySellers",
+          "r/SEO",
+          "r/ProductManagement",
+          "r/ManyBaggers",
+          "r/fountainpens",
+          "r/kickstarter",
+          "r/flashlight",
+          "r/AI_Agents",
+          "r/CleaningTips",
+          "r/GiftIdeas",
+          "r/eBaySellerAdvice",
+          "r/artificial",
+          "r/AmazonSeller",
+          "r/onebag",
           "r/Frugal",
           "r/EDC",
           "r/CampingGear",
@@ -217,10 +1190,10 @@
           "r/aeo",
           "r/Entrepreneur",
           "r/worldnews",
+          "r/SaaS",
           "r/analytics",
           "r/LLM",
           "r/ChatGPT",
-          "r/SaaS",
           "r/RobotVacuums",
           "r/Google_Ads",
           "r/Appliances",
@@ -240,7 +1213,7 @@
           "kill-signals"
         ],
         "caps": {
-          "scope": 648,
+          "scope": 659,
           "pack": 14,
           "community": 5
         },
@@ -248,8 +1221,8 @@
           "full:community_over:r/BuyItForLife",
           "full:community_over:r/OpenAI",
           "full:community_over:r/ClaudeCode",
-          "full:community_over:r/ecommerce",
           "full:community_over:r/PPC",
+          "full:community_over:r/ecommerce",
           "full:community_over:r/FacebookAds",
           "full:community_over:r/ClaudeAI",
           "full:community_over:r/espresso",
@@ -257,20 +1230,20 @@
           "full:community_over:r/LocalLLaMA",
           "full:community_over:r/DigitalMarketing",
           "full:community_over:r/shopify",
-          "full:community_over:r/SEO",
           "full:community_over:r/EtsySellers",
+          "full:community_over:r/SEO",
+          "full:community_over:r/ProductManagement",
           "full:community_over:r/ManyBaggers",
           "full:community_over:r/fountainpens",
           "full:community_over:r/kickstarter",
-          "full:community_over:r/AI_Agents",
-          "full:community_over:r/ProductManagement",
           "full:community_over:r/flashlight",
+          "full:community_over:r/AI_Agents",
           "full:community_over:r/CleaningTips",
           "full:community_over:r/GiftIdeas",
+          "full:community_over:r/eBaySellerAdvice",
           "full:community_over:r/artificial",
           "full:community_over:r/AmazonSeller",
           "full:community_over:r/onebag",
-          "full:community_over:r/eBaySellerAdvice",
           "full:community_over:r/Frugal",
           "full:community_over:r/EDC",
           "full:community_over:r/CampingGear",
@@ -278,10 +1251,10 @@
           "full:community_over:r/aeo",
           "full:community_over:r/Entrepreneur",
           "full:community_over:r/worldnews",
+          "full:community_over:r/SaaS",
           "full:community_over:r/analytics",
           "full:community_over:r/LLM",
           "full:community_over:r/ChatGPT",
-          "full:community_over:r/SaaS",
           "full:community_over:r/RobotVacuums",
           "full:community_over:r/Google_Ads",
           "full:community_over:r/Appliances",
@@ -303,25 +1276,33 @@
       "front30": {
         "card_count": 30,
         "scope_counts": {
-          "ecommerce-sellers": 20,
-          "business-growth-ops": 8,
-          "ai-automation": 2
+          "ecommerce-sellers": 15,
+          "ai-automation": 11,
+          "business-growth-ops": 4
         },
         "top_communities": [
           [
+            "r/OpenAI",
+            4
+          ],
+          [
             "r/BuyItForLife",
-            8
+            4
           ],
           [
-            "r/shopify",
-            5
+            "r/ProductManagement",
+            3
           ],
           [
-            "r/printers",
-            5
+            "r/EtsySellers",
+            3
           ],
           [
-            "r/Appliances",
+            "r/eBaySellerAdvice",
+            2
+          ],
+          [
+            "r/ClaudeCode",
             2
           ],
           [
@@ -329,82 +1310,565 @@
             2
           ],
           [
-            "r/EtsySellers",
+            "r/FulfillmentByAmazon",
             2
           ],
           [
-            "r/SEO",
+            "r/Appliances",
+            2
+          ],
+          [
+            "r/CampingGear",
             1
           ],
           [
-            "r/ProductManagement",
+            "r/SaaS",
             1
           ],
           [
-            "r/FulfillmentByAmazon",
-            1
-          ],
-          [
-            "r/LocalLLaMA",
-            1
-          ],
-          [
-            "r/b2bmarketing",
-            1
-          ],
-          [
-            "r/ecommerce",
+            "r/flashlight",
             1
           ]
         ],
         "top_packs": [
           [
             "selection-signals",
-            16
+            11
           ],
           [
-            "funnel-conversion",
+            "upstream-winds",
             5
           ],
           [
-            "paid-economics",
-            3
-          ],
-          [
             "tools-efficiency",
-            2
-          ],
-          [
-            "kill-signals",
-            2
+            4
           ],
           [
             "category-winds",
+            4
+          ],
+          [
+            "paid-economics",
+            4
+          ],
+          [
+            "agent-builder",
             2
           ]
         ],
         "watched_communities": {
-          "r/FacebookAds": 0,
+          "r/FacebookAds": 1,
           "r/PPC": 2,
-          "r/BuyItForLife": 8
+          "r/BuyItForLife": 4
         },
         "watched_packs": {
-          "paid-economics": 3
+          "paid-economics": 4
         },
         "effective_watch_communities": {
-          "r/FacebookAds": 0,
+          "r/FacebookAds": 1,
           "r/PPC": 2,
-          "r/BuyItForLife": 8,
-          "r/shopify": 5,
-          "r/printers": 5
+          "r/BuyItForLife": 4,
+          "r/OpenAI": 4,
+          "r/ProductManagement": 3,
+          "r/EtsySellers": 3
         },
         "effective_watch_packs": {
-          "paid-economics": 3,
-          "selection-signals": 16
+          "paid-economics": 4,
+          "selection-signals": 11
         },
         "dynamic_watch_communities": [
+          "r/OpenAI",
+          "r/ProductManagement",
+          "r/EtsySellers"
+        ],
+        "dynamic_watch_packs": [
+          "selection-signals"
+        ],
+        "caps": {
+          "scope": 12,
+          "pack": 10,
+          "community": 2
+        },
+        "alerts": [
+          "front:community_over:r/OpenAI",
+          "front:community_over:r/BuyItForLife",
+          "front:community_over:r/ProductManagement",
+          "front:community_over:r/EtsySellers",
+          "front:pack_over:selection-signals"
+        ]
+      },
+      "alerts": [
+        "front:community_over:r/BuyItForLife",
+        "front:community_over:r/EtsySellers",
+        "front:community_over:r/OpenAI",
+        "front:community_over:r/ProductManagement",
+        "front:pack_over:selection-signals",
+        "full:community_over:r/AI_Agents",
+        "full:community_over:r/AmazonSeller",
+        "full:community_over:r/Appliances",
+        "full:community_over:r/BuyItForLife",
+        "full:community_over:r/CampingGear",
+        "full:community_over:r/ChatGPT",
+        "full:community_over:r/ClaudeAI",
+        "full:community_over:r/ClaudeCode",
+        "full:community_over:r/CleaningTips",
+        "full:community_over:r/DigitalMarketing",
+        "full:community_over:r/EDC",
+        "full:community_over:r/Entrepreneur",
+        "full:community_over:r/EtsySellers",
+        "full:community_over:r/FacebookAds",
+        "full:community_over:r/Flipping",
+        "full:community_over:r/Frugal",
+        "full:community_over:r/FulfillmentByAmazon",
+        "full:community_over:r/GiftIdeas",
+        "full:community_over:r/Google_Ads",
+        "full:community_over:r/LLM",
+        "full:community_over:r/LocalLLaMA",
+        "full:community_over:r/ManyBaggers",
+        "full:community_over:r/OpenAI",
+        "full:community_over:r/PPC",
+        "full:community_over:r/ProductManagement",
+        "full:community_over:r/PromptEngineering",
+        "full:community_over:r/RobotVacuums",
+        "full:community_over:r/SEO",
+        "full:community_over:r/SaaS",
+        "full:community_over:r/aeo",
+        "full:community_over:r/analytics",
+        "full:community_over:r/artificial",
+        "full:community_over:r/dogs",
+        "full:community_over:r/eBaySellerAdvice",
+        "full:community_over:r/ecommerce",
+        "full:community_over:r/espresso",
+        "full:community_over:r/flashlight",
+        "full:community_over:r/fountainpens",
+        "full:community_over:r/kickstarter",
+        "full:community_over:r/onebag",
+        "full:community_over:r/shopify",
+        "full:community_over:r/singularity",
+        "full:community_over:r/smallbusiness",
+        "full:community_over:r/worldnews",
+        "full:pack_over:agent-builder",
+        "full:pack_over:category-winds",
+        "full:pack_over:funnel-conversion",
+        "full:pack_over:kill-signals",
+        "full:pack_over:organic-discovery",
+        "full:pack_over:paid-economics",
+        "full:pack_over:selection-signals",
+        "full:pack_over:tools-efficiency",
+        "full:pack_over:upstream-winds"
+      ],
+      "status": "rebound",
+      "trend": {
+        "community_rebounds": [
+          "r/eBaySellerAdvice",
+          "r/CampingGear"
+        ],
+        "pack_rebounds": [
+          "selection-signals",
+          "category-winds"
+        ]
+      },
+      "stability": {
+        "front30_stable": false,
+        "full_inventory_stable": false,
+        "scope_visible": true,
+        "inventory_supported": true,
+        "community_nonincreasing": false,
+        "pack_nonincreasing": false,
+        "qualified_for_stable": false,
+        "stable_streak": 0,
+        "observed_new_releases": 156,
+        "remediation_focus": "release_surface"
+      }
+    },
+    {
+      "release_id": "release-77878b3ea38d",
+      "published_at": "2026-06-08T08:07:05.327941Z",
+      "card_count": 1315,
+      "total_card_count": 1315,
+      "supplement_card_count": 0,
+      "front_window": 30,
+      "full": {
+        "card_count": 1315,
+        "scope_counts": {
+          "ai-automation": 388,
+          "ecommerce-sellers": 596,
+          "business-growth-ops": 331
+        },
+        "top_communities": [
+          [
+            "r/BuyItForLife",
+            92
+          ],
+          [
+            "r/OpenAI",
+            67
+          ],
+          [
+            "r/ClaudeCode",
+            64
+          ],
+          [
+            "r/PPC",
+            59
+          ],
+          [
+            "r/ecommerce",
+            58
+          ],
+          [
+            "r/FacebookAds",
+            51
+          ],
+          [
+            "r/ClaudeAI",
+            45
+          ],
+          [
+            "r/espresso",
+            43
+          ],
+          [
+            "r/FulfillmentByAmazon",
+            40
+          ],
+          [
+            "r/LocalLLaMA",
+            36
+          ],
+          [
+            "r/DigitalMarketing",
+            34
+          ],
+          [
+            "r/shopify",
+            33
+          ]
+        ],
+        "top_packs": [
+          [
+            "selection-signals",
+            454
+          ],
+          [
+            "upstream-winds",
+            206
+          ],
+          [
+            "paid-economics",
+            140
+          ],
+          [
+            "organic-discovery",
+            110
+          ],
+          [
+            "tools-efficiency",
+            109
+          ],
+          [
+            "category-winds",
+            106
+          ],
+          [
+            "funnel-conversion",
+            79
+          ],
+          [
+            "agent-builder",
+            66
+          ],
+          [
+            "kill-signals",
+            35
+          ]
+        ],
+        "watched_communities": {
+          "r/FacebookAds": 51,
+          "r/PPC": 59,
+          "r/BuyItForLife": 92
+        },
+        "watched_packs": {
+          "paid-economics": 140
+        },
+        "effective_watch_communities": {
+          "r/FacebookAds": 51,
+          "r/PPC": 59,
+          "r/BuyItForLife": 92,
+          "r/OpenAI": 67,
+          "r/ClaudeCode": 64,
+          "r/ecommerce": 58,
+          "r/ClaudeAI": 45,
+          "r/espresso": 43,
+          "r/FulfillmentByAmazon": 40,
+          "r/LocalLLaMA": 36,
+          "r/DigitalMarketing": 34,
+          "r/shopify": 33,
+          "r/EtsySellers": 32,
+          "r/SEO": 32,
+          "r/ProductManagement": 27,
+          "r/ManyBaggers": 27,
+          "r/fountainpens": 26,
+          "r/kickstarter": 26,
+          "r/flashlight": 25,
+          "r/AI_Agents": 25,
+          "r/CleaningTips": 22,
+          "r/GiftIdeas": 21,
+          "r/artificial": 19,
+          "r/AmazonSeller": 18,
+          "r/onebag": 17,
+          "r/eBaySellerAdvice": 17,
+          "r/Frugal": 17,
+          "r/EDC": 16,
+          "r/CampingGear": 13,
+          "r/dogs": 13,
+          "r/aeo": 13,
+          "r/Entrepreneur": 12,
+          "r/worldnews": 12,
+          "r/SaaS": 11,
+          "r/analytics": 11,
+          "r/LLM": 10,
+          "r/ChatGPT": 10,
+          "r/RobotVacuums": 8,
+          "r/Google_Ads": 7,
+          "r/Appliances": 6,
+          "r/smallbusiness": 6,
+          "r/singularity": 6,
+          "r/Flipping": 6,
+          "r/PromptEngineering": 6
+        },
+        "effective_watch_packs": {
+          "paid-economics": 140,
+          "selection-signals": 454,
+          "upstream-winds": 206,
+          "organic-discovery": 110,
+          "tools-efficiency": 109,
+          "category-winds": 106,
+          "funnel-conversion": 79,
+          "agent-builder": 66,
+          "kill-signals": 35
+        },
+        "dynamic_watch_communities": [
+          "r/OpenAI",
+          "r/ClaudeCode",
+          "r/ecommerce",
+          "r/ClaudeAI",
+          "r/espresso",
+          "r/FulfillmentByAmazon",
+          "r/LocalLLaMA",
+          "r/DigitalMarketing",
           "r/shopify",
-          "r/printers"
+          "r/EtsySellers",
+          "r/SEO",
+          "r/ProductManagement",
+          "r/ManyBaggers",
+          "r/fountainpens",
+          "r/kickstarter",
+          "r/flashlight",
+          "r/AI_Agents",
+          "r/CleaningTips",
+          "r/GiftIdeas",
+          "r/artificial",
+          "r/AmazonSeller",
+          "r/onebag",
+          "r/eBaySellerAdvice",
+          "r/Frugal",
+          "r/EDC",
+          "r/CampingGear",
+          "r/dogs",
+          "r/aeo",
+          "r/Entrepreneur",
+          "r/worldnews",
+          "r/SaaS",
+          "r/analytics",
+          "r/LLM",
+          "r/ChatGPT",
+          "r/RobotVacuums",
+          "r/Google_Ads",
+          "r/Appliances",
+          "r/smallbusiness",
+          "r/singularity",
+          "r/Flipping",
+          "r/PromptEngineering"
+        ],
+        "dynamic_watch_packs": [
+          "selection-signals",
+          "upstream-winds",
+          "organic-discovery",
+          "tools-efficiency",
+          "category-winds",
+          "funnel-conversion",
+          "agent-builder",
+          "kill-signals"
+        ],
+        "caps": {
+          "scope": 658,
+          "pack": 14,
+          "community": 5
+        },
+        "alerts": [
+          "full:community_over:r/BuyItForLife",
+          "full:community_over:r/OpenAI",
+          "full:community_over:r/ClaudeCode",
+          "full:community_over:r/PPC",
+          "full:community_over:r/ecommerce",
+          "full:community_over:r/FacebookAds",
+          "full:community_over:r/ClaudeAI",
+          "full:community_over:r/espresso",
+          "full:community_over:r/FulfillmentByAmazon",
+          "full:community_over:r/LocalLLaMA",
+          "full:community_over:r/DigitalMarketing",
+          "full:community_over:r/shopify",
+          "full:community_over:r/EtsySellers",
+          "full:community_over:r/SEO",
+          "full:community_over:r/ProductManagement",
+          "full:community_over:r/ManyBaggers",
+          "full:community_over:r/fountainpens",
+          "full:community_over:r/kickstarter",
+          "full:community_over:r/flashlight",
+          "full:community_over:r/AI_Agents",
+          "full:community_over:r/CleaningTips",
+          "full:community_over:r/GiftIdeas",
+          "full:community_over:r/artificial",
+          "full:community_over:r/AmazonSeller",
+          "full:community_over:r/onebag",
+          "full:community_over:r/eBaySellerAdvice",
+          "full:community_over:r/Frugal",
+          "full:community_over:r/EDC",
+          "full:community_over:r/CampingGear",
+          "full:community_over:r/dogs",
+          "full:community_over:r/aeo",
+          "full:community_over:r/Entrepreneur",
+          "full:community_over:r/worldnews",
+          "full:community_over:r/SaaS",
+          "full:community_over:r/analytics",
+          "full:community_over:r/LLM",
+          "full:community_over:r/ChatGPT",
+          "full:community_over:r/RobotVacuums",
+          "full:community_over:r/Google_Ads",
+          "full:community_over:r/Appliances",
+          "full:community_over:r/smallbusiness",
+          "full:community_over:r/singularity",
+          "full:community_over:r/Flipping",
+          "full:community_over:r/PromptEngineering",
+          "full:pack_over:selection-signals",
+          "full:pack_over:upstream-winds",
+          "full:pack_over:paid-economics",
+          "full:pack_over:organic-discovery",
+          "full:pack_over:tools-efficiency",
+          "full:pack_over:category-winds",
+          "full:pack_over:funnel-conversion",
+          "full:pack_over:agent-builder",
+          "full:pack_over:kill-signals"
+        ]
+      },
+      "front30": {
+        "card_count": 30,
+        "scope_counts": {
+          "ai-automation": 11,
+          "ecommerce-sellers": 15,
+          "business-growth-ops": 4
+        },
+        "top_communities": [
+          [
+            "r/BuyItForLife",
+            6
+          ],
+          [
+            "r/EtsySellers",
+            4
+          ],
+          [
+            "r/OpenAI",
+            4
+          ],
+          [
+            "r/ProductManagement",
+            3
+          ],
+          [
+            "r/ClaudeCode",
+            2
+          ],
+          [
+            "r/PPC",
+            2
+          ],
+          [
+            "r/FulfillmentByAmazon",
+            2
+          ],
+          [
+            "r/Appliances",
+            2
+          ],
+          [
+            "r/flashlight",
+            1
+          ],
+          [
+            "r/SaaS",
+            1
+          ],
+          [
+            "r/FacebookAds",
+            1
+          ],
+          [
+            "r/ClaudeAI",
+            1
+          ]
+        ],
+        "top_packs": [
+          [
+            "selection-signals",
+            13
+          ],
+          [
+            "upstream-winds",
+            5
+          ],
+          [
+            "tools-efficiency",
+            4
+          ],
+          [
+            "paid-economics",
+            4
+          ],
+          [
+            "category-winds",
+            2
+          ],
+          [
+            "agent-builder",
+            2
+          ]
+        ],
+        "watched_communities": {
+          "r/FacebookAds": 1,
+          "r/PPC": 2,
+          "r/BuyItForLife": 6
+        },
+        "watched_packs": {
+          "paid-economics": 4
+        },
+        "effective_watch_communities": {
+          "r/FacebookAds": 1,
+          "r/PPC": 2,
+          "r/BuyItForLife": 6,
+          "r/EtsySellers": 4,
+          "r/OpenAI": 4,
+          "r/ProductManagement": 3
+        },
+        "effective_watch_packs": {
+          "paid-economics": 4,
+          "selection-signals": 13
+        },
+        "dynamic_watch_communities": [
+          "r/EtsySellers",
+          "r/OpenAI",
+          "r/ProductManagement"
         ],
         "dynamic_watch_packs": [
           "selection-signals"
@@ -416,15 +1880,17 @@
         },
         "alerts": [
           "front:community_over:r/BuyItForLife",
-          "front:community_over:r/shopify",
-          "front:community_over:r/printers",
+          "front:community_over:r/EtsySellers",
+          "front:community_over:r/OpenAI",
+          "front:community_over:r/ProductManagement",
           "front:pack_over:selection-signals"
         ]
       },
       "alerts": [
         "front:community_over:r/BuyItForLife",
-        "front:community_over:r/printers",
-        "front:community_over:r/shopify",
+        "front:community_over:r/EtsySellers",
+        "front:community_over:r/OpenAI",
+        "front:community_over:r/ProductManagement",
         "front:pack_over:selection-signals",
         "full:community_over:r/AI_Agents",
         "full:community_over:r/AmazonSeller",
@@ -494,23 +1960,23 @@
         "pack_nonincreasing": true,
         "qualified_for_stable": false,
         "stable_streak": 0,
-        "observed_new_releases": 150,
+        "observed_new_releases": 155,
         "remediation_focus": "release_surface"
       }
     },
     {
-      "release_id": "release-1c3db4101b7d",
-      "published_at": "2026-06-06T10:56:45.261100Z",
-      "card_count": 1295,
-      "total_card_count": 1295,
+      "release_id": "release-a207a2010c66",
+      "published_at": "2026-06-08T08:07:05.327941Z",
+      "card_count": 1315,
+      "total_card_count": 1315,
       "supplement_card_count": 0,
       "front_window": 30,
       "full": {
-        "card_count": 1295,
+        "card_count": 1315,
         "scope_counts": {
-          "ecommerce-sellers": 591,
-          "business-growth-ops": 327,
-          "ai-automation": 377
+          "ai-automation": 388,
+          "ecommerce-sellers": 596,
+          "business-growth-ops": 331
         },
         "top_communities": [
           [
@@ -519,27 +1985,27 @@
           ],
           [
             "r/OpenAI",
-            63
+            67
           ],
           [
             "r/ClaudeCode",
-            62
+            64
+          ],
+          [
+            "r/PPC",
+            59
           ],
           [
             "r/ecommerce",
             58
           ],
           [
-            "r/PPC",
-            57
-          ],
-          [
             "r/FacebookAds",
-            50
+            51
           ],
           [
             "r/ClaudeAI",
-            44
+            45
           ],
           [
             "r/espresso",
@@ -547,7 +2013,7 @@
           ],
           [
             "r/FulfillmentByAmazon",
-            39
+            40
           ],
           [
             "r/LocalLLaMA",
@@ -565,15 +2031,15 @@
         "top_packs": [
           [
             "selection-signals",
-            450
+            454
           ],
           [
             "upstream-winds",
-            201
+            206
           ],
           [
             "paid-economics",
-            136
+            140
           ],
           [
             "organic-discovery",
@@ -581,11 +2047,11 @@
           ],
           [
             "tools-efficiency",
-            105
+            109
           ],
           [
             "category-winds",
-            105
+            106
           ],
           [
             "funnel-conversion",
@@ -593,7 +2059,7 @@
           ],
           [
             "agent-builder",
-            64
+            66
           ],
           [
             "kill-signals",
@@ -601,34 +2067,34 @@
           ]
         ],
         "watched_communities": {
-          "r/FacebookAds": 50,
-          "r/PPC": 57,
+          "r/FacebookAds": 51,
+          "r/PPC": 59,
           "r/BuyItForLife": 92
         },
         "watched_packs": {
-          "paid-economics": 136
+          "paid-economics": 140
         },
         "effective_watch_communities": {
-          "r/FacebookAds": 50,
-          "r/PPC": 57,
+          "r/FacebookAds": 51,
+          "r/PPC": 59,
           "r/BuyItForLife": 92,
-          "r/OpenAI": 63,
-          "r/ClaudeCode": 62,
+          "r/OpenAI": 67,
+          "r/ClaudeCode": 64,
           "r/ecommerce": 58,
-          "r/ClaudeAI": 44,
+          "r/ClaudeAI": 45,
           "r/espresso": 43,
-          "r/FulfillmentByAmazon": 39,
+          "r/FulfillmentByAmazon": 40,
           "r/LocalLLaMA": 36,
           "r/DigitalMarketing": 34,
           "r/shopify": 33,
+          "r/EtsySellers": 32,
           "r/SEO": 32,
-          "r/EtsySellers": 29,
+          "r/ProductManagement": 27,
           "r/ManyBaggers": 27,
           "r/fountainpens": 26,
           "r/kickstarter": 26,
+          "r/flashlight": 25,
           "r/AI_Agents": 25,
-          "r/ProductManagement": 24,
-          "r/flashlight": 24,
           "r/CleaningTips": 22,
           "r/GiftIdeas": 21,
           "r/artificial": 19,
@@ -642,10 +2108,10 @@
           "r/aeo": 13,
           "r/Entrepreneur": 12,
           "r/worldnews": 12,
-          "r/analytics": 10,
+          "r/SaaS": 11,
+          "r/analytics": 11,
           "r/LLM": 10,
           "r/ChatGPT": 10,
-          "r/SaaS": 10,
           "r/RobotVacuums": 8,
           "r/Google_Ads": 7,
           "r/Appliances": 6,
@@ -655,14 +2121,14 @@
           "r/PromptEngineering": 6
         },
         "effective_watch_packs": {
-          "paid-economics": 136,
-          "selection-signals": 450,
-          "upstream-winds": 201,
+          "paid-economics": 140,
+          "selection-signals": 454,
+          "upstream-winds": 206,
           "organic-discovery": 110,
-          "tools-efficiency": 105,
-          "category-winds": 105,
+          "tools-efficiency": 109,
+          "category-winds": 106,
           "funnel-conversion": 79,
-          "agent-builder": 64,
+          "agent-builder": 66,
           "kill-signals": 35
         },
         "dynamic_watch_communities": [
@@ -675,14 +2141,14 @@
           "r/LocalLLaMA",
           "r/DigitalMarketing",
           "r/shopify",
-          "r/SEO",
           "r/EtsySellers",
+          "r/SEO",
+          "r/ProductManagement",
           "r/ManyBaggers",
           "r/fountainpens",
           "r/kickstarter",
-          "r/AI_Agents",
-          "r/ProductManagement",
           "r/flashlight",
+          "r/AI_Agents",
           "r/CleaningTips",
           "r/GiftIdeas",
           "r/artificial",
@@ -696,10 +2162,10 @@
           "r/aeo",
           "r/Entrepreneur",
           "r/worldnews",
+          "r/SaaS",
           "r/analytics",
           "r/LLM",
           "r/ChatGPT",
-          "r/SaaS",
           "r/RobotVacuums",
           "r/Google_Ads",
           "r/Appliances",
@@ -719,7 +2185,7 @@
           "kill-signals"
         ],
         "caps": {
-          "scope": 648,
+          "scope": 658,
           "pack": 14,
           "community": 5
         },
@@ -727,8 +2193,8 @@
           "full:community_over:r/BuyItForLife",
           "full:community_over:r/OpenAI",
           "full:community_over:r/ClaudeCode",
-          "full:community_over:r/ecommerce",
           "full:community_over:r/PPC",
+          "full:community_over:r/ecommerce",
           "full:community_over:r/FacebookAds",
           "full:community_over:r/ClaudeAI",
           "full:community_over:r/espresso",
@@ -736,14 +2202,14 @@
           "full:community_over:r/LocalLLaMA",
           "full:community_over:r/DigitalMarketing",
           "full:community_over:r/shopify",
-          "full:community_over:r/SEO",
           "full:community_over:r/EtsySellers",
+          "full:community_over:r/SEO",
+          "full:community_over:r/ProductManagement",
           "full:community_over:r/ManyBaggers",
           "full:community_over:r/fountainpens",
           "full:community_over:r/kickstarter",
-          "full:community_over:r/AI_Agents",
-          "full:community_over:r/ProductManagement",
           "full:community_over:r/flashlight",
+          "full:community_over:r/AI_Agents",
           "full:community_over:r/CleaningTips",
           "full:community_over:r/GiftIdeas",
           "full:community_over:r/artificial",
@@ -757,10 +2223,10 @@
           "full:community_over:r/aeo",
           "full:community_over:r/Entrepreneur",
           "full:community_over:r/worldnews",
+          "full:community_over:r/SaaS",
           "full:community_over:r/analytics",
           "full:community_over:r/LLM",
           "full:community_over:r/ChatGPT",
-          "full:community_over:r/SaaS",
           "full:community_over:r/RobotVacuums",
           "full:community_over:r/Google_Ads",
           "full:community_over:r/Appliances",
@@ -782,25 +2248,29 @@
       "front30": {
         "card_count": 30,
         "scope_counts": {
-          "ecommerce-sellers": 20,
-          "business-growth-ops": 8,
-          "ai-automation": 2
+          "ai-automation": 11,
+          "ecommerce-sellers": 15,
+          "business-growth-ops": 4
         },
         "top_communities": [
           [
             "r/BuyItForLife",
-            8
+            6
           ],
           [
-            "r/shopify",
-            5
+            "r/EtsySellers",
+            4
           ],
           [
-            "r/printers",
-            5
+            "r/OpenAI",
+            4
           ],
           [
-            "r/Appliances",
+            "r/ProductManagement",
+            3
+          ],
+          [
+            "r/ClaudeCode",
             2
           ],
           [
@@ -808,82 +2278,80 @@
             2
           ],
           [
-            "r/EtsySellers",
+            "r/FulfillmentByAmazon",
             2
           ],
           [
-            "r/SEO",
+            "r/Appliances",
+            2
+          ],
+          [
+            "r/flashlight",
             1
           ],
           [
-            "r/ProductManagement",
+            "r/SaaS",
             1
           ],
           [
-            "r/FulfillmentByAmazon",
+            "r/FacebookAds",
             1
           ],
           [
-            "r/LocalLLaMA",
-            1
-          ],
-          [
-            "r/b2bmarketing",
-            1
-          ],
-          [
-            "r/ecommerce",
+            "r/ClaudeAI",
             1
           ]
         ],
         "top_packs": [
           [
             "selection-signals",
-            16
+            13
           ],
           [
-            "funnel-conversion",
+            "upstream-winds",
             5
           ],
           [
-            "paid-economics",
-            3
-          ],
-          [
             "tools-efficiency",
-            2
+            4
           ],
           [
-            "kill-signals",
-            2
+            "paid-economics",
+            4
           ],
           [
             "category-winds",
             2
+          ],
+          [
+            "agent-builder",
+            2
           ]
         ],
         "watched_communities": {
-          "r/FacebookAds": 0,
+          "r/FacebookAds": 1,
           "r/PPC": 2,
-          "r/BuyItForLife": 8
+          "r/BuyItForLife": 6
         },
         "watched_packs": {
-          "paid-economics": 3
+          "paid-economics": 4
         },
         "effective_watch_communities": {
-          "r/FacebookAds": 0,
+          "r/FacebookAds": 1,
           "r/PPC": 2,
-          "r/BuyItForLife": 8,
-          "r/shopify": 5,
-          "r/printers": 5
+          "r/BuyItForLife": 6,
+          "r/EtsySellers": 4,
+          "r/OpenAI": 4,
+          "r/ProductManagement": 3
         },
         "effective_watch_packs": {
-          "paid-economics": 3,
-          "selection-signals": 16
+          "paid-economics": 4,
+          "selection-signals": 13
         },
         "dynamic_watch_communities": [
-          "r/shopify",
-          "r/printers"
+          "r/EtsySellers",
+          "r/OpenAI",
+          "r/ProductManagement"
         ],
         "dynamic_watch_packs": [
           "selection-signals"
@@ -895,15 +2363,17 @@
         },
         "alerts": [
           "front:community_over:r/BuyItForLife",
-          "front:community_over:r/shopify",
-          "front:community_over:r/printers",
+          "front:community_over:r/EtsySellers",
+          "front:community_over:r/OpenAI",
+          "front:community_over:r/ProductManagement",
           "front:pack_over:selection-signals"
         ]
       },
       "alerts": [
         "front:community_over:r/BuyItForLife",
-        "front:community_over:r/printers",
-        "front:community_over:r/shopify",
+        "front:community_over:r/EtsySellers",
+        "front:community_over:r/OpenAI",
+        "front:community_over:r/ProductManagement",
         "front:pack_over:selection-signals",
         "full:community_over:r/AI_Agents",
         "full:community_over:r/AmazonSeller",
@@ -962,24 +2432,12 @@
       "status": "rebound",
       "trend": {
         "community_rebounds": [
-          "r/PPC",
-          "r/BuyItForLife",
-          "r/ecommerce",
-          "r/FulfillmentByAmazon",
-          "r/LocalLLaMA",
-          "r/shopify",
-          "r/SEO",
-          "r/EtsySellers",
-          "r/ProductManagement",
-          "r/Appliances"
+          "r/ClaudeCode",
+          "r/ProductManagement"
         ],
         "pack_rebounds": [
-          "paid-economics",
-          "selection-signals",
-          "tools-efficiency",
-          "category-winds",
-          "funnel-conversion",
-          "kill-signals"
+          "upstream-winds",
+          "tools-efficiency"
         ]
       },
       "stability": {
@@ -991,1486 +2449,7 @@
         "pack_nonincreasing": false,
         "qualified_for_stable": false,
         "stable_streak": 0,
-        "observed_new_releases": 149,
-        "remediation_focus": "release_surface"
-      }
-    },
-    {
-      "release_id": "release-dea5ddcc9848",
-      "published_at": "2026-06-01T07:25:00.626404Z",
-      "card_count": 1265,
-      "total_card_count": 1265,
-      "supplement_card_count": 0,
-      "front_window": 30,
-      "full": {
-        "card_count": 1265,
-        "scope_counts": {
-          "ai-automation": 375,
-          "ecommerce-sellers": 571,
-          "business-growth-ops": 319
-        },
-        "top_communities": [
-          [
-            "r/BuyItForLife",
-            84
-          ],
-          [
-            "r/OpenAI",
-            63
-          ],
-          [
-            "r/ClaudeCode",
-            62
-          ],
-          [
-            "r/ecommerce",
-            57
-          ],
-          [
-            "r/PPC",
-            55
-          ],
-          [
-            "r/FacebookAds",
-            50
-          ],
-          [
-            "r/ClaudeAI",
-            44
-          ],
-          [
-            "r/espresso",
-            43
-          ],
-          [
-            "r/FulfillmentByAmazon",
-            38
-          ],
-          [
-            "r/LocalLLaMA",
-            35
-          ],
-          [
-            "r/DigitalMarketing",
-            34
-          ],
-          [
-            "r/SEO",
-            31
-          ]
-        ],
-        "top_packs": [
-          [
-            "selection-signals",
-            434
-          ],
-          [
-            "upstream-winds",
-            201
-          ],
-          [
-            "paid-economics",
-            133
-          ],
-          [
-            "organic-discovery",
-            110
-          ],
-          [
-            "category-winds",
-            103
-          ],
-          [
-            "tools-efficiency",
-            103
-          ],
-          [
-            "funnel-conversion",
-            74
-          ],
-          [
-            "agent-builder",
-            64
-          ],
-          [
-            "kill-signals",
-            33
-          ]
-        ],
-        "watched_communities": {
-          "r/FacebookAds": 50,
-          "r/PPC": 55,
-          "r/BuyItForLife": 84
-        },
-        "watched_packs": {
-          "paid-economics": 133
-        },
-        "effective_watch_communities": {
-          "r/FacebookAds": 50,
-          "r/PPC": 55,
-          "r/BuyItForLife": 84,
-          "r/OpenAI": 63,
-          "r/ClaudeCode": 62,
-          "r/ecommerce": 57,
-          "r/ClaudeAI": 44,
-          "r/espresso": 43,
-          "r/FulfillmentByAmazon": 38,
-          "r/LocalLLaMA": 35,
-          "r/DigitalMarketing": 34,
-          "r/SEO": 31,
-          "r/shopify": 28,
-          "r/EtsySellers": 27,
-          "r/ManyBaggers": 27,
-          "r/fountainpens": 26,
-          "r/kickstarter": 26,
-          "r/AI_Agents": 25,
-          "r/flashlight": 24,
-          "r/ProductManagement": 23,
-          "r/CleaningTips": 22,
-          "r/GiftIdeas": 21,
-          "r/artificial": 19,
-          "r/AmazonSeller": 18,
-          "r/onebag": 17,
-          "r/eBaySellerAdvice": 17,
-          "r/Frugal": 17,
-          "r/EDC": 16,
-          "r/CampingGear": 13,
-          "r/dogs": 13,
-          "r/aeo": 13,
-          "r/Entrepreneur": 12,
-          "r/worldnews": 12,
-          "r/analytics": 10,
-          "r/LLM": 10,
-          "r/ChatGPT": 10,
-          "r/SaaS": 10,
-          "r/RobotVacuums": 8,
-          "r/Google_Ads": 7,
-          "r/smallbusiness": 6,
-          "r/singularity": 6,
-          "r/Flipping": 6,
-          "r/PromptEngineering": 6
-        },
-        "effective_watch_packs": {
-          "paid-economics": 133,
-          "selection-signals": 434,
-          "upstream-winds": 201,
-          "organic-discovery": 110,
-          "category-winds": 103,
-          "tools-efficiency": 103,
-          "funnel-conversion": 74,
-          "agent-builder": 64,
-          "kill-signals": 33
-        },
-        "dynamic_watch_communities": [
-          "r/OpenAI",
-          "r/ClaudeCode",
-          "r/ecommerce",
-          "r/ClaudeAI",
-          "r/espresso",
-          "r/FulfillmentByAmazon",
-          "r/LocalLLaMA",
-          "r/DigitalMarketing",
-          "r/SEO",
-          "r/shopify",
-          "r/EtsySellers",
-          "r/ManyBaggers",
-          "r/fountainpens",
-          "r/kickstarter",
-          "r/AI_Agents",
-          "r/flashlight",
-          "r/ProductManagement",
-          "r/CleaningTips",
-          "r/GiftIdeas",
-          "r/artificial",
-          "r/AmazonSeller",
-          "r/onebag",
-          "r/eBaySellerAdvice",
-          "r/Frugal",
-          "r/EDC",
-          "r/CampingGear",
-          "r/dogs",
-          "r/aeo",
-          "r/Entrepreneur",
-          "r/worldnews",
-          "r/analytics",
-          "r/LLM",
-          "r/ChatGPT",
-          "r/SaaS",
-          "r/RobotVacuums",
-          "r/Google_Ads",
-          "r/smallbusiness",
-          "r/singularity",
-          "r/Flipping",
-          "r/PromptEngineering"
-        ],
-        "dynamic_watch_packs": [
-          "selection-signals",
-          "upstream-winds",
-          "organic-discovery",
-          "category-winds",
-          "tools-efficiency",
-          "funnel-conversion",
-          "agent-builder",
-          "kill-signals"
-        ],
-        "caps": {
-          "scope": 633,
-          "pack": 14,
-          "community": 5
-        },
-        "alerts": [
-          "full:community_over:r/BuyItForLife",
-          "full:community_over:r/OpenAI",
-          "full:community_over:r/ClaudeCode",
-          "full:community_over:r/ecommerce",
-          "full:community_over:r/PPC",
-          "full:community_over:r/FacebookAds",
-          "full:community_over:r/ClaudeAI",
-          "full:community_over:r/espresso",
-          "full:community_over:r/FulfillmentByAmazon",
-          "full:community_over:r/LocalLLaMA",
-          "full:community_over:r/DigitalMarketing",
-          "full:community_over:r/SEO",
-          "full:community_over:r/shopify",
-          "full:community_over:r/EtsySellers",
-          "full:community_over:r/ManyBaggers",
-          "full:community_over:r/fountainpens",
-          "full:community_over:r/kickstarter",
-          "full:community_over:r/AI_Agents",
-          "full:community_over:r/flashlight",
-          "full:community_over:r/ProductManagement",
-          "full:community_over:r/CleaningTips",
-          "full:community_over:r/GiftIdeas",
-          "full:community_over:r/artificial",
-          "full:community_over:r/AmazonSeller",
-          "full:community_over:r/onebag",
-          "full:community_over:r/eBaySellerAdvice",
-          "full:community_over:r/Frugal",
-          "full:community_over:r/EDC",
-          "full:community_over:r/CampingGear",
-          "full:community_over:r/dogs",
-          "full:community_over:r/aeo",
-          "full:community_over:r/Entrepreneur",
-          "full:community_over:r/worldnews",
-          "full:community_over:r/analytics",
-          "full:community_over:r/LLM",
-          "full:community_over:r/ChatGPT",
-          "full:community_over:r/SaaS",
-          "full:community_over:r/RobotVacuums",
-          "full:community_over:r/Google_Ads",
-          "full:community_over:r/smallbusiness",
-          "full:community_over:r/singularity",
-          "full:community_over:r/Flipping",
-          "full:community_over:r/PromptEngineering",
-          "full:pack_over:selection-signals",
-          "full:pack_over:upstream-winds",
-          "full:pack_over:paid-economics",
-          "full:pack_over:organic-discovery",
-          "full:pack_over:category-winds",
-          "full:pack_over:tools-efficiency",
-          "full:pack_over:funnel-conversion",
-          "full:pack_over:agent-builder",
-          "full:pack_over:kill-signals"
-        ]
-      },
-      "front30": {
-        "card_count": 30,
-        "scope_counts": {
-          "ai-automation": 5,
-          "ecommerce-sellers": 14,
-          "business-growth-ops": 11
-        },
-        "top_communities": [
-          [
-            "r/Entrepreneur",
-            5
-          ],
-          [
-            "r/FacebookAds",
-            3
-          ],
-          [
-            "r/ClaudeCode",
-            3
-          ],
-          [
-            "r/espresso",
-            2
-          ],
-          [
-            "r/ecommerce",
-            2
-          ],
-          [
-            "r/kickstarter",
-            2
-          ],
-          [
-            "r/OpenAI",
-            1
-          ],
-          [
-            "r/EtsySellers",
-            1
-          ],
-          [
-            "r/AmazonSeller",
-            1
-          ],
-          [
-            "r/PPC",
-            1
-          ],
-          [
-            "r/FulfillmentByAmazon",
-            1
-          ],
-          [
-            "r/shopify",
-            1
-          ]
-        ],
-        "top_packs": [
-          [
-            "selection-signals",
-            10
-          ],
-          [
-            "funnel-conversion",
-            7
-          ],
-          [
-            "paid-economics",
-            4
-          ],
-          [
-            "upstream-winds",
-            3
-          ],
-          [
-            "category-winds",
-            3
-          ],
-          [
-            "tools-efficiency",
-            2
-          ],
-          [
-            "kill-signals",
-            1
-          ]
-        ],
-        "watched_communities": {
-          "r/FacebookAds": 3,
-          "r/PPC": 1,
-          "r/BuyItForLife": 1
-        },
-        "watched_packs": {
-          "paid-economics": 4
-        },
-        "effective_watch_communities": {
-          "r/FacebookAds": 3,
-          "r/PPC": 1,
-          "r/BuyItForLife": 1,
-          "r/Entrepreneur": 5,
-          "r/ClaudeCode": 3
-        },
-        "effective_watch_packs": {
-          "paid-economics": 4
-        },
-        "dynamic_watch_communities": [
-          "r/Entrepreneur",
-          "r/ClaudeCode"
-        ],
-        "dynamic_watch_packs": [],
-        "caps": {
-          "scope": 12,
-          "pack": 10,
-          "community": 2
-        },
-        "alerts": [
-          "front:community_over:r/Entrepreneur",
-          "front:community_over:r/FacebookAds",
-          "front:community_over:r/ClaudeCode"
-        ]
-      },
-      "alerts": [
-        "front:community_over:r/ClaudeCode",
-        "front:community_over:r/Entrepreneur",
-        "front:community_over:r/FacebookAds",
-        "full:community_over:r/AI_Agents",
-        "full:community_over:r/AmazonSeller",
-        "full:community_over:r/BuyItForLife",
-        "full:community_over:r/CampingGear",
-        "full:community_over:r/ChatGPT",
-        "full:community_over:r/ClaudeAI",
-        "full:community_over:r/ClaudeCode",
-        "full:community_over:r/CleaningTips",
-        "full:community_over:r/DigitalMarketing",
-        "full:community_over:r/EDC",
-        "full:community_over:r/Entrepreneur",
-        "full:community_over:r/EtsySellers",
-        "full:community_over:r/FacebookAds",
-        "full:community_over:r/Flipping",
-        "full:community_over:r/Frugal",
-        "full:community_over:r/FulfillmentByAmazon",
-        "full:community_over:r/GiftIdeas",
-        "full:community_over:r/Google_Ads",
-        "full:community_over:r/LLM",
-        "full:community_over:r/LocalLLaMA",
-        "full:community_over:r/ManyBaggers",
-        "full:community_over:r/OpenAI",
-        "full:community_over:r/PPC",
-        "full:community_over:r/ProductManagement",
-        "full:community_over:r/PromptEngineering",
-        "full:community_over:r/RobotVacuums",
-        "full:community_over:r/SEO",
-        "full:community_over:r/SaaS",
-        "full:community_over:r/aeo",
-        "full:community_over:r/analytics",
-        "full:community_over:r/artificial",
-        "full:community_over:r/dogs",
-        "full:community_over:r/eBaySellerAdvice",
-        "full:community_over:r/ecommerce",
-        "full:community_over:r/espresso",
-        "full:community_over:r/flashlight",
-        "full:community_over:r/fountainpens",
-        "full:community_over:r/kickstarter",
-        "full:community_over:r/onebag",
-        "full:community_over:r/shopify",
-        "full:community_over:r/singularity",
-        "full:community_over:r/smallbusiness",
-        "full:community_over:r/worldnews",
-        "full:pack_over:agent-builder",
-        "full:pack_over:category-winds",
-        "full:pack_over:funnel-conversion",
-        "full:pack_over:kill-signals",
-        "full:pack_over:organic-discovery",
-        "full:pack_over:paid-economics",
-        "full:pack_over:selection-signals",
-        "full:pack_over:tools-efficiency",
-        "full:pack_over:upstream-winds"
-      ],
-      "status": "rebound",
-      "trend": {
-        "community_rebounds": [
-          "r/FacebookAds",
-          "r/PPC",
-          "r/OpenAI",
-          "r/espresso",
-          "r/FulfillmentByAmazon",
-          "r/EtsySellers",
-          "r/AmazonSeller"
-        ],
-        "pack_rebounds": [
-          "paid-economics",
-          "selection-signals",
-          "upstream-winds",
-          "category-winds",
-          "kill-signals"
-        ]
-      },
-      "stability": {
-        "front30_stable": false,
-        "full_inventory_stable": false,
-        "scope_visible": true,
-        "inventory_supported": true,
-        "community_nonincreasing": false,
-        "pack_nonincreasing": false,
-        "qualified_for_stable": false,
-        "stable_streak": 0,
-        "observed_new_releases": 148,
-        "remediation_focus": "release_surface"
-      }
-    },
-    {
-      "release_id": "release-26a0d6956396",
-      "published_at": "2026-06-01T05:47:33.460414Z",
-      "card_count": 1258,
-      "total_card_count": 1258,
-      "supplement_card_count": 0,
-      "front_window": 30,
-      "full": {
-        "card_count": 1258,
-        "scope_counts": {
-          "ai-automation": 374,
-          "business-growth-ops": 317,
-          "ecommerce-sellers": 567
-        },
-        "top_communities": [
-          [
-            "r/BuyItForLife",
-            84
-          ],
-          [
-            "r/ClaudeCode",
-            62
-          ],
-          [
-            "r/OpenAI",
-            62
-          ],
-          [
-            "r/ecommerce",
-            57
-          ],
-          [
-            "r/PPC",
-            54
-          ],
-          [
-            "r/FacebookAds",
-            49
-          ],
-          [
-            "r/ClaudeAI",
-            44
-          ],
-          [
-            "r/espresso",
-            42
-          ],
-          [
-            "r/FulfillmentByAmazon",
-            37
-          ],
-          [
-            "r/LocalLLaMA",
-            35
-          ],
-          [
-            "r/DigitalMarketing",
-            34
-          ],
-          [
-            "r/SEO",
-            31
-          ]
-        ],
-        "top_packs": [
-          [
-            "selection-signals",
-            432
-          ],
-          [
-            "upstream-winds",
-            200
-          ],
-          [
-            "paid-economics",
-            131
-          ],
-          [
-            "organic-discovery",
-            110
-          ],
-          [
-            "tools-efficiency",
-            103
-          ],
-          [
-            "category-winds",
-            102
-          ],
-          [
-            "funnel-conversion",
-            74
-          ],
-          [
-            "agent-builder",
-            64
-          ],
-          [
-            "kill-signals",
-            32
-          ]
-        ],
-        "watched_communities": {
-          "r/FacebookAds": 49,
-          "r/PPC": 54,
-          "r/BuyItForLife": 84
-        },
-        "watched_packs": {
-          "paid-economics": 131
-        },
-        "effective_watch_communities": {
-          "r/FacebookAds": 49,
-          "r/PPC": 54,
-          "r/BuyItForLife": 84,
-          "r/ClaudeCode": 62,
-          "r/OpenAI": 62,
-          "r/ecommerce": 57,
-          "r/ClaudeAI": 44,
-          "r/espresso": 42,
-          "r/FulfillmentByAmazon": 37,
-          "r/LocalLLaMA": 35,
-          "r/DigitalMarketing": 34,
-          "r/SEO": 31,
-          "r/shopify": 28,
-          "r/ManyBaggers": 27,
-          "r/fountainpens": 26,
-          "r/kickstarter": 26,
-          "r/EtsySellers": 26,
-          "r/AI_Agents": 25,
-          "r/flashlight": 24,
-          "r/ProductManagement": 23,
-          "r/CleaningTips": 22,
-          "r/GiftIdeas": 21,
-          "r/artificial": 19,
-          "r/onebag": 17,
-          "r/eBaySellerAdvice": 17,
-          "r/Frugal": 17,
-          "r/AmazonSeller": 17,
-          "r/EDC": 16,
-          "r/CampingGear": 13,
-          "r/dogs": 13,
-          "r/aeo": 13,
-          "r/Entrepreneur": 12,
-          "r/worldnews": 12,
-          "r/analytics": 10,
-          "r/LLM": 10,
-          "r/ChatGPT": 10,
-          "r/SaaS": 10,
-          "r/RobotVacuums": 8,
-          "r/Google_Ads": 7,
-          "r/smallbusiness": 6,
-          "r/singularity": 6,
-          "r/Flipping": 6,
-          "r/PromptEngineering": 6
-        },
-        "effective_watch_packs": {
-          "paid-economics": 131,
-          "selection-signals": 432,
-          "upstream-winds": 200,
-          "organic-discovery": 110,
-          "tools-efficiency": 103,
-          "category-winds": 102,
-          "funnel-conversion": 74,
-          "agent-builder": 64,
-          "kill-signals": 32
-        },
-        "dynamic_watch_communities": [
-          "r/ClaudeCode",
-          "r/OpenAI",
-          "r/ecommerce",
-          "r/ClaudeAI",
-          "r/espresso",
-          "r/FulfillmentByAmazon",
-          "r/LocalLLaMA",
-          "r/DigitalMarketing",
-          "r/SEO",
-          "r/shopify",
-          "r/ManyBaggers",
-          "r/fountainpens",
-          "r/kickstarter",
-          "r/EtsySellers",
-          "r/AI_Agents",
-          "r/flashlight",
-          "r/ProductManagement",
-          "r/CleaningTips",
-          "r/GiftIdeas",
-          "r/artificial",
-          "r/onebag",
-          "r/eBaySellerAdvice",
-          "r/Frugal",
-          "r/AmazonSeller",
-          "r/EDC",
-          "r/CampingGear",
-          "r/dogs",
-          "r/aeo",
-          "r/Entrepreneur",
-          "r/worldnews",
-          "r/analytics",
-          "r/LLM",
-          "r/ChatGPT",
-          "r/SaaS",
-          "r/RobotVacuums",
-          "r/Google_Ads",
-          "r/smallbusiness",
-          "r/singularity",
-          "r/Flipping",
-          "r/PromptEngineering"
-        ],
-        "dynamic_watch_packs": [
-          "selection-signals",
-          "upstream-winds",
-          "organic-discovery",
-          "tools-efficiency",
-          "category-winds",
-          "funnel-conversion",
-          "agent-builder",
-          "kill-signals"
-        ],
-        "caps": {
-          "scope": 629,
-          "pack": 14,
-          "community": 5
-        },
-        "alerts": [
-          "full:community_over:r/BuyItForLife",
-          "full:community_over:r/ClaudeCode",
-          "full:community_over:r/OpenAI",
-          "full:community_over:r/ecommerce",
-          "full:community_over:r/PPC",
-          "full:community_over:r/FacebookAds",
-          "full:community_over:r/ClaudeAI",
-          "full:community_over:r/espresso",
-          "full:community_over:r/FulfillmentByAmazon",
-          "full:community_over:r/LocalLLaMA",
-          "full:community_over:r/DigitalMarketing",
-          "full:community_over:r/SEO",
-          "full:community_over:r/shopify",
-          "full:community_over:r/ManyBaggers",
-          "full:community_over:r/fountainpens",
-          "full:community_over:r/kickstarter",
-          "full:community_over:r/EtsySellers",
-          "full:community_over:r/AI_Agents",
-          "full:community_over:r/flashlight",
-          "full:community_over:r/ProductManagement",
-          "full:community_over:r/CleaningTips",
-          "full:community_over:r/GiftIdeas",
-          "full:community_over:r/artificial",
-          "full:community_over:r/onebag",
-          "full:community_over:r/eBaySellerAdvice",
-          "full:community_over:r/Frugal",
-          "full:community_over:r/AmazonSeller",
-          "full:community_over:r/EDC",
-          "full:community_over:r/CampingGear",
-          "full:community_over:r/dogs",
-          "full:community_over:r/aeo",
-          "full:community_over:r/Entrepreneur",
-          "full:community_over:r/worldnews",
-          "full:community_over:r/analytics",
-          "full:community_over:r/LLM",
-          "full:community_over:r/ChatGPT",
-          "full:community_over:r/SaaS",
-          "full:community_over:r/RobotVacuums",
-          "full:community_over:r/Google_Ads",
-          "full:community_over:r/smallbusiness",
-          "full:community_over:r/singularity",
-          "full:community_over:r/Flipping",
-          "full:community_over:r/PromptEngineering",
-          "full:pack_over:selection-signals",
-          "full:pack_over:upstream-winds",
-          "full:pack_over:paid-economics",
-          "full:pack_over:organic-discovery",
-          "full:pack_over:tools-efficiency",
-          "full:pack_over:category-winds",
-          "full:pack_over:funnel-conversion",
-          "full:pack_over:agent-builder",
-          "full:pack_over:kill-signals"
-        ]
-      },
-      "front30": {
-        "card_count": 30,
-        "scope_counts": {
-          "ai-automation": 4,
-          "business-growth-ops": 9,
-          "ecommerce-sellers": 17
-        },
-        "top_communities": [
-          [
-            "r/Entrepreneur",
-            5
-          ],
-          [
-            "r/ClaudeCode",
-            3
-          ],
-          [
-            "r/espresso",
-            3
-          ],
-          [
-            "r/FacebookAds",
-            2
-          ],
-          [
-            "r/BuyItForLife",
-            2
-          ],
-          [
-            "r/ecommerce",
-            2
-          ],
-          [
-            "r/CampingGear",
-            2
-          ],
-          [
-            "r/RobotVacuums",
-            2
-          ],
-          [
-            "r/kickstarter",
-            2
-          ],
-          [
-            "r/shopify",
-            1
-          ],
-          [
-            "r/onebag",
-            1
-          ],
-          [
-            "r/ProductManagement",
-            1
-          ]
-        ],
-        "top_packs": [
-          [
-            "selection-signals",
-            14
-          ],
-          [
-            "funnel-conversion",
-            7
-          ],
-          [
-            "category-winds",
-            3
-          ],
-          [
-            "upstream-winds",
-            2
-          ],
-          [
-            "paid-economics",
-            2
-          ],
-          [
-            "tools-efficiency",
-            2
-          ]
-        ],
-        "watched_communities": {
-          "r/FacebookAds": 2,
-          "r/PPC": 0,
-          "r/BuyItForLife": 2
-        },
-        "watched_packs": {
-          "paid-economics": 2
-        },
-        "effective_watch_communities": {
-          "r/FacebookAds": 2,
-          "r/PPC": 0,
-          "r/BuyItForLife": 2,
-          "r/Entrepreneur": 5,
-          "r/ClaudeCode": 3,
-          "r/espresso": 3
-        },
-        "effective_watch_packs": {
-          "paid-economics": 2,
-          "selection-signals": 14
-        },
-        "dynamic_watch_communities": [
-          "r/Entrepreneur",
-          "r/ClaudeCode",
-          "r/espresso"
-        ],
-        "dynamic_watch_packs": [
-          "selection-signals"
-        ],
-        "caps": {
-          "scope": 12,
-          "pack": 10,
-          "community": 2
-        },
-        "alerts": [
-          "front:community_over:r/Entrepreneur",
-          "front:community_over:r/ClaudeCode",
-          "front:community_over:r/espresso",
-          "front:pack_over:selection-signals"
-        ]
-      },
-      "alerts": [
-        "front:community_over:r/ClaudeCode",
-        "front:community_over:r/Entrepreneur",
-        "front:community_over:r/espresso",
-        "front:pack_over:selection-signals",
-        "full:community_over:r/AI_Agents",
-        "full:community_over:r/AmazonSeller",
-        "full:community_over:r/BuyItForLife",
-        "full:community_over:r/CampingGear",
-        "full:community_over:r/ChatGPT",
-        "full:community_over:r/ClaudeAI",
-        "full:community_over:r/ClaudeCode",
-        "full:community_over:r/CleaningTips",
-        "full:community_over:r/DigitalMarketing",
-        "full:community_over:r/EDC",
-        "full:community_over:r/Entrepreneur",
-        "full:community_over:r/EtsySellers",
-        "full:community_over:r/FacebookAds",
-        "full:community_over:r/Flipping",
-        "full:community_over:r/Frugal",
-        "full:community_over:r/FulfillmentByAmazon",
-        "full:community_over:r/GiftIdeas",
-        "full:community_over:r/Google_Ads",
-        "full:community_over:r/LLM",
-        "full:community_over:r/LocalLLaMA",
-        "full:community_over:r/ManyBaggers",
-        "full:community_over:r/OpenAI",
-        "full:community_over:r/PPC",
-        "full:community_over:r/ProductManagement",
-        "full:community_over:r/PromptEngineering",
-        "full:community_over:r/RobotVacuums",
-        "full:community_over:r/SEO",
-        "full:community_over:r/SaaS",
-        "full:community_over:r/aeo",
-        "full:community_over:r/analytics",
-        "full:community_over:r/artificial",
-        "full:community_over:r/dogs",
-        "full:community_over:r/eBaySellerAdvice",
-        "full:community_over:r/ecommerce",
-        "full:community_over:r/espresso",
-        "full:community_over:r/flashlight",
-        "full:community_over:r/fountainpens",
-        "full:community_over:r/kickstarter",
-        "full:community_over:r/onebag",
-        "full:community_over:r/shopify",
-        "full:community_over:r/singularity",
-        "full:community_over:r/smallbusiness",
-        "full:community_over:r/worldnews",
-        "full:pack_over:agent-builder",
-        "full:pack_over:category-winds",
-        "full:pack_over:funnel-conversion",
-        "full:pack_over:kill-signals",
-        "full:pack_over:organic-discovery",
-        "full:pack_over:paid-economics",
-        "full:pack_over:selection-signals",
-        "full:pack_over:tools-efficiency",
-        "full:pack_over:upstream-winds"
-      ],
-      "status": "rebound",
-      "trend": {
-        "community_rebounds": [
-          "r/FacebookAds",
-          "r/BuyItForLife",
-          "r/ClaudeCode",
-          "r/ecommerce",
-          "r/shopify"
-        ],
-        "pack_rebounds": [
-          "paid-economics",
-          "selection-signals",
-          "upstream-winds",
-          "funnel-conversion"
-        ]
-      },
-      "stability": {
-        "front30_stable": false,
-        "full_inventory_stable": false,
-        "scope_visible": true,
-        "inventory_supported": true,
-        "community_nonincreasing": false,
-        "pack_nonincreasing": false,
-        "qualified_for_stable": false,
-        "stable_streak": 0,
-        "observed_new_releases": 147,
-        "remediation_focus": "release_surface"
-      }
-    },
-    {
-      "release_id": "release-5bd6c336831a",
-      "published_at": "2026-05-31T16:25:10.877391Z",
-      "card_count": 1253,
-      "total_card_count": 1253,
-      "supplement_card_count": 0,
-      "front_window": 30,
-      "full": {
-        "card_count": 1253,
-        "scope_counts": {
-          "ecommerce-sellers": 566,
-          "ai-automation": 373,
-          "business-growth-ops": 314
-        },
-        "top_communities": [
-          [
-            "r/BuyItForLife",
-            83
-          ],
-          [
-            "r/OpenAI",
-            62
-          ],
-          [
-            "r/ClaudeCode",
-            61
-          ],
-          [
-            "r/ecommerce",
-            56
-          ],
-          [
-            "r/PPC",
-            54
-          ],
-          [
-            "r/FacebookAds",
-            48
-          ],
-          [
-            "r/ClaudeAI",
-            44
-          ],
-          [
-            "r/espresso",
-            42
-          ],
-          [
-            "r/FulfillmentByAmazon",
-            37
-          ],
-          [
-            "r/LocalLLaMA",
-            35
-          ],
-          [
-            "r/DigitalMarketing",
-            34
-          ],
-          [
-            "r/SEO",
-            31
-          ]
-        ],
-        "top_packs": [
-          [
-            "selection-signals",
-            431
-          ],
-          [
-            "upstream-winds",
-            199
-          ],
-          [
-            "paid-economics",
-            130
-          ],
-          [
-            "organic-discovery",
-            110
-          ],
-          [
-            "tools-efficiency",
-            103
-          ],
-          [
-            "category-winds",
-            102
-          ],
-          [
-            "funnel-conversion",
-            72
-          ],
-          [
-            "agent-builder",
-            64
-          ],
-          [
-            "kill-signals",
-            32
-          ]
-        ],
-        "watched_communities": {
-          "r/FacebookAds": 48,
-          "r/PPC": 54,
-          "r/BuyItForLife": 83
-        },
-        "watched_packs": {
-          "paid-economics": 130
-        },
-        "effective_watch_communities": {
-          "r/FacebookAds": 48,
-          "r/PPC": 54,
-          "r/BuyItForLife": 83,
-          "r/OpenAI": 62,
-          "r/ClaudeCode": 61,
-          "r/ecommerce": 56,
-          "r/ClaudeAI": 44,
-          "r/espresso": 42,
-          "r/FulfillmentByAmazon": 37,
-          "r/LocalLLaMA": 35,
-          "r/DigitalMarketing": 34,
-          "r/SEO": 31,
-          "r/shopify": 27,
-          "r/ManyBaggers": 27,
-          "r/fountainpens": 26,
-          "r/kickstarter": 26,
-          "r/EtsySellers": 26,
-          "r/AI_Agents": 25,
-          "r/flashlight": 24,
-          "r/ProductManagement": 23,
-          "r/CleaningTips": 22,
-          "r/GiftIdeas": 21,
-          "r/artificial": 19,
-          "r/onebag": 17,
-          "r/eBaySellerAdvice": 17,
-          "r/Frugal": 17,
-          "r/AmazonSeller": 17,
-          "r/EDC": 16,
-          "r/CampingGear": 13,
-          "r/dogs": 13,
-          "r/aeo": 13,
-          "r/Entrepreneur": 12,
-          "r/worldnews": 12,
-          "r/analytics": 10,
-          "r/LLM": 10,
-          "r/ChatGPT": 10,
-          "r/SaaS": 10,
-          "r/RobotVacuums": 8,
-          "r/Google_Ads": 7,
-          "r/smallbusiness": 6,
-          "r/singularity": 6,
-          "r/Flipping": 6,
-          "r/PromptEngineering": 6
-        },
-        "effective_watch_packs": {
-          "paid-economics": 130,
-          "selection-signals": 431,
-          "upstream-winds": 199,
-          "organic-discovery": 110,
-          "tools-efficiency": 103,
-          "category-winds": 102,
-          "funnel-conversion": 72,
-          "agent-builder": 64,
-          "kill-signals": 32
-        },
-        "dynamic_watch_communities": [
-          "r/OpenAI",
-          "r/ClaudeCode",
-          "r/ecommerce",
-          "r/ClaudeAI",
-          "r/espresso",
-          "r/FulfillmentByAmazon",
-          "r/LocalLLaMA",
-          "r/DigitalMarketing",
-          "r/SEO",
-          "r/shopify",
-          "r/ManyBaggers",
-          "r/fountainpens",
-          "r/kickstarter",
-          "r/EtsySellers",
-          "r/AI_Agents",
-          "r/flashlight",
-          "r/ProductManagement",
-          "r/CleaningTips",
-          "r/GiftIdeas",
-          "r/artificial",
-          "r/onebag",
-          "r/eBaySellerAdvice",
-          "r/Frugal",
-          "r/AmazonSeller",
-          "r/EDC",
-          "r/CampingGear",
-          "r/dogs",
-          "r/aeo",
-          "r/Entrepreneur",
-          "r/worldnews",
-          "r/analytics",
-          "r/LLM",
-          "r/ChatGPT",
-          "r/SaaS",
-          "r/RobotVacuums",
-          "r/Google_Ads",
-          "r/smallbusiness",
-          "r/singularity",
-          "r/Flipping",
-          "r/PromptEngineering"
-        ],
-        "dynamic_watch_packs": [
-          "selection-signals",
-          "upstream-winds",
-          "organic-discovery",
-          "tools-efficiency",
-          "category-winds",
-          "funnel-conversion",
-          "agent-builder",
-          "kill-signals"
-        ],
-        "caps": {
-          "scope": 627,
-          "pack": 14,
-          "community": 5
-        },
-        "alerts": [
-          "full:community_over:r/BuyItForLife",
-          "full:community_over:r/OpenAI",
-          "full:community_over:r/ClaudeCode",
-          "full:community_over:r/ecommerce",
-          "full:community_over:r/PPC",
-          "full:community_over:r/FacebookAds",
-          "full:community_over:r/ClaudeAI",
-          "full:community_over:r/espresso",
-          "full:community_over:r/FulfillmentByAmazon",
-          "full:community_over:r/LocalLLaMA",
-          "full:community_over:r/DigitalMarketing",
-          "full:community_over:r/SEO",
-          "full:community_over:r/shopify",
-          "full:community_over:r/ManyBaggers",
-          "full:community_over:r/fountainpens",
-          "full:community_over:r/kickstarter",
-          "full:community_over:r/EtsySellers",
-          "full:community_over:r/AI_Agents",
-          "full:community_over:r/flashlight",
-          "full:community_over:r/ProductManagement",
-          "full:community_over:r/CleaningTips",
-          "full:community_over:r/GiftIdeas",
-          "full:community_over:r/artificial",
-          "full:community_over:r/onebag",
-          "full:community_over:r/eBaySellerAdvice",
-          "full:community_over:r/Frugal",
-          "full:community_over:r/AmazonSeller",
-          "full:community_over:r/EDC",
-          "full:community_over:r/CampingGear",
-          "full:community_over:r/dogs",
-          "full:community_over:r/aeo",
-          "full:community_over:r/Entrepreneur",
-          "full:community_over:r/worldnews",
-          "full:community_over:r/analytics",
-          "full:community_over:r/LLM",
-          "full:community_over:r/ChatGPT",
-          "full:community_over:r/SaaS",
-          "full:community_over:r/RobotVacuums",
-          "full:community_over:r/Google_Ads",
-          "full:community_over:r/smallbusiness",
-          "full:community_over:r/singularity",
-          "full:community_over:r/Flipping",
-          "full:community_over:r/PromptEngineering",
-          "full:pack_over:selection-signals",
-          "full:pack_over:upstream-winds",
-          "full:pack_over:paid-economics",
-          "full:pack_over:organic-discovery",
-          "full:pack_over:tools-efficiency",
-          "full:pack_over:category-winds",
-          "full:pack_over:funnel-conversion",
-          "full:pack_over:agent-builder",
-          "full:pack_over:kill-signals"
-        ]
-      },
-      "front30": {
-        "card_count": 30,
-        "scope_counts": {
-          "ecommerce-sellers": 18,
-          "ai-automation": 6,
-          "business-growth-ops": 6
-        },
-        "top_communities": [
-          [
-            "r/Entrepreneur",
-            5
-          ],
-          [
-            "r/ClaudeCode",
-            3
-          ],
-          [
-            "r/eBaySellerAdvice",
-            3
-          ],
-          [
-            "r/espresso",
-            3
-          ],
-          [
-            "r/CampingGear",
-            2
-          ],
-          [
-            "r/RobotVacuums",
-            2
-          ],
-          [
-            "r/kickstarter",
-            2
-          ],
-          [
-            "r/AI_Agents",
-            2
-          ],
-          [
-            "r/onebag",
-            1
-          ],
-          [
-            "r/ecommerce",
-            1
-          ],
-          [
-            "r/ProductManagement",
-            1
-          ],
-          [
-            "r/fountainpens",
-            1
-          ]
-        ],
-        "top_packs": [
-          [
-            "selection-signals",
-            13
-          ],
-          [
-            "funnel-conversion",
-            5
-          ],
-          [
-            "category-winds",
-            5
-          ],
-          [
-            "upstream-winds",
-            2
-          ],
-          [
-            "tools-efficiency",
-            2
-          ],
-          [
-            "agent-builder",
-            2
-          ],
-          [
-            "paid-economics",
-            1
-          ]
-        ],
-        "watched_communities": {
-          "r/FacebookAds": 1,
-          "r/PPC": 0,
-          "r/BuyItForLife": 1
-        },
-        "watched_packs": {
-          "paid-economics": 1
-        },
-        "effective_watch_communities": {
-          "r/FacebookAds": 1,
-          "r/PPC": 0,
-          "r/BuyItForLife": 1,
-          "r/Entrepreneur": 5,
-          "r/ClaudeCode": 3,
-          "r/eBaySellerAdvice": 3,
-          "r/espresso": 3
-        },
-        "effective_watch_packs": {
-          "paid-economics": 1,
-          "selection-signals": 13
-        },
-        "dynamic_watch_communities": [
-          "r/Entrepreneur",
-          "r/ClaudeCode",
-          "r/eBaySellerAdvice",
-          "r/espresso"
-        ],
-        "dynamic_watch_packs": [
-          "selection-signals"
-        ],
-        "caps": {
-          "scope": 12,
-          "pack": 10,
-          "community": 2
-        },
-        "alerts": [
-          "front:community_over:r/Entrepreneur",
-          "front:community_over:r/ClaudeCode",
-          "front:community_over:r/eBaySellerAdvice",
-          "front:community_over:r/espresso",
-          "front:pack_over:selection-signals"
-        ]
-      },
-      "alerts": [
-        "front:community_over:r/ClaudeCode",
-        "front:community_over:r/Entrepreneur",
-        "front:community_over:r/eBaySellerAdvice",
-        "front:community_over:r/espresso",
-        "front:pack_over:selection-signals",
-        "full:community_over:r/AI_Agents",
-        "full:community_over:r/AmazonSeller",
-        "full:community_over:r/BuyItForLife",
-        "full:community_over:r/CampingGear",
-        "full:community_over:r/ChatGPT",
-        "full:community_over:r/ClaudeAI",
-        "full:community_over:r/ClaudeCode",
-        "full:community_over:r/CleaningTips",
-        "full:community_over:r/DigitalMarketing",
-        "full:community_over:r/EDC",
-        "full:community_over:r/Entrepreneur",
-        "full:community_over:r/EtsySellers",
-        "full:community_over:r/FacebookAds",
-        "full:community_over:r/Flipping",
-        "full:community_over:r/Frugal",
-        "full:community_over:r/FulfillmentByAmazon",
-        "full:community_over:r/GiftIdeas",
-        "full:community_over:r/Google_Ads",
-        "full:community_over:r/LLM",
-        "full:community_over:r/LocalLLaMA",
-        "full:community_over:r/ManyBaggers",
-        "full:community_over:r/OpenAI",
-        "full:community_over:r/PPC",
-        "full:community_over:r/ProductManagement",
-        "full:community_over:r/PromptEngineering",
-        "full:community_over:r/RobotVacuums",
-        "full:community_over:r/SEO",
-        "full:community_over:r/SaaS",
-        "full:community_over:r/aeo",
-        "full:community_over:r/analytics",
-        "full:community_over:r/artificial",
-        "full:community_over:r/dogs",
-        "full:community_over:r/eBaySellerAdvice",
-        "full:community_over:r/ecommerce",
-        "full:community_over:r/espresso",
-        "full:community_over:r/flashlight",
-        "full:community_over:r/fountainpens",
-        "full:community_over:r/kickstarter",
-        "full:community_over:r/onebag",
-        "full:community_over:r/shopify",
-        "full:community_over:r/singularity",
-        "full:community_over:r/smallbusiness",
-        "full:community_over:r/worldnews",
-        "full:pack_over:agent-builder",
-        "full:pack_over:category-winds",
-        "full:pack_over:funnel-conversion",
-        "full:pack_over:kill-signals",
-        "full:pack_over:organic-discovery",
-        "full:pack_over:paid-economics",
-        "full:pack_over:selection-signals",
-        "full:pack_over:tools-efficiency",
-        "full:pack_over:upstream-winds"
-      ],
-      "status": "rebound",
-      "trend": {
-        "community_rebounds": [
-          "r/FacebookAds",
-          "r/ClaudeCode",
-          "r/ecommerce",
-          "r/fountainpens",
-          "r/kickstarter",
-          "r/ProductManagement",
-          "r/onebag",
-          "r/eBaySellerAdvice",
-          "r/CampingGear",
-          "r/RobotVacuums"
-        ],
-        "pack_rebounds": [
-          "paid-economics",
-          "selection-signals",
-          "upstream-winds",
-          "tools-efficiency",
-          "category-winds",
-          "funnel-conversion"
-        ]
-      },
-      "stability": {
-        "front30_stable": false,
-        "full_inventory_stable": false,
-        "scope_visible": true,
-        "inventory_supported": true,
-        "community_nonincreasing": false,
-        "pack_nonincreasing": false,
-        "qualified_for_stable": false,
-        "stable_streak": 0,
-        "observed_new_releases": 146,
+        "observed_new_releases": 154,
         "remediation_focus": "release_surface"
       }
     }

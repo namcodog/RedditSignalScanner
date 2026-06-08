@@ -1,0 +1,47 @@
+{
+  "candidate_id": "cand-ai-automation-1tzap65",
+  "draft_id": "draft-cand-ai-automation-1tzap65-validate",
+  "card_id": "card-cand-ai-automation-1tzap65-validate",
+  "card_type": "validate",
+  "allow_breakdown": false,
+  "overall_status": "completed",
+  "stages": [
+    {
+      "name": "duplicate_preflight",
+      "status": "completed"
+    },
+    {
+      "name": "model_generation",
+      "status": "completed"
+    }
+  ],
+  "sub_stages": [
+    {
+      "name": "semantic_brief",
+      "status": "completed",
+      "model": "google/gemini-3-flash-preview",
+      "provider": "gemini",
+      "timeout_seconds": 60.0,
+      "duration_ms": 12613.4,
+      "raw_chars": 2608
+    },
+    {
+      "name": "llm_json",
+      "status": "completed",
+      "model": "deepseek/deepseek-v4-pro",
+      "provider": "deepseek",
+      "timeout_seconds": 70.0,
+      "duration_ms": 26368.3,
+      "raw_chars": 743
+    },
+    {
+      "name": "draft_precheck",
+      "status": "completed",
+      "model": "deepseek/deepseek-v4-pro",
+      "provider": "deepseek",
+      "timeout_seconds": 45.0,
+      "duration_ms": 19434.6,
+      "raw_chars": 23
+    }
+  ]
+}

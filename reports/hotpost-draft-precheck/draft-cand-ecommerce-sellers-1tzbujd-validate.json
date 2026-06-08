@@ -1,0 +1,12 @@
+{
+  "decision": "REWRITE",
+  "reasons": [
+    "min_test_action is a generic jump prompt (\"去看原始讨论\"), must be a specific test action.",
+    "why_test_now contains a truncated English quote (\"Discontinue the produ\"), quote must be complete and closed."
+  ],
+  "required_fixes": [],
+  "risk_flags": [],
+  "publish_note": "",
+  "should_rewrite": true,
+  "should_block": false
+}

@@ -6,6 +6,9 @@
   - [CURRENT_STATUS.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/CURRENT_STATUS.md)
 - 未完成事项：
   - [OPEN_ITEMS.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/OPEN_ITEMS.md)
+- Hotpost 2026-06-08 运营已完成：正式追加 `30` 张，最新快照 `release-946ce945cd74 / card_count=1325`，结构 `signal 23 / hot 7`，类别 `AI 与自动化 14 / 电商与卖家 12 / 商业增长与运营 4`；同步链、copy guard、hot controversy guard、trend audit guard 均通过；本轮确认 DeepSeek 不是走 OpenRouter，但默认仍经本地代理，且主要慢点在 DeepSeek / Gemini JSON 输出稳定性：
+  - [phase1153.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1153.md)
+  - [2026-06-08.md](/Users/hujia/Desktop/RedditSignalScanner/reports/ops-log/2026-06-08.md)
 - Hotpost 2026-06-08 Reddit 采集路线治理已落地：已确认异常在 Reddit OAuth / TLS 网络层，不是 V13、发布门禁或内容质量；已补 token endpoint 短重试和错误归类，新增 `make hotpost-reddit-preflight`，标准 `make hotpost-publish-until-exhausted` 先跑预检；相关回归 `17 passed`，真实预检 `oauth_token=ok / minimal_listing=ok`，可恢复 6月7日 / 6月8日出卡计划：
   - [phase1152.md](/Users/hujia/Desktop/RedditSignalScanner/reports/phase-log/phase1152.md)
 - Hotpost 2026-06-06 补发已完成：正式追加 `30` 张，最新快照 `release-fc002edc345d / card_count=1295`，结构 `signal 21 / hot 5 / breakdown 4`，类别 `电商与卖家 20 / 商业增长与运营 8 / AI 与自动化 2`；同步链、copy guard、hot controversy guard 通过；本轮确认 Reddit 主 OAuth 可用，阻塞在 DeepSeek 长响应和发布 schema 泄漏，已修 `llm_trace` 泄漏并补测试：

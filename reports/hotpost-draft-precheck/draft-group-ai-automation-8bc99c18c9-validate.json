@@ -1,0 +1,16 @@
+{
+  "decision": "REWRITE",
+  "reasons": [
+    "AI 预检节点失败，不能视为通过。"
+  ],
+  "required_fixes": [
+    "人工核对标题、摘要和 detail 是否被原始证据支撑。"
+  ],
+  "risk_flags": [
+    "precheck_error",
+    "empty_response"
+  ],
+  "publish_note": "AI 预检失败，进入人工 review 时必须重新核对证据。",
+  "should_rewrite": true,
+  "should_block": false
+}

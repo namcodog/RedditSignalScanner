@@ -1,0 +1,21 @@
+{
+  "candidate_id": "group-ecommerce-sellers-c64f5e1dce",
+  "draft_id": "draft-group-ecommerce-sellers-c64f5e1dce-validate",
+  "card_id": "card-group-ecommerce-sellers-c64f5e1dce-validate",
+  "card_type": "validate",
+  "allow_breakdown": false,
+  "overall_status": "failed",
+  "stages": [
+    {
+      "name": "duplicate_preflight",
+      "status": "completed"
+    },
+    {
+      "name": "model_generation",
+      "status": "failed"
+    }
+  ],
+  "sub_stages": [],
+  "error_type": "ValueError",
+  "error": "Signal input quality gate blocked draft: no_substantive_quotes, single_community_weak_evidence"
+}

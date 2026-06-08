@@ -1,0 +1,65 @@
+{
+  "candidate_id": "cand-ecommerce-sellers-1ty128l",
+  "draft_id": "draft-cand-ecommerce-sellers-1ty128l-validate",
+  "card_id": "card-cand-ecommerce-sellers-1ty128l-validate",
+  "card_type": "validate",
+  "allow_breakdown": false,
+  "overall_status": "completed",
+  "stages": [
+    {
+      "name": "duplicate_preflight",
+      "status": "completed"
+    },
+    {
+      "name": "model_generation",
+      "status": "completed"
+    }
+  ],
+  "sub_stages": [
+    {
+      "name": "semantic_brief",
+      "status": "completed",
+      "model": "google/gemini-3-flash-preview",
+      "provider": "gemini",
+      "timeout_seconds": 60.0,
+      "duration_ms": 13633.4,
+      "raw_chars": 2736
+    },
+    {
+      "name": "llm_json",
+      "status": "completed",
+      "model": "deepseek/deepseek-v4-pro",
+      "provider": "deepseek",
+      "timeout_seconds": 70.0,
+      "duration_ms": 45068.8,
+      "raw_chars": 913
+    },
+    {
+      "name": "llm_json",
+      "status": "completed",
+      "model": "deepseek/deepseek-v4-pro",
+      "provider": "deepseek",
+      "timeout_seconds": 45.0,
+      "duration_ms": 7952.6,
+      "raw_chars": 63
+    },
+    {
+      "name": "llm_json",
+      "status": "completed",
+      "model": "deepseek/deepseek-v4-pro",
+      "provider": "deepseek",
+      "timeout_seconds": 45.0,
+      "duration_ms": 6528.5,
+      "raw_chars": 0
+    },
+    {
+      "name": "draft_precheck",
+      "status": "completed",
+      "model": "deepseek/deepseek-v4-pro",
+      "provider": "deepseek",
+      "timeout_seconds": 45.0,
+      "duration_ms": 14474.2,
+      "raw_chars": 180
+    }
+  ]
+}

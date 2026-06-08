@@ -1,0 +1,21 @@
+{
+  "candidate_id": "cand-business-growth-ops-1tz76he",
+  "draft_id": "draft-cand-business-growth-ops-1tz76he-validate",
+  "card_id": "card-cand-business-growth-ops-1tz76he-validate",
+  "card_type": "validate",
+  "allow_breakdown": false,
+  "overall_status": "failed",
+  "stages": [
+    {
+      "name": "duplicate_preflight",
+      "status": "completed"
+    },
+    {
+      "name": "model_generation",
+      "status": "failed"
+    }
+  ],
+  "sub_stages": [],
+  "error_type": "ValueError",
+  "error": "Signal input quality gate blocked draft: no_substantive_quotes, single_thread_weak_evidence, single_community_weak_evidence"
+}
