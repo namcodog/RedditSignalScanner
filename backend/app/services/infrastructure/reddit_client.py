@@ -161,20 +161,55 @@ class RedditAPIClient:
             data = {"grant_type": "client_credentials"}
             timeout = aiohttp.ClientTimeout(total=self.request_timeout)
 
-            async with session.request(
-                "POST",
-                TOKEN_ENDPOINT,
-                data=data,
-                headers=headers,
-                auth=auth,
-                timeout=timeout,
-            ) as response:
-                if response.status >= 400:
-                    text = await response.text()
-                    raise RedditAuthenticationError(
-                        f"Failed to authenticate with Reddit API (status={response.status}): {text}"
+            payload: Dict[str, Any] | None = None
+            last_error: RedditAPIError | None = None
+            for attempt in range(2):
+                try:
+                    async with session.request(
+                        "POST",
+                        TOKEN_ENDPOINT,
+                        data=data,
+                        headers=headers,
+                        auth=auth,
+                        timeout=timeout,
+                    ) as response:
+                        if response.status >= 400:
+                            text = await response.text()
+                            raise RedditAuthenticationError(
+                                f"Failed to authenticate with Reddit API (status={response.status}): {text}"
+                            )
+                        payload = await response.json()
+                    break
+                except RedditAuthenticationError:
+                    raise
+                except asyncio.TimeoutError:
+                    last_error = RedditAPIError(
+                        "Reddit API connection failed: token endpoint timed out"
                     )
-                payload: Dict[str, Any] = await response.json()
+                    logger.warning(
+                        "Reddit API auth timeout (attempt=%s): %s",
+                        attempt + 1,
+                        TOKEN_ENDPOINT,
+                    )
+                except Exception as exc:
+                    last_error = RedditAPIError(
+                        "Reddit API connection failed: token endpoint"
+                    )
+                    logger.warning(
+                        "Reddit API auth connection error (attempt=%s): %s",
+                        attempt + 1,
+                        exc,
+                    )
+
+                if attempt == 0:
+                    await asyncio.sleep(0.5)
+                    continue
+                break
+
+            if payload is None:
+                raise last_error or RedditAPIError(
+                    "Reddit API authentication failed without a concrete error."
+                )
 
             token = payload.get("access_token")
             expires_in = int(payload.get("expires_in", 3600))

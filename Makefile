@@ -33,7 +33,7 @@ RESET  := $(shell tput -Txterm sgr0)
 	start-worker-analysis crawl-stop data-clean data-score llm-label data-pipeline \
 	db-sync-noise-labels semantic-llm-sync test-quality-gate check-determinism \
 	hotpost-breakdown-materialize hotpost-breakdown-overlap hotpost-workflow-dry-run \
-	hotpost-intake-freshness-gate hotpost-publish-until-exhausted hotpost-topic-tree-audit \
+	hotpost-reddit-preflight hotpost-intake-freshness-gate hotpost-publish-until-exhausted hotpost-topic-tree-audit \
 	hotpost-release-trend-audit hotpost-community-exploration-pre hotpost-community-exploration-post \
 	brand-ops-sidecar brand-registry-view brand-system-evidence \
 	boundary-status git-clean-status
@@ -58,6 +58,7 @@ help:
 	@echo "  ${YELLOW}dev-backend-restart${RESET}: Restart backend on port 8006."
 	@echo "  ${YELLOW}dev-backend-logs${RESET}   : Tail backend logs."
 	@echo "  ${YELLOW}hotpost-collect-daily${RESET} : Run hotpost daily collect once (all-scope by default)."
+	@echo "  ${YELLOW}hotpost-reddit-preflight${RESET} : Check Reddit OAuth + minimal listing before full hotpost collect."
 	@echo "  ${YELLOW}hotpost-publish-until-exhausted${RESET} : Run one all-scope collect -> sync -> plan -> gate cycle. It is one daily operating round, not an overnight shell orchestrator."
 	@echo "  ${YELLOW}hotpost-intake-freshness-gate${RESET} : Legacy alias of one publish-until-exhausted cycle."
 	@echo "  ${YELLOW}hotpost-topic-tree-audit${RESET} : Audit current plan with 4-layer topic tree governance (all-scope by default)."
@@ -132,10 +133,13 @@ dev-backend-logs:
 hotpost-collect-daily:
 	@/bin/sh -c 'set -a; [ -f "$(ENV_FILE)" ] && . "$(ENV_FILE)"; set +a; cd "$(BACKEND_DIR)" && "$(PYTHON)" scripts/hotpost/daily_collect.py'
 
+hotpost-reddit-preflight:
+	@/bin/sh -c 'set -a; [ -f "$(ENV_FILE)" ] && . "$(ENV_FILE)"; set +a; cd "$(BACKEND_DIR)" && "$(PYTHON)" scripts/hotpost/reddit_preflight.py'
+
 hotpost-intake-freshness-gate:
 	@/bin/sh -c 'set -a; [ -f "$(ENV_FILE)" ] && . "$(ENV_FILE)"; set +a; cd "$(BACKEND_DIR)" && "$(PYTHON)" scripts/hotpost/run_intake_freshness_gate.py'
 
-hotpost-publish-until-exhausted: hotpost-intake-freshness-gate
+hotpost-publish-until-exhausted: hotpost-reddit-preflight hotpost-intake-freshness-gate
 
 hotpost-topic-tree-audit:
 	@/bin/sh -c 'set -a; [ -f "$(ENV_FILE)" ] && . "$(ENV_FILE)"; set +a; cd "$(BACKEND_DIR)" && "$(PYTHON)" scripts/hotpost/audit_topic_tree_governance.py'

@@ -1,6 +1,6 @@
 # 当前项目状态
 
-最后更新：2026-06-06
+最后更新：2026-06-08
 
 ## 当前协作口径
 
@@ -19,6 +19,14 @@
 ## 当前主判断
 
 Reddit Community Intelligence 当前口径已纠偏：主线目标不是继续证明 Phase 0 / 1 / 2 治理正确，也不是回到空白检索框；当前目标是“系统根据已有数据和语义库生成可服务标签 / 赛道，用户点击后获得有证据、有理由、长尾优先的 Reddit 社区推荐”。
+
+## 2026-06-08 Reddit 采集路线状态
+
+- 2026-06-08 标准出卡入口的异常已定位到 Reddit OAuth / TLS 网络层；不是 V13、发布门禁或内容质量问题。
+- 已补 `RedditAPIClient.authenticate()` 的 token endpoint 临时连接错误短重试和错误归类，避免 raw `ConnectionResetError / ClientConnectorError` 直接打断整轮。
+- 新增 `make hotpost-reddit-preflight`，标准 `make hotpost-publish-until-exhausted` 会先验证 `oauth_token` 和最小 `hot listing`。
+- 当前验证：相关回归 `17 passed`；真实 `make hotpost-reddit-preflight` 返回 `oauth_token=ok / minimal_listing=ok`。
+- 当前结论：可以恢复标准出卡入口继续 2026-06-07 / 2026-06-08 运营计划；若同类 Reddit 连接错误连续 `2` 次，按网络阻塞记录，不下 no-supply / freshness 结论。
 
 ## 2026-06-06 Hotpost 补发状态
 

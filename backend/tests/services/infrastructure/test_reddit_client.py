@@ -41,14 +41,14 @@ class _StubSession:
     def __init__(self, responses: Sequence[Any]) -> None:
         self._responses = list(responses)
         self.requests: List[Dict[str, Any]] = []
+        self.request_attempts = 0
         self.closed = False
 
     def request(self, method: str, url: str, **kwargs: Any) -> _StubResponse:
+        self.request_attempts += 1
         if not self._responses:
             raise RedditAPIError(f"Unexpected request: {method} {url}")
         next_item = self._responses.pop(0)
-        if isinstance(next_item, Exception):
-            raise next_item
         self.requests.append(
             {
                 "method": method,
@@ -56,6 +56,8 @@ class _StubSession:
                 "kwargs": kwargs,
             }
         )
+        if isinstance(next_item, Exception):
+            raise next_item
         return next_item
 
     async def close(self) -> None:
@@ -218,6 +220,54 @@ async def test_fetch_subreddit_posts_timeout_raises() -> None:
     with pytest.raises(RedditAPIError, match="timed out"):
         await client.fetch_subreddit_posts("python", limit=10)
 
+    await client.close()
+
+
+async def test_authenticate_retries_transient_token_connection_error(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    session = _StubSession(
+        [
+            ConnectionResetError("tls reset"),
+            _token_response(),
+        ]
+    )
+    sleeps: list[float] = []
+
+    async def fake_sleep(duration: float) -> None:
+        sleeps.append(duration)
+
+    monkeypatch.setattr(asyncio, "sleep", fake_sleep)
+    client = RedditAPIClient("id", "secret", "testsuite", session=session)
+
+    await client.authenticate()
+
+    assert client.access_token == "test-token"
+    assert session.request_attempts == 2
+    assert sleeps == [0.5]
+    await client.close()
+
+
+async def test_authenticate_maps_repeated_token_connection_errors(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    session = _StubSession(
+        [
+            ConnectionResetError("tls reset"),
+            ConnectionResetError("tls reset"),
+        ]
+    )
+
+    async def fake_sleep(_duration: float) -> None:
+        return None
+
+    monkeypatch.setattr(asyncio, "sleep", fake_sleep)
+    client = RedditAPIClient("id", "secret", "testsuite", session=session)
+
+    with pytest.raises(RedditAPIError, match="Reddit API connection failed: token endpoint"):
+        await client.authenticate()
+
+    assert session.request_attempts == 2
     await client.close()
 
 
